@@ -1,0 +1,9 @@
+:root { font-family: ui-sans-serif, system-ui, sans-serif; color: #f2f0e9; background: #151a27; color-scheme: dark; }
+* { box-sizing: border-box; } body { margin: 0; } main { max-width: 900px; padding: 70px 24px; margin: auto; }
+.eyebrow { color: #88edcf; font-size: 11px; letter-spacing: .16em; } h1 { font-size: clamp(32px, 6vw, 50px); letter-spacing: -.045em; margin: 14px 0; }
+.intro { color: #aab1c3; margin-bottom: 36px; } #prototypes { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,280px),1fr)); gap: 18px; }
+.prototype { display: block; border: 1px solid #3d4a5b; border-radius: 14px; padding: 25px; color: inherit; text-decoration: none; background: #202939; }
+.prototype:hover { border-color: #88edcf; } .prototype:focus-visible { outline: 3px solid #88edcf; outline-offset: 4px; }
+h2 { font-size: 23px; margin: 0 0 12px; } .prototype p { color: #bcc6d6; font-size: 14px; line-height: 1.6; max-width: 440px; }
+.prototype span { display: block; color: #88edcf; margin-top: 24px; font-weight: 650; } footer { color: #aab1c3; font-size: 12px; margin-top: 32px; }
+@media(max-width:480px) { main { padding: 36px 18px; } }

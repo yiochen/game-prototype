@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#151a27" />
+  <title>One More Card — build your engine</title>
+</head>
+<body>
+<main class="app">
+  <header><div><p class="eyebrow">CARD EXPERIMENT / V23 · SUIT SEQUENCES</p><h1>One more card.</h1></div><a href="/">All prototypes ↗</a></header>
+  <section class="scoreboard" aria-label="Run status">
+    <div><span id="score-label" class="label">CHAIN LENGTH</span><strong id="score" aria-live="polite">0</strong><span class="score-unit">links</span><span id="formula"></span></div>
+    <div class="cash-panel"><span class="label">CASH LEFT</span><strong id="cash"></strong><span id="spent"></span></div>
+  </section>
+  <section class="collection-panel" aria-label="Collection and upgrades">
+    <div class="collection-heading"><div class="tabs" role="tablist" aria-label="Collection view"><button id="show-chain" role="tab" aria-controls="hand" aria-selected="true">Chain</button><button id="show-engine" role="tab" aria-controls="installed" aria-selected="false">Engine</button></div><span id="card-count"></span></div>
+    <div id="hand" class="hand sequence" role="tabpanel" aria-labelledby="show-chain"></div>
+    <div id="installed" class="installed" role="tabpanel" aria-labelledby="show-engine" hidden></div>
+    <div id="segment-summary" class="segment-summary" aria-label="Suit segment counts"></div><nav id="collection-pager" class="pager" aria-label="Upgrade pages"><button id="collection-prev" aria-label="Previous collection page">‹</button><span id="collection-page"></span><button id="collection-next" aria-label="Next collection page">›</button></nav>
+  </section>
+  <div class="feedback"><p id="reveal" class="reveal" role="status" hidden></p><p id="status" role="status"></p><button id="finish-reaction" hidden>Reveal now</button></div>
+  <section class="shop-panel" aria-label="Card shop">
+    <div class="section-heading"><h2 id="deal-heading">Buy one</h2><span id="deal-count"></span></div>
+    <div id="offer" class="offer"></div>
+    <div id="finished" hidden></div>
+  </section>
+  <footer><button id="rules-open">Rules</button><button id="replay">Replay</button><button id="restart">New game</button><span id="seed"></span></footer>
+</main>
+<dialog id="rules-dialog" aria-labelledby="rules-heading"><div class="dialog-heading"><h2 id="rules-heading">Rules & balance table</h2><form method="dialog"><button aria-label="Close rules">Close</button></form></div><div class="rules-content">
+    <ul>
+      <li id="budget-rule"></li>
+      <li>Every link is Sun, Moon, or Wave. Read the sequence left to right, continuing on the next row. Adjacent links of the same suit form one segment, even across purchases. Only a different suit creates a break. Fixed and Mystery cards append their links to the sequence.</li>
+      <li>Recall appends matching-suit links, with a capped reward per existing matching segment. Splitting one long run into separate runs can earn more. Recall is calculated once before its new links arrive. New links join the sequence and can count in later Growth; they never activate automatically. Polish inserts links inside each matching segment; Overgrow automatically extends your longest segment, rewarding long runs; the earliest segment wins ties. Extending a short segment can improve its next Recall payout until the cap.</li>
+      <li>Reactors improve future purchases only. Each level replaces the previous effect; only the next level is offered. Stabilizer changes Mystery probabilities using the explicit tables below; each Mystery draws once. Suit Reactors and Assembler can both improve a Fixed card.</li>
+      <li>Rebate applies to base purchases only, requires the full price upfront, and cannot stack. Every purchase still costs at least $1 after refund. Vault uses cash after its own price is paid, and adds links of the current tail suit (Sun for an empty chain). Powers that add no links do not split segments.</li>
+      <li>No automatic expansion, Star, or Echo. Generated links have no powers. The run ends when no eligible card is affordable; every link is kept.</li>
+      <li>Offers have no exact duplicates. Growth appears only with a valid target; Vault appears only with a positive payout. Finished upgrade lines and active Rebate are excluded. If all offers are unaffordable, one becomes the cheapest eligible card.</li>
+    </ul>
+    <div class="table-scroll"><table><thead><tr><th>Card</th><th>Price</th><th>Effect</th></tr></thead><tbody id="balance-body"></tbody></table></div>
+    <p id="weights"></p><p>Weights are relative among eligible choices; upgrades do not increase a family's weight. All tuning lives in <code>prototypes/one-more-card/balance.js</code>.</p>
+    <p>Keyboard: 1 / 2 / 3 buys an offer. Tab and Enter work on all controls. Reduced motion reveals results immediately.</p>
+  </div></dialog>
+<script type="module" src="./main.js"></script>
+</body>
+</html>
