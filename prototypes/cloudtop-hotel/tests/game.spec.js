@@ -160,3 +160,44 @@ test('full-screen scenery and tilted cards keep all utility controls in an acces
   await expect(page.locator('#menu-dialog')).toBeHidden(); await expect(page.locator('#height')).toHaveText('0'); await expect(page.locator('#coins')).toHaveText('100');
   expect(new URL(page.url()).searchParams.get('seed')).not.toBe(seed);
 });
+
+test('clouds drift and islands float independently, pause for reduced motion, and resume in place', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 }); await open(page, 0);
+  for (const i of [0,1,1,1,2]) await buy(page, i);
+  await control(page, 'overview');
+  const sky = page.locator('.sky-backdrop');
+  await expect(sky).toHaveAttribute('data-motion', 'false');
+  await expect(page.locator('.sky-island')).toHaveCount(5); await expect(page.locator('.sky-cloud')).toHaveCount(9);
+  const positions = () => page.locator('.sky-sprite').evaluateAll(items => items.map(e => getComputedStyle(e).transform));
+  const frozen = await positions(); await page.waitForTimeout(250); expect(await positions()).toEqual(frozen);
+  await control(page, 'motion-toggle'); await page.locator('#resume').click();
+  await expect(sky).toHaveAttribute('data-motion', 'true');
+  for (const kind of ['cloud', 'island']) {
+    const sprite = page.locator(`.sky-${kind} .sky-sprite`).first(); const before = await sprite.evaluate(e => getComputedStyle(e).transform);
+    await expect.poll(() => sprite.evaluate(e => getComputedStyle(e).transform)).not.toBe(before);
+  }
+  // Check the actual pixels can load and that cutouts have real alpha, not a painted backdrop.
+  expect(await page.locator('.sky-sprite').first().evaluate(async e => {
+    const image = new Image(); image.src = getComputedStyle(e).backgroundImage.slice(5,-2); await image.decode();
+    const canvas = document.createElement('canvas'); canvas.width = image.width; canvas.height = image.height;
+    const context = canvas.getContext('2d'); context.drawImage(image,0,0);
+    return context.getImageData(0,0,1,1).data[3];
+  })).toBe(0);
+  await screenshot(page, 'moving-scenery-phone');
+  await control(page, 'motion-toggle'); await page.locator('#resume').click();
+  await expect(sky).toHaveAttribute('data-motion', 'false');
+  await expect.poll(() => sky.evaluate(e => e.getAnimations({ subtree: true }).every(a => a.playState === 'paused'))).toBe(true);
+  const paused = await positions(); await page.waitForTimeout(300); expect(await positions()).toEqual(paused);
+  await control(page, 'motion-toggle');
+  // Resuming keeps each animation's phase instead of resetting the scene.
+  const elapsed = await sky.evaluate(e => e.getAnimations({ subtree: true }).map(a => a.currentTime));
+  expect(elapsed.every(t => t > 1000)).toBe(true);
+  await page.locator('#resume').click(); await expect.poll(positions).not.toEqual(paused);
+  await page.emulateMedia({ reducedMotion: 'no-preference' }); await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(sky).toHaveAttribute('data-motion', 'false');
+  const systemPaused = await positions(); await page.waitForTimeout(250); expect(await positions()).toEqual(systemPaused);
+  for (const size of [{width:320,height:480},{width:1280,height:900},{width:844,height:390}]) {
+    await page.setViewportSize(size); await screenFits(page); await screenshot(page, `moving-scenery-${size.width}x${size.height}`);
+  }
+  await expect(page.locator('#height')).toHaveText('6'); await expect(page.locator('#coins')).toHaveText('78');
+});

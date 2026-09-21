@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { ART, spriteArt, registerFrames } from './assets.js';
+import { ART, SHEETS, spriteArt, registerFrames } from './assets.js';
 import { segments, longestSegment } from './engine.js';
 
 const TYPES = ['bunny', 'frog', 'cat'];
@@ -9,7 +9,7 @@ const ease = n => 1 - (1 - Phaser.Math.Clamp(n, 0, 1)) ** 3;
 // The scene only presents committed state. No gameplay decision depends on a sprite or timer.
 class HotelScene extends Phaser.Scene {
   constructor(onReady) { super('hotel'); this.onReady = onReady; this.view = null; this.motion = !matchMedia('(prefers-reduced-motion: reduce)').matches; }
-  preload() { for (const [key, url] of Object.entries(ART)) this.load.image(key, url); }
+  preload() { for (const key of Object.keys(SHEETS)) this.load.image(key, ART[key]); }
   create() {
     registerFrames(this);
     this.background = this.add.container(); this.tower = this.add.container(); this.effects = this.add.container();
@@ -153,10 +153,6 @@ class HotelScene extends Phaser.Scene {
   }
   drawSky(w, h) {
     const drift = this.motion ? Math.sin(this.time.now / 18000) * 8 : 0;
-    for (let i = 0; i < 3; i++) {
-      const cloudX = w * [.06, .94, .08][i] + drift * (i % 2 ? -1 : 1);
-      this.image(this.background, 'cloud', cloudX, h * [.23, .55, .86][i], Math.min(150, w * .22), Math.min(76, w * .11), i * 3 - 3, .85);
-    }
     this.balloon(this.background, 'bunny', w * .12, h * .36 + drift, 35, 1, .85);
     this.balloon(this.background, 'frog', w * .89, h * .14 - drift / 2, 27, 2, .8);
     this.balloon(this.background, 'cat', w * .9, h * .8 + drift / 2, 41, 3, .85);

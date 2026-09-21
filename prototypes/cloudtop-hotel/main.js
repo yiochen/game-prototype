@@ -1,6 +1,7 @@
 import './style.css';
 import { ART, SHEETS, spriteArt } from './assets.js';
 import { mountWorld } from './world.js';
+import { mountScenery } from './scenery.js';
 import { paperAudio } from './audio.js';
 import { BALANCE, createGame, segments, longestSegment, preview, pick, advanceDeal, choiceSuits, suitInfo, mysteryOddsText, mysteryOutcomes, outcomePercent, finished } from './engine.js';
 
@@ -15,13 +16,13 @@ const img = (key, className = '', alt = '') => {
   image.src = ART[sheet]; image.alt = alt; holder.append(image); return holder;
 };
 const randomSeed = () => Math.random().toString(36).slice(2, 9);
-document.querySelector('.sky-backdrop').style.backgroundImage = `url("${ART.sky}")`;
 $('coin-art').append(img('coin'));
 const human = text => text.replaceAll('Foundation', 'Neighborhood Streak').replaceAll('Attunement', 'Type Lock').replaceAll('Reactor', 'Room Pattern').replaceAll('Assembler', 'Master Fold').replaceAll('Mystery', 'Surprise Parcel').replaceAll('Stabilizer', 'Lucky Bell').replaceAll('Recall', 'Balloon Call').replace(/\bsuit\b/g, 'room type').replace(/\bsuited\b/g, 'typed').replace(/\blinks?\b/g, m => m === 'links' ? 'floors' : 'floor').replace(/\bsegments?\b/g, m => m === 'segments' ? 'neighborhoods' : 'neighborhood');
 let state = createGame(new URL(location.href).searchParams.get('seed') || randomSeed());
 let scene, resolvingBefore = null, epoch = 0, choiceIndex = null, menuReturn = null;
 const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
 let reduced = motionQuery.matches;
+const scenery = mountScenery(document.querySelector('.sky-backdrop'), !reduced);
 const world = mountWorld($('world'));
 const audio = paperAudio();
 let loading = true;
@@ -193,9 +194,9 @@ $('reveal-now').addEventListener('click', () => { scene?.skip(); $('menu-dialog'
 $('overview').addEventListener('click', () => { $('overview').textContent = scene.toggleOverview() ? 'Back to the top' : 'Whole hotel'; $('menu-dialog').close(); });
 $('replay').addEventListener('click', () => restart(state.seed));
 $('new-game').addEventListener('click', () => restart(randomSeed()));
-function applyMotion(value) { reduced = value; document.documentElement.classList.toggle('reduced-motion', reduced); if (scene) { scene.motion = !reduced; if (reduced) { scene.skip(); scene.tower.y = 0; } scene.draw(); } $('motion-toggle').setAttribute('aria-pressed', String(reduced)); }
+function applyMotion(value) { reduced = value; scenery.setMotion(!reduced); document.documentElement.classList.toggle('reduced-motion', reduced); if (scene) { scene.motion = !reduced; if (reduced) { scene.skip(); scene.tower.y = 0; } scene.draw(); } $('motion-toggle').setAttribute('aria-pressed', String(reduced)); }
 $('motion-toggle').addEventListener('click', () => applyMotion(!reduced)); motionQuery.addEventListener('change', e => applyMotion(e.matches));
 document.addEventListener('keydown', event => { if (!event.repeat && !event.ctrlKey && !event.metaKey && !event.altKey && /^[123]$/.test(event.key) && !document.querySelector('dialog[open]')) { event.preventDefault(); select(Number(event.key) - 1); } });
 setSeed(); balanceTable(); render();
 world.ready.then(readyScene => { scene = readyScene; scene.motion = !reduced; loading = false; render(); scene.setState(state); $('world').dataset.ready = 'true'; });
-if (import.meta.hot) import.meta.hot.dispose(() => { world.destroy(); audio.destroy(); });
+if (import.meta.hot) import.meta.hot.dispose(() => { scenery.destroy(); world.destroy(); audio.destroy(); });

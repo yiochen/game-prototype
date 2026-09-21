@@ -1,6 +1,12 @@
 // Keep generated sheets intact. Phaser frames and DOM clipping share this manifest.
-const files = import.meta.glob('./assets/sprites/*.webp', { eager: true, query: '?url&no-inline', import: 'default' });
+const files = import.meta.glob(['./assets/sprites/*.webp', '!./assets/sprites/sky.webp'], { eager: true, query: '?url&no-inline', import: 'default' });
 export const ART = Object.fromEntries(Object.entries(files).map(([path, url]) => [path.split('/').at(-1).replace('.webp', ''), url]));
+// Uneven generated scenery bounds, with two pixels of alpha padding. Keeping
+// source coordinates avoids resampling or clipping the tall paper waterfalls.
+export const SCENERY = { width: 1536, height: 1024, frames: [
+  [51, 41, 435, 542], [577, 68, 412, 513], [1087, 100, 385, 460],
+  [24, 662, 494, 281], [573, 686, 396, 256], [1032, 646, 480, 302],
+] };
 export const SHEETS = {
   'rooms-bunny': { columns: 4, rows: 2 },
   'rooms-frog': { columns: 4, rows: 2 },

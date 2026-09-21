@@ -514,7 +514,8 @@ Roof variations may depend on height tier for celebration, but they are cosmetic
 
 Ambient motion supports the handcrafted world but must never compete with a resolving card.
 
-- Drift one background cloud layer very slowly.
+- Use a clean blue paper plate with separate transparent cloud and island sprites across the full viewport. Nine clouds drift independently on 43–63 second loops; five cottage, windmill and forest islands bob and sway on 21–31 second loops. Keep the hotel area clear and all scenery behind interactive surfaces.
+- Pause background loops in place when Reduced motion is enabled or the tab is hidden. Resume at the same phase without snapping or rebuilding the scenery on a purchase or camera change.
 - Allow one visible resident at a time to blink, wave, read, or nap.
 - Give Balloon Dock chips an occasional one-frame paper rustle, never continuous synchronized bobbing.
 - Dim or pause ambient loops during Mystery, Balloon Call, Copycat, and the roof reveal.
@@ -541,6 +542,7 @@ Trigger sound, haptic, and visual contact on the same frame. Reserve haptics for
 
 When `prefers-reduced-motion: reduce` is active:
 
+- Freeze ambient clouds and islands in place, including when the menu's Reduce motion setting is enabled manually.
 - Replace travel arcs and camera following with short cross-fades.
 - Show cube, open net, and completed floor as three static states rather than rotations through space.
 - Highlight the relevant Balloon Dock chip, update its count, and outline the new floor without flying a balloon across the screen.
