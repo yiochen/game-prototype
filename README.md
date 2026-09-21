@@ -61,7 +61,9 @@ npm run test:browser
 
 The build produces `dist/`, containing the index and all registered games. Serve that directory on any static host. `netlify.toml` supplies the build command and publish directory when this repo is connected to a new Netlify site.
 
-This is a local Git repository; no remote or new hosting site is linked yet. The older Midnight Noodle deployment remains separate. Do not deploy this repo over that site because it also hosts the original restaurant game.
+Production: https://game-prototypes-yiochen.netlify.app/ — Netlify site `game-prototypes-yiochen` (`a05448cf-3d0c-4100-9b1a-6d8a0d28c886`). This checkout is linked through `.netlify/state.json`. The private GitHub repository is https://github.com/yiochen/game-prototype; automatic deployment is not configured.
+
+After verification and building, publish with `npx netlify-cli deploy --prod --dir dist --no-build --site a05448cf-3d0c-4100-9b1a-6d8a0d28c886`. The older Midnight Noodle deployment remains separate. Do not deploy this repo over that site because it also hosts the original restaurant game.
 
 ## Import
 

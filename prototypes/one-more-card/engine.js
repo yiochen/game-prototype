@@ -6,7 +6,7 @@ export const chain = state => state.links.length;
 export const finished = state => state.phase === 'complete';
 export const baseCards = (state, suit) => state.history.filter(e => e.family === 'base' && (!suit || e.suit === suit));
 // A segment is a maximal consecutive run of one suit, regardless of purchase.
-// Its stable ID is the first link's ID. Inserting links never renumbers targets.
+// Its stable ID is the first link's ID. New links only append to the chain.
 export function segments(state, suit = null) {
   const runs = [];
   state.links.forEach((link, index) => {
@@ -21,7 +21,7 @@ export const overgrowLinks = state => {
   const run = longestSegment(state), config = BALANCE.growth.overgrow;
   return run ? Math.min(config.maximum, Math.max(config.minimum, Math.floor(run.length / config.linksPerBonus))) : 0;
 };
-export const recallLinks = (state, suit) => sum(segments(state, suit).map(run => Math.min(run.length, BALANCE.growth.recall.linksPerSegmentCap))) * BALANCE.growth.recall.multiplier;
+export const recallLinks = (state, suit) => segments(state, suit).length * BALANCE.growth.recall.linksPerSegment;
 export const vaultSuit = state => state.links.at(-1)?.suit ?? BALANCE.wealth.vault.openingSuit;
 export const upgradeKey = card => card.type === 'suit' ? `suit:${card.suit}` : card.type;
 export const upgradeValue = (state, type, suit) => {
@@ -34,7 +34,14 @@ export const mysteryOddsText = (state, level = state.upgrades.stabilizer ?? 0, b
   const outcomes = mysteryOutcomes(state, level);
   return outcomes.map(o => `${o.links + bonus}: ${outcomePercent(o, outcomes)}%`).join(', ');
 };
-export const baseBonus = (state, card) => upgradeValue(state, 'suit', card.suit) + (card.type === 'mystery' ? 0 : upgradeValue(state, 'assembler'));
+export const baseBonus = (state, card) => card.type === 'mosaic' ? 0 : upgradeValue(state, 'suit', card.suit) + (card.type === 'mystery' ? 0 : upgradeValue(state, 'assembler'));
+export const choiceSuits = state => state.attunement ? [state.attunement.suit] : BALANCE.suits.map(s => s.id);
+export function foundationEffect(state, offer) {
+  if (!state.foundation) return { bonus: 0, ends: false };
+  if (offer.sequence || (offer.suit && state.foundation.suit && offer.suit !== state.foundation.suit)) return { bonus: 0, ends: true };
+  return { bonus: offer.suit ? state.foundation.bonus + BALANCE.strategy.foundation.bonusStep : 0, ends: false };
+}
+export const sequenceText = offer => offer.sequence.map(suit => suitInfo(suit).name).join(' → ');
 export function weightedPick(items, roll) {
   const total = sum(items.map(item => item.weight));
   if (!items.length || total <= 0) throw new Error('Empty weighted pool');
@@ -58,10 +65,30 @@ function card(family, type, suit = null, level = null) {
     price: level ? config.prices[level - 1] : config.price,
     name: `${suit ? `${suitInfo(suit).name} ` : ''}${config.name}${level ? ` ${level}` : ''}` };
 }
+function mosaicCards() {
+  const variants = [];
+  for (const pattern of BALANCE.base.mosaic.patterns) {
+    const count = new Set(pattern.slots).size;
+    function fill(suits) {
+      if (suits.length < count) {
+        for (const suit of BALANCE.suits) if (!suits.includes(suit.id)) fill([...suits, suit.id]);
+        return;
+      }
+      const sequence = pattern.slots.map(slot => suits[slot]);
+      variants.push({ ...card('base', 'mosaic'), id: `base:mosaic:${sequence.join(':')}`, name: `Mosaic ${pattern.name}`, pattern: pattern.id, sequence });
+    }
+    fill([]);
+  }
+  return variants;
+}
 // Only the next level is eligible. Growth requires an existing target.
 export function eligibleCards(state) {
   const pool = [];
-  for (const type of Object.keys(BALANCE.base)) for (const suit of BALANCE.suits) pool.push(card('base', type, suit.id));
+  for (const type of Object.keys(BALANCE.base)) {
+    if (type === 'mosaic') pool.push(...mosaicCards());
+    else if (type === 'choice') pool.push(card('base', type));
+    else for (const suit of BALANCE.suits) pool.push(card('base', type, suit.id));
+  }
   for (const type of Object.keys(BALANCE.growth)) {
     if (type === 'overgrow') { if (segments(state).length) pool.push(card('growth', type)); }
     else for (const suit of BALANCE.suits) if (segments(state, suit.id).length) pool.push(card('growth', type, suit.id));
@@ -74,7 +101,9 @@ export function eligibleCards(state) {
   }
   if (Math.floor((state.cash - BALANCE.wealth.vault.price) / BALANCE.wealth.vault.cashPerLink) > 0) pool.push(card('wealth', 'vault'));
   if (!state.rebateRemaining) pool.push(card('wealth', 'rebate'));
-  return pool;
+  if (!state.foundation) pool.push(card('strategy', 'foundation'));
+  if (!state.attunement) for (const suit of BALANCE.suits) pool.push(card('strategy', 'attunement', suit.id));
+  return state.attunement ? pool.filter(c => !c.sequence && (!c.suit || c.suit === state.attunement.suit)) : pool;
 }
 // Family, then type, then suit. New tiers never increase a family's weight.
 function draw(state, pool) {
@@ -105,29 +134,36 @@ function deal(state) {
 export function createGame(seed = 'build-an-engine') {
   const state = { seed: String(seed), rng: seedNumber(seed), prizeRng: seedNumber(`${seed}:prizes`),
     cash: BALANCE.startingCash, spent: 0, refunded: 0, history: [], links: [], nextLinkId: 0, upgrades: {}, rebateRemaining: 0,
-    offer: [], deals: 0, phase: 'picking', lastEffect: null };
+    foundation: null, attunement: null, offer: [], deals: 0, phase: 'picking', lastEffect: null };
   deal(state); return state;
 }
 export function canBuy(state, offer) {
   if (state.phase !== 'picking' || !offer || offer.price > state.cash || !eligibleCards(state).some(c => c.id === offer.id)) return false;
   return true;
 }
-export function preview(state, offer) {
+export function preview(state, offer, selectedSuit) {
+  if (offer.type === 'choice' && !selectedSuit) {
+    const choices = choiceSuits(state).map(suit => ({ suit, ...preview(state, offer, suit) }));
+    const values = choices.map(c => Number(c.headline.slice(1)));
+    return { ...choices[0], headline: Math.min(...values) === Math.max(...values) ? `+${values[0]}` : `+${Math.min(...values)}–${Math.max(...values)}`, detail: 'Choose a suit before paying. Reactor, Assembler and Foundation bonuses use your choice.', choices, foundationBonus: 0, endsFoundation: false };
+  }
+  if (offer.type === 'choice') offer = { ...offer, suit: selectedSuit };
+  const foundation = foundationEffect(state, offer);
   const config = BALANCE[offer.family][offer.type];
   const refund = offer.family === 'base' && state.rebateRemaining ? Math.min(BALANCE.wealth.rebate.refund, offer.price - 1) : 0;
   const cashAfter = state.cash - offer.price + refund;
   let headline, detail;
   if (offer.family === 'base') {
     const bonus = baseBonus(state, offer);
-    if (offer.type === 'mystery') {
+    if (offer.type === 'mosaic') {
+      headline = `+${offer.sequence.length}`; detail = `Append in order: ${sequenceText(offer)}. Exact pattern; no Reactor or Assembler bonus.`;
+    } else if (offer.type === 'mystery') {
       headline = mysteryOutcomes(state).map(o => o.links + bonus).join(' / ');
       detail = `Mystery odds — ${mysteryOddsText(state, undefined, bonus)}. One draw.`;
     } else { headline = `+${config.links + bonus}`; detail = `${config.links} fixed${bonus ? ` + ${bonus} from upgrades` : ''} links in this suit.`; }
   } else if (offer.family === 'growth') {
-    const matches = segments(state, offer.suit);
-    if (offer.type === 'recall') { headline = `+${recallLinks(state, offer.suit)}`; detail = `Append ${suitInfo(offer.suit).name} links: up to ${config.linksPerSegmentCap} per existing ${suitInfo(offer.suit).name} segment ×${config.multiplier}.`; }
-    if (offer.type === 'polish') { headline = `+${matches.length * config.linksPerSegment}`; detail = `Insert ${config.linksPerSegment} link(s) into each ${suitInfo(offer.suit).name} segment. Short segments become stronger for Recall.`; }
-    if (offer.type === 'overgrow') { const run = longestSegment(state); headline = `+${overgrowLinks(state)}`; detail = `Automatically extend the longest segment: ${suitInfo(run.suit).name} ${run.length} → ${run.length + overgrowLinks(state)}. +1 per ${config.linksPerBonus} links, minimum ${config.minimum}, cap ${config.maximum}. Earliest wins ties.`; }
+    if (offer.type === 'recall') { headline = `+${recallLinks(state, offer.suit)}`; detail = `Append ${config.linksPerSegment} ${suitInfo(offer.suit).name} link(s) per existing matching segment, regardless of its length.`; }
+    if (offer.type === 'overgrow') { const run = longestSegment(state); headline = `+${overgrowLinks(state)}`; detail = `Append ${overgrowLinks(state)} ${suitInfo(run.suit).name} links at the end, based on the longest segment (${run.length} links). +1 per ${config.linksPerBonus} links, minimum ${config.minimum}, cap ${config.maximum}. Earliest wins ties.`; }
   } else if (offer.family === 'reactor') {
     if (offer.type === 'stabilizer') {
       const outcomes = mysteryOutcomes(state, offer.level), top = outcomes.at(-1);
@@ -138,23 +174,39 @@ export function preview(state, offer) {
       headline = `${before} → ${after}`;
       detail = `Future ${offer.type === 'suit' ? suitInfo(offer.suit).name : 'Fixed'} base cards gain +${after}. Replaces the old level.`;
     }
+  } else if (offer.family === 'strategy') {
+    headline = offer.type === 'foundation' ? `+${config.bonusStep}…` : '100%';
+    detail = offer.type === 'foundation' ? 'Next suited purchase starts a streak. Matching purchases append a growing bonus; switching suits or buying Mosaic ends it. Suitless purchases pause it.' : `Next ${config.shops} shops: all suited offers are ${suitInfo(offer.suit).name}. Choice 1 is locked to this suit; Mosaic pauses. Every purchase uses one shop.`;
   } else if (offer.type === 'vault') { headline = `+${Math.floor(cashAfter / config.cashPerLink)}`; detail = `One ${suitInfo(vaultSuit(state)).name} link per $${config.cashPerLink} left after paying. Extends the tail suit.`; }
   else { headline = `$${config.refund} × ${config.purchases}`; detail = `Refund on your next ${config.purchases} base purchases. Cannot stack.`; }
-  return { headline, detail, cashAfter, refund };
+  if (foundation.bonus) {
+    if (offer.family === 'base' && offer.type === 'mystery') headline = mysteryOutcomes(state).map(o => o.links + baseBonus(state, offer) + foundation.bonus).join(' / ');
+    else if (headline.startsWith('+')) headline = `+${Number(headline.slice(1)) + foundation.bonus}`;
+    detail += ` Foundation appends +${foundation.bonus} ${suitInfo(offer.suit).name} links.`;
+  }
+  if (foundation.ends) detail += ' Ends Foundation.';
+  return { headline, detail, cashAfter, refund, foundationBonus: foundation.bonus, endsFoundation: foundation.ends };
 }
-export function pick(state, index) {
+export function pick(state, index, selectedSuit) {
   if (!Number.isInteger(index) || index < 0 || index >= state.offer.length) return false;
-  const offer = state.offer[index];
+  let offer = state.offer[index];
   if (!canBuy(state, offer)) return false;
+  if (offer.type === 'choice') {
+    if (!choiceSuits(state).includes(selectedSuit)) return false;
+    offer = { ...offer, suit: selectedSuit };
+  }
+  const foundation = foundationEffect(state, offer);
+  // The purchase creating Attunement does not consume its first shop.
+  if (state.attunement && --state.attunement.remaining === 0) state.attunement = null;
   const config = BALANCE[offer.family][offer.type];
   const before = chain(state);
   const entry = { ...offer, cardId: offer.id, id: state.history.length, links: 0 };
   state.cash -= offer.price; state.spent += offer.price;
   const affected = [], addedIds = [];
-  const emit = (suit, count, at = state.links.length) => {
+  const emit = (suit, count) => {
     const links = Array.from({ length: count }, () => ({ id: state.nextLinkId++, suit, source: entry.id }));
     addedIds.push(...links.map(link => link.id));
-    state.links.splice(at, 0, ...links);
+    state.links.push(...links);
   };
   let message = '';
   if (offer.family === 'base') {
@@ -163,8 +215,11 @@ export function pick(state, index) {
       entry.result = weightedPick(mysteryOutcomes(state), random(state, 'prizeRng')).links;
       value = entry.result + baseBonus(state, offer);
       message = `Rolled ${entry.result}${baseBonus(state, offer) ? ` + ${baseBonus(state, offer)} from upgrades` : ''}.`;
-    } else value = config.links + baseBonus(state, offer);
-    emit(offer.suit, value);
+    } else if (offer.type !== 'mosaic') value = config.links + baseBonus(state, offer);
+    if (offer.type === 'mosaic') {
+      for (const suit of offer.sequence) emit(suit, 1);
+      message = `Appended ${sequenceText(offer)}.`;
+    } else emit(offer.suit, value);
     if (state.rebateRemaining) {
       // A base purchase always consumes at least $1, even after tuning prices.
       entry.refund = Math.min(BALANCE.wealth.rebate.refund, offer.price - 1);
@@ -177,21 +232,37 @@ export function pick(state, index) {
     if (offer.type === 'recall') {
       const count = recallLinks(state, offer.suit); // Snapshot before emitting; never recursively activates.
       emit(offer.suit, count);
-      message = `${targets.length} ${suitInfo(offer.suit).name} segment(s) paid up to ${config.linksPerSegmentCap} each.`;
+      message = `${targets.length} ${suitInfo(offer.suit).name} segment(s) × ${config.linksPerSegment} = ${count} appended links.`;
     } else {
-      // Insert from the end so earlier run boundaries keep their indices.
-      const amount = offer.type === 'polish' ? config.linksPerSegment : overgrowLinks(state);
-      for (const run of [...targets].reverse()) emit(run.suit, amount, run.end);
-      message = offer.type === 'overgrow' ? `Longest segment: ${suitInfo(targets[0].suit).name} ${targets[0].length} → ${targets[0].length + amount}.` : `Extended ${targets.length} segment(s) in place. Recall counts up to ${BALANCE.growth.recall.linksPerSegmentCap} per segment.`;
+      const run = targets[0], amount = overgrowLinks(state);
+      emit(run.suit, amount);
+      message = `Longest segment: ${suitInfo(run.suit).name} ${run.length}. Appended ${amount} ${suitInfo(run.suit).name} links at the end.`;
     }
   } else if (offer.family === 'reactor') {
     state.upgrades[upgradeKey(offer)] = offer.level;
     message = `${offer.name} installed. ${preview(state, offer).detail}`;
+  } else if (offer.family === 'strategy') {
+    if (offer.type === 'foundation') {
+      state.foundation = { suit: null, bonus: 0 };
+      message = 'Foundation ready. Next suited purchase starts at +1.';
+    } else {
+      state.attunement = { suit: offer.suit, remaining: config.shops };
+      message = `${suitInfo(offer.suit).name} Attunement: ${config.shops} shops locked.`;
+    }
   } else if (offer.type === 'vault') {
     const suit = vaultSuit(state);
     emit(suit, Math.floor(state.cash / config.cashPerLink));
     message = `${suitInfo(suit).name} links extend the tail suit.`;
   } else { state.rebateRemaining = config.purchases; message = `Next ${config.purchases} base purchases each refund up to $${config.refund}.`; }
+  if (foundation.ends) {
+    state.foundation = null;
+    message += ' Foundation ended.';
+  } else if (foundation.bonus) {
+    emit(offer.suit, foundation.bonus);
+    state.foundation = { suit: offer.suit, bonus: foundation.bonus };
+    entry.foundationBonus = foundation.bonus;
+    message += ` Foundation +${foundation.bonus} ${suitInfo(offer.suit).name}.`;
+  }
   entry.links = chain(state) - before;
   state.history.push(entry);
   state.lastEffect = { added: entry.links, entryId: entry.id, affected, addedIds, message: message.trim() };

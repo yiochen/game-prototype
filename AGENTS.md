@@ -6,4 +6,4 @@
 - Keep games independent: no imports from sibling games or from the old life-sim repository.
 - The root shares only development, build, hosting, and test tooling. Add game-specific dependencies only when needed.
 - Run engine tests, the build, and relevant browser checks for behavior changes. Preserve phone and landscape layouts.
-- This repository has no hosting site linked yet. Do not deploy it to the old Midnight Noodle site.
+- This repository is linked to the Netlify site `game-prototypes-yiochen` (`a05448cf-3d0c-4100-9b1a-6d8a0d28c886`). Do not deploy it to the old Midnight Noodle site.

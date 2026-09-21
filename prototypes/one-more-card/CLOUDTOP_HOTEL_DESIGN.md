@@ -256,7 +256,7 @@ If the appended floor matches the previous top type, skip the balloon sequence. 
 
 ## Balloon Call
 
-Working rule: append one matching floor for each existing matching neighborhood. The output is the matching Balloon Dock count captured before the action.
+Working rule: Recall and Polish merge into this single power. Append one matching floor for each existing matching neighborhood. The output is the matching Balloon Dock count captured before the action.
 
 ### Preview
 
@@ -275,24 +275,6 @@ Working rule: append one matching floor for each existing matching neighborhood.
 6. Prefab boxes unfold using the standard multi-floor sequence.
 7. Source balloons loop back along the reverse path and tuck into the Dock envelope. The Dock count is unchanged because the fleet is reusable.
 8. If the delivered type differed from the old top type, the resulting new neighborhood launches exactly one new balloon after all delivered floors settle. That balloon increments the Dock for future actions only.
-
-## Full Load
-
-Working rule: each matching neighborhood contributes up to three floors based on its length. This corresponds to the current capped per-neighborhood growth effect.
-
-### Representation
-
-The relevant Balloon Dock chip shows a row of balloon baskets. Each neighborhood balloon owns one basket with one, two, or three visible parcel pips. The total is also written numerically so hidden lower floors never need to be inspected.
-
-### Sequence
-
-1. Expand the Dock chip into a paper manifest.
-2. Fill each balloon basket with its one-to-three parcel pips.
-3. Tear off a total tag showing the exact result.
-4. Launch the fleet using the Balloon Call sequence, but give each representative balloon a visibly heavier basket.
-5. Deliver and unfold all boxes at the open top.
-
-Do not create a permanent second HUD number for Full Load. Its exact total appears only in card preview and during resolution.
 
 ## Copycat
 
@@ -349,6 +331,18 @@ Names remain provisional; the animations are canonical.
 - The parcel unfolds once to reveal the committed result: 1, 3, or 8 boxes.
 - Boxes then use the normal construction sequence.
 - Skipping the reveal never rerolls the outcome.
+
+### Choice 1 and Mosaic
+
+Choice 1 is a premium single-floor base card: select its floor type before payment. The picker previews all applicable bonuses and cancellation spends nothing.
+
+Mosaic presents its full three-floor order before purchase. Variants are ABC, ABA, AAB, and ABB across floor-type permutations. Deliver and unfold boxes in exactly that order, bottom to top. Each new neighborhood registers its own balloon; there can be multiple new neighborhoods in a Mosaic delivery. Existing floors never change. Mosaic uses its printed pattern without Reactor or Assembler extras.
+
+### Foundation and Attunement
+
+Foundation replaces the earlier Landmark idea. The next suited purchase starts a streak at +1, then same-type purchases earn +2, +3, and so on. Switching types or buying Mosaic ends it; suitless purchases pause the streak. Show the chosen type and next bonus in the persistent HUD. Bonus floors arrive after the ordinary purchase resolves, with no recursive triggers.
+
+Attunement fixes all suited offers to its type for the next three shops. Display its type and remaining shops in the HUD. Choice 1 is restricted to that type; Mosaic offers pause until it expires. Suitless powers keep their normal behavior. Each purchase consumes one shop; installing the effect does not consume its first use.
 
 ## Persistent upgrades
 

@@ -1,11 +1,11 @@
 import './style.css';
-import { BALANCE, createGame, chain, finished, segments, vaultSuit, suitInfo, longestSegment, mysteryOutcomes, outcomePercent, mysteryOddsText, preview, pick, advanceDeal } from './engine.js';
+import { BALANCE, createGame, chain, finished, segments, vaultSuit, suitInfo, longestSegment, mysteryOutcomes, outcomePercent, mysteryOddsText, preview, pick, advanceDeal, choiceSuits, sequenceText } from './engine.js';
 const $ = id => document.getElementById(id);
 const el = (tag, className = '', text = '') => { const node = document.createElement(tag); node.className = className; node.textContent = text; return node; };
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 const makeSeed = () => Math.random().toString(36).slice(2, 9);
 let state = createGame(new URL(location.href).searchParams.get('seed') || makeSeed());
-let timer, previous = null, flashing = [];
+let timer, previous = null, flashing = [], choosingIndex = null;
 let collectionMode = 'chain', collectionPage = 0;
 const pageSize = () => collectionMode === 'engine' && innerHeight <= 560 && innerWidth <= 619 ? 1 : innerHeight < 700 ? 3 : 6;
 function paginate(nodes, page, size) {
@@ -74,17 +74,25 @@ function renderInstalled(view) {
     return el('span', 'upgrade-chip', `${suit ? suitMark(suit) + ' ' : ''}${config.name} Lv${level} · ${type === 'stabilizer' ? `${outcomes.at(-1).links} links: ${outcomePercent(outcomes.at(-1), outcomes)}%` : `+${value}`}`);
   });
   if (view.rebateRemaining) nodes.push(el('span', 'upgrade-chip wealth', `Rebate · $${BALANCE.wealth.rebate.refund} × ${view.rebateRemaining} left`));
+  const active = [];
+  if (view.foundation) active.push(`Foundation ${view.foundation.suit ? suitMark(view.foundation.suit) : 'ready'} · next +${view.foundation.bonus + BALANCE.strategy.foundation.bonusStep}`);
+  if (view.attunement) active.push(`${suitMark(view.attunement.suit)} Attunement · ${view.attunement.remaining} ${view.attunement.remaining === 1 ? 'shop' : 'shops'} left`);
+  for (const text of active) nodes.push(el('span', 'upgrade-chip strategy', text));
+  $('active-effects').textContent = active.join(' / ');
+  $('active-effects').hidden = !active.length;
   $('installed').replaceChildren(...nodes);
   $('show-engine').textContent = `Engine${nodes.length ? ` · ${nodes.length}` : ''}`;
   if (!nodes.length) $('installed').append(el('span', 'muted', 'No installed upgrades yet.'));
 }
 function shortDetail(offer, effect) {
   const c = BALANCE[offer.family][offer.type];
+  if (offer.type === 'choice') return state.attunement ? `${suitInfo(state.attunement.suit).name} only during Attunement.` : 'Choose Sun, Moon or Wave.';
+  if (offer.sequence) return `${offer.sequence.length} links, in order.`;
+  if (offer.family === 'strategy') return offer.type === 'foundation' ? 'Keep buying one suit.' : `Next ${c.shops} shops: ${suitInfo(offer.suit).name} only.`;
   if (offer.family === 'base') return offer.type === 'mystery' ? `Odds ${mysteryOutcomes(state).map(o => outcomePercent(o, mysteryOutcomes(state))).join('/')}%.` : 'Append links of this suit.';
   if (offer.family === 'reactor') return offer.type === 'stabilizer' ? `Chance of ${mysteryOutcomes(state, offer.level).at(-1).links} on future Mysteries.` : `Future ${offer.suit ? suitInfo(offer.suit).name : 'Fixed'} bases +${c.values[offer.level - 1]}.`;
-  if (offer.type === 'recall') return `Up to ${c.linksPerSegmentCap} per ${suitInfo(offer.suit).name} segment.`;
-  if (offer.type === 'polish') return `+${c.linksPerSegment} in each ${suitInfo(offer.suit).name} segment.`;
-  if (offer.type === 'overgrow') { const run = longestSegment(state); return `${suitInfo(run.suit).name} ${run.length} → ${run.length + Number(effect.headline.slice(1))}. Longest grows.`; }
+  if (offer.type === 'recall') return `Append ${c.linksPerSegment} per ${suitInfo(offer.suit).name} segment.`;
+  if (offer.type === 'overgrow') { const run = longestSegment(state); return `Longest: ${suitInfo(run.suit).name} ${run.length}. Append ${effect.headline.slice(1)} at end.`; }
   return offer.type === 'vault' ? `${suitInfo(vaultSuit(state)).name} links: 1 / $${c.cashPerLink} left.` : `Refunds on next ${c.purchases} base buys.`;
 }
 function render() {
@@ -117,7 +125,17 @@ function render() {
     button.setAttribute('aria-label', `Buy ${offer.name} for $${offer.price}. ${effect.headline}. ${effect.detail}${offer.price > state.cash ? ' Cannot afford.' : ''}`);
     const top = el('div', 'card-top'); top.append(el('span', 'family', offer.family), el('strong', 'price', `$${offer.price}`));
     button.append(top, el('span', 'card-name', `${offer.suit ? suitInfo(offer.suit).symbol + ' ' : ''}${offer.name}`));
-    button.append(el('strong', 'effect', offer.type === 'mystery' ? effect.headline.replaceAll(' / ', '/') : effect.headline), el('span', 'effect-detail', shortDetail(offer, effect)));
+    if (!offer.sequence) button.append(el('strong', 'effect', offer.type === 'mystery' ? effect.headline.replaceAll(' / ', '/') : effect.headline));
+    if (offer.sequence) {
+      const pattern = el('span', 'effect mosaic-sequence'); pattern.setAttribute('aria-label', sequenceText(offer));
+      offer.sequence.forEach((suit, i) => {
+        if (i) pattern.append(el('span', 'sequence-arrow', '›'));
+        const symbol = el('span', 'mosaic-suit', suitInfo(suit).symbol); symbol.title = suitInfo(suit).name; pattern.append(symbol);
+      });
+      button.append(pattern);
+    }
+    button.append(el('span', 'effect-detail', shortDetail(offer, effect)));
+    if (effect.foundationBonus || effect.endsFoundation) button.append(el('span', 'foundation-note', effect.endsFoundation ? 'Ends Foundation' : `Foundation +${effect.foundationBonus}`));
     button.append(el('span', 'card-footer', offer.price > state.cash ? `Need $${offer.price - state.cash} more` : `$${effect.cashAfter} left${effect.refund ? ` · $${effect.refund} refund` : ''}`));
     button.addEventListener('click', () => selectOffer(index));
     return button;
@@ -129,11 +147,28 @@ function render() {
 function selectOffer(index) {
   const offer = state.offer[index];
   if (state.phase !== 'picking' || !offer || offer.price > state.cash) return;
+  if (offer.type === 'choice') {
+    choosingIndex = index;
+    $('choice-description').textContent = `Choose a suit for ${offer.name} · $${offer.price}. Pay when you choose.`;
+    $('suit-choices').replaceChildren(...choiceSuits(state).map(suit => {
+      const effect = preview(state, offer, suit);
+      const button = el('button', 'suit-choice', `${suitMark(suit)} · ${effect.headline} links${effect.foundationBonus ? ` · Foundation +${effect.foundationBonus}` : ''}${effect.endsFoundation ? ' · Ends Foundation' : ''}`);
+      button.dataset.suit = suit; button.title = effect.detail;
+      button.addEventListener('click', () => {
+        const selected = choosingIndex;
+        $('choice-dialog').close();
+        purchase(selected, suit);
+      });
+      return button;
+    }));
+    $('choice-dialog').showModal();
+    return;
+  }
   purchase(index);
 }
-function purchase(index) {
+function purchase(index, selectedSuit) {
   const snapshot = structuredClone(state);
-  if (!pick(state, index)) return;
+  if (!pick(state, index, selectedSuit)) return;
   clearTimeout(timer);
   flashing = [];
   previous = snapshot;
@@ -149,7 +184,8 @@ function finishReveal() {
   if (!reducedMotion()) $('score').animate([{ transform: 'scale(1.09)' }, { transform: 'scale(1)' }], { duration: 220 });
   timer = setTimeout(() => { flashing = []; document.querySelectorAll('.activating').forEach(n => n.classList.remove('activating')); }, 500);
 }
-function restart(seed) { clearTimeout(timer); previous = null; flashing = []; collectionMode = 'chain'; collectionPage = 0; state = createGame(seed); rememberSeed(); render(); }
+function restart(seed) { $('choice-dialog').close(); choosingIndex = null; clearTimeout(timer); previous = null; flashing = []; collectionMode = 'chain'; collectionPage = 0; state = createGame(seed); rememberSeed(); render(); }
+$('choice-dialog').addEventListener('close', () => { choosingIndex = null; });
 $('rules-open').addEventListener('click', () => $('rules-dialog').showModal());
 for (const mode of ['chain', 'engine']) $('show-' + mode).addEventListener('click', () => { collectionMode = mode; collectionPage = 0; render(); });
 for (const [id, delta] of [['collection-prev', -1], ['collection-next', 1]]) $(id).addEventListener('click', () => { collectionPage += delta; renderCollectionPages(); });
@@ -158,7 +194,7 @@ $('finish-reaction').addEventListener('click', finishReveal);
 $('restart').addEventListener('click', () => restart(makeSeed()));
 $('replay').addEventListener('click', () => restart(state.seed));
 document.addEventListener('keydown', event => {
-  if ($('rules-dialog').open) return;
+  if ($('rules-dialog').open || $('choice-dialog').open) return;
   if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
   if (/^[123]$/.test(event.key)) { event.preventDefault(); selectOffer(Number(event.key) - 1); }
 });
@@ -166,14 +202,16 @@ document.addEventListener('keydown', event => {
 function renderBalance() {
   const tbody = $('balance-body');
   const row = (name, cost, effect) => { const tr = el('tr'); for (const text of [name, cost, effect]) tr.append(el('td', '', text)); tbody.append(tr); };
-  for (const [type, c] of Object.entries(BALANCE.base)) row(c.name + ' · each suit', `$${c.price}`, type === 'mystery' ? c.outcomes.map(o => `${o.links} links (${o.weight / BALANCE.base.mystery.outcomes.reduce((n, o) => n + o.weight, 0) * 100}%)`).join(', ') : `${c.links} links`);
-  for (const [type, c] of Object.entries(BALANCE.growth)) row(c.name, `$${c.price}`, type === 'recall' ? `${c.multiplier}× up to ${c.linksPerSegmentCap} links per matching segment` : type === 'polish' ? `+${c.linksPerSegment} inside each matching segment` : `Longest segment: +1 per ${c.linksPerBonus} links (min ${c.minimum}, cap ${c.maximum})`);
+  for (const [type, c] of Object.entries(BALANCE.base)) row(c.name + (type === 'choice' ? ' · choose suit' : type === 'mosaic' ? ' · varied sequences' : ' · each suit'), `$${c.price}`, type === 'mystery' ? c.outcomes.map(o => `${o.links} links (${outcomePercent(o, c.outcomes)}%)`).join(', ') : type === 'mosaic' ? '3 links: all different, sandwich, or pair first/last. Exact printed order; no upgrade bonuses.' : `${c.links} fixed link(s)`);
+  for (const [type, c] of Object.entries(BALANCE.growth)) row(c.name, `$${c.price}`, type === 'recall' ? `Append ${c.linksPerSegment} link(s) per matching segment, regardless of length` : `Append the longest segment's suit at the end: +1 per ${c.linksPerBonus} links (min ${c.minimum}, cap ${c.maximum})`);
   for (const [type, c] of Object.entries(BALANCE.reactor)) row(`${c.name}${type === 'suit' ? ' · each suit' : ''} Lv1/2/3`, c.prices.map(p => `$${p}`).join(' / '), type === 'stabilizer' ? c.outcomesByLevel.map((_, i) => `Lv${i + 1}: ${mysteryOddsText(state, i + 1)}`).join('; ') : `+${c.values.join(' / +')} future links`);
+  row('Foundation', `$${BALANCE.strategy.foundation.price}`, `Start at +${BALANCE.strategy.foundation.bonusStep}, then increase by ${BALANCE.strategy.foundation.bonusStep} for each matching suited purchase. Switching suits or Mosaic ends it. Suitless purchases pause it.`);
+  row('Attunement · each suit', `$${BALANCE.strategy.attunement.price}`, `Next ${BALANCE.strategy.attunement.shops} shops: 100% of suited offers match. Choice is locked; Mosaic pauses. Cannot refresh while active.`);
   const v = BALANCE.wealth.vault, r = BALANCE.wealth.rebate;
   row(v.name, `$${v.price}`, `1 link per $${v.cashPerLink} remaining after payment`);
   row(r.name, `$${r.price}`, `$${r.refund} refund on next ${r.purchases} base purchases`);
-  $('weights').textContent = `Family weights: ${Object.entries(BALANCE.families).map(([k, v]) => `${k} ${v}`).join(' · ')}. Within Base: ${Object.values(BALANCE.base).map(c => `${c.name} ${c.weight}`).join(' · ')}. Within Growth: ${Object.values(BALANCE.growth).map(c => `${c.name} ${c.weight}`).join(' · ')}. Within Reactor: ${Object.values(BALANCE.reactor).map(c => `${c.name} ${c.weight}`).join(' · ')}. Within Wealth: ${Object.values(BALANCE.wealth).map(c => `${c.name} ${c.weight}`).join(' · ')}. Eligible suits are equally likely within each type.`;
-  $('budget-rule').textContent = `Start with $${BALANCE.startingCash}. Choose one of ${BALANCE.offerSize} offers. Only links count; buying a power adds no link by itself.`;
+  $('weights').textContent = `Family weights: ${Object.entries(BALANCE.families).map(([k, v]) => `${k} ${v}`).join(' · ')}. Within Base: ${Object.values(BALANCE.base).map(c => `${c.name} ${c.weight}`).join(' · ')}. Within Growth: ${Object.values(BALANCE.growth).map(c => `${c.name} ${c.weight}`).join(' · ')}. Within Reactor: ${Object.values(BALANCE.reactor).map(c => `${c.name} ${c.weight}`).join(' · ')}. Within Wealth: ${Object.values(BALANCE.wealth).map(c => `${c.name} ${c.weight}`).join(' · ')}. Within Strategy: ${Object.values(BALANCE.strategy).map(c => `${c.name} ${c.weight}`).join(' · ')}. Eligible suits are equally likely unless Attunement is active.`;
+  $('budget-rule').textContent = `Start with $${BALANCE.startingCash}. Choose one of ${BALANCE.offerSize} offers. Only links count. Foundation can add bonus links to suited power purchases.`;
 }
 rememberSeed(); renderBalance(); render();
 new ResizeObserver(fitSequence).observe($('hand'));

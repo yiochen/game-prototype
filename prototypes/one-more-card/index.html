@@ -15,6 +15,7 @@
   </section>
   <section class="collection-panel" aria-label="Collection and upgrades">
     <div class="collection-heading"><div class="tabs" role="tablist" aria-label="Collection view"><button id="show-chain" role="tab" aria-controls="hand" aria-selected="true">Chain</button><button id="show-engine" role="tab" aria-controls="installed" aria-selected="false">Engine</button></div><span id="card-count"></span></div>
+    <p id="active-effects" class="active-effects" aria-live="polite" hidden></p>
     <div id="hand" class="hand sequence" role="tabpanel" aria-labelledby="show-chain"></div>
     <div id="installed" class="installed" role="tabpanel" aria-labelledby="show-engine" hidden></div>
     <div id="segment-summary" class="segment-summary" aria-label="Suit segment counts"></div><nav id="collection-pager" class="pager" aria-label="Upgrade pages"><button id="collection-prev" aria-label="Previous collection page">‹</button><span id="collection-page"></span><button id="collection-next" aria-label="Next collection page">›</button></nav>
@@ -27,15 +28,20 @@
   </section>
   <footer><button id="rules-open">Rules</button><button id="replay">Replay</button><button id="restart">New game</button><span id="seed"></span></footer>
 </main>
+<dialog id="choice-dialog" aria-labelledby="choice-heading"><div class="dialog-heading"><h2 id="choice-heading">Choose a suit</h2><form method="dialog"><button aria-label="Cancel suit choice">Cancel</button></form></div><div class="choice-content"><p id="choice-description"></p><div id="suit-choices"></div></div></dialog>
 <dialog id="rules-dialog" aria-labelledby="rules-heading"><div class="dialog-heading"><h2 id="rules-heading">Rules & balance table</h2><form method="dialog"><button aria-label="Close rules">Close</button></form></div><div class="rules-content">
     <ul>
       <li id="budget-rule"></li>
-      <li>Every link is Sun, Moon, or Wave. Read the sequence left to right, continuing on the next row. Adjacent links of the same suit form one segment, even across purchases. Only a different suit creates a break. Fixed and Mystery cards append their links to the sequence.</li>
-      <li>Recall appends matching-suit links, with a capped reward per existing matching segment. Splitting one long run into separate runs can earn more. Recall is calculated once before its new links arrive. New links join the sequence and can count in later Growth; they never activate automatically. Polish inserts links inside each matching segment; Overgrow automatically extends your longest segment, rewarding long runs; the earliest segment wins ties. Extending a short segment can improve its next Recall payout until the cap.</li>
+      <li>Every link is Sun, Moon, or Wave. Read the sequence left to right, continuing on the next row. Adjacent links of the same suit form one segment, even across purchases. Only a different suit creates a break. All new links are appended at the end of the sequence; existing links never move.</li>
+      <li>Recall appends one matching-suit link per existing matching segment, regardless of segment length. Splitting one long run into separate runs can earn more. Recall is calculated once before its new links arrive. New links join the sequence and can count in later Growth; they never activate automatically. Overgrow uses the longest segment to calculate its payout, then appends links of that suit at the end. It never inserts links into an earlier segment; the earliest segment wins ties.</li>
+      <li>Choice 1 costs more than Fixed 1 and lets you choose its suit before paying. It receives the chosen suit's Reactor bonus, Assembler, Rebate and Foundation normally. Canceling the choice spends nothing.</li>
+      <li>Mosaic appends its exact printed sequence from left to right: all different suits, a sandwich, or a pair at either end. The first link may merge with the existing tail. Mosaic counts as a base purchase for Rebate, but does not receive Reactor or Assembler bonuses.</li>
+      <li>Foundation: your next suited purchase starts at +1 bonus link, then matching purchases gain +2, +3 and so on. Changing suits or buying Mosaic ends the effect before any bonus. Suitless purchases leave the streak unchanged. Suited upgrades also advance the streak and append bonus links. You can buy Foundation again after it ends.</li>
+      <li>Attunement locks all suited offers to its printed suit for the next three shops, starting immediately after installation. Each purchase consumes one shop, even a suitless purchase. Choice 1 is restricted to the locked suit; Mosaics are unavailable until it expires. It cannot be stacked or refreshed.</li>
       <li>Reactors improve future purchases only. Each level replaces the previous effect; only the next level is offered. Stabilizer changes Mystery probabilities using the explicit tables below; each Mystery draws once. Suit Reactors and Assembler can both improve a Fixed card.</li>
       <li>Rebate applies to base purchases only, requires the full price upfront, and cannot stack. Every purchase still costs at least $1 after refund. Vault uses cash after its own price is paid, and adds links of the current tail suit (Sun for an empty chain). Powers that add no links do not split segments.</li>
       <li>No automatic expansion, Star, or Echo. Generated links have no powers. The run ends when no eligible card is affordable; every link is kept.</li>
-      <li>Offers have no exact duplicates. Growth appears only with a valid target; Vault appears only with a positive payout. Finished upgrade lines and active Rebate are excluded. If all offers are unaffordable, one becomes the cheapest eligible card.</li>
+      <li>Offers have no exact duplicates. Growth appears only with a valid target; Vault appears only with a positive payout. Finished upgrade lines and active Rebate, Foundation, and Attunement are excluded. If all offers are unaffordable, one becomes the cheapest eligible card.</li>
     </ul>
     <div class="table-scroll"><table><thead><tr><th>Card</th><th>Price</th><th>Effect</th></tr></thead><tbody id="balance-body"></tbody></table></div>
     <p id="weights"></p><p>Weights are relative among eligible choices; upgrades do not increase a family's weight. All tuning lives in <code>prototypes/one-more-card/balance.js</code>.</p>
