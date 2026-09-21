@@ -22,7 +22,7 @@ This folder owns its gameplay, art, UI, tests and Phaser dependency. Its rule en
 - `engine.js`: deterministic purchases, append-only floors, neighborhoods, upgrades, streaks and offer locks. Internal `links` and `suit` fields represent floors and room types; player copy uses hotel language.
 - `world.js`: Phaser scene, asset loading, camera presentation, paper-pose deliveries, resident animation, balloon flights, Copycat and end-of-run roof. It reads committed state and never decides a payout.
 - `main.js`, `index.html`, `style.css`: accessible DOM shop, HUD, room picker, dialogs, mobile/landscape layouts and the engine/scene boundary.
-- `assets.js`, `assets/`: stable keys and original local SVG art. Assets stay external in the production build because Phaser's SVG loader expects fetchable URLs, not Vite's inline SVG data encoding.
+- `assets.js`, `assets/sprites/`: five generated sprite sheets (48 frames in total) and a detailed paper-sky backdrop. The manifest registers the same frames for Phaser and DOM card art. Original PNGs and prompts are preserved; small WebP exports ship to players. See the [sprite-sheet guide](assets/sprites/README.md).
 - `audio.js`: optional quiet synthesized paper clicks.
 - [`CLOUDTOP_HOTEL_DESIGN.md`](CLOUDTOP_HOTEL_DESIGN.md): story, current mechanics and visual/animation direction, moved here from One More Card.
 
@@ -39,3 +39,5 @@ npx playwright test prototypes/cloudtop-hotel/tests/game.spec.js
 ```
 
 Engine tests cover every card interaction, deterministic runs, money accounting and immutable floor prefixes. Browser checks compare complete played runs to the engine, inspect the Phaser floor count and final roof, exercise Choice/Mosaic/Streak/Lock, verify animated resolution and replay cancellation, and check phone and landscape layouts. Screenshots are saved under `artifacts/cloudtop-hotel/`.
+
+Animation checks also observe all four Copycat poses, its spot–stamp–send–unfold sequence, actual room-unfolding frames, changing idle frames and frozen frames under reduced motion. The detailed style pass changes presentation only; append-only rules and prices stay in the engine and balance table.

@@ -1,16 +1,17 @@
 import Phaser from 'phaser';
-import { ART } from './assets.js';
+import { ART, spriteArt, registerFrames } from './assets.js';
 import { segments, longestSegment } from './engine.js';
 
 const TYPES = ['bunny', 'frog', 'cat'];
-const INK = '#435c50';
+const INK = '#fff8dd';
 const ease = n => 1 - (1 - Phaser.Math.Clamp(n, 0, 1)) ** 3;
 
 // The scene only presents committed state. No gameplay decision depends on a sprite or timer.
 class HotelScene extends Phaser.Scene {
   constructor(onReady) { super('hotel'); this.onReady = onReady; this.view = null; this.motion = !matchMedia('(prefers-reduced-motion: reduce)').matches; }
-  preload() { for (const [key, url] of Object.entries(ART)) this.load.svg(key, url); }
+  preload() { for (const [key, url] of Object.entries(ART)) this.load.image(key, url); }
   create() {
+    registerFrames(this);
     this.background = this.add.container(); this.tower = this.add.container(); this.effects = this.add.container();
     this.lastDraw = -Infinity; this.whole = false; this.cameraBase = null; this.scale.on('resize', () => { this.cameraBase = null; this.tower.y = 0; this.draw(); });
     this.onReady(this);
@@ -28,7 +29,8 @@ class HotelScene extends Phaser.Scene {
   toggleOverview() { this.whole = !this.whole; this.draw(); return this.whole; }
   animate(before, after, { onFrame, onComplete }) {
     this.preview = null;
-    this.animation = { before, after, start: this.time.now, onFrame, onComplete, delay: after.history.at(-1).type === 'mystery' ? 580 : 130, duration: after.lastEffect.added ? 1550 : 650 };
+    const type = after.history.at(-1).type, count = after.lastEffect.added;
+    this.animation = { before, after, start: this.time.now, onFrame, onComplete, delay: type === 'mystery' ? 700 : 100, duration: type === 'overgrow' ? 3200 : count ? Math.min(2900, 1300 + count * 140) : 900, buildStart: type === 'overgrow' ? .47 : .25, buildEnd: .87 };
     this.draw();
   }
   skip() {
@@ -48,29 +50,40 @@ class HotelScene extends Phaser.Scene {
     } else if (this.motion) this.draw();
   }
   image(layer, key, x, y, width, height, angle = 0, alpha = 1) {
-    const image = this.add.image(x, y, key).setDisplaySize(width, height).setAngle(angle).setAlpha(alpha);
+    const { sheet, frame } = spriteArt(key);
+    const image = this.add.image(x, y, sheet, frame).setDisplaySize(width, height).setAngle(angle).setAlpha(alpha);
     layer.add(image); return image;
   }
+  sprite(layer, sheet, frame, x, y, width, height = width, angle = 0, alpha = 1) {
+    const image = this.add.image(x, y, sheet, frame).setDisplaySize(width, height).setAngle(angle).setAlpha(alpha);
+    layer.add(image); this.frameLog.push(`${sheet}:${frame}`); return image;
+  }
+  balloon(layer, type, x, y, size, offset = 0, alpha = 1) {
+    const pose = this.motion ? Math.floor(this.time.now / 340 + offset) % 4 : 0;
+    return this.sprite(layer, 'actors', (TYPES.indexOf(type) + 1) * 4 + pose, x, y, size, size, 0, alpha);
+  }
   label(layer, text, x, y, size = 12, color = INK) {
-    const label = this.add.text(x, y, text, { fontFamily: 'Georgia, serif', fontSize: `${size}px`, color, align: 'center', lineSpacing: 3 }).setOrigin(.5);
+    const label = this.add.text(x, y, text, { fontFamily: 'Trebuchet MS, sans-serif', fontStyle: 'bold', fontSize: `${size}px`, color, align: 'center', lineSpacing: 4, shadow: { color: '#154f76', blur: 3, offsetY: 2, fill: true } }).setOrigin(.5);
     layer.add(label); return label;
   }
   graphics(layer) { const g = this.add.graphics(); layer.add(g); return g; }
   layout(count) {
     const { width: w, height: h } = this.scale;
-    const floorWidth = Math.min(196, Math.max(130, w * .4)), floorHeight = floorWidth * .31;
-    const available = Math.max(50, h - 75);
-    const overviewScale = Math.min(1, available / Math.max(floorHeight * count + 60, 1));
+    const floorWidth = Math.min(300, Math.max(140, w * .59), Math.max(140, h * .75)), floorHeight = floorWidth / 3;
+    const available = Math.max(50, h - 68);
+    const overviewScale = Math.min(1, available / Math.max(floorHeight * count + floorWidth * .5, 1));
     const finished = this.view?.phase === 'complete';
     const ending = this.ending === null ? 1 : ease((this.time.now - this.ending) / 1600);
     const scale = this.whole ? (finished ? 1 + (overviewScale - 1) * ending : overviewScale) : 1;
     const width = floorWidth * scale, step = floorHeight * scale;
-    const base = Math.max(h - 48, h * .2 + count * step);
+    const headroom = finished ? width * .68 + 22 : Math.max(h * .24, width * .23 + 25);
+    const base = Math.max(h - 58, headroom + count * step);
     // Keep construction near the middle until enough floors exist to follow the open top.
     return { x: w / 2, base: this.whole ? h - 42 : base, width, step, scale, floorWidth };
   }
   draw() {
     if (!this.tower || !this.view) return;
+    this.frameLog = [];
     const { width: w, height: h } = this.scale;
     this.background.removeAll(true); this.tower.removeAll(true); this.effects.removeAll(true);
     this.drawSky(w, h);
@@ -79,7 +92,7 @@ class HotelScene extends Phaser.Scene {
     if (a) {
       progress = Phaser.Math.Clamp((this.time.now - a.start - a.delay) / a.duration, 0, 1);
       const count = a.after.lastEffect.added;
-      const delivered = progress < .18 ? 0 : Math.min(count, Math.floor((progress - .18) / .66 * count));
+      const delivered = progress < a.buildStart ? 0 : Math.min(count, Math.floor((progress - a.buildStart) / (a.buildEnd - a.buildStart) * count));
       current = a.before.links.length + delivered; state = a.after;
       a.onFrame(current);
     }
@@ -87,7 +100,7 @@ class HotelScene extends Phaser.Scene {
     if (a && this.motion && this.cameraBase !== null) this.tower.y += this.cameraBase - base;
     this.cameraBase = base;
     const top = base - current * step;
-    if (base < h + 100) this.image(this.tower, 'island', x, base + 43 * scale, width * 1.65, width * .8);
+    if (base < h + 100) this.image(this.tower, 'island', x, base + width * .13, width * 1.4, width * .7);
     const first = Math.max(0, Math.floor((base - h - step) / step));
     const visible = [];
     const source = (this.preview?.type === 'overgrow' || a?.after.history.at(-1).type === 'overgrow') ? longestSegment(a?.before ?? state) : null;
@@ -96,12 +109,13 @@ class HotelScene extends Phaser.Scene {
       const y = base - (i + .5) * step;
       if (y < -step) continue;
       visible.push(floor.id);
-      const building = this.image(this.tower, `floor-${floor.suit}-${(floor.id * 7 + floor.source) % 4}`, x, y, width, step);
-      building.setData('floorId', floor.id).setData('floorType', floor.suit);
-      if (width > 65) for (let guest = 0; guest < 3; guest++) {
-        const active = this.motion && (floor.id + guest) % 9 === Math.floor(this.time.now / 1800) % 9;
-        const pose = active ? Math.floor(this.time.now / 250) % 2 : (floor.id + guest * 2) % 5;
-        this.image(this.tower, `resident-${floor.suit}-${pose}`, x + width * (guest - 1) * .265, y - step * .03, width * .126, width * .126);
+      const wall = this.graphics(this.tower); wall.fillStyle({ bunny: 0xc66f83, frog: 0x879b4c, cat: 0xd88a3c }[floor.suit]); wall.fillRect(x - width / 2, y - step / 2, width, step);
+      for (let guest = 0; guest < 3; guest++) {
+        const cycle = (this.time.now + floor.id * 617 + guest * 1331) % 7200;
+        const rest = [3, 5, 7][(floor.id + guest) % 3];
+        const pose = this.motion && width > 70 ? cycle < 190 ? 4 : cycle > 4000 && cycle < 4850 ? 6 : rest : rest;
+        const building = this.sprite(this.tower, `rooms-${floor.suit}`, pose, x + (guest - 1) * width / 3, y, width / 3 + .6, step + .5);
+        building.setData('floorId', floor.id).setData('floorType', floor.suit);
       }
       const matched = this.preview?.type === 'recall' && this.preview.suit === floor.suit;
       if (matched || (source && i >= source.start && i < source.end)) {
@@ -111,25 +125,25 @@ class HotelScene extends Phaser.Scene {
     const done = this.view.phase === 'complete';
     if (done) {
       const drop = this.ending === null ? 1 : ease((this.time.now - this.ending) / 650);
-      this.image(this.tower, 'roof', x, top - width * .135 - (1 - drop) * 60, width * 1.08, width * .36, 0, drop);
+      this.image(this.tower, 'roof', x, top - width * .31 - (1 - drop) * 60, width * 1.08, width * .67, 0, drop);
       this.label(this.tower, 'CLOUDTOP HOTEL', x, Math.min(h - 16, base + 19), Math.max(9, 13 * scale));
       const g = this.graphics(this.effects);
       if (this.ending !== null && this.time.now - this.ending < 2100) for (let i = 0; i < 20; i++) {
         const t = (this.time.now - this.ending) / 2100;
-        g.fillStyle([0xe1b475, 0xc693ae, 0x8aaa89][i % 3], 1 - t);
+        g.fillStyle([0xffd153, 0xff7aac, 0xa8d55d, 0xa48bea][i % 4], 1 - t);
         g.fillRect(x + Math.sin(i * 13) * w * .35 * t, top + t * h * .6 + Math.cos(i * 7) * 40, 4, 8);
       }
     } else {
-      this.image(this.tower, 'platform', x, top, width * 1.05, width * .115);
+      this.image(this.tower, 'platform', x, top - width * .1, width * 1.05, width * .23);
       if (!current && !a) {
-        this.label(this.tower, 'A little paper.\nA lot of possibility.', x, Math.max(35, top - 112), w < 420 ? 19 : 27);
-        this.label(this.tower, 'Choose a card to welcome your first guest', x, top - 47, w < 420 ? 10 : 12, '#728478');
+        if (h > 210) this.label(this.tower, 'A little paper.\nA lot of possibility.', x, Math.max(35, top - width * .26 - 86), w < 420 ? 19 : 27);
+        this.label(this.tower, 'Choose a card to welcome your first guest', x, Math.max(30, top - width * .26 - 38), w < 420 ? 10 : 12);
       }
     }
-    if (a && progress >= .18 && progress < .84 && current < a.after.links.length) {
-      const fraction = ((progress - .18) / .66 * a.after.lastEffect.added) % 1;
-      const next = a.after.links[current], pose = Math.min(2, Math.floor(fraction * 3));
-      this.image(this.tower, `unfold-${next.suit}-${pose}`, x, top - step / 2, width, step);
+    if (a && progress >= a.buildStart && progress < a.buildEnd && current < a.after.links.length) {
+      const fraction = ((progress - a.buildStart) / (a.buildEnd - a.buildStart) * a.after.lastEffect.added) % 1;
+      const next = a.after.links[current], pose = Math.min(3, Math.floor(fraction * 4));
+      for (let guest = 0; guest < 3; guest++) this.sprite(this.tower, `rooms-${next.suit}`, pose, x + (guest - 1) * width / 3, top - step / 2 - (1 - ease(fraction)) * 14, width / 3, step);
     }
     if (a) this.drawDelivery(a, progress, layout, current);
     else if (this.preview?.type === 'overgrow' && source) this.drawCopycat(layout, source, 0);
@@ -137,66 +151,82 @@ class HotelScene extends Phaser.Scene {
     this.game.canvas.dataset.floorCount = String(current);
     this.game.canvas.dataset.roof = String(done);
     this.game.canvas.dataset.phase = a ? 'resolving' : this.view.phase;
+    this.game.canvas.dataset.spriteFrames = this.frameLog.join(',');
+    this.game.canvas.dataset.action = a ? a.after.history.at(-1).type : 'idle';
+    this.game.canvas.dataset.choreography = !a ? 'idle' : progress < .18 ? 'spot' : progress < .34 ? 'stamp' : progress < a.buildStart ? 'send' : progress < a.buildEnd ? 'unfold' : 'celebrate';
+    this.game.canvas.dataset.motion = String(this.motion);
   }
   drawSky(w, h) {
-    const g = this.graphics(this.background);
-    // Folded sun, paper rays and soft horizon lines.
-    const sunX = w * .79, sunY = h * .2, radius = Math.min(36, h * .12);
-    g.fillStyle(0xefce88, .6); g.fillCircle(sunX, sunY, radius);
-    g.fillStyle(0xf3d995, .9); g.fillTriangle(sunX, sunY - radius, sunX + radius, sunY, sunX, sunY + radius);
-    g.lineStyle(1, 0xacbcac, .18);
-    for (let i = 0; i < 4; i++) g.lineBetween(w * .05, h * (.3 + i * .17), w * .9, h * (.27 + i * .17));
-    const drift = this.motion ? Math.sin(this.time.now / 16000) * 12 : 0;
-    this.image(this.background, 'cloud', w * .12 + drift, h * .25, Math.min(w * .28, 170), 72, -4, .8);
-    this.image(this.background, 'cloud', w * .87 - drift, h * .64, Math.min(w * .32, 210), 87, 4, .65);
-    this.image(this.background, 'cloud', w * .1 - drift / 2, h * .91, 130, 60, 0, .6);
-    this.image(this.background, 'balloon-bunny', w * .17, h * .56 + drift / 2, 21, 30, -6, .42);
-    this.image(this.background, 'balloon-cat', w * .88, h * .12 + drift / 2, 16, 23, 8, .35);
+    const drift = this.motion ? Math.sin(this.time.now / 18000) * 8 : 0;
+    const cover = Math.max(w / 1024, h / 1536);
+    this.background.add(this.add.image(w / 2, h / 2 + drift, 'sky').setDisplaySize(1024 * cover + 20, 1536 * cover + 20));
+    for (let i = 0; i < 3; i++) {
+      const cloudX = w * [.06, .94, .08][i] + drift * (i % 2 ? -1 : 1);
+      this.image(this.background, 'cloud', cloudX, h * [.23, .55, .86][i], Math.min(150, w * .22), Math.min(76, w * .11), i * 3 - 3, .85);
+    }
+    this.balloon(this.background, 'bunny', w * .12, h * .36 + drift, 35, 1, .85);
+    this.balloon(this.background, 'frog', w * .89, h * .14 - drift / 2, 27, 2, .8);
+    this.balloon(this.background, 'cat', w * .9, h * .8 + drift / 2, 41, 3, .85);
   }
   drawCopycat(layout, source, progress) {
-    const x = Math.max(43, layout.x - layout.width * .88), y = Math.max(60, this.scale.height * .58);
-    this.image(this.effects, 'cloud', x, y + 30, 99, 44);
-    this.image(this.effects, 'copycat', x, y - 15, 66, 73, progress > .3 && progress < .5 ? -7 : 0);
-    this.label(this.effects, `Copycat\n${source.suit[0].toUpperCase() + source.suit.slice(1)} ×${source.length}`, x, y + 57, 10);
+    const size = Math.min(115, this.scale.width * .2), x = Math.max(size / 2 + 5, layout.x - layout.width * .76);
+    const y = Math.max(65, this.scale.height * .5);
+    const pose = progress < .18 ? 0 : progress < .34 ? 1 : progress < .87 ? 2 : 3;
+    this.image(this.effects, 'cloud', x, y + size * .43, size * 1.4, size * .55);
+    this.sprite(this.effects, 'actors', pose, x, y, size, size, pose === 1 ? Math.sin(progress * 80) * 3 : 0);
+    this.label(this.effects, ['SPOT', 'STAMP', 'SEND', 'HOORAY!'][pose], x, y - size * .6, 11);
+    this.label(this.effects, source.suit[0].toUpperCase() + source.suit.slice(1) + ' ×' + source.length, x, y + size * .8, 10);
+    if (pose === 1) {
+      this.sprite(this.effects, 'rooms-' + source.suit, 0, x + size * .4, y + size * .3, size * .45);
+      const g = this.graphics(this.effects); g.lineStyle(2, 0xffe681, .9);
+      for (let i = 0; i < 5; i++) { const angle = i / 5 * Math.PI * 2; g.lineBetween(x + Math.cos(angle) * size * .55, y + Math.sin(angle) * size * .5, x + Math.cos(angle) * size * .65, y + Math.sin(angle) * size * .6); }
+    }
     return { x, y };
   }
   drawDelivery(a, progress, layout, current) {
     const card = a.after.history.at(-1), { x, base, step, width } = layout;
     const count = a.after.lastEffect.added, top = base - current * step;
-    let originX = x + width * .8, originY = this.scale.height * .85;
+    let originX = x + width * .72, originY = this.scale.height * .87;
     if (card.type === 'overgrow') {
       const actor = this.drawCopycat(layout, longestSegment(a.before), progress); originX = actor.x; originY = actor.y;
     }
     if (!count) {
-      this.image(this.effects, 'charm', x, Math.max(35, top - 65 - progress * 20), 54, 54, (1 - progress) * -15, Math.min(1, (1 - progress) * 3));
+      this.image(this.effects, 'charm', x, Math.max(40, top - 90 - progress * 30), 70, 67, Math.sin(progress * Math.PI * 5) * (1 - progress) * 14, Math.min(1, (1 - progress) * 4));
       return;
     }
     if (this.time.now - a.start < a.delay && card.type === 'mystery') {
-      this.image(this.effects, 'parcel', x, Math.max(40, top - 65), 64, 64, Math.sin(this.time.now / 65) * 5); return;
+      this.image(this.effects, 'parcel', x, Math.max(50, top - 80), 82, 78, Math.sin(this.time.now / 65) * 6); return;
     }
-    if (progress < .85) {
-      const suit = a.after.links[Math.min(a.after.links.length - 1, current)]?.suit ?? 'bunny';
-      const t = Math.min(1, progress / .55);
+    const suit = a.after.links[Math.min(a.after.links.length - 1, current)]?.suit ?? 'bunny';
+    const flightStart = card.type === 'overgrow' ? .32 : 0;
+    if (progress >= flightStart && progress < a.buildEnd) {
+      const t = Phaser.Math.Clamp((progress - flightStart) / (a.buildStart - flightStart + .1), 0, 1);
       const sourceX = card.type === 'recall' ? this.scale.width * (.25 + TYPES.indexOf(suit) * .25) : originX;
-      const sourceY = card.type === 'recall' ? -20 : originY;
-      const boxX = Phaser.Math.Linear(sourceX, x, t), boxY = Phaser.Math.Linear(sourceY, top - 27, t) - Math.sin(t * Math.PI) * 50;
-      this.image(this.effects, `box-${suit}`, boxX, boxY, 38, 38, (1 - t) * -16, 1 - Math.max(0, (progress - .7) * 6));
+      const sourceY = card.type === 'recall' ? -30 : originY;
+      const boxX = Phaser.Math.Linear(sourceX, x, t), boxY = Phaser.Math.Linear(sourceY, top - 42, t) - Math.sin(t * Math.PI) * 65;
+      const alpha = 1 - Phaser.Math.Clamp((progress - a.buildStart) / .3, 0, 1);
+      this.sprite(this.effects, 'rooms-' + suit, 0, boxX, boxY, 65, 65, (1 - t) * -18, alpha);
       if (card.type === 'recall') {
-        const fleet = Math.min(3, segments(a.before, card.suit).length);
-        for (let i = 0; i < fleet; i++) this.image(this.effects, `balloon-${suit}`, boxX + (i - (fleet - 1) / 2) * 22, boxY - 43 - (i % 2) * 10, 33, 48);
+        const fleet = Math.min(4, segments(a.before, card.suit).length);
+        for (let i = 0; i < fleet; i++) this.balloon(this.effects, suit, boxX + (i - (fleet - 1) / 2) * 34, boxY - 49 - i % 2 * 12, 62, i, Math.max(.2, alpha));
       }
-      const ordinary = count - (card.foundationBonus ?? 0);
-      if (ordinary > 1) this.label(this.effects, `×${ordinary}`, boxX + 30, boxY, 15);
-      if (card.foundationBonus && progress > .35) this.label(this.effects, `Streak +${card.foundationBonus}`, x, Math.max(30, top - 70), 12, '#927ba1');
+      if (count > 1 && alpha > .1) this.label(this.effects, '×' + count, boxX + 36, boxY - 12, 19);
     }
-    if (progress > .77) {
+    if (progress > a.buildEnd) {
+      const t = (progress - a.buildEnd) / (1 - a.buildEnd);
       const newRuns = segments(a.after).filter(run => run.id >= a.before.nextLinkId);
-      const t = (progress - .77) / .23;
       for (const [i, run] of newRuns.slice(0, 5).entries()) {
         const dockX = this.scale.width * (.25 + TYPES.indexOf(run.suit) * .25);
-        this.image(this.effects, `balloon-${run.suit}`, Phaser.Math.Linear(x, dockX, t) + Math.sin(t * Math.PI) * (i - 2) * 16, Phaser.Math.Linear(Math.max(top - 20, 50), -25, t), 27, 39, (1 - t) * 8);
+        this.balloon(this.effects, run.suit, Phaser.Math.Linear(x, dockX, t) + Math.sin(t * Math.PI) * (i - 2) * 23, Phaser.Math.Linear(Math.max(top - 20, 65), -35, t), 48, i);
+      }
+      this.label(this.effects, '+' + count + ' floors', x, Math.max(35, top - 30 - t * 25), 24, '#fff0a2');
+      const g = this.graphics(this.effects);
+      for (let i = 0; i < 12; i++) {
+        g.fillStyle([0xffd053, 0xff8cb3, 0xb7e568][i % 3], 1 - t);
+        g.fillRect(x + Math.sin(i * 9) * width * t, top - 10 - Math.sin(t * Math.PI) * 35 + Math.cos(i * 7) * t * 35, 3, 6);
       }
     }
+    if (card.foundationBonus && progress > .45) this.label(this.effects, 'Streak +' + card.foundationBonus, x, Math.max(18, top - 80), 12, '#fff0a2');
   }
 }
 

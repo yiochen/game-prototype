@@ -25,6 +25,8 @@ test('catalog opens an independent Phaser hotel with loaded art', async ({ page 
   await expect(page.locator('#world canvas')).toHaveAttribute('data-roof', 'false');
   await expect(page.locator('#offers button')).toHaveCount(3);
   expect(await page.locator('.offer-card img').evaluateAll(images => images.every(i => i.complete && i.naturalWidth))).toBe(true);
+  await expect(page.locator('.offer-card .sprite-art').first()).toHaveAttribute('data-sheet', /rooms-|actors|props/);
+  await expect(page.locator('#world canvas')).toHaveAttribute('data-sprite-frames', /actors:/);
   await screenshot(page, 'opening-desktop'); expect(errors).toEqual([]);
 });
 
@@ -101,4 +103,32 @@ test('controls and strategy effects fit phone, short phone, desktop and landscap
   }
   await page.locator('#rules-open').click(); const coins = await page.locator('#coins').textContent(); await page.keyboard.press('1'); await expect(page.locator('#coins')).toHaveText(coins); await expect(page.locator('#balance-table tr')).toHaveCount(14);
   await page.keyboard.press('Escape'); await expect(page.locator('#rules-open')).toBeFocused();
+});
+
+test('Copycat plays its generated poses and unfolding frames; reduced motion freezes idle sheets', async ({ page }) => {
+  await open(page, 0); for (const i of [0,1,1,1,1,0,1,1,1,0,1]) await buy(page, i);
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await expect(page.locator('#world canvas')).toHaveAttribute('data-motion', 'true');
+  await page.evaluate(() => {
+    const canvas = document.querySelector('#world canvas');
+    window.observedHotelFrames = new Set(); window.observedHotelStages = new Set();
+    window.hotelObserver = new MutationObserver(() => {
+      if (canvas.dataset.action !== 'overgrow') return;
+      canvas.dataset.spriteFrames.split(',').forEach(frame => window.observedHotelFrames.add(frame));
+      window.observedHotelStages.add(canvas.dataset.choreography);
+    });
+    window.hotelObserver.observe(canvas, { attributes: true });
+  });
+  await buy(page, 1);
+  await expect(page.locator('#world canvas')).toHaveAttribute('data-choreography', 'stamp'); await screenshot(page, 'copycat-stamp');
+  await expect(page.locator('#world canvas')).toHaveAttribute('data-choreography', 'unfold'); await screenshot(page, 'copycat-unfold');
+  await expect(page.locator('#world')).toHaveAttribute('data-state', 'picking', { timeout: 7000 });
+  const observed = await page.evaluate(() => { window.hotelObserver.disconnect(); return { frames: [...window.observedHotelFrames], stages: [...window.observedHotelStages] }; });
+  for (const frame of ['actors:0','actors:1','actors:2','actors:3','rooms-cat:1','rooms-cat:2']) expect(observed.frames).toContain(frame);
+  for (const stage of ['spot','stamp','send','unfold','celebrate']) expect(observed.stages).toContain(stage);
+  const idle = await page.locator('#world canvas').getAttribute('data-sprite-frames');
+  await expect.poll(() => page.locator('#world canvas').getAttribute('data-sprite-frames')).not.toBe(idle);
+  await page.emulateMedia({ reducedMotion: 'reduce' }); await expect(page.locator('#world canvas')).toHaveAttribute('data-motion', 'false');
+  const still = await page.locator('#world canvas').getAttribute('data-sprite-frames'); await page.waitForTimeout(700);
+  expect(await page.locator('#world canvas').getAttribute('data-sprite-frames')).toBe(still);
 });

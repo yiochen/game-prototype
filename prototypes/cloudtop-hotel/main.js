@@ -1,12 +1,19 @@
 import './style.css';
-import { ART } from './assets.js';
+import { ART, SHEETS, spriteArt } from './assets.js';
 import { mountWorld } from './world.js';
 import { paperAudio } from './audio.js';
 import { BALANCE, createGame, segments, longestSegment, preview, pick, advanceDeal, choiceSuits, suitInfo, mysteryOddsText, mysteryOutcomes, outcomePercent, finished } from './engine.js';
 
 const $ = id => document.getElementById(id);
 const node = (tag, className = '', text = '') => { const n = document.createElement(tag); n.className = className; n.textContent = text; return n; };
-const img = (key, className = '', alt = '') => { const image = node('img', className); image.src = ART[key]; image.alt = alt; return image; };
+const img = (key, className = '', alt = '') => {
+  const { sheet, frame } = spriteArt(key), { columns, rows } = SHEETS[sheet];
+  const holder = node('span', `sprite-art ${className}`), image = node('img');
+  holder.dataset.sheet = sheet; holder.dataset.frame = frame;
+  holder.style.setProperty('--cols', columns); holder.style.setProperty('--rows', rows);
+  holder.style.setProperty('--col', frame % columns); holder.style.setProperty('--row', Math.floor(frame / columns));
+  image.src = ART[sheet]; image.alt = alt; holder.append(image); return holder;
+};
 const randomSeed = () => Math.random().toString(36).slice(2, 9);
 const human = text => text.replaceAll('Foundation', 'Neighborhood Streak').replaceAll('Attunement', 'Type Lock').replaceAll('Reactor', 'Room Pattern').replaceAll('Assembler', 'Master Fold').replaceAll('Mystery', 'Surprise Parcel').replaceAll('Stabilizer', 'Lucky Bell').replaceAll('Recall', 'Balloon Call').replace(/\bsuit\b/g, 'room type').replace(/\bsuited\b/g, 'typed').replace(/\blinks?\b/g, m => m === 'links' ? 'floors' : 'floor').replace(/\bsegments?\b/g, m => m === 'segments' ? 'neighborhoods' : 'neighborhood');
 let state = createGame(new URL(location.href).searchParams.get('seed') || randomSeed());
@@ -40,16 +47,24 @@ function art(card) {
   const holder = node('div', 'card-art'); holder.setAttribute('aria-hidden', 'true');
   if (card.sequence) card.sequence.forEach((type, i) => { if (i) holder.append(node('span', 'art-arrow', '›')); holder.append(img(`resident-${type}-0`, 'mosaic-guest')); });
   else if (card.type === 'overgrow') holder.append(img('copycat'));
-  else if (card.type === 'mystery') holder.append(img('parcel'), img(`resident-${card.suit}-0`, 'art-guest'));
+  else if (card.type === 'mystery') holder.append(img('parcel'));
   else if (card.type === 'recall') holder.append(img(`balloon-${card.suit}`));
   else if (card.type === 'choice') ['bunny', 'frog', 'cat'].forEach(type => holder.append(img(`resident-${type}-0`, 'choice-guest')));
   else if (card.family === 'base') {
-    holder.append(img(`box-${card.suit}`, 'art-box'));
+    holder.append(img(`resident-${card.suit}-0`, 'art-room'));
     if (card.type === 'triple') holder.append(img(`box-${card.suit}`, 'extra-box'));
-    holder.append(img(`resident-${card.suit}-1`, 'art-guest'));
-  } else holder.append(img('charm'), card.suit ? img(`resident-${card.suit}-0`, 'art-guest') : node('span', 'charm-symbol', card.type === 'foundation' ? '↗' : card.type === 'rebate' ? '✦' : ''));
+  } else if (card.type === 'foundation' || card.type === 'assembler') {
+    holder.classList.add('art-stair');
+    for (let i = 0; i < 3; i++) holder.append(img(`resident-${card.type === 'foundation' ? 'bunny' : ['bunny','frog','cat'][i]}-0`, `stair-room stair-${i}`));
+  } else if (card.type === 'rebate') {
+    holder.classList.add('art-coins'); for (let i = 0; i < 3; i++) holder.append(img('coin', `paper-coin coin-${i}`));
+  } else if (card.type === 'vault') holder.append(img('coin'), img(`resident-${viewTopType()}-0`, 'art-guest'));
+  else if (card.type === 'attunement') holder.append(img(`balloon-${card.suit}`), node('span', 'lock-seal', `${BALANCE.strategy.attunement.shops}`));
+  else if (card.type === 'suit') holder.append(img(`resident-${card.suit}-0`), img(`box-${card.suit}`, 'extra-box'));
+  else holder.append(img('charm'));
   return holder;
 }
+function viewTopType() { return (resolvingBefore ?? state).links.at(-1)?.suit ?? BALANCE.wealth.vault.openingSuit; }
 function renderDock(view) {
   const runs = segments(view);
   $('dock').replaceChildren(...BALANCE.suits.map(type => {
