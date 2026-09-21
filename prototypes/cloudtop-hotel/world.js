@@ -126,7 +126,6 @@ class HotelScene extends Phaser.Scene {
     if (done) {
       const drop = this.ending === null ? 1 : ease((this.time.now - this.ending) / 650);
       this.image(this.tower, 'roof', x, top - width * .31 - (1 - drop) * 60, width * 1.08, width * .67, 0, drop);
-      this.label(this.tower, 'CLOUDTOP HOTEL', x, Math.min(h - 16, base + 19), Math.max(9, 13 * scale));
       const g = this.graphics(this.effects);
       if (this.ending !== null && this.time.now - this.ending < 2100) for (let i = 0; i < 20; i++) {
         const t = (this.time.now - this.ending) / 2100;
@@ -135,10 +134,6 @@ class HotelScene extends Phaser.Scene {
       }
     } else {
       this.image(this.tower, 'platform', x, top - width * .1, width * 1.05, width * .23);
-      if (!current && !a) {
-        if (h > 210) this.label(this.tower, 'A little paper.\nA lot of possibility.', x, Math.max(35, top - width * .26 - 86), w < 420 ? 19 : 27);
-        this.label(this.tower, 'Choose a card to welcome your first guest', x, Math.max(30, top - width * .26 - 38), w < 420 ? 10 : 12);
-      }
     }
     if (a && progress >= a.buildStart && progress < a.buildEnd && current < a.after.links.length) {
       const fraction = ((progress - a.buildStart) / (a.buildEnd - a.buildStart) * a.after.lastEffect.added) % 1;
@@ -158,8 +153,6 @@ class HotelScene extends Phaser.Scene {
   }
   drawSky(w, h) {
     const drift = this.motion ? Math.sin(this.time.now / 18000) * 8 : 0;
-    const cover = Math.max(w / 1024, h / 1536);
-    this.background.add(this.add.image(w / 2, h / 2 + drift, 'sky').setDisplaySize(1024 * cover + 20, 1536 * cover + 20));
     for (let i = 0; i < 3; i++) {
       const cloudX = w * [.06, .94, .08][i] + drift * (i % 2 ? -1 : 1);
       this.image(this.background, 'cloud', cloudX, h * [.23, .55, .86][i], Math.min(150, w * .22), Math.min(76, w * .11), i * 3 - 3, .85);

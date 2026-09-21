@@ -9,10 +9,12 @@ Spend 100 coins on one of three offers. Purchases append rooms at the open top; 
 The complete card set includes One Room, Prefab Pack, Room Choice, Surprise Parcel, 24 Mosaic sequences, Balloon Call, Copycat, Room Pattern, Master Fold, Lucky Bell, Reserve Delivery, Coupon Book, Neighborhood Streak and Type Lock. Rules and a balance reference are available in the game. Room Choice opens a cancellable picker; Streak and Lock remain visible while active.
 
 - Keys 1 / 2 / 3 buy offers; Escape closes dialogs.
-- Reveal now finishes the committed delivery without rerolling.
-- Whole hotel toggles between the open top and an overview.
-- Sound is opt-in. Reduced motion respects the system setting and can be toggled in game.
-- Replay restarts the same seed; New hotel creates a new guestbook.
+- Open the paper menu button for sound, motion, Workshop, rules, camera view and restart controls. Escape closes it; game shortcuts are blocked while a menu or dialog is open.
+- The menu's Reveal now finishes the committed delivery without rerolling. Whole hotel toggles between the open top and an overview.
+- Sound is opt-in. Reduced motion respects the system setting and can be toggled in the menu.
+- Replay restarts the same seed; New hotel creates a new guestbook. Workshop and rules return to the menu when closed.
+
+The paper sky fills the viewport behind the HUD, hotel and cards. Cards sit in a slanted tray with CSS perspective, slight individual rotations and a raised front lip. The main view keeps counters, the Balloon Dock, current strategy effects and the cards; titles, headings, footer controls and decorative scene text are absent. Portrait and short landscape layouts share the same scene and menu.
 
 ## Ownership and architecture
 

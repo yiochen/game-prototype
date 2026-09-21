@@ -10,6 +10,8 @@ The prototype implements the full current card set with hotel terminology, appen
 
 Original generated PNG sheets, WebP delivery exports, frame maps and the exact generation prompts live in [assets/sprites](assets/sprites/README.md). The three windows across a rendered floor are decorative: one complete row remains one floor and one scoring unit. Guest idle poses never change a floor's type, order or identity.
 
+The live layout uses the paper sky across the full viewport. The card tray tilts in perspective, has a raised front edge, and fans the outer cards slightly. There is no visible game title, shop heading, footer or decorative background copy. A single menu contains sound, reduced motion, the whole-hotel view, reveal/skip, Workshop, rules, Replay and New hotel. Only counters, the Balloon Dock, active strategy effects and card information remain in the play view; result summaries and brief delivery feedback are contextual.
+
 The sections below remain the visual direction for continued polish: detailed actor choreography, contact haptics and richer sound design can build on the playable implementation. The acceptance checklist describes the target presentation; automated coverage is listed in the README.
 
 

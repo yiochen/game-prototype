@@ -15,9 +15,11 @@ const img = (key, className = '', alt = '') => {
   image.src = ART[sheet]; image.alt = alt; holder.append(image); return holder;
 };
 const randomSeed = () => Math.random().toString(36).slice(2, 9);
+document.querySelector('.sky-backdrop').style.backgroundImage = `url("${ART.sky}")`;
+$('coin-art').append(img('coin'));
 const human = text => text.replaceAll('Foundation', 'Neighborhood Streak').replaceAll('Attunement', 'Type Lock').replaceAll('Reactor', 'Room Pattern').replaceAll('Assembler', 'Master Fold').replaceAll('Mystery', 'Surprise Parcel').replaceAll('Stabilizer', 'Lucky Bell').replaceAll('Recall', 'Balloon Call').replace(/\bsuit\b/g, 'room type').replace(/\bsuited\b/g, 'typed').replace(/\blinks?\b/g, m => m === 'links' ? 'floors' : 'floor').replace(/\bsegments?\b/g, m => m === 'segments' ? 'neighborhoods' : 'neighborhood');
 let state = createGame(new URL(location.href).searchParams.get('seed') || randomSeed());
-let scene, resolvingBefore = null, epoch = 0, choiceIndex = null;
+let scene, resolvingBefore = null, epoch = 0, choiceIndex = null, menuReturn = null;
 const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
 let reduced = motionQuery.matches;
 const world = mountWorld($('world'));
@@ -112,7 +114,7 @@ function renderOffers(view) {
     button.addEventListener('pointercancel', () => { canceled = true; scene?.inspect(null); });
     button.addEventListener('mouseenter', () => { if (!button.disabled) { scene?.inspect(card); $('preview').textContent = p.fullDetail; } });
     button.addEventListener('focus', () => { if (!button.disabled) { scene?.inspect(card); $('preview').textContent = p.fullDetail; } });
-    for (const event of ['mouseleave', 'blur']) button.addEventListener(event, () => { scene?.inspect(null); $('preview').textContent = 'A cozy room for every sky traveler.'; });
+    for (const event of ['mouseleave', 'blur']) button.addEventListener(event, () => { scene?.inspect(null); $('preview').textContent = ''; });
     button.addEventListener('click', () => { if (!canceled) select(i); canceled = false; });
     return button;
   }));
@@ -122,19 +124,16 @@ function render() {
   $('height').textContent = view.links.length; $('coins').textContent = state.cash;
   renderDock(view); renderWorkshop(view); renderOffers(view);
   $('reveal-now').hidden = state.phase !== 'resolving';
-  $('offers').hidden = done; $('ending').hidden = !done;
-  $('shop-title').textContent = done ? 'A place in the clouds.' : state.phase === 'resolving' ? 'A little paper magic…' : 'What shall we build?';
-  $('deal').textContent = done ? 'Construction complete' : `Delivery ${state.deals}`;
+  $('offers').hidden = done; $('tray').hidden = done; $('ending').hidden = !done;
   $('overview').disabled = !view.links.length; $('seed-label').textContent = `Guestbook ${state.seed}`;
   $('world').dataset.state = state.phase; document.querySelector('.hotel-app').classList.toggle('complete', done);
   $('floor-record').replaceChildren(...view.links.map((floor, i) => { const li = node('li', '', `Floor ${i + 1}: ${suitInfo(floor.suit).name}`); li.dataset.floorId = floor.id; li.dataset.type = floor.suit; return li; }));
   if (done) {
-    $('ending-title').textContent = `${state.links.length} floors. A sky full of stories.`;
-    $('ending-detail').textContent = `${segments(state).length} neighborhoods · ${state.cash} coins saved · Everyone is welcome.`;
+    $('ending-title').textContent = `${state.links.length} floors`;
+    $('ending-detail').textContent = `${segments(state).length} neighborhoods · ${state.cash} coins saved`;
     $('status').textContent = 'Your guests have arrived. Welcome home.';
   } else if (state.phase === 'resolving') $('status').textContent = state.history.at(-1).type === 'mystery' ? 'Unwrapping your surprise…' : 'Your delivery is unfolding…';
-  document.querySelector('.world-note').hidden = !!view.links.length;
-  $('motion-toggle').setAttribute('aria-pressed', String(reduced));
+  $('motion-toggle').setAttribute('aria-pressed', String(reduced)); document.documentElement.classList.toggle('reduced-motion', reduced);
 }
 function select(index) {
   if (loading || state.phase !== 'picking' || document.querySelector('dialog[open]')) return;
@@ -158,7 +157,7 @@ function commit(index, selectedType) {
     const entry = state.history.at(-1);
     advanceDeal(state); resolvingBefore = null;
     $('status').textContent = entry.links ? `+${entry.links} ${entry.links === 1 ? 'floor' : 'floors'}. ${entry.type === 'mosaic' ? 'A new patchwork of neighbors.' : 'Make room for possibility.'}` : `${entry.name} is ready for you.`;
-    render(); scene.setState(state); $('overview').textContent = scene.whole ? '↕ Back to the top' : '↕ Whole hotel'; $('preview').textContent = 'A cozy room for every sky traveler.';
+    render(); scene.setState(state); $('overview').textContent = scene.whole ? 'Back to the top' : 'Whole hotel'; $('preview').textContent = '';
     if (!reduced) { $('height').animate([{ transform: 'translateY(-2px)' }, { transform: 'translateY(0)' }], { duration: 180 }); }
   };
   let lastFloor = before.links.length;
@@ -166,10 +165,10 @@ function commit(index, selectedType) {
   else scene.animate(before, structuredClone(state), { onFrame: count => { $('height').textContent = count; if (count > lastFloor) { audio.fold(); lastFloor = count; } }, onComplete: complete });
 }
 function restart(seed) {
-  ++epoch; for (const dialog of document.querySelectorAll('dialog[open]')) dialog.close();
+  ++epoch; menuReturn = null; for (const dialog of document.querySelectorAll('dialog[open]')) dialog.close();
   resolvingBefore = null; choiceIndex = null; state = createGame(seed); setSeed();
-  $('status').textContent = 'Choose one card. A new delivery follows.'; $('preview').textContent = 'A cozy room for every sky traveler.';
-  $('overview').textContent = '↕ Whole hotel'; render(); scene?.reset(state);
+  $('status').textContent = 'Choose one card. A new delivery follows.'; $('preview').textContent = '';
+  $('overview').textContent = 'Whole hotel'; render(); scene?.reset(state);
 }
 function balanceTable() {
   const rows = [];
@@ -182,14 +181,19 @@ function balanceTable() {
   $('balance-table').replaceChildren(...rows.map(row => { const tr = node('tr'); for (const value of row) tr.append(node('td', '', value)); return tr; }));
 }
 $('sound-toggle').addEventListener('click', () => { const enabled = audio.toggle(); $('sound-toggle').textContent = enabled ? 'Sound on' : 'Sound off'; $('sound-toggle').setAttribute('aria-pressed', String(enabled)); });
-$('rules-open').addEventListener('click', () => $('rules-dialog').showModal());
-$('workshop-open').addEventListener('click', () => $('workshop-dialog').showModal());
+$('menu-open').addEventListener('click', () => { scene?.inspect(null); $('menu-dialog').showModal(); });
+$('resume').addEventListener('click', () => $('menu-dialog').close());
+for (const [button, dialog] of [['rules-open', 'rules-dialog'], ['workshop-open', 'workshop-dialog']]) {
+  $(button).addEventListener('click', () => { menuReturn = button; $('menu-dialog').close(); $(dialog).showModal(); });
+  $(dialog).addEventListener('close', () => { if (menuReturn !== button) return; menuReturn = null; $('menu-dialog').showModal(); $(button).focus(); });
+}
+$('menu-dialog').addEventListener('close', () => { if (!menuReturn && !document.querySelector('dialog[open]')) $('menu-open').focus(); });
 $('choice-dialog').addEventListener('close', () => { choiceIndex = null; });
-$('reveal-now').addEventListener('click', () => scene?.skip());
-$('overview').addEventListener('click', () => { $('overview').textContent = scene.toggleOverview() ? '↕ Back to the top' : '↕ Whole hotel'; });
-for (const id of ['replay', 'end-replay']) $(id).addEventListener('click', () => restart(state.seed));
+$('reveal-now').addEventListener('click', () => { scene?.skip(); $('menu-dialog').close(); });
+$('overview').addEventListener('click', () => { $('overview').textContent = scene.toggleOverview() ? 'Back to the top' : 'Whole hotel'; $('menu-dialog').close(); });
+$('replay').addEventListener('click', () => restart(state.seed));
 $('new-game').addEventListener('click', () => restart(randomSeed()));
-function applyMotion(value) { reduced = value; if (scene) { scene.motion = !reduced; if (reduced) { scene.skip(); scene.tower.y = 0; } scene.draw(); } $('motion-toggle').setAttribute('aria-pressed', String(reduced)); }
+function applyMotion(value) { reduced = value; document.documentElement.classList.toggle('reduced-motion', reduced); if (scene) { scene.motion = !reduced; if (reduced) { scene.skip(); scene.tower.y = 0; } scene.draw(); } $('motion-toggle').setAttribute('aria-pressed', String(reduced)); }
 $('motion-toggle').addEventListener('click', () => applyMotion(!reduced)); motionQuery.addEventListener('change', e => applyMotion(e.matches));
 document.addEventListener('keydown', event => { if (!event.repeat && !event.ctrlKey && !event.metaKey && !event.altKey && /^[123]$/.test(event.key) && !document.querySelector('dialog[open]')) { event.preventDefault(); select(Number(event.key) - 1); } });
 setSeed(); balanceTable(); render();

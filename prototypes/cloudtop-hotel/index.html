@@ -2,13 +2,32 @@
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#398ecb"><meta name="description" content="A cozy paper-building game. Welcome guests, collect neighborhood balloons, and unfold an impossibly tall hotel."><title>Cloudtop Hotel · A little paper, a lot of possibility</title></head>
 <body>
-<main class="hotel-app">
-  <header class="masthead"><a href="/" class="brand" aria-label="Cloudtop Hotel · all prototypes"><span class="brand-mark" aria-hidden="true">⌂</span><span><small>A PAPER SKY ADVENTURE</small><strong>Cloudtop Hotel</strong></span></a><div class="header-actions"><span class="parade">The Sky Parade is coming.</span><button id="workshop-open">Workshop <span id="upgrade-count">0</span></button><button id="rules-open" aria-label="How to play">?</button></div></header>
-  <section class="dashboard" aria-label="Hotel status"><div class="stat"><span class="stat-label">HOTEL HEIGHT</span><strong><span id="height">0</span><small>floors</small></strong></div><div class="balloon-dock"><span class="dock-label">YOUR BALLOON DOCK</span><div id="dock" aria-label="Neighborhood balloons"></div></div><div class="stat coins"><span class="stat-label">COINS LEFT</span><strong><span class="coin-icon" aria-hidden="true">✦</span><span id="coins">100</span></strong></div></section>
-  <section class="world-section" aria-label="Hotel construction"><div class="world-note"><span class="chapter">ONE NIGHT ABOVE PATCHWORK VALLEY</span><p>More guests.<br>More possibilities.</p></div><div id="world"></div><div id="strategy-status" aria-live="polite" hidden></div><button id="overview" title="View the entire hotel" disabled>↕ Whole hotel</button><div id="preview" class="world-preview" aria-live="polite">A cozy room for every sky traveler.</div><ol id="floor-record" class="sr-only" aria-label="Floors from bottom to top"></ol></section>
-  <section class="shop" aria-label="Card shop"><div class="shop-heading"><div><span class="eyebrow">THE FOLDING TABLE</span><h1 id="shop-title">What shall we build?</h1></div><div class="delivery-status"><p id="status" role="status">Choose one card. A new delivery follows.</p><button id="reveal-now" hidden>Reveal now ↗</button><span id="deal">Delivery 1</span></div></div><div id="offers" class="offers"></div><div id="ending" class="ending" hidden><div><small>THE SKY PARADE HAS ARRIVED</small><h2 id="ending-title"></h2><p id="ending-detail"></p></div><button id="end-replay">Fold another story ↗</button></div></section>
-  <footer><span class="footer-story">Made of paper. Filled with possibility.</span><span id="seed-label"></span><button id="sound-toggle" aria-pressed="false">Sound off</button><button id="motion-toggle" aria-pressed="false">Reduce motion</button><button id="replay">Replay</button><button id="new-game">New hotel ↗</button></footer>
+<div class="sky-backdrop" aria-hidden="true"></div>
+<main class="hotel-app" aria-label="Cloudtop Hotel">
+  <section class="dashboard" aria-label="Hotel status">
+    <div class="stat coins"><span class="stat-label">COINS</span><strong><span id="coin-art" aria-hidden="true"></span><span id="coins">100</span></strong></div>
+    <div class="balloon-dock"><span class="dock-label">BALLOON DOCK</span><div id="dock" aria-label="Neighborhood balloons"></div></div>
+    <div class="stat height"><span class="stat-label">FLOORS</span><strong id="height">0</strong></div>
+    <button id="menu-open" aria-label="Open menu" aria-haspopup="dialog" aria-controls="menu-dialog"><span aria-hidden="true">☰</span></button>
+    <div id="strategy-status" aria-live="polite" hidden></div>
+  </section>
+  <section class="world-section" aria-label="Hotel construction"><div id="world"></div><ol id="floor-record" class="sr-only" aria-label="Floors from bottom to top"></ol></section>
+  <section class="shop" aria-label="Card tray">
+    <div id="tray" class="tray"><div id="offers" class="offers"></div></div>
+    <div id="ending" class="ending" hidden><h2 id="ending-title"></h2><p id="ending-detail"></p></div>
+  </section>
+  <p id="status" class="sr-only" role="status">Choose one card to build your hotel.</p>
+  <p id="preview" class="sr-only" aria-live="polite"></p>
 </main>
+<dialog id="menu-dialog" aria-labelledby="menu-title">
+  <div class="dialog-heading"><h2 id="menu-title">Menu</h2><form method="dialog"><button id="menu-close" aria-label="Close menu">×</button></form></div>
+  <div class="menu-body">
+    <button id="resume">Back to the hotel</button>
+    <div class="menu-controls"><button id="sound-toggle" aria-pressed="false">Sound off</button><button id="motion-toggle" aria-pressed="false">Reduce motion</button><button id="overview" disabled>Whole hotel</button><button id="reveal-now" hidden>Reveal now</button><button id="workshop-open">Workshop <span id="upgrade-count">0</span></button><button id="rules-open">How to play</button></div>
+    <div class="menu-controls menu-new"><button id="replay">Replay this hotel</button><button id="new-game">New hotel</button></div>
+    <div class="menu-foot"><a href="/">All games</a><span id="seed-label"></span></div>
+  </div>
+</dialog>
 <dialog id="choice-dialog" aria-labelledby="choice-title"><div class="dialog-heading"><div><small>ROOM CHOICE</small><h2 id="choice-title">Who’s checking in?</h2></div><form method="dialog"><button aria-label="Cancel room choice">×</button></form></div><p class="dialog-intro">Choose a room type. You only pay when you choose.</p><div id="room-choices"></div></dialog>
 <dialog id="workshop-dialog" aria-labelledby="workshop-title"><div class="dialog-heading"><div><small>YOUR PAPER ENGINE</small><h2 id="workshop-title">The workshop</h2></div><form method="dialog"><button aria-label="Close workshop">×</button></form></div><p class="dialog-intro">Little tools. Bigger possibilities.</p><div id="installed"></div></dialog>
 <dialog id="rules-dialog" aria-labelledby="rules-title"><div class="dialog-heading"><div><small>A LITTLE FIELD GUIDE</small><h2 id="rules-title">Welcome, innkeeper.</h2></div><form method="dialog"><button aria-label="Close rules">×</button></form></div><div class="rules-body"><p>Spend your 100 coins to build the tallest paper hotel you can. Choose one of three cards; the other two are replaced. Every new floor arrives at the open top. Finished floors never change.</p><p>Consecutive rooms of one type form a <strong>neighborhood</strong>. Every new neighborhood adds one reusable balloon to your Dock. Balloon Call turns matching balloons into new rooms; Copycat copies half your largest neighborhood, up to 8 rooms.</p><p><strong>Neighborhood Streak</strong> adds +1, +2, +3… for purchases of the same type. Switching type or buying Mosaic ends it; untyped powers pause it. <strong>Type Lock</strong> keeps typed offers matching for three shops. During a lock, Room Choice is restricted and Mosaic pauses.</p><p>Choose Room Choice’s type before paying. Mosaic’s arrows read left to right on the card, bottom to top on your hotel. Mosaic gets no Room Pattern or Master Fold extras, but Coupon Book still applies.</p><p>All prices must be affordable before any refund. Powers count only through the floors they create. When you can afford no more cards, your hotel receives its roof and welcomes the Sky Parade.</p><table><thead><tr><th>Card</th><th>Coins</th><th>Effect</th></tr></thead><tbody id="balance-table"></tbody></table><p class="muted">Keys 1 / 2 / 3 buy cards. Escape closes a dialog. Reveal now completes a delivery without changing its result. Reduced motion reveals immediately. Replay uses the same deliveries and choices.</p></div></dialog>
