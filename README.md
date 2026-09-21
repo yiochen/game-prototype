@@ -15,6 +15,8 @@ Open the local URL printed by Vite. The homepage lists all registered prototypes
 
 - [One More Card](prototypes/one-more-card/README.md) — `/prototypes/one-more-card/`
 - [Its balance table](prototypes/one-more-card/balance.js)
+- [Cloudtop Hotel](prototypes/cloudtop-hotel/README.md) — `/prototypes/cloudtop-hotel/`
+- [Cloudtop Hotel design](prototypes/cloudtop-hotel/CLOUDTOP_HOTEL_DESIGN.md)
 
 ## Layout
 
@@ -43,6 +45,8 @@ netlify.toml
 2. Add `{ "slug": "your-slug", "title": "Your Game", "description": "What you play" }` to `prototypes.json`.
 3. Add engine tests as `tests/*.test.js` and browser tests as `tests/*.spec.js` inside that game's directory.
 4. Run `npm run check`. The homepage and production build include the new entry automatically.
+
+Cloudtop Hotel declares its Phaser dependency in its own package manifest, installed through npm workspaces.
 
 Games can use different implementations. Keep their rules and balance independent; share tooling rather than game state.
 

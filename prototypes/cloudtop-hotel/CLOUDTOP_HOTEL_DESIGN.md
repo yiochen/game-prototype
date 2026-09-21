@@ -1,6 +1,15 @@
 # Cloudtop Hotel — Story and Animation Direction
 
-Status: concept specification for re-theming the One More Card prototype. Names for individual cards are working names unless marked as a core term.
+Status: playable Phaser prototype and continuing story/animation direction. Gameplay below reflects the current append-only card set; visual details describe both the implemented foundation and the target polish. Names for individual cards are working names unless marked as a core term. Prices and strengths are a snapshot of [`balance.js`](balance.js); [`engine.js`](engine.js) is the implemented rules reference.
+
+## Prototype implementation
+
+The playable Phaser implementation now lives in this folder, independently of One More Card. The homepage registers it as Cloudtop Hotel. See [README.md](README.md) for local play, ownership and verification.
+
+The prototype implements the full current card set with hotel terminology, append-only floor rules, exact Mosaic order, Room Choice, Neighborhood Streak and Type Lock. Phaser renders the original SVG room facades, five resident poses per type, staged paper unfolding, camera follow, balloons, Copycat and the end-of-run roof. The DOM provides the accessible shop, Balloon Dock, persistent strategy indicators, rules and Workshop. Reveal now, replay cancellation, reduced motion and optional sound are supported.
+
+The sections below remain the visual direction for continued polish: detailed actor choreography, contact haptics and richer sound design can build on the playable implementation. The acceptance checklist describes the target presentation; automated coverage is listed in the README.
+
 
 ## Product fantasy
 
@@ -52,6 +61,31 @@ All effects may inspect the completed tower, but every newly created floor is ap
 
 Every power calculates its sources and output before it creates new floors. A balloon earned by the resulting floors appears after the delivery and cannot contribute to the same action.
 
+## Current card set
+
+Prototype names identify implemented cards; hotel names describe their intended presentation. Every output goes to the open top. Power purchases have no incidental floor, but a suited power purchase can earn Foundation bonus floors.
+
+| Prototype card | Hotel presentation | Current price | Rule |
+| --- | --- | --- | --- |
+| Fixed 1 | One Room | $3 | Append 1 floor of its printed type, plus applicable bonuses. |
+| Fixed 3 | Prefab Pack | $6 | Append 3 floors of its printed type, plus applicable bonuses. |
+| Choice 1 | Choice 1; working name | $4 | Choose the type before payment; append 1 floor plus that type's applicable bonuses. |
+| Mystery | Surprise Parcel | $6 | One draw: 1 / 3 / 8 floors at baseline odds of 60% / 30% / 10%, then applicable bonuses. |
+| Mosaic | Mosaic Trio / Sandwich / Pair | $6 | Append the exact printed three-floor pattern; 24 possible sequences. |
+| Recall | Balloon Call | $7 | Append 1 matching floor per existing matching neighborhood, regardless of neighborhood length. |
+| Overgrow | Copycat | $5 | Append the largest neighborhood's type: half its length, rounded down, minimum 1 and maximum 8. Earliest neighborhood wins ties. |
+| Suit Reactor | Room Pattern | $6 / $8 / $10 per level | Future base builds of its type gain +1 / +2 / +3 floors. Includes Choice 1 and Mystery; excludes Mosaic. |
+| Assembler | Master Fold | $9 / $12 / $15 per level | Future Fixed 1, Fixed 3 and Choice 1 builds gain +1 / +2 / +3 floors. Stacks with Room Pattern. |
+| Stabilizer | Lucky Bell | $7 / $9 / $11 per level | Improves Surprise Parcel odds; the chance of 8 floors becomes 19% / 27.1% / 34.39%. |
+| Vault | Reserve Delivery | $8 | Append 1 floor per $10 left after payment, rounded down. Use the current top type, or the configured opening type on an empty tower. |
+| Rebate | Coupon Book | $5 | Refund $2 on each of the next 3 base purchases, including Choice 1 and Mosaic. |
+| Foundation | Neighborhood Streak | $7 | Next suited purchase gains +1; each subsequent same-type purchase gains +2, +3… A different type or Mosaic ends it. |
+| Attunement | Type Lock | $6 | Lock suited offers to its printed type for the next 3 shops. |
+
+Reactor levels replace their previous strength rather than adding together. Foundation, Attunement and Coupon Book cannot stack or refresh while active; they can be purchased again after their effect ends. Every purchase requires the full price upfront. Refunds cannot reduce a base purchase's net cost below $1.
+
+Polish and the old capped Recall / Full Load are replaced by Balloon Call. Foundation replaces the proposed Landmark. Extension, Scaffolding, Follow Suit and Wild Selection are outside this card set. Delivery Contract—the proposed automatic floor after each of the next N purchases—remains a separate, unimplemented idea.
+
 ## Screen composition
 
 ### Persistent HUD
@@ -61,6 +95,10 @@ The top of the screen contains:
 1. Current hotel height.
 2. Coins remaining.
 3. Balloon Dock counters: Bunny/Pink ×N, Frog/Green ×N, Cat/Orange ×N.
+4. Active Foundation type and next bonus, or “Foundation ready · next +1” before its first suited purchase.
+5. Active Attunement type and remaining shops, including the currently visible shop.
+
+Keep the two strategy indicators visible while viewing the tower; do not hide essential streak or expiry information exclusively in the Workshop. Use small paper tabs that disappear when their effect ends.
 
 The Balloon Dock is authoritative. Balloons do not remain attached to lower neighborhoods because those floors eventually move offscreen.
 
@@ -86,6 +124,8 @@ Three large paper cards remain fixed at the bottom. The card art is part of the 
 - Construction cards contain folded boxes.
 - Technique cards unfold like tiny paper stages.
 - Persistent upgrades fold into charms or tools and move into the Engine/Workshop view.
+- Strategy powers install a visible Foundation counter strip or Attunement seal with remaining-shop tabs.
+- Mosaic cards display all three type symbols and arrows in construction order: left to right on the card means bottom to top in the tower. No type has a fixed bottom or top position across offers.
 
 ## Motion language
 
@@ -140,7 +180,9 @@ Dragging roughly 10 pixels away cancels the pending purchase and restores the ca
 
 ### 2. Commit
 
-On pointer-up over the card:
+For Choice 1, pointer-up first opens the type picker. Show the exact total and Foundation consequence for each allowed type. Cancel or Escape restores the offer without payment, rerolling, or consuming an Attunement shop. Block background purchases while the picker is open and restore focus on cancellation. Choosing a type performs the commit below once.
+
+For other cards, pointer-up over the card commits directly:
 
 1. Charge the price immediately.
 2. Fold the two unchosen cards closed and slide them downward into the tray.
@@ -154,15 +196,17 @@ On pointer-up over the card:
 - Technique card: it unfolds into a miniature stage and releases balloons, Copycat, or another actor.
 - Upgrade card: it folds into a charm/tool and attaches to the appropriate Dock chip or Workshop slot.
 - Economy card: coins, coupons, or paper scraps visibly move between the card and HUD.
+- Strategy card: a paper counter strip or seal unfolds into its HUD home.
+- If Foundation awards a bonus, append its separately marked boxes after the card's ordinary output. A suited upgrade or Attunement purchase can install its prop and then deliver Foundation floors. Calculate the bonus from the pre-purchase streak; do not let generated floors advance it again.
 
 ### 4. Finish and deal
 
 After the result is physically settled:
 
 1. Increment height and any secondary counters on the same frame as the final paper snap.
-2. Resolve a new-neighborhood balloon, if applicable.
+2. Register one balloon for each new neighborhood created by the full ordered output. A same-type batch creates at most one; Mosaic can create several. Foundation floors may extend the final neighborhood rather than creating another.
 3. Fold the spent card flat and slide it away.
-4. Deal three new cards as closed paper packets, then unfold them together.
+4. Consume one active Attunement shop for this purchase, unless this purchase installed Attunement. Deal three new cards under the resulting lock state as closed paper packets, then unfold them together. The engine commits the countdown with the purchase; the visual tab tear presents that committed change without decrementing it a second time.
 
 Further purchases remain unavailable while resolving, but a **Reveal now** control immediately completes the current sequence without rerolling or changing the committed result.
 
@@ -237,7 +281,7 @@ Resident actions must not imply gameplay bonuses. Floor type remains recognizabl
 
 ## New neighborhood and balloon registration
 
-A new neighborhood begins when the newly appended floor type differs from the previous top floor type.
+A new neighborhood begins on the first floor of an empty tower, or when the newly appended floor type differs from the previous top floor type. Inspect the complete ordered batch, including Mosaic transitions and any Foundation bonus. Queue a balloon for every new neighborhood and register them after the delivery; none can affect that same purchase’s payout.
 
 ### Sequence
 
@@ -256,12 +300,12 @@ If the appended floor matches the previous top type, skip the balloon sequence. 
 
 ## Balloon Call
 
-Working rule: Recall and Polish merge into this single power. Append one matching floor for each existing matching neighborhood. The output is the matching Balloon Dock count captured before the action.
+Current mechanic: **Recall**, $7. Recall and Polish merge into this single power. Append one matching floor for each existing matching neighborhood, regardless of its length. The output is the matching Balloon Dock count captured before the action: one Pink neighborhood of length 8 pays one floor; two Pink neighborhoods of lengths 1 and 8 pay two. There is no per-neighborhood length cap or Full Load variant.
 
 ### Preview
 
 - Expand the matching Dock chip.
-- Show `balloons ×N → +N floors`.
+- Show `balloons ×N → +N floors`. If Foundation applies, show its bonus separately, for example `4 balloons + Foundation 2 → 6 Pink floors`; the balloon count remains four.
 - Fan the stored balloon edges just enough to imply a fleet.
 - Show N ghost floor outlines above the open top, or show up to five outlines plus an ×N label for larger results.
 
@@ -278,7 +322,7 @@ Working rule: Recall and Polish merge into this single power. Append one matchin
 
 ## Copycat
 
-Working rule: identify the largest existing neighborhood, derive a configured number of floors from its length, and append copied floors of that type at the open top. The source neighborhood never changes.
+Current mechanic: **Overgrow**, $5. Identify the largest existing neighborhood, calculate `floor(length / 2)` clamped between 1 and 8, and append copied floors of that type at the open top. Read the source once before adding floors. No source floor is changed or moved. An earlier source neighborhood stays the same size; if the source is already at the open top, the new matching floors naturally extend it. Copycat is a suitless purchase, so it neither advances nor ends Foundation, even when its output type differs from the Foundation type.
 
 ### Copycat character
 
@@ -332,17 +376,72 @@ Names remain provisional; the animations are canonical.
 - Boxes then use the normal construction sequence.
 - Skipping the reveal never rerolls the outcome.
 
-### Choice 1 and Mosaic
+### Choice 1
 
-Choice 1 is a premium single-floor base card: select its floor type before payment. The picker previews all applicable bonuses and cancellation spends nothing.
+Current rule: $4 for one floor of a chosen type, compared with $3 for One Room. Room Pattern, Master Fold, Coupon Book and Foundation all use the final choice normally.
 
-Mosaic presents its full three-floor order before purchase. Variants are ABC, ABA, AAB, and ABB across floor-type permutations. Deliver and unfold boxes in exactly that order, bottom to top. Each new neighborhood registers its own balloon; there can be multiple new neighborhoods in a Mosaic delivery. Existing floors never change. Mosaic uses its printed pattern without Reactor or Assembler extras.
+1. Open a small paper sample book with a tab for each allowed type.
+2. Each tab shows the exact output and price. When Foundation is active, also show its bonus or “Ends Foundation.”
+3. Do not spend coins or choose a result until the player selects a tab. Cancellation closes the book and returns to the unchanged shop.
+4. On selection, stamp a blank prefab box with the chosen type and deliver it to the open top. Only the new, undelivered box changes appearance.
+5. Show upgrade and Foundation bonus boxes as additional deliveries, using the same type.
 
-### Foundation and Attunement
+While Attunement is active, show only its allowed type and explain the lock. Choice 1 does not bypass it. Preserve this explicit choice step and its exact payout preview even when only one option remains.
 
-Foundation replaces the earlier Landmark idea. The next suited purchase starts a streak at +1, then same-type purchases earn +2, +3, and so on. Switching types or buying Mosaic ends it; suitless purchases pause the streak. Show the chosen type and next bonus in the persistent HUD. Bonus floors arrive after the ordinary purchase resolves, with no recursive triggers.
+### Mosaic
 
-Attunement fixes all suited offers to its type for the next three shops. Display its type and remaining shops in the HUD. Choice 1 is restricted to that type; Mosaic offers pause until it expires. Suitless powers keep their normal behavior. Each purchase consumes one shop; installing the effect does not consume its first use.
+Current rule: $6 for an exact three-floor sequence, fixed when the offer is dealt. Letters below stand for distinct floor types, not particular colors.
+
+| Variant | Pattern | Example, bottom to top |
+| --- | --- | --- |
+| Trio | ABC | Frog → Bunny → Cat |
+| Sandwich | ABA | Cat → Frog → Cat |
+| Pair first | AAB | Bunny → Bunny → Frog |
+| Pair last | ABB | Frog → Cat → Cat |
+
+Each pattern has six type assignments with the current three types, giving 24 distinct sequences. Every type can appear first or last. Preview the full order and its relationship to the current top; never choose a new order during resolution.
+
+1. The card unfolds into a three-pocket delivery sleeve, numbered 1–3.
+2. Lift out the three printed boxes in order. Keep their type symbols visible throughout travel.
+3. Deliver to the open top in the displayed order, first printed box at the bottom of the new batch.
+4. The first box may extend the old top neighborhood. Each subsequent type change begins another neighborhood.
+5. After the batch settles, register one balloon per new neighborhood. A Trio on an empty tower creates three; a Pair creates two. Matching the previous top can reduce the number of new neighborhoods by one.
+
+Mosaic receives no Room Pattern or Master Fold extras and ends Foundation before any bonus. It counts as a base purchase for Coupon Book. It is unavailable during Attunement, so the player never sees a mixed-type offer contradicting the 100% lock.
+
+## Strategy powers
+
+### Neighborhood Streak
+
+Current rule: $7. The next purchase with a printed or chosen type starts a streak at +1 bonus floor. Each further purchase of that type gains +2, +3, and so on, with no fixed duration or cap. Buying another type or Mosaic ends the effect before awarding a bonus; it does not automatically restart on the new type.
+
+The streak follows **purchase types, not the current top neighborhood**. Type-specific Balloon Call, Room Pattern and Attunement purchases advance it, as do ordinary base cards and the selected type of Choice 1. Suitless purchases, including Copycat, Reserve Delivery, Master Fold, Lucky Bell and Coupon Book, leave it unchanged. Generated floors do not count as purchases. Foundation cannot be refreshed or stacked while active; after it ends, it can be bought again.
+
+#### Install and trigger animation
+
+1. Foundation unfolds into an accordion counter strip beside the tower HUD, showing “Ready · next +1.” It adds no floor on installation and places nothing beneath the existing tower.
+2. The first suited purchase stamps that type onto the strip. Preview its normal output and Foundation bonus separately, then show the total.
+3. Resolve the purchased card normally. Pull the committed number of matching bonus prefab boxes from the strip and append them at the open top.
+4. Advance the strip to the next bonus after delivery: +1 earned → next +2. A suited power that creates no ordinary floors still gets this delivery.
+5. On a different-type purchase or Mosaic, show “Ends Foundation” before commitment. Fold the strip closed without a bonus delivery. Suitless purchases leave it visibly paused at the same next bonus.
+
+Example: Foundation → Pink One Room yields 2 floors → Pink Balloon Call with one Pink neighborhood yields 1 + 2 = 3 floors → Pink Choice 1 yields 1 + 3 = 4 floors, before other upgrades. A Green One Room then yields its normal output and closes Foundation.
+
+### Type Lock
+
+Current rule: $6 for a card with a printed type. **100% of suited offers** in the next three shops use that type. Card families and types still vary; suitless cards remain eligible with their normal effects. This is an offer filter, not a conversion of existing floors, a Mystery-odds change, or a guarantee of three base cards.
+
+Choice 1 permits only the locked type. Mosaic is temporarily ineligible. Foundation still evaluates the Attunement card's printed type: buying matching Attunement can earn a streak bonus; a different type ends the streak. Attunement cannot stack or refresh while active, and can be bought again after expiry.
+
+#### Install, countdown and expiry animation
+
+1. Fold the card into a colored seal on the offer tray with three perforated shop tabs. The installation purchase consumes no tab.
+2. Stamp the seal onto the next three offer packets before they open. Every type-bearing offer displays the locked type; keep suitless card art neutral.
+3. The HUD shows “Pink Attunement · 3 shops left,” including the currently open shop.
+4. Every committed purchase from a locked shop tears off one tab, including suitless purchases. Merely previewing a card, opening or canceling Choice 1, or skipping an animation consumes nothing extra.
+5. After the first and second purchases, reveal shops with two and one tabs left. The third shop is still locked. After its purchase, fold the empty seal away and reveal an unrestricted fourth shop.
+
+Do not show mixed-type mosaics or off-type Choice tabs during a lock. On replay or a new game, clear both strategy props and all pending animation state.
 
 ## Persistent upgrades
 
@@ -350,20 +449,20 @@ Exact names can change, but every upgrade needs a visible home and a future trig
 
 | Current mechanic | Working presentation | Install animation | Future trigger |
 | --- | --- | --- | --- |
-| Floor-type Reactor | **Room Pattern** | Card folds into a patterned swatch and pins beside the matching Balloon Dock chip. | Swatch stamps bonus boxes after a matching base build. |
-| Assembler | **Master Fold** | Instruction card folds into a golden crease guide in the Workshop. | Guide flashes and slides bonus boxes from behind fixed Prefab cards. |
+| Floor-type Reactor | **Room Pattern** | Card folds into a patterned swatch and pins beside the matching Balloon Dock chip. | Swatch stamps bonus boxes after a matching base build, including Choice 1 and Surprise Parcel; excludes Mosaic. |
+| Assembler | **Master Fold** | Instruction card folds into a golden crease guide in the Workshop. | Guide flashes for One Room, Prefab Pack and Choice 1; excludes Surprise Parcel and Mosaic. |
 | Stabilizer | **Lucky Bell** | Tiny bell charm clips beneath the Surprise Parcel icon. | Bell rings once before the committed Mystery parcel opens. |
 
 Upgrade levels replace their old visual value. Do not stack three separate copies of the same charm. Instead, enrich the installed prop with another fold, stripe, star, or bell.
 
-Upgrades never modify existing floors. Their animation occurs only when a later eligible construction card creates bonus boxes.
+Upgrade effects never modify existing floors. Their bonus animation occurs only when a later eligible construction card creates boxes. A separate Foundation bonus can accompany the installation purchase of a type-specific Room Pattern; show its source as Foundation, not as the newly installed upgrade.
 
 ## Economy effects
 
 ### Coupon Book / Rebate
 
 1. Card folds into a coupon strip under the coin counter.
-2. Each eligible base purchase tears off one perforated tab.
+2. Each eligible base purchase, including Choice 1 and Mosaic, tears off one perforated tab.
 3. Refund coins arc back into the counter after the gross cost is visibly paid.
 4. Remaining uses decrement on the same frame as the tab tear.
 5. Non-base purchases leave the strip untouched.
@@ -444,6 +543,7 @@ When `prefers-reduced-motion: reduce` is active:
 - Reduce Copycat to source highlight → stamp flash → completed floors.
 - Replace the end camera pullback with a dissolve to the full-tower view.
 - Preserve all counts, source highlights, and completion feedback.
+- Show Mosaic in its exact order with static type symbols. Update Foundation and Attunement props directly; skipping never adds a streak step or consumes another shop.
 
 ### Reveal now
 
@@ -470,6 +570,10 @@ The paper style is designed to work with generated still assets and deterministi
 - Construction platform and separate corner tabs.
 - Technique stages/clouds.
 - Upgrade charms and level variants.
+- Choice 1 sample-book tabs and a blank prefab box.
+- Reusable three-pocket Mosaic sleeve with type symbols and order markers.
+- Foundation accordion strip with ready, typed, increment, and closed states.
+- Attunement seals for each type with three, two, one, and zero remaining-shop tabs.
 - Final roof tiers and completion sign.
 
 ### Generation constraints
@@ -512,11 +616,19 @@ assets/
 - [ ] Newly earned balloons never contribute to the action that earned them.
 - [ ] Balloon Dock counters remain readable when source neighborhoods are offscreen.
 - [ ] Balloon Call visibly connects its Dock count to the number of delivered floors.
-- [ ] Copycat identifies a source, leaves it intact, stamps copies, and sends them only to the top.
+- [ ] Copycat identifies a source, copies half its length rounded down (minimum 1, maximum 8), and sends copies only to the top; earlier neighborhoods keep their size.
+- [ ] Balloon Call pays one floor per matching neighborhood, regardless of length, and displays Foundation extras separately.
+- [ ] Choice 1 previews the selected type's bonuses; canceling preserves coins, offers, streak, countdown, and random state.
+- [ ] Mosaic shows the exact order before purchase, supports all 24 sequences, and awards one balloon per newly created neighborhood.
+- [ ] Mosaic receives no Room Pattern or Master Fold extras, ends Foundation, and remains eligible for Coupon Book.
+- [ ] Foundation advances once per matching suited purchase, pauses on suitless purchases, and ends before a switched-type or Mosaic bonus could be awarded.
+- [ ] Foundation bonus floors only arrive at the open top; no animation suggests work under or inside the existing tower.
+- [ ] Attunement locks exactly three future shops, including Choice 1, excludes Mosaic, and releases the fourth shop.
+- [ ] Installing Attunement consumes no shop; each subsequent purchase consumes one, even a suitless purchase.
+- [ ] Strategy state stays readable on phone and landscape layouts; replay clears it.
 - [ ] Resident animation begins only after the room shell locks.
 - [ ] Floor variants preserve type color, size, and fold anchors.
 - [ ] No roof appears until the run is complete.
 - [ ] All committed animations can be skipped without changing the result.
 - [ ] Reduced-motion mode communicates sources and results without large movement.
 - [ ] One ordinary purchase resolves in about one second; large powers remain under about two seconds before optional celebration.
-
