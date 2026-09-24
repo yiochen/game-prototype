@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
-import { createGame, pick, advanceDeal, finished, segments, choiceSuits } from '../engine.js';
+import { createGame, pick, advanceDeal, beginRoof, finishRoof, finished, segments, choiceSuits } from '../engine.js';
 const ROOT = '/prototypes/cloudtop-hotel/';
 const card = (page, i) => page.locator(`#offers [data-offer-index="${i}"]`);
 const help = (page, i) => page.locator(`#offers [data-offer-help="${i}"]`);
@@ -15,6 +15,16 @@ async function buy(page, i, suit) {
 async function control(page, id) {
   if (!await page.locator('#menu-dialog').isVisible()) await page.locator('#menu-open').click();
   await page.locator('#' + id).click();
+}
+async function reachRoof(page, seed = 1) {
+  await open(page, seed); const state = createGame(seed);
+  while (state.phase === 'picking') {
+    const index = state.offer.findIndex(c => c.price <= state.cash);
+    const suit = state.offer[index].type === 'choice' ? choiceSuits(state)[0] : undefined;
+    await buy(page, index, suit); pick(state, index, suit); advanceDeal(state);
+  }
+  await expect(page.locator('#world')).toHaveAttribute('data-state', 'roof-ready');
+  return state;
 }
 async function screenshot(page, name) { await mkdir('artifacts/cloudtop-hotel', { recursive: true }); await page.screenshot({ path: `artifacts/cloudtop-hotel/${name}.png` }); }
 async function paperLoads(page, selector, variable) {
@@ -42,6 +52,9 @@ test('catalog opens an independent Phaser hotel with loaded art', async ({ page 
   await expect(page.locator('#world canvas')).toHaveAttribute('data-roof', 'false');
   await expect(page.locator('#offers .offer-card')).toHaveCount(3);
   await expect(page.locator('#offers .card-help')).toHaveCount(3);
+  await expect(page.locator('.dock-label')).toHaveCount(0);
+  await expect(page.locator('.deck-card')).toHaveCount(9);
+  expect(await page.locator('.deck-card').evaluateAll(cards => cards.every(c => c.inert && c.getAttribute('aria-hidden') === 'true' && c.querySelector('img') && !c.querySelector('button')))).toBe(true);
   await expect.poll(() => page.locator('.offer-card img').evaluateAll(images => images.every(i => i.complete && i.naturalWidth))).toBe(true);
   await expect(page.locator('.offer-card .card-art').first()).toBeVisible();
   await paperLoads(page, '#offers .offer-card', '--card-paper');
@@ -49,9 +62,9 @@ test('catalog opens an independent Phaser hotel with loaded art', async ({ page 
   await screenshot(page, 'opening-desktop'); expect(errors).toEqual([]);
 });
 
-test('full run matches engine, registers neighborhoods and adds roof only after completion', async ({ page }) => {
+test('full run matches engine and waits for the free roof card before completion', async ({ page }) => {
   const errors = []; page.on('pageerror', e => errors.push(e.message)); await open(page, 1); const s = createGame(1);
-  while (!finished(s)) {
+  while (s.phase === 'picking') {
     await expect(page.locator('#world canvas')).toHaveAttribute('data-roof', 'false');
     const i = s.offer.findIndex(c => c.price <= s.cash), selected = s.offer[i].type === 'choice' ? choiceSuits(s)[0] : undefined;
     const previous = s.links.map(l => l.suit); await buy(page, i, selected); pick(s, i, selected); advanceDeal(s);
@@ -61,6 +74,21 @@ test('full run matches engine, registers neighborhoods and adds roof only after 
     await expect(page.locator('#world canvas')).toHaveAttribute('data-floor-count', String(s.links.length));
     for (const type of ['bunny', 'frog', 'cat']) await expect(page.locator(`.dock-chip.${type} .dock-count`)).toHaveText(String(segments(s, type).length));
   }
+  expect(s.phase).toBe('roof-ready'); expect(finished(s)).toBe(false);
+  await expect(page.locator('#world canvas')).toHaveAttribute('data-roof', 'false');
+  await expect(page.locator('#world canvas')).toHaveAttribute('data-roof-stage', 'awaiting');
+  await expect(page.locator('#offers .offer-card')).toHaveCount(1);
+  await expect(page.locator('#roof-card')).toContainText('FREE');
+  await expect(page.locator('#roof-card .card-art [data-sheet=props][data-frame="3"]')).toBeVisible();
+  await expect(page.locator('#roof-card .price')).toHaveText('0');
+  await expect(page.locator('#ending')).toBeHidden();
+  await page.waitForTimeout(400); await expect(page.locator('#world canvas')).toHaveAttribute('data-roof', 'false');
+  for (const size of [{ width: 390, height: 844 }, { width: 844, height: 390 }]) { await page.setViewportSize(size); await screenFits(page); }
+  await screenshot(page, 'free-roof-card');
+  const beforeRoof = structuredClone(s);
+  await page.locator('#roof-card').click(); beginRoof(s); finishRoof(s);
+  expect(s.links).toEqual(beforeRoof.links); expect(s.cash).toBe(beforeRoof.cash); expect(s.history).toEqual(beforeRoof.history);
+  await expect(page.locator('#height')).toHaveText(String(s.links.length)); await expect(page.locator('#coins')).toHaveText(String(s.cash));
   await expect(page.locator('#world canvas')).toHaveAttribute('data-roof', 'true'); await expect(page.locator('#ending')).toBeVisible(); await expect(page.locator('#offers')).toBeHidden();
   await screenshot(page, 'completed-hotel');
   const overviewCount = await page.locator('#world canvas').evaluate(c => JSON.parse(c.dataset.visibleFloors).length);
@@ -70,6 +98,51 @@ test('full run matches engine, registers neighborhoods and adds roof only after 
   await screenshot(page, 'completed-closeup');
   for (const size of [{ width: 320, height: 480 }, { width: 844, height: 390 }]) { await page.setViewportSize(size); await screenFits(page); }
   await control(page, 'replay'); await expect(page.locator('#height')).toHaveText('0'); await expect(page.locator('#world canvas')).toHaveAttribute('data-roof', 'false'); expect(errors).toEqual([]);
+});
+
+test('free roof drops only after selection; reveal, motion changes and replay settle or cancel once', async ({ page }) => {
+  const errors = []; page.on('pageerror', error => errors.push(error.message));
+  const state = await reachRoof(page), canvas = page.locator('#world canvas');
+  const floorIds = await page.locator('#floor-record li').evaluateAll(items => items.map(item => item.dataset.floorId));
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.evaluate(() => {
+    const canvas = document.querySelector('#world canvas'); window.roofStages = new Set();
+    window.roofObserver = new MutationObserver(() => window.roofStages.add(canvas.dataset.roofStage));
+    window.roofObserver.observe(canvas, { attributes: true, attributeFilter: ['data-roof-stage'] });
+  });
+  await page.locator('#roof-card').click(); await expect(page.locator('#world')).toHaveAttribute('data-state', 'launching');
+  await expect(canvas).toHaveAttribute('data-roof-stage', 'awaiting');
+  await page.keyboard.press('1');
+  await expect(canvas).toHaveAttribute('data-roof-stage', 'dropping');
+  await expect(page.locator('#world')).toHaveAttribute('data-state', 'roofing');
+  await expect(page.locator('#ending')).toBeHidden(); await expect(canvas).toHaveAttribute('data-roof', 'false');
+  const airborne = JSON.parse(await canvas.getAttribute('data-tower-bounds')).top;
+  await page.waitForTimeout(220);
+  expect(JSON.parse(await canvas.getAttribute('data-tower-bounds')).top).toBeGreaterThan(airborne);
+  await screenshot(page, 'selected-roof-dropping');
+  await expect(page.locator('#world')).toHaveAttribute('data-state', 'complete');
+  await expect(canvas).toHaveAttribute('data-roof-stage', 'landed'); await expect(canvas).toHaveAttribute('data-roof', 'true');
+  expect(await page.evaluate(() => { window.roofObserver.disconnect(); return [...window.roofStages]; })).toEqual(expect.arrayContaining(['dropping','settling','landed']));
+  await expect(page.locator('#coins')).toHaveText(String(state.cash));
+  expect(await page.locator('#floor-record li').evaluateAll(items => items.map(item => item.dataset.floorId))).toEqual(floorIds);
+
+  // Reset both before the roof card pops and while the roof itself is falling.
+  for (const phase of ['launching', 'roofing']) {
+    await reachRoof(page); await page.emulateMedia({ reducedMotion: 'no-preference' }); await page.locator('#roof-card').click();
+    await expect(page.locator('#world')).toHaveAttribute('data-state', phase);
+    await control(page, 'replay'); await page.waitForTimeout(1250);
+    await expect(page.locator('#world')).toHaveAttribute('data-state', 'picking');
+    await expect(page.locator('#height')).toHaveText('0'); await expect(page.locator('#coins')).toHaveText('100'); await expect(canvas).toHaveAttribute('data-roof', 'false');
+  }
+  // Reveal handles a pending card and its newly-created roof animation together.
+  await reachRoof(page); await page.emulateMedia({ reducedMotion: 'no-preference' }); await page.locator('#roof-card').click();
+  await control(page, 'reveal-now'); await expect(page.locator('#world')).toHaveAttribute('data-state', 'complete');
+  await expect(page.locator('#coins')).toHaveText(String(state.cash));
+  await reachRoof(page); await page.emulateMedia({ reducedMotion: 'no-preference' }); await page.locator('#roof-card').click();
+  await expect(page.locator('#world')).toHaveAttribute('data-state', 'roofing');
+  await page.emulateMedia({ reducedMotion: 'reduce' }); await expect(page.locator('#world')).toHaveAttribute('data-state', 'complete');
+  await expect(canvas).toHaveAttribute('data-roof', 'true'); await expect(page.locator('#coins')).toHaveText(String(state.cash));
+  expect(errors).toEqual([]);
 });
 
 test('Mosaic prints its order, appends it exactly, and closes the streak', async ({ page }) => {

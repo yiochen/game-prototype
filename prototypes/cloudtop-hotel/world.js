@@ -5,6 +5,7 @@ import { segments, longestSegment } from './engine.js';
 const TYPES = ['bunny', 'frog', 'cat'];
 const INK = '#fff8dd';
 const ease = n => 1 - (1 - Phaser.Math.Clamp(n, 0, 1)) ** 3;
+const finishing = phase => ['roof-ready', 'roofing', 'complete'].includes(phase);
 
 // The scene only presents committed state. No gameplay decision depends on a sprite or timer.
 class HotelScene extends Phaser.Scene {
@@ -18,22 +19,38 @@ class HotelScene extends Phaser.Scene {
   }
   setState(state) {
     const wasDone = this.view?.phase === 'complete';
-    this.animation = null; this.view = structuredClone(state);
+    this.animation = null; this.roofAnimation = null; this.view = structuredClone(state);
+    this.roofLanded = state.phase === 'complete';
     this.ending = state.phase === 'complete' && !wasDone && this.motion ? this.time.now : null;
-    if (state.phase === 'complete' && !wasDone) this.whole = true;
+    if (finishing(state.phase)) { this.whole = true; this.cameraBase = null; this.tower.y = 0; }
     if (state.phase !== 'complete') this.ending = null;
     this.draw();
   }
-  reset(state) { this.cameraBase = null; this.tower.y = 0; this.whole = false; this.preview = null; this.ending = null; this.view = null; this.setState(state); }
+  reset(state) { this.animation = null; this.roofAnimation = null; this.roofLanded = false; this.cameraBase = null; this.tower.y = 0; this.whole = false; this.preview = null; this.ending = null; this.view = null; this.setState(state); }
   inspect(offer) { this.preview = offer; this.draw(); }
-  toggleOverview() { this.whole = !this.whole; this.draw(); return this.whole; }
+  toggleOverview() { if (!this.roofAnimation) this.whole = !this.whole; this.draw(); return this.whole; }
   animate(before, after, { onFrame, onComplete }) {
     this.preview = null;
     const type = after.history.at(-1).type, count = after.lastEffect.added;
     this.animation = { before, after, start: this.time.now, onFrame, onComplete, delay: type === 'mystery' ? 700 : 100, duration: type === 'overgrow' ? 3200 : count ? Math.min(2900, 1300 + count * 140) : 900, buildStart: type === 'overgrow' ? .47 : .25, buildEnd: .87 };
     this.draw();
   }
+  dropRoof(state, { onComplete }) {
+    this.animation = null; this.preview = null; this.ending = null;
+    this.view = structuredClone(state); this.roofLanded = false;
+    this.whole = true; this.cameraBase = null; this.tower.y = 0;
+    this.roofAnimation = { start: this.time.now, fall: 740, settle: 360, onComplete };
+    if (!this.motion) { this.skip(); return; }
+    this.draw();
+  }
   skip() {
+    if (this.roofAnimation) {
+      const roof = this.roofAnimation;
+      // Clear the callback before notifying the UI: its final render may call
+      // setState, and another reveal/skip must never finish the roof twice.
+      this.roofAnimation = null; this.roofLanded = true;
+      this.draw(); roof.onComplete(); return;
+    }
     const animation = this.animation;
     if (!animation) return;
     this.animation = null; this.view = animation.after; animation.onComplete();
@@ -41,11 +58,15 @@ class HotelScene extends Phaser.Scene {
   update(time, delta) {
     if (!this.view) return;
     this.tower.y *= Math.exp(-delta / 85);
-    if (time - this.lastDraw < 1000 / 12) return;
+    if (time - this.lastDraw < 1000 / (this.roofAnimation ? 30 : 12)) return;
     this.lastDraw = time;
     if (this.animation) {
       const a = this.animation, elapsed = time - a.start;
       if (elapsed >= a.delay + a.duration) { this.skip(); return; }
+      this.draw();
+    } else if (this.roofAnimation) {
+      const roof = this.roofAnimation;
+      if (!this.motion || time - roof.start >= roof.fall + roof.settle) { this.skip(); return; }
       this.draw();
     } else if (this.motion) this.draw();
   }
@@ -90,13 +111,14 @@ class HotelScene extends Phaser.Scene {
   layout(count) {
     const region = this.screenRegion();
     const floorWidth = Math.min(330, region.width * .61, Math.max(100, region.height * .76)), floorHeight = floorWidth / 3;
-    const finished = this.view?.phase === 'complete';
+    const finished = finishing(this.view?.phase);
     // The island extends .48 widths below the first floor; the finished roof
     // extends .65 above the last. Include both in the whole-hotel camera fit.
     const cap = finished ? .65 : .23;
     const overviewScale = Math.min(1, region.height / Math.max(floorHeight * count + floorWidth * (cap + .5), 1));
-    const ending = this.ending === null ? 1 : ease((this.time.now - this.ending) / 1600);
-    const scale = this.whole ? (finished ? 1 + (overviewScale - 1) * ending : overviewScale) : 1;
+    // Fit the roof before the free card is selected, so neither the fall nor
+    // the final celebration changes the size of the already-built hotel.
+    const scale = this.whole ? overviewScale : 1;
     const width = floorWidth * scale, step = floorHeight * scale;
     const headroom = finished ? width * .68 + 10 : Math.max(region.height * .2, width * .23 + 25);
     const base = this.whole ? region.bottom - width * .5 : Math.max(region.bottom - width * .12, region.top + headroom + count * step);
@@ -145,12 +167,30 @@ class HotelScene extends Phaser.Scene {
         const g = this.graphics(this.tower); g.lineStyle(2, source ? 0x9f8abc : 0xf6f0c5, .9); g.strokeRoundedRect(x - width / 2 - 3, y - step / 2, width + 6, step, 3);
       }
     }
-    const done = this.view.phase === 'complete';
-    if (done) {
-      const drop = this.ending === null ? 1 : ease((this.time.now - this.ending) / 650);
-      this.image(this.tower, 'roof', x, top - width * .31 - (1 - drop) * 60, width * 1.08, width * .67, 0, drop);
+    const done = this.view.phase === 'complete', roof = this.roofAnimation;
+    let roofStage = done || this.roofLanded ? 'landed' : finishing(this.view.phase) ? 'awaiting' : 'none';
+    let roofOffset = 0;
+    if (roof || done || this.roofLanded) {
+      let squash = 1;
+      if (roof) {
+        const elapsed = Math.max(0, this.time.now - roof.start);
+        if (elapsed < roof.fall) {
+          roofStage = 'dropping';
+          const t = Phaser.Math.Clamp(elapsed / roof.fall, 0, 1);
+          // A gravity-like fall accelerates toward the tower; all distances
+          // derive from the current layout so resizing cannot detach the roof.
+          roofOffset = -Math.max(65, Math.min(layout.region.height * .3, width * 1.15)) * (1 - t * t);
+        } else {
+          roofStage = 'settling';
+          const t = Phaser.Math.Clamp((elapsed - roof.fall) / roof.settle, 0, 1);
+          roofOffset = -(Math.sin(t * Math.PI * 2) ** 2) * (1 - t) * width * .065;
+          squash = 1 - Math.sin(t * Math.PI * 3) * (1 - t) * .065;
+        }
+      }
+      if (roof) this.image(this.tower, 'platform', x, top - width * .1, width * 1.05, width * .23);
+      this.image(this.tower, 'roof', x, top - width * .31 + roofOffset + width * .335 * (1 - squash), width * 1.08, width * .67 * squash);
       const g = this.graphics(this.effects);
-      if (this.ending !== null && this.time.now - this.ending < 2100) for (let i = 0; i < 20; i++) {
+      if (done && this.ending !== null && this.time.now - this.ending < 2100) for (let i = 0; i < 20; i++) {
         const t = (this.time.now - this.ending) / 2100;
         g.fillStyle([0xffd153, 0xff7aac, 0xa8d55d, 0xa48bea][i % 4], 1 - t);
         g.fillRect(x + Math.sin(i * 13) * w * .35 * t, top + t * h * .6 + Math.cos(i * 7) * 40, 4, 8);
@@ -167,14 +207,15 @@ class HotelScene extends Phaser.Scene {
     else if (this.preview?.type === 'overgrow' && source) this.drawCopycat(layout, source, 0);
     this.game.canvas.dataset.visibleFloors = JSON.stringify(visible);
     this.game.canvas.dataset.floorCount = String(current);
-    this.game.canvas.dataset.roof = String(done);
+    this.game.canvas.dataset.roof = String(done || this.roofLanded);
+    this.game.canvas.dataset.roofStage = roofStage;
     this.game.canvas.dataset.phase = a ? 'resolving' : this.view.phase;
     this.game.canvas.dataset.spriteFrames = this.frameLog.join(',');
-    this.game.canvas.dataset.action = a ? a.after.history.at(-1).type : 'idle';
-    this.game.canvas.dataset.choreography = !a ? 'idle' : progress < .18 ? 'spot' : progress < .34 ? 'stamp' : progress < a.buildStart ? 'send' : progress < a.buildEnd ? 'unfold' : 'celebrate';
+    this.game.canvas.dataset.action = roof ? 'roof' : a ? a.after.history.at(-1).type : 'idle';
+    this.game.canvas.dataset.choreography = roof ? roofStage : !a ? 'idle' : progress < .18 ? 'spot' : progress < .34 ? 'stamp' : progress < a.buildStart ? 'send' : progress < a.buildEnd ? 'unfold' : 'celebrate';
     this.game.canvas.dataset.motion = String(this.motion);
     this.game.canvas.dataset.viewRegion = JSON.stringify(layout.region);
-    this.game.canvas.dataset.towerBounds = JSON.stringify({ left: x - width * .7, right: x + width * .7, top: top - width * (done ? .65 : .23), bottom: base + width * .48, overview: this.whole });
+    this.game.canvas.dataset.towerBounds = JSON.stringify({ left: x - width * .7, right: x + width * .7, top: top - width * (roof || done || this.roofLanded ? .65 : .23) + roofOffset, bottom: base + width * .48, overview: this.whole });
   }
   drawSky(w, h) {
     const drift = this.motion ? Math.sin(this.time.now / 18000) * 8 : 0;

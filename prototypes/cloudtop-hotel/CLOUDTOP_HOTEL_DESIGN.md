@@ -10,7 +10,7 @@ The prototype implements the full current card set with hotel terminology, appen
 
 Original generated PNG sheets, WebP delivery exports, frame maps and the exact generation prompts live in [assets/sprites](assets/sprites/README.md). The three windows across a rendered floor are decorative: one complete row remains one floor and one scoring unit. Guest idle poses never change a floor's type, order or identity.
 
-The live layout uses the paper sky and transparent Phaser canvas across the full viewport, beneath the HUD and card tray. The tower continues behind the tray instead of being clipped at a separate playfield boundary; the camera uses the actual HUD/tray bounds to keep construction readable and fit the complete roof and island in overview. Nine clouds drift and five islands bob independently. The cardboard tray uses a generated textured asset with a fixed native 3:1 aspect ratio. Scale the box and its card plane together; never stretch width and height independently to fill the viewport. Cards lie on one projected floor plane with contact shadows and a front rim overlapping their lower edges; short or wide landscape layouts put the tray beside the hotel. The HUD follows the paper mock: warm ivory paper plaques support dark counters, animal balloons overlap their ×N tabs, a coin marks the balance, and a pink heart marks the existing hotel-height total. The heart adds no lives mechanic and retains the accessible “Floors” label. Visible “Coins” and “Floors” labels are omitted. A generated torn-paper banner labels the Balloon Dock.
+The live layout uses the paper sky and transparent Phaser canvas across the full viewport, beneath the HUD and card tray. The tower continues behind the tray instead of being clipped at a separate playfield boundary; the camera uses the actual HUD/tray bounds to keep construction readable and fit the complete roof and island in overview. Nine clouds drift and five islands bob independently. The cardboard tray uses a generated textured asset with a fixed native 3:1 aspect ratio. Scale the box and its card plane together; never stretch width and height independently to fill the viewport. Cards lie on one projected floor plane with contact shadows and a front rim overlapping their lower edges; short or wide landscape layouts put the tray beside the hotel. The HUD follows the paper mock: warm ivory paper plaques support dark counters, animal balloons overlap their ×N tabs, a coin marks the balance, and a pink heart marks the existing hotel-height total. The heart adds no lives mechanic and retains the accessible “Floors” label. Visible “Coins” and “Floors” labels are omitted. The Balloon Dock has no title banner; its three icon counters are sufficient.
 
 Each card uses a generated paper face with a fibrous ivory center and folded colored edges. A separate 3 × 2 surface atlas contains pink, green and orange faces on its first row, then lavender, gold and teal. Perspective is applied by the interface, preserving the flat source artwork. Each card has an icon-based coin price at the top left, effect help at the top right, a distinct illustration, title and numerical effect. Descriptions live in a native effect dialog opened by the question mark; the card face omits prose and the projected remaining coin balance. Room Pattern blueprints and locked future-card bundles distinguish those typed powers; other powers use their own generated miniatures. Prefab Pack, Balloon Call and Mosaic compose room/balloon sprites to explain their quantities and sequence. There is no visible game title, shop heading, footer or decorative background copy. A single menu contains sound, reduced motion, the whole-hotel view, reveal/skip, Workshop, rules, Replay and New hotel. Only counters, the Balloon Dock, active strategy effects and cards remain in the play view; result summaries and brief delivery feedback are contextual.
 
@@ -35,7 +35,7 @@ The player is the hotel's new innkeeper. With a pouch of coins, a box of enchant
 
 Copycat is a mysterious traveling cat who can remember any room after seeing it once. With a spyglass, tracing paper, and a large paw-shaped stamp, Copycat can reproduce part of the hotel's largest neighborhood at the top of the tower.
 
-When the player can afford no more cards, construction ends. A final sheet of paper descends and folds into the hotel's roof. The camera pulls back to reveal the completed hotel, its residents fill the windows, and its height determines how many sky travelers found a home that night.
+When the player can afford no more paid cards, the tray offers one free Roof card and the tower remains open. The player selects the card to drop the roof onto the tower. Landing completes the hotel without changing its height, coins or purchase bonuses.
 
 ### Tone
 
@@ -102,7 +102,7 @@ The top of the screen contains:
 
 1. Current hotel height beside the pink paper heart; retain “Floors” as its accessible label.
 2. Coins remaining beside the gold coin, without a visible label.
-3. Balloon Dock counters: Bunny/Pink ×N, Frog/Green ×N, Cat/Orange ×N, with each balloon overlapping a cream paper tab below the torn-paper Dock banner.
+3. Balloon Dock counters: Bunny/Pink ×N, Frog/Green ×N, Cat/Orange ×N, with each balloon overlapping a cream paper tab and no title banner.
 4. Active Foundation type and next bonus, or “Foundation ready · next +1” before its first suited purchase.
 5. Active Attunement type and remaining shops, including the currently visible shop.
 
@@ -129,7 +129,7 @@ Pink balloons ×4 → +4 Pink floors
 
 ### Offer tray
 
-Three large paper cards lie inside the fixed cardboard tray at the bottom, or beside the tower in short or wide landscape layouts. Their fibrous ivory faces and folded colored borders share the box floor's perspective; tight contact shadows and the foreground rim connect them to its surface. Keep perspective out of the generated card textures so the whole card, artwork and controls project together. Coin price appears at top left; a question mark at top right opens the effect dialog without purchasing. Keep explanatory prose and projected remaining coins off the card face. The card art is part of the physical world:
+Three large paper cards, each on a small decorative stack of three placeholder cards, lie inside the fixed cardboard tray at the bottom, or beside the tower in short or wide landscape layouts. Their fibrous ivory faces and folded colored borders share the box floor's perspective; tight contact shadows and the foreground rim connect them to its surface. Keep perspective out of the generated card textures so the whole card, artwork and controls project together. Coin price appears at top left; a question mark at top right opens the effect dialog without purchasing. Keep explanatory prose and projected remaining coins off the card face. The card art is part of the physical world:
 
 - Construction cards contain folded boxes.
 - Technique cards unfold like tiny paper stages.
@@ -508,17 +508,13 @@ No roof is visible at any point during active construction.
 
 ### Sequence
 
-1. The last floor and any new balloon finish resolving.
-2. Offer cards fold closed. Ambient residents pause and look upward.
-3. Hold for approximately 250 ms of quiet anticipation.
-4. A large neutral sheet of paper descends from above, carried by a special golden hotel balloon.
-5. The sheet lands on the construction platform and folds into the final roof or cupola.
-6. A Cloudtop Hotel sign unfolds from the façade and a small flag pops from the roof.
-7. All visible residents cheer in a staggered wave. Balloon Dock envelopes open and release a brief celebratory cluster without changing their counts.
-8. The camera pulls back to show the complete tower from base to roof.
-9. Display final height, coins left, neighborhoods, and replay controls.
+1. The last purchase and its room delivery finish resolving. If no paid card is affordable, enter `roof-ready` and offer one centered Roof card with a roof illustration, a zero-coin cost and “FREE.” No roof appears automatically.
+2. Keep the open platform on the tower. The camera fits the complete hotel with room for its roof while waiting for the player's choice.
+3. Selecting the free card starts the usual card flight and pop. At the pop, enter `roofing`; the roof falls for 740 ms and settles with a 360 ms bounce.
+4. Landing enters `complete`, reveals the final score and plays confetti. Keep the tray's dimensions reserved so the hotel does not jump during the landing.
+5. Replay and New hotel remain in the menu. Reveal now and Reduced motion finish the sequence exactly once; replay during the flight or fall cancels it.
 
-Roof variations may depend on height tier for celebration, but they are cosmetic and must not imply an unearned gameplay bonus.
+The finale never changes cash, floors, RNG, deals, purchase history, upgrades, refunds, streaks or locks. The decorative cards under paid offers use a parcel placeholder and do not represent future draws. The roof card has no decorative stack and triggers no purchase bonuses.
 
 ## Ambient animation
 
@@ -644,7 +640,7 @@ assets/
 - [ ] Strategy state stays readable on phone and landscape layouts; replay clears it.
 - [ ] Resident animation begins only after the room shell locks.
 - [ ] Floor variants preserve type color, size, and fold anchors.
-- [ ] No roof appears until the run is complete.
+- [ ] No roof appears until the free Roof card is selected; completion waits for landing.
 - [ ] All committed animations can be skipped without changing the result.
 - [ ] Reduced-motion mode communicates sources and results without large movement.
 - [ ] One ordinary purchase resolves in about one second; large powers remain under about two seconds before optional celebration.

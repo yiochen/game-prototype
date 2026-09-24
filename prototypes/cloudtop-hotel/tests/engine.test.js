@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { BALANCE, createGame, eligibleCards, baseCards, preview, pick, advanceDeal, chain, segments, recallLinks, overgrowLinks, finished, weightedPick, mysteryOutcomes, upgradeValue, choiceSuits } from '../engine.js';
+import { BALANCE, createGame, eligibleCards, baseCards, preview, pick, advanceDeal, beginRoof, finishRoof, canBuy, chain, segments, recallLinks, overgrowLinks, finished, weightedPick, mysteryOutcomes, upgradeValue, choiceSuits } from '../engine.js';
 function offer(s, family, type, suit) {
  const c=eligibleCards(s).find(c=>c.family===family&&c.type===type&&(suit===undefined||c.suit===suit));
  assert.ok(c,`Missing ${family}/${type}/${suit}`);s.offer=[c];return c;
@@ -94,17 +94,39 @@ test('invalid inputs and double purchases are no-ops; reading previews never rol
  assert.deepEqual(s,before);assert.equal(pick(s,0),true);const resolving=structuredClone(s);
  assert.equal(pick(s,0),false);assert.deepEqual(s,resolving);
 });
-test('final result waits for reveal, and an affordable fallback keeps runs alive',()=>{
+test('final result waits for reveal and the free roof, while an affordable fallback keeps runs alive',()=>{
  const s=createGame('end');s.cash=3;offer(s,'base','single','bunny');pick(s,0);assert.equal(finished(s),false);
- advanceDeal(s);assert.equal(finished(s),true);assert.equal(chain(s),1);assert.equal(s.cash,0);assert.equal(advanceDeal(s),false);
+ advanceDeal(s);assert.equal(s.phase,'roof-ready');assert.equal(finished(s),false);
+ assert.deepEqual(s.offer,[{id:'finale:roof',family:'finale',type:'roof',price:0,name:'Roof'}]);
+ assert.equal(chain(s),1);assert.equal(s.cash,0);assert.equal(advanceDeal(s),false);
+ assert.equal(beginRoof(s),true);assert.equal(s.phase,'roofing');assert.equal(finished(s),false);
+ assert.equal(finishRoof(s),true);assert.equal(finished(s),true);
  for(let seed=0;seed<50;seed++){const s=createGame(seed);s.cash=6;offer(s,'base','single','bunny');pick(s,0);advanceDeal(s);assert.ok(s.offer.some(c=>c.price<=3));assert.equal(new Set(s.offer.map(c=>c.id)).size,s.offer.length);}
+});
+test('the roof advances exactly once without touching the completed run',()=>{
+ const s=createGame('roof-guards');
+ const assertNoRoofTransition=()=>{const before=structuredClone(s);assert.equal(beginRoof(s),false);assert.equal(finishRoof(s),false);assert.deepEqual(s,before);};
+ assertNoRoofTransition();
+ buy(s,'reactor','suit','frog');buy(s,'wealth','rebate');buy(s,'strategy','foundation');buy(s,'strategy','attunement','frog');
+ s.cash=3;offer(s,'base','single','frog');assert.equal(pick(s,0),true);
+ assertNoRoofTransition();
+ const {phase: resolvingPhase,offer: resolvingOffer,...settled}=structuredClone(s);
+ assert.equal(advanceDeal(s),true);assert.equal(s.phase,'roof-ready');
+ const ready=structuredClone(s);
+ assert.equal(canBuy(s,s.offer[0]),false);assert.equal(pick(s,0),false);assert.equal(finishRoof(s),false);assert.equal(advanceDeal(s),false);assert.deepEqual(s,ready);
+ assert.equal(beginRoof(s),true);assert.deepEqual(s.offer,[]);assert.equal(finished(s),false);
+ const landing=structuredClone(s);
+ assert.equal(beginRoof(s),false);assert.equal(pick(s,0),false);assert.equal(advanceDeal(s),false);assert.deepEqual(s,landing);
+ assert.equal(finishRoof(s),true);assert.equal(finished(s),true);assertNoRoofTransition();
+ const {phase,offer:roofOffer,...completed}=s;
+ assert.equal(phase,'complete');assert.deepEqual(roofOffer,[]);assert.deepEqual(completed,settled);
 });
 test('full runs terminate, money reconciles and identical seeds replay exactly',()=>{
  for(let seed=0;seed<100;seed++){
-  function run(){const s=createGame(seed);while(!finished(s)){
+  function run(){const s=createGame(seed);while(s.phase==='picking'){
    assert.ok(s.history.length<100);const index=s.offer.findIndex(c=>c.price<=s.cash);assert.ok(index>=0);
    const previous=s.cash, before=structuredClone(s.links);assert.equal(pick(s,index,s.offer[index].type==='choice'?choiceSuits(s)[0]:undefined),true);assert.deepEqual(s.links.slice(0,before.length),before);assert.ok(s.cash<previous);advanceDeal(s);
-  }assert.equal(s.cash,BALANCE.startingCash-s.spent+s.refunded);assert.equal(new Set(s.links.map(l=>l.id)).size,s.links.length);assert.ok(s.links.every(l=>BALANCE.suits.some(s=>s.id===l.suit)));assert.equal(s.links.length,s.history.reduce((n,e)=>n+e.links,0));assert.ok(!eligibleCards(s).some(c=>c.price<=s.cash));return s;}
+  }assert.equal(s.phase,'roof-ready');assert.equal(beginRoof(s),true);assert.equal(finishRoof(s),true);assert.equal(finished(s),true);assert.equal(s.cash,BALANCE.startingCash-s.spent+s.refunded);assert.equal(new Set(s.links.map(l=>l.id)).size,s.links.length);assert.ok(s.links.every(l=>BALANCE.suits.some(s=>s.id===l.suit)));assert.equal(s.links.length,s.history.reduce((n,e)=>n+e.links,0));assert.ok(!eligibleCards(s).some(c=>c.price<=s.cash));return s;}
   assert.deepEqual(run(),run());
  }
 });
@@ -185,6 +207,6 @@ test('Attunement preserves affordable fallback and final-purchase settlement',()
   const s=createGame(seed);buy(s,'strategy','attunement','cat');s.cash=7;
   offer(s,'base','choice');pick(s,0,'cat');advanceDeal(s);
   assert.ok(s.offer.some(c=>c.price<=3));assert.ok(s.offer.every(c=>!c.suit||c.suit==='cat'));assert.equal(new Set(s.offer.map(c=>c.id)).size,s.offer.length);
-  offer(s,'base','single','cat');pick(s,0);assert.equal(finished(s),false);advanceDeal(s);assert.equal(finished(s),true);assert.equal(chain(s),2);
+  offer(s,'base','single','cat');pick(s,0);assert.equal(finished(s),false);advanceDeal(s);assert.equal(s.phase,'roof-ready');assert.equal(finished(s),false);assert.equal(beginRoof(s),true);assert.equal(finishRoof(s),true);assert.equal(finished(s),true);assert.equal(chain(s),2);
  }
 });

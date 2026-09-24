@@ -36,7 +36,15 @@
   background-position: var(--paper-x) var(--paper-y);
   box-shadow: none;
   filter: drop-shadow(1px 3px 1px #45291b99);
+  z-index: 1;
 }
+.deck-card { position: absolute; inset: 0; z-index: 0; pointer-events: none; background: var(--card-paper) 100% 100%/300% 200%; filter: drop-shadow(1px 3px 1px #45291b80); transform: translate(calc((var(--deck-layer) - 1) * 2%),calc(-9% + var(--deck-layer) * 3%)) rotate(calc((var(--deck-layer) - 1) * 2deg)); display: grid; place-items: center; }
+.deck-card:nth-child(2) { background-position: 0% 0%; }.deck-card:nth-child(3) { background-position: 50% 0%; }
+.deck-placeholder { width: 65%; height: auto; aspect-ratio: 1; opacity: .7; }
+.offer-slot.card-used { visibility: visible; }
+.offer-slot.card-used>.offer-card,.offer-slot.card-used>.card-help { visibility: hidden; }
+.roof-offer>.offer-slot { grid-column: 2; --slant: 0deg; }
+.offer-card.finale { --paper-x: 50%; --paper-y: 100%; }
 .offer-card::before,.offer-card::after { content: none; }
 .offer-card.bunny { --paper-x: 0%; --paper-y: 0%; }
 .offer-card.frog { --paper-x: 50%; --paper-y: 0%; }
@@ -60,4 +68,5 @@
   :root { --tray-width: min(52vw,calc((100dvh - var(--hud-height) - 20px) * 3)); }
   .shop { inset: auto 0 env(safe-area-inset-bottom) auto; margin: 0; }
 }
-.hotel-app.complete .shop { aspect-ratio: auto; width: min(100%,600px); height: var(--tray-height); inset: auto 0 env(safe-area-inset-bottom); margin-inline: auto; }
+.ending { position: absolute; inset: 28% auto auto 50%; z-index: 2; width: 67%; margin: 0; padding: clamp(7px,2vw,18px); transform: translateX(-50%) rotate(-2deg); }
+.ending h2 { font-size: clamp(19px,3vw,30px); }.ending p { font-size: clamp(9px,1.6vw,13px); }

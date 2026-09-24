@@ -6,7 +6,7 @@ import { mountWorld } from './world.js';
 import { mountScenery } from './scenery.js';
 import { createCardFlight } from './card-flight.js';
 import { paperAudio } from './audio.js';
-import { BALANCE, createGame, segments, longestSegment, preview, pick, advanceDeal, choiceSuits, suitInfo, mysteryOddsText, mysteryOutcomes, outcomePercent, finished } from './engine.js';
+import { BALANCE, createGame, segments, longestSegment, preview, pick, advanceDeal, beginRoof, finishRoof, choiceSuits, suitInfo, mysteryOddsText, mysteryOutcomes, outcomePercent, finished } from './engine.js';
 
 const $ = id => document.getElementById(id);
 const node = (tag, className = '', text = '') => { const n = document.createElement(tag); n.className = className; n.textContent = text; return n; };
@@ -21,7 +21,6 @@ const img = (key, className = '', alt = '') => {
 const randomSeed = () => Math.random().toString(36).slice(2, 9);
 $('coin-art').append(img('coin'));
 $('height-art').append(img('heart'));
-document.querySelector('.dock-label').src = ART['dock-paper'];
 document.documentElement.style.setProperty('--tray-art', `url("${ART['cardboard-tray']}")`);
 document.documentElement.style.setProperty('--card-paper', `url("${ART['card-paper']}")`);
 document.documentElement.style.setProperty('--hud-tab', `url("${ART['hud-tab']}")`);
@@ -104,6 +103,9 @@ function renderWorkshop(view) {
   $('strategy-status').replaceChildren(...active.map(text => node('span', 'strategy-chip', text))); $('strategy-status').hidden = !active.length;
 }
 function renderOffers(view) {
+  const roof = state.phase === 'roof-ready' || state.phase === 'roofing';
+  $('offers').classList.toggle('roof-offer', roof);
+  if (roof) { renderRoofOffer(); return; }
   const offers = state.phase === 'resolving' ? resolvingBefore.offer : state.offer;
   $('offers').replaceChildren(...offers.map((card, i) => {
     const p = presentation(card, view), slot = node('div', 'offer-slot'), button = node('button', `offer-card ${card.family} ${card.suit ?? 'mixed'}`);
@@ -128,27 +130,49 @@ function renderOffers(view) {
     help.setAttribute('aria-label', `About ${title(card)}`); help.setAttribute('aria-haspopup', 'dialog'); help.setAttribute('aria-controls', 'effect-dialog');
     help.disabled = loading || !!pendingPurchase || state.phase !== 'picking';
     help.addEventListener('click', () => showEffect(card, view));
+    // Decorative cards suggest the pile underneath, not future dealt offers.
+    for (let layer = 0; layer < 3; layer++) {
+      const back = node('div', 'deck-card'); back.inert = true; back.setAttribute('aria-hidden', 'true');
+      back.style.setProperty('--deck-layer', layer); back.append(img('parcel', 'deck-placeholder')); slot.append(back);
+    }
     slot.append(button, help); return slot;
   }));
+}
+function renderRoofOffer() {
+  if (state.phase === 'roofing') { $('offers').replaceChildren(); return; }
+  const slot = node('div', 'offer-slot'), button = node('button', 'offer-card finale mixed');
+  if (pendingPurchase) slot.classList.add('card-used');
+  button.id = 'roof-card'; button.dataset.offerIndex = 0; button.dataset.type = 'roof'; button.dataset.cardId = 'finale:roof';
+  button.disabled = loading || !!pendingPurchase;
+  button.setAttribute('aria-label', 'Place the roof for free. Finish your hotel.');
+  const top = node('div', 'card-top'), price = node('span', 'price'), picture = node('div', 'card-art art-roof'), value = node('div', 'card-value');
+  price.append(img('coin'), node('span', '', '0')); top.append(price); picture.setAttribute('aria-hidden', 'true'); picture.append(img('roof'));
+  value.append(node('strong', 'card-effect', 'FREE'));
+  button.append(top, picture, node('strong', 'card-title', 'Roof'), value);
+  button.addEventListener('click', () => select(0)); slot.append(button); $('offers').replaceChildren(slot);
 }
 function render() {
   const view = resolvingBefore ?? state, done = finished(state);
   $('height').textContent = view.links.length; $('coins').textContent = state.cash;
   renderDock(view); renderWorkshop(view); renderOffers(view);
-  $('reveal-now').hidden = state.phase !== 'resolving' && !pendingPurchase;
-  $('offers').hidden = done; $('tray').hidden = done; $('ending').hidden = !done;
-  $('overview').disabled = !view.links.length; $('seed-label').textContent = `Guestbook ${state.seed}`;
+  $('reveal-now').hidden = !['resolving', 'roofing'].includes(state.phase) && !pendingPurchase;
+  $('offers').hidden = done; $('ending').hidden = !done;
+  $('overview').disabled = !view.links.length || state.phase === 'roofing'; $('seed-label').textContent = `Guestbook ${state.seed}`;
   $('world').dataset.state = pendingPurchase ? 'launching' : state.phase; document.querySelector('.hotel-app').classList.toggle('complete', done);
   $('floor-record').replaceChildren(...view.links.map((floor, i) => { const li = node('li', '', `Floor ${i + 1}: ${suitInfo(floor.suit).name}`); li.dataset.floorId = floor.id; li.dataset.type = floor.suit; return li; }));
   if (done) {
     $('ending-title').textContent = `${state.links.length} floors`;
-    $('ending-detail').textContent = `${segments(state).length} neighborhoods · ${state.cash} coins saved`;
+    $('ending-detail').textContent = `${segments(state).length} neighborhoods · ${state.cash} ${state.cash === 1 ? 'coin' : 'coins'} saved`;
     $('status').textContent = 'Your guests have arrived. Welcome home.';
-  } else if (state.phase === 'resolving') $('status').textContent = state.history.at(-1).type === 'mystery' ? 'Unwrapping your surprise…' : 'Your delivery is unfolding…';
+  } else if (state.phase === 'roof-ready') $('status').textContent = 'One last touch. Choose the free roof card to finish your hotel.';
+  else if (state.phase === 'roofing') $('status').textContent = 'Your roof is landing…';
+  else if (state.phase === 'resolving') $('status').textContent = state.history.at(-1).type === 'mystery' ? 'Unwrapping your surprise…' : 'Your delivery is unfolding…';
   $('motion-toggle').setAttribute('aria-pressed', String(reduced)); document.documentElement.classList.toggle('reduced-motion', reduced);
 }
 function select(index) {
-  if (loading || pendingPurchase || state.phase !== 'picking' || document.querySelector('dialog[open]')) return;
+  if (loading || pendingPurchase || document.querySelector('dialog[open]')) return;
+  if (state.phase === 'roof-ready') { if (index === 0) commitRoof(); return; }
+  if (state.phase !== 'picking') return;
   const card = state.offer[index]; if (!card || card.price > state.cash) return;
   if (card.type !== 'choice') { commit(index); return; }
   choiceIndex = index;
@@ -159,6 +183,24 @@ function select(index) {
     button.addEventListener('click', () => { const selected = choiceIndex; $('choice-dialog').close(); commit(selected, type); }); return button;
   }));
   $('choice-dialog').showModal();
+}
+function commitRoof() {
+  if (pendingPurchase || state.phase !== 'roof-ready') return;
+  const token = ++epoch;
+  const drop = () => {
+    if (token !== epoch) return;
+    pendingPurchase = null;
+    if (!beginRoof(state)) return;
+    render();
+    scene.dropRoof(state, { onComplete: () => {
+      if (token !== epoch || !finishRoof(state)) return;
+      audio.fold(); render(); scene.setState(state); $('overview').textContent = 'Back to the top';
+    } });
+  };
+  if (reduced) { drop(); return; }
+  pendingPurchase = { index: 0, roof: true };
+  flight.play($('roof-card'), { onBurst: drop });
+  render(); $('status').textContent = 'Opening your roof card…';
 }
 function commit(index, selectedType) {
   if (pendingPurchase || state.phase !== 'picking') return;

@@ -117,7 +117,11 @@ function draw(state, pool) {
 function deal(state) {
   const pool = eligibleCards(state);
   const affordable = pool.filter(c => c.price <= state.cash);
-  if (!affordable.length) { state.offer = []; state.phase = 'complete'; return; }
+  if (!affordable.length) {
+    state.offer = [{ id: 'finale:roof', family: 'finale', type: 'roof', price: 0, name: 'Roof' }];
+    state.phase = 'roof-ready';
+    return;
+  }
   let remaining = [...pool];
   state.offer = Array.from({ length: BALANCE.offerSize }, () => {
     const chosen = draw(state, remaining);
@@ -272,4 +276,17 @@ export function pick(state, index, selectedSuit) {
 export function advanceDeal(state) {
   if (state.phase !== 'resolving') return false;
   deal(state); return true;
+}
+// The free finishing card is separate from purchases: it cannot spend money,
+// advance the deck, or trigger upgrades and streaks while the roof is landing.
+export function beginRoof(state) {
+  if (state.phase !== 'roof-ready') return false;
+  state.offer = [];
+  state.phase = 'roofing';
+  return true;
+}
+export function finishRoof(state) {
+  if (state.phase !== 'roofing') return false;
+  state.phase = 'complete';
+  return true;
 }
