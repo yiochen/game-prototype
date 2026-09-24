@@ -208,17 +208,39 @@ test('card help explains a power without buying it, keeps shortcuts blocked, and
   await expect(page.locator('#floor-record li')).toHaveCount(3);
 });
 
-test('the hotel canvas extends behind the paper HUD and full-width tray on portrait and landscape screens', async ({ page }) => {
+test('the full-screen hotel keeps the cardboard tray at its native ratio across screen shapes', async ({ page }) => {
   await open(page, 0); for (const i of [0,1,1,1,2]) await buy(page, i);
-  for (const size of [{width:784,height:1233},{width:390,height:844},{width:320,height:480},{width:844,height:390}]) {
+  const trayArtRatio = await page.evaluate(async () => {
+    const source = getComputedStyle(document.documentElement).getPropertyValue('--tray-art').trim();
+    const image = new Image(); image.src = source.match(/url\(["']?(.*?)["']?\)/)[1]; await image.decode();
+    return image.naturalWidth / image.naturalHeight;
+  });
+  expect(trayArtRatio).toBe(3);
+  for (const size of [{width:784,height:1233},{width:390,height:844},{width:320,height:480},{width:1280,height:900},{width:1440,height:600},{width:844,height:390},{width:667,height:375}]) {
     await page.setViewportSize(size); await screenFits(page);
     await expect.poll(() => page.locator('#world canvas').evaluate(c => {
       const rect = c.getBoundingClientRect(); return { x: rect.x, y: rect.y, width: rect.width, height: rect.height };
     })).toEqual({ x: 0, y: 0, width: size.width, height: size.height });
-    if (size.height > size.width) {
-      const tray = await page.locator('#tray').boundingBox();
-      expect(tray.width).toBeGreaterThan(size.width * .9);
+    const tray = await page.locator('#tray').boundingBox();
+    expect(tray.width / tray.height).toBeCloseTo(trayArtRatio, 2);
+    if (size.height > size.width) expect(tray.width).toBeGreaterThan(size.width * .9);
+    // Matching the wrapper alone is insufficient: unequal background scaling
+    // can still stretch the artwork inside a correctly proportioned tray.
+    const paintedRatios = await page.locator('#tray').evaluate((element, nativeRatio) => {
+      const bounds = element.getBoundingClientRect();
+      return ['::before', '::after'].map(pseudo => {
+        const values = getComputedStyle(element, pseudo).backgroundSize.split(' ');
+        if (['contain', 'cover'].includes(values[0]) || values.includes('auto')) return nativeRatio;
+        const length = (value, container) => value.endsWith('%') ? parseFloat(value) * container / 100 : parseFloat(value);
+        return length(values[0], bounds.width) / length(values[1], bounds.height);
+      });
+    }, trayArtRatio);
+    for (const ratio of paintedRatios) expect(ratio).toBeCloseTo(trayArtRatio, 2);
+    for (let i = 0; i < 3; i++) {
+      await help(page, i).click(); await expect(page.locator('#effect-dialog')).toBeVisible();
+      await page.locator('#effect-close').click();
     }
+    await expect(page.locator('#coins')).toHaveText('78');
     await screenshot(page, `continuous-scene-${size.width}x${size.height}`);
   }
   await paperLoads(page, '.coins, .height, .dock-chip', '--hud-tab');

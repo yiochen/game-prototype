@@ -78,7 +78,7 @@ class HotelScene extends Phaser.Scene {
     const dashboard = rect('.dashboard'), strategy = rect('#strategy-status');
     const foreground = rect('#tray') ?? rect('#ending');
     const top = Math.max(8, dashboard?.bottom ?? 0, strategy?.bottom ?? 0) + 10;
-    const sideTray = foreground && w > h && foreground.left > w * .25 && foreground.top < h * .4;
+    const sideTray = foreground && w > h && foreground.left > w * .25;
     const right = sideTray ? foreground.left - 10 : w - 12;
     const bottom = sideTray ? h - 12 : Math.min(h - 12, foreground?.top ?? h) - 4;
     return { left: 12, right, top, bottom, width: Math.max(80, right - 12), height: Math.max(70, bottom - top), sideTray };
