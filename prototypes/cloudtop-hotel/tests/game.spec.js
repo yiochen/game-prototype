@@ -3,6 +3,7 @@ import { mkdir } from 'node:fs/promises';
 import { createGame, pick, advanceDeal, finished, segments, choiceSuits } from '../engine.js';
 const ROOT = '/prototypes/cloudtop-hotel/';
 const card = (page, i) => page.locator(`#offers [data-offer-index="${i}"]`);
+const help = (page, i) => page.locator(`#offers [data-offer-help="${i}"]`);
 async function open(page, seed, reduced = true) {
   await page.emulateMedia({ reducedMotion: reduced ? 'reduce' : 'no-preference' });
   await page.goto(`${ROOT}?seed=${seed}`); await expect(page.locator('#world')).toHaveAttribute('data-ready', 'true');
@@ -17,7 +18,7 @@ async function control(page, id) {
 }
 async function screenshot(page, name) { await mkdir('artifacts/cloudtop-hotel', { recursive: true }); await page.screenshot({ path: `artifacts/cloudtop-hotel/${name}.png` }); }
 async function screenFits(page) {
-  const layout = await page.evaluate(() => ({ width: innerWidth, height: innerHeight, sw: document.documentElement.scrollWidth, sh: document.documentElement.scrollHeight, cards: [...document.querySelectorAll('.offer-card, #menu-open, dialog[open] button')].filter(e => e.getClientRects().length).map(e => ({ text: e.textContent, r: e.getBoundingClientRect().toJSON(), overflow: e.scrollHeight > e.clientHeight + 2 })) }));
+  const layout = await page.evaluate(() => ({ width: innerWidth, height: innerHeight, sw: document.documentElement.scrollWidth, sh: document.documentElement.scrollHeight, cards: [...document.querySelectorAll('.offer-card, .card-help, #menu-open, dialog[open] button')].filter(e => e.getClientRects().length).map(e => ({ text: e.textContent, r: e.getBoundingClientRect().toJSON(), overflow: e.scrollHeight > e.clientHeight + 2 })) }));
   expect(layout.sw).toBeLessThanOrEqual(layout.width); expect(layout.sh).toBeLessThanOrEqual(layout.height);
   for (const { r, text, overflow } of layout.cards) { expect(r.bottom, text).toBeLessThanOrEqual(layout.height); expect(r.right, text).toBeLessThanOrEqual(layout.width); expect(r.top, text).toBeGreaterThanOrEqual(0); expect(r.left, text).toBeGreaterThanOrEqual(0); expect(overflow, text).toBe(false); }
 }
@@ -27,9 +28,10 @@ test('catalog opens an independent Phaser hotel with loaded art', async ({ page 
   await page.goto('/'); await page.getByRole('link', { name: /Cloudtop Hotel/ }).click();
   await expect(page.locator('#world')).toHaveAttribute('data-ready', 'true');
   await expect(page.locator('#world canvas')).toHaveAttribute('data-roof', 'false');
-  await expect(page.locator('#offers button')).toHaveCount(3);
-  expect(await page.locator('.offer-card img').evaluateAll(images => images.every(i => i.complete && i.naturalWidth))).toBe(true);
-  await expect(page.locator('.offer-card .sprite-art').first()).toHaveAttribute('data-sheet', /rooms-|actors|props/);
+  await expect(page.locator('#offers .offer-card')).toHaveCount(3);
+  await expect(page.locator('#offers .card-help')).toHaveCount(3);
+  await expect.poll(() => page.locator('.offer-card img').evaluateAll(images => images.every(i => i.complete && i.naturalWidth))).toBe(true);
+  await expect(page.locator('.offer-card .card-art').first()).toBeVisible();
   await expect(page.locator('#world canvas')).toHaveAttribute('data-sprite-frames', /actors:/);
   await screenshot(page, 'opening-desktop'); expect(errors).toEqual([]);
 });
@@ -60,7 +62,9 @@ test('full run matches engine, registers neighborhoods and adds roof only after 
 test('Mosaic prints its order, appends it exactly, and closes the streak', async ({ page }) => {
   await open(page, 30); await buy(page, 1); await expect(page.locator('#strategy-status')).toContainText('Streak ready');
   const s = createGame(30); pick(s, 1); advanceDeal(s); const pattern = s.offer[0].sequence;
-  await expect(card(page, 0)).toContainText('Mosaic'); await expect(card(page, 0)).toContainText('Ends your streak');
+  await expect(card(page, 0)).toContainText('Mosaic');
+  await help(page, 0).click(); await expect(page.locator('#effect-dialog')).toContainText(/Ends (your streak|Neighborhood Streak)/);
+  await page.locator('#effect-close').click();
   await buy(page, 0); expect(await page.locator('#floor-record li').evaluateAll(items => items.map(l => l.dataset.type))).toEqual(pattern);
   await expect(page.locator('#height')).toHaveText('3'); await expect(page.locator('#strategy-status')).toBeHidden(); await screenshot(page, 'mosaic-hotel');
 });
@@ -87,7 +91,7 @@ test('Copycat and Balloon Call append their outputs without changing earlier flo
 });
 
 test('real delivery animates once, skips without rerolling, and replay cancels pending output', async ({ page }) => {
-  await open(page, 15, false); await buy(page, 1); await expect(page.locator('#world')).toHaveAttribute('data-state', 'resolving'); await control(page, 'reveal-now');
+  await open(page, 15, false); await buy(page, 1); await expect(page.locator('#world')).toHaveAttribute('data-state', 'launching'); await control(page, 'reveal-now');
   await buy(page, 1); await expect(page.locator('#status')).toHaveText('Unwrapping your surprise…'); await expect(page.locator('#coins')).toHaveText('87');
   await page.keyboard.press('2'); await expect(page.locator('#coins')).toHaveText('87'); await screenshot(page, 'parcel-arrival');
   await expect(page.locator('#world')).toHaveAttribute('data-state', 'picking', { timeout: 6000 }); await expect(page.locator('#height')).toHaveText('3');
@@ -95,7 +99,7 @@ test('real delivery animates once, skips without rerolling, and replay cancels p
   expect(await page.locator('#floor-record').textContent()).toBe(output);
   await control(page, 'replay'); await buy(page, 1); await control(page, 'replay');
   await expect(page.locator('#world')).toHaveAttribute('data-state', 'picking'); await expect(page.locator('#height')).toHaveText('0'); await expect(page.locator('#coins')).toHaveText('100');
-  await page.waitForTimeout(900); await expect(page.locator('#height')).toHaveText('0');
+  await page.waitForTimeout(1800); await expect(page.locator('#height')).toHaveText('0'); await expect(page.locator('#coins')).toHaveText('100');
 });
 
 test('controls and strategy effects fit phone, short phone, desktop and landscape', async ({ page }) => {
@@ -159,6 +163,92 @@ test('full-screen scenery and tilted cards keep all utility controls in an acces
   const seed = new URL(page.url()).searchParams.get('seed'); await control(page, 'new-game');
   await expect(page.locator('#menu-dialog')).toBeHidden(); await expect(page.locator('#height')).toHaveText('0'); await expect(page.locator('#coins')).toHaveText('100');
   expect(new URL(page.url()).searchParams.get('seed')).not.toBe(seed);
+});
+
+test('card help explains a power without buying it, keeps shortcuts blocked, and returns focus', async ({ page }) => {
+  await page.setViewportSize({ width: 784, height: 1233 }); await open(page, 'gcdolqp');
+  await expect(card(page, 0)).toContainText('Frog Room Pattern');
+  await expect(card(page, 2)).toContainText('Frog Pack');
+  await expect(page.locator('#offers .card-detail, #offers .card-footer')).toHaveCount(0);
+  await expect(page.locator('#offers')).not.toContainText('coins left');
+  await expect(page.locator('.coins')).not.toContainText(/coins/i);
+  for (let i = 0; i < 3; i++) {
+    const price = card(page, i).locator('.price');
+    await expect(price).toContainText('6'); await expect(price.locator('img')).toBeVisible();
+    const cost = await price.boundingBox(), info = await help(page, i).boundingBox();
+    expect(cost.x + cost.width).toBeLessThan(info.x);
+  }
+  const ids = await page.locator('#offers .offer-card').evaluateAll(cards => cards.map(c => c.dataset.cardId));
+  await help(page, 0).click(); await expect(page.locator('#effect-dialog')).toBeVisible();
+  await expect(page.locator('#effect-dialog')).toContainText(/Future Frog.*\+1/);
+  await page.keyboard.press('1'); await page.keyboard.press('3');
+  await expect(page.locator('#coins')).toHaveText('100'); await expect(page.locator('#height')).toHaveText('0');
+  await expect(page.locator('.card-flight')).toHaveCount(0);
+  await screenshot(page, 'card-effect-help');
+  await page.keyboard.press('Escape'); await expect(help(page, 0)).toBeFocused();
+  expect(await page.locator('#offers .offer-card').evaluateAll(cards => cards.map(c => c.dataset.cardId))).toEqual(ids);
+  await help(page, 2).click(); await expect(page.locator('#effect-dialog')).toContainText('3 fixed floors');
+  await page.locator('#effect-close').click(); await expect(help(page, 2)).toBeFocused();
+  await buy(page, 2); await expect(page.locator('#coins')).toHaveText('94'); await expect(page.locator('#height')).toHaveText('3');
+  await expect(page.locator('#floor-record li')).toHaveCount(3);
+});
+
+test('the hotel canvas extends behind the HUD and full-width tray on portrait and landscape screens', async ({ page }) => {
+  await open(page, 0); for (const i of [0,1,1,1,2]) await buy(page, i);
+  for (const size of [{width:784,height:1233},{width:390,height:844},{width:320,height:480},{width:844,height:390}]) {
+    await page.setViewportSize(size); await screenFits(page);
+    await expect.poll(() => page.locator('#world canvas').evaluate(c => {
+      const rect = c.getBoundingClientRect(); return { x: rect.x, y: rect.y, width: rect.width, height: rect.height };
+    })).toEqual({ x: 0, y: 0, width: size.width, height: size.height });
+    if (size.height > size.width) {
+      const tray = await page.locator('#tray').boundingBox();
+      expect(tray.width).toBeGreaterThan(size.width * .9);
+    }
+    const surfaces = await page.locator('.coins, .height, .dock-chip').evaluateAll(items => items.map(e => {
+      const style = getComputedStyle(e); return { background: style.backgroundColor, image: style.backgroundImage };
+    }));
+    for (const surface of surfaces) expect(surface).toEqual({ background: 'rgba(0, 0, 0, 0)', image: 'none' });
+    await screenshot(page, `continuous-scene-${size.width}x${size.height}`);
+  }
+  await expect(page.locator('#height')).toHaveText('6'); await expect(page.locator('#coins')).toHaveText('78');
+});
+
+test('a selected card flies to the center and bursts before money or room effects apply', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 }); await open(page, 'gcdolqp', false);
+  await page.evaluate(() => {
+    window.cardFlightStages = [];
+    window.cardFlightObserver = new MutationObserver(() => {
+      const flight = document.querySelector('.card-flight');
+      if (!flight || window.cardFlightStages.at(-1)?.phase === flight.dataset.phase) return;
+      const rect = flight.querySelector('.card-flight-card').getBoundingClientRect();
+      window.cardFlightStages.push({ phase: flight.dataset.phase, coins: document.querySelector('#coins').textContent,
+        floors: document.querySelector('#height').textContent, center: { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 } });
+    });
+    window.cardFlightObserver.observe(document.body, { attributes: true, childList: true, subtree: true });
+  });
+  await buy(page, 2);
+  await expect(page.locator('#world')).toHaveAttribute('data-state', 'launching');
+  await expect(page.locator('#coins')).toHaveText('100'); await expect(page.locator('#height')).toHaveText('0');
+  await page.keyboard.press('1'); await page.keyboard.press('3');
+  await expect(page.locator('#world')).toHaveAttribute('data-state', 'resolving');
+  await expect(page.locator('#coins')).toHaveText('94');
+  await expect(page.locator('#world')).toHaveAttribute('data-state', 'picking', { timeout: 6000 });
+  await expect(page.locator('#height')).toHaveText('3');
+  const stages = await page.evaluate(() => { window.cardFlightObserver.disconnect(); return window.cardFlightStages; });
+  expect(stages.map(stage => stage.phase)).toEqual(['flight','inflate','burst']);
+  for (const stage of stages.slice(0, 2)) { expect(stage.coins).toBe('100'); expect(stage.floors).toBe('0'); }
+  expect(stages[1].center.x).toBeCloseTo(195, 0); expect(stages[1].center.y).toBeCloseTo(422, 0);
+  expect(stages[2].coins).toBe('94'); await expect(page.locator('.card-flight')).toHaveCount(0);
+
+  // Turning on reduced motion during a launch finishes that exact purchase once.
+  await control(page, 'replay'); await buy(page, 2);
+  await expect(page.locator('#world')).toHaveAttribute('data-state', 'launching');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(page.locator('#world')).toHaveAttribute('data-state', 'picking');
+  await expect(page.locator('#height')).toHaveText('3'); await expect(page.locator('#coins')).toHaveText('94');
+  await expect(page.locator('.card-flight')).toHaveCount(0);
+  await page.waitForTimeout(1200);
+  await expect(page.locator('#height')).toHaveText('3'); await expect(page.locator('#coins')).toHaveText('94');
 });
 
 test('clouds drift and islands float independently, pause for reduced motion, and resume in place', async ({ page }) => {

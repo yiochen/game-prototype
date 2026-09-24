@@ -2,6 +2,7 @@ import './style.css';
 import { ART, SHEETS, spriteArt } from './assets.js';
 import { mountWorld } from './world.js';
 import { mountScenery } from './scenery.js';
+import { createCardFlight } from './card-flight.js';
 import { paperAudio } from './audio.js';
 import { BALANCE, createGame, segments, longestSegment, preview, pick, advanceDeal, choiceSuits, suitInfo, mysteryOddsText, mysteryOutcomes, outcomePercent, finished } from './engine.js';
 
@@ -17,9 +18,12 @@ const img = (key, className = '', alt = '') => {
 };
 const randomSeed = () => Math.random().toString(36).slice(2, 9);
 $('coin-art').append(img('coin'));
+document.querySelector('.dock-label').src = ART['dock-paper'];
+document.documentElement.style.setProperty('--tray-art', `url("${ART['cardboard-tray']}")`);
 const human = text => text.replaceAll('Foundation', 'Neighborhood Streak').replaceAll('Attunement', 'Type Lock').replaceAll('Reactor', 'Room Pattern').replaceAll('Assembler', 'Master Fold').replaceAll('Mystery', 'Surprise Parcel').replaceAll('Stabilizer', 'Lucky Bell').replaceAll('Recall', 'Balloon Call').replace(/\bsuit\b/g, 'room type').replace(/\bsuited\b/g, 'typed').replace(/\blinks?\b/g, m => m === 'links' ? 'floors' : 'floor').replace(/\bsegments?\b/g, m => m === 'segments' ? 'neighborhoods' : 'neighborhood');
 let state = createGame(new URL(location.href).searchParams.get('seed') || randomSeed());
-let scene, resolvingBefore = null, epoch = 0, choiceIndex = null, menuReturn = null;
+let scene, resolvingBefore = null, pendingPurchase = null, epoch = 0, choiceIndex = null, menuReturn = null;
+const flight = createCardFlight();
 const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
 let reduced = motionQuery.matches;
 const scenery = mountScenery(document.querySelector('.sky-backdrop'), !reduced);
@@ -47,27 +51,26 @@ function presentation(card, view = state, chosen) {
   return { ...effect, headline, detail, fullDetail: human(effect.detail) };
 }
 function art(card) {
-  const holder = node('div', 'card-art'); holder.setAttribute('aria-hidden', 'true');
+  const holder = node('div', `card-art art-${card.type}`); holder.setAttribute('aria-hidden', 'true'); holder.dataset.illustration = card.type + (card.suit ? '-' + card.suit : card.sequence ? '-' + card.sequence.join('-') : '');
   if (card.sequence) card.sequence.forEach((type, i) => { if (i) holder.append(node('span', 'art-arrow', '›')); holder.append(img(`resident-${type}-0`, 'mosaic-guest')); });
-  else if (card.type === 'overgrow') holder.append(img('copycat'));
-  else if (card.type === 'mystery') holder.append(img('parcel'));
-  else if (card.type === 'recall') holder.append(img(`balloon-${card.suit}`));
-  else if (card.type === 'choice') ['bunny', 'frog', 'cat'].forEach(type => holder.append(img(`resident-${type}-0`, 'choice-guest')));
-  else if (card.family === 'base') {
-    holder.append(img(`resident-${card.suit}-0`, 'art-room'));
-    if (card.type === 'triple') holder.append(img(`box-${card.suit}`, 'extra-box'));
-  } else if (card.type === 'foundation' || card.type === 'assembler') {
-    holder.classList.add('art-stair');
-    for (let i = 0; i < 3; i++) holder.append(img(`resident-${card.type === 'foundation' ? 'bunny' : ['bunny','frog','cat'][i]}-0`, `stair-room stair-${i}`));
-  } else if (card.type === 'rebate') {
-    holder.classList.add('art-coins'); for (let i = 0; i < 3; i++) holder.append(img('coin', `paper-coin coin-${i}`));
-  } else if (card.type === 'vault') holder.append(img('coin'), img(`resident-${viewTopType()}-0`, 'art-guest'));
-  else if (card.type === 'attunement') holder.append(img(`balloon-${card.suit}`), node('span', 'lock-seal', `${BALANCE.strategy.attunement.shops}`));
-  else if (card.type === 'suit') holder.append(img(`resident-${card.suit}-0`), img(`box-${card.suit}`, 'extra-box'));
-  else holder.append(img('charm'));
+  else if (card.type === 'single') holder.append(img(`resident-${card.suit}-0`, 'art-room'));
+  else if (card.type === 'triple') for (let i = 0; i < 3; i++) holder.append(img(`resident-${card.suit}-0`, `pack-room pack-${i}`));
+  else if (card.type === 'recall') holder.append(img(`balloon-${card.suit}`, 'call-balloon'), img(`resident-${card.suit}-0`, 'call-room'));
+  else if (card.type === 'suit') holder.append(img(`pattern-${card.suit}`));
+  else if (card.type === 'attunement') holder.append(img(`lock-${card.suit}`));
+  else holder.append(img(`power-${card.type}`));
   return holder;
 }
-function viewTopType() { return (resolvingBefore ?? state).links.at(-1)?.suit ?? BALANCE.wealth.vault.openingSuit; }
+function showEffect(card, view) {
+  const p = presentation(card, view);
+  scene?.inspect(null); $('effect-title').textContent = title(card); $('effect-art').replaceChildren(art(card));
+  $('effect-value').textContent = p.headline + (card.family === 'base' || card.family === 'growth' || card.type === 'vault' ? ' floors' : '');
+  $('effect-detail').textContent = p.fullDetail;
+  $('effect-extra').textContent = card.type === 'suit' ? 'Applies to future matching room cards, including Surprise Parcel. Mosaic keeps its exact pattern.' : card.type === 'assembler' ? 'Applies to One Room, Prefab Pack and Room Choice. Mosaic and Surprise Parcel keep their own rules.' : card.type === 'rebate' ? p.detail : card.sequence ? 'Read left to right. These rooms are added from bottom to top.' : '';
+  $('effect-extra').hidden = !$('effect-extra').textContent;
+  $('effect-cost').replaceChildren(img('coin'), node('span', '', `${card.price} coins${card.price > state.cash ? ' · Not enough coins' : ''}`));
+  $('effect-dialog').showModal();
+}
 function renderDock(view) {
   const runs = segments(view);
   $('dock').replaceChildren(...BALANCE.suits.map(type => {
@@ -97,37 +100,39 @@ function renderWorkshop(view) {
 function renderOffers(view) {
   const offers = state.phase === 'resolving' ? resolvingBefore.offer : state.offer;
   $('offers').replaceChildren(...offers.map((card, i) => {
-    const p = presentation(card, view), button = node('button', `offer-card ${card.family} ${card.suit ?? 'mixed'}`);
+    const p = presentation(card, view), slot = node('div', 'offer-slot'), button = node('button', `offer-card ${card.family} ${card.suit ?? 'mixed'}`);
+    if (pendingPurchase?.index === i || (state.phase === 'resolving' && state.history.at(-1)?.cardId === card.id)) slot.classList.add('card-used');
     button.dataset.offerIndex = i; button.dataset.cardId = card.id; button.dataset.type = card.type;
-    button.disabled = loading || state.phase !== 'picking' || card.price > state.cash;
+    button.disabled = loading || !!pendingPurchase || state.phase !== 'picking' || card.price > state.cash;
     button.setAttribute('aria-label', `Buy ${title(card)} for ${card.price} coins. ${p.headline}. ${p.fullDetail}`);
-    button.title = p.fullDetail;
-    const top = node('div', 'card-top'); top.append(node('span', 'card-family', { base: 'ROOMS', growth: 'TECHNIQUE', reactor: 'WORKSHOP', wealth: 'COINS', strategy: 'STRATEGY' }[card.family]), node('span', 'price', `✦ ${card.price}`));
+    const top = node('div', 'card-top'), price = node('span', 'price'); price.append(img('coin'), node('span', '', card.price)); top.append(price);
     button.append(top, art(card), node('strong', 'card-title', title(card)));
     const value = node('div', 'card-value'); value.append(node('strong', 'card-effect', p.headline));
     if (card.family === 'base' || card.family === 'growth' || card.type === 'vault') value.append(node('span', '', 'floors'));
-    button.append(value, node('p', 'card-detail', p.detail));
-    const footer = node('span', 'card-footer', p.endsFoundation ? 'Ends your streak' : p.foundationBonus ? `Streak +${p.foundationBonus} included` : card.price > state.cash ? `Need ${card.price - state.cash} more coins` : `${p.cashAfter} coins left${p.refund ? ` · ${p.refund} back` : ''}`);
-    if (p.endsFoundation) footer.classList.add('streak-warning'); button.append(footer);
+    button.append(value);
     let pointerStart = null, canceled = false;
-    button.addEventListener('pointerdown', event => { pointerStart = { x: event.clientX, y: event.clientY }; canceled = false; scene?.inspect(card); $('preview').textContent = p.fullDetail; });
+    button.addEventListener('pointerdown', event => { if (button.disabled) return; pointerStart = { x: event.clientX, y: event.clientY }; canceled = false; scene?.inspect(card); $('preview').textContent = p.fullDetail; });
     button.addEventListener('pointerup', event => { canceled = pointerStart && Math.hypot(event.clientX - pointerStart.x, event.clientY - pointerStart.y) > 10; });
     button.addEventListener('pointercancel', () => { canceled = true; scene?.inspect(null); });
     button.addEventListener('mouseenter', () => { if (!button.disabled) { scene?.inspect(card); $('preview').textContent = p.fullDetail; } });
     button.addEventListener('focus', () => { if (!button.disabled) { scene?.inspect(card); $('preview').textContent = p.fullDetail; } });
     for (const event of ['mouseleave', 'blur']) button.addEventListener(event, () => { scene?.inspect(null); $('preview').textContent = ''; });
     button.addEventListener('click', () => { if (!canceled) select(i); canceled = false; });
-    return button;
+    const help = node('button', 'card-help', '?'); help.dataset.offerHelp = i;
+    help.setAttribute('aria-label', `About ${title(card)}`); help.setAttribute('aria-haspopup', 'dialog'); help.setAttribute('aria-controls', 'effect-dialog');
+    help.disabled = loading || !!pendingPurchase || state.phase !== 'picking';
+    help.addEventListener('click', () => showEffect(card, view));
+    slot.append(button, help); return slot;
   }));
 }
 function render() {
   const view = resolvingBefore ?? state, done = finished(state);
   $('height').textContent = view.links.length; $('coins').textContent = state.cash;
   renderDock(view); renderWorkshop(view); renderOffers(view);
-  $('reveal-now').hidden = state.phase !== 'resolving';
+  $('reveal-now').hidden = state.phase !== 'resolving' && !pendingPurchase;
   $('offers').hidden = done; $('tray').hidden = done; $('ending').hidden = !done;
   $('overview').disabled = !view.links.length; $('seed-label').textContent = `Guestbook ${state.seed}`;
-  $('world').dataset.state = state.phase; document.querySelector('.hotel-app').classList.toggle('complete', done);
+  $('world').dataset.state = pendingPurchase ? 'launching' : state.phase; document.querySelector('.hotel-app').classList.toggle('complete', done);
   $('floor-record').replaceChildren(...view.links.map((floor, i) => { const li = node('li', '', `Floor ${i + 1}: ${suitInfo(floor.suit).name}`); li.dataset.floorId = floor.id; li.dataset.type = floor.suit; return li; }));
   if (done) {
     $('ending-title').textContent = `${state.links.length} floors`;
@@ -137,7 +142,7 @@ function render() {
   $('motion-toggle').setAttribute('aria-pressed', String(reduced)); document.documentElement.classList.toggle('reduced-motion', reduced);
 }
 function select(index) {
-  if (loading || state.phase !== 'picking' || document.querySelector('dialog[open]')) return;
+  if (loading || pendingPurchase || state.phase !== 'picking' || document.querySelector('dialog[open]')) return;
   const card = state.offer[index]; if (!card || card.price > state.cash) return;
   if (card.type !== 'choice') { commit(index); return; }
   choiceIndex = index;
@@ -150,9 +155,22 @@ function select(index) {
   $('choice-dialog').showModal();
 }
 function commit(index, selectedType) {
+  if (pendingPurchase || state.phase !== 'picking') return;
+  const token = ++epoch;
+  const apply = () => { if (token !== epoch) return; pendingPurchase = null; applyPurchase(index, selectedType, token); };
+  if (reduced) { apply(); return; }
+  pendingPurchase = { index, selectedType };
+  const source = document.querySelector(`#offers [data-offer-index="${index}"]`);
+  scene?.inspect(null);
+  flight.play(source, { onBurst: () => { audio.fold(); apply(); } });
+  render(); $('status').textContent = 'Opening your card…';
+  // The original node was cloned for flight before rendering disabled offers.
+  document.querySelector(`#offers [data-offer-index="${index}"]`)?.classList.add('card-flight-source');
+}
+function applyPurchase(index, selectedType, token) {
   const before = structuredClone(state);
   if (!pick(state, index, selectedType)) return;
-  const token = ++epoch; resolvingBefore = before; render();
+  resolvingBefore = before; render();
   const complete = () => {
     if (token !== epoch || state.phase !== 'resolving') return;
     const entry = state.history.at(-1);
@@ -166,7 +184,7 @@ function commit(index, selectedType) {
   else scene.animate(before, structuredClone(state), { onFrame: count => { $('height').textContent = count; if (count > lastFloor) { audio.fold(); lastFloor = count; } }, onComplete: complete });
 }
 function restart(seed) {
-  ++epoch; menuReturn = null; for (const dialog of document.querySelectorAll('dialog[open]')) dialog.close();
+  ++epoch; flight.cancel(); pendingPurchase = null; menuReturn = null; for (const dialog of document.querySelectorAll('dialog[open]')) dialog.close();
   resolvingBefore = null; choiceIndex = null; state = createGame(seed); setSeed();
   $('status').textContent = 'Choose one card. A new delivery follows.'; $('preview').textContent = '';
   $('overview').textContent = 'Whole hotel'; render(); scene?.reset(state);
@@ -190,13 +208,13 @@ for (const [button, dialog] of [['rules-open', 'rules-dialog'], ['workshop-open'
 }
 $('menu-dialog').addEventListener('close', () => { if (!menuReturn && !document.querySelector('dialog[open]')) $('menu-open').focus(); });
 $('choice-dialog').addEventListener('close', () => { choiceIndex = null; });
-$('reveal-now').addEventListener('click', () => { scene?.skip(); $('menu-dialog').close(); });
+$('reveal-now').addEventListener('click', () => { flight.finish(); scene?.skip(); $('menu-dialog').close(); });
 $('overview').addEventListener('click', () => { $('overview').textContent = scene.toggleOverview() ? 'Back to the top' : 'Whole hotel'; $('menu-dialog').close(); });
 $('replay').addEventListener('click', () => restart(state.seed));
 $('new-game').addEventListener('click', () => restart(randomSeed()));
-function applyMotion(value) { reduced = value; scenery.setMotion(!reduced); document.documentElement.classList.toggle('reduced-motion', reduced); if (scene) { scene.motion = !reduced; if (reduced) { scene.skip(); scene.tower.y = 0; } scene.draw(); } $('motion-toggle').setAttribute('aria-pressed', String(reduced)); }
+function applyMotion(value) { reduced = value; scenery.setMotion(!reduced); document.documentElement.classList.toggle('reduced-motion', reduced); if (scene) scene.motion = !reduced; if (reduced) flight.finish(); if (scene) { if (reduced) { scene.skip(); scene.tower.y = 0; } scene.draw(); } $('motion-toggle').setAttribute('aria-pressed', String(reduced)); }
 $('motion-toggle').addEventListener('click', () => applyMotion(!reduced)); motionQuery.addEventListener('change', e => applyMotion(e.matches));
 document.addEventListener('keydown', event => { if (!event.repeat && !event.ctrlKey && !event.metaKey && !event.altKey && /^[123]$/.test(event.key) && !document.querySelector('dialog[open]')) { event.preventDefault(); select(Number(event.key) - 1); } });
 setSeed(); balanceTable(); render();
 world.ready.then(readyScene => { scene = readyScene; scene.motion = !reduced; loading = false; render(); scene.setState(state); $('world').dataset.ready = 'true'; });
-if (import.meta.hot) import.meta.hot.dispose(() => { scenery.destroy(); world.destroy(); audio.destroy(); });
+if (import.meta.hot) import.meta.hot.dispose(() => { flight.destroy(); scenery.destroy(); world.destroy(); audio.destroy(); });

@@ -6,11 +6,15 @@ Status: playable Phaser prototype and continuing story/animation direction. Game
 
 The playable Phaser implementation now lives in this folder, independently of One More Card. The homepage registers it as Cloudtop Hotel. See [README.md](README.md) for local play, ownership and verification.
 
-The prototype implements the full current card set with hotel terminology, append-only floor rules, exact Mosaic order, Room Choice, Neighborhood Streak and Type Lock. The September 2026 art revision follows the supplied colorful paper-diorama references: a textured blue sky, floating islands, flower-filled windows, gold lanterns and dimensional folded-paper animals. Phaser uses five generated sprite sheets with 48 frames: 24 room frames, 16 Copycat/balloon frames and eight scenery/prop frames. Each room type has folded, opening and assembled poses plus blinking, reading, waving and sleeping guests. Copycat plays spot, stamp, send and celebration poses; balloon frame animation, paper unfolding, camera follow, confetti and the final roof complete the presentation. The DOM provides the accessible shop, Balloon Dock, persistent strategy indicators, rules and Workshop. Reveal now, replay cancellation, reduced motion and optional sound are supported.
+The prototype implements the full current card set with hotel terminology, append-only floor rules, exact Mosaic order, Room Choice, Neighborhood Streak and Type Lock. The September 2026 art revision follows the supplied colorful paper-diorama references: a textured blue sky, floating islands, flower-filled windows, gold lanterns and dimensional folded-paper animals. Seven generated game/UI sheets plus one scenery atlas provide 68 frames: 24 room frames, 16 Copycat/balloon frames, eight props, 14 distinct card illustrations and six moving scenery cutouts. Each room type has folded, opening and assembled poses plus blinking, reading, waving and sleeping guests. Copycat plays spot, stamp, send and celebration poses; balloon frame animation, paper unfolding, camera follow, confetti and the final roof complete the presentation. The DOM provides the accessible shop, Balloon Dock, persistent strategy indicators, effect-help dialogs, rules and Workshop. Reveal now, replay cancellation, reduced motion and optional sound are supported.
 
 Original generated PNG sheets, WebP delivery exports, frame maps and the exact generation prompts live in [assets/sprites](assets/sprites/README.md). The three windows across a rendered floor are decorative: one complete row remains one floor and one scoring unit. Guest idle poses never change a floor's type, order or identity.
 
-The live layout uses the paper sky across the full viewport. The card tray tilts in perspective, has a raised front edge, and fans the outer cards slightly. There is no visible game title, shop heading, footer or decorative background copy. A single menu contains sound, reduced motion, the whole-hotel view, reveal/skip, Workshop, rules, Replay and New hotel. Only counters, the Balloon Dock, active strategy effects and card information remain in the play view; result summaries and brief delivery feedback are contextual.
+The live layout uses the paper sky and transparent Phaser canvas across the full viewport, beneath the HUD and card tray. The tower continues behind the tray instead of being clipped at a separate playfield boundary; the camera uses the actual HUD/tray bounds to keep construction readable and fit the complete roof and island in overview. Nine clouds drift and five islands bob independently. The full-width cardboard tray uses a generated textured asset, perspective, a raised front edge and slightly fanned outer cards; short landscape layouts put it beside the hotel. Coin, floor and balloon counters are black text with white outlines and no backing panels; coins have an icon without a “Coins” label. A generated torn-paper banner labels the Balloon Dock.
+
+Each card has an icon-based coin price at the top left, effect help at the top right, a distinct illustration, title and numerical effect. Descriptions live in a native effect dialog opened by the question mark; the card face omits prose and the projected remaining coin balance. Room Pattern blueprints and locked future-card bundles distinguish those typed powers; other powers use their own generated miniatures. Prefab Pack, Balloon Call and Mosaic compose room/balloon sprites to explain their quantities and sequence. There is no visible game title, shop heading, footer or decorative background copy. A single menu contains sound, reduced motion, the whole-hotel view, reveal/skip, Workshop, rules, Replay and New hotel. Only counters, the Balloon Dock, active strategy effects and cards remain in the play view; result summaries and brief delivery feedback are contextual.
+
+Selecting a card starts a 470 ms flight to the screen center followed by 220 ms of balloon-like inflation. The card then pops: this is the single purchase boundary, when payment and the engine effect apply. Eight fragments preserve the selected artwork and scatter with sparks for up to 420 ms as the committed Phaser delivery begins. Repeated purchases are blocked while launching or resolving. Restart cancels a pending flight before it charges anything; Reveal now and Reduced motion finish it once. Reduced motion skips flight and delivery animation for subsequent selections. The new UI assets and their exact prompts are recorded in [assets/sprites/card-ui-prompts.json](assets/sprites/card-ui-prompts.json).
 
 The sections below remain the visual direction for continued polish: detailed actor choreography, contact haptics and richer sound design can build on the playable implementation. The acceptance checklist describes the target presentation; automated coverage is listed in the README.
 
@@ -123,7 +127,7 @@ Pink balloons ×4 → +4 Pink floors
 
 ### Offer tray
 
-Three large paper cards remain fixed at the bottom. The card art is part of the physical world:
+Three large paper cards rest in the fixed cardboard tray at the bottom, or beside the tower in short landscape layouts. Coin price appears at top left; a question mark at top right opens the effect dialog without purchasing. Keep explanatory prose and projected remaining coins off the card face. The card art is part of the physical world:
 
 - Construction cards contain folded boxes.
 - Technique cards unfold like tiny paper stages.
@@ -138,7 +142,7 @@ Three large paper cards remain fixed at the bottom. The card art is part of the 
 - World objects—boxes, residents, balloons, Copycat, clouds, and paper props—animate at an intentional 12 frames per second using pose swaps and stepped transforms.
 - Input feedback, text, counters, focus rings, and camera settling remain smooth at display refresh rate so the game does not feel sluggish or uncomfortable.
 - Add at most 1–2 pixels of seeded positional variation between stop-motion poses. Do not apply continuous random jitter.
-- Hinges and folds rotate around visible paper creases. Objects should never stretch like rubber.
+- Hinges and folds rotate around visible paper creases. Room construction should never stretch like rubber; the selected card's brief balloon-like inflation is a deliberate exception before it pops.
 - Use soft cast-shadow changes to clarify which paper layer is above another.
 
 ### Causality
@@ -168,6 +172,8 @@ Never update a counter before the physical event that caused it.
 
 Multi-floor actions must overlap their sub-animations. Never play eight complete one-second floor animations sequentially.
 
+These are continuing choreography targets. The current selection animation adds a 470 ms flight and 220 ms inflation before purchase; its burst fragments fade over 420 ms while delivery starts. The implemented delivery duration depends on the card and number of floors.
+
 ## Card interaction and play sequence
 
 ### 1. Press and preview
@@ -177,7 +183,7 @@ On pointer-down:
 - Depress the card immediately to roughly 97% scale.
 - Raise its paper edge shadow on the opposite side of the press.
 - Highlight the predicted source in the playfield or Balloon Dock.
-- Show the exact output and projected coins.
+- Keep the numerical output on the card; show the full effect through its separate question-mark dialog, without a projected coin balance on the card face.
 - Do not roll Mystery/Surprise outcomes during preview.
 
 Dragging roughly 10 pixels away cancels the pending purchase and restores the card. Returning before release restores the preview.
@@ -186,13 +192,15 @@ Dragging roughly 10 pixels away cancels the pending purchase and restores the ca
 
 For Choice 1, pointer-up first opens the type picker. Show the exact total and Foundation consequence for each allowed type. Cancel or Escape restores the offer without payment, rerolling, or consuming an Attunement shop. Block background purchases while the picker is open and restore focus on cancellation. Choosing a type performs the commit below once.
 
-For other cards, pointer-up over the card commits directly:
+For other cards, pointer-up over the card selects it for the following sequence:
 
-1. Charge the price immediately.
-2. Fold the two unchosen cards closed and slide them downward into the tray.
-3. Lift the chosen card toward the action area.
-4. Resolve the engine transaction once. Animation reads the committed result; it never decides gameplay.
-5. Use the chosen card's family-specific animation.
+1. Keep payment and the game state pending; block other purchases.
+2. Lift the chosen card from the tray to the center over 470 ms, then inflate it for 220 ms.
+3. Pop the card and resolve the engine transaction exactly once, charging the price and calculating its effect at that boundary.
+4. Scatter fragments of its own artwork for up to 420 ms while the committed delivery begins. Delivery animation reads the result; it never decides gameplay.
+5. Use the chosen card's family-specific delivery. Further folding of the unchosen cards and tool-installation choreography remains a polish direction.
+
+Reset before the pop cancels selection without payment or effect. Reveal now applies a pending selection once and completes its delivery; enabling Reduced motion has the same finish behavior. A run that already uses Reduced motion commits immediately without the flight or burst.
 
 ### 3. Resolve
 

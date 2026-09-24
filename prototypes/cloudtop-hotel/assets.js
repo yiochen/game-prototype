@@ -13,10 +13,16 @@ export const SHEETS = {
   'rooms-cat': { columns: 4, rows: 2 },
   actors: { columns: 4, rows: 4 },
   props: { columns: 4, rows: 2 },
+  'card-powers': { columns: 4, rows: 2 },
+  'card-types': { columns: 3, rows: 2 },
 };
 const types = ['bunny', 'frog', 'cat'];
 const props = ['cloud', 'island', 'platform', 'roof', 'parcel', 'charm', 'coin', 'heart'];
 export function spriteArt(key) {
+  const power = ['choice', 'mystery', 'overgrow', 'assembler', 'stabilizer', 'vault', 'rebate', 'foundation'].indexOf(key.replace('power-', ''));
+  if (key.startsWith('power-') && power >= 0) return { sheet: 'card-powers', frame: power };
+  const typeCard = key.match(/^(pattern|lock)-(bunny|frog|cat)$/);
+  if (typeCard) return { sheet: 'card-types', frame: types.indexOf(typeCard[2]) + (typeCard[1] === 'lock' ? 3 : 0) };
   if (props.includes(key)) return { sheet: 'props', frame: props.indexOf(key) };
   if (key === 'copycat') return { sheet: 'actors', frame: 0 };
   if (key.startsWith('balloon-')) return { sheet: 'actors', frame: (types.indexOf(key.slice(8)) + 1) * 4 };

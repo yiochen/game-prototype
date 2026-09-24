@@ -1,0 +1,47 @@
+.card-flight {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  overflow: hidden;
+  pointer-events: none;
+  perspective: 1100px;
+  contain: layout style;
+}
+.card-flight-source { visibility: hidden !important; }
+.card-flight .card-flight-card {
+  position: absolute;
+  inset: 0 auto auto 0;
+  margin: 0;
+  opacity: 1 !important;
+  pointer-events: none !important;
+  transform-origin: 50% 50%;
+  transition: none !important;
+  will-change: transform;
+  box-shadow: 4px 12px 20px #3b3b553d, 1px 2px 1px #fff4df80 inset;
+}
+.card-flight .card-flight-card:focus { outline: none; }
+.card-flight .card-flight-fragment {
+  box-shadow: none;
+  will-change: transform, opacity;
+}
+.card-flight-ring {
+  position: absolute;
+  border: 5px solid #fff6dbe0;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #ffd87055, 0 0 17px #fff3b333;
+  pointer-events: none;
+}
+.card-flight-spark {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: #fff0a4;
+  clip-path: polygon(50% 0,61% 35%,100% 50%,62% 63%,50% 100%,36% 63%,0 50%,37% 35%);
+  filter: drop-shadow(0 1px 1px #90663055);
+}
+.card-flight-spark.paper {
+  width: 9px;
+  height: 17px;
+  background: var(--burst-paper);
+  clip-path: polygon(6% 8%,91% 0,100% 86%,12% 100%);
+}

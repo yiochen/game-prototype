@@ -67,19 +67,42 @@ class HotelScene extends Phaser.Scene {
     layer.add(label); return label;
   }
   graphics(layer) { const g = this.add.graphics(); layer.add(g); return g; }
+  screenRegion() {
+    const { width: w, height: h } = this.scale, canvas = this.game.canvas.getBoundingClientRect();
+    const rect = selector => {
+      const element = document.querySelector(selector);
+      if (!element?.getClientRects().length) return null;
+      const bounds = element.getBoundingClientRect(), sx = w / canvas.width, sy = h / canvas.height;
+      return { left: (bounds.left - canvas.left) * sx, right: (bounds.right - canvas.left) * sx, top: (bounds.top - canvas.top) * sy, bottom: (bounds.bottom - canvas.top) * sy, height: bounds.height * sy };
+    };
+    const dashboard = rect('.dashboard'), strategy = rect('#strategy-status');
+    const foreground = rect('#tray') ?? rect('#ending');
+    const top = Math.max(8, dashboard?.bottom ?? 0, strategy?.bottom ?? 0) + 10;
+    const sideTray = foreground && w > h && foreground.left > w * .25 && foreground.top < h * .4;
+    const right = sideTray ? foreground.left - 10 : w - 12;
+    const bottom = sideTray ? h - 12 : Math.min(h - 12, foreground?.top ?? h) - 4;
+    return { left: 12, right, top, bottom, width: Math.max(80, right - 12), height: Math.max(70, bottom - top), sideTray };
+  }
+  dockPosition(suit) {
+    const canvas = this.game.canvas.getBoundingClientRect(), chip = document.querySelector(`.dock-chip.${suit}`)?.getBoundingClientRect();
+    return chip ? { x: (chip.left + chip.width / 2 - canvas.left) * this.scale.width / canvas.width, y: (chip.top + chip.height / 2 - canvas.top) * this.scale.height / canvas.height } : { x: this.scale.width * (.25 + TYPES.indexOf(suit) * .25), y: 20 };
+  }
   layout(count) {
-    const { width: w, height: h } = this.scale;
-    const floorWidth = Math.min(300, Math.max(140, w * .59), Math.max(140, h * .75)), floorHeight = floorWidth / 3;
-    const available = Math.max(50, h - 68);
-    const overviewScale = Math.min(1, available / Math.max(floorHeight * count + floorWidth * .5, 1));
+    const region = this.screenRegion();
+    const floorWidth = Math.min(330, region.width * .61, Math.max(100, region.height * .76)), floorHeight = floorWidth / 3;
     const finished = this.view?.phase === 'complete';
+    // The island extends .48 widths below the first floor; the finished roof
+    // extends .65 above the last. Include both in the whole-hotel camera fit.
+    const cap = finished ? .65 : .23;
+    const overviewScale = Math.min(1, region.height / Math.max(floorHeight * count + floorWidth * (cap + .5), 1));
     const ending = this.ending === null ? 1 : ease((this.time.now - this.ending) / 1600);
     const scale = this.whole ? (finished ? 1 + (overviewScale - 1) * ending : overviewScale) : 1;
     const width = floorWidth * scale, step = floorHeight * scale;
-    const headroom = finished ? width * .68 + 22 : Math.max(h * .24, width * .23 + 25);
-    const base = Math.max(h - 58, headroom + count * step);
-    // Keep construction near the middle until enough floors exist to follow the open top.
-    return { x: w / 2, base: this.whole ? h - 42 : base, width, step, scale, floorWidth };
+    const headroom = finished ? width * .68 + 10 : Math.max(region.height * .2, width * .23 + 25);
+    const base = this.whole ? region.bottom - width * .5 : Math.max(region.bottom - width * .12, region.top + headroom + count * step);
+    // The canvas continues behind the foreground tray. Close-up floors may
+    // pass under it naturally; only the camera's focus uses the clear region.
+    return { x: (region.left + region.right) / 2, base, width, step, scale, floorWidth, region };
   }
   draw() {
     if (!this.tower || !this.view) return;
@@ -150,6 +173,8 @@ class HotelScene extends Phaser.Scene {
     this.game.canvas.dataset.action = a ? a.after.history.at(-1).type : 'idle';
     this.game.canvas.dataset.choreography = !a ? 'idle' : progress < .18 ? 'spot' : progress < .34 ? 'stamp' : progress < a.buildStart ? 'send' : progress < a.buildEnd ? 'unfold' : 'celebrate';
     this.game.canvas.dataset.motion = String(this.motion);
+    this.game.canvas.dataset.viewRegion = JSON.stringify(layout.region);
+    this.game.canvas.dataset.towerBounds = JSON.stringify({ left: x - width * .7, right: x + width * .7, top: top - width * (done ? .65 : .23), bottom: base + width * .48, overview: this.whole });
   }
   drawSky(w, h) {
     const drift = this.motion ? Math.sin(this.time.now / 18000) * 8 : 0;
@@ -158,8 +183,9 @@ class HotelScene extends Phaser.Scene {
     this.balloon(this.background, 'cat', w * .9, h * .8 + drift / 2, 41, 3, .85);
   }
   drawCopycat(layout, source, progress) {
-    const size = Math.min(115, this.scale.width * .2), x = Math.max(size / 2 + 5, layout.x - layout.width * .76);
-    const y = Math.max(65, this.scale.height * .5);
+    const { region } = layout;
+    const size = Math.min(115, region.width * .2, region.height * .35), x = Math.max(region.left + size / 2, layout.x - layout.width * .76);
+    const y = region.top + region.height * .5;
     const pose = progress < .18 ? 0 : progress < .34 ? 1 : progress < .87 ? 2 : 3;
     this.image(this.effects, 'cloud', x, y + size * .43, size * 1.4, size * .55);
     this.sprite(this.effects, 'actors', pose, x, y, size, size, pose === 1 ? Math.sin(progress * 80) * 3 : 0);
@@ -173,25 +199,26 @@ class HotelScene extends Phaser.Scene {
     return { x, y };
   }
   drawDelivery(a, progress, layout, current) {
-    const card = a.after.history.at(-1), { x, base, step, width } = layout;
+    const card = a.after.history.at(-1), { x, base, step, width, region } = layout;
     const count = a.after.lastEffect.added, top = base - current * step;
-    let originX = x + width * .72, originY = this.scale.height * .87;
+    let originX = Math.min(region.right - 32, x + width * .72), originY = region.bottom - 10;
     if (card.type === 'overgrow') {
       const actor = this.drawCopycat(layout, longestSegment(a.before), progress); originX = actor.x; originY = actor.y;
     }
     if (!count) {
-      this.image(this.effects, 'charm', x, Math.max(40, top - 90 - progress * 30), 70, 67, Math.sin(progress * Math.PI * 5) * (1 - progress) * 14, Math.min(1, (1 - progress) * 4));
+      this.image(this.effects, 'charm', x, Math.max(region.top + 40, top - 90 - progress * 30), 70, 67, Math.sin(progress * Math.PI * 5) * (1 - progress) * 14, Math.min(1, (1 - progress) * 4));
       return;
     }
     if (this.time.now - a.start < a.delay && card.type === 'mystery') {
-      this.image(this.effects, 'parcel', x, Math.max(50, top - 80), 82, 78, Math.sin(this.time.now / 65) * 6); return;
+      this.image(this.effects, 'parcel', x, Math.max(region.top + 45, top - 80), 82, 78, Math.sin(this.time.now / 65) * 6); return;
     }
     const suit = a.after.links[Math.min(a.after.links.length - 1, current)]?.suit ?? 'bunny';
     const flightStart = card.type === 'overgrow' ? .32 : 0;
     if (progress >= flightStart && progress < a.buildEnd) {
       const t = Phaser.Math.Clamp((progress - flightStart) / (a.buildStart - flightStart + .1), 0, 1);
-      const sourceX = card.type === 'recall' ? this.scale.width * (.25 + TYPES.indexOf(suit) * .25) : originX;
-      const sourceY = card.type === 'recall' ? -30 : originY;
+      const dock = this.dockPosition(suit);
+      const sourceX = card.type === 'recall' ? dock.x : originX;
+      const sourceY = card.type === 'recall' ? dock.y : originY;
       const boxX = Phaser.Math.Linear(sourceX, x, t), boxY = Phaser.Math.Linear(sourceY, top - 42, t) - Math.sin(t * Math.PI) * 65;
       const alpha = 1 - Phaser.Math.Clamp((progress - a.buildStart) / .3, 0, 1);
       this.sprite(this.effects, 'rooms-' + suit, 0, boxX, boxY, 65, 65, (1 - t) * -18, alpha);
@@ -205,17 +232,17 @@ class HotelScene extends Phaser.Scene {
       const t = (progress - a.buildEnd) / (1 - a.buildEnd);
       const newRuns = segments(a.after).filter(run => run.id >= a.before.nextLinkId);
       for (const [i, run] of newRuns.slice(0, 5).entries()) {
-        const dockX = this.scale.width * (.25 + TYPES.indexOf(run.suit) * .25);
-        this.balloon(this.effects, run.suit, Phaser.Math.Linear(x, dockX, t) + Math.sin(t * Math.PI) * (i - 2) * 23, Phaser.Math.Linear(Math.max(top - 20, 65), -35, t), 48, i);
+        const dock = this.dockPosition(run.suit);
+        this.balloon(this.effects, run.suit, Phaser.Math.Linear(x, dock.x, t) + Math.sin(t * Math.PI) * (i - 2) * 23, Phaser.Math.Linear(Math.max(top - 20, region.top + 25), dock.y, t), 48, i);
       }
-      this.label(this.effects, '+' + count + ' floors', x, Math.max(35, top - 30 - t * 25), 24, '#fff0a2');
+      this.label(this.effects, '+' + count + ' floors', x, Math.max(region.top + 15, top - 30 - t * 25), 24, '#fff0a2');
       const g = this.graphics(this.effects);
       for (let i = 0; i < 12; i++) {
         g.fillStyle([0xffd053, 0xff8cb3, 0xb7e568][i % 3], 1 - t);
         g.fillRect(x + Math.sin(i * 9) * width * t, top - 10 - Math.sin(t * Math.PI) * 35 + Math.cos(i * 7) * t * 35, 3, 6);
       }
     }
-    if (card.foundationBonus && progress > .45) this.label(this.effects, 'Streak +' + card.foundationBonus, x, Math.max(18, top - 80), 12, '#fff0a2');
+    if (card.foundationBonus && progress > .45) this.label(this.effects, 'Streak +' + card.foundationBonus, x, Math.max(region.top + 10, top - 80), 12, '#fff0a2');
   }
 }
 
