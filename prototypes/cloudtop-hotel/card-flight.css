@@ -4,7 +4,6 @@
   z-index: 20;
   overflow: hidden;
   pointer-events: none;
-  perspective: 1100px;
   contain: layout style;
 }
 .card-flight-source { visibility: hidden !important; }
@@ -17,7 +16,8 @@
   transform-origin: 50% 50%;
   transition: none !important;
   will-change: transform;
-  box-shadow: 4px 12px 20px #3b3b553d, 1px 2px 1px #fff4df80 inset;
+  box-shadow: none;
+  filter: drop-shadow(4px 12px 12px #3b3b553d);
 }
 .card-flight .card-flight-card:focus { outline: none; }
 .card-flight .card-flight-fragment {

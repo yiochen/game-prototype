@@ -1,0 +1,68 @@
+/* Cards share the box floor's vanishing point, so their upper edges recede
+   together. The front wall is drawn again above them as a physical rim. */
+.shop { --table-perspective: 1300px; perspective: none; }
+.tray { transform: translate3d(0,0,0); transform-origin: 50% 100%; transform-style: flat; }
+.tray::before,.tray::after { background-size: 108% 115%; background-position: center top; }
+.tray::after { clip-path: inset(90% 0 0); transform: translateZ(12px); }
+.offers {
+  position: absolute;
+  z-index: 1;
+  inset: auto 5.8% 7.5%;
+  width: auto;
+  height: 98%;
+  padding: 0;
+  gap: 2.5%;
+  transform: perspective(var(--table-perspective)) rotateX(34deg);
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+}
+.offer-slot { --slant: 0deg; transform: translateZ(1px) rotateZ(var(--slant)); transform-origin: 50% 50%; }
+.offer-slot:first-child { --slant: -1deg; }
+.offer-slot:last-child { --slant: 1deg; }
+.offer-slot:has(.offer-card:not(:disabled):hover),.offer-slot:has(:focus-visible) {
+  transform: translateZ(4px) rotateZ(var(--slant));
+}
+.offer-card {
+  --paper-x: 50%; --paper-y: 100%;
+  border: 0;
+  border-radius: 3px;
+  padding: 7% 8% calc(8% + 10px);
+  background-color: transparent;
+  background-image: var(--card-paper);
+  background-size: 300% 200%;
+  background-position: var(--paper-x) var(--paper-y);
+  box-shadow: none;
+  filter: drop-shadow(1px 3px 1px #45291b99);
+}
+.offer-card::before,.offer-card::after { content: none; }
+.offer-card.bunny { --paper-x: 0%; --paper-y: 0%; }
+.offer-card.frog { --paper-x: 50%; --paper-y: 0%; }
+.offer-card.cat { --paper-x: 100%; --paper-y: 0%; }
+.offer-card.strategy,.offer-card[data-type=overgrow],.offer-card[data-type=choice],.offer-card[data-type=mosaic] { --paper-x: 0%; --paper-y: 100%; }
+.offer-card.wealth,.offer-card[data-type=mystery] { --paper-x: 50%; --paper-y: 100%; }
+.offer-card.reactor { --paper-x: 100%; --paper-y: 100%; }
+.card-top { padding-right: 30px; }
+.card-help { top: 6%; right: 7%; }
+.card-title { text-wrap: balance; }
+
+@media(max-width:600px) {
+  .shop { --table-perspective: 740px; }
+  .offers { inset-inline: 5.2%; height: 101%; transform: perspective(var(--table-perspective)) rotateX(35deg); gap: 2.8%; }
+  .offer-card { padding: 9% 7% calc(10% + 12px); grid-template-rows: 29px minmax(25px,1fr) minmax(30px,auto) 22px; gap: 2px; }
+  .card-title { font-size: 12px; }
+  .card-help { top: 6%; right: 3%; }
+}
+@media(max-width:360px) {
+  .card-title { font-size: 10px; }
+  .card-top { padding-right: 23px; }
+}
+@media(max-width:600px) and (max-height:650px) {
+  .offers { height: 100%; }
+  .offer-card { grid-template-rows: 25px minmax(20px,1fr) minmax(26px,auto) 20px; padding-block: 7% calc(9% + 8px); gap: 1px; }
+}
+@media(min-width:601px) and (max-height:550px) {
+  .shop { --table-perspective: 750px; }
+  .offers { inset-inline: 5%; height: 98%; transform: perspective(var(--table-perspective)) rotateX(34deg); gap: 2.5%; }
+  .offer-card { grid-template-rows: 28px minmax(20px,1fr) minmax(28px,auto) 23px; padding: 7% 7% calc(10% + 12px); gap: 2px; }
+  .card-help { top: 6%; right: 3%; }
+}

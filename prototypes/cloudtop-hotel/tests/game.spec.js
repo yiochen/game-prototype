@@ -17,6 +17,18 @@ async function control(page, id) {
   await page.locator('#' + id).click();
 }
 async function screenshot(page, name) { await mkdir('artifacts/cloudtop-hotel', { recursive: true }); await page.screenshot({ path: `artifacts/cloudtop-hotel/${name}.png` }); }
+async function paperLoads(page, selector, variable) {
+  const surfaces = await page.locator(selector).evaluateAll(async (items, variable) => {
+    const source = getComputedStyle(document.documentElement).getPropertyValue(variable).trim();
+    const url = source.match(/url\(["']?(.*?)["']?\)/)?.[1];
+    if (!url) return { loaded: false, applied: [] };
+    const image = new Image(); image.src = url; await image.decode();
+    return { loaded: image.naturalWidth > 0, applied: items.map(item =>
+      [null, '::before', '::after'].some(pseudo => getComputedStyle(item, pseudo).backgroundImage.includes(url))) };
+  }, variable);
+  expect(surfaces.loaded).toBe(true); expect(surfaces.applied.length).toBeGreaterThan(0);
+  expect(surfaces.applied.every(Boolean)).toBe(true);
+}
 async function screenFits(page) {
   const layout = await page.evaluate(() => ({ width: innerWidth, height: innerHeight, sw: document.documentElement.scrollWidth, sh: document.documentElement.scrollHeight, cards: [...document.querySelectorAll('.offer-card, .card-help, #menu-open, dialog[open] button')].filter(e => e.getClientRects().length).map(e => ({ text: e.textContent, r: e.getBoundingClientRect().toJSON(), overflow: e.scrollHeight > e.clientHeight + 2 })) }));
   expect(layout.sw).toBeLessThanOrEqual(layout.width); expect(layout.sh).toBeLessThanOrEqual(layout.height);
@@ -32,6 +44,7 @@ test('catalog opens an independent Phaser hotel with loaded art', async ({ page 
   await expect(page.locator('#offers .card-help')).toHaveCount(3);
   await expect.poll(() => page.locator('.offer-card img').evaluateAll(images => images.every(i => i.complete && i.naturalWidth))).toBe(true);
   await expect(page.locator('.offer-card .card-art').first()).toBeVisible();
+  await paperLoads(page, '#offers .offer-card', '--card-paper');
   await expect(page.locator('#world canvas')).toHaveAttribute('data-sprite-frames', /actors:/);
   await screenshot(page, 'opening-desktop'); expect(errors).toEqual([]);
 });
@@ -145,7 +158,7 @@ test('full-screen scenery and tilted cards keep all utility controls in an acces
   await page.setViewportSize({ width: 390, height: 844 }); await open(page, 0);
   const scenery = await page.locator('.sky-backdrop').evaluate(e => ({ rect: e.getBoundingClientRect().toJSON(), image: getComputedStyle(e).backgroundImage }));
   expect(scenery.rect).toMatchObject({ x: 0, y: 0, width: 390, height: 844 }); expect(scenery.image).toContain('sky-');
-  expect(await page.locator('.tray').evaluate(e => getComputedStyle(e).transform)).toContain('matrix3d');
+  expect(await page.locator('#offers').evaluate(e => getComputedStyle(e).transform)).toContain('matrix3d');
   await expect(page.locator('.masthead, .shop-heading, .world-note, footer')).toHaveCount(0);
   const utilities = ['sound-toggle','motion-toggle','replay','new-game','overview','workshop-open','rules-open'];
   for (const id of utilities) await expect(page.locator('#' + id)).toBeHidden();
@@ -187,13 +200,15 @@ test('card help explains a power without buying it, keeps shortcuts blocked, and
   await screenshot(page, 'card-effect-help');
   await page.keyboard.press('Escape'); await expect(help(page, 0)).toBeFocused();
   expect(await page.locator('#offers .offer-card').evaluateAll(cards => cards.map(c => c.dataset.cardId))).toEqual(ids);
+  await page.setViewportSize({ width: 390, height: 844 }); await screenFits(page);
   await help(page, 2).click(); await expect(page.locator('#effect-dialog')).toContainText('3 fixed floors');
+  await expect(page.locator('#coins')).toHaveText('100'); await expect(page.locator('.card-flight')).toHaveCount(0);
   await page.locator('#effect-close').click(); await expect(help(page, 2)).toBeFocused();
   await buy(page, 2); await expect(page.locator('#coins')).toHaveText('94'); await expect(page.locator('#height')).toHaveText('3');
   await expect(page.locator('#floor-record li')).toHaveCount(3);
 });
 
-test('the hotel canvas extends behind the HUD and full-width tray on portrait and landscape screens', async ({ page }) => {
+test('the hotel canvas extends behind the paper HUD and full-width tray on portrait and landscape screens', async ({ page }) => {
   await open(page, 0); for (const i of [0,1,1,1,2]) await buy(page, i);
   for (const size of [{width:784,height:1233},{width:390,height:844},{width:320,height:480},{width:844,height:390}]) {
     await page.setViewportSize(size); await screenFits(page);
@@ -204,12 +219,15 @@ test('the hotel canvas extends behind the HUD and full-width tray on portrait an
       const tray = await page.locator('#tray').boundingBox();
       expect(tray.width).toBeGreaterThan(size.width * .9);
     }
-    const surfaces = await page.locator('.coins, .height, .dock-chip').evaluateAll(items => items.map(e => {
-      const style = getComputedStyle(e); return { background: style.backgroundColor, image: style.backgroundImage };
-    }));
-    for (const surface of surfaces) expect(surface).toEqual({ background: 'rgba(0, 0, 0, 0)', image: 'none' });
     await screenshot(page, `continuous-scene-${size.width}x${size.height}`);
   }
+  await paperLoads(page, '.coins, .height, .dock-chip', '--hud-tab');
+  await expect(page.locator('.height')).toHaveAttribute('aria-label', /floors/i);
+  await expect(page.locator('.height')).not.toContainText(/floors/i);
+  await expect(page.locator('#height-art .sprite-art')).toBeVisible();
+  await expect(page.locator('#coin-art .sprite-art')).toBeVisible();
+  await expect(page.locator('#dock .dock-multiply')).toHaveText(['×', '×', '×']);
+  for (const type of ['bunny', 'frog', 'cat']) await expect(page.locator(`.dock-chip.${type}`)).toHaveAttribute('aria-label', new RegExp(`${type}: \\d+ neighborhood balloons`, 'i'));
   await expect(page.locator('#height')).toHaveText('6'); await expect(page.locator('#coins')).toHaveText('78');
 });
 

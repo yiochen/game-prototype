@@ -1,5 +1,35 @@
 import './card-flight.css';
 
+// Read the actual four projected corners, including the common tray plane,
+// hover lift and any card slant. A bounding rectangle alone loses perspective.
+function projectedCardTransform(source, width, height) {
+  const style = getComputedStyle(source);
+  const borderX = parseFloat(style.borderLeftWidth) || 0;
+  const borderY = parseFloat(style.borderTopWidth) || 0;
+  const corners = [[0,0],[width,0],[width,height],[0,height]].map(([x,y]) => {
+    const point = document.createElement('span');
+    Object.assign(point.style, { position: 'absolute', left: `${x-borderX}px`, top: `${y-borderY}px`, width: '0', height: '0', pointerEvents: 'none' });
+    source.append(point);
+    const rect = point.getBoundingClientRect();
+    point.remove();
+    return { x: rect.x, y: rect.y };
+  });
+  const [a,b,c,d] = corners;
+  const dx1 = b.x-c.x, dx2 = d.x-c.x, dx3 = a.x-b.x+c.x-d.x;
+  const dy1 = b.y-c.y, dy2 = d.y-c.y, dy3 = a.y-b.y+c.y-d.y;
+  const denominator = dx1*dy2-dx2*dy1;
+  const g = denominator ? (dx3*dy2-dx2*dy3)/denominator : 0;
+  const h = denominator ? (dx1*dy3-dx3*dy1)/denominator : 0;
+  const projection = new DOMMatrix([
+    (b.x-a.x+g*b.x)/width, (b.y-a.y+g*b.y)/width, 0, g/width,
+    (d.x-a.x+h*d.x)/height, (d.y-a.y+h*d.y)/height, 0, h/height,
+    0,0,1,0, a.x,a.y,0,1
+  ]);
+  // Flight uses a center origin for its inflation, so compensate for that
+  // origin around the corner-based projection before Web Animations takes over.
+  return new DOMMatrix().translate(-width/2,-height/2).multiply(projection).translate(width/2,height/2).toString();
+}
+
 // The purchase stays pending until onBurst. Resetting a game cancels it instead;
 // revealing or reducing motion finishes it, applying that callback exactly once.
 export function createCardFlight() {
@@ -131,8 +161,9 @@ export function createCardFlight() {
     const scale = Math.min(1.35, innerWidth * .57 / width, innerHeight * .46 / height);
     const x = (innerWidth - width) / 2, y = (innerHeight - height) / 2;
     const style = getComputedStyle(source), slant = parseFloat(style.getPropertyValue('--slant')) || 0;
-    const fromX = rect.left + (rect.width - width) / 2, fromY = rect.top + (rect.height - height) / 2;
-    Object.assign(card.style, { width: `${width}px`, height: `${height}px`, '--card-edge': style.getPropertyValue('--card-edge') });
+    const fromX = rect.left + (rect.width - width) / 2;
+    const fromTransform = projectedCardTransform(source, width, height);
+    Object.assign(card.style, { width: `${width}px`, height: `${height}px`, padding: style.padding, '--card-edge': style.getPropertyValue('--card-edge') });
     overlay.style.setProperty('--burst-paper', style.getPropertyValue('--card-edge') || '#edc981');
     overlay.append(card); document.body.append(overlay);
     source.classList.add('card-flight-source');
@@ -140,7 +171,7 @@ export function createCardFlight() {
     current = flight;
     const center = `translate3d(${x}px,${y}px,0) scale(${scale})`;
     animate(flight, card, [
-      { transform: `translate3d(${fromX}px,${fromY}px,0) perspective(900px) rotateX(16deg) rotate(${slant}deg) scale(${rect.width / width},${rect.height / height})`, offset: 0 },
+      { transform: fromTransform, offset: 0 },
       { transform: `translate3d(${x + (fromX - x) * .08}px,${y - 14}px,0) perspective(900px) rotateX(-5deg) rotate(${-slant * .7}deg) scale(${scale * 1.025})`, offset: .82 },
       { transform: center, offset: 1 }
     ], { duration: 470, easing: 'cubic-bezier(.16,.78,.22,1)' }, () => {

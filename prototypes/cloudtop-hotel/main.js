@@ -1,4 +1,6 @@
 import './style.css';
+import './paper-hud.css';
+import './card-table.css';
 import { ART, SHEETS, spriteArt } from './assets.js';
 import { mountWorld } from './world.js';
 import { mountScenery } from './scenery.js';
@@ -18,8 +20,11 @@ const img = (key, className = '', alt = '') => {
 };
 const randomSeed = () => Math.random().toString(36).slice(2, 9);
 $('coin-art').append(img('coin'));
+$('height-art').append(img('heart'));
 document.querySelector('.dock-label').src = ART['dock-paper'];
 document.documentElement.style.setProperty('--tray-art', `url("${ART['cardboard-tray']}")`);
+document.documentElement.style.setProperty('--card-paper', `url("${ART['card-paper']}")`);
+document.documentElement.style.setProperty('--hud-tab', `url("${ART['hud-tab']}")`);
 const human = text => text.replaceAll('Foundation', 'Neighborhood Streak').replaceAll('Attunement', 'Type Lock').replaceAll('Reactor', 'Room Pattern').replaceAll('Assembler', 'Master Fold').replaceAll('Mystery', 'Surprise Parcel').replaceAll('Stabilizer', 'Lucky Bell').replaceAll('Recall', 'Balloon Call').replace(/\bsuit\b/g, 'room type').replace(/\bsuited\b/g, 'typed').replace(/\blinks?\b/g, m => m === 'links' ? 'floors' : 'floor').replace(/\bsegments?\b/g, m => m === 'segments' ? 'neighborhoods' : 'neighborhood');
 let state = createGame(new URL(location.href).searchParams.get('seed') || randomSeed());
 let scene, resolvingBefore = null, pendingPurchase = null, epoch = 0, choiceIndex = null, menuReturn = null;
@@ -77,7 +82,8 @@ function renderDock(view) {
     const count = runs.filter(r => r.suit === type.id).length;
     const dock = node('div', `dock-chip ${type.id}`); dock.dataset.suit = type.id;
     dock.setAttribute('aria-label', `${type.name}: ${count} neighborhood balloons`);
-    dock.append(img(`balloon-${type.id}`), node('span', 'dock-name', type.name), node('strong', 'dock-count', count)); return dock;
+    const multiply = node('span', 'dock-multiply', '×'); multiply.setAttribute('aria-hidden', 'true');
+    dock.append(img(`balloon-${type.id}`), node('span', 'dock-name', type.name), multiply, node('strong', 'dock-count', count)); return dock;
   }));
 }
 function renderWorkshop(view) {
