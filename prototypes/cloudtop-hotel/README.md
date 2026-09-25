@@ -41,6 +41,22 @@ The paper world uses complementary materials: illustrated colored card stock and
 
 Large sheets unfold as two hinged halves with separate lighting and a brief settle; text appears after opening begins without stretching. Prominent buttons use a shorter fold, book rows fade in, and cards retain their quick staggered deal-and-settle entrance. Popups cleanly cancel on close, screen transitions clear old folds, and reduced motion shows the settled surface immediately. Card delivery still commits once.
 
+## Neighborhood balloons
+
+A new neighborhood releases one balloon from its own top-floor window after
+the rooms settle. It opens for 420 ms, hovers on a short tether for 380 ms,
+then follows a gently swaying curve to its matching dock over 1,680 ms.
+Multiple neighborhoods release 220 ms apart; extending an existing neighborhood
+does not release another balloon. The camera briefly frames all launch floors
+when a delivery creates several neighborhoods.
+
+The dock count increments on arrival and its balloon gives a small settling
+bounce. Flight targets come from the actual dock icon; both endpoints follow
+live camera and viewport layout. Reveal now and reduced motion immediately
+settle the delivery, while replay cancels pending arrivals. All travel and dock
+feedback are presentation only; the deterministic score and purchase rules
+are unchanged. `balloon-journey.js` owns the choreography and path sampling.
+
 ## Ownership and architecture
 
 This folder owns its gameplay, art, UI, tests and Phaser dependency. Its rule engine began as a copy of the append-only One More Card rules and is now independent: it imports nothing from sibling games. The original game remains playable unchanged.

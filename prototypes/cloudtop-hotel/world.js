@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { ART, SHEETS, spriteArt, registerFrames } from './assets.js';
 import { segments, longestSegment } from './engine.js';
+import { balloonJourneys, balloonPose, BALLOON_DURATION } from './balloon-journey.js';
 
 const TYPES = ['bunny', 'frog', 'cat'];
 const INK = '#fff8dd';
@@ -31,10 +32,14 @@ class HotelScene extends Phaser.Scene {
   reset(state) { this.animation = null; this.roofAnimation = null; this.roofLanded = false; this.layoutView = null; this.tower.y = 0; this.whole = false; this.preview = null; this.ending = null; this.view = null; this.setState(state); }
   inspect(offer) { this.preview = offer; this.draw(); }
   toggleOverview() { if (!this.roofAnimation) this.whole = !this.whole; this.draw(); return this.whole; }
-  animate(before, after, { onFrame, onComplete, origin }) {
+  animate(before, after, { onFrame, onComplete, onBalloonArrival, origin }) {
     this.preview = null;
     const type = after.history.at(-1).type, count = after.lastEffect.added;
     this.animation = { before, after, origin, start: this.time.now, onFrame, onComplete, delay: type === 'mystery' ? 320 : 0, duration: type === 'overgrow' ? 2200 : count ? Math.min(1700, 760 + count * 90) : 650, buildStart: type === 'overgrow' ? .47 : .2, buildEnd: .78 };
+    const a = this.animation;
+    a.journeys = balloonJourneys(before, after, a.delay + a.duration * a.buildEnd);
+    a.onBalloonArrival = onBalloonArrival;
+    a.totalDuration = Math.max(a.delay + a.duration, ...a.journeys.map(j => j.startAt + BALLOON_DURATION));
     this.draw();
   }
   dropRoof(state, { onComplete }) {
@@ -65,7 +70,7 @@ class HotelScene extends Phaser.Scene {
     this.lastDraw = time;
     if (this.animation) {
       const a = this.animation, elapsed = time - a.start;
-      if (elapsed >= a.delay + a.duration) { this.skip(); return; }
+      if (elapsed >= a.totalDuration) { this.draw(); this.skip(); return; }
       this.draw();
     } else if (this.roofAnimation) {
       const roof = this.roofAnimation;
@@ -119,8 +124,9 @@ class HotelScene extends Phaser.Scene {
     return { left: 12, right, top, bottom, width: Math.max(80, right - 12), height: Math.max(70, bottom - top), sideTray };
   }
   dockPosition(suit) {
-    const canvas = this.game.canvas.getBoundingClientRect(), chip = document.querySelector(`.dock-chip.${suit}`)?.getBoundingClientRect();
-    return chip ? { x: (chip.left + chip.width / 2 - canvas.left) * this.scale.width / canvas.width, y: (chip.top + chip.height / 2 - canvas.top) * this.scale.height / canvas.height } : { x: this.scale.width * (.25 + TYPES.indexOf(suit) * .25), y: 20 };
+    const canvas = this.game.canvas.getBoundingClientRect(), icon = document.querySelector(`.dock-chip.${suit} .sprite-art`)?.getBoundingClientRect();
+    const sx = this.scale.width / canvas.width, sy = this.scale.height / canvas.height;
+    return icon ? { x: (icon.left + icon.width / 2 - canvas.left) * sx, y: (icon.top + icon.height / 2 - canvas.top) * sy, width: icon.width * sx, height: icon.height * sy } : { x: this.scale.width * (.25 + TYPES.indexOf(suit) * .25), y: 35, width: 35, height: 51 };
   }
   layout(count) {
     const region = this.screenRegion();
@@ -132,7 +138,12 @@ class HotelScene extends Phaser.Scene {
     const overviewScale = Math.min(1, region.height / Math.max(floorHeight * count + floorWidth * (cap + .5), 1));
     // Reserve headroom for the close-up landing; the overview only begins
     // after the roof settles and the result panel replaces the tray.
-    const scale = this.whole ? overviewScale : 1;
+    // A multi-neighborhood delivery briefly frames all launch floors. Long
+    // single-type packs launch from their top floor without shrinking the hotel.
+    const journeys = this.animation?.journeys ?? [];
+    const launchSpan = journeys.length ? this.animation.after.links.length - Math.min(...journeys.map(j => j.end - 1)) : 0;
+    const launchScale = launchSpan > 1 ? Math.min(1, region.height / (floorHeight * launchSpan + floorWidth * .95)) : 1;
+    const scale = this.whole ? overviewScale : launchScale;
     const width = floorWidth * scale, step = floorHeight * scale;
     const headroom = finished ? width * .68 + 10 : Math.max(region.height * .2, width * .23 + 25);
     const base = this.whole ? region.bottom - width * .5 : Math.max(region.bottom - width * .12, region.top + headroom + count * step);
@@ -234,8 +245,9 @@ class HotelScene extends Phaser.Scene {
       const next = a.after.links[current], pose = Math.min(3, Math.floor(fraction * 4));
       for (let guest = 0; guest < 3; guest++) this.sprite(this.tower, `rooms-${next.suit}`, pose, x + (guest - 1) * width / 3, top - step / 2 - (1 - ease(fraction)) * 14, width / 3, step);
     }
-    if (a) this.drawDelivery(a, progress, layout, current);
+    if (a && progress < 1) this.drawDelivery(a, progress, layout, current);
     else if (this.preview?.type === 'overgrow' && source) this.drawCopycat(layout, source, 0);
+    const balloons = a ? this.drawBalloonJourneys(a, layout) : [];
     this.game.canvas.dataset.cameraMoving = String(this.cameraMoving);
     this.game.canvas.dataset.visibleFloors = JSON.stringify(visible);
     this.game.canvas.dataset.floorCount = String(current);
@@ -247,6 +259,7 @@ class HotelScene extends Phaser.Scene {
     this.game.canvas.dataset.choreography = roof ? roofStage : !a ? 'idle' : progress < .18 ? 'spot' : progress < .34 ? 'stamp' : progress < a.buildStart ? 'send' : progress < a.buildEnd ? 'unfold' : 'celebrate';
     this.game.canvas.dataset.motion = String(this.motion);
     this.game.canvas.dataset.viewRegion = JSON.stringify(layout.region);
+    this.game.canvas.dataset.balloonJourneys = JSON.stringify(balloons);
     this.game.canvas.dataset.towerBounds = JSON.stringify({ left: x - width * .7, right: x + width * .7, top: top - width * (roof || done || this.roofLanded ? .65 : .23) + roofOffset, bottom: base + width * .48, overview: this.whole });
   }
   drawSky(w, h) {
@@ -303,14 +316,9 @@ class HotelScene extends Phaser.Scene {
       }
       if (count > 1 && alpha > .1) this.label(this.effects, '×' + count, boxX + 36, boxY - 12, 19);
     }
-    if (progress > a.buildEnd) {
+    if (progress > a.buildEnd && progress < 1) {
       const t = (progress - a.buildEnd) / (1 - a.buildEnd);
-      const newRuns = segments(a.after).filter(run => run.id >= a.before.nextLinkId);
-      for (const [i, run] of newRuns.slice(0, 5).entries()) {
-        const dock = this.dockPosition(run.suit);
-        this.balloon(this.effects, run.suit, Phaser.Math.Linear(x, dock.x, t) + Math.sin(t * Math.PI) * (i - 2) * 23, Phaser.Math.Linear(Math.max(top - 20, region.top + 25), dock.y, t), 48, i);
-      }
-      this.label(this.effects, '+' + count + ' floors', x, Math.max(region.top + 15, top - 30 - t * 25), 24, '#fff0a2');
+      this.label(this.effects, '+' + count + ' floors', x, Math.max(region.top + 15, top - 30 - t * 25), 24, '#fff0a2').setAlpha(1 - t);
       const g = this.graphics(this.effects);
       for (let i = 0; i < 12; i++) {
         g.fillStyle([0xffd053, 0xff8cb3, 0xb7e568][i % 3], 1 - t);
@@ -318,6 +326,44 @@ class HotelScene extends Phaser.Scene {
       }
     }
     if (card.foundationBonus && progress > .45) this.label(this.effects, 'Streak +' + card.foundationBonus, x, Math.max(region.top + 10, top - 80), 12, '#fff0a2');
+  }
+  drawBalloonJourneys(a, layout) {
+    const elapsed = this.time.now - a.start, log = [];
+    const size = Phaser.Math.Clamp(layout.width * .33, 64, 94);
+    const colors = { bunny: 0xf3aec6, frog: 0xcce691, cat: 0xffd38b };
+    for (const journey of a.journeys) {
+      const source = { x: layout.x + journey.side * layout.width * .48, y: layout.base - (journey.end - .5) * layout.step };
+      const dock = this.dockPosition(journey.suit);
+      const pose = balloonPose(journey, elapsed, source, dock, size, this.scale.width);
+      if (!pose) continue;
+      log.push({ id: journey.id, suit: journey.suit, floor: journey.end - 1, source, dock, ...pose });
+      if (pose.stage === 'arrived') {
+        if (!journey.arrived) { journey.arrived = true; a.onBalloonArrival?.(journey.suit); }
+        continue;
+      }
+      const g = this.graphics(this.effects);
+      if (pose.stage === 'emerging' || pose.stage === 'hovering') {
+        // The tether and lit launch floor explain where the reward comes from.
+        g.lineStyle(2, colors[journey.suit], .65 * pose.alpha);
+        g.strokeRoundedRect(layout.x - layout.width / 2 - 2, source.y - layout.step / 2, layout.width + 4, layout.step, 3);
+        g.lineStyle(1.5, 0xf5dfaf, .85 * pose.alpha);
+        g.beginPath(); g.moveTo(source.x, source.y);
+        g.lineTo((source.x + pose.x) / 2 + journey.side * 5, (source.y + pose.y + pose.height * .4) / 2 + 5);
+        g.lineTo(pose.x, pose.y + pose.height * .4); g.strokePath();
+      } else if (pose.travel < .84) {
+        // A few tiny paper flecks follow the breeze, then disappear near the HUD.
+        for (let i = 1; i <= 3; i++) {
+          const trail = balloonPose(journey, elapsed - i * 90, source, dock, size, this.scale.width);
+          if (!trail) continue;
+          g.fillStyle(colors[journey.suit], (.36 - i * .07) * (1 - pose.travel));
+          const ty = trail.y + trail.height * .4;
+          g.fillTriangle(trail.x - 2, ty, trail.x + 2, ty + 2, trail.x, ty + 5);
+        }
+      }
+      const frame = (TYPES.indexOf(journey.suit) + 1) * 4 + (pose.stage === 'docking' ? 0 : Math.floor(elapsed / 340) % 4);
+      this.sprite(this.effects, 'actors', frame, pose.x, pose.y, pose.width, pose.height, pose.angle, pose.alpha);
+    }
+    return log;
   }
 }
 

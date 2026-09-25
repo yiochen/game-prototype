@@ -21,6 +21,15 @@ export function createFeedback(isReduced, paper) {
   }
   return {
     pulse, clear,
+    dockArrival(suit) {
+      const chip = document.querySelector(`.dock-chip.${suit}`);
+      animate(chip?.querySelector('.sprite-art'), [
+        { translate: '0 -5px', rotate: '-4deg', scale: '1.12' },
+        { translate: '0 2px', rotate: '2deg', scale: '.98', offset: .55 },
+        { translate: '0 0', rotate: '0deg', scale: '1' },
+      ], { duration: 480, easing: 'ease-out' });
+      animate(chip, [{ boxShadow: '0 0 0 0 #fff0a288' }, { boxShadow: '0 0 14px 8px #fff0a200' }], { duration: 560, easing: 'ease-out' });
+    },
     spend(price, refund = 0) {
       coin.textContent = `−${price}${refund ? ` / +${refund} back` : ''}`;
       animate(coin, [{ opacity: 1, transform: 'translateY(0)' }, { opacity: 1, offset: .65 }, { opacity: 0, transform: 'translateY(16px)' }], { duration: 1100, easing: 'ease-out' });

@@ -39,7 +39,7 @@ if (requestedSeed && !/^[a-zA-Z0-9_-]{1,64}$/.test(requestedSeed)) requestedSeed
 let run = guestbook.data.active || { id: crypto.randomUUID(), seed: requestedSeed || randomSeed(), moves: [] };
 let state = guestbook.data.active ? replayRun(run.seed, run.moves, false) : createGame(run.seed), completedRecord = null;
 let shell, sound = guestbook.data.sound;
-let scene, resolvingBefore = null, pendingPurchase = null, epoch = 0, choiceIndex = null, menuReturn = null;
+let scene, resolvingBefore = null, dockArrivals = null, pendingPurchase = null, epoch = 0, choiceIndex = null, menuReturn = null;
 const flight = createCardFlight();
 const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
 let reduced = guestbook.data.reduced ?? motionQuery.matches;
@@ -106,7 +106,7 @@ function showEffect(card, view, index) {
 function renderDock(view) {
   const runs = segments(view);
   for (const type of BALANCE.suits) {
-    const count = runs.filter(r => r.suit === type.id).length;
+    const count = dockArrivals?.[type.id] ?? runs.filter(r => r.suit === type.id).length;
     let dock = $('dock').querySelector(`[data-suit="${type.id}"]`);
     if (!dock) {
       dock = node('button', `dock-chip ${type.id}`); dock.dataset.suit = type.id;
@@ -268,12 +268,14 @@ function applyPurchase(index, selectedType, token, origin) {
   const before = structuredClone(state);
   if (!pick(state, index, selectedType)) return;
   run.moves.push([index, selectedType ?? null]); guestbook.saveActive(run);
-  resolvingBefore = before; render();
+  resolvingBefore = before;
+  dockArrivals = Object.fromEntries(BALANCE.suits.map(type => [type.id, segments(before, type.id).length]));
+  render();
   feedback.spend(state.history.at(-1).price, state.history.at(-1).refund);
   const complete = () => {
     if (token !== epoch || state.phase !== 'resolving') return;
     const entry = state.history.at(-1);
-    advanceDeal(state); resolvingBefore = null;
+    advanceDeal(state); resolvingBefore = null; dockArrivals = null;
     render(); scene.setState(state); syncCamera(); $('preview').textContent = '';
     feedback.pulse($('height')); feedback.deal();
     const parts = [];
@@ -296,11 +298,19 @@ function applyPurchase(index, selectedType, token, origin) {
   };
   let lastFloor = before.links.length;
   if (reduced) { audio.fold(); complete(); }
-  else scene.animate(before, structuredClone(state), { origin, onFrame: count => { $('height').textContent = count; if (count > lastFloor) { audio.fold(); lastFloor = count; } }, onComplete: complete });
+  else scene.animate(before, structuredClone(state), {
+    origin,
+    onFrame: count => { $('height').textContent = count; if (count > lastFloor) { audio.fold(); lastFloor = count; } },
+    onBalloonArrival: suit => {
+      if (token !== epoch || !dockArrivals) return;
+      dockArrivals[suit]++; renderDock(before); feedback.dockArrival(suit);
+    },
+    onComplete: complete,
+  });
 }
 function restart(seed) {
   ++epoch; feedback.clear(); flight.cancel(); pendingPurchase = null; menuReturn = null; for (const dialog of document.querySelectorAll('dialog[open]')) dialog.close();
-  resolvingBefore = null; choiceIndex = null; state = createGame(seed); setSeed();
+  resolvingBefore = null; dockArrivals = null; choiceIndex = null; state = createGame(seed); setSeed();
   run = { id: crypto.randomUUID(), seed: state.seed, moves: [] }; completedRecord = null; guestbook.saveActive(run);
   $('status').textContent = 'Choose one card. A new delivery follows.'; $('preview').textContent = '';
   $('overview').textContent = 'Whole hotel'; render(); scene?.reset(state); syncCamera(); feedback.deal();
