@@ -4,7 +4,7 @@ import { cleanName, SCORE_VERSION } from './score-rules.js';
 const API = '/api/cloudtop-hotel/leaderboard';
 const element = (tag, className, text) => { const el = document.createElement(tag); el.className = className; if (text != null) el.textContent = text; return el; };
 
-export function mountLobby({ img, guestbook, paper, isReduced, onStart, onResume, onRules, onSound, onMotion }) {
+export function mountLobby({ img, guestbook, paper, isReduced, onStart, onResume, onRules, onSound, onMotion, onScreen = () => {} }) {
   const root = element('section', 'frontdesk'); root.id = 'frontdesk'; root.setAttribute('aria-label', 'Hotel lobby');
   root.innerHTML = `
     <div class="lobby-page home-page" id="home-page">
@@ -82,6 +82,7 @@ export function mountLobby({ img, guestbook, paper, isReduced, onStart, onResume
   function front(page) {
     controller?.abort(); requestEpoch++; clearMotion(); root.scrollTop = 0; root.hidden = false; root.inert = false; app.inert = true; app.setAttribute('aria-hidden','true');
     document.body.dataset.screen = page;
+    onScreen(page);
     $('home-page').hidden = page !== 'home'; $('guestbook-page').hidden = page !== 'leaderboard';
     enter($(page === 'home' ? 'home-page' : 'guestbook-page'));
     $(page === 'home' ? 'home-title' : 'board-title').focus({preventScroll:true});
@@ -92,6 +93,7 @@ export function mountLobby({ img, guestbook, paper, isReduced, onStart, onResume
     const finish = () => {
       clearMotion(); root.hidden = true; root.inert = true; app.inert = false; app.removeAttribute('aria-hidden'); document.body.dataset.screen = 'game'; transitioning = false;
       if (resume) onResume(); else onStart(seed);
+      onScreen('game');
       if (!isReduced()) document.querySelectorAll('.dashboard [data-paper]').forEach((el,i)=>paper.unfold(el,{delay:80+i*40,duration:320}));
       document.getElementById('menu-open').focus({preventScroll:true});
       if (!isReduced()) for (const [selector,delay] of [['.dashboard',70],['.shop',170]]) {

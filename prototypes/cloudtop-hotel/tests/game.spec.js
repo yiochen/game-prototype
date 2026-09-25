@@ -233,7 +233,7 @@ test('Copycat plays its generated poses and unfolding frames; reduced motion fre
 
 test('full-screen scenery and tilted cards keep all utility controls in an accessible menu', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 }); await open(page, 0);
-  const scenery = await page.locator('.sky-backdrop').evaluate(e => ({ rect: e.getBoundingClientRect().toJSON(), image: getComputedStyle(e).backgroundImage }));
+  const scenery = await page.locator('.sky-backdrop').evaluate(e => ({ rect: e.getBoundingClientRect().toJSON(), image: getComputedStyle(e.querySelector('.sky-paper')).backgroundImage }));
   expect(scenery.rect).toMatchObject({ x: 0, y: 0, width: 390, height: 844 }); expect(scenery.image).toContain('sky-');
   expect(await page.locator('#offers').evaluate(e => getComputedStyle(e).transform)).toContain('matrix3d');
   await expect(page.locator('.hotel-app .masthead, .hotel-app .shop-heading, .hotel-app .world-note, .hotel-app footer')).toHaveCount(0);
@@ -397,7 +397,7 @@ test('clouds drift and islands float independently, pause for reduced motion, an
   const paused = await positions(); await page.waitForTimeout(300); expect(await positions()).toEqual(paused);
   await control(page, 'motion-toggle');
   // Resuming keeps each animation's phase instead of resetting the scene.
-  const elapsed = await sky.evaluate(e => e.getAnimations({ subtree: true }).map(a => a.currentTime));
+  const elapsed = await page.locator('.sky-sprite').evaluateAll(items => items.flatMap(e => e.getAnimations().map(a => a.currentTime)));
   expect(elapsed.every(t => t > 1000)).toBe(true);
   await page.locator('#resume').click(); await expect.poll(positions).not.toEqual(paused);
   await page.emulateMedia({ reducedMotion: 'no-preference' }); await page.emulateMedia({ reducedMotion: 'reduce' });

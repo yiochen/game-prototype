@@ -195,6 +195,7 @@ function renderRoofOffer() {
 }
 function render() {
   const view = resolvingBefore ?? state, done = finished(state);
+  if (!resolvingBefore && document.body.dataset.screen === 'game') scenery.setHeight(state.links.length);
   $('height').textContent = view.links.length; $('coins').textContent = state.cash;
   renderDock(view); renderWorkshop(view); renderOffers(view);
   const deliveryBusy = ['resolving', 'roofing'].includes(state.phase) || !!pendingPurchase;
@@ -300,7 +301,7 @@ function applyPurchase(index, selectedType, token, origin) {
   if (reduced) { audio.fold(); complete(); }
   else scene.animate(before, structuredClone(state), {
     origin,
-    onFrame: count => { $('height').textContent = count; if (count > lastFloor) { audio.fold(); lastFloor = count; } },
+    onFrame: count => { $('height').textContent = count; scenery.setHeight(count); if (count > lastFloor) { audio.fold(); lastFloor = count; } },
     onBalloonArrival: suit => {
       if (token !== epoch || !dockArrivals) return;
       dockArrivals[suit]++; renderDock(before); feedback.dockArrival(suit);
@@ -311,6 +312,7 @@ function applyPurchase(index, selectedType, token, origin) {
 function restart(seed) {
   ++epoch; feedback.clear(); flight.cancel(); pendingPurchase = null; menuReturn = null; for (const dialog of document.querySelectorAll('dialog[open]')) dialog.close();
   resolvingBefore = null; dockArrivals = null; choiceIndex = null; state = createGame(seed); setSeed();
+  scenery.setHeight(0, { immediate: true });
   run = { id: crypto.randomUUID(), seed: state.seed, moves: [] }; completedRecord = null; guestbook.saveActive(run);
   $('status').textContent = 'Choose one card. A new delivery follows.'; $('preview').textContent = '';
   $('overview').textContent = 'Whole hotel'; render(); scene?.reset(state); syncCamera(); feedback.deal();
@@ -357,6 +359,7 @@ $('motion-toggle').addEventListener('click', toggleMotion); motionQuery.addEvent
 document.addEventListener('keydown', event => { if (document.body.dataset.screen === 'game' && !event.repeat && !event.ctrlKey && !event.metaKey && !event.altKey && /^[123]$/.test(event.key) && !document.querySelector('dialog[open]')) { event.preventDefault(); select(Number(event.key) - 1); } });
 balanceTable(); render();
 shell = mountLobby({img, guestbook, paper, isReduced: () => reduced,
+  onScreen: screen => scenery.setHeight(screen === 'game' ? state.links.length : 0, { immediate: true }),
   onStart: () => { restoreSound(); restart(requestedSeed || randomSeed()); requestedSeed = null; },
   onResume: () => { restoreSound(); requestedSeed = null; setSeed(); render(); scene?.setState(state); },
   onRules: () => { menuReturn = null; $('rules-dialog').showModal(); },

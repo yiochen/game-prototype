@@ -57,6 +57,24 @@ settle the delivery, while replay cancels pending arrivals. All travel and dock
 feedback are presentation only; the deterministic score and purchase rules
 are unchanged. `balloon-journey.js` owns the choreography and path sampling.
 
+## Altitude skies
+
+The background follows the number of visibly constructed floors. Color blends continuously between the anchors below, with 2.8-second easing as construction advances. Camera zoom and Whole hotel never change the altitude. Continue restores the saved sky immediately; replay returns to daylight. The lobby and guestbook retain their bright daytime backdrop for text contrast.
+
+| Floors | Stage | Sky and scenery |
+| --- | --- | --- |
+| 0–24 | Cloud Gardens | Azure `#398ecb`, grassy islands and folded white clouds |
+| 25–49 | Cloud Sea | Blue `#2c78bc`, islands receding downward, a lower cloud sea |
+| 50–74 | First Starlight | Royal blue `#245ba6`, the first ivory paper stars |
+| 75–99 | Blue Twilight | Indigo `#233f87`, golden stars and dimmer clouds |
+| 100–124 | Moonlit Heights | Midnight `#18265f`, an unfolding ivory crescent |
+| 125–149 | Constellation Skies | Navy `#111a43`, Bunny and Cat constellations, Frog at 130, folded blue ribbons |
+| 150+ | Celestial Summit | Deep navy `#0b1230`, larger gold stars and a crowned hotel constellation |
+
+New stars unfold over 2.1 seconds; the moon takes 2.8 seconds. Constellation lines trace their shapes as they open. Only quiet staggered star shimmer continues afterward. All artwork stays behind the hotel and UI, with responsive constellation placement. Motion preferences settle entrances and disable transitions; hidden tabs pause ambient loops. Scenery owns no gameplay state and cannot change a replay or score.
+
+`altitude.js` contains the stage palette and continuous atmospheric values. `scenery.js` owns the layered artwork and animation lifecycle; `sky.css` handles transitions and responsive placement. The generated celestial atlas ships as a 177 KB WebP; its original PNG and full prompt are preserved in `assets/sprites/`. Browser tests replay a legal 178-floor run to check every stage, the 50/100-floor entrances, camera independence, saved-game resume, replay, reduced motion, and phone/landscape layouts.
+
 ## Ownership and architecture
 
 This folder owns its gameplay, art, UI, tests and Phaser dependency. Its rule engine began as a copy of the append-only One More Card rules and is now independent: it imports nothing from sibling games. The original game remains playable unchanged.
@@ -65,11 +83,11 @@ This folder owns its gameplay, art, UI, tests and Phaser dependency. Its rule en
 - `engine.js`: deterministic purchases, append-only floors, neighborhoods, upgrades, streaks and offer locks. Internal `links` and `suit` fields represent floors and room types; player copy uses hotel language.
 - `world.js`: Phaser scene, asset loading, camera presentation, paper-pose deliveries, resident animation, balloon flights, Copycat and end-of-run roof. It reads committed state and never decides a payout.
 - `card-flight.js`, `card-flight.css`: the selected card's flight, inflation and paper burst; one guarded callback applies the purchase at the pop, with explicit finish/cancel handling.
-- `scenery.js`: independent full-viewport scenery, with compositor animations and pause/resume for motion preferences and tab visibility. Its positions are independent of the hotel camera and game state.
+- `altitude.js`, `scenery.js`, `sky.css`: seven presentation-only altitude skies, independent of the hotel camera, with generated paper scenery, milestone entrances and pause/resume for motion preferences and tab visibility.
 - `main.js`, `index.html`, `style.css`: accessible DOM shop, HUD, room picker, dialogs, mobile/landscape layouts and the engine/scene boundary.
 - `feedback.js`, `polish.css`: cancellable purchase feedback, upgrade badges, responsive card readability and compact finale presentation.
 - `card-table.css`, `paper-hud.css`: shared card-plane perspective, textured card faces, front-rim layering and the paper-tab HUD.
-- `assets.js`, `assets/sprites/`: seven generated game/UI sheets plus one scenery atlas, totaling 68 sprite frames: 48 room/actor/prop frames, 14 card illustrations and six scenery cutouts. A separate six-frame atlas provides blank paper card faces; single-image assets provide the paper sky, cardboard tray and blank HUD tab; the removed Dock banner remains as unused source art. The manifest registers shared frames for Phaser and DOM card art plus individual scenery bounds. Original PNGs and prompts are preserved; WebP exports ship to players. See the [sprite-sheet guide](assets/sprites/README.md).
+- `assets.js`, `assets/sprites/`: seven generated game/UI sheets plus two scenery atlases, totaling 72 sprite frames: 48 room/actor/prop frames, 14 card illustrations, six scenery cutouts and four celestial ornaments. A separate six-frame atlas provides blank paper card faces; single-image assets provide the paper sky, cardboard tray and blank HUD tab; the removed Dock banner remains as unused source art. The manifest registers shared frames for Phaser and DOM card art plus individual scenery bounds. Original PNGs and prompts are preserved; WebP exports ship to players. See the [sprite-sheet guide](assets/sprites/README.md).
 - `paper-ui.js`, `paper-ui.css`, `assets/ui/`: shared nine-slice surfaces, tint palette, folding leaves and lifecycle cleanup.
 - `lobby.js`, `lobby.css`: welcome screen, guestbook, network states and entrance choreography.
 - `guestbook-storage.js`, `score-rules.js`: local saves, deterministic resume, versioned scoring and validation.
