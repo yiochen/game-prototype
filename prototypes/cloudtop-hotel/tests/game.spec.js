@@ -40,7 +40,7 @@ async function paperLoads(page, selector, variable) {
   expect(surfaces.applied.every(Boolean)).toBe(true);
 }
 async function screenFits(page) {
-  const layout = await page.evaluate(() => ({ width: innerWidth, height: innerHeight, sw: document.documentElement.scrollWidth, sh: document.documentElement.scrollHeight, cards: [...document.querySelectorAll('.offer-card, .card-help, #menu-open, dialog[open] button')].filter(e => e.getClientRects().length).map(e => ({ text: e.textContent, r: e.getBoundingClientRect().toJSON(), overflow: e.scrollHeight > e.clientHeight + 2 })) }));
+  const layout = await page.evaluate(() => ({ width: innerWidth, height: innerHeight, sw: document.documentElement.scrollWidth, sh: document.documentElement.scrollHeight, cards: [...document.querySelectorAll('.offer-card, .card-help, #menu-open, #camera-toggle, .upgrade-badge, #ending:not([hidden]) button, dialog[open] button')].filter(e => e.getClientRects().length).map(e => ({ text: e.textContent, r: e.getBoundingClientRect().toJSON(), overflow: e.scrollHeight > e.clientHeight + 2 })) }));
   expect(layout.sw).toBeLessThanOrEqual(layout.width); expect(layout.sh).toBeLessThanOrEqual(layout.height);
   for (const { r, text, overflow } of layout.cards) { expect(r.bottom, text).toBeLessThanOrEqual(layout.height); expect(r.right, text).toBeLessThanOrEqual(layout.width); expect(r.top, text).toBeGreaterThanOrEqual(0); expect(r.left, text).toBeGreaterThanOrEqual(0); expect(overflow, text).toBe(false); }
 }
@@ -214,8 +214,10 @@ test('Copycat plays its generated poses and unfolding frames; reduced motion fre
     window.hotelObserver.observe(canvas, { attributes: true });
   });
   await buy(page, 1);
-  await expect(page.locator('#world canvas')).toHaveAttribute('data-choreography', 'stamp'); await screenshot(page, 'copycat-stamp');
-  await expect(page.locator('#world canvas')).toHaveAttribute('data-choreography', 'unfold'); await screenshot(page, 'copycat-unfold');
+  // Observe these short animation beats on frame boundaries; assertion polling
+  // can legitimately skip an entire beat after shortening the delivery.
+  await page.waitForFunction(() => document.querySelector('#world canvas').dataset.choreography === 'stamp'); await screenshot(page, 'copycat-stamp');
+  await page.waitForFunction(() => document.querySelector('#world canvas').dataset.choreography === 'unfold'); await screenshot(page, 'copycat-unfold');
   await expect(page.locator('#world')).toHaveAttribute('data-state', 'picking', { timeout: 7000 });
   const observed = await page.evaluate(() => { window.hotelObserver.disconnect(); return { frames: [...window.observedHotelFrames], stages: [...window.observedHotelStages] }; });
   for (const frame of ['actors:0','actors:1','actors:2','actors:3','rooms-cat:1','rooms-cat:2']) expect(observed.frames).toContain(frame);
@@ -319,7 +321,7 @@ test('the full-screen hotel keeps the cardboard tray at its native ratio across 
   await paperLoads(page, '.coins, .height, .dock-chip', '--hud-tab');
   await expect(page.locator('.height')).toHaveAttribute('aria-label', /floors/i);
   await expect(page.locator('.height')).not.toContainText(/floors/i);
-  await expect(page.locator('#height-art .sprite-art')).toBeVisible();
+  await expect(page.locator('#height-art svg')).toBeVisible();
   await expect(page.locator('#coin-art .sprite-art')).toBeVisible();
   await expect(page.locator('#dock .dock-multiply')).toHaveText(['×', '×', '×']);
   for (const type of ['bunny', 'frog', 'cat']) await expect(page.locator(`.dock-chip.${type}`)).toHaveAttribute('aria-label', new RegExp(`${type}: \\d+ neighborhood balloons`, 'i'));
@@ -403,4 +405,68 @@ test('clouds drift and islands float independently, pause for reduced motion, an
     await page.setViewportSize(size); await screenFits(page); await screenshot(page, `moving-scenery-${size.width}x${size.height}`);
   }
   await expect(page.locator('#height')).toHaveText('6'); await expect(page.locator('#coins')).toHaveText('78');
+});
+
+test('card inspection can purchase once, installs a visible badge, and explains its bonus', async ({ page }) => {
+  await open(page, 'gcdolqp');
+  await help(page, 0).click(); await page.locator('#effect-buy').click();
+  await expect(page.locator('#effect-dialog')).toBeHidden();
+  await expect(page.locator('#coins')).toHaveText('94');
+  const badge = page.locator('[data-upgrade="suit:frog"]');
+  await expect(badge).toHaveAccessibleName(/Frog Room Pattern, level 1/);
+  await expect(page.locator('#purchase-feedback')).toContainText('installed');
+  await badge.click(); await expect(page.locator('#installed')).toContainText('Frog Room Pattern');
+  await page.keyboard.press('Escape'); await expect(badge).toBeFocused();
+  await page.locator('#height-info').click(); await expect(page.locator('#hud-dialog')).toContainText('three windows');
+  await page.keyboard.press('1'); await expect(page.locator('#coins')).toHaveText('94');
+  await page.keyboard.press('Escape');
+  await page.locator('.dock-chip.frog').click(); await expect(page.locator('#hud-dialog')).toContainText('without spending them');
+  await page.keyboard.press('Escape');
+  // Replay clears presentation and upgrades, then the direct explanation path
+  // still opens the cancellable room picker rather than spending immediately.
+  await control(page, 'replay'); await expect(page.locator('#upgrade-rack')).toBeHidden();
+  await expect(page.locator('#purchase-feedback')).toBeHidden();
+  await open(page, 0); await help(page, 2).click(); await page.locator('#effect-buy').click();
+  await expect(page.locator('#choice-dialog')).toBeVisible(); await expect(page.locator('#coins')).toHaveText('100');
+  await page.keyboard.press('Escape'); await expect(page.locator('#coins')).toHaveText('100');
+});
+
+test('card values clear the box rim and result actions fit phones and landscape', async ({ page }) => {
+  await open(page, 'gcdolqp');
+  for (const size of [{width:320,height:480},{width:390,height:844},{width:1280,height:900},{width:844,height:390}]) {
+    await page.setViewportSize(size);
+    const tray = await page.locator('#tray').boundingBox();
+    const values = await page.locator('#offers .card-value').evaluateAll(es => es.map(e => e.getBoundingClientRect().toJSON()));
+    for (const value of values) expect(value.bottom).toBeLessThan(tray.y + tray.height * .79);
+    await screenFits(page);
+  }
+  await reachRoof(page); await page.locator('#roof-card').click();
+  for (const size of [{width:320,height:480},{width:390,height:844},{width:1280,height:900},{width:844,height:390}]) {
+    await page.setViewportSize(size); await screenFits(page);
+    await expect(page.locator('#tray')).toBeHidden();
+    await expect(page.locator('#ending-replay')).toBeVisible();
+    const region = JSON.parse(await page.locator('#world canvas').getAttribute('data-view-region'));
+    expect(region.height).toBeGreaterThan(size.height * .35);
+    await screenshot(page, `polished-finale-${size.width}x${size.height}`);
+  }
+  await page.locator('#ending-replay').click();
+  await expect(page.locator('#coins')).toHaveText('100'); await expect(page.locator('#height')).toHaveText('0');
+  await expect(page.locator('#tray')).toBeVisible(); await expect(page.locator('#ending')).toBeHidden();
+});
+
+test('camera control stays outside the menu and cancellation clears delivery feedback', async ({ page }) => {
+  await open(page, 'gcdolqp', false);
+  await buy(page, 2); await expect(page.locator('#world')).toHaveAttribute('data-state', 'picking');
+  await expect(page.locator('#camera-toggle')).toBeEnabled();
+  await page.locator('#camera-toggle').click(); await expect(page.locator('#camera-toggle')).toHaveAttribute('aria-pressed','true');
+  await expect.poll(() => page.locator('#world canvas').getAttribute('data-camera-moving')).toBe('false');
+  await page.locator('#camera-toggle').click(); await expect(page.locator('#camera-toggle')).toHaveAttribute('aria-pressed','false');
+  await control(page, 'replay');
+  await buy(page, 2); await expect(page.locator('#world')).toHaveAttribute('data-state', 'resolving');
+  await control(page, 'replay');
+  await expect(page.locator('#purchase-feedback')).toBeHidden();
+  await expect(page.locator('#coin-change')).toBeEmpty();
+  await expect(page.locator('#height')).toHaveText('0'); await expect(page.locator('#coins')).toHaveText('100');
+  await page.waitForTimeout(1600);
+  await expect(page.locator('#height')).toHaveText('0'); await expect(page.locator('#purchase-feedback')).toBeHidden();
 });
