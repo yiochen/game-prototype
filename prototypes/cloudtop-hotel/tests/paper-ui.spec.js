@@ -21,7 +21,7 @@ test('one nine-slice material covers title, leaderboard, gameplay and every popu
   await page.locator('#board-back').click(); await page.locator('#lobby-play').click(); await surfaces(page,'.stat,.dock-chip,#offers .offer-card,#camera-toggle');
   await page.locator('#menu-open').click(); await surfaces(page,'#menu-dialog,#menu-dialog button');
   await page.locator('#rules-open').click(); await surfaces(page,'#rules-dialog'); await page.keyboard.press('Escape');
-  await page.locator('#workshop-open').click(); await surfaces(page,'#workshop-dialog'); await page.keyboard.press('Escape'); await page.keyboard.press('Escape');
+  await page.locator('#workshop-open').click(); await surfaces(page,'#workshop-dialog'); await page.keyboard.press('Escape'); await page.locator('#resume').click();
   await page.locator('#offers .card-help').first().click(); await surfaces(page,'#effect-dialog'); await page.keyboard.press('Escape');
   await page.locator('#height-info').click(); await surfaces(page,'#hud-dialog'); await page.keyboard.press('Escape');
   // Choice uses the same material even before a seed happens to offer it.
