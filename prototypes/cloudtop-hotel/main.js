@@ -2,6 +2,7 @@ import './style.css';
 import './paper-hud.css';
 import './card-table.css';
 import './polish.css';
+import { createPaperUI } from './paper-ui.js';
 import { mountLobby } from './lobby.js';
 import { createGuestbook } from './guestbook-storage.js';
 import { replayRun } from './score-rules.js';
@@ -12,6 +13,8 @@ import { mountScenery } from './scenery.js';
 import { createCardFlight } from './card-flight.js';
 import { paperAudio } from './audio.js';
 import { BALANCE, createGame, segments, longestSegment, preview, baseBonus, pick, advanceDeal, beginRoof, finishRoof, choiceSuits, suitInfo, mysteryOddsText, mysteryOutcomes, outcomePercent, finished } from './engine.js';
+
+import './paper-ui.css';
 
 const $ = id => document.getElementById(id);
 const node = (tag, className = '', text = '') => { const n = document.createElement(tag); n.className = className; n.textContent = text; return n; };
@@ -44,7 +47,8 @@ const scenery = mountScenery(document.querySelector('.sky-backdrop'), !reduced);
 const world = mountWorld($('world'));
 const audio = paperAudio();
 let loading = true, effectIndex = null;
-const feedback = createFeedback(() => reduced);
+const paper = createPaperUI(() => reduced);
+const feedback = createFeedback(() => reduced, paper);
 function syncCamera() {
   for (const id of ['overview', 'camera-toggle']) {
     $(id).textContent = scene?.whole ? 'Back to the top' : 'Whole hotel';
@@ -193,7 +197,10 @@ function render() {
   const view = resolvingBefore ?? state, done = finished(state);
   $('height').textContent = view.links.length; $('coins').textContent = state.cash;
   renderDock(view); renderWorkshop(view); renderOffers(view);
-  $('reveal-now').hidden = !['resolving', 'roofing'].includes(state.phase) && !pendingPurchase;
+  const deliveryBusy = ['resolving', 'roofing'].includes(state.phase) || !!pendingPurchase;
+  // Keep an offered action in place while its menu is open, even if a short
+  // delivery finishes during the paper entrance. Reveal remains a safe no-op.
+  if (deliveryBusy || !$('menu-dialog').open) $('reveal-now').hidden = !deliveryBusy;
   $('offers').hidden = done; $('ending').hidden = !done;
   syncCamera(); $('seed-label').textContent = `Guestbook ${state.seed}`;
   $('world').dataset.state = pendingPurchase ? 'launching' : state.phase; document.querySelector('.hotel-app').classList.toggle('complete', done);
@@ -311,7 +318,7 @@ function balanceTable() {
 function toggleSound() { sound = audio.setEnabled(!sound); guestbook.preference('sound', sound); $('sound-toggle').textContent = sound ? 'Sound on' : 'Sound off'; $('sound-toggle').setAttribute('aria-pressed', String(sound)); shell?.preferences(sound, reduced); }
 function restoreSound() { audio.setEnabled(sound); }
 $('sound-toggle').addEventListener('click', toggleSound);
-$('menu-open').addEventListener('click', () => { scene?.inspect(null); $('menu-dialog').showModal(); });
+$('menu-open').addEventListener('click', () => { scene?.inspect(null); $('reveal-now').hidden = !['resolving','roofing'].includes(state.phase) && !pendingPurchase; $('menu-dialog').showModal(); });
 $('resume').addEventListener('click', () => $('menu-dialog').close());
 for (const [button, dialog] of [['rules-open', 'rules-dialog'], ['workshop-open', 'workshop-dialog']]) {
   $(button).addEventListener('click', () => { menuReturn = button; $('menu-dialog').close(); $(dialog).showModal(); });
@@ -334,12 +341,12 @@ $('ending-new').addEventListener('click', () => restart(randomSeed()));
 $('ending-replay').addEventListener('click', () => restart(state.seed));
 $('replay').addEventListener('click', () => restart(state.seed));
 $('new-game').addEventListener('click', () => restart(randomSeed()));
-function applyMotion(value) { reduced = value; if (reduced) feedback.clear(); scenery.setMotion(!reduced); document.documentElement.classList.toggle('reduced-motion', reduced); if (scene) scene.motion = !reduced; if (reduced) flight.finish(); if (scene) { if (reduced) { scene.skip(); scene.tower.y = 0; } scene.draw(); } $('motion-toggle').setAttribute('aria-pressed', String(reduced)); shell?.preferences(sound, reduced); }
+function applyMotion(value) { reduced = value; if (reduced) paper.clear(); if (reduced) feedback.clear(); scenery.setMotion(!reduced); document.documentElement.classList.toggle('reduced-motion', reduced); if (scene) scene.motion = !reduced; if (reduced) flight.finish(); if (scene) { if (reduced) { scene.skip(); scene.tower.y = 0; } scene.draw(); } $('motion-toggle').setAttribute('aria-pressed', String(reduced)); shell?.preferences(sound, reduced); }
 function toggleMotion() { guestbook.preference('reduced', !reduced); applyMotion(!reduced); }
 $('motion-toggle').addEventListener('click', toggleMotion); motionQuery.addEventListener('change', e => { guestbook.preference('reduced', null); applyMotion(e.matches); });
 document.addEventListener('keydown', event => { if (document.body.dataset.screen === 'game' && !event.repeat && !event.ctrlKey && !event.metaKey && !event.altKey && /^[123]$/.test(event.key) && !document.querySelector('dialog[open]')) { event.preventDefault(); select(Number(event.key) - 1); } });
 balanceTable(); render();
-shell = mountLobby({img, guestbook, isReduced: () => reduced,
+shell = mountLobby({img, guestbook, paper, isReduced: () => reduced,
   onStart: () => { restoreSound(); restart(requestedSeed || randomSeed()); requestedSeed = null; },
   onResume: () => { restoreSound(); requestedSeed = null; setSeed(); render(); scene?.setState(state); },
   onRules: () => { menuReturn = null; $('rules-dialog').showModal(); },
@@ -348,4 +355,4 @@ shell = mountLobby({img, guestbook, isReduced: () => reduced,
 $('sound-toggle').textContent = sound ? 'Sound on' : 'Sound off'; $('sound-toggle').setAttribute('aria-pressed', String(sound));
 shell.preferences(sound, reduced); shell.home({canResume: !!guestbook.data.active});
 world.ready.then(readyScene => { scene = readyScene; scene.motion = !reduced; loading = false; render(); scene.setState(state); $('world').dataset.ready = 'true'; });
-if (import.meta.hot) import.meta.hot.dispose(() => { shell.destroy(); feedback.clear(); flight.destroy(); scenery.destroy(); world.destroy(); audio.destroy(); });
+if (import.meta.hot) import.meta.hot.dispose(() => { shell.destroy(); paper.destroy(); feedback.clear(); flight.destroy(); scenery.destroy(); world.destroy(); audio.destroy(); });

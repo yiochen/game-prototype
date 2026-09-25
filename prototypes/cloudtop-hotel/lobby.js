@@ -4,7 +4,7 @@ import { cleanName, SCORE_VERSION } from './score-rules.js';
 const API = '/api/cloudtop-hotel/leaderboard';
 const element = (tag, className, text) => { const el = document.createElement(tag); el.className = className; if (text != null) el.textContent = text; return el; };
 
-export function mountLobby({ img, guestbook, isReduced, onStart, onResume, onRules, onSound, onMotion }) {
+export function mountLobby({ img, guestbook, paper, isReduced, onStart, onResume, onRules, onSound, onMotion }) {
   const root = element('section', 'frontdesk'); root.id = 'frontdesk'; root.setAttribute('aria-label', 'Hotel lobby');
   root.innerHTML = `
     <div class="lobby-page home-page" id="home-page">
@@ -48,7 +48,7 @@ export function mountLobby({ img, guestbook, isReduced, onStart, onResume, onRul
         </section>
       </div>
     </div>`;
-  document.body.append(root);
+  document.body.append(root); paper.dress(root);
   const $ = id => root.querySelector(`#${id}`), app = document.querySelector('.hotel-app');
   root.querySelector('.hero-island').append(img('island'));
   root.querySelector('.hero-roof').append(img('roof'));
@@ -59,11 +59,17 @@ export function mountLobby({ img, guestbook, isReduced, onStart, onResume, onRul
   root.querySelector('.empty-art').append(img('parcel'));
   let artReady = false;
   let tab = 'everyone', rows = [], lastRun = null, canResume = false, transitioning = false, requestEpoch = 0, animations = [], controller;
-  function clearMotion() { for (const a of animations) a.cancel(); animations = []; }
+  function clearMotion() { paper.clear(root); for (const a of animations) a.cancel(); animations = []; }
   function enter(scope) {
     if (isReduced()) return;
     for (const el of scope.querySelectorAll('[data-enter]')) {
       if (el.hidden || (!artReady && el.closest('.welcome-illustration'))) continue;
+      paper.dress(el);
+      if (el.hasAttribute('data-paper')) {
+        const large = el.matches('.hanging-sign,.guestbook-paper');
+        paper.unfold(el,{delay:Number(el.dataset.delay||0),duration:large?620:340,axis:el.matches('.hanging-sign,.score-form,.leaderboard-row')?'y':'x'});
+        continue;
+      }
       const transforms = { sign:['translateY(-45px) rotate(-5deg)','translateY(0) rotate(0)'], floor:['translateY(55px) scale(.8)','translateY(0) scale(1)'], roof:['translateY(-120px) rotate(8deg)','translateY(0) rotate(0)'], island:['translateY(70px)','translateY(0)'], balloon:['translateY(65px) rotate(-12deg)','translateY(0) rotate(0)'], stamp:['scale(1.5) rotate(12deg)','scale(1) rotate(0)'], page:['perspective(1000px) rotateY(-12deg) translateX(25px)','perspective(1000px) rotateY(0) translateX(0)'], bloom:['scale(.7)','scale(1)'] };
       const [from,to] = transforms[el.dataset.enter] ?? ['translateY(16px)','translateY(0)'];
       animations.push(el.animate([{opacity:0,transform:from},{opacity:1,transform:to}],{duration:el.dataset.enter==='stamp'?400:650,delay:Number(el.dataset.delay||0),easing:'cubic-bezier(.18,.8,.22,1)',fill:'backwards'}));
@@ -86,6 +92,7 @@ export function mountLobby({ img, guestbook, isReduced, onStart, onResume, onRul
     const finish = () => {
       clearMotion(); root.hidden = true; root.inert = true; app.inert = false; app.removeAttribute('aria-hidden'); document.body.dataset.screen = 'game'; transitioning = false;
       if (resume) onResume(); else onStart(seed);
+      if (!isReduced()) document.querySelectorAll('.dashboard [data-paper]').forEach((el,i)=>paper.unfold(el,{delay:80+i*40,duration:320}));
       document.getElementById('menu-open').focus({preventScroll:true});
       if (!isReduced()) for (const [selector,delay] of [['.dashboard',70],['.shop',170]]) {
         const el = document.querySelector(selector); animations.push(el.animate([{opacity:0,translate:'0 18px'},{opacity:1,translate:'0 0'}],{duration:450,delay,easing:'ease-out',fill:'backwards'}));

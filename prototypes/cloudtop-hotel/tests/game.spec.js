@@ -35,7 +35,7 @@ async function paperLoads(page, selector, variable) {
     if (!url) return { loaded: false, applied: [] };
     const image = new Image(); image.src = url; await image.decode();
     return { loaded: image.naturalWidth > 0, applied: items.map(item =>
-      [null, '::before', '::after'].some(pseudo => getComputedStyle(item, pseudo).backgroundImage.includes(url))) };
+      [null, '::before', '::after'].some(pseudo => getComputedStyle(item, pseudo).borderImageSource.includes(url) || getComputedStyle(item, pseudo).backgroundImage.includes(url))) };
   }, variable);
   expect(surfaces.loaded).toBe(true); expect(surfaces.applied.length).toBeGreaterThan(0);
   expect(surfaces.applied.every(Boolean)).toBe(true);
@@ -59,7 +59,7 @@ test('catalog opens an independent Phaser hotel with loaded art', async ({ page 
   expect(await page.locator('.deck-card').evaluateAll(cards => cards.every(c => c.inert && c.getAttribute('aria-hidden') === 'true' && c.querySelector('img') && !c.querySelector('button')))).toBe(true);
   await expect.poll(() => page.locator('.offer-card img').evaluateAll(images => images.every(i => i.complete && i.naturalWidth))).toBe(true);
   await expect(page.locator('.offer-card .card-art').first()).toBeVisible();
-  await paperLoads(page, '#offers .offer-card', '--card-paper');
+  await paperLoads(page, '#offers .offer-card', '--origami-sheet');
   await expect(page.locator('#world canvas')).toHaveAttribute('data-sprite-frames', /actors:/);
   await screenshot(page, 'opening-desktop'); expect(errors).toEqual([]);
 });
@@ -320,7 +320,7 @@ test('the full-screen hotel keeps the cardboard tray at its native ratio across 
     await expect(page.locator('#coins')).toHaveText('78');
     await screenshot(page, `continuous-scene-${size.width}x${size.height}`);
   }
-  await paperLoads(page, '.coins, .height, .dock-chip', '--hud-tab');
+  await paperLoads(page, '.coins, .height, .dock-chip', '--origami-sheet');
   await expect(page.locator('.height')).toHaveAttribute('aria-label', /floors/i);
   await expect(page.locator('.height')).not.toContainText(/floors/i);
   await expect(page.locator('#height-art svg')).toBeVisible();

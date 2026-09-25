@@ -79,6 +79,8 @@ export function createCardFlight() {
     clone.classList.remove('card-flight-source');
     clone.classList.add('card-flight-card');
     clone.removeAttribute('id');
+    clone.removeAttribute('data-folding');
+    for (const rig of clone.querySelectorAll('.paper-fold-rig')) rig.remove();
     clone.removeAttribute('aria-label');
     clone.removeAttribute('title');
     clone.removeAttribute('disabled');

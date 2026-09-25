@@ -35,6 +35,12 @@ The shared leaderboard ranks the top 100 by floors, neighborhoods, then coins sa
 
 Production scores persist across deployments in a site-wide Netlify Blobs store. Each deploy preview has its own disposable store, so preview scores never reach production. Bump `SCORE_VERSION` when changing balance or replay rules. No external database or credentials are required on Netlify. `npm run dev` serves the game and personal history; use `npx netlify dev` for the shared function locally. A plain Vite preview truthfully shows the shared leaderboard as unavailable.
 
+## Shared origami UI
+
+All backed interface surfaces now use one generated folded-cardstock material through real CSS nine-slice borders: the Cloudtop title, guestbook and rows, form, buttons, HUD counters, cards and deck backs, all six dialogs, purchase receipt and finale. Corners stay a fixed size while edges and centers adapt to the panel. Ivory, plum and room-type tints belong to the same paper family. See [the material guide](assets/ui/README.md) for the source, slice dimensions and generation prompt.
+
+Large sheets unfold as two hinged halves with separate lighting and a brief settle; text appears after opening begins without stretching. Controls and rows have a shorter stagger. Popups cleanly cancel on close, screen transitions clear old folds, and reduced motion shows the settled surface immediately. A card bought during its entrance flies with a clean paper skin and still commits once.
+
 ## Ownership and architecture
 
 This folder owns its gameplay, art, UI, tests and Phaser dependency. Its rule engine began as a copy of the append-only One More Card rules and is now independent: it imports nothing from sibling games. The original game remains playable unchanged.
@@ -48,6 +54,7 @@ This folder owns its gameplay, art, UI, tests and Phaser dependency. Its rule en
 - `feedback.js`, `polish.css`: cancellable purchase feedback, upgrade badges, responsive card readability and compact finale presentation.
 - `card-table.css`, `paper-hud.css`: shared card-plane perspective, textured card faces, front-rim layering and the paper-tab HUD.
 - `assets.js`, `assets/sprites/`: seven generated game/UI sheets plus one scenery atlas, totaling 68 sprite frames: 48 room/actor/prop frames, 14 card illustrations and six scenery cutouts. A separate six-frame atlas provides blank paper card faces; single-image assets provide the paper sky, cardboard tray and blank HUD tab; the removed Dock banner remains as unused source art. The manifest registers shared frames for Phaser and DOM card art plus individual scenery bounds. Original PNGs and prompts are preserved; WebP exports ship to players. See the [sprite-sheet guide](assets/sprites/README.md).
+- `paper-ui.js`, `paper-ui.css`, `assets/ui/`: shared nine-slice surfaces, tint palette, folding leaves and lifecycle cleanup.
 - `lobby.js`, `lobby.css`: welcome screen, guestbook, network states and entrance choreography.
 - `guestbook-storage.js`, `score-rules.js`: local saves, deterministic resume, versioned scoring and validation.
 - `leaderboard-service.js`, `functions/cloudtop-leaderboard.mts`: testable leaderboard handler and Netlify Blobs adapter.

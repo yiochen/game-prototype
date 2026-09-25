@@ -1,6 +1,6 @@
 // Transient presentation only. Cancel every animation/timer on replay, reduced
 // motion, or disposal; none of these callbacks may commit a game action.
-export function createFeedback(isReduced) {
+export function createFeedback(isReduced, paper) {
   const animations = new Set();
   let timer;
   const toast = document.getElementById('purchase-feedback');
@@ -15,7 +15,7 @@ export function createFeedback(isReduced) {
     animate(element, [{ transform: 'scale(1)' }, { transform: 'scale(1.16)', offset: .35 }, { transform: 'scale(1)' }], { duration: 300, easing: 'ease-out' });
   }
   function clear() {
-    clearTimeout(timer);
+    clearTimeout(timer); paper?.clear(document.querySelector('.hotel-app'));
     for (const animation of animations) { animation.onfinish = null; animation.cancel(); }
     animations.clear(); toast.hidden = true; coin.textContent = '';
   }
@@ -28,13 +28,11 @@ export function createFeedback(isReduced) {
     },
     announce(text) {
       clearTimeout(timer); toast.textContent = text; toast.hidden = false;
-      animate(toast, [{ opacity: 0, translate: '0 6px' }, { opacity: 1, translate: '0 0' }], { duration: 180, easing: 'ease-out' });
+      paper?.unfold(toast,{axis:'y',duration:260});
       timer = setTimeout(() => { toast.hidden = true; }, 2400);
     },
     deal() {
-      document.querySelectorAll('#offers .offer-card').forEach((card, i) => animate(card,
-        [{ opacity: 0, translate: '0 12px' }, { opacity: 1, translate: '0 -2px', offset: .8 }, { opacity: 1, translate: '0 0' }],
-        { duration: 240, delay: i * 55, easing: 'ease-out', fill: 'backwards' }));
+      document.querySelectorAll('#offers .offer-card').forEach((card,i) => paper?.unfold(card,{delay:i*55,duration:290,axis:'y'}));
     }
   };
 }
