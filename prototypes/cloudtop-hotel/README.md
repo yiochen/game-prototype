@@ -37,9 +37,9 @@ Production scores persist across deployments in a site-wide Netlify Blobs store.
 
 ## Shared origami UI
 
-All backed interface surfaces now use one generated folded-cardstock material through real CSS nine-slice borders: the Cloudtop title, guestbook and rows, form, buttons, HUD counters, cards and deck backs, all six dialogs, purchase receipt and finale. Corners stay a fixed size while edges and centers adapt to the panel. Ivory, plum and room-type tints belong to the same paper family. See [the material guide](assets/ui/README.md) for the source, slice dimensions and generation prompt.
+The paper world uses complementary materials: illustrated colored card stock and layered deck backs, cut-paper HUD labels, printed guestbook rows and circular seals. Larger surfaces—the Cloudtop title, guestbook sheet, score form, six dialogs, purchase receipt and finale—use real CSS nine-slice borders, as do prominent action buttons. Their folded corners stay a fixed size as panels resize. Utility controls keep their lighter treatment. See [the material guide](assets/ui/README.md) for the source, slice dimensions and generation prompt.
 
-Large sheets unfold as two hinged halves with separate lighting and a brief settle; text appears after opening begins without stretching. Controls and rows have a shorter stagger. Popups cleanly cancel on close, screen transitions clear old folds, and reduced motion shows the settled surface immediately. A card bought during its entrance flies with a clean paper skin and still commits once.
+Large sheets unfold as two hinged halves with separate lighting and a brief settle; text appears after opening begins without stretching. Prominent buttons use a shorter fold, book rows fade in, and cards retain their quick staggered deal-and-settle entrance. Popups cleanly cancel on close, screen transitions clear old folds, and reduced motion shows the settled surface immediately. Card delivery still commits once.
 
 ## Ownership and architecture
 

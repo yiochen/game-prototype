@@ -1,6 +1,8 @@
 import paperSheet from './assets/ui/origami-paper.webp';
 
-const SURFACES = 'button,.hanging-sign,.guestbook-paper,.score-form,.leaderboard-row,.rank-portrait,.welcome-seal,dialog,.ending,.stat,.strategy-chip,.deck-card,#purchase-feedback,.signature-line';
+// Folded sheets are for large surfaces and prominent actions. Cards, HUD
+// labels, book rows, seals and utility controls retain their own materials.
+const SURFACES = '.hanging-sign,.guestbook-paper,.score-form,dialog,.ending,#purchase-feedback,.paper-button,#resume,#effect-buy,#ending-board,#ending-new';
 const PRIMARY = '.primary-button,#resume,#effect-buy,#ending-board,#ending-new';
 
 export function dressPaper(root = document) {
@@ -8,7 +10,7 @@ export function dressPaper(root = document) {
   if (root.matches?.(SURFACES)) items.unshift(root);
   for (const el of items) {
     if (el.closest('.paper-fold-rig')) continue;
-    // Semantic variants stay in CSS; one real nine-slice source is shared.
+    // Selected surfaces share nine-slice geometry; other paper art stays intact.
     if (!el.hasAttribute('data-paper')) el.dataset.paper = el.matches(PRIMARY) ? 'plum' : 'ivory';
   }
 }
@@ -32,7 +34,7 @@ export function createPaperUI(isReduced) {
   function clear(root = document) { for (const el of new Set([...active.keys(),...pending.keys()])) if (root === document || root === el || root.contains(el)) settle(el); }
   function unfold(el, { delay = 0, duration = 570, axis = 'x' } = {}) {
     dressPaper(el); settle(el);
-    if (isReduced() || !el.isConnected || !el.getClientRects().length || el.closest('[hidden]')) return;
+    if (!el.hasAttribute('data-paper') || isReduced() || !el.isConnected || !el.getClientRects().length || el.closest('[hidden]')) return;
     if (!sheetReady) {
       const ticket = {}; pending.set(el,ticket);
       loaded.then(() => { if (pending.get(el) === ticket) unfold(el,{delay,duration,axis}); });
@@ -65,7 +67,7 @@ export function createPaperUI(isReduced) {
   function dialogOpen(dialog) {
     dressPaper(dialog);
     unfold(dialog,{duration:480,axis:'y'});
-    dialog.querySelectorAll('button').forEach((button,i)=>unfold(button,{delay:220+Math.min(i,6)*30,duration:290}));
+    dialog.querySelectorAll('button[data-paper]').forEach((button,i)=>unfold(button,{delay:220+Math.min(i,6)*30,duration:290}));
   }
   const observer = new MutationObserver(records => {
     for (const record of records) {

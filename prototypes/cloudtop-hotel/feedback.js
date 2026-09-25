@@ -32,7 +32,9 @@ export function createFeedback(isReduced, paper) {
       timer = setTimeout(() => { toast.hidden = true; }, 2400);
     },
     deal() {
-      document.querySelectorAll('#offers .offer-card').forEach((card,i) => paper?.unfold(card,{delay:i*55,duration:290,axis:'y'}));
+      document.querySelectorAll('#offers .offer-card').forEach((card, i) => animate(card,
+        [{ opacity: 0, translate: '0 12px' }, { opacity: 1, translate: '0 -2px', offset: .8 }, { opacity: 1, translate: '0 0' }],
+        { duration: 240, delay: i * 55, easing: 'ease-out', fill: 'backwards' }));
     }
   };
 }

@@ -13,21 +13,26 @@ the corners. `paper-ui.css` draws it with `border-image-slice: 25% fill`:
 
 `--paper-corner` controls the visible corner size in CSS pixels, independently
 of panel width and height. Large panels use 25–43px corners; controls and HUD
-tabs use 8–19px corners. This keeps tiny controls readable and large sheets
-crisp. `--paper-tone` tints only the paper artwork, never the text or portraits.
-The title, guestbook, rows, input backing, buttons, six dialogs, HUD, cards,
-purchase receipt and completed-hotel panel all share this material.
+actions use 13–19px corners. `--paper-tone` tints only the paper artwork,
+never the text or portraits. The title, guestbook sheet, score form, prominent
+buttons, six dialogs, purchase receipt and completed-hotel panel use this material.
+
+Cards and their layered backs retain the original six-frame `card-paper.webp`
+atlas, including its distinct colored frames. HUD labels use `hud-tab.webp`.
+Guestbook rows are printed directly on the sheet, portraits and the coin seal
+are circular, and utility controls stay simple. The explicit surface allowlist
+in `paper-ui.js` keeps this variation from being overwritten by shared styling.
 
 For an opening surface, `paper-ui.js` temporarily renders two clipped leaves,
 each containing the same full nine-slice skin. Each leaf pivots at the center
 crease on its own 3D hinge. A vertical crease opens the guestbook and buttons;
-a horizontal crease opens the title, dialogs, form, rows and cards. Content
+a horizontal crease opens the title, dialogs and form. Content
 fades in after the fold begins; its typography is not scaled or skewed.
 
 Closing, navigation, reduced motion, hidden tabs, detached elements and hot
 reload settle and remove the temporary leaves. They are inert and hidden from
-assistive technology, and cannot commit a purchase. Card flight clones discard
-the temporary fold rig, so buying a card during its entrance remains safe.
+assistive technology, and cannot commit a purchase. Cards use their original
+quick deal-and-settle animation, preserving the illustrated card material.
 
 ## Generation
 

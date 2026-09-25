@@ -15,11 +15,21 @@ async function surfaces(page, selector) {
   for(const style of styles) { expect(style.source).toContain('origami-paper'); expect(style.slice).toBe('25% fill'); expect(style.background).toBe('none'); }
   return styles;
 }
-test('one nine-slice material covers title, leaderboard, gameplay and every popup',async({page})=>{
+test('folded panels complement original cards, HUD labels and printed guestbook rows',async({page})=>{
   await open(page); await surfaces(page,'.hanging-sign,#lobby-play,#lobby-board');
-  await page.locator('#lobby-board').click(); await expect(page.locator('.leaderboard-row')).toHaveCount(1); await surfaces(page,'.guestbook-paper,.leaderboard-row,.board-tabs button');
-  await page.locator('#board-back').click(); await page.locator('#lobby-play').click(); await surfaces(page,'.stat,.dock-chip,#offers .offer-card,#camera-toggle');
-  await page.locator('#menu-open').click(); await surfaces(page,'#menu-dialog,#menu-dialog button');
+  await page.locator('#lobby-board').click(); await expect(page.locator('.leaderboard-row')).toHaveCount(1); await surfaces(page,'.guestbook-paper');
+  await expect(page.locator('.leaderboard-row[data-paper],.board-tabs [data-paper]')).toHaveCount(0);
+  await mkdir('artifacts/origami',{recursive:true}); await page.screenshot({path:'artifacts/origami/varied-guestbook.png'});
+  await page.locator('#board-back').click(); await page.locator('#lobby-play').click();
+  await expect(page.locator('#offers [data-paper],.dashboard [data-paper]')).toHaveCount(0);
+  for(const selector of ['.offer-card','.deck-card']) {
+    const backgrounds=await page.locator(selector).evaluateAll(items=>items.map(el=>getComputedStyle(el).backgroundImage));
+    expect(backgrounds.length).toBeGreaterThan(0); for(const source of backgrounds) expect(source).toContain('card-paper');
+  }
+  await page.screenshot({path:'artifacts/origami/restored-cards-desktop.png'});
+  await page.setViewportSize({width:390,height:844}); await page.screenshot({path:'artifacts/origami/restored-cards-phone.png'});
+  await page.setViewportSize({width:1280,height:720});
+  await page.locator('#menu-open').click(); await surfaces(page,'#menu-dialog,#resume');
   await page.locator('#rules-open').click(); await surfaces(page,'#rules-dialog'); await page.keyboard.press('Escape');
   await page.locator('#workshop-open').click(); await surfaces(page,'#workshop-dialog'); await page.keyboard.press('Escape'); await page.locator('#resume').click();
   await page.locator('#offers .card-help').first().click(); await surfaces(page,'#effect-dialog'); await page.keyboard.press('Escape');
