@@ -7,6 +7,7 @@ const help = (page, i) => page.locator(`#offers [data-offer-help="${i}"]`);
 async function open(page, seed, reduced = true) {
   await page.emulateMedia({ reducedMotion: reduced ? 'reduce' : 'no-preference' });
   await page.goto(`${ROOT}?seed=${seed}`); await expect(page.locator('#world')).toHaveAttribute('data-ready', 'true');
+  await page.locator('#lobby-play').click();
 }
 async function buy(page, i, suit) {
   await card(page, i).click();
@@ -49,6 +50,7 @@ test('catalog opens an independent Phaser hotel with loaded art', async ({ page 
   const errors = []; page.on('pageerror', e => errors.push(e.message));
   await page.goto('/'); await page.getByRole('link', { name: /Cloudtop Hotel/ }).click();
   await expect(page.locator('#world')).toHaveAttribute('data-ready', 'true');
+  await page.locator('#lobby-play').click();
   await expect(page.locator('#world canvas')).toHaveAttribute('data-roof', 'false');
   await expect(page.locator('#offers .offer-card')).toHaveCount(3);
   await expect(page.locator('#offers .card-help')).toHaveCount(3);
@@ -234,7 +236,7 @@ test('full-screen scenery and tilted cards keep all utility controls in an acces
   const scenery = await page.locator('.sky-backdrop').evaluate(e => ({ rect: e.getBoundingClientRect().toJSON(), image: getComputedStyle(e).backgroundImage }));
   expect(scenery.rect).toMatchObject({ x: 0, y: 0, width: 390, height: 844 }); expect(scenery.image).toContain('sky-');
   expect(await page.locator('#offers').evaluate(e => getComputedStyle(e).transform)).toContain('matrix3d');
-  await expect(page.locator('.masthead, .shop-heading, .world-note, footer')).toHaveCount(0);
+  await expect(page.locator('.hotel-app .masthead, .hotel-app .shop-heading, .hotel-app .world-note, .hotel-app footer')).toHaveCount(0);
   const utilities = ['sound-toggle','motion-toggle','replay','new-game','overview','workshop-open','rules-open'];
   for (const id of utilities) await expect(page.locator('#' + id)).toBeHidden();
   await page.locator('#menu-open').click(); await expect(page.locator('#menu-dialog')).toBeVisible();

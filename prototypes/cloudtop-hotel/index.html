@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#398ecb"><meta name="description" content="A cozy paper-building game. Welcome guests, collect neighborhood balloons, and unfold an impossibly tall hotel."><title>Cloudtop Hotel · A little paper, a lot of possibility</title></head>
-<body>
+<body data-screen="home">
 <div class="sky-backdrop" aria-hidden="true"></div>
-<main class="hotel-app" aria-label="Cloudtop Hotel">
+<main inert aria-hidden="true" class="hotel-app" aria-label="Cloudtop Hotel">
   <section class="dashboard" aria-label="Hotel status">
     <div class="stat coins" aria-label="Coins"><strong><span id="coin-art" aria-hidden="true"></span><span id="coins">100</span></strong></div>
     <div class="balloon-dock"><div id="dock" aria-label="Neighborhood balloons"></div></div>
@@ -15,7 +15,7 @@
   <section class="world-section" aria-label="Hotel construction"><div id="world"></div><ol id="floor-record" class="sr-only" aria-label="Floors from bottom to top"></ol></section>
   <section class="shop" aria-label="Card tray">
     <div id="tray" class="tray"><div id="offers" class="offers"></div></div>
-    <div id="ending" class="ending" hidden><small>WELCOME HOME</small><h2 id="ending-title"></h2><p id="ending-detail"></p><div class="ending-actions"><button id="ending-new">New hotel</button><button id="ending-replay">Replay this hotel</button></div></div>
+    <div id="ending" class="ending" hidden><small>WELCOME HOME</small><h2 id="ending-title"></h2><p id="ending-detail"></p><p id="ending-save" class="sr-only"></p><div class="ending-actions"><button id="ending-board">Guestbook</button><button id="ending-new">New hotel</button><button id="ending-replay">Replay</button></div></div>
   </section>
   <div id="purchase-feedback" aria-hidden="true" hidden></div>
   <p id="status" class="sr-only" role="status">Choose one card to build your hotel.</p>
@@ -25,7 +25,7 @@
   <div class="dialog-heading"><h2 id="menu-title">Menu</h2><form method="dialog"><button id="menu-close" aria-label="Close menu">×</button></form></div>
   <div class="menu-body">
     <button id="resume">Back to the hotel</button>
-    <div class="menu-controls"><button id="sound-toggle" aria-pressed="false">Sound off</button><button id="motion-toggle" aria-pressed="false">Reduce motion</button><button id="overview" disabled>Whole hotel</button><button id="reveal-now" hidden>Reveal now</button><button id="workshop-open">Workshop <span id="upgrade-count">0</span></button><button id="rules-open">How to play</button></div>
+    <div class="menu-controls"><button id="sound-toggle" aria-pressed="false">Sound off</button><button id="motion-toggle" aria-pressed="false">Reduce motion</button><button id="overview" disabled>Whole hotel</button><button id="reveal-now" hidden>Reveal now</button><button id="workshop-open">Workshop <span id="upgrade-count">0</span></button><button id="rules-open">How to play</button><button id="lobby-open">Return to lobby</button></div>
     <div class="menu-controls menu-new"><button id="replay">Replay this hotel</button><button id="new-game">New hotel</button></div>
     <div class="menu-foot"><a href="/">All games</a><span id="seed-label"></span></div>
   </div>

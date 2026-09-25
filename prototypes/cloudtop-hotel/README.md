@@ -25,6 +25,16 @@ A selected card lifts from its actual projected position in the tray and flies t
 
 Ordinary delivery timing is shorter than surprise and Copycat sequences. Room and camera transforms update on each render frame while character poses retain their paper-animation cadence; idle scenes redraw at 12 fps. Reusable image, text and graphics pools avoid rebuilding Phaser objects every frame. Floors settle gently after unfolding, balloon counters pulse when the delivery completes, and a short receipt explains upgrade bonuses, streaks and expired effects. Upgrades fly toward the tools row and remain visible as badges. Coins show the payment and any refund. New offers enter with a short stagger. Replay and reduced motion cancel transient feedback without changing committed purchases.
 
+## Lobby and guestbook
+
+The welcome screen introduces the paper hotel with a sign, a miniature hotel that assembles from the island upward, drifting guest balloons, and staggered play / resume / guestbook controls. The guestbook opens like a paper page; its heading, tabs, submission form, empty states and ranked rows have coordinated entrances. All entrances settle immediately with reduced motion, and keyboard focus follows screen changes. Returning to the lobby pauses access to game controls. Sound and motion preferences persist locally; a changed system motion preference is respected immediately.
+
+Purchases save the seed and card choices locally. Continue your stay reconstructs the unfinished run, including a pending roof, without rerolling. Finished hotels are saved in **Your hotels** (best 50 on this device). From the completion panel or an unshared personal entry, choose a public nickname and sign the shared **Everyone** leaderboard. Failed submissions can be retried; private browsing still permits play even when storage is unavailable.
+
+The shared leaderboard ranks the top 100 by floors, neighborhoods, then coins saved. Earlier submissions break exact ties. The Netlify function at `/api/cloudtop-hotel/leaderboard` replays every purchase using the same deterministic engine and derives the score server-side. It checks the schema, name, size, origin and score version; identical replays occupy one place. Strongly consistent conditional Blobs writes retry concurrent submissions. Netlify limits requests to 30 per minute per IP/domain. This is an anonymous prototype guestbook: deterministic replay validates a legal run but does not prove a human played it.
+
+Production scores persist across deployments in a site-wide Netlify Blobs store. Each deploy preview has its own disposable store, so preview scores never reach production. Bump `SCORE_VERSION` when changing balance or replay rules. No external database or credentials are required on Netlify. `npm run dev` serves the game and personal history; use `npx netlify dev` for the shared function locally. A plain Vite preview truthfully shows the shared leaderboard as unavailable.
+
 ## Ownership and architecture
 
 This folder owns its gameplay, art, UI, tests and Phaser dependency. Its rule engine began as a copy of the append-only One More Card rules and is now independent: it imports nothing from sibling games. The original game remains playable unchanged.
@@ -38,6 +48,9 @@ This folder owns its gameplay, art, UI, tests and Phaser dependency. Its rule en
 - `feedback.js`, `polish.css`: cancellable purchase feedback, upgrade badges, responsive card readability and compact finale presentation.
 - `card-table.css`, `paper-hud.css`: shared card-plane perspective, textured card faces, front-rim layering and the paper-tab HUD.
 - `assets.js`, `assets/sprites/`: seven generated game/UI sheets plus one scenery atlas, totaling 68 sprite frames: 48 room/actor/prop frames, 14 card illustrations and six scenery cutouts. A separate six-frame atlas provides blank paper card faces; single-image assets provide the paper sky, cardboard tray and blank HUD tab; the removed Dock banner remains as unused source art. The manifest registers shared frames for Phaser and DOM card art plus individual scenery bounds. Original PNGs and prompts are preserved; WebP exports ship to players. See the [sprite-sheet guide](assets/sprites/README.md).
+- `lobby.js`, `lobby.css`: welcome screen, guestbook, network states and entrance choreography.
+- `guestbook-storage.js`, `score-rules.js`: local saves, deterministic resume, versioned scoring and validation.
+- `leaderboard-service.js`, `functions/cloudtop-leaderboard.mts`: testable leaderboard handler and Netlify Blobs adapter.
 - `audio.js`: optional quiet synthesized paper clicks.
 - [`CLOUDTOP_HOTEL_DESIGN.md`](CLOUDTOP_HOTEL_DESIGN.md): story, current mechanics and visual/animation direction, moved here from One More Card.
 
@@ -50,7 +63,7 @@ From the repository root:
 ```sh
 npm test
 npm run build
-npx playwright test prototypes/cloudtop-hotel/tests/game.spec.js
+npx playwright test prototypes/cloudtop-hotel/tests/
 ```
 
 Engine tests cover every card interaction, deterministic runs, money accounting and immutable floor prefixes. Browser checks compare complete played runs to the engine, inspect the Phaser floor count and final roof, exercise Choice/Mosaic/Streak/Lock, verify animated resolution and replay cancellation, and check phone and landscape layouts. Screenshots are saved under `artifacts/cloudtop-hotel/`.

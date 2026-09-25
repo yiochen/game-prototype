@@ -9,8 +9,10 @@ export function paperAudio() {
     oscillator.connect(gain); gain.connect(context.destination); oscillator.start(now); oscillator.stop(now + duration);
     oscillator.onended = () => { oscillator.disconnect(); gain.disconnect(); };
   }
+  function setEnabled(value) { enabled = value; if (enabled) { const Audio = window.AudioContext || window.webkitAudioContext; if (!Audio) { enabled = false; return enabled; } context ??= new Audio(); void context.resume(); } return enabled; }
   return {
-    toggle() { enabled = !enabled; if (enabled) { const Audio = window.AudioContext || window.webkitAudioContext; if (!Audio) { enabled = false; return enabled; } context ??= new Audio(); void context.resume(); } return enabled; },
+    setEnabled,
+    toggle() { return setEnabled(!enabled); },
     fold() { tone(560); },
     finish() { tone(523, 0, .18); tone(659, .12, .18); tone(784, .24, .3); },
     destroy() { void context?.close(); },

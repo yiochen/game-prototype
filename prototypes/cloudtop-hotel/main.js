@@ -2,6 +2,9 @@ import './style.css';
 import './paper-hud.css';
 import './card-table.css';
 import './polish.css';
+import { mountLobby } from './lobby.js';
+import { createGuestbook } from './guestbook-storage.js';
+import { replayRun } from './score-rules.js';
 import { createFeedback } from './feedback.js';
 import { ART, SHEETS, spriteArt } from './assets.js';
 import { mountWorld } from './world.js';
@@ -27,11 +30,16 @@ document.documentElement.style.setProperty('--tray-art', `url("${ART['cardboard-
 document.documentElement.style.setProperty('--card-paper', `url("${ART['card-paper']}")`);
 document.documentElement.style.setProperty('--hud-tab', `url("${ART['hud-tab']}")`);
 const human = text => text.replaceAll('Foundation', 'Neighborhood Streak').replaceAll('Attunement', 'Type Lock').replaceAll('Reactor', 'Room Pattern').replaceAll('Assembler', 'Master Fold').replaceAll('Mystery', 'Surprise Parcel').replaceAll('Stabilizer', 'Lucky Bell').replaceAll('Recall', 'Balloon Call').replace(/\bsuit\b/g, 'room type').replace(/\bsuited\b/g, 'typed').replace(/\blinks?\b/g, m => m === 'links' ? 'floors' : 'floor').replace(/\bsegments?\b/g, m => m === 'segments' ? 'neighborhoods' : 'neighborhood');
-let state = createGame(new URL(location.href).searchParams.get('seed') || randomSeed());
+const guestbook = createGuestbook();
+let requestedSeed = new URL(location.href).searchParams.get('seed');
+if (requestedSeed && !/^[a-zA-Z0-9_-]{1,64}$/.test(requestedSeed)) requestedSeed = null;
+let run = guestbook.data.active || { id: crypto.randomUUID(), seed: requestedSeed || randomSeed(), moves: [] };
+let state = guestbook.data.active ? replayRun(run.seed, run.moves, false) : createGame(run.seed), completedRecord = null;
+let shell, sound = guestbook.data.sound;
 let scene, resolvingBefore = null, pendingPurchase = null, epoch = 0, choiceIndex = null, menuReturn = null;
 const flight = createCardFlight();
 const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
-let reduced = motionQuery.matches;
+let reduced = guestbook.data.reduced ?? motionQuery.matches;
 const scenery = mountScenery(document.querySelector('.sky-backdrop'), !reduced);
 const world = mountWorld($('world'));
 const audio = paperAudio();
@@ -200,7 +208,7 @@ function render() {
   $('motion-toggle').setAttribute('aria-pressed', String(reduced)); document.documentElement.classList.toggle('reduced-motion', reduced);
 }
 function select(index) {
-  if (loading || pendingPurchase || document.querySelector('dialog[open]')) return;
+  if (document.body.dataset.screen !== 'game' || loading || pendingPurchase || document.querySelector('dialog[open]')) return;
   if (state.phase === 'roof-ready') { if (index === 0) commitRoof(); return; }
   if (state.phase !== 'picking') return;
   const card = state.offer[index]; if (!card || card.price > state.cash) return;
@@ -225,6 +233,8 @@ function commitRoof() {
     render();
     scene.dropRoof(state, { onComplete: () => {
       if (token !== epoch || !finishRoof(state)) return;
+      const result = guestbook.finish(run, state); completedRecord = result.record;
+      $('ending-save').textContent = result.saved ? 'Saved to Your hotels. Sign the guestbook to share your stay.' : 'Device storage is unavailable. Sign the guestbook to save your score online.';
       audio.finish(); render(); scene.setState(state); syncCamera();
     } });
   };
@@ -250,6 +260,7 @@ function commit(index, selectedType) {
 function applyPurchase(index, selectedType, token, origin) {
   const before = structuredClone(state);
   if (!pick(state, index, selectedType)) return;
+  run.moves.push([index, selectedType ?? null]); guestbook.saveActive(run);
   resolvingBefore = before; render();
   feedback.spend(state.history.at(-1).price, state.history.at(-1).refund);
   const complete = () => {
@@ -283,6 +294,7 @@ function applyPurchase(index, selectedType, token, origin) {
 function restart(seed) {
   ++epoch; feedback.clear(); flight.cancel(); pendingPurchase = null; menuReturn = null; for (const dialog of document.querySelectorAll('dialog[open]')) dialog.close();
   resolvingBefore = null; choiceIndex = null; state = createGame(seed); setSeed();
+  run = { id: crypto.randomUUID(), seed: state.seed, moves: [] }; completedRecord = null; guestbook.saveActive(run);
   $('status').textContent = 'Choose one card. A new delivery follows.'; $('preview').textContent = '';
   $('overview').textContent = 'Whole hotel'; render(); scene?.reset(state); syncCamera(); feedback.deal();
 }
@@ -296,26 +308,44 @@ function balanceTable() {
   rows.push([reserve.name, reserve.price, `1 room per ${reserve.cashPerLink} coins remaining after payment, using the top type (${suitInfo(reserve.openingSuit).name} on an empty hotel).`], [coupon.name, coupon.price, `${coupon.refund} coins back on the next ${coupon.purchases} room buys, including Mosaic. No refresh while active.`], [streak.name, streak.price, `Start at +${streak.bonusStep}; add ${streak.bonusStep} to the bonus per matching typed purchase. Typed powers count. A new type or Mosaic ends it; untyped cards pause it.`], [lock.name, lock.price, `100% matching typed offers for ${lock.shops} shops. Every purchase consumes a shop. No refresh while active.`]);
   $('balance-table').replaceChildren(...rows.map(row => { const tr = node('tr'); for (const value of row) tr.append(node('td', '', value)); return tr; }));
 }
-$('sound-toggle').addEventListener('click', () => { const enabled = audio.toggle(); $('sound-toggle').textContent = enabled ? 'Sound on' : 'Sound off'; $('sound-toggle').setAttribute('aria-pressed', String(enabled)); });
+function toggleSound() { sound = audio.setEnabled(!sound); guestbook.preference('sound', sound); $('sound-toggle').textContent = sound ? 'Sound on' : 'Sound off'; $('sound-toggle').setAttribute('aria-pressed', String(sound)); shell?.preferences(sound, reduced); }
+function restoreSound() { audio.setEnabled(sound); }
+$('sound-toggle').addEventListener('click', toggleSound);
 $('menu-open').addEventListener('click', () => { scene?.inspect(null); $('menu-dialog').showModal(); });
 $('resume').addEventListener('click', () => $('menu-dialog').close());
 for (const [button, dialog] of [['rules-open', 'rules-dialog'], ['workshop-open', 'workshop-dialog']]) {
   $(button).addEventListener('click', () => { menuReturn = button; $('menu-dialog').close(); $(dialog).showModal(); });
   $(dialog).addEventListener('close', () => { if (menuReturn !== button) return; menuReturn = null; $('menu-dialog').showModal(); $(button).focus(); });
 }
-$('menu-dialog').addEventListener('close', () => { if (!menuReturn && !document.querySelector('dialog[open]')) $('menu-open').focus(); });
+$('menu-dialog').addEventListener('close', () => { if (!menuReturn && document.body.dataset.screen === 'game' && !document.querySelector('dialog[open]')) $('menu-open').focus(); });
 $('choice-dialog').addEventListener('close', () => { choiceIndex = null; });
 $('reveal-now').addEventListener('click', () => { flight.finish(); scene?.skip(); $('menu-dialog').close(); });
 for (const id of ['overview', 'camera-toggle']) $(id).addEventListener('click', () => { scene.toggleOverview(); syncCamera(); $('menu-dialog').close(); });
 $('effect-buy').addEventListener('click', () => { const index = effectIndex; $('effect-dialog').close(); select(index); });
 $('height-info').addEventListener('click', () => explainCounter('Hotel floors', `Your hotel has ${state.links.length} floors. Each row of three windows is one floor. Spend your coins to build as high as you can.`));
+function showLobby() {
+  menuReturn = null; flight.finish(); scene?.skip(); feedback.clear();
+  for (const dialog of document.querySelectorAll('dialog[open]')) dialog.close();
+  shell.home({canResume: !finished(state)});
+}
+$('lobby-open').addEventListener('click', showLobby);
+$('ending-board').addEventListener('click', () => shell.board(completedRecord));
 $('ending-new').addEventListener('click', () => restart(randomSeed()));
 $('ending-replay').addEventListener('click', () => restart(state.seed));
 $('replay').addEventListener('click', () => restart(state.seed));
 $('new-game').addEventListener('click', () => restart(randomSeed()));
-function applyMotion(value) { reduced = value; if (reduced) feedback.clear(); scenery.setMotion(!reduced); document.documentElement.classList.toggle('reduced-motion', reduced); if (scene) scene.motion = !reduced; if (reduced) flight.finish(); if (scene) { if (reduced) { scene.skip(); scene.tower.y = 0; } scene.draw(); } $('motion-toggle').setAttribute('aria-pressed', String(reduced)); }
-$('motion-toggle').addEventListener('click', () => applyMotion(!reduced)); motionQuery.addEventListener('change', e => applyMotion(e.matches));
-document.addEventListener('keydown', event => { if (!event.repeat && !event.ctrlKey && !event.metaKey && !event.altKey && /^[123]$/.test(event.key) && !document.querySelector('dialog[open]')) { event.preventDefault(); select(Number(event.key) - 1); } });
-setSeed(); balanceTable(); render();
+function applyMotion(value) { reduced = value; if (reduced) feedback.clear(); scenery.setMotion(!reduced); document.documentElement.classList.toggle('reduced-motion', reduced); if (scene) scene.motion = !reduced; if (reduced) flight.finish(); if (scene) { if (reduced) { scene.skip(); scene.tower.y = 0; } scene.draw(); } $('motion-toggle').setAttribute('aria-pressed', String(reduced)); shell?.preferences(sound, reduced); }
+function toggleMotion() { guestbook.preference('reduced', !reduced); applyMotion(!reduced); }
+$('motion-toggle').addEventListener('click', toggleMotion); motionQuery.addEventListener('change', e => { guestbook.preference('reduced', null); applyMotion(e.matches); });
+document.addEventListener('keydown', event => { if (document.body.dataset.screen === 'game' && !event.repeat && !event.ctrlKey && !event.metaKey && !event.altKey && /^[123]$/.test(event.key) && !document.querySelector('dialog[open]')) { event.preventDefault(); select(Number(event.key) - 1); } });
+balanceTable(); render();
+shell = mountLobby({img, guestbook, isReduced: () => reduced,
+  onStart: () => { restoreSound(); restart(requestedSeed || randomSeed()); requestedSeed = null; },
+  onResume: () => { restoreSound(); requestedSeed = null; setSeed(); render(); scene?.setState(state); },
+  onRules: () => { menuReturn = null; $('rules-dialog').showModal(); },
+  onSound: toggleSound, onMotion: toggleMotion,
+});
+$('sound-toggle').textContent = sound ? 'Sound on' : 'Sound off'; $('sound-toggle').setAttribute('aria-pressed', String(sound));
+shell.preferences(sound, reduced); shell.home({canResume: !!guestbook.data.active});
 world.ready.then(readyScene => { scene = readyScene; scene.motion = !reduced; loading = false; render(); scene.setState(state); $('world').dataset.ready = 'true'; });
-if (import.meta.hot) import.meta.hot.dispose(() => { feedback.clear(); flight.destroy(); scenery.destroy(); world.destroy(); audio.destroy(); });
+if (import.meta.hot) import.meta.hot.dispose(() => { shell.destroy(); feedback.clear(); flight.destroy(); scenery.destroy(); world.destroy(); audio.destroy(); });
