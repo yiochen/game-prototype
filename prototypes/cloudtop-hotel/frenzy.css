@@ -1,0 +1,13 @@
+.frenzy-sky { position: absolute; inset: 0; overflow: hidden; pointer-events: none; opacity: 0; transition: opacity 450ms ease; }
+.sky-backdrop[data-frenzy="true"] .frenzy-sky { opacity: 1; }
+.frenzy-rainbow { position: absolute; left: 0; width: 200%; height: 34%; overflow: visible; opacity: .83; filter: drop-shadow(0 2px 1px #fff6c040); }
+.frenzy-confetti { position: absolute; width: 7px; height: 11px; border: 1px solid #ffffff40; }
+.frenzy .strategy-chip { background: #fff4ddec; border-color: #c385a5; box-shadow: 0 2px 0 #b286df, 0 4px 0 #74cdd7; color: #62446e; }
+.art-parade { display: flex; align-items: center; justify-content: center; position: relative; }
+.art-parade .parade-guest { width: 43%; height: auto; aspect-ratio: 1; flex: 0 0 43%; margin-inline: -5%; transform: rotate(-9deg) translateY(8%); }
+.art-parade .parade-guest:nth-child(2) { z-index: 1; transform: translateY(-8%); }
+.art-parade .parade-guest:nth-child(3) { transform: rotate(9deg) translateY(8%); }
+.parade-arrow { position: absolute; bottom: 0; font-size: 30px; color: #9463b4; }
+.streak-hint { position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%); width: max-content; max-width: 110%; background: #fff3cfee; color: #654880; border-radius: 3px; padding: 2px 4px; font-size: clamp(8px,1vw,11px); font-weight: 800; line-height: 1.2; white-space: nowrap; box-shadow: 0 1px 2px #482d4140; }
+.streak-hint.streak-break { color: #894847; background: #fae0d9ef; }
+.sky-backdrop[data-motion="false"] .frenzy-sky { transition: none; }

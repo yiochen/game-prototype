@@ -210,3 +210,71 @@ test('Attunement preserves affordable fallback and final-purchase settlement',()
   offer(s,'base','single','cat');pick(s,0);assert.equal(finished(s),false);advanceDeal(s);assert.equal(s.phase,'roof-ready');assert.equal(finished(s),false);assert.equal(beginRoof(s),true);assert.equal(finishRoof(s),true);assert.equal(finished(s),true);assert.equal(chain(s),2);
  }
 });
+
+test('Guest Parade changes purchased types, appends one different bonus type, and never changes earlier rooms',()=>{
+ const s=createGame('parade');buy(s,'strategy','parade');
+ assert.deepEqual(s.parade,{suit:null,bonus:0});assert.equal(chain(s),0);
+ assert.ok(!eligibleCards(s).some(c=>['foundation','parade'].includes(c.type)));
+ let previousPurchase=null;
+ for(let bonus=1;bonus<=5;bonus++){
+  // Choosing the last bonus type must still continue: only purchases set the rule.
+  const suit=previousPurchase ? s.history.at(-1).paradeSuit : 'bunny';
+  const c=offer(s,'base','single',suit), before=structuredClone(s), p=preview(s,c);
+  assert.notEqual(suit,previousPurchase);assert.equal(p.paradeBonus,bonus);assert.equal(p.headline,`+${1+bonus}`);
+  for(let i=0;i<4;i++) preview(s,c);
+  assert.deepEqual(s,before);assert.equal(pick(s,0),true);advanceDeal(s);
+  const entry=s.history.at(-1), added=s.links.slice(before.links.length);
+  assert.deepEqual(s.links.slice(0,before.links.length),before.links);
+  assert.equal(added[0].suit,suit);assert.notEqual(entry.paradeSuit,suit);
+  assert.deepEqual(added.slice(1).map(l=>l.suit),Array(bonus).fill(entry.paradeSuit));
+  assert.deepEqual(s.parade,{suit,bonus});assert.equal(s.prizeRng,before.prizeRng);
+  previousPurchase=suit;
+ }
+ const repeat=offer(s,'base','single',previousPurchase);assert.equal(preview(s,repeat).endsParade,true);
+ assert.equal(preview(s,repeat).headline,'+1');const rng=s.paradeRng;
+ pick(s,0);advanceDeal(s);assert.equal(s.parade,null);assert.equal(s.paradeRng,rng);
+ assert.ok(eligibleCards(s).some(c=>c.type==='foundation'));assert.ok(eligibleCards(s).some(c=>c.type==='parade'));
+});
+
+test('Guest Parade pauses for untyped powers, handles chosen and typed powers, and ends on Mosaic',()=>{
+ const s=createGame('parade-choice');buy(s,'strategy','parade');buy(s,'base','single','bunny');
+ const progress=structuredClone(s.parade), rng=s.paradeRng;
+ buy(s,'growth','overgrow');buy(s,'wealth','rebate');
+ assert.deepEqual(s.parade,progress);assert.equal(s.paradeRng,rng);
+ const choice=offer(s,'base','choice'), before=structuredClone(s);
+ assert.equal(preview(s,choice,'bunny').endsParade,true);
+ assert.equal(preview(s,choice,'frog').paradeBonus,2);
+ preview(s,choice);assert.deepEqual(s,before);
+ assert.equal(pick(s,0,'invalid'),false);assert.deepEqual(s,before);
+ assert.equal(pick(s,0,'frog'),true);assert.equal(s.history.at(-1).links,3);assert.equal(s.history.at(-1).refund,2);
+ assert.equal(pick(s,0,'cat'),false);advanceDeal(s);
+ const power=buy(s,'reactor','suit','cat');assert.equal(power.paradeBonus,3);assert.equal(power.links,3);
+ assert.notEqual(power.paradeSuit,'cat');assert.equal(s.upgrades['suit:cat'],1);
+ const mosaic=offer(s,'base','mosaic');assert.equal(preview(s,mosaic).endsParade,true);
+ const prefix=s.links.length;pick(s,0);advanceDeal(s);
+ assert.deepEqual(s.links.slice(prefix).map(l=>l.suit),mosaic.sequence);assert.equal(s.parade,null);
+});
+
+test('Guest Parade rolls replay exactly, cover both other types, and cannot stack with Neighborhood Streak',()=>{
+ const outcomes=new Set();
+ for(let seed=0;seed<40;seed++){
+  const first=createGame(seed), second=createGame(seed);
+  for(const s of [first,second]){
+   buy(s,'strategy','parade');buy(s,'base','single','frog');
+   buy(s,'base','mystery','cat');buy(s,'growth','recall','frog');
+  }
+  assert.deepEqual(first,second);outcomes.add(first.history[1].paradeSuit);
+ }
+ assert.deepEqual(outcomes,new Set(['bunny','cat']));
+ const s=createGame('one-streak');buy(s,'strategy','foundation');
+ assert.ok(!eligibleCards(s).some(c=>c.type==='parade'));
+});
+
+test('Type Lock evaluates its printed guest for Guest Parade and forces a repeat to end it',()=>{
+ const s=createGame('parade-lock');buy(s,'strategy','parade');buy(s,'base','single','bunny');
+ const lock=buy(s,'strategy','attunement','cat');assert.equal(lock.paradeBonus,2);assert.equal(s.parade.suit,'cat');
+ const choice=offer(s,'base','choice');assert.deepEqual(choiceSuits(s),['cat']);
+ const p=preview(s,choice);assert.equal(p.choices.length,1);assert.equal(p.choices[0].endsParade,true);
+ const before=s.paradeRng;pick(s,0,'cat');advanceDeal(s);
+ assert.equal(s.parade,null);assert.equal(s.paradeRng,before);assert.equal(s.attunement.remaining,2);
+});

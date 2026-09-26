@@ -46,5 +46,6 @@ export const BALANCE = {
   strategy: {
     foundation: { name: 'Neighborhood Streak', price: 7, weight: 50, bonusStep: 1 },
     attunement: { name: 'Type Lock', price: 6, weight: 50, shops: 3 },
+    parade: { name: 'Guest Parade', price: 7, weight: 50, bonusStep: 1 },
   },
 };

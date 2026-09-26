@@ -6,7 +6,7 @@ A standalone Phaser 3 game about building a paper hotel for Bunny, Frog and Cat 
 
 Spend 100 coins on one of three offers. Purchases append rooms at the open top; earlier floors never change. Adjacent rooms of one type form neighborhoods and earn reusable balloons. When no paid card is affordable, the tray offers a single free Roof card. Select it to drop the roof onto the tower and finish the game. The roof changes no coins, floors, upgrades or purchase history.
 
-The complete card set includes One Room, Prefab Pack, Room Choice, Surprise Parcel, 24 Mosaic sequences, Balloon Call, Copycat, Room Pattern, Master Fold, Lucky Bell, Reserve Delivery, Coupon Book, Neighborhood Streak and Type Lock. Rules and a balance reference are available in the game. Room Choice opens a cancellable picker; Streak and Lock remain visible while active.
+The complete card set includes One Room, Prefab Pack, Room Choice, Surprise Parcel, 24 Mosaic sequences, Balloon Call, Copycat, Room Pattern, Master Fold, Lucky Bell, Reserve Delivery, Coupon Book, Neighborhood Streak, Guest Parade and Type Lock. Rules and a balance reference are available in the game. Room Choice opens a cancellable picker; Streak and Lock remain visible while active.
 
 - Keys 1 / 2 / 3 buy offers; Escape closes dialogs.
 - Each card shows its coin cost at the top left and a question-mark button at the top right. The question mark opens an effect dialog without buying the card. Its purchase button buys that exact offer, or opens the cancellable room picker for Room Choice. Descriptions and projected coin balances do not fill the card face.
@@ -110,3 +110,11 @@ npx playwright test prototypes/cloudtop-hotel/tests/
 Engine tests cover every card interaction, deterministic runs, money accounting and immutable floor prefixes. Browser checks compare complete played runs to the engine, inspect the Phaser floor count and final roof, exercise Choice/Mosaic/Streak/Lock, verify animated resolution and replay cancellation, and check phone and landscape layouts. Screenshots are saved under `artifacts/cloudtop-hotel/`.
 
 Animation checks also observe all four Copycat poses, its spot–stamp–send–unfold sequence, actual room-unfolding frames, changing idle frames and frozen frames under reduced motion. Card checks cover effect-help dialogs, distinct artwork, the full-screen canvas and the flight/inflate/burst purchase boundary. Scenery checks verify cloud/island movement, transparent assets, manual and system motion preferences, phase-preserving resume, and phone/landscape fit. The detailed style pass changes presentation and when a selected purchase commits; append-only rules and prices stay in the engine and balance table.
+
+## Guest Parade and frenzy
+
+Guest Parade costs 7 coins. The first typed purchase adds 1 bonus room; each purchase of a different guest type increases that bonus by 1. The entire bonus batch uses one uniformly random type other than the purchased type, appended after normal output. The purchased type determines the next requirement, regardless of the bonus type. Repeating a purchased type or buying Mosaic ends the parade; untyped powers pause it. Typed upgrades and Type Lock count, and Room Choice evaluates the chosen guest. Only one of Guest Parade and Neighborhood Streak can be active.
+
+Both streaks activate full-screen traveling rainbow ribbons behind the hotel, paper confetti and cheering, gently dancing window guests. Offers preview continuation, pause and termination; the HUD shows the next bonus and guest requirement. Reduced motion freezes the ribbons and holds the cheering pose. Replay, leaving the game and the roof finale remove frenzy presentation. `frenzy.js` owns only scenery; bonus generation uses a separate seeded RNG in the engine and never runs during preview or animation.
+
+Score version `paper-v2` starts a new leaderboard/replay ruleset for the changed offer pool. Earlier version saves are excluded by the existing version checks.

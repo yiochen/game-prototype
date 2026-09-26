@@ -1,6 +1,7 @@
 import { ART, SCENERY } from './assets.js';
 import { skyAtHeight } from './altitude.js';
 import './sky.css';
+import { mountFrenzy } from './frenzy.js';
 
 // Viewport scenery is separate from the hotel camera and never touches game state.
 // [atlas frame, horizontal %, vertical %, size in vmin, period in seconds, phase]
@@ -46,6 +47,7 @@ const CONSTELLATIONS = [
 export function mountScenery(parent, motion) {
   const paper = document.createElement('div'); paper.className = 'sky-paper';
   paper.style.backgroundImage = `url("${ART['sky-paper']}")`; parent.append(paper);
+  const frenzy = mountFrenzy(parent);
   const animations = [];
   const entrances = new Set(), celestial = [];
   let height = -1;
@@ -137,11 +139,13 @@ export function mountScenery(parent, motion) {
     for (const animation of animations) playing ? animation.play() : animation.pause();
     for (const animation of entrances) playing ? animation.play() : animation.pause();
     parent.dataset.motion = String(playing);
+    frenzy.setMotion(playing);
   }
   document.addEventListener('visibilitychange', sync); sync(); setHeight(0, { immediate: true });
   return {
     setHeight,
+    setFrenzy: frenzy.setActive,
     setMotion(value) { motion = value; if (!motion) settleEntrances(); sync(); },
-    destroy() { document.removeEventListener('visibilitychange', sync); settleEntrances(); animations.forEach(animation => animation.cancel()); parent.replaceChildren(); },
+    destroy() { frenzy.destroy(); document.removeEventListener('visibilitychange', sync); settleEntrances(); animations.forEach(animation => animation.cancel()); parent.replaceChildren(); },
   };
 }

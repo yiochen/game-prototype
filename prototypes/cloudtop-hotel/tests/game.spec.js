@@ -161,10 +161,10 @@ test('room choice can cancel, respects Type Lock, and stacks Neighborhood Streak
   await open(page, 0); await card(page, 2).click(); await expect(page.locator('#room-choices button')).toHaveCount(3);
   await page.keyboard.press('1'); await expect(page.locator('#coins')).toHaveText('100'); await page.keyboard.press('Escape'); await expect(card(page, 2)).toBeFocused();
   await buy(page, 2, 'frog'); await expect(page.locator('#floor-record li')).toHaveAttribute('data-type', 'frog');
-  await open(page, 472); await buy(page, 0); await buy(page, 0); await expect(page.locator('#strategy-status')).toContainText('Cat lock · 3 shops');
-  await card(page, 0).click(); await expect(page.locator('#room-choices button')).toHaveCount(1); await expect(page.locator('#room-choices button')).toContainText('+3 floors');
+  await open(page, 188); await buy(page, 2); await buy(page, 0); await expect(page.locator('#strategy-status')).toContainText('Cat lock · 3 shops');
+  await card(page, 1).click(); await expect(page.locator('#room-choices button')).toHaveCount(1); await expect(page.locator('#room-choices button')).toContainText('+3 floors');
   await screenshot(page, 'choice-dialog'); await page.locator('#room-choices button').click(); await expect(page.locator('#strategy-status')).toContainText('2 shops');
-  await buy(page, 2); await buy(page, 0); await expect(page.locator('#strategy-status')).not.toContainText('lock'); await expect(page.locator('#height')).toHaveText('13');
+  await buy(page, 1); await buy(page, 0); await expect(page.locator('#strategy-status')).not.toContainText('lock'); await expect(page.locator('#height')).toHaveText('13');
   await control(page, 'workshop-open'); await expect(page.locator('#installed')).toContainText('next +5'); await page.keyboard.press('Escape');
 });
 
@@ -172,7 +172,7 @@ test('Copycat and Balloon Call append their outputs without changing earlier flo
   await open(page, 0); for (const i of [0,1,1,1,1,0,1,1,1,0,1]) await buy(page, i);
   const before = await page.locator('#floor-record li').evaluateAll(items => items.map(l => l.dataset.type));
   await expect(card(page, 1)).toContainText('Copycat'); await buy(page, 1);
-  expect(await page.locator('#floor-record li').evaluateAll(items => items.map(l => l.dataset.type))).toEqual([...before,...Array(4).fill('cat')]);
+  expect(await page.locator('#floor-record li').evaluateAll(items => items.map(l => l.dataset.type))).toEqual([...before,...Array(5).fill('frog')]);
   await open(page, 2); for (const i of [2,0,0,2,0,0,0,1,0]) await buy(page, i);
   await expect(card(page, 0)).toContainText('Balloon Call'); await expect(card(page, 0).locator('.card-effect')).toHaveText('+4'); await buy(page, 0);
   await expect(page.locator('#height')).toHaveText('29'); await screenshot(page, 'tall-hotel');
@@ -191,13 +191,13 @@ test('real delivery animates once, skips without rerolling, and replay cancels p
 });
 
 test('controls and strategy effects fit phone, short phone, desktop and landscape', async ({ page }) => {
-  await open(page, 472); await buy(page, 0); await buy(page, 0);
+  await open(page, 188); await buy(page, 2); await buy(page, 0);
   for (const size of [{width:320,height:480},{width:390,height:844},{width:375,height:667},{width:1280,height:900},{width:844,height:390},{width:667,height:375}]) {
     await page.setViewportSize(size); await screenFits(page);
     await expect.poll(() => page.locator('#world canvas').evaluate(c => c.width)).toBe(await page.locator('#world').evaluate(e => Math.floor(e.clientWidth)));
     await screenshot(page, `layout-${size.width}x${size.height}`);
   }
-  await control(page, 'rules-open'); const coins = await page.locator('#coins').textContent(); await page.keyboard.press('1'); await expect(page.locator('#coins')).toHaveText(coins); await expect(page.locator('#balance-table tr')).toHaveCount(14);
+  await control(page, 'rules-open'); const coins = await page.locator('#coins').textContent(); await page.keyboard.press('1'); await expect(page.locator('#coins')).toHaveText(coins); await expect(page.locator('#balance-table tr')).toHaveCount(15);
   await page.keyboard.press('Escape'); await expect(page.locator('#rules-open')).toBeFocused();
 });
 
@@ -222,7 +222,7 @@ test('Copycat plays its generated poses and unfolding frames; reduced motion fre
   await page.waitForFunction(() => document.querySelector('#world canvas').dataset.choreography === 'unfold'); await screenshot(page, 'copycat-unfold');
   await expect(page.locator('#world')).toHaveAttribute('data-state', 'picking', { timeout: 7000 });
   const observed = await page.evaluate(() => { window.hotelObserver.disconnect(); return { frames: [...window.observedHotelFrames], stages: [...window.observedHotelStages] }; });
-  for (const frame of ['actors:0','actors:1','actors:2','actors:3','rooms-cat:1','rooms-cat:2']) expect(observed.frames).toContain(frame);
+  for (const frame of ['actors:0','actors:1','actors:2','actors:3','rooms-frog:1','rooms-frog:2']) expect(observed.frames).toContain(frame);
   for (const stage of ['spot','stamp','send','unfold','celebrate']) expect(observed.stages).toContain(stage);
   const idle = await page.locator('#world canvas').getAttribute('data-sprite-frames');
   await expect.poll(() => page.locator('#world canvas').getAttribute('data-sprite-frames')).not.toBe(idle);

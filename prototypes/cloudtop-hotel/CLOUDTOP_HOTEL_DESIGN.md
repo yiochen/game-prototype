@@ -441,6 +441,18 @@ The streak follows **purchase types, not the current top neighborhood**. Type-sp
 
 Example: Foundation → Pink One Room yields 2 floors → Pink Balloon Call with one Pink neighborhood yields 1 + 2 = 3 floors → Pink Choice 1 yields 1 + 3 = 4 floors, before other upgrades. A Green One Room then yields its normal output and closes Foundation.
 
+### Guest Parade
+
+$7. One active streak at a time: Guest Parade and Neighborhood Streak cannot stack or refresh each other. The first typed purchase starts at +1. Each subsequent purchase of a different type adds +2, +3, and so on, without a cap. Repeating the last purchased type or buying Mosaic ends the effect before a bonus is awarded. Untyped powers pause it. Room Choice uses its chosen type; typed upgrades and Type Lock also count.
+
+After normal output, append the bonus as one batch of a randomly chosen other room type, with equal chances between the two alternatives. The random type is committed once on purchase using a dedicated seeded parade RNG. Preview, cancel, reveal, motion settings and resizing never reroll it. The last purchased type—not the bonus type or hotel top—defines the next required change. New bonus neighborhoods earn balloons normally, available only for later purchases.
+
+### Frenzy presentation for both streaks
+
+Activation immediately brings broad, colorful rainbow ribbons sweeping across the screen behind the hotel, paper confetti and celebrating window guests of every type. All assembled guests use their waving pose and a gentle dance while the streak remains active, including during untyped purchases. The existing paper sky and altitude progression remain visible. The HUD shows the next bonus and requirement; offers show their bonus or whether they pause/end the streak.
+
+Reduced motion retains static rainbows and waving guests without travel or dancing. Ending a streak, replaying, leaving gameplay or reaching the roof finale clears the effect; resuming an active streak restores it. This presentation never affects gameplay state.
+
 ### Type Lock
 
 Current rule: $6 for a card with a printed type. **100% of suited offers** in the next three shops use that type. Card families and types still vary; suitless cards remain eligible with their normal effects. This is an offer filter, not a conversion of existing floors, a Mystery-odds change, or a guarantee of three base cards.
