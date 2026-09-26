@@ -26,19 +26,21 @@ test('Guest Parade previews, cancellation, bonus guests, reload and ending match
  await page.locator('[data-offer-help="0"]').click();await expect(page.locator('#effect-dialog')).toContainText('random type different from the purchase');await page.keyboard.press('Escape');
  for(const [i,suit] of [[0],[1]]){await buy(page,i,suit);pick(s,i,suit);advanceDeal(s);}
  await expect(sky).toHaveAttribute('data-frenzy','true');await expect(canvas).toHaveAttribute('data-frenzy','true');
- await expect(page.locator('#strategy-status')).toContainText('next +2 · change from Cat');
+ await expect(page.locator('#strategy-status')).toContainText('next +2 · change from Frog');
  await page.locator('[data-offer-index="1"]').click();
- await expect(page.locator('#room-choices [data-suit="cat"]')).toContainText('Ends your streak');
- await expect(page.locator('#room-choices [data-suit="bunny"]')).toContainText('Parade +2 random rooms');
+ await expect(page.locator('#room-choices [data-suit="frog"]')).toContainText('Ends your streak');
+ await expect(page.locator('#room-choices [data-suit="cat"]')).toContainText('Parade +2 random rooms');
  await page.keyboard.press('Escape');await expect(page.locator('#coins')).toHaveText(String(s.cash));
- await buy(page,1,'bunny');pick(s,1,'bunny');advanceDeal(s);
+ await buy(page,1,'cat');pick(s,1,'cat');advanceDeal(s);
  expect(await page.locator('#floor-record li').evaluateAll(es=>es.map(e=>e.dataset.type))).toEqual(s.links.map(l=>l.suit));
  for(const suit of ['bunny','frog','cat'])await expect(page.locator(`.dock-chip.${suit} .dock-count`)).toHaveText(String(segments(s,suit).length));
- await expect(page.locator('#purchase-feedback')).toContainText(`Parade +2 ${s.history.at(-1).paradeSuit === 'cat' ? 'Cat' : 'Frog'} rooms`);
+ await expect(page.locator('#purchase-feedback')).toContainText(`Parade +2 Frog rooms`);
  await page.reload();await expect(page.locator('#world')).toHaveAttribute('data-ready','true');await expect(sky).toHaveAttribute('data-frenzy','false');
  await page.locator('#lobby-resume').click();await expect(sky).toHaveAttribute('data-frenzy','true');
  expect(await page.locator('#floor-record li').evaluateAll(es=>es.map(e=>e.dataset.type))).toEqual(s.links.map(l=>l.suit));
- await expect(page.locator('[data-offer-index="1"] .streak-hint')).toHaveText('Ends streak');await buy(page,1);
+ await page.locator('[data-offer-index="0"]').click();
+ await expect(page.locator('#room-choices [data-suit="frog"]')).toContainText('Ends your streak');
+ await page.locator('#room-choices [data-suit="frog"]').click();
  await expect(sky).toHaveAttribute('data-frenzy','false');await expect(canvas).toHaveAttribute('data-celebrating-guests','0');
  expect(errors).toEqual([]);
 });
@@ -90,14 +92,14 @@ test('Mosaic continues Guest Parade with an appended bonus and keeps frenzy thro
  await expect(mosaic.locator('.card-effect')).toHaveText('+4');await expect(mosaic.locator('.streak-hint')).toHaveText('+1 random');
  await page.locator('[data-offer-help="1"]').click();
  await expect(page.locator('#effect-dialog')).toContainText('Guest Parade appends +1');
- await expect(page.locator('#effect-dialog')).toContainText('next typed purchase must differ from Bunny');
+ await expect(page.locator('#effect-dialog')).toContainText('next typed purchase or first Mosaic guest must differ from that top floor');
  await expect(page.locator('#effect-dialog')).not.toContainText('Ends Guest Parade');await page.keyboard.press('Escape');
  await page.emulateMedia({reducedMotion:'no-preference'});
  await mosaic.click();await expect(page.locator('#world')).toHaveAttribute('data-state','resolving');
  await expect(page.locator('.sky-backdrop')).toHaveAttribute('data-frenzy','true');
  await control(page,'reveal-now');pick(s,1);advanceDeal(s);
  expect(await page.locator('#floor-record li').evaluateAll(es=>es.map(e=>e.dataset.type))).toEqual(s.links.map(l=>l.suit));
- await expect(page.locator('#strategy-status')).toContainText('next +2 · change from Bunny');
+ await expect(page.locator('#strategy-status')).toContainText('next +2 · change from Cat');
  for(const suit of ['bunny','frog','cat'])await expect(page.locator(`.dock-chip.${suit} .dock-count`)).toHaveText(String(segments(s,suit).length));
  await page.emulateMedia({reducedMotion:'reduce'});
  for(const viewport of [{width:390,height:844},{width:844,height:390}]){
@@ -107,7 +109,21 @@ test('Mosaic continues Guest Parade with an appended bonus and keeps frenzy thro
  await page.reload();await expect(page.locator('#world')).toHaveAttribute('data-ready','true');await page.locator('#lobby-resume').click();
  await expect(page.locator('.sky-backdrop')).toHaveAttribute('data-frenzy','true');
  await buy(page,2);pick(s,2);advanceDeal(s);
- await expect(page.locator('#strategy-status')).toContainText('next +3 · change from Frog');
+ await expect(page.locator('#strategy-status')).toContainText('next +3 · change from Cat');
  expect(await page.locator('#floor-record li').evaluateAll(es=>es.map(e=>e.dataset.type))).toEqual(s.links.map(l=>l.suit));
  expect(errors).toEqual([]);
+});
+test('Mosaic matching the actual bonus top warns and ends Guest Parade without bonus floors',async({page})=>{
+ await open(page,281);const s=createGame(281);
+ for(const i of [2,0]){await buy(page,i);pick(s,i);advanceDeal(s);}
+ await expect(page.locator('#strategy-status')).toContainText('change from Bunny');
+ const mosaic=page.locator('#offers [data-offer-index="1"]');
+ await expect(mosaic).toHaveAttribute('data-type','mosaic');
+ await expect(mosaic.locator('.streak-hint')).toHaveText('Ends streak');await expect(mosaic.locator('.card-effect')).toHaveText('+3');
+ await page.locator('[data-offer-help="1"]').click();await expect(page.locator('#effect-dialog')).toContainText('Ends Guest Parade');await page.keyboard.press('Escape');
+ const before=s.links.length;await buy(page,1);pick(s,1);advanceDeal(s);
+ expect(s.links.length-before).toBe(3);
+ expect(await page.locator('#floor-record li').evaluateAll(es=>es.map(e=>e.dataset.type))).toEqual(s.links.map(l=>l.suit));
+ await expect(page.locator('.sky-backdrop')).toHaveAttribute('data-frenzy','false');
+ await expect(page.locator('#purchase-feedback')).toContainText('Guest Parade ended');
 });

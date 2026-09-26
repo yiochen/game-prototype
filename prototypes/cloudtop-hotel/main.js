@@ -143,7 +143,7 @@ function renderWorkshop(view) {
   if (view.rebateRemaining) list.push(node('p', 'workshop-item', `Coupon Book · ${view.rebateRemaining} refunds of ${BALANCE.wealth.rebate.refund} coins left`));
   const active = [];
   if (view.foundation) active.push(`Streak ${view.foundation.suit ? suitInfo(view.foundation.suit).name : 'ready'} · next +${view.foundation.bonus + BALANCE.strategy.foundation.bonusStep}`);
-  if (view.parade) active.push(`Guest Parade · next +${view.parade.bonus + BALANCE.strategy.parade.bonusStep} · ${view.parade.suit ? 'change from ' + suitInfo(view.parade.suit).name : 'any guest'}`);
+  if (view.parade) active.push(`Guest Parade · next +${view.parade.bonus + BALANCE.strategy.parade.bonusStep} · ${view.links.length ? 'change from ' + suitInfo(view.links.at(-1).suit).name : 'any guest'}`);
   if (view.attunement) active.push(`${suitInfo(view.attunement.suit).name} lock · ${view.attunement.remaining} ${view.attunement.remaining === 1 ? 'shop' : 'shops'}`);
   for (const text of active) list.push(node('p', 'workshop-item', text));
   $('installed').replaceChildren(...(list.length ? list : [node('p', 'empty-workshop', 'Your workshop is waiting. Collect tools and techniques to make every coin go further.')]));
@@ -345,7 +345,7 @@ function balanceTable() {
   const reserve = BALANCE.wealth.vault, coupon = BALANCE.wealth.rebate, streak = BALANCE.strategy.foundation, lock = BALANCE.strategy.attunement;
   rows.push([reserve.name, reserve.price, `1 room per ${reserve.cashPerLink} coins remaining after payment, using the top type (${suitInfo(reserve.openingSuit).name} on an empty hotel).`], [coupon.name, coupon.price, `${coupon.refund} coins back on the next ${coupon.purchases} room buys, including Mosaic. No refresh while active.`], [streak.name, streak.price, `Start at +${streak.bonusStep}; add ${streak.bonusStep} to the bonus per matching typed purchase. Typed powers count. A new type or Mosaic ends it; untyped cards pause it.`], [lock.name, lock.price, `100% matching typed offers for ${lock.shops} shops. Every purchase consumes a shop. No refresh while active.`]);
   const parade = BALANCE.strategy.parade;
-  rows.push([parade.name, parade.price, `Change guest type each typed purchase for +${parade.bonusStep}, +${parade.bonusStep * 2}, +${parade.bonusStep * 3}… bonus rooms. Each bonus batch is one random other type. Every Mosaic advances once; its final printed guest sets the next requirement and the type excluded from the bonus. Repeat a single purchased type to end; untyped powers pause. One streak at a time.`]);
+  rows.push([parade.name, parade.price, `Start with a guest different from the current top floor for +${parade.bonusStep}, +${parade.bonusStep * 2}, +${parade.bonusStep * 3}… bonus rooms. Each bonus batch is one random other type. Mosaic must start differently from the top floor and advances once. Its bonus differs from its last printed guest. Bonus rooms become the new top to compare against. Matching the top ends it; untyped powers pause the bonus. One streak at a time.`]);
   $('balance-table').replaceChildren(...rows.map(row => { const tr = node('tr'); for (const value of row) tr.append(node('td', '', value)); return tr; }));
 }
 function toggleSound() { sound = audio.setEnabled(!sound); guestbook.preference('sound', sound); $('sound-toggle').textContent = sound ? 'Sound on' : 'Sound off'; $('sound-toggle').setAttribute('aria-pressed', String(sound)); shell?.preferences(sound, reduced); }
