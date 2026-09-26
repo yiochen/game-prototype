@@ -63,11 +63,16 @@ npm run test:browser
 
 ## Host
 
-The build produces `dist/`, containing the index and all registered games. Serve that directory on any static host. `netlify.toml` supplies the build command and publish directory when this repo is connected to a new Netlify site.
+The build produces `dist/`, containing the index and all registered games. Netlify builds from the repository root using `npm run build` and publishes `dist/`; `netlify.toml` also pins Node 22.
 
-Production: https://game-prototypes-yiochen.netlify.app/ — Netlify site `game-prototypes-yiochen` (`a05448cf-3d0c-4100-9b1a-6d8a0d28c886`). This checkout is linked through `.netlify/state.json`. The public GitHub repository is https://github.com/yiochen/game-prototype; automatic deployment is not configured.
+Production: https://game-prototypes-yiochen.netlify.app/ — Netlify site `game-prototypes-yiochen` (`a05448cf-3d0c-4100-9b1a-6d8a0d28c886`), connected to https://github.com/yiochen/game-prototype.
 
-After verification and building, publish with `npx netlify-cli deploy --prod --dir dist --no-build --site a05448cf-3d0c-4100-9b1a-6d8a0d28c886`. The older Midnight Noodle deployment remains separate. Do not deploy this repo over that site because it also hosts the original restaurant game.
+- Pushes to `main` automatically deploy production.
+- Pull requests targeting `main` automatically build a Deploy Preview. The Netlify check on each PR links to the preview; new commits update the same preview URL after a successful build.
+- Each preview contains every registered game. Open `/prototypes/cloudtop-hotel/` to review Cloudtop Hotel. Add `@netlify /prototypes/cloudtop-hotel/` to a PR description to make its Netlify preview comment link directly to the game.
+- Manage builds and previews at https://app.netlify.com/projects/game-prototypes-yiochen/deploys.
+
+For a manual draft after verification and building, run `npx netlify-cli deploy --dir dist --no-build --site a05448cf-3d0c-4100-9b1a-6d8a0d28c886`. Add `--prod` only when intentionally publishing to production. The older Midnight Noodle deployment remains separate. Do not deploy this repo over that site because it also hosts the original restaurant game.
 
 ## Import
 

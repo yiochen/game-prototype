@@ -53,7 +53,7 @@ export function createCardFlight() {
   function burstCallback(flight) {
     if (current !== flight || flight.applied) return;
     flight.applied = true;
-    try { flight.onBurst?.(); }
+    try { flight.onBurst?.({ x: flight.x + flight.width / 2, y: flight.y + flight.height / 2 }); }
     catch (error) { clean(flight); throw error; }
   }
 
@@ -79,6 +79,8 @@ export function createCardFlight() {
     clone.classList.remove('card-flight-source');
     clone.classList.add('card-flight-card');
     clone.removeAttribute('id');
+    clone.removeAttribute('data-folding');
+    for (const rig of clone.querySelectorAll('.paper-fold-rig')) rig.remove();
     clone.removeAttribute('aria-label');
     clone.removeAttribute('title');
     clone.removeAttribute('disabled');
@@ -174,14 +176,14 @@ export function createCardFlight() {
       { transform: fromTransform, offset: 0 },
       { transform: `translate3d(${x + (fromX - x) * .08}px,${y - 14}px,0) perspective(900px) rotateX(-5deg) rotate(${-slant * .7}deg) scale(${scale * 1.025})`, offset: .82 },
       { transform: center, offset: 1 }
-    ], { duration: 470, easing: 'cubic-bezier(.16,.78,.22,1)' }, () => {
+    ], { duration: 300, easing: 'cubic-bezier(.16,.78,.22,1)' }, () => {
       overlay.dataset.phase = 'inflate';
       animate(flight, card, [
         { transform: center, borderRadius: '8px', filter: 'brightness(1)' },
         { transform: `${center} scale(.94,1.045)`, borderRadius: '18px', filter: 'brightness(1.03)', offset: .27 },
         { transform: `${center} scale(1.15,1.13)`, borderRadius: '32px', filter: 'brightness(1.2)', offset: .88 },
         { transform: `${center} scale(1.18,1.16)`, borderRadius: '38px', filter: 'brightness(1.35)' }
-      ], { duration: 220, easing: 'cubic-bezier(.4,0,.8,.3)' }, () => burst(flight));
+      ], { duration: 110, easing: 'cubic-bezier(.4,0,.8,.3)' }, () => burst(flight));
     });
     return { finish: () => { if (current === flight) finish(); }, cancel: () => { if (current === flight) cancel(); } };
   }

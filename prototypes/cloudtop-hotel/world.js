@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { ART, SHEETS, spriteArt, registerFrames } from './assets.js';
 import { segments, longestSegment } from './engine.js';
+import { balloonJourneys, balloonPose, BALLOON_DURATION } from './balloon-journey.js';
 
 const TYPES = ['bunny', 'frog', 'cat'];
 const INK = '#fff8dd';
@@ -14,7 +15,9 @@ class HotelScene extends Phaser.Scene {
   create() {
     registerFrames(this);
     this.background = this.add.container(); this.tower = this.add.container(); this.effects = this.add.container();
-    this.lastDraw = -Infinity; this.whole = false; this.cameraBase = null; this.scale.on('resize', () => { this.cameraBase = null; this.tower.y = 0; this.draw(); });
+    this.lastDraw = -Infinity; this.whole = false; this.layoutView = null; this.cameraMoving = false;
+    for (const layer of [this.background, this.tower, this.effects]) layer.pool = { image: [], text: [], graphics: [] };
+    this.scale.on('resize', () => { this.layoutView = null; this.draw(); });
     this.onReady(this);
   }
   setState(state) {
@@ -22,23 +25,27 @@ class HotelScene extends Phaser.Scene {
     this.animation = null; this.roofAnimation = null; this.view = structuredClone(state);
     this.roofLanded = state.phase === 'complete';
     this.ending = state.phase === 'complete' && !wasDone && this.motion ? this.time.now : null;
-    if (finishing(state.phase)) { this.whole = true; this.cameraBase = null; this.tower.y = 0; }
+    if (state.phase === 'complete') { this.whole = true; this.tower.y = 0; }
     if (state.phase !== 'complete') this.ending = null;
     this.draw();
   }
-  reset(state) { this.animation = null; this.roofAnimation = null; this.roofLanded = false; this.cameraBase = null; this.tower.y = 0; this.whole = false; this.preview = null; this.ending = null; this.view = null; this.setState(state); }
+  reset(state) { this.animation = null; this.roofAnimation = null; this.roofLanded = false; this.layoutView = null; this.tower.y = 0; this.whole = false; this.preview = null; this.ending = null; this.view = null; this.setState(state); }
   inspect(offer) { this.preview = offer; this.draw(); }
   toggleOverview() { if (!this.roofAnimation) this.whole = !this.whole; this.draw(); return this.whole; }
-  animate(before, after, { onFrame, onComplete }) {
+  animate(before, after, { onFrame, onComplete, onBalloonArrival, origin }) {
     this.preview = null;
     const type = after.history.at(-1).type, count = after.lastEffect.added;
-    this.animation = { before, after, start: this.time.now, onFrame, onComplete, delay: type === 'mystery' ? 700 : 100, duration: type === 'overgrow' ? 3200 : count ? Math.min(2900, 1300 + count * 140) : 900, buildStart: type === 'overgrow' ? .47 : .25, buildEnd: .87 };
+    this.animation = { before, after, origin, start: this.time.now, onFrame, onComplete, delay: type === 'mystery' ? 320 : 0, duration: type === 'overgrow' ? 2200 : count ? Math.min(1700, 760 + count * 90) : 650, buildStart: type === 'overgrow' ? .47 : .2, buildEnd: .78 };
+    const a = this.animation;
+    a.journeys = balloonJourneys(before, after, a.delay + a.duration * a.buildEnd);
+    a.onBalloonArrival = onBalloonArrival;
+    a.totalDuration = Math.max(a.delay + a.duration, ...a.journeys.map(j => j.startAt + BALLOON_DURATION));
     this.draw();
   }
   dropRoof(state, { onComplete }) {
     this.animation = null; this.preview = null; this.ending = null;
     this.view = structuredClone(state); this.roofLanded = false;
-    this.whole = true; this.cameraBase = null; this.tower.y = 0;
+    this.whole = false; this.tower.y = 0;
     this.roofAnimation = { start: this.time.now, fall: 740, settle: 360, onComplete };
     if (!this.motion) { this.skip(); return; }
     this.draw();
@@ -55,14 +62,15 @@ class HotelScene extends Phaser.Scene {
     if (!animation) return;
     this.animation = null; this.view = animation.after; animation.onComplete();
   }
-  update(time, delta) {
+  update(time) {
     if (!this.view) return;
-    this.tower.y *= Math.exp(-delta / 85);
-    if (time - this.lastDraw < 1000 / (this.roofAnimation ? 30 : 12)) return;
+    // Keep paper pose changes stepped, but update travel and camera transforms
+    // every render frame. Idle scenes only need twelve redraws per second.
+    if (!this.animation && !this.roofAnimation && !this.cameraMoving && time - this.lastDraw < 1000 / 12) return;
     this.lastDraw = time;
     if (this.animation) {
       const a = this.animation, elapsed = time - a.start;
-      if (elapsed >= a.delay + a.duration) { this.skip(); return; }
+      if (elapsed >= a.totalDuration) { this.draw(); this.skip(); return; }
       this.draw();
     } else if (this.roofAnimation) {
       const roof = this.roofAnimation;
@@ -70,24 +78,33 @@ class HotelScene extends Phaser.Scene {
       this.draw();
     } else if (this.motion) this.draw();
   }
+  acquire(layer, type, create) {
+    const index = layer.used[type]++;
+    let object = layer.pool[type][index];
+    if (!object) { object = create(); layer.pool[type].push(object); layer.add(object); }
+    object.setVisible(true); layer.bringToTop(object); return object;
+  }
   image(layer, key, x, y, width, height, angle = 0, alpha = 1) {
     const { sheet, frame } = spriteArt(key);
-    const image = this.add.image(x, y, sheet, frame).setDisplaySize(width, height).setAngle(angle).setAlpha(alpha);
-    layer.add(image); return image;
+    return this.sprite(layer, sheet, frame, x, y, width, height, angle, alpha);
   }
   sprite(layer, sheet, frame, x, y, width, height = width, angle = 0, alpha = 1) {
-    const image = this.add.image(x, y, sheet, frame).setDisplaySize(width, height).setAngle(angle).setAlpha(alpha);
-    layer.add(image); this.frameLog.push(`${sheet}:${frame}`); return image;
+    const image = this.acquire(layer, 'image', () => this.add.image(0, 0, sheet, frame));
+    image.setTexture(sheet, frame).setPosition(x, y).setDisplaySize(width, height).setAngle(angle).setAlpha(alpha);
+    this.frameLog.push(`${sheet}:${frame}`); return image;
   }
   balloon(layer, type, x, y, size, offset = 0, alpha = 1) {
     const pose = this.motion ? Math.floor(this.time.now / 340 + offset) % 4 : 0;
     return this.sprite(layer, 'actors', (TYPES.indexOf(type) + 1) * 4 + pose, x, y, size, size, 0, alpha);
   }
   label(layer, text, x, y, size = 12, color = INK) {
-    const label = this.add.text(x, y, text, { fontFamily: 'Trebuchet MS, sans-serif', fontStyle: 'bold', fontSize: `${size}px`, color, align: 'center', lineSpacing: 4, shadow: { color: '#154f76', blur: 3, offsetY: 2, fill: true } }).setOrigin(.5);
-    layer.add(label); return label;
+    const label = this.acquire(layer, 'text', () => this.add.text(0, 0, '', { fontFamily: 'Trebuchet MS, sans-serif', fontStyle: 'bold', align: 'center', lineSpacing: 4, shadow: { color: '#154f76', blur: 3, offsetY: 2, fill: true } }).setOrigin(.5));
+    label.setText(text).setPosition(x, y);
+    if (label.style.fontSize !== `${size}px`) label.setFontSize(size);
+    if (label.style.color !== color) label.setColor(color);
+    return label;
   }
-  graphics(layer) { const g = this.add.graphics(); layer.add(g); return g; }
+  graphics(layer) { return this.acquire(layer, 'graphics', () => this.add.graphics()).clear(); }
   screenRegion() {
     const { width: w, height: h } = this.scale, canvas = this.game.canvas.getBoundingClientRect();
     const rect = selector => {
@@ -96,17 +113,20 @@ class HotelScene extends Phaser.Scene {
       const bounds = element.getBoundingClientRect(), sx = w / canvas.width, sy = h / canvas.height;
       return { left: (bounds.left - canvas.left) * sx, right: (bounds.right - canvas.left) * sx, top: (bounds.top - canvas.top) * sy, bottom: (bounds.bottom - canvas.top) * sy, height: bounds.height * sy };
     };
-    const dashboard = rect('.dashboard'), strategy = rect('#strategy-status');
-    const foreground = rect('#tray') ?? rect('#ending');
-    const top = Math.max(8, dashboard?.bottom ?? 0, strategy?.bottom ?? 0) + 10;
-    const sideTray = foreground && w > h && foreground.left > w * .25;
+    const dashboard = rect('.dashboard'), tools = rect('.hotel-tools');
+    const foreground = rect('#ending') ?? rect('#tray');
+    const offers = rect('#offers');
+    if (foreground && offers) foreground.top = Math.min(foreground.top, offers.top);
+    const top = Math.max(8, dashboard?.bottom ?? 0, tools?.bottom ?? 0) + 12;
+    const sideTray = foreground && w > h && foreground.left > w * .4;
     const right = sideTray ? foreground.left - 10 : w - 12;
     const bottom = sideTray ? h - 12 : Math.min(h - 12, foreground?.top ?? h) - 4;
     return { left: 12, right, top, bottom, width: Math.max(80, right - 12), height: Math.max(70, bottom - top), sideTray };
   }
   dockPosition(suit) {
-    const canvas = this.game.canvas.getBoundingClientRect(), chip = document.querySelector(`.dock-chip.${suit}`)?.getBoundingClientRect();
-    return chip ? { x: (chip.left + chip.width / 2 - canvas.left) * this.scale.width / canvas.width, y: (chip.top + chip.height / 2 - canvas.top) * this.scale.height / canvas.height } : { x: this.scale.width * (.25 + TYPES.indexOf(suit) * .25), y: 20 };
+    const canvas = this.game.canvas.getBoundingClientRect(), icon = document.querySelector(`.dock-chip.${suit} .sprite-art`)?.getBoundingClientRect();
+    const sx = this.scale.width / canvas.width, sy = this.scale.height / canvas.height;
+    return icon ? { x: (icon.left + icon.width / 2 - canvas.left) * sx, y: (icon.top + icon.height / 2 - canvas.top) * sy, width: icon.width * sx, height: icon.height * sy } : { x: this.scale.width * (.25 + TYPES.indexOf(suit) * .25), y: 35, width: 35, height: 51 };
   }
   layout(count) {
     const region = this.screenRegion();
@@ -116,21 +136,40 @@ class HotelScene extends Phaser.Scene {
     // extends .65 above the last. Include both in the whole-hotel camera fit.
     const cap = finished ? .65 : .23;
     const overviewScale = Math.min(1, region.height / Math.max(floorHeight * count + floorWidth * (cap + .5), 1));
-    // Fit the roof before the free card is selected, so neither the fall nor
-    // the final celebration changes the size of the already-built hotel.
-    const scale = this.whole ? overviewScale : 1;
+    // Reserve headroom for the close-up landing; the overview only begins
+    // after the roof settles and the result panel replaces the tray.
+    // A multi-neighborhood delivery briefly frames all launch floors. Long
+    // single-type packs launch from their top floor without shrinking the hotel.
+    const journeys = this.animation?.journeys ?? [];
+    const launchSpan = journeys.length ? this.animation.after.links.length - Math.min(...journeys.map(j => j.end - 1)) : 0;
+    const launchScale = launchSpan > 1 ? Math.min(1, region.height / (floorHeight * launchSpan + floorWidth * .95)) : 1;
+    const scale = this.whole ? overviewScale : launchScale;
     const width = floorWidth * scale, step = floorHeight * scale;
     const headroom = finished ? width * .68 + 10 : Math.max(region.height * .2, width * .23 + 25);
     const base = this.whole ? region.bottom - width * .5 : Math.max(region.bottom - width * .12, region.top + headroom + count * step);
     // The canvas continues behind the foreground tray. Close-up floors may
     // pass under it naturally; only the camera's focus uses the clear region.
-    return { x: (region.left + region.right) / 2, base, width, step, scale, floorWidth, region };
+    const target = { x: (region.left + region.right) / 2, base, width, step, scale };
+    const now = this.time.now, dt = Math.max(0, now - (this.layoutTime ?? now)); this.layoutTime = now;
+    const previous = this.layoutView;
+    const blend = this.motion && previous ? 1 - Math.exp(-dt / (this.whole ? 220 : 80)) : 1;
+    this.cameraMoving = false;
+    for (const key of Object.keys(target)) {
+      if (previous && this.motion && Math.abs(target[key] - previous[key]) > .05) {
+        target[key] = Phaser.Math.Linear(previous[key], target[key], blend); this.cameraMoving = true;
+      }
+    }
+    this.layoutView = target;
+    return { ...target, floorWidth, region };
   }
   draw() {
     if (!this.tower || !this.view) return;
     this.frameLog = [];
     const { width: w, height: h } = this.scale;
-    this.background.removeAll(true); this.tower.removeAll(true); this.effects.removeAll(true);
+    for (const layer of [this.background, this.tower, this.effects]) {
+      layer.used = { image: 0, text: 0, graphics: 0 };
+      for (const object of layer.list) object.setVisible(false);
+    }
     this.drawSky(w, h);
     let state = this.view, current = state.links.length, progress = 1;
     const a = this.animation;
@@ -141,9 +180,9 @@ class HotelScene extends Phaser.Scene {
       current = a.before.links.length + delivered; state = a.after;
       a.onFrame(current);
     }
-    const layout = this.layout(current), { x, base, width, step, scale } = layout;
-    if (a && this.motion && this.cameraBase !== null) this.tower.y += this.cameraBase - base;
-    this.cameraBase = base;
+    const cameraCount = a ? a.before.links.length + a.after.lastEffect.added * Phaser.Math.Clamp((progress - a.buildStart) / (a.buildEnd - a.buildStart), 0, 1) : current;
+    const layout = this.layout(cameraCount), { x, base, width, step, scale } = layout;
+    this.tower.y = 0;
     const top = base - current * step;
     if (base < h + 100) this.image(this.tower, 'island', x, base + width * .13, width * 1.4, width * .7);
     const first = Math.max(0, Math.floor((base - h - step) / step));
@@ -159,7 +198,10 @@ class HotelScene extends Phaser.Scene {
         const cycle = (this.time.now + floor.id * 617 + guest * 1331) % 7200;
         const rest = [3, 5, 7][(floor.id + guest) % 3];
         const pose = this.motion && width > 70 ? cycle < 190 ? 4 : cycle > 4000 && cycle < 4850 ? 6 : rest : rest;
-        const building = this.sprite(this.tower, `rooms-${floor.suit}`, pose, x + (guest - 1) * width / 3, y, width / 3 + .6, step + .5);
+        const landedAt = a && i >= a.before.links.length ? a.buildStart + (i - a.before.links.length + 1) / a.after.lastEffect.added * (a.buildEnd - a.buildStart) : -1;
+        const age = landedAt >= 0 ? (progress - landedAt) * a.duration : Infinity;
+        const compression = age >= 0 && age < 180 ? Math.sin(age / 180 * Math.PI) * .065 : 0;
+        const building = this.sprite(this.tower, `rooms-${floor.suit}`, pose, x + (guest - 1) * width / 3, y + step * compression / 2, width / 3 + .6, step * (1 - compression) + .5);
         building.setData('floorId', floor.id).setData('floorType', floor.suit);
       }
       const matched = this.preview?.type === 'recall' && this.preview.suit === floor.suit;
@@ -203,8 +245,10 @@ class HotelScene extends Phaser.Scene {
       const next = a.after.links[current], pose = Math.min(3, Math.floor(fraction * 4));
       for (let guest = 0; guest < 3; guest++) this.sprite(this.tower, `rooms-${next.suit}`, pose, x + (guest - 1) * width / 3, top - step / 2 - (1 - ease(fraction)) * 14, width / 3, step);
     }
-    if (a) this.drawDelivery(a, progress, layout, current);
+    if (a && progress < 1) this.drawDelivery(a, progress, layout, current);
     else if (this.preview?.type === 'overgrow' && source) this.drawCopycat(layout, source, 0);
+    const balloons = a ? this.drawBalloonJourneys(a, layout) : [];
+    this.game.canvas.dataset.cameraMoving = String(this.cameraMoving);
     this.game.canvas.dataset.visibleFloors = JSON.stringify(visible);
     this.game.canvas.dataset.floorCount = String(current);
     this.game.canvas.dataset.roof = String(done || this.roofLanded);
@@ -215,6 +259,7 @@ class HotelScene extends Phaser.Scene {
     this.game.canvas.dataset.choreography = roof ? roofStage : !a ? 'idle' : progress < .18 ? 'spot' : progress < .34 ? 'stamp' : progress < a.buildStart ? 'send' : progress < a.buildEnd ? 'unfold' : 'celebrate';
     this.game.canvas.dataset.motion = String(this.motion);
     this.game.canvas.dataset.viewRegion = JSON.stringify(layout.region);
+    this.game.canvas.dataset.balloonJourneys = JSON.stringify(balloons);
     this.game.canvas.dataset.towerBounds = JSON.stringify({ left: x - width * .7, right: x + width * .7, top: top - width * (roof || done || this.roofLanded ? .65 : .23) + roofOffset, bottom: base + width * .48, overview: this.whole });
   }
   drawSky(w, h) {
@@ -242,12 +287,14 @@ class HotelScene extends Phaser.Scene {
   drawDelivery(a, progress, layout, current) {
     const card = a.after.history.at(-1), { x, base, step, width, region } = layout;
     const count = a.after.lastEffect.added, top = base - current * step;
-    let originX = Math.min(region.right - 32, x + width * .72), originY = region.bottom - 10;
+    let originX = a.origin?.x ?? Math.min(region.right - 32, x + width * .72), originY = a.origin?.y ?? region.bottom - 10;
     if (card.type === 'overgrow') {
       const actor = this.drawCopycat(layout, longestSegment(a.before), progress); originX = actor.x; originY = actor.y;
     }
     if (!count) {
-      this.image(this.effects, 'charm', x, Math.max(region.top + 40, top - 90 - progress * 30), 70, 67, Math.sin(progress * Math.PI * 5) * (1 - progress) * 14, Math.min(1, (1 - progress) * 4));
+      const upgrade = card.type === 'suit' ? `pattern-${card.suit}` : card.type === 'attunement' ? `lock-${card.suit}` : `power-${card.type}`;
+      const t = ease(progress), size = Phaser.Math.Linear(96, 28, t);
+      this.image(this.effects, upgrade, Phaser.Math.Linear(originX, x, t), Phaser.Math.Linear(originY, region.top - 18, t), size, size, Math.sin(progress * Math.PI * 3) * (1 - progress) * 8, 1 - progress ** 4);
       return;
     }
     if (this.time.now - a.start < a.delay && card.type === 'mystery') {
@@ -260,23 +307,18 @@ class HotelScene extends Phaser.Scene {
       const dock = this.dockPosition(suit);
       const sourceX = card.type === 'recall' ? dock.x : originX;
       const sourceY = card.type === 'recall' ? dock.y : originY;
-      const boxX = Phaser.Math.Linear(sourceX, x, t), boxY = Phaser.Math.Linear(sourceY, top - 42, t) - Math.sin(t * Math.PI) * 65;
+      const boxX = Phaser.Math.Linear(sourceX, x, t), boxY = Math.max(35, Phaser.Math.Linear(sourceY, top - 42, t) - Math.sin(t * Math.PI) * (card.type === 'recall' ? 15 : 50));
       const alpha = 1 - Phaser.Math.Clamp((progress - a.buildStart) / .3, 0, 1);
       this.sprite(this.effects, 'rooms-' + suit, 0, boxX, boxY, 65, 65, (1 - t) * -18, alpha);
       if (card.type === 'recall') {
         const fleet = Math.min(4, segments(a.before, card.suit).length);
-        for (let i = 0; i < fleet; i++) this.balloon(this.effects, suit, boxX + (i - (fleet - 1) / 2) * 34, boxY - 49 - i % 2 * 12, 62, i, Math.max(.2, alpha));
+        for (let i = 0; i < fleet; i++) this.balloon(this.effects, suit, boxX + (i - (fleet - 1) / 2) * 34, Math.max(34, boxY - 35 - i % 2 * 12), 52, i, Math.max(.2, alpha));
       }
       if (count > 1 && alpha > .1) this.label(this.effects, '×' + count, boxX + 36, boxY - 12, 19);
     }
-    if (progress > a.buildEnd) {
+    if (progress > a.buildEnd && progress < 1) {
       const t = (progress - a.buildEnd) / (1 - a.buildEnd);
-      const newRuns = segments(a.after).filter(run => run.id >= a.before.nextLinkId);
-      for (const [i, run] of newRuns.slice(0, 5).entries()) {
-        const dock = this.dockPosition(run.suit);
-        this.balloon(this.effects, run.suit, Phaser.Math.Linear(x, dock.x, t) + Math.sin(t * Math.PI) * (i - 2) * 23, Phaser.Math.Linear(Math.max(top - 20, region.top + 25), dock.y, t), 48, i);
-      }
-      this.label(this.effects, '+' + count + ' floors', x, Math.max(region.top + 15, top - 30 - t * 25), 24, '#fff0a2');
+      this.label(this.effects, '+' + count + ' floors', x, Math.max(region.top + 15, top - 30 - t * 25), 24, '#fff0a2').setAlpha(1 - t);
       const g = this.graphics(this.effects);
       for (let i = 0; i < 12; i++) {
         g.fillStyle([0xffd053, 0xff8cb3, 0xb7e568][i % 3], 1 - t);
@@ -284,6 +326,44 @@ class HotelScene extends Phaser.Scene {
       }
     }
     if (card.foundationBonus && progress > .45) this.label(this.effects, 'Streak +' + card.foundationBonus, x, Math.max(region.top + 10, top - 80), 12, '#fff0a2');
+  }
+  drawBalloonJourneys(a, layout) {
+    const elapsed = this.time.now - a.start, log = [];
+    const size = Phaser.Math.Clamp(layout.width * .33, 64, 94);
+    const colors = { bunny: 0xf3aec6, frog: 0xcce691, cat: 0xffd38b };
+    for (const journey of a.journeys) {
+      const source = { x: layout.x + journey.side * layout.width * .48, y: layout.base - (journey.end - .5) * layout.step };
+      const dock = this.dockPosition(journey.suit);
+      const pose = balloonPose(journey, elapsed, source, dock, size, this.scale.width);
+      if (!pose) continue;
+      log.push({ id: journey.id, suit: journey.suit, floor: journey.end - 1, source, dock, ...pose });
+      if (pose.stage === 'arrived') {
+        if (!journey.arrived) { journey.arrived = true; a.onBalloonArrival?.(journey.suit); }
+        continue;
+      }
+      const g = this.graphics(this.effects);
+      if (pose.stage === 'emerging' || pose.stage === 'hovering') {
+        // The tether and lit launch floor explain where the reward comes from.
+        g.lineStyle(2, colors[journey.suit], .65 * pose.alpha);
+        g.strokeRoundedRect(layout.x - layout.width / 2 - 2, source.y - layout.step / 2, layout.width + 4, layout.step, 3);
+        g.lineStyle(1.5, 0xf5dfaf, .85 * pose.alpha);
+        g.beginPath(); g.moveTo(source.x, source.y);
+        g.lineTo((source.x + pose.x) / 2 + journey.side * 5, (source.y + pose.y + pose.height * .4) / 2 + 5);
+        g.lineTo(pose.x, pose.y + pose.height * .4); g.strokePath();
+      } else if (pose.travel < .84) {
+        // A few tiny paper flecks follow the breeze, then disappear near the HUD.
+        for (let i = 1; i <= 3; i++) {
+          const trail = balloonPose(journey, elapsed - i * 90, source, dock, size, this.scale.width);
+          if (!trail) continue;
+          g.fillStyle(colors[journey.suit], (.36 - i * .07) * (1 - pose.travel));
+          const ty = trail.y + trail.height * .4;
+          g.fillTriangle(trail.x - 2, ty, trail.x + 2, ty + 2, trail.x, ty + 5);
+        }
+      }
+      const frame = (TYPES.indexOf(journey.suit) + 1) * 4 + (pose.stage === 'docking' ? 0 : Math.floor(elapsed / 340) % 4);
+      this.sprite(this.effects, 'actors', frame, pose.x, pose.y, pose.width, pose.height, pose.angle, pose.alpha);
+    }
+    return log;
   }
 }
 

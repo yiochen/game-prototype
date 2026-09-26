@@ -10,11 +10,11 @@ The prototype implements the full current card set with hotel terminology, appen
 
 Original generated PNG sheets, WebP delivery exports, frame maps and the exact generation prompts live in [assets/sprites](assets/sprites/README.md). The three windows across a rendered floor are decorative: one complete row remains one floor and one scoring unit. Guest idle poses never change a floor's type, order or identity.
 
-The live layout uses the paper sky and transparent Phaser canvas across the full viewport, beneath the HUD and card tray. The tower continues behind the tray instead of being clipped at a separate playfield boundary; the camera uses the actual HUD/tray bounds to keep construction readable and fit the complete roof and island in overview. Nine clouds drift and five islands bob independently. The cardboard tray uses a generated textured asset with a fixed native 3:1 aspect ratio. Scale the box and its card plane together; never stretch width and height independently to fill the viewport. Cards lie on one projected floor plane with contact shadows and a front rim overlapping their lower edges; short or wide landscape layouts put the tray beside the hotel. The HUD follows the paper mock: warm ivory paper plaques support dark counters, animal balloons overlap their ×N tabs, a coin marks the balance, and a pink heart marks the existing hotel-height total. The heart adds no lives mechanic and retains the accessible “Floors” label. Visible “Coins” and “Floors” labels are omitted. The Balloon Dock has no title banner; its three icon counters are sufficient.
+The live layout uses the paper sky and transparent Phaser canvas across the full viewport, beneath the HUD and card tray. The tower continues behind the tray instead of being clipped at a separate playfield boundary; the camera uses the actual HUD/tray bounds to keep construction readable and fit the complete roof and island in overview. Nine clouds drift and five islands bob independently. The cardboard tray uses a generated textured asset with a fixed native 3:1 aspect ratio. Scale the box and its card plane together; never stretch width and height independently to fill the viewport. Cards lie on one projected floor plane with contact shadows and a front rim overlapping their lower edges; short or wide landscape layouts put the tray beside the hotel. The HUD follows the paper mock: warm ivory paper plaques support dark counters, animal balloons overlap their ×N tabs, a coin marks the balance, and a paper-building icon marks the hotel-height total with the accessible “Floors” label. Tapping floor and balloon counters explains their meaning; installed upgrades and a camera toggle remain visible below them. Visible “Coins” and “Floors” labels are omitted. The Balloon Dock has no title banner; its three icon counters are sufficient.
 
-Each card uses a generated paper face with a fibrous ivory center and folded colored edges. A separate 3 × 2 surface atlas contains pink, green and orange faces on its first row, then lavender, gold and teal. Perspective is applied by the interface, preserving the flat source artwork. Each card has an icon-based coin price at the top left, effect help at the top right, a distinct illustration, title and numerical effect. Descriptions live in a native effect dialog opened by the question mark; the card face omits prose and the projected remaining coin balance. Room Pattern blueprints and locked future-card bundles distinguish those typed powers; other powers use their own generated miniatures. Prefab Pack, Balloon Call and Mosaic compose room/balloon sprites to explain their quantities and sequence. There is no visible game title, shop heading, footer or decorative background copy. A single menu contains sound, reduced motion, the whole-hotel view, reveal/skip, Workshop, rules, Replay and New hotel. Only counters, the Balloon Dock, active strategy effects and cards remain in the play view; result summaries and brief delivery feedback are contextual.
+Each card uses a generated paper face with a fibrous ivory center and folded colored edges. A separate 3 × 2 surface atlas contains pink, green and orange faces on its first row, then lavender, gold and teal. Perspective is applied by the interface, preserving the flat source artwork. Each card has an icon-based coin price at the top left, effect help at the top right, a distinct illustration, title and numerical effect. Descriptions live in a native effect dialog opened by the question mark; the card face omits prose and the projected remaining coin balance. Room Pattern blueprints and locked future-card bundles distinguish those typed powers; other powers use their own generated miniatures. Prefab Pack, Balloon Call and Mosaic compose room/balloon sprites to explain their quantities and sequence. There is no visible game title, shop heading, footer or decorative background copy. A single menu contains sound, reduced motion, the whole-hotel view, reveal/skip, Workshop, rules, Replay and New hotel. Counters, the Balloon Dock, upgrade badges, a camera toggle, active strategy effects and cards remain in the play view; result summaries and brief delivery feedback are contextual.
 
-Selecting a card uses its actual four projected corners to lift it from the tray into a 470 ms flight to the screen center followed by 220 ms of balloon-like inflation. The card then pops: this is the single purchase boundary, when payment and the engine effect apply. Eight fragments preserve the selected artwork and scatter with sparks for up to 420 ms as the committed Phaser delivery begins. Repeated purchases are blocked while launching or resolving. Restart cancels a pending flight before it charges anything; Reveal now and Reduced motion finish it once. Reduced motion skips flight and delivery animation for subsequent selections. Illustration and tray prompts are recorded in [assets/sprites/card-ui-prompts.json](assets/sprites/card-ui-prompts.json); the blank card-face and HUD-tab prompts are in [assets/sprites/paper-surfaces-prompts.json](assets/sprites/paper-surfaces-prompts.json). Generated PNG originals and their WebP delivery exports are preserved together.
+Selecting a card uses its actual four projected corners to lift it from the tray into a 300 ms flight to the screen center followed by 110 ms of balloon-like inflation. The card then pops: this is the single purchase boundary, when payment and the engine effect apply. Eight fragments preserve the selected artwork and scatter with sparks for up to 420 ms as the committed Phaser delivery begins. Repeated purchases are blocked while launching or resolving. Restart cancels a pending flight before it charges anything; Reveal now and Reduced motion finish it once. Reduced motion skips flight and delivery animation for subsequent selections. Illustration and tray prompts are recorded in [assets/sprites/card-ui-prompts.json](assets/sprites/card-ui-prompts.json); the blank card-face and HUD-tab prompts are in [assets/sprites/paper-surfaces-prompts.json](assets/sprites/paper-surfaces-prompts.json). Generated PNG originals and their WebP delivery exports are preserved together.
 
 The sections below remain the visual direction for continued polish: detailed actor choreography, contact haptics and richer sound design can build on the playable implementation. The acceptance checklist describes the target presentation; automated coverage is listed in the README.
 
@@ -100,7 +100,7 @@ Polish and the old capped Recall / Full Load are replaced by Balloon Call. Found
 
 The top of the screen contains:
 
-1. Current hotel height beside the pink paper heart; retain “Floors” as its accessible label.
+1. Current hotel height beside the paper-building icon; retain “Floors” as its accessible label.
 2. Coins remaining beside the gold coin, without a visible label.
 3. Balloon Dock counters: Bunny/Pink ×N, Frog/Green ×N, Cat/Orange ×N, with each balloon overlapping a cream paper tab and no title banner.
 4. Active Foundation type and next bonus, or “Foundation ready · next +1” before its first suited purchase.
@@ -108,7 +108,7 @@ The top of the screen contains:
 
 Keep the two strategy indicators visible while viewing the tower; do not hide essential streak or expiry information exclusively in the Workshop. Use small paper tabs that disappear when their effect ends.
 
-Use generated warm ivory paper plaques with dark numbers for the main counters, matching the physical card-and-box materials. The heart represents the hotel floor total; it is not a health or lives counter.
+Use generated warm ivory paper plaques with dark numbers for the main counters, matching the physical card-and-box materials. The building icon represents the hotel floor total; it is not a health or lives counter.
 
 The Balloon Dock is authoritative. Balloons do not remain attached to lower neighborhoods because those floors eventually move offscreen.
 
@@ -174,7 +174,7 @@ Never update a counter before the physical event that caused it.
 
 Multi-floor actions must overlap their sub-animations. Never play eight complete one-second floor animations sequentially.
 
-These are continuing choreography targets. The current selection animation adds a 470 ms flight and 220 ms inflation before purchase; its burst fragments fade over 420 ms while delivery starts. The implemented delivery duration depends on the card and number of floors.
+These are continuing choreography targets. The current selection animation adds a 300 ms flight and 110 ms inflation before purchase; its burst fragments fade over 420 ms while delivery starts. The implemented delivery duration depends on the card and number of floors.
 
 ## Card interaction and play sequence
 
@@ -197,7 +197,7 @@ For Choice 1, pointer-up first opens the type picker. Show the exact total and F
 For other cards, pointer-up over the card selects it for the following sequence:
 
 1. Keep payment and the game state pending; block other purchases.
-2. Lift the chosen card from the tray to the center over 470 ms, then inflate it for 220 ms.
+2. Lift the chosen card from the tray to the center over 300 ms, then inflate it for 110 ms.
 3. Pop the card and resolve the engine transaction exactly once, charging the price and calculating its effect at that boundary.
 4. Scatter fragments of its own artwork for up to 420 ms while the committed delivery begins. Delivery animation reads the result; it never decides gameplay.
 5. Use the chosen card's family-specific delivery. Further folding of the unchosen cards and tool-installation choreography remains a polish direction.
@@ -509,10 +509,10 @@ No roof is visible at any point during active construction.
 ### Sequence
 
 1. The last purchase and its room delivery finish resolving. If no paid card is affordable, enter `roof-ready` and offer one centered Roof card with a roof illustration, a zero-coin cost and “FREE.” No roof appears automatically.
-2. Keep the open platform on the tower. The camera fits the complete hotel with room for its roof while waiting for the player's choice.
+2. Keep the open platform on the tower in close-up, with room for the roof, while waiting for the player's choice.
 3. Selecting the free card starts the usual card flight and pop. At the pop, enter `roofing`; the roof falls for 740 ms and settles with a 360 ms bounce.
-4. Landing enters `complete`, reveals the final score and plays confetti. Keep the tray's dimensions reserved so the hotel does not jump during the landing.
-5. Replay and New hotel remain in the menu. Reveal now and Reduced motion finish the sequence exactly once; replay during the flight or fall cancels it.
+4. Landing enters `complete`, reveals the final score and plays confetti. The tray disappears only after landing; a compact result panel replaces it while the camera smoothly pulls back into the newly available space.
+5. Replay and New hotel are directly available on the result panel as well as in the menu. Reveal now and Reduced motion finish the sequence exactly once; replay during the flight or fall cancels it.
 
 The finale never changes cash, floors, RNG, deals, purchase history, upgrades, refunds, streaks or locks. The decorative cards under paid offers use a parcel placeholder and do not represent future draws. The roof card has no decorative stack and triggers no purchase bonuses.
 

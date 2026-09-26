@@ -1,12 +1,20 @@
 import './style.css';
 import './paper-hud.css';
 import './card-table.css';
+import './polish.css';
+import { createPaperUI } from './paper-ui.js';
+import { mountLobby } from './lobby.js';
+import { createGuestbook } from './guestbook-storage.js';
+import { replayRun } from './score-rules.js';
+import { createFeedback } from './feedback.js';
 import { ART, SHEETS, spriteArt } from './assets.js';
 import { mountWorld } from './world.js';
 import { mountScenery } from './scenery.js';
 import { createCardFlight } from './card-flight.js';
 import { paperAudio } from './audio.js';
-import { BALANCE, createGame, segments, longestSegment, preview, pick, advanceDeal, beginRoof, finishRoof, choiceSuits, suitInfo, mysteryOddsText, mysteryOutcomes, outcomePercent, finished } from './engine.js';
+import { BALANCE, createGame, segments, longestSegment, preview, baseBonus, pick, advanceDeal, beginRoof, finishRoof, choiceSuits, suitInfo, mysteryOddsText, mysteryOutcomes, outcomePercent, finished } from './engine.js';
+
+import './paper-ui.css';
 
 const $ = id => document.getElementById(id);
 const node = (tag, className = '', text = '') => { const n = document.createElement(tag); n.className = className; n.textContent = text; return n; };
@@ -20,20 +28,37 @@ const img = (key, className = '', alt = '') => {
 };
 const randomSeed = () => Math.random().toString(36).slice(2, 9);
 $('coin-art').append(img('coin'));
-$('height-art').append(img('heart'));
+
 document.documentElement.style.setProperty('--tray-art', `url("${ART['cardboard-tray']}")`);
 document.documentElement.style.setProperty('--card-paper', `url("${ART['card-paper']}")`);
 document.documentElement.style.setProperty('--hud-tab', `url("${ART['hud-tab']}")`);
 const human = text => text.replaceAll('Foundation', 'Neighborhood Streak').replaceAll('Attunement', 'Type Lock').replaceAll('Reactor', 'Room Pattern').replaceAll('Assembler', 'Master Fold').replaceAll('Mystery', 'Surprise Parcel').replaceAll('Stabilizer', 'Lucky Bell').replaceAll('Recall', 'Balloon Call').replace(/\bsuit\b/g, 'room type').replace(/\bsuited\b/g, 'typed').replace(/\blinks?\b/g, m => m === 'links' ? 'floors' : 'floor').replace(/\bsegments?\b/g, m => m === 'segments' ? 'neighborhoods' : 'neighborhood');
-let state = createGame(new URL(location.href).searchParams.get('seed') || randomSeed());
-let scene, resolvingBefore = null, pendingPurchase = null, epoch = 0, choiceIndex = null, menuReturn = null;
+const guestbook = createGuestbook();
+let requestedSeed = new URL(location.href).searchParams.get('seed');
+if (requestedSeed && !/^[a-zA-Z0-9_-]{1,64}$/.test(requestedSeed)) requestedSeed = null;
+let run = guestbook.data.active || { id: crypto.randomUUID(), seed: requestedSeed || randomSeed(), moves: [] };
+let state = guestbook.data.active ? replayRun(run.seed, run.moves, false) : createGame(run.seed), completedRecord = null;
+let shell, sound = guestbook.data.sound;
+let scene, resolvingBefore = null, dockArrivals = null, pendingPurchase = null, epoch = 0, choiceIndex = null, menuReturn = null;
 const flight = createCardFlight();
 const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
-let reduced = motionQuery.matches;
+let reduced = guestbook.data.reduced ?? motionQuery.matches;
 const scenery = mountScenery(document.querySelector('.sky-backdrop'), !reduced);
 const world = mountWorld($('world'));
 const audio = paperAudio();
-let loading = true;
+let loading = true, effectIndex = null;
+const paper = createPaperUI(() => reduced);
+const feedback = createFeedback(() => reduced, paper);
+function syncCamera() {
+  for (const id of ['overview', 'camera-toggle']) {
+    $(id).textContent = scene?.whole ? 'Back to the top' : 'Whole hotel';
+    $(id).disabled = !state.links.length || !!pendingPurchase || ['resolving', 'roofing'].includes(state.phase);
+  }
+  $('camera-toggle').setAttribute('aria-pressed', String(!!scene?.whole));
+}
+function explainCounter(title, detail) {
+  $('hud-title').textContent = title; $('hud-detail').textContent = detail; $('hud-dialog').showModal();
+}
 
 function setSeed() { const url = new URL(location.href); url.searchParams.set('seed', state.seed); history.replaceState(null, '', url); }
 function title(card) { return card.type === 'single' ? `${suitInfo(card.suit).name} Room` : card.type === 'triple' ? `${suitInfo(card.suit).name} Pack` : card.name; }
@@ -65,7 +90,8 @@ function art(card) {
   else holder.append(img(`power-${card.type}`));
   return holder;
 }
-function showEffect(card, view) {
+function showEffect(card, view, index) {
+  effectIndex = index;
   const p = presentation(card, view);
   scene?.inspect(null); $('effect-title').textContent = title(card); $('effect-art').replaceChildren(art(card));
   $('effect-value').textContent = p.headline + (card.family === 'base' || card.family === 'growth' || card.type === 'vault' ? ' floors' : '');
@@ -73,22 +99,37 @@ function showEffect(card, view) {
   $('effect-extra').textContent = card.type === 'suit' ? 'Applies to future matching room cards, including Surprise Parcel. Mosaic keeps its exact pattern.' : card.type === 'assembler' ? 'Applies to One Room, Prefab Pack and Room Choice. Mosaic and Surprise Parcel keep their own rules.' : card.type === 'rebate' ? p.detail : card.sequence ? 'Read left to right. These rooms are added from bottom to top.' : '';
   $('effect-extra').hidden = !$('effect-extra').textContent;
   $('effect-cost').replaceChildren(img('coin'), node('span', '', `${card.price} coins${card.price > state.cash ? ' · Not enough coins' : ''}`));
+  $('effect-buy').textContent = card.type === 'choice' ? `Choose a room · ${card.price} coins` : `Buy card · ${card.price} coins`;
+  $('effect-buy').disabled = card.price > state.cash;
   $('effect-dialog').showModal();
 }
 function renderDock(view) {
   const runs = segments(view);
-  $('dock').replaceChildren(...BALANCE.suits.map(type => {
-    const count = runs.filter(r => r.suit === type.id).length;
-    const dock = node('div', `dock-chip ${type.id}`); dock.dataset.suit = type.id;
+  for (const type of BALANCE.suits) {
+    const count = dockArrivals?.[type.id] ?? runs.filter(r => r.suit === type.id).length;
+    let dock = $('dock').querySelector(`[data-suit="${type.id}"]`);
+    if (!dock) {
+      dock = node('button', `dock-chip ${type.id}`); dock.dataset.suit = type.id;
+      dock.setAttribute('aria-haspopup', 'dialog');
+      const multiply = node('span', 'dock-multiply', '×'); multiply.setAttribute('aria-hidden', 'true');
+      dock.append(img(`balloon-${type.id}`), node('span', 'dock-name', type.name), multiply, node('strong', 'dock-count', '0'));
+      dock.addEventListener('click', () => explainCounter(`${type.name} balloons`, 'Each separate neighborhood of this guest type earns one reusable balloon. Balloon Call adds one room per matching balloon, without spending them.'));
+      $('dock').append(dock);
+    }
+    const counter = dock.querySelector('.dock-count'), changed = Number(counter.textContent) !== count;
     dock.setAttribute('aria-label', `${type.name}: ${count} neighborhood balloons`);
-    const multiply = node('span', 'dock-multiply', '×'); multiply.setAttribute('aria-hidden', 'true');
-    dock.append(img(`balloon-${type.id}`), node('span', 'dock-name', type.name), multiply, node('strong', 'dock-count', count)); return dock;
-  }));
+    counter.textContent = count;
+    if (changed) feedback.pulse(counter);
+  }
 }
 function renderWorkshop(view) {
-  const list = [];
+  const list = [], badges = [];
   for (const [key, level] of Object.entries(view.upgrades)) {
     const [type, suit] = key.split(':'), config = BALANCE.reactor[type];
+    const badge = node('button', 'upgrade-badge'); badge.dataset.upgrade = key;
+    badge.setAttribute('aria-label', `${suit ? suitInfo(suit).name + ' ' : ''}${config.name}, level ${level}. Open workshop`);
+    badge.title = badge.getAttribute('aria-label'); badge.append(img(suit ? `pattern-${suit}` : `power-${type}`), node('span', '', String(level)));
+    badge.addEventListener('click', () => { menuReturn = null; $('workshop-dialog').showModal(); }); badges.push(badge);
     const line = node('div', 'workshop-item'); line.append(img(suit ? `resident-${suit}-0` : 'charm'));
     const copy = node('div'); copy.append(node('strong', '', `${suit ? suitInfo(suit).name + ' ' : ''}${config.name} · level ${level}`));
     copy.append(node('p', '', type === 'stabilizer' ? `Surprise odds: ${mysteryOddsText(view)}` : `+${config.values[level - 1]} on matching future room cards.`)); line.append(copy); list.push(line);
@@ -100,6 +141,7 @@ function renderWorkshop(view) {
   for (const text of active) list.push(node('p', 'workshop-item', text));
   $('installed').replaceChildren(...(list.length ? list : [node('p', 'empty-workshop', 'Your workshop is waiting. Collect tools and techniques to make every coin go further.')]));
   $('upgrade-count').textContent = list.length;
+  $('upgrade-rack').replaceChildren(...badges); $('upgrade-rack').hidden = !badges.length;
   $('strategy-status').replaceChildren(...active.map(text => node('span', 'strategy-chip', text))); $('strategy-status').hidden = !active.length;
 }
 function renderOffers(view) {
@@ -129,7 +171,7 @@ function renderOffers(view) {
     const help = node('button', 'card-help', '?'); help.dataset.offerHelp = i;
     help.setAttribute('aria-label', `About ${title(card)}`); help.setAttribute('aria-haspopup', 'dialog'); help.setAttribute('aria-controls', 'effect-dialog');
     help.disabled = loading || !!pendingPurchase || state.phase !== 'picking';
-    help.addEventListener('click', () => showEffect(card, view));
+    help.addEventListener('click', () => showEffect(card, view, i));
     // Decorative cards suggest the pile underneath, not future dealt offers.
     for (let layer = 0; layer < 3; layer++) {
       const back = node('div', 'deck-card'); back.inert = true; back.setAttribute('aria-hidden', 'true');
@@ -153,11 +195,15 @@ function renderRoofOffer() {
 }
 function render() {
   const view = resolvingBefore ?? state, done = finished(state);
+  if (!resolvingBefore && document.body.dataset.screen === 'game') scenery.setHeight(state.links.length);
   $('height').textContent = view.links.length; $('coins').textContent = state.cash;
   renderDock(view); renderWorkshop(view); renderOffers(view);
-  $('reveal-now').hidden = !['resolving', 'roofing'].includes(state.phase) && !pendingPurchase;
+  const deliveryBusy = ['resolving', 'roofing'].includes(state.phase) || !!pendingPurchase;
+  // Keep an offered action in place while its menu is open, even if a short
+  // delivery finishes during the paper entrance. Reveal remains a safe no-op.
+  if (deliveryBusy || !$('menu-dialog').open) $('reveal-now').hidden = !deliveryBusy;
   $('offers').hidden = done; $('ending').hidden = !done;
-  $('overview').disabled = !view.links.length || state.phase === 'roofing'; $('seed-label').textContent = `Guestbook ${state.seed}`;
+  syncCamera(); $('seed-label').textContent = `Guestbook ${state.seed}`;
   $('world').dataset.state = pendingPurchase ? 'launching' : state.phase; document.querySelector('.hotel-app').classList.toggle('complete', done);
   $('floor-record').replaceChildren(...view.links.map((floor, i) => { const li = node('li', '', `Floor ${i + 1}: ${suitInfo(floor.suit).name}`); li.dataset.floorId = floor.id; li.dataset.type = floor.suit; return li; }));
   if (done) {
@@ -170,7 +216,7 @@ function render() {
   $('motion-toggle').setAttribute('aria-pressed', String(reduced)); document.documentElement.classList.toggle('reduced-motion', reduced);
 }
 function select(index) {
-  if (loading || pendingPurchase || document.querySelector('dialog[open]')) return;
+  if (document.body.dataset.screen !== 'game' || loading || pendingPurchase || document.querySelector('dialog[open]')) return;
   if (state.phase === 'roof-ready') { if (index === 0) commitRoof(); return; }
   if (state.phase !== 'picking') return;
   const card = state.offer[index]; if (!card || card.price > state.cash) return;
@@ -186,6 +232,7 @@ function select(index) {
 }
 function commitRoof() {
   if (pendingPurchase || state.phase !== 'roof-ready') return;
+  feedback.clear();
   const token = ++epoch;
   const drop = () => {
     if (token !== epoch) return;
@@ -194,7 +241,9 @@ function commitRoof() {
     render();
     scene.dropRoof(state, { onComplete: () => {
       if (token !== epoch || !finishRoof(state)) return;
-      audio.fold(); render(); scene.setState(state); $('overview').textContent = 'Back to the top';
+      const result = guestbook.finish(run, state); completedRecord = result.record;
+      $('ending-save').textContent = result.saved ? 'Saved to Your hotels. Sign the guestbook to share your stay.' : 'Device storage is unavailable. Sign the guestbook to save your score online.';
+      audio.finish(); render(); scene.setState(state); syncCamera();
     } });
   };
   if (reduced) { drop(); return; }
@@ -205,37 +254,68 @@ function commitRoof() {
 function commit(index, selectedType) {
   if (pendingPurchase || state.phase !== 'picking') return;
   const token = ++epoch;
-  const apply = () => { if (token !== epoch) return; pendingPurchase = null; applyPurchase(index, selectedType, token); };
+  const apply = origin => { if (token !== epoch) return; pendingPurchase = null; applyPurchase(index, selectedType, token, origin); };
   if (reduced) { apply(); return; }
   pendingPurchase = { index, selectedType };
   const source = document.querySelector(`#offers [data-offer-index="${index}"]`);
   scene?.inspect(null);
-  flight.play(source, { onBurst: () => { audio.fold(); apply(); } });
+  feedback.clear();
+  flight.play(source, { onBurst: origin => { audio.fold(); apply(origin); } });
   render(); $('status').textContent = 'Opening your card…';
   // The original node was cloned for flight before rendering disabled offers.
   document.querySelector(`#offers [data-offer-index="${index}"]`)?.classList.add('card-flight-source');
 }
-function applyPurchase(index, selectedType, token) {
+function applyPurchase(index, selectedType, token, origin) {
   const before = structuredClone(state);
   if (!pick(state, index, selectedType)) return;
-  resolvingBefore = before; render();
+  run.moves.push([index, selectedType ?? null]); guestbook.saveActive(run);
+  resolvingBefore = before;
+  dockArrivals = Object.fromEntries(BALANCE.suits.map(type => [type.id, segments(before, type.id).length]));
+  render();
+  feedback.spend(state.history.at(-1).price, state.history.at(-1).refund);
   const complete = () => {
     if (token !== epoch || state.phase !== 'resolving') return;
     const entry = state.history.at(-1);
-    advanceDeal(state); resolvingBefore = null;
-    $('status').textContent = entry.links ? `+${entry.links} ${entry.links === 1 ? 'floor' : 'floors'}. ${entry.type === 'mosaic' ? 'A new patchwork of neighbors.' : 'Make room for possibility.'}` : `${entry.name} is ready for you.`;
-    render(); scene.setState(state); $('overview').textContent = scene.whole ? 'Back to the top' : 'Whole hotel'; $('preview').textContent = '';
-    if (!reduced) { $('height').animate([{ transform: 'translateY(-2px)' }, { transform: 'translateY(0)' }], { duration: 180 }); }
+    advanceDeal(state); resolvingBefore = null; dockArrivals = null;
+    render(); scene.setState(state); syncCamera(); $('preview').textContent = '';
+    feedback.pulse($('height')); feedback.deal();
+    const parts = [];
+    if (entry.links) {
+      const bonus = entry.family === 'base' ? baseBonus(before, entry) : 0;
+      parts.push(`+${entry.links} floors`);
+      if (bonus) parts.push(`includes +${bonus} from upgrades`);
+      if (entry.foundationBonus) parts.push(`Streak +${entry.foundationBonus}`);
+      for (const badge of $('upgrade-rack').children) {
+        if (bonus && (badge.dataset.upgrade === `suit:${entry.suit}` || (badge.dataset.upgrade === 'assembler' && entry.type !== 'mystery'))) feedback.pulse(badge);
+      }
+    } else {
+      parts.push(`${title(entry)} ${entry.family === 'reactor' ? 'installed' : 'ready'}`);
+      const badge = [...$('upgrade-rack').children].find(b => b.dataset.upgrade === (entry.type === 'suit' ? `suit:${entry.suit}` : entry.type)); feedback.pulse(badge);
+    }
+    if (before.foundation && !state.foundation) parts.push('Streak ended');
+    if (before.attunement && !state.attunement) parts.push('Type Lock finished');
+    $('status').textContent = parts.join(' · ');
+    feedback.announce($('status').textContent);
   };
   let lastFloor = before.links.length;
   if (reduced) { audio.fold(); complete(); }
-  else scene.animate(before, structuredClone(state), { onFrame: count => { $('height').textContent = count; if (count > lastFloor) { audio.fold(); lastFloor = count; } }, onComplete: complete });
+  else scene.animate(before, structuredClone(state), {
+    origin,
+    onFrame: count => { $('height').textContent = count; scenery.setHeight(count); if (count > lastFloor) { audio.fold(); lastFloor = count; } },
+    onBalloonArrival: suit => {
+      if (token !== epoch || !dockArrivals) return;
+      dockArrivals[suit]++; renderDock(before); feedback.dockArrival(suit);
+    },
+    onComplete: complete,
+  });
 }
 function restart(seed) {
-  ++epoch; flight.cancel(); pendingPurchase = null; menuReturn = null; for (const dialog of document.querySelectorAll('dialog[open]')) dialog.close();
-  resolvingBefore = null; choiceIndex = null; state = createGame(seed); setSeed();
+  ++epoch; feedback.clear(); flight.cancel(); pendingPurchase = null; menuReturn = null; for (const dialog of document.querySelectorAll('dialog[open]')) dialog.close();
+  resolvingBefore = null; dockArrivals = null; choiceIndex = null; state = createGame(seed); setSeed();
+  scenery.setHeight(0, { immediate: true });
+  run = { id: crypto.randomUUID(), seed: state.seed, moves: [] }; completedRecord = null; guestbook.saveActive(run);
   $('status').textContent = 'Choose one card. A new delivery follows.'; $('preview').textContent = '';
-  $('overview').textContent = 'Whole hotel'; render(); scene?.reset(state);
+  $('overview').textContent = 'Whole hotel'; render(); scene?.reset(state); syncCamera(); feedback.deal();
 }
 function balanceTable() {
   const rows = [];
@@ -247,22 +327,45 @@ function balanceTable() {
   rows.push([reserve.name, reserve.price, `1 room per ${reserve.cashPerLink} coins remaining after payment, using the top type (${suitInfo(reserve.openingSuit).name} on an empty hotel).`], [coupon.name, coupon.price, `${coupon.refund} coins back on the next ${coupon.purchases} room buys, including Mosaic. No refresh while active.`], [streak.name, streak.price, `Start at +${streak.bonusStep}; add ${streak.bonusStep} to the bonus per matching typed purchase. Typed powers count. A new type or Mosaic ends it; untyped cards pause it.`], [lock.name, lock.price, `100% matching typed offers for ${lock.shops} shops. Every purchase consumes a shop. No refresh while active.`]);
   $('balance-table').replaceChildren(...rows.map(row => { const tr = node('tr'); for (const value of row) tr.append(node('td', '', value)); return tr; }));
 }
-$('sound-toggle').addEventListener('click', () => { const enabled = audio.toggle(); $('sound-toggle').textContent = enabled ? 'Sound on' : 'Sound off'; $('sound-toggle').setAttribute('aria-pressed', String(enabled)); });
-$('menu-open').addEventListener('click', () => { scene?.inspect(null); $('menu-dialog').showModal(); });
+function toggleSound() { sound = audio.setEnabled(!sound); guestbook.preference('sound', sound); $('sound-toggle').textContent = sound ? 'Sound on' : 'Sound off'; $('sound-toggle').setAttribute('aria-pressed', String(sound)); shell?.preferences(sound, reduced); }
+function restoreSound() { audio.setEnabled(sound); }
+$('sound-toggle').addEventListener('click', toggleSound);
+$('menu-open').addEventListener('click', () => { scene?.inspect(null); $('reveal-now').hidden = !['resolving','roofing'].includes(state.phase) && !pendingPurchase; $('menu-dialog').showModal(); });
 $('resume').addEventListener('click', () => $('menu-dialog').close());
 for (const [button, dialog] of [['rules-open', 'rules-dialog'], ['workshop-open', 'workshop-dialog']]) {
   $(button).addEventListener('click', () => { menuReturn = button; $('menu-dialog').close(); $(dialog).showModal(); });
   $(dialog).addEventListener('close', () => { if (menuReturn !== button) return; menuReturn = null; $('menu-dialog').showModal(); $(button).focus(); });
 }
-$('menu-dialog').addEventListener('close', () => { if (!menuReturn && !document.querySelector('dialog[open]')) $('menu-open').focus(); });
+$('menu-dialog').addEventListener('close', () => { if (!menuReturn && document.body.dataset.screen === 'game' && !document.querySelector('dialog[open]')) $('menu-open').focus(); });
 $('choice-dialog').addEventListener('close', () => { choiceIndex = null; });
 $('reveal-now').addEventListener('click', () => { flight.finish(); scene?.skip(); $('menu-dialog').close(); });
-$('overview').addEventListener('click', () => { $('overview').textContent = scene.toggleOverview() ? 'Back to the top' : 'Whole hotel'; $('menu-dialog').close(); });
+for (const id of ['overview', 'camera-toggle']) $(id).addEventListener('click', () => { scene.toggleOverview(); syncCamera(); $('menu-dialog').close(); });
+$('effect-buy').addEventListener('click', () => { const index = effectIndex; $('effect-dialog').close(); select(index); });
+$('height-info').addEventListener('click', () => explainCounter('Hotel floors', `Your hotel has ${state.links.length} floors. Each row of three windows is one floor. Spend your coins to build as high as you can.`));
+function showLobby() {
+  menuReturn = null; flight.finish(); scene?.skip(); feedback.clear();
+  for (const dialog of document.querySelectorAll('dialog[open]')) dialog.close();
+  shell.home({canResume: !finished(state)});
+}
+$('lobby-open').addEventListener('click', showLobby);
+$('ending-board').addEventListener('click', () => shell.board(completedRecord));
+$('ending-new').addEventListener('click', () => restart(randomSeed()));
+$('ending-replay').addEventListener('click', () => restart(state.seed));
 $('replay').addEventListener('click', () => restart(state.seed));
 $('new-game').addEventListener('click', () => restart(randomSeed()));
-function applyMotion(value) { reduced = value; scenery.setMotion(!reduced); document.documentElement.classList.toggle('reduced-motion', reduced); if (scene) scene.motion = !reduced; if (reduced) flight.finish(); if (scene) { if (reduced) { scene.skip(); scene.tower.y = 0; } scene.draw(); } $('motion-toggle').setAttribute('aria-pressed', String(reduced)); }
-$('motion-toggle').addEventListener('click', () => applyMotion(!reduced)); motionQuery.addEventListener('change', e => applyMotion(e.matches));
-document.addEventListener('keydown', event => { if (!event.repeat && !event.ctrlKey && !event.metaKey && !event.altKey && /^[123]$/.test(event.key) && !document.querySelector('dialog[open]')) { event.preventDefault(); select(Number(event.key) - 1); } });
-setSeed(); balanceTable(); render();
+function applyMotion(value) { reduced = value; if (reduced) paper.clear(); if (reduced) feedback.clear(); scenery.setMotion(!reduced); document.documentElement.classList.toggle('reduced-motion', reduced); if (scene) scene.motion = !reduced; if (reduced) flight.finish(); if (scene) { if (reduced) { scene.skip(); scene.tower.y = 0; } scene.draw(); } $('motion-toggle').setAttribute('aria-pressed', String(reduced)); shell?.preferences(sound, reduced); }
+function toggleMotion() { guestbook.preference('reduced', !reduced); applyMotion(!reduced); }
+$('motion-toggle').addEventListener('click', toggleMotion); motionQuery.addEventListener('change', e => { guestbook.preference('reduced', null); applyMotion(e.matches); });
+document.addEventListener('keydown', event => { if (document.body.dataset.screen === 'game' && !event.repeat && !event.ctrlKey && !event.metaKey && !event.altKey && /^[123]$/.test(event.key) && !document.querySelector('dialog[open]')) { event.preventDefault(); select(Number(event.key) - 1); } });
+balanceTable(); render();
+shell = mountLobby({img, guestbook, paper, isReduced: () => reduced,
+  onScreen: screen => scenery.setHeight(screen === 'game' ? state.links.length : 0, { immediate: true }),
+  onStart: () => { restoreSound(); restart(requestedSeed || randomSeed()); requestedSeed = null; },
+  onResume: () => { restoreSound(); requestedSeed = null; setSeed(); render(); scene?.setState(state); },
+  onRules: () => { menuReturn = null; $('rules-dialog').showModal(); },
+  onSound: toggleSound, onMotion: toggleMotion,
+});
+$('sound-toggle').textContent = sound ? 'Sound on' : 'Sound off'; $('sound-toggle').setAttribute('aria-pressed', String(sound));
+shell.preferences(sound, reduced); shell.home({canResume: !!guestbook.data.active});
 world.ready.then(readyScene => { scene = readyScene; scene.motion = !reduced; loading = false; render(); scene.setState(state); $('world').dataset.ready = 'true'; });
-if (import.meta.hot) import.meta.hot.dispose(() => { flight.destroy(); scenery.destroy(); world.destroy(); audio.destroy(); });
+if (import.meta.hot) import.meta.hot.dispose(() => { shell.destroy(); paper.destroy(); feedback.clear(); flight.destroy(); scenery.destroy(); world.destroy(); audio.destroy(); });

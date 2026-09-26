@@ -1,0 +1,40 @@
+.sky-backdrop { isolation: isolate; transition: background-color 2800ms ease; }
+.sky-paper { position: absolute; inset: 0; background: center/cover no-repeat; filter: grayscale(1); opacity: .48; mix-blend-mode: soft-light; }
+.sky-backdrop::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg,#06133114,transparent 45%,#88badd0d); }
+.sky-piece { transition: opacity 2600ms ease, translate 2800ms ease, scale 2800ms ease, filter 2800ms ease; }
+.sky-island { opacity: var(--island-opacity,1); translate: 0 var(--island-drop,0vh); scale: var(--island-scale,1); }
+.sky-cloud { opacity: var(--cloud-opacity,1); translate: 0 var(--cloud-drop,0vh); filter: var(--cloud-filter,none); }
+.sky-sea { opacity: var(--sea-opacity,0); filter: var(--cloud-filter,none); }
+.sky-celestial { position: absolute; left: var(--x); top: var(--y); width: var(--size); aspect-ratio: 1; transform: translate(-50%,-50%); opacity: 0; transition: opacity 2400ms ease; perspective: 500px; }
+.sky-celestial[data-visible="true"] { opacity: var(--visibility,1); }
+.sky-ornament { width: 100%; height: 100%; background-repeat: no-repeat; transform-origin: 50% 60%; }
+.sky-star .sky-ornament { animation: sky-shimmer 11s ease-in-out infinite; animation-delay: var(--phase); }
+.sky-moon { --size: clamp(68px,16vmin,140px); --visibility: .92; }
+.sky-moon .sky-ornament { filter: drop-shadow(0 3px 5px #090c2528); }
+.sky-ribbon { opacity: var(--ribbon-opacity,0); width: clamp(110px,36vmin,340px); }
+.sky-ribbon-left { left: -3%; top: 42%; rotate: 18deg; }
+.sky-ribbon-right { left: 98%; top: 63%; rotate: 195deg; }
+.sky-constellation { --size: clamp(72px,18vmin,164px); --visibility: .68; }
+.sky-constellation svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.sky-constellation path { fill: none; stroke: #ebd5a5; stroke-width: .65; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 2600ms ease; }
+.sky-constellation[data-visible="true"] path { stroke-dashoffset: 0; }
+.sky-constellation polygon { fill: #ffebbd; }
+.sky-constellation-hotel { --visibility: .88; --size: clamp(84px,21vmin,188px); }
+/* Wide screens place the tower on the left; keep both animal outlines outside it. */
+@media (min-width: 1000px), (min-width: 601px) and (max-height: 550px) {
+  .sky-constellation-bunny,.sky-constellation-frog { left: 6.5%; }
+}
+.sky-backdrop[data-motion="false"],.sky-backdrop[data-immediate="true"],
+.sky-backdrop[data-motion="false"] *,.sky-backdrop[data-immediate="true"] * { transition: none!important; }
+.sky-backdrop[data-motion="false"] .sky-ornament { animation: none; }
+.sky-celestial:not([data-visible="true"]) .sky-ornament { animation-play-state: paused; }
+@keyframes sky-shimmer { 0%,70%,100% { opacity: .82; } 82% { opacity: 1; } }
+@media (max-width: 600px) {
+  .sky-star { width: calc(var(--size) * .78); }
+  .sky-constellation { --size: clamp(65px,19vmin,110px); }
+  .sky-constellation-hotel { --size: clamp(76px,23vmin,125px); }
+}
+@media (max-height: 480px) { .sky-moon { --size: 60px; top: 38%; } }
+@media (min-width: 601px) and (max-height: 550px) {
+  .sky-constellation-cat,.sky-constellation-hotel { left: 67%; top: 38%; --size: 64px; }
+}

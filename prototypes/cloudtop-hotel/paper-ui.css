@@ -1,0 +1,73 @@
+/* Folded sheets complement the original card stock, cut-paper HUD labels and
+   printed book rows. Only explicitly selected surfaces use this nine-slice. */
+:root { --paper-corner: 16px; --paper-tone: brightness(1); --paper-shadow: 0 3px 2px #463c413b; }
+:where([data-paper]):not(dialog) { position: relative; }
+[data-paper] { isolation: isolate; background: none!important; border-color: transparent!important; border-radius: 0!important; box-shadow: none!important; }
+[data-paper]::before,.paper-fold-skin {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  width: auto; height: auto; border-radius: 0; background: none; box-shadow: none;
+  border: var(--paper-corner) solid transparent;
+  border-image-source: var(--origami-sheet); border-image-slice: 25% fill;
+  border-image-width: var(--paper-corner); border-image-outset: 0; border-image-repeat: stretch;
+  filter: var(--paper-tone) drop-shadow(var(--paper-shadow));
+}
+[data-paper=plum] { --paper-tone: brightness(.34) sepia(.75) saturate(2) hue-rotate(212deg); color: #fff8e8; }
+[data-paper=ivory] { --paper-tone: brightness(1); }
+[data-paper].resume-button { --paper-tone: sepia(.3) saturate(1.6) hue-rotate(30deg); }
+[data-paper].score-form { --paper-tone: sepia(.2) saturate(1.3) hue-rotate(225deg); }
+[data-paper]:is(button) { transition: translate 150ms,filter 150ms; }
+[data-paper]:is(button):hover:not(:disabled) { filter: brightness(1.035); }
+[data-paper]:is(button):active:not(:disabled) { translate: 0 1px; }
+[data-paper]:is(button):disabled { cursor: default; }
+.paper-fold-rig { position: absolute; inset: 0; z-index: -1; pointer-events: none; display: block; perspective: 900px; }
+.paper-fold-leaf { position: absolute; display: block; overflow: hidden; backface-visibility: hidden; }
+.paper-fold-rig[data-axis=x] .paper-fold-leaf { width: 50.05%; height: 100%; top: 0; }
+.paper-fold-rig[data-axis=x] .first { left: 0; transform-origin: 100% 50%; }
+.paper-fold-rig[data-axis=x] .second { right: 0; transform-origin: 0 50%; }
+.paper-fold-rig[data-axis=x] .paper-fold-skin { width: 200%; height: 100%; }
+.paper-fold-rig[data-axis=x] .second .paper-fold-skin { left: -100%; }
+.paper-fold-rig[data-axis=y] .paper-fold-leaf { height: 50.05%; width: 100%; left: 0; }
+.paper-fold-rig[data-axis=y] .first { top: 0; transform-origin: 50% 100%; }
+.paper-fold-rig[data-axis=y] .second { bottom: 0; transform-origin: 50% 0; }
+.paper-fold-rig[data-axis=y] .paper-fold-skin { height: 200%; width: 100%; }
+.paper-fold-rig[data-axis=y] .second .paper-fold-skin { top: -100%; }
+[data-folding]::before { visibility: hidden; }
+.paper-fold-skin { z-index: 0; }
+
+/* The title is folded paper, without signboard pins or a rounded frame. */
+.hanging-sign[data-paper] { --paper-corner: 43px; padding: 37px 38px 30px; }
+.hanging-sign[data-paper]::after { content: none; }
+.hanging-sign .sign-rule { border: 0; }
+#home-title { text-shadow: 0 1px 0 #fff7e6,1px 2px 0 #b09b8540; }
+.guestbook-paper[data-paper] { --paper-corner: 38px; padding: 28px 31px 16px 34px; }
+.book-binding { top: 26px; bottom: 26px; }
+.score-form[data-paper] { --paper-corner: 22px; padding: 20px; border: 0; }
+.paper-button[data-paper] { --paper-corner: 19px; border: 0; }
+
+dialog[data-paper] { --paper-corner: 32px; border: 0; padding: 9px; filter: drop-shadow(0 16px 24px #16384f66); }
+dialog::backdrop { background: #17384e77; backdrop-filter: blur(3px); }
+.dialog-heading { border-bottom: 1px dashed #b8a385; padding-top: 14px; }
+.dialog-heading h2 { font-family: Georgia,'Times New Roman',serif; font-weight: 700; }
+.menu-body button[data-paper],#effect-buy[data-paper] { --paper-corner: 14px; border: 0; }
+.menu-new { border-top-style: dashed; }
+.rules-body td,.rules-body th,.workshop-item { border-bottom-style: dashed; }
+#purchase-feedback[data-paper] { --paper-corner: 14px; border: 0; padding: 11px 18px; }
+.ending[data-paper] { --paper-corner: 28px; border: 0; }
+.ending-actions button[data-paper] { --paper-corner: 13px; border: 0; }
+
+@media(max-width:760px) {
+  .hanging-sign[data-paper] { --paper-corner: 28px; padding: 28px 22px 23px; }
+  .guestbook-paper[data-paper] { --paper-corner: 27px; padding: 19px 16px 8px 25px; }
+  .score-form[data-paper] { --paper-corner: 18px; padding: 15px; }
+  .lobby-top .edition-label { text-align: right; }
+}
+@media(max-width:600px) {
+  dialog[data-paper] { --paper-corner: 25px; padding: 5px; }
+  .ending[data-paper] { --paper-corner: 23px; }
+  #purchase-feedback[data-paper] { padding: 9px 13px; }
+}
+@media(orientation:landscape) and (max-height:500px) {
+  .hanging-sign[data-paper] { --paper-corner: 25px; padding: 24px; }
+  dialog[data-paper] { --paper-corner: 23px; padding: 5px; }
+  .guestbook-paper[data-paper] { --paper-corner: 25px; padding-top: 18px; }
+}

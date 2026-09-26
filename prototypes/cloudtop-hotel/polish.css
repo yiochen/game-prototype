@@ -1,0 +1,72 @@
+/* Readable paper cards and quiet controls around an unobstructed hotel. */
+.offers { height: 98%; bottom: 22%; transform: perspective(var(--table-perspective)) rotateX(35deg); }
+.offer-card { padding: 18% 8% 17%; gap: 5px; }
+.offer-card > * { min-width: 0; max-width: 100%; }
+.card-title { font-size: clamp(11px,calc(var(--tray-unit) * 2.1),20px); line-height: 1.15; text-transform: none; letter-spacing: -.025em; }
+.card-top,.card-title,.card-value,.card-help { transform: none; }
+.card-effect { font-size: clamp(17px,calc(var(--tray-unit) * 3),30px); }
+.card-value>span { font-size: clamp(9px,calc(var(--tray-unit) * 1.2),12px); }
+.card-value { min-height: 1.35em; }
+.card-art { padding-top: 3%; }
+.card-help { width: max(32px,calc(var(--tray-unit) * 4)); height: max(36px,calc(var(--tray-unit) * 4)); }
+.offer-slot { transition: transform 170ms cubic-bezier(.2,.8,.2,1); }
+@media(hover:hover) {
+  .offer-slot:has(.offer-card:not(:disabled):hover),.offer-slot:has(:focus-visible) { transform: translateZ(14px) translateY(-7px) rotateX(-9deg); }
+}
+.offer-card:active:not(:disabled) { scale: .975; filter: drop-shadow(1px 1px 1px #45291b99); }
+.offer-card:disabled { opacity: 1; filter: saturate(.45) brightness(.85) drop-shadow(1px 2px 1px #45291b77); }
+.card-flight .offer-card { scale: 1; }
+.card-flight .card-title { font-size: clamp(15px,2.1vw,23px); }
+.card-flight .card-effect { font-size: clamp(22px,3vw,32px); }
+.dock-chip,.stat.height { border: 0; border-radius: 0; }
+.dock-chip:hover,.stat.height:hover { filter: brightness(1.05) drop-shadow(1px 3px 2px #25445865); }
+#height-art svg { display: block; width: 32px; height: 38px; margin-right: 3px; filter: drop-shadow(1px 2px 1px #765b4040); }
+.hotel-tools { position: absolute; top: calc(100% + 14px); left: 12px; right: 12px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 7px; pointer-events: none; }
+.hotel-tools button { pointer-events: auto; }
+#camera-toggle { flex: 0 0 auto; min-height: 34px; padding: 6px 12px; background: #fff3dceF; font-size: 12px; box-shadow: 1px 2px 2px #25445830; }
+#camera-toggle:disabled { opacity: .55; }
+#upgrade-rack { display: flex; gap: 3px; }
+.upgrade-badge { display: flex; align-items: center; padding: 2px 5px 2px 2px; height: 34px; background: #fff3dcef; gap: 1px; font-size: 12px; font-weight: 900; }
+.upgrade-badge .sprite-art { width: 28px; height: 28px; }
+#strategy-status { position: static; transform: none; white-space: normal; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
+.strategy-chip { font-size: 11px; padding: 6px 8px; }
+#coin-change { position: absolute; left: 28px; top: 74px; font-size: 14px; font-weight: bold; color: #fff3dc; text-shadow: 0 1px 3px #254458; opacity: 0; pointer-events: none; }
+#purchase-feedback { position: fixed; left: 50%; bottom: calc(var(--tray-width) / 3 + 18px); transform: translateX(-50%); z-index: 5; width: max-content; max-width: min(90vw,540px); padding: 8px 14px; border: 1px solid #d6b57e; border-radius: 5px 9px; background: #fff3dcf5; color: #493b53; text-align: center; box-shadow: 1px 3px 8px #18385433; font-size: 13px; font-weight: 700; pointer-events: none; }
+#effect-buy { display: block; width: 100%; min-height: 44px; margin-top: 14px; background: #765293; color: #fff8e9; font-weight: bold; border-color: #604277; }
+#effect-buy:disabled { opacity: .5; }
+.hotel-app.complete .shop { width: min(600px,94vw); height: auto; aspect-ratio: auto; bottom: max(12px,env(safe-area-inset-bottom)); left: 50%; right: auto; transform: translateX(-50%); }
+.hotel-app.complete .tray { display: none; }
+.hotel-app.complete .ending { position: relative; inset: auto; width: 100%; padding: 15px 20px; transform: none; margin: 0; }
+.ending small { font-size: 10px; letter-spacing: .12em; color: #78634d; }
+.ending h2 { margin: 3px 0; font-size: 30px; }
+.ending-actions { display: flex; justify-content: center; gap: 9px; margin-top: 12px; }
+.ending-actions button { min-height: 40px; padding: 8px 16px; font-size: 13px; font-weight: 700; }
+#ending-new { background: #765293; color: #fff8e9; border-color: #604277; }
+.hotel-app.complete #purchase-feedback { display: none; }
+@media(max-width:600px) {
+  .offers { height: 190px; bottom: 22%; transform: perspective(900px) rotateX(16deg); gap: 2%; inset-inline: 4%; }
+  .offer-card { padding: 25px 7px 20px; gap: 4px; grid-template-rows: minmax(0,1fr) auto auto; }
+  .card-title { font-size: 12px; line-height: 1.1; }
+  .card-top { top: 3%; left: 5%; }
+  .price { font-size: 15px; }.price .sprite-art { width: 22px; height: 22px; }
+  .card-help { top: 0; right: 0; width: 32px; height: 32px; font-size: 19px; }
+  .card-effect { font-size: 20px; }.card-value>span { font-size: 9px; }
+  #height-art svg { width: 22px; height: 27px; margin-right: 1px; }
+  .hotel-tools { top: calc(100% + 14px); left: 7px; right: 7px; gap: 4px; }
+  #camera-toggle { min-height: 32px; font-size: 10px; padding: 4px 7px; }
+  .upgrade-badge { height: 32px; padding-right: 4px; font-size: 10px; }.upgrade-badge .sprite-art { width: 23px; height: 23px; }
+  .strategy-chip { font-size: 10px; padding: 4px 6px; }
+  #coin-change { left: 12px; top: 54px; font-size: 11px; }
+  #purchase-feedback { bottom: calc(var(--tray-width) / 3 + 94px); font-size: 11px; padding: 6px 9px; }
+  .hotel-app.complete .ending { padding: 10px 12px; }.ending h2 { font-size: 25px; }.ending-actions { margin-top: 8px; }.ending-actions button { min-height: 38px; font-size: 12px; }
+}
+@media(max-width:360px) { .offers { height: 180px; }.card-title { font-size: 11px; }.offer-card { padding-inline: 5px; }.card-effect { font-size: 18px; } }
+@media(min-width:601px) and (max-height:550px), (min-width:601px) and (min-aspect-ratio:8/5) {
+  .offers { height: max(100%,180px); transform: perspective(var(--table-perspective)) rotateX(24deg); }
+  .card-title { font-size: clamp(11px,1.7vw,17px); }
+  .offer-card { padding: 25px 6px 24px; }
+  .card-top { top: 3%; left: 5%; }.price { font-size: 15px; }.price .sprite-art { width: 22px; height: 22px; }
+  #purchase-feedback { left: 24%; bottom: 18px; max-width: 43vw; font-size: 11px; }
+  .hotel-app.complete .shop { left: auto; right: 12px; width: min(43vw,430px); transform: none; bottom: 12px; }
+}
+@media(prefers-reduced-motion:reduce) { .offer-slot { transition: none; } }
