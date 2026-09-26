@@ -421,7 +421,7 @@ Each pattern has six type assignments with the current three types, giving 24 di
 4. The first box may extend the old top neighborhood. Each subsequent type change begins another neighborhood.
 5. After the batch settles, register one balloon per new neighborhood. A Trio on an empty tower creates three; a Pair creates two. Matching the previous top can reduce the number of new neighborhoods by one.
 
-Mosaic receives no Room Pattern or Master Fold extras and ends Foundation before any bonus. It counts as a base purchase for Coupon Book. It is unavailable during Attunement, so the player never sees a mixed-type offer contradicting the 100% lock.
+Mosaic receives no Room Pattern or Master Fold extras and ends Foundation before any bonus. It advances Guest Parade once and appends its bonus after the exact printed pattern. It counts as a base purchase for Coupon Book. It is unavailable during Attunement, so the player never sees a mixed-type offer contradicting the 100% lock.
 
 ## Strategy powers
 
@@ -443,9 +443,9 @@ Example: Foundation → Pink One Room yields 2 floors → Pink Balloon Call with
 
 ### Guest Parade
 
-$7. One active streak at a time: Guest Parade and Neighborhood Streak cannot stack or refresh each other. The first typed purchase starts at +1. Each subsequent purchase of a different type adds +2, +3, and so on, without a cap. Repeating the last purchased type or buying Mosaic ends the effect before a bonus is awarded. Untyped powers pause it. Room Choice uses its chosen type; typed upgrades and Type Lock also count.
+$7. One active streak at a time: Guest Parade and Neighborhood Streak cannot stack or refresh each other. The first typed purchase starts at +1. Each subsequent purchase of a different type adds +2, +3, and so on, without a cap. Every Mosaic variant advances once, regardless of its first or last guest matching the previous purchase. Its final printed guest sets the next requirement and the type excluded from the random bonus. Consecutive Mosaics also advance. Repeating the last type with a single-type purchase ends the effect before a bonus is awarded. Untyped powers pause it. Room Choice uses its chosen type; typed upgrades and Type Lock also count.
 
-After normal output, append the bonus as one batch of a randomly chosen other room type, with equal chances between the two alternatives. The random type is committed once on purchase using a dedicated seeded parade RNG. Preview, cancel, reveal, motion settings and resizing never reroll it. The last purchased type—not the bonus type or hotel top—defines the next required change. New bonus neighborhoods earn balloons normally, available only for later purchases.
+After normal output, append the bonus as one batch of a randomly chosen other room type, with equal chances between the two alternatives. The random type is committed once on purchase using a dedicated seeded parade RNG. Preview, cancel, reveal, motion settings and resizing never reroll it. The last purchased type (or final printed Mosaic guest)—not the bonus type or hotel top—defines the next required change. New bonus neighborhoods earn balloons normally, available only for later purchases.
 
 ### Frenzy presentation for both streaks
 

@@ -236,7 +236,7 @@ test('Guest Parade changes purchased types, appends one different bonus type, an
  assert.ok(eligibleCards(s).some(c=>c.type==='foundation'));assert.ok(eligibleCards(s).some(c=>c.type==='parade'));
 });
 
-test('Guest Parade pauses for untyped powers, handles chosen and typed powers, and ends on Mosaic',()=>{
+test('Guest Parade pauses for untyped powers, handles chosen and typed powers, and continues on Mosaic',()=>{
  const s=createGame('parade-choice');buy(s,'strategy','parade');buy(s,'base','single','bunny');
  const progress=structuredClone(s.parade), rng=s.paradeRng;
  buy(s,'growth','overgrow');buy(s,'wealth','rebate');
@@ -250,9 +250,9 @@ test('Guest Parade pauses for untyped powers, handles chosen and typed powers, a
  assert.equal(pick(s,0,'cat'),false);advanceDeal(s);
  const power=buy(s,'reactor','suit','cat');assert.equal(power.paradeBonus,3);assert.equal(power.links,3);
  assert.notEqual(power.paradeSuit,'cat');assert.equal(s.upgrades['suit:cat'],1);
- const mosaic=offer(s,'base','mosaic');assert.equal(preview(s,mosaic).endsParade,true);
+ const mosaic=offer(s,'base','mosaic');assert.equal(preview(s,mosaic).paradeBonus,4);
  const prefix=s.links.length;pick(s,0);advanceDeal(s);
- assert.deepEqual(s.links.slice(prefix).map(l=>l.suit),mosaic.sequence);assert.equal(s.parade,null);
+ assert.deepEqual(s.links.slice(prefix,prefix+3).map(l=>l.suit),mosaic.sequence);assert.deepEqual(s.parade,{suit:mosaic.sequence.at(-1),bonus:4});
 });
 
 test('Guest Parade rolls replay exactly, cover both other types, and cannot stack with Neighborhood Streak',()=>{
@@ -277,4 +277,30 @@ test('Type Lock evaluates its printed guest for Guest Parade and forces a repeat
  const p=preview(s,choice);assert.equal(p.choices.length,1);assert.equal(p.choices[0].endsParade,true);
  const before=s.paradeRng;pick(s,0,'cat');advanceDeal(s);
  assert.equal(s.parade,null);assert.equal(s.paradeRng,before);assert.equal(s.attunement.remaining,2);
+});
+
+test('all 24 Mosaic variations advance Guest Parade once and anchor it to the last printed guest',()=>{
+ const mosaics=eligibleCards(createGame('mosaic-parade')).filter(c=>c.type==='mosaic');
+ assert.equal(mosaics.length,24);
+ for(const mosaic of mosaics){
+  // Ready, matching first, matching last, and a third type all qualify.
+  for(const previous of [null,...BALANCE.suits.map(s=>s.id)]){
+   const s=createGame('mosaic-parade');buy(s,'reactor','assembler');buy(s,'reactor','suit',mosaic.sequence[0]);
+   buy(s,'strategy','parade');if(previous)buy(s,'base','single',previous);
+   buy(s,'wealth','rebate');s.offer=[mosaic];
+   const before=structuredClone(s),bonus=(s.parade.bonus+1),last=mosaic.sequence.at(-1);
+   const p=preview(s,mosaic);assert.equal(p.endsParade,false);assert.equal(p.paradeBonus,bonus);assert.equal(p.headline,`+${3+bonus}`);
+   assert.match(p.detail,/any Mosaic continues/);assert.deepEqual(s,before);
+   const replay=structuredClone(s);pick(s,0);pick(replay,0);assert.deepEqual(s,replay);
+   const added=s.links.slice(before.links.length),entry=s.history.at(-1);
+   assert.deepEqual(s.links.slice(0,before.links.length),before.links);
+   assert.deepEqual(added.slice(0,3).map(l=>l.suit),mosaic.sequence);
+   assert.notEqual(entry.paradeSuit,last);assert.deepEqual(added.slice(3).map(l=>l.suit),Array(bonus).fill(entry.paradeSuit));
+   assert.equal(entry.refund,2);assert.equal(s.prizeRng,before.prizeRng);assert.deepEqual(s.parade,{suit:last,bonus});
+   advanceDeal(s);s.offer=[mosaic];assert.equal(preview(s,mosaic).paradeBonus,bonus+1);
+   pick(s,0);advanceDeal(s);assert.deepEqual(s.parade,{suit:last,bonus:bonus+1});
+   const repeat=offer(s,'base','single',last);assert.equal(preview(s,repeat).endsParade,true);
+   const different=offer(s,'base','single',BALANCE.suits.find(s=>s.id!==last).id);assert.equal(preview(s,different).paradeBonus,bonus+2);
+  }
+ }
 });

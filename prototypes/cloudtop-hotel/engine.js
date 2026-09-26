@@ -44,8 +44,11 @@ export function foundationEffect(state, offer) {
 // Streaks follow the purchased type, never the generated bonus rooms.
 export function paradeEffect(state, offer) {
   if (!state.parade) return { bonus: 0, ends: false };
-  if (offer.sequence || (offer.suit && offer.suit === state.parade.suit)) return { bonus: 0, ends: true };
-  return { bonus: offer.suit ? state.parade.bonus + BALANCE.strategy.parade.bonusStep : 0, ends: false };
+  // Every Mosaic advances once, even if its first/last guest matches the last
+  // purchase. Its last printed guest anchors the bonus and next typed purchase.
+  const suit = offer.sequence?.at(-1) ?? offer.suit;
+  if (!offer.sequence && suit && suit === state.parade.suit) return { bonus: 0, ends: true };
+  return { bonus: suit ? state.parade.bonus + BALANCE.strategy.parade.bonusStep : 0, ends: false, suit };
 }
 export const frenzyActive = state => !!(state.foundation || state.parade) && ['picking', 'resolving'].includes(state.phase);
 export const sequenceText = offer => offer.sequence.map(suit => suitInfo(suit).name).join(' → ');
@@ -187,7 +190,7 @@ export function preview(state, offer, selectedSuit) {
     }
   } else if (offer.family === 'strategy') {
     headline = config.bonusStep ? `+${config.bonusStep}…` : '100%';
-    detail = offer.type === 'parade' ? 'Next typed purchase earns +1 bonus room. Change the purchased type to earn +2, +3… bonus rooms. Each bonus batch uses one random type different from the purchase (equal chances). Repeating the purchased type or buying Mosaic ends the parade; untyped powers pause it. One streak at a time.' : offer.type === 'foundation' ? 'Next suited purchase starts a streak. Matching purchases append a growing bonus; switching suits or buying Mosaic ends it. Suitless purchases pause it.' : `Next ${config.shops} shops: all suited offers are ${suitInfo(offer.suit).name}. Choice 1 is locked to this suit; Mosaic pauses. Every purchase uses one shop.`;
+    detail = offer.type === 'parade' ? 'Next typed purchase earns +1 bonus room. Change the purchased type to earn +2, +3… bonus rooms. Each bonus batch uses one random type different from the purchase (equal chances). Every Mosaic pattern also advances once, using its final printed guest as the type to change from next. Its bonus differs from that final guest. Repeating a single purchased type ends the parade; untyped powers pause it. One streak at a time.' : offer.type === 'foundation' ? 'Next suited purchase starts a streak. Matching purchases append a growing bonus; switching suits or buying Mosaic ends it. Suitless purchases pause it.' : `Next ${config.shops} shops: all suited offers are ${suitInfo(offer.suit).name}. Choice 1 is locked to this suit; Mosaic pauses. Every purchase uses one shop.`;
   } else if (offer.type === 'vault') { headline = `+${Math.floor(cashAfter / config.cashPerLink)}`; detail = `One ${suitInfo(vaultSuit(state)).name} link per $${config.cashPerLink} left after paying. Extends the tail suit.`; }
   else { headline = `$${config.refund} × ${config.purchases}`; detail = `Refund on your next ${config.purchases} base purchases. Cannot stack.`; }
   if (foundation.bonus) {
@@ -199,8 +202,8 @@ export function preview(state, offer, selectedSuit) {
   if (parade.bonus) {
     if (offer.family === 'base' && offer.type === 'mystery') headline = mysteryOutcomes(state).map(o => o.links + baseBonus(state, offer) + parade.bonus).join(' / ');
     else if (headline.startsWith('+')) headline = `+${Number(headline.slice(1)) + parade.bonus}`;
-    const types = BALANCE.suits.filter(s => s.id !== offer.suit).map(s => s.name).join(' or ');
-    detail += ` Guest Parade appends +${parade.bonus} bonus rooms: all ${types}, chosen randomly with equal chances. Your next purchase must differ from ${suitInfo(offer.suit).name}.`;
+    const types = BALANCE.suits.filter(s => s.id !== parade.suit).map(s => s.name).join(' or ');
+    detail += ` Guest Parade appends +${parade.bonus} bonus rooms: all ${types}, chosen randomly with equal chances. Your next typed purchase must differ from ${suitInfo(parade.suit).name}; any Mosaic continues.`;
   }
   if (parade.ends) detail += ' Ends Guest Parade.';
   else if (state.parade && !parade.bonus && offer.type !== 'choice') detail += ' Pauses Guest Parade.';
@@ -289,10 +292,10 @@ export function pick(state, index, selectedSuit) {
     state.parade = null;
     message += ' Guest Parade ended.';
   } else if (parade.bonus) {
-    const types = BALANCE.suits.filter(s => s.id !== offer.suit);
+    const types = BALANCE.suits.filter(s => s.id !== parade.suit);
     const bonusSuit = types[Math.floor(random(state, 'paradeRng') * types.length)].id;
     emit(bonusSuit, parade.bonus);
-    state.parade = { suit: offer.suit, bonus: parade.bonus };
+    state.parade = { suit: parade.suit, bonus: parade.bonus };
     entry.paradeBonus = parade.bonus;
     entry.paradeSuit = bonusSuit;
     message += ` Guest Parade +${parade.bonus} ${suitInfo(bonusSuit).name} rooms.`;

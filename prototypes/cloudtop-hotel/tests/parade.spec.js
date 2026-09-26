@@ -82,3 +82,32 @@ test('animated parade activation and reveal commit one deterministic bonus batch
  await expect(page.locator('#height')).toHaveText(String(s.links.length));
  expect(errors).toEqual([]);
 });
+test('Mosaic continues Guest Parade with an appended bonus and keeps frenzy through reload',async({page})=>{
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));await open(page,36);
+ const s=createGame(36);await buy(page,0);pick(s,0);advanceDeal(s);
+ const mosaic=page.locator('#offers [data-offer-index="1"]');
+ await expect(mosaic).toHaveAttribute('data-type','mosaic');
+ await expect(mosaic.locator('.card-effect')).toHaveText('+4');await expect(mosaic.locator('.streak-hint')).toHaveText('+1 random');
+ await page.locator('[data-offer-help="1"]').click();
+ await expect(page.locator('#effect-dialog')).toContainText('Guest Parade appends +1');
+ await expect(page.locator('#effect-dialog')).toContainText('next typed purchase must differ from Bunny');
+ await expect(page.locator('#effect-dialog')).not.toContainText('Ends Guest Parade');await page.keyboard.press('Escape');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ await mosaic.click();await expect(page.locator('#world')).toHaveAttribute('data-state','resolving');
+ await expect(page.locator('.sky-backdrop')).toHaveAttribute('data-frenzy','true');
+ await control(page,'reveal-now');pick(s,1);advanceDeal(s);
+ expect(await page.locator('#floor-record li').evaluateAll(es=>es.map(e=>e.dataset.type))).toEqual(s.links.map(l=>l.suit));
+ await expect(page.locator('#strategy-status')).toContainText('next +2 · change from Bunny');
+ for(const suit of ['bunny','frog','cat'])await expect(page.locator(`.dock-chip.${suit} .dock-count`)).toHaveText(String(segments(s,suit).length));
+ await page.emulateMedia({reducedMotion:'reduce'});
+ for(const viewport of [{width:390,height:844},{width:844,height:390}]){
+  await page.setViewportSize(viewport);await fits(page);await mkdir('artifacts/cloudtop-hotel',{recursive:true});
+  await page.screenshot({path:`artifacts/cloudtop-hotel/mosaic-parade-${viewport.width}x${viewport.height}.png`});
+ }
+ await page.reload();await expect(page.locator('#world')).toHaveAttribute('data-ready','true');await page.locator('#lobby-resume').click();
+ await expect(page.locator('.sky-backdrop')).toHaveAttribute('data-frenzy','true');
+ await buy(page,2);pick(s,2);advanceDeal(s);
+ await expect(page.locator('#strategy-status')).toContainText('next +3 · change from Frog');
+ expect(await page.locator('#floor-record li').evaluateAll(es=>es.map(e=>e.dataset.type))).toEqual(s.links.map(l=>l.suit));
+ expect(errors).toEqual([]);
+});
