@@ -25,10 +25,11 @@ export function skyAtHeight(value) {
     islandOpacity: 1 - ramp(12, 48, height),
     islandDrop: 48 * ramp(0, 48, height),
     islandScale: 1 - .46 * ramp(0, 48, height),
-    cloudDrop: 24 * ramp(0, 50, height),
-    cloudOpacity: 1 - .84 * ramp(30, 125, height),
+    // Leave the whole cloud layer below the hotel before the night-sky stages.
+    cloudDrop: 65 * ramp(0, 75, height),
+    cloudOpacity: 1 - ramp(20, 75, height),
     night: ramp(45, 125, height),
-    seaOpacity: ramp(10, 25, height) * (1 - .78 * ramp(50, 125, height)),
+    seaOpacity: ramp(10, 25, height) * (1 - ramp(35, 75, height)),
     ribbonOpacity: .36 * ramp(115, 135, height),
   };
 }

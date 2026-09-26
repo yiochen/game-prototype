@@ -65,8 +65,8 @@ The background follows the number of visibly constructed floors. Color blends co
 | --- | --- | --- |
 | 0–24 | Cloud Gardens | Azure `#398ecb`, grassy islands and folded white clouds |
 | 25–49 | Cloud Sea | Blue `#2c78bc`, islands receding downward, a lower cloud sea |
-| 50–74 | First Starlight | Royal blue `#245ba6`, the first ivory paper stars |
-| 75–99 | Blue Twilight | Indigo `#233f87`, golden stars and dimmer clouds |
+| 50–74 | First Starlight | Royal blue `#245ba6`, the first ivory paper stars, clouds sinking and fading away |
+| 75–99 | Blue Twilight | Indigo `#233f87`, golden stars in a clear sky; all large clouds and the cloud sea are gone |
 | 100–124 | Moonlit Heights | Midnight `#18265f`, an unfolding ivory crescent |
 | 125–149 | Constellation Skies | Navy `#111a43`, Bunny and Cat constellations, Frog at 130, folded blue ribbons |
 | 150+ | Celestial Summit | Deep navy `#0b1230`, larger gold stars and a crowned hotel constellation |

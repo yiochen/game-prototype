@@ -35,6 +35,11 @@ test('seven altitude stages survive saved-run resume and stay fixed during camer
     const appearance = await sky.evaluate(el => ({ color: el.style.backgroundColor, islands: getComputedStyle(el.querySelector('.sky-island')).opacity, moon: el.querySelector('.sky-moon').dataset.visible }));
     expect(appearance.moon).toBe(String(height >= 100));
     if (height >= 50) expect(appearance.islands).toBe('0');
+    if (height >= 75) {
+      const clouds = await page.locator('.sky-cloud,.sky-sea').evaluateAll(elements => elements.map(el => getComputedStyle(el).opacity));
+      expect(clouds).toHaveLength(13);
+      expect(clouds.every(opacity => opacity === '0')).toBe(true);
+    }
     await shot(page, `desktop-${height}`);
     if (height) {
       await page.locator('#camera-toggle').click();
@@ -89,5 +94,6 @@ test('new sky details unfold with visible floors, settle for reduced motion, and
   await expect(page.locator('.sky-backdrop')).toHaveAttribute('data-stage', 'Cloud Gardens');
   await expect(page.locator('.sky-moon')).toHaveAttribute('data-visible', 'false');
   await expect(page.locator('.sky-island').first()).toHaveCSS('opacity', '1');
+  await expect(page.locator('.sky-cloud').first()).toHaveCSS('opacity', '1');
   await expect(page.locator('.sky-celestial[data-visible="true"]')).toHaveCount(0);
 });
