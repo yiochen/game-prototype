@@ -1,6 +1,7 @@
+import { advanceDeal } from './milestone-helpers.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createGame, pick, advanceDeal, beginRoof, finishRoof, choiceSuits } from '../engine.js';
+import { createGame, pick, beginRoof, finishRoof, choiceSuits } from '../engine.js';
 import { replayRun, scoreOf, cleanName, compareScores, SCORE_VERSION } from '../score-rules.js';
 import { handleLeaderboard } from '../leaderboard-service.js';
 import { createGuestbook } from '../guestbook-storage.js';
@@ -10,7 +11,7 @@ export function completed(seed = 'guestbook-test') {
   while (state.phase === 'picking') {
     const index = state.offer.findIndex(c => c.price <= state.cash);
     const suit = state.offer[index].type === 'choice' ? choiceSuits(state)[0] : null;
-    moves.push([index,suit]); pick(state,index,suit); advanceDeal(state);
+    moves.push([index,suit]); pick(state,index,suit); advanceDeal(state, moves);
   }
   beginRoof(state); finishRoof(state);
   return {state, record:{version:SCORE_VERSION,name:'Cloud Keeper',seed,moves}};
@@ -32,7 +33,7 @@ test('replay derives the finished score and rejects unfinished, invalid, and ove
   const {record,state} = completed(); assert.deepEqual(replayRun(record.seed,record.moves),state);
   assert.throws(()=>replayRun(record.seed,record.moves.slice(0,-1)),/Finish/);
   assert.throws(()=>replayRun(record.seed,[[3,null]]),/could not be bought/);
-  assert.throws(()=>replayRun(record.seed,Array(101).fill([0])),/Invalid/);
+  assert.throws(()=>replayRun(record.seed,Array(251).fill([0])),/Invalid/);
   assert.throws(()=>replayRun('../store',record.moves),/Invalid/);
   assert.throws(()=>replayRun(record.seed,[[0,'dragon']]),/Invalid/);
 });

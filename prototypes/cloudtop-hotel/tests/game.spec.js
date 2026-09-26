@@ -1,6 +1,7 @@
+import { advanceDeal, claimTips } from './milestone-helpers.js';
 import { test, expect } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
-import { createGame, pick, advanceDeal, beginRoof, finishRoof, finished, segments, choiceSuits } from '../engine.js';
+import { createGame, pick, beginRoof, finishRoof, finished, segments, choiceSuits } from '../engine.js';
 const ROOT = '/prototypes/cloudtop-hotel/';
 const card = (page, i) => page.locator(`#offers [data-offer-index="${i}"]`);
 const help = (page, i) => page.locator(`#offers [data-offer-help="${i}"]`);
@@ -12,6 +13,7 @@ async function open(page, seed, reduced = true) {
 async function buy(page, i, suit) {
   await card(page, i).click();
   if (await page.locator('#choice-dialog').isVisible()) await page.locator(suit ? `#room-choices [data-suit="${suit}"]` : '#room-choices button').first().click();
+  await claimTips(page);
 }
 async function control(page, id) {
   if (!await page.locator('#menu-dialog').isVisible()) await page.locator('#menu-open').click();

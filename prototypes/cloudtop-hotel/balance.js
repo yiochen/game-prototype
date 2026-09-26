@@ -4,6 +4,14 @@
 export const BALANCE = {
   startingCash: 100,
   offerSize: 3,
+  milestones: [
+    { floor: 10, name: 'Grand Opening', coins: 5, levels: 1, bonusCoins: 0 },
+    { floor: 25, name: 'Above the Clouds', coins: 10, levels: 1, bonusCoins: 3 },
+    { floor: 50, name: 'First Starlight', coins: 20, levels: 2, bonusCoins: 5 },
+    { floor: 100, name: 'Moonlight Hotel', coins: 35, levels: 2, bonusCoins: 10 },
+    { floor: 200, name: 'Among the Stars', coins: 60, levels: 3, bonusCoins: 20 },
+  ],
+  milestoneOverflowCoins: 5,
   suits: [
     { id: 'bunny', name: 'Bunny', symbol: 'Bunny', color: '#d987a0' },
     { id: 'frog', name: 'Frog', symbol: 'Frog', color: '#8ea983' },

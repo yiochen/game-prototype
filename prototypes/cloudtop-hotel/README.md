@@ -118,3 +118,19 @@ Guest Parade costs 7 coins. Start the next typed purchase with a guest different
 Both streaks activate full-screen traveling rainbow ribbons behind the hotel, paper confetti and cheering, gently dancing window guests. Offers preview continuation, pause and termination; the HUD shows the next bonus and guest requirement. Reduced motion freezes the ribbons and holds the cheering pose. Replay, leaving the game and the roof finale remove frenzy presentation. `frenzy.js` owns only scenery; bonus generation uses a separate seeded RNG in the engine and never runs during preview or animation.
 
 Score version `paper-v4` starts a new leaderboard/replay ruleset for the changed offer pool and top-floor parade rules. Earlier version saves are excluded by the existing version checks.
+
+## Milestone gifts
+
+After construction settles at or above 10, 25, 50, 100 and 200 floors, three illustrated paper cards appear at the center of the screen. Choose Guest tips, a Workshop upgrade (any Room Pattern or Master Fold), or a Lucky Bell upgrade. Workshop choices show the actual before/after level. Gifts last for the current hotel and are earned once per threshold each run.
+
+| Floors | Guest tips | Workshop or Lucky Bell |
+| --- | --- | --- |
+| 10 | 5 coins | +1 level |
+| 25 | 10 coins | +1 level and 3 coins |
+| 50 | 20 coins | +2 levels and 5 coins |
+| 100 | 35 coins | +2 levels and 10 coins |
+| 200 | 60 coins | +3 levels and 20 coins |
+
+Upgrades cap at level 3. Each excess level converts to 5 coins, with the actual payout shown before choosing. Claims never place rooms, advance or end streaks, consume coupons/Type Lock turns, or change purchase history. Deliveries that cross multiple thresholds queue every gift in order before drawing the next shop or checking for the roof. Escape closes the picker; the tray's gift button reopens it.
+
+Milestone tables and overflow compensation live in `balance.js`. The engine records gifts separately from purchases. Replay records include `['gift', rewardKey]` actions, so unfinished choices survive reload and server validation rejects premature, repeated or invalid claims. Score version `paper-v5` starts a new leaderboard and saved-run ruleset for milestone rewards; earlier-version runs are excluded by the existing version checks. The replay limit is now 250 actions to accommodate the additional coins and five gifts.

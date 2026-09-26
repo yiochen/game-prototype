@@ -1,6 +1,7 @@
+import { advanceDeal } from './milestone-helpers.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { BALANCE, createGame, eligibleCards, baseCards, preview, pick, advanceDeal, beginRoof, finishRoof, canBuy, chain, segments, recallLinks, overgrowLinks, finished, weightedPick, mysteryOutcomes, upgradeValue, choiceSuits } from '../engine.js';
+import { BALANCE, createGame, eligibleCards, baseCards, preview, pick, beginRoof, finishRoof, canBuy, chain, segments, recallLinks, overgrowLinks, finished, weightedPick, mysteryOutcomes, upgradeValue, choiceSuits } from '../engine.js';
 function offer(s, family, type, suit) {
  const c=eligibleCards(s).find(c=>c.family===family&&c.type===type&&(suit===undefined||c.suit===suit));
  assert.ok(c,`Missing ${family}/${type}/${suit}`);s.offer=[c];return c;
@@ -124,9 +125,9 @@ test('the roof advances exactly once without touching the completed run',()=>{
 test('full runs terminate, money reconciles and identical seeds replay exactly',()=>{
  for(let seed=0;seed<100;seed++){
   function run(){const s=createGame(seed);while(s.phase==='picking'){
-   assert.ok(s.history.length<100);const index=s.offer.findIndex(c=>c.price<=s.cash);assert.ok(index>=0);
+   assert.ok(s.history.length<250);const index=s.offer.findIndex(c=>c.price<=s.cash);assert.ok(index>=0);
    const previous=s.cash, before=structuredClone(s.links);assert.equal(pick(s,index,s.offer[index].type==='choice'?choiceSuits(s)[0]:undefined),true);assert.deepEqual(s.links.slice(0,before.length),before);assert.ok(s.cash<previous);advanceDeal(s);
-  }assert.equal(s.phase,'roof-ready');assert.equal(beginRoof(s),true);assert.equal(finishRoof(s),true);assert.equal(finished(s),true);assert.equal(s.cash,BALANCE.startingCash-s.spent+s.refunded);assert.equal(new Set(s.links.map(l=>l.id)).size,s.links.length);assert.ok(s.links.every(l=>BALANCE.suits.some(s=>s.id===l.suit)));assert.equal(s.links.length,s.history.reduce((n,e)=>n+e.links,0));assert.ok(!eligibleCards(s).some(c=>c.price<=s.cash));return s;}
+  }assert.equal(s.phase,'roof-ready');assert.equal(beginRoof(s),true);assert.equal(finishRoof(s),true);assert.equal(finished(s),true);assert.equal(s.cash,BALANCE.startingCash-s.spent+s.refunded+s.giftCash);assert.equal(new Set(s.links.map(l=>l.id)).size,s.links.length);assert.ok(s.links.every(l=>BALANCE.suits.some(s=>s.id===l.suit)));assert.equal(s.links.length,s.history.reduce((n,e)=>n+e.links,0));assert.ok(!eligibleCards(s).some(c=>c.price<=s.cash));return s;}
   assert.deepEqual(run(),run());
  }
 });
