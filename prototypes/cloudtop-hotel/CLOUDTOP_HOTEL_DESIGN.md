@@ -421,7 +421,7 @@ Each pattern has six type assignments with the current three types, giving 24 di
 4. The first box may extend the old top neighborhood. Each subsequent type change begins another neighborhood.
 5. After the batch settles, register one balloon per new neighborhood. A Trio on an empty tower creates three; a Pair creates two. Matching the previous top can reduce the number of new neighborhoods by one.
 
-Mosaic receives no Room Pattern or Master Fold extras and ends Foundation before any bonus. It counts as a base purchase for Coupon Book. It is unavailable during Attunement, so the player never sees a mixed-type offer contradicting the 100% lock.
+Mosaic receives no Room Pattern or Master Fold extras and ends Foundation before any bonus. It advances Guest Parade once if its first guest differs from the current top floor, and appends its bonus after the exact printed pattern. It counts as a base purchase for Coupon Book. It is unavailable during Attunement, so the player never sees a mixed-type offer contradicting the 100% lock.
 
 ## Strategy powers
 
@@ -440,6 +440,20 @@ The streak follows **purchase types, not the current top neighborhood**. Type-sp
 5. On a different-type purchase or Mosaic, show “Ends Foundation” before commitment. Fold the strip closed without a bonus delivery. Suitless purchases leave it visibly paused at the same next bonus.
 
 Example: Foundation → Pink One Room yields 2 floors → Pink Balloon Call with one Pink neighborhood yields 1 + 2 = 3 floors → Pink Choice 1 yields 1 + 3 = 4 floors, before other upgrades. A Green One Room then yields its normal output and closes Foundation.
+
+### Guest Parade
+
+$7. One active streak at a time: Guest Parade and Neighborhood Streak cannot stack or refresh each other. Compare the next typed purchase's guest with the actual current top floor, including previous bonus rooms. Different types advance the bonus by one (+1, +2, +3…), without a cap. On an empty hotel any type qualifies. Matching types end the effect before awarding a bonus. Room Choice uses its chosen guest; typed upgrades and Type Lock also count.
+
+Every Mosaic variant compares its first printed guest with the current top floor. A different starting type advances once; a matching start ends the parade. Internal repeats, including Sandwich and Pair patterns, do not add steps or break a qualifying purchase. The printed pattern is appended unchanged before the bonus.
+
+Append the bonus as one batch of a uniformly random type different from the purchased guest (or final printed Mosaic guest). Roll once at purchase using the dedicated seeded parade RNG. Bonus rooms become the new top floor for the next decision: Cat → Frog bonus → Cat continues. Preview, cancel, reveal, motion settings and resizing never reroll it. Untyped powers pause the bonus, but any rooms they create still change the top floor used next. The HUD and offer previews always use the actual top floor, never a saved last-purchase type. New bonus neighborhoods earn balloons normally for future purchases.
+
+### Frenzy presentation for both streaks
+
+Activation immediately brings broad, colorful rainbow ribbons sweeping across the screen behind the hotel, paper confetti and celebrating window guests of every type. All assembled guests use their waving pose and a gentle dance while the streak remains active, including during untyped purchases. The existing paper sky and altitude progression remain visible. The HUD shows the next bonus and requirement; offers show their bonus or whether they pause/end the streak.
+
+Reduced motion retains static rainbows and waving guests without travel or dancing. Ending a streak, replaying, leaving gameplay or reaching the roof finale clears the effect; resuming an active streak restores it. This presentation never affects gameplay state.
 
 ### Type Lock
 

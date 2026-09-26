@@ -210,3 +210,88 @@ test('Attunement preserves affordable fallback and final-purchase settlement',()
   offer(s,'base','single','cat');pick(s,0);assert.equal(finished(s),false);advanceDeal(s);assert.equal(s.phase,'roof-ready');assert.equal(finished(s),false);assert.equal(beginRoof(s),true);assert.equal(finishRoof(s),true);assert.equal(finished(s),true);assert.equal(chain(s),2);
  }
 });
+
+test('Guest Parade compares against bonus rooms: Cat, Frog bonus, Cat continues',()=>{
+ const s=createGame(147);buy(s,'strategy','parade');
+ assert.deepEqual(s.parade,{bonus:0});assert.equal(chain(s),0);
+ assert.ok(!eligibleCards(s).some(c=>['foundation','parade'].includes(c.type)));
+ for(let bonus=1;bonus<=5;bonus++){
+  const c=offer(s,'base','single','cat'),before=structuredClone(s),p=preview(s,c);
+  assert.equal(p.paradeBonus,bonus);assert.equal(p.headline,`+${1+bonus}`);
+  for(let i=0;i<4;i++)preview(s,c);assert.deepEqual(s,before);
+  pick(s,0);advanceDeal(s);
+  const entry=s.history.at(-1),added=s.links.slice(before.links.length);
+  assert.deepEqual(s.links.slice(0,before.links.length),before.links);
+  assert.equal(added[0].suit,'cat');assert.notEqual(entry.paradeSuit,'cat');
+  assert.deepEqual(added.slice(1).map(l=>l.suit),Array(bonus).fill(entry.paradeSuit));
+  if(bonus===1)assert.equal(entry.paradeSuit,'frog');
+  assert.deepEqual(s.parade,{bonus});assert.equal(s.prizeRng,before.prizeRng);
+ }
+ const repeat=offer(s,'base','single',s.links.at(-1).suit);
+ assert.equal(preview(s,repeat).endsParade,true);assert.equal(preview(s,repeat).headline,'+1');
+ const rng=s.paradeRng;pick(s,0);advanceDeal(s);assert.equal(s.parade,null);assert.equal(s.paradeRng,rng);
+ assert.ok(eligibleCards(s).some(c=>c.type==='parade'));
+});
+
+test('untyped powers pause Guest Parade but their rooms change the next top-floor comparison',()=>{
+ const s=createGame('parade-choice');buy(s,'base','triple','cat');buy(s,'base','single','frog');
+ buy(s,'strategy','parade');buy(s,'base','single','cat');
+ const progress=structuredClone(s.parade),rng=s.paradeRng;
+ assert.notEqual(s.links.at(-1).suit,'cat');buy(s,'growth','overgrow');buy(s,'wealth','rebate');
+ assert.equal(s.links.at(-1).suit,'cat');assert.deepEqual(s.parade,progress);assert.equal(s.paradeRng,rng);
+ const choice=offer(s,'base','choice'),before=structuredClone(s);
+ assert.equal(preview(s,choice,'cat').endsParade,true);assert.equal(preview(s,choice,'frog').paradeBonus,2);
+ preview(s,choice);assert.deepEqual(s,before);
+ assert.equal(pick(s,0,'invalid'),false);assert.deepEqual(s,before);
+ assert.equal(pick(s,0,'frog'),true);assert.equal(s.history.at(-1).links,3);assert.equal(s.history.at(-1).refund,2);
+ assert.equal(pick(s,0,'cat'),false);advanceDeal(s);
+ const suit=BALANCE.suits.find(t=>t.id!==s.links.at(-1).suit).id;
+ const power=buy(s,'reactor','suit',suit);assert.equal(power.paradeBonus,3);assert.equal(power.links,3);
+ assert.notEqual(power.paradeSuit,suit);assert.equal(s.upgrades[`suit:${suit}`],1);
+});
+
+test('Guest Parade rolls replay exactly, cover both other types, and cannot stack with Neighborhood Streak',()=>{
+ const outcomes=new Set();
+ for(let seed=0;seed<40;seed++){
+  const first=createGame(seed), second=createGame(seed);
+  for(const s of [first,second]){
+   buy(s,'strategy','parade');buy(s,'base','single','frog');
+   buy(s,'base','mystery','cat');buy(s,'growth','recall','frog');
+  }
+  assert.deepEqual(first,second);outcomes.add(first.history[1].paradeSuit);
+ }
+ assert.deepEqual(outcomes,new Set(['bunny','cat']));
+ const s=createGame('one-streak');buy(s,'strategy','foundation');
+ assert.ok(!eligibleCards(s).some(c=>c.type==='parade'));
+});
+
+test('Type Lock can repeat its guest while different bonus floors keep Guest Parade going',()=>{
+ const s=createGame('parade-lock');buy(s,'strategy','parade');buy(s,'base','single','cat');
+ const lock=buy(s,'strategy','attunement','cat');assert.equal(lock.paradeBonus,2);assert.notEqual(s.links.at(-1).suit,'cat');
+ const choice=offer(s,'base','choice');assert.deepEqual(choiceSuits(s),['cat']);
+ const p=preview(s,choice);assert.equal(p.choices.length,1);assert.equal(p.choices[0].endsParade,false);
+ assert.equal(p.choices[0].paradeBonus,3);pick(s,0,'cat');advanceDeal(s);
+ assert.deepEqual(s.parade,{bonus:3});assert.equal(s.attunement.remaining,2);
+});
+
+test('all 24 Mosaic variants compare their first floor to the top, then append a different final bonus',()=>{
+ const mosaics=eligibleCards(createGame('mosaic-parade')).filter(c=>c.type==='mosaic');assert.equal(mosaics.length,24);
+ for(const mosaic of mosaics){
+  for(const previous of [null,...BALANCE.suits.map(s=>s.id)]){
+   const s=createGame('mosaic-parade');if(previous)buy(s,'base','single',previous);
+   buy(s,'reactor','assembler');buy(s,'reactor','suit',mosaic.sequence[0]);buy(s,'strategy','parade');buy(s,'wealth','rebate');
+   s.offer=[mosaic];const before=structuredClone(s),qualifies=mosaic.sequence[0]!==previous,last=mosaic.sequence.at(-1);
+   const p=preview(s,mosaic);assert.equal(p.endsParade,!qualifies);assert.equal(p.paradeBonus,qualifies?1:0);assert.equal(p.headline,qualifies?'+4':'+3');
+   assert.deepEqual(s,before);const replay=structuredClone(s);pick(s,0);pick(replay,0);assert.deepEqual(s,replay);
+   const added=s.links.slice(before.links.length),entry=s.history.at(-1);
+   assert.deepEqual(s.links.slice(0,before.links.length),before.links);assert.deepEqual(added.slice(0,3).map(l=>l.suit),mosaic.sequence);
+   assert.equal(entry.refund,2);assert.equal(s.prizeRng,before.prizeRng);
+   if(!qualifies){assert.equal(s.parade,null);assert.equal(s.paradeRng,before.paradeRng);assert.equal(added.length,3);continue;}
+   assert.notEqual(entry.paradeSuit,last);assert.deepEqual(added.slice(3).map(l=>l.suit),[entry.paradeSuit]);assert.deepEqual(s.parade,{bonus:1});
+   advanceDeal(s);s.offer=[mosaic];
+   const nextQualifies=mosaic.sequence[0]!==entry.paradeSuit;
+   assert.equal(preview(s,mosaic).endsParade,!nextQualifies);assert.equal(preview(s,mosaic).paradeBonus,nextQualifies?2:0);
+   pick(s,0);advanceDeal(s);assert.deepEqual(s.parade,nextQualifies?{bonus:2}:null);
+  }
+ }
+});

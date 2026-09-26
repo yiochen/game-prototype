@@ -2,6 +2,7 @@ import './style.css';
 import './paper-hud.css';
 import './card-table.css';
 import './polish.css';
+import './frenzy.css';
 import { createPaperUI } from './paper-ui.js';
 import { mountLobby } from './lobby.js';
 import { createGuestbook } from './guestbook-storage.js';
@@ -12,7 +13,7 @@ import { mountWorld } from './world.js';
 import { mountScenery } from './scenery.js';
 import { createCardFlight } from './card-flight.js';
 import { paperAudio } from './audio.js';
-import { BALANCE, createGame, segments, longestSegment, preview, baseBonus, pick, advanceDeal, beginRoof, finishRoof, choiceSuits, suitInfo, mysteryOddsText, mysteryOutcomes, outcomePercent, finished } from './engine.js';
+import { BALANCE, createGame, segments, longestSegment, preview, baseBonus, pick, advanceDeal, beginRoof, finishRoof, choiceSuits, suitInfo, mysteryOddsText, mysteryOutcomes, outcomePercent, finished, frenzyActive } from './engine.js';
 
 import './paper-ui.css';
 
@@ -71,6 +72,7 @@ function presentation(card, view = state, chosen) {
   else if (card.family === 'base') detail = 'Fresh rooms, ready to unfold.';
   else if (card.type === 'recall') detail = `One room per ${suitInfo(card.suit).name} balloon.`;
   else if (card.type === 'overgrow') { const source = longestSegment(view); detail = `Copy ${suitInfo(source.suit).name} ×${source.length}. Add at the top.`; }
+  else if (card.type === 'parade') detail = 'Change guests. Random bonus rooms.';
   else if (card.type === 'foundation') detail = 'Same type. A growing bonus.';
   else if (card.type === 'attunement') detail = `${c.shops} shops. Only ${suitInfo(card.suit).name} types.`;
   else if (card.type === 'rebate') { headline = `${c.refund} × ${c.purchases}`; detail = `Coins back on next ${c.purchases} room buys.`; }
@@ -82,6 +84,10 @@ function presentation(card, view = state, chosen) {
 function art(card) {
   const holder = node('div', `card-art art-${card.type}`); holder.setAttribute('aria-hidden', 'true'); holder.dataset.illustration = card.type + (card.suit ? '-' + card.suit : card.sequence ? '-' + card.sequence.join('-') : '');
   if (card.sequence) card.sequence.forEach((type, i) => { if (i) holder.append(node('span', 'art-arrow', '›')); holder.append(img(`resident-${type}-0`, 'mosaic-guest')); });
+  else if (card.type === 'parade') {
+    for (const type of BALANCE.suits) holder.append(img(`resident-${type.id}-3`, 'parade-guest'));
+    holder.append(node('span', 'parade-arrow', '↝'));
+  }
   else if (card.type === 'single') holder.append(img(`resident-${card.suit}-0`, 'art-room'));
   else if (card.type === 'triple') for (let i = 0; i < 3; i++) holder.append(img(`resident-${card.suit}-0`, `pack-room pack-${i}`));
   else if (card.type === 'recall') holder.append(img(`balloon-${card.suit}`, 'call-balloon'), img(`resident-${card.suit}-0`, 'call-room'));
@@ -137,6 +143,7 @@ function renderWorkshop(view) {
   if (view.rebateRemaining) list.push(node('p', 'workshop-item', `Coupon Book · ${view.rebateRemaining} refunds of ${BALANCE.wealth.rebate.refund} coins left`));
   const active = [];
   if (view.foundation) active.push(`Streak ${view.foundation.suit ? suitInfo(view.foundation.suit).name : 'ready'} · next +${view.foundation.bonus + BALANCE.strategy.foundation.bonusStep}`);
+  if (view.parade) active.push(`Guest Parade · next +${view.parade.bonus + BALANCE.strategy.parade.bonusStep} · ${view.links.length ? 'change from ' + suitInfo(view.links.at(-1).suit).name : 'any guest'}`);
   if (view.attunement) active.push(`${suitInfo(view.attunement.suit).name} lock · ${view.attunement.remaining} ${view.attunement.remaining === 1 ? 'shop' : 'shops'}`);
   for (const text of active) list.push(node('p', 'workshop-item', text));
   $('installed').replaceChildren(...(list.length ? list : [node('p', 'empty-workshop', 'Your workshop is waiting. Collect tools and techniques to make every coin go further.')]));
@@ -156,7 +163,15 @@ function renderOffers(view) {
     button.disabled = loading || !!pendingPurchase || state.phase !== 'picking' || card.price > state.cash;
     button.setAttribute('aria-label', `Buy ${title(card)} for ${card.price} coins. ${p.headline}. ${p.fullDetail}`);
     const top = node('div', 'card-top'), price = node('span', 'price'); price.append(img('coin'), node('span', '', card.price)); top.append(price);
-    button.append(top, art(card), node('strong', 'card-title', title(card)));
+    const picture = art(card);
+    if (view.foundation || view.parade) {
+      const options = p.choices ?? [p];
+      const ends = options.every(option => option.endsFoundation || option.endsParade);
+      const bonus = Math.max(...options.map(option => option.foundationBonus || option.paradeBonus));
+      const hint = ends ? 'Ends streak' : card.type === 'choice' && options.length > 1 ? 'Choose to continue' : bonus ? `+${bonus} ${view.parade ? 'random' : 'streak'}` : 'Pauses streak';
+      picture.append(node('span', `streak-hint${ends ? ' streak-break' : ''}`, hint));
+    }
+    button.append(top, picture, node('strong', 'card-title', title(card)));
     const value = node('div', 'card-value'); value.append(node('strong', 'card-effect', p.headline));
     if (card.family === 'base' || card.family === 'growth' || card.type === 'vault') value.append(node('span', '', 'floors'));
     button.append(value);
@@ -196,6 +211,8 @@ function renderRoofOffer() {
 function render() {
   const view = resolvingBefore ?? state, done = finished(state);
   if (!resolvingBefore && document.body.dataset.screen === 'game') scenery.setHeight(state.links.length);
+  const frenzy = document.body.dataset.screen === 'game' && frenzyActive(state);
+  scenery.setFrenzy(frenzy); document.querySelector('.hotel-app').classList.toggle('frenzy', frenzy);
   $('height').textContent = view.links.length; $('coins').textContent = state.cash;
   renderDock(view); renderWorkshop(view); renderOffers(view);
   const deliveryBusy = ['resolving', 'roofing'].includes(state.phase) || !!pendingPurchase;
@@ -224,7 +241,7 @@ function select(index) {
   choiceIndex = index;
   $('room-choices').replaceChildren(...choiceSuits(state).map(type => {
     const p = presentation(card, state, type), button = node('button', `room-choice ${type}`); button.dataset.suit = type;
-    const copy = node('span'); copy.append(node('strong', '', `${suitInfo(type).name} room`), node('small', '', `${p.headline} floors · ${card.price} coins${p.endsFoundation ? ' · Ends your streak' : p.foundationBonus ? ` · Streak +${p.foundationBonus}` : ''}`));
+    const copy = node('span'); copy.append(node('strong', '', `${suitInfo(type).name} room`), node('small', '', `${p.headline} floors · ${card.price} coins${p.endsFoundation || p.endsParade ? ' · Ends your streak' : p.paradeBonus ? ` · Parade +${p.paradeBonus} random rooms` : p.foundationBonus ? ` · Streak +${p.foundationBonus}` : ''}`));
     button.append(img(`resident-${type}-1`), copy, node('span', '', '→'));
     button.addEventListener('click', () => { const selected = choiceIndex; $('choice-dialog').close(); commit(selected, type); }); return button;
   }));
@@ -285,6 +302,7 @@ function applyPurchase(index, selectedType, token, origin) {
       parts.push(`+${entry.links} floors`);
       if (bonus) parts.push(`includes +${bonus} from upgrades`);
       if (entry.foundationBonus) parts.push(`Streak +${entry.foundationBonus}`);
+      if (entry.paradeBonus) parts.push(`Parade +${entry.paradeBonus} ${suitInfo(entry.paradeSuit).name} rooms`);
       for (const badge of $('upgrade-rack').children) {
         if (bonus && (badge.dataset.upgrade === `suit:${entry.suit}` || (badge.dataset.upgrade === 'assembler' && entry.type !== 'mystery'))) feedback.pulse(badge);
       }
@@ -293,6 +311,7 @@ function applyPurchase(index, selectedType, token, origin) {
       const badge = [...$('upgrade-rack').children].find(b => b.dataset.upgrade === (entry.type === 'suit' ? `suit:${entry.suit}` : entry.type)); feedback.pulse(badge);
     }
     if (before.foundation && !state.foundation) parts.push('Streak ended');
+    if (before.parade && !state.parade) parts.push('Guest Parade ended');
     if (before.attunement && !state.attunement) parts.push('Type Lock finished');
     $('status').textContent = parts.join(' · ');
     feedback.announce($('status').textContent);
@@ -325,6 +344,8 @@ function balanceTable() {
   for (const [type, c] of Object.entries(BALANCE.reactor)) rows.push([c.name, c.prices.join(' / '), type === 'stabilizer' ? c.outcomesByLevel.map((_, i) => `Level ${i + 1}: ${mysteryOddsText(state, i + 1)}`).join('; ') : `+${c.values.join(' / +')} floors on future ${type === 'suit' ? 'matching room cards (excludes Mosaic)' : 'One Room, Prefab Pack and Room Choice'}. Levels replace each other.`]);
   const reserve = BALANCE.wealth.vault, coupon = BALANCE.wealth.rebate, streak = BALANCE.strategy.foundation, lock = BALANCE.strategy.attunement;
   rows.push([reserve.name, reserve.price, `1 room per ${reserve.cashPerLink} coins remaining after payment, using the top type (${suitInfo(reserve.openingSuit).name} on an empty hotel).`], [coupon.name, coupon.price, `${coupon.refund} coins back on the next ${coupon.purchases} room buys, including Mosaic. No refresh while active.`], [streak.name, streak.price, `Start at +${streak.bonusStep}; add ${streak.bonusStep} to the bonus per matching typed purchase. Typed powers count. A new type or Mosaic ends it; untyped cards pause it.`], [lock.name, lock.price, `100% matching typed offers for ${lock.shops} shops. Every purchase consumes a shop. No refresh while active.`]);
+  const parade = BALANCE.strategy.parade;
+  rows.push([parade.name, parade.price, `Start with a guest different from the current top floor for +${parade.bonusStep}, +${parade.bonusStep * 2}, +${parade.bonusStep * 3}… bonus rooms. Each bonus batch is one random other type. Mosaic must start differently from the top floor and advances once. Its bonus differs from its last printed guest. Bonus rooms become the new top to compare against. Matching the top ends it; untyped powers pause the bonus. One streak at a time.`]);
   $('balance-table').replaceChildren(...rows.map(row => { const tr = node('tr'); for (const value of row) tr.append(node('td', '', value)); return tr; }));
 }
 function toggleSound() { sound = audio.setEnabled(!sound); guestbook.preference('sound', sound); $('sound-toggle').textContent = sound ? 'Sound on' : 'Sound off'; $('sound-toggle').setAttribute('aria-pressed', String(sound)); shell?.preferences(sound, reduced); }
@@ -359,7 +380,7 @@ $('motion-toggle').addEventListener('click', toggleMotion); motionQuery.addEvent
 document.addEventListener('keydown', event => { if (document.body.dataset.screen === 'game' && !event.repeat && !event.ctrlKey && !event.metaKey && !event.altKey && /^[123]$/.test(event.key) && !document.querySelector('dialog[open]')) { event.preventDefault(); select(Number(event.key) - 1); } });
 balanceTable(); render();
 shell = mountLobby({img, guestbook, paper, isReduced: () => reduced,
-  onScreen: screen => scenery.setHeight(screen === 'game' ? state.links.length : 0, { immediate: true }),
+  onScreen: screen => { scenery.setHeight(screen === 'game' ? state.links.length : 0, { immediate: true }); scenery.setFrenzy(screen === 'game' && frenzyActive(state)); },
   onStart: () => { restoreSound(); restart(requestedSeed || randomSeed()); requestedSeed = null; },
   onResume: () => { restoreSound(); requestedSeed = null; setSeed(); render(); scene?.setState(state); },
   onRules: () => { menuReturn = null; $('rules-dialog').showModal(); },

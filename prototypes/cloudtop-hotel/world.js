@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { ART, SHEETS, spriteArt, registerFrames } from './assets.js';
-import { segments, longestSegment } from './engine.js';
+import { segments, longestSegment, frenzyActive } from './engine.js';
 import { balloonJourneys, balloonPose, BALLOON_DURATION } from './balloon-journey.js';
 
 const TYPES = ['bunny', 'frog', 'cat'];
@@ -180,6 +180,7 @@ class HotelScene extends Phaser.Scene {
       current = a.before.links.length + delivered; state = a.after;
       a.onFrame(current);
     }
+    const frenzy = frenzyActive(state);
     const cameraCount = a ? a.before.links.length + a.after.lastEffect.added * Phaser.Math.Clamp((progress - a.buildStart) / (a.buildEnd - a.buildStart), 0, 1) : current;
     const layout = this.layout(cameraCount), { x, base, width, step, scale } = layout;
     this.tower.y = 0;
@@ -197,11 +198,12 @@ class HotelScene extends Phaser.Scene {
       for (let guest = 0; guest < 3; guest++) {
         const cycle = (this.time.now + floor.id * 617 + guest * 1331) % 7200;
         const rest = [3, 5, 7][(floor.id + guest) % 3];
-        const pose = this.motion && width > 70 ? cycle < 190 ? 4 : cycle > 4000 && cycle < 4850 ? 6 : rest : rest;
+        const pose = frenzy ? 6 : this.motion && width > 70 ? cycle < 190 ? 4 : cycle > 4000 && cycle < 4850 ? 6 : rest : rest;
         const landedAt = a && i >= a.before.links.length ? a.buildStart + (i - a.before.links.length + 1) / a.after.lastEffect.added * (a.buildEnd - a.buildStart) : -1;
         const age = landedAt >= 0 ? (progress - landedAt) * a.duration : Infinity;
+        const cheer = frenzy && this.motion ? Math.sin(this.time.now / 130 + floor.id * .7 + guest * 1.3) : 0;
         const compression = age >= 0 && age < 180 ? Math.sin(age / 180 * Math.PI) * .065 : 0;
-        const building = this.sprite(this.tower, `rooms-${floor.suit}`, pose, x + (guest - 1) * width / 3, y + step * compression / 2, width / 3 + .6, step * (1 - compression) + .5);
+        const building = this.sprite(this.tower, `rooms-${floor.suit}`, pose, x + (guest - 1) * width / 3, y + step * compression / 2 - Math.max(0, cheer) * step * .035, width / 3 + .6, step * (1 - compression) + .5, cheer * .9);
         building.setData('floorId', floor.id).setData('floorType', floor.suit);
       }
       const matched = this.preview?.type === 'recall' && this.preview.suit === floor.suit;
@@ -248,6 +250,8 @@ class HotelScene extends Phaser.Scene {
     if (a && progress < 1) this.drawDelivery(a, progress, layout, current);
     else if (this.preview?.type === 'overgrow' && source) this.drawCopycat(layout, source, 0);
     const balloons = a ? this.drawBalloonJourneys(a, layout) : [];
+    this.game.canvas.dataset.frenzy = String(frenzy);
+    this.game.canvas.dataset.celebratingGuests = String(frenzy ? visible.length * 3 : 0);
     this.game.canvas.dataset.cameraMoving = String(this.cameraMoving);
     this.game.canvas.dataset.visibleFloors = JSON.stringify(visible);
     this.game.canvas.dataset.floorCount = String(current);
@@ -294,6 +298,10 @@ class HotelScene extends Phaser.Scene {
     if (!count) {
       const upgrade = card.type === 'suit' ? `pattern-${card.suit}` : card.type === 'attunement' ? `lock-${card.suit}` : `power-${card.type}`;
       const t = ease(progress), size = Phaser.Math.Linear(96, 28, t);
+      if (card.type === 'parade') {
+        for (const [i, type] of TYPES.entries()) this.image(this.effects, `resident-${type}-3`, Phaser.Math.Linear(originX, x, t) + (i - 1) * size * .42, Phaser.Math.Linear(originY, region.top - 18, t), size * .65, size * .65, 0, 1 - progress ** 4);
+        return;
+      }
       this.image(this.effects, upgrade, Phaser.Math.Linear(originX, x, t), Phaser.Math.Linear(originY, region.top - 18, t), size, size, Math.sin(progress * Math.PI * 3) * (1 - progress) * 8, 1 - progress ** 4);
       return;
     }
@@ -325,6 +333,7 @@ class HotelScene extends Phaser.Scene {
         g.fillRect(x + Math.sin(i * 9) * width * t, top - 10 - Math.sin(t * Math.PI) * 35 + Math.cos(i * 7) * t * 35, 3, 6);
       }
     }
+    if (card.paradeBonus && progress > .45) this.label(this.effects, `Parade +${card.paradeBonus} ${card.paradeSuit}`, x, Math.max(region.top + 10, top - 80), 12, '#fff0a2');
     if (card.foundationBonus && progress > .45) this.label(this.effects, 'Streak +' + card.foundationBonus, x, Math.max(region.top + 10, top - 80), 12, '#fff0a2');
   }
   drawBalloonJourneys(a, layout) {

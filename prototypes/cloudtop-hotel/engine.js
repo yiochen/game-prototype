@@ -41,6 +41,16 @@ export function foundationEffect(state, offer) {
   if (offer.sequence || (offer.suit && state.foundation.suit && offer.suit !== state.foundation.suit)) return { bonus: 0, ends: true };
   return { bonus: offer.suit ? state.foundation.bonus + BALANCE.strategy.foundation.bonusStep : 0, ends: false };
 }
+// Compare the next purchase's starting guest with the actual top floor,
+// including bonus rooms and rooms created while the parade was paused.
+export function paradeEffect(state, offer) {
+  if (!state.parade) return { bonus: 0, ends: false };
+  const first = offer.sequence?.[0] ?? offer.suit;
+  const suit = offer.sequence?.at(-1) ?? offer.suit;
+  if (first && first === state.links.at(-1)?.suit) return { bonus: 0, ends: true };
+  return { bonus: suit ? state.parade.bonus + BALANCE.strategy.parade.bonusStep : 0, ends: false, suit };
+}
+export const frenzyActive = state => !!(state.foundation || state.parade) && ['picking', 'resolving'].includes(state.phase);
 export const sequenceText = offer => offer.sequence.map(suit => suitInfo(suit).name).join(' → ');
 export function weightedPick(items, roll) {
   const total = sum(items.map(item => item.weight));
@@ -101,7 +111,7 @@ export function eligibleCards(state) {
   }
   if (Math.floor((state.cash - BALANCE.wealth.vault.price) / BALANCE.wealth.vault.cashPerLink) > 0) pool.push(card('wealth', 'vault'));
   if (!state.rebateRemaining) pool.push(card('wealth', 'rebate'));
-  if (!state.foundation) pool.push(card('strategy', 'foundation'));
+  if (!state.foundation && !state.parade) pool.push(card('strategy', 'foundation'), card('strategy', 'parade'));
   if (!state.attunement) for (const suit of BALANCE.suits) pool.push(card('strategy', 'attunement', suit.id));
   return state.attunement ? pool.filter(c => !c.sequence && (!c.suit || c.suit === state.attunement.suit)) : pool;
 }
@@ -136,9 +146,9 @@ function deal(state) {
   state.phase = 'picking';
 }
 export function createGame(seed = 'build-an-engine') {
-  const state = { seed: String(seed), rng: seedNumber(seed), prizeRng: seedNumber(`${seed}:prizes`),
+  const state = { seed: String(seed), rng: seedNumber(seed), prizeRng: seedNumber(`${seed}:prizes`), paradeRng: seedNumber(`${seed}:parade`),
     cash: BALANCE.startingCash, spent: 0, refunded: 0, history: [], links: [], nextLinkId: 0, upgrades: {}, rebateRemaining: 0,
-    foundation: null, attunement: null, offer: [], deals: 0, phase: 'picking', lastEffect: null };
+    foundation: null, parade: null, attunement: null, offer: [], deals: 0, phase: 'picking', lastEffect: null };
   deal(state); return state;
 }
 export function canBuy(state, offer) {
@@ -149,10 +159,10 @@ export function preview(state, offer, selectedSuit) {
   if (offer.type === 'choice' && !selectedSuit) {
     const choices = choiceSuits(state).map(suit => ({ suit, ...preview(state, offer, suit) }));
     const values = choices.map(c => Number(c.headline.slice(1)));
-    return { ...choices[0], headline: Math.min(...values) === Math.max(...values) ? `+${values[0]}` : `+${Math.min(...values)}–${Math.max(...values)}`, detail: 'Choose a suit before paying. Reactor, Assembler and Foundation bonuses use your choice.', choices, foundationBonus: 0, endsFoundation: false };
+    return { ...choices[0], headline: Math.min(...values) === Math.max(...values) ? `+${values[0]}` : `+${Math.min(...values)}–${Math.max(...values)}`, detail: 'Choose a suit before paying. Room and streak bonuses use your choice.' + (state.parade ? ' Guest Parade bonus rooms use a random different type.' : ''), choices, foundationBonus: 0, endsFoundation: false, paradeBonus: 0, endsParade: false };
   }
   if (offer.type === 'choice') offer = { ...offer, suit: selectedSuit };
-  const foundation = foundationEffect(state, offer);
+  const foundation = foundationEffect(state, offer), parade = paradeEffect(state, offer);
   const config = BALANCE[offer.family][offer.type];
   const refund = offer.family === 'base' && state.rebateRemaining ? Math.min(BALANCE.wealth.rebate.refund, offer.price - 1) : 0;
   const cashAfter = state.cash - offer.price + refund;
@@ -179,8 +189,8 @@ export function preview(state, offer, selectedSuit) {
       detail = `Future ${offer.type === 'suit' ? suitInfo(offer.suit).name : 'Fixed'} base cards gain +${after}. Replaces the old level.`;
     }
   } else if (offer.family === 'strategy') {
-    headline = offer.type === 'foundation' ? `+${config.bonusStep}…` : '100%';
-    detail = offer.type === 'foundation' ? 'Next suited purchase starts a streak. Matching purchases append a growing bonus; switching suits or buying Mosaic ends it. Suitless purchases pause it.' : `Next ${config.shops} shops: all suited offers are ${suitInfo(offer.suit).name}. Choice 1 is locked to this suit; Mosaic pauses. Every purchase uses one shop.`;
+    headline = config.bonusStep ? `+${config.bonusStep}…` : '100%';
+    detail = offer.type === 'parade' ? 'Start with a guest different from the current top floor to earn +1, +2, +3… bonus rooms. Each bonus batch uses one random type different from the purchase (equal chances). Mosaic compares its first printed guest with the top floor and advances once; its bonus differs from its final printed guest. Matching the top floor ends the parade. Bonus rooms become the new top floor. Untyped powers pause the bonus. One streak at a time.' : offer.type === 'foundation' ? 'Next suited purchase starts a streak. Matching purchases append a growing bonus; switching suits or buying Mosaic ends it. Suitless purchases pause it.' : `Next ${config.shops} shops: all suited offers are ${suitInfo(offer.suit).name}. Choice 1 is locked to this suit; Mosaic pauses. Every purchase uses one shop.`;
   } else if (offer.type === 'vault') { headline = `+${Math.floor(cashAfter / config.cashPerLink)}`; detail = `One ${suitInfo(vaultSuit(state)).name} link per $${config.cashPerLink} left after paying. Extends the tail suit.`; }
   else { headline = `$${config.refund} × ${config.purchases}`; detail = `Refund on your next ${config.purchases} base purchases. Cannot stack.`; }
   if (foundation.bonus) {
@@ -189,7 +199,15 @@ export function preview(state, offer, selectedSuit) {
     detail += ` Foundation appends +${foundation.bonus} ${suitInfo(offer.suit).name} links.`;
   }
   if (foundation.ends) detail += ' Ends Foundation.';
-  return { headline, detail, cashAfter, refund, foundationBonus: foundation.bonus, endsFoundation: foundation.ends };
+  if (parade.bonus) {
+    if (offer.family === 'base' && offer.type === 'mystery') headline = mysteryOutcomes(state).map(o => o.links + baseBonus(state, offer) + parade.bonus).join(' / ');
+    else if (headline.startsWith('+')) headline = `+${Number(headline.slice(1)) + parade.bonus}`;
+    const types = BALANCE.suits.filter(s => s.id !== parade.suit).map(s => s.name).join(' or ');
+    detail += ` Guest Parade appends +${parade.bonus} bonus rooms: all ${types}, chosen randomly with equal chances. The bonus becomes the top floor. Your next typed purchase or first Mosaic guest must differ from that top floor.`;
+  }
+  if (parade.ends) detail += ' Ends Guest Parade.';
+  else if (state.parade && !parade.bonus && offer.type !== 'choice') detail += ' Pauses Guest Parade.';
+  return { headline, detail, cashAfter, refund, foundationBonus: foundation.bonus, endsFoundation: foundation.ends, paradeBonus: parade.bonus, endsParade: parade.ends };
 }
 export function pick(state, index, selectedSuit) {
   if (!Number.isInteger(index) || index < 0 || index >= state.offer.length) return false;
@@ -199,7 +217,7 @@ export function pick(state, index, selectedSuit) {
     if (!choiceSuits(state).includes(selectedSuit)) return false;
     offer = { ...offer, suit: selectedSuit };
   }
-  const foundation = foundationEffect(state, offer);
+  const foundation = foundationEffect(state, offer), parade = paradeEffect(state, offer);
   // The purchase creating Attunement does not consume its first shop.
   if (state.attunement && --state.attunement.remaining === 0) state.attunement = null;
   const config = BALANCE[offer.family][offer.type];
@@ -249,6 +267,9 @@ export function pick(state, index, selectedSuit) {
     if (offer.type === 'foundation') {
       state.foundation = { suit: null, bonus: 0 };
       message = 'Foundation ready. Next suited purchase starts at +1.';
+    } else if (offer.type === 'parade') {
+      state.parade = { bonus: 0 };
+      message = 'Guest Parade ready. Change from the top floor to grow the bonus.';
     } else {
       state.attunement = { suit: offer.suit, remaining: config.shops };
       message = `${suitInfo(offer.suit).name} Attunement: ${config.shops} shops locked.`;
@@ -266,6 +287,18 @@ export function pick(state, index, selectedSuit) {
     state.foundation = { suit: offer.suit, bonus: foundation.bonus };
     entry.foundationBonus = foundation.bonus;
     message += ` Foundation +${foundation.bonus} ${suitInfo(offer.suit).name}.`;
+  }
+  if (parade.ends) {
+    state.parade = null;
+    message += ' Guest Parade ended.';
+  } else if (parade.bonus) {
+    const types = BALANCE.suits.filter(s => s.id !== parade.suit);
+    const bonusSuit = types[Math.floor(random(state, 'paradeRng') * types.length)].id;
+    emit(bonusSuit, parade.bonus);
+    state.parade = { bonus: parade.bonus };
+    entry.paradeBonus = parade.bonus;
+    entry.paradeSuit = bonusSuit;
+    message += ` Guest Parade +${parade.bonus} ${suitInfo(bonusSuit).name} rooms.`;
   }
   entry.links = chain(state) - before;
   state.history.push(entry);
