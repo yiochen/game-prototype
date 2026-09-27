@@ -6,10 +6,10 @@ Guide the engineering of a small yellow submarine through the ruins of a drowned
 
 ## Agreed design
 
-- Portrait mobile first. The upper half is the animated world; the lower half is the weapon lab with a separate parts hold. Cartoon shapes, thick ink outlines, cream instrument panels, turquoise beams, yellow machinery and purple enemies.
+- Portrait mobile first. The upper half is the animated world; the lower half is the weapon lab with a tabbed parts hold and forge. Cartoon shapes, thick ink outlines, cream instrument panels, turquoise beams, yellow machinery and purple enemies.
 - The submarine follows a predefined route, never dodges, and automatically fires every powered gun at incoming enemies. Multiple guns choose targets independently.
 - Every part occupies exactly one square of a 5 × 5 grid. Beams cross empty cells without needing connectors. Part order, rotation, branching and limited space create the puzzle.
-- Defeated enemies drop components. Drops fall to the floor, remain selectable, flash shortly before expiring, then disappear.
+- Every defeated enemy pays cash automatically. Roughly one in four also drops a component (the first kill is guaranteed salvage). Drops fall to the floor, remain selectable, flash shortly before expiring, then disappear.
 - Tap a battlefield drop to salvage it into storage. Drag it directly into the lab to install it, or into storage to save it.
 - Identical parts stack in storage only. Dragging a stack removes one copy only after a valid placement. Installed parts may be dragged to another empty cell or returned to storage.
 - Tap an installed reactor or mirror to rotate it clockwise by 90 degrees. Amplifiers, splitters, lenses and guns accept inputs from any side and do not rotate. Circuit changes apply immediately. Tap is not an information dialog.
@@ -22,7 +22,7 @@ Guide the engineering of a small yellow submarine through the ruins of a drowned
 
 | Part | Behavior |
 | --- | --- |
-| Reactor | Emits a directional beam. One starter reactor; no extra reactor loot in this version. Movable and rotatable. |
+| Reactor | Emits a directional beam. One starter reactor; an extra core can be salvaged later in the dive. Movable and rotatable. |
 | Mirror | Reflects rays by 90 degrees; the mirror diagonal is visible. |
 | Amplifier | Multiplies incoming power by 1.5, up to a per-beam safety cap. Accepts any input side and preserves travel direction. |
 | Splitter | Accepts any input side and emits left/right branches perpendicular to that incoming beam, each with half its power. |
@@ -33,13 +33,34 @@ Empty-space beams travel in cardinal directions. Crossing beams do not interact.
 
 ### Combat and drops
 
-Three waves introduce scout drones, small swarms, and armored crabs, separated by a short refit interval. Target the closest enemy in range. Enemies approach and attack the vessel; it does not evade. Beam damage depends on the circuit, with armor and piercing interacting visibly. Drop lifetimes are 12 simulation seconds after landing, flashing in the final 3. Drops drift slowly with the seabed but stay reachable for their lifetime. Pause, manual, discovery, backgrounding and end screens stop all gameplay clocks. New discoveries appear only after the collection/placement gesture completes.
+Three waves of 8, 13 and 18 enemies introduce scout drones, fast swarms, armored crabs and shielded wardens, separated by a short refit interval. Target the closest enemy in range. Enemies approach and attack the vessel; it does not evade. Beam damage depends on the circuit, with armor and piercing interacting visibly. Drop lifetimes are 12 simulation seconds after landing, flashing in the final 3. Drops drift slowly with the seabed but stay reachable for their lifetime. Pause, manual, discovery, backgrounding and end screens stop all gameplay clocks. New discoveries appear only after the collection/placement gesture completes.
 
-The initial lab fires through one amplifier into one gun. The hold starts with a spare gun and two mirrors. The first defeated drone drops a splitter so the player can expand into two branches quickly. Exact numbers live in balance.js, separate from rules.
+The initial lab fires through one amplifier into one gun. The hold starts with a spare gun, two mirrors and two spare amplifiers. The player starts with 24 cash, enough for an Overcharger. The first defeated drone drops a splitter so the player can expand into two branches quickly. Exact numbers live in balance.js, separate from rules. The starter weapon survives the opening wave but loses in wave two. Forging an Overcharger early and installing the first salvaged lens is a viable path, with substantial hull damage in the final wave.
+
+The submarine starts with a 24-point shield. Damage drains the shield before hull; after six seconds without being hit, it regenerates three points per second. Enemy wardens carry a non-regenerating shield over armored hull. Piercing bypasses armor, hits additional targets, and still has to drain shields. Cash awards range from 5 to 18 by enemy type. The full dive offers 39 kills and 10 part drops.
+
+### Forge
+
+The hold and forge occupy the same compact panel, selected by tabs. Drag a part from the field, lab or hold onto the Forge tab or an empty ingredient slot. After the first ingredient, valid partners glow in the lab, hold and battlefield. Incompatible inputs and occupied slots reject the drop without consuming it. Identical upgraded tiers must match exactly; a base splitter cannot combine with a Trident.
+
+The second ingredient reveals the result, cash price and duration. Press Forge to pay once and lock both ingredients. Combat continues during forging; all simulation pauses also pause this timer, and dragging slows it with the game. Completed output goes into a stack in the hold and triggers the normal first-discovery introduction. Before starting, tap an ingredient to return it or drag it back into the lab/hold. Paid jobs cannot be cancelled. There is one forge job at a time; the forge does not consume lab grid space.
+
+| Ingredients | Output | Effect | Cash / seconds |
+| --- | --- | --- | --- |
+| 2 reactors | Fusion core | Emits 12 energy | 30 / 8 |
+| 2 mirrors | Prism mirror | Turns and amplifies ×1.25 | 16 / 5 |
+| 2 amplifiers | Overcharger | Amplifies ×2.4 | 24 / 6 |
+| 2 splitters | Trident | Three branches, each with half power | 30 / 7 |
+| 2 Tridents | Duplicator | Three branches, each with full power | 65 / 10 |
+| 2 lenses | Rail lens | ×1.25 power, piercing up to three enemies | 28 / 7 |
+| 2 guns | Heavy gun | ×1.6 damage | 24 / 6 |
+| Amplifier + lens | Piercing amplifier | ×1.75 power and two-target piercing | 32 / 8 |
+
+All outputs remain one square and inherit their base component's input rules. Only cores and mirrors rotate. Recipe data lives in recipes.js; component power rules live in balance.js.
 
 ### Controls and feedback
 
-All battlefield drops have large hit targets. A drag preview stays above the finger. Its rendered center determines both the highlighted target and the final drop destination, for grid cells and storage. Empty cells highlight, an outline marks the intended destination, and the live beam preview shows what placement would do. A connected-gun count makes the effect legible. Storage accepts dragged tiles anywhere in its panel. Desktop pointer and keyboard controls supplement touch: focus a reactor or mirror and press Enter/Space to rotate; select a stored part then choose an empty cell to install; arrow keys navigate cells; Delete/Backspace returns a focused installed part to storage. Pause is always available.
+All battlefield drops have large hit targets. A drag preview stays above the finger. Its rendered center determines both the highlighted target and the final drop destination, for grid cells and storage. Empty cells highlight, an outline marks the intended destination, and the live beam preview shows what placement would do. A connected-gun count makes the effect legible. Beam width scales with energy, weakened split branches become thinner/dimmer, amplified paths turn gold, and piercing paths become blue with longer, faster traveling dashes. Tiles show their multiplier or capability; powered guns show final damage and a piercing symbol. Forged tiers carry II/III badges. Hits produce sprite flashes, recoil and floating damage numbers; shield impacts produce blue expanding rings, and cash floats upward on a kill. A blue shield meter sits under the hull meter. Storage accepts dragged tiles anywhere in its panel. Desktop pointer and keyboard controls supplement touch: focus a reactor or mirror and press Enter/Space to rotate; select a stored part then choose an empty cell to install; arrow keys navigate cells; Delete/Backspace returns a focused installed part to storage. Pause is always available.
 
 ## Screen and device acceptance
 
@@ -51,7 +72,7 @@ Phaser 3 renders the world and effects. Framework-independent engine.js owns bea
 
 ## Validation
 
-Engine tests cover beam travel, rotation, splitting, amplification, piercing, inputs from all four sides, cycles, inventory transactions, loot expiry/protection, damage, pause, and win/loss. Browser tests exercise the real UI: start, tap salvage, first discovery, repeat salvage, install/rotate/retrieve tiles, cancelled/invalid drags, manual/pause/restart, mobile touch input and responsive bounds. Capture actual Phaser canvas screenshots at Pixel-shaped portrait and landscape sizes and inspect them. Run all repository engine tests and the production build.
+Engine tests cover beam travel, rotation, splitting, amplification, piercing, inputs from all four sides, cycles, inventory transactions, loot expiry/protection, damage, shields, sparse drops/cash, every forge recipe, affordability, atomic cancellation, timer pauses, upgraded beam effects, and win/loss. Browser tests exercise the real UI: start, tap salvage, first discovery, repeat salvage, install/rotate/retrieve tiles, cancelled/invalid drags, manual/pause/restart, mobile touch input, duplicate and mixed forging, match highlights, upgraded beam visuals, shield effects and responsive bounds. Capture actual Phaser canvas screenshots at Pixel-shaped portrait and landscape sizes and inspect them. Run all repository engine tests and the production build.
 
 ## Explicitly deferred
 

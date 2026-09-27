@@ -71,7 +71,7 @@ test('tap salvage stacks, first acquisition pauses once, guide pauses and discov
   await page.locator(`.loot[data-id="${id2}"]`).click();
   await expect(page.locator('#modal')).not.toBeVisible();
   await expect(page.locator('.stack[data-type="splitter"] .count')).toHaveText('2');
-  await page.locator('#manual').click(); await expect(page.locator('.guide-row')).toHaveCount(6);
+  await page.locator('#manual').click(); await expect(page.locator('.guide-row')).toHaveCount(14);
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().paused)).toBe(true);
   await page.getByRole('button', { name: 'Back to the dive' }).click();
   await page.reload(); await page.getByRole('button', { name: "Let's dive" }).click();
@@ -243,11 +243,108 @@ test('an upgraded circuit reaches the beacon and end-state guide returns to the 
   await boot(page);
   await page.evaluate(() => {
     const grid = window.__deepSalvage.snapshot().grid;
-    grid[12] = { type: 'amplifier', rotation: 0 }; grid[7] = { type: 'lens', rotation: 0 };
+    grid[12] = { type: 'amplifier2', rotation: 0 }; grid[7] = { type: 'lens', rotation: 0 };
     window.__deepSalvage.setGrid(grid); window.__deepSalvage.advance(180);
   });
   await expect(page.locator('#modal-title')).toHaveText('Still in one piece.');
   await page.getByRole('button', { name: 'Study the parts' }).click();
   await page.getByRole('button', { name: 'Back to the dive' }).click();
   await expect(page.locator('#modal-title')).toHaveText('Still in one piece.');
+});
+
+test('drag duplicate parts to forge, highlight matches, pay once, pause timer, and install the upgraded output', async ({ page }) => {
+  await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
+  await drag(page, page.locator('.stack[data-type="amplifier"]'), page.locator('#forge-tab'));
+  await expect(page.locator('.forge-slot[data-slot="0"]')).toHaveAttribute('data-type', 'amplifier');
+  await expect(cell(page, 17)).toHaveClass(/forge-match/);
+  await page.locator('#hold-tab').click();
+  await expect(page.locator('.stack[data-type="amplifier"]')).toHaveClass(/forge-match/);
+  await expect(page.locator('.stack[data-type="mirror"]')).not.toHaveClass(/forge-match/);
+  await shot(page, 'forge-matching-parts');
+  await drag(page, page.locator('.stack[data-type="amplifier"]'), page.locator('#forge-tab'));
+  await expect(page.locator('#forge-result')).toHaveText('Overcharger');
+  await page.evaluate(() => window.__deepSalvage.setCash(23));
+  await expect(page.locator('#forge-start')).toBeDisabled();
+  await page.evaluate(() => window.__deepSalvage.setCash(24));
+  await page.locator('#forge-start').click();
+  await expect(page.locator('#cash-label')).toHaveText('0');
+  await expect(page.locator('.forge-slot').first()).toBeDisabled();
+  await shot(page, 'forge-working');
+  await page.locator('#pause').click();
+  const before = await page.evaluate(() => window.__deepSalvage.snapshot().forge.job.remaining);
+  await page.evaluate(() => window.__deepSalvage.advance(20));
+  expect(await page.evaluate(() => window.__deepSalvage.snapshot().forge.job.remaining)).toBe(before);
+  await page.getByRole('button', { name: 'Keep going' }).click();
+  await page.evaluate(() => window.__deepSalvage.advance(7));
+  await expect(page.locator('#modal-title')).toHaveText('Overcharger.');
+  await page.getByRole('button', { name: "Got it. Let's build" }).click();
+  await page.locator('#hold-tab').click();
+  await expect(page.locator('.stack[data-type="amplifier2"] .count')).toHaveText('1');
+  await drag(page, page.locator('.stack[data-type="amplifier2"]'), cell(page, 12));
+  await expect(cell(page, 2).locator('.part-readout')).toHaveText('28.8');
+  await expect(cell(page, 12).locator('.tier-badge')).toHaveText('II');
+  expect(await page.evaluate(() => window.__deepSalvage.snapshot().forged)).toBe(1);
+});
+
+test('mixed recipe glows on battlefield, rejects incompatible parts, and its output makes stronger piercing beams', async ({ page }) => {
+  await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
+  await page.evaluate(() => window.__deepSalvage.setCash(100));
+  await drag(page, page.locator('.stack[data-type="amplifier"]'), page.locator('#forge-tab'));
+  await page.locator('#hold-tab').click();
+  await drag(page, page.locator('.stack[data-type="mirror"]'), page.locator('#forge-tab'), async () => {
+    await expect(page.locator('#forge-tab')).toHaveClass(/invalid/);
+  });
+  await expect(page.locator('.stack[data-type="mirror"] .count')).toHaveText('2');
+  const id = await page.evaluate(() => window.__deepSalvage.drop('lens'));
+  await expect(page.locator(`.loot[data-id="${id}"]`)).toHaveClass(/forge-match/);
+  await drag(page, page.locator(`.loot[data-id="${id}"]`), page.locator('#forge-tab'));
+  await page.getByRole('button', { name: "Got it. Let's build" }).click();
+  await expect(page.locator('#forge-result')).toHaveText('Piercing amplifier');
+  await page.locator('#forge-start').click();
+  await page.evaluate(() => window.__deepSalvage.advance(9));
+  await expect(page.locator('#modal-title')).toHaveText('Piercing amplifier.');
+  await page.getByRole('button', { name: "Got it. Let's build" }).click();
+  await page.locator('#hold-tab').click();
+  await drag(page, page.locator('.stack[data-type="prism"]'), cell(page, 12));
+  await expect(cell(page, 2).locator('.part-readout')).toHaveText('21 ◆');
+  await expect(page.locator('.beam[data-power="8"][data-piercing="false"]')).toHaveCount(1);
+  await expect(page.locator('.beam[data-power="12"][data-piercing="false"]')).toHaveCount(1);
+  const blue = page.locator('.beam[data-power="21"][data-piercing="true"]');
+  await expect(blue).toHaveCount(2);
+  expect(await blue.first().evaluate(el => parseFloat(el.style.strokeWidth))).toBeGreaterThan(await page.locator('.beam[data-power="8"]').evaluate(el => parseFloat(el.style.strokeWidth)));
+  await shot(page, 'forged-piercing-beam');
+});
+
+test('forge ingredients can be returned safely and forge layout fits small phones and landscape', async ({ page }) => {
+  await boot(page);
+  await drag(page, cell(page, 17), page.locator('#forge-tab'));
+  await page.locator('.forge-slot[data-slot="0"]').click();
+  expect(await page.evaluate(() => window.__deepSalvage.snapshot().inventory.amplifier)).toBe(3);
+  await expect(page.locator('.forge-slot[data-slot="0"]')).toHaveAttribute('data-type', '');
+  for (const [width, height] of [[360, 740], [412, 820], [924, 412]]) {
+    await page.setViewportSize({ width, height });
+    for (const selector of ['#forge', '#forge-start', '.forge-slot']) {
+      const b = await page.locator(selector).first().boundingBox();
+      expect(b.y + b.height).toBeLessThanOrEqual(height); expect(b.x + b.width).toBeLessThanOrEqual(width);
+      expect(b.height).toBeGreaterThanOrEqual(44);
+    }
+    await shot(page, `forge-${width}x${height}`);
+  }
+});
+
+test('combat produces shield and hull feedback for submarine and enemies', async ({ page }) => {
+  await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
+  await page.evaluate(() => {
+    window.__deepSalvage.setEnemies([
+      { id: 900, type: 'warden', hp: 180, maxHp: 180, shield: 40, maxShield: 40, armor: 3, damage: 14, speed: 0, x: .3, y: .4, attackIn: 0, attackInterval: 1.8 },
+      { id: 901, type: 'crab', hp: 125, maxHp: 125, shield: 0, armor: 4, damage: 14, speed: 0, x: .32, y: .65, attackIn: 0, attackInterval: 1.8 },
+    ]);
+    window.__deepSalvage.advance(.01);
+  });
+  const s = await page.evaluate(() => window.__deepSalvage.snapshot());
+  expect(s.hull).toBe(96); expect(s.shield).toBe(0);
+  expect(s.submarine.shieldFlash).toBeGreaterThan(0); expect(s.submarine.hitFlash).toBeGreaterThan(0);
+  expect(s.enemies[0].shieldFlash).toBeGreaterThan(0);
+  await shot(page, 'combat-shield-impact');
+  await expect(page.locator('canvas')).toHaveAttribute('data-ready', 'true');
 });

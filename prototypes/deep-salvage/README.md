@@ -19,15 +19,20 @@ Open `/prototypes/deep-salvage/`. No account or runtime network request is neede
 - Tap an installed reactor or mirror to rotate it. Other components work from any side and do not need rotation. Drag it elsewhere or back into the hold.
 - Dragging slows time. Invalid drops and cancelled gestures preserve the part. The part being held cannot expire.
 - Beam energy crosses empty squares. Mirrors turn it. Amplifiers and lenses work straight through in any direction. Splitters send half the energy left and half right relative to the incoming beam. Guns accept inputs from all four sides.
-- A newly acquired part type pauses the game for its introduction. The guide explains all six types. Only discovery history persists between runs.
+- Every kill pays cash; only one in four drops a part. Drag two compatible parts onto the Forge tab, then pay to start. Matches glow after the first ingredient. The completed upgrade returns to the hold. Tap an idle ingredient to recover it.
+- Thicker beams carry more power, gold means amplified, and blue dashes mean piercing. Gun tiles display final damage. The blue shield meter regenerates after six seconds without damage.
+- A newly acquired part type pauses the game for its introduction. The guide explains all 14 parts and eight forge recipes. Only discovery history persists between runs.
 - Keyboard: Tab to controls, Enter/Space to activate or rotate, arrow keys between grid cells, Delete/Backspace to store a focused tile, Escape to cancel a drag or pause.
 
-Try moving the starter gun to the top-left branch, installing the spare gun on the top-right branch, and placing a splitter above the amplifier with a mirror on each side. Leave empty space between mirrors and guns. Tap the left mirror once to face the correct way.
+Try forging your two spare amplifiers into an Overcharger first, then install it above the starter amplifier. Add the first salvaged lens before your gun to handle armor.
+
+For branching, try moving the starter gun to the top-left branch, installing the spare gun on the top-right branch, and placing a splitter above the amplifier with a mirror on each side. Leave empty space between mirrors and guns. Tap the left mirror once to face the correct way.
 
 ## Structure
 
 - `balance.js`: numbers, waves, drop order and tuning.
-- `engine.js`: deterministic circuit tracing, combat, inventory and loot lifetime; no Phaser or DOM.
+- `recipes.js`: ingredient pairs, costs, durations and outputs.
+- `engine.js`: deterministic circuit tracing, combat, forge jobs, inventory and loot lifetime; no Phaser or DOM.
 - `parts.js`: definitions and shared tile icons.
 - `artwork.js`: SVG texture manifest for the submarine and enemies.
 - `world.js`: Phaser rendering, parallax ruins, actors and beam effects.

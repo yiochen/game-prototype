@@ -8,6 +8,7 @@ export class WorldScene extends Phaser.Scene {
     this.backdrop = this.add.graphics();
     this.sub = this.add.image(0, 0, 'submarine');
     this.actors = new Map();
+    this.labels = new Map();
     this.effects = this.add.graphics();
     this.game.canvas.setAttribute('aria-label', 'Submarine travelling through a sunken city and automatically fighting incoming drones');
     this.game.canvas.setAttribute('role', 'img');
@@ -19,38 +20,65 @@ export class WorldScene extends Phaser.Scene {
     this.paintWorld(w, h, t);
     const size = Math.min(w * 0.34, 160);
     this.sub.setPosition(w * state.submarine.x, h * state.submarine.y).setDisplaySize(size, size * 130 / 240);
-    this.sub.setAngle(Math.sin(t * 0.7) * 2);
+    this.sub.setAngle(Math.sin(t * 0.7) * 2 + Math.sin(t * 90) * state.submarine.hitFlash * 12);
+    this.sub.setTint(state.submarine.hitFlash > 0 ? 0xff9d96 : 0xffffff);
     const ids = new Set();
     for (const enemy of state.enemies) {
       ids.add(enemy.id);
       let sprite = this.actors.get(enemy.id);
-      if (!sprite) { sprite = this.add.image(0, 0, enemy.type === 'crab' ? 'crab' : 'scout'); this.actors.set(enemy.id, sprite); }
-      const width = Math.min(w * (enemy.type === 'crab' ? 0.20 : enemy.type === 'swarm' ? 0.11 : 0.155), 96);
-      sprite.setPosition(enemy.x * w, enemy.y * h + Math.sin(t * 2 + enemy.id) * 3).setDisplaySize(width, width * (enemy.type === 'crab' ? 130 / 150 : 110 / 120));
-      sprite.setAngle(Math.sin(t * 1.3 + enemy.id) * 7);
+      if (!sprite) { sprite = this.add.image(0, 0, ['crab', 'warden'].includes(enemy.type) ? 'crab' : 'scout'); this.actors.set(enemy.id, sprite); }
+      const width = Math.min(w * (['crab', 'warden'].includes(enemy.type) ? 0.20 : enemy.type === 'swarm' ? 0.11 : 0.155), 96);
+      sprite.setPosition(enemy.x * w, enemy.y * h + Math.sin(t * 2 + enemy.id) * 3).setDisplaySize(width, width * (['crab', 'warden'].includes(enemy.type) ? 130 / 150 : 110 / 120));
+      sprite.setAngle(Math.sin(t * 1.3 + enemy.id) * 7 + Math.sin(t * 100) * enemy.hitFlash * 30);
+      sprite.setTint(enemy.hitFlash > 0 ? 0xff887e : enemy.type === 'warden' ? 0x9bddff : 0xffffff);
+      if (enemy.hitFlash > 0) sprite.x += Math.sin(t * 95) * enemy.hitFlash * 14;
     }
     for (const [id, sprite] of this.actors) if (!ids.has(id)) { sprite.destroy(); this.actors.delete(id); }
     this.effects.setDepth(10).clear();
     const g = this.effects;
+    const shieldBubble = (x, y, width, height, charge, flash) => {
+      if (charge <= 0 && !flash) return;
+      g.fillStyle(0x70d9ff, 0.025 + flash * 0.28).fillEllipse(x, y, width, height);
+      g.lineStyle(1.2 + flash * 5, 0x9eeeff, 0.12 + flash * 1.6).strokeEllipse(x, y, width, height);
+      if (flash) g.lineStyle(2, 0xe2fcff, flash * 1.5).strokeEllipse(x, y, width + (0.45 - flash) * 55, height + (0.45 - flash) * 40);
+    };
+    shieldBubble(this.sub.x, this.sub.y, size * 1.14, size * 0.73, state.shield, state.submarine.shieldFlash);
+    for (const enemy of state.enemies) {
+      shieldBubble(enemy.x * w, enemy.y * h, Math.min(w * 0.24, 116), Math.min(w * 0.21, 98), enemy.shield, enemy.shieldFlash);
+    }
     for (const e of state.enemies) {
       if (e.hp === e.maxHp) continue;
-      const x = e.x * w, y = e.y * h - (e.type === 'crab' ? 38 : 30), width = 30;
+      const x = e.x * w, y = e.y * h - (['crab', 'warden'].includes(e.type) ? 38 : 30), width = 30;
       g.fillStyle(0x113b4c, 0.9).fillRoundedRect(x - width / 2 - 1, y - 1, width + 2, 5, 2);
       g.fillStyle(0xf59e88).fillRoundedRect(x - width / 2, y, width * e.hp / e.maxHp, 3, 1);
     }
     for (const shot of state.shots) {
       const color = shot.hostile ? 0xff9c8a : shot.piercing ? 0x8bccff : 0x87fff0;
-      g.lineStyle(8, color, shot.life * 1.8).lineBetween(shot.from.x * w, shot.from.y * h, shot.to.x * w, shot.to.y * h);
+      g.lineStyle(shot.hostile ? 8 : 5 + Math.sqrt(shot.power || 8), color, shot.life * 1.8).lineBetween(shot.from.x * w, shot.from.y * h, shot.to.x * w, shot.to.y * h);
       g.lineStyle(2.2, shot.hostile ? 0xfff0b0 : 0xe9fff7, Math.min(1, shot.life * 8)).lineBetween(shot.from.x * w, shot.from.y * h, shot.to.x * w, shot.to.y * h);
       g.fillStyle(color, 0.7).fillCircle(shot.to.x * w, shot.to.y * h, 3 + shot.life * 13);
     }
+    const liveLabels = new Set();
     for (const burst of state.bursts) {
-      for (let i = 0; i < 8; i++) {
-        const angle = i * Math.PI / 4, radius = (0.5 - burst.life) * 65;
-        g.fillStyle(burst.kind === 'hull' ? 0xff967a : 0xffe2a1, burst.life * 2).fillCircle(burst.x * w + Math.cos(angle) * radius, burst.y * h + Math.sin(angle) * radius, burst.life * 7);
+      const color = burst.kind === 'shield' ? 0x9eeeff : burst.kind === 'hull' || burst.kind === 'hit' ? 0xff967a : 0xffe2a1;
+      if (burst.kind !== 'cash') for (let i = 0; i < 8; i++) {
+        const angle = i * Math.PI / 4, radius = Math.max(0, 0.6 - burst.life) * 65;
+        g.fillStyle(color, Math.min(1, burst.life * 2)).fillCircle(burst.x * w + Math.cos(angle) * radius, burst.y * h + Math.sin(angle) * radius, burst.life * 5);
       }
+      if (!burst.amount) continue;
+      liveLabels.add(burst.id);
+      let label = this.labels.get(burst.id);
+      if (!label) {
+        const text = burst.kind === 'cash' ? `+${burst.amount}¢` : `${burst.kind === 'shield' ? '◇ ' : '−'}${Math.round(burst.amount)}`;
+        label = this.add.text(0, 0, text, { fontFamily: 'system-ui, sans-serif', fontSize: burst.kind === 'cash' ? '16px' : '13px', fontStyle: 'bold', color: burst.kind === 'cash' ? '#ffe3a1' : burst.kind === 'shield' ? '#a6edff' : '#fff1d7', stroke: '#123847', strokeThickness: 3 }).setOrigin(0.5).setDepth(11);
+        this.labels.set(burst.id, label);
+      }
+      const duration = burst.kind === 'cash' ? 1 : 0.6;
+      label.setPosition(burst.x * w, burst.y * h - 24 - (duration - burst.life) * 38).setAlpha(Math.min(1, burst.life * 3));
     }
+    for (const [id, label] of this.labels) if (!liveLabels.has(id)) { label.destroy(); this.labels.delete(id); }
   }
+
   paintWorld(w, h, t) {
     const g = this.backdrop; g.clear();
     for (let i = 0; i < 24; i++) {

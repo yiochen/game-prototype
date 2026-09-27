@@ -1,5 +1,6 @@
-import { BALANCE as B } from './balance.js';
+import { BALANCE as B, PART_RULES } from './balance.js';
 import { PARTS } from './parts.js';
+import { RECIPES, findRecipe, compatibleTypes } from './recipes.js';
 
 const DIR = [[0, -1], [1, 0], [0, 1], [-1, 0]];
 const mod = n => (n + 4) % 4;
@@ -8,9 +9,9 @@ const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 export function traceCircuit(grid) {
   const segments = [], guns = new Map(), active = new Set(), blocked = [], queue = [];
   grid.forEach((part, index) => {
-    if (part?.type === 'reactor') {
+    if (part && (PARTS[part.type].base || part.type) === 'reactor') {
       active.add(index);
-      queue.push({ index, direction: part.rotation, power: B.reactorPower, piercing: false, visited: new Set() });
+      queue.push({ index, direction: part.rotation, power: PART_RULES[part.type].power, piercing: false, targets: 1, visited: new Set() });
     }
   });
   let work = 0;
@@ -28,22 +29,26 @@ export function traceCircuit(grid) {
       const visit = `${index}:${ray.direction}`;
       if (ray.visited.has(visit)) { blocked.push(index); break; }
       const visited = new Set(ray.visited); visited.add(visit);
-      if (part.type === 'reactor') { blocked.push(index); break; }
+      const family = PARTS[part.type].base || part.type, rule = PART_RULES[part.type];
+      if (family === 'reactor') { blocked.push(index); break; }
       active.add(index);
-      if (part.type === 'gun') {
+      if (family === 'gun') {
         const existing = guns.get(index);
-        guns.set(index, { index, power: Math.min(B.powerCap, (existing?.power || 0) + ray.power), piercing: ray.piercing || existing?.piercing || false });
+        const gun = { index, power: Math.min(B.powerCap, (existing?.power || 0) + ray.power * rule.multiplier), piercing: ray.piercing || existing?.piercing || false };
+        if (ray.targets > 2 || existing?.targets > 2) gun.targets = Math.max(ray.targets, existing?.targets || 1);
+        guns.set(index, gun);
         break;
       }
-      const next = { index, power: ray.power, piercing: ray.piercing, visited };
-      if (part.type === 'mirror') {
+      const next = { index, power: Math.min(B.powerCap, ray.power * (rule.multiplier || 1)), piercing: ray.piercing || !!rule.targets, targets: Math.max(ray.targets, rule.targets || 1), visited };
+      if (family === 'mirror') {
         next.direction = (part.rotation % 2 ? [3, 2, 1, 0] : [1, 0, 3, 2])[ray.direction];
         queue.push(next);
-      } else if (part.type === 'splitter') {
-        queue.push({ ...next, power: ray.power / 2, direction: mod(ray.direction + 1) });
-        queue.push({ ...next, power: ray.power / 2, direction: mod(ray.direction + 3) });
+      } else if (family === 'splitter') {
+        queue.push({ ...next, power: ray.power * rule.fraction, direction: mod(ray.direction + 1) });
+        queue.push({ ...next, power: ray.power * rule.fraction, direction: mod(ray.direction + 3) });
+        if (rule.forward) queue.push({ ...next, power: ray.power * rule.fraction, direction: ray.direction });
       } else {
-        queue.push({ ...next, power: part.type === 'amplifier' ? Math.min(B.powerCap, ray.power * B.amplifier) : ray.power, piercing: ray.piercing || part.type === 'lens', direction: ray.direction });
+        queue.push({ ...next, direction: ray.direction });
       }
       break;
     }
@@ -58,12 +63,14 @@ export function createState(known = []) {
   grid[2] = { type: 'gun', rotation: 0 };
   return {
     status: 'ready', paused: false, elapsed: 0, hull: B.hull,
-    grid, inventory: { mirror: 2, gun: 1, amplifier: 0, splitter: 0, lens: 0, reactor: 0 },
+    grid, inventory: { mirror: 2, gun: 1, amplifier: 2, splitter: 0, lens: 0, reactor: 0 },
+    cash: B.startingCash, shield: B.shield, shieldCooldown: 0, forged: 0,
+    forge: { slots: [null, null], job: null }, notices: [],
     discovered: new Set(['reactor', 'amplifier', 'gun', 'mirror', ...known.filter(type => PARTS[type])]),
     discoveries: [], wave: 0, spawned: 0, spawnIn: 2, rest: 0,
     enemies: [], drops: [], shots: [], bursts: [], cooldowns: {},
     circuit: traceCircuit(grid), serial: 0, kills: 0, salvaged: 0,
-    heldDrop: null, revision: 0, submarine: { ...B.submarine },
+    heldDrop: null, revision: 0, submarine: { ...B.submarine, hitFlash: 0, shieldFlash: 0 },
   };
 }
 
@@ -82,6 +89,7 @@ function acquire(state, type) {
 }
 
 export function sourcePart(state, source) {
+  if (source.kind === 'forge') return !state.forge.job ? state.forge.slots[source.index] || null : null;
   if (source.kind === 'grid') return state.grid[source.index] || null;
   if (source.kind === 'storage') return state.inventory[source.type] > 0 ? { type: source.type, rotation: 0 } : null;
   if (source.kind === 'drop') {
@@ -91,22 +99,60 @@ export function sourcePart(state, source) {
   return null;
 }
 
+export function forgeMatches(state) {
+  const ingredients = state.forge.slots.filter(Boolean);
+  return !state.forge.job && ingredients.length === 1 ? compatibleTypes(ingredients[0].type) : new Set();
+}
+
+export function forgeRecipe(state) {
+  const [a, b] = state.forge.slots;
+  return a && b ? findRecipe(a.type, b.type) : null;
+}
+
+export function canAddToForge(state, type, index = state.forge.slots.findIndex(p => !p)) {
+  if (state.forge.job || ![0, 1].includes(index) || state.forge.slots[index]) return false;
+  const other = state.forge.slots[1 - index];
+  return other ? !!findRecipe(type, other.type) : RECIPES.some(r => r.ingredients.includes(type));
+}
+
+export function startForge(state) {
+  const recipe = forgeRecipe(state);
+  if (state.status !== 'running' || state.paused || state.forge.job || !recipe || state.cash < recipe.cost) return false;
+  state.cash -= recipe.cost;
+  state.forge.job = { ...recipe, remaining: recipe.seconds };
+  state.revision++; return true;
+}
+
+function advanceForge(state, dt) {
+  const job = state.forge.job; if (!job) return;
+  job.remaining = Math.max(0, job.remaining - dt);
+  if (job.remaining > 0) return;
+  state.inventory[job.output] = (state.inventory[job.output] || 0) + 1;
+  acquire(state, job.output); state.forged++;
+  state.notices.push(`${PARTS[job.output].name} forged · added to hold`);
+  state.forge = { slots: [null, null], job: null }; state.revision++;
+}
+
 // Validate first, then commit. Invalid/cancelled gestures never consume anything.
 export function movePart(state, source, target) {
   if (state.status === 'won' || state.status === 'lost') return false;
   const part = sourcePart(state, source);
   if (!part) return false;
   if (target.kind === 'grid' && (!Number.isInteger(target.index) || target.index < 0 || target.index >= 25 || state.grid[target.index])) return false;
-  if (!['grid', 'storage'].includes(target.kind)) return false;
+  if (!['grid', 'storage', 'forge'].includes(target.kind)) return false;
+  const forgeIndex = target.index ?? state.forge.slots.findIndex(p => !p);
+  if (target.kind === 'forge' && (source.kind === 'forge' || !canAddToForge(state, part.type, forgeIndex))) return false;
   if (source.kind === 'storage' && target.kind === 'storage') return false;
   if (source.kind === 'grid') state.grid[source.index] = null;
   if (source.kind === 'storage') state.inventory[part.type]--;
+  if (source.kind === 'forge') state.forge.slots[source.index] = null;
   if (source.kind === 'drop') {
     state.drops = state.drops.filter(item => item.id !== source.id);
     state.salvaged++;
     acquire(state, part.type);
   }
   if (target.kind === 'storage') state.inventory[part.type] = (state.inventory[part.type] || 0) + 1;
+  else if (target.kind === 'forge') state.forge.slots[forgeIndex] = { ...part };
   else state.grid[target.index] = { ...part };
   state.heldDrop = null;
   rebuild(state); return true;
@@ -123,12 +169,22 @@ function killEnemy(state, enemy) {
   if (enemy.dead) return;
   enemy.dead = true;
   state.bursts.push({ id: ++state.serial, x: enemy.x, y: enemy.y, life: 0.5, kind: 'enemy' });
-  spawnDrop(state, B.lootOrder[state.kills % B.lootOrder.length], enemy.x, enemy.y);
+  const reward = enemy.bounty || 5;
+  state.cash += reward;
+  state.bursts.push({ id: ++state.serial, x: enemy.x, y: enemy.y, life: 1, kind: 'cash', amount: reward });
+  if (state.kills % B.partDropEvery === 0) spawnDrop(state, B.lootOrder[Math.floor(state.kills / B.partDropEvery) % B.lootOrder.length], enemy.x, enemy.y);
   state.kills++;
 }
 
 function step(state, dt) {
   state.elapsed += dt;
+  advanceForge(state, dt);
+  state.shieldCooldown = Math.max(0, state.shieldCooldown - dt);
+  if (!state.shieldCooldown) state.shield = Math.min(B.shield, state.shield + B.shieldRegen * dt);
+  for (const actor of [state.submarine, ...state.enemies]) {
+    actor.hitFlash = Math.max(0, (actor.hitFlash || 0) - dt);
+    actor.shieldFlash = Math.max(0, (actor.shieldFlash || 0) - dt);
+  }
   state.submarine.y = B.submarine.y + Math.sin(state.elapsed * 0.35) * 0.025;
   for (const shot of state.shots) shot.life -= dt;
   for (const burst of state.bursts) burst.life -= dt;
@@ -151,7 +207,7 @@ function step(state, dt) {
     state.spawnIn -= dt;
     if (state.spawnIn <= 0) {
       const type = wave.enemies[state.spawned], stats = B.enemies[type];
-      state.enemies.push({ id: ++state.serial, type, ...stats, maxHp: stats.hp, x: 1.04, y: [0.34, 0.60, 0.45, 0.26, 0.66][state.spawned % 5], attackIn: stats.attackInterval });
+      state.enemies.push({ id: ++state.serial, type, ...stats, shield: stats.shield || 0, maxShield: stats.shield || 0, hitFlash: 0, shieldFlash: 0, maxHp: stats.hp, x: 1.04, y: [0.34, 0.60, 0.45, 0.26, 0.66][state.spawned % 5], attackIn: stats.attackInterval });
       state.spawned++; state.spawnIn += wave.interval;
     }
   }
@@ -161,10 +217,15 @@ function step(state, dt) {
     else {
       enemy.attackIn -= dt;
       if (enemy.attackIn <= 0) {
-        state.hull = Math.max(0, state.hull - enemy.damage);
+        const absorbed = Math.min(state.shield, enemy.damage);
+        state.shield -= absorbed; state.shieldCooldown = B.shieldDelay;
+        const hullDamage = enemy.damage - absorbed;
+        state.hull = Math.max(0, state.hull - hullDamage);
+        if (absorbed) state.submarine.shieldFlash = 0.45;
+        if (hullDamage) state.submarine.hitFlash = 0.35;
         enemy.attackIn += enemy.attackInterval;
         state.shots.push({ id: ++state.serial, from: { x: enemy.x, y: enemy.y }, to: { ...state.submarine }, life: 0.22, hostile: true });
-        state.bursts.push({ id: ++state.serial, ...state.submarine, life: 0.35, kind: 'hull' });
+        state.bursts.push({ id: ++state.serial, x: state.submarine.x, y: state.submarine.y, life: 0.6, kind: hullDamage ? 'hull' : 'shield', amount: enemy.damage });
       }
     }
   }
@@ -175,10 +236,16 @@ function step(state, dt) {
     const targets = state.enemies.filter(e => !e.dead && e.x < 0.99).sort((a, b) => a.x - b.x);
     const target = targets[0];
     if (!target) continue;
-    const hits = gun.piercing ? targets.slice(0, 2) : [target];
+    const hits = gun.piercing ? targets.slice(0, gun.targets || 2) : [target];
     for (const enemy of hits) {
-      enemy.hp -= Math.max(1, gun.power - (gun.piercing ? 0 : enemy.armor));
-      state.shots.push({ id: ++state.serial, from: { x: state.submarine.x + 0.09, y: state.submarine.y - 0.02 + (gun.index % 2) * 0.055 }, to: { x: enemy.x, y: enemy.y }, life: 0.20, piercing: gun.piercing });
+      const damage = Math.max(1, gun.power - (gun.piercing ? 0 : enemy.armor));
+      const absorbed = Math.min(enemy.shield || 0, damage);
+      enemy.shield = (enemy.shield || 0) - absorbed;
+      enemy.hp -= damage - absorbed;
+      if (absorbed) enemy.shieldFlash = 0.45;
+      if (damage > absorbed) enemy.hitFlash = 0.25;
+      state.bursts.push({ id: ++state.serial, x: enemy.x, y: enemy.y, life: 0.6, kind: absorbed ? 'shield' : 'hit', amount: damage });
+      state.shots.push({ id: ++state.serial, from: { x: state.submarine.x + 0.09, y: state.submarine.y - 0.02 + (gun.index % 2) * 0.055 }, to: { x: enemy.x, y: enemy.y }, life: 0.20, power: gun.power, piercing: gun.piercing });
       if (enemy.hp <= 0) killEnemy(state, enemy);
     }
     state.cooldowns[gun.index] = B.shotInterval;

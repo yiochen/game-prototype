@@ -1,6 +1,11 @@
 export const BALANCE = Object.freeze({
   gridSize: 5,
   hull: 100,
+  shield: 24,
+  shieldDelay: 6,
+  shieldRegen: 3,
+  startingCash: 24,
+  partDropEvery: 4,
   reactorPower: 8,
   amplifier: 1.5,
   powerCap: 48,
@@ -12,14 +17,27 @@ export const BALANCE = Object.freeze({
   submarine: { x: 0.23, y: 0.49 },
   floor: 0.86,
   enemies: {
-    scout: { hp: 30, speed: 0.055, damage: 5, attackInterval: 1.6, armor: 0 },
-    swarm: { hp: 14, speed: 0.09, damage: 3, attackInterval: 1.2, armor: 0 },
-    crab: { hp: 90, speed: 0.047, damage: 9, attackInterval: 2, armor: 3 },
+    scout: { hp: 38, speed: 0.065, damage: 7, attackInterval: 1.5, armor: 0, bounty: 8 },
+    swarm: { hp: 20, speed: 0.115, damage: 5, attackInterval: 1.0, armor: 0, bounty: 5 },
+    crab: { hp: 125, speed: 0.055, damage: 12, attackInterval: 1.8, armor: 4, bounty: 14 },
+    warden: { hp: 180, shield: 40, speed: 0.06, damage: 14, attackInterval: 1.8, armor: 3, bounty: 18 },
   },
   waves: [
-    { name: 'The sunken quarter', interval: 4.2, enemies: ['scout', 'scout', 'swarm', 'swarm', 'scout', 'scout'] },
-    { name: 'Through the kelp', interval: 3.5, enemies: ['scout', 'swarm', 'swarm', 'crab', 'swarm', 'scout', 'swarm', 'crab'] },
-    { name: 'The last beacon', interval: 2.2, enemies: ['crab', 'swarm', 'scout', 'swarm', 'crab', 'swarm', 'scout', 'crab', 'swarm', 'crab'] },
+    { name: 'The sunken quarter', interval: 3.8, enemies: ['scout', 'scout', 'swarm', 'swarm', 'scout', 'crab', 'swarm', 'scout'] },
+    { name: 'Through the kelp', interval: 1.9, enemies: ['scout', 'swarm', 'swarm', 'crab', 'scout', 'warden', 'swarm', 'swarm', 'crab', 'scout', 'warden', 'swarm', 'crab'] },
+    { name: 'The last beacon', interval: 1.0, enemies: ['warden', 'swarm', 'crab', 'swarm', 'scout', 'crab', 'swarm', 'warden', 'swarm', 'crab', 'scout', 'warden', 'swarm', 'crab', 'swarm', 'warden', 'crab', 'warden'] },
   ],
-  lootOrder: ['splitter', 'mirror', 'gun', 'amplifier', 'lens', 'amplifier', 'mirror', 'gun'],
+  lootOrder: ['splitter', 'lens', 'amplifier', 'splitter', 'gun', 'splitter', 'splitter', 'lens', 'reactor', 'amplifier'],
+});
+
+export const PART_RULES = Object.freeze({
+  reactor: { power: BALANCE.reactorPower }, reactor2: { power: 12 },
+  amplifier: { multiplier: BALANCE.amplifier }, amplifier2: { multiplier: 2.4 },
+  mirror: { multiplier: 1 }, mirror2: { multiplier: 1.25 },
+  splitter: { fraction: 0.5, forward: false },
+  splitter2: { fraction: 0.5, forward: true },
+  splitter3: { fraction: 1, forward: true },
+  lens: { targets: 2, multiplier: 1 }, lens2: { targets: 3, multiplier: 1.25 },
+  gun: { multiplier: 1 }, gun2: { multiplier: 1.6 },
+  prism: { multiplier: 1.75, targets: 2 },
 });

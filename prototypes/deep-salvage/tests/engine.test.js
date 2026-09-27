@@ -169,8 +169,8 @@ test('piercing bypasses armor and damages a second target', () => {
 test('disconnected weapons lead to loss; an upgraded machine can complete all three waves', () => {
   const lost = createState(); lost.grid[2] = null; rebuild(lost); startDive(lost); tick(lost, 180);
   assert.equal(lost.status, 'lost'); assert.equal(lost.hull, 0);
-  const won = createState(); won.grid[12] = part('amplifier'); won.grid[7] = part('lens'); rebuild(won); startDive(won); tick(won, 180);
-  assert.equal(won.status, 'won'); assert.equal(won.wave, 2); assert.equal(won.kills, 24);
+  const won = createState(); won.grid[12] = part('amplifier2'); won.grid[7] = part('lens'); rebuild(won); startDive(won); tick(won, 180);
+  assert.equal(won.status, 'won'); assert.equal(won.wave, 2); assert.equal(won.kills, 39);
   const finalTime = won.elapsed; tick(won, 1); assert.equal(won.elapsed, finalTime);
 });
 
@@ -178,5 +178,5 @@ test('later waves require engineering, while the opening wave gives time to salv
   const state = createState(); startDive(state); tick(state, 25);
   assert.equal(state.hull, 100); assert.ok(state.kills >= 4);
   tick(state, 155);
-  assert.equal(state.status, 'lost'); assert.equal(state.wave, 2);
+  assert.equal(state.status, 'lost'); assert.equal(state.wave, 1);
 });
