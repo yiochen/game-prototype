@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
 
-const URL = '/prototypes/deep-salvage/?test';
+// Netlify's documented query flag keeps its review drawer off the mobile controls.
+const URL = '/prototypes/deep-salvage/?test&ntl-drawer-state=hidden';
 const cell = (page, index) => page.locator(`.cell[data-index="${index}"]`);
 async function boot(page) {
   await page.goto(URL);
