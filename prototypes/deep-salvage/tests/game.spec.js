@@ -36,7 +36,7 @@ async function shot(page, name) {
 async function bounds(page) {
   return page.evaluate(() => {
     const box = selector => { const r = document.querySelector(selector).getBoundingClientRect(); return { x: r.x, y: r.y, w: r.width, h: r.height, bottom: r.bottom, right: r.right }; };
-    return { world: box('#world'), console: box('#console'), board: box('#board'), storage: box('#storage'), cell: box('.cell'), footer: box('.console-footer'), width: innerWidth, height: innerHeight, scrollWidth: document.documentElement.scrollWidth, scrollHeight: document.documentElement.scrollHeight };
+    return { world: box('#world'), console: box('#console'), board: box('#board'), storage: box('#storage'), forge: box('#forge'), cell: box('.cell'), footer: box('.console-footer'), width: innerWidth, height: innerHeight, scrollWidth: document.documentElement.scrollWidth, scrollHeight: document.documentElement.scrollHeight };
   });
 }
 
@@ -52,7 +52,16 @@ test('Pixel-shaped portrait and landscape layouts fit, render Phaser art and sta
     expect(b.board.y).toBeGreaterThanOrEqual(b.console.y);
     expect(b.board.bottom).toBeLessThanOrEqual(b.storage.y + 1);
     expect(b.footer.bottom).toBeLessThanOrEqual(height + 1);
-    expect(b.board.right).toBeLessThanOrEqual(width);
+    expect(b.board.right).toBeLessThanOrEqual(b.forge.x);
+    expect(b.forge.right).toBeLessThanOrEqual(width);
+    expect(b.forge.y).toBeLessThanOrEqual(b.board.y + 1);
+    expect(b.forge.bottom).toBeLessThanOrEqual(height);
+    const slots = await page.locator('.forge-slot').evaluateAll(els => els.map(el => { const r = el.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, bottom: r.bottom }; }));
+    for (let i = 0; i < slots.length; i++) {
+      expect(slots[i].width).toBeGreaterThanOrEqual(44);
+      expect(slots[i].x).toBe(slots[0].x);
+      if (i) expect(slots[i].y).toBeGreaterThanOrEqual(slots[i - 1].bottom);
+    }
     expect(b.cell.w).toBeGreaterThanOrEqual(44);
     await shot(page, name);
   }

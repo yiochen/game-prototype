@@ -18,23 +18,28 @@ dialog{border:2px solid #315762;border-radius:24px;background:var(--cream);color
 
 @media(max-height:780px) and (orientation:portrait){#game{grid-template-rows:44% 56%}.lab-header .eyebrow{display:none}.lab-header{height:34px}.console-footer{display:none}}
 
-/* Workshop shares one compact footprint with the hold, preserving the lab. */
+/* Combat meters. */
 #game{grid-template-rows:47% 53%}.world-hud{gap:7px}.hull-badge{width:76px;flex:none}.icon-button{flex:none}.cash-badge{display:flex;align-items:center;gap:4px;color:#ffe0a0;background:#143947d9;border:1px solid #9f9365;border-radius:11px;padding:7px;font-size:15px;font-weight:1000;min-width:48px;justify-content:center}.cash-badge>span{color:#efc465}.shield-track{grid-column:1/-1;height:3px;border-radius:8px;background:#294e56;overflow:hidden}.shield-track i{display:block;height:100%;background:#7cc9ff;transition:width .15s}.taking-damage{box-shadow:0 0 12px #ff8c78!important;border-color:#ffa38c!important}
-/* Hold and four-slot forge remain visible together. */
-#workshop{flex:none;display:grid;grid-template-columns:minmax(0,1fr) 194px;gap:6px;height:116px}
-#storage,#forge{display:grid;grid-template-rows:16px 44px 44px;gap:2px;padding:4px;border:1px solid #c5c9b3;border-radius:11px;background:#e5e2ce;min-width:0;height:116px;box-shadow:inset 0 1px #faf7e6}
-#storage h2,#forge h2{margin:0;padding:0 3px;font-size:11px;line-height:16px;font-weight:1000;display:flex;align-items:center;justify-content:space-between}
-#storage h2 span,#forge h2 span{color:#7f8975;font-size:8px}
-#stacks{min-height:44px;min-width:0;gap:5px;scroll-behavior:smooth}.stack{margin:0 1px;height:44px}
-.hold-controls{display:flex;align-items:center;justify-content:space-between;gap:2px;min-width:0}.hold-controls>span{font-size:7px;line-height:1.2;font-weight:900;color:#788675;text-align:center}
+/* The forge occupies a vertical rail alongside the grid and the parts hold. */
+#console{padding-inline:12px}
+#workshop{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 84px;grid-template-rows:minmax(0,1fr) 76px;gap:8px}
+.board-area{grid-column:1;grid-row:1;padding:0}
+#storage,#forge{border:1px solid #c5c9b3;border-radius:11px;background:#e5e2ce;min-width:0;box-shadow:inset 0 1px #faf7e6}
+#storage{grid-column:1;grid-row:2;display:grid;grid-template-columns:1fr auto;grid-template-rows:16px 44px;gap:4px;padding:5px;height:76px}
+#forge{grid-column:2;grid-row:1 / 3;display:flex;flex-direction:column;align-items:stretch;gap:7px;padding:7px 5px;min-height:0}
+#storage h2,#forge h2{margin:0;font-size:11px;line-height:16px;font-weight:1000;display:flex;align-items:center;justify-content:space-between;gap:3px}
+#storage h2 span,#forge h2 span{color:#7f8975;font-size:8px}#forge h2{flex-wrap:wrap;justify-content:center}#forge-badge{width:100%;text-align:center;line-height:10px}
+#storage-hint{font-size:7px;line-height:16px;font-weight:900;color:#788675;text-align:right;align-self:center}
+#stacks{min-height:44px;min-width:0;flex:1;gap:5px;scroll-behavior:smooth}.stack{margin:0 1px;height:44px}
+.hold-controls{grid-column:1/-1;display:flex;align-items:center;gap:3px;min-width:0}
 .hold-nav{flex:none;width:44px;height:44px;border:0;border-radius:8px;background:#d9ddc7;font-size:23px;color:#748876}
 #storage.drop-target,#forge.drop-target{background:#c9dec1;outline:2px solid #479988;outline-offset:-2px}#forge.invalid{outline:2px solid #cb7858;outline-offset:-2px}#forge.working{border-color:#c8a45f}
-#forge-slots{display:flex;align-items:center;gap:2px}.forge-slot{flex:none;width:44px;height:44px;padding:3px;border:1px dashed #9aaa8e;border-radius:8px;background:#d9dcc3;font-size:20px;font-weight:900;color:#8a9b82}.forge-slot:disabled{opacity:.7}.forge-slot .part-art{border-radius:6px}
-.forge-controls{display:flex;align-items:center;gap:3px;min-width:0}.forge-summary{flex:1;min-width:0}.forge-summary strong{display:block;font-size:10px;line-height:1.15}.forge-summary>span{display:block;font-size:8px;line-height:1.2;color:#7b856d;margin-top:2px}.forge-meter{height:3px;background:#c9cfb3;margin-top:3px;border-radius:5px;overflow:hidden}.forge-meter i{display:block;height:100%;background:#dd9b3d}
-#forge-start{flex:none;width:62px;min-height:44px;padding:3px;border:1px solid #9b7c45;border-radius:8px;background:#f2c66a;color:#5d4b2e;font-size:10px;font-weight:1000;box-shadow:0 2px #bc9550}#forge-start:disabled{background:#d8d9c2;box-shadow:none;border-color:#bec5a7;color:#91977d}
+#forge-slots{display:flex;flex-direction:column;align-items:center;gap:5px}.forge-slot{flex:none;width:44px;height:44px;padding:3px;border:1px dashed #9aaa8e;border-radius:8px;background:#d9dcc3;font-size:20px;font-weight:900;color:#8a9b82}.forge-slot:disabled{opacity:.7}.forge-slot .part-art{border-radius:6px}
+.forge-controls{display:flex;flex:1;flex-direction:column;justify-content:space-between;align-items:stretch;gap:6px;min-width:0}.forge-summary{min-width:0;text-align:center}.forge-summary strong{display:block;font-size:10px;line-height:1.15;overflow-wrap:anywhere}.forge-summary>span{display:block;font-size:8px;line-height:1.2;color:#7b856d;margin-top:3px}.forge-meter{height:3px;background:#c9cfb3;margin-top:5px;border-radius:5px;overflow:hidden}.forge-meter i{display:block;height:100%;background:#dd9b3d}
+#forge-start{flex:none;width:100%;min-height:44px;padding:3px;border:1px solid #9b7c45;border-radius:8px;background:#f2c66a;color:#5d4b2e;font-size:10px;font-weight:1000;box-shadow:0 2px #bc9550}#forge-start:disabled{background:#d8d9c2;box-shadow:none;border-color:#bec5a7;color:#91977d}
 .recipe-list{display:grid;gap:10px;margin-bottom:24px}.recipe-row{padding:10px;border:1px solid #c7cfb6;border-radius:10px;background:#e8e7d3}.recipe-ingredients{font-size:11px;color:#687c6e}.recipe-row>strong{display:block;font-size:13px;color:#34554d;margin-top:3px}.recipe-row p{margin:5px 0;font-size:11px;line-height:1.4;color:#61776e}.recipe-row small{font-size:10px;font-weight:900;color:#97723c}
 .forge-match .part-art{outline:2px solid #e4a73c;outline-offset:2px;box-shadow:0 0 10px #efbd4777!important}.tier-badge{position:absolute;right:-2px;top:-3px;font-size:8px;font-weight:1000;border:1px solid #926129;border-radius:3px;background:#f8d175;color:#644b2b;line-height:12px;min-width:12px;text-align:center;z-index:3}
 .part-readout{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);max-width:100%;padding:0 3px;border-radius:3px;font-size:7px;line-height:11px;font-weight:1000;white-space:nowrap;background:#22434bec;color:#e8f8da;z-index:3;pointer-events:none}.cell .part-symbol{inset:1px 2px 8px}.cell.inactive .part-readout{background:#738578}.piercing-flow{stroke:#fff!important;stroke-dasharray:10 8;animation-duration:.6s}
-@media(max-height:780px) and (orientation:portrait){#game{grid-template-rows:39% 61%}#toast{bottom:calc(61% + 16px)}}
-@media(min-height:781px) and (max-height:850px) and (orientation:portrait){#game{grid-template-rows:43% 57%}#toast{bottom:calc(57% + 16px)}}
-@media(orientation:landscape) and (max-height:649px){#game{grid-template-rows:100%}#console{padding-top:3px;padding-bottom:1px}.lab-header{height:33px}.circuit-status{min-height:14px}.circuit-status>span:last-child{display:none}#workshop{height:106px}#storage,#forge{height:106px;padding:1px 4px;grid-template-rows:14px 44px 44px;gap:0}#storage h2,#forge h2{line-height:14px}.console-footer{display:none}}
+@media(max-height:780px) and (orientation:portrait){#game{grid-template-rows:44% 56%}#toast{bottom:calc(56% + 16px)}}
+@media(max-width:380px) and (orientation:portrait){#console{padding-inline:6px}#storage-hint{display:none}#storage h2{grid-column:1/-1}}
+@media(orientation:landscape) and (max-height:649px){#game{grid-template-rows:100%}#console{padding-top:3px;padding-bottom:3px}.lab-header{height:33px}.circuit-status{min-height:14px}.circuit-status>span:last-child{display:none}.console-footer{display:none}}
