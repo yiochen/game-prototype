@@ -1,0 +1,25 @@
+export const BALANCE = Object.freeze({
+  gridSize: 5,
+  hull: 100,
+  reactorPower: 8,
+  amplifier: 1.5,
+  powerCap: 48,
+  shotInterval: 0.85,
+  lootLife: 12,
+  lootFlash: 3,
+  dragSpeed: 0.2,
+  intermission: 7,
+  submarine: { x: 0.23, y: 0.49 },
+  floor: 0.86,
+  enemies: {
+    scout: { hp: 30, speed: 0.055, damage: 5, attackInterval: 1.6, armor: 0 },
+    swarm: { hp: 14, speed: 0.09, damage: 3, attackInterval: 1.2, armor: 0 },
+    crab: { hp: 90, speed: 0.047, damage: 9, attackInterval: 2, armor: 3 },
+  },
+  waves: [
+    { name: 'The sunken quarter', interval: 4.2, enemies: ['scout', 'scout', 'swarm', 'swarm', 'scout', 'scout'] },
+    { name: 'Through the kelp', interval: 3.5, enemies: ['scout', 'swarm', 'swarm', 'crab', 'swarm', 'scout', 'swarm', 'crab'] },
+    { name: 'The last beacon', interval: 2.2, enemies: ['crab', 'swarm', 'scout', 'swarm', 'crab', 'swarm', 'scout', 'crab', 'swarm', 'crab'] },
+  ],
+  lootOrder: ['splitter', 'mirror', 'gun', 'amplifier', 'lens', 'amplifier', 'mirror', 'gun'],
+});
