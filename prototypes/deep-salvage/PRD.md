@@ -6,7 +6,7 @@ Guide the engineering of a small yellow submarine through the ruins of a drowned
 
 ## Agreed design
 
-- Portrait mobile first. The upper half is the animated world; the lower half is the weapon lab with a tabbed parts hold and forge. Cartoon shapes, thick ink outlines, cream instrument panels, turquoise beams, yellow machinery and purple enemies.
+- Portrait mobile first. The upper half is the animated world; the lower half is the weapon lab with a parts hold on the left and an always-visible forge on the right. Cartoon shapes, thick ink outlines, cream instrument panels, turquoise beams, yellow machinery and purple enemies.
 - The submarine follows a predefined route, never dodges, and automatically fires every powered gun at incoming enemies. Multiple guns choose targets independently.
 - Every part occupies exactly one square of a 5 × 5 grid. Beams cross empty cells without needing connectors. Part order, rotation, branching and limited space create the puzzle.
 - Every defeated enemy pays cash automatically. Roughly one in four also drops a component (the first kill is guaranteed salvage). Drops fall to the floor, remain selectable, flash shortly before expiring, then disappear.
@@ -41,9 +41,9 @@ The submarine starts with a 24-point shield. Damage drains the shield before hul
 
 ### Forge
 
-The hold and forge occupy the same compact panel, selected by tabs. Drag a part from the field, lab or hold onto the Forge tab or an empty ingredient slot. After the first ingredient, valid partners glow in the lab, hold and battlefield. Incompatible inputs and occupied slots reject the drop without consuming it. Identical upgraded tiers must match exactly; a base splitter cannot combine with a Trident.
+The hold and four-slot forge sit side by side beneath the lab, both visible without tabs. Drag a part directly from the hold, battlefield or lab into an empty forge slot; the forge heading also accepts a drop into the next empty slot. After each ingredient, parts that can extend the current combination toward any recipe glow in the lab, hold and battlefield. Incompatible inputs and occupied slots reject the drop without consuming it. Identical upgraded tiers must match exactly; a base splitter cannot combine with a Trident.
 
-The second ingredient reveals the result, cash price and duration. Press Forge to pay once and lock both ingredients. Combat continues during forging; all simulation pauses also pause this timer, and dragging slows it with the game. Completed output goes into a stack in the hold and triggers the normal first-discovery introduction. Before starting, tap an ingredient to return it or drag it back into the lab/hold. Paid jobs cannot be cancelled. There is one forge job at a time; the forge does not consume lab grid space.
+Recipes use two, three or four ingredients, with exact quantities and no ordering requirement. A complete recipe previews its result, cash price and duration before payment. A valid partial combination cannot be started. Adding more ingredients can change a complete two-part recipe into a three- or four-part recipe; the output updates immediately. All ten recipes are listed from the start in the manual, with quantities, resulting effects, prices and durations. Players never need to guess, discover recipes through spending, or pay for invalid combinations. Press Forge to pay once and lock both ingredients. Combat continues during forging; all simulation pauses also pause this timer, and dragging slows it with the game. Completed output goes into a stack in the hold and triggers the normal first-discovery introduction. Before starting, tap an ingredient to return it or drag it back into the lab/hold. Paid jobs cannot be cancelled. There is one forge job at a time; the forge does not consume lab grid space.
 
 | Ingredients | Output | Effect | Cash / seconds |
 | --- | --- | --- | --- |
@@ -55,6 +55,8 @@ The second ingredient reveals the result, cash price and duration. Press Forge t
 | 2 lenses | Rail lens | ×1.25 power, piercing up to three enemies | 28 / 7 |
 | 2 guns | Heavy gun | ×1.6 damage | 24 / 6 |
 | Amplifier + lens | Piercing amplifier | ×1.75 power and two-target piercing | 32 / 8 |
+| 2 amplifiers + lens | Prism overcharger | ×2.8 power and two-target piercing | 42 / 9 |
+| 4 splitters | Duplicator | Three branches, each with full power | 60 / 10 |
 
 All outputs remain one square and inherit their base component's input rules. Only cores and mirrors rotate. Recipe data lives in recipes.js; component power rules live in balance.js.
 

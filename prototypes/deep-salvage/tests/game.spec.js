@@ -14,6 +14,7 @@ async function aimPreview(page, target, pointer) {
   return { x: b.x + b.width / 2 - (ghost.x + ghost.width / 2 - pointer.x), y: b.y + b.height / 2 - (ghost.y + ghost.height / 2 - pointer.y) };
 }
 async function drag(page, source, target, beforeRelease) {
+  if (await source.evaluate(el => el.classList.contains('stack'))) await source.scrollIntoViewIfNeeded();
   const a = await source.boundingBox(), b = await target.boundingBox();
   await page.mouse.move(a.x + a.width / 2, a.y + a.height / 2);
   await page.mouse.down();
@@ -71,7 +72,7 @@ test('tap salvage stacks, first acquisition pauses once, guide pauses and discov
   await page.locator(`.loot[data-id="${id2}"]`).click();
   await expect(page.locator('#modal')).not.toBeVisible();
   await expect(page.locator('.stack[data-type="splitter"] .count')).toHaveText('2');
-  await page.locator('#manual').click(); await expect(page.locator('.guide-row')).toHaveCount(14);
+  await page.locator('#manual').click(); await expect(page.locator('.guide-row')).toHaveCount(15);
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().paused)).toBe(true);
   await page.getByRole('button', { name: 'Back to the dive' }).click();
   await page.reload(); await page.getByRole('button', { name: "Let's dive" }).click();
@@ -129,6 +130,17 @@ test('touch tap rotates exactly once, touch salvage works, and cancelled drag ne
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
   await expect(cell(page, 11)).toHaveAttribute('aria-label', /Mirror/);
   await expect(page.locator('.stack[data-type="mirror"] .count')).toHaveText('2');
+  // Touch can move directly from the visible hold to the forge, without tabs.
+  const mirror = await page.locator('.stack[data-type="mirror"]').boundingBox();
+  const start = { x: mirror.x + mirror.width / 2, y: mirror.y + mirror.height / 2 };
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [start] });
+  const moved = { x: start.x + 12, y: start.y - 12 };
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [moved] });
+  const forgePointer = await aimPreview(page, page.locator('.forge-slot[data-slot="0"]'), moved);
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [forgePointer] });
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+  await expect(page.locator('.forge-slot[data-slot="0"]')).toHaveAttribute('data-type', 'mirror');
+  await expect(page.locator('#storage')).toBeVisible();
   await context.close();
 });
 
@@ -254,14 +266,13 @@ test('an upgraded circuit reaches the beacon and end-state guide returns to the 
 
 test('drag duplicate parts to forge, highlight matches, pay once, pause timer, and install the upgraded output', async ({ page }) => {
   await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
-  await drag(page, page.locator('.stack[data-type="amplifier"]'), page.locator('#forge-tab'));
+  await drag(page, page.locator('.stack[data-type="amplifier"]'), page.locator('#forge h2'));
   await expect(page.locator('.forge-slot[data-slot="0"]')).toHaveAttribute('data-type', 'amplifier');
   await expect(cell(page, 17)).toHaveClass(/forge-match/);
-  await page.locator('#hold-tab').click();
   await expect(page.locator('.stack[data-type="amplifier"]')).toHaveClass(/forge-match/);
   await expect(page.locator('.stack[data-type="mirror"]')).not.toHaveClass(/forge-match/);
   await shot(page, 'forge-matching-parts');
-  await drag(page, page.locator('.stack[data-type="amplifier"]'), page.locator('#forge-tab'));
+  await drag(page, page.locator('.stack[data-type="amplifier"]'), page.locator('#forge h2'));
   await expect(page.locator('#forge-result')).toHaveText('Overcharger');
   await page.evaluate(() => window.__deepSalvage.setCash(23));
   await expect(page.locator('#forge-start')).toBeDisabled();
@@ -278,7 +289,6 @@ test('drag duplicate parts to forge, highlight matches, pay once, pause timer, a
   await page.evaluate(() => window.__deepSalvage.advance(7));
   await expect(page.locator('#modal-title')).toHaveText('Overcharger.');
   await page.getByRole('button', { name: "Got it. Let's build" }).click();
-  await page.locator('#hold-tab').click();
   await expect(page.locator('.stack[data-type="amplifier2"] .count')).toHaveText('1');
   await drag(page, page.locator('.stack[data-type="amplifier2"]'), cell(page, 12));
   await expect(cell(page, 2).locator('.part-readout')).toHaveText('28.8');
@@ -289,22 +299,20 @@ test('drag duplicate parts to forge, highlight matches, pay once, pause timer, a
 test('mixed recipe glows on battlefield, rejects incompatible parts, and its output makes stronger piercing beams', async ({ page }) => {
   await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
   await page.evaluate(() => window.__deepSalvage.setCash(100));
-  await drag(page, page.locator('.stack[data-type="amplifier"]'), page.locator('#forge-tab'));
-  await page.locator('#hold-tab').click();
-  await drag(page, page.locator('.stack[data-type="mirror"]'), page.locator('#forge-tab'), async () => {
-    await expect(page.locator('#forge-tab')).toHaveClass(/invalid/);
+  await drag(page, page.locator('.stack[data-type="amplifier"]'), page.locator('#forge h2'));
+  await drag(page, page.locator('.stack[data-type="mirror"]'), page.locator('#forge h2'), async () => {
+    await expect(page.locator('#forge')).toHaveClass(/invalid/);
   });
   await expect(page.locator('.stack[data-type="mirror"] .count')).toHaveText('2');
   const id = await page.evaluate(() => window.__deepSalvage.drop('lens'));
   await expect(page.locator(`.loot[data-id="${id}"]`)).toHaveClass(/forge-match/);
-  await drag(page, page.locator(`.loot[data-id="${id}"]`), page.locator('#forge-tab'));
+  await drag(page, page.locator(`.loot[data-id="${id}"]`), page.locator('#forge h2'));
   await page.getByRole('button', { name: "Got it. Let's build" }).click();
   await expect(page.locator('#forge-result')).toHaveText('Piercing amplifier');
   await page.locator('#forge-start').click();
   await page.evaluate(() => window.__deepSalvage.advance(9));
   await expect(page.locator('#modal-title')).toHaveText('Piercing amplifier.');
   await page.getByRole('button', { name: "Got it. Let's build" }).click();
-  await page.locator('#hold-tab').click();
   await drag(page, page.locator('.stack[data-type="prism"]'), cell(page, 12));
   await expect(cell(page, 2).locator('.part-readout')).toHaveText('21 ◆');
   await expect(page.locator('.beam[data-power="8"][data-piercing="false"]')).toHaveCount(1);
@@ -317,12 +325,15 @@ test('mixed recipe glows on battlefield, rejects incompatible parts, and its out
 
 test('forge ingredients can be returned safely and forge layout fits small phones and landscape', async ({ page }) => {
   await boot(page);
-  await drag(page, cell(page, 17), page.locator('#forge-tab'));
+  await drag(page, cell(page, 17), page.locator('#forge h2'));
   await page.locator('.forge-slot[data-slot="0"]').click();
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().inventory.amplifier)).toBe(3);
   await expect(page.locator('.forge-slot[data-slot="0"]')).toHaveAttribute('data-type', '');
   for (const [width, height] of [[360, 740], [412, 820], [924, 412]]) {
     await page.setViewportSize({ width, height });
+    const hold = await page.locator('#storage').boundingBox(), forge = await page.locator('#forge').boundingBox();
+    expect(forge.x).toBeGreaterThan(hold.x + hold.width);
+    await expect(page.locator('[role=tab]')).toHaveCount(0);
     for (const selector of ['#forge', '#forge-start', '.forge-slot']) {
       const b = await page.locator(selector).first().boundingBox();
       expect(b.y + b.height).toBeLessThanOrEqual(height); expect(b.x + b.width).toBeLessThanOrEqual(width);
@@ -347,4 +358,49 @@ test('combat produces shield and hull feedback for submarine and enemies', async
   expect(s.enemies[0].shieldFlash).toBeGreaterThan(0);
   await shot(page, 'combat-shield-impact');
   await expect(page.locator('canvas')).toHaveAttribute('data-ready', 'true');
+});
+
+test('manual lists every recipe immediately and three-part forging works beside the visible hold', async ({ page }) => {
+  await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
+  await page.locator('#manual').click();
+  await expect(page.locator('.recipe-row')).toHaveCount(10);
+  await expect(page.locator('.recipe-row').filter({ hasText: 'Prism overcharger' })).toContainText('2 × Amplifier + 1 × Lens');
+  await expect(page.locator('.recipe-row').filter({ hasText: '4 × Splitter' })).toContainText('60¢ · 10s · 4 ingredients');
+  await shot(page, 'recipe-manual');
+  await page.getByRole('button', { name: 'Back to the dive' }).click();
+  await page.evaluate(() => window.__deepSalvage.setCash(100));
+  for (let i = 0; i < 2; i++) await drag(page, page.locator('.stack[data-type="amplifier"]'), page.locator('#forge h2'));
+  await expect(page.locator('#forge-result')).toHaveText('Overcharger');
+  const id = await page.evaluate(() => window.__deepSalvage.drop('lens'));
+  await drag(page, page.locator(`.loot[data-id="${id}"]`), page.locator('.forge-slot[data-slot="3"]'));
+  await page.getByRole('button', { name: "Got it. Let's build" }).click();
+  await expect(page.locator('#storage')).toBeVisible(); await expect(page.locator('#forge')).toBeVisible();
+  await expect(page.locator('#forge-result')).toHaveText('Prism overcharger');
+  await expect(page.locator('#forge-badge')).toHaveText('3/4');
+  await expect(page.locator('#forge-start')).toHaveText('Forge 42¢');
+  await shot(page, 'three-part-forge');
+  await page.locator('#forge-start').click();
+  await page.evaluate(() => window.__deepSalvage.advance(10));
+  await expect(page.locator('#modal-title')).toHaveText('Prism overcharger.');
+  await page.getByRole('button', { name: "Got it. Let's build" }).click();
+  await drag(page, page.locator('.stack[data-type="prism2"]'), cell(page, 12));
+  await expect(cell(page, 2).locator('.part-readout')).toHaveText('33.6 ◆');
+});
+
+test('four-part recipe is previewed accurately and incomplete mixtures spend nothing', async ({ page }) => {
+  await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
+  await page.evaluate(() => window.__deepSalvage.setCash(100));
+  for (let i = 0; i < 4; i++) {
+    const id = await page.evaluate(() => window.__deepSalvage.drop('splitter'));
+    await drag(page, page.locator(`.loot[data-id="${id}"]`), page.locator('#forge h2'));
+    if (i === 0) await page.getByRole('button', { name: "Got it. Let's build" }).click();
+    if (i === 2) { await expect(page.locator('#forge-start')).toBeDisabled(); await expect(page.locator('#forge-result')).toHaveText('Add a glowing match'); }
+  }
+  await expect(page.locator('#forge-result')).toHaveText('Duplicator');
+  await expect(page.locator('#forge-badge')).toHaveText('4/4');
+  await shot(page, 'four-part-forge');
+  await page.locator('#forge-start').click();
+  await page.evaluate(() => window.__deepSalvage.advance(11));
+  await expect(page.locator('#modal-title')).toHaveText('Duplicator.');
+  expect(await page.evaluate(() => window.__deepSalvage.snapshot().inventory.splitter3)).toBe(1);
 });

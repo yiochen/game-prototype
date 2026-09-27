@@ -17,7 +17,8 @@ export const PARTS = Object.freeze({
   splitter3: upgrade('splitter', 'Duplicator', '1 × 3', 'Splits forward, left and right with full incoming power on every branch.', 3),
   lens2: upgrade('lens', 'Rail lens', 'PIERCE 3', 'Adds 25% power and piercing shots that hit up to three enemies.'),
   gun2: upgrade('gun', 'Heavy gun', '×1.6', 'Deals 1.6 times the incoming beam power per shot.'),
-  prism: upgrade('lens', 'Piercing amplifier', '×1.75 ◆', 'Amplifier + lens: multiplies energy by 1.75 and adds piercing in one square.'),
+  prism2: upgrade('lens', 'Prism overcharger', '×2.8 ◆', 'Multiplies energy by 2.8 and adds two-target piercing in one square.', 3),
+  prism: upgrade('lens', 'Piercing amplifier', '×1.75 ◆', 'Multiplies energy by 1.75 and adds piercing in one square.'),
 });
 
 // Only reactors and mirrors have a meaningful orientation.

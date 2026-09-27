@@ -1,5 +1,4 @@
-// Unordered pairs; duplicate recipes consume two separate copies, not two drags
-// of the same item. Costs and duration are deliberately independent of rules.
+// Ingredient multisets: order never matters, but every copy and quantity does.
 export const RECIPES = Object.freeze([
   { ingredients: ['reactor', 'reactor'], output: 'reactor2', cost: 30, seconds: 8 },
   { ingredients: ['mirror', 'mirror'], output: 'mirror2', cost: 16, seconds: 5 },
@@ -9,12 +8,30 @@ export const RECIPES = Object.freeze([
   { ingredients: ['lens', 'lens'], output: 'lens2', cost: 28, seconds: 7 },
   { ingredients: ['gun', 'gun'], output: 'gun2', cost: 24, seconds: 6 },
   { ingredients: ['amplifier', 'lens'], output: 'prism', cost: 32, seconds: 8 },
+  { ingredients: ['amplifier', 'amplifier', 'lens'], output: 'prism2', cost: 42, seconds: 9 },
+  { ingredients: ['splitter', 'splitter', 'splitter', 'splitter'], output: 'splitter3', cost: 60, seconds: 10 },
 ]);
 
-export function findRecipe(a, b) {
-  return RECIPES.find(r => (r.ingredients[0] === a && r.ingredients[1] === b) || (r.ingredients[0] === b && r.ingredients[1] === a)) || null;
+export const recipeKey = ingredients => [...ingredients].sort().join('+');
+
+export function findRecipe(...ingredients) {
+  const key = recipeKey(ingredients);
+  return RECIPES.find(r => recipeKey(r.ingredients) === key) || null;
 }
 
-export function compatibleTypes(type) {
-  return new Set(RECIPES.filter(r => r.ingredients.includes(type)).map(r => r.ingredients[0] === type ? r.ingredients[1] : r.ingredients[0]));
+// Suggest every remaining ingredient in recipes containing the current multiset.
+export function compatibleTypes(ingredients) {
+  const matches = new Set();
+  if (!ingredients.length) return matches;
+  for (const recipe of RECIPES) {
+    const remaining = [...recipe.ingredients];
+    let fits = true;
+    for (const type of ingredients) {
+      const index = remaining.indexOf(type);
+      if (index < 0) { fits = false; break; }
+      remaining.splice(index, 1);
+    }
+    if (fits) for (const type of remaining) matches.add(type);
+  }
+  return matches;
 }

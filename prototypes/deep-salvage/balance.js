@@ -5,6 +5,7 @@ export const BALANCE = Object.freeze({
   shieldDelay: 6,
   shieldRegen: 3,
   startingCash: 24,
+  forgeSlots: 4,
   partDropEvery: 4,
   reactorPower: 8,
   amplifier: 1.5,
@@ -40,4 +41,5 @@ export const PART_RULES = Object.freeze({
   lens: { targets: 2, multiplier: 1 }, lens2: { targets: 3, multiplier: 1.25 },
   gun: { multiplier: 1 }, gun2: { multiplier: 1.6 },
   prism: { multiplier: 1.75, targets: 2 },
+  prism2: { multiplier: 2.8, targets: 2 },
 });

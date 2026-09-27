@@ -65,7 +65,7 @@ export function createState(known = []) {
     status: 'ready', paused: false, elapsed: 0, hull: B.hull,
     grid, inventory: { mirror: 2, gun: 1, amplifier: 2, splitter: 0, lens: 0, reactor: 0 },
     cash: B.startingCash, shield: B.shield, shieldCooldown: 0, forged: 0,
-    forge: { slots: [null, null], job: null }, notices: [],
+    forge: { slots: Array(B.forgeSlots).fill(null), job: null }, notices: [],
     discovered: new Set(['reactor', 'amplifier', 'gun', 'mirror', ...known.filter(type => PARTS[type])]),
     discoveries: [], wave: 0, spawned: 0, spawnIn: 2, rest: 0,
     enemies: [], drops: [], shots: [], bursts: [], cooldowns: {},
@@ -100,26 +100,24 @@ export function sourcePart(state, source) {
 }
 
 export function forgeMatches(state) {
-  const ingredients = state.forge.slots.filter(Boolean);
-  return !state.forge.job && ingredients.length === 1 ? compatibleTypes(ingredients[0].type) : new Set();
+  return state.forge.job ? new Set() : compatibleTypes(state.forge.slots.filter(Boolean).map(p => p.type));
 }
 
 export function forgeRecipe(state) {
-  const [a, b] = state.forge.slots;
-  return a && b ? findRecipe(a.type, b.type) : null;
+  return findRecipe(...state.forge.slots.filter(Boolean).map(p => p.type));
 }
 
 export function canAddToForge(state, type, index = state.forge.slots.findIndex(p => !p)) {
-  if (state.forge.job || ![0, 1].includes(index) || state.forge.slots[index]) return false;
-  const other = state.forge.slots[1 - index];
-  return other ? !!findRecipe(type, other.type) : RECIPES.some(r => r.ingredients.includes(type));
+  if (state.forge.job || !Number.isInteger(index) || index < 0 || index >= B.forgeSlots || state.forge.slots[index]) return false;
+  const ingredients = state.forge.slots.filter(Boolean).map(p => p.type);
+  return ingredients.length ? compatibleTypes(ingredients).has(type) : RECIPES.some(r => r.ingredients.includes(type));
 }
 
 export function startForge(state) {
-  const recipe = forgeRecipe(state);
-  if (state.status !== 'running' || state.paused || state.forge.job || !recipe || state.cash < recipe.cost) return false;
-  state.cash -= recipe.cost;
-  state.forge.job = { ...recipe, remaining: recipe.seconds };
+  const quote = forgeRecipe(state);
+  if (state.status !== 'running' || state.paused || state.forge.job || !quote || state.cash < quote.cost) return false;
+  state.cash -= quote.cost;
+  state.forge.job = { ...quote, ingredients: state.forge.slots.filter(Boolean).map(p => p.type), remaining: quote.seconds };
   state.revision++; return true;
 }
 
@@ -130,7 +128,7 @@ function advanceForge(state, dt) {
   state.inventory[job.output] = (state.inventory[job.output] || 0) + 1;
   acquire(state, job.output); state.forged++;
   state.notices.push(`${PARTS[job.output].name} forged · added to hold`);
-  state.forge = { slots: [null, null], job: null }; state.revision++;
+  state.forge = { slots: Array(B.forgeSlots).fill(null), job: null }; state.revision++;
 }
 
 // Validate first, then commit. Invalid/cancelled gestures never consume anything.

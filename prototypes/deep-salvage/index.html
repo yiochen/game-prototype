@@ -23,20 +23,19 @@
       <div class="world-footer"><span id="world-hint">TAP SCRAP TO SALVAGE</span><span id="kill-label">0 recovered</span></div>
     </section>
     <section id="console" aria-label="Weapon lab">
-      <header class="lab-header"><div><span class="eyebrow">MAKE SOMETHING MIGHTY</span><h1>Weapon lab<span class="title-dot">.</span></h1></div><button id="manual" class="guide-button" aria-label="Open parts guide"><span>▤</span> GUIDE</button></header>
+      <header class="lab-header"><div><span class="eyebrow">MAKE SOMETHING MIGHTY</span><h1>Weapon lab<span class="title-dot">.</span></h1></div><button id="manual" class="guide-button" aria-label="Open recipes and parts guide"><span>▤</span> GUIDE</button></header>
       <div class="circuit-status"><span><i id="power-light"></i><strong id="gun-label">1 gun online</strong></span><span id="lab-hint">THICK = POWER · BLUE = PIERCE</span></div>
       <div class="board-area"><div id="board" aria-label="Weapon circuit, 5 by 5 grid"><div id="cells"></div><svg id="beams" viewBox="0 0 500 500" aria-hidden="true"><defs><filter id="glow"><feGaussianBlur stdDeviation="2"/></filter></defs><g id="beam-glow"></g><g id="beam-lines"></g></svg></div></div>
       <section id="workshop" aria-label="Parts hold and forge">
-        <div class="workshop-tabs" role="tablist" aria-label="Workshop">
-          <button id="hold-tab" role="tab" aria-selected="true" aria-controls="storage">Parts hold <span id="storage-count">05</span></button>
-          <button id="forge-tab" role="tab" aria-selected="false" aria-controls="forge">⚒ Forge <span id="forge-badge">2 → 1</span></button>
-          <span id="storage-hint">DRAG TO BUILD</span>
-        </div>
-        <section id="storage" aria-label="Parts storage drop area"><button id="hold-prev" class="hold-nav" aria-label="Previous stored parts">‹</button><div id="stacks"></div><button id="hold-next" class="hold-nav" aria-label="Next stored parts">›</button></section>
-        <section id="forge" aria-label="Forge drop area" hidden>
-          <div id="forge-slots"><button class="forge-slot" data-slot="0" aria-label="First forge ingredient">+</button><span class="forge-plus">+</span><button class="forge-slot" data-slot="1" aria-label="Second forge ingredient">+</button></div>
-          <div class="forge-summary"><strong id="forge-result">Combine two parts</strong><span id="forge-hint">Drop a part here. Matches glow.</span><div class="forge-meter"><i id="forge-progress"></i></div></div>
-          <button id="forge-start" disabled>Forge</button>
+        <section id="storage" aria-label="Parts storage drop area">
+          <h2>Parts hold <span id="storage-count">05</span></h2>
+          <div id="stacks"></div>
+          <div class="hold-controls"><button id="hold-prev" class="hold-nav" aria-label="Previous stored parts">‹</button><span id="storage-hint">DRAG TO FORGE →</span><button id="hold-next" class="hold-nav" aria-label="Next stored parts">›</button></div>
+        </section>
+        <section id="forge" aria-label="Forge drop area">
+          <h2>⚒ Forge <span id="forge-badge">0/4</span></h2>
+          <div id="forge-slots"><button class="forge-slot" data-slot="0" aria-label="Forge ingredient 1">+</button><button class="forge-slot" data-slot="1" aria-label="Forge ingredient 2">+</button><button class="forge-slot" data-slot="2" aria-label="Forge ingredient 3">+</button><button class="forge-slot" data-slot="3" aria-label="Forge ingredient 4">+</button></div>
+          <div class="forge-controls"><div class="forge-summary"><strong id="forge-result">Choose a recipe</strong><span id="forge-hint">Try 2–4 parts</span><div class="forge-meter"><i id="forge-progress"></i></div></div><button id="forge-start" disabled>Forge</button></div>
         </section>
       </section>
       <footer class="console-footer"><span><i></i> ALL SYSTEMS IMPROVISED</span><span id="time-label">00:00</span></footer>

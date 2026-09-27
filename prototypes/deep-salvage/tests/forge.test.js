@@ -19,7 +19,7 @@ test('every recipe accepts either order, charges once, locks ingredients, and cr
     s.paused = true; const remaining = s.forge.job.remaining; tick(s, 20); assert.equal(s.forge.job.remaining, remaining);
     s.paused = false; tick(s, 1.1);
     assert.equal(s.inventory[recipe.output], 1); assert.equal(s.forged, 1);
-    assert.deepEqual(s.forge, { slots: [null, null], job: null });
+    assert.deepEqual(s.forge, { slots: [null, null, null, null], job: null });
     assert.deepEqual(s.discoveries, [recipe.output]);
     tick(s, 2); assert.equal(s.inventory[recipe.output], 1);
   }
@@ -30,7 +30,7 @@ test('forge highlights duplicate and mixed matches; invalid and unaffordable ope
   assert.equal(add(s, 'amplifier'), true);
   assert.deepEqual([...forgeMatches(s)].sort(), ['amplifier', 'lens']);
   assert.equal(add(s, 'mirror'), false); assert.equal(s.inventory.mirror, 2);
-  assert.equal(add(s, 'amplifier'), true); assert.equal(forgeMatches(s).size, 0);
+  assert.equal(add(s, 'amplifier'), true); assert.deepEqual([...forgeMatches(s)], ['lens']);
   assert.equal(startForge(s), false); assert.equal(s.cash, 0); assert.equal(s.forge.job, null);
   assert.equal(movePart(s, { kind: 'forge', index: 0 }, { kind: 'storage' }), true);
   assert.equal(s.inventory.amplifier, 1); assert.equal(forgeMatches(s).has('lens'), true);
@@ -104,4 +104,18 @@ test('an affordable opening forge and a salvaged lens can beat the tougher dive 
   }
   assert.equal(s.status, 'won'); assert.equal(s.kills, 39); assert.equal(s.salvaged, 10);
   assert.ok(s.hull > 0 && s.hull < 60); assert.equal(s.forged, 1);
+});
+
+test('three- and four-part recipes require exact quantities, support holes, and reject a fifth item safely', () => {
+  const s = createState(); startDive(s); s.cash = 100; s.inventory.splitter = 5;
+  assert.equal(movePart(s, { kind: 'storage', type: 'splitter' }, { kind: 'forge', index: 3 }), true);
+  assert.equal(add(s, 'splitter'), true);
+  assert.equal(findRecipe(...s.forge.slots.filter(Boolean).map(p => p.type)).output, 'splitter2');
+  assert.equal(add(s, 'splitter'), true); assert.equal(startForge(s), false); assert.equal(s.cash, 100);
+  assert.deepEqual([...forgeMatches(s)], ['splitter']);
+  assert.equal(add(s, 'splitter'), true); assert.equal(add(s, 'splitter'), false); assert.equal(s.inventory.splitter, 1);
+  assert.equal(startForge(s), true); assert.equal(s.forge.job.output, 'splitter3'); assert.equal(s.cash, 40);
+  assert.equal(findRecipe('lens', 'amplifier', 'amplifier').output, 'prism2');
+  assert.equal(findRecipe('lens', 'amplifier').output, 'prism');
+  assert.equal(findRecipe('lens', 'lens', 'amplifier'), null);
 });

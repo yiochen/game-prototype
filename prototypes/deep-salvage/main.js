@@ -36,30 +36,22 @@ function renderBeams(circuit = state.circuit, preview = false) {
   $('#beam-glow').innerHTML = circuit.segments.map(s => `<line class="beam-glow" style="stroke:${s.piercing ? '#729cff' : s.power > B.reactorPower ? '#ffd365' : '#57f4d3'};stroke-width:${5 + Math.sqrt(s.power) * 3}" x1="${s.x1 * 100}" y1="${s.y1 * 100}" x2="${s.x2 * 100}" y2="${s.y2 * 100}"/>`).join('');
 }
 
-function setWorkshop(tab) {
-  storage.hidden = tab !== 'hold'; $('#forge').hidden = tab !== 'forge';
-  $('#hold-tab').setAttribute('aria-selected', String(tab === 'hold'));
-  $('#forge-tab').setAttribute('aria-selected', String(tab === 'forge'));
-}
-
 function renderForge() {
   const job = state.forge.job, recipe = forgeRecipe(state), ingredients = state.forge.slots.filter(Boolean);
   document.querySelectorAll('.forge-slot').forEach((button, index) => {
     const part = state.forge.slots[index];
-    const content = part ? tileMarkup(part.type) : '+';
-    if (button.dataset.type !== (part?.type || '')) { button.innerHTML = content; button.dataset.type = part?.type || ''; }
+    if (button.dataset.type !== (part?.type || '')) { button.innerHTML = part ? tileMarkup(part.type) : '+'; button.dataset.type = part?.type || ''; }
     button.disabled = !!job;
-    button.setAttribute('aria-label', part ? `${PARTS[part.type].name} forge ingredient, tap to return` : `${index ? 'Second' : 'First'} forge ingredient`);
+    button.setAttribute('aria-label', part ? `${PARTS[part.type].name} forge ingredient ${index + 1}, tap to return` : `Forge ingredient ${index + 1}`);
   });
-  $('#forge-result').textContent = recipe ? PARTS[recipe.output].name : ingredients.length ? 'Find a glowing match' : 'Combine two parts';
-  $('#forge-hint').textContent = job ? `Forging · ${Math.ceil(job.remaining)}s remaining` : recipe ? state.cash < recipe.cost ? `Need ${recipe.cost - state.cash} more cash · ${recipe.seconds}s` : `${recipe.seconds}s · tap ingredients to return` : ingredients.length ? 'Matching parts glow in the hold & lab.' : 'Drop a part here. Matches glow.';
-  $('#forge-start').textContent = job ? `${Math.ceil(job.remaining)}s` : recipe ? `${recipe.cost}¢ Forge` : 'Forge';
+  $('#forge-result').textContent = recipe ? PARTS[recipe.output].name : ingredients.length ? 'Add a glowing match' : 'Choose a recipe';
+  $('#forge-hint').textContent = job ? `${Math.ceil(job.remaining)}s remaining` : recipe && state.cash < recipe.cost ? `Need ${recipe.cost - state.cash} more cash` : recipe ? `${recipe.seconds}s · tap to recover` : 'Try 2–4 parts';
+  $('#forge-start').textContent = job ? `${Math.ceil(job.remaining)}s` : recipe ? `Forge ${recipe.cost}¢` : 'Forge';
   $('#forge-start').disabled = !!job || !recipe || state.cash < recipe.cost;
-  $('#forge-start').title = recipe && state.cash < recipe.cost ? `Need ${recipe.cost - state.cash} more cash` : '';
   $('#forge-progress').style.width = job ? `${100 * (1 - job.remaining / job.seconds)}%` : '0%';
-  $('#forge-badge').textContent = job ? `${Math.ceil(job.remaining)}s` : `${ingredients.length}/2`;
-  $('#forge-tab').classList.toggle('working', !!job);
-  $('#storage-hint').textContent = forgeMatches(state).size ? 'MATCHES GLOW' : 'DRAG TO BUILD';
+  $('#forge-badge').textContent = job ? 'WORKING' : `${ingredients.length}/${B.forgeSlots}`;
+  $('#forge').classList.toggle('working', !!job);
+  $('#storage-hint').textContent = forgeMatches(state).size ? 'MATCHES GLOW →' : 'DRAG TO FORGE →';
 }
 
 function renderLab() {
@@ -143,8 +135,8 @@ function destinationAt(x, y) {
   if (cell) return { kind: 'grid', index: Number(cell.dataset.index) };
   const slot = target?.closest('.forge-slot');
   if (slot) return { kind: 'forge', index: Number(slot.dataset.slot) };
-  if (target?.closest('#forge, #forge-tab')) return { kind: 'forge' };
-  if (target?.closest('#storage, #hold-tab')) return { kind: 'storage' };
+  if (target?.closest('#forge')) return { kind: 'forge' };
+  if (target?.closest('#storage')) return { kind: 'storage' };
   return null;
 }
 
@@ -159,7 +151,7 @@ function positionPreviewAndFindTarget(x, y) {
 
 function clearGesture() {
   if (gesture && gameRoot.hasPointerCapture(gesture.pointerId)) gameRoot.releasePointerCapture(gesture.pointerId);
-  gesture = null; state.heldDrop = null; $('#drag-ghost').hidden = true; storage.classList.remove('drop-target'); $('#forge-tab').classList.remove('drop-target', 'invalid'); $('#forge').classList.remove('drop-target');
+  gesture = null; state.heldDrop = null; $('#drag-ghost').hidden = true; storage.classList.remove('drop-target'); $('#forge').classList.remove('invalid'); $('#forge').classList.remove('drop-target');
   renderLab();
 }
 
@@ -171,8 +163,7 @@ function previewDestination(target) {
   });
   storage.classList.toggle('drop-target', target?.kind === 'storage');
   const forgeTarget = target?.kind === 'forge', forgeValid = forgeTarget && gesture.source.kind !== 'forge' && canAddToForge(state, gesture.part.type, target.index);
-  $('#forge-tab').classList.toggle('drop-target', !!forgeValid);
-  $('#forge-tab').classList.toggle('invalid', !!forgeTarget && !forgeValid);
+  $('#forge').classList.toggle('invalid', !!forgeTarget && !forgeValid);
   $('#forge').classList.toggle('drop-target', !!forgeValid);
   if (target?.kind === 'grid') {
     const valid = !state.grid[target.index]; buttons[target.index].classList.add(valid ? 'target' : 'invalid');
@@ -214,10 +205,9 @@ gameRoot.addEventListener('pointerup', event => {
     const target = positionPreviewAndFindTarget(event.clientX, event.clientY);
     const moved = target && movePart(state, current.source, target);
     if (moved) {
-      if (target.kind === 'forge') setWorkshop('forge');
       toast(`${PARTS[current.part.type].name} ${target.kind === 'storage' ? 'stored' : target.kind === 'forge' ? 'added to forge' : 'installed'}`);
     }
-    else toast(target?.kind === 'forge' ? 'Returned safely · forge needs a matching recipe' : 'Returned safely · choose an empty cell');
+    else toast(target?.kind === 'forge' ? 'Returned safely · choose a matching part or empty slot' : 'Returned safely · choose an empty cell');
   } else if (current.source.kind === 'forge') {
     movePart(state, current.source, { kind: 'storage' });
   } else if (current.source.kind === 'grid') {
@@ -235,6 +225,11 @@ gameRoot.addEventListener('lostpointercapture', () => { if (gesture) clearGestur
 
 gameRoot.addEventListener('click', event => {
   if (modal.open || ['won', 'lost'].includes(state.status)) return;
+  const slot = event.target.closest('.forge-slot');
+  if (slot && !state.forge.slots[slot.dataset.slot] && selection) {
+    if (movePart(state, { kind: 'storage', type: selection }, { kind: 'forge', index: Number(slot.dataset.slot) })) { selection = null; $('#lab-hint').textContent = 'THICK = POWER · BLUE = PIERCE'; renderLab(); }
+    return;
+  }
   const cell = event.target.closest('.cell');
   if (cell) {
     const index = Number(cell.dataset.index);
@@ -246,7 +241,7 @@ gameRoot.addEventListener('click', event => {
   }
   if (event.detail === 0) {
     const ingredient = event.target.closest('.forge-slot');
-    if (ingredient) { movePart(state, { kind: 'forge', index: Number(ingredient.dataset.slot) }, { kind: 'storage' }); renderLab(); }
+    if (ingredient && state.forge.slots[ingredient.dataset.slot]) { movePart(state, { kind: 'forge', index: Number(ingredient.dataset.slot) }, { kind: 'storage' }); renderLab(); }
     const stack = event.target.closest('.stack'); if (stack) selectStack(stack.dataset.type);
     const drop = event.target.closest('.loot');
     if (drop) { movePart(state, { kind: 'drop', id: Number(drop.dataset.id) }, { kind: 'storage' }); renderFrame(); checkDiscoveries(); }
@@ -280,7 +275,7 @@ function closeModal() {
 }
 
 function showWelcome() {
-  openModal('welcome', `<div class="welcome-art"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART.submarine)}" alt="A little yellow submarine"></div><p class="modal-eyebrow">A LITTLE MACHINE. A BIG OCEAN.</p><h2 id="modal-title">Deep Salvage<span class="title-dot">.</span></h2><p class="modal-copy">The city sank. Your ingenuity didn't.<br>Keep your submarine alive with whatever you find.</p><div class="intro-tip"><b>↗</b><span><strong>Salvage & assemble</strong>Tap fallen parts to store. Drag them into the lab.</span></div><div class="intro-tip"><b>↻</b><span><strong>Make the beam work</strong>Tap reactors and mirrors to rotate. Empty space carries energy.</span></div><div class="intro-tip"><b>⚒</b><span><strong>Forge your next upgrade</strong>Drag two matching parts to Forge. Spend cash from kills to combine them.</span></div><div class="modal-actions"><button class="primary" data-action="start">Let's dive →</button></div>`);
+  openModal('welcome', `<div class="welcome-art"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART.submarine)}" alt="A little yellow submarine"></div><p class="modal-eyebrow">A LITTLE MACHINE. A BIG OCEAN.</p><h2 id="modal-title">Deep Salvage<span class="title-dot">.</span></h2><p class="modal-copy">The city sank. Your ingenuity didn't.<br>Keep your submarine alive with whatever you find.</p><div class="intro-tip"><b>↗</b><span><strong>Salvage & assemble</strong>Tap fallen parts to store. Drag them into the lab.</span></div><div class="intro-tip"><b>↻</b><span><strong>Make the beam work</strong>Tap reactors and mirrors to rotate. Empty space carries energy.</span></div><div class="intro-tip"><b>⚒</b><span><strong>Forge your next upgrade</strong>Drag 2–4 parts into the forge on the right. Every recipe is in the guide.</span></div><div class="modal-actions"><button class="primary" data-action="start">Let's dive →</button></div>`);
 }
 
 function showPause() {
@@ -288,7 +283,7 @@ function showPause() {
 }
 
 function showGuide() {
-  openModal('guide', `<p class="modal-eyebrow">THE ENGINEER'S FIELD NOTES</p><h2 id="modal-title">Small parts.<br>Big possibilities.</h2><p class="modal-copy">All parts fit one square. Beams travel freely through empty cells. Only reactors and mirrors need rotation. Other parts work from any side. Thicker gold beams carry more power; thin beams carry less. Blue dashed beams pierce armor. Numbers on guns show damage per shot.</p><div class="guide-list">${Object.entries(PARTS).map(([type, part]) => `<article class="guide-row"><div class="guide-tile">${tileMarkup(type)}</div><div><h3>${part.name}${state.discovered.has(type) ? '' : '<small>NOT FOUND YET</small>'}</h3><p>${part.description} ${part.tip}</p><p class="ports">${part.ports}</p></div></article>`).join('')}</div><h3>Forge recipes</h3><p class="modal-copy">Cash comes from every kill. Drop two matching ingredients into the forge, then pay to start. The timer pauses with the dive. Tap an idle ingredient to return it.</p><div class="recipe-list">${RECIPES.map(r => `<p><strong>${r.ingredients.map(t => PARTS[t].name).join(' + ')} → ${PARTS[r.output].name}</strong><br>${r.cost}¢ · ${r.seconds}s</p>`).join('')}</div><div class="guide-close"><button class="primary" data-action="close">Back to the dive →</button></div>`);
+  openModal('guide', `<p class="modal-eyebrow">THE ENGINEER'S FIELD NOTES</p><h2 id="modal-title">Recipes & parts.</h2><h3>All forge recipes</h3><p class="modal-copy">Drag two to four ingredients into the forge in any order. Matches glow as you build a recipe. Review the output, price and time before starting. Tap an idle ingredient to recover it. The timer pauses with the dive.</p><div class="recipe-list">${RECIPES.map(r => `<article class="recipe-row"><div class="recipe-ingredients">${[...new Set(r.ingredients)].map(type => `<span>${r.ingredients.filter(t => t === type).length} × ${PARTS[type].name}</span>`).join(' + ')}</div><strong>→ ${PARTS[r.output].name}</strong><p>${PARTS[r.output].description}</p><small>${r.cost}¢ · ${r.seconds}s · ${r.ingredients.length} ingredients</small></article>`).join('')}</div><h3>Parts manual</h3><p class="modal-copy">All parts fit one square. Beams travel freely through empty cells. Only reactors and mirrors need rotation. Other parts work from any side. Thicker gold beams carry more power; thin beams carry less. Blue dashed beams pierce armor. Numbers on guns show damage per shot.</p><div class="guide-list">${Object.entries(PARTS).map(([type, part]) => `<article class="guide-row"><div class="guide-tile">${tileMarkup(type)}</div><div><h3>${part.name}${state.discovered.has(type) ? '' : '<small>NOT FOUND YET</small>'}</h3><p>${part.description} ${part.tip}</p><p class="ports">${part.ports}</p></div></article>`).join('')}</div><div class="guide-close"><button class="primary" data-action="close">Back to the dive →</button></div>`);
 }
 
 function checkDiscoveries() {
@@ -306,7 +301,7 @@ function restart() {
   selection = null; saveKnown(); state = createState(loadKnown()); revision = -1;
   modal.close(); modalKind = null; gameRoot.classList.remove('is-paused');
   $('#lab-hint').textContent = 'THICK = POWER · BLUE = PIERCE';
-  setWorkshop('hold'); startDive(state); renderFrame(); toast('Fresh hull. Fresh possibilities.');
+  startDive(state); renderFrame(); toast('Fresh hull. Fresh possibilities.');
 }
 
 $('#modal-content').addEventListener('click', event => {
@@ -322,11 +317,6 @@ modal.addEventListener('cancel', event => {
   event.preventDefault();
   if (modalKind === 'welcome' || modalKind === 'end') return;
   if (state.status === 'won' || state.status === 'lost') showEnd(); else closeModal();
-});
-$('#hold-tab').addEventListener('click', () => setWorkshop('hold'));
-$('#forge-tab').addEventListener('click', () => {
-  if (selection && movePart(state, { kind: 'storage', type: selection }, { kind: 'forge' })) { selection = null; renderLab(); }
-  setWorkshop('forge');
 });
 $('#forge-start').addEventListener('click', () => { if (startForge(state)) { renderLab(); toast('Forge started · keep the submarine alive'); } });
 $('#hold-prev').addEventListener('click', () => $('#stacks').scrollBy({ left: -150, behavior: 'smooth' }));
