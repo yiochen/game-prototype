@@ -12,6 +12,7 @@ async function open(page, seed, reduced = true) {
 async function buy(page, i, suit) {
   await card(page, i).click();
   if (await page.locator('#choice-dialog').isVisible()) await page.locator(suit ? `#room-choices [data-suit="${suit}"]` : '#room-choices button').first().click();
+
 }
 async function control(page, id) {
   if (!await page.locator('#menu-dialog').isVisible()) await page.locator('#menu-open').click();

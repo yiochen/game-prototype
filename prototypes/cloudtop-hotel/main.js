@@ -3,6 +3,7 @@ import './paper-hud.css';
 import './card-table.css';
 import './polish.css';
 import './frenzy.css';
+import './milestones.css';
 import { createPaperUI } from './paper-ui.js';
 import { mountLobby } from './lobby.js';
 import { createGuestbook } from './guestbook-storage.js';
@@ -151,6 +152,25 @@ function renderWorkshop(view) {
   $('upgrade-rack').replaceChildren(...badges); $('upgrade-rack').hidden = !badges.length;
   $('strategy-status').replaceChildren(...active.map(text => node('span', 'strategy-chip', text))); $('strategy-status').hidden = !active.length;
 }
+function celebrateMilestones(gifts) {
+  const content = document.createDocumentFragment();
+  content.append(node('small', '', 'A THANK-YOU FROM YOUR GUESTS'));
+  content.append(node('h2', '', gifts.length === 1 ? `${gifts[0].floor} floors!` : 'Milestones reached!'));
+  for (const gift of gifts) {
+    const name = gift.key === 'tips' ? 'Guest tips' : BALANCE.reactor[gift.key].name;
+    const row = node('div', 'milestone-gift');
+    row.dataset.reward = gift.key;
+    const copy = node('div');
+    copy.append(node('strong', '', `${gifts.length > 1 ? `${gift.floor} floors · ` : ''}${name}`));
+    copy.append(node('p', '', `${gift.levels ? `Level ${gift.before} → ${gift.after}` : ''}${gift.levels && gift.coins ? ' · ' : ''}${gift.coins ? `+${gift.coins} coins` : ''}`));
+    if (gift.fallback) copy.append(node('small', '', 'Upgrade maxed — enjoy some coins instead.'));
+    row.append(img(gift.key === 'tips' ? 'coin' : `power-${gift.key}`), copy); content.append(row);
+  }
+  content.append(node('p', 'milestone-note', 'Gift received. Tap anywhere to dismiss.'));
+  $('milestone-celebration').classList.toggle('milestone-many', gifts.length > 2);
+  feedback.celebrate(content);
+  feedback.pulse($('coins'));
+}
 function renderOffers(view) {
   const roof = state.phase === 'roof-ready' || state.phase === 'roofing';
   $('offers').classList.toggle('roof-offer', roof);
@@ -293,6 +313,7 @@ function applyPurchase(index, selectedType, token, origin) {
   const complete = () => {
     if (token !== epoch || state.phase !== 'resolving') return;
     const entry = state.history.at(-1);
+    const previousGifts = state.gifts.length;
     advanceDeal(state); resolvingBefore = null; dockArrivals = null;
     render(); scene.setState(state); syncCamera(); $('preview').textContent = '';
     feedback.pulse($('height')); feedback.deal();
@@ -314,7 +335,9 @@ function applyPurchase(index, selectedType, token, origin) {
     if (before.parade && !state.parade) parts.push('Guest Parade ended');
     if (before.attunement && !state.attunement) parts.push('Type Lock finished');
     $('status').textContent = parts.join(' · ');
-    feedback.announce($('status').textContent);
+    const gifts = state.gifts.slice(previousGifts);
+    if (gifts.length) celebrateMilestones(gifts);
+    else feedback.announce($('status').textContent);
   };
   let lastFloor = before.links.length;
   if (reduced) { audio.fold(); complete(); }
@@ -389,4 +412,4 @@ shell = mountLobby({img, guestbook, paper, isReduced: () => reduced,
 $('sound-toggle').textContent = sound ? 'Sound on' : 'Sound off'; $('sound-toggle').setAttribute('aria-pressed', String(sound));
 shell.preferences(sound, reduced); shell.home({canResume: !!guestbook.data.active});
 world.ready.then(readyScene => { scene = readyScene; scene.motion = !reduced; loading = false; render(); scene.setState(state); $('world').dataset.ready = 'true'; });
-if (import.meta.hot) import.meta.hot.dispose(() => { shell.destroy(); paper.destroy(); feedback.clear(); flight.destroy(); scenery.destroy(); world.destroy(); audio.destroy(); });
+if (import.meta.hot) import.meta.hot.dispose(() => { shell.destroy(); feedback.destroy(); paper.destroy(); flight.destroy(); scenery.destroy(); world.destroy(); audio.destroy(); });

@@ -1,9 +1,9 @@
 import { createGame, pick, advanceDeal, beginRoof, finishRoof, segments } from './engine.js';
 
 // Bump this when balance or deterministic replay rules change.
-export const SCORE_VERSION = 'paper-v4';
+export const SCORE_VERSION = 'paper-v6';
 export function replayRun(seed, moves, complete = true) {
-  if (typeof seed !== 'string' || !/^[a-zA-Z0-9_-]{1,64}$/.test(seed) || !Array.isArray(moves) || moves.length > 100) throw new Error('Invalid guestbook record.');
+  if (typeof seed !== 'string' || !/^[a-zA-Z0-9_-]{1,64}$/.test(seed) || !Array.isArray(moves) || moves.length > 250) throw new Error('Invalid guestbook record.');
   const state = createGame(seed);
   for (const move of moves) {
     if (!Array.isArray(move) || move.length < 1 || move.length > 2 || !Number.isInteger(move[0]) || (move[1] != null && !['bunny', 'frog', 'cat'].includes(move[1]))) throw new Error('Invalid card choice.');

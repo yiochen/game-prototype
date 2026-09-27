@@ -118,3 +118,19 @@ Guest Parade costs 7 coins. Start the next typed purchase with a guest different
 Both streaks activate full-screen traveling rainbow ribbons behind the hotel, paper confetti and cheering, gently dancing window guests. Offers preview continuation, pause and termination; the HUD shows the next bonus and guest requirement. Reduced motion freezes the ribbons and holds the cheering pose. Replay, leaving the game and the roof finale remove frenzy presentation. `frenzy.js` owns only scenery; bonus generation uses a separate seeded RNG in the engine and never runs during preview or animation.
 
 Score version `paper-v4` starts a new leaderboard/replay ruleset for the changed offer pool and top-floor parade rules. Earlier version saves are excluded by the existing version checks.
+
+## Milestone gifts
+
+Rewards arrive automatically after construction settles at or above 10, 25, 50, 100 and 200 floors. A centered paper celebration shows what was received and disappears after 4.2 seconds or a tap anywhere. Tapping the paper only dismisses it; tapping an outside control dismisses it and still performs that control’s action. It never captures focus; there is no selection or claim step.
+
+| Floors | Scheduled reward | Coins if that upgrade is already maxed |
+| --- | --- | --- |
+| 10 | 5 coins | — |
+| 25 | Master Fold +1 level and 3 coins | 10 |
+| 50 | Lucky Bell +2 levels and 5 coins | 20 |
+| 100 | Master Fold +2 levels and 10 coins | 35 |
+| 200 | Lucky Bell +3 levels and 20 coins | 60 |
+
+Upgrades cap at level 3. If an upgrade is already maxed, the entire gift becomes that milestone’s cash reward. If only part of an upgrade fits, the remaining levels apply and each excess level converts to 5 coins. Gifts last for this hotel and are earned once per threshold each run. They never place rooms, advance or end streaks, consume coupons/Type Lock turns, or change purchase history. All thresholds crossed by one delivery are awarded before drawing the next shop or checking for the roof.
+
+Milestone tables and overflow compensation live in `balance.js`. The engine records gifts separately from purchases and reconstructs them automatically from purchase-only replays. Score version `paper-v6` isolates this automatic reward schedule from earlier rulesets. Existing version checks exclude older runs. The replay limit is 250 purchases to accommodate the extra coins.

@@ -32,7 +32,7 @@ test('replay derives the finished score and rejects unfinished, invalid, and ove
   const {record,state} = completed(); assert.deepEqual(replayRun(record.seed,record.moves),state);
   assert.throws(()=>replayRun(record.seed,record.moves.slice(0,-1)),/Finish/);
   assert.throws(()=>replayRun(record.seed,[[3,null]]),/could not be bought/);
-  assert.throws(()=>replayRun(record.seed,Array(101).fill([0])),/Invalid/);
+  assert.throws(()=>replayRun(record.seed,Array(251).fill([0])),/Invalid/);
   assert.throws(()=>replayRun('../store',record.moves),/Invalid/);
   assert.throws(()=>replayRun(record.seed,[[0,'dragon']]),/Invalid/);
 });

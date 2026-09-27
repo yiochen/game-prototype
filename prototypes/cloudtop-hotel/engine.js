@@ -148,7 +148,7 @@ function deal(state) {
 export function createGame(seed = 'build-an-engine') {
   const state = { seed: String(seed), rng: seedNumber(seed), prizeRng: seedNumber(`${seed}:prizes`), paradeRng: seedNumber(`${seed}:parade`),
     cash: BALANCE.startingCash, spent: 0, refunded: 0, history: [], links: [], nextLinkId: 0, upgrades: {}, rebateRemaining: 0,
-    foundation: null, parade: null, attunement: null, offer: [], deals: 0, phase: 'picking', lastEffect: null };
+    foundation: null, parade: null, attunement: null, gifts: [], giftCash: 0, offer: [], deals: 0, phase: 'picking', lastEffect: null };
   deal(state); return state;
 }
 export function canBuy(state, offer) {
@@ -308,7 +308,26 @@ export function pick(state, index, selectedSuit) {
 }
 export function advanceDeal(state) {
   if (state.phase !== 'resolving') return false;
-  deal(state); return true;
+  for (const milestone of BALANCE.milestones) {
+    if (chain(state) < milestone.floor || state.gifts.some(g => g.floor === milestone.floor)) continue;
+    const reward = milestoneReward(state, milestone);
+    if (reward.key !== 'tips') state.upgrades[reward.key] = reward.after;
+    state.cash += reward.coins; state.giftCash += reward.coins;
+    state.gifts.push({ floor: milestone.floor, ...reward });
+  }
+  // Award every crossed milestone before drawing offers or checking for the roof.
+  deal(state);
+  return true;
+}
+// Automatic gifts never place rooms or consume a strategy turn.
+export function milestoneReward(state, milestone) {
+  const key = milestone.reward;
+  const before = state.upgrades[key] ?? 0;
+  if (key === 'tips' || before >= BALANCE.reactor[key].prices.length) {
+    return { key: 'tips', coins: milestone.coins, levels: 0, fallback: key !== 'tips' };
+  }
+  const levels = Math.min(milestone.levels, BALANCE.reactor[key].prices.length - before);
+  return { key, before, after: before + levels, levels, coins: milestone.bonusCoins + (milestone.levels - levels) * BALANCE.milestoneOverflowCoins };
 }
 // The free finishing card is separate from purchases: it cannot spend money,
 // advance the deck, or trigger upgrades and streaks while the roof is landing.
