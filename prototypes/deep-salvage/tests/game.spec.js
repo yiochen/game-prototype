@@ -82,7 +82,7 @@ test('tap salvage stacks, first acquisition pauses once, guide pauses and discov
   await page.locator(`.loot[data-id="${id2}"]`).click();
   await expect(page.locator('#modal')).not.toBeVisible();
   await expect(page.locator('.stack[data-type="splitter"] .count')).toHaveText('2');
-  await page.locator('#manual').click(); await expect(page.locator('.guide-row')).toHaveCount(15);
+  await page.locator('#manual').click(); await expect(page.locator('.guide-row')).toHaveCount(16);
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().paused)).toBe(true);
   await page.getByRole('button', { name: 'Back to the dive' }).click();
   await page.reload(); await page.getByRole('button', { name: "Let's dive" }).click();
@@ -187,7 +187,7 @@ test('a gun beside the reactor stays powered and ignores rotation taps', async (
   }
   await expect(page.locator('#gun-label')).toHaveText('1 gun online');
   await page.locator('#manual').click();
-  await expect(page.locator('.guide-row').filter({ has: page.getByRole('heading', { name: 'Gun', exact: true }) })).toContainText('all four sides');
+  await expect(page.locator('.guide-row').filter({ has: page.getByRole('heading', { name: 'Laser gun', exact: true }) })).toContainText('all four sides');
 });
 
 test('a horizontal circuit amplifies, pierces and splits without orienting its parts', async ({ page }) => {
@@ -301,7 +301,7 @@ test('drag duplicate parts to forge, highlight matches, pay once, pause timer, a
   await page.getByRole('button', { name: "Got it. Let's build" }).click();
   await expect(page.locator('.stack[data-type="amplifier2"] .count')).toHaveText('1');
   await drag(page, page.locator('.stack[data-type="amplifier2"]'), cell(page, 12));
-  await expect(cell(page, 2).locator('.part-readout')).toHaveText('28.8');
+  await expect(cell(page, 2).locator('.part-readout')).toHaveText('31.7/s');
   await expect(cell(page, 12).locator('.tier-badge')).toHaveText('II');
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().forged)).toBe(1);
 });
@@ -324,7 +324,7 @@ test('mixed recipe glows on battlefield, rejects incompatible parts, and its out
   await expect(page.locator('#modal-title')).toHaveText('Piercing amplifier.');
   await page.getByRole('button', { name: "Got it. Let's build" }).click();
   await drag(page, page.locator('.stack[data-type="prism"]'), cell(page, 12));
-  await expect(cell(page, 2).locator('.part-readout')).toHaveText('21 ◆');
+  await expect(cell(page, 2).locator('.part-readout')).toHaveText('23.1/s ◆');
   await expect(page.locator('.beam[data-power="8"][data-piercing="false"]')).toHaveCount(1);
   await expect(page.locator('.beam[data-power="12"][data-piercing="false"]')).toHaveCount(1);
   const blue = page.locator('.beam[data-power="21"][data-piercing="true"]');
@@ -373,7 +373,7 @@ test('combat produces shield and hull feedback for submarine and enemies', async
 test('manual lists every recipe immediately and three-part forging works beside the visible hold', async ({ page }) => {
   await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
   await page.locator('#manual').click();
-  await expect(page.locator('.recipe-row')).toHaveCount(10);
+  await expect(page.locator('.recipe-row')).toHaveCount(11);
   await expect(page.locator('.recipe-row').filter({ hasText: 'Prism overcharger' })).toContainText('2 × Amplifier + 1 × Lens');
   await expect(page.locator('.recipe-row').filter({ hasText: '4 × Splitter' })).toContainText('60¢ · 10s · 4 ingredients');
   await shot(page, 'recipe-manual');
@@ -394,7 +394,7 @@ test('manual lists every recipe immediately and three-part forging works beside 
   await expect(page.locator('#modal-title')).toHaveText('Prism overcharger.');
   await page.getByRole('button', { name: "Got it. Let's build" }).click();
   await drag(page, page.locator('.stack[data-type="prism2"]'), cell(page, 12));
-  await expect(cell(page, 2).locator('.part-readout')).toHaveText('33.6 ◆');
+  await expect(cell(page, 2).locator('.part-readout')).toHaveText('37/s ◆');
 });
 
 test('four-part recipe is previewed accurately and incomplete mixtures spend nothing', async ({ page }) => {
@@ -413,4 +413,44 @@ test('four-part recipe is previewed accurately and incomplete mixtures spend not
   await page.evaluate(() => window.__deepSalvage.advance(11));
   await expect(page.locator('#modal-title')).toHaveText('Duplicator.');
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().inventory.splitter3)).toBe(1);
+});
+
+test('continuous laser and draggable pulse gun show independent damage, charging, pause and release', async ({ page }) => {
+  const errors = []; page.on('pageerror', error => errors.push(error.message));
+  await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
+  await drag(page, cell(page, 2), cell(page, 0));
+  await drag(page, page.locator('.stack[data-type="pulse"]'), cell(page, 2));
+  await expect(cell(page, 2).locator('.part-pulse')).toBeVisible();
+  await page.evaluate(() => {
+    const grid = window.__deepSalvage.snapshot().grid;
+    grid[20] = { type: 'reactor', rotation: 0 }; grid[2].charge = 0;
+    window.__deepSalvage.setGrid(grid);
+    window.__deepSalvage.setEnemies([{ id: 950, type: 'warden', hp: 1000, maxHp: 1000, shield: 0, armor: 0, speed: 0, x: .7, y: .4, attackIn: 100 }]);
+    window.__deepSalvage.advance(1);
+  });
+  const charging = await page.evaluate(() => window.__deepSalvage.snapshot());
+  expect(charging.laserBeams).toHaveLength(1);
+  expect(charging.grid[2].charge).toBeGreaterThanOrEqual(12);
+  expect(charging.enemies.find(e => e.id === 950).hp).toBeLessThan(1000);
+  expect(charging.shots.filter(s => s.pulse)).toHaveLength(0);
+  await expect(cell(page, 0).locator('.part-readout')).toHaveText('8.8/s');
+  expect(await cell(page, 2).locator('.charge-meter i').evaluate(el => parseFloat(el.style.width))).toBeGreaterThan(30);
+  await shot(page, 'laser-and-pulse-charging');
+  await page.locator('#manual').click();
+  const pausedCharge = await page.evaluate(() => window.__deepSalvage.snapshot().grid[2].charge);
+  await page.evaluate(() => window.__deepSalvage.advance(5));
+  expect(await page.evaluate(() => window.__deepSalvage.snapshot().grid[2].charge)).toBe(pausedCharge);
+  await expect(page.locator('.guide-row').filter({ has: page.getByRole('heading', { name: 'Pulse gun', exact: true }) })).toContainText('54-damage pulse');
+  await expect(page.locator('.recipe-row').filter({ hasText: '→ Pulse gun' })).toContainText('1 × Laser gun + 1 × Reactor');
+  await page.getByRole('button', { name: 'Back to the dive' }).click();
+  await page.evaluate(() => {
+    const grid = window.__deepSalvage.snapshot().grid; grid[2].charge = 35.9;
+    window.__deepSalvage.setGrid(grid); window.__deepSalvage.advance(.01);
+  });
+  const fired = await page.evaluate(() => window.__deepSalvage.snapshot());
+  expect(fired.shots.some(s => s.pulse)).toBe(true);
+  expect(fired.grid[2].charge).toBeLessThan(3);
+  expect(fired.enemies.find(e => e.id === 950).hp).toBeLessThan(charging.enemies.find(e => e.id === 950).hp - 54);
+  await shot(page, 'pulse-release');
+  expect(errors).toEqual([]);
 });

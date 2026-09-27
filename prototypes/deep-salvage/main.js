@@ -57,10 +57,11 @@ function renderForge() {
 function renderLab() {
   for (const [index, button] of buttons.entries()) {
     const part = state.grid[index];
+    button.removeAttribute('title');
     button.className = `cell ${part ? `has-part ${state.circuit.active.has(index) ? 'active' : 'inactive'}` : 'empty'}${state.circuit.blocked.includes(index) ? ' blocked' : ''}`;
     const gun = state.circuit.guns.find(g => g.index === index);
-    const readout = part ? gun ? `${Math.round(gun.power * 10) / 10}${gun.piercing ? ' ◆' : ''}` : PARTS[part.type].mark : '';
-    button.innerHTML = part ? `${tileMarkup(part.type, part.rotation)}<span class="part-readout">${readout}</span>` : '';
+    const readout = part ? gun ? `${Math.round(gun.power * B.laserDamagePerEnergy * 10) / 10}/s${gun.piercing ? ' ◆' : ''}` : PARTS[part.type].mark : '';
+    button.innerHTML = part ? `${tileMarkup(part.type, part.rotation)}<span class="part-readout">${part.type === 'pulse' ? '0%' : readout}</span>${part.type === 'pulse' ? '<span class="charge-meter"><i></i></span>' : ''}` : '';
     button.classList.toggle('forge-match', !!part && forgeMatches(state).has(part.type));
     const label = part ? `${PARTS[part.type].name}, ${PARTS[part.type].rotatable ? `${part.rotation * 90} degrees, tap to rotate` : 'accepts beams from any side'}` : 'Empty cell';
     button.setAttribute('aria-label', `${label}, row ${Math.floor(index / 5) + 1}, column ${index % 5 + 1}`);
@@ -80,6 +81,15 @@ function renderLab() {
 function renderFrame() {
   if (revision !== state.revision) renderLab();
   renderForge();
+  for (const [index, button] of buttons.entries()) {
+    const part = state.grid[index];
+    if (part?.type !== 'pulse') continue;
+    const percent = Math.floor((part.charge || 0) / B.pulseCapacity * 100);
+    button.querySelector('.charge-meter i').style.width = `${percent}%`;
+    button.querySelector('.part-readout').textContent = percent === 100 ? 'READY' : `${percent}%`;
+    button.title = `Pulse gun: ${percent}% charged · ${B.pulseDamage} damage per pulse`;
+    button.setAttribute('aria-label', `Pulse gun, ${percent}% charged, ${state.circuit.active.has(index) ? 'powered' : 'disconnected'}, row ${Math.floor(index / 5) + 1}, column ${index % 5 + 1}`);
+  }
   $('#cash-label').textContent = state.cash;
   $('#shield-fill').style.width = `${state.shield / B.shield * 100}%`;
   $('.shield-track').setAttribute('aria-label', `Shield ${Math.ceil(state.shield)} of ${B.shield}`);
@@ -283,7 +293,7 @@ function showPause() {
 }
 
 function showGuide() {
-  openModal('guide', `<p class="modal-eyebrow">THE ENGINEER'S FIELD NOTES</p><h2 id="modal-title">Recipes & parts.</h2><h3>All forge recipes</h3><p class="modal-copy">Drag two to four ingredients into the forge in any order. Matches glow as you build a recipe. Review the output, price and time before starting. Tap an idle ingredient to recover it. The timer pauses with the dive.</p><div class="recipe-list">${RECIPES.map(r => `<article class="recipe-row"><div class="recipe-ingredients">${[...new Set(r.ingredients)].map(type => `<span>${r.ingredients.filter(t => t === type).length} × ${PARTS[type].name}</span>`).join(' + ')}</div><strong>→ ${PARTS[r.output].name}</strong><p>${PARTS[r.output].description}</p><small>${r.cost}¢ · ${r.seconds}s · ${r.ingredients.length} ingredients</small></article>`).join('')}</div><h3>Parts manual</h3><p class="modal-copy">All parts fit one square. Beams travel freely through empty cells. Only reactors and mirrors need rotation. Other parts work from any side. Thicker gold beams carry more power; thin beams carry less. Blue dashed beams pierce armor. Numbers on guns show damage per shot.</p><div class="guide-list">${Object.entries(PARTS).map(([type, part]) => `<article class="guide-row"><div class="guide-tile">${tileMarkup(type)}</div><div><h3>${part.name}${state.discovered.has(type) ? '' : '<small>NOT FOUND YET</small>'}</h3><p>${part.description} ${part.tip}</p><p class="ports">${part.ports}</p></div></article>`).join('')}</div><div class="guide-close"><button class="primary" data-action="close">Back to the dive →</button></div>`);
+  openModal('guide', `<p class="modal-eyebrow">THE ENGINEER'S FIELD NOTES</p><h2 id="modal-title">Recipes & parts.</h2><h3>All forge recipes</h3><p class="modal-copy">Drag two to four ingredients into the forge in any order. Matches glow as you build a recipe. Review the output, price and time before starting. Tap an idle ingredient to recover it. The timer pauses with the dive.</p><div class="recipe-list">${RECIPES.map(r => `<article class="recipe-row"><div class="recipe-ingredients">${[...new Set(r.ingredients)].map(type => `<span>${r.ingredients.filter(t => t === type).length} × ${PARTS[type].name}</span>`).join(' + ')}</div><strong>→ ${PARTS[r.output].name}</strong><p>${PARTS[r.output].description}</p><small>${r.cost}¢ · ${r.seconds}s · ${r.ingredients.length} ingredients</small></article>`).join('')}</div><h3>Parts manual</h3><p class="modal-copy">All parts fit one square. Beams travel freely through empty cells. Only reactors and mirrors need rotation. Other parts work from any side. Thicker gold beams carry more power; thin beams carry less. Blue dashed beams pierce armor. Laser guns beam continuously; their numbers show damage per second before armor. Pink pulse guns store energy; their bars show charge. At 100% they fire a 54-damage pulse. Amplifiers speed up charging; lenses add piercing to either weapon. Your hold starts with a spare pulse gun.</p><div class="guide-list">${Object.entries(PARTS).map(([type, part]) => `<article class="guide-row"><div class="guide-tile">${tileMarkup(type)}</div><div><h3>${part.name}${state.discovered.has(type) ? '' : '<small>NOT FOUND YET</small>'}</h3><p>${part.description} ${part.tip}</p><p class="ports">${part.ports}</p></div></article>`).join('')}</div><div class="guide-close"><button class="primary" data-action="close">Back to the dive →</button></div>`);
 }
 
 function checkDiscoveries() {

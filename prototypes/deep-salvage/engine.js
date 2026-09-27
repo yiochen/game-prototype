@@ -32,10 +32,11 @@ export function traceCircuit(grid) {
       const family = PARTS[part.type].base || part.type, rule = PART_RULES[part.type];
       if (family === 'reactor') { blocked.push(index); break; }
       active.add(index);
-      if (family === 'gun') {
+      if (family === 'gun' || family === 'pulse') {
         const existing = guns.get(index);
         const gun = { index, power: Math.min(B.powerCap, (existing?.power || 0) + ray.power * rule.multiplier), piercing: ray.piercing || existing?.piercing || false };
         if (ray.targets > 2 || existing?.targets > 2) gun.targets = Math.max(ray.targets, existing?.targets || 1);
+        if (family === 'pulse') gun.mode = 'pulse';
         guns.set(index, gun);
         break;
       }
@@ -63,12 +64,12 @@ export function createState(known = []) {
   grid[2] = { type: 'gun', rotation: 0 };
   return {
     status: 'ready', paused: false, elapsed: 0, hull: B.hull,
-    grid, inventory: { mirror: 2, gun: 1, amplifier: 2, splitter: 0, lens: 0, reactor: 0 },
+    grid, inventory: { mirror: 2, gun: 1, pulse: 1, amplifier: 2, splitter: 0, lens: 0, reactor: 0 },
     cash: B.startingCash, shield: B.shield, shieldCooldown: 0, forged: 0,
     forge: { slots: Array(B.forgeSlots).fill(null), job: null }, notices: [],
-    discovered: new Set(['reactor', 'amplifier', 'gun', 'mirror', ...known.filter(type => PARTS[type])]),
+    discovered: new Set(['reactor', 'amplifier', 'gun', 'pulse', 'mirror', ...known.filter(type => PARTS[type])]),
     discoveries: [], wave: 0, spawned: 0, spawnIn: 2, rest: 0,
-    enemies: [], drops: [], shots: [], bursts: [], cooldowns: {},
+    enemies: [], drops: [], shots: [], bursts: [], laserBeams: [],
     circuit: traceCircuit(grid), serial: 0, kills: 0, salvaged: 0,
     heldDrop: null, revision: 0, submarine: { ...B.submarine, hitFlash: 0, shieldFlash: 0 },
   };
@@ -76,7 +77,7 @@ export function createState(known = []) {
 
 export function startDive(state) { if (state.status === 'ready') state.status = 'running'; }
 
-export function rebuild(state) { state.circuit = traceCircuit(state.grid); state.revision++; }
+export function rebuild(state) { state.circuit = traceCircuit(state.grid); state.laserBeams = []; state.revision++; }
 
 export function rotatePart(state, index) {
   const part = state.grid[index];
@@ -228,26 +229,46 @@ function step(state, dt) {
     }
   }
 
+  state.laserBeams = [];
   for (const gun of state.circuit.guns) {
-    state.cooldowns[gun.index] = (state.cooldowns[gun.index] || 0) - dt;
-    if (state.cooldowns[gun.index] > 0) continue;
+    const part = state.grid[gun.index], pulse = gun.mode === 'pulse';
+    // Charge belongs to the installed part, survives grid moves/disconnection,
+    // and is discarded on return to the stacked hold. A full gun waits for a target.
+    const energy = pulse ? (part.charge || 0) + gun.power * dt : 0;
+    if (pulse) part.charge = Math.min(B.pulseCapacity, energy);
     const targets = state.enemies.filter(e => !e.dead && e.x < 0.99).sort((a, b) => a.x - b.x);
-    const target = targets[0];
-    if (!target) continue;
-    const hits = gun.piercing ? targets.slice(0, gun.targets || 2) : [target];
+    if (!targets.length || (pulse && part.charge < B.pulseCapacity - 1e-9)) continue;
+    const hits = gun.piercing ? targets.slice(0, gun.targets || 2) : [targets[0]];
     for (const enemy of hits) {
-      const damage = Math.max(1, gun.power - (gun.piercing ? 0 : enemy.armor));
+      // Armor reduces a laser's rate, not each tiny frame's damage.
+      const armor = gun.piercing ? 0 : enemy.armor || 0;
+      const damage = pulse ? Math.max(1, B.pulseDamage - armor) : Math.max(1, (gun.power - armor) * B.laserDamagePerEnergy) * dt;
       const absorbed = Math.min(enemy.shield || 0, damage);
       enemy.shield = (enemy.shield || 0) - absorbed;
       enemy.hp -= damage - absorbed;
-      if (absorbed) enemy.shieldFlash = 0.45;
-      if (damage > absorbed) enemy.hitFlash = 0.25;
-      state.bursts.push({ id: ++state.serial, x: enemy.x, y: enemy.y, life: 0.6, kind: absorbed ? 'shield' : 'hit', amount: damage });
-      state.shots.push({ id: ++state.serial, from: { x: state.submarine.x + 0.09, y: state.submarine.y - 0.02 + (gun.index % 2) * 0.055 }, to: { x: enemy.x, y: enemy.y }, life: 0.20, power: gun.power, piercing: gun.piercing });
+      if (absorbed) enemy.shieldFlash = 0.3;
+      if (pulse) {
+        enemy.hitFlash = damage > absorbed ? 0.3 : 0;
+        state.bursts.push({ id: ++state.serial, x: enemy.x, y: enemy.y, life: 0.6, kind: absorbed ? 'shield' : 'hit', amount: damage });
+        state.shots.push({ id: ++state.serial, from: { x: state.submarine.x + 0.09, y: state.submarine.y - 0.02 + (gun.index % 2) * 0.055 }, to: { x: enemy.x, y: enemy.y }, life: B.pulseDuration, power: B.pulseDamage, piercing: gun.piercing, pulse: true });
+      } else {
+        state.laserBeams.push({ index: gun.index, targetId: enemy.id, power: gun.power, piercing: gun.piercing });
+        enemy.laserDamage = (enemy.laserDamage || 0) + damage;
+      }
       if (enemy.hp <= 0) killEnemy(state, enemy);
     }
-    state.cooldowns[gun.index] = B.shotInterval;
+    if (pulse) part.charge = Math.max(0, energy - B.pulseCapacity);
   }
+  // Aggregate tiny laser hits into readable numbers, independent of gun count.
+  for (const enemy of state.enemies) {
+    enemy.laserFeedback = Math.max(0, (enemy.laserFeedback ?? B.laserFeedbackInterval) - dt);
+    if (enemy.laserDamage && enemy.laserFeedback <= 0) {
+      if (!enemy.shield) enemy.hitFlash = 0.12;
+      state.bursts.push({ id: ++state.serial, x: enemy.x, y: enemy.y, life: 0.6, kind: enemy.shield ? 'shield' : 'hit', amount: enemy.laserDamage });
+      enemy.laserDamage = 0; enemy.laserFeedback = B.laserFeedbackInterval;
+    }
+  }
+  state.laserBeams = state.laserBeams.filter(beam => !state.enemies.find(e => e.id === beam.targetId)?.dead);
   state.enemies = state.enemies.filter(e => !e.dead);
   if (state.hull <= 0) { state.status = 'lost'; return; }
   if (state.rest <= 0 && state.spawned === wave.enemies.length && !state.enemies.length) {

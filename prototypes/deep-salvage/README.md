@@ -19,9 +19,10 @@ Open `/prototypes/deep-salvage/`. No account or runtime network request is neede
 - Tap an installed reactor or mirror to rotate it. Other components work from any side and do not need rotation. Drag it elsewhere or back into the hold.
 - Dragging slows time. Invalid drops and cancelled gestures preserve the part. The part being held cannot expire.
 - Beam energy crosses empty squares. Mirrors turn it. Amplifiers and lenses work straight through in any direction. Splitters send half the energy left and half right relative to the incoming beam. Guns accept inputs from all four sides.
+- Lasers track enemies continuously for small damage ticks. The spare Pulse gun in your hold stores 36 energy and fires a 54-damage burst. Stronger input charges it faster; lenses add piercing. Charge waits when full or disconnected, pauses with the dive, and clears when returned to the hold. Forge a laser gun + reactor for another Pulse gun (24 cash / 6 seconds).
 - Every kill pays cash; only one in four drops a part. The hold sits below the grid, with the four-slot forge in a vertical strip on the right. Drag two to four compatible parts directly into the forge, then pay to start. Matches glow after each ingredient, and a complete recipe previews its result before you pay. The completed upgrade returns to the hold. Tap an idle ingredient to recover it.
-- Thicker beams carry more power, gold means amplified, and blue dashes mean piercing. Gun tiles display final damage. Each forged part has a distinct enhanced icon as well as a tier badge. The blue shield meter regenerates after six seconds without damage.
-- A newly acquired part type pauses the game for its introduction. The guide explains all 15 parts and ten forge recipes, including exact quantities, effects, costs and times from the start. Only discovery history persists between runs.
+- Thicker beams carry more power, gold means amplified, and blue dashes mean piercing. Laser tiles show damage per second; pink pulse tiles show charge. Each forged part has a distinct enhanced icon as well as a tier badge. The blue shield meter regenerates after six seconds without damage.
+- A newly acquired part type pauses the game for its introduction. The guide explains all 16 parts and eleven forge recipes, including exact quantities, effects, costs and times from the start. Only discovery history persists between runs.
 - Keyboard: Tab to controls, Enter/Space to activate or rotate, arrow keys between grid cells, Delete/Backspace to store a focused tile, Escape to cancel a drag or pause.
 
 Try forging your two spare amplifiers into an Overcharger first, then install it above the starter amplifier. Add the first salvaged lens before your gun to handle armor.
@@ -31,7 +32,7 @@ For branching, try moving the starter gun to the top-left branch, installing the
 ## Structure
 
 - `balance.js`: numbers, waves, drop order and tuning.
-- `recipes.js`: ingredient pairs, costs, durations and outputs.
+- `recipes.js`: ingredient combinations, costs, durations and outputs.
 - `engine.js`: deterministic circuit tracing, combat, forge jobs, inventory and loot lifetime; no Phaser or DOM.
 - `parts.js`: definitions and shared tile icons.
 - `artwork.js`: SVG texture manifest for the submarine and enemies.

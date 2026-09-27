@@ -163,7 +163,7 @@ test('piercing bypasses armor and damages a second target', () => {
   state.spawnIn = 100;
   state.enemies = [1, 2].map(id => ({ id, type: 'crab', ...B.enemies.crab, hp: 62, maxHp: 62, x: 0.6 + id * 0.1, y: 0.4, attackIn: 2 }));
   tick(state, 0.01);
-  assert.deepEqual(state.enemies.map(e => e.hp), [50, 50]);
+  for (const enemy of state.enemies) assert.ok(Math.abs(enemy.hp - (62 - 12 * B.laserDamagePerEnergy * .01)) < 1e-8);
 });
 
 test('disconnected weapons lead to loss; an upgraded machine can complete all three waves', () => {

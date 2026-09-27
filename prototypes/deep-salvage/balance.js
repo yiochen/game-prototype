@@ -10,7 +10,11 @@ export const BALANCE = Object.freeze({
   reactorPower: 8,
   amplifier: 1.5,
   powerCap: 48,
-  shotInterval: 0.85,
+  laserDamagePerEnergy: 1.1,
+  laserFeedbackInterval: 0.35,
+  pulseCapacity: 36,
+  pulseDamage: 54,
+  pulseDuration: 0.3,
   lootLife: 12,
   lootFlash: 3,
   dragSpeed: 0.2,
@@ -28,7 +32,7 @@ export const BALANCE = Object.freeze({
     { name: 'Through the kelp', interval: 1.9, enemies: ['scout', 'swarm', 'swarm', 'crab', 'scout', 'warden', 'swarm', 'swarm', 'crab', 'scout', 'warden', 'swarm', 'crab'] },
     { name: 'The last beacon', interval: 1.0, enemies: ['warden', 'swarm', 'crab', 'swarm', 'scout', 'crab', 'swarm', 'warden', 'swarm', 'crab', 'scout', 'warden', 'swarm', 'crab', 'swarm', 'warden', 'crab', 'warden'] },
   ],
-  lootOrder: ['splitter', 'lens', 'amplifier', 'splitter', 'gun', 'splitter', 'splitter', 'lens', 'reactor', 'amplifier'],
+  lootOrder: ['splitter', 'lens', 'amplifier', 'splitter', 'pulse', 'splitter', 'splitter', 'lens', 'reactor', 'amplifier'],
 });
 
 export const PART_RULES = Object.freeze({
@@ -39,6 +43,7 @@ export const PART_RULES = Object.freeze({
   splitter2: { fraction: 0.5, forward: true },
   splitter3: { fraction: 1, forward: true },
   lens: { targets: 2, multiplier: 1 }, lens2: { targets: 3, multiplier: 1.25 },
+  pulse: { multiplier: 1 },
   gun: { multiplier: 1 }, gun2: { multiplier: 1.6 },
   prism: { multiplier: 1.75, targets: 2 },
   prism2: { multiplier: 2.8, targets: 2 },

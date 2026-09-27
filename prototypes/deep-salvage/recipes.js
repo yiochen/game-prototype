@@ -1,5 +1,6 @@
 // Ingredient multisets: order never matters, but every copy and quantity does.
 export const RECIPES = Object.freeze([
+  { ingredients: ['gun', 'reactor'], output: 'pulse', cost: 24, seconds: 6 },
   { ingredients: ['reactor', 'reactor'], output: 'reactor2', cost: 30, seconds: 8 },
   { ingredients: ['mirror', 'mirror'], output: 'mirror2', cost: 16, seconds: 5 },
   { ingredients: ['amplifier', 'amplifier'], output: 'amplifier2', cost: 24, seconds: 6 },

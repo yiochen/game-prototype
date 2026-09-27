@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { BALANCE as B } from './balance.js';
 import { assetManifest } from './artwork.js';
 
 export class WorldScene extends Phaser.Scene {
@@ -52,7 +53,35 @@ export class WorldScene extends Phaser.Scene {
       g.fillStyle(0x113b4c, 0.9).fillRoundedRect(x - width / 2 - 1, y - 1, width + 2, 5, 2);
       g.fillStyle(0xf59e88).fillRoundedRect(x - width / 2, y, width * e.hp / e.maxHp, 3, 1);
     }
+    for (const beam of state.laserBeams) {
+      const enemy = state.enemies.find(e => e.id === beam.targetId);
+      if (!enemy) continue;
+      const x = (state.submarine.x + 0.09) * w, y = (state.submarine.y - 0.02 + (beam.index % 2) * 0.055) * h;
+      const target = this.actors.get(enemy.id), color = beam.piercing ? 0x8bccff : 0x87fff0;
+      g.lineStyle(5 + Math.sqrt(beam.power), color, 0.23 + Math.sin(t * 18) * 0.04).lineBetween(x, y, target.x, target.y);
+      g.lineStyle(2, color, 0.95).lineBetween(x, y, target.x, target.y);
+      g.lineStyle(0.8, 0xf2fff1, 1).lineBetween(x, y, target.x, target.y);
+      g.fillStyle(color, 0.8).fillCircle(target.x, target.y, 3 + Math.sin(t * 23));
+    }
+    for (const gun of state.circuit.guns.filter(gun => gun.mode === 'pulse')) {
+      const charge = (state.grid[gun.index].charge || 0) / B.pulseCapacity;
+      const x = (state.submarine.x + 0.09) * w, y = (state.submarine.y - 0.02 + (gun.index % 2) * 0.055) * h;
+      g.fillStyle(0xffa8df, charge * 0.4).fillCircle(x, y, 5 + charge * 10);
+      g.lineStyle(2, 0xffd4ef, 0.85).beginPath().arc(x, y, 10, -Math.PI / 2, -Math.PI / 2 + charge * Math.PI * 2).strokePath();
+      g.fillStyle(0xfff2b5, charge).fillCircle(x, y, 2 + charge * 4);
+    }
     for (const shot of state.shots) {
+      if (shot.pulse) {
+        const progress = Math.min(1, (1 - shot.life / B.pulseDuration) * 3);
+        const x = (shot.from.x + (shot.to.x - shot.from.x) * progress) * w;
+        const y = (shot.from.y + (shot.to.y - shot.from.y) * progress) * h;
+        const color = shot.piercing ? 0x9eeeff : 0xffa8df;
+        g.lineStyle(10, color, shot.life).lineBetween(shot.from.x * w, shot.from.y * h, x, y);
+        g.fillStyle(color, shot.life * 2).fillCircle(x, y, 14);
+        g.fillStyle(0xfff2c2, Math.min(1, shot.life * 6)).fillCircle(x, y, 7);
+        g.lineStyle(2.5, color, shot.life * 3).strokeCircle(shot.to.x * w, shot.to.y * h, 5 + (1 - shot.life / B.pulseDuration) * 30);
+        continue;
+      }
       const color = shot.hostile ? 0xff9c8a : shot.piercing ? 0x8bccff : 0x87fff0;
       g.lineStyle(shot.hostile ? 8 : 5 + Math.sqrt(shot.power || 8), color, shot.life * 1.8).lineBetween(shot.from.x * w, shot.from.y * h, shot.to.x * w, shot.to.y * h);
       g.lineStyle(2.2, shot.hostile ? 0xfff0b0 : 0xe9fff7, Math.min(1, shot.life * 8)).lineBetween(shot.from.x * w, shot.from.y * h, shot.to.x * w, shot.to.y * h);
@@ -69,7 +98,7 @@ export class WorldScene extends Phaser.Scene {
       liveLabels.add(burst.id);
       let label = this.labels.get(burst.id);
       if (!label) {
-        const text = burst.kind === 'cash' ? `+${burst.amount}¢` : `${burst.kind === 'shield' ? '◇ ' : '−'}${Math.round(burst.amount)}`;
+        const text = burst.kind === 'cash' ? `+${burst.amount}¢` : `${burst.kind === 'shield' ? '◇ ' : '−'}${Math.round(burst.amount * 10) / 10}`;
         label = this.add.text(0, 0, text, { fontFamily: 'system-ui, sans-serif', fontSize: burst.kind === 'cash' ? '16px' : '13px', fontStyle: 'bold', color: burst.kind === 'cash' ? '#ffe3a1' : burst.kind === 'shield' ? '#a6edff' : '#fff1d7', stroke: '#123847', strokeThickness: 3 }).setOrigin(0.5).setDepth(11);
         this.labels.set(burst.id, label);
       }

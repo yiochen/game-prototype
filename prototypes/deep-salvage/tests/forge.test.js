@@ -8,7 +8,7 @@ const add = (s, type) => movePart(s, { kind: 'storage', type }, { kind: 'forge' 
 
 test('every recipe accepts either order, charges once, locks ingredients, and creates exactly one upgrade', () => {
   for (const recipe of RECIPES) for (const ingredients of [recipe.ingredients, [...recipe.ingredients].reverse()]) {
-    const s = createState(); startDive(s); s.cash = recipe.cost; s.spawnIn = 100;
+    const s = createState(); startDive(s); s.cash = recipe.cost; s.spawnIn = 100; s.inventory[recipe.output] = 0; s.discovered.delete(recipe.output);
     for (const type of ingredients) s.inventory[type] = (s.inventory[type] || 0) + 1;
     for (const type of ingredients) assert.equal(add(s, type), true);
     assert.equal(findRecipe(...ingredients).output, recipe.output);
@@ -70,7 +70,7 @@ test('every kill earns cash but only one in four enemies drops a part', () => {
   const s = createState(); startDive(s); s.spawnIn = 100;
   for (let i = 0; i < 8; i++) {
     s.enemies = [{ id: 1000 + i, type: 'scout', ...B.enemies.scout, hp: 1, maxHp: 38, x: .6, y: .4, attackIn: 2 }];
-    s.cooldowns = {}; tick(s, .01);
+    tick(s, .1);
   }
   assert.equal(s.kills, 8); assert.equal(s.cash, B.startingCash + 8 * B.enemies.scout.bounty);
   assert.deepEqual(s.drops.map(d => d.type), ['splitter', 'lens']);
@@ -89,8 +89,9 @@ test('enemy shields and hull hits expose distinct animations and rail piercing h
   const s = createState(); s.grid[12] = part('lens2'); rebuild(s); startDive(s); s.spawnIn = 100;
   s.enemies = [1, 2, 3].map(id => ({ id, type: 'warden', ...B.enemies.warden, shield: id === 1 ? 40 : 0, maxHp: 180, x: .5 + id * .1, y: .4, attackIn: 2 }));
   tick(s, .01);
-  assert.equal(s.enemies[0].shield, 25); assert.equal(s.enemies[0].hp, 180); assert.ok(s.enemies[0].shieldFlash > 0);
-  assert.equal(s.enemies[1].hp, 165); assert.ok(s.enemies[1].hitFlash > 0); assert.equal(s.enemies[2].hp, 165);
+  assert.ok(Math.abs(s.enemies[0].shield - (40 - 15 * B.laserDamagePerEnergy * .01)) < 1e-8); assert.equal(s.enemies[0].hp, 180); assert.ok(s.enemies[0].shieldFlash > 0);
+  assert.ok(s.enemies[1].hp < 180); assert.equal(s.enemies[1].hp, s.enemies[2].hp);
+  tick(s, .4); assert.ok(s.enemies[1].hitFlash > 0);
 });
 
 test('an affordable opening forge and a salvaged lens can beat the tougher dive with real damage taken', () => {
