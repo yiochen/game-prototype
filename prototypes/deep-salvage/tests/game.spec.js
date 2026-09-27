@@ -82,7 +82,7 @@ test('tap salvage stacks, first acquisition pauses once, guide pauses and discov
   await page.locator(`.loot[data-id="${id2}"]`).click();
   await expect(page.locator('#modal')).not.toBeVisible();
   await expect(page.locator('.stack[data-type="splitter"] .count')).toHaveText('2');
-  await page.locator('#manual').click(); await expect(page.locator('.guide-row')).toHaveCount(16);
+  await page.locator('#manual').click(); await expect(page.locator('.guide-row')).toHaveCount(20);
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().paused)).toBe(true);
   await page.getByRole('button', { name: 'Back to the dive' }).click();
   await page.reload(); await page.getByRole('button', { name: "Let's dive" }).click();
@@ -373,7 +373,7 @@ test('combat produces shield and hull feedback for submarine and enemies', async
 test('manual lists every recipe immediately and three-part forging works beside the visible hold', async ({ page }) => {
   await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
   await page.locator('#manual').click();
-  await expect(page.locator('.recipe-row')).toHaveCount(11);
+  await expect(page.locator('.recipe-row')).toHaveCount(13);
   await expect(page.locator('.recipe-row').filter({ hasText: 'Prism overcharger' })).toContainText('2 × Amplifier + 1 × Lens');
   await expect(page.locator('.recipe-row').filter({ hasText: '4 × Splitter' })).toContainText('60¢ · 10s · 4 ingredients');
   await shot(page, 'recipe-manual');
@@ -452,5 +452,66 @@ test('continuous laser and draggable pulse gun show independent damage, charging
   expect(fired.grid[2].charge).toBeLessThan(3);
   expect(fired.enemies.find(e => e.id === 950).hp).toBeLessThan(charging.enemies.find(e => e.id === 950).hp - 54);
   await shot(page, 'pulse-release');
+  expect(errors).toEqual([]);
+});
+
+test('Shield and Medic drag from hold, charge from a reactor, restore vitals and pause with the guide', async ({ page }) => {
+  const errors = []; page.on('pageerror', error => errors.push(error.message));
+  await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
+  await drag(page, page.locator('.stack[data-type="reactor"]'), cell(page, 20));
+  await drag(page, page.locator('.stack[data-type="shield"]'), cell(page, 0));
+  await expect(page.locator('#gun-label')).toHaveText('1 gun · 1 support');
+  await page.evaluate(() => { window.__deepSalvage.setVitals(80, 0); window.__deepSalvage.advance(4.1); });
+  const shield = await page.evaluate(() => window.__deepSalvage.snapshot());
+  expect(shield.shield).toBe(12); expect(shield.hull).toBe(80);
+  await shot(page, 'shield-terminal');
+  await drag(page, cell(page, 0), page.locator('#storage'));
+  await drag(page, page.locator('.stack[data-type="medic"]'), cell(page, 0));
+  await page.evaluate(() => { window.__deepSalvage.setVitals(60, 24); window.__deepSalvage.advance(2); });
+  await page.locator('#manual').click();
+  const charge = await page.evaluate(() => window.__deepSalvage.snapshot().grid[0].charge);
+  await page.evaluate(() => window.__deepSalvage.advance(10));
+  expect(await page.evaluate(() => window.__deepSalvage.snapshot().grid[0].charge)).toBe(charge);
+  await expect(page.locator('.guide-row')).toHaveCount(20);
+  await expect(page.locator('.recipe-row')).toHaveCount(13);
+  await expect(page.locator('.enemy-row')).toHaveCount(10);
+  await expect(page.locator('.recipe-row').filter({hasText:'→ Aegis shield'})).toContainText('20 shield');
+  await page.getByRole('button', {name:'Back to the dive'}).click();
+  await page.evaluate(() => window.__deepSalvage.advance(4.1));
+  const healed = await page.evaluate(() => window.__deepSalvage.snapshot());
+  expect(healed.hull).toBe(72); expect(healed.grid[0].charge).toBeLessThan(16);
+  await shot(page, 'medic-terminal');
+  expect(errors).toEqual([]);
+});
+
+test('route selection changes encounters and scenery, survives restart, and offers readable enemy guide', async ({ page }) => {
+  const errors = []; page.on('pageerror', error => errors.push(error.message));
+  await page.setViewportSize({ width: 412, height: 924 }); await page.goto(URL);
+  await expect(page.locator('.route-card')).toHaveCount(3);
+  await shot(page, 'route-selection');
+  for (const [id, location, depth] of [['kelp','EMERALD SHALLOWS','460 m ↓'], ['foundry','COLD PIPELINES','1260 m ↓']]) {
+    await page.locator(`[data-map="${id}"]`).click();
+    await expect(page.locator(`[data-map="${id}"]`)).toHaveAttribute('aria-pressed','true');
+    await page.getByRole('button', {name:"Let's dive"}).click();
+    await expect(page.locator('#location-label')).toHaveText(location);
+    await expect(page.locator('.depth')).toHaveText(depth);
+    await expect(page.locator('canvas')).toHaveAttribute('data-map',id);
+    await page.evaluate(() => window.__deepSalvage.advance(3));
+    await shot(page, `map-${id}-portrait`);
+    await page.setViewportSize({width:924,height:412}); await shot(page, `map-${id}-landscape`);
+    const b = await bounds(page); expect(b.scrollWidth).toBe(924); expect(b.scrollHeight).toBe(412);
+    await page.setViewportSize({width:412,height:924});
+    await page.locator('#pause').click(); await page.getByRole('button', {name:'Start a new dive',exact:true}).click();
+    expect(await page.evaluate(() => window.__deepSalvage.snapshot().mapId)).toBe(id);
+    await page.locator('#pause').click(); await page.getByRole('button', {name:'Choose another route'}).click();
+  }
+  await page.locator('[data-map=city]').click();
+  await page.getByRole('button', {name:'Back to current dive'}).click();
+  expect(await page.evaluate(() => window.__deepSalvage.snapshot().mapId)).toBe('foundry');
+  await page.locator('#manual').click();
+  await page.getByRole('heading', {name:'Enemy field guide'}).scrollIntoViewIfNeeded();
+  await expect(page.locator('.enemy-row').filter({hasText:'Harpoon sniper'})).toContainText('every 3 seconds');
+  await expect(page.locator('.enemy-row').filter({hasText:'Volt leech'})).toContainText('twice as much shield');
+  await shot(page, 'enemy-field-guide');
   expect(errors).toEqual([]);
 });

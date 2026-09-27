@@ -1,4 +1,4 @@
-import { BALANCE as B, PART_RULES } from './balance.js';
+import { BALANCE as B, PART_RULES, MAPS, mapFor } from './balance.js';
 import { PARTS } from './parts.js';
 import { RECIPES, findRecipe, compatibleTypes } from './recipes.js';
 
@@ -7,7 +7,7 @@ const mod = n => (n + 4) % 4;
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
 export function traceCircuit(grid) {
-  const segments = [], guns = new Map(), active = new Set(), blocked = [], queue = [];
+  const segments = [], guns = new Map(), supports = new Map(), active = new Set(), blocked = [], queue = [];
   grid.forEach((part, index) => {
     if (part && (PARTS[part.type].base || part.type) === 'reactor') {
       active.add(index);
@@ -32,6 +32,11 @@ export function traceCircuit(grid) {
       const family = PARTS[part.type].base || part.type, rule = PART_RULES[part.type];
       if (family === 'reactor') { blocked.push(index); break; }
       active.add(index);
+      if (rule.resource) {
+        const existing = supports.get(index);
+        supports.set(index, { index, power: Math.min(B.powerCap, (existing?.power || 0) + ray.power), resource: rule.resource });
+        break;
+      }
       if (family === 'gun' || family === 'pulse') {
         const existing = guns.get(index);
         const gun = { index, power: Math.min(B.powerCap, (existing?.power || 0) + ray.power * rule.multiplier), piercing: ray.piercing || existing?.piercing || false };
@@ -54,24 +59,24 @@ export function traceCircuit(grid) {
       break;
     }
   }
-  return { segments, guns: [...guns.values()], active, blocked: [...new Set(blocked)] };
+  return { segments, guns: [...guns.values()], supports: [...supports.values()], active, blocked: [...new Set(blocked)] };
 }
 
-export function createState(known = []) {
+export function createState(known = [], mapId = 'city') {
   const grid = Array(25).fill(null);
   grid[22] = { type: 'reactor', rotation: 0 };
   grid[17] = { type: 'amplifier', rotation: 0 };
   grid[2] = { type: 'gun', rotation: 0 };
   return {
-    status: 'ready', paused: false, elapsed: 0, hull: B.hull,
-    grid, inventory: { mirror: 2, gun: 1, pulse: 1, amplifier: 2, splitter: 0, lens: 0, reactor: 0 },
+    mapId: MAPS[mapId] ? mapId : 'city', status: 'ready', paused: false, elapsed: 0, hull: B.hull,
+    grid, inventory: { mirror: 2, gun: 1, pulse: 1, shield: 1, medic: 1, amplifier: 2, splitter: 0, lens: 0, reactor: 1 },
     cash: B.startingCash, shield: B.shield, shieldCooldown: 0, forged: 0,
     forge: { slots: Array(B.forgeSlots).fill(null), job: null }, notices: [],
-    discovered: new Set(['reactor', 'amplifier', 'gun', 'pulse', 'mirror', ...known.filter(type => PARTS[type])]),
+    discovered: new Set(['reactor', 'amplifier', 'gun', 'pulse', 'shield', 'medic', 'mirror', ...known.filter(type => PARTS[type])]),
     discoveries: [], wave: 0, spawned: 0, spawnIn: 2, rest: 0,
     enemies: [], drops: [], shots: [], bursts: [], laserBeams: [],
     circuit: traceCircuit(grid), serial: 0, kills: 0, salvaged: 0,
-    heldDrop: null, revision: 0, submarine: { ...B.submarine, hitFlash: 0, shieldFlash: 0 },
+    heldDrop: null, revision: 0, submarine: { ...B.submarine, hitFlash: 0, shieldFlash: 0, repairFlash: 0, restoreFlash: 0 },
   };
 }
 
@@ -175,6 +180,22 @@ function killEnemy(state, enemy) {
   state.kills++;
 }
 
+function chargeSupport(state, dt) {
+  if (state.hull <= 0) return; // Repairs cannot resurrect a destroyed submarine.
+  for (const support of state.circuit.supports) {
+    const part = state.grid[support.index], rule = PART_RULES[part.type];
+    const energy = (part.charge || 0) + support.power * dt;
+    part.charge = Math.min(rule.capacity, energy);
+    const maximum = support.resource === 'shield' ? B.shield : B.hull;
+    if (part.charge < rule.capacity - 1e-9 || state[support.resource] >= maximum) continue;
+    const amount = Math.min(rule.restore, maximum - state[support.resource]);
+    state[support.resource] += amount;
+    part.charge = Math.max(0, energy - rule.capacity);
+    state.submarine[support.resource === 'shield' ? 'restoreFlash' : 'repairFlash'] = 0.6;
+    state.bursts.push({ id: ++state.serial, x: state.submarine.x, y: state.submarine.y + (support.resource === 'hull' ? .06 : -.06), life: .6, kind: support.resource === 'shield' ? 'restore' : 'repair', amount });
+  }
+}
+
 function step(state, dt) {
   state.elapsed += dt;
   advanceForge(state, dt);
@@ -184,7 +205,9 @@ function step(state, dt) {
     actor.hitFlash = Math.max(0, (actor.hitFlash || 0) - dt);
     actor.shieldFlash = Math.max(0, (actor.shieldFlash || 0) - dt);
   }
-  state.submarine.y = B.submarine.y + Math.sin(state.elapsed * 0.35) * 0.025;
+  state.submarine.repairFlash = Math.max(0, state.submarine.repairFlash - dt);
+  state.submarine.restoreFlash = Math.max(0, state.submarine.restoreFlash - dt);
+  state.submarine.y = B.submarine.y + Math.sin(state.elapsed * 0.35) * mapFor(state).route;
   for (const shot of state.shots) shot.life -= dt;
   for (const burst of state.bursts) burst.life -= dt;
   state.shots = state.shots.filter(s => s.life > 0);
@@ -198,7 +221,7 @@ function step(state, dt) {
   }
   state.drops = state.drops.filter(d => d.life > 0 || d.id === state.heldDrop);
 
-  const wave = B.waves[state.wave];
+  const waves = mapFor(state).waves, wave = waves[state.wave];
   if (state.rest > 0) {
     state.rest -= dt;
     if (state.rest <= 0) { state.wave++; state.spawned = 0; state.spawnIn = 0.5; }
@@ -212,23 +235,29 @@ function step(state, dt) {
   }
 
   for (const enemy of state.enemies) {
-    if (enemy.x > state.submarine.x + 0.14) enemy.x -= enemy.speed * dt;
+    if (enemy.healRate) for (const ally of state.enemies) {
+      if (ally !== enemy && !ally.dead && Math.hypot(ally.x - enemy.x, ally.y - enemy.y) <= enemy.healRange) ally.hp = Math.min(ally.maxHp, ally.hp + enemy.healRate * dt);
+    }
+    if (enemy.x > state.submarine.x + (enemy.range || 0.14)) enemy.x -= enemy.speed * dt;
     else {
       enemy.attackIn -= dt;
       if (enemy.attackIn <= 0) {
-        const absorbed = Math.min(state.shield, enemy.damage);
-        state.shield -= absorbed; state.shieldCooldown = B.shieldDelay;
+        const drain = enemy.shieldDrain || 1;
+        const absorbed = Math.min(state.shield / drain, enemy.damage);
+        state.shield -= absorbed * drain; state.shieldCooldown = B.shieldDelay;
         const hullDamage = enemy.damage - absorbed;
         state.hull = Math.max(0, state.hull - hullDamage);
         if (absorbed) state.submarine.shieldFlash = 0.45;
         if (hullDamage) state.submarine.hitFlash = 0.35;
         enemy.attackIn += enemy.attackInterval;
         state.shots.push({ id: ++state.serial, from: { x: enemy.x, y: enemy.y }, to: { ...state.submarine }, life: 0.22, hostile: true });
-        state.bursts.push({ id: ++state.serial, x: state.submarine.x, y: state.submarine.y, life: 0.6, kind: hullDamage ? 'hull' : 'shield', amount: enemy.damage });
+        state.bursts.push({ id: ++state.serial, x: state.submarine.x, y: state.submarine.y, life: 0.6, kind: hullDamage ? 'hull' : 'shield', amount: hullDamage || absorbed * drain });
+        if (enemy.suicide) { enemy.dead = true; state.bursts.push({ id: ++state.serial, x: enemy.x, y: enemy.y, life: .5, kind: 'enemy' }); }
       }
     }
   }
 
+  chargeSupport(state, dt);
   state.laserBeams = [];
   for (const gun of state.circuit.guns) {
     const part = state.grid[gun.index], pulse = gun.mode === 'pulse';
@@ -272,7 +301,7 @@ function step(state, dt) {
   state.enemies = state.enemies.filter(e => !e.dead);
   if (state.hull <= 0) { state.status = 'lost'; return; }
   if (state.rest <= 0 && state.spawned === wave.enemies.length && !state.enemies.length) {
-    if (state.wave === B.waves.length - 1) state.status = 'won';
+    if (state.wave === waves.length - 1) state.status = 'won';
     else state.rest = B.intermission;
   }
 }

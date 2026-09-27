@@ -22,6 +22,12 @@ export const BALANCE = Object.freeze({
   submarine: { x: 0.23, y: 0.49 },
   floor: 0.86,
   enemies: {
+    dart: { hp: 34, speed: 0.14, damage: 6, attackInterval: 1.2, armor: 0, bounty: 7 },
+    bulwark: { hp: 300, speed: 0.038, damage: 15, attackInterval: 2.1, armor: 9, bounty: 24 },
+    sniper: { hp: 95, speed: 0.055, damage: 10, attackInterval: 3, armor: 1, range: 0.6, bounty: 13 },
+    leech: { hp: 100, speed: 0.08, damage: 8, attackInterval: 1.5, armor: 1, shieldDrain: 2, bounty: 12 },
+    mender: { hp: 100, speed: 0.05, damage: 4, attackInterval: 2, armor: 0, healRate: 5, healRange: 0.22, bounty: 16 },
+    bomber: { hp: 55, speed: 0.10, damage: 26, attackInterval: 0.8, armor: 0, suicide: true, bounty: 10 },
     scout: { hp: 38, speed: 0.065, damage: 7, attackInterval: 1.5, armor: 0, bounty: 8 },
     swarm: { hp: 20, speed: 0.115, damage: 5, attackInterval: 1.0, armor: 0, bounty: 5 },
     crab: { hp: 125, speed: 0.055, damage: 12, attackInterval: 1.8, armor: 4, bounty: 14 },
@@ -32,7 +38,7 @@ export const BALANCE = Object.freeze({
     { name: 'Through the kelp', interval: 1.9, enemies: ['scout', 'swarm', 'swarm', 'crab', 'scout', 'warden', 'swarm', 'swarm', 'crab', 'scout', 'warden', 'swarm', 'crab'] },
     { name: 'The last beacon', interval: 1.0, enemies: ['warden', 'swarm', 'crab', 'swarm', 'scout', 'crab', 'swarm', 'warden', 'swarm', 'crab', 'scout', 'warden', 'swarm', 'crab', 'swarm', 'warden', 'crab', 'warden'] },
   ],
-  lootOrder: ['splitter', 'lens', 'amplifier', 'splitter', 'pulse', 'splitter', 'splitter', 'lens', 'reactor', 'amplifier'],
+  lootOrder: ['splitter', 'lens', 'shield', 'splitter', 'pulse', 'medic', 'splitter', 'lens', 'reactor', 'amplifier'],
 });
 
 export const PART_RULES = Object.freeze({
@@ -43,8 +49,44 @@ export const PART_RULES = Object.freeze({
   splitter2: { fraction: 0.5, forward: true },
   splitter3: { fraction: 1, forward: true },
   lens: { targets: 2, multiplier: 1 }, lens2: { targets: 3, multiplier: 1.25 },
-  pulse: { multiplier: 1 },
+  pulse: { multiplier: 1, capacity: BALANCE.pulseCapacity },
+  shield: { multiplier: 1, capacity: 32, restore: 12, resource: 'shield' },
+  shield2: { multiplier: 1, capacity: 32, restore: 20, resource: 'shield' },
+  medic: { multiplier: 1, capacity: 48, restore: 12, resource: 'hull' },
+  medic2: { multiplier: 1, capacity: 48, restore: 20, resource: 'hull' },
   gun: { multiplier: 1 }, gun2: { multiplier: 1.6 },
   prism: { multiplier: 1.75, targets: 2 },
   prism2: { multiplier: 2.8, targets: 2 },
 });
+
+
+export const ENEMY_INFO = Object.freeze({
+  scout: { name: 'Scout', tactic: 'Steady all-round attacker. A continuous laser keeps it in check.', size: .155 },
+  swarm: { name: 'Swarm', tactic: 'Small and fast. Multiple guns and piercing clear the pack.', size: .11 },
+  crab: { name: 'Iron crab', tactic: 'Armored hull reduces non-piercing damage. Bring a lens.', size: .20 },
+  warden: { name: 'Warden', tactic: 'Shielded heavy. Drain its shield, then pierce its armor.', size: .21 },
+  dart: { name: 'Needle dart', tactic: 'The fastest attacker, with a fragile hull. Lasers avoid wasting a charged pulse.', size: .15 },
+  bulwark: { name: 'Bulwark', tactic: 'Slow, thick armor and a huge hull. Piercing pulses work well.', size: .25 },
+  sniper: { name: 'Harpoon sniper', tactic: 'Stops far away and fires every 3 seconds. Its aiming line warns of a shot.', size: .18 },
+  leech: { name: 'Volt leech', tactic: 'Drains twice as much shield per hit. A Shield terminal replenishes protection during combat.', size: .17 },
+  mender: { name: 'Reef mender', tactic: 'Repairs nearby allies for 5 HP per second, but cannot heal itself. Use piercing to reach it behind a tank.', size: .18 },
+  bomber: { name: 'Depth bomber', tactic: 'Explodes for 26 damage on contact, then disappears. Destroy it before it reaches the submarine.', size: .16 },
+});
+
+export const MAPS = Object.freeze({
+  city: { name: 'Sunken City', difficulty: 'Standard', theme: 'city', depth: 840, route: .025, top: 0x227893, bottom: 0x0f394c,
+    description: 'Drowned streets and watchtowers. Learn to counter armored crabs and shielded wardens.', waves: BALANCE.waves },
+  kelp: { name: 'Kelp Wilds', difficulty: 'Fast & relentless', theme: 'kelp', depth: 460, route: .065, top: 0x287f71, bottom: 0x123f47,
+    description: 'A glowing forest. Darts rush ahead while leeches drain shields and menders repair the pack.', waves: [
+      { name: 'Emerald shallows', interval: 3.6, enemies: ['scout','dart','swarm','leech','dart','mender','swarm','crab'] },
+      { name: 'Tangled roots', interval: 1.7, enemies: ['dart','swarm','leech','mender','crab','dart','swarm','sniper','leech','dart','mender','swarm','crab'] },
+      { name: 'The living reef', interval: 0.9, enemies: ['crab','dart','leech','mender','swarm','sniper','dart','leech','crab','mender','swarm','bomber','dart','warden','swarm','leech','mender','warden'] },
+    ] },
+  foundry: { name: 'Cinder Foundry', difficulty: 'Heavy fire', theme: 'foundry', depth: 1260, route: .045, top: 0x73596d, bottom: 0x272d46,
+    description: 'Broken pipelines and volcanic vents. Snipers cover armored bulwarks and explosive drones.', waves: [
+      { name: 'Cold pipelines', interval: 4, enemies: ['scout','bomber','scout','sniper','swarm','crab','bomber','scout'] },
+      { name: 'Furnace channel', interval: 1.7, enemies: ['crab','sniper','bomber','swarm','bulwark','scout','bomber','leech','sniper','crab','swarm','mender','bomber'] },
+      { name: 'The ember gate', interval: 1.0, enemies: ['bulwark','sniper','bomber','crab','swarm','mender','bomber','warden','sniper','leech','crab','bomber','bulwark','swarm','sniper','warden','bomber','bulwark'] },
+    ] },
+});
+export const mapFor = state => MAPS[state.mapId] || MAPS.city;

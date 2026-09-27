@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
-import { BALANCE as B } from './balance.js';
+import { BALANCE as B, ENEMY_INFO, mapFor } from './balance.js';
+import { paintEnvironment } from './environments.js';
 import { assetManifest } from './artwork.js';
 
 export class WorldScene extends Phaser.Scene {
@@ -18,20 +19,24 @@ export class WorldScene extends Phaser.Scene {
   update(_, delta) {
     this.onFrame(Math.min(delta / 1000, 0.1));
     const state = this.getState(), w = this.scale.width, h = this.scale.height, t = state.elapsed;
-    this.paintWorld(w, h, t);
+    this.paintWorld(w, h, t, mapFor(state), state.wave);
+    if (this.game.canvas.dataset.map !== state.mapId) {
+      this.game.canvas.dataset.map = state.mapId;
+      this.game.canvas.setAttribute('aria-label', `Submarine travelling through ${mapFor(state).name}, fighting enemies and charging support terminals`);
+    }
     const size = Math.min(w * 0.34, 160);
     this.sub.setPosition(w * state.submarine.x, h * state.submarine.y).setDisplaySize(size, size * 130 / 240);
     this.sub.setAngle(Math.sin(t * 0.7) * 2 + Math.sin(t * 90) * state.submarine.hitFlash * 12);
-    this.sub.setTint(state.submarine.hitFlash > 0 ? 0xff9d96 : 0xffffff);
+    this.sub.setTint(state.submarine.hitFlash > 0 ? 0xff9d96 : state.submarine.repairFlash > 0 ? 0x9fffc1 : 0xffffff);
     const ids = new Set();
     for (const enemy of state.enemies) {
       ids.add(enemy.id);
       let sprite = this.actors.get(enemy.id);
-      if (!sprite) { sprite = this.add.image(0, 0, ['crab', 'warden'].includes(enemy.type) ? 'crab' : 'scout'); this.actors.set(enemy.id, sprite); }
-      const width = Math.min(w * (['crab', 'warden'].includes(enemy.type) ? 0.20 : enemy.type === 'swarm' ? 0.11 : 0.155), 96);
+      if (!sprite) { sprite = this.add.image(0, 0, enemy.type); this.actors.set(enemy.id, sprite); }
+      const width = Math.min(w * (ENEMY_INFO[enemy.type]?.size || .155), 96);
       sprite.setPosition(enemy.x * w, enemy.y * h + Math.sin(t * 2 + enemy.id) * 3).setDisplaySize(width, width * (['crab', 'warden'].includes(enemy.type) ? 130 / 150 : 110 / 120));
       sprite.setAngle(Math.sin(t * 1.3 + enemy.id) * 7 + Math.sin(t * 100) * enemy.hitFlash * 30);
-      sprite.setTint(enemy.hitFlash > 0 ? 0xff887e : enemy.type === 'warden' ? 0x9bddff : 0xffffff);
+      sprite.setTint(enemy.hitFlash > 0 ? 0xff887e : 0xffffff);
       if (enemy.hitFlash > 0) sprite.x += Math.sin(t * 95) * enemy.hitFlash * 14;
     }
     for (const [id, sprite] of this.actors) if (!ids.has(id)) { sprite.destroy(); this.actors.delete(id); }
@@ -47,7 +52,18 @@ export class WorldScene extends Phaser.Scene {
     for (const enemy of state.enemies) {
       shieldBubble(enemy.x * w, enemy.y * h, Math.min(w * 0.24, 116), Math.min(w * 0.21, 98), enemy.shield, enemy.shieldFlash);
     }
+    if (state.submarine.restoreFlash > 0 || state.submarine.repairFlash > 0) {
+      const shield = state.submarine.restoreFlash > 0, flash = shield ? state.submarine.restoreFlash : state.submarine.repairFlash;
+      g.lineStyle(3, shield ? 0x9eeeff : 0xa0ffd0, flash * 1.5).strokeEllipse(this.sub.x, this.sub.y, size * (1.1 + .6 - flash), size * (.7 + .6 - flash));
+    }
     for (const e of state.enemies) {
+      if (e.range && e.x <= state.submarine.x + e.range + .005 && e.attackIn < 1) {
+        g.lineStyle(1.5, 0xffa092, .7 * (1 - e.attackIn)).lineBetween(e.x * w, e.y * h, this.sub.x, this.sub.y);
+        g.lineStyle(2, 0xffc09b, .7).strokeCircle(this.sub.x, this.sub.y, 14 + e.attackIn * 12);
+      }
+      if (e.healRate) for (const ally of state.enemies) if (ally !== e && ally.hp < ally.maxHp && Math.hypot(ally.x - e.x, ally.y - e.y) <= e.healRange) {
+        g.lineStyle(2, 0xa7ffd0, .4 + Math.sin(t * 7) * .15).lineBetween(e.x * w, e.y * h, ally.x * w, ally.y * h);
+      }
       if (e.hp === e.maxHp) continue;
       const x = e.x * w, y = e.y * h - (['crab', 'warden'].includes(e.type) ? 38 : 30), width = 30;
       g.fillStyle(0x113b4c, 0.9).fillRoundedRect(x - width / 2 - 1, y - 1, width + 2, 5, 2);
@@ -89,7 +105,7 @@ export class WorldScene extends Phaser.Scene {
     }
     const liveLabels = new Set();
     for (const burst of state.bursts) {
-      const color = burst.kind === 'shield' ? 0x9eeeff : burst.kind === 'hull' || burst.kind === 'hit' ? 0xff967a : 0xffe2a1;
+      const color = ['shield', 'restore'].includes(burst.kind) ? 0x9eeeff : burst.kind === 'repair' ? 0xa0ffd0 : burst.kind === 'hull' || burst.kind === 'hit' ? 0xff967a : 0xffe2a1;
       if (burst.kind !== 'cash') for (let i = 0; i < 8; i++) {
         const angle = i * Math.PI / 4, radius = Math.max(0, 0.6 - burst.life) * 65;
         g.fillStyle(color, Math.min(1, burst.life * 2)).fillCircle(burst.x * w + Math.cos(angle) * radius, burst.y * h + Math.sin(angle) * radius, burst.life * 5);
@@ -98,8 +114,8 @@ export class WorldScene extends Phaser.Scene {
       liveLabels.add(burst.id);
       let label = this.labels.get(burst.id);
       if (!label) {
-        const text = burst.kind === 'cash' ? `+${burst.amount}¢` : `${burst.kind === 'shield' ? '◇ ' : '−'}${Math.round(burst.amount * 10) / 10}`;
-        label = this.add.text(0, 0, text, { fontFamily: 'system-ui, sans-serif', fontSize: burst.kind === 'cash' ? '16px' : '13px', fontStyle: 'bold', color: burst.kind === 'cash' ? '#ffe3a1' : burst.kind === 'shield' ? '#a6edff' : '#fff1d7', stroke: '#123847', strokeThickness: 3 }).setOrigin(0.5).setDepth(11);
+        const text = burst.kind === 'cash' ? `+${burst.amount}¢` : `${burst.kind === 'restore' ? '+◇ ' : burst.kind === 'repair' ? '+♥ ' : burst.kind === 'shield' ? '◇ ' : '−'}${Math.round(burst.amount * 10) / 10}`;
+        label = this.add.text(0, 0, text, { fontFamily: 'system-ui, sans-serif', fontSize: burst.kind === 'cash' ? '16px' : '13px', fontStyle: 'bold', color: burst.kind === 'cash' ? '#ffe3a1' : ['shield', 'restore'].includes(burst.kind) ? '#a6edff' : burst.kind === 'repair' ? '#a0ffd0' : '#fff1d7', stroke: '#123847', strokeThickness: 3 }).setOrigin(0.5).setDepth(11);
         this.labels.set(burst.id, label);
       }
       const duration = burst.kind === 'cash' ? 1 : 0.6;
@@ -108,10 +124,10 @@ export class WorldScene extends Phaser.Scene {
     for (const [id, label] of this.labels) if (!liveLabels.has(id)) { label.destroy(); this.labels.delete(id); }
   }
 
-  paintWorld(w, h, t) {
+  paintWorld(w, h, t, map, wave) {
     const g = this.backdrop; g.clear();
     for (let i = 0; i < 24; i++) {
-      const color = Phaser.Display.Color.Interpolate.ColorWithColor({ r: 34, g: 120, b: 147 }, { r: 15, g: 57, b: 76 }, 24, i);
+      const color = Phaser.Display.Color.Interpolate.ColorWithColor(Phaser.Display.Color.IntegerToColor(map.top), Phaser.Display.Color.IntegerToColor(map.bottom), 24, i);
       g.fillStyle(Phaser.Display.Color.GetColor(color.r, color.g, color.b)).fillRect(0, i * h / 24, w, h / 24 + 1);
     }
     // Broad sunlight shafts, distant architecture, then slower foreground parallax.
@@ -119,7 +135,8 @@ export class WorldScene extends Phaser.Scene {
       const x = w * (0.3 + i * 0.25);
       g.fillStyle(0xa2e2d3, 0.035).fillTriangle(x, 0, x + w * 0.08, 0, x - w * 0.4, h * 0.9);
     }
-    for (let layer = 0; layer < 2; layer++) {
+    paintEnvironment(g, w, h, t, map.theme, wave);
+    if (map.theme === 'city') for (let layer = 0; layer < 2; layer++) {
       for (let i = 0; i < 8; i++) {
         const bw = w * (0.11 + (i % 3) * 0.025), speed = layer ? 6 : 2.8;
         const x = ((i * w * 0.22 - t * speed) % (w * 1.76) + w * 1.76) % (w * 1.76) - w * 0.28;

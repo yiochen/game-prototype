@@ -1,5 +1,5 @@
 import './style.css';
-import { BALANCE as B } from './balance.js';
+import { BALANCE as B, PART_RULES, MAPS, ENEMY_INFO, mapFor } from './balance.js';
 import { PARTS, tileMarkup } from './parts.js';
 import { RECIPES } from './recipes.js';
 import { ART } from './artwork.js';
@@ -11,7 +11,7 @@ const knownKey = 'deep-salvage:discoveries:v1';
 function loadKnown() { try { const value = JSON.parse(localStorage.getItem(knownKey) || '[]'); return Array.isArray(value) ? value : []; } catch { return []; } }
 function saveKnown() { try { localStorage.setItem(knownKey, JSON.stringify([...state.discovered])); } catch { /* Private browsing can disable persistence. */ } }
 let state = createState(loadKnown()), selection = null, gesture = null, modalKind = null, revision = -1, toastTimer;
-let restoreFocus = null;
+let restoreFocus = null, selectedMap = 'city';
 const gameRoot = $('#game'), modal = $('#modal'), cells = $('#cells'), board = $('#board'), storage = $('#storage');
 const buttons = Array.from({ length: 25 }, (_, index) => {
   const button = document.createElement('button'); button.className = 'cell empty'; button.dataset.index = index;
@@ -61,7 +61,7 @@ function renderLab() {
     button.className = `cell ${part ? `has-part ${state.circuit.active.has(index) ? 'active' : 'inactive'}` : 'empty'}${state.circuit.blocked.includes(index) ? ' blocked' : ''}`;
     const gun = state.circuit.guns.find(g => g.index === index);
     const readout = part ? gun ? `${Math.round(gun.power * B.laserDamagePerEnergy * 10) / 10}/s${gun.piercing ? ' ◆' : ''}` : PARTS[part.type].mark : '';
-    button.innerHTML = part ? `${tileMarkup(part.type, part.rotation)}<span class="part-readout">${part.type === 'pulse' ? '0%' : readout}</span>${part.type === 'pulse' ? '<span class="charge-meter"><i></i></span>' : ''}` : '';
+    button.innerHTML = part ? `${tileMarkup(part.type, part.rotation)}<span class="part-readout">${PART_RULES[part.type].capacity ? '0%' : readout}</span>${PART_RULES[part.type].capacity ? '<span class="charge-meter"><i></i></span>' : ''}` : '';
     button.classList.toggle('forge-match', !!part && forgeMatches(state).has(part.type));
     const label = part ? `${PARTS[part.type].name}, ${PARTS[part.type].rotatable ? `${part.rotation * 90} degrees, tap to rotate` : 'accepts beams from any side'}` : 'Empty cell';
     button.setAttribute('aria-label', `${label}, row ${Math.floor(index / 5) + 1}, column ${index % 5 + 1}`);
@@ -71,7 +71,7 @@ function renderLab() {
   const parts = Object.entries(state.inventory).filter(([, count]) => count > 0);
   $('#stacks').innerHTML = parts.length ? parts.map(([type, count]) => `<button class="stack${selection === type ? ' selected' : ''}${forgeMatches(state).has(type) ? ' forge-match' : ''}" data-type="${type}" aria-label="${PARTS[type].name} stack, ${count} available">${tileMarkup(type)}<span class="count">${count}</span></button>`).join('') : '<span class="empty-hold">Salvage a part to fill your hold.</span>';
   $('#storage-count').textContent = String(parts.reduce((sum, [, count]) => sum + count, 0)).padStart(2, '0');
-  $('#gun-label').textContent = `${state.circuit.guns.length} gun${state.circuit.guns.length === 1 ? '' : 's'} online`;
+  $('#gun-label').textContent = `${state.circuit.guns.length} gun${state.circuit.guns.length === 1 ? '' : 's'}${state.circuit.supports.length ? ` · ${state.circuit.supports.length} support` : ' online'}`;
   $('#power-light').classList.toggle('offline', !state.circuit.guns.length);
   if (selection && !state.inventory[selection]) selection = null;
   renderForge();
@@ -83,12 +83,13 @@ function renderFrame() {
   renderForge();
   for (const [index, button] of buttons.entries()) {
     const part = state.grid[index];
-    if (part?.type !== 'pulse') continue;
-    const percent = Math.floor((part.charge || 0) / B.pulseCapacity * 100);
+    if (!part || !PART_RULES[part.type].capacity) continue;
+    const rule = PART_RULES[part.type];
+    const percent = Math.floor((part.charge || 0) / rule.capacity * 100);
     button.querySelector('.charge-meter i').style.width = `${percent}%`;
     button.querySelector('.part-readout').textContent = percent === 100 ? 'READY' : `${percent}%`;
-    button.title = `Pulse gun: ${percent}% charged · ${B.pulseDamage} damage per pulse`;
-    button.setAttribute('aria-label', `Pulse gun, ${percent}% charged, ${state.circuit.active.has(index) ? 'powered' : 'disconnected'}, row ${Math.floor(index / 5) + 1}, column ${index % 5 + 1}`);
+    button.title = `${PARTS[part.type].name}: ${percent}% charged · ${rule.restore ? `+${rule.restore} ${rule.resource}` : `${B.pulseDamage} damage per pulse`}`;
+    button.setAttribute('aria-label', `${PARTS[part.type].name}, ${percent}% charged, ${state.circuit.active.has(index) ? 'powered' : 'disconnected'}, row ${Math.floor(index / 5) + 1}, column ${index % 5 + 1}`);
   }
   $('#cash-label').textContent = state.cash;
   $('#shield-fill').style.width = `${state.shield / B.shield * 100}%`;
@@ -98,8 +99,10 @@ function renderFrame() {
   if (state.notices.length) toast(state.notices.shift());
   $('#hull-fill').style.width = `${state.hull}%`;
   $('#hull-fill').style.background = state.hull < 35 ? '#f18d80' : '#83d4b0';
-  $('#wave-label').innerHTML = `DIVE ${String(state.wave + 1).padStart(2, '0')} <span>/ 03</span>`;
-  $('#location-label').textContent = B.waves[state.wave].name.toUpperCase();
+  $('#wave-label').innerHTML = `DIVE ${String(state.wave + 1).padStart(2, '0')} <span>/ ${String(mapFor(state).waves.length).padStart(2, '0')}</span>`;
+  $('#location-label').textContent = mapFor(state).waves[state.wave].name.toUpperCase();
+  $('.depth').textContent = `${mapFor(state).depth + state.wave * 120} m ↓`;
+  $('#world').dataset.map = state.mapId;
   $('#kill-label').textContent = `${state.salvaged} recovered`;
   $('#time-label').textContent = `${String(Math.floor(state.elapsed / 60)).padStart(2, '0')}:${String(Math.floor(state.elapsed % 60)).padStart(2, '0')}`;
   const notice = state.rest > 0 ? `A little breathing room.<small>Next wave in ${Math.ceil(state.rest)}s · Refine your machine</small>` : '';
@@ -285,15 +288,16 @@ function closeModal() {
 }
 
 function showWelcome() {
-  openModal('welcome', `<div class="welcome-art"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART.submarine)}" alt="A little yellow submarine"></div><p class="modal-eyebrow">A LITTLE MACHINE. A BIG OCEAN.</p><h2 id="modal-title">Deep Salvage<span class="title-dot">.</span></h2><p class="modal-copy">The city sank. Your ingenuity didn't.<br>Keep your submarine alive with whatever you find.</p><div class="intro-tip"><b>↗</b><span><strong>Salvage & assemble</strong>Tap fallen parts to store. Drag them into the lab.</span></div><div class="intro-tip"><b>↻</b><span><strong>Make the beam work</strong>Tap reactors and mirrors to rotate. Empty space carries energy.</span></div><div class="intro-tip"><b>⚒</b><span><strong>Forge your next upgrade</strong>Drag 2–4 parts into the forge on the right. Every recipe is in the guide.</span></div><div class="modal-actions"><button class="primary" data-action="start">Let's dive →</button></div>`);
+  selectedMap = state.mapId;
+  openModal('welcome', `<div class="welcome-art"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART.submarine)}" alt="A little yellow submarine"></div><p class="modal-eyebrow">A LITTLE MACHINE. A BIG OCEAN.</p><h2 id="modal-title">Deep Salvage<span class="title-dot">.</span></h2><p class="modal-copy">The city sank. Your ingenuity didn't.<br>Keep your submarine alive with whatever you find.</p><p class="modal-copy">Tap fallen parts to salvage. Drag parts into the lab or forge. Rotate reactors and mirrors; every recipe is in the guide.</p><fieldset class="route-picker"><legend>Choose your route</legend>${Object.entries(MAPS).map(([id, map]) => `<button type="button" class="route-card" data-map="${id}" aria-pressed="${id === selectedMap}"><strong>${map.name}</strong><small>${map.difficulty} · 3 waves</small><span>${map.description}</span></button>`).join('')}</fieldset><p class="modal-copy">Shield and Medic terminals charge from beams to restore protection and hull. One of each and an extra reactor are in your hold. Starting a route begins a fresh dive.</p><div class="modal-actions"><button class="primary" data-action="start">Let's dive →</button>${state.status !== 'ready' ? '<button class="secondary" data-action="close">Back to current dive</button>' : ''}</div>`);
 }
 
 function showPause() {
-  openModal('pause', `<p class="modal-eyebrow">TAKE A BREATH</p><h2 id="modal-title">Holding depth.</h2><p class="modal-copy">Your submarine and salvage are safe while paused.</p><div class="modal-actions"><button class="primary" data-action="close">Keep going →</button><button class="secondary" data-action="guide">Parts guide</button><button class="secondary" data-action="restart">Start a new dive</button></div>`);
+  openModal('pause', `<p class="modal-eyebrow">TAKE A BREATH</p><h2 id="modal-title">Holding depth.</h2><p class="modal-copy">Your submarine and salvage are safe while paused.</p><div class="modal-actions"><button class="primary" data-action="close">Keep going →</button><button class="secondary" data-action="guide">Parts guide</button><button class="secondary" data-action="restart">Start a new dive</button><button class="secondary" data-action="routes">Choose another route</button></div>`);
 }
 
 function showGuide() {
-  openModal('guide', `<p class="modal-eyebrow">THE ENGINEER'S FIELD NOTES</p><h2 id="modal-title">Recipes & parts.</h2><h3>All forge recipes</h3><p class="modal-copy">Drag two to four ingredients into the forge in any order. Matches glow as you build a recipe. Review the output, price and time before starting. Tap an idle ingredient to recover it. The timer pauses with the dive.</p><div class="recipe-list">${RECIPES.map(r => `<article class="recipe-row"><div class="recipe-ingredients">${[...new Set(r.ingredients)].map(type => `<span>${r.ingredients.filter(t => t === type).length} × ${PARTS[type].name}</span>`).join(' + ')}</div><strong>→ ${PARTS[r.output].name}</strong><p>${PARTS[r.output].description}</p><small>${r.cost}¢ · ${r.seconds}s · ${r.ingredients.length} ingredients</small></article>`).join('')}</div><h3>Parts manual</h3><p class="modal-copy">All parts fit one square. Beams travel freely through empty cells. Only reactors and mirrors need rotation. Other parts work from any side. Thicker gold beams carry more power; thin beams carry less. Blue dashed beams pierce armor. Laser guns beam continuously; their numbers show damage per second before armor. Pink pulse guns store energy; their bars show charge. At 100% they fire a 54-damage pulse. Amplifiers speed up charging; lenses add piercing to either weapon. Your hold starts with a spare pulse gun.</p><div class="guide-list">${Object.entries(PARTS).map(([type, part]) => `<article class="guide-row"><div class="guide-tile">${tileMarkup(type)}</div><div><h3>${part.name}${state.discovered.has(type) ? '' : '<small>NOT FOUND YET</small>'}</h3><p>${part.description} ${part.tip}</p><p class="ports">${part.ports}</p></div></article>`).join('')}</div><div class="guide-close"><button class="primary" data-action="close">Back to the dive →</button></div>`);
+  openModal('guide', `<p class="modal-eyebrow">THE ENGINEER'S FIELD NOTES</p><h2 id="modal-title">Recipes & parts.</h2><h3>All forge recipes</h3><p class="modal-copy">Drag two to four ingredients into the forge in any order. Matches glow as you build a recipe. Review the output, price and time before starting. Tap an idle ingredient to recover it. The timer pauses with the dive.</p><div class="recipe-list">${RECIPES.map(r => `<article class="recipe-row"><div class="recipe-ingredients">${[...new Set(r.ingredients)].map(type => `<span>${r.ingredients.filter(t => t === type).length} × ${PARTS[type].name}</span>`).join(' + ')}</div><strong>→ ${PARTS[r.output].name}</strong><p>${PARTS[r.output].description}</p><small>${r.cost}¢ · ${r.seconds}s · ${r.ingredients.length} ingredients</small></article>`).join('')}</div><h3>Parts manual</h3><p class="modal-copy">All parts fit one square. Beams travel freely through empty cells. Only reactors and mirrors need rotation. Other parts work from any side. Thicker gold beams carry more power; thin beams carry less. Blue dashed beams pierce armor. Laser guns beam continuously; their numbers show damage per second before armor. Pink pulse guns store energy; their bars show charge. At 100% they fire a 54-damage pulse. Amplifiers speed up charging; lenses add piercing to either weapon. Shield and Medic terminals restore protection and hull when charged. They hold a full charge at full health; amplifiers speed them up, but lenses do not multiply repairs. Charged parts retain energy on the grid and clear it in storage. Your hold includes all three terminal types and a spare reactor.</p><div class="guide-list">${Object.entries(PARTS).map(([type, part]) => `<article class="guide-row"><div class="guide-tile">${tileMarkup(type)}</div><div><h3>${part.name}${state.discovered.has(type) ? '' : '<small>NOT FOUND YET</small>'}</h3><p>${part.description} ${part.tip}</p><p class="ports">${part.ports}</p></div></article>`).join('')}</div><h3>Enemy field guide</h3><div class="enemy-guide">${Object.entries(ENEMY_INFO).map(([type, info]) => `<article class="enemy-row"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART[type])}" alt=""><div><h4>${info.name}</h4><p>${info.tactic}</p><small>${B.enemies[type].hp} HP · ${B.enemies[type].armor} armor · ${B.enemies[type].damage} damage${B.enemies[type].shield ? ` · ${B.enemies[type].shield} shield` : ''}</small></div></article>`).join('')}</div><h3>Route atlas</h3>${Object.values(MAPS).map(map => `<p class="modal-copy"><strong>${map.name} · ${map.difficulty}</strong><br>${map.description}</p>`).join('')}<div class="guide-close"><button class="primary" data-action="close">Back to the dive →</button></div>`);
 }
 
 function checkDiscoveries() {
@@ -304,28 +308,31 @@ function checkDiscoveries() {
 
 function showEnd() {
   const won = state.status === 'won';
-  openModal('end', `<p class="modal-eyebrow">${won ? 'THE BEACON IS IN SIGHT' : 'THE OCEAN GOT THIS ONE'}</p><h2 id="modal-title">${won ? 'Still in one piece.' : 'A brave little dive.'}</h2><p class="modal-copy">${won ? 'A heap of scrap, a working machine, and a way home. Nicely engineered.' : 'Forge your spare amplifiers early. Add a lens to cut through armored enemies, then strengthen your branches.'}</p><div class="stats"><div><strong>${state.kills}</strong><span>DRONES SUNK</span></div><div><strong>${state.salvaged}</strong><span>PARTS SAVED</span></div><div><strong>${Math.ceil(state.hull)}</strong><span>HULL LEFT</span></div></div><div class="modal-actions"><button class="primary" data-action="restart">Another dive →</button><button class="secondary" data-action="guide">Study the parts</button></div>`);
+  openModal('end', `<p class="modal-eyebrow">${won ? 'THE BEACON IS IN SIGHT' : 'THE OCEAN GOT THIS ONE'}</p><h2 id="modal-title">${won ? 'Still in one piece.' : 'A brave little dive.'}</h2><p class="modal-copy">${won ? 'A heap of scrap, a working machine, and a way home. Nicely engineered.' : 'Forge your spare amplifiers early. Add a lens to cut through armored enemies, then strengthen your branches.'}</p><div class="stats"><div><strong>${state.kills}</strong><span>DRONES SUNK</span></div><div><strong>${state.salvaged}</strong><span>PARTS SAVED</span></div><div><strong>${Math.ceil(state.hull)}</strong><span>HULL LEFT</span></div></div><div class="modal-actions"><button class="primary" data-action="restart">Another dive →</button><button class="secondary" data-action="guide">Study the parts</button><button class="secondary" data-action="routes">Choose another route</button></div>`);
 }
 
-function restart() {
-  selection = null; saveKnown(); state = createState(loadKnown()); revision = -1;
+function restart(mapId = state.mapId) {
+  selection = null; saveKnown(); state = createState(loadKnown(), mapId); revision = -1;
   modal.close(); modalKind = null; gameRoot.classList.remove('is-paused');
   $('#lab-hint').textContent = 'THICK = POWER · BLUE = PIERCE';
   startDive(state); renderFrame(); toast('Fresh hull. Fresh possibilities.');
 }
 
 $('#modal-content').addEventListener('click', event => {
+  const mapId = event.target.closest('[data-map]')?.dataset.map;
+  if (mapId && MAPS[mapId]) { selectedMap = mapId; modal.querySelectorAll('[data-map]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.map === mapId))); }
   const action = event.target.closest('[data-action]')?.dataset.action;
-  if (action === 'start') { startDive(state); closeModal(); saveKnown(); }
+  if (action === 'start') { restart(selectedMap); }
   if (action === 'close') {
     if (state.status === 'won' || state.status === 'lost') showEnd(); else closeModal();
   }
   if (action === 'restart') restart();
   if (action === 'guide') showGuide();
+  if (action === 'routes') showWelcome();
 });
 modal.addEventListener('cancel', event => {
   event.preventDefault();
-  if (modalKind === 'welcome' || modalKind === 'end') return;
+  if ((modalKind === 'welcome' && state.status === 'ready') || modalKind === 'end') return;
   if (state.status === 'won' || state.status === 'lost') showEnd(); else closeModal();
 });
 $('#forge-start').addEventListener('click', () => { if (startForge(state)) { renderLab(); toast('Forge started · keep the submarine alive'); } });
@@ -355,6 +362,7 @@ if (new URLSearchParams(location.search).has('test')) {
     snapshot: () => JSON.parse(JSON.stringify({ ...state, discovered: [...state.discovered], circuit: { ...state.circuit, active: [...state.circuit.active] } })),
     drop: (type, x = 0.65, y = B.floor) => { const drop = spawnDrop(state, type, x, y); drop.landed = true; renderFrame(); return drop.id; },
     advance: seconds => { tick(state, seconds); renderFrame(); if (['won', 'lost'].includes(state.status) && !modal.open) showEnd(); },
+    setVitals: (hull, shield) => { state.hull = Math.max(0, Math.min(B.hull, hull)); state.shield = Math.max(0, Math.min(B.shield, shield)); state.shieldCooldown = B.shieldDelay; renderFrame(); },
     setCash: cash => { state.cash = Math.max(0, cash); renderFrame(); },
     setEnemies: enemies => { state.enemies = enemies; },
     setGrid: grid => { state.grid = grid; rebuild(state); renderLab(); },

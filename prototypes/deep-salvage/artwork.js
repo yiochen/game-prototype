@@ -41,4 +41,17 @@ export const ART = {
   </g>`),
 };
 
+// Distinct silhouettes make enemy roles readable at phone scale.
+const creature = body => svg(120, 110, `<g stroke="#253a4c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">${body}</g>`);
+Object.assign(ART, {
+  swarm: ART.scout.replaceAll('#9982cf', '#c99adb').replaceAll('#6e55a9', '#9157a2'),
+  warden: ART.crab.replaceAll('#ee8f77', '#7eacca').replaceAll('#c66863', '#487692').replaceAll('#ffcf76', '#a9eeff'),
+  dart: creature('<path d="m105 55-46-29-5 17L9 55l45 12 5 17z" fill="#e8cb61"/><path d="m56 39 22-25-3 29m-19 28 22 25-3-29" fill="#83c9a8"/><path d="M18 55h35" stroke="#faffc0" stroke-width="7"/><circle cx="72" cy="55" r="11" fill="#405866"/><circle cx="70" cy="55" r="5" fill="#ffecb2"/>'),
+  bulwark: creature('<path d="M17 29h76l16 26-12 35H23L9 60z" fill="#738597"/><path d="M30 20h46l17 17H22z" fill="#b5bdc0"/><path d="m18 33 23 24-15 24m66-48L70 57l15 24" fill="#465b77"/><path d="M39 37h34v40H39z" fill="#dfad64"/><path d="M44 45h24v24H44z" fill="#334451"/><path d="M47 55h18" stroke="#ffedaa" stroke-width="6"/><path d="M22 91v10m19-10v10m38-10v10m18-10v10"/>'),
+  sniper: creature('<path d="m66 35 39-20-4 39 6 36-37-16" fill="#a575aa"/><ellipse cx="72" cy="55" rx="29" ry="27" fill="#cf9abc"/><path d="M7 46h62v18H7z" fill="#adbec5"/><path d="M6 43h15v24H6z" fill="#f1d09c"/><circle cx="76" cy="52" r="12" fill="#4d425e"/><circle cx="73" cy="51" r="5" fill="#ffe5a8"/><path d="m78 29 8-18m-10 69 9 17"/>'),
+  leech: creature('<path d="M106 49q-25-30-47-14T14 49q-10 25 19 37 31 7 41-19t32-18" fill="#84bfce"/><path d="M99 45Q76 36 69 58T37 76" fill="none" stroke="#dbf5ae" stroke-width="9"/><ellipse cx="25" cy="59" rx="17" ry="21" fill="#465d82"/><path d="m25 45-9 15h10l-3 13 11-18H24z" fill="#ffe990" stroke-width="2"/><path d="m68 33 5-18 10 18m-28 48 7 17 8-20" fill="#52899c"/>'),
+  mender: creature('<path d="M24 52q36-64 72 0z" fill="#86d6ae"/><path d="M24 53h72v15H24z" fill="#d4f1c0"/><path d="M33 70q-13 17 0 30m17-30q15 17 0 30m20-30q-15 17 0 30m17-30q13 17 0 30" fill="none" stroke="#81c8b6" stroke-width="7"/><circle cx="60" cy="46" r="17" fill="#337b75"/><path d="M60 36v20M50 46h20" stroke="#dffff0" stroke-width="6"/>'),
+  bomber: creature('<path d="M52 20V7h16v13M19 46 7 37m94 9 12-9M27 82l-10 15m76-15 10 15" stroke="#e2b985" stroke-width="7"/><circle cx="60" cy="57" r="37" fill="#e9956f"/><path d="M31 31 89 84m0-53L31 84" stroke="#8f4f57" stroke-width="11"/><circle cx="60" cy="57" r="21" fill="#f8d18b"/><path d="m60 41 15 27H45z" fill="#834b56"/><path d="M60 49v8m0 6v1" stroke="#ffe9be"/>'),
+});
+
 export const assetManifest = Object.entries(ART).map(([key, source]) => ({ key, url: `data:image/svg+xml;base64,${btoa(source)}` }));

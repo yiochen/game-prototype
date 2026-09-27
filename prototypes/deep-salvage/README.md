@@ -13,6 +13,7 @@ Open `/prototypes/deep-salvage/`. No account or runtime network request is neede
 
 ## Play
 
+- Choose Sunken City, Kelp Wilds or Cinder Foundry before diving. Each route has its own scenery, path, depth and three enemy waves. Pause or finish a dive to choose another route; restarting keeps the current map.
 - The submarine travels and fires connected guns automatically. Survive all three waves.
 - Tap a fallen part to salvage it. Drag it into the grid to install immediately, or into the parts hold to store it.
 - Drag one copy from a stack into an empty cell. Align the floating preview with the destination; placement follows its center, not your finger. Alternatively, tap a stack and then tap an empty cell.
@@ -20,12 +21,16 @@ Open `/prototypes/deep-salvage/`. No account or runtime network request is neede
 - Dragging slows time. Invalid drops and cancelled gestures preserve the part. The part being held cannot expire.
 - Beam energy crosses empty squares. Mirrors turn it. Amplifiers and lenses work straight through in any direction. Splitters send half the energy left and half right relative to the incoming beam. Guns accept inputs from all four sides.
 - Lasers track enemies continuously for small damage ticks. The spare Pulse gun in your hold stores 36 energy and fires a 54-damage burst. Stronger input charges it faster; lenses add piercing. Charge waits when full or disconnected, pauses with the dive, and clears when returned to the hold. Forge a laser gun + reactor for another Pulse gun (24 cash / 6 seconds).
+- Shield terminals store 32 energy to restore 12 shield, even while taking fire. Medic terminals store 48 energy to restore 12 hull HP. Both hold full charge until needed, accept every input side, and share the Pulse gun’s charge rules. Amplifiers charge them faster; lenses do not multiply healing. Each dive includes one of each and a spare reactor. Forge two Shields into Aegis or two Medics into a Repair bay for 20 restoration per charge.
+- Ten enemy roles include fast darts, armored bulwarks, long-range snipers, shield-draining leeches, allied-healing menders and explosive bombers. The field guide lists strengths, counters and stats. Destroy bombers before they reach you: their self-destruction deals damage without cash or kill credit.
 - Every kill pays cash; only one in four drops a part. The hold sits below the grid, with the four-slot forge in a vertical strip on the right. Drag two to four compatible parts directly into the forge, then pay to start. Matches glow after each ingredient, and a complete recipe previews its result before you pay. The completed upgrade returns to the hold. Tap an idle ingredient to recover it.
 - Thicker beams carry more power, gold means amplified, and blue dashes mean piercing. Laser tiles show damage per second; pink pulse tiles show charge. Each forged part has a distinct enhanced icon as well as a tier badge. The blue shield meter regenerates after six seconds without damage.
-- A newly acquired part type pauses the game for its introduction. The guide explains all 16 parts and eleven forge recipes, including exact quantities, effects, costs and times from the start. Only discovery history persists between runs.
+- A newly acquired part type pauses the game for its introduction. The guide explains all 20 parts and thirteen forge recipes, plus enemies and maps, including exact quantities, effects, costs and times from the start. Only discovery history persists between runs.
 - Keyboard: Tab to controls, Enter/Space to activate or rotate, arrow keys between grid cells, Delete/Backspace to store a focused tile, Escape to cancel a drag or pause.
 
 Try forging your two spare amplifiers into an Overcharger first, then install it above the starter amplifier. Add the first salvaged lens before your gun to handle armor.
+
+For a support circuit, place the spare reactor in the bottom-left cell and Shield or Medic above it. For the Foundry, forge the installed laser and spare laser into a Heavy laser during the first refit interval, then reinstall it before the next wave.
 
 For branching, try moving the starter gun to the top-left branch, installing the spare gun on the top-right branch, and placing a splitter above the amplifier with a mirror on each side. Leave empty space between mirrors and guns. Tap the left mirror once to face the correct way.
 
@@ -35,7 +40,8 @@ For branching, try moving the starter gun to the top-left branch, installing the
 - `recipes.js`: ingredient combinations, costs, durations and outputs.
 - `engine.js`: deterministic circuit tracing, combat, forge jobs, inventory and loot lifetime; no Phaser or DOM.
 - `parts.js`: definitions and shared tile icons.
-- `artwork.js`: SVG texture manifest for the submarine and enemies.
+- `artwork.js`: SVG texture manifest for the submarine and ten enemy silhouettes.
+- `environments.js`: procedural kelp forest and foundry scenery.
 - `world.js`: Phaser rendering, parallax ruins, actors and beam effects.
 - `main.js`: DOM interface, pointer gestures, dialogs, discovery persistence and simulation boundary.
 - `style.css`: responsive console, safe areas, portrait/landscape layout and local font.
