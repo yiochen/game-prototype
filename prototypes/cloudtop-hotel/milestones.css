@@ -1,60 +1,21 @@
-/* Reward cards float at the center on the same illustrated paper as the shop. */
-#milestone-dialog[data-paper] { width: min(880px, calc(100vw - 20px)); max-height: calc(100dvh - 20px); padding: 8px; border: 0; background: none; box-shadow: none; filter: none; overflow: auto; }
-#milestone-dialog[data-paper]::before, #milestone-dialog[data-paper]::after { display: none; }
-#milestone-dialog::backdrop { background: #14264099; backdrop-filter: blur(5px); }
-#milestone-dialog .gift-heading { position: relative; align-self: center; width: min(390px, 100%); box-sizing: border-box; padding: 14px 24px; border: 0; transform: rotate(-1deg); }
-#milestone-name { color: #765293; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
-#milestone-title { color: #67477f; font-size: 36px; }
-.milestone-body { padding: 0 4px 12px; overflow: visible; text-align: center; }
-#milestone-intro { color: #fff4de; font-size: 15px; line-height: 1.5; text-shadow: 0 1px 3px #142640; }
-#milestone-choices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: 12px; padding: 8px 4px; }
-.milestone-choice { --paper-x: 50%; --paper-y: 100%; position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; min-height: 350px; padding: 30px 12%; border: 0; border-radius: 0; background: var(--card-paper) var(--paper-x) var(--paper-y) / 300% 200%; filter: drop-shadow(0 8px 5px #14264080); color: #503d33; text-align: center; transition: translate 160ms ease; }
-.milestone-choice:nth-child(2) { --paper-x: 100%; }
-.milestone-choice:nth-child(3) { --paper-x: 50%; --paper-y: 0%; }
-.milestone-choice:hover { translate: 0 -5px; }
-.milestone-choice:focus-visible { outline: 3px solid #fff4de; outline-offset: 4px; }
-.milestone-choice > .sprite-art { width: min(120px, 100%); aspect-ratio: 1; height: auto; flex-shrink: 0; }
-.milestone-choice strong, .milestone-choice small, .milestone-choice b { display: block; }
-.gift-copy { min-width: 0; width: 100%; }
-.milestone-choice strong { font: bold 22px/1.1 Georgia, serif; text-wrap: balance; }
-.milestone-choice small { font-size: 13px; line-height: 1.45; margin-top: 10px; }
-.milestone-choice b { font-size: 15px; color: #765293; margin-top: 9px; }
-.gift-arrow { margin-top: auto; padding-top: 12px; font-size: 12px; font-weight: bold; color: #67477f; }
-.milestone-note { max-width: 580px; margin: 14px auto 0; font-size: 12px; line-height: 1.5; color: #fff4de; text-shadow: 0 1px 3px #142640; }
-#milestone-back { min-height: 40px; padding: 8px 18px; margin-top: 12px; }
-.choosing-workshop #milestone-choices { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.milestone-open { grid-column: 2; align-self: center; min-height: 64px; padding: 14px 20px; background: #fff0ce; color: #67477f; font-size: 18px; font-weight: bold; }
-.reduced-motion .milestone-choice { transition: none; }
-@media (max-width: 600px) {
-  #milestone-dialog[data-paper] { padding: 5px; }
-  #milestone-dialog .gift-heading { width: min(290px, 100%); }
-  #milestone-title { font-size: 30px; }
-  #milestone-intro { font-size: 13px; }
-  #milestone-choices { gap: 4px; padding-inline: 0; }
-  .milestone-choice { min-height: 272px; padding: 22px 10%; gap: 6px; }
-  .milestone-choice strong { font-size: 14px; }
-  .milestone-choice small { font-size: 11px; line-height: 1.35; margin-top: 8px; }
-  .milestone-choice b, .gift-arrow { font-size: 10px; }
-  .milestone-note { font-size: 11px; }
-  .choosing-workshop #milestone-choices { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .choosing-workshop .milestone-choice { min-height: 245px; }
-  .choosing-workshop .milestone-choice > .sprite-art { width: 65px; }
+/* A celebration, never a choice or an input-blocking claim screen. */
+#milestone-celebration { position: fixed; z-index: 30; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(340px, calc(100vw - 40px)); max-height: calc(100dvh - 32px); padding: 24px; box-sizing: border-box; text-align: center; pointer-events: none; color: #67477f; filter: drop-shadow(0 9px 14px #14264055); }
+#milestone-celebration > small { font-size: 9px; letter-spacing: .1em; }
+#milestone-celebration h2 { margin: 8px 0 12px; font: bold 30px/1.1 Georgia, serif; }
+.milestone-gift { display: flex; align-items: center; gap: 12px; text-align: left; margin: 10px 0; }
+.milestone-gift .sprite-art { width: 68px; height: 68px; flex: 0 0 68px; }
+.milestone-gift strong { font: bold 20px/1.15 Georgia, serif; }
+.milestone-gift p { margin: 5px 0; font-size: 14px; font-weight: bold; }
+.milestone-gift small { font-size: 11px; color: #78634d; }
+.milestone-note { font-size: 12px; margin: 12px 0 0; color: #78634d; }
+@media (max-height: 500px) {
+  #milestone-celebration { padding: 16px 24px; }
+  #milestone-celebration h2 { font-size: 24px; margin: 4px 0 8px; }
+  .milestone-gift { margin: 5px 0; }
+  .milestone-gift .sprite-art { width: 45px; height: 45px; flex-basis: 45px; }
 }
-@media (max-height: 500px) and (min-width: 601px) {
-  #milestone-dialog[data-paper] { width: min(780px, calc(100vw - 20px)); }
-  #milestone-dialog .gift-heading { padding: 6px 22px; }
-  #milestone-title { font-size: 25px; margin: 0; }
-  #milestone-intro { margin: 8px 0 2px; font-size: 12px; }
-  #milestone-choices { padding-block: 4px; }
-  .milestone-choice { min-height: 200px; padding: 15px 20px; gap: 4px; }
-  .milestone-choice > .sprite-art { width: 60px; }
-  .milestone-choice strong { font-size: 18px; }
-  .milestone-choice small { font-size: 11px; margin-top: 5px; }
-  .gift-arrow { padding-top: 6px; font-size: 11px; }
-  .milestone-note { margin-top: 6px; font-size: 10px; }
-}
-@media (max-width: 360px) {
-  .milestone-choice strong { font-size: 12px; }
-  .milestone-choice small { font-size: 10px; }
-  .gift-arrow { font-size: 9px; }
-}
+#milestone-celebration.milestone-many { padding: 16px 24px; }
+.milestone-many .milestone-gift { margin: 5px 0; }
+.milestone-many .milestone-gift .sprite-art { width: 32px; height: 32px; flex-basis: 32px; }
+.milestone-many .milestone-gift strong { font-size: 14px; }
+.milestone-many .milestone-gift p { font-size: 12px; margin: 3px 0; }

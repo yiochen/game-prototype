@@ -2,7 +2,8 @@
 // motion, or disposal; none of these callbacks may commit a game action.
 export function createFeedback(isReduced, paper) {
   const animations = new Set();
-  let timer;
+  let timer, milestoneTimer;
+  const celebration = document.getElementById('milestone-celebration');
   const toast = document.getElementById('purchase-feedback');
   const coin = document.getElementById('coin-change');
   function animate(element, frames, options) {
@@ -15,12 +16,18 @@ export function createFeedback(isReduced, paper) {
     animate(element, [{ transform: 'scale(1)' }, { transform: 'scale(1.16)', offset: .35 }, { transform: 'scale(1)' }], { duration: 300, easing: 'ease-out' });
   }
   function clear() {
-    clearTimeout(timer); paper?.clear(document.querySelector('.hotel-app'));
+    clearTimeout(timer); clearTimeout(milestoneTimer); celebration.hidden = true; paper?.clear(document.querySelector('.hotel-app'));
     for (const animation of animations) { animation.onfinish = null; animation.cancel(); }
     animations.clear(); toast.hidden = true; coin.textContent = '';
   }
   return {
     pulse, clear,
+    celebrate(content) {
+      clearTimeout(milestoneTimer); toast.hidden = true;
+      celebration.replaceChildren(content); celebration.hidden = false;
+      paper?.unfold(celebration, { axis: 'y', duration: 420 });
+      milestoneTimer = setTimeout(() => { celebration.hidden = true; }, 4200);
+    },
     dockArrival(suit) {
       const chip = document.querySelector(`.dock-chip.${suit}`);
       animate(chip?.querySelector('.sprite-art'), [
@@ -31,6 +38,7 @@ export function createFeedback(isReduced, paper) {
       animate(chip, [{ boxShadow: '0 0 0 0 #fff0a288' }, { boxShadow: '0 0 14px 8px #fff0a200' }], { duration: 560, easing: 'ease-out' });
     },
     spend(price, refund = 0) {
+      clearTimeout(milestoneTimer); celebration.hidden = true; paper?.clear(celebration);
       coin.textContent = `−${price}${refund ? ` / +${refund} back` : ''}`;
       animate(coin, [{ opacity: 1, transform: 'translateY(0)' }, { opacity: 1, offset: .65 }, { opacity: 0, transform: 'translateY(16px)' }], { duration: 1100, easing: 'ease-out' });
       pulse(document.getElementById('coins'));

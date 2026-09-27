@@ -1,15 +1,11 @@
-import { createGame, pick, advanceDeal, beginRoof, finishRoof, segments, claimMilestone } from './engine.js';
+import { createGame, pick, advanceDeal, beginRoof, finishRoof, segments } from './engine.js';
 
 // Bump this when balance or deterministic replay rules change.
-export const SCORE_VERSION = 'paper-v5';
+export const SCORE_VERSION = 'paper-v6';
 export function replayRun(seed, moves, complete = true) {
   if (typeof seed !== 'string' || !/^[a-zA-Z0-9_-]{1,64}$/.test(seed) || !Array.isArray(moves) || moves.length > 250) throw new Error('Invalid guestbook record.');
   const state = createGame(seed);
   for (const move of moves) {
-    if (Array.isArray(move) && move[0] === 'gift') {
-      if (move.length !== 2 || !claimMilestone(state, move[1])) throw new Error('Invalid milestone gift.');
-      continue;
-    }
     if (!Array.isArray(move) || move.length < 1 || move.length > 2 || !Number.isInteger(move[0]) || (move[1] != null && !['bunny', 'frog', 'cat'].includes(move[1]))) throw new Error('Invalid card choice.');
     if (move[1] != null && state.offer[move[0]]?.type !== 'choice') throw new Error('Only Room Choice accepts a guest type.');
     if (!pick(state, move[0], move[1]) || !advanceDeal(state)) throw new Error('This run contains a card that could not be bought.');

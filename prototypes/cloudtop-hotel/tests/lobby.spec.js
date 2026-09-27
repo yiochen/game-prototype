@@ -1,7 +1,6 @@
-import { advanceDeal, claimTips } from './milestone-helpers.js';
 import { test, expect } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
-import { createGame, pick, choiceSuits } from '../engine.js';
+import { createGame, pick, advanceDeal, choiceSuits } from '../engine.js';
 import { SCORE_VERSION } from '../score-rules.js';
 const ROOT='/prototypes/cloudtop-hotel/', API='**/api/cloudtop-hotel/leaderboard';
 const entries=Array.from({length:12},(_,i)=>({id:String(i),name:['Cloud Keeper','Mochi & Co','Paper Pilot'][i%3],floors:122-i*5,neighborhoods:20-i,coins:i%3,seed:'stay'+i,createdAt:'2026-01-01'}));
@@ -51,7 +50,7 @@ test('completed hotel is saved and submitted with replay evidence, with retry an
     const i=state.offer.findIndex(c=>c.price<=state.cash), suit=state.offer[i].type==='choice'?choiceSuits(state)[0]:null;
     await page.locator(`#offers [data-offer-index="${i}"]`).click();
     if(suit) await page.locator(`#room-choices [data-suit="${suit}"]`).click();
-    moves.push([i,suit]); pick(state,i,suit); advanceDeal(state, moves); await claimTips(page);
+    moves.push([i,suit]); pick(state,i,suit); advanceDeal(state);
   }
   await page.locator('#roof-card').click(); await page.locator('#ending-board').click();
   await expect(page.locator('#score-summary')).toContainText(`${state.links.length} floors`);

@@ -1,7 +1,6 @@
-import { advanceDeal, claimTips } from './milestone-helpers.js';
 import {test,expect} from '@playwright/test';
 import {mkdir} from 'node:fs/promises';
-import {createGame,pick,segments} from '../engine.js';
+import {createGame,pick,advanceDeal,segments} from '../engine.js';
 const root='/prototypes/cloudtop-hotel/';
 async function open(page,seed=147){
  await page.emulateMedia({reducedMotion:'reduce'});
@@ -12,7 +11,7 @@ async function open(page,seed=147){
 async function buy(page,index,suit){
  await page.locator(`#offers [data-offer-index="${index}"]`).click();
  if(suit) await page.locator(`#room-choices [data-suit="${suit}"]`).click();
- await claimTips(page);
+
  await expect(page.locator('#world')).toHaveAttribute('data-state','picking');
 }
 async function control(page,id){await page.locator('#menu-open').click();await page.locator(`#${id}`).click();}

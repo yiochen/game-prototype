@@ -14,7 +14,7 @@ import { mountWorld } from './world.js';
 import { mountScenery } from './scenery.js';
 import { createCardFlight } from './card-flight.js';
 import { paperAudio } from './audio.js';
-import { BALANCE, createGame, segments, longestSegment, preview, baseBonus, pick, advanceDeal, beginRoof, finishRoof, choiceSuits, suitInfo, mysteryOddsText, mysteryOutcomes, outcomePercent, finished, frenzyActive, pendingMilestone, milestoneReward, claimMilestone } from './engine.js';
+import { BALANCE, createGame, segments, longestSegment, preview, baseBonus, pick, advanceDeal, beginRoof, finishRoof, choiceSuits, suitInfo, mysteryOddsText, mysteryOutcomes, outcomePercent, finished, frenzyActive } from './engine.js';
 
 import './paper-ui.css';
 
@@ -152,57 +152,26 @@ function renderWorkshop(view) {
   $('upgrade-rack').replaceChildren(...badges); $('upgrade-rack').hidden = !badges.length;
   $('strategy-status').replaceChildren(...active.map(text => node('span', 'strategy-chip', text))); $('strategy-status').hidden = !active.length;
 }
-function giftDescription(key) {
-  const reward = milestoneReward(state, key);
-  if (key === 'tips') return `+${reward.coins} coins to spend however you like.`;
-  const levels = reward.levels ? `Level ${reward.before} → ${reward.after}` : 'Already at maximum level';
-  return `${levels}${reward.coins ? ` · +${reward.coins} coins` : ''}`;
-}
-function showMilestone(workshop = false) {
-  const milestone = pendingMilestone(state);
-  if (state.phase !== 'milestone' || !milestone || loading || document.body.dataset.screen !== 'game') return;
-  const dialog = $('milestone-dialog');
-  if (!dialog.open && document.querySelector('dialog[open]')) return;
-  $('milestone-title').textContent = `${milestone.floor} floors!`;
-  $('milestone-name').textContent = milestone.name;
-  $('milestone-intro').textContent = workshop ? 'Choose a tool to upgrade for future deliveries.' : 'A thank-you from your guests. Choose one gift.';
-  $('milestone-back').hidden = !workshop;
-  dialog.classList.toggle('choosing-workshop', workshop);
-  const options = workshop ? [
-    ...BALANCE.suits.map(s => ({ key: `suit:${s.id}`, name: `${s.name} Room Pattern`, art: `pattern-${s.id}`, detail: 'Adds more rooms to future matching room cards, excluding Mosaic.' })),
-    { key: 'assembler', name: 'Master Fold', art: 'power-assembler', detail: 'Adds more rooms to future One Room, Prefab Pack and Room Choice cards.' },
-  ] : [
-    { key: 'tips', name: 'Guest tips', art: 'coin', value: `+${milestone.coins} coins`, detail: 'A little more to keep building.' },
-    { key: 'workshop', name: 'Workshop upgrade', art: 'power-assembler', value: `+${milestone.levels} ${milestone.levels === 1 ? 'level' : 'levels'}${milestone.bonusCoins ? ` · +${milestone.bonusCoins} coins` : ''}`, detail: 'Choose a Room Pattern or Master Fold.' },
-    { key: 'stabilizer', name: 'Lucky Bell upgrade', art: 'power-stabilizer', value: giftDescription('stabilizer'), detail: 'Better odds on future Surprise Parcels.' },
-  ];
-  $('milestone-choices').replaceChildren(...options.map(option => {
-    const button = node('button', 'milestone-choice'); button.dataset.gift = option.key;
-    const copy = node('span', 'gift-copy'); copy.append(node('strong', '', option.name), node('b', 'gift-value', option.value ?? giftDescription(option.key)), node('small', '', option.detail));
-    button.append(img(option.art), copy, node('span', 'gift-arrow', option.key === 'workshop' ? 'Choose a tool' : 'Choose gift'));
-    button.addEventListener('click', () => {
-      if (option.key === 'workshop') { showMilestone(true); return; }
-      if (pendingMilestone(state)?.floor !== milestone.floor || !claimMilestone(state, option.key)) return;
-      run.moves.push(['gift', option.key]); guestbook.saveActive(run);
-      dialog.close(); render(); scene?.setState(state);
-      const reward = state.gifts.at(-1);
-      const receipt = `${option.name}${reward.levels ? ` +${reward.levels} ${reward.levels === 1 ? 'level' : 'levels'}` : ''}${reward.coins ? ` · +${reward.coins} coins` : ''}`;
-      $('status').textContent = receipt; feedback.announce(receipt); feedback.pulse($('coins')); feedback.deal(); audio.fold();
-      if (state.phase !== 'milestone') $('offers').querySelector('button:not(:disabled)')?.focus();
-    });
-    return button;
-  }));
-  if (!dialog.open) dialog.showModal();
-  $('milestone-choices').querySelector('button')?.focus();
+function celebrateMilestones(gifts) {
+  const content = document.createDocumentFragment();
+  content.append(node('small', '', 'A THANK-YOU FROM YOUR GUESTS'));
+  content.append(node('h2', '', gifts.length === 1 ? `${gifts[0].floor} floors!` : 'Milestones reached!'));
+  for (const gift of gifts) {
+    const name = gift.key === 'tips' ? 'Guest tips' : BALANCE.reactor[gift.key].name;
+    const row = node('div', 'milestone-gift');
+    row.dataset.reward = gift.key;
+    const copy = node('div');
+    copy.append(node('strong', '', `${gifts.length > 1 ? `${gift.floor} floors · ` : ''}${name}`));
+    copy.append(node('p', '', `${gift.levels ? `Level ${gift.before} → ${gift.after}` : ''}${gift.levels && gift.coins ? ' · ' : ''}${gift.coins ? `+${gift.coins} coins` : ''}`));
+    if (gift.fallback) copy.append(node('small', '', 'Upgrade maxed — enjoy some coins instead.'));
+    row.append(img(gift.key === 'tips' ? 'coin' : `power-${gift.key}`), copy); content.append(row);
+  }
+  content.append(node('p', 'milestone-note', 'Gift received. Keep building!'));
+  $('milestone-celebration').classList.toggle('milestone-many', gifts.length > 2);
+  feedback.celebrate(content);
+  feedback.pulse($('coins'));
 }
 function renderOffers(view) {
-  if (state.phase === 'milestone') {
-    $('offers').classList.add('roof-offer');
-    const button = node('button', 'milestone-open', 'Open milestone gift');
-    button.id = 'milestone-open'; button.setAttribute('aria-haspopup', 'dialog'); button.addEventListener('click', () => showMilestone());
-    $('offers').replaceChildren(button); return;
-  }
-
   const roof = state.phase === 'roof-ready' || state.phase === 'roofing';
   $('offers').classList.toggle('roof-offer', roof);
   if (roof) { renderRoofOffer(); return; }
@@ -282,7 +251,6 @@ function render() {
   else if (state.phase === 'roofing') $('status').textContent = 'Your roof is landing…';
   else if (state.phase === 'resolving') $('status').textContent = state.history.at(-1).type === 'mystery' ? 'Unwrapping your surprise…' : 'Your delivery is unfolding…';
   $('motion-toggle').setAttribute('aria-pressed', String(reduced)); document.documentElement.classList.toggle('reduced-motion', reduced);
-  if (!$('milestone-dialog').open) showMilestone();
 }
 function select(index) {
   if (document.body.dataset.screen !== 'game' || loading || pendingPurchase || document.querySelector('dialog[open]')) return;
@@ -345,6 +313,7 @@ function applyPurchase(index, selectedType, token, origin) {
   const complete = () => {
     if (token !== epoch || state.phase !== 'resolving') return;
     const entry = state.history.at(-1);
+    const previousGifts = state.gifts.length;
     advanceDeal(state); resolvingBefore = null; dockArrivals = null;
     render(); scene.setState(state); syncCamera(); $('preview').textContent = '';
     feedback.pulse($('height')); feedback.deal();
@@ -366,7 +335,9 @@ function applyPurchase(index, selectedType, token, origin) {
     if (before.parade && !state.parade) parts.push('Guest Parade ended');
     if (before.attunement && !state.attunement) parts.push('Type Lock finished');
     $('status').textContent = parts.join(' · ');
-    feedback.announce($('status').textContent);
+    const gifts = state.gifts.slice(previousGifts);
+    if (gifts.length) celebrateMilestones(gifts);
+    else feedback.announce($('status').textContent);
   };
   let lastFloor = before.links.length;
   if (reduced) { audio.fold(); complete(); }
@@ -410,8 +381,6 @@ for (const [button, dialog] of [['rules-open', 'rules-dialog'], ['workshop-open'
   $(dialog).addEventListener('close', () => { if (menuReturn !== button) return; menuReturn = null; $('menu-dialog').showModal(); $(button).focus(); });
 }
 $('menu-dialog').addEventListener('close', () => { if (!menuReturn && document.body.dataset.screen === 'game' && !document.querySelector('dialog[open]')) $('menu-open').focus(); });
-$('milestone-back').addEventListener('click', () => showMilestone());
-$('milestone-dialog').addEventListener('close', () => { if (state.phase === 'milestone' && !$('milestone-dialog').open) $('milestone-open')?.focus(); });
 $('choice-dialog').addEventListener('close', () => { choiceIndex = null; });
 $('reveal-now').addEventListener('click', () => { flight.finish(); scene?.skip(); $('menu-dialog').close(); });
 for (const id of ['overview', 'camera-toggle']) $(id).addEventListener('click', () => { scene.toggleOverview(); syncCamera(); $('menu-dialog').close(); });

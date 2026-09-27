@@ -1,18 +1,17 @@
 import { test, expect } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
 import { replayRun, SCORE_VERSION } from '../score-rules.js';
-import { createGame, pick } from '../engine.js';
-import { advanceDeal, claimTips } from './milestone-helpers.js';
+import { createGame, pick, advanceDeal } from '../engine.js';
 import { skyAtHeight } from '../altitude.js';
 
-// A legal 179-floor game; only the normal saved-run interface is used.
+// A legal 186-floor game; only the normal saved-run interface is used.
 const run = { seed: 'sky-2', moves: [[0,null],[0,'bunny'],[1,null],[0,null],[0,null],[0,null],[0,null],[1,null],[1,null],[1,null],[0,null],[1,null],[1,'bunny'],[1,null],[1,null],[0,null],[1,null],[0,null],[2,null],[0,null]] };
-// Keep snapshots indexed by purchase while recording milestone choices for replay.
+// Keep snapshots indexed by purchase with automatic rewards reconstructed by replay.
 const snapshots = [[]];
 const state = createGame(run.seed), recorded = [];
 for (const move of run.moves) {
   if (!pick(state, ...move)) throw new Error('Invalid altitude fixture');
-  recorded.push(move); advanceDeal(state, recorded); snapshots.push([...recorded]);
+  recorded.push(move); advanceDeal(state); snapshots.push([...recorded]);
 }
 async function setup(page, reduced) {
   await page.emulateMedia({ reducedMotion: reduced ? 'reduce' : 'no-preference' });
@@ -76,32 +75,31 @@ test('seven altitude stages survive saved-run resume and stay fixed during camer
 
 test('new sky details unfold with visible floors, settle for reduced motion, and clear on replay', async ({ page }) => {
   await setup(page, false); await page.setViewportSize({ width: 1280, height: 720 });
-  await resume(page, 11); // 49 floors, immediately before the first stars.
+  await resume(page, 10); // 35 floors, immediately before the first stars.
   await page.evaluate(() => {
     window.skyFrames = [];
     window.skyObserver = new MutationObserver(() => window.skyFrames.push({ sky: Number(document.querySelector('.sky-backdrop').dataset.height), hud: Number(document.querySelector('#height').textContent) }));
     window.skyObserver.observe(document.querySelector('.sky-backdrop'), { attributes: true, attributeFilter: ['data-height'] });
   });
-  await page.locator('[data-offer-index="1"]').click();
+  await page.locator('[data-offer-index="0"]').click();
   await expect(page.locator('.sky-star[data-visible="true"]').first()).toBeVisible();
   expect(await page.locator('.sky-star[data-visible="true"] .sky-ornament').first().evaluate(el => el.getAnimations().some(animation => animation.effect.getTiming().duration === 2100))).toBe(true);
-  await expect(page.locator('#milestone-dialog')).toBeVisible();
-  await claimTips(page);
+
   await expect(page.locator('#world')).toHaveAttribute('data-state', 'picking');
   const frames = await page.evaluate(() => { window.skyObserver.disconnect(); return window.skyFrames; });
   expect(frames.length).toBeGreaterThan(5);
   for (const frame of frames) expect(frame.sky).toBe(frame.hud);
-  expect(frames.at(-1).sky).toBe(62);
+  expect(frames.at(-1).sky).toBe(50);
 
-  await resume(page, 15); // 94 floors; the next delivery crosses 100.
+  await resume(page, 15); // 95 floors; the next delivery crosses 100.
   await page.locator('[data-offer-index="0"]').click();
   await expect(page.locator('.sky-moon')).toHaveAttribute('data-visible', 'true');
   await shot(page, 'moon-unfolding');
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await expect(page.locator('.sky-backdrop')).toHaveAttribute('data-height', '106');
+  await expect(page.locator('.sky-backdrop')).toHaveAttribute('data-height', '107');
   await expect(page.locator('.sky-moon .sky-ornament')).toHaveCSS('transform', 'none');
   expect(await page.locator('.sky-backdrop').evaluate(el => el.getAnimations({ subtree: true }).every(animation => animation.playState === 'paused'))).toBe(true);
-  await claimTips(page);
+
   await page.locator('#menu-open').click(); await page.locator('#replay').click();
   await expect(page.locator('.sky-backdrop')).toHaveAttribute('data-stage', 'Cloud Gardens');
   await expect(page.locator('.sky-moon')).toHaveAttribute('data-visible', 'false');

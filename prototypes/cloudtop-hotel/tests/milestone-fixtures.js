@@ -1,17 +1,14 @@
-import { createGame, pick, advanceDeal, claimMilestone, choiceSuits, pendingMilestone } from '../engine.js';
+import { createGame, pick, advanceDeal, choiceSuits } from '../engine.js';
 const seed='sky-2';
-const opening=[[0,null],[0,'bunny'],[1,null],[0,null],[0,null],[0,null],[0,null],[1,null],[1,null],[1,null],[0,null],[1,null],[1,'bunny'],[1,null],[1,null],[0,null],[1,null],[0,null],[2,null],[0,null]];
-export const pendingRuns = new Map();
-const s=createGame(seed), moves=[];
-let purchase=0;
-while(s.phase==='picking') {
-  const index=opening[purchase]?.[0] ?? s.offer.findIndex(c=>c.price<=s.cash);
-  const suit=opening[purchase]?.[1] ?? (s.offer[index].type==='choice'?choiceSuits(s)[0]:null);
-  if(!pick(s,index,suit)) throw new Error('Invalid milestone fixture');
-  moves.push([index,suit]);advanceDeal(s);purchase++;
-  while(s.phase==='milestone') {
-    pendingRuns.set(pendingMilestone(s).floor,{seed,moves:structuredClone(moves)});
-    claimMilestone(s,'tips');moves.push(['gift','tips']);
-  }
+const opening=[0,0,1,0,0,0,0,1,1,1,0,1,1,1,1,0,1,0,2,0];
+export const milestoneRuns=new Map();
+const state=createGame(seed),moves=[];
+while(state.phase==='picking') {
+  const index=opening[moves.length]??state.offer.findIndex(c=>c.price<=state.cash);
+  const suit=state.offer[index].type==='choice'?choiceSuits(state)[0]:null;
+  const before={seed,moves:structuredClone(moves)},count=state.gifts.length;
+  if(!pick(state,index,suit))throw new Error('Invalid milestone fixture');
+  moves.push([index,suit]);advanceDeal(state);
+  for(const gift of state.gifts.slice(count))milestoneRuns.set(gift.floor,{before,move:[index,suit],after:{seed,moves:structuredClone(moves)}});
 }
-if(pendingRuns.size!==5)throw new Error(`Missing milestone fixtures: ${[...pendingRuns.keys()]}`);
+if(milestoneRuns.size!==5)throw new Error('Missing milestone fixtures');

@@ -1,7 +1,6 @@
-import { advanceDeal } from './milestone-helpers.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createGame, pick, beginRoof, finishRoof, choiceSuits } from '../engine.js';
+import { createGame, pick, advanceDeal, beginRoof, finishRoof, choiceSuits } from '../engine.js';
 import { replayRun, scoreOf, cleanName, compareScores, SCORE_VERSION } from '../score-rules.js';
 import { handleLeaderboard } from '../leaderboard-service.js';
 import { createGuestbook } from '../guestbook-storage.js';
@@ -11,7 +10,7 @@ export function completed(seed = 'guestbook-test') {
   while (state.phase === 'picking') {
     const index = state.offer.findIndex(c => c.price <= state.cash);
     const suit = state.offer[index].type === 'choice' ? choiceSuits(state)[0] : null;
-    moves.push([index,suit]); pick(state,index,suit); advanceDeal(state, moves);
+    moves.push([index,suit]); pick(state,index,suit); advanceDeal(state);
   }
   beginRoof(state); finishRoof(state);
   return {state, record:{version:SCORE_VERSION,name:'Cloud Keeper',seed,moves}};

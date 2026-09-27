@@ -1,7 +1,6 @@
-import { advanceDeal } from './milestone-helpers.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { BALANCE, createGame, eligibleCards, baseCards, preview, pick, beginRoof, finishRoof, canBuy, chain, segments, recallLinks, overgrowLinks, finished, weightedPick, mysteryOutcomes, upgradeValue, choiceSuits } from '../engine.js';
+import { BALANCE, createGame, eligibleCards, baseCards, preview, pick, advanceDeal, beginRoof, finishRoof, canBuy, chain, segments, recallLinks, overgrowLinks, finished, weightedPick, mysteryOutcomes, upgradeValue, choiceSuits } from '../engine.js';
 function offer(s, family, type, suit) {
  const c=eligibleCards(s).find(c=>c.family===family&&c.type===type&&(suit===undefined||c.suit===suit));
  assert.ok(c,`Missing ${family}/${type}/${suit}`);s.offer=[c];return c;

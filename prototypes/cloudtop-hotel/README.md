@@ -121,16 +121,16 @@ Score version `paper-v4` starts a new leaderboard/replay ruleset for the changed
 
 ## Milestone gifts
 
-After construction settles at or above 10, 25, 50, 100 and 200 floors, three illustrated paper cards appear at the center of the screen. Choose Guest tips, a Workshop upgrade (any Room Pattern or Master Fold), or a Lucky Bell upgrade. Workshop choices show the actual before/after level. Gifts last for the current hotel and are earned once per threshold each run.
+Rewards arrive automatically after construction settles at or above 10, 25, 50, 100 and 200 floors. A centered paper celebration shows what was received and disappears after 4.2 seconds. It never captures focus or blocks the next purchase; there is no selection or claim step.
 
-| Floors | Guest tips | Workshop or Lucky Bell |
+| Floors | Scheduled reward | Coins if that upgrade is already maxed |
 | --- | --- | --- |
-| 10 | 5 coins | +1 level |
-| 25 | 10 coins | +1 level and 3 coins |
-| 50 | 20 coins | +2 levels and 5 coins |
-| 100 | 35 coins | +2 levels and 10 coins |
-| 200 | 60 coins | +3 levels and 20 coins |
+| 10 | 5 coins | — |
+| 25 | Master Fold +1 level and 3 coins | 10 |
+| 50 | Lucky Bell +2 levels and 5 coins | 20 |
+| 100 | Master Fold +2 levels and 10 coins | 35 |
+| 200 | Lucky Bell +3 levels and 20 coins | 60 |
 
-Upgrades cap at level 3. Each excess level converts to 5 coins, with the actual payout shown before choosing. Claims never place rooms, advance or end streaks, consume coupons/Type Lock turns, or change purchase history. Deliveries that cross multiple thresholds queue every gift in order before drawing the next shop or checking for the roof. Escape closes the picker; the tray's gift button reopens it.
+Upgrades cap at level 3. If an upgrade is already maxed, the entire gift becomes that milestone’s cash reward. If only part of an upgrade fits, the remaining levels apply and each excess level converts to 5 coins. Gifts last for this hotel and are earned once per threshold each run. They never place rooms, advance or end streaks, consume coupons/Type Lock turns, or change purchase history. All thresholds crossed by one delivery are awarded before drawing the next shop or checking for the roof.
 
-Milestone tables and overflow compensation live in `balance.js`. The engine records gifts separately from purchases. Replay records include `['gift', rewardKey]` actions, so unfinished choices survive reload and server validation rejects premature, repeated or invalid claims. Score version `paper-v5` starts a new leaderboard and saved-run ruleset for milestone rewards; earlier-version runs are excluded by the existing version checks. The replay limit is now 250 actions to accommodate the additional coins and five gifts.
+Milestone tables and overflow compensation live in `balance.js`. The engine records gifts separately from purchases and reconstructs them automatically from purchase-only replays. Score version `paper-v6` isolates this automatic reward schedule from earlier rulesets. Existing version checks exclude older runs. The replay limit is 250 purchases to accommodate the extra coins.

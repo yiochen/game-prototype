@@ -50,7 +50,7 @@ export function paradeEffect(state, offer) {
   if (first && first === state.links.at(-1)?.suit) return { bonus: 0, ends: true };
   return { bonus: suit ? state.parade.bonus + BALANCE.strategy.parade.bonusStep : 0, ends: false, suit };
 }
-export const frenzyActive = state => !!(state.foundation || state.parade) && ['picking', 'resolving', 'milestone'].includes(state.phase);
+export const frenzyActive = state => !!(state.foundation || state.parade) && ['picking', 'resolving'].includes(state.phase);
 export const sequenceText = offer => offer.sequence.map(suit => suitInfo(suit).name).join(' → ');
 export function weightedPick(items, roll) {
   const total = sum(items.map(item => item.weight));
@@ -308,32 +308,26 @@ export function pick(state, index, selectedSuit) {
 }
 export function advanceDeal(state) {
   if (state.phase !== 'resolving') return false;
-  if (pendingMilestone(state)) state.phase = 'milestone';
-  else deal(state);
+  for (const milestone of BALANCE.milestones) {
+    if (chain(state) < milestone.floor || state.gifts.some(g => g.floor === milestone.floor)) continue;
+    const reward = milestoneReward(state, milestone);
+    if (reward.key !== 'tips') state.upgrades[reward.key] = reward.after;
+    state.cash += reward.coins; state.giftCash += reward.coins;
+    state.gifts.push({ floor: milestone.floor, ...reward });
+  }
+  // Award every crossed milestone before drawing offers or checking for the roof.
+  deal(state);
   return true;
 }
-export const pendingMilestone = state => BALANCE.milestones.find(m => chain(state) >= m.floor && !state.gifts.some(g => g.floor === m.floor));
-// Gifts are not purchases. They never emit floors or consume a strategy turn.
-export function milestoneReward(state, key) {
-  const milestone = pendingMilestone(state);
-  if (!milestone) return null;
-  if (key === 'tips') return { key, coins: milestone.coins, levels: 0 };
-  if (!['assembler', 'stabilizer', ...BALANCE.suits.map(s => `suit:${s.id}`)].includes(key)) return null;
-  const type = key.split(':')[0], before = state.upgrades[key] ?? 0;
-  const levels = Math.min(milestone.levels, BALANCE.reactor[type].prices.length - before);
+// Automatic gifts never place rooms or consume a strategy turn.
+export function milestoneReward(state, milestone) {
+  const key = milestone.reward;
+  const before = state.upgrades[key] ?? 0;
+  if (key === 'tips' || before >= BALANCE.reactor[key].prices.length) {
+    return { key: 'tips', coins: milestone.coins, levels: 0, fallback: key !== 'tips' };
+  }
+  const levels = Math.min(milestone.levels, BALANCE.reactor[key].prices.length - before);
   return { key, before, after: before + levels, levels, coins: milestone.bonusCoins + (milestone.levels - levels) * BALANCE.milestoneOverflowCoins };
-}
-export function claimMilestone(state, key) {
-  if (state.phase !== 'milestone') return false;
-  const reward = milestoneReward(state, key);
-  if (!reward) return false;
-  const floor = pendingMilestone(state).floor;
-  if (key !== 'tips') state.upgrades[key] = reward.after;
-  state.cash += reward.coins; state.giftCash += reward.coins;
-  state.gifts.push({ floor, ...reward });
-  // Resolve every crossed milestone before drawing the next shop (or roof).
-  if (!pendingMilestone(state)) deal(state);
-  return true;
 }
 // The free finishing card is separate from purchases: it cannot spend money,
 // advance the deck, or trigger upgrades and streaks while the roof is landing.

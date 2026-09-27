@@ -66,7 +66,6 @@ export function createPaperUI(isReduced) {
   }
   function dialogOpen(dialog) {
     dressPaper(dialog);
-    if (dialog.id === 'milestone-dialog') { unfold(dialog.querySelector('.gift-heading'), {duration:480,axis:'y'}); return; }
     unfold(dialog,{duration:480,axis:'y'});
     dialog.querySelectorAll('button[data-paper]').forEach((button,i)=>unfold(button,{delay:220+Math.min(i,6)*30,duration:290}));
   }
