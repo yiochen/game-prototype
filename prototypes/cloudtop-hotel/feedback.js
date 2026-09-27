@@ -6,6 +6,19 @@ export function createFeedback(isReduced, paper) {
   const celebration = document.getElementById('milestone-celebration');
   const toast = document.getElementById('purchase-feedback');
   const coin = document.getElementById('coin-change');
+  function dismissCelebration() {
+    clearTimeout(milestoneTimer); celebration.hidden = true; paper?.clear(celebration);
+  }
+  function dismissOnClick(event) {
+    if (celebration.hidden) return;
+    // Handle the click before a purchase can create a new celebration. Outside
+    // controls still work, while tapping the paper never clicks through it.
+    if (celebration.contains(event.target)) {
+      event.preventDefault(); event.stopPropagation();
+    }
+    dismissCelebration();
+  }
+  document.addEventListener('click', dismissOnClick, true);
   function animate(element, frames, options) {
     if (!element || isReduced()) return;
     const animation = element.animate(frames, options);
@@ -16,17 +29,18 @@ export function createFeedback(isReduced, paper) {
     animate(element, [{ transform: 'scale(1)' }, { transform: 'scale(1.16)', offset: .35 }, { transform: 'scale(1)' }], { duration: 300, easing: 'ease-out' });
   }
   function clear() {
-    clearTimeout(timer); clearTimeout(milestoneTimer); celebration.hidden = true; paper?.clear(document.querySelector('.hotel-app'));
+    clearTimeout(timer); dismissCelebration(); paper?.clear(document.querySelector('.hotel-app'));
     for (const animation of animations) { animation.onfinish = null; animation.cancel(); }
     animations.clear(); toast.hidden = true; coin.textContent = '';
   }
   return {
     pulse, clear,
+    destroy() { clear(); document.removeEventListener('click', dismissOnClick, true); },
     celebrate(content) {
       clearTimeout(milestoneTimer); toast.hidden = true;
       celebration.replaceChildren(content); celebration.hidden = false;
       paper?.unfold(celebration, { axis: 'y', duration: 420 });
-      milestoneTimer = setTimeout(() => { celebration.hidden = true; }, 4200);
+      milestoneTimer = setTimeout(dismissCelebration, 4200);
     },
     dockArrival(suit) {
       const chip = document.querySelector(`.dock-chip.${suit}`);
@@ -38,7 +52,7 @@ export function createFeedback(isReduced, paper) {
       animate(chip, [{ boxShadow: '0 0 0 0 #fff0a288' }, { boxShadow: '0 0 14px 8px #fff0a200' }], { duration: 560, easing: 'ease-out' });
     },
     spend(price, refund = 0) {
-      clearTimeout(milestoneTimer); celebration.hidden = true; paper?.clear(celebration);
+      dismissCelebration();
       coin.textContent = `−${price}${refund ? ` / +${refund} back` : ''}`;
       animate(coin, [{ opacity: 1, transform: 'translateY(0)' }, { opacity: 1, offset: .65 }, { opacity: 0, transform: 'translateY(16px)' }], { duration: 1100, easing: 'ease-out' });
       pulse(document.getElementById('coins'));

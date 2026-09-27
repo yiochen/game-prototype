@@ -40,7 +40,7 @@ test('paper celebration fits desktop, phone and landscape and does not block the
     await page.setViewportSize({width,height});await resume(page,fixture.before);await buy(page,fixture.move);await shot(page,name);
     const panel=page.locator('#milestone-celebration');await expect(panel).toBeVisible();
     const box=await panel.boundingBox();expect(box.x).toBeGreaterThanOrEqual(0);expect(box.y).toBeGreaterThanOrEqual(0);expect(box.x+box.width).toBeLessThanOrEqual(width);expect(box.y+box.height).toBeLessThanOrEqual(height);
-    await expect(panel).toHaveCSS('pointer-events','none');
+    await expect(panel).toHaveCSS('pointer-events','auto');
     const state=replayRun(fixture.after.seed,fixture.after.moves,false),index=state.offer.findIndex(c=>c.price<=state.cash);
     await buy(page,[index,state.offer[index].type==='choice'?'bunny':null]);
     await expect(page.locator('#coins')).not.toHaveText(String(state.cash));
@@ -54,4 +54,22 @@ test('animation and reduced motion award once, auto-dismiss, and replay clears t
   await expect(page.locator('#coins')).toHaveText(String(replayRun(fixture.after.seed,fixture.after.moves,false).cash));
   await page.locator('#menu-open').click();await page.locator('#replay').click();
   await expect(page.locator('#height')).toHaveText('0');await expect(page.locator('#coins')).toHaveText('100');await expect(page.locator('#milestone-celebration')).toBeHidden();
+});
+
+test.describe('reward tap dismissal',()=>{
+  test.use({hasTouch:true});
+  test('notification and outside taps dismiss without changing the earned reward',async({page})=>{
+    const fixture=milestoneRuns.get(10);
+    for(const touch of [false,true])for(const inside of [true,false]) {
+      await page.setViewportSize(touch?{width:390,height:844}:{width:1280,height:800});
+      await resume(page,fixture.before);await buy(page,fixture.move);
+      const panel=page.locator('#milestone-celebration');await expect(panel).toBeVisible();
+      const before=await page.evaluate(()=>localStorage.getItem('cloudtop-guestbook-v1'));
+      const coins=await page.locator('#coins').textContent(),floors=await page.locator('#height').textContent();
+      const box=await panel.boundingBox(),x=inside?box.x+box.width/2:5,y=inside?box.y+box.height/2:300;
+      if(touch)await page.touchscreen.tap(x,y);else await page.mouse.click(x,y);
+      await expect(panel).toBeHidden();await expect(page.locator('#coins')).toHaveText(coins);await expect(page.locator('#height')).toHaveText(floors);
+      expect(await page.evaluate(()=>localStorage.getItem('cloudtop-guestbook-v1'))).toBe(before);
+    }
+  });
 });

@@ -166,7 +166,7 @@ function celebrateMilestones(gifts) {
     if (gift.fallback) copy.append(node('small', '', 'Upgrade maxed — enjoy some coins instead.'));
     row.append(img(gift.key === 'tips' ? 'coin' : `power-${gift.key}`), copy); content.append(row);
   }
-  content.append(node('p', 'milestone-note', 'Gift received. Keep building!'));
+  content.append(node('p', 'milestone-note', 'Gift received. Tap anywhere to dismiss.'));
   $('milestone-celebration').classList.toggle('milestone-many', gifts.length > 2);
   feedback.celebrate(content);
   feedback.pulse($('coins'));
@@ -412,4 +412,4 @@ shell = mountLobby({img, guestbook, paper, isReduced: () => reduced,
 $('sound-toggle').textContent = sound ? 'Sound on' : 'Sound off'; $('sound-toggle').setAttribute('aria-pressed', String(sound));
 shell.preferences(sound, reduced); shell.home({canResume: !!guestbook.data.active});
 world.ready.then(readyScene => { scene = readyScene; scene.motion = !reduced; loading = false; render(); scene.setState(state); $('world').dataset.ready = 'true'; });
-if (import.meta.hot) import.meta.hot.dispose(() => { shell.destroy(); paper.destroy(); feedback.clear(); flight.destroy(); scenery.destroy(); world.destroy(); audio.destroy(); });
+if (import.meta.hot) import.meta.hot.dispose(() => { shell.destroy(); feedback.destroy(); paper.destroy(); flight.destroy(); scenery.destroy(); world.destroy(); audio.destroy(); });

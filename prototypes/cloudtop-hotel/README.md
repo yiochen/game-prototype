@@ -121,7 +121,7 @@ Score version `paper-v4` starts a new leaderboard/replay ruleset for the changed
 
 ## Milestone gifts
 
-Rewards arrive automatically after construction settles at or above 10, 25, 50, 100 and 200 floors. A centered paper celebration shows what was received and disappears after 4.2 seconds. It never captures focus or blocks the next purchase; there is no selection or claim step.
+Rewards arrive automatically after construction settles at or above 10, 25, 50, 100 and 200 floors. A centered paper celebration shows what was received and disappears after 4.2 seconds or a tap anywhere. Tapping the paper only dismisses it; tapping an outside control dismisses it and still performs that control’s action. It never captures focus; there is no selection or claim step.
 
 | Floors | Scheduled reward | Coins if that upgrade is already maxed |
 | --- | --- | --- |
