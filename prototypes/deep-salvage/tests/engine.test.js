@@ -6,14 +6,69 @@ import { createState, traceCircuit, rotatePart, movePart, spawnDrop, tick, start
 const part = (type, rotation = 0) => ({ type, rotation });
 const empty = () => Array(25).fill(null);
 
-test('beams cross empty space, amplify in order, and require the correct inlet', () => {
+test('guns accept every incoming direction in every rotation across empty space', () => {
+  const sources = [{ index: 2, direction: 2 }, { index: 14, direction: 3 }, { index: 22, direction: 0 }, { index: 10, direction: 1 }];
+  for (const { index, direction } of sources) for (let rotation = 0; rotation < 4; rotation++) {
+    const grid = empty(); grid[index] = part('reactor', direction); grid[12] = part('gun', rotation);
+    const circuit = traceCircuit(grid);
+    assert.deepEqual(circuit.guns, [{ index: 12, power: B.reactorPower, piercing: false }]);
+    assert.deepEqual(circuit.blocked, []);
+  }
+});
+
+test('beams from different sides combine into one gun and preserve piercing', () => {
+  const grid = empty(); grid[12] = part('gun', 1);
+  grid[2] = part('reactor', 2); grid[22] = part('reactor');
+  grid[10] = part('reactor', 1); grid[14] = part('reactor', 3);
+  grid[17] = part('lens');
+  assert.deepEqual(traceCircuit(grid).guns, [{ index: 12, power: B.reactorPower * 4, piercing: true }]);
+});
+
+test('amplifiers and lenses accept all four sides and preserve beam direction', () => {
+  const routes = [{ source: 2, direction: 2, gun: 22 }, { source: 14, direction: 3, gun: 10 }, { source: 22, direction: 0, gun: 2 }, { source: 10, direction: 1, gun: 14 }];
+  for (const type of ['amplifier', 'lens']) for (const route of routes) for (let rotation = 0; rotation < 4; rotation++) {
+    const grid = empty();
+    grid[route.source] = part('reactor', route.direction); grid[12] = part(type, rotation); grid[route.gun] = part('gun');
+    assert.deepEqual(traceCircuit(grid).guns, [{ index: route.gun, power: B.reactorPower * (type === 'amplifier' ? B.amplifier : 1), piercing: type === 'lens' }]);
+  }
+});
+
+test('splitters accept all four sides and branch perpendicular to each incoming beam', () => {
+  for (const [source, direction] of [[2, 2], [14, 3], [22, 0], [10, 1]]) for (let rotation = 0; rotation < 4; rotation++) {
+    const grid = empty(), outputs = direction % 2 ? [2, 22] : [10, 14];
+    grid[source] = part('reactor', direction); grid[12] = part('splitter', rotation);
+    for (const index of outputs) grid[index] = part('gun');
+    const guns = traceCircuit(grid).guns.sort((a, b) => a.index - b.index);
+    assert.deepEqual(guns, outputs.map(index => ({ index, power: B.reactorPower / 2, piercing: false })));
+  }
+});
+
+test('only reactors and mirrors rotate; rotating the reactor changes the beam path', () => {
+  const state = createState();
+  for (const type of ['amplifier', 'lens', 'splitter', 'gun']) {
+    state.grid[12] = part(type);
+    assert.equal(rotatePart(state, 12), false);
+    assert.equal(state.grid[12].rotation, 0);
+  }
+  state.grid[12] = null;
+  assert.equal(rotatePart(state, 22), true);
+  assert.equal(state.circuit.guns.length, 0);
+  state.grid[11] = part('mirror');
+  assert.equal(rotatePart(state, 11), true); assert.equal(state.grid[11].rotation, 1);
+});
+
+test('splitter feedback terminates when a ray revisits a directed component', () => {
+  const grid = empty(); grid[22] = part('reactor'); grid[12] = part('splitter');
+  grid[13] = part('mirror'); grid[8] = part('mirror', 1); grid[7] = part('mirror');
+  const circuit = traceCircuit(grid);
+  assert.ok(circuit.blocked.includes(13)); assert.ok(circuit.segments.length < 30);
+});
+
+test('beams cross empty space and amplify in order', () => {
   const state = createState();
   assert.equal(state.circuit.guns[0].power, 12);
   assert.equal(state.circuit.guns[0].index, 2);
-  rotatePart(state, 17);
-  assert.equal(state.circuit.guns.length, 0);
-  assert.ok(state.circuit.blocked.includes(17));
-  for (let i = 0; i < 3; i++) rotatePart(state, 17);
+  assert.equal(rotatePart(state, 17), false);
   assert.equal(state.circuit.guns[0].power, 12);
   state.grid[17] = null; rebuild(state);
   assert.equal(state.circuit.guns[0].power, 8);

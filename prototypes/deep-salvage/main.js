@@ -38,8 +38,9 @@ function renderLab() {
     const part = state.grid[index];
     button.className = `cell ${part ? `has-part ${state.circuit.active.has(index) ? 'active' : 'inactive'}` : 'empty'}${state.circuit.blocked.includes(index) ? ' blocked' : ''}`;
     button.innerHTML = part ? tileMarkup(part.type, part.rotation) : '';
-    button.setAttribute('aria-label', `${part ? `${PARTS[part.type].name}, ${part.rotation * 90} degrees, tap to rotate` : 'Empty cell'}, row ${Math.floor(index / 5) + 1}, column ${index % 5 + 1}`);
-    button.setAttribute('aria-keyshortcuts', 'Enter Space Delete');
+    const label = part ? `${PARTS[part.type].name}, ${PARTS[part.type].rotatable ? `${part.rotation * 90} degrees, tap to rotate` : 'accepts beams from any side'}` : 'Empty cell';
+    button.setAttribute('aria-label', `${label}, row ${Math.floor(index / 5) + 1}, column ${index % 5 + 1}`);
+    button.setAttribute('aria-keyshortcuts', part && !PARTS[part.type].rotatable ? 'Delete' : 'Enter Space Delete');
   }
   renderBeams();
   const parts = Object.entries(state.inventory).filter(([, count]) => count > 0);
@@ -83,7 +84,7 @@ function renderFrame() {
 
 function selectStack(type) {
   selection = selection === type ? null : type;
-  $('#lab-hint').textContent = selection ? 'CHOOSE AN EMPTY CELL' : 'TAP A PART TO ROTATE ↻';
+  $('#lab-hint').textContent = selection ? 'CHOOSE AN EMPTY CELL' : 'ROTATE CORE & MIRRORS ↻';
   renderLab();
   buttons.forEach((button, i) => button.classList.toggle('valid', !!selection && !state.grid[i]));
 }
@@ -101,6 +102,15 @@ function destinationAt(x, y) {
   if (cell) return { kind: 'grid', index: Number(cell.dataset.index) };
   if (target?.closest('#storage')) return { kind: 'storage' };
   return null;
+}
+
+function positionPreviewAndFindTarget(x, y) {
+  const preview = $('#drag-ghost');
+  preview.style.left = `${x}px`; preview.style.top = `${y}px`;
+  // The visible tile is lifted above the pointer. Use its actual rendered center
+  // for both highlighting and placement, including any CSS sizing/offset changes.
+  const rect = preview.getBoundingClientRect();
+  return destinationAt(rect.x + rect.width / 2, rect.y + rect.height / 2);
 }
 
 function clearGesture() {
@@ -146,15 +156,14 @@ gameRoot.addEventListener('pointermove', event => {
   }
   if (!gesture.dragging) return;
   event.preventDefault();
-  $('#drag-ghost').style.left = `${event.clientX}px`; $('#drag-ghost').style.top = `${event.clientY}px`;
-  const target = destinationAt(event.clientX, event.clientY), key = JSON.stringify(target);
+  const target = positionPreviewAndFindTarget(event.clientX, event.clientY), key = JSON.stringify(target);
   if (key !== gesture.targetKey) { gesture.targetKey = key; previewDestination(target); }
 });
 gameRoot.addEventListener('pointerup', event => {
   if (!gesture || event.pointerId !== gesture.pointerId) return;
   const current = gesture;
   if (current.dragging) {
-    const target = destinationAt(event.clientX, event.clientY);
+    const target = positionPreviewAndFindTarget(event.clientX, event.clientY);
     const moved = target && movePart(state, current.source, target);
     if (moved) toast(target.kind === 'storage' ? `${PARTS[current.part.type].name} stored` : `${PARTS[current.part.type].name} installed`);
     else toast('Returned safely · choose an empty cell');
@@ -164,7 +173,7 @@ gameRoot.addEventListener('pointerup', event => {
     if (movePart(state, current.source, { kind: 'storage' })) toast(`${PARTS[current.part.type].name} salvaged`);
   } else { selection = selection === current.part.type ? null : current.part.type; }
   clearGesture();
-  $('#lab-hint').textContent = selection ? 'CHOOSE AN EMPTY CELL' : 'TAP A PART TO ROTATE ↻';
+  $('#lab-hint').textContent = selection ? 'CHOOSE AN EMPTY CELL' : 'ROTATE CORE & MIRRORS ↻';
   if (selection) buttons.forEach((button, i) => button.classList.toggle('valid', !state.grid[i]));
   renderFrame(); checkDiscoveries();
 });
@@ -178,7 +187,7 @@ gameRoot.addEventListener('click', event => {
     const index = Number(cell.dataset.index);
     if (!state.grid[index] && selection) {
       if (movePart(state, { kind: 'storage', type: selection }, { kind: 'grid', index })) {
-        selection = null; $('#lab-hint').textContent = 'TAP A PART TO ROTATE ↻'; renderLab();
+        selection = null; $('#lab-hint').textContent = 'ROTATE CORE & MIRRORS ↻'; renderLab();
       }
     } else if (event.detail === 0) { rotatePart(state, index); renderLab(); }
   }
@@ -216,7 +225,7 @@ function closeModal() {
 }
 
 function showWelcome() {
-  openModal('welcome', `<div class="welcome-art"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART.submarine)}" alt="A little yellow submarine"></div><p class="modal-eyebrow">A LITTLE MACHINE. A BIG OCEAN.</p><h2 id="modal-title">Deep Salvage<span class="title-dot">.</span></h2><p class="modal-copy">The city sank. Your ingenuity didn't.<br>Keep your submarine alive with whatever you find.</p><div class="intro-tip"><b>↗</b><span><strong>Salvage & assemble</strong>Tap fallen parts to store. Drag them into the lab.</span></div><div class="intro-tip"><b>↻</b><span><strong>Make the beam work</strong>Tap installed parts to rotate. Empty space carries energy.</span></div><div class="modal-actions"><button class="primary" data-action="start">Let's dive →</button></div>`);
+  openModal('welcome', `<div class="welcome-art"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART.submarine)}" alt="A little yellow submarine"></div><p class="modal-eyebrow">A LITTLE MACHINE. A BIG OCEAN.</p><h2 id="modal-title">Deep Salvage<span class="title-dot">.</span></h2><p class="modal-copy">The city sank. Your ingenuity didn't.<br>Keep your submarine alive with whatever you find.</p><div class="intro-tip"><b>↗</b><span><strong>Salvage & assemble</strong>Tap fallen parts to store. Drag them into the lab.</span></div><div class="intro-tip"><b>↻</b><span><strong>Make the beam work</strong>Tap reactors and mirrors to rotate. Empty space carries energy.</span></div><div class="modal-actions"><button class="primary" data-action="start">Let's dive →</button></div>`);
 }
 
 function showPause() {
@@ -224,7 +233,7 @@ function showPause() {
 }
 
 function showGuide() {
-  openModal('guide', `<p class="modal-eyebrow">THE ENGINEER'S FIELD NOTES</p><h2 id="modal-title">Small parts.<br>Big possibilities.</h2><p class="modal-copy">All parts fit one square. Beams travel freely through empty cells. Match the ports, then follow the light.</p><div class="guide-list">${Object.entries(PARTS).map(([type, part]) => `<article class="guide-row"><div class="guide-tile">${tileMarkup(type)}</div><div><h3>${part.name}${state.discovered.has(type) ? '' : '<small>NOT FOUND YET</small>'}</h3><p>${part.description} ${part.tip}</p><p class="ports">${part.ports}</p></div></article>`).join('')}</div><div class="guide-close"><button class="primary" data-action="close">Back to the dive →</button></div>`);
+  openModal('guide', `<p class="modal-eyebrow">THE ENGINEER'S FIELD NOTES</p><h2 id="modal-title">Small parts.<br>Big possibilities.</h2><p class="modal-copy">All parts fit one square. Beams travel freely through empty cells. Only reactors and mirrors need rotation. Other parts work from any side.</p><div class="guide-list">${Object.entries(PARTS).map(([type, part]) => `<article class="guide-row"><div class="guide-tile">${tileMarkup(type)}</div><div><h3>${part.name}${state.discovered.has(type) ? '' : '<small>NOT FOUND YET</small>'}</h3><p>${part.description} ${part.tip}</p><p class="ports">${part.ports}</p></div></article>`).join('')}</div><div class="guide-close"><button class="primary" data-action="close">Back to the dive →</button></div>`);
 }
 
 function checkDiscoveries() {
@@ -241,7 +250,7 @@ function showEnd() {
 function restart() {
   selection = null; saveKnown(); state = createState(loadKnown()); revision = -1;
   modal.close(); modalKind = null; gameRoot.classList.remove('is-paused');
-  $('#lab-hint').textContent = 'TAP A PART TO ROTATE ↻';
+  $('#lab-hint').textContent = 'ROTATE CORE & MIRRORS ↻';
   startDive(state); renderFrame(); toast('Fresh hull. Fresh possibilities.');
 }
 

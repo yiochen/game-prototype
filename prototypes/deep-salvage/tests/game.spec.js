@@ -9,11 +9,22 @@ async function boot(page) {
   await page.getByRole('button', { name: "Let's dive" }).click();
   await expect(page.locator('#modal')).not.toBeVisible();
 }
-async function drag(page, source, target) {
+async function aimPreview(page, target, pointer) {
+  const b = await target.boundingBox(), ghost = await page.locator('#drag-ghost').boundingBox();
+  return { x: b.x + b.width / 2 - (ghost.x + ghost.width / 2 - pointer.x), y: b.y + b.height / 2 - (ghost.y + ghost.height / 2 - pointer.y) };
+}
+async function drag(page, source, target, beforeRelease) {
   const a = await source.boundingBox(), b = await target.boundingBox();
   await page.mouse.move(a.x + a.width / 2, a.y + a.height / 2);
   await page.mouse.down();
-  await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2, { steps: 12 });
+  const initialPointer = { x: a.x + a.width / 2 + 10, y: a.y + a.height / 2 - 10 };
+  await page.mouse.move(initialPointer.x, initialPointer.y);
+  const pointer = await aimPreview(page, target, initialPointer);
+  await page.mouse.move(pointer.x, pointer.y, { steps: 12 });
+  const ghost = await page.locator('#drag-ghost').boundingBox();
+  expect(ghost.x + ghost.width / 2).toBeCloseTo(b.x + b.width / 2, 0);
+  expect(ghost.y + ghost.height / 2).toBeCloseTo(b.y + b.height / 2, 0);
+  if (beforeRelease) await beforeRelease(pointer);
   await page.mouse.up();
 }
 async function shot(page, name) {
@@ -93,8 +104,8 @@ test('drag storage and battlefield parts into lab, rotate once, reject occupied 
 test('touch tap rotates exactly once, touch salvage works, and cancelled drag never consumes a stack', async ({ browser }) => {
   const context = await browser.newContext({ viewport: { width: 412, height: 924 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true });
   const page = await context.newPage(); await boot(page);
-  await cell(page, 17).tap();
-  await expect(cell(page, 17)).toHaveAttribute('aria-label', /90 degrees/);
+  await cell(page, 22).tap();
+  await expect(cell(page, 22)).toHaveAttribute('aria-label', /90 degrees/);
   await expect(page.locator('#gun-label')).toHaveText('0 guns online');
   const id = await page.evaluate(() => window.__deepSalvage.drop('mirror'));
   await page.locator(`.loot[data-id="${id}"]`).tap();
@@ -109,11 +120,75 @@ test('touch tap rotates exactly once, touch salvage works, and cancelled drag ne
   await expect(page.locator('.stack[data-type="mirror"] .count')).toHaveText('3');
   const destination = await cell(page, 11).boundingBox();
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: source.x + 20, y: source.y + 20 }] });
-  await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: destination.x + 20, y: destination.y + 20 }] });
+  const initialPointer = { x: destination.x + 20, y: destination.y + 20 };
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [initialPointer] });
+  const pointer = await aimPreview(page, cell(page, 11), initialPointer);
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [pointer] });
+  await expect(cell(page, 11)).toHaveClass(/target/);
+  expect(pointer.y).toBeGreaterThan(destination.y + destination.height);
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
   await expect(cell(page, 11)).toHaveAttribute('aria-label', /Mirror/);
   await expect(page.locator('.stack[data-type="mirror"] .count')).toHaveText('2');
   await context.close();
+});
+
+test('preview center determines highlighted and committed destinations, including grid edges and storage', async ({ page }) => {
+  await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
+  await drag(page, page.locator('.stack[data-type="mirror"]'), cell(page, 21), async pointer => {
+    await expect(cell(page, 21)).toHaveClass(/target/);
+    const box = await cell(page, 21).boundingBox();
+    expect(pointer.y).toBeGreaterThan(box.y + box.height);
+    await shot(page, 'preview-aligned-bottom-row');
+  });
+  await expect(cell(page, 21)).toHaveAttribute('aria-label', /Mirror/);
+  // An occupied preview destination must be rejected even with the finger over
+  // an empty neighboring cell. No source part is consumed.
+  await drag(page, page.locator('.stack[data-type="mirror"]'), cell(page, 17), async () => {
+    await expect(cell(page, 17)).toHaveClass(/invalid/);
+  });
+  await expect(page.locator('.stack[data-type="mirror"] .count')).toHaveText('1');
+  await drag(page, cell(page, 21), page.locator('#storage'), async () => {
+    await expect(page.locator('#storage')).toHaveClass(/drop-target/);
+  });
+  await expect(cell(page, 21)).toHaveClass(/empty/);
+  await expect(page.locator('.stack[data-type="mirror"] .count')).toHaveText('2');
+});
+
+test('a gun beside the reactor stays powered and ignores rotation taps', async ({ page }) => {
+  await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
+  await drag(page, cell(page, 2), cell(page, 24));
+  await cell(page, 22).click(); // Reactor now emits right through empty cell 23.
+  for (let rotation = 0; rotation < 4; rotation++) {
+    await expect(page.locator('#gun-label')).toHaveText('1 gun online');
+    await expect(cell(page, 24)).toHaveClass(/active/);
+    await cell(page, 24).click();
+  }
+  await expect(page.locator('#gun-label')).toHaveText('1 gun online');
+  await page.locator('#manual').click();
+  await expect(page.locator('.guide-row').filter({ has: page.getByRole('heading', { name: 'Gun', exact: true }) })).toContainText('all four sides');
+});
+
+test('a horizontal circuit amplifies, pierces and splits without orienting its parts', async ({ page }) => {
+  await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
+  await page.evaluate(() => {
+    const grid = Array(25).fill(null);
+    grid[10] = { type: 'reactor', rotation: 1 };
+    grid[11] = { type: 'amplifier', rotation: 0 };
+    grid[12] = { type: 'lens', rotation: 0 };
+    grid[13] = { type: 'splitter', rotation: 0 };
+    grid[8] = { type: 'gun', rotation: 0 };
+    grid[18] = { type: 'gun', rotation: 0 };
+    window.__deepSalvage.setGrid(grid);
+  });
+  for (const index of [11, 12, 13, 8, 18]) {
+    await expect(cell(page, index)).toHaveAttribute('aria-label', /accepts beams from any side/);
+    await cell(page, index).click();
+    await expect(page.locator('#gun-label')).toHaveText('2 guns online');
+  }
+  const snapshot = await page.evaluate(() => window.__deepSalvage.snapshot());
+  expect(snapshot.circuit.guns.map(g => ({ power: g.power, piercing: g.piercing }))).toEqual([{ power: 6, piercing: true }, { power: 6, piercing: true }]);
+  expect([11, 12, 13, 8, 18].every(index => snapshot.grid[index].rotation === 0)).toBe(true);
+  await shot(page, 'omnidirectional-circuit');
 });
 
 test('player builds two guns using real controls, with empty cells between mirrors and guns', async ({ page }) => {
@@ -138,11 +213,11 @@ test('player builds two guns using real controls, with empty cells between mirro
   expect(snapshot.circuit.guns.map(g => g.power)).toEqual([6, 6]);
   expect(snapshot.grid[6]).toBeNull(); expect(snapshot.grid[8]).toBeNull();
   await shot(page, 'two-gun-circuit');
-  await cell(page, 12).focus(); await page.keyboard.press('Enter');
-  await expect(page.locator('#gun-label')).toHaveText('0 guns online');
+  await cell(page, 11).focus(); await page.keyboard.press('Enter');
+  await expect(page.locator('#gun-label')).toHaveText('1 gun online');
   await page.keyboard.press('Delete');
-  await expect(cell(page, 12)).toHaveClass(/empty/);
-  await expect(page.locator('.stack[data-type="splitter"] .count')).toHaveText('1');
+  await expect(cell(page, 11)).toHaveClass(/empty/);
+  await expect(page.locator('.stack[data-type="mirror"] .count')).toHaveText('1');
 });
 
 test('loot expiry flashes then disappears, pause freezes clocks, and defeat restarts cleanly', async ({ page }) => {

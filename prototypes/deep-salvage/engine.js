@@ -28,8 +28,6 @@ export function traceCircuit(grid) {
       const visit = `${index}:${ray.direction}`;
       if (ray.visited.has(visit)) { blocked.push(index); break; }
       const visited = new Set(ray.visited); visited.add(visit);
-      const incoming = mod(ray.direction + 2);
-      if (part.type !== 'mirror' && incoming !== mod(2 + part.rotation)) { blocked.push(index); break; }
       if (part.type === 'reactor') { blocked.push(index); break; }
       active.add(index);
       if (part.type === 'gun') {
@@ -42,10 +40,10 @@ export function traceCircuit(grid) {
         next.direction = (part.rotation % 2 ? [3, 2, 1, 0] : [1, 0, 3, 2])[ray.direction];
         queue.push(next);
       } else if (part.type === 'splitter') {
-        queue.push({ ...next, power: ray.power / 2, direction: mod(part.rotation + 1) });
-        queue.push({ ...next, power: ray.power / 2, direction: mod(part.rotation + 3) });
+        queue.push({ ...next, power: ray.power / 2, direction: mod(ray.direction + 1) });
+        queue.push({ ...next, power: ray.power / 2, direction: mod(ray.direction + 3) });
       } else {
-        queue.push({ ...next, power: part.type === 'amplifier' ? Math.min(B.powerCap, ray.power * B.amplifier) : ray.power, piercing: ray.piercing || part.type === 'lens', direction: part.rotation });
+        queue.push({ ...next, power: part.type === 'amplifier' ? Math.min(B.powerCap, ray.power * B.amplifier) : ray.power, piercing: ray.piercing || part.type === 'lens', direction: ray.direction });
       }
       break;
     }
@@ -75,7 +73,7 @@ export function rebuild(state) { state.circuit = traceCircuit(state.grid); state
 
 export function rotatePart(state, index) {
   const part = state.grid[index];
-  if (!part || state.status === 'won' || state.status === 'lost') return false;
+  if (!part || !PARTS[part.type].rotatable || state.status === 'won' || state.status === 'lost') return false;
   part.rotation = mod(part.rotation + 1); rebuild(state); return true;
 }
 

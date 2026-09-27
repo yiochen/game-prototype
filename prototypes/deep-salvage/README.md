@@ -15,10 +15,10 @@ Open `/prototypes/deep-salvage/`. No account or runtime network request is neede
 
 - The submarine travels and fires connected guns automatically. Survive all three waves.
 - Tap a fallen part to salvage it. Drag it into the grid to install immediately, or into the parts hold to store it.
-- Drag one copy from a stack into an empty cell. Alternatively, tap a stack and then tap an empty cell.
-- Tap an installed part to rotate it. Drag it elsewhere or back into the hold.
+- Drag one copy from a stack into an empty cell. Align the floating preview with the destination; placement follows its center, not your finger. Alternatively, tap a stack and then tap an empty cell.
+- Tap an installed reactor or mirror to rotate it. Other components work from any side and do not need rotation. Drag it elsewhere or back into the hold.
 - Dragging slows time. Invalid drops and cancelled gestures preserve the part. The part being held cannot expire.
-- Beam energy crosses empty squares. Mirrors turn it, amplifiers strengthen it, splitters branch it, lenses add piercing, guns fire it.
+- Beam energy crosses empty squares. Mirrors turn it. Amplifiers and lenses work straight through in any direction. Splitters send half the energy left and half right relative to the incoming beam. Guns accept inputs from all four sides.
 - A newly acquired part type pauses the game for its introduction. The guide explains all six types. Only discovery history persists between runs.
 - Keyboard: Tab to controls, Enter/Space to activate or rotate, arrow keys between grid cells, Delete/Backspace to store a focused tile, Escape to cancel a drag or pause.
 
