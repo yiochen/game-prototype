@@ -49,18 +49,18 @@ test('unaffordable recipes wait intact and start automatically when cash becomes
   tick(s, .1); assert.equal(s.cash, 0);
 });
 
-test('three slots allow arbitrary parts; a full or occupied slot rejects without consuming anything', () => {
+test('three slots allow arbitrary parts; an unspecified full forge rejects without consuming anything', () => {
   const s = createState(); startDive(s); s.cash = 0; s.inventory.pulse = 4;
   for (let i = 0; i < B.forgeSlots; i++) assert.equal(add(s, 'pulse'), true);
   assert.equal(add(s, 'pulse'), false); assert.equal(s.inventory.pulse, 1); assert.equal(s.forge.job, null);
-  assert.equal(movePart(s, {kind:'forge',index:0}, {kind:'forge',index:1}), false);
+  assert.equal(movePart(s, {kind:'forge',index:0}, {kind:'forge',index:0}), false);
 });
 
-test('installed ingredients keep their rotation when recovered and cannot overwrite occupied cells', () => {
+test('installed ingredients keep their rotation when recovered and reject out-of-bounds destinations', () => {
   const s = createState(); s.grid[13] = part('mirror', 3); rebuild(s);
   assert.equal(movePart(s, { kind: 'grid', index: 13 }, { kind: 'forge', index: 1 }), true);
   assert.equal(s.grid[13], null);
-  assert.equal(movePart(s, { kind: 'forge', index: 1 }, { kind: 'grid', index: 26 }), false);
+  assert.equal(movePart(s, { kind: 'forge', index: 1 }, { kind: 'grid', index: 30 }), false);
   assert.equal(movePart(s, { kind: 'forge', index: 1 }, { kind: 'grid', index: 15 }), true);
   assert.deepEqual(s.grid[15], part('mirror', 3));
 });
@@ -114,17 +114,22 @@ test('enemy shields and hull hits expose distinct animations and rail piercing h
   tick(s, .4); assert.ok(s.enemies[1].hitFlash > 0);
 });
 
-test('an affordable opening forge and a salvaged lens can beat the tougher dive with real damage taken', () => {
+test('earned upgrades after the third wave remain useful through a six-wave victory', () => {
   const s = createState(); startDive(s);
   assert.equal(add(s, 'amplifier'), true); assert.equal(add(s, 'amplifier'), true); assert.ok(s.forge.job);
-  for (let i = 0; i < 360 && s.status === 'running'; i++) {
+  for (let i = 0; i < 720 && s.status === 'running'; i++) {
     tick(s, .5);
     for (const drop of [...s.drops]) movePart(s, { kind: 'drop', id: drop.id }, { kind: 'storage' });
     if (s.inventory.amplifier2 && !s.grid[14]) movePart(s, { kind: 'storage', type: 'amplifier2' }, { kind: 'grid', index: 14 });
     if (s.inventory.lens && !s.grid[8]) movePart(s, { kind: 'storage', type: 'lens' }, { kind: 'grid', index: 8 });
+    if (s.wave === 2 && s.rest > 6 && !s.forge.job && s.grid[2]?.type === 'gun') {
+      movePart(s, {kind:'grid',index:2}, {kind:'forge',index:0});
+      movePart(s, {kind:'storage',type:'gun'}, {kind:'forge',index:1});
+    }
+    if (s.inventory.gun2 && !s.grid[2]) movePart(s, {kind:'storage',type:'gun2'}, {kind:'grid',index:2});
   }
-  assert.equal(s.status, 'won'); assert.equal(s.kills, 39); assert.equal(s.salvaged, 17);
-  assert.ok(s.hull > 0 && s.hull < 60); assert.equal(s.forged, 1);
+  assert.equal(s.status, 'won'); assert.equal(s.kills, 93); assert.equal(s.salvaged, 39);
+  assert.ok(s.hull > 0 && s.hull < 60); assert.equal(s.forged, 2); assert.ok(s.elapsed > 210);
 });
 
 test('a staged ingredient can complete the next recipe once the current job frees slots', () => {

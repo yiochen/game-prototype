@@ -143,10 +143,6 @@ export function forgeRecipe(state) {
   return RECIPES.find(recipe => recipeSlots(recipe, state.forge.slots)) || null;
 }
 
-export function canAddToForge(state, type, index = state.forge.slots.findIndex(p => !p)) {
-  return !!PARTS[type] && Number.isInteger(index) && index >= 0 && index < B.forgeSlots && !state.forge.slots[index];
-}
-
 export function startForge(state) {
   if (state.status !== 'running' || state.paused || state.timeFreeze > 0 || state.forge.job) return false;
   const quote = RECIPES.find(recipe => recipe.cost <= state.cash && recipeSlots(recipe, state.forge.slots));
@@ -170,19 +166,31 @@ function advanceForge(state, dt) {
   state.forge.job = null; state.revision++;
 }
 
+// Replacement reserves storage after taking the incoming copy from its stack.
+export function canPlacePart(state, source, target) {
+  const part = sourcePart(state, source);
+  if (!part || ['won', 'lost'].includes(state.status)) return false;
+  if (target.kind === 'loader') return Number.isInteger(target.index) && target.index >= 0 && target.index < state.loaders.length && canConsume(state, part.type);
+  if (target.kind === 'storage') return source.kind !== 'storage' && canStore(state, part.type);
+  if (!['grid', 'forge'].includes(target.kind)) return false;
+  const index = target.index ?? (target.kind === 'forge' ? state.forge.slots.findIndex(p => !p) : -1);
+  const slots = target.kind === 'grid' ? state.grid : state.forge.slots;
+  if (!Number.isInteger(index) || index < 0 || index >= slots.length || (source.kind === target.kind && source.index === index)) return false;
+  if (target.kind === 'grid' && PARTS[part.type].consumable) return false;
+  if (target.kind === 'forge' && state.forge.job?.indices.includes(index)) return false;
+  const displaced = slots[index];
+  if (!displaced) return true;
+  const remaining = type => (state.inventory[type] || 0) - (source.kind === 'storage' && source.type === type ? 1 : 0);
+  return remaining(displaced.type) > 0 || Object.keys(state.inventory).filter(type => remaining(type) > 0).length < B.storageSlots;
+}
+
 // Validate first, then commit. Invalid/cancelled gestures never consume anything.
 export function movePart(state, source, target) {
-  if (state.status === 'won' || state.status === 'lost') return false;
+  if (!canPlacePart(state, source, target)) return false;
   const part = sourcePart(state, source);
-  if (!part) return false;
   if (target.kind === 'loader') return useConsumable(state, source, target.index);
-  if (target.kind === 'grid' && PARTS[part.type].consumable) return false;
-  if (target.kind === 'grid' && (!Number.isInteger(target.index) || target.index < 0 || target.index >= B.gridColumns * B.gridRows || state.grid[target.index])) return false;
-  if (!['grid', 'storage', 'forge'].includes(target.kind)) return false;
   const forgeIndex = target.index ?? state.forge.slots.findIndex(p => !p);
-  if (target.kind === 'forge' && !canAddToForge(state, part.type, forgeIndex)) return false;
-  if (source.kind === 'storage' && target.kind === 'storage') return false;
-  if (target.kind === 'storage' && !canStore(state, part.type)) return false;
+  const displaced = target.kind === 'grid' ? state.grid[target.index] : target.kind === 'forge' ? state.forge.slots[forgeIndex] : null;
   if (source.kind === 'grid') state.grid[source.index] = null;
   if (source.kind === 'storage') state.inventory[part.type]--;
   if (source.kind === 'forge') state.forge.slots[source.index] = null;
@@ -191,6 +199,7 @@ export function movePart(state, source, target) {
     state.salvaged++;
     acquire(state, part.type);
   }
+  if (displaced) state.inventory[displaced.type] = (state.inventory[displaced.type] || 0) + 1;
   if (target.kind === 'storage') state.inventory[part.type] = (state.inventory[part.type] || 0) + 1;
   else if (target.kind === 'forge') state.forge.slots[forgeIndex] = { ...part };
   else state.grid[target.index] = { ...part };

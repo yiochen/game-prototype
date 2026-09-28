@@ -7,7 +7,7 @@ import cityLevel from './assets/levels/sunken-city.webp';
 import kelpLevel from './assets/levels/kelp-wilds.webp';
 import foundryLevel from './assets/levels/cinder-foundry.webp';
 const LEVEL_ART = { city: cityLevel, kelp: kelpLevel, foundry: foundryLevel };
-import { createState, startDive, tick, traceCircuit, rebuild, rotatePart, movePart, sourcePart, spawnDrop, forgeMatches, forgeRecipe, canAddToForge, canStore, storageSlots, canConsume } from './engine.js';
+import { createState, startDive, tick, traceCircuit, rebuild, rotatePart, movePart, sourcePart, spawnDrop, forgeMatches, forgeRecipe, canStore, storageSlots, canConsume, canPlacePart } from './engine.js';
 import { createWorld } from './world.js';
 
 const $ = selector => document.querySelector(selector);
@@ -139,7 +139,7 @@ function renderFrame() {
 function selectStack(type) {
   selection = selection === type ? null : type;
   renderLab();
-  buttons.forEach((button, i) => button.classList.toggle('valid', !!selection && !PARTS[selection].consumable && !state.grid[i]));
+  buttons.forEach((button, i) => button.classList.toggle('valid', !!selection && canPlacePart(state, { kind: 'storage', type: selection }, { kind: 'grid', index: i })));
 }
 
 function sourceFromElement(element) {
@@ -175,14 +175,14 @@ function positionPreviewAndFindTarget(x, y) {
 function clearGesture() {
   if (gesture && gameRoot.hasPointerCapture(gesture.pointerId)) gameRoot.releasePointerCapture(gesture.pointerId);
   gesture = null; state.heldDrop = null; $('#drag-ghost').hidden = true; storage.classList.remove('drop-target', 'invalid'); $('#forge').classList.remove('invalid'); $('#forge').classList.remove('drop-target');
-  document.querySelectorAll('.loader-slot').forEach(button => button.classList.remove('target', 'invalid'));
+  document.querySelectorAll('.loader-slot, .forge-slot').forEach(button => button.classList.remove('target', 'invalid', 'replacing'));
   renderLab();
 }
 
 function previewDestination(target) {
   buttons.forEach((button, index) => {
-    button.classList.toggle('valid', !PARTS[gesture.part.type].consumable && !state.grid[index]);
-    button.classList.remove('target', 'invalid');
+    button.classList.toggle('valid', canPlacePart(state, gesture.source, { kind: 'grid', index }));
+    button.classList.remove('target', 'invalid', 'replacing');
     button.classList.toggle('drag-source', gesture?.source.kind === 'grid' && gesture.source.index === index);
   });
   document.querySelectorAll('.loader-slot').forEach((button, index) => {
@@ -193,11 +193,17 @@ function previewDestination(target) {
   const storageTarget = target?.kind === 'storage', storageValid = canStore(state, gesture.part.type);
   storage.classList.toggle('drop-target', storageTarget && storageValid);
   storage.classList.toggle('invalid', storageTarget && !storageValid);
-  const forgeTarget = target?.kind === 'forge', forgeValid = forgeTarget && canAddToForge(state, gesture.part.type, target.index);
+  const forgeTarget = target?.kind === 'forge', forgeValid = forgeTarget && canPlacePart(state, gesture.source, target);
   $('#forge').classList.toggle('invalid', !!forgeTarget && !forgeValid);
   $('#forge').classList.toggle('drop-target', !!forgeValid);
+  document.querySelectorAll('.forge-slot').forEach((button, index) => {
+    const hovered = forgeTarget && target.index === index;
+    button.classList.toggle('target', hovered && forgeValid);
+    button.classList.toggle('invalid', hovered && !forgeValid);
+    button.classList.toggle('replacing', hovered && forgeValid && !!state.forge.slots[index]);
+  });
   if (target?.kind === 'grid') {
-    const valid = !PARTS[gesture.part.type].consumable && !state.grid[target.index]; buttons[target.index].classList.add(valid ? 'target' : 'invalid');
+    const valid = canPlacePart(state, gesture.source, target); buttons[target.index].classList.toggle('replacing', valid && !!state.grid[target.index]); buttons[target.index].classList.add(valid ? 'target' : 'invalid');
     if (valid) {
       const grid = state.grid.map(part => part ? { ...part } : null);
       if (gesture.source.kind === 'grid') grid[gesture.source.index] = null;
@@ -235,7 +241,10 @@ gameRoot.addEventListener('pointerup', event => {
   if (current.dragging) {
     const target = positionPreviewAndFindTarget(event.clientX, event.clientY);
     const moved = target && movePart(state, current.source, target);
-    if (!moved) toast(target?.kind === 'storage' && !canStore(state, current.part.type) ? 'Storage full' : 'Cannot place here');
+    if (!moved) toast(target?.kind === 'storage' && !canStore(state, current.part.type) ? 'Storage full' : ['grid', 'forge'].includes(target?.kind) && (target.kind === 'grid' ? state.grid[target.index] : state.forge.slots[target.index]) ? 'Cannot replace: check storage space or forge lock' : 'Cannot place here');
+  } else if (selection && ['grid', 'forge'].includes(current.source.kind)) {
+    if (movePart(state, { kind: 'storage', type: selection }, current.source)) selection = null;
+    else toast('Cannot replace: check storage space');
   } else if (current.source.kind === 'forge') {
     if (!movePart(state, current.source, { kind: 'storage' })) toast('Storage full');
   } else if (current.source.kind === 'grid') {
@@ -244,7 +253,7 @@ gameRoot.addEventListener('pointerup', event => {
     if (!movePart(state, current.source, { kind: 'storage' })) toast('Storage full');
   } else { selection = selection === current.part.type ? null : current.part.type; }
   clearGesture();
-  if (selection) buttons.forEach((button, i) => button.classList.toggle('valid', !PARTS[selection].consumable && !state.grid[i]));
+  if (selection) buttons.forEach((button, i) => button.classList.toggle('valid', canPlacePart(state, { kind: 'storage', type: selection }, { kind: 'grid', index: i })));
   renderFrame(); checkDiscoveries();
 });
 gameRoot.addEventListener('pointercancel', clearGesture);
@@ -259,14 +268,14 @@ gameRoot.addEventListener('click', event => {
     return;
   }
   const slot = event.target.closest('.forge-slot');
-  if (slot && !state.forge.slots[slot.dataset.slot] && selection) {
+  if (slot && selection) {
     if (movePart(state, { kind: 'storage', type: selection }, { kind: 'forge', index: Number(slot.dataset.slot) })) { selection = null; renderLab(); }
     return;
   }
   const cell = event.target.closest('.cell');
   if (cell) {
     const index = Number(cell.dataset.index);
-    if (!state.grid[index] && selection) {
+    if (selection) {
       if (movePart(state, { kind: 'storage', type: selection }, { kind: 'grid', index })) { selection = null; renderLab(); }
     } else if (event.detail === 0) { rotatePart(state, index); renderLab(); }
   }
@@ -311,7 +320,7 @@ function closeModal() {
 
 function showWelcome() {
   selectedMap = state.mapId;
-  openModal('welcome', `<div class="welcome-art"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART.submarine)}" alt="A little yellow submarine"></div><h2 id="modal-title">Deep Salvage<span class="title-dot">.</span></h2><fieldset class="route-picker"><legend>Levels</legend>${Object.entries(MAPS).map(([id, map]) => `<button type="button" class="route-card" data-map="${id}" aria-pressed="${id === selectedMap}"><img class="level-background" src="${LEVEL_ART[id]}" alt="" width="768" height="512"><strong>${map.name}</strong><small>${map.difficulty} · 3 waves</small></button>`).join('')}</fieldset><div class="modal-actions"><button class="primary" data-action="start">Let's dive →</button>${state.status !== 'ready' ? '<button class="secondary" data-action="close">Back to current dive</button>' : ''}</div>`);
+  openModal('welcome', `<div class="welcome-art"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART.submarine)}" alt="A little yellow submarine"></div><h2 id="modal-title">Deep Salvage<span class="title-dot">.</span></h2><fieldset class="route-picker"><legend>Levels</legend>${Object.entries(MAPS).map(([id, map]) => `<button type="button" class="route-card" data-map="${id}" aria-pressed="${id === selectedMap}"><img class="level-background" src="${LEVEL_ART[id]}" alt="" width="768" height="512"><strong>${map.name}</strong><small>${map.difficulty} · ${map.waves.length} waves</small></button>`).join('')}</fieldset><div class="modal-actions"><button class="primary" data-action="start">Let's dive →</button>${state.status !== 'ready' ? '<button class="secondary" data-action="close">Back to current dive</button>' : ''}</div>`);
 }
 
 function showPause() {
@@ -319,7 +328,7 @@ function showPause() {
 }
 
 function showGuide() {
-  openModal('guide', `<p class="modal-eyebrow">THE ENGINEER'S FIELD NOTES</p><h2 id="modal-title">Recipes & parts.</h2><h3>All forge recipes</h3><p class="modal-copy">The top three slots of the right column automatically forge any affordable recipe whose ingredients are present. Cash is deducted when it starts. Unrelated parts stay in place; any part can be added to an empty slot, even during another job. Glowing progress marks locked ingredients. Tap other ingredients to recover them. No recipe is a subset of another. The timer pauses with the dive and during a time freeze.</p><div class="recipe-list">${RECIPES.map(r => `<article class="recipe-row"><div class="recipe-ingredients">${[...new Set(r.ingredients)].map(type => `<span>${r.ingredients.filter(t => t === type).length} × ${PARTS[type].name}</span>`).join(' + ')}</div><strong>→ ${PARTS[r.output].name}</strong><p>${PARTS[r.output].description}</p><small>${r.cost}¢ · ${r.seconds}s · ${r.ingredients.length} ingredients</small></article>`).join('')}</div><h3>Consumables</h3><p class="modal-copy">Round repair kits, shield cells and time capsules stack in the same 14-slot hold. Tap a battlefield drop to save it, or drag a drop or stored copy to either round loader at the bottom right to use one immediately. The loaders are reusable and do not store items. Repair kits restore 25 hull; shield cells restore 12 shield. Full-health uses are rejected without consuming anything. Time capsules freeze combat for 8 real seconds while the lab stays editable: enemies, submarine, loot expiry, guns, support terminals and forge timers all stop. Dragging does not stretch the countdown. Extra capsules extend it. The purple rings show time remaining; normal pause also pauses this countdown. Two identical base consumables forge into a stronger version using the recipes above. The second defeated enemy drops a time capsule; every sixth defeat drops another supply.</p><h3>Parts manual</h3><p class="modal-copy">The 6 × 5 lab fills the left side; three forge slots and two round consumable loaders run down the right. Two bottom rows hold 14 stacks, with no scrolling or pages. Identical parts share a slot; empty stacks free it. When storage is full, new types stay at their source and forged outputs wait in the forge. All parts fit one square. Beams travel freely through empty cells. Only reactors and mirrors need rotation. Other parts work from any side. Thicker gold beams carry more power; thin beams carry less. Blue dashed beams pierce armor. Laser guns beam continuously for steady damage. Pink pulse guns store energy; their bars show charge. At 100% they fire a 54-damage pulse. Amplifiers speed up charging; lenses add piercing to either weapon. Shield and Medic terminals restore protection and hull when charged. They hold a full charge at full health; amplifiers speed them up, but lenses do not multiply repairs. Charged parts retain energy on the grid and clear it in storage. Your hold includes all three terminal types and a spare reactor.</p><div class="guide-list">${Object.entries(PARTS).map(([type, part]) => `<article class="guide-row"><div class="guide-tile">${tileMarkup(type)}</div><div><h3>${part.name}${state.discovered.has(type) ? '' : '<small>NOT FOUND YET</small>'}</h3><p>${part.description} ${part.tip}</p><p class="ports">${part.ports}</p></div></article>`).join('')}</div><h3>Enemy field guide</h3><div class="enemy-guide">${Object.entries(ENEMY_INFO).map(([type, info]) => `<article class="enemy-row"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART[type])}" alt=""><div><h4>${info.name}</h4><p>${info.tactic}</p><small>${B.enemies[type].hp} HP · ${B.enemies[type].armor} armor · ${B.enemies[type].damage} damage${B.enemies[type].shield ? ` · ${B.enemies[type].shield} shield` : ''}</small></div></article>`).join('')}</div><h3>Route atlas</h3>${Object.values(MAPS).map(map => `<p class="modal-copy"><strong>${map.name} · ${map.difficulty}</strong><br>${map.description}</p>`).join('')}<div class="guide-close"><button class="primary" data-action="close">Back to the dive →</button></div>`);
+  openModal('guide', `<p class="modal-eyebrow">THE ENGINEER'S FIELD NOTES</p><h2 id="modal-title">Recipes & parts.</h2><h3>All forge recipes</h3><p class="modal-copy">The top three slots of the right column automatically forge any affordable recipe whose ingredients are present. Cash is deducted when it starts. Unrelated parts stay in place; any part can be added to an empty slot, even during another job. Glowing progress marks locked ingredients. Tap other ingredients to recover them. No recipe is a subset of another. The timer pauses with the dive and during a time freeze.</p><div class="recipe-list">${RECIPES.map(r => `<article class="recipe-row"><div class="recipe-ingredients">${[...new Set(r.ingredients)].map(type => `<span>${r.ingredients.filter(t => t === type).length} × ${PARTS[type].name}</span>`).join(' + ')}</div><strong>→ ${PARTS[r.output].name}</strong><p>${PARTS[r.output].description}</p><small>${r.cost}¢ · ${r.seconds}s · ${r.ingredients.length} ingredients</small></article>`).join('')}</div><h3>Consumables</h3><p class="modal-copy">Round repair kits, shield cells and time capsules stack in the same 14-slot hold. Tap a battlefield drop to save it, or drag a drop or stored copy to either round loader at the bottom right to use one immediately. The loaders are reusable and do not store items. Repair kits restore 25 hull; shield cells restore 12 shield. Full-health uses are rejected without consuming anything. Time capsules freeze combat for 8 real seconds while the lab stays editable: enemies, submarine, loot expiry, guns, support terminals and forge timers all stop. Dragging does not stretch the countdown. Extra capsules extend it. The purple rings show time remaining; normal pause also pauses this countdown. Two identical base consumables forge into a stronger version using the recipes above. The second defeated enemy drops a time capsule; every sixth defeat drops another supply.</p><h3>Parts manual</h3><p class="modal-copy">The 6 × 5 lab fills the left side; three forge slots and two round consumable loaders run down the right. Two bottom rows hold 14 stacks, with no scrolling or pages. Identical parts share a slot; empty stacks free it. When storage is full, new types stay at their source and forged outputs wait in the forge. Purple round supplies match the purple loaders. Square tiles route energy; double-framed tiles with a rounded base are terminals (laser, pulse, Shield and Medic). Drop a component onto an occupied lab cell or unlocked forge slot to replace it; the old item goes to storage. A full hold rejects replacement unless its type already has a stack or the incoming last copy frees a slot. All parts fit one square. Beams travel freely through empty cells. Only reactors and mirrors need rotation. Other parts work from any side. Thicker gold beams carry more power; thin beams carry less. Blue dashed beams pierce armor. Laser guns beam continuously for steady damage. Pink pulse guns store energy; their bars show charge. At 100% they fire a 54-damage pulse. Amplifiers speed up charging; lenses add piercing to either weapon. Shield and Medic terminals restore protection and hull when charged. They hold a full charge at full health; amplifiers speed them up, but lenses do not multiply repairs. Charged parts retain energy on the grid and clear it in storage. Your hold includes all three terminal types and a spare reactor.</p><div class="guide-list">${Object.entries(PARTS).map(([type, part]) => `<article class="guide-row"><div class="guide-tile">${tileMarkup(type)}</div><div><h3>${part.name}${state.discovered.has(type) ? '' : '<small>NOT FOUND YET</small>'}</h3><p>${part.description} ${part.tip}</p><p class="ports">${part.ports}</p></div></article>`).join('')}</div><h3>Enemy field guide</h3><div class="enemy-guide">${Object.entries(ENEMY_INFO).map(([type, info]) => `<article class="enemy-row"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART[type])}" alt=""><div><h4>${info.name}</h4><p>${info.tactic}</p><small>${B.enemies[type].hp} HP · ${B.enemies[type].armor} armor · ${B.enemies[type].damage} damage${B.enemies[type].shield ? ` · ${B.enemies[type].shield} shield` : ''}</small></div></article>`).join('')}</div><h3>Route atlas</h3>${Object.values(MAPS).map(map => `<p class="modal-copy"><strong>${map.name} · ${map.difficulty}</strong><br>${map.description}</p>`).join('')}<div class="guide-close"><button class="primary" data-action="close">Back to the dive →</button></div>`);
 }
 
 function checkDiscoveries() {

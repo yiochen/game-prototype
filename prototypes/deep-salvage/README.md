@@ -13,10 +13,12 @@ Open `/prototypes/deep-salvage/`. No account or runtime network request is neede
 
 ## Play
 
-- Choose Sunken City, Kelp Wilds or Cinder Foundry from the illustrated Levels cards before diving. Each route has its own scenery, path, depth and three enemy waves. Pause or finish a dive to choose another route; restarting keeps the current map.
-- The submarine travels and fires connected guns automatically. Survive all three waves.
+- Choose Sunken City, Kelp Wilds or Cinder Foundry from the illustrated Levels cards before diving. Each route has its own scenery, path, depth and six enemy waves. Pause or finish a dive to choose another route; restarting keeps the current map.
+- The submarine travels and fires connected guns automatically. Survive all six waves. The fourth wave offers a refit stretch; the final two give upgraded equipment time to matter.
 - Tap a fallen part to salvage it. Drag it into the grid to install immediately, or into the parts hold to store it.
-- All fourteen storage slots are visible. Drag one copy from a stack into an empty cell. Align the floating preview with the destination; placement follows its center, not your finger. Alternatively, tap a stack and then tap an empty cell.
+- All fourteen storage slots are visible. Drag one copy from a stack into a cell. Align the floating preview with the destination; placement follows its center, not your finger. Alternatively, tap a stack and then tap a cell.
+- Dropping onto an occupied lab cell or unlocked forge slot replaces it and returns the old item to storage. If the old type cannot fit, both items stay put. Using the last incoming copy can free a slot even in a full hold. Locked forge ingredients are protected.
+- Consumables share their purple color with the loader cells and use round icons. Terminals (laser, pulse, Shield and Medic) have double frames with rounded bases; routing parts keep simple square frames.
 - Tap an installed reactor or mirror to rotate it. Other components work from any side and do not need rotation. Drag it elsewhere or back into the hold.
 - Dragging slows time. Invalid drops and cancelled gestures preserve the part. The part being held cannot expire.
 - Beam energy crosses empty squares. Mirrors turn it. Amplifiers and lenses work straight through in any direction. Splitters send half the energy left and half right relative to the incoming beam. Guns accept inputs from all four sides.
@@ -33,7 +35,7 @@ Open `/prototypes/deep-salvage/`. No account or runtime network request is neede
 - A newly acquired part type pauses the game for its introduction. The guide explains all 26 component/consumable types and sixteen forge recipes, plus enemies and maps, including exact quantities, effects, costs and times from the start. Only discovery history persists between runs.
 - Keyboard: Tab to controls, Enter/Space to activate or rotate, arrow keys between grid cells, Delete/Backspace to store a focused tile, Escape to cancel a drag or pause.
 
-Try forging your two spare amplifiers into an Overcharger first, then install it above the starter amplifier. Add the first salvaged lens before your gun to handle armor.
+Try forging your two spare amplifiers into an Overcharger first, then install it above the starter amplifier. Add the first salvaged lens before your gun to handle armor. After wave three, forge the installed laser and spare laser into a Heavy laser; the initial build alone loses in the final wave.
 
 For a support circuit, place the spare reactor in the bottom-left cell and Shield or Medic above it. For the Foundry, forge the installed laser and spare laser into a Heavy laser during the first refit interval, then reinstall it before the next wave.
 

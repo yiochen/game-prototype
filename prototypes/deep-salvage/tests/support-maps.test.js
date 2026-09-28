@@ -78,6 +78,7 @@ test('every route has valid encounters covering all ten enemy roles and determin
   const present = new Set();
   for (const [mapId, map] of Object.entries(MAPS)) {
     const s = createState([], mapId); startDive(s);
+    assert.equal(map.waves.length, 6); assert.equal(map.waves.flatMap(wave => wave.enemies).length, 93);
     // Strong fixture isolates route progression from player build quality.
     s.grid[14] = part('amplifier2'); s.grid[8] = part('lens2'); s.grid[2] = part('gun2');
     s.grid[24] = part('reactor2'); s.grid[0] = part('medic2'); rebuild(s); tick(s, 240);
@@ -103,5 +104,5 @@ test('Foundry is beatable using starting inventory, earned cash, salvaged lens a
       heavy = s.forge.job?.output === 'gun2';
     }
   }
-  assert.equal(heavy, true); assert.equal(s.forged, 2); assert.equal(s.status, 'won'); assert.equal(s.kills, 39);
+  assert.equal(heavy, true); assert.equal(s.forged, 2); assert.equal(s.status, 'won'); assert.equal(s.kills, 93);
 });

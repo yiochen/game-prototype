@@ -38,7 +38,10 @@ export const BALANCE = Object.freeze({
   waves: [
     { name: 'The sunken quarter', interval: 3.8, enemies: ['scout', 'scout', 'swarm', 'swarm', 'scout', 'crab', 'swarm', 'scout'] },
     { name: 'Through the kelp', interval: 1.9, enemies: ['scout', 'swarm', 'swarm', 'crab', 'scout', 'warden', 'swarm', 'swarm', 'crab', 'scout', 'warden', 'swarm', 'crab'] },
-    { name: 'The last beacon', interval: 1.0, enemies: ['warden', 'swarm', 'crab', 'swarm', 'scout', 'crab', 'swarm', 'warden', 'swarm', 'crab', 'scout', 'warden', 'swarm', 'crab', 'swarm', 'warden', 'crab', 'warden'] },
+    { name: 'The outer beacon', interval: 1.0, enemies: ['warden', 'swarm', 'crab', 'swarm', 'scout', 'crab', 'swarm', 'warden', 'swarm', 'crab', 'scout', 'warden', 'swarm', 'crab', 'swarm', 'warden', 'crab', 'warden'] },
+    { name: 'The flooded arcade', interval: 2.5, enemies: ['scout','crab','swarm','warden','scout','crab','swarm','warden','crab','swarm','scout','warden','crab','swarm'] },
+    { name: 'Watchtower gauntlet', interval: 1.8, enemies: ['warden','crab','swarm','sniper','crab','scout','warden','swarm','bulwark','scout','crab','warden','swarm','sniper','crab','swarm','warden','crab'] },
+    { name: 'The last beacon', interval: 1.4, enemies: ['warden','crab','swarm','bulwark','scout','warden','crab','swarm','sniper','crab','warden','swarm','bulwark','crab','scout','warden','sniper','swarm','crab','warden','crab','bulwark'] },
   ],
   lootOrder: ['splitter', 'lens', 'shield', 'splitter', 'pulse', 'medic', 'splitter', 'lens', 'reactor', 'amplifier'],
 });
@@ -83,12 +86,18 @@ export const MAPS = Object.freeze({
       { name: 'Emerald shallows', interval: 3.6, enemies: ['scout','dart','swarm','leech','dart','mender','swarm','crab'] },
       { name: 'Tangled roots', interval: 1.7, enemies: ['dart','swarm','leech','mender','crab','dart','swarm','sniper','leech','dart','mender','swarm','crab'] },
       { name: 'The living reef', interval: 0.9, enemies: ['crab','dart','leech','mender','swarm','sniper','dart','leech','crab','mender','swarm','bomber','dart','warden','swarm','leech','mender','warden'] },
+      { name: 'Quiet groves', interval: 2.5, enemies: ['dart','scout','leech','swarm','crab','dart','mender','scout','leech','swarm','crab','dart','warden','swarm'] },
+      { name: 'Thorn passage', interval: 1.8, enemies: ['crab','leech','dart','mender','swarm','warden','dart','leech','crab','swarm','mender','dart','sniper','leech','swarm','warden','dart','crab'] },
+      { name: 'Heart of the reef', interval: 1.4, enemies: ['warden','dart','leech','crab','swarm','mender','dart','bulwark','leech','swarm','crab','sniper','dart','warden','mender','swarm','leech','crab','dart','warden','leech','bulwark'] },
     ] },
   foundry: { name: 'Cinder Foundry', difficulty: 'Heavy fire', theme: 'foundry', depth: 1260, route: .045, top: 0x73596d, bottom: 0x272d46,
     description: 'Broken pipelines and volcanic vents. Snipers cover armored bulwarks and explosive drones.', waves: [
       { name: 'Cold pipelines', interval: 4, enemies: ['scout','bomber','scout','sniper','swarm','crab','bomber','scout'] },
       { name: 'Furnace channel', interval: 1.7, enemies: ['crab','sniper','bomber','swarm','bulwark','scout','bomber','leech','sniper','crab','swarm','mender','bomber'] },
       { name: 'The ember gate', interval: 1.0, enemies: ['bulwark','sniper','bomber','crab','swarm','mender','bomber','warden','sniper','leech','crab','bomber','bulwark','swarm','sniper','warden','bomber','bulwark'] },
+      { name: 'Cooling reservoirs', interval: 2.6, enemies: ['scout','crab','bomber','swarm','sniper','scout','crab','swarm','warden','bomber','scout','crab','swarm','sniper'] },
+      { name: 'Smelter crossing', interval: 1.9, enemies: ['bulwark','crab','bomber','swarm','sniper','warden','crab','scout','leech','bomber','crab','swarm','sniper','warden','bomber','crab','swarm','bulwark'] },
+      { name: 'The furnace heart', interval: 1.5, enemies: ['bulwark','sniper','crab','swarm','bomber','warden','scout','crab','leech','bomber','sniper','bulwark','swarm','crab','warden','bomber','mender','crab','sniper','swarm','warden','bulwark'] },
     ] },
 });
 export const mapFor = state => MAPS[state.mapId] || MAPS.city;

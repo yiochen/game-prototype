@@ -117,7 +117,7 @@ test('dense circuits terminate and amplification is capped', () => {
 
 test('inventory moves are atomic, stacked copies stay in storage, and rotation is preserved', () => {
   const state = createState();
-  assert.equal(movePart(state, { kind: 'storage', type: 'mirror' }, { kind: 'grid', index: 26 }), false);
+  assert.equal(movePart(state, { kind: 'storage', type: 'mirror' }, { kind: 'grid', index: 30 }), false);
   assert.equal(state.inventory.mirror, 2);
   assert.equal(movePart(state, { kind: 'storage', type: 'mirror' }, { kind: 'grid', index: 13 }), true);
   assert.equal(state.inventory.mirror, 1);
@@ -166,12 +166,15 @@ test('piercing bypasses armor and damages a second target', () => {
   for (const enemy of state.enemies) assert.ok(Math.abs(enemy.hp - (62 - 12 * B.laserDamagePerEnergy * .01)) < 1e-8);
 });
 
-test('disconnected weapons lead to loss; an upgraded machine can complete all three waves', () => {
+test('disconnected weapons lead to loss; an upgraded machine can complete all six waves', () => {
   const lost = createState(); lost.grid[2] = null; rebuild(lost); startDive(lost); tick(lost, 180);
   assert.equal(lost.status, 'lost'); assert.equal(lost.hull, 0);
-  const won = createState(); won.grid[14] = part('amplifier2'); won.grid[8] = part('lens'); rebuild(won); startDive(won); tick(won, 180);
-  assert.equal(won.status, 'won'); assert.equal(won.wave, 2); assert.equal(won.kills, 39);
+  const won = createState(); won.grid[14] = part('amplifier2'); won.grid[8] = part('lens'); won.grid[2] = part('gun2'); rebuild(won); startDive(won); tick(won, 300);
+  assert.equal(won.status, 'won'); assert.equal(won.wave, 5); assert.equal(won.kills, 93);
   const finalTime = won.elapsed; tick(won, 1); assert.equal(won.elapsed, finalTime);
+  const opening = createState(); opening.grid[14] = part('amplifier2'); opening.grid[8] = part('lens');
+  rebuild(opening); startDive(opening); tick(opening, 300);
+  assert.equal(opening.status, 'lost'); assert.equal(opening.wave, 5, 'the opening build reaches the final wave but needs another upgrade');
 });
 
 test('later waves require engineering, while the opening wave gives time to salvage', () => {

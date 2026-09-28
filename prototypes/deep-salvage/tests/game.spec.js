@@ -118,7 +118,7 @@ test('tap salvage stacks, first acquisition pauses once, guide pauses and discov
   await expect(page.locator('#modal')).not.toBeVisible();
 });
 
-test('drag storage and battlefield parts into lab, rotate once, reject occupied targets, and return to storage', async ({ page }) => {
+test('drag storage and battlefield parts into lab, rotate once, replace occupied targets, and return to storage', async ({ page }) => {
   await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
   await drag(page, (await storedPart(page, 'mirror')), cell(page, 13));
   await expect(cell(page, 13)).toHaveAttribute('aria-label', /Mirror, 0 degrees/);
@@ -126,8 +126,11 @@ test('drag storage and battlefield parts into lab, rotate once, reject occupied 
   await cell(page, 13).click();
   await expect(cell(page, 13)).toHaveAttribute('aria-label', /Mirror, 90 degrees/);
   await drag(page, cell(page, 13), cell(page, 26));
-  await expect(cell(page, 13)).toHaveAttribute('aria-label', /Mirror, 90 degrees/);
-  await drag(page, cell(page, 13), page.locator('#storage'));
+  await expect(cell(page, 13)).toHaveClass(/empty/);
+  await expect(cell(page, 26)).toHaveAttribute('aria-label', /Mirror, 90 degrees/);
+  await expect((await storedPart(page, 'reactor')).locator('.count')).toHaveText('2');
+  await drag(page, cell(page, 26), page.locator('#storage'));
+  await drag(page, await storedPart(page, 'reactor'), cell(page, 26));
   await expect(cell(page, 13)).toHaveClass(/empty/);
   await expect((await storedPart(page, 'mirror')).locator('.count')).toHaveText('2');
   const id = await page.evaluate(() => window.__deepSalvage.drop('lens'));
@@ -190,17 +193,17 @@ test('preview center determines highlighted and committed destinations, includin
     await shot(page, 'preview-aligned-bottom-row');
   });
   await expect(cell(page, 25)).toHaveAttribute('aria-label', /Mirror/);
-  // An occupied preview destination must be rejected even with the finger over
-  // an empty neighboring cell. No source part is consumed.
+  // The occupied preview cell is replaced even when the finger is elsewhere.
   await drag(page, (await storedPart(page, 'mirror')), cell(page, 20), async () => {
-    await expect(cell(page, 20)).toHaveClass(/invalid/);
+    await expect(cell(page, 20)).toHaveClass(/replacing/);
   });
-  await expect((await storedPart(page, 'mirror')).locator('.count')).toHaveText('1');
+  await expect(cell(page, 20)).toHaveAttribute('aria-label', /Mirror/);
+  await expect((await storedPart(page, 'amplifier')).locator('.count')).toHaveText('3');
   await drag(page, cell(page, 25), page.locator('#storage'), async () => {
     await expect(page.locator('#storage')).toHaveClass(/drop-target/);
   });
   await expect(cell(page, 25)).toHaveClass(/empty/);
-  await expect((await storedPart(page, 'mirror')).locator('.count')).toHaveText('2');
+  await expect((await storedPart(page, 'mirror')).locator('.count')).toHaveText('1');
 });
 
 test('a gun beside the reactor stays powered and ignores rotation taps', async ({ page }) => {
@@ -292,8 +295,8 @@ test('an upgraded circuit reaches the beacon and end-state guide returns to the 
   await boot(page);
   await page.evaluate(() => {
     const grid = window.__deepSalvage.snapshot().grid;
-    grid[14] = { type: 'amplifier2', rotation: 0 }; grid[8] = { type: 'lens', rotation: 0 };
-    window.__deepSalvage.setGrid(grid); window.__deepSalvage.advance(180);
+    grid[14] = { type: 'amplifier2', rotation: 0 }; grid[8] = { type: 'lens', rotation: 0 }; grid[2] = { type: 'gun2', rotation: 0 };
+    window.__deepSalvage.setGrid(grid); window.__deepSalvage.advance(300);
   });
   await expect(page.locator('#modal-title')).toHaveText('Still in one piece.');
   await page.getByRole('button', { name: 'Study the parts' }).click();
@@ -670,5 +673,56 @@ test('forged time capsule activates from storage, freezes battle while editing, 
   await page.evaluate(()=>window.__deepSalvage.advance(window.__deepSalvage.snapshot().timeFreeze+.1));
   await expect(page.locator('#game')).not.toHaveClass(/is-frozen/);
   expect(await page.evaluate(()=>window.__deepSalvage.snapshot().elapsed)).toBeGreaterThan(before.elapsed);
+  expect(errors).toEqual([]);
+});
+
+test('six-wave levels and item families are visually distinct on mobile', async ({ page }) => {
+  await page.setViewportSize({width:412,height:924}); await page.goto(URL);
+  for (const card of await page.locator('.route-card').all()) await expect(card).toContainText('6 waves');
+  await page.getByRole('button',{name:"Let's dive"}).click();
+  await expect(page.locator('#wave-label')).toContainText('/ 06');
+  await page.evaluate(()=>{
+    window.__deepSalvage.setSpawnDelay(1000);
+    window.__deepSalvage.setInventory({repairKit:2,shieldCell:2,timeCapsule:2,repairKit2:1,shieldCell2:1,timeCapsule2:1,gun:1,pulse:1,shield:1,medic:1,gun2:1,mirror:1,reactor:1,amplifier:1});
+  });
+  await expect(page.locator('#stacks .consumable')).toHaveCount(6);
+  await expect(page.locator('#stacks .terminal')).toHaveCount(5);
+  const colors=await page.locator('#stacks .consumable, .loader-slot').evaluateAll(els=>els.map(el=>getComputedStyle(el).backgroundColor));
+  expect(new Set(colors).size).toBe(1);
+  const shapes=await page.evaluate(()=>({
+    supply:getComputedStyle(document.querySelector('.part-repairKit')).borderTopLeftRadius,
+    terminal:getComputedStyle(document.querySelector('.part-pulse')).borderStyle,
+    normal:getComputedStyle(document.querySelector('.part-mirror')).borderStyle,
+  }));
+  expect(shapes.supply).toBe('50%'); expect(shapes.terminal).toBe('double'); expect(shapes.normal).toBe('solid');
+  await shot(page,'item-family-coding');
+});
+
+test('occupied-cell replacement protects a full hold and works with a freed slot, tap and forge targets', async ({ page }) => {
+  const errors=[];page.on('pageerror',error=>errors.push(error.message));
+  await page.setViewportSize({width:412,height:924}); await boot(page);
+  const inventory=Object.fromEntries(Object.keys(PARTS).filter(type=>type!=='pulse').slice(0,14).map(type=>[type,type==='mirror'?2:1]));
+  await page.evaluate(inventory=>{
+    window.__deepSalvage.setSpawnDelay(1000); window.__deepSalvage.setInventory(inventory);
+    const grid=window.__deepSalvage.snapshot().grid;grid[2]={type:'pulse',rotation:0,charge:20};window.__deepSalvage.setGrid(grid);
+  },inventory);
+  await drag(page,await storedPart(page,'mirror'),cell(page,2),async()=>await expect(cell(page,2)).toHaveClass(/invalid/));
+  await expect(cell(page,2)).toHaveAttribute('aria-label',/Pulse gun/);
+  await expect((await storedPart(page,'mirror')).locator('.count')).toHaveText('2');
+  await page.evaluate(inventory=>window.__deepSalvage.setInventory({...inventory,mirror:1}),inventory);
+  await drag(page,await storedPart(page,'mirror'),cell(page,2),async()=>{
+    await expect(cell(page,2)).toHaveClass(/replacing/); await shot(page,'replacement-preview');
+  });
+  await expect(cell(page,2)).toHaveAttribute('aria-label',/Mirror/);
+  await expect(page.locator('#stacks .stack:not(.empty-slot)')).toHaveCount(14);
+  await expect((await storedPart(page,'pulse')).locator('.count')).toHaveText('1');
+  await (await storedPart(page,'pulse')).focus(); await page.keyboard.press('Enter');
+  await cell(page,2).focus(); await page.keyboard.press('Enter');
+  await expect(cell(page,2)).toHaveAttribute('aria-label',/Pulse gun/);
+  await expect(await storedPart(page,'mirror')).toBeVisible();
+  await drag(page,await storedPart(page,'mirror'),forge(page,0));
+  await drag(page,cell(page,2),forge(page,0));
+  await expect(forge(page,0)).toHaveAttribute('data-type','pulse');
+  await expect((await storedPart(page,'mirror')).locator('.count')).toHaveText('1');
   expect(errors).toEqual([]);
 });
