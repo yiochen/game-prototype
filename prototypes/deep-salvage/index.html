@@ -12,33 +12,23 @@
     <section id="world" aria-label="Battlefield">
       <div id="phaser-world"></div>
       <header class="world-hud">
-        <div class="wave-badge"><span class="eyebrow">DEEP SALVAGE</span><strong id="wave-label">DIVE 01 <span>/ 03</span></strong></div>
+        <div class="wave-badge"><strong id="wave-label">01 <span>/ 03</span></strong></div>
         <div class="cash-badge" aria-label="Cash"><span>¢</span><strong id="cash-label">24</strong></div>
         <div class="hull-badge" aria-label="Hull integrity"><span class="heart">♥</span><strong id="hull-label">100</strong><div class="hull-track"><i id="hull-fill"></i></div><div class="shield-track" aria-label="Shield"><i id="shield-fill"></i></div></div>
+        <button id="manual" class="guide-button" aria-label="Open recipes and parts guide">▤</button>
         <button id="pause" class="icon-button" aria-label="Pause game">Ⅱ</button>
       </header>
-      <div class="location"><span class="location-dot"></span><span id="location-label">THE SUNKEN QUARTER</span><span class="depth">840 m ↓</span></div>
+      <div class="location sr-only"><span class="location-dot"></span><span id="location-label">THE SUNKEN QUARTER</span><span class="depth">840 m ↓</span></div>
       <div id="wave-notice" aria-live="polite"></div>
       <div id="loot-layer" aria-label="Battlefield salvage"></div>
-      <div class="world-footer"><span id="world-hint">TAP SCRAP TO SALVAGE</span><span id="kill-label">0 recovered</span></div>
+      <div class="world-footer sr-only"><span id="world-hint">TAP SCRAP TO SALVAGE</span><span id="kill-label">0 recovered</span></div>
     </section>
-    <section id="console" aria-label="Weapon lab">
-      <header class="lab-header"><div><span class="eyebrow">MAKE SOMETHING MIGHTY</span><h1>Weapon lab<span class="title-dot">.</span></h1></div><button id="manual" class="guide-button" aria-label="Open recipes and parts guide"><span>▤</span> GUIDE</button></header>
-      <div class="circuit-status"><span><i id="power-light"></i><strong id="gun-label">1 gun online</strong></span><span id="lab-hint">THICK = POWER · BLUE = PIERCE</span></div>
-      <section id="workshop" aria-label="Weapon grid, parts hold and forge">
-        <div class="board-area"><div id="board" aria-label="Weapon circuit, 5 by 5 grid"><div id="cells"></div><svg id="beams" viewBox="0 0 500 500" aria-hidden="true"><defs><filter id="glow"><feGaussianBlur stdDeviation="2"/></filter></defs><g id="beam-glow"></g><g id="beam-lines"></g></svg></div></div>
-        <section id="storage" aria-label="Parts storage drop area">
-          <h2>Parts hold <span id="storage-count">05</span></h2>
-          <span id="storage-hint">DRAG TO FORGE →</span>
-          <div class="hold-controls"><button id="hold-prev" class="hold-nav" aria-label="Previous stored parts">‹</button><div id="stacks"></div><button id="hold-next" class="hold-nav" aria-label="Next stored parts">›</button></div>
-        </section>
-        <section id="forge" aria-label="Forge drop area">
-          <h2>⚒ Forge <span id="forge-badge">0/4</span></h2>
-          <div id="forge-slots"><button class="forge-slot" data-slot="0" aria-label="Forge ingredient 1">+</button><button class="forge-slot" data-slot="1" aria-label="Forge ingredient 2">+</button><button class="forge-slot" data-slot="2" aria-label="Forge ingredient 3">+</button><button class="forge-slot" data-slot="3" aria-label="Forge ingredient 4">+</button></div>
-          <div class="forge-controls"><div class="forge-summary"><strong id="forge-result">Choose a recipe</strong><span id="forge-hint">Try 2–4 parts</span><div class="forge-meter"><i id="forge-progress"></i></div></div><button id="forge-start" disabled>Forge</button></div>
-        </section>
+    <section id="console" aria-label="Engineering grid">
+      <section id="workshop" aria-label="7 by 7 engineering grid: lab, forge and parts hold">
+        <div id="board" aria-label="Weapon circuit, 6 by 6 grid"><div id="cells"></div><svg id="beams" viewBox="0 0 600 600" aria-hidden="true"><defs><filter id="glow"><feGaussianBlur stdDeviation="2"/></filter></defs><g id="beam-glow"></g><g id="beam-lines"></g></svg></div>
+        <section id="forge" aria-label="Automatic forge"><div id="forge-slots"><button class="forge-slot" data-slot="0" aria-label="Forge ingredient 1">+</button><button class="forge-slot" data-slot="1" aria-label="Forge ingredient 2">+</button><button class="forge-slot" data-slot="2" aria-label="Forge ingredient 3">+</button><button class="forge-slot" data-slot="3" aria-label="Forge ingredient 4">+</button><button class="forge-slot" data-slot="4" aria-label="Forge ingredient 5">+</button><button class="forge-slot" data-slot="5" aria-label="Forge ingredient 6">+</button></div></section>
+        <section id="storage" aria-label="Parts hold"><button id="hold-prev" class="hold-nav" aria-label="Previous parts page">‹</button><div id="stacks" aria-label="Stored parts"></div><button id="hold-next" class="hold-nav" aria-label="Next parts page">›</button></section>
       </section>
-      <footer class="console-footer"><span><i></i> ALL SYSTEMS IMPROVISED</span><span id="time-label">00:00</span></footer>
     </section>
     <div id="toast" role="status"></div>
     <div id="drag-ghost" hidden></div>

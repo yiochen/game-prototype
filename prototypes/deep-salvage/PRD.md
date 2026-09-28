@@ -6,9 +6,9 @@ Guide the engineering of a small yellow submarine through the ruins of a drowned
 
 ## Agreed design
 
-- Portrait mobile first. The upper half is the animated world; the lower half is the weapon lab with a parts hold beneath the grid and an always-visible vertical forge strip on the right. Cartoon shapes, thick ink outlines, cream instrument panels, turquoise beams, yellow machinery and purple enemies.
+- Portrait mobile first. The upper half is the animated world; the lower half is the weapon lab with a full-width parts hold beneath both the grid and the always-visible vertical forge strip on the right. Cartoon shapes, thick ink outlines, cream instrument panels, turquoise beams, yellow machinery and purple enemies.
 - The submarine follows a predefined route, never dodges, and automatically fires every powered gun at incoming enemies. Multiple guns choose targets independently.
-- Every part occupies exactly one square of a 5 × 5 grid. Beams cross empty cells without needing connectors. Part order, rotation, branching and limited space create the puzzle.
+- The lower panel is one 7 × 7 surface: a 6 × 6 lab, six forge cells in the right column, and a seven-cell storage row along the bottom. Every part occupies exactly one square. Beams cross empty cells without needing connectors. Part order, rotation, branching and limited space create the puzzle.
 - Every defeated enemy pays cash automatically. Roughly one in four also drops a component (the first kill is guaranteed salvage). Drops fall to the floor, remain selectable, flash shortly before expiring, then disappear.
 - Tap a battlefield drop to salvage it into storage. Drag it directly into the lab to install it, or into storage to save it.
 - Identical parts stack in storage only. Dragging a stack removes one copy only after a valid placement. Installed parts may be dragged to another empty cell or returned to storage.
@@ -46,7 +46,7 @@ The submarine starts with a 24-point shield. Damage drains the shield before hul
 
 ### Support terminals and route atlas
 
-Shield and Medic accept energy from all four sides and terminate beams. Multiple inputs combine up to the same power cap as guns. Their charging is independent of weapon terminals. More power shortens the cycle; lenses do not add healing targets or bypass resource caps. Support charge follows grid moves, freezes while disconnected or paused, and clears when stacked in the hold. At full shield/hull, terminals hold a ready charge; restoration triggers automatically when damage creates room, including during the shield regeneration cooldown. Repairs cannot revive a destroyed submarine. Blue restoration rings and green repair rings/positive numbers distinguish these events from damage. The lab shows separate gun/support counts, charge bars, percentage/READY readouts and unique enhanced icons for the two forged upgrades.
+Shield and Medic accept energy from all four sides and terminate beams. Multiple inputs combine up to the same power cap as guns. Their charging is independent of weapon terminals. More power shortens the cycle; lenses do not add healing targets or bypass resource caps. Support charge follows grid moves, freezes while disconnected or paused, and clears when stacked in the hold. At full shield/hull, terminals hold a ready charge; restoration triggers automatically when damage creates room, including during the shield regeneration cooldown. Repairs cannot revive a destroyed submarine. Blue restoration rings and green repair rings/positive numbers distinguish these events from damage. The lab shows visual charge bars, a ready glow and unique enhanced icons for the two forged upgrades. Charge values remain available to assistive technology.
 
 Three maps are selectable from the opening route picker and from pause/end screens. Selection does not reset the active dive until the player starts the route; Back returns to the current run. Restart preserves the chosen map. Each map has three encounters with 8, 13 and 18 enemies. City retains the original armored/shielded composition. Kelp Wilds introduces fast attackers, shield drain and healing allies in a tall luminous forest. Cinder Foundry features pipework, volcanic vents, armored bulwarks, snipers and bombers. Map palettes, geometry, route bob amplitude, depth readout and encounter schedules differ. This is authored route variety, not procedural map generation.
 
@@ -63,17 +63,21 @@ All ten enemies have distinct art and a field-guide entry with stats and counter
 
 ### Forge
 
-The four-slot forge forms a vertical strip to the right of the weapon grid. Its ingredient slots stack from top to bottom, with the result preview, progress and Forge button below them. The parts hold stays beneath the grid. All three remain visible without tabs. Drag a part directly from the hold, battlefield or lab into an empty forge slot; the forge heading also accepts a drop into the next empty slot. After each ingredient, parts that can extend the current combination toward any recipe glow in the lab, hold and battlefield. Incompatible inputs and occupied slots reject the drop without consuming it. Identical upgraded tiers must match exactly; a base splitter cannot combine with a Trident.
+The forge occupies the rightmost column above storage, with six square slots and no heading, explanatory text or start button. The 6 × 6 lab and forge share the same cell size. Storage spans the complete bottom row. All controls remain visible without tabs.
 
-Recipes use two, three or four ingredients, with exact quantities and no ordering requirement. A complete recipe previews its result, cash price and duration before payment. A valid partial combination cannot be started. Adding more ingredients can change a complete two-part recipe into a three- or four-part recipe; the output updates immediately. All thirteen recipes are listed from the start in the manual, with quantities, resulting effects, prices and durations. Players never need to guess, discover recipes through spending, or pay for invalid combinations. Press Forge to pay once and lock all ingredients. Combat continues during forging; all simulation pauses also pause this timer, and dragging slows it with the game. Completed output goes into a stack in the hold and triggers the normal first-discovery introduction. Before starting, tap an ingredient to return it or drag it back into the lab/hold. Paid jobs cannot be cancelled. There is one forge job at a time; the forge does not consume lab grid space.
+Drag any part from the hold, battlefield or lab into an empty forge slot. Parts do not need to contribute to a recipe. Empty slots continue accepting parts while a job runs; only the ingredients of that job lock. Unlocked ingredients can be moved to another forge slot, installed in the lab, dragged back to storage, or tapped to return them. Occupied slots reject placement without consuming anything.
+
+Recipes are unordered ingredient multisets with exact quantities. A recipe can match within a larger collection of forge contents: unrelated items do not block it and are not consumed. As soon as a complete recipe is affordable, it starts automatically, deducts cash once and locks its matching slots. If cash is short, it waits for earnings; if another job is running, it waits for completion. One job runs at a time. If multiple affordable recipes match simultaneously, recipe-table order provides deterministic priority. Paid jobs cannot be cancelled.
+
+No recipe may be a subset of another recipe, accounting for duplicate quantities. This prevents automatic forging from consuming an intended larger recipe halfway through assembly. The three- and four-part recipes use distinct upgraded ingredients to preserve this property. Automated tests enforce the invariant for every pair. All thirteen recipes are listed in the manual from the start, including quantities, output effects, prices and durations.
+
+After adding an ingredient, possible remaining partners glow in the lab, hold and battlefield; unrelated ingredients do not suppress suggestions. While working, the selected slots show gold borders and progress bars. Completion clears only the consumed slots, stacks the output in the hold and triggers its normal first-discovery introduction. Other stored ingredients remain in place. Forge timing obeys pause, discovery dialogs, backgrounding and slowed engineering time.
 
 | Ingredients | Output | Effect | Cash / seconds |
 | --- | --- | --- | --- |
 | 2 Shields | Aegis shield | Restores 20 shield per 32 energy | 28 / 7 |
 | 2 Medics | Repair bay | Repairs 20 hull per 48 energy | 32 / 8 |
-| Laser gun + reactor | Shield | Stores 32 energy, then restores 12 shield, capped at 24. Fully charged terminals wait if the shield is full. |
-| Medic | Stores 48 energy, then repairs 12 hull, capped at 100. Fully charged terminals wait if the hull is full. Cannot revive a destroyed submarine. |
-| Pulse gun | Stores energy, releases 54 damage | 24 / 6 |
+| Laser gun + reactor | Pulse gun | Stores energy, releases 54 damage | 24 / 6 |
 | 2 reactors | Fusion core | Emits 12 energy | 30 / 8 |
 | 2 mirrors | Prism mirror | Turns and amplifies ×1.25 | 16 / 5 |
 | 2 amplifiers | Overcharger | Amplifies ×2.4 | 24 / 6 |
@@ -82,14 +86,14 @@ Recipes use two, three or four ingredients, with exact quantities and no orderin
 | 2 lenses | Rail lens | ×1.25 power, piercing up to three enemies | 28 / 7 |
 | 2 laser guns | Heavy laser | ×1.6 continuous damage | 24 / 6 |
 | Amplifier + lens | Piercing amplifier | ×1.75 power and two-target piercing | 32 / 8 |
-| 2 amplifiers + lens | Prism overcharger | ×2.8 power and two-target piercing | 42 / 9 |
-| 4 splitters | Duplicator | Three branches, each with full power | 60 / 10 |
+| Piercing amplifier + Overcharger + Rail lens | Prism overcharger | ×2.8 power and two-target piercing | 42 / 9 |
+| Trident + Prism mirror + Fusion core + Heavy laser | Duplicator | Three branches, each with full power | 60 / 10 |
 
 All outputs remain one square and inherit their base component's input rules. Only cores and mirrors rotate. Recipe data lives in recipes.js; component power rules live in balance.js.
 
 ### Controls and feedback
 
-All battlefield drops have large hit targets. A drag preview stays above the finger. Its rendered center determines both the highlighted target and the final drop destination, for grid cells and storage. Empty cells highlight, an outline marks the intended destination, and the live beam preview shows what placement would do. A connected-gun count makes the effect legible. Beam width scales with energy, weakened split branches become thinner/dimmer, amplified paths turn gold, and piercing paths become blue with longer, faster traveling dashes. Tiles show their multiplier or capability; powered lasers show damage per second and a piercing symbol. Pulse guns use a distinct pink capacitor icon, a charge bar and percentage/READY readout. The submarine shows a growing charge ring and bright pulse projectile on release. Forged upgrades have enhanced icons: fusion core housing, faceted prism mirror, twin-chevron amplifier, three-way splitter branches, full-power splitter diamond, rail lens, double-barrel gun, and crystal amplifier/lens hybrids. Forged tiers also carry II/III badges. Hits produce sprite flashes, recoil and floating damage numbers; shield impacts produce blue expanding rings, and cash floats upward on a kill. A blue shield meter sits under the hull meter. Storage accepts dragged tiles anywhere in its panel. Desktop pointer and keyboard controls supplement touch: focus a reactor or mirror and press Enter/Space to rotate; select a stored part then choose an empty cell to install; arrow keys navigate cells; Delete/Backspace returns a focused installed part to storage. Pause is always available.
+All battlefield drops have large hit targets. A drag preview stays above the finger. Its rendered center determines both the highlighted target and the final drop destination, for grid cells and storage. Empty cells highlight, an outline marks the intended destination, and the live beam preview shows what placement would do. Beam width scales with energy, weakened split branches become thinner/dimmer, amplified paths turn gold, and piercing paths become blue with longer, faster traveling dashes. There are no textual tile readouts. Pulse guns use a distinct pink capacitor icon, a charge bar and a ready glow. The submarine shows a growing charge ring and bright pulse projectile on release. Forged upgrades have enhanced icons: fusion core housing, faceted prism mirror, twin-chevron amplifier, three-way splitter branches, full-power splitter diamond, rail lens, double-barrel gun, and crystal amplifier/lens hybrids. Forged tiers also carry II/III badges. Hits produce sprite flashes, recoil and floating damage numbers; shield impacts produce blue expanding rings, and cash floats upward on a kill. A blue shield meter sits under the hull meter. Storage accepts dragged tiles anywhere in its panel. Desktop pointer and keyboard controls supplement touch: focus a reactor or mirror and press Enter/Space to rotate; select a stored part then choose an empty cell to install; arrow keys navigate cells; Delete/Backspace returns a focused installed part to storage. Pause is always available.
 
 ## Screen and device acceptance
 
@@ -106,3 +110,9 @@ Engine tests cover beam travel, rotation, splitting, amplification, piercing, in
 ## Explicitly deferred
 
 Permanent upgrades, shops, bosses, sound/music, cloud saves, multiple vessels, procedural routes, component durability, heat, multiplayer, and production deployment. Discovery state is persistent; run state resets on reload. This prototype tests whether assembling a visible machine while collecting loot is fun.
+
+### Quiet HUD and fixed storage slots
+
+The lower panel contains only the 7 × 7 engineering surface: tiles, beams, stack counts, tier badges, charge/forge progress and paging arrows. No labels, headings, explanatory text or Forge button occupy it. The upper HUD keeps wave number, cash, hull/shield meters and icon-only guide/pause controls. Instructions and recipe details remain in the manual, with accessible names on every control.
+
+The seven-cell storage row has five fixed stack slots per page and previous/next buttons. It does not scroll. Dragging works in any direction, including horizontally; tapping a stack then an empty lab/forge cell still places it. A part type retains its assigned slot when its count reaches zero; later copies return there. New types take the next unused slot, adding pages as needed. Page navigation clears selection, and a fresh dive resets pages. Mouse, touch and keyboard share these rules.

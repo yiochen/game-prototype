@@ -11,30 +11,17 @@ export const RECIPES = Object.freeze([
   { ingredients: ['lens', 'lens'], output: 'lens2', cost: 28, seconds: 7 },
   { ingredients: ['gun', 'gun'], output: 'gun2', cost: 24, seconds: 6 },
   { ingredients: ['amplifier', 'lens'], output: 'prism', cost: 32, seconds: 8 },
-  { ingredients: ['amplifier', 'amplifier', 'lens'], output: 'prism2', cost: 42, seconds: 9 },
-  { ingredients: ['splitter', 'splitter', 'splitter', 'splitter'], output: 'splitter3', cost: 60, seconds: 10 },
+  { ingredients: ['prism', 'amplifier2', 'lens2'], output: 'prism2', cost: 42, seconds: 9 },
+  { ingredients: ['splitter2', 'mirror2', 'reactor2', 'gun2'], output: 'splitter3', cost: 60, seconds: 10 },
 ]);
 
-export const recipeKey = ingredients => [...ingredients].sort().join('+');
-
-export function findRecipe(...ingredients) {
-  const key = recipeKey(ingredients);
-  return RECIPES.find(r => recipeKey(r.ingredients) === key) || null;
-}
-
-// Suggest every remaining ingredient in recipes containing the current multiset.
-export function compatibleTypes(ingredients) {
-  const matches = new Set();
-  if (!ingredients.length) return matches;
-  for (const recipe of RECIPES) {
-    const remaining = [...recipe.ingredients];
-    let fits = true;
-    for (const type of ingredients) {
-      const index = remaining.indexOf(type);
-      if (index < 0) { fits = false; break; }
-      remaining.splice(index, 1);
-    }
-    if (fits) for (const type of remaining) matches.add(type);
+// Match quantities against occupied forge slots; unrelated parts are ignored.
+export function recipeSlots(recipe, slots) {
+  const indices = [];
+  for (const type of recipe.ingredients) {
+    const index = slots.findIndex((part, i) => part?.type === type && !indices.includes(i));
+    if (index < 0) return null;
+    indices.push(index);
   }
-  return matches;
+  return indices;
 }

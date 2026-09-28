@@ -1,11 +1,11 @@
 export const BALANCE = Object.freeze({
-  gridSize: 5,
+  gridSize: 6,
   hull: 100,
   shield: 24,
   shieldDelay: 6,
   shieldRegen: 3,
   startingCash: 24,
-  forgeSlots: 4,
+  forgeSlots: 6,
   partDropEvery: 4,
   reactorPower: 8,
   amplifier: 1.5,

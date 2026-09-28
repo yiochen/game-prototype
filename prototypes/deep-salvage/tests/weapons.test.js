@@ -22,16 +22,16 @@ test('laser applies small continuous damage, with frame-independent armor and no
   near(a.enemies[0].hp, 1000 - (12 - 4) * B.laserDamagePerEnergy);
   near(a.enemies[0].hp, b.enemies[0].hp);
   assert.ok(a.bursts.length <= 2, 'damage labels are aggregated');
-  a.grid[17] = null; a.grid[22] = null; rebuild(a); tick(a, .1);
+  a.grid[20] = null; a.grid[32] = null; rebuild(a); tick(a, .1);
   assert.equal(a.laserBeams.length, 0);
 });
 
 test('pulse accepts all four directions, combines inputs, and terminates the circuit', () => {
-  const grid = Array(25).fill(null); grid[12] = part('pulse');
-  for (const [index, rotation] of [[2, 2], [14, 3], [22, 0], [10, 1]]) grid[index] = { type: 'reactor', rotation };
+  const grid = Array(36).fill(null); grid[14] = part('pulse');
+  for (const [index, rotation] of [[2, 2], [16, 3], [32, 0], [12, 1]]) grid[index] = { type: 'reactor', rotation };
   const circuit = traceCircuit(grid);
-  assert.deepEqual(circuit.guns, [{ index: 12, power: 32, piercing: false, mode: 'pulse' }]);
-  assert.equal(circuit.segments.length, 8);
+  assert.deepEqual(circuit.guns, [{ index: 14, power: 32, piercing: false, mode: 'pulse' }]);
+  assert.equal(circuit.segments.length, 9);
 });
 
 test('pulse charges before firing a large hit, resets, then charges again', () => {
@@ -43,7 +43,7 @@ test('pulse charges before firing a large hit, resets, then charges again', () =
 });
 
 test('amplified pulse charges faster; lens piercing carries through shields and multiple targets', () => {
-  const s = encounter('pulse', 3); s.grid[12] = part('amplifier'); s.grid[7] = part('lens'); rebuild(s);
+  const s = encounter('pulse', 3); s.grid[14] = part('amplifier'); s.grid[8] = part('lens'); rebuild(s);
   s.enemies[0].shield = 20;
   tick(s, 2);
   near(s.enemies[0].shield, 0); near(s.enemies[0].hp, 966);
@@ -55,18 +55,18 @@ test('charge waits at full with no target, pauses, survives disconnection and mo
   const s = encounter('pulse'); const enemy = s.enemies.pop(); tick(s, 5);
   near(s.grid[2].charge, B.pulseCapacity); assert.equal(s.shots.length, 0);
   s.paused = true; s.enemies.push(enemy); tick(s, 1); assert.equal(enemy.hp, 1000);
-  s.paused = false; s.grid[22] = null; rebuild(s); tick(s, 1); assert.equal(enemy.hp, 1000);
-  assert.equal(movePart(s, { kind: 'grid', index: 2 }, { kind: 'grid', index: 7 }), true);
-  near(s.grid[7].charge, B.pulseCapacity);
-  s.grid[22] = part('reactor'); rebuild(s); tick(s, .01); near(enemy.hp, 950);
-  tick(s, 1); assert.ok(s.grid[7].charge > 0);
-  movePart(s, { kind: 'grid', index: 7 }, { kind: 'storage' });
-  movePart(s, { kind: 'storage', type: 'pulse' }, { kind: 'grid', index: 7 });
-  assert.equal(s.grid[7].charge || 0, 0);
+  s.paused = false; s.grid[32] = null; rebuild(s); tick(s, 1); assert.equal(enemy.hp, 1000);
+  assert.equal(movePart(s, { kind: 'grid', index: 2 }, { kind: 'grid', index: 8 }), true);
+  near(s.grid[8].charge, B.pulseCapacity);
+  s.grid[32] = part('reactor'); rebuild(s); tick(s, .01); near(enemy.hp, 950);
+  tick(s, 1); assert.ok(s.grid[8].charge > 0);
+  movePart(s, { kind: 'grid', index: 8 }, { kind: 'storage' });
+  movePart(s, { kind: 'storage', type: 'pulse' }, { kind: 'grid', index: 8 });
+  assert.equal(s.grid[8].charge || 0, 0);
 });
 
 test('laser and pulse operate independently and retarget after a kill without duplicate rewards', () => {
-  const s = encounter('pulse', 2); s.grid[20] = part('reactor'); s.grid[0] = part('gun'); rebuild(s);
+  const s = encounter('pulse', 2); s.grid[30] = part('reactor'); s.grid[0] = part('gun'); rebuild(s);
   tick(s, .5); assert.equal(s.laserBeams.length, 1); assert.equal(s.shots.length, 0); near(s.grid[2].charge, 6);
   s.enemies[0].hp = .01; tick(s, .01); assert.equal(s.kills, 1);
   tick(s, .01); assert.equal(s.laserBeams[0].targetId, 1001); assert.equal(s.kills, 1);
@@ -75,7 +75,7 @@ test('laser and pulse operate independently and retarget after a kill without du
 
 test('pulse preserves fractional charge across shots at different frame rates', () => {
   const a = encounter('pulse'), b = encounter('pulse');
-  for (const s of [a, b]) { s.grid[12] = part('prism'); rebuild(s); }
+  for (const s of [a, b]) { s.grid[14] = part('prism'); rebuild(s); }
   tick(a, 6.88);
   for (let i = 0; i < 688; i++) tick(b, .01);
   near(a.enemies[0].hp, 1000 - 4 * B.pulseDamage);

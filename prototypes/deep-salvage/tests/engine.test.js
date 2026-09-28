@@ -4,39 +4,39 @@ import { BALANCE as B } from '../balance.js';
 import { createState, traceCircuit, rotatePart, movePart, spawnDrop, tick, startDive, rebuild } from '../engine.js';
 
 const part = (type, rotation = 0) => ({ type, rotation });
-const empty = () => Array(25).fill(null);
+const empty = () => Array(36).fill(null);
 
 test('guns accept every incoming direction in every rotation across empty space', () => {
-  const sources = [{ index: 2, direction: 2 }, { index: 14, direction: 3 }, { index: 22, direction: 0 }, { index: 10, direction: 1 }];
+  const sources = [{ index: 2, direction: 2 }, { index: 16, direction: 3 }, { index: 32, direction: 0 }, { index: 12, direction: 1 }];
   for (const { index, direction } of sources) for (let rotation = 0; rotation < 4; rotation++) {
-    const grid = empty(); grid[index] = part('reactor', direction); grid[12] = part('gun', rotation);
+    const grid = empty(); grid[index] = part('reactor', direction); grid[14] = part('gun', rotation);
     const circuit = traceCircuit(grid);
-    assert.deepEqual(circuit.guns, [{ index: 12, power: B.reactorPower, piercing: false }]);
+    assert.deepEqual(circuit.guns, [{ index: 14, power: B.reactorPower, piercing: false }]);
     assert.deepEqual(circuit.blocked, []);
   }
 });
 
 test('beams from different sides combine into one gun and preserve piercing', () => {
-  const grid = empty(); grid[12] = part('gun', 1);
-  grid[2] = part('reactor', 2); grid[22] = part('reactor');
-  grid[10] = part('reactor', 1); grid[14] = part('reactor', 3);
-  grid[17] = part('lens');
-  assert.deepEqual(traceCircuit(grid).guns, [{ index: 12, power: B.reactorPower * 4, piercing: true }]);
+  const grid = empty(); grid[14] = part('gun', 1);
+  grid[2] = part('reactor', 2); grid[32] = part('reactor');
+  grid[12] = part('reactor', 1); grid[16] = part('reactor', 3);
+  grid[20] = part('lens');
+  assert.deepEqual(traceCircuit(grid).guns, [{ index: 14, power: B.reactorPower * 4, piercing: true }]);
 });
 
 test('amplifiers and lenses accept all four sides and preserve beam direction', () => {
-  const routes = [{ source: 2, direction: 2, gun: 22 }, { source: 14, direction: 3, gun: 10 }, { source: 22, direction: 0, gun: 2 }, { source: 10, direction: 1, gun: 14 }];
+  const routes = [{ source: 2, direction: 2, gun: 32 }, { source: 16, direction: 3, gun: 12 }, { source: 32, direction: 0, gun: 2 }, { source: 12, direction: 1, gun: 16 }];
   for (const type of ['amplifier', 'lens']) for (const route of routes) for (let rotation = 0; rotation < 4; rotation++) {
     const grid = empty();
-    grid[route.source] = part('reactor', route.direction); grid[12] = part(type, rotation); grid[route.gun] = part('gun');
+    grid[route.source] = part('reactor', route.direction); grid[14] = part(type, rotation); grid[route.gun] = part('gun');
     assert.deepEqual(traceCircuit(grid).guns, [{ index: route.gun, power: B.reactorPower * (type === 'amplifier' ? B.amplifier : 1), piercing: type === 'lens' }]);
   }
 });
 
 test('splitters accept all four sides and branch perpendicular to each incoming beam', () => {
-  for (const [source, direction] of [[2, 2], [14, 3], [22, 0], [10, 1]]) for (let rotation = 0; rotation < 4; rotation++) {
-    const grid = empty(), outputs = direction % 2 ? [2, 22] : [10, 14];
-    grid[source] = part('reactor', direction); grid[12] = part('splitter', rotation);
+  for (const [source, direction] of [[2, 2], [16, 3], [32, 0], [12, 1]]) for (let rotation = 0; rotation < 4; rotation++) {
+    const grid = empty(), outputs = direction % 2 ? [2, 32] : [12, 16];
+    grid[source] = part('reactor', direction); grid[14] = part('splitter', rotation);
     for (const index of outputs) grid[index] = part('gun');
     const guns = traceCircuit(grid).guns.sort((a, b) => a.index - b.index);
     assert.deepEqual(guns, outputs.map(index => ({ index, power: B.reactorPower / 2, piercing: false })));
@@ -46,86 +46,86 @@ test('splitters accept all four sides and branch perpendicular to each incoming 
 test('only reactors and mirrors rotate; rotating the reactor changes the beam path', () => {
   const state = createState();
   for (const type of ['amplifier', 'lens', 'splitter', 'gun']) {
-    state.grid[12] = part(type);
-    assert.equal(rotatePart(state, 12), false);
-    assert.equal(state.grid[12].rotation, 0);
+    state.grid[14] = part(type);
+    assert.equal(rotatePart(state, 14), false);
+    assert.equal(state.grid[14].rotation, 0);
   }
-  state.grid[12] = null;
-  assert.equal(rotatePart(state, 22), true);
+  state.grid[14] = null;
+  assert.equal(rotatePart(state, 32), true);
   assert.equal(state.circuit.guns.length, 0);
-  state.grid[11] = part('mirror');
-  assert.equal(rotatePart(state, 11), true); assert.equal(state.grid[11].rotation, 1);
+  state.grid[13] = part('mirror');
+  assert.equal(rotatePart(state, 13), true); assert.equal(state.grid[13].rotation, 1);
 });
 
 test('splitter feedback terminates when a ray revisits a directed component', () => {
-  const grid = empty(); grid[22] = part('reactor'); grid[12] = part('splitter');
-  grid[13] = part('mirror'); grid[8] = part('mirror', 1); grid[7] = part('mirror');
+  const grid = empty(); grid[32] = part('reactor'); grid[14] = part('splitter');
+  grid[15] = part('mirror'); grid[9] = part('mirror', 1); grid[8] = part('mirror');
   const circuit = traceCircuit(grid);
-  assert.ok(circuit.blocked.includes(13)); assert.ok(circuit.segments.length < 30);
+  assert.ok(circuit.blocked.includes(15)); assert.ok(circuit.segments.length < 30);
 });
 
 test('beams cross empty space and amplify in order', () => {
   const state = createState();
   assert.equal(state.circuit.guns[0].power, 12);
   assert.equal(state.circuit.guns[0].index, 2);
-  assert.equal(rotatePart(state, 17), false);
+  assert.equal(rotatePart(state, 20), false);
   assert.equal(state.circuit.guns[0].power, 12);
-  state.grid[17] = null; rebuild(state);
+  state.grid[20] = null; rebuild(state);
   assert.equal(state.circuit.guns[0].power, 8);
 });
 
 test('splitter conserves power and mirrors route into independently powered guns', () => {
   const grid = empty();
-  grid[22] = part('reactor'); grid[17] = part('amplifier'); grid[12] = part('splitter');
-  grid[11] = part('mirror', 1); grid[13] = part('mirror');
+  grid[32] = part('reactor'); grid[20] = part('amplifier'); grid[14] = part('splitter');
+  grid[13] = part('mirror', 1); grid[15] = part('mirror');
   grid[1] = part('gun'); grid[3] = part('gun');
   const split = traceCircuit(grid);
   assert.equal(split.guns.length, 2);
   assert.equal(split.guns.reduce((sum, gun) => sum + gun.power, 0), 12);
-  grid[6] = part('amplifier');
+  grid[7] = part('amplifier');
   assert.equal(traceCircuit(grid).guns.find(gun => gun.index === 1).power, 9);
   assert.equal(traceCircuit(grid).guns.find(gun => gun.index === 3).power, 6);
 });
 
 test('lens changes only the branch that passes through it', () => {
   const grid = empty();
-  grid[22] = part('reactor'); grid[12] = part('splitter');
-  grid[11] = part('mirror', 1); grid[13] = part('mirror'); grid[8] = part('lens');
+  grid[32] = part('reactor'); grid[14] = part('splitter');
+  grid[13] = part('mirror', 1); grid[15] = part('mirror'); grid[9] = part('lens');
   grid[1] = part('gun'); grid[3] = part('gun');
   assert.equal(traceCircuit(grid).guns.find(gun => gun.index === 3).piercing, true);
   assert.equal(traceCircuit(grid).guns.find(gun => gun.index === 1).piercing, false);
 });
 
 test('crossing beams stay independent and outward rays terminate at grid boundaries', () => {
-  const grid = empty(); grid[22] = part('reactor'); grid[10] = part('reactor', 1);
-  grid[2] = part('gun'); grid[14] = part('gun', 1);
+  const grid = empty(); grid[32] = part('reactor'); grid[12] = part('reactor', 1);
+  grid[2] = part('gun'); grid[16] = part('gun', 1);
   const result = traceCircuit(grid);
   assert.equal(result.guns.length, 2);
   assert.deepEqual(result.guns.map(g => g.power), [8, 8]);
-  grid[2] = null; grid[14] = null;
+  grid[2] = null; grid[16] = null;
   assert.equal(traceCircuit(grid).guns.length, 0);
   assert.ok(traceCircuit(grid).segments.length < 15);
 });
 
 test('dense circuits terminate and amplification is capped', () => {
-  const grid = Array.from({ length: 25 }, (_, i) => part('mirror', i % 4)); grid[22] = part('reactor');
+  const grid = Array.from({ length: 36 }, (_, i) => part('mirror', i % 4)); grid[32] = part('reactor');
   assert.ok(traceCircuit(grid).segments.length < 512);
-  const state = createState(); state.grid[12] = part('amplifier'); state.grid[7] = part('amplifier'); rebuild(state);
+  const state = createState(); state.grid[14] = part('amplifier'); state.grid[8] = part('amplifier'); rebuild(state);
   assert.equal(state.circuit.guns[0].power, 27);
   assert.ok(state.circuit.guns[0].power <= B.powerCap);
 });
 
 test('inventory moves are atomic, stacked copies stay in storage, and rotation is preserved', () => {
   const state = createState();
-  assert.equal(movePart(state, { kind: 'storage', type: 'mirror' }, { kind: 'grid', index: 22 }), false);
+  assert.equal(movePart(state, { kind: 'storage', type: 'mirror' }, { kind: 'grid', index: 32 }), false);
   assert.equal(state.inventory.mirror, 2);
-  assert.equal(movePart(state, { kind: 'storage', type: 'mirror' }, { kind: 'grid', index: 11 }), true);
+  assert.equal(movePart(state, { kind: 'storage', type: 'mirror' }, { kind: 'grid', index: 13 }), true);
   assert.equal(state.inventory.mirror, 1);
-  rotatePart(state, 11);
-  assert.equal(movePart(state, { kind: 'grid', index: 11 }, { kind: 'grid', index: 13 }), true);
-  assert.equal(state.grid[13].rotation, 1);
-  assert.equal(state.grid[11], null);
-  assert.equal(movePart(state, { kind: 'grid', index: 13 }, { kind: 'storage' }), true);
+  rotatePart(state, 13);
+  assert.equal(movePart(state, { kind: 'grid', index: 13 }, { kind: 'grid', index: 15 }), true);
+  assert.equal(state.grid[15].rotation, 1);
+  assert.equal(state.grid[13], null);
+  assert.equal(movePart(state, { kind: 'grid', index: 15 }, { kind: 'storage' }), true);
   assert.equal(state.inventory.mirror, 2);
   assert.equal(movePart(state, { kind: 'storage', type: 'lens' }, { kind: 'grid', index: 3 }), false);
 });
@@ -159,7 +159,7 @@ test('combat fires automatically, kills an enemy and drops a splitter first', ()
 });
 
 test('piercing bypasses armor and damages a second target', () => {
-  const state = createState(); state.grid[12] = part('lens'); rebuild(state); startDive(state);
+  const state = createState(); state.grid[14] = part('lens'); rebuild(state); startDive(state);
   state.spawnIn = 100;
   state.enemies = [1, 2].map(id => ({ id, type: 'crab', ...B.enemies.crab, hp: 62, maxHp: 62, x: 0.6 + id * 0.1, y: 0.4, attackIn: 2 }));
   tick(state, 0.01);
@@ -169,7 +169,7 @@ test('piercing bypasses armor and damages a second target', () => {
 test('disconnected weapons lead to loss; an upgraded machine can complete all three waves', () => {
   const lost = createState(); lost.grid[2] = null; rebuild(lost); startDive(lost); tick(lost, 180);
   assert.equal(lost.status, 'lost'); assert.equal(lost.hull, 0);
-  const won = createState(); won.grid[12] = part('amplifier2'); won.grid[7] = part('lens'); rebuild(won); startDive(won); tick(won, 180);
+  const won = createState(); won.grid[14] = part('amplifier2'); won.grid[8] = part('lens'); rebuild(won); startDive(won); tick(won, 180);
   assert.equal(won.status, 'won'); assert.equal(won.wave, 2); assert.equal(won.kills, 39);
   const finalTime = won.elapsed; tick(won, 1); assert.equal(won.elapsed, finalTime);
 });

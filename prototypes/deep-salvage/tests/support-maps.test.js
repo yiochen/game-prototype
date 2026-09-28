@@ -9,13 +9,13 @@ function support(type) {
   return s;
 }
 function enemy(type, values = {}) { return { id: 900, type, ...B.enemies[type], maxHp: B.enemies[type].hp, x: .3, y: .5, attackIn: 0, ...values }; }
-function emptyFight() { const s = support('shield'); s.grid = Array(25).fill(null); rebuild(s); return s; }
+function emptyFight() { const s = support('shield'); s.grid = Array(36).fill(null); rebuild(s); return s; }
 
 test('support terminals accept and combine every input side, stop beams, and never count as guns', () => {
   for (const type of ['shield', 'medic', 'shield2', 'medic2']) {
-    const grid = Array(25).fill(null); grid[12] = part(type);
-    for (const [index, rotation] of [[2,2],[14,3],[22,0],[10,1]]) grid[index] = part('reactor', rotation);
-    const c = traceCircuit(grid); assert.equal(c.guns.length, 0); assert.equal(c.supports.length, 1); assert.equal(c.supports[0].power, 32); assert.equal(c.segments.length, 8);
+    const grid = Array(36).fill(null); grid[14] = part(type);
+    for (const [index, rotation] of [[2,2],[16,3],[32,0],[12,1]]) grid[index] = part('reactor', rotation);
+    const c = traceCircuit(grid); assert.equal(c.guns.length, 0); assert.equal(c.supports.length, 1); assert.equal(c.supports[0].power, 32); assert.equal(c.segments.length, 9);
     const s = support(type); assert.equal(rotatePart(s, 2), false);
   }
 });
@@ -35,13 +35,13 @@ test('Shield restores during combat cooldown; Medic repairs hull only, both cap 
 test('support energy pauses, survives disconnection and grid moves, but clears on stacking', () => {
   const s = support('medic'); s.hull = 50; tick(s, 1); near(s.grid[2].charge, 12);
   s.paused = true; tick(s, 10); near(s.grid[2].charge, 12); s.paused = false;
-  movePart(s, {kind:'grid',index:2}, {kind:'grid',index:1}); tick(s, 4); near(s.grid[1].charge, 12); near(s.hull, 50);
-  movePart(s, {kind:'grid',index:1}, {kind:'grid',index:2}); tick(s, 3); near(s.hull, 62);
-  movePart(s, {kind:'grid',index:2}, {kind:'storage'}); movePart(s, {kind:'storage',type:'medic'}, {kind:'grid',index:2}); near(s.grid[2].charge || 0, 0);
+  movePart(s, {kind:'grid',index: 2}, {kind:'grid',index: 1}); tick(s, 4); near(s.grid[1].charge, 12); near(s.hull, 50);
+  movePart(s, {kind:'grid',index: 1}, {kind:'grid',index: 2}); tick(s, 3); near(s.hull, 62);
+  movePart(s, {kind:'grid',index: 2}, {kind:'storage'}); movePart(s, {kind:'storage',type:'medic'}, {kind:'grid',index: 2}); near(s.grid[2].charge || 0, 0);
 });
 
 test('amplifiers speed support charging while piercing does not multiply repairs; lethal hits stay lethal', () => {
-  const s = support('medic'); s.hull = 50; s.grid[12] = part('amplifier'); s.grid[7] = part('lens2'); rebuild(s);
+  const s = support('medic'); s.hull = 50; s.grid[14] = part('amplifier'); s.grid[8] = part('lens2'); rebuild(s);
   tick(s, 48 / 22.5); near(s.hull, 62);
   s.grid[2].charge = 48; s.hull = 1; s.shield = 0; s.enemies = [enemy('crab')]; tick(s, .01);
   assert.equal(s.status, 'lost'); assert.equal(s.hull, 0);
@@ -70,7 +70,7 @@ test('bombers explode once without awarding kill loot, but shooting them awards 
   const s = emptyFight(); s.enemies = [enemy('bomber')]; tick(s, .01);
   near(s.hull, 98); near(s.shield, 0); assert.equal(s.enemies.length, 0); assert.equal(s.kills, 0); assert.equal(s.cash, B.startingCash);
   tick(s, 1); near(s.hull, 98);
-  s.grid[22] = part('reactor'); s.grid[2] = part('gun'); rebuild(s); s.enemies = [enemy('bomber', {x:.7,hp:.001})]; tick(s,.01);
+  s.grid[32] = part('reactor'); s.grid[2] = part('gun'); rebuild(s); s.enemies = [enemy('bomber', {x:.7,hp:.001})]; tick(s,.01);
   assert.equal(s.kills, 1); assert.equal(s.cash, B.startingCash + B.enemies.bomber.bounty);
 });
 
@@ -79,8 +79,8 @@ test('every route has valid encounters covering all ten enemy roles and determin
   for (const [mapId, map] of Object.entries(MAPS)) {
     const s = createState([], mapId); startDive(s);
     // Strong fixture isolates route progression from player build quality.
-    s.grid[12] = part('amplifier2'); s.grid[7] = part('lens2'); s.grid[2] = part('gun2');
-    s.grid[20] = part('reactor2'); s.grid[0] = part('medic2'); rebuild(s); tick(s, 240);
+    s.grid[14] = part('amplifier2'); s.grid[8] = part('lens2'); s.grid[2] = part('gun2');
+    s.grid[30] = part('reactor2'); s.grid[0] = part('medic2'); rebuild(s); tick(s, 240);
     assert.equal(s.status, 'won', mapId); assert.equal(s.wave, map.waves.length - 1);
     for (const wave of map.waves) for (const type of wave.enemies) { assert.ok(B.enemies[type] && ENEMY_INFO[type]); present.add(type); }
   }
@@ -90,17 +90,17 @@ test('every route has valid encounters covering all ten enemy roles and determin
 test('Foundry is beatable using starting inventory, earned cash, salvaged lens and a refit forge', () => {
   const s = createState([], 'foundry'); startDive(s);
   for (let i = 0; i < 2; i++) movePart(s, {kind:'storage',type:'amplifier'}, {kind:'forge'});
-  assert.equal(startForge(s), true);
-  movePart(s, {kind:'storage',type:'reactor'}, {kind:'grid',index:20});
-  movePart(s, {kind:'storage',type:'medic'}, {kind:'grid',index:0});
+  assert.ok(s.forge.job);
+  movePart(s, {kind:'storage',type:'reactor'}, {kind:'grid',index: 30});
+  movePart(s, {kind:'storage',type:'medic'}, {kind:'grid',index: 0});
   let heavy = false;
   for (let i = 0; i < 480 && s.status === 'running'; i++) {
     tick(s, .5);
     for (const drop of [...s.drops]) movePart(s, {kind:'drop',id:drop.id}, {kind:'storage'});
-    for (const [type,index] of [['amplifier2',12],['lens',7],['gun2',2]]) if (s.inventory[type] && !s.grid[index]) movePart(s, {kind:'storage',type}, {kind:'grid',index});
+    for (const [type,index] of [['amplifier2',14],['lens',8],['gun2',2]]) if (s.inventory[type] && !s.grid[index]) movePart(s, {kind:'storage',type}, {kind:'grid',index});
     if (!heavy && s.rest > 6 && !s.forge.job && s.inventory.gun && s.cash >= 24) {
-      movePart(s, {kind:'grid',index:2}, {kind:'forge'}); movePart(s, {kind:'storage',type:'gun'}, {kind:'forge'});
-      heavy = startForge(s);
+      movePart(s, {kind:'grid',index: 2}, {kind:'forge'}); movePart(s, {kind:'storage',type:'gun'}, {kind:'forge'});
+      heavy = s.forge.job?.output === 'gun2';
     }
   }
   assert.equal(heavy, true); assert.equal(s.forged, 2); assert.equal(s.status, 'won'); assert.equal(s.kills, 39);

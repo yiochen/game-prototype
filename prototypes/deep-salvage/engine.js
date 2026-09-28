@@ -1,6 +1,6 @@
 import { BALANCE as B, PART_RULES, MAPS, mapFor } from './balance.js';
 import { PARTS } from './parts.js';
-import { RECIPES, findRecipe, compatibleTypes } from './recipes.js';
+import { RECIPES, recipeSlots } from './recipes.js';
 
 const DIR = [[0, -1], [1, 0], [0, 1], [-1, 0]];
 const mod = n => (n + 4) % 4;
@@ -63,9 +63,9 @@ export function traceCircuit(grid) {
 }
 
 export function createState(known = [], mapId = 'city') {
-  const grid = Array(25).fill(null);
-  grid[22] = { type: 'reactor', rotation: 0 };
-  grid[17] = { type: 'amplifier', rotation: 0 };
+  const grid = Array(B.gridSize ** 2).fill(null);
+  grid[32] = { type: 'reactor', rotation: 0 };
+  grid[20] = { type: 'amplifier', rotation: 0 };
   grid[2] = { type: 'gun', rotation: 0 };
   return {
     mapId: MAPS[mapId] ? mapId : 'city', status: 'ready', paused: false, elapsed: 0, hull: B.hull,
@@ -80,7 +80,7 @@ export function createState(known = [], mapId = 'city') {
   };
 }
 
-export function startDive(state) { if (state.status === 'ready') state.status = 'running'; }
+export function startDive(state) { if (state.status === 'ready') { state.status = 'running'; startForge(state); } }
 
 export function rebuild(state) { state.circuit = traceCircuit(state.grid); state.laserBeams = []; state.revision++; }
 
@@ -95,7 +95,7 @@ function acquire(state, type) {
 }
 
 export function sourcePart(state, source) {
-  if (source.kind === 'forge') return !state.forge.job ? state.forge.slots[source.index] || null : null;
+  if (source.kind === 'forge') return !state.forge.job?.indices.includes(source.index) ? state.forge.slots[source.index] || null : null;
   if (source.kind === 'grid') return state.grid[source.index] || null;
   if (source.kind === 'storage') return state.inventory[source.type] > 0 ? { type: source.type, rotation: 0 } : null;
   if (source.kind === 'drop') {
@@ -106,24 +106,34 @@ export function sourcePart(state, source) {
 }
 
 export function forgeMatches(state) {
-  return state.forge.job ? new Set() : compatibleTypes(state.forge.slots.filter(Boolean).map(p => p.type));
+  const available = state.forge.slots.filter((part, i) => part && !state.forge.job?.indices.includes(i));
+  const matches = new Set();
+  for (const recipe of RECIPES) {
+    const remaining = [...recipe.ingredients];
+    let contributed = false;
+    for (const part of available) {
+      const index = remaining.indexOf(part.type);
+      if (index >= 0) { remaining.splice(index, 1); contributed = true; }
+    }
+    if (contributed) for (const type of remaining) matches.add(type);
+  }
+  return matches;
 }
 
 export function forgeRecipe(state) {
-  return findRecipe(...state.forge.slots.filter(Boolean).map(p => p.type));
+  return RECIPES.find(recipe => recipeSlots(recipe, state.forge.slots)) || null;
 }
 
 export function canAddToForge(state, type, index = state.forge.slots.findIndex(p => !p)) {
-  if (state.forge.job || !Number.isInteger(index) || index < 0 || index >= B.forgeSlots || state.forge.slots[index]) return false;
-  const ingredients = state.forge.slots.filter(Boolean).map(p => p.type);
-  return ingredients.length ? compatibleTypes(ingredients).has(type) : RECIPES.some(r => r.ingredients.includes(type));
+  return !!PARTS[type] && Number.isInteger(index) && index >= 0 && index < B.forgeSlots && !state.forge.slots[index];
 }
 
 export function startForge(state) {
-  const quote = forgeRecipe(state);
-  if (state.status !== 'running' || state.paused || state.forge.job || !quote || state.cash < quote.cost) return false;
+  if (state.status !== 'running' || state.paused || state.forge.job) return false;
+  const quote = RECIPES.find(recipe => recipe.cost <= state.cash && recipeSlots(recipe, state.forge.slots));
+  if (!quote) return false;
   state.cash -= quote.cost;
-  state.forge.job = { ...quote, ingredients: state.forge.slots.filter(Boolean).map(p => p.type), remaining: quote.seconds };
+  state.forge.job = { ...quote, ingredients: [...quote.ingredients], indices: recipeSlots(quote, state.forge.slots), remaining: quote.seconds };
   state.revision++; return true;
 }
 
@@ -134,7 +144,8 @@ function advanceForge(state, dt) {
   state.inventory[job.output] = (state.inventory[job.output] || 0) + 1;
   acquire(state, job.output); state.forged++;
   state.notices.push(`${PARTS[job.output].name} forged · added to hold`);
-  state.forge = { slots: Array(B.forgeSlots).fill(null), job: null }; state.revision++;
+  for (const index of job.indices) state.forge.slots[index] = null;
+  state.forge.job = null; state.revision++;
 }
 
 // Validate first, then commit. Invalid/cancelled gestures never consume anything.
@@ -142,10 +153,10 @@ export function movePart(state, source, target) {
   if (state.status === 'won' || state.status === 'lost') return false;
   const part = sourcePart(state, source);
   if (!part) return false;
-  if (target.kind === 'grid' && (!Number.isInteger(target.index) || target.index < 0 || target.index >= 25 || state.grid[target.index])) return false;
+  if (target.kind === 'grid' && (!Number.isInteger(target.index) || target.index < 0 || target.index >= B.gridSize ** 2 || state.grid[target.index])) return false;
   if (!['grid', 'storage', 'forge'].includes(target.kind)) return false;
   const forgeIndex = target.index ?? state.forge.slots.findIndex(p => !p);
-  if (target.kind === 'forge' && (source.kind === 'forge' || !canAddToForge(state, part.type, forgeIndex))) return false;
+  if (target.kind === 'forge' && !canAddToForge(state, part.type, forgeIndex)) return false;
   if (source.kind === 'storage' && target.kind === 'storage') return false;
   if (source.kind === 'grid') state.grid[source.index] = null;
   if (source.kind === 'storage') state.inventory[part.type]--;
@@ -159,7 +170,7 @@ export function movePart(state, source, target) {
   else if (target.kind === 'forge') state.forge.slots[forgeIndex] = { ...part };
   else state.grid[target.index] = { ...part };
   state.heldDrop = null;
-  rebuild(state); return true;
+  rebuild(state); startForge(state); return true;
 }
 
 export function spawnDrop(state, type, x = 0.68, y = 0.4) {
@@ -198,6 +209,7 @@ function chargeSupport(state, dt) {
 
 function step(state, dt) {
   state.elapsed += dt;
+  startForge(state);
   advanceForge(state, dt);
   state.shieldCooldown = Math.max(0, state.shieldCooldown - dt);
   if (!state.shieldCooldown) state.shield = Math.min(B.shield, state.shield + B.shieldRegen * dt);
