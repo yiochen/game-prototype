@@ -7,7 +7,7 @@ export const BALANCE = Object.freeze({
   shieldDelay: 6,
   shieldRegen: 3,
   startingCash: 24,
-  forgeSlots: 5,
+  forgeSlots: 3,
   partDropEvery: 4,
   reactorPower: 8,
   amplifier: 1.5,
@@ -92,3 +92,14 @@ export const MAPS = Object.freeze({
     ] },
 });
 export const mapFor = state => MAPS[state.mapId] || MAPS.city;
+
+// Consumable effects and loot cadence are independent of circuit rules.
+export const CONSUMABLE_RULES = Object.freeze({
+  repairKit: { resource: 'hull', amount: 25 },
+  repairKit2: { resource: 'hull', amount: 60 },
+  shieldCell: { resource: 'shield', amount: 12 },
+  shieldCell2: { resource: 'shield', amount: 24 },
+  timeCapsule: { seconds: 8 },
+  timeCapsule2: { seconds: 20 },
+});
+export const CONSUMABLE_LOOT = Object.freeze({ earlyKill: 2, every: 6, order: ['repairKit', 'shieldCell', 'timeCapsule'] });

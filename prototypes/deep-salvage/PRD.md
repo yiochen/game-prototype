@@ -8,12 +8,13 @@ Guide the engineering of a small yellow submarine through the ruins of a drowned
 
 - Portrait mobile first. The upper half is the animated world; the lower half is the weapon lab with a full-width parts hold beneath both the grid and the always-visible vertical forge strip on the right. Cartoon shapes, thick ink outlines, cream instrument panels, turquoise beams, yellow machinery and purple enemies.
 - The submarine follows a predefined route, never dodges, and automatically fires every powered gun at incoming enemies. Multiple guns choose targets independently.
-- The lower panel is one 7 × 7 surface: a 6 × 5 lab, five forge cells in the right column, and two seven-cell storage rows along the bottom. Every part occupies exactly one square. Beams cross empty cells without needing connectors. Part order, rotation, branching and limited space create the puzzle.
+- The lower panel is one 7 × 7 surface: a 6 × 5 lab, three forge cells and two consumable loaders in the right column, and two seven-cell storage rows along the bottom. Every part occupies exactly one square. Beams cross empty cells without needing connectors. Part order, rotation, branching and limited space create the puzzle.
 - Every defeated enemy pays cash automatically. Roughly one in four also drops a component (the first kill is guaranteed salvage). Drops fall to the floor, remain selectable, flash shortly before expiring, then disappear.
 - Tap a battlefield drop to salvage it into storage. Drag it directly into the lab to install it, or into storage to save it.
 - Identical parts stack in storage only. Dragging a stack removes one copy only after a valid placement. Installed parts may be dragged to another empty cell or returned to storage.
 - Tap an installed reactor or mirror to rotate it clockwise by 90 degrees. Amplifiers, splitters, lenses and guns accept inputs from any side and do not rotate. Circuit changes apply immediately. Tap is not an information dialog.
 - First acquisition of a new part type pauses the game and shows a short explanation. Duplicates never interrupt play. Discoveries persist locally between runs. The Parts Guide pauses the dive and explains every prototype part, marking undiscovered types.
+- Consumables can be stored, upgraded in the forge, or applied by dragging to either of the two loaders below the forge.
 - Dragging slows simulation to 20%. A held drop cannot expire. Pointer cancellation or invalid placement returns the part to its source without consuming it. Dropping on an occupied cell does not swap parts.
 
 ## Prototype rules and chosen defaults
@@ -36,11 +37,28 @@ Occupied stacks retain their positions. Using the last copy frees that slot for 
 | Area | Grid allocation | Interaction |
 | --- | --- | --- |
 | Weapon lab | Rows 1–5, columns 1–6 | Place one-square parts, rotate directional parts and preview beam changes. |
-| Forge | Rows 1–5, column 7 | Stage any parts; complete affordable recipes start automatically. |
+| Forge | Rows 1–3, column 7 | Stage any parts; complete affordable recipes start automatically. |
+| Consumable loaders | Rows 4–5, column 7 | Drag one consumable to either port to apply it immediately. |
 | Storage | Rows 6–7, columns 1–7 | Fourteen fixed stack slots; no pagination or scrolling. |
 
-The entire bottom two rows, including their rightmost cells, belong to storage. The forge has five ingredient slots. Every lab, forge and storage cell uses the same square size.
+The entire bottom two rows, including their rightmost cells, belong to storage. The forge has three ingredient slots, with two reusable consumable loaders below it. Every lab, forge, loader and storage cell uses the same square size.
 
+
+### Storable consumables
+
+Consumables share the fourteen fixed storage slots with components. Identical type/tier copies stack; different tiers occupy different slots. Their round silhouettes distinguish them from square circuit parts. Tap a drop to store it without applying it, or drag one copy from the battlefield, storage or an unlocked forge slot to either of the two round loaders to use it immediately. Loaders are reusable activation targets, never extra storage or queued uses. A selected storage stack can also be activated by tapping a loader or using keyboard activation. Consumables cannot be installed in the lab or connected to beams.
+
+| Consumable | Base effect | Forged effect |
+| --- | --- | --- |
+| Repair kit | Restore 25 hull HP | Restore 60 hull HP |
+| Shield cell | Restore 12 shield | Restore 24 shield |
+| Time capsule | Freeze combat for 8 seconds | Freeze combat for 20 seconds |
+
+Repairs cap at 100 hull and 24 shield and cannot revive a destroyed submarine. Using a repair at full hull or a shield cell at full shield fails without consuming it; invalid targets and cancelled drags also preserve the source. Each successful activation consumes exactly one copy with no activation cash cost. Storage capacity does not prevent direct use of battlefield or forge items. Repair and shield uses show the matching restoration feedback; upgraded supplies have enhanced gold detailing and a tier badge.
+
+Time freeze leaves engineering fully interactive with no blocking overlay. It stops enemy movement and attacks, submarine travel, weapon damage and charging, support charging/healing, passive shield regeneration, wave/intermission clocks, projectiles, forge timers, and loot falling/expiry. There is no free firing or charging during a rebuild. Two purple loader rings show remaining freeze time and the battlefield gets a cool tint. Additional capsules add their full duration to the remaining time; repair supplies can still be used while frozen. The countdown uses active real time and is not stretched by dragging. Normal pause, discovery/manual dialogs and backgrounding suspend the countdown. When it expires, normal simulation resumes, including the existing 20% drag speed if a gesture is still active.
+
+Every level's second defeated enemy drops a time capsule. Every sixth defeat drops a supply, cycling repair kit, shield cell and time capsule. Cash remains automatic on every kill; component drop cadence stays one in four. Consumables use the same falling, expiry and first-discovery rules as components. Pairs of identical base consumables forge into upgrades for cash and time; all recipes appear in the manual and none is a subset of another. The Duplicator's mixed recipe now uses Trident + Prism mirror + Fusion core so all recipes fit three slots.
 
 ### Components
 
@@ -66,7 +84,7 @@ The initial lab fires through one amplifier into one gun. The hold starts with a
 
 Laser damage accumulates continuously at 1.1 times input power per second before armor. Armor reduces input power before the rate multiplier, with a floor of 1 damage per second. Laser impact labels aggregate every 0.35 seconds to stay readable; their beam follows the current target continuously. Pulse guns collect input power as energy per second: the starter 12-power circuit charges in 3 seconds, while an 18-power circuit charges in 2. A pulse deals 54 damage before armor, applied once, and then recharges. Fully charged guns wait for a target. Charge remains with a part when moved within the grid or disconnected; disconnected terminals cannot fire or charge. Returning a part to stacked storage clears its charge. Both weapons obey pause and slowed engineering time, fire independently, and inherit lens target counts and armor bypass.
 
-The submarine starts with a 24-point shield. Damage drains the shield before hull; after six seconds without being hit, it regenerates three points per second. Enemy wardens carry a non-regenerating shield over armored hull. Piercing bypasses armor, hits additional targets, and still has to drain shields. Cash awards range from 5 to 18 by enemy type. Each map schedules 39 enemies. Killing all of them yields 10 part drops; bombers that self-detonate reduce kill rewards.
+The submarine starts with a 24-point shield. Damage drains the shield before hull; after six seconds without being hit, it regenerates three points per second. Enemy wardens carry a non-regenerating shield over armored hull. Piercing bypasses armor, hits additional targets, and still has to drain shields. Cash awards range from 5 to 18 by enemy type. Each map schedules 39 enemies. Killing all of them yields 10 component drops and 7 consumable drops; bombers that self-detonate reduce kill rewards.
 
 ### Support terminals and route atlas
 
@@ -87,18 +105,21 @@ All ten enemies have distinct art and a field-guide entry with stats and counter
 
 ### Forge
 
-The forge occupies the rightmost column above storage, with five square slots and no heading, explanatory text or start button. The 6 × 5 lab and forge share the same cell size. Storage spans both complete bottom rows. All controls remain visible without tabs.
+The forge occupies the top three cells of the rightmost column above the two consumable loaders, with three square slots and no heading, explanatory text or start button. The 6 × 5 lab and forge share the same cell size. Storage spans both complete bottom rows. All controls remain visible without tabs.
 
 Drag any part from the hold, battlefield or lab into an empty forge slot. Parts do not need to contribute to a recipe. Empty slots continue accepting parts while a job runs; only the ingredients of that job lock. Unlocked ingredients can be moved to another forge slot, installed in the lab, dragged back to storage, or tapped to return them. Occupied slots reject placement without consuming anything.
 
-Recipes are unordered ingredient multisets with exact quantities. A recipe can match within a larger collection of forge contents: unrelated items do not block it and are not consumed. As soon as a complete recipe is affordable, it starts automatically, deducts cash once and locks its matching slots. If cash is short, it waits for earnings; if another job is running, it waits for completion. One job runs at a time. If multiple affordable recipes match simultaneously, recipe-table order provides deterministic priority. Paid jobs cannot be cancelled.
+Recipes are unordered ingredient multisets with exact quantities. A recipe can match within a larger collection of forge contents: unrelated items do not block it and are not consumed. As soon as a complete recipe is affordable, it starts automatically, deducts cash once and locks its matching slots. If cash is short, it waits for earnings; one job runs at a time, and freed slots accept ingredients for the next recipe. If multiple affordable recipes match simultaneously, recipe-table order provides deterministic priority. Paid jobs cannot be cancelled.
 
-No recipe may be a subset of another recipe, accounting for duplicate quantities. This prevents automatic forging from consuming an intended larger recipe halfway through assembly. The three- and four-part recipes use distinct upgraded ingredients to preserve this property. Automated tests enforce the invariant for every pair. All thirteen recipes are listed in the manual from the start, including quantities, output effects, prices and durations.
+No recipe may be a subset of another recipe, accounting for duplicate quantities. This prevents automatic forging from consuming an intended larger recipe halfway through assembly. The three-part recipes use distinct upgraded ingredients to preserve this property. Automated tests enforce the invariant for every pair. All sixteen recipes are listed in the manual from the start, including quantities, output effects, prices and durations.
 
-After adding an ingredient, possible remaining partners glow in the lab, hold and battlefield; unrelated ingredients do not suppress suggestions. While working, the selected slots show gold borders and progress bars. Completion clears only the consumed ingredients and triggers the output’s normal first-discovery introduction. If storage has room or already contains that output type, the result joins its stack. Otherwise, the output remains as an unlocked part in the first consumed forge slot; no output is discarded and capacity is never exceeded. The player can install it directly or tap/drag it into storage after freeing a slot. Other forge ingredients remain in place. Forge timing obeys pause, discovery dialogs, backgrounding and slowed engineering time.
+After adding an ingredient, possible remaining partners glow in the lab, hold and battlefield; unrelated ingredients do not suppress suggestions. While working, the selected slots show gold borders and progress bars. Completion clears only the consumed ingredients and triggers the output’s normal first-discovery introduction. If storage has room or already contains that output type, the result joins its stack. Otherwise, the output remains as an unlocked part in the first consumed forge slot; no output is discarded and capacity is never exceeded. The player can install it directly or tap/drag it into storage after freeing a slot. Other forge ingredients remain in place. Forge timing obeys pause, discovery dialogs, backgrounding, time freeze and slowed engineering time. During a time freeze, complete staged recipes wait without charging cash until simulation resumes.
 
 | Ingredients | Output | Effect | Cash / seconds |
 | --- | --- | --- | --- |
+| 2 repair kits | Super repair kit | Restores 60 hull immediately | 12 / 5 |
+| 2 shield cells | Super shield cell | Restores 24 shield immediately | 10 / 4 |
+| 2 time capsules | Super time capsule | Freezes combat for 20 seconds | 20 / 6 |
 | 2 Shields | Aegis shield | Restores 20 shield per 32 energy | 28 / 7 |
 | 2 Medics | Repair bay | Repairs 20 hull per 48 energy | 32 / 8 |
 | Laser gun + reactor | Pulse gun | Stores energy, releases 54 damage | 24 / 6 |
@@ -111,9 +132,9 @@ After adding an ingredient, possible remaining partners glow in the lab, hold an
 | 2 laser guns | Heavy laser | ×1.6 continuous damage | 24 / 6 |
 | Amplifier + lens | Piercing amplifier | ×1.75 power and two-target piercing | 32 / 8 |
 | Piercing amplifier + Overcharger + Rail lens | Prism overcharger | ×2.8 power and two-target piercing | 42 / 9 |
-| Trident + Prism mirror + Fusion core + Heavy laser | Duplicator | Three branches, each with full power | 60 / 10 |
+| Trident + Prism mirror + Fusion core | Duplicator | Three branches, each with full power | 60 / 10 |
 
-All outputs remain one square and inherit their base component's input rules. Only cores and mirrors rotate. Recipe data lives in recipes.js; component power rules live in balance.js.
+Component outputs remain one square and inherit their base component's input rules. Consumable outputs retain round icons and apply through loaders. Only cores and mirrors rotate. Recipe data lives in recipes.js; component power rules live in balance.js.
 
 ### Controls and feedback
 
@@ -134,10 +155,10 @@ Engine tests cover beam travel, rotation, splitting, amplification, piercing, in
 ### Layout and automatic forge acceptance criteria
 
 - Normal play shows a single 7 × 7 lower panel without labels, explanations, textual power readouts or a Forge button. Stack counts, tier badges and visual progress remain visible.
-- The panel contains 30 lab cells, 5 forge cells and 14 storage cells, all visible at once. There are no pagination controls or swipe scrolling.
+- The panel contains 30 lab cells, 3 forge cells, 2 consumable loaders and 14 storage cells, all visible at once. There are no pagination controls or swipe scrolling.
 - Occupied storage stacks never shift. Depleting a stack frees one slot; adding a fifteenth distinct type fails without consuming its source. Identical types can still join existing stacks.
 - Any part can enter an empty forge slot, even if it contributes to no recipe or another job is running.
-- Adding the last required ingredient starts an affordable recipe automatically. A complete recipe waiting for cash starts when sufficient cash arrives; a queued recipe waits for the current job.
+- Adding the last required ingredient starts an affordable recipe automatically. A complete recipe waiting for cash starts when sufficient cash arrives; only one job runs at a time.
 - Starting a job deducts cash once and locks only its matched ingredients. Completion consumes only those ingredients and preserves unrelated parts. Its output goes to storage if it fits, otherwise remains recoverable in the forge.
 - Every recipe appears in the manual with exact ingredients, cost, duration and output. For any two recipes, neither ingredient collection may be contained in the other, counting duplicate quantities; automated checks must reject duplicates and subset recipes.
 

@@ -7,7 +7,7 @@ import cityLevel from './assets/levels/sunken-city.webp';
 import kelpLevel from './assets/levels/kelp-wilds.webp';
 import foundryLevel from './assets/levels/cinder-foundry.webp';
 const LEVEL_ART = { city: cityLevel, kelp: kelpLevel, foundry: foundryLevel };
-import { createState, startDive, tick, traceCircuit, rebuild, rotatePart, movePart, sourcePart, spawnDrop, forgeMatches, forgeRecipe, canAddToForge, canStore, storageSlots } from './engine.js';
+import { createState, startDive, tick, traceCircuit, rebuild, rotatePart, movePart, sourcePart, spawnDrop, forgeMatches, forgeRecipe, canAddToForge, canStore, storageSlots, canConsume } from './engine.js';
 import { createWorld } from './world.js';
 
 const $ = selector => document.querySelector(selector);
@@ -79,6 +79,18 @@ function renderLab() {
 function renderFrame() {
   if (revision !== state.revision) renderLab();
   renderForge();
+  gameRoot.classList.toggle('is-frozen', state.timeFreeze > 0);
+  document.querySelectorAll('.loader-slot').forEach((button, index) => {
+    const loader = state.loaders[index], frozen = state.timeFreeze > 0;
+    const type = loader.remaining > 0 ? loader.type : frozen ? 'timeCapsule' : '';
+    if (button.dataset.type !== type) {
+      button.innerHTML = type ? tileMarkup(type) : '<span class="loader-icon" aria-hidden="true">↧</span>';
+      button.dataset.type = type;
+    }
+    button.classList.toggle('freezing', frozen);
+    button.style.setProperty('--remaining', `${frozen ? state.timeFreeze / state.freezeDuration * 100 : 0}%`);
+    button.setAttribute('aria-label', `Use consumable, loader ${index + 1}${frozen ? `, battle frozen ${Math.ceil(state.timeFreeze)} seconds remaining` : ''}`);
+  });
   for (const [index, button] of buttons.entries()) {
     const part = state.grid[index];
     if (!part || !PART_RULES[part.type].capacity) continue;
@@ -127,7 +139,7 @@ function renderFrame() {
 function selectStack(type) {
   selection = selection === type ? null : type;
   renderLab();
-  buttons.forEach((button, i) => button.classList.toggle('valid', !!selection && !state.grid[i]));
+  buttons.forEach((button, i) => button.classList.toggle('valid', !!selection && !PARTS[selection].consumable && !state.grid[i]));
 }
 
 function sourceFromElement(element) {
@@ -142,6 +154,8 @@ function destinationAt(x, y) {
   const target = document.elementFromPoint(x, y);
   const cell = target?.closest('.cell');
   if (cell) return { kind: 'grid', index: Number(cell.dataset.index) };
+  const loader = target?.closest('.loader-slot');
+  if (loader) return { kind: 'loader', index: Number(loader.dataset.loader) };
   const slot = target?.closest('.forge-slot');
   if (slot) return { kind: 'forge', index: Number(slot.dataset.slot) };
   if (target?.closest('#forge')) return { kind: 'forge' };
@@ -161,14 +175,20 @@ function positionPreviewAndFindTarget(x, y) {
 function clearGesture() {
   if (gesture && gameRoot.hasPointerCapture(gesture.pointerId)) gameRoot.releasePointerCapture(gesture.pointerId);
   gesture = null; state.heldDrop = null; $('#drag-ghost').hidden = true; storage.classList.remove('drop-target', 'invalid'); $('#forge').classList.remove('invalid'); $('#forge').classList.remove('drop-target');
+  document.querySelectorAll('.loader-slot').forEach(button => button.classList.remove('target', 'invalid'));
   renderLab();
 }
 
 function previewDestination(target) {
   buttons.forEach((button, index) => {
-    button.classList.toggle('valid', !state.grid[index]);
+    button.classList.toggle('valid', !PARTS[gesture.part.type].consumable && !state.grid[index]);
     button.classList.remove('target', 'invalid');
     button.classList.toggle('drag-source', gesture?.source.kind === 'grid' && gesture.source.index === index);
+  });
+  document.querySelectorAll('.loader-slot').forEach((button, index) => {
+    const hovered = target?.kind === 'loader' && target.index === index;
+    button.classList.toggle('target', hovered && canConsume(state, gesture.part.type));
+    button.classList.toggle('invalid', hovered && !canConsume(state, gesture.part.type));
   });
   const storageTarget = target?.kind === 'storage', storageValid = canStore(state, gesture.part.type);
   storage.classList.toggle('drop-target', storageTarget && storageValid);
@@ -177,7 +197,7 @@ function previewDestination(target) {
   $('#forge').classList.toggle('invalid', !!forgeTarget && !forgeValid);
   $('#forge').classList.toggle('drop-target', !!forgeValid);
   if (target?.kind === 'grid') {
-    const valid = !state.grid[target.index]; buttons[target.index].classList.add(valid ? 'target' : 'invalid');
+    const valid = !PARTS[gesture.part.type].consumable && !state.grid[target.index]; buttons[target.index].classList.add(valid ? 'target' : 'invalid');
     if (valid) {
       const grid = state.grid.map(part => part ? { ...part } : null);
       if (gesture.source.kind === 'grid') grid[gesture.source.index] = null;
@@ -224,7 +244,7 @@ gameRoot.addEventListener('pointerup', event => {
     if (!movePart(state, current.source, { kind: 'storage' })) toast('Storage full');
   } else { selection = selection === current.part.type ? null : current.part.type; }
   clearGesture();
-  if (selection) buttons.forEach((button, i) => button.classList.toggle('valid', !state.grid[i]));
+  if (selection) buttons.forEach((button, i) => button.classList.toggle('valid', !PARTS[selection].consumable && !state.grid[i]));
   renderFrame(); checkDiscoveries();
 });
 gameRoot.addEventListener('pointercancel', clearGesture);
@@ -232,6 +252,12 @@ gameRoot.addEventListener('lostpointercapture', () => { if (gesture) clearGestur
 
 gameRoot.addEventListener('click', event => {
   if (modal.open || ['won', 'lost'].includes(state.status)) return;
+  const loader = event.target.closest('.loader-slot');
+  if (loader && selection) {
+    if (movePart(state, { kind: 'storage', type: selection }, { kind: 'loader', index: Number(loader.dataset.loader) })) { selection = null; renderFrame(); }
+    else toast('Cannot use this now');
+    return;
+  }
   const slot = event.target.closest('.forge-slot');
   if (slot && !state.forge.slots[slot.dataset.slot] && selection) {
     if (movePart(state, { kind: 'storage', type: selection }, { kind: 'forge', index: Number(slot.dataset.slot) })) { selection = null; renderLab(); }
@@ -293,13 +319,13 @@ function showPause() {
 }
 
 function showGuide() {
-  openModal('guide', `<p class="modal-eyebrow">THE ENGINEER'S FIELD NOTES</p><h2 id="modal-title">Recipes & parts.</h2><h3>All forge recipes</h3><p class="modal-copy">The right column automatically forges any affordable recipe whose ingredients are present. Cash is deducted when it starts. Unrelated parts stay in place; any part can be added to an empty slot, even during another job. Glowing progress marks locked ingredients. Tap other ingredients to recover them. No recipe is a subset of another. The timer pauses with the dive.</p><div class="recipe-list">${RECIPES.map(r => `<article class="recipe-row"><div class="recipe-ingredients">${[...new Set(r.ingredients)].map(type => `<span>${r.ingredients.filter(t => t === type).length} × ${PARTS[type].name}</span>`).join(' + ')}</div><strong>→ ${PARTS[r.output].name}</strong><p>${PARTS[r.output].description}</p><small>${r.cost}¢ · ${r.seconds}s · ${r.ingredients.length} ingredients</small></article>`).join('')}</div><h3>Parts manual</h3><p class="modal-copy">The 6 × 5 lab fills the left side; five forge slots run down the right. Two bottom rows hold 14 stacks, with no scrolling or pages. Identical parts share a slot; empty stacks free it. When storage is full, new types stay at their source and forged outputs wait in the forge. All parts fit one square. Beams travel freely through empty cells. Only reactors and mirrors need rotation. Other parts work from any side. Thicker gold beams carry more power; thin beams carry less. Blue dashed beams pierce armor. Laser guns beam continuously for steady damage. Pink pulse guns store energy; their bars show charge. At 100% they fire a 54-damage pulse. Amplifiers speed up charging; lenses add piercing to either weapon. Shield and Medic terminals restore protection and hull when charged. They hold a full charge at full health; amplifiers speed them up, but lenses do not multiply repairs. Charged parts retain energy on the grid and clear it in storage. Your hold includes all three terminal types and a spare reactor.</p><div class="guide-list">${Object.entries(PARTS).map(([type, part]) => `<article class="guide-row"><div class="guide-tile">${tileMarkup(type)}</div><div><h3>${part.name}${state.discovered.has(type) ? '' : '<small>NOT FOUND YET</small>'}</h3><p>${part.description} ${part.tip}</p><p class="ports">${part.ports}</p></div></article>`).join('')}</div><h3>Enemy field guide</h3><div class="enemy-guide">${Object.entries(ENEMY_INFO).map(([type, info]) => `<article class="enemy-row"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART[type])}" alt=""><div><h4>${info.name}</h4><p>${info.tactic}</p><small>${B.enemies[type].hp} HP · ${B.enemies[type].armor} armor · ${B.enemies[type].damage} damage${B.enemies[type].shield ? ` · ${B.enemies[type].shield} shield` : ''}</small></div></article>`).join('')}</div><h3>Route atlas</h3>${Object.values(MAPS).map(map => `<p class="modal-copy"><strong>${map.name} · ${map.difficulty}</strong><br>${map.description}</p>`).join('')}<div class="guide-close"><button class="primary" data-action="close">Back to the dive →</button></div>`);
+  openModal('guide', `<p class="modal-eyebrow">THE ENGINEER'S FIELD NOTES</p><h2 id="modal-title">Recipes & parts.</h2><h3>All forge recipes</h3><p class="modal-copy">The top three slots of the right column automatically forge any affordable recipe whose ingredients are present. Cash is deducted when it starts. Unrelated parts stay in place; any part can be added to an empty slot, even during another job. Glowing progress marks locked ingredients. Tap other ingredients to recover them. No recipe is a subset of another. The timer pauses with the dive and during a time freeze.</p><div class="recipe-list">${RECIPES.map(r => `<article class="recipe-row"><div class="recipe-ingredients">${[...new Set(r.ingredients)].map(type => `<span>${r.ingredients.filter(t => t === type).length} × ${PARTS[type].name}</span>`).join(' + ')}</div><strong>→ ${PARTS[r.output].name}</strong><p>${PARTS[r.output].description}</p><small>${r.cost}¢ · ${r.seconds}s · ${r.ingredients.length} ingredients</small></article>`).join('')}</div><h3>Consumables</h3><p class="modal-copy">Round repair kits, shield cells and time capsules stack in the same 14-slot hold. Tap a battlefield drop to save it, or drag a drop or stored copy to either round loader at the bottom right to use one immediately. The loaders are reusable and do not store items. Repair kits restore 25 hull; shield cells restore 12 shield. Full-health uses are rejected without consuming anything. Time capsules freeze combat for 8 real seconds while the lab stays editable: enemies, submarine, loot expiry, guns, support terminals and forge timers all stop. Dragging does not stretch the countdown. Extra capsules extend it. The purple rings show time remaining; normal pause also pauses this countdown. Two identical base consumables forge into a stronger version using the recipes above. The second defeated enemy drops a time capsule; every sixth defeat drops another supply.</p><h3>Parts manual</h3><p class="modal-copy">The 6 × 5 lab fills the left side; three forge slots and two round consumable loaders run down the right. Two bottom rows hold 14 stacks, with no scrolling or pages. Identical parts share a slot; empty stacks free it. When storage is full, new types stay at their source and forged outputs wait in the forge. All parts fit one square. Beams travel freely through empty cells. Only reactors and mirrors need rotation. Other parts work from any side. Thicker gold beams carry more power; thin beams carry less. Blue dashed beams pierce armor. Laser guns beam continuously for steady damage. Pink pulse guns store energy; their bars show charge. At 100% they fire a 54-damage pulse. Amplifiers speed up charging; lenses add piercing to either weapon. Shield and Medic terminals restore protection and hull when charged. They hold a full charge at full health; amplifiers speed them up, but lenses do not multiply repairs. Charged parts retain energy on the grid and clear it in storage. Your hold includes all three terminal types and a spare reactor.</p><div class="guide-list">${Object.entries(PARTS).map(([type, part]) => `<article class="guide-row"><div class="guide-tile">${tileMarkup(type)}</div><div><h3>${part.name}${state.discovered.has(type) ? '' : '<small>NOT FOUND YET</small>'}</h3><p>${part.description} ${part.tip}</p><p class="ports">${part.ports}</p></div></article>`).join('')}</div><h3>Enemy field guide</h3><div class="enemy-guide">${Object.entries(ENEMY_INFO).map(([type, info]) => `<article class="enemy-row"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART[type])}" alt=""><div><h4>${info.name}</h4><p>${info.tactic}</p><small>${B.enemies[type].hp} HP · ${B.enemies[type].armor} armor · ${B.enemies[type].damage} damage${B.enemies[type].shield ? ` · ${B.enemies[type].shield} shield` : ''}</small></div></article>`).join('')}</div><h3>Route atlas</h3>${Object.values(MAPS).map(map => `<p class="modal-copy"><strong>${map.name} · ${map.difficulty}</strong><br>${map.description}</p>`).join('')}<div class="guide-close"><button class="primary" data-action="close">Back to the dive →</button></div>`);
 }
 
 function checkDiscoveries() {
   if (modal.open || gesture || !state.discoveries.length) return;
   const type = state.discoveries.shift(), part = PARTS[type]; saveKnown();
-  openModal('discovery', `<div class="big-part">${tileMarkup(type)}</div><p class="modal-eyebrow">NEW PART DISCOVERED</p><h2 id="modal-title">${part.name}<span class="title-dot">.</span></h2><span class="modal-tag">1 × 1 TILE · ${part.ports.toUpperCase()}</span><p class="modal-copy"><strong>${part.lesson}</strong><br>${part.description}</p><div class="discovery-flow">${type === 'splitter' ? '↖ ← ◇ → ↗' : '↑ ◇ ↑'}</div><p class="modal-copy">${part.tip}</p><div class="modal-actions"><button class="primary" data-action="close">Got it. Let's build →</button></div>`);
+  openModal('discovery', `<div class="big-part">${tileMarkup(type)}</div><p class="modal-eyebrow">NEW ${part.consumable ? 'SUPPLY' : 'PART'} DISCOVERED</p><h2 id="modal-title">${part.name}<span class="title-dot">.</span></h2><span class="modal-tag">1 × 1 TILE · ${part.ports.toUpperCase()}</span><p class="modal-copy"><strong>${part.lesson}</strong><br>${part.description}</p><div class="discovery-flow">${part.consumable ? '◉ → ↧' : type === 'splitter' ? '↖ ← ◇ → ↗' : '↑ ◇ ↑'}</div><p class="modal-copy">${part.tip}</p><div class="modal-actions"><button class="primary" data-action="close">Got it. Let's build →</button></div>`);
 }
 
 function showEnd() {
@@ -342,7 +368,7 @@ window.addEventListener('blur', () => { if (gesture) clearGesture(); });
 
 renderFrame(); showWelcome();
 const world = createWorld($('#phaser-world'), () => state, dt => {
-  tick(state, dt * (gesture?.dragging ? B.dragSpeed : 1));
+  tick(state, dt, gesture?.dragging ? B.dragSpeed : 1);
   renderFrame();
   if (['won', 'lost'].includes(state.status) && !modal.open) showEnd();
   else checkDiscoveries();

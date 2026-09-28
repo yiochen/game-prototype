@@ -1,4 +1,4 @@
-import { BALANCE as B, PART_RULES, MAPS, mapFor } from './balance.js';
+import { BALANCE as B, PART_RULES, MAPS, mapFor, CONSUMABLE_RULES, CONSUMABLE_LOOT } from './balance.js';
 import { PARTS } from './parts.js';
 import { RECIPES, recipeSlots } from './recipes.js';
 
@@ -73,6 +73,7 @@ export function createState(known = [], mapId = 'city') {
   return {
     mapId: MAPS[mapId] ? mapId : 'city', status: 'ready', paused: false, elapsed: 0, hull: B.hull,
     storageOrder, grid, inventory,
+    timeFreeze: 0, freezeDuration: 0, loaders: Array.from({ length: 2 }, () => ({ type: null, remaining: 0 })),
     cash: B.startingCash, shield: B.shield, shieldCooldown: 0, forged: 0,
     forge: { slots: Array(B.forgeSlots).fill(null), job: null }, notices: [],
     discovered: new Set(['reactor', 'amplifier', 'gun', 'pulse', 'shield', 'medic', 'mirror', ...known.filter(type => PARTS[type])]),
@@ -147,7 +148,7 @@ export function canAddToForge(state, type, index = state.forge.slots.findIndex(p
 }
 
 export function startForge(state) {
-  if (state.status !== 'running' || state.paused || state.forge.job) return false;
+  if (state.status !== 'running' || state.paused || state.timeFreeze > 0 || state.forge.job) return false;
   const quote = RECIPES.find(recipe => recipe.cost <= state.cash && recipeSlots(recipe, state.forge.slots));
   if (!quote) return false;
   state.cash -= quote.cost;
@@ -174,6 +175,8 @@ export function movePart(state, source, target) {
   if (state.status === 'won' || state.status === 'lost') return false;
   const part = sourcePart(state, source);
   if (!part) return false;
+  if (target.kind === 'loader') return useConsumable(state, source, target.index);
+  if (target.kind === 'grid' && PARTS[part.type].consumable) return false;
   if (target.kind === 'grid' && (!Number.isInteger(target.index) || target.index < 0 || target.index >= B.gridColumns * B.gridRows || state.grid[target.index])) return false;
   if (!['grid', 'storage', 'forge'].includes(target.kind)) return false;
   const forgeIndex = target.index ?? state.forge.slots.findIndex(p => !p);
@@ -195,6 +198,38 @@ export function movePart(state, source, target) {
   storageSlots(state); rebuild(state); startForge(state); return true;
 }
 
+export function canConsume(state, type) {
+  const rule = CONSUMABLE_RULES[type];
+  if (!rule || state.status !== 'running' || state.paused || state.hull <= 0) return false;
+  return !!rule.seconds || state[rule.resource] < (rule.resource === 'hull' ? B.hull : B.shield);
+}
+
+export function useConsumable(state, source, index) {
+  const part = sourcePart(state, source);
+  if (!Number.isInteger(index) || index < 0 || index >= state.loaders.length || !part || !canConsume(state, part.type)) return false;
+  // Remove exactly one copy only after checking both the source and effect.
+  if (source.kind === 'storage') state.inventory[part.type]--;
+  else if (source.kind === 'forge') state.forge.slots[source.index] = null;
+  else if (source.kind === 'drop') {
+    state.drops = state.drops.filter(drop => drop.id !== source.id);
+    state.salvaged++; acquire(state, part.type);
+  } else return false;
+  const rule = CONSUMABLE_RULES[part.type];
+  if (rule.seconds) {
+    state.timeFreeze += rule.seconds;
+    state.freezeDuration = state.timeFreeze;
+  } else {
+    const maximum = rule.resource === 'hull' ? B.hull : B.shield;
+    const amount = Math.min(rule.amount, maximum - state[rule.resource]);
+    state[rule.resource] += amount;
+    state.submarine[rule.resource === 'hull' ? 'repairFlash' : 'restoreFlash'] = .6;
+    state.bursts.push({ id: ++state.serial, x: state.submarine.x, y: state.submarine.y, life: .6, kind: rule.resource === 'hull' ? 'repair' : 'restore', amount });
+  }
+  state.loaders[index] = { type: part.type, remaining: .8 };
+  state.heldDrop = null; storageSlots(state); state.revision++;
+  return true;
+}
+
 export function spawnDrop(state, type, x = 0.68, y = 0.4) {
   const landingSlots = [0.72, 0.50, 0.86, 0.33, 0.16];
   const free = landingSlots.find(slot => !state.drops.some(d => Math.abs(d.x - slot) < 0.09));
@@ -211,6 +246,9 @@ function killEnemy(state, enemy) {
   state.bursts.push({ id: ++state.serial, x: enemy.x, y: enemy.y, life: 1, kind: 'cash', amount: reward });
   if (state.kills % B.partDropEvery === 0) spawnDrop(state, B.lootOrder[Math.floor(state.kills / B.partDropEvery) % B.lootOrder.length], enemy.x, enemy.y);
   state.kills++;
+  // A reliable early rebuilding opportunity, then occasional supplies instead of a part shower.
+  if (state.kills === CONSUMABLE_LOOT.earlyKill) spawnDrop(state, 'timeCapsule', enemy.x, enemy.y);
+  else if (state.kills % CONSUMABLE_LOOT.every === 0) spawnDrop(state, CONSUMABLE_LOOT.order[(state.kills / CONSUMABLE_LOOT.every - 1) % CONSUMABLE_LOOT.order.length], enemy.x, enemy.y);
 }
 
 function chargeSupport(state, dt) {
@@ -340,9 +378,13 @@ function step(state, dt) {
   }
 }
 
-export function tick(state, seconds) {
+export function tick(state, seconds, speed = 1) {
   if (state.status !== 'running' || state.paused || seconds <= 0 || !Number.isFinite(seconds)) return;
-  let remaining = Math.min(seconds, 300);
+  const wallTime = Math.min(seconds, 300);
+  for (const loader of state.loaders) loader.remaining = Math.max(0, loader.remaining - wallTime);
+  const frozen = Math.min(wallTime, state.timeFreeze);
+  state.timeFreeze = Math.max(0, state.timeFreeze - frozen);
+  let remaining = (wallTime - frozen) * clamp(Number.isFinite(speed) ? speed : 1, 0, 1);
   while (remaining > 0 && state.status === 'running') {
     const dt = Math.min(0.05, remaining); step(state, dt); remaining -= dt;
   }

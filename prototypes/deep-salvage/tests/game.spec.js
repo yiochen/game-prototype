@@ -57,7 +57,8 @@ test('Pixel-shaped portrait and landscape layouts fit, render Phaser art and sta
   await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
   await page.evaluate(() => window.__deepSalvage.advance(3));
   await expect(page.locator('.cell')).toHaveCount(30);
-  await expect(page.locator('.forge-slot')).toHaveCount(5);
+  await expect(page.locator('.forge-slot')).toHaveCount(3);
+  await expect(page.locator('.loader-slot')).toHaveCount(2);
   await expect(page.locator('#storage button')).toHaveCount(14);
   await expect(page.locator('#console h1, #console h2, #console p, #console .part-readout, #forge-start')).toHaveCount(0);
   for (const [name, width, height] of [['pixel-10-pro', 412, 924], ['pixel-large-css', 448, 1000], ['pixel-browser-bars', 412, 820], ['small-phone', 360, 740], ['landscape', 924, 412]]) {
@@ -74,7 +75,7 @@ test('Pixel-shaped portrait and landscape layouts fit, render Phaser art and sta
     expect(b.forge.right).toBeLessThanOrEqual(width);
     expect(b.forge.y).toBeLessThanOrEqual(b.board.y + 1);
     expect(b.forge.bottom).toBeLessThanOrEqual(height);
-    const slots = await page.locator('.forge-slot').evaluateAll(els => els.map(el => { const r = el.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, bottom: r.bottom }; }));
+    const slots = await page.locator('.forge-slot, .loader-slot').evaluateAll(els => els.map(el => { const r = el.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, bottom: r.bottom }; }));
     for (let i = 0; i < slots.length; i++) {
       expect(slots[i].width).toBeGreaterThanOrEqual(44);
       expect(slots[i].width).toBeCloseTo(b.cell.w, 0);
@@ -108,7 +109,7 @@ test('tap salvage stacks, first acquisition pauses once, guide pauses and discov
   await page.locator(`.loot[data-id="${id2}"]`).click();
   await expect(page.locator('#modal')).not.toBeVisible();
   await expect((await storedPart(page, 'splitter')).locator('.count')).toHaveText('2');
-  await page.locator('#manual').click(); await expect(page.locator('.guide-row')).toHaveCount(20);
+  await page.locator('#manual').click(); await expect(page.locator('.guide-row')).toHaveCount(26);
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().paused)).toBe(true);
   await page.getByRole('button', { name: 'Back to the dive' }).click();
   await page.reload(); await page.getByRole('button', { name: "Let's dive" }).click();
@@ -300,36 +301,32 @@ test('an upgraded circuit reaches the beacon and end-state guide returns to the 
   await expect(page.locator('#modal-title')).toHaveText('Still in one piece.');
 });
 
-test('automatic forge waits for cash, locks only ingredients, pauses, and preserves unrelated parts', async ({ page }) => {
+test('automatic forge locks only ingredients and leaves the third slot usable', async ({ page }) => {
   await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
-  // Keep recipe timing and cash checks independent of combat rewards.
-  await page.evaluate(() => { window.__deepSalvage.setEnemies([]); window.__deepSalvage.setSpawnDelay(1000); window.__deepSalvage.setCash(0); });
-  await drag(page, await storedPart(page, 'medic'), forge(page, 4));
+  await page.evaluate(() => { window.__deepSalvage.setCash(0); window.__deepSalvage.setSpawnDelay(1000); });
+  await drag(page, await storedPart(page, 'medic'), forge(page, 2));
   await drag(page, await storedPart(page, 'amplifier'), forge(page, 0));
-  await expect(cell(page, 20)).toHaveClass(/forge-match/);
-  await expect(await storedPart(page, 'amplifier')).toHaveClass(/forge-match/);
-  await drag(page, await storedPart(page, 'amplifier'), forge(page, 2));
+  await drag(page, await storedPart(page, 'amplifier'), forge(page, 1));
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().forge.job)).toBeNull();
   await expect(forge(page, 0)).toHaveClass(/waiting-cash/);
-  await drag(page, await storedPart(page, 'pulse'), forge(page, 1));
   await page.evaluate(() => { window.__deepSalvage.setCash(24); window.__deepSalvage.advance(.01); });
   await expect(page.locator('#cash-label')).toHaveText('0');
-  await expect(forge(page, 0)).toBeDisabled(); await expect(forge(page, 2)).toBeDisabled();
-  await expect(forge(page, 4)).toBeEnabled();
+  await expect(forge(page, 0)).toBeDisabled(); await expect(forge(page, 1)).toBeDisabled();
+  await expect(forge(page, 2)).toBeEnabled();
   await shot(page, 'automatic-forge-working');
   await page.locator('#pause').click();
   const before = await page.evaluate(() => window.__deepSalvage.snapshot().forge.job.remaining);
   await page.evaluate(() => window.__deepSalvage.advance(20));
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().forge.job.remaining)).toBe(before);
   await page.getByRole('button', { name: 'Keep going' }).click();
-  await drag(page, forge(page, 4), forge(page, 3));
-  await expect(forge(page, 3)).toHaveAttribute('data-type', 'medic');
+  await drag(page, forge(page, 2), cell(page, 29));
+  await expect(cell(page, 29)).toHaveAttribute('aria-label', /Medic/);
+  await drag(page, await storedPart(page, 'pulse'), forge(page, 2));
   await page.evaluate(() => window.__deepSalvage.advance(7));
   await expect(page.locator('#modal-title')).toHaveText('Overcharger.');
   await page.getByRole('button', { name: "Got it. Let's build" }).click();
   await expect(forge(page, 0)).toHaveAttribute('data-type', '');
-  await expect(forge(page, 3)).toHaveAttribute('data-type', 'medic');
-  await expect(forge(page, 1)).toHaveAttribute('data-type', 'pulse');
+  await expect(forge(page, 2)).toHaveAttribute('data-type', 'pulse');
   await drag(page, await storedPart(page, 'amplifier2'), cell(page, 14));
   await expect(cell(page, 14).locator('.tier-badge')).toHaveText('II');
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().forged)).toBe(1);
@@ -363,8 +360,8 @@ test('unmatched forge ingredients can be returned by tap or dragged into the lab
   await forge(page, 0).click();
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().inventory.amplifier)).toBe(3);
   await expect(forge(page, 0)).toHaveAttribute('data-type', '');
-  await drag(page, await storedPart(page, 'mirror'), forge(page, 4));
-  await drag(page, forge(page, 4), cell(page, 29));
+  await drag(page, await storedPart(page, 'mirror'), forge(page, 2));
+  await drag(page, forge(page, 2), cell(page, 29));
   await expect(cell(page, 29)).toHaveAttribute('aria-label', /Mirror/);
   await expect(page.locator('[role=tab], #forge-start')).toHaveCount(0);
 });
@@ -389,7 +386,7 @@ test('combat produces shield and hull feedback for submarine and enemies', async
 test('manual lists all recipes and three upgraded ingredients forge without a premature recipe', async ({ page }) => {
   await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
   await page.locator('#manual').click();
-  await expect(page.locator('.recipe-row')).toHaveCount(13);
+  await expect(page.locator('.recipe-row')).toHaveCount(16);
   await expect(page.locator('.recipe-row').filter({ hasText: '→ Prism overcharger' })).toContainText('1 × Piercing amplifier + 1 × Overcharger + 1 × Rail lens');
   await shot(page, 'recipe-manual');
   await page.getByRole('button', { name: 'Back to the dive' }).click();
@@ -406,18 +403,18 @@ test('manual lists all recipes and three upgraded ingredients forge without a pr
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().inventory.prism2)).toBe(1);
 });
 
-test('four-part recipe waits for every distinct upgraded ingredient', async ({ page }) => {
+test('three-part Duplicator recipe waits for every distinct upgraded ingredient', async ({ page }) => {
   await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
   await page.evaluate(() => { window.__deepSalvage.setEnemies([]); window.__deepSalvage.setSpawnDelay(1000); window.__deepSalvage.setCash(100); });
-  for (const [index, type] of ['splitter2', 'mirror2', 'reactor2', 'gun2'].entries()) {
+  for (const [index, type] of ['splitter2', 'mirror2', 'reactor2'].entries()) {
     await dropIntoForge(page, type, index);
-    if (index < 3) {
+    if (index < 2) {
       expect(await page.evaluate(() => window.__deepSalvage.snapshot().forge.job)).toBeNull();
       await expect(page.locator('#cash-label')).toHaveText('100');
     }
   }
   await expect(page.locator('#cash-label')).toHaveText('40');
-  await shot(page, 'four-part-forge');
+  await shot(page, 'duplicator-forge');
   await page.evaluate(() => window.__deepSalvage.advance(11));
   await expect(page.locator('#modal-title')).toHaveText('Duplicator.');
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().inventory.splitter3)).toBe(1);
@@ -480,8 +477,8 @@ test('Shield and Medic drag from hold, charge from a reactor, restore vitals and
   const charge = await page.evaluate(() => window.__deepSalvage.snapshot().grid[0].charge);
   await page.evaluate(() => window.__deepSalvage.advance(10));
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().grid[0].charge)).toBe(charge);
-  await expect(page.locator('.guide-row')).toHaveCount(20);
-  await expect(page.locator('.recipe-row')).toHaveCount(13);
+  await expect(page.locator('.guide-row')).toHaveCount(26);
+  await expect(page.locator('.recipe-row')).toHaveCount(16);
   await expect(page.locator('.enemy-row')).toHaveCount(10);
   await expect(page.locator('.recipe-row').filter({hasText:'→ Aegis shield'})).toContainText('20 shield');
   await page.getByRole('button', {name:'Back to the dive'}).click();
@@ -607,6 +604,71 @@ test('illustrated Levels picker has no explanatory copy and fits phone and lands
   await page.getByRole('button',{name:"Let's dive"}).click();
   expect(await page.evaluate(()=>window.__deepSalvage.snapshot().mapId)).toBe('kelp');
   await page.locator('#manual').click();
-  await expect(page.locator('.recipe-row')).toHaveCount(13);
+  await expect(page.locator('.recipe-row')).toHaveCount(16);
+  expect(errors).toEqual([]);
+});
+
+test('consumables stack on tap, reject lab placement and full-health use, and activate through either loader', async ({ page }) => {
+  const errors = []; page.on('pageerror', error => errors.push(error.message));
+  await page.setViewportSize({width:412,height:924}); await boot(page);
+  await page.evaluate(() => window.__deepSalvage.setSpawnDelay(1000));
+  for (let i = 0; i < 2; i++) {
+    const id = await page.evaluate(() => window.__deepSalvage.drop('repairKit'));
+    await page.locator(`.loot[data-id="${id}"]`).click();
+    if (!i) { await expect(page.locator('#modal-title')).toHaveText('Repair kit.'); await page.getByRole('button',{name:"Got it. Let's build"}).click(); }
+  }
+  const repair = await storedPart(page,'repairKit'), loader = page.locator('.loader-slot[data-loader="0"]');
+  await expect(repair.locator('.count')).toHaveText('2');
+  await drag(page,repair,cell(page,14),async()=>await expect(cell(page,14)).toHaveClass(/invalid/));
+  await expect(cell(page,14)).toHaveClass(/empty/);
+  await drag(page,repair,loader,async()=>await expect(loader).toHaveClass(/invalid/));
+  await expect(repair.locator('.count')).toHaveText('2');
+  await page.evaluate(() => window.__deepSalvage.setVitals(50,0));
+  await drag(page,repair,loader,async()=>await expect(loader).toHaveClass(/target/));
+  expect(await page.evaluate(()=>window.__deepSalvage.snapshot().hull)).toBe(75);
+  await expect(repair.locator('.count')).toHaveText('1');
+  const id = await page.evaluate(() => window.__deepSalvage.drop('shieldCell'));
+  await drag(page,page.locator(`.loot[data-id="${id}"]`),page.locator('.loader-slot[data-loader="1"]'));
+  await expect(page.locator('#modal-title')).toHaveText('Shield cell.');
+  expect(await page.evaluate(()=>window.__deepSalvage.snapshot().shield)).toBe(12);
+  expect(await page.evaluate(()=>window.__deepSalvage.snapshot().inventory.shieldCell || 0)).toBe(0);
+  await page.getByRole('button',{name:"Got it. Let's build"}).click();
+  await shot(page,'consumable-loaders');
+  expect(errors).toEqual([]);
+});
+
+test('forged time capsule activates from storage, freezes battle while editing, and resumes after the countdown', async ({ page }) => {
+  const errors = []; page.on('pageerror', error => errors.push(error.message));
+  await page.setViewportSize({width:412,height:924}); await boot(page);
+  await page.evaluate(() => { window.__deepSalvage.setSpawnDelay(1000); window.__deepSalvage.setCash(100); window.__deepSalvage.setInventory({timeCapsule:2,mirror:2,amplifier:2}); });
+  await drag(page,await storedPart(page,'timeCapsule'),forge(page,0));
+  await expect(await storedPart(page,'timeCapsule')).toHaveClass(/forge-match/);
+  await drag(page,await storedPart(page,'timeCapsule'),forge(page,1));
+  await expect(forge(page,0)).toBeDisabled();
+  await page.evaluate(()=>window.__deepSalvage.advance(7));
+  await expect(page.locator('#modal-title')).toHaveText('Super time capsule.');
+  await page.getByRole('button',{name:"Got it. Let's build"}).click();
+  await expect((await storedPart(page,'timeCapsule2')).locator('.tier-badge')).toHaveText('II');
+  await drag(page,await storedPart(page,'amplifier'),forge(page,0));
+  await drag(page,await storedPart(page,'amplifier'),forge(page,1));
+  await drag(page,await storedPart(page,'timeCapsule2'),page.locator('.loader-slot').first());
+  await expect(page.locator('#game')).toHaveClass(/is-frozen/);
+  await expect(page.locator('#modal')).not.toBeVisible();
+  await expect(page.locator('.loader-slot').first()).toHaveAttribute('aria-label',/battle frozen/);
+  const before=await page.evaluate(()=>window.__deepSalvage.snapshot());
+  await drag(page,await storedPart(page,'mirror'),cell(page,13));
+  await expect(cell(page,13)).toHaveAttribute('aria-label',/Mirror/);
+  const after=await page.evaluate(()=>window.__deepSalvage.snapshot());
+  expect(after.elapsed).toBe(before.elapsed); expect(after.forge.job.remaining).toBe(before.forge.job.remaining);
+  expect(after.timeFreeze).toBeLessThan(before.timeFreeze); expect(after.timeFreeze).toBeGreaterThan(0);
+  await shot(page,'time-capsule-editing');
+  await page.locator('#pause').click();
+  const time=await page.evaluate(()=>window.__deepSalvage.snapshot().timeFreeze);
+  await page.evaluate(()=>window.__deepSalvage.advance(30));
+  expect(await page.evaluate(()=>window.__deepSalvage.snapshot().timeFreeze)).toBe(time);
+  await page.getByRole('button',{name:'Keep going'}).click();
+  await page.evaluate(()=>window.__deepSalvage.advance(window.__deepSalvage.snapshot().timeFreeze+.1));
+  await expect(page.locator('#game')).not.toHaveClass(/is-frozen/);
+  expect(await page.evaluate(()=>window.__deepSalvage.snapshot().elapsed)).toBeGreaterThan(before.elapsed);
   expect(errors).toEqual([]);
 });

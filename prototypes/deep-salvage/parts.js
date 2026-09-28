@@ -11,7 +11,14 @@ const BASE_PARTS = {
 };
 
 const upgrade = (base, name, mark, description, tier = 2) => ({ ...BASE_PARTS[base], base, name, mark, description, tier, ports: base === 'splitter' ? 'Any side → three beams' : BASE_PARTS[base].ports, lesson: 'More capability. Still one square.', tip: 'Forged parts still occupy one square. ' + (BASE_PARTS[base].rotatable ? 'Tap to rotate.' : 'Works from any side.') });
+const consumable = (name, color, ink, description, base, tier) => ({ name, color, ink, description, base, tier, consumable: true, ports: 'Drag to either round loader to use', lesson: 'Save it for the right moment.', tip: 'Tap a drop to store it. Drag one copy to either of the two bottom-right loaders to use it. Two identical base consumables can be forged into an upgrade. Ineffective uses keep the item.' });
 export const PARTS = Object.freeze({
+  repairKit: consumable('Repair kit', '#a7dfab', '#35856c', 'Immediately repairs 25 hull HP, capped at 100.'),
+  repairKit2: consumable('Super repair kit', '#a7dfab', '#35856c', 'Immediately repairs 60 hull HP, capped at 100.', 'repairKit', 2),
+  shieldCell: consumable('Shield cell', '#a1dbef', '#387da4', 'Immediately restores 12 shield, capped at 24.'),
+  shieldCell2: consumable('Super shield cell', '#a1dbef', '#387da4', 'Immediately restores 24 shield, capped at 24.', 'shieldCell', 2),
+  timeCapsule: consumable('Time capsule', '#c3b0ef', '#7860b5', 'Freezes the battle for 8 seconds while you rebuild. Weapons, repairs, the forge and loot timers also stop. Extra capsules extend the freeze.'),
+  timeCapsule2: consumable('Super time capsule', '#c3b0ef', '#7860b5', 'Freezes the battle for 20 seconds while you rebuild. Extra capsules extend the freeze.', 'timeCapsule', 2),
   ...BASE_PARTS,
   shield2: upgrade('shield', 'Aegis shield', '+20 ◇', 'Stores 32 energy and restores 20 shield per charge, capped at 24. Holds charge until protection is needed.'),
   medic2: upgrade('medic', 'Repair bay', '+20 HP', 'Stores 48 energy and repairs 20 hull per charge, capped at 100. Holds charge until repairs are needed.'),
@@ -29,6 +36,9 @@ export const PARTS = Object.freeze({
 // Only reactors and mirrors have a meaningful orientation.
 export function partIcon(type) {
   const paths = {
+    repairKit: '<circle cx="32" cy="32" r="24" fill="#eaffdf"/><path d="M32 18v28M18 32h28" stroke="#35856c" stroke-width="10"/>',
+    shieldCell: '<circle cx="32" cy="32" r="25" fill="#dbf9ff"/><path d="m32 13 15 7v15q0 11-15 18-15-7-15-18V20z" fill="#63b8e1"/><path d="m33 23-7 12h7l-2 9 10-15h-8z" fill="#fff4bf" stroke-width="2"/>',
+    timeCapsule: '<circle cx="32" cy="32" r="25" fill="#eee6ff"/><path d="M22 16h20M22 48h20M24 17v8l16 14v8M40 17v8L24 39v8" stroke="#7860b5" stroke-width="5"/><path d="m27 44 5-5 5 5" fill="#eebc59" stroke="#eebc59"/>',
     reactor: '<circle cx="32" cy="34" r="18" fill="#fce6a3"/><circle cx="32" cy="34" r="10" fill="#fff9d9"/><path d="M32 17V3m-6 6 6-6 6 6"/><path d="M32 55v5M4 34h7M53 34h7"/>',
     mirror: '<path d="M13 49 49 13" stroke="#183c4c" stroke-width="13"/><path d="M13 46 46 13" stroke="#ecfcf5" stroke-width="8"/><path d="m15 17 7 7m20 19 7 7" stroke="#e7fffa" stroke-width="2"/>',
     amplifier: '<path d="M32 3v7M32 54v7M3 32h7M54 32h7" stroke="#fff4bf"/><circle cx="32" cy="32" r="17" fill="#fff4bf"/><path d="M32 23v18M23 32h18" stroke="#b58128" stroke-width="6"/>',
@@ -50,10 +60,10 @@ export function partIcon(type) {
     prism: '<path d="M32 3v9m0 40v9M3 32h9m40 0h9" stroke="#efffff"/><path d="m32 9 21 23-21 23-21-23z" fill="#c1f6ff"/><path d="m32 9 7 23-7 23-7-23z" fill="#57b4ee" stroke-width="2"/><circle cx="47" cy="46" r="11" fill="#ffe08a"/><path d="M47 40v12m-6-6h12" stroke="#8d6928" stroke-width="3"/>',
     prism2: '<path d="M32 2v8m0 46v6M2 32h6m48 0h6" stroke="#fff5c4"/><path d="m23 10 15 22-15 22L8 32z" fill="#8ce3f4"/><path d="m41 10 15 22-15 22-15-22z" fill="#e1faff"/><path d="m32 19-10 15h9l-3 13 15-19H32l4-9z" fill="#ffe291" stroke="#a27738" stroke-width="2.5"/><path d="M8 5v8M4 9h8m43 40v10m-5-5h10" stroke="#fff6c4" stroke-width="3"/>',
   };
-  return `<svg viewBox="0 0 64 64" fill="none" stroke="#193e4d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[type] || paths[PARTS[type]?.base] || ''}</svg>`;
+  return `<svg viewBox="0 0 64 64" fill="none" stroke="#193e4d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[type] || paths[PARTS[type]?.base] || ''}${PARTS[type]?.consumable && PARTS[type]?.tier ? '<path d="M7 7v12M1 13h12M53 45v12m-6-6h12" stroke="#fff0a0" stroke-width="4"/>' : ''}</svg>`;
 }
 
 export function tileMarkup(type, rotation = 0) {
   const part = PARTS[type];
-  return `<span class="part-art part-${type}" style="--part:${part.color};--part-shadow:${part.ink}"><span class="part-symbol" style="transform:rotate(${part.rotatable ? rotation * 90 : 0}deg)">${partIcon(type)}</span><i></i><i></i>${part.tier ? `<b class="tier-badge">${part.tier === 3 ? 'III' : 'II'}</b>` : ''}</span>`;
+  return `<span class="part-art part-${type}${part.consumable ? ' consumable' : ''}" style="--part:${part.color};--part-shadow:${part.ink}"><span class="part-symbol" style="transform:rotate(${part.rotatable ? rotation * 90 : 0}deg)">${partIcon(type)}</span><i></i><i></i>${part.tier ? `<b class="tier-badge">${part.tier === 3 ? 'III' : 'II'}</b>` : ''}</span>`;
 }

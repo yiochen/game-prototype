@@ -20,12 +20,13 @@ test('every recipe automatically starts in either order, charges once and create
     tick(s, recipe.seconds - 1); assert.equal(s.inventory[recipe.output] || 0, 0);
     s.paused = true; const remaining = s.forge.job.remaining; tick(s, 20); assert.equal(s.forge.job.remaining, remaining);
     s.paused = false; tick(s, 1.1); assert.equal(s.inventory[recipe.output], 1); assert.equal(s.forged, 1);
-    assert.deepEqual(s.forge, {slots:Array(5).fill(null),job:null});
+    assert.deepEqual(s.forge, {slots:Array(B.forgeSlots).fill(null),job:null});
     assert.deepEqual(s.discoveries, [recipe.output]); tick(s, 2); assert.equal(s.inventory[recipe.output], 1);
   }
 });
 
 test('recipe multisets are unique and no recipe is contained in another', () => {
+  assert.ok(RECIPES.every(recipe => recipe.ingredients.length <= B.forgeSlots));
   for (const a of RECIPES) for (const b of RECIPES) if (a !== b) {
     assert.equal(recipeSlots(a, b.ingredients.map(type => ({type}))), null, `${a.output} overlaps ${b.output}`);
   }
@@ -33,13 +34,12 @@ test('recipe multisets are unique and no recipe is contained in another', () => 
 
 test('unrelated ingredients are accepted, preserved and movable while only recipe inputs lock', () => {
   const s = createState(); startDive(s);
-  assert.equal(add(s, 'pulse'), true); assert.equal(add(s, 'medic'), true);
+  assert.equal(add(s, 'pulse'), true);
   assert.equal(add(s, 'amplifier'), true); assert.equal(add(s, 'amplifier'), true);
-  assert.equal(s.forge.job.output, 'amplifier2'); assert.deepEqual(s.forge.job.indices, [2,3]);
-  assert.equal(movePart(s, {kind:'forge',index:0}, {kind:'forge',index:4}), true);
-  assert.equal(movePart(s, {kind:'forge',index:1}, {kind:'storage'}), true);
+  assert.equal(s.forge.job.output, 'amplifier2'); assert.deepEqual(s.forge.job.indices, [1,2]);
+  assert.equal(movePart(s, {kind:'forge',index:0}, {kind:'storage'}), true);
   assert.equal(add(s, 'shield'), true);
-  tick(s, 7); assert.equal(s.inventory.amplifier2, 1); assert.equal(s.forge.slots[4].type, 'pulse'); assert.equal(s.forge.slots[0].type, 'shield');
+  tick(s, 7); assert.equal(s.inventory.amplifier2, 1); assert.equal(s.forge.slots[0].type, 'shield');
 });
 
 test('unaffordable recipes wait intact and start automatically when cash becomes available', () => {
@@ -49,9 +49,9 @@ test('unaffordable recipes wait intact and start automatically when cash becomes
   tick(s, .1); assert.equal(s.cash, 0);
 });
 
-test('five slots allow arbitrary parts; a full or occupied slot rejects without consuming anything', () => {
-  const s = createState(); startDive(s); s.cash = 0; s.inventory.pulse = 6;
-  for (let i = 0; i < 5; i++) assert.equal(add(s, 'pulse'), true);
+test('three slots allow arbitrary parts; a full or occupied slot rejects without consuming anything', () => {
+  const s = createState(); startDive(s); s.cash = 0; s.inventory.pulse = 4;
+  for (let i = 0; i < B.forgeSlots; i++) assert.equal(add(s, 'pulse'), true);
   assert.equal(add(s, 'pulse'), false); assert.equal(s.inventory.pulse, 1); assert.equal(s.forge.job, null);
   assert.equal(movePart(s, {kind:'forge',index:0}, {kind:'forge',index:1}), false);
 });
@@ -93,7 +93,7 @@ test('every kill earns cash but only one in four enemies drops a part', () => {
     tick(s, .1);
   }
   assert.equal(s.kills, 8); assert.equal(s.cash, B.startingCash + 8 * B.enemies.scout.bounty);
-  assert.deepEqual(s.drops.map(d => d.type), ['splitter', 'lens']);
+  assert.deepEqual(s.drops.map(d => d.type), ['splitter', 'timeCapsule', 'lens', 'repairKit']);
 });
 
 test('shields absorb first, hull hits trigger feedback, and shields recharge only after the delay', () => {
@@ -123,14 +123,15 @@ test('an affordable opening forge and a salvaged lens can beat the tougher dive 
     if (s.inventory.amplifier2 && !s.grid[14]) movePart(s, { kind: 'storage', type: 'amplifier2' }, { kind: 'grid', index: 14 });
     if (s.inventory.lens && !s.grid[8]) movePart(s, { kind: 'storage', type: 'lens' }, { kind: 'grid', index: 8 });
   }
-  assert.equal(s.status, 'won'); assert.equal(s.kills, 39); assert.equal(s.salvaged, 10);
+  assert.equal(s.status, 'won'); assert.equal(s.kills, 39); assert.equal(s.salvaged, 17);
   assert.ok(s.hull > 0 && s.hull < 60); assert.equal(s.forged, 1);
 });
 
-test('queued recipes start after the running job while leaving unrelated parts untouched', () => {
+test('a staged ingredient can complete the next recipe once the current job frees slots', () => {
   const s = createState(); startDive(s); s.cash = 100; s.spawnIn = 100;
-  add(s, 'amplifier'); add(s, 'amplifier'); add(s, 'mirror'); add(s, 'mirror'); add(s, 'pulse');
+  add(s, 'amplifier'); add(s, 'amplifier'); add(s, 'mirror');
   assert.equal(s.forge.job.output, 'amplifier2');
-  tick(s, 6.1); assert.equal(s.inventory.amplifier2, 1); assert.equal(s.forge.job.output, 'mirror2');
-  tick(s, 5.1); assert.equal(s.inventory.mirror2, 1); assert.equal(s.forge.slots[4].type, 'pulse'); assert.equal(s.cash, 60);
+  tick(s, 6.1); assert.equal(s.inventory.amplifier2, 1);
+  assert.equal(add(s, 'mirror'), true); assert.equal(add(s, 'pulse'), true); assert.equal(s.forge.job.output, 'mirror2');
+  tick(s, 5.1); assert.equal(s.inventory.mirror2, 1); assert.equal(s.forge.slots[1].type, 'pulse'); assert.equal(s.cash, 60);
 });
