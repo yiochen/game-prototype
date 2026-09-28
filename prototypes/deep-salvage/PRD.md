@@ -18,6 +18,21 @@ Guide the engineering of a small yellow submarine through the ruins of a drowned
 
 ## Prototype rules and chosen defaults
 
+### Engineering layout and fixed storage slots
+
+The lower panel contains only the 7 × 7 engineering surface: tiles, beams, stack counts, tier badges, charge/forge progress and paging arrows. No labels, headings, explanatory text or Forge button occupy it. The upper HUD keeps wave number, cash, hull/shield meters and icon-only guide/pause controls. Instructions and recipe details remain in the manual, with accessible names on every control.
+
+The seven-cell storage row has five fixed stack slots per page and previous/next buttons. It does not scroll. Dragging works in any direction, including horizontally; tapping a stack then an empty lab/forge cell still places it. A part type retains its assigned slot when its count reaches zero; later copies return there. New types take the next unused slot, adding pages as needed. Page navigation clears selection, and a fresh dive resets pages. Mouse, touch and keyboard share these rules.
+
+| Area | Grid allocation | Interaction |
+| --- | --- | --- |
+| Weapon lab | Rows 1–6, columns 1–6 | Place one-square parts, rotate directional parts and preview beam changes. |
+| Forge | Rows 1–6, column 7 | Stage any parts; complete affordable recipes start automatically. |
+| Storage | Row 7, columns 1–7 | Five fixed stack slots plus previous/next page arrows; no swipe scrolling. |
+
+The bottom-right cell belongs to the storage row. The forge therefore has six ingredient slots, and every lab, forge and storage cell uses the same square size.
+
+
 ### Components
 
 | Part | Behavior |
@@ -107,12 +122,15 @@ Phaser 3 renders the world and effects. Framework-independent engine.js owns bea
 
 Engine tests cover beam travel, rotation, splitting, amplification, piercing, inputs from all four sides, cycles, inventory transactions, loot expiry/protection, damage, shields, sparse drops/cash, every forge recipe, affordability, atomic cancellation, timer pauses, upgraded beam effects, and win/loss. Browser tests exercise the real UI: start, tap salvage, first discovery, repeat salvage, install/rotate/retrieve tiles, cancelled/invalid drags, manual/pause/restart, mobile touch input, duplicate and mixed forging, match highlights, upgraded beam visuals, shield effects and responsive bounds. Capture actual Phaser canvas screenshots at Pixel-shaped portrait and landscape sizes and inspect them. Run all repository engine tests and the production build.
 
+### Layout and automatic forge acceptance criteria
+
+- Normal play shows a single 7 × 7 lower panel without labels, explanations, textual power readouts or a Forge button. Stack counts, tier badges and visual progress remain visible.
+- Paging never scrolls or shifts storage slots; dragging a stored part in any direction remains a placement gesture.
+- Any part can enter an empty forge slot, even if it contributes to no recipe or another job is running.
+- Adding the last required ingredient starts an affordable recipe automatically. A complete recipe waiting for cash starts when sufficient cash arrives; a queued recipe waits for the current job.
+- Starting a job deducts cash once and locks only its matched ingredients. Completion consumes only those ingredients, preserves unrelated parts and adds the output to storage.
+- Every recipe appears in the manual with exact ingredients, cost, duration and output. For any two recipes, neither ingredient collection may be contained in the other, counting duplicate quantities; automated checks must reject duplicates and subset recipes.
+
 ## Explicitly deferred
 
 Permanent upgrades, shops, bosses, sound/music, cloud saves, multiple vessels, procedural routes, component durability, heat, multiplayer, and production deployment. Discovery state is persistent; run state resets on reload. This prototype tests whether assembling a visible machine while collecting loot is fun.
-
-### Quiet HUD and fixed storage slots
-
-The lower panel contains only the 7 × 7 engineering surface: tiles, beams, stack counts, tier badges, charge/forge progress and paging arrows. No labels, headings, explanatory text or Forge button occupy it. The upper HUD keeps wave number, cash, hull/shield meters and icon-only guide/pause controls. Instructions and recipe details remain in the manual, with accessible names on every control.
-
-The seven-cell storage row has five fixed stack slots per page and previous/next buttons. It does not scroll. Dragging works in any direction, including horizontally; tapping a stack then an empty lab/forge cell still places it. A part type retains its assigned slot when its count reaches zero; later copies return there. New types take the next unused slot, adding pages as needed. Page navigation clears selection, and a fresh dive resets pages. Mouse, touch and keyboard share these rules.
