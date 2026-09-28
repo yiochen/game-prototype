@@ -28,7 +28,6 @@ dialog{border:2px solid #315762;border-radius:24px;background:var(--cream);color
 #storage h2,#forge h2{margin:0;font-size:11px;line-height:16px;font-weight:1000;display:flex;align-items:center;justify-content:space-between;gap:3px}
 #storage h2 span,#forge h2 span{color:#7f8975;font-size:8px}#forge h2{flex-wrap:wrap;justify-content:center}
 #stacks{min-height:44px;min-width:0;flex:1;gap:5px;scroll-behavior:auto}.stack{margin:0 1px;height:44px}
-.hold-nav{flex:none;width:44px;height:44px;border:0;border-radius:8px;background:#d9ddc7;font-size:23px;color:#748876}
 #storage.drop-target,#forge.drop-target{background:#c9dec1;outline:2px solid #479988;outline-offset:-2px}#forge.invalid{outline:2px solid #cb7858;outline-offset:-2px}#forge.working{border-color:#c8a45f}
 #forge-slots{display:flex;flex-direction:column;align-items:center;gap:5px}.forge-slot{flex:none;width:44px;height:44px;padding:3px;border:1px dashed #9aaa8e;border-radius:8px;background:#d9dcc3;font-size:20px;font-weight:900;color:#8a9b82}.forge-slot:disabled{opacity:.7}.forge-slot .part-art{border-radius:6px}
 .recipe-list{display:grid;gap:10px;margin-bottom:24px}.recipe-row{padding:10px;border:1px solid #c7cfb6;border-radius:10px;background:#e8e7d3}.recipe-ingredients{font-size:11px;color:#687c6e}.recipe-row>strong{display:block;font-size:13px;color:#34554d;margin-top:3px}.recipe-row p{margin:5px 0;font-size:11px;line-height:1.4;color:#61776e}.recipe-row small{font-size:10px;font-weight:900;color:#97723c}
@@ -48,21 +47,22 @@ dialog{border:2px solid #315762;border-radius:24px;background:var(--cream);color
 #storage #stacks{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:auto;height:46px;min-height:46px;gap:4px;overflow:hidden;touch-action:none;padding:0;flex:1}
 #stacks .stack{width:100%;height:44px;margin:0;touch-action:none;border:1px solid #c3c9b4;border-radius:8px;background:#d8dec6;padding:1px}
 #stacks .part-art{width:38px;height:38px}#stacks .count{right:0;bottom:0}.empty-slot:after{content:'';width:4px;height:4px;background:#aab69d;border-radius:50%}
-.hold-nav{width:44px;height:44px}.hold-nav:disabled{opacity:.25}
 #forge{justify-content:center;align-self:center;height:100%;max-height:330px;padding:8px 5px;gap:8px}
 @media(orientation:landscape) and (max-height:649px){#console{padding-top:8px;padding-bottom:6px}#forge{gap:6px;padding-block:5px}#forge-slots{gap:4px}}
 
-/* One 7×7 surface: six-by-six lab, six forge cells, seven-cell hold row. */
+/* One 7×7 surface: six-by-five lab, five forge cells, two seven-cell hold rows. */
 #console{display:grid;place-items:center;container-type:size;padding:8px;border-radius:16px 16px 0 0}
 #workshop{flex:none;width:min(100cqw,100cqh,440px);height:auto;aspect-ratio:1;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-template-rows:repeat(7,minmax(0,1fr));gap:4px}
-#board{grid-column:1/span 6;grid-row:1/span 6;width:100%;height:100%;max-width:none;aspect-ratio:auto;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
-#cells{grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(6,minmax(0,1fr));gap:4px}
+#board{grid-column:1/span 6;grid-row:1/span 5;width:100%;height:100%;max-width:none;aspect-ratio:auto;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
+#cells{grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(5,minmax(0,1fr));gap:4px}
 #beams{inset:0;width:100%;height:100%}
-#forge{grid-column:7;grid-row:1/span 6;display:grid;grid-template-columns:minmax(0,1fr);justify-content:stretch;grid-template-rows:repeat(6,minmax(0,1fr));gap:4px;align-self:stretch;width:100%;height:100%;max-height:none;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
+#forge{grid-column:7;grid-row:1/span 5;display:grid;grid-template-columns:minmax(0,1fr);justify-content:stretch;grid-template-rows:repeat(5,minmax(0,1fr));gap:4px;align-self:stretch;width:100%;height:100%;max-height:none;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
 #forge-slots{display:contents}.forge-slot{position:relative;width:100%;height:100%;min-height:0;padding:3px;font-size:20px;background:#eadac0;border:1px dashed #bca481}.forge-slot:disabled{opacity:1}.forge-slot.working{border-style:solid;border-color:#d79c3d;box-shadow:inset 0 0 0 2px #e3b152}.forge-slot.working:after{content:'';position:absolute;bottom:1px;left:1px;width:calc(var(--progress) - 2px);height:4px;background:#fff2a7;border-radius:3px}.forge-slot.waiting-cash{border-color:#d48861}
-#storage{grid-column:1/-1;grid-row:7;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-template-rows:1fr;gap:4px;height:100%;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
-#storage #stacks{display:contents}#stacks .stack,.hold-nav{width:100%;height:100%;min-height:0;margin:0;background:#d6dfcd;border-radius:8px;touch-action:none}#stacks .part-art{width:calc(100% - 5px);height:calc(100% - 5px)}.hold-nav{border:1px solid #c4ccb8}
+#storage{grid-column:1/-1;grid-row:6/span 2;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:4px;height:100%;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
+#storage #stacks{display:contents}#stacks .stack{width:100%;height:100%;min-height:0;margin:0;background:#d6dfcd;border-radius:8px;touch-action:none}#stacks .part-art{width:calc(100% - 5px);height:calc(100% - 5px)}
 .cell{background:#efebd9;border-color:#c7cab7}.cell.has-part{background:#e5e7d4;border-color:#c7cab7}.cell .part-art{width:calc(100% - 2px);height:calc(100% - 2px)}
 @media(orientation:landscape) and (max-height:649px){#console{padding:8px;border-radius:16px 0 0 16px}}
 
 .cell .part-symbol{inset:2px}.cell:has(.charge-meter) .part-symbol{inset:5px 2px 2px}.cell.charged .part-art{outline:2px solid #ffe899;outline-offset:-2px}
+
+#storage.invalid{outline:2px solid #cb7858;outline-offset:-2px}

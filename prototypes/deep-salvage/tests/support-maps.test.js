@@ -9,13 +9,13 @@ function support(type) {
   return s;
 }
 function enemy(type, values = {}) { return { id: 900, type, ...B.enemies[type], maxHp: B.enemies[type].hp, x: .3, y: .5, attackIn: 0, ...values }; }
-function emptyFight() { const s = support('shield'); s.grid = Array(36).fill(null); rebuild(s); return s; }
+function emptyFight() { const s = support('shield'); s.grid = Array(30).fill(null); rebuild(s); return s; }
 
 test('support terminals accept and combine every input side, stop beams, and never count as guns', () => {
   for (const type of ['shield', 'medic', 'shield2', 'medic2']) {
-    const grid = Array(36).fill(null); grid[14] = part(type);
-    for (const [index, rotation] of [[2,2],[16,3],[32,0],[12,1]]) grid[index] = part('reactor', rotation);
-    const c = traceCircuit(grid); assert.equal(c.guns.length, 0); assert.equal(c.supports.length, 1); assert.equal(c.supports[0].power, 32); assert.equal(c.segments.length, 9);
+    const grid = Array(30).fill(null); grid[14] = part(type);
+    for (const [index, rotation] of [[2,2],[16,3],[26,0],[12,1]]) grid[index] = part('reactor', rotation);
+    const c = traceCircuit(grid); assert.equal(c.guns.length, 0); assert.equal(c.supports.length, 1); assert.equal(c.supports[0].power, 32); assert.equal(c.segments.length, 8);
     const s = support(type); assert.equal(rotatePart(s, 2), false);
   }
 });
@@ -70,7 +70,7 @@ test('bombers explode once without awarding kill loot, but shooting them awards 
   const s = emptyFight(); s.enemies = [enemy('bomber')]; tick(s, .01);
   near(s.hull, 98); near(s.shield, 0); assert.equal(s.enemies.length, 0); assert.equal(s.kills, 0); assert.equal(s.cash, B.startingCash);
   tick(s, 1); near(s.hull, 98);
-  s.grid[32] = part('reactor'); s.grid[2] = part('gun'); rebuild(s); s.enemies = [enemy('bomber', {x:.7,hp:.001})]; tick(s,.01);
+  s.grid[26] = part('reactor'); s.grid[2] = part('gun'); rebuild(s); s.enemies = [enemy('bomber', {x:.7,hp:.001})]; tick(s,.01);
   assert.equal(s.kills, 1); assert.equal(s.cash, B.startingCash + B.enemies.bomber.bounty);
 });
 
@@ -80,7 +80,7 @@ test('every route has valid encounters covering all ten enemy roles and determin
     const s = createState([], mapId); startDive(s);
     // Strong fixture isolates route progression from player build quality.
     s.grid[14] = part('amplifier2'); s.grid[8] = part('lens2'); s.grid[2] = part('gun2');
-    s.grid[30] = part('reactor2'); s.grid[0] = part('medic2'); rebuild(s); tick(s, 240);
+    s.grid[24] = part('reactor2'); s.grid[0] = part('medic2'); rebuild(s); tick(s, 240);
     assert.equal(s.status, 'won', mapId); assert.equal(s.wave, map.waves.length - 1);
     for (const wave of map.waves) for (const type of wave.enemies) { assert.ok(B.enemies[type] && ENEMY_INFO[type]); present.add(type); }
   }
@@ -91,7 +91,7 @@ test('Foundry is beatable using starting inventory, earned cash, salvaged lens a
   const s = createState([], 'foundry'); startDive(s);
   for (let i = 0; i < 2; i++) movePart(s, {kind:'storage',type:'amplifier'}, {kind:'forge'});
   assert.ok(s.forge.job);
-  movePart(s, {kind:'storage',type:'reactor'}, {kind:'grid',index: 30});
+  movePart(s, {kind:'storage',type:'reactor'}, {kind:'grid',index: 24});
   movePart(s, {kind:'storage',type:'medic'}, {kind:'grid',index: 0});
   let heavy = false;
   for (let i = 0; i < 480 && s.status === 'running'; i++) {

@@ -22,16 +22,16 @@ test('laser applies small continuous damage, with frame-independent armor and no
   near(a.enemies[0].hp, 1000 - (12 - 4) * B.laserDamagePerEnergy);
   near(a.enemies[0].hp, b.enemies[0].hp);
   assert.ok(a.bursts.length <= 2, 'damage labels are aggregated');
-  a.grid[20] = null; a.grid[32] = null; rebuild(a); tick(a, .1);
+  a.grid[20] = null; a.grid[26] = null; rebuild(a); tick(a, .1);
   assert.equal(a.laserBeams.length, 0);
 });
 
 test('pulse accepts all four directions, combines inputs, and terminates the circuit', () => {
-  const grid = Array(36).fill(null); grid[14] = part('pulse');
-  for (const [index, rotation] of [[2, 2], [16, 3], [32, 0], [12, 1]]) grid[index] = { type: 'reactor', rotation };
+  const grid = Array(30).fill(null); grid[14] = part('pulse');
+  for (const [index, rotation] of [[2, 2], [16, 3], [26, 0], [12, 1]]) grid[index] = { type: 'reactor', rotation };
   const circuit = traceCircuit(grid);
   assert.deepEqual(circuit.guns, [{ index: 14, power: 32, piercing: false, mode: 'pulse' }]);
-  assert.equal(circuit.segments.length, 9);
+  assert.equal(circuit.segments.length, 8);
 });
 
 test('pulse charges before firing a large hit, resets, then charges again', () => {
@@ -55,10 +55,10 @@ test('charge waits at full with no target, pauses, survives disconnection and mo
   const s = encounter('pulse'); const enemy = s.enemies.pop(); tick(s, 5);
   near(s.grid[2].charge, B.pulseCapacity); assert.equal(s.shots.length, 0);
   s.paused = true; s.enemies.push(enemy); tick(s, 1); assert.equal(enemy.hp, 1000);
-  s.paused = false; s.grid[32] = null; rebuild(s); tick(s, 1); assert.equal(enemy.hp, 1000);
+  s.paused = false; s.grid[26] = null; rebuild(s); tick(s, 1); assert.equal(enemy.hp, 1000);
   assert.equal(movePart(s, { kind: 'grid', index: 2 }, { kind: 'grid', index: 8 }), true);
   near(s.grid[8].charge, B.pulseCapacity);
-  s.grid[32] = part('reactor'); rebuild(s); tick(s, .01); near(enemy.hp, 950);
+  s.grid[26] = part('reactor'); rebuild(s); tick(s, .01); near(enemy.hp, 950);
   tick(s, 1); assert.ok(s.grid[8].charge > 0);
   movePart(s, { kind: 'grid', index: 8 }, { kind: 'storage' });
   movePart(s, { kind: 'storage', type: 'pulse' }, { kind: 'grid', index: 8 });
@@ -66,7 +66,7 @@ test('charge waits at full with no target, pauses, survives disconnection and mo
 });
 
 test('laser and pulse operate independently and retarget after a kill without duplicate rewards', () => {
-  const s = encounter('pulse', 2); s.grid[30] = part('reactor'); s.grid[0] = part('gun'); rebuild(s);
+  const s = encounter('pulse', 2); s.grid[24] = part('reactor'); s.grid[0] = part('gun'); rebuild(s);
   tick(s, .5); assert.equal(s.laserBeams.length, 1); assert.equal(s.shots.length, 0); near(s.grid[2].charge, 6);
   s.enemies[0].hp = .01; tick(s, .01); assert.equal(s.kills, 1);
   tick(s, .01); assert.equal(s.laserBeams[0].targetId, 1001); assert.equal(s.kills, 1);

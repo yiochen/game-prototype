@@ -17,14 +17,14 @@ export function traceCircuit(grid) {
   let work = 0;
   while (queue.length && work++ < 512) {
     const ray = queue.shift();
-    let col = ray.index % B.gridSize, row = Math.floor(ray.index / B.gridSize);
+    let col = ray.index % B.gridColumns, row = Math.floor(ray.index / B.gridColumns);
     const [dx, dy] = DIR[ray.direction];
     while (true) {
       const nextCol = col + dx, nextRow = row + dy;
       segments.push({ x1: col + 0.5, y1: row + 0.5, x2: nextCol + 0.5, y2: nextRow + 0.5, power: ray.power, piercing: ray.piercing });
-      if (nextCol < 0 || nextRow < 0 || nextCol >= B.gridSize || nextRow >= B.gridSize) break;
+      if (nextCol < 0 || nextRow < 0 || nextCol >= B.gridColumns || nextRow >= B.gridRows) break;
       col = nextCol; row = nextRow;
-      const index = row * B.gridSize + col, part = grid[index];
+      const index = row * B.gridColumns + col, part = grid[index];
       if (!part) continue;
       const visit = `${index}:${ray.direction}`;
       if (ray.visited.has(visit)) { blocked.push(index); break; }
@@ -63,13 +63,16 @@ export function traceCircuit(grid) {
 }
 
 export function createState(known = [], mapId = 'city') {
-  const grid = Array(B.gridSize ** 2).fill(null);
-  grid[32] = { type: 'reactor', rotation: 0 };
+  const grid = Array(B.gridColumns * B.gridRows).fill(null);
+  grid[26] = { type: 'reactor', rotation: 0 };
   grid[20] = { type: 'amplifier', rotation: 0 };
   grid[2] = { type: 'gun', rotation: 0 };
+  const inventory = { mirror: 2, gun: 1, pulse: 1, shield: 1, medic: 1, amplifier: 2, splitter: 0, lens: 0, reactor: 1 };
+  const storageOrder = Array(B.storageSlots).fill(null);
+  Object.keys(inventory).filter(type => inventory[type] > 0).forEach((type, index) => { storageOrder[index] = type; });
   return {
     mapId: MAPS[mapId] ? mapId : 'city', status: 'ready', paused: false, elapsed: 0, hull: B.hull,
-    grid, inventory: { mirror: 2, gun: 1, pulse: 1, shield: 1, medic: 1, amplifier: 2, splitter: 0, lens: 0, reactor: 1 },
+    storageOrder, grid, inventory,
     cash: B.startingCash, shield: B.shield, shieldCooldown: 0, forged: 0,
     forge: { slots: Array(B.forgeSlots).fill(null), job: null }, notices: [],
     discovered: new Set(['reactor', 'amplifier', 'gun', 'pulse', 'shield', 'medic', 'mirror', ...known.filter(type => PARTS[type])]),
@@ -92,6 +95,21 @@ export function rotatePart(state, index) {
 
 function acquire(state, type) {
   if (!state.discovered.has(type)) { state.discovered.add(type); state.discoveries.push(type); }
+}
+
+// Slots stay in place while occupied; depleted stacks release their slot.
+export function storageSlots(state) {
+  state.storageOrder = state.storageOrder.map(type => state.inventory[type] > 0 ? type : null);
+  for (const [type, count] of Object.entries(state.inventory)) {
+    if (count <= 0 || state.storageOrder.includes(type)) continue;
+    const index = state.storageOrder.indexOf(null);
+    if (index >= 0) state.storageOrder[index] = type;
+  }
+  return state.storageOrder;
+}
+
+export function canStore(state, type) {
+  return state.inventory[type] > 0 || Object.values(state.inventory).filter(count => count > 0).length < B.storageSlots;
 }
 
 export function sourcePart(state, source) {
@@ -141,10 +159,13 @@ function advanceForge(state, dt) {
   const job = state.forge.job; if (!job) return;
   job.remaining = Math.max(0, job.remaining - dt);
   if (job.remaining > 0) return;
-  state.inventory[job.output] = (state.inventory[job.output] || 0) + 1;
-  acquire(state, job.output); state.forged++;
-  state.notices.push(`${PARTS[job.output].name} forged · added to hold`);
+  const fits = canStore(state, job.output);
   for (const index of job.indices) state.forge.slots[index] = null;
+  if (fits) state.inventory[job.output] = (state.inventory[job.output] || 0) + 1;
+  else state.forge.slots[job.indices[0]] = { type: job.output, rotation: 0 };
+  storageSlots(state);
+  acquire(state, job.output); state.forged++;
+  state.notices.push(`${PARTS[job.output].name} forged · ${fits ? 'added to hold' : 'storage full, collect from forge'}`);
   state.forge.job = null; state.revision++;
 }
 
@@ -153,11 +174,12 @@ export function movePart(state, source, target) {
   if (state.status === 'won' || state.status === 'lost') return false;
   const part = sourcePart(state, source);
   if (!part) return false;
-  if (target.kind === 'grid' && (!Number.isInteger(target.index) || target.index < 0 || target.index >= B.gridSize ** 2 || state.grid[target.index])) return false;
+  if (target.kind === 'grid' && (!Number.isInteger(target.index) || target.index < 0 || target.index >= B.gridColumns * B.gridRows || state.grid[target.index])) return false;
   if (!['grid', 'storage', 'forge'].includes(target.kind)) return false;
   const forgeIndex = target.index ?? state.forge.slots.findIndex(p => !p);
   if (target.kind === 'forge' && !canAddToForge(state, part.type, forgeIndex)) return false;
   if (source.kind === 'storage' && target.kind === 'storage') return false;
+  if (target.kind === 'storage' && !canStore(state, part.type)) return false;
   if (source.kind === 'grid') state.grid[source.index] = null;
   if (source.kind === 'storage') state.inventory[part.type]--;
   if (source.kind === 'forge') state.forge.slots[source.index] = null;
@@ -170,7 +192,7 @@ export function movePart(state, source, target) {
   else if (target.kind === 'forge') state.forge.slots[forgeIndex] = { ...part };
   else state.grid[target.index] = { ...part };
   state.heldDrop = null;
-  rebuild(state); startForge(state); return true;
+  storageSlots(state); rebuild(state); startForge(state); return true;
 }
 
 export function spawnDrop(state, type, x = 0.68, y = 0.4) {

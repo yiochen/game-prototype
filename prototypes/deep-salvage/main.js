@@ -3,7 +3,7 @@ import { BALANCE as B, PART_RULES, MAPS, ENEMY_INFO, mapFor } from './balance.js
 import { PARTS, tileMarkup } from './parts.js';
 import { RECIPES } from './recipes.js';
 import { ART } from './artwork.js';
-import { createState, startDive, tick, traceCircuit, rebuild, rotatePart, movePart, sourcePart, spawnDrop, forgeMatches, forgeRecipe, canAddToForge } from './engine.js';
+import { createState, startDive, tick, traceCircuit, rebuild, rotatePart, movePart, sourcePart, spawnDrop, forgeMatches, forgeRecipe, canAddToForge, canStore, storageSlots } from './engine.js';
 import { createWorld } from './world.js';
 
 const $ = selector => document.querySelector(selector);
@@ -11,12 +11,11 @@ const knownKey = 'deep-salvage:discoveries:v1';
 function loadKnown() { try { const value = JSON.parse(localStorage.getItem(knownKey) || '[]'); return Array.isArray(value) ? value : []; } catch { return []; } }
 function saveKnown() { try { localStorage.setItem(knownKey, JSON.stringify([...state.discovered])); } catch { /* Private browsing can disable persistence. */ } }
 let state = createState(loadKnown()), selection = null, gesture = null, modalKind = null, revision = -1, toastTimer;
-let restoreFocus = null, selectedMap = 'city', holdPage = 0, holdOrder = [];
-const HOLD_SLOTS = 5;
+let restoreFocus = null, selectedMap = 'city';
 const gameRoot = $('#game'), modal = $('#modal'), cells = $('#cells'), board = $('#board'), storage = $('#storage');
-const buttons = Array.from({ length: B.gridSize ** 2 }, (_, index) => {
+const buttons = Array.from({ length: B.gridColumns * B.gridRows }, (_, index) => {
   const button = document.createElement('button'); button.className = 'cell empty'; button.dataset.index = index;
-  button.setAttribute('aria-label', `Empty cell, row ${Math.floor(index / B.gridSize) + 1}, column ${index % B.gridSize + 1}`);
+  button.setAttribute('aria-label', `Empty cell, row ${Math.floor(index / B.gridColumns) + 1}, column ${index % B.gridColumns + 1}`);
   cells.append(button); return button;
 });
 const lootElements = new Map();
@@ -59,23 +58,15 @@ function renderLab() {
     button.innerHTML = part ? `${tileMarkup(part.type, part.rotation)}${PART_RULES[part.type].capacity ? '<span class="charge-meter"><i></i></span>' : ''}` : '';
     button.classList.toggle('forge-match', !!part && forgeMatches(state).has(part.type));
     const label = part ? `${PARTS[part.type].name}, ${PARTS[part.type].rotatable ? `${part.rotation * 90} degrees, tap to rotate` : 'accepts beams from any side'}` : 'Empty cell';
-    button.setAttribute('aria-label', `${label}, row ${Math.floor(index / B.gridSize) + 1}, column ${index % B.gridSize + 1}`);
+    button.setAttribute('aria-label', `${label}, row ${Math.floor(index / B.gridColumns) + 1}, column ${index % B.gridColumns + 1}`);
     button.setAttribute('aria-keyshortcuts', part && !PARTS[part.type].rotatable ? 'Delete' : 'Enter Space Delete');
   }
   renderBeams();
-  const parts = Object.entries(state.inventory).filter(([, count]) => count > 0);
-  for (const [type] of parts) if (!holdOrder.includes(type)) holdOrder.push(type);
-  const pageCount = Math.max(1, Math.ceil(holdOrder.length / HOLD_SLOTS));
-  holdPage = Math.min(holdPage, pageCount - 1);
-  const visible = holdOrder.slice(holdPage * HOLD_SLOTS, (holdPage + 1) * HOLD_SLOTS);
-  $('#stacks').innerHTML = Array.from({ length: HOLD_SLOTS }, (_, index) => {
-    const type = visible[index], count = state.inventory[type] || 0;
-    if (!count) return '<button class="stack empty-slot" aria-label="Empty parts slot" disabled></button>';
-    return `<button class="stack${selection === type ? ' selected' : ''}${forgeMatches(state).has(type) ? ' forge-match' : ''}" data-type="${type}" aria-label="${PARTS[type].name} stack, ${count} available">${tileMarkup(type)}<span class="count">${count}</span></button>`;
+  $('#stacks').innerHTML = storageSlots(state).map((type, index) => {
+    const count = state.inventory[type] || 0;
+    if (!count) return `<button class="stack empty-slot" data-slot="${index}" aria-label="Empty parts slot ${index + 1}" disabled></button>`;
+    return `<button class="stack${selection === type ? ' selected' : ''}${forgeMatches(state).has(type) ? ' forge-match' : ''}" data-slot="${index}" data-type="${type}" aria-label="${PARTS[type].name} stack, ${count} available">${tileMarkup(type)}<span class="count">${count}</span></button>`;
   }).join('');
-  $('#hold-prev').disabled = holdPage === 0;
-  $('#hold-next').disabled = holdPage === pageCount - 1;
-  $('#stacks').setAttribute('aria-label', `Stored parts, page ${holdPage + 1} of ${pageCount}`);
   if (selection && !state.inventory[selection]) selection = null;
   renderForge();
   revision = state.revision;
@@ -92,7 +83,7 @@ function renderFrame() {
     button.querySelector('.charge-meter i').style.width = `${percent}%`;
     button.classList.toggle('charged', percent === 100);
     button.title = `${PARTS[part.type].name}: ${percent}% charged · ${rule.restore ? `+${rule.restore} ${rule.resource}` : `${B.pulseDamage} damage per pulse`}`;
-    button.setAttribute('aria-label', `${PARTS[part.type].name}, ${percent}% charged, ${state.circuit.active.has(index) ? 'powered' : 'disconnected'}, row ${Math.floor(index / B.gridSize) + 1}, column ${index % B.gridSize + 1}`);
+    button.setAttribute('aria-label', `${PARTS[part.type].name}, ${percent}% charged, ${state.circuit.active.has(index) ? 'powered' : 'disconnected'}, row ${Math.floor(index / B.gridColumns) + 1}, column ${index % B.gridColumns + 1}`);
   }
   $('#cash-label').textContent = state.cash;
   $('#shield-fill').style.width = `${state.shield / B.shield * 100}%`;
@@ -165,7 +156,7 @@ function positionPreviewAndFindTarget(x, y) {
 
 function clearGesture() {
   if (gesture && gameRoot.hasPointerCapture(gesture.pointerId)) gameRoot.releasePointerCapture(gesture.pointerId);
-  gesture = null; state.heldDrop = null; $('#drag-ghost').hidden = true; storage.classList.remove('drop-target'); $('#forge').classList.remove('invalid'); $('#forge').classList.remove('drop-target');
+  gesture = null; state.heldDrop = null; $('#drag-ghost').hidden = true; storage.classList.remove('drop-target', 'invalid'); $('#forge').classList.remove('invalid'); $('#forge').classList.remove('drop-target');
   renderLab();
 }
 
@@ -175,7 +166,9 @@ function previewDestination(target) {
     button.classList.remove('target', 'invalid');
     button.classList.toggle('drag-source', gesture?.source.kind === 'grid' && gesture.source.index === index);
   });
-  storage.classList.toggle('drop-target', target?.kind === 'storage');
+  const storageTarget = target?.kind === 'storage', storageValid = canStore(state, gesture.part.type);
+  storage.classList.toggle('drop-target', storageTarget && storageValid);
+  storage.classList.toggle('invalid', storageTarget && !storageValid);
   const forgeTarget = target?.kind === 'forge', forgeValid = forgeTarget && canAddToForge(state, gesture.part.type, target.index);
   $('#forge').classList.toggle('invalid', !!forgeTarget && !forgeValid);
   $('#forge').classList.toggle('drop-target', !!forgeValid);
@@ -218,13 +211,13 @@ gameRoot.addEventListener('pointerup', event => {
   if (current.dragging) {
     const target = positionPreviewAndFindTarget(event.clientX, event.clientY);
     const moved = target && movePart(state, current.source, target);
-    if (!moved) toast('Cannot place here');
+    if (!moved) toast(target?.kind === 'storage' && !canStore(state, current.part.type) ? 'Storage full' : 'Cannot place here');
   } else if (current.source.kind === 'forge') {
-    movePart(state, current.source, { kind: 'storage' });
+    if (!movePart(state, current.source, { kind: 'storage' })) toast('Storage full');
   } else if (current.source.kind === 'grid') {
     rotatePart(state, current.source.index);
   } else if (current.source.kind === 'drop') {
-    movePart(state, current.source, { kind: 'storage' });
+    if (!movePart(state, current.source, { kind: 'storage' })) toast('Storage full');
   } else { selection = selection === current.part.type ? null : current.part.type; }
   clearGesture();
   if (selection) buttons.forEach((button, i) => button.classList.toggle('valid', !state.grid[i]));
@@ -249,20 +242,24 @@ gameRoot.addEventListener('click', event => {
   }
   if (event.detail === 0) {
     const ingredient = event.target.closest('.forge-slot');
-    if (ingredient && state.forge.slots[ingredient.dataset.slot]) { movePart(state, { kind: 'forge', index: Number(ingredient.dataset.slot) }, { kind: 'storage' }); renderLab(); }
+    if (ingredient && state.forge.slots[ingredient.dataset.slot]) { if (!movePart(state, { kind: 'forge', index: Number(ingredient.dataset.slot) }, { kind: 'storage' })) toast('Storage full'); renderLab(); }
     const stack = event.target.closest('.stack'); if (stack) selectStack(stack.dataset.type);
     const drop = event.target.closest('.loot');
-    if (drop) { movePart(state, { kind: 'drop', id: Number(drop.dataset.id) }, { kind: 'storage' }); renderFrame(); checkDiscoveries(); }
+    if (drop) { if (!movePart(state, { kind: 'drop', id: Number(drop.dataset.id) }, { kind: 'storage' })) toast('Storage full'); renderFrame(); checkDiscoveries(); }
   }
 });
 cells.addEventListener('keydown', event => {
   const cell = event.target.closest('.cell'); if (!cell || modal.open) return;
   const index = Number(cell.dataset.index);
   if (['Delete', 'Backspace'].includes(event.key)) {
-    event.preventDefault(); if (movePart(state, { kind: 'grid', index }, { kind: 'storage' })) { renderLab(); toast('Part returned to hold'); }
+    event.preventDefault();
+    if (state.grid[index]) {
+      if (movePart(state, { kind: 'grid', index }, { kind: 'storage' })) { renderLab(); toast('Part returned to hold'); }
+      else toast('Storage full');
+    }
   }
-  const offsets = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -B.gridSize, ArrowDown: B.gridSize };
-  if (event.key in offsets) { event.preventDefault(); buttons[Math.max(0, Math.min(B.gridSize ** 2 - 1, index + offsets[event.key]))].focus(); }
+  const offsets = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -B.gridColumns, ArrowDown: B.gridColumns };
+  if (event.key in offsets) { event.preventDefault(); buttons[Math.max(0, Math.min(B.gridColumns * B.gridRows - 1, index + offsets[event.key]))].focus(); }
 });
 
 function openModal(kind, content) {
@@ -292,7 +289,7 @@ function showPause() {
 }
 
 function showGuide() {
-  openModal('guide', `<p class="modal-eyebrow">THE ENGINEER'S FIELD NOTES</p><h2 id="modal-title">Recipes & parts.</h2><h3>All forge recipes</h3><p class="modal-copy">The right column automatically forges any affordable recipe whose ingredients are present. Cash is deducted when it starts. Unrelated parts stay in place; any part can be added to an empty slot, even during another job. Glowing progress marks locked ingredients. Tap other ingredients to recover them. No recipe is a subset of another. The timer pauses with the dive.</p><div class="recipe-list">${RECIPES.map(r => `<article class="recipe-row"><div class="recipe-ingredients">${[...new Set(r.ingredients)].map(type => `<span>${r.ingredients.filter(t => t === type).length} × ${PARTS[type].name}</span>`).join(' + ')}</div><strong>→ ${PARTS[r.output].name}</strong><p>${PARTS[r.output].description}</p><small>${r.cost}¢ · ${r.seconds}s · ${r.ingredients.length} ingredients</small></article>`).join('')}</div><h3>Parts manual</h3><p class="modal-copy">The 6 × 6 lab fills the left side; the right column is the forge and the bottom row is storage. Its arrows page through fixed stacks without scrolling. All parts fit one square. Beams travel freely through empty cells. Only reactors and mirrors need rotation. Other parts work from any side. Thicker gold beams carry more power; thin beams carry less. Blue dashed beams pierce armor. Laser guns beam continuously for steady damage. Pink pulse guns store energy; their bars show charge. At 100% they fire a 54-damage pulse. Amplifiers speed up charging; lenses add piercing to either weapon. Shield and Medic terminals restore protection and hull when charged. They hold a full charge at full health; amplifiers speed them up, but lenses do not multiply repairs. Charged parts retain energy on the grid and clear it in storage. Your hold includes all three terminal types and a spare reactor.</p><div class="guide-list">${Object.entries(PARTS).map(([type, part]) => `<article class="guide-row"><div class="guide-tile">${tileMarkup(type)}</div><div><h3>${part.name}${state.discovered.has(type) ? '' : '<small>NOT FOUND YET</small>'}</h3><p>${part.description} ${part.tip}</p><p class="ports">${part.ports}</p></div></article>`).join('')}</div><h3>Enemy field guide</h3><div class="enemy-guide">${Object.entries(ENEMY_INFO).map(([type, info]) => `<article class="enemy-row"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART[type])}" alt=""><div><h4>${info.name}</h4><p>${info.tactic}</p><small>${B.enemies[type].hp} HP · ${B.enemies[type].armor} armor · ${B.enemies[type].damage} damage${B.enemies[type].shield ? ` · ${B.enemies[type].shield} shield` : ''}</small></div></article>`).join('')}</div><h3>Route atlas</h3>${Object.values(MAPS).map(map => `<p class="modal-copy"><strong>${map.name} · ${map.difficulty}</strong><br>${map.description}</p>`).join('')}<div class="guide-close"><button class="primary" data-action="close">Back to the dive →</button></div>`);
+  openModal('guide', `<p class="modal-eyebrow">THE ENGINEER'S FIELD NOTES</p><h2 id="modal-title">Recipes & parts.</h2><h3>All forge recipes</h3><p class="modal-copy">The right column automatically forges any affordable recipe whose ingredients are present. Cash is deducted when it starts. Unrelated parts stay in place; any part can be added to an empty slot, even during another job. Glowing progress marks locked ingredients. Tap other ingredients to recover them. No recipe is a subset of another. The timer pauses with the dive.</p><div class="recipe-list">${RECIPES.map(r => `<article class="recipe-row"><div class="recipe-ingredients">${[...new Set(r.ingredients)].map(type => `<span>${r.ingredients.filter(t => t === type).length} × ${PARTS[type].name}</span>`).join(' + ')}</div><strong>→ ${PARTS[r.output].name}</strong><p>${PARTS[r.output].description}</p><small>${r.cost}¢ · ${r.seconds}s · ${r.ingredients.length} ingredients</small></article>`).join('')}</div><h3>Parts manual</h3><p class="modal-copy">The 6 × 5 lab fills the left side; five forge slots run down the right. Two bottom rows hold 14 stacks, with no scrolling or pages. Identical parts share a slot; empty stacks free it. When storage is full, new types stay at their source and forged outputs wait in the forge. All parts fit one square. Beams travel freely through empty cells. Only reactors and mirrors need rotation. Other parts work from any side. Thicker gold beams carry more power; thin beams carry less. Blue dashed beams pierce armor. Laser guns beam continuously for steady damage. Pink pulse guns store energy; their bars show charge. At 100% they fire a 54-damage pulse. Amplifiers speed up charging; lenses add piercing to either weapon. Shield and Medic terminals restore protection and hull when charged. They hold a full charge at full health; amplifiers speed them up, but lenses do not multiply repairs. Charged parts retain energy on the grid and clear it in storage. Your hold includes all three terminal types and a spare reactor.</p><div class="guide-list">${Object.entries(PARTS).map(([type, part]) => `<article class="guide-row"><div class="guide-tile">${tileMarkup(type)}</div><div><h3>${part.name}${state.discovered.has(type) ? '' : '<small>NOT FOUND YET</small>'}</h3><p>${part.description} ${part.tip}</p><p class="ports">${part.ports}</p></div></article>`).join('')}</div><h3>Enemy field guide</h3><div class="enemy-guide">${Object.entries(ENEMY_INFO).map(([type, info]) => `<article class="enemy-row"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART[type])}" alt=""><div><h4>${info.name}</h4><p>${info.tactic}</p><small>${B.enemies[type].hp} HP · ${B.enemies[type].armor} armor · ${B.enemies[type].damage} damage${B.enemies[type].shield ? ` · ${B.enemies[type].shield} shield` : ''}</small></div></article>`).join('')}</div><h3>Route atlas</h3>${Object.values(MAPS).map(map => `<p class="modal-copy"><strong>${map.name} · ${map.difficulty}</strong><br>${map.description}</p>`).join('')}<div class="guide-close"><button class="primary" data-action="close">Back to the dive →</button></div>`);
 }
 
 function checkDiscoveries() {
@@ -307,7 +304,7 @@ function showEnd() {
 }
 
 function restart(mapId = state.mapId) {
-  selection = null; holdPage = 0; holdOrder = []; saveKnown(); state = createState(loadKnown(), mapId); revision = -1;
+  selection = null; saveKnown(); state = createState(loadKnown(), mapId); revision = -1;
   modal.close(); modalKind = null; gameRoot.classList.remove('is-paused');
   startDive(state); renderFrame();
 }
@@ -329,9 +326,6 @@ modal.addEventListener('cancel', event => {
   if ((modalKind === 'welcome' && state.status === 'ready') || modalKind === 'end') return;
   if (state.status === 'won' || state.status === 'lost') showEnd(); else closeModal();
 });
-for (const [id, direction] of [['hold-prev', -1], ['hold-next', 1]]) {
-  $(`#${id}`).addEventListener('click', () => { holdPage = Math.max(0, holdPage + direction); selection = null; renderLab(); });
-}
 $('#pause').addEventListener('click', showPause);
 $('#manual').addEventListener('click', showGuide);
 document.addEventListener('keydown', event => {
@@ -359,6 +353,7 @@ if (new URLSearchParams(location.search).has('test')) {
     setVitals: (hull, shield) => { state.hull = Math.max(0, Math.min(B.hull, hull)); state.shield = Math.max(0, Math.min(B.shield, shield)); state.shieldCooldown = B.shieldDelay; renderFrame(); },
     setCash: cash => { state.cash = Math.max(0, cash); renderFrame(); },
     setEnemies: enemies => { state.enemies = enemies; },
+    setInventory: inventory => { state.inventory = { ...inventory }; state.storageOrder.fill(null); state.revision++; renderFrame(); },
     setSpawnDelay: seconds => { state.spawnIn = Math.max(0, seconds); },
     setGrid: grid => { state.grid = grid; rebuild(state); renderLab(); },
   };

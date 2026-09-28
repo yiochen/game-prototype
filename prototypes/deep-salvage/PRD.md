@@ -8,7 +8,7 @@ Guide the engineering of a small yellow submarine through the ruins of a drowned
 
 - Portrait mobile first. The upper half is the animated world; the lower half is the weapon lab with a full-width parts hold beneath both the grid and the always-visible vertical forge strip on the right. Cartoon shapes, thick ink outlines, cream instrument panels, turquoise beams, yellow machinery and purple enemies.
 - The submarine follows a predefined route, never dodges, and automatically fires every powered gun at incoming enemies. Multiple guns choose targets independently.
-- The lower panel is one 7 × 7 surface: a 6 × 6 lab, six forge cells in the right column, and a seven-cell storage row along the bottom. Every part occupies exactly one square. Beams cross empty cells without needing connectors. Part order, rotation, branching and limited space create the puzzle.
+- The lower panel is one 7 × 7 surface: a 6 × 5 lab, five forge cells in the right column, and two seven-cell storage rows along the bottom. Every part occupies exactly one square. Beams cross empty cells without needing connectors. Part order, rotation, branching and limited space create the puzzle.
 - Every defeated enemy pays cash automatically. Roughly one in four also drops a component (the first kill is guaranteed salvage). Drops fall to the floor, remain selectable, flash shortly before expiring, then disappear.
 - Tap a battlefield drop to salvage it into storage. Drag it directly into the lab to install it, or into storage to save it.
 - Identical parts stack in storage only. Dragging a stack removes one copy only after a valid placement. Installed parts may be dragged to another empty cell or returned to storage.
@@ -20,17 +20,20 @@ Guide the engineering of a small yellow submarine through the ruins of a drowned
 
 ### Engineering layout and fixed storage slots
 
-The lower panel contains only the 7 × 7 engineering surface: tiles, beams, stack counts, tier badges, charge/forge progress and paging arrows. No labels, headings, explanatory text or Forge button occupy it. The upper HUD keeps wave number, cash, hull/shield meters and icon-only guide/pause controls. Instructions and recipe details remain in the manual, with accessible names on every control.
+The lower panel contains only the 7 × 7 engineering surface: tiles, beams, stack counts, tier badges, charge/forge progress. No labels, headings, explanatory text or Forge button occupy it. The upper HUD keeps wave number, cash, hull/shield meters and icon-only guide/pause controls. Instructions and recipe details remain in the manual, with accessible names on every control.
 
-The seven-cell storage row has five fixed stack slots per page and previous/next buttons. It does not scroll. Dragging works in any direction, including horizontally; tapping a stack then an empty lab/forge cell still places it. A part type retains its assigned slot when its count reaches zero; later copies return there. New types take the next unused slot, adding pages as needed. Page navigation clears selection, and a fresh dive resets pages. Mouse, touch and keyboard share these rules.
+Storage has a fixed capacity of fourteen stacks, all visible in a 7 × 2 arrangement. Identical parts share one slot and can stack even when all fourteen slots are occupied. There are no pages, navigation arrows or scrolling gestures. Dragging works in every direction; tapping a stack then an empty lab/forge cell still places one copy.
+
+Occupied stacks retain their positions. Using the last copy frees that slot for another type; other stacks never shift. New types use the first empty slot. When storage is full, a new type cannot be salvaged or returned to storage: the part stays at its source, no quantity is consumed, no discovery is triggered, and a brief “Storage full” notification explains the rejection. A battlefield part can still be dragged directly into an empty lab or forge cell. Failed salvage leaves the drop's normal expiry timer running. A fresh dive resets storage.
+
 
 | Area | Grid allocation | Interaction |
 | --- | --- | --- |
-| Weapon lab | Rows 1–6, columns 1–6 | Place one-square parts, rotate directional parts and preview beam changes. |
-| Forge | Rows 1–6, column 7 | Stage any parts; complete affordable recipes start automatically. |
-| Storage | Row 7, columns 1–7 | Five fixed stack slots plus previous/next page arrows; no swipe scrolling. |
+| Weapon lab | Rows 1–5, columns 1–6 | Place one-square parts, rotate directional parts and preview beam changes. |
+| Forge | Rows 1–5, column 7 | Stage any parts; complete affordable recipes start automatically. |
+| Storage | Rows 6–7, columns 1–7 | Fourteen fixed stack slots; no pagination or scrolling. |
 
-The bottom-right cell belongs to the storage row. The forge therefore has six ingredient slots, and every lab, forge and storage cell uses the same square size.
+The entire bottom two rows, including their rightmost cells, belong to storage. The forge has five ingredient slots. Every lab, forge and storage cell uses the same square size.
 
 
 ### Components
@@ -78,7 +81,7 @@ All ten enemies have distinct art and a field-guide entry with stats and counter
 
 ### Forge
 
-The forge occupies the rightmost column above storage, with six square slots and no heading, explanatory text or start button. The 6 × 6 lab and forge share the same cell size. Storage spans the complete bottom row. All controls remain visible without tabs.
+The forge occupies the rightmost column above storage, with five square slots and no heading, explanatory text or start button. The 6 × 5 lab and forge share the same cell size. Storage spans both complete bottom rows. All controls remain visible without tabs.
 
 Drag any part from the hold, battlefield or lab into an empty forge slot. Parts do not need to contribute to a recipe. Empty slots continue accepting parts while a job runs; only the ingredients of that job lock. Unlocked ingredients can be moved to another forge slot, installed in the lab, dragged back to storage, or tapped to return them. Occupied slots reject placement without consuming anything.
 
@@ -86,7 +89,7 @@ Recipes are unordered ingredient multisets with exact quantities. A recipe can m
 
 No recipe may be a subset of another recipe, accounting for duplicate quantities. This prevents automatic forging from consuming an intended larger recipe halfway through assembly. The three- and four-part recipes use distinct upgraded ingredients to preserve this property. Automated tests enforce the invariant for every pair. All thirteen recipes are listed in the manual from the start, including quantities, output effects, prices and durations.
 
-After adding an ingredient, possible remaining partners glow in the lab, hold and battlefield; unrelated ingredients do not suppress suggestions. While working, the selected slots show gold borders and progress bars. Completion clears only the consumed slots, stacks the output in the hold and triggers its normal first-discovery introduction. Other stored ingredients remain in place. Forge timing obeys pause, discovery dialogs, backgrounding and slowed engineering time.
+After adding an ingredient, possible remaining partners glow in the lab, hold and battlefield; unrelated ingredients do not suppress suggestions. While working, the selected slots show gold borders and progress bars. Completion clears only the consumed ingredients and triggers the output’s normal first-discovery introduction. If storage has room or already contains that output type, the result joins its stack. Otherwise, the output remains as an unlocked part in the first consumed forge slot; no output is discarded and capacity is never exceeded. The player can install it directly or tap/drag it into storage after freeing a slot. Other forge ingredients remain in place. Forge timing obeys pause, discovery dialogs, backgrounding and slowed engineering time.
 
 | Ingredients | Output | Effect | Cash / seconds |
 | --- | --- | --- | --- |
@@ -125,10 +128,11 @@ Engine tests cover beam travel, rotation, splitting, amplification, piercing, in
 ### Layout and automatic forge acceptance criteria
 
 - Normal play shows a single 7 × 7 lower panel without labels, explanations, textual power readouts or a Forge button. Stack counts, tier badges and visual progress remain visible.
-- Paging never scrolls or shifts storage slots; dragging a stored part in any direction remains a placement gesture.
+- The panel contains 30 lab cells, 5 forge cells and 14 storage cells, all visible at once. There are no pagination controls or swipe scrolling.
+- Occupied storage stacks never shift. Depleting a stack frees one slot; adding a fifteenth distinct type fails without consuming its source. Identical types can still join existing stacks.
 - Any part can enter an empty forge slot, even if it contributes to no recipe or another job is running.
 - Adding the last required ingredient starts an affordable recipe automatically. A complete recipe waiting for cash starts when sufficient cash arrives; a queued recipe waits for the current job.
-- Starting a job deducts cash once and locks only its matched ingredients. Completion consumes only those ingredients, preserves unrelated parts and adds the output to storage.
+- Starting a job deducts cash once and locks only its matched ingredients. Completion consumes only those ingredients and preserves unrelated parts. Its output goes to storage if it fits, otherwise remains recoverable in the forge.
 - Every recipe appears in the manual with exact ingredients, cost, duration and output. For any two recipes, neither ingredient collection may be contained in the other, counting duplicate quantities; automated checks must reject duplicates and subset recipes.
 
 ## Explicitly deferred

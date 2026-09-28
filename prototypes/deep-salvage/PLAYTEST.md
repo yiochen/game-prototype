@@ -2,25 +2,27 @@
 
 ## Current checks
 
-- `npm test`: 108 repository engine tests passed, including 48 Deep Salvage tests.
+- `npm test`: 112 repository engine tests passed, including 52 Deep Salvage tests.
 - `npm run build`: passed. Vite retains its advisory for the shared Phaser chunk exceeding 500 kB; the prototype's own JavaScript is approximately 62 kB before gzip.
-- All 20 browser scenarios passed after the layout and test-fixture corrections described below. Checks use the production build, real mouse/touch gestures and screenshots of the Phaser canvas plus DOM interface.
+- All 21 browser scenarios passed after the layout and test-fixture corrections described below. Checks use the production build, real mouse/touch gestures and screenshots of the Phaser canvas plus DOM interface.
 
 Phone layouts were checked at 412 × 924, 448 × 1000, 412 × 820 and 360 × 740 CSS pixels; landscape at 924 × 412. The normal play screen does not scroll or clip controls. Lab and forge cells have equal widths, at least 44 CSS pixels at these sizes. Touch input also runs in a mobile context at 3× density. These are browser emulations, not physical-device tests.
 
 ## Seven-by-seven engineering surface
 
-The lower panel contains 36 lab cells, six forge cells in the right column, and a full-width bottom row with five fixed stack slots and two paging arrows. There are no panel labels, explanatory text, tile power readouts or forge action button. Charge bars, beam appearance, stack counts and upgraded icons remain visible.
+The lower panel contains 30 lab cells (6 × 5), five forge cells in the right column, and fourteen storage cells across the bottom two rows (7 × 2). There are no panel labels, explanatory text, tile power readouts, forge action button or pagination controls. Charge bars, beam appearance, stack counts and upgraded icons remain visible.
 
-Browser checks cover pagination, persistent empty stack slots, tap-to-place from a later page, horizontal touch dragging without scrolling, cancelled gestures and direct hold-to-forge placement. Mouse and touch drops use the floating preview center, including bottom-row destinations with the finger outside the highlighted cell. Occupied cells reject without consuming a part. Keyboard rotation/removal, branching circuits, battlefield salvage and return to storage remain covered.
+Storage capacity is enforced by the engine, rather than hiding overflow. Tests cover fourteen occupied stacks, adding duplicate parts, rejecting new types without consuming their source, reusing an emptied slot without shifting its neighbors, and keeping a forged output in the forge if storage cannot accept it. The output remains draggable to the lab and can be recovered after making room.
 
-The initial layout check exposed an inherited CSS alignment rule narrowing forge cells. The forge now explicitly fills its single grid column. Screenshots were inspected after the fix: `pixel-10-pro.png`, `small-phone.png`, `landscape.png`, `fixed-parts-small-phone.png`, `two-gun-circuit.png` and `forged-piercing-beam.png` under the ignored `artifacts/deep-salvage/` directory.
+Browser checks cover all slots being visible, horizontal touch dragging without scrolling, cancelled gestures, tap-to-place, direct hold-to-forge placement, full-storage feedback and installing a completed output from a full forge. Mouse and touch drops still use the floating preview center. Keyboard rotation/removal, branching circuits, battlefield salvage and return to storage remain covered.
+
+Screenshots are saved under the ignored `artifacts/deep-salvage/` directory, including `pixel-10-pro.png`, `small-phone.png`, `landscape.png`, `fixed-parts-small-phone.png`, `full-hold-forge-output.png` and `forged-piercing-beam.png`.
 
 ## Automatic forge
 
 All thirteen recipes run in both ingredient orders in engine tests. Pairwise multiset checks reject duplicate/subset recipes. The larger recipes use upgraded components: Piercing amplifier + Overcharger + Rail lens produces Prism overcharger; Trident + Prism mirror + Fusion core + Heavy laser produces Duplicator.
 
-Tests verify automatic start on the last ingredient, exactly-once payment/output, waiting for cash, pausing timers, queueing behind the current job, arbitrary unrelated ingredients, six-slot capacity, occupied-slot rejection, and moving unused ingredients during a job. Only matched slots lock and clear; leftovers survive. Completion stacks the output and triggers the standard discovery introduction.
+Tests verify automatic start on the last ingredient, exactly-once payment/output, waiting for cash, pausing timers, queueing behind the current job, arbitrary unrelated ingredients, five-slot capacity, occupied-slot rejection, and moving unused ingredients during a job. Only matched slots lock and clear; leftovers survive. Completion stores the output when it fits, otherwise retains it in a consumed forge slot, and triggers the standard discovery introduction.
 
 Browser checks forge duplicate, mixed, three-part and four-part recipes through actual drag controls, inspect partner highlights in the lab/hold/battlefield, install outputs, and verify enhanced icons and stronger piercing beams. Forge-only fixtures delay enemy spawning so cash assertions and timers are independent of combat rewards and defeat. Combat runs normally in the separate gameplay scenarios. Screenshots include `automatic-forge-working.png`, `recipe-manual.png`, `three-part-forge.png` and `four-part-forge.png`.
 

@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { PARTS } from '../parts.js';
 import { mkdir } from 'node:fs/promises';
 
 // Netlify's documented query flag keeps its review drawer off the mobile controls.
@@ -18,9 +19,6 @@ async function boot(page) {
 }
 async function storedPart(page, type) {
   const locator = page.locator(`.stack[data-type="${type}"]`);
-  if (await locator.count()) return locator;
-  while (await page.locator('#hold-prev').isEnabled()) await page.locator('#hold-prev').click();
-  while (!(await locator.count()) && await page.locator('#hold-next').isEnabled()) await page.locator('#hold-next').click();
   await expect(locator).toBeVisible();
   return locator;
 }
@@ -58,9 +56,9 @@ test('Pixel-shaped portrait and landscape layouts fit, render Phaser art and sta
   const errors = []; page.on('pageerror', error => errors.push(error.message));
   await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
   await page.evaluate(() => window.__deepSalvage.advance(3));
-  await expect(page.locator('.cell')).toHaveCount(36);
-  await expect(page.locator('.forge-slot')).toHaveCount(6);
-  await expect(page.locator('#storage button')).toHaveCount(7);
+  await expect(page.locator('.cell')).toHaveCount(30);
+  await expect(page.locator('.forge-slot')).toHaveCount(5);
+  await expect(page.locator('#storage button')).toHaveCount(14);
   await expect(page.locator('#console h1, #console h2, #console p, #console .part-readout, #forge-start')).toHaveCount(0);
   for (const [name, width, height] of [['pixel-10-pro', 412, 924], ['pixel-large-css', 448, 1000], ['pixel-browser-bars', 412, 820], ['small-phone', 360, 740], ['landscape', 924, 412]]) {
     await page.setViewportSize({ width, height });
@@ -84,6 +82,13 @@ test('Pixel-shaped portrait and landscape layouts fit, render Phaser art and sta
       if (i) expect(slots[i].y).toBeGreaterThanOrEqual(slots[i - 1].bottom);
     }
     expect(b.cell.w).toBeGreaterThanOrEqual(44);
+    const storageCells = await page.locator('#storage button').evaluateAll(els => els.map(el => { const r = el.getBoundingClientRect(); return {x:r.x,y:r.y,w:r.width,h:r.height}; }));
+    expect(new Set(storageCells.map(r => Math.round(r.y))).size).toBe(2);
+    for (const slot of storageCells) {
+      expect(slot.w).toBeGreaterThanOrEqual(44); expect(slot.h).toBeGreaterThanOrEqual(44);
+      expect(slot.w).toBeCloseTo(b.cell.w,0);
+    }
+
     await shot(page, name);
   }
   expect(errors).toEqual([]);
@@ -119,7 +124,7 @@ test('drag storage and battlefield parts into lab, rotate once, reject occupied 
   await expect((await storedPart(page, 'mirror')).locator('.count')).toHaveText('1');
   await cell(page, 13).click();
   await expect(cell(page, 13)).toHaveAttribute('aria-label', /Mirror, 90 degrees/);
-  await drag(page, cell(page, 13), cell(page, 32));
+  await drag(page, cell(page, 13), cell(page, 26));
   await expect(cell(page, 13)).toHaveAttribute('aria-label', /Mirror, 90 degrees/);
   await drag(page, cell(page, 13), page.locator('#storage'));
   await expect(cell(page, 13)).toHaveClass(/empty/);
@@ -136,8 +141,8 @@ test('drag storage and battlefield parts into lab, rotate once, reject occupied 
 test('touch tap rotates exactly once, touch salvage works, and cancelled drag never consumes a stack', async ({ browser }) => {
   const context = await browser.newContext({ viewport: { width: 412, height: 924 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true });
   const page = await context.newPage(); await boot(page);
-  await cell(page, 32).tap();
-  await expect(cell(page, 32)).toHaveAttribute('aria-label', /90 degrees/);
+  await cell(page, 26).tap();
+  await expect(cell(page, 26)).toHaveAttribute('aria-label', /90 degrees/);
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().circuit.guns.length)).toBe(0);
   const id = await page.evaluate(() => window.__deepSalvage.drop('mirror'));
   await page.locator(`.loot[data-id="${id}"]`).tap();
@@ -177,34 +182,34 @@ test('touch tap rotates exactly once, touch salvage works, and cancelled drag ne
 
 test('preview center determines highlighted and committed destinations, including grid edges and storage', async ({ page }) => {
   await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
-  await drag(page, (await storedPart(page, 'mirror')), cell(page, 31), async pointer => {
-    await expect(cell(page, 31)).toHaveClass(/target/);
-    const box = await cell(page, 31).boundingBox();
+  await drag(page, (await storedPart(page, 'mirror')), cell(page, 25), async pointer => {
+    await expect(cell(page, 25)).toHaveClass(/target/);
+    const box = await cell(page, 25).boundingBox();
     expect(pointer.y).toBeGreaterThan(box.y + box.height);
     await shot(page, 'preview-aligned-bottom-row');
   });
-  await expect(cell(page, 31)).toHaveAttribute('aria-label', /Mirror/);
+  await expect(cell(page, 25)).toHaveAttribute('aria-label', /Mirror/);
   // An occupied preview destination must be rejected even with the finger over
   // an empty neighboring cell. No source part is consumed.
   await drag(page, (await storedPart(page, 'mirror')), cell(page, 20), async () => {
     await expect(cell(page, 20)).toHaveClass(/invalid/);
   });
   await expect((await storedPart(page, 'mirror')).locator('.count')).toHaveText('1');
-  await drag(page, cell(page, 31), page.locator('#storage'), async () => {
+  await drag(page, cell(page, 25), page.locator('#storage'), async () => {
     await expect(page.locator('#storage')).toHaveClass(/drop-target/);
   });
-  await expect(cell(page, 31)).toHaveClass(/empty/);
+  await expect(cell(page, 25)).toHaveClass(/empty/);
   await expect((await storedPart(page, 'mirror')).locator('.count')).toHaveText('2');
 });
 
 test('a gun beside the reactor stays powered and ignores rotation taps', async ({ page }) => {
   await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
-  await drag(page, cell(page, 2), cell(page, 34));
-  await cell(page, 32).click(); // Reactor now emits right through empty cell 23.
+  await drag(page, cell(page, 2), cell(page, 28));
+  await cell(page, 26).click(); // Reactor now emits right through empty cell 23.
   for (let rotation = 0; rotation < 4; rotation++) {
     expect(await page.evaluate(() => window.__deepSalvage.snapshot().circuit.guns.length)).toBe(1);
-    await expect(cell(page, 34)).toHaveClass(/active/);
-    await cell(page, 34).click();
+    await expect(cell(page, 28)).toHaveClass(/active/);
+    await cell(page, 28).click();
   }
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().circuit.guns.length)).toBe(1);
   await page.locator('#manual').click();
@@ -214,7 +219,7 @@ test('a gun beside the reactor stays powered and ignores rotation taps', async (
 test('a horizontal circuit amplifies, pierces and splits without orienting its parts', async ({ page }) => {
   await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
   await page.evaluate(() => {
-    const grid = Array(36).fill(null);
+    const grid = Array(30).fill(null);
     grid[12] = { type: 'reactor', rotation: 1 };
     grid[13] = { type: 'amplifier', rotation: 0 };
     grid[14] = { type: 'lens', rotation: 0 };
@@ -275,7 +280,7 @@ test('loot expiry flashes then disappears, pause freezes clocks, and defeat rest
   await page.getByRole('button', { name: 'Keep going' }).click();
   await page.evaluate(() => window.__deepSalvage.advance(3));
   await expect(page.locator(`.loot[data-id="${id}"]`)).toHaveCount(0);
-  await page.evaluate(() => { window.__deepSalvage.setGrid(Array(36).fill(null)); window.__deepSalvage.advance(180); });
+  await page.evaluate(() => { window.__deepSalvage.setGrid(Array(30).fill(null)); window.__deepSalvage.advance(180); });
   await expect(page.locator('#modal-title')).toHaveText('A brave little dive.');
   await page.getByRole('button', { name: 'Another dive' }).click();
   await expect(page.locator('#hull-label')).toHaveText('100');
@@ -306,7 +311,7 @@ test('automatic forge waits for cash, locks only ingredients, pauses, and preser
   await drag(page, await storedPart(page, 'amplifier'), forge(page, 2));
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().forge.job)).toBeNull();
   await expect(forge(page, 0)).toHaveClass(/waiting-cash/);
-  await drag(page, await storedPart(page, 'pulse'), forge(page, 5));
+  await drag(page, await storedPart(page, 'pulse'), forge(page, 1));
   await page.evaluate(() => { window.__deepSalvage.setCash(24); window.__deepSalvage.advance(.01); });
   await expect(page.locator('#cash-label')).toHaveText('0');
   await expect(forge(page, 0)).toBeDisabled(); await expect(forge(page, 2)).toBeDisabled();
@@ -324,7 +329,7 @@ test('automatic forge waits for cash, locks only ingredients, pauses, and preser
   await page.getByRole('button', { name: "Got it. Let's build" }).click();
   await expect(forge(page, 0)).toHaveAttribute('data-type', '');
   await expect(forge(page, 3)).toHaveAttribute('data-type', 'medic');
-  await expect(forge(page, 5)).toHaveAttribute('data-type', 'pulse');
+  await expect(forge(page, 1)).toHaveAttribute('data-type', 'pulse');
   await drag(page, await storedPart(page, 'amplifier2'), cell(page, 14));
   await expect(cell(page, 14).locator('.tier-badge')).toHaveText('II');
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().forged)).toBe(1);
@@ -358,9 +363,9 @@ test('unmatched forge ingredients can be returned by tap or dragged into the lab
   await forge(page, 0).click();
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().inventory.amplifier)).toBe(3);
   await expect(forge(page, 0)).toHaveAttribute('data-type', '');
-  await drag(page, await storedPart(page, 'mirror'), forge(page, 5));
-  await drag(page, forge(page, 5), cell(page, 35));
-  await expect(cell(page, 35)).toHaveAttribute('aria-label', /Mirror/);
+  await drag(page, await storedPart(page, 'mirror'), forge(page, 4));
+  await drag(page, forge(page, 4), cell(page, 29));
+  await expect(cell(page, 29)).toHaveAttribute('aria-label', /Mirror/);
   await expect(page.locator('[role=tab], #forge-start')).toHaveCount(0);
 });
 
@@ -426,7 +431,7 @@ test('continuous laser and draggable pulse gun show independent damage, charging
   await expect(cell(page, 2).locator('.part-pulse')).toBeVisible();
   await page.evaluate(() => {
     const grid = window.__deepSalvage.snapshot().grid;
-    grid[30] = { type: 'reactor', rotation: 0 }; grid[2].charge = 0;
+    grid[24] = { type: 'reactor', rotation: 0 }; grid[2].charge = 0;
     window.__deepSalvage.setGrid(grid);
     window.__deepSalvage.setEnemies([{ id: 950, type: 'warden', hp: 1000, maxHp: 1000, shield: 0, armor: 0, speed: 0, x: .7, y: .4, attackIn: 100 }]);
     window.__deepSalvage.advance(1);
@@ -461,7 +466,7 @@ test('continuous laser and draggable pulse gun show independent damage, charging
 test('Shield and Medic drag from hold, charge from a reactor, restore vitals and pause with the guide', async ({ page }) => {
   const errors = []; page.on('pageerror', error => errors.push(error.message));
   await page.setViewportSize({ width: 412, height: 924 }); await boot(page);
-  await drag(page, (await storedPart(page, 'reactor')), cell(page, 30));
+  await drag(page, (await storedPart(page, 'reactor')), cell(page, 24));
   await drag(page, (await storedPart(page, 'shield')), cell(page, 0));
   expect(await page.evaluate(() => window.__deepSalvage.snapshot().circuit.supports.length)).toBe(1);
   await page.evaluate(() => { window.__deepSalvage.setVitals(80, 0); window.__deepSalvage.advance(4.1); });
@@ -520,37 +525,55 @@ test('route selection changes encounters and scenery, survives restart, and offe
 });
 
 
-test('fixed full-width parts pages stay put during swipes and still drag into the lab', async ({ browser }) => {
+test('fourteen fixed storage slots stay visible, do not scroll, and free slots without shifting neighbors', async ({ browser }) => {
   const context = await browser.newContext({viewport:{width:360,height:740},isMobile:true,hasTouch:true});
   const page = await context.newPage(); await boot(page);
-  await expect(page.locator('#stacks .stack')).toHaveCount(5);
-  await expect(page.locator('#hold-prev')).toBeDisabled();
-  await expect(page.locator('#forge h2')).toHaveCount(0);
-  await expect(page.locator('#console h1, #console h2, #console p, #console .part-readout, #forge-start')).toHaveCount(0);
-  await expect(page.locator('.world-footer')).toHaveClass(/sr-only/);
-  const first = await page.locator('#stacks').innerHTML();
-  await page.locator('#hold-next').tap();
-  await expect(page.locator('#hold-next')).toBeDisabled();
-  await expect(page.locator('#stacks')).toHaveAttribute('aria-label','Stored parts, page 2 of 2');
-  await expect(page.locator('.empty-slot')).toHaveCount(3);
-  await expect(page.locator('.stack[data-type="reactor"]')).toBeVisible();
-  await page.locator('#hold-prev').tap();
-  expect(await page.locator('#stacks').innerHTML()).toBe(first);
-  const a = await page.locator('.stack[data-type="mirror"]').boundingBox();
+  await expect(page.locator('#stacks .stack')).toHaveCount(14);
+  await expect(page.locator('#hold-prev, #hold-next')).toHaveCount(0);
+  await expect(page.locator('.empty-slot')).toHaveCount(7);
+  const reactor = page.locator('.stack[data-type="reactor"]');
+  const reactorSlot = await reactor.getAttribute('data-slot');
+  const mirror = page.locator('.stack[data-type="mirror"]');
+  const original = await mirror.boundingBox();
   const cdp = await context.newCDPSession(page);
-  await cdp.send('Input.dispatchTouchEvent', {type:'touchStart',touchPoints:[{x:a.x+22,y:a.y+22}]});
-  await cdp.send('Input.dispatchTouchEvent', {type:'touchMove',touchPoints:[{x:a.x+100,y:a.y+22}]});
+  await cdp.send('Input.dispatchTouchEvent', {type:'touchStart',touchPoints:[{x:original.x+22,y:original.y+22}]});
+  await cdp.send('Input.dispatchTouchEvent', {type:'touchMove',touchPoints:[{x:original.x+100,y:original.y+22}]});
   await expect(page.locator('#drag-ghost')).toBeVisible();
-  expect(await page.locator('#stacks').evaluate(el=>el.scrollLeft)).toBe(0);
-  await expect(page.locator('#stacks')).toHaveAttribute('aria-label','Stored parts, page 1 of 2');
+  expect(await page.locator('#storage').evaluate(el=>el.scrollLeft)).toBe(0);
   await cdp.send('Input.dispatchTouchEvent', {type:'touchCancel',touchPoints:[]});
-  await expect(page.locator('.stack[data-type="mirror"] .count')).toHaveText('2');
-  await page.locator('#hold-next').tap();
-  await page.locator('.stack[data-type="reactor"]').tap(); await cell(page,30).tap();
-  await expect(cell(page,30)).toHaveAttribute('aria-label',/Reactor/);
-  await expect(page.locator('#stacks .stack')).toHaveCount(5);
-  await expect(page.locator('#stacks .stack').nth(1)).toHaveClass(/empty-slot/);
-  await expect(page.locator('.stack[data-type=amplifier]')).toHaveCount(1);
+  await expect(mirror.locator('.count')).toHaveText('2');
+  await reactor.tap(); await cell(page,24).tap();
+  await expect(cell(page,24)).toHaveAttribute('aria-label',/Reactor/);
+  await expect(page.locator(`.stack[data-slot="${reactorSlot}"]`)).toHaveClass(/empty-slot/);
+  expect(await mirror.boundingBox()).toEqual(original);
+  await expect(page.locator('#stacks .stack')).toHaveCount(14);
   await shot(page,'fixed-parts-small-phone');
   await context.close();
+});
+
+test('full storage rejects new types safely and completed upgrades remain usable in the forge', async ({ page }) => {
+  await page.setViewportSize({width:412,height:924}); await boot(page);
+  const inventory = Object.fromEntries(Object.keys(PARTS).filter(type => !['amplifier2','prism'].includes(type)).slice(0,14).map(type => [type, type === 'amplifier' ? 3 : 1]));
+  await page.evaluate(inventory => {
+    window.__deepSalvage.setEnemies([]); window.__deepSalvage.setSpawnDelay(1000);
+    window.__deepSalvage.setInventory(inventory);
+  }, inventory);
+  await expect(page.locator('#stacks .stack:not(.empty-slot)')).toHaveCount(14);
+  const id = await page.evaluate(() => window.__deepSalvage.drop('prism'));
+  await page.locator(`.loot[data-id="${id}"]`).click();
+  await expect(page.locator('#toast')).toHaveText('Storage full');
+  await expect(page.locator(`.loot[data-id="${id}"]`)).toBeVisible();
+  await expect(page.locator('#modal')).not.toBeVisible();
+  for (const index of [0,1]) await drag(page, await storedPart(page,'amplifier'), forge(page,index));
+  await page.evaluate(() => window.__deepSalvage.advance(7));
+  await expect(page.locator('#modal-title')).toHaveText('Overcharger.');
+  await page.getByRole('button',{name:"Got it. Let's build"}).click();
+  await expect(forge(page,0)).toHaveAttribute('data-type','amplifier2');
+  await expect(forge(page,0)).toBeEnabled();
+  await expect(page.locator('#stacks .stack:not(.empty-slot)')).toHaveCount(14);
+  await forge(page,0).click();
+  await expect(forge(page,0)).toHaveAttribute('data-type','amplifier2');
+  await shot(page,'full-hold-forge-output');
+  await drag(page,forge(page,0),cell(page,14));
+  await expect(cell(page,14)).toHaveAttribute('aria-label',/Overcharger/);
 });
