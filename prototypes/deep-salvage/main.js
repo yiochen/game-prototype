@@ -3,6 +3,10 @@ import { BALANCE as B, PART_RULES, MAPS, ENEMY_INFO, mapFor } from './balance.js
 import { PARTS, tileMarkup } from './parts.js';
 import { RECIPES } from './recipes.js';
 import { ART } from './artwork.js';
+import cityLevel from './assets/levels/sunken-city.webp';
+import kelpLevel from './assets/levels/kelp-wilds.webp';
+import foundryLevel from './assets/levels/cinder-foundry.webp';
+const LEVEL_ART = { city: cityLevel, kelp: kelpLevel, foundry: foundryLevel };
 import { createState, startDive, tick, traceCircuit, rebuild, rotatePart, movePart, sourcePart, spawnDrop, forgeMatches, forgeRecipe, canAddToForge, canStore, storageSlots } from './engine.js';
 import { createWorld } from './world.js';
 
@@ -265,7 +269,7 @@ cells.addEventListener('keydown', event => {
 function openModal(kind, content) {
   if (gesture) clearGesture();
   restoreFocus = modal.open ? restoreFocus : document.activeElement;
-  modalKind = kind; state.paused = true; gameRoot.classList.add('is-paused');
+  modalKind = kind; modal.dataset.kind = kind; state.paused = true; gameRoot.classList.add('is-paused');
   $('#modal-content').innerHTML = content;
   if (!modal.open) modal.showModal();
   $('#modal-content').scrollTop = 0;
@@ -281,7 +285,7 @@ function closeModal() {
 
 function showWelcome() {
   selectedMap = state.mapId;
-  openModal('welcome', `<div class="welcome-art"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART.submarine)}" alt="A little yellow submarine"></div><p class="modal-eyebrow">A LITTLE MACHINE. A BIG OCEAN.</p><h2 id="modal-title">Deep Salvage<span class="title-dot">.</span></h2><p class="modal-copy">The city sank. Your ingenuity didn't.<br>Keep your submarine alive with whatever you find.</p><p class="modal-copy">Tap fallen parts to salvage. Drag parts into the lab or forge. Rotate reactors and mirrors; every recipe is in the guide.</p><fieldset class="route-picker"><legend>Choose your route</legend>${Object.entries(MAPS).map(([id, map]) => `<button type="button" class="route-card" data-map="${id}" aria-pressed="${id === selectedMap}"><strong>${map.name}</strong><small>${map.difficulty} · 3 waves</small><span>${map.description}</span></button>`).join('')}</fieldset><p class="modal-copy">Shield and Medic terminals charge from beams to restore protection and hull. One of each and an extra reactor are in your hold. Starting a route begins a fresh dive.</p><div class="modal-actions"><button class="primary" data-action="start">Let's dive →</button>${state.status !== 'ready' ? '<button class="secondary" data-action="close">Back to current dive</button>' : ''}</div>`);
+  openModal('welcome', `<div class="welcome-art"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART.submarine)}" alt="A little yellow submarine"></div><h2 id="modal-title">Deep Salvage<span class="title-dot">.</span></h2><fieldset class="route-picker"><legend>Levels</legend>${Object.entries(MAPS).map(([id, map]) => `<button type="button" class="route-card" data-map="${id}" aria-pressed="${id === selectedMap}"><img class="level-background" src="${LEVEL_ART[id]}" alt="" width="768" height="512"><strong>${map.name}</strong><small>${map.difficulty} · 3 waves</small></button>`).join('')}</fieldset><div class="modal-actions"><button class="primary" data-action="start">Let's dive →</button>${state.status !== 'ready' ? '<button class="secondary" data-action="close">Back to current dive</button>' : ''}</div>`);
 }
 
 function showPause() {

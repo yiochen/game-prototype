@@ -9,11 +9,11 @@ npm install
 npm run dev
 ```
 
-Open `/prototypes/deep-salvage/`. No account or runtime network request is needed. Nunito is bundled under the SIL Open Font License; see `assets/fonts/OFL.txt`. All world and component art is original procedural/vector artwork owned by this prototype.
+Open `/prototypes/deep-salvage/`. No account or runtime network request is needed. Nunito is bundled under the SIL Open Font License; see `assets/fonts/OFL.txt`. World and component art uses original procedural/vector artwork. Level-card backgrounds were generated with the built-in image generation tool; the saved assets and prompts are documented in [assets/levels/PROMPTS.md](./assets/levels/PROMPTS.md).
 
 ## Play
 
-- Choose Sunken City, Kelp Wilds or Cinder Foundry before diving. Each route has its own scenery, path, depth and three enemy waves. Pause or finish a dive to choose another route; restarting keeps the current map.
+- Choose Sunken City, Kelp Wilds or Cinder Foundry from the illustrated Levels cards before diving. Each route has its own scenery, path, depth and three enemy waves. Pause or finish a dive to choose another route; restarting keeps the current map.
 - The submarine travels and fires connected guns automatically. Survive all three waves.
 - Tap a fallen part to salvage it. Drag it into the grid to install immediately, or into the parts hold to store it.
 - All fourteen storage slots are visible. Drag one copy from a stack into an empty cell. Align the floating preview with the destination; placement follows its center, not your finger. Alternatively, tap a stack and then tap an empty cell.

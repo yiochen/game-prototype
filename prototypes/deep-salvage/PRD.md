@@ -18,6 +18,12 @@ Guide the engineering of a small yellow submarine through the ruins of a drowned
 
 ## Prototype rules and chosen defaults
 
+### Level selection
+
+The welcome screen presents the game title, a “Levels” picker and the start button. Remove the story paragraph, salvage/rotation instructions, support-terminal explanation and per-level descriptive sentences. Each level card uses a distinct generated environment background: drowned watchtowers for Sunken City, a glowing green kelp forest for Kelp Wilds, and broken pipes with volcanic light for Cinder Foundry. The images provide setting context; only the level name, difficulty and wave count appear over them. A border and checkmark identify the selected level. Full gameplay explanations remain in the manual.
+
+The picker fits smaller portrait phones without scrolling. Short landscape screens place the three level cards side by side. Image backgrounds are decorative; button text provides accessible names, and keyboard selection works. Choosing a level still requires pressing the start button; backing out preserves the active dive. Artwork and generation prompts are recorded in `assets/levels/PROMPTS.md`.
+
 ### Engineering layout and fixed storage slots
 
 The lower panel contains only the 7 × 7 engineering surface: tiles, beams, stack counts, tier badges, charge/forge progress. No labels, headings, explanatory text or Forge button occupy it. The upper HUD keeps wave number, cash, hull/shield meters and icon-only guide/pause controls. Instructions and recipe details remain in the manual, with accessible names on every control.

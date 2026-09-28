@@ -577,3 +577,36 @@ test('full storage rejects new types safely and completed upgrades remain usable
   await drag(page,forge(page,0),cell(page,14));
   await expect(cell(page,14)).toHaveAttribute('aria-label',/Overcharger/);
 });
+
+test('illustrated Levels picker has no explanatory copy and fits phone and landscape viewports', async ({ page }) => {
+  const errors=[]; page.on('pageerror',error=>errors.push(error.message));
+  await page.goto(URL);
+  await expect(page.locator('.route-picker legend')).toHaveText('Levels');
+  await expect(page.locator('#modal-content .modal-copy, #modal-content .modal-eyebrow, .route-card > span')).toHaveCount(0);
+  await expect(page.locator('.level-background')).toHaveCount(3);
+  await expect.poll(() => page.locator('.level-background').evaluateAll(images=>images.every(img=>img.complete && img.naturalWidth>0))).toBe(true);
+  const sources=await page.locator('.level-background').evaluateAll(images=>images.map(img=>img.currentSrc));
+  expect(new Set(sources).size).toBe(3);
+  for(const [width,height] of [[412,924],[360,740],[797,1232],[924,412]]) {
+    await page.setViewportSize({width,height});
+    const layout=await page.evaluate(()=>{
+      const modal=document.querySelector('#modal'), action=modal.querySelector('[data-action=start]');
+      const r=action.getBoundingClientRect();
+      return {scroll:modal.scrollHeight,client:modal.clientHeight,actionBottom:r.bottom};
+    });
+    expect(layout.scroll).toBeLessThanOrEqual(layout.client+1);
+    expect(layout.actionBottom).toBeLessThan(height);
+    for(const card of await page.locator('.route-card').all()) {
+      const b=await card.boundingBox(); expect(b.height).toBeGreaterThanOrEqual(44);
+      expect(b.x).toBeGreaterThanOrEqual(0); expect(b.x+b.width).toBeLessThanOrEqual(width);
+    }
+    await shot(page,`levels-${width}x${height}`);
+  }
+  await page.locator('.route-card[data-map=kelp]').focus(); await page.keyboard.press('Enter');
+  await expect(page.locator('.route-card[data-map=kelp]')).toHaveAttribute('aria-pressed','true');
+  await page.getByRole('button',{name:"Let's dive"}).click();
+  expect(await page.evaluate(()=>window.__deepSalvage.snapshot().mapId)).toBe('kelp');
+  await page.locator('#manual').click();
+  await expect(page.locator('.recipe-row')).toHaveCount(13);
+  expect(errors).toEqual([]);
+});

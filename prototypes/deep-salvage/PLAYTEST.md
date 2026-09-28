@@ -37,3 +37,9 @@ All three maps and ten enemy roles remain tested, including sniper range, leech 
 Deterministic balance tests confirm the untouched starter loses in wave two. An affordable Overcharger plus salvaged lens clears the 39-enemy city with 54 hull; adding Medic yields 70, or Shield yields 80. Foundry requires further investment: forging a Heavy laser in the first refit is a verified victory using available inventory and earned cash. Killing all scheduled enemies generates ten parts; every player kill awards cash.
 
 The preview URL includes `?ntl-drawer-state=hidden` so Netlify's review drawer does not cover gameplay controls. No production deployment is performed.
+
+## Illustrated level picker
+
+The welcome screen now uses “Levels” and three distinct generated environment images. Story copy, gameplay/support instructions, the slogan and level descriptions are removed from this screen. Names, difficulty/wave metadata, selected border/checkmark and start/back controls remain. The three optimized WebP backgrounds total 184,194 bytes; prompts and generation method are saved in `assets/levels/PROMPTS.md`.
+
+The engine suite still passes all 112 tests and the production build passes. Three focused browser scenarios pass: the illustrated picker across 412 × 924, 360 × 740, 797 × 1232 and 924 × 412; level selection/restart/cancellation and scenery; and discovery/manual persistence. Checks verify all three unique images load, no explanatory paragraphs remain, keyboard level selection works, and the start button fits without modal scrolling. Portrait stacks cards vertically; short landscape lays them out side by side. Screenshots `levels-360x740.png`, `levels-797x1232.png` and `levels-924x412.png` were inspected.
