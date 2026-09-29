@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#123b49">
+  <meta name="description" content="Salvage little parts. Build a brilliant machine. A cartoon submarine engineering game.">
+  <title>Deep Salvage · Game prototypes</title>
+</head>
+<body>
+  <main id="game" aria-label="Deep Salvage game">
+    <section id="world" aria-label="Battlefield">
+      <div id="phaser-world"></div>
+      <header class="world-hud">
+        <div class="wave-badge"><strong id="wave-label">01 <span>/ 06</span></strong></div>
+        <div class="cash-badge" aria-label="Cash"><span>¢</span><strong id="cash-label">24</strong></div>
+        <div class="hull-badge" aria-label="Hull integrity"><span class="heart">♥</span><strong id="hull-label">100</strong><div class="hull-track"><i id="hull-fill"></i></div><div class="shield-track" aria-label="Shield"><i id="shield-fill"></i></div></div>
+        <button id="manual" class="guide-button" aria-label="Open recipes and parts guide">▤</button>
+        <button id="pause" class="icon-button" aria-label="Pause game">Ⅱ</button>
+      </header>
+      <div class="location sr-only"><span class="location-dot"></span><span id="location-label">THE SUNKEN QUARTER</span><span class="depth">840 m ↓</span></div>
+      <div id="wave-notice" aria-live="polite"></div>
+      <div id="loot-layer" aria-label="Battlefield salvage"></div>
+      <div class="world-footer sr-only"><span id="world-hint">TAP SCRAP TO SALVAGE</span><span id="kill-label">0 recovered</span></div>
+    </section>
+    <section id="console" aria-label="Engineering grid">
+      <section id="workshop" aria-label="7 by 7 engineering grid: 6 by 5 lab, 3 forge slots, 2 consumable loaders and 7 by 2 parts hold">
+        <div id="board" aria-label="Weapon circuit, 6 by 5 grid"><div id="cells"></div><svg id="beams" viewBox="0 0 600 500" aria-hidden="true"><defs><filter id="glow"><feGaussianBlur stdDeviation="2"/></filter></defs><g id="beam-glow"></g><g id="beam-lines"></g></svg></div>
+        <section id="forge" aria-label="Automatic forge and consumable loaders"><div id="forge-slots"><button class="forge-slot" data-slot="0" aria-label="Forge ingredient 1">+</button><button class="forge-slot" data-slot="1" aria-label="Forge ingredient 2">+</button><button class="forge-slot" data-slot="2" aria-label="Forge ingredient 3">+</button><button class="loader-slot" data-loader="0" aria-label="Use consumable, loader 1"><span class="loader-icon" aria-hidden="true">↧</span></button><button class="loader-slot" data-loader="1" aria-label="Use consumable, loader 2"><span class="loader-icon" aria-hidden="true">↧</span></button></div></section>
+        <section id="storage" aria-label="Parts hold, 14 slots"><div id="stacks" aria-label="Stored parts"></div></section>
+      </section>
+    </section>
+    <div id="toast" role="status"></div>
+    <div id="drag-ghost" hidden></div>
+  </main>
+  <dialog id="modal" aria-labelledby="modal-title"><div id="modal-content"></div></dialog>
+  <noscript>This prototype requires JavaScript.</noscript>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

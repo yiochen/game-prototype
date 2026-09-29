@@ -1,0 +1,400 @@
+import './style.css';
+import { BALANCE as B, PART_RULES, MAPS, ENEMY_INFO, mapFor } from './balance.js';
+import { PARTS, tileMarkup } from './parts.js';
+import { RECIPES } from './recipes.js';
+import { ART } from './artwork.js';
+import cityLevel from './assets/levels/sunken-city.webp';
+import kelpLevel from './assets/levels/kelp-wilds.webp';
+import foundryLevel from './assets/levels/cinder-foundry.webp';
+const LEVEL_ART = { city: cityLevel, kelp: kelpLevel, foundry: foundryLevel };
+import { createState, startDive, tick, traceCircuit, rebuild, rotatePart, movePart, sourcePart, spawnDrop, forgeMatches, forgeRecipe, canStore, storageSlots, canConsume, canPlacePart } from './engine.js';
+import { createWorld } from './world.js';
+
+const $ = selector => document.querySelector(selector);
+const knownKey = 'deep-salvage:discoveries:v1';
+function loadKnown() { try { const value = JSON.parse(localStorage.getItem(knownKey) || '[]'); return Array.isArray(value) ? value : []; } catch { return []; } }
+function saveKnown() { try { localStorage.setItem(knownKey, JSON.stringify([...state.discovered])); } catch { /* Private browsing can disable persistence. */ } }
+let state = createState(loadKnown()), selection = null, gesture = null, modalKind = null, revision = -1, toastTimer;
+let restoreFocus = null, selectedMap = 'city';
+const gameRoot = $('#game'), modal = $('#modal'), cells = $('#cells'), board = $('#board'), storage = $('#storage');
+const buttons = Array.from({ length: B.gridColumns * B.gridRows }, (_, index) => {
+  const button = document.createElement('button'); button.className = 'cell empty'; button.dataset.index = index;
+  button.setAttribute('aria-label', `Empty cell, row ${Math.floor(index / B.gridColumns) + 1}, column ${index % B.gridColumns + 1}`);
+  cells.append(button); return button;
+});
+const lootElements = new Map();
+
+function toast(message) {
+  $('#toast').textContent = message; $('#toast').classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => $('#toast').classList.remove('show'), 2300);
+}
+
+function renderBeams(circuit = state.circuit, preview = false) {
+  const lines = circuit.segments.map(s => {
+    const attrs = `x1="${s.x1 * 100}" y1="${s.y1 * 100}" x2="${s.x2 * 100}" y2="${s.y2 * 100}"`;
+    const width = Math.min(22, 2 + s.power * .65);
+    const color = s.piercing ? '#618eff' : s.power > B.reactorPower ? '#e6a52d' : '#34b9a5';
+    return `<line class="beam" data-power="${s.power}" data-piercing="${s.piercing}" style="stroke:${preview ? '#efab46' : color};stroke-width:${width};opacity:${s.power < B.reactorPower ? .6 : 1}" ${attrs}/><line class="beam-core" style="stroke-width:${Math.max(1.2, width * .25)}" ${attrs}/><line class="beam-flow${s.piercing ? ' piercing-flow' : ''}" ${attrs}/>`;
+  }).join('');
+  $('#beam-lines').innerHTML = lines;
+  $('#beam-glow').innerHTML = circuit.segments.map(s => `<line class="beam-glow" style="stroke:${s.piercing ? '#729cff' : s.power > B.reactorPower ? '#ffd365' : '#57f4d3'};stroke-width:${5 + Math.sqrt(s.power) * 3}" x1="${s.x1 * 100}" y1="${s.y1 * 100}" x2="${s.x2 * 100}" y2="${s.y2 * 100}"/>`).join('');
+}
+
+function renderForge() {
+  const job = state.forge.job, recipe = forgeRecipe(state);
+  document.querySelectorAll('.forge-slot').forEach((button, index) => {
+    const part = state.forge.slots[index], locked = !!job?.indices.includes(index);
+    if (button.dataset.type !== (part?.type || '')) { button.innerHTML = part ? tileMarkup(part.type) : '+'; button.dataset.type = part?.type || ''; }
+    button.disabled = locked;
+    button.classList.toggle('working', locked);
+    button.classList.toggle('waiting-cash', !job && !!recipe && state.cash < recipe.cost && recipe.ingredients.includes(part?.type));
+    button.style.setProperty('--progress', locked ? `${100 * (1 - job.remaining / job.seconds)}%` : '0%');
+    button.setAttribute('aria-label', locked ? `${PARTS[part.type].name}, forging ${PARTS[job.output].name}, ${Math.ceil(job.remaining)} seconds remaining` : part ? `${PARTS[part.type].name} forge ingredient ${index + 1}, tap to return` : `Forge ingredient ${index + 1}`);
+  });
+  $('#forge').classList.toggle('working', !!job);
+}
+
+function renderLab() {
+  for (const [index, button] of buttons.entries()) {
+    const part = state.grid[index];
+    button.removeAttribute('title');
+    button.className = `cell ${part ? `has-part ${state.circuit.active.has(index) ? 'active' : 'inactive'}` : 'empty'}${state.circuit.blocked.includes(index) ? ' blocked' : ''}`;
+    button.innerHTML = part ? `${tileMarkup(part.type, part.rotation)}${PART_RULES[part.type].capacity ? '<span class="charge-meter"><i></i></span>' : ''}` : '';
+    button.classList.toggle('forge-match', !!part && forgeMatches(state).has(part.type));
+    const label = part ? `${PARTS[part.type].name}, ${PARTS[part.type].rotatable ? `${part.rotation * 90} degrees, tap to rotate` : 'accepts beams from any side'}` : 'Empty cell';
+    button.setAttribute('aria-label', `${label}, row ${Math.floor(index / B.gridColumns) + 1}, column ${index % B.gridColumns + 1}`);
+    button.setAttribute('aria-keyshortcuts', part && !PARTS[part.type].rotatable ? 'Delete' : 'Enter Space Delete');
+  }
+  renderBeams();
+  $('#stacks').innerHTML = storageSlots(state).map((type, index) => {
+    const count = state.inventory[type] || 0;
+    if (!count) return `<button class="stack empty-slot" data-slot="${index}" aria-label="Empty parts slot ${index + 1}" disabled></button>`;
+    return `<button class="stack${selection === type ? ' selected' : ''}${forgeMatches(state).has(type) ? ' forge-match' : ''}" data-slot="${index}" data-type="${type}" aria-label="${PARTS[type].name} stack, ${count} available">${tileMarkup(type)}<span class="count">${count}</span></button>`;
+  }).join('');
+  if (selection && !state.inventory[selection]) selection = null;
+  renderForge();
+  revision = state.revision;
+}
+
+function renderFrame() {
+  if (revision !== state.revision) renderLab();
+  renderForge();
+  gameRoot.classList.toggle('is-frozen', state.timeFreeze > 0);
+  document.querySelectorAll('.loader-slot').forEach((button, index) => {
+    const loader = state.loaders[index], frozen = state.timeFreeze > 0;
+    const type = loader.remaining > 0 ? loader.type : frozen ? 'timeCapsule' : '';
+    if (button.dataset.type !== type) {
+      button.innerHTML = type ? tileMarkup(type) : '<span class="loader-icon" aria-hidden="true">↧</span>';
+      button.dataset.type = type;
+    }
+    button.classList.toggle('freezing', frozen);
+    button.style.setProperty('--remaining', `${frozen ? state.timeFreeze / state.freezeDuration * 100 : 0}%`);
+    button.setAttribute('aria-label', `Use consumable, loader ${index + 1}${frozen ? `, battle frozen ${Math.ceil(state.timeFreeze)} seconds remaining` : ''}`);
+  });
+  for (const [index, button] of buttons.entries()) {
+    const part = state.grid[index];
+    if (!part || !PART_RULES[part.type].capacity) continue;
+    const rule = PART_RULES[part.type];
+    const percent = Math.floor((part.charge || 0) / rule.capacity * 100);
+    button.querySelector('.charge-meter i').style.width = `${percent}%`;
+    button.classList.toggle('charged', percent === 100);
+    button.title = `${PARTS[part.type].name}: ${percent}% charged · ${rule.restore ? `+${rule.restore} ${rule.resource}` : `${B.pulseDamage} damage per pulse`}`;
+    button.setAttribute('aria-label', `${PARTS[part.type].name}, ${percent}% charged, ${state.circuit.active.has(index) ? 'powered' : 'disconnected'}, row ${Math.floor(index / B.gridColumns) + 1}, column ${index % B.gridColumns + 1}`);
+  }
+  $('#cash-label').textContent = state.cash;
+  $('#shield-fill').style.width = `${state.shield / B.shield * 100}%`;
+  $('.shield-track').setAttribute('aria-label', `Shield ${Math.ceil(state.shield)} of ${B.shield}`);
+  $('.hull-badge').classList.toggle('taking-damage', state.submarine.hitFlash > 0);
+  $('#hull-label').textContent = Math.ceil(state.hull);
+  if (state.notices.length) toast(state.notices.shift());
+  $('#hull-fill').style.width = `${state.hull}%`;
+  $('#hull-fill').style.background = state.hull < 35 ? '#f18d80' : '#83d4b0';
+  $('#wave-label').innerHTML = `${String(state.wave + 1).padStart(2, '0')} <span>/ ${String(mapFor(state).waves.length).padStart(2, '0')}</span>`;
+  $('#location-label').textContent = mapFor(state).waves[state.wave].name.toUpperCase();
+  $('.depth').textContent = `${mapFor(state).depth + state.wave * 120} m ↓`;
+  $('#world').dataset.map = state.mapId;
+  $('#kill-label').textContent = `${state.salvaged} recovered`;
+  const notice = state.rest > 0 ? `⏱ ${Math.ceil(state.rest)}s` : '';
+  if ($('#wave-notice').innerHTML !== notice) $('#wave-notice').innerHTML = notice;
+  $('#world-hint').textContent = gesture?.dragging ? 'ENGINEERING · TIME SLOWED' : !state.circuit.guns.length ? 'NO POWERED GUNS · CHECK THE LAB' : 'TAP SCRAP TO SALVAGE';
+  const existing = new Set();
+  for (const drop of state.drops) {
+    existing.add(drop.id);
+    let button = lootElements.get(drop.id);
+    if (!button) {
+      button = document.createElement('button'); button.className = 'loot'; button.dataset.id = drop.id;
+      button.innerHTML = `${tileMarkup(drop.type)}<span class="loot-meter"><i></i></span>`;
+      button.setAttribute('aria-label', `Salvage ${PARTS[drop.type].name}`);
+      $('#loot-layer').append(button); lootElements.set(drop.id, button);
+    }
+    button.style.left = `${drop.x * 100}%`; button.style.top = `${drop.y * 100}%`;
+    button.classList.toggle('expiring', drop.life < B.lootFlash);
+    button.classList.toggle('held', state.heldDrop === drop.id);
+    button.classList.toggle('forge-match', forgeMatches(state).has(drop.type));
+    button.querySelector('.loot-meter i').style.width = `${drop.life / B.lootLife * 100}%`;
+  }
+  for (const [id, button] of lootElements) if (!existing.has(id)) { button.remove(); lootElements.delete(id); }
+}
+
+function selectStack(type) {
+  selection = selection === type ? null : type;
+  renderLab();
+  buttons.forEach((button, i) => button.classList.toggle('valid', !!selection && canPlacePart(state, { kind: 'storage', type: selection }, { kind: 'grid', index: i })));
+}
+
+function sourceFromElement(element) {
+  const ingredient = element.closest('.forge-slot'); if (ingredient && state.forge.slots[ingredient.dataset.slot] && !state.forge.job?.indices.includes(Number(ingredient.dataset.slot))) return { kind: 'forge', index: Number(ingredient.dataset.slot) };
+  const drop = element.closest('.loot'); if (drop) return { kind: 'drop', id: Number(drop.dataset.id) };
+  const cell = element.closest('.cell'); if (cell && state.grid[cell.dataset.index]) return { kind: 'grid', index: Number(cell.dataset.index) };
+  const stack = element.closest('.stack'); if (stack) return { kind: 'storage', type: stack.dataset.type };
+  return null;
+}
+
+function destinationAt(x, y) {
+  const target = document.elementFromPoint(x, y);
+  const cell = target?.closest('.cell');
+  if (cell) return { kind: 'grid', index: Number(cell.dataset.index) };
+  const loader = target?.closest('.loader-slot');
+  if (loader) return { kind: 'loader', index: Number(loader.dataset.loader) };
+  const slot = target?.closest('.forge-slot');
+  if (slot) return { kind: 'forge', index: Number(slot.dataset.slot) };
+  if (target?.closest('#forge')) return { kind: 'forge' };
+  if (target?.closest('#storage')) return { kind: 'storage' };
+  return null;
+}
+
+function positionPreviewAndFindTarget(x, y) {
+  const preview = $('#drag-ghost');
+  preview.style.left = `${x}px`; preview.style.top = `${y}px`;
+  // The visible tile is lifted above the pointer. Use its actual rendered center
+  // for both highlighting and placement, including any CSS sizing/offset changes.
+  const rect = preview.getBoundingClientRect();
+  return destinationAt(rect.x + rect.width / 2, rect.y + rect.height / 2);
+}
+
+function clearGesture() {
+  if (gesture && gameRoot.hasPointerCapture(gesture.pointerId)) gameRoot.releasePointerCapture(gesture.pointerId);
+  gesture = null; state.heldDrop = null; $('#drag-ghost').hidden = true; storage.classList.remove('drop-target', 'invalid'); $('#forge').classList.remove('invalid'); $('#forge').classList.remove('drop-target');
+  document.querySelectorAll('.loader-slot, .forge-slot').forEach(button => button.classList.remove('target', 'invalid', 'replacing'));
+  renderLab();
+}
+
+function previewDestination(target) {
+  buttons.forEach((button, index) => {
+    button.classList.toggle('valid', canPlacePart(state, gesture.source, { kind: 'grid', index }));
+    button.classList.remove('target', 'invalid', 'replacing');
+    button.classList.toggle('drag-source', gesture?.source.kind === 'grid' && gesture.source.index === index);
+  });
+  document.querySelectorAll('.loader-slot').forEach((button, index) => {
+    const hovered = target?.kind === 'loader' && target.index === index;
+    button.classList.toggle('target', hovered && canConsume(state, gesture.part.type));
+    button.classList.toggle('invalid', hovered && !canConsume(state, gesture.part.type));
+  });
+  const storageTarget = target?.kind === 'storage', storageValid = canStore(state, gesture.part.type);
+  storage.classList.toggle('drop-target', storageTarget && storageValid);
+  storage.classList.toggle('invalid', storageTarget && !storageValid);
+  const forgeTarget = target?.kind === 'forge', forgeValid = forgeTarget && canPlacePart(state, gesture.source, target);
+  $('#forge').classList.toggle('invalid', !!forgeTarget && !forgeValid);
+  $('#forge').classList.toggle('drop-target', !!forgeValid);
+  document.querySelectorAll('.forge-slot').forEach((button, index) => {
+    const hovered = forgeTarget && target.index === index;
+    button.classList.toggle('target', hovered && forgeValid);
+    button.classList.toggle('invalid', hovered && !forgeValid);
+    button.classList.toggle('replacing', hovered && forgeValid && !!state.forge.slots[index]);
+  });
+  if (target?.kind === 'grid') {
+    const valid = canPlacePart(state, gesture.source, target); buttons[target.index].classList.toggle('replacing', valid && !!state.grid[target.index]); buttons[target.index].classList.add(valid ? 'target' : 'invalid');
+    if (valid) {
+      const grid = state.grid.map(part => part ? { ...part } : null);
+      if (gesture.source.kind === 'grid') grid[gesture.source.index] = null;
+      grid[target.index] = { ...gesture.part };
+      renderBeams(traceCircuit(grid), true); return;
+    }
+  }
+  renderBeams();
+}
+
+gameRoot.addEventListener('pointerdown', event => {
+  if (modal.open || gesture || event.button !== 0 || ['won', 'lost'].includes(state.status)) return;
+  const source = sourceFromElement(event.target); if (!source) return;
+  const part = sourcePart(state, source); if (!part) return;
+  event.preventDefault();
+  event.target.closest('button')?.focus({ preventScroll: true });
+  gesture = { source, part: { ...part }, pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, dragging: false, targetKey: '' };
+  if (source.kind === 'drop') state.heldDrop = source.id;
+  gameRoot.setPointerCapture(event.pointerId);
+});
+gameRoot.addEventListener('pointermove', event => {
+  if (!gesture || event.pointerId !== gesture.pointerId) return;
+  if (!gesture.dragging && Math.hypot(event.clientX - gesture.startX, event.clientY - gesture.startY) > 7) {
+    gesture.dragging = true; selection = null;
+    $('#drag-ghost').innerHTML = tileMarkup(gesture.part.type, gesture.part.rotation); $('#drag-ghost').hidden = false;
+  }
+  if (!gesture.dragging) return;
+  event.preventDefault();
+  const target = positionPreviewAndFindTarget(event.clientX, event.clientY), key = JSON.stringify(target);
+  if (key !== gesture.targetKey) { gesture.targetKey = key; previewDestination(target); }
+});
+gameRoot.addEventListener('pointerup', event => {
+  if (!gesture || event.pointerId !== gesture.pointerId) return;
+  const current = gesture;
+  if (current.dragging) {
+    const target = positionPreviewAndFindTarget(event.clientX, event.clientY);
+    const moved = target && movePart(state, current.source, target);
+    if (!moved) toast(target?.kind === 'storage' && !canStore(state, current.part.type) ? 'Storage full' : ['grid', 'forge'].includes(target?.kind) && (target.kind === 'grid' ? state.grid[target.index] : state.forge.slots[target.index]) ? 'Cannot replace: check storage space or forge lock' : 'Cannot place here');
+  } else if (selection && ['grid', 'forge'].includes(current.source.kind)) {
+    if (movePart(state, { kind: 'storage', type: selection }, current.source)) selection = null;
+    else toast('Cannot replace: check storage space');
+  } else if (current.source.kind === 'forge') {
+    if (!movePart(state, current.source, { kind: 'storage' })) toast('Storage full');
+  } else if (current.source.kind === 'grid') {
+    rotatePart(state, current.source.index);
+  } else if (current.source.kind === 'drop') {
+    if (!movePart(state, current.source, { kind: 'storage' })) toast('Storage full');
+  } else { selection = selection === current.part.type ? null : current.part.type; }
+  clearGesture();
+  if (selection) buttons.forEach((button, i) => button.classList.toggle('valid', canPlacePart(state, { kind: 'storage', type: selection }, { kind: 'grid', index: i })));
+  renderFrame(); checkDiscoveries();
+});
+gameRoot.addEventListener('pointercancel', clearGesture);
+gameRoot.addEventListener('lostpointercapture', () => { if (gesture) clearGesture(); });
+
+gameRoot.addEventListener('click', event => {
+  if (modal.open || ['won', 'lost'].includes(state.status)) return;
+  const loader = event.target.closest('.loader-slot');
+  if (loader && selection) {
+    if (movePart(state, { kind: 'storage', type: selection }, { kind: 'loader', index: Number(loader.dataset.loader) })) { selection = null; renderFrame(); }
+    else toast('Cannot use this now');
+    return;
+  }
+  const slot = event.target.closest('.forge-slot');
+  if (slot && selection) {
+    if (movePart(state, { kind: 'storage', type: selection }, { kind: 'forge', index: Number(slot.dataset.slot) })) { selection = null; renderLab(); }
+    return;
+  }
+  const cell = event.target.closest('.cell');
+  if (cell) {
+    const index = Number(cell.dataset.index);
+    if (selection) {
+      if (movePart(state, { kind: 'storage', type: selection }, { kind: 'grid', index })) { selection = null; renderLab(); }
+    } else if (event.detail === 0) { rotatePart(state, index); renderLab(); }
+  }
+  if (event.detail === 0) {
+    const ingredient = event.target.closest('.forge-slot');
+    if (ingredient && state.forge.slots[ingredient.dataset.slot]) { if (!movePart(state, { kind: 'forge', index: Number(ingredient.dataset.slot) }, { kind: 'storage' })) toast('Storage full'); renderLab(); }
+    const stack = event.target.closest('.stack'); if (stack) selectStack(stack.dataset.type);
+    const drop = event.target.closest('.loot');
+    if (drop) { if (!movePart(state, { kind: 'drop', id: Number(drop.dataset.id) }, { kind: 'storage' })) toast('Storage full'); renderFrame(); checkDiscoveries(); }
+  }
+});
+cells.addEventListener('keydown', event => {
+  const cell = event.target.closest('.cell'); if (!cell || modal.open) return;
+  const index = Number(cell.dataset.index);
+  if (['Delete', 'Backspace'].includes(event.key)) {
+    event.preventDefault();
+    if (state.grid[index]) {
+      if (movePart(state, { kind: 'grid', index }, { kind: 'storage' })) { renderLab(); toast('Part returned to hold'); }
+      else toast('Storage full');
+    }
+  }
+  const offsets = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -B.gridColumns, ArrowDown: B.gridColumns };
+  if (event.key in offsets) { event.preventDefault(); buttons[Math.max(0, Math.min(B.gridColumns * B.gridRows - 1, index + offsets[event.key]))].focus(); }
+});
+
+function openModal(kind, content) {
+  if (gesture) clearGesture();
+  restoreFocus = modal.open ? restoreFocus : document.activeElement;
+  modalKind = kind; modal.dataset.kind = kind; state.paused = true; gameRoot.classList.add('is-paused');
+  $('#modal-content').innerHTML = content;
+  if (!modal.open) modal.showModal();
+  $('#modal-content').scrollTop = 0;
+  modal.scrollTop = 0;
+  modal.querySelector('button')?.focus({ preventScroll: true });
+}
+
+function closeModal() {
+  modalKind = null; modal.close(); state.paused = false; gameRoot.classList.remove('is-paused');
+  if (restoreFocus?.isConnected) restoreFocus.focus({ preventScroll: true });
+  checkDiscoveries();
+}
+
+function showWelcome() {
+  selectedMap = state.mapId;
+  openModal('welcome', `<div class="welcome-art"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART.submarine)}" alt="A little yellow submarine"></div><h2 id="modal-title">Deep Salvage<span class="title-dot">.</span></h2><fieldset class="route-picker"><legend>Levels</legend>${Object.entries(MAPS).map(([id, map]) => `<button type="button" class="route-card" data-map="${id}" aria-pressed="${id === selectedMap}"><img class="level-background" src="${LEVEL_ART[id]}" alt="" width="768" height="512"><strong>${map.name}</strong><small>${map.difficulty} · ${map.waves.length} waves</small></button>`).join('')}</fieldset><div class="modal-actions"><button class="primary" data-action="start">Let's dive →</button>${state.status !== 'ready' ? '<button class="secondary" data-action="close">Back to current dive</button>' : ''}</div>`);
+}
+
+function showPause() {
+  openModal('pause', `<p class="modal-eyebrow">TAKE A BREATH</p><h2 id="modal-title">Holding depth.</h2><p class="modal-copy">Your submarine and salvage are safe while paused.</p><div class="modal-actions"><button class="primary" data-action="close">Keep going →</button><button class="secondary" data-action="guide">Parts guide</button><button class="secondary" data-action="restart">Start a new dive</button><button class="secondary" data-action="routes">Choose another route</button></div>`);
+}
+
+function showGuide() {
+  openModal('guide', `<p class="modal-eyebrow">THE ENGINEER'S FIELD NOTES</p><h2 id="modal-title">Recipes & parts.</h2><h3>All forge recipes</h3><p class="modal-copy">The top three slots of the right column automatically forge any affordable recipe whose ingredients are present. Cash is deducted when it starts. Unrelated parts stay in place; any part can be added to an empty slot, even during another job. Glowing progress marks locked ingredients. Tap other ingredients to recover them. No recipe is a subset of another. The timer pauses with the dive and during a time freeze.</p><div class="recipe-list">${RECIPES.map(r => `<article class="recipe-row"><div class="recipe-ingredients">${[...new Set(r.ingredients)].map(type => `<span>${r.ingredients.filter(t => t === type).length} × ${PARTS[type].name}</span>`).join(' + ')}</div><strong>→ ${PARTS[r.output].name}</strong><p>${PARTS[r.output].description}</p><small>${r.cost}¢ · ${r.seconds}s · ${r.ingredients.length} ingredients</small></article>`).join('')}</div><h3>Consumables</h3><p class="modal-copy">Round repair kits, shield cells and time capsules stack in the same 14-slot hold. Tap a battlefield drop to save it, or drag a drop or stored copy to either round loader at the bottom right to use one immediately. The loaders are reusable and do not store items. Repair kits restore 25 hull; shield cells restore 12 shield. Full-health uses are rejected without consuming anything. Time capsules freeze combat for 8 real seconds while the lab stays editable: enemies, submarine, loot expiry, guns, support terminals and forge timers all stop. Dragging does not stretch the countdown. Extra capsules extend it. The purple rings show time remaining; normal pause also pauses this countdown. Two identical base consumables forge into a stronger version using the recipes above. The second defeated enemy drops a time capsule; every sixth defeat drops another supply.</p><h3>Parts manual</h3><p class="modal-copy">The 6 × 5 lab fills the left side; three forge slots and two round consumable loaders run down the right. Two bottom rows hold 14 stacks, with no scrolling or pages. Identical parts share a slot; empty stacks free it. When storage is full, new types stay at their source and forged outputs wait in the forge. Purple round supplies match the purple loaders. Square tiles route energy; double-framed tiles with a rounded base are terminals (laser, pulse, Shield and Medic). Drop a component onto an occupied lab cell or unlocked forge slot to replace it; the old item goes to storage. A full hold rejects replacement unless its type already has a stack or the incoming last copy frees a slot. All parts fit one square. Beams travel freely through empty cells. Only reactors and mirrors need rotation. Other parts work from any side. Thicker gold beams carry more power; thin beams carry less. Blue dashed beams pierce armor. Laser guns beam continuously for steady damage. Pink pulse guns store energy; their bars show charge. At 100% they fire a 54-damage pulse. Amplifiers speed up charging; lenses add piercing to either weapon. Shield and Medic terminals restore protection and hull when charged. They hold a full charge at full health; amplifiers speed them up, but lenses do not multiply repairs. Charged parts retain energy on the grid and clear it in storage. Your hold includes all three terminal types and a spare reactor.</p><div class="guide-list">${Object.entries(PARTS).map(([type, part]) => `<article class="guide-row"><div class="guide-tile">${tileMarkup(type)}</div><div><h3>${part.name}${state.discovered.has(type) ? '' : '<small>NOT FOUND YET</small>'}</h3><p>${part.description} ${part.tip}</p><p class="ports">${part.ports}</p></div></article>`).join('')}</div><h3>Enemy field guide</h3><div class="enemy-guide">${Object.entries(ENEMY_INFO).map(([type, info]) => `<article class="enemy-row"><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ART[type])}" alt=""><div><h4>${info.name}</h4><p>${info.tactic}</p><small>${B.enemies[type].hp} HP · ${B.enemies[type].armor} armor · ${B.enemies[type].damage} damage${B.enemies[type].shield ? ` · ${B.enemies[type].shield} shield` : ''}</small></div></article>`).join('')}</div><h3>Route atlas</h3>${Object.values(MAPS).map(map => `<p class="modal-copy"><strong>${map.name} · ${map.difficulty}</strong><br>${map.description}</p>`).join('')}<div class="guide-close"><button class="primary" data-action="close">Back to the dive →</button></div>`);
+}
+
+function checkDiscoveries() {
+  if (modal.open || gesture || !state.discoveries.length) return;
+  const type = state.discoveries.shift(), part = PARTS[type]; saveKnown();
+  openModal('discovery', `<div class="big-part">${tileMarkup(type)}</div><p class="modal-eyebrow">NEW ${part.consumable ? 'SUPPLY' : 'PART'} DISCOVERED</p><h2 id="modal-title">${part.name}<span class="title-dot">.</span></h2><span class="modal-tag">1 × 1 TILE · ${part.ports.toUpperCase()}</span><p class="modal-copy"><strong>${part.lesson}</strong><br>${part.description}</p><div class="discovery-flow">${part.consumable ? '◉ → ↧' : type === 'splitter' ? '↖ ← ◇ → ↗' : '↑ ◇ ↑'}</div><p class="modal-copy">${part.tip}</p><div class="modal-actions"><button class="primary" data-action="close">Got it. Let's build →</button></div>`);
+}
+
+function showEnd() {
+  const won = state.status === 'won';
+  openModal('end', `<p class="modal-eyebrow">${won ? 'THE BEACON IS IN SIGHT' : 'THE OCEAN GOT THIS ONE'}</p><h2 id="modal-title">${won ? 'Still in one piece.' : 'A brave little dive.'}</h2><p class="modal-copy">${won ? 'A heap of scrap, a working machine, and a way home. Nicely engineered.' : 'Forge your spare amplifiers early. Add a lens to cut through armored enemies, then strengthen your branches.'}</p><div class="stats"><div><strong>${state.kills}</strong><span>DRONES SUNK</span></div><div><strong>${state.salvaged}</strong><span>PARTS SAVED</span></div><div><strong>${Math.ceil(state.hull)}</strong><span>HULL LEFT</span></div></div><div class="modal-actions"><button class="primary" data-action="restart">Another dive →</button><button class="secondary" data-action="guide">Study the parts</button><button class="secondary" data-action="routes">Choose another route</button></div>`);
+}
+
+function restart(mapId = state.mapId) {
+  selection = null; saveKnown(); state = createState(loadKnown(), mapId); revision = -1;
+  modal.close(); modalKind = null; gameRoot.classList.remove('is-paused');
+  startDive(state); renderFrame();
+}
+
+$('#modal-content').addEventListener('click', event => {
+  const mapId = event.target.closest('[data-map]')?.dataset.map;
+  if (mapId && MAPS[mapId]) { selectedMap = mapId; modal.querySelectorAll('[data-map]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.map === mapId))); }
+  const action = event.target.closest('[data-action]')?.dataset.action;
+  if (action === 'start') { restart(selectedMap); }
+  if (action === 'close') {
+    if (state.status === 'won' || state.status === 'lost') showEnd(); else closeModal();
+  }
+  if (action === 'restart') restart();
+  if (action === 'guide') showGuide();
+  if (action === 'routes') showWelcome();
+});
+modal.addEventListener('cancel', event => {
+  event.preventDefault();
+  if ((modalKind === 'welcome' && state.status === 'ready') || modalKind === 'end') return;
+  if (state.status === 'won' || state.status === 'lost') showEnd(); else closeModal();
+});
+$('#pause').addEventListener('click', showPause);
+$('#manual').addEventListener('click', showGuide);
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && !modal.open) { event.preventDefault(); if (gesture) clearGesture(); else showPause(); }
+});
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden && state.status === 'running') { if (gesture) clearGesture(); if (!modal.open) showPause(); }
+});
+window.addEventListener('blur', () => { if (gesture) clearGesture(); });
+
+renderFrame(); showWelcome();
+const world = createWorld($('#phaser-world'), () => state, dt => {
+  tick(state, dt, gesture?.dragging ? B.dragSpeed : 1);
+  renderFrame();
+  if (['won', 'lost'].includes(state.status) && !modal.open) showEnd();
+  else checkDiscoveries();
+});
+
+// Explicit opt-in deterministic test harness; absent from ordinary play.
+if (new URLSearchParams(location.search).has('test')) {
+  window.__deepSalvage = {
+    snapshot: () => JSON.parse(JSON.stringify({ ...state, discovered: [...state.discovered], circuit: { ...state.circuit, active: [...state.circuit.active] } })),
+    drop: (type, x = 0.65, y = B.floor) => { const drop = spawnDrop(state, type, x, y); drop.landed = true; renderFrame(); return drop.id; },
+    advance: seconds => { tick(state, seconds); renderFrame(); if (['won', 'lost'].includes(state.status) && !modal.open) showEnd(); },
+    setVitals: (hull, shield) => { state.hull = Math.max(0, Math.min(B.hull, hull)); state.shield = Math.max(0, Math.min(B.shield, shield)); state.shieldCooldown = B.shieldDelay; renderFrame(); },
+    setCash: cash => { state.cash = Math.max(0, cash); renderFrame(); },
+    setEnemies: enemies => { state.enemies = enemies; },
+    setInventory: inventory => { state.inventory = { ...inventory }; state.storageOrder.fill(null); state.revision++; renderFrame(); },
+    setSpawnDelay: seconds => { state.spawnIn = Math.max(0, seconds); },
+    setGrid: grid => { state.grid = grid; rebuild(state); renderLab(); },
+  };
+}
+window.addEventListener('pagehide', event => { if (!event.persisted) world.destroy(); });
