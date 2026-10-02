@@ -17,6 +17,10 @@ Open the local URL printed by Vite. The homepage lists all registered prototypes
 - [Its balance table](prototypes/one-more-card/balance.js)
 - [Cloudtop Hotel](prototypes/cloudtop-hotel/README.md) — `/prototypes/cloudtop-hotel/`
 - [Cloudtop Hotel design](prototypes/cloudtop-hotel/CLOUDTOP_HOTEL_DESIGN.md)
+- [Deep Salvage](prototypes/deep-salvage/README.md) — `/prototypes/deep-salvage/`
+- [Pollen Club](prototypes/pollen-club/README.md) — `/prototypes/pollen-club/` — bee golf with dewdrop ricochets and five gardens.
+- [Dumpling Disco](prototypes/dumpling-disco/README.md) — `/prototypes/dumpling-disco/` — one-thumb tap/hold rhythm cooking with three mixes.
+- [Floaty Ferry](prototypes/floaty-ferry/README.md) — `/prototypes/floaty-ferry/` — a drawn ferry network with automatic duckling transfers.
 
 ## Layout
 
@@ -46,7 +50,7 @@ netlify.toml
 3. Add engine tests as `tests/*.test.js` and browser tests as `tests/*.spec.js` inside that game's directory.
 4. Run `npm run check`. The homepage and production build include the new entry automatically.
 
-Cloudtop Hotel declares its Phaser dependency in its own package manifest, installed through npm workspaces.
+Each Phaser game declares its dependency in its own package manifest, installed through npm workspaces. The three newest prototypes have playable tutorials, original vector scenes, opt-in sound, local best scores/medals, reduced-motion support, and phone/landscape layouts. Their simulation and balance files are independent.
 
 Games can use different implementations. Keep their rules and balance independent; share tooling rather than game state.
 
