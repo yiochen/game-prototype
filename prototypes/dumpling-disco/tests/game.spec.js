@@ -4,6 +4,14 @@ const URL = '/prototypes/dumpling-disco/?test&ntl-drawer-state=hidden';
 async function boot(page, tutorial = false) { await page.goto(URL); await expect(page.locator('canvas')).toHaveAttribute('data-ready', 'true'); await page.getByRole('button', { name: tutorial ? 'Show me how' : 'Straight to the disco' }).click(); }
 async function shot(page, name) { await mkdir('artifacts/dumpling-disco', { recursive: true }); await page.screenshot({ path: `artifacts/dumpling-disco/${name}.png` }); }
 
+test('the playground features Dumpling Disco among four games with its cover loaded', async ({ page }) => {
+  await page.goto('/'); await expect(page.locator('.prototype')).toHaveCount(4);
+  await expect(page.locator('.prototype').first()).toHaveAttribute('href', './prototypes/dumpling-disco/');
+  await expect(page.getByRole('link', { name: /Pollen Club|Floaty Ferry/ })).toHaveCount(0);
+  await expect.poll(() => page.locator('.prototype-art img').evaluateAll(imgs => imgs.length === 1 && imgs.every(img => img.complete && img.naturalWidth > 0))).toBe(true);
+  await page.setViewportSize({ width: 320, height: 740 }); expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true); await shot(page, 'playground');
+});
+
 test('the tutorial waits for tap and hold, and the pad responds to keyboard press/release', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 }); await boot(page, true); await page.locator('#pad').click();
   await expect(page.locator('#hint')).toHaveText('A little early. Release, then try again.'); await expect(page.locator('#score')).toHaveText('0'); await page.evaluate(() => window.__dumplingDisco.advance(20));
