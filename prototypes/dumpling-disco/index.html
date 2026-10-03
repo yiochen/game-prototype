@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#f0eaf7"><meta name="description" content="A one-thumb rhythm kitchen. Flip and steam dancing dumplings with playful visual beats."><title>Dumpling Disco · The Playground</title></head>
+<body>
+  <header><a class="icon-button home" href="../../" aria-label="Back to the playground">⌂</a><span class="wordmark"><span class="brand-dot"></span> THE PLAYGROUND</span><nav><button id="sound" class="icon-button" aria-label="Turn sound on" aria-pressed="false">♪</button><button id="help" class="icon-button" aria-label="Pause and open help">?</button></nav></header>
+  <main>
+    <aside class="side"><div class="hero"><p class="eyebrow">02 / A LITTLE RHYTHM</p><h1>Dumpling<br><i>Disco.</i></h1><p class="tagline">Good food.<br>Great moves.</p></div><div class="stats"><span class="stat-icon">✦</span><strong id="score">0</strong><span class="stat-caption">groove</span></div><div class="chapter"><span id="chapter-label" class="eyebrow">MIX 01 / 03</span><h2 id="mix-name">Sesame Street</h2><div id="mix-dots" class="chapter-dots" aria-label="Choose a mix"></div></div><div class="small-stat"><span>Streak</span><strong id="combo">0</strong><span id="bpm">92 bpm</span></div></aside>
+    <section class="stage" aria-label="Rhythm kitchen"><div id="world" aria-label="Pulsing beat rings and dancing dumplings"></div><div id="coach" class="coach" role="status"><span id="lesson-dot" class="lesson-dot">♪</span><p id="hint">Tap when the ring meets the golden rim.</p></div><div class="dock rhythm-dock"><button id="pad" class="primary beat-pad" aria-label="Flip or hold to steam. Space also works."><span id="pad-symbol">⌁</span><span id="pad-label">Tap to flip</span><span class="pad-dots">· · ·</span></button></div></section>
+  </main>
+  <dialog id="modal" aria-labelledby="modal-title"><div class="modal-art" id="modal-art"><img src="./assets/cover.svg" alt="Three happy dancing dumplings in a lilac pan"></div><p class="eyebrow" id="modal-kicker">THE PAN IS YOUR DANCE FLOOR</p><h2 id="modal-title">A pinch<br>of rhythm.</h2><p id="modal-copy">Follow the rings. Flip with a tap. Steam with a hold. Sound is optional.</p><div id="medal" class="medal" hidden></div><div id="modal-actions"></div></dialog>
+  <noscript>The dumplings need JavaScript to dance.</noscript><script type="module" src="./main.js"></script>
+</body></html>
