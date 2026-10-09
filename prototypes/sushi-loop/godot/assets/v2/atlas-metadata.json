@@ -1,0 +1,607 @@
+{
+  "operation": "crop only; source RGBA preserved;16px transparent margin",
+  "atlases": {
+    "characters-atlas.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "zero_alpha_fraction": 0.6241
+    },
+    "props-atlas.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "zero_alpha_fraction": 0.5287
+    },
+    "creatures-atlas.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "zero_alpha_fraction": 0.502
+    },
+    "ui-props-atlas.png": {
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "zero_alpha_fraction": 0.4573
+    },
+    "customer-poses-atlas.png": {
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "zero_alpha_fraction": 0.6176
+    }
+  },
+  "sprites": {
+    "chef": {
+      "atlas": "characters-atlas.png",
+      "source_region": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "trim": [
+        150,
+        10,
+        469,
+        512
+      ],
+      "padding": 16,
+      "output_size": [
+        351,
+        534
+      ]
+    },
+    "chef_2": {
+      "atlas": "characters-atlas.png",
+      "source_region": [
+        512,
+        0,
+        1024,
+        512
+      ],
+      "trim": [
+        107,
+        15,
+        451,
+        507
+      ],
+      "padding": 16,
+      "output_size": [
+        376,
+        524
+      ]
+    },
+    "customer_4": {
+      "atlas": "characters-atlas.png",
+      "source_region": [
+        1024,
+        512,
+        1536,
+        1024
+      ],
+      "trim": [
+        114,
+        24,
+        399,
+        495
+      ],
+      "padding": 16,
+      "output_size": [
+        317,
+        503
+      ]
+    },
+    "submarine": {
+      "atlas": "props-atlas.png",
+      "source_region": [
+        0,
+        0,
+        418,
+        434
+      ],
+      "trim": [
+        59,
+        41,
+        341,
+        428
+      ],
+      "padding": 16,
+      "output_size": [
+        314,
+        419
+      ]
+    },
+    "gear": {
+      "atlas": "props-atlas.png",
+      "source_region": [
+        418,
+        0,
+        836,
+        434
+      ],
+      "trim": [
+        32,
+        62,
+        387,
+        410
+      ],
+      "padding": 16,
+      "output_size": [
+        387,
+        380
+      ]
+    },
+    "rock": {
+      "atlas": "props-atlas.png",
+      "source_region": [
+        836,
+        0,
+        1254,
+        434
+      ],
+      "trim": [
+        48,
+        98,
+        398,
+        417
+      ],
+      "padding": 16,
+      "output_size": [
+        382,
+        351
+      ]
+    },
+    "seat": {
+      "atlas": "props-atlas.png",
+      "source_region": [
+        0,
+        434,
+        418,
+        836
+      ],
+      "trim": [
+        47,
+        9,
+        358,
+        402
+      ],
+      "padding": 16,
+      "output_size": [
+        343,
+        425
+      ]
+    },
+    "plant": {
+      "atlas": "props-atlas.png",
+      "source_region": [
+        418,
+        434,
+        836,
+        836
+      ],
+      "trim": [
+        29,
+        7,
+        386,
+        393
+      ],
+      "padding": 16,
+      "output_size": [
+        389,
+        418
+      ]
+    },
+    "salmon": {
+      "atlas": "props-atlas.png",
+      "source_region": [
+        836,
+        434,
+        1254,
+        836
+      ],
+      "trim": [
+        24,
+        93,
+        407,
+        375
+      ],
+      "padding": 16,
+      "output_size": [
+        415,
+        314
+      ]
+    },
+    "cucumber": {
+      "atlas": "props-atlas.png",
+      "source_region": [
+        0,
+        836,
+        418,
+        1254
+      ],
+      "trim": [
+        22,
+        68,
+        407,
+        362
+      ],
+      "padding": 16,
+      "output_size": [
+        417,
+        326
+      ]
+    },
+    "shrimp": {
+      "atlas": "props-atlas.png",
+      "source_region": [
+        418,
+        836,
+        836,
+        1254
+      ],
+      "trim": [
+        20,
+        18,
+        391,
+        367
+      ],
+      "padding": 16,
+      "output_size": [
+        403,
+        381
+      ]
+    },
+    "eel": {
+      "atlas": "props-atlas.png",
+      "source_region": [
+        836,
+        836,
+        1254,
+        1254
+      ],
+      "trim": [
+        15,
+        69,
+        406,
+        369
+      ],
+      "padding": 16,
+      "output_size": [
+        423,
+        332
+      ]
+    },
+    "creature_salmon": {
+      "atlas": "creatures-atlas.png",
+      "source_region": [
+        0,
+        0,
+        535,
+        435
+      ],
+      "trim": [
+        17,
+        118,
+        515,
+        435
+      ],
+      "padding": 16,
+      "output_size": [
+        530,
+        349
+      ]
+    },
+    "creature_shrimp": {
+      "atlas": "creatures-atlas.png",
+      "source_region": [
+        535,
+        0,
+        1000,
+        482
+      ],
+      "trim": [
+        0,
+        79,
+        457,
+        463
+      ],
+      "padding": 16,
+      "output_size": [
+        489,
+        416
+      ]
+    },
+    "creature_eel": {
+      "atlas": "creatures-atlas.png",
+      "source_region": [
+        1000,
+        0,
+        1536,
+        458
+      ],
+      "trim": [
+        7,
+        88,
+        524,
+        452
+      ],
+      "padding": 16,
+      "output_size": [
+        549,
+        396
+      ]
+    },
+    "kelp": {
+      "atlas": "creatures-atlas.png",
+      "source_region": [
+        0,
+        435,
+        535,
+        1024
+      ],
+      "trim": [
+        62,
+        4,
+        502,
+        554
+      ],
+      "padding": 16,
+      "output_size": [
+        472,
+        582
+      ]
+    },
+    "coral": {
+      "atlas": "creatures-atlas.png",
+      "source_region": [
+        535,
+        482,
+        1000,
+        1024
+      ],
+      "trim": [
+        8,
+        11,
+        460,
+        503
+      ],
+      "padding": 16,
+      "output_size": [
+        484,
+        524
+      ]
+    },
+    "portal": {
+      "atlas": "creatures-atlas.png",
+      "source_region": [
+        1000,
+        458,
+        1536,
+        1024
+      ],
+      "trim": [
+        35,
+        32,
+        519,
+        527
+      ],
+      "padding": 16,
+      "output_size": [
+        516,
+        527
+      ]
+    },
+    "rubble_cluster": {
+      "atlas": "ui-props-atlas.png",
+      "source_region": [
+        0,
+        0,
+        682,
+        736
+      ],
+      "trim": [
+        32,
+        132,
+        651,
+        673
+      ],
+      "padding": 16,
+      "output_size": [
+        651,
+        573
+      ]
+    },
+    "blackboard": {
+      "atlas": "ui-props-atlas.png",
+      "source_region": [
+        682,
+        0,
+        1254,
+        736
+      ],
+      "trim": [
+        21,
+        127,
+        491,
+        681
+      ],
+      "padding": 16,
+      "output_size": [
+        502,
+        586
+      ]
+    },
+    "paper_panel": {
+      "atlas": "ui-props-atlas.png",
+      "source_region": [
+        0,
+        736,
+        628,
+        1254
+      ],
+      "trim": [
+        20,
+        42,
+        621,
+        387
+      ],
+      "padding": 16,
+      "output_size": [
+        633,
+        377
+      ]
+    },
+    "coral_panel": {
+      "atlas": "ui-props-atlas.png",
+      "source_region": [
+        628,
+        736,
+        1254,
+        1254
+      ],
+      "trim": [
+        11,
+        60,
+        608,
+        384
+      ],
+      "padding": 16,
+      "output_size": [
+        629,
+        356
+      ]
+    },
+    "customer_walk_1": {
+      "atlas": "customer-poses-atlas.png",
+      "source_region": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "trim": [
+        138,
+        7,
+        440,
+        512
+      ],
+      "padding": 16,
+      "output_size": [
+        334,
+        537
+      ]
+    },
+    "customer_walk_2": {
+      "atlas": "customer-poses-atlas.png",
+      "source_region": [
+        512,
+        0,
+        1024,
+        512
+      ],
+      "trim": [
+        76,
+        31,
+        422,
+        509
+      ],
+      "padding": 16,
+      "output_size": [
+        378,
+        510
+      ]
+    },
+    "customer_walk_3": {
+      "atlas": "customer-poses-atlas.png",
+      "source_region": [
+        1024,
+        0,
+        1536,
+        512
+      ],
+      "trim": [
+        63,
+        16,
+        366,
+        511
+      ],
+      "padding": 16,
+      "output_size": [
+        335,
+        527
+      ]
+    },
+    "customer_1": {
+      "atlas": "customer-poses-atlas.png",
+      "source_region": [
+        0,
+        512,
+        512,
+        1024
+      ],
+      "trim": [
+        122,
+        0,
+        422,
+        501
+      ],
+      "padding": 16,
+      "output_size": [
+        332,
+        533
+      ]
+    },
+    "customer_2": {
+      "atlas": "customer-poses-atlas.png",
+      "source_region": [
+        512,
+        512,
+        1024,
+        1024
+      ],
+      "trim": [
+        81,
+        13,
+        425,
+        502
+      ],
+      "padding": 16,
+      "output_size": [
+        376,
+        521
+      ]
+    },
+    "customer_3": {
+      "atlas": "customer-poses-atlas.png",
+      "source_region": [
+        1024,
+        512,
+        1536,
+        1024
+      ],
+      "trim": [
+        69,
+        1,
+        365,
+        501
+      ],
+      "padding": 16,
+      "output_size": [
+        328,
+        532
+      ]
+    }
+  }
+}
