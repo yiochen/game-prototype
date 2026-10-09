@@ -60,17 +60,15 @@
 .prototype-stage .recipe-dialog { height: min(680px, 100%); }
 .prototype-stage .recipe-catalog { min-height: 0; flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain; padding: 13px; scrollbar-width: thin; }
 .prototype-stage .recipe-group + .recipe-group { margin-top: 17px; }
-.prototype-stage .recipe-group h3 { margin-bottom: 9px; color: var(--muted); font-size: .71rem; text-transform: uppercase; letter-spacing: .06em; }
 .prototype-stage .recipe-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
 .prototype-stage .recipe-tile { position: relative; display: flex; align-items: center; flex-direction: column; gap: 5px; min-height: 118px; padding: 12px 8px 9px; overflow: visible; border-radius: 8px; text-align: center; transition: outline-color 160ms ease, box-shadow 160ms ease; }
-.prototype-stage .recipe-tile.tier-wood { background: repeating-linear-gradient(4deg, transparent 0 9px, rgb(35 51 69 / 4%) 9px 10px); }
-.prototype-stage .recipe-tile.tier-copper { background: repeating-linear-gradient(90deg, transparent 0 20px, rgb(35 51 69 / 5%) 20px 21px); }
-.prototype-stage .recipe-tile.tier-silver { background: repeating-linear-gradient(135deg, transparent 0 13px, rgb(35 51 69 / 5%) 13px 14px); }
+.prototype-stage .recipe-tile.tier-wood, .prototype-stage .recipe-details.tier-wood { background-color: var(--paper); background-image: repeating-linear-gradient(4deg, transparent 0 9px, rgb(35 51 69 / 7%) 9px 10px); }
+.prototype-stage .recipe-tile.tier-copper, .prototype-stage .recipe-details.tier-copper { background-color: var(--paper); background-image: repeating-linear-gradient(90deg, transparent 0 20px, rgb(35 51 69 / 8%) 20px 21px); }
+.prototype-stage .recipe-tile.tier-silver, .prototype-stage .recipe-details.tier-silver { background-color: var(--paper); background-image: repeating-linear-gradient(135deg, transparent 0 13px, rgb(35 51 69 / 8%) 13px 14px); }
 .prototype-stage .recipe-tile.is-preparing { box-shadow: inset 0 0 0 2px var(--ink); }
 .prototype-stage .recipe-tile.is-inspected { outline: 2px solid var(--accent); outline-offset: 3px; }
 .prototype-stage .recipe-dish { display: grid; place-items: center; font-size: 2.6rem; font-weight: 400; line-height: 1; min-height: 45px; }
 .prototype-stage .recipe-tile-name { font-weight: 700; font-size: .79rem; }
-.prototype-stage .recipe-tier { color: var(--muted); font-size: .66rem; }
 .prototype-stage .new-label { position: absolute; right: 5px; top: 4px; color: var(--accent); font-size: .55rem; font-weight: 800; letter-spacing: .07em; }
 .prototype-stage .muted-recipes .recipe-tile { color: var(--muted); }
 .prototype-stage .dish-silhouette { color: var(--muted); opacity: .72; text-shadow: 1px 1px 0 white; }
@@ -87,21 +85,9 @@
 .prototype-stage .preparing-status { color: var(--ink); }
 .prototype-stage .preparing-status span { font-size: .68rem; font-weight: 400; color: var(--muted); margin-left: 9px; }
 .prototype-stage .unknown-recipe-note { margin: 10px 0 14px !important; }
-.prototype-stage .applicants-dialog { height: min(680px, 100%); }
-.prototype-stage .applicant-card { border: 1px solid var(--line); padding: 13px; border-radius: 9px; margin-top: 13px; }
-.prototype-stage .applicant-heading { display: flex; gap: 11px; align-items: center; }
-.prototype-stage .applicant-heading > svg, .prototype-stage .applicant-heading > .character { flex: 0 0 54px; width: 54px; height: 58px; }
-.prototype-stage .applicant-heading p { font-size: .73rem; margin-top: 4px; color: var(--muted); }
-.prototype-stage .applicant-background { color: var(--muted); font-size: .7rem !important; }
-.prototype-stage .profile-trait { display: inline-block; font-size: .67rem; font-weight: 750; margin-top: 9px; border-bottom: 1px solid var(--ink); padding-bottom: 3px; }
-.prototype-stage .applicant-facts { grid-template-columns: 1fr 1fr; gap: 10px; }
-.prototype-stage .applicant-hire { display: flex; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid var(--line); padding-top: 10px; }
-.prototype-stage .hire-price { font-weight: 750; }
-.prototype-stage .applicant-hire button { min-width: 90px; }
 .prototype-stage .refresh-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .prototype-stage .refresh-row strong { font-size: .8rem; }
 .prototype-stage .refresh-row p { color: var(--muted); margin-top: 3px; font-size: .68rem; }
-.prototype-stage .empty-application { padding: 30px 10px; text-align: center; border: 1px dashed var(--line); border-radius: 8px; }
 .prototype-stage .chef-profile { display: flex; gap: 13px; align-items: center; }
 .prototype-stage .chef-profile > svg, .prototype-stage .chef-profile > .character { flex: 0 0 76px; width: 76px; height: 85px; }
 .prototype-stage .chef-profile p { font-size: .73rem; color: var(--muted); }
@@ -119,10 +105,8 @@
 .prototype-stage .pause-dialog .dialog-header { border-bottom: 0; padding-bottom: 2px; }
 .prototype-stage .pause-dialog .dialog-scroll { padding-top: 3px; padding-bottom: 20px; }
 .prototype-stage .expansion-dialog { align-self: end; margin-bottom: 2%; width: min(100%, 370px); }
-.prototype-stage .patch-preview { display: grid; grid-template-columns: repeat(3, 1fr); width: 87px; height: 115px; float: left; margin: 0 16px 12px 0; border: 2px solid var(--accent); outline: 2px dashed var(--accent); outline-offset: 3px; }
+.prototype-stage .patch-preview { display: grid; grid-template-columns: repeat(3, 1fr); width: 87px; height: 115px; margin: 3px auto 4px; border: 2px solid var(--accent); outline: 2px dashed var(--accent); outline-offset: 3px; }
 .prototype-stage .patch-preview span { border: 1px solid var(--line); background: repeating-linear-gradient(135deg, transparent 0 6px, rgb(35 51 69 / 20%) 6px 7px); }
-.prototype-stage .expansion-facts { min-height: 115px; align-content: center; margin-top: 0; }
-.prototype-stage .expansion-dialog .dialog-scroll > p { clear: both; }
 .prototype-stage .empty-inventory-symbol { padding: 18px 0; text-align: center; font-size: 2.1rem; letter-spacing: 9px; color: var(--muted); }
 .prototype-stage .recipe-award-dialog { width: min(100%, 360px); }
 .prototype-stage .recipe-award-dialog .dialog-header { justify-content: center; text-align: center; }

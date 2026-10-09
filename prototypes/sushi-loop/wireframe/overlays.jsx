@@ -1,6 +1,7 @@
 import React from 'react';
 import { Target, Icon, Character, Money } from './common.jsx';
 import { RecipeTile } from './components.jsx';
+import { ResumeDeck } from './applicants.jsx';
 import { applicantSet, chefFor, roster, chefAssigned, chefSpeed } from './fixtures.js';
 
 const recipes = {
@@ -26,7 +27,7 @@ export function Dialog({ story, title, eyebrow, className = '', children, footer
 }
 
 function RecipeGroup({ title, keys, selected, current, seen, isNew, muted = false }) {
-  return <section className={`recipe-group ${muted ? 'muted-recipes' : ''}`} aria-label={title}><h3>{title}</h3><div className="recipe-grid">{keys.map(key => <RecipeTile key={key} recipe={recipes[key]} recipeKey={key} selected={selected} current={current} seen={seen} isNew={isNew && key === 'eel'}/>)}</div></section>;
+  return <section className={`recipe-group ${muted ? 'muted-recipes' : ''}`} aria-label={title}><div className="recipe-grid">{keys.map(key => <RecipeTile key={key} recipe={recipes[key]} recipeKey={key} selected={selected} current={current} seen={seen} isNew={isNew && key === 'eel'}/>)}</div></section>;
 }
 
 function Recipes({ story, state }) {
@@ -40,17 +41,12 @@ function Recipes({ story, state }) {
   const groupProps = { selected, current, seen: state.seenRecipes, isNew: variant === 'new' };
   let details;
   if (!recipe) details = <><div className="recipe-details-empty"><span className="recipe-dish" aria-hidden="true">◌</span><div><h3>Choose a recipe</h3><p>Inspect a dish above, then press Prepare.</p></div></div><Target action="prepare" className="primary-action full-width" disabled>Prepare</Target></>;
-  else if (selected === 'unknown') details = <><div className="recipe-detail-heading"><span className="recipe-dish dish-silhouette" aria-hidden="true">?</span><div><p className="dialog-eyebrow">Silver tier</p><h3>Undiscovered dish</h3></div></div><p className="unknown-recipe-note">Catch a new creature on an expedition to reveal this recipe.</p><Target action="prepare" className="primary-action full-width" disabled>Prepare</Target></>;
-  else details = <><div className="recipe-detail-heading"><span className="recipe-dish" aria-hidden="true">{recipe.symbol}</span><div><p className="dialog-eyebrow">{recipe.tier} tier</p><h3>{recipe.name}</h3></div></div><dl className="overlay-facts recipe-facts"><Fact label="Price / dish"><Money kind="coins" amount={recipe.price}/></Fact><Fact label={`Prep with ${firstName}`}>{eligible ? `${recipe.seconds.toFixed(1)} sec` : '—'}</Fact><Fact label="Requires">{recipe.tier} · Lv {recipe.level}</Fact></dl>{!eligible && <p className="inline-reason">{firstName} needs Level {recipe.level} to cook {recipe.tier} recipes.</p>}{selected === current ? <div className="noninteractive-status preparing-status">Preparing <span>Current recipe</span></div> : <Target action="prepare" className="primary-action full-width" disabled={!eligible}>Prepare</Target>}</>;
-  return <Dialog story={story} title={`${firstName}’s recipes`} eyebrow={`Level ${level} · ${tierFor(level)} chef`} className="recipe-dialog">
-    <div className="recipe-catalog" tabIndex={0} aria-label="Scrollable recipe catalog"><RecipeGroup title="Can prepare" keys={cookable} {...groupProps}/>{!!above.length && <RecipeGroup title="Needs a higher chef tier" keys={above} {...groupProps} muted/>}<RecipeGroup title="Still undiscovered" keys={['unknown']} {...groupProps}/><p className="catalog-key"><span className="current-key" aria-hidden="true"/>Current recipe <span className="inspection-key" aria-hidden="true"/>Inspecting</p></div>
-    <section className="recipe-details" aria-live="polite" aria-label="Selected recipe details">{details}</section>
+  else if (selected === 'unknown') details = <><div className="recipe-detail-heading"><span className="recipe-dish dish-silhouette" aria-hidden="true">?</span><div><h3>Undiscovered dish</h3></div></div><p className="unknown-recipe-note">Catch a new creature on an expedition to reveal this recipe.</p><Target action="prepare" className="primary-action full-width" disabled>Prepare</Target></>;
+  else details = <><div className="recipe-detail-heading"><span className="recipe-dish" aria-hidden="true">{recipe.symbol}</span><div><h3>{recipe.name}</h3></div></div><dl className="overlay-facts recipe-facts"><Fact label="Price / dish"><Money kind="coins" amount={recipe.price}/></Fact><Fact label={`Prep with ${firstName}`}>{eligible ? `${recipe.seconds.toFixed(1)} sec` : '—'}</Fact><Fact label="Requires">Lv {recipe.level}</Fact></dl>{!eligible && <p className="inline-reason">{firstName} needs Level {recipe.level} to prepare this recipe.</p>}{selected === current ? <div className="noninteractive-status preparing-status">Preparing <span>Current recipe</span></div> : <Target action="prepare" className="primary-action full-width" disabled={!eligible}>Prepare</Target>}</>;
+  return <Dialog story={story} title={`${firstName}’s recipes`} eyebrow={`Level ${level}`} className="recipe-dialog">
+    <div className="recipe-catalog" tabIndex={0} aria-label="Scrollable recipe catalog"><RecipeGroup title="Can prepare" keys={cookable} {...groupProps}/>{!!above.length && <RecipeGroup title="Needs a higher chef level" keys={above} {...groupProps} muted/>}<RecipeGroup title="Still undiscovered" keys={['unknown']} {...groupProps}/><p className="catalog-key"><span className="current-key" aria-hidden="true"/>Current recipe <span className="inspection-key" aria-hidden="true"/>Inspecting</p></div>
+    <section className={`recipe-details ${recipe ? `tier-${recipe.tier.toLowerCase()}` : ''}`} aria-live="polite" aria-label="Selected recipe details" aria-description={recipe ? `${recipe.tier} material board` : undefined}>{details}</section>
   </Dialog>;
-}
-
-function ApplicantCard({ candidate, full }) {
-  const name = candidate.name;
-  return <article className="applicant-card"><div className="applicant-heading"><Character name={name}/><div><h3>{name}</h3><p>{candidate.role}</p></div></div><p className="applicant-background">{candidate.background}</p><span className="profile-trait">{candidate.trait}</span><dl className="overlay-facts applicant-facts"><Fact label="Cooking speed">{candidate.speed}</Fact><Fact label="Growth">{candidate.growth}</Fact><Fact label="Maximum level">Lv {candidate.ceiling}</Fact><Fact label="Highest tier">{candidate.tier}</Fact></dl><div className="applicant-hire"><span className="hire-price"><Money kind="coins" amount={candidate.cost}/></span><Target action="hire" className="primary-action" disabled={full} data={{ value: candidate.id }} title={full ? 'Roster is full' : `Hire ${name}`}>Hire</Target></div></article>;
 }
 
 function Applicants({ story, state }) {
@@ -58,7 +54,7 @@ function Applicants({ story, state }) {
   const full = count >= 4, hired = state.hiredApplicants, refreshed = state.applicantRefresh;
   const candidates = applicantSet(state).filter(candidate => !hired.includes(candidate.id));
   return <Dialog story={story} title="Job applicants" eyebrow={`Staff ${count} / 4 · ${full ? 'Roster full' : `${4-count} spaces available`}`} className="applicants-dialog" footer={<><div className="refresh-row"><div><strong>Refresh applications</strong><p>{refreshed ? 'Cooldown preview · available in 04:59' : 'Free · replaces the complete set'}</p></div><Target action="refresh-applicants" disabled={refreshed}>{refreshed ? 'Wait' : 'Refresh'}</Target></div><Navigate story="staff-roster" className="full-width">Back to staff</Navigate></>}>
-    <div className="dialog-scroll"><p className="dialog-intro">{full ? 'Expand the restaurant or fire a chef to make room.' : 'Compare three different paths. New hires join your roster unassigned.'}</p>{candidates.map(candidate => <ApplicantCard key={candidate.id} candidate={candidate} full={full}/>)}{!candidates.length && <div className="empty-application"><h3>No applications left</h3><p>Refresh to meet three new candidates.</p></div>}{!!hired.length && <p className="inline-note">{hired.length} hired · {candidates.length} applications remain. Empty places stay empty until Refresh.</p>}</div>
+    <ResumeDeck candidates={candidates} full={full}/>
   </Dialog>;
 }
 
@@ -79,7 +75,7 @@ function Fire({ story, state }) {
 
 function Expansion({ story }) {
   const poor = variantFor(story) === 'unaffordable';
-  return <Dialog story={story} title="Clear this patch?" eyebrow="First expansion · panel 2" className="expansion-dialog" footer={<div className="dialog-action-pair"><Target action="dismiss">Cancel</Target><Target action="clear-confirm" className="primary-action" disabled={poor}>Clear <Money kind="coins" amount={240}/></Target></div>}><div className="dialog-scroll"><div className="patch-preview" aria-label="Selected garbage patch, three cells by four cells">{Array.from({length:12},(_,i) => <span key={i}/>)}</div><dl className="overlay-facts expansion-facts"><Fact label="Selected footprint">3 × 4 cells</Fact><Fact label="Clearance price"><Money kind="coins" amount={240}/></Fact></dl><p>Open more usable restaurant floor toward the submarine and Workshop.</p><p className="inline-note">The highlighted footprint is permanent once cleared.</p>{poor && <p className="inline-reason">Not enough coins · example balance 80 / 240.</p>}</div></Dialog>;
+  return <Dialog story={story} title="Clear this patch?" className="expansion-dialog" showClose={false} footer={<div className="dialog-action-pair"><Target action="dismiss">Cancel</Target><Target action="clear-confirm" className="primary-action" disabled={poor}>Clear <Money kind="coins" amount={240}/></Target></div>}><div className="dialog-scroll"><div className="patch-preview" aria-label="Selected garbage patch">{Array.from({length:12},(_,i) => <span key={i}/>)}</div></div></Dialog>;
 }
 
 function Pause({ story }) {

@@ -32,7 +32,7 @@ async function panTo(page, fraction) {
 
 async function openRecipesFromStaff(page) {
   await stage(page).getByRole('button', { name: 'Staff', exact: true }).click();
-  await stage(page).locator('.staff-card').filter({ hasText: 'Lena Brooks' }).getByRole('button', { name: 'Assigned · details', exact: true }).click();
+  await stage(page).getByRole('button', { name: 'Inspect Lena Brooks', exact: true }).click();
   await dialog(page).getByRole('button', { name: 'Recipes', exact: true }).click();
 }
 
@@ -47,7 +47,7 @@ for (const [name, width, height] of [
   ['small-phone', 320, 740], ['phone', 390, 844],
   ['landscape', 844, 390], ['desktop', 1440, 1000],
 ]) {
-  test(`all 53 deep-linked examples render without errors or horizontal clipping at ${name}`, async ({ page }) => {
+  test(`all 55 deep-linked examples render without errors or horizontal clipping at ${name}`, async ({ page }) => {
     test.setTimeout(90_000);
     await page.setViewportSize({ width, height });
     // Layout checks measure the settled popup, not its entrance translation.
@@ -56,7 +56,7 @@ for (const [name, width, height] of [
     page.on('pageerror', (error) => errors.push(error.message));
     await open(page, 'floor-plan');
     const examples = await page.locator('#example-select option').evaluateAll((options) => options.map((option) => ({ id: option.value, title: option.textContent })));
-    expect(examples).toHaveLength(53);
+    expect(examples).toHaveLength(55);
     for (const example of examples) {
       await open(page, example.id);
       await expect(page.locator('#story-title')).toHaveText(example.title);
@@ -126,7 +126,7 @@ test('floating Shop and scene landmarks navigate between editing, Workshop and r
   await expect(stage(page).getByText('Service paused', { exact: true })).toHaveCount(0);
   await open(page, 'restaurant-expanded');
   await panTo(page, 1);
-  await stage(page).getByRole('button', { name: /Workshop.*Small service hut/ }).click();
+  await stage(page).getByRole('button', { name: 'Workshop', exact: true }).click();
   await at(page, 'workshop');
   await stage(page).getByRole('button', { name: 'Sushi Bar', exact: true }).click();
   await at(page, 'restaurant-live');
@@ -182,6 +182,10 @@ test('recipe inspection keeps current production until Prepare; idle chefs requi
   await page.setViewportSize({ width: 390, height: 844 });
   await open(page, 'recipe-picker');
   await expect(dialog(page).locator('.preparing-status')).toContainText('Preparing');
+  await expect(dialog(page).locator('.dialog-header .dialog-eyebrow')).toHaveText('Level 2');
+  await expect(dialog(page).locator('.recipe-group h3, .recipe-details .dialog-eyebrow, .recipe-tier')).toHaveCount(0);
+  await expect(dialog(page).locator('.recipe-details')).toHaveClass(/tier-wood/);
+  await expect(dialog(page).getByRole('button', { name: 'Inspect Salmon nigiri', exact: true })).toHaveAccessibleDescription(/Wood material/);
   await expect(action(page, 'prepare')).toHaveCount(0);
   await dialog(page).getByRole('button', { name: 'Inspect Cucumber maki', exact: true }).click();
   await expect(dialog(page).getByRole('heading', { name: 'Cucumber maki', exact: true })).toBeVisible();
@@ -258,18 +262,20 @@ test('dialog backdrop does not dismiss or activate the scene; keyboard focus sta
 test('hiring stays in applicants with remaining candidates; reset restores the fixture', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await open(page, 'staff-applicants');
-  await expect(dialog(page).locator('.applicant-card')).toHaveCount(3);
+  await expect(dialog(page).locator('.paper-resume')).toHaveCount(1);
+  await expect(dialog(page).locator('.resume-pagination')).toContainText('1 / 3');
+  await dialog(page).getByRole('button', { name: 'Next applicant', exact: true }).click();
   await dialog(page).getByRole('button', { name: 'Hire Mateo Rivera', exact: true }).click();
   await at(page, 'staff-applicants');
-  await expect(dialog(page).locator('.applicant-card')).toHaveCount(2);
+  await expect(dialog(page).locator('.paper-resume')).toHaveCount(1);
   await expect(dialog(page).getByRole('heading', { name: 'Mateo Rivera', exact: true })).toHaveCount(0);
-  await expect(dialog(page)).toContainText('2 applications remain');
+  await expect(dialog(page).locator('.resume-pagination')).toContainText('2 / 2');
   await page.getByRole('button', { name: 'Reset', exact: true }).click();
-  await expect(dialog(page).locator('.applicant-card')).toHaveCount(3);
+  await expect(dialog(page).locator('.resume-pagination')).toContainText('1 / 3');
   await expect(dialog(page).getByRole('button', { name: 'Refresh', exact: true })).toBeEnabled();
   await dialog(page).getByRole('button', { name: 'Refresh', exact: true }).click();
   await expect(dialog(page).getByRole('button', { name: 'Wait', exact: true })).toBeDisabled();
-  await expect(dialog(page).getByRole('heading', { name: 'Ellis Morgan', exact: true })).toBeVisible();
+  await expect(dialog(page).getByRole('heading', { name: 'Dalia Farouk', exact: true })).toBeVisible();
 });
 
 test('unaffordable, ineligible, full and MAX examples keep facts visible and block their unavailable action', async ({ page }) => {
@@ -287,7 +293,7 @@ test('unaffordable, ineligible, full and MAX examples keep facts visible and blo
   }
   await open(page, 'recipe-unavailable');
   await expect(dialog(page).locator('.recipe-facts')).toContainText('—');
-  await expect(dialog(page).locator('.recipe-facts')).toContainText('Copper');
+  await expect(dialog(page).locator('.recipe-facts')).toContainText('Lv 5');
   await open(page, 'staff-max');
   await expect(dialog(page).getByText('MAX', { exact: true })).toBeVisible();
   await expect(action(page, 'level-up')).toHaveCount(0);
@@ -376,29 +382,32 @@ test('nested dialogs return to their parent and an inventory toast leaves editin
   await expect(dialog(page).getByRole('heading', { name: 'Lena Brooks', exact: true })).toBeVisible();
 });
 
-test('refreshed hires retain their identity and cooking speed in the shared roster and detail', async ({ page }) => {
+test('refreshed hires retain their identity and cooking speed through paged roster profiles and stats', async ({ page }) => {
   await open(page, 'staff-applicants');
+  await dialog(page).getByRole('button', { name: 'Next applicant', exact: true }).click();
   await dialog(page).getByRole('button', { name: 'Hire Mateo Rivera', exact: true }).click();
   await dialog(page).getByRole('button', { name: 'Refresh', exact: true }).click();
+  await dialog(page).getByRole('button', { name: 'Next applicant', exact: true }).click();
   await dialog(page).getByRole('button', { name: 'Hire Ellis Morgan', exact: true }).click();
   await dialog(page).getByRole('button', { name: 'Back to staff', exact: true }).click();
   await at(page, 'staff-roster');
+  await stage(page).getByRole('button', { name: 'Next staff page', exact: true }).click();
   for (const name of ['Mateo Rivera', 'Ellis Morgan']) {
-    const card = stage(page).locator('.staff-card').filter({ has: page.getByRole('heading', { name, exact: true }) });
-    await expect(card).toContainText('1.20×');
-    await expect(card).toContainText('Unassigned');
+    const profile = stage(page).getByRole('button', { name: `Inspect ${name}`, exact: true });
+    await expect(profile).toContainText('Unassigned');
+    await profile.click();
+    await expect(dialog(page).getByRole('heading', { name, exact: true })).toBeVisible();
+    await expect(dialog(page).locator('.chef-facts')).toContainText('1.20×');
+    await dialog(page).getByRole('button', { name: 'Back to staff', exact: true }).click();
   }
-  await stage(page).locator('.staff-card').filter({ hasText: 'Ellis Morgan' }).getByRole('button', { name: 'Unassigned · details', exact: true }).click();
-  await expect(dialog(page).getByRole('heading', { name: 'Ellis Morgan', exact: true })).toBeVisible();
-  await expect(dialog(page).locator('.chef-facts')).toContainText('1.20×');
 });
 
 test('unassignment updates the roster and expedition returns recenter while resume retains danger', async ({ page }) => {
   await open(page, 'staff-detail');
   await dialog(page).getByRole('button', { name: 'Unassign', exact: true }).click();
   await dialog(page).getByRole('button', { name: 'Back to staff', exact: true }).click();
-  await expect(stage(page).locator('.staff-card').filter({ hasText: 'Lena Brooks' })).toContainText('Unassigned');
-  await stage(page).getByRole('button', { name: 'Restaurant', exact: true }).click();
+  await expect(stage(page).getByRole('button', { name: 'Inspect Lena Brooks', exact: true })).toContainText('Unassigned');
+  await stage(page).getByRole('button', { name: 'Close staff tray', exact: true }).click();
   await expect(stage(page).locator('.placed-chef')).toHaveCount(0);
   await expect(stage(page).locator('.starter-service, .customer, .open-belt')).toHaveCount(0);
   await open(page, 'restaurant-expanded');
@@ -437,14 +446,18 @@ test('floor-plan editor layers toggle the tray, swatches have no captions and Li
   expect(controls[0].y).toBeLessThan(controls[1].y);
   expect(controls[1].y).toBeLessThan(controls[2].y);
   await expect(people).toHaveAttribute('aria-expanded', 'true');
+  await expect(stage(page).locator('.layer-selected-name')).toHaveText('People');
   await people.click();
   await expect(people).toHaveAttribute('aria-expanded', 'false');
   await expect(tray).toHaveAttribute('inert', '');
+  await expect(stage(page).locator('.layer-selected-name')).toHaveText('People');
   await layout.click();
   await expect(layout).toHaveAttribute('aria-expanded', 'true');
+  await expect(stage(page).locator('.layer-selected-name')).toHaveText('Layout');
   await expect(tray.getByRole('button', { name: 'Belt tile', exact: true })).toBeVisible();
   await floor.click();
   await expect(floor).toHaveAttribute('aria-expanded', 'true');
+  await expect(stage(page).locator('.layer-selected-name')).toHaveText('Floor');
   const swatches = tray.getByRole('button');
   await expect(swatches).toHaveCount(3);
   for (const swatch of await swatches.all()) expect((await swatch.textContent()).trim()).toBe('');
@@ -483,4 +496,152 @@ test('empty belt inventory is a short toast while layers and floating Shop remai
   await expect(stage(page).locator('.placement-preview')).toHaveCount(0);
   await stage(page).getByRole('button', { name: 'Shop', exact: true }).click();
   await at(page, 'shop');
+});
+
+test('clearance confirmation keeps cost on Clear only, uses Cancel, and greys out unaffordable clearance', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 740 });
+  await open(page, 'expansion');
+  await expect(dialog(page).getByRole('heading', { name: 'Clear this patch?', exact: true })).toBeVisible();
+  await expect(dialog(page).getByRole('button')).toHaveCount(2);
+  await expect(dialog(page).locator('.dialog-scroll')).toHaveText('');
+  await expect(dialog(page).locator('.dialog-eyebrow')).toHaveCount(0);
+  await expect(dialog(page).getByText('240', { exact: true })).toHaveCount(1);
+  await dialog(page).getByRole('button', { name: 'Cancel', exact: true }).click();
+  await at(page, 'restaurant-live');
+  await expect(dialog(page)).toHaveCount(0);
+  await open(page, 'expansion-unaffordable');
+  await expect(action(page, 'clear-confirm')).toBeDisabled();
+  await expect(dialog(page).getByText(/Not enough|Selected footprint|Clearance price|permanent|Open more/)).toHaveCount(0);
+  await open(page, 'expansion');
+  await action(page, 'clear-confirm').click();
+  await at(page, 'restaurant-expanded');
+  await expect(stage(page).getByRole('button', { name: 'Workshop', exact: true })).toBeEnabled();
+});
+
+test('dock and right-side Workshop share three by three floor tiles, with covered peeks before unlock', async ({ page }) => {
+  for (const width of [320, 390]) {
+    await page.setViewportSize({ width, height: 844 });
+    await open(page, 'restaurant-expanded');
+    await panTo(page, 1);
+    const dock = stage(page).locator('.dock-zone');
+    const size = await dock.evaluate(element => {
+      const panel = element.closest('.floor-panel');
+      const dockBox = element.getBoundingClientRect();
+      return { width: dockBox.width, height: dockBox.height, tileWidth: panel.clientWidth / 9, tileHeight: panel.clientHeight / 16 };
+    });
+    expect(Math.abs(size.width - size.tileWidth * 3)).toBeLessThan(1);
+    expect(Math.abs(size.height - size.tileHeight * 3)).toBeLessThan(1);
+    const sub = await dock.getByRole('button', { name: /Submarine.*Ready/ }).boundingBox();
+    const workshop = await dock.getByRole('button', { name: 'Workshop', exact: true }).boundingBox();
+    expect(workshop.x).toBeGreaterThanOrEqual(sub.x + sub.width);
+    for (const box of [sub, workshop]) { expect(box.width).toBeGreaterThanOrEqual(44); expect(box.height).toBeGreaterThanOrEqual(44); }
+    await stage(page).getByRole('button', { name: 'Staff', exact: true }).click();
+    await expect(stage(page).locator('[data-floor-panel="1"]')).toHaveClass(/(?:^|\s)cleared(?:\s|$)/);
+    await expect(stage(page).getByRole('button', { name: 'Workshop', exact: true })).toBeEnabled();
+    await stage(page).getByRole('button', { name: 'Close staff tray', exact: true }).click();
+    await at(page, 'restaurant-expanded');
+    await expect.poll(() => floorPosition(page)).toBeCloseTo(1, 1);
+    await expect(stage(page).locator('[data-floor-panel="1"]')).toHaveClass(/(?:^|\s)cleared(?:\s|$)/);
+    await open(page, 'component-dock');
+    const covered = stage(page).locator('.dock-locked');
+    await covered.scrollIntoViewIfNeeded();
+    await expect(covered.locator('.dock-rags')).toBeVisible();
+    for (const button of await covered.getByRole('button').all()) await expect(button).toBeDisabled();
+    await expect(covered.getByText(/Ready|Charging|Future access/)).toHaveCount(0);
+    await screenshot(page, `covered-dock-${width}`);
+  }
+});
+
+test('touch drags place a roster preview without opening stats, while taps inspect and shared pages paginate', async ({ browser }) => {
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
+  try {
+    const page = await context.newPage();
+    await open(page, 'restaurant-live');
+    await panTo(page, .35);
+    await stage(page).getByRole('button', { name: 'Staff', exact: true }).tap();
+    await expect.poll(() => floorPosition(page)).toBeCloseTo(.35, 1);
+    await expect(stage(page).locator('.roster-profiles')).toHaveCount(1);
+    await expect(stage(page).locator('.roster-profile')).toHaveCount(2);
+    await stage(page).getByRole('button', { name: 'Close staff tray', exact: true }).tap();
+    await at(page, 'restaurant-live');
+    await expect.poll(() => floorPosition(page)).toBeCloseTo(.35, 1);
+    await panTo(page, 0);
+    await stage(page).getByRole('button', { name: 'Staff', exact: true }).tap();
+    await stage(page).scrollIntoViewIfNeeded();
+    const frame = await stage(page).boundingBox();
+    const profile = stage(page).locator('.roster-profiles').getByRole('button', { name: 'Inspect Omar Haddad', exact: true });
+    const card = await profile.boundingBox();
+    const start = { x: card.x + card.width / 2, y: card.y + card.height / 2 };
+    const end = { x: frame.x + frame.width * .55, y: frame.y + 250 };
+    const cdp = await context.newCDPSession(page);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [start] });
+    for (let step=1; step<=8; step++) await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: start.x + (end.x-start.x)*step/8, y: start.y + (end.y-start.y)*step/8 }] });
+    await expect(stage(page).locator('.roster-drag-ghost')).toBeVisible();
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    await at(page, 'staff-roster');
+    await expect(dialog(page)).toHaveCount(0);
+    await expect(profile).toContainText('Assigned');
+    await expect(stage(page).locator('.roster-placed-chef')).toBeVisible();
+    await profile.tap();
+    await expect(dialog(page).getByRole('heading', { name: 'Omar Haddad', exact: true })).toBeVisible();
+    await expect(dialog(page).locator('.chef-facts')).toContainText('Cooking speed');
+    await dialog(page).getByRole('button', { name: 'Unassign', exact: true }).tap();
+    await dialog(page).getByRole('button', { name: 'Back to staff', exact: true }).tap();
+    await expect(stage(page).locator('.roster-placed-chef')).toHaveCount(0);
+    await expect(profile).toContainText('Unassigned');
+    // Place once more, then dismissal must remove both profile and preview marker.
+    await stage(page).scrollIntoViewIfNeeded();
+    const nextCard = await profile.boundingBox(), nextFrame = await stage(page).boundingBox();
+    const secondStart = { x: nextCard.x + nextCard.width / 2, y: nextCard.y + nextCard.height / 2 };
+    const secondEnd = { x: nextFrame.x + nextFrame.width * .55, y: nextFrame.y + 250 };
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [secondStart] });
+    for (let step=1; step<=8; step++) await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: secondStart.x + (secondEnd.x-secondStart.x)*step/8, y: secondStart.y + (secondEnd.y-secondStart.y)*step/8 }] });
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    await expect(stage(page).locator('.roster-placed-chef')).toBeVisible();
+    await profile.tap();
+    await dialog(page).getByRole('button', { name: 'Fire…', exact: true }).tap();
+    await dialog(page).getByRole('button', { name: 'Fire Omar', exact: true }).tap();
+    await at(page, 'staff-roster');
+    await expect(stage(page).locator('.roster-placed-chef')).toHaveCount(0);
+    await expect(profile).toHaveCount(0);
+    await open(page, 'component-roster-tray');
+    await stage(page).getByRole('button', { name: 'Next staff page', exact: true }).tap();
+    await expect(stage(page).getByRole('button', { name: 'Inspect Ama Mensah', exact: true })).toBeVisible();
+    await at(page, 'component-roster-tray');
+    await stage(page).getByRole('button', { name: 'Previous staff page', exact: true }).tap();
+    await expect(stage(page).getByRole('button', { name: 'Inspect Lena Brooks', exact: true })).toBeVisible();
+  } finally { await context.close(); }
+});
+
+test('paper résumé touch swipes browse in both directions without hiring and shared resume stays interactive', async ({ browser }) => {
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
+  try {
+    const page = await context.newPage();
+    await open(page, 'staff-applicants');
+    const cdp = await context.newCDPSession(page);
+    async function swipe(direction) {
+      const paper = dialog(page).locator('.paper-resume');
+      await paper.scrollIntoViewIfNeeded();
+      const box = await paper.boundingBox();
+      const start = { x: box.x + box.width * (direction < 0 ? .8 : .2), y: box.y + box.height * .4 };
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [start] });
+      for (let step=1;step<=8;step++) await cdp.send('Input.dispatchTouchEvent', { type:'touchMove', touchPoints:[{x:start.x + direction * box.width*.07*step,y:start.y}] });
+      await cdp.send('Input.dispatchTouchEvent', { type:'touchEnd', touchPoints:[] });
+    }
+    await expect(dialog(page).locator('.paper-resume')).toHaveCount(1);
+    await swipe(-1);
+    await expect(dialog(page).getByRole('heading', { name: 'Mateo Rivera', exact: true })).toBeVisible();
+    await expect(dialog(page).locator('.dialog-eyebrow')).toContainText('Staff 2 / 4');
+    await swipe(1);
+    await expect(dialog(page).getByRole('heading', { name: 'Ama Mensah', exact: true })).toBeVisible();
+    await dialog(page).getByRole('button', { name: 'Hire Ama Mensah', exact: true }).tap();
+    await expect(dialog(page).locator('.dialog-eyebrow')).toContainText('Staff 3 / 4');
+    await expect(dialog(page).getByRole('heading', { name: 'Mateo Rivera', exact: true })).toBeVisible();
+    await open(page, 'component-applicant-resume');
+    await stage(page).getByRole('button', { name: 'Next applicant', exact: true }).tap();
+    await at(page, 'component-applicant-resume');
+    await expect(stage(page).getByRole('heading', { name: 'Mateo Rivera', exact: true })).toBeVisible();
+    await stage(page).getByRole('button', { name: 'Hire Mateo Rivera', exact: true }).tap();
+    await expect(stage(page).getByRole('heading', { name: 'Mateo Rivera', exact: true })).toHaveCount(0);
+  } finally { await context.close(); }
 });

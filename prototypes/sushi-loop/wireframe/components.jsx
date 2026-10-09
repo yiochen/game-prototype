@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { Target, Icon, Money, Character } from './common.jsx';
+import { RosterTray } from './staff-tray.jsx';
+import { ResumeDeck } from './applicants.jsx';
+import { applicantSet, roster } from './fixtures.js';
 
 // These composites are used directly in both the complete scenes and the isolated gallery.
 export function RestaurantHud({ state = {}, children }) {
@@ -21,26 +24,27 @@ export function EditorControls({ state = {} }) {
   const inventory = [{label:'Belt tile',value:'belt',art:<span className="mini-belt" aria-hidden="true">→</span>,count:String(state.beltCount ?? 12)},{label:'Chair',value:'chair',art:<span className="mini-chair" aria-hidden="true">⊓</span>,count:'3'},{label:'Plant',value:'plant',art:<span className="mini-plant" aria-hidden="true">♧</span>,count:'1'}];
   return <div className={`editor-controls editor-layer-${layer}`} data-tray-open={open} aria-label="Restaurant editor">
     <Target action="navigate" data={{story:'restaurant-live'}} className="live-action" title="Live"><Icon name="play" /><span>Live</span></Target>
-    <div className="layer-tabs" role="group" aria-label="Editing layer">{['people','layout','floor'].map(name=><Target key={name} action="layer" data={{value:name}} className={layer === name ? 'layer-tab active' : 'layer-tab'} title={`${name[0].toUpperCase()+name.slice(1)} layer`} aria-pressed={layer === name} aria-expanded={layer === name && open} aria-controls="editor-inventory-tray"><Icon name={name} /></Target>)}</div>
+    <div className="layer-tabs" role="group" aria-label="Editing layer">{['people','layout','floor'].map(name=><Target key={name} action="layer" data={{value:name}} className={layer === name ? 'layer-tab active' : 'layer-tab'} title={`${name[0].toUpperCase()+name.slice(1)} layer`} aria-pressed={layer === name} aria-expanded={layer === name && open} aria-controls="editor-inventory-tray">{layer === name && <span className="layer-selected-name" aria-hidden="true">{name[0].toUpperCase()+name.slice(1)}</span>}<Icon name={name} /></Target>)}</div>
     <div id="editor-inventory-tray" className="edit-controls" aria-label={`${layer[0].toUpperCase()+layer.slice(1)} inventory`} aria-hidden={!open} inert={!open ? true : undefined}><div className="inventory-tray">{layer === 'people' ? <InventoryItem label="Omar" value="omar" art={<Character name="Omar" />} count="Unassigned chef" layer={layer} /> : layer === 'floor' ? palettes.map(item=><InventoryItem key={item.value} {...item} art={<span className={`floor-sample ${item.value}`} aria-hidden="true" />} layer={layer} />) : inventory.map(item=><InventoryItem key={item.value} {...item} layer={layer} />)}</div></div>
   </div>;
 }
 
 export function Dock({ state = {}, locked = false, future = false }) {
   const charging = state._variant === 'charging';
-  return <div className={`dock-zone ${locked ? 'dock-locked' : ''}`}>
-    <span className="reserved-label">Reserved dock footprint</span>
-    {(locked || future) && <span className="dock-lock">Future access · clear a route</span>}
-    <Target action={charging ? 'charging' : 'navigate'} data={charging ? {} : { story:'expedition-start' }} className="world-submarine" disabled={locked}><Icon name="submarine" /><strong>Submarine</strong><span className="dock-charge"><i className={`charge-cell ${charging ? 'half' : ''}`} />{charging ? 'Charging' : 'Ready'}</span></Target>
-    <Target action="navigate" data={{story:'workshop'}} className="world-workshop" disabled={locked}><Icon name="workshop" /><strong>Workshop</strong><small>Small service hut</small></Target>
+  const covered = locked || future;
+  const maskId = `dock-peek-${useId().replaceAll(':', '')}`;
+  return <div className={`dock-zone ${covered ? 'dock-locked' : ''}`} aria-label={covered ? 'Covered submarine and Workshop · 3 by 3 floor tiles' : 'Submarine and Workshop · 3 by 3 floor tiles'}>
+    <Target action={charging ? 'charging' : 'navigate'} data={charging ? {} : { story:'expedition-start' }} className="world-submarine" disabled={covered} title={covered ? 'Covered submarine' : `Submarine · ${charging ? 'Charging' : 'Ready'}`}><Icon name="submarine" /><strong>Submarine</strong>{!covered && <span className="dock-charge"><i className={`charge-cell ${charging ? 'half' : ''}`} />{charging ? 'Charging' : 'Ready'}</span>}</Target>
+    <Target action="navigate" data={{story:'workshop'}} className="world-workshop" disabled={covered} title={covered ? 'Covered Workshop' : 'Workshop'}><Icon name="workshop" /><strong>Workshop</strong></Target>
+    {covered && <svg className="dock-rags" viewBox="0 0 140 140" aria-hidden="true"><defs><mask id={maskId}><rect width="140" height="140" fill="white"/><path d="M19 40 47 39 50 59 22 63Z M92 33 113 31 119 50 94 53Z" fill="black"/></mask></defs><g mask={`url(#${maskId})`}><path d="M2 6 38 2 73 7 108 2 138 9 137 131 116 137 95 132 71 139 48 133 23 138 3 130Z" fill="#e5e9ec" stroke="#657b89" strokeWidth="1.5"/><path d="M3 52 61 47 71 95 3 103Z" fill="#d7dfe4"/><path d="M71 7 80 58 137 51 M71 95 95 132 M61 47 80 58" fill="none" stroke="#81929c" strokeDasharray="3 3"/><path d="M102 73 128 77 123 109 97 105Z" fill="#f3f5f6" stroke="#81929c" strokeDasharray="3 2"/><path d="M17 37 51 36 54 62 20 67 M90 29 116 28 122 53 92 57" fill="none" stroke="#657b89" strokeWidth="1.5"/><path d="M14 111 19 117 M22 110 27 116 M31 110 36 117" stroke="#81929c"/></g></svg>}
   </div>;
 }
 
 export function RecipeTile({ recipe, recipeKey, selected, current, seen = [], isNew = false }) {
   const unknown = recipeKey === 'unknown';
   const classes = ['recipe-tile', `tier-${recipe.tier.toLowerCase()}`, recipeKey === selected && 'is-inspected', recipeKey === current && 'is-preparing', unknown && 'is-undiscovered'].filter(Boolean).join(' ');
-  return <Target action="select-recipe" className={classes} data={{value:recipeKey}} title={`Inspect ${recipe.name}`}>
-    <span className={`recipe-dish ${unknown ? 'dish-silhouette' : ''}`} aria-hidden="true">{recipe.symbol}</span><span className="recipe-tile-name">{recipe.name}</span><span className="recipe-tier">{recipe.tier}</span>
+  return <Target action="select-recipe" className={classes} data={{value:recipeKey}} title={`Inspect ${recipe.name}`} aria-description={`${recipe.tier} material.${recipeKey === current ? ' Currently preparing.' : ''}${recipeKey === selected ? ' Selected for inspection.' : ''}`}>
+    <span className={`recipe-dish ${unknown ? 'dish-silhouette' : ''}`} aria-hidden="true">{recipe.symbol}</span><span className="recipe-tile-name">{recipe.name}</span><span className="sr-only">{recipe.tier} material.</span>
     {isNew && !seen.includes(recipeKey) && <span className="new-label">NEW</span>}
     {recipeKey === current && <span className="sr-only">Currently preparing.</span>}{recipeKey === selected && <span className="sr-only">Selected for inspection.</span>}
   </Target>;
@@ -74,9 +78,11 @@ export function ComponentGallery({ story, state = {} }) {
   switch (key) {
     case 'restaurant-hud': examples = <>{example('Fixed upper-left · Live and Edit',<RestaurantHud state={state}/>,'hud-example')}{example('Refreshed Shop stock · earnings beside savings',<RestaurantHud state={{...state,_variant:'offline'}}/>,'hud-example')}</>; break;
     case 'editor-controls': examples = example('Layer controls and owned inventory',<EditorControls state={state}/>,'editor-example'); break;
+    case 'roster-tray': examples = example('Paged profiles · drag or inspect',<RosterTray state={state}/>,'roster-example'); break;
+    case 'applicant-resume': examples = example('Paper résumés · browse and hire',<ResumeDeck candidates={applicantSet(state).filter(candidate=>!state.hiredApplicants?.includes(candidate.id))} full={roster(state).length >= 4}/>,'resume-example'); break;
     case 'money': examples = <>{example('Restaurant coins',<div className="coin-count"><Money amount={1240} /></div>)}{example('Banked salvage',<Money kind="salvage" amount={180} />)}{example('Price in an action',<Target action="purchase" data={{value:'belt'}}><Money amount={40} /><span>Buy</span></Target>)}</>; break;
     case 'character': examples = <>{['Lena Brooks','Omar Haddad','Ama Mensah','Mateo Rivera','Noor Haddad'].map(name=>example(name,<Character name={name} />))}{['Rosa','Ellis','Samir','June'].map(name=>example(`${name} · guest`,<Character name={name} kind="guest" />))}</>; break;
-    case 'dock': examples = <>{example('Ready · navigation available',<Dock state={state} />,'dock-example')}{example('Charging · stays in restaurant',<Dock state={{...state,_variant:'charging'}} />,'dock-example')}{example('Future access · unavailable',<Dock locked state={state} />,'dock-example')}</>; break;
+    case 'dock': examples = <>{example('Ready · navigation available',<div className="dock-floor-grid"><Dock state={state} /></div>,'dock-example')}{example('Charging · stays in restaurant',<div className="dock-floor-grid"><Dock state={{...state,_variant:'charging'}} /></div>,'dock-example')}{example('Covered · unavailable',<div className="dock-floor-grid"><Dock locked state={state} /></div>,'dock-example')}</>; break;
     case 'recipe-tile': examples = <>{example('Current recipe',<RecipeTile recipe={galleryRecipes.salmon} recipeKey="salmon" current="salmon" selected={state.selectedRecipe} />)}{example('New discovery',<RecipeTile recipe={galleryRecipes.eel} recipeKey="eel" selected={state.selectedRecipe} seen={state.seenRecipes || []} isNew />)}{example('Undiscovered',<RecipeTile recipe={galleryRecipes.unknown} recipeKey="unknown" selected={state.selectedRecipe} />)}</>; break;
     case 'hull-meter': examples = <>{example('Healthy hull',<HullMeter />)}{example('Low hull',<HullMeter percent={22} danger />)}</>; break;
     case 'upgrade-card': examples = <>{example('Affordable upgrade',<UpgradeCard track={hullTrack} level={1+Number(state.upgradeLevels?.hull || 0)} />)}{example('Insufficient salvage',<UpgradeCard track={hullTrack} poor />)}{example('Capability ceiling',<UpgradeCard track={{...hullTrack,current:'200'}} level={5} max />)}</>; break;

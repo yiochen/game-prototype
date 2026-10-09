@@ -9,13 +9,15 @@ import { Scene } from './scenes.jsx';
 import { Overlay } from './overlays.jsx';
 import { Icon } from './common.jsx';
 import { Feedback } from './feedback.jsx';
-import { chefFor } from './fixtures.js';
+import { chefFor, roster } from './fixtures.js';
 
 const byId = new Map(stories.map(story => [story.id, story]));
 const route = () => byId.has(location.hash.slice(1)) ? location.hash.slice(1) : 'floor-plan';
 
 function fixtureFor(story) {
   return {
+    reviewEpoch: 0,
+    restaurantExpanded: ['expanded', 'charging'].includes(story.variant),
     panel: ['expansion', 'expansion-unaffordable', 'restaurant-charging'].includes(story.id) ? 1 : 0,
     panFraction: ['expansion', 'expansion-unaffordable', 'restaurant-charging'].includes(story.id) ? 1 : 0,
     layer: story.variant === 'floor' ? 'floor' : story.id === 'inventory-empty' ? 'layout' : 'people', trayOpen: true,
@@ -23,7 +25,7 @@ function fixtureFor(story) {
     selectedRecipe: story.variant === 'undiscovered' ? 'unknown' : ['new', 'unavailable'].includes(story.variant) ? 'eel' : ['idle', 'unassigned'].includes(story.variant) ? null : 'salmon',
     currentRecipe: ['idle', 'unassigned'].includes(story.variant) ? null : 'salmon', seenRecipes: [],
     selectedUpgrade: 'hull', selectedChef: 'lena', demoPatchCleared: false,
-    placement: false, toast: story.id === 'inventory-empty' ? 'No belt tiles left' : '', hiredApplicants: [], applicantRefresh: false,
+    placement: false, toast: story.id === 'inventory-empty' ? 'No belt tiles left' : '', hiredApplicants: story.component === 'roster-tray' || story.id === 'staff-full' ? ['ama', 'mateo'] : [], applicantRefresh: false,
     chefLevel: story.variant === 'new' ? 5 : story.variant === 'max' && story.overlay === 'chef-detail' ? 8 : 2,
     chefUnassigned: false, chefLevels: {}, unassignedChefs: [], removedChefs: [],
     purchasedItems: [], upgradeLevels: {}, painted: false, rotation: 0, shopVisited: false,
@@ -76,8 +78,8 @@ function App() {
     let returnRestaurant = previous.returnRestaurant, returnPanel = previous.returnPanel;
     let fixture = structuredClone(options.fixture || previous.fixture);
     if (['shop', 'workshop', 'staff'].includes(destination.scene) && ['restaurant', 'floor-plan'].includes(previousStory.scene)) {
-      returnRestaurant = previousStory.scene === 'floor-plan' ? previous.id : previousStory.overlay === 'inventory-empty' ? 'restaurant-edit' : ['edit', 'floor', 'selected'].includes(previousStory.variant) ? previous.id : 'restaurant-live';
-      if (destination.scene === 'shop' && !previousStory.overlay) returnRestaurant = previous.id;
+      returnRestaurant = previousStory.scene === 'floor-plan' ? previous.id : ['edit', 'floor', 'selected'].includes(previousStory.variant) ? previous.id : 'restaurant-live';
+      if (['shop', 'staff'].includes(destination.scene) && !previousStory.overlay) returnRestaurant = previous.id;
       returnPanel = fixture.panel;
     }
     if (id === 'restaurant-live' && ['shop', 'workshop', 'staff'].includes(previousStory.scene) && !options.reset) {
@@ -85,7 +87,7 @@ function App() {
       if (previousStory.scene === 'workshop') fixture.panFraction = 0;
     }
     if (id === 'restaurant-live' && ['expedition-start', 'results'].includes(previousStory.scene) && !options.reset) { fixture.panel = 0; fixture.panFraction = 0; }
-    if (options.reset) { fixture = fixtureFor(byId.get(id)); returnRestaurant = 'restaurant-live'; returnPanel = 0; }
+    if (options.reset) { fixture = fixtureFor(byId.get(id)); fixture.reviewEpoch = previous.fixture.reviewEpoch + 1; returnRestaurant = 'restaurant-live'; returnPanel = 0; }
     else {
       if (destination.overlay === 'recipes' && previousStory.overlay === 'chef-detail') fixture.popupReturnStory = previous.id;
       else if (['recipes', 'expansion'].includes(destination.overlay) && !previousStory.overlay) fixture.popupReturnStory = previousStory.scene === 'restaurant' ? previous.id : 'restaurant-live';
@@ -132,8 +134,8 @@ function App() {
       case 'hire': fixture.hiredApplicants = [...fixture.hiredApplicants, value]; change(fixture, 'Chef added to the mock roster, unassigned.'); break;
       case 'refresh-applicants': fixture.applicantRefresh = true; change(fixture, 'New example applications. Refresh now shows its cooldown state.'); break;
       case 'level-up': fixture.chefLevel += 1; fixture.chefLevels[fixture.selectedChef] = fixture.chefLevel; change(fixture, 'Chef level preview updated.'); break;
-      case 'unassign': fixture.chefUnassigned = true; fixture.unassignedChefs = [...new Set([...fixture.unassignedChefs, fixture.selectedChef])]; change(fixture, 'Chef is unassigned in this example.'); break;
-      case 'fire-confirm': fixture.removedChefs = [...fixture.removedChefs, fixture.selectedChef]; navigate('staff-roster', 'Confirmed dismissal shown. Reset restores the example.'); break;
+      case 'unassign': fixture.chefUnassigned = true; fixture.unassignedChefs = [...new Set([...fixture.unassignedChefs, fixture.selectedChef])]; if (fixture.rosterPlacement?.chefId === fixture.selectedChef) fixture.rosterPlacement = null; change(fixture, 'Chef is unassigned in this example.'); break;
+      case 'fire-confirm': fixture.removedChefs = [...fixture.removedChefs, fixture.selectedChef]; if (fixture.rosterPlacement?.chefId === fixture.selectedChef) fixture.rosterPlacement = null; navigate('staff-roster', 'Confirmed dismissal shown. Reset restores the example.'); break;
       case 'clear-confirm': fixture.demoPatchCleared = true; go(['restaurant-edit', 'restaurant-floor', 'restaurant-selected'].includes(fixture.popupReturnStory) ? fixture.popupReturnStory : 'restaurant-expanded', { fixture, panel: 1 }); break;
       case 'resume': navigate('expedition-resume'); break;
       case 'confirm-return': navigate('results-early'); break;
@@ -174,6 +176,26 @@ function App() {
   }, [menu, notes]);
 
   useEffect(() => {
+    const host = stage.current;
+    const placeProfile = event => {
+      if (byId.get(viewRef.current.id).overlay) return;
+      const { chefId, position } = event.detail || {};
+      const fixture = structuredClone(viewRef.current.fixture);
+      const chef = roster(fixture).find(candidate => candidate.id === chefId);
+      if (!chef || !position) return;
+      fixture.rosterPlacement = { chefId, ...position };
+      fixture.selectedChef = chefId; fixture.placedChef = chefId;
+      fixture.chefLevel = fixture.chefLevels[chefId] || chef.level;
+      fixture.unassignedChefs = fixture.unassignedChefs.filter(id => id !== chefId);
+      fixture.chefUnassigned = false;
+      fixture.currentRecipe = null; fixture.selectedRecipe = null;
+      change(fixture);
+    };
+    host.addEventListener('sushi-roster-place', placeProfile);
+    return () => host.removeEventListener('sushi-roster-place', placeProfile);
+  }, []);
+
+  useEffect(() => {
     if (!view.fixture.toast) return;
     const timer = setTimeout(() => setView(previous => ({ ...previous, fixture: { ...previous.fixture, toast: '' } })), view.fixture.toast === 'No belt tiles left' ? 2200 : 4200);
     return () => clearTimeout(timer);
@@ -185,7 +207,7 @@ function App() {
     const dialog = stage.current.querySelector('dialog');
     if (dialog) dialog.querySelector('button:not(:disabled), [href], input, select')?.focus({ preventScroll: true });
     document.title = `${story.title} · Sushi Loop wireframes`;
-  }, [story.id, width]);
+  }, [story.id, width, view.fixture.reviewEpoch]);
 
   useEffect(() => {
     if (menu) document.querySelector('#story-search')?.focus();
@@ -225,7 +247,7 @@ function App() {
         <div className="preview-toolbar">
           <button id="open-menu" className="studio-button menu-trigger" aria-controls="story-sidebar" aria-expanded={menu} onClick={() => setMenu(true)}><Icon name="layout"/><span>Examples</span></button>
           <label className="example-select-label" htmlFor="example-select">Example<select id="example-select" value={story.id} onChange={event => go(event.target.value, { reset: true })}>{storyGroups.map(group => <optgroup label={group.title} key={group.id}>{stories.filter(example => example.group === group.id).map(example => <option value={example.id} key={example.id}>{example.title}</option>)}</optgroup>)}</select></label>
-          <button id="reset-example" className="studio-button" aria-label="Reset" title="Reset this mock example" onClick={() => change(fixtureFor(story))}><Icon name="rotate"/><span>Reset</span></button>
+          <button id="reset-example" className="studio-button" aria-label="Reset" title="Reset this mock example" onClick={() => go(story.id, { reset: true })}><Icon name="rotate"/><span>Reset</span></button>
           <label className="targets-toggle"><input type="checkbox" checked={targets} onChange={event => setTargets(event.target.checked)}/><span>Tap targets</span></label>
           <button id="toggle-notes" className="studio-button" aria-label="Notes" aria-controls="documentation" aria-expanded={notes} onClick={() => notes ? setNotes(false) : showNotes()}><Icon name="info"/><span>Notes</span></button>
           <button id="open-comments" className="studio-button" aria-label="Comments" title="Review this example" onClick={() => showNotes(true)}><Icon name="comment"/><span>Comments</span></button>
@@ -238,8 +260,8 @@ function App() {
           const panel = Math.round(panFraction);
           if (Math.abs(panFraction - viewRef.current.fixture.panFraction) > .001) change({ ...viewRef.current.fixture, panel, panFraction });
         }}>
-          <div className="scene-host" inert={!!story.overlay}><Scene story={story} state={view.fixture}/></div>
-          {story.overlay && <Overlay story={story} state={view.fixture}/>}
+          <div className="scene-host" inert={!!story.overlay}><Scene key={view.fixture.reviewEpoch} story={story} state={view.fixture}/></div>
+          {story.overlay && <Overlay key={view.fixture.reviewEpoch} story={story} state={view.fixture}/>}
           {view.fixture.toast && <div className="mock-toast" role="status">{view.fixture.toast}<button type="button" data-action="dismiss-toast" aria-label="Dismiss notification"><Icon name="close"/></button></div>}
         </div></div>
         <div className="flow-toolbar"><p>{next ? next[1] : story.scene === 'floor-plan' ? 'Swipe across the complete floor plan. Open a marked destination or clearance patch.' : 'Portrait composition · UI-only prototype'}</p>{next && <button className="studio-button" onClick={() => go(story.id === 'expedition-resume' ? `expedition-${view.fixture.expeditionBackdrop || 'travel'}` : next[0])}>Preview next event <Icon name="arrow-right"/></button>}</div>

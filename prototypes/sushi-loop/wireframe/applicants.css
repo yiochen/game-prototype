@@ -1,0 +1,38 @@
+.prototype-stage .resume-deck { min-height: 0; display: flex; flex-direction: column; gap: 12px; padding: 16px 17px 10px; overflow: hidden; }
+.prototype-stage .resume-stack { position: relative; min-height: 0; padding: 3px 4px 8px; }
+.prototype-stage .resume-stack::before, .prototype-stage .resume-stack::after { content: ''; position: absolute; inset: 5px 4px 7px; border: 1px solid var(--line); background: var(--paper); transform: rotate(-2deg); }
+.prototype-stage .resume-stack::after { transform: rotate(2deg); }
+.prototype-stage .paper-resume { position: relative; z-index: 1; margin: 0; padding: 15px; border: 1px solid var(--ink); border-radius: 2px; background: linear-gradient(transparent 47%, rgb(35 51 69 / 4%) 47.3%, transparent 47.7%), repeating-linear-gradient(0deg, var(--paper) 0 22px, #f1f4f6 22px 23px); box-shadow: 2px 3px 0 rgb(35 51 69 / 10%); touch-action: pan-y; cursor: grab; user-select: none; transform: translateX(var(--resume-drag, 0px)) rotate(var(--resume-tilt, 0deg)); transition: transform 200ms cubic-bezier(.2,.75,.25,1); animation: resume-arrive 180ms ease-out; }
+.prototype-stage .paper-resume::after { content: ''; position: absolute; top: 0; right: 0; width: 14px; height: 14px; background: linear-gradient(45deg, #e8edf1 49%, var(--paper) 50%); border-left: 1px solid var(--line); border-bottom: 1px solid var(--line); pointer-events: none; }
+.prototype-stage .paper-resume.resume-dragging { transition: none; cursor: grabbing; }
+.prototype-stage .paper-resume:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.prototype-stage .resume-heading { display: flex; align-items: center; gap: 10px; }
+.prototype-stage .resume-heading .wire-character { flex: 0 0 51px; width: 51px; height: 62px; }
+.prototype-stage .resume-heading > div { min-width: 0; }
+.prototype-stage .resume-heading h3 { font-size: 1.02rem; }
+.prototype-stage .resume-eyebrow { margin: 0 0 4px !important; color: var(--muted); font-size: .58rem !important; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+.prototype-stage .resume-role { margin-top: 4px !important; font-size: .69rem !important; color: var(--muted); }
+.prototype-stage .resume-background { min-height: 35px; margin: 13px 0 8px !important; font-size: .7rem !important; color: var(--muted); }
+.prototype-stage .resume-trait { display: inline-block; font-size: .73rem; font-weight: 750; padding-bottom: 3px; border-bottom: 1px solid var(--ink); }
+.prototype-stage .resume-facts { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px 8px; margin: 17px 0; }
+.prototype-stage .resume-fact dt { color: var(--muted); font-size: .64rem; margin-bottom: 4px; }
+.prototype-stage .resume-fact dd { margin: 0; font-size: .84rem; font-weight: 750; }
+.prototype-stage .resume-hire { border-top: 1px solid var(--line); padding-top: 12px; }
+.prototype-stage .resume-hire .tap-target { width: 100%; min-height: 44px; display: flex; justify-content: center; align-items: center; gap: 12px; }
+.prototype-stage .resume-pagination { display: flex; align-items: center; justify-content: center; gap: 15px; }
+.prototype-stage .resume-pagination > span { min-width: 43px; text-align: center; color: var(--muted); font-size: .75rem; font-variant-numeric: tabular-nums; }
+.prototype-stage .resume-page-button { width: 44px; height: 44px; padding: 10px; display: grid; place-items: center; }
+.prototype-stage .empty-resume { min-height: 240px; display: grid; place-content: center; justify-items: center; gap: 12px; cursor: default; }
+.prototype-stage .empty-resume > svg { width: 38px; height: 38px; }
+.prototype-stage .applicants-dialog { height: auto; max-height: 100%; }
+.prototype-stage .applicants-dialog .dialog-footer { padding-top: 10px; }
+@keyframes resume-arrive { from { opacity: .55; translate: var(--resume-enter, 18px) 0; } to { opacity: 1; translate: 0 0; } }
+@media (max-width: 350px) {
+  .prototype-stage .resume-deck { padding: 12px 12px 8px; gap: 8px; }
+  .prototype-stage .paper-resume { padding: 12px; }
+  .prototype-stage .resume-facts { gap: 10px 7px; margin: 13px 0; }
+  .prototype-stage .resume-background { margin-top: 10px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .prototype-stage .paper-resume { animation: none; transition: none; }
+}

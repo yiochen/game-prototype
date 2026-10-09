@@ -1,7 +1,8 @@
 import React from 'react';
 import { Target, Icon, Money, Character } from './common.jsx';
 import { RestaurantHud, EditorControls, Dock, HullMeter, UpgradeCard, SalvageReceipt, ComponentGallery } from './components.jsx';
-import { roster, chefAssigned, chefSpeed } from './fixtures.js';
+import { roster, chefAssigned } from './fixtures.js';
+import { RosterTray } from './staff-tray.jsx';
 
 function Nav({ children, story = 'restaurant-live', className = '', data = {}, ...rest }) {
   return <Target action="navigate" data={{story,...data}} className={className} {...rest}>{children}</Target>;
@@ -21,12 +22,15 @@ function SelectedFootprint({ state }) {
 }
 
 function FloorPanels({ state, map = false }) {
-  const expanded = ['expanded','charging'].includes(state._variant) || state.demoPatchCleared;
+  const expanded = state.restaurantExpanded || ['expanded','charging'].includes(state._variant) || state.demoPatchCleared;
+  const previewChef = roster(state).find(chef => chef.id === state.rosterPlacement?.chefId);
+  const showPreview = previewChef && chefAssigned(state, previewChef);
   return [0,1,2].map(panel=><section key={panel} className={`floor-panel ${panel === 0 || (panel === 1 && expanded) ? 'cleared' : 'uncleared'} ${state.painted && panel === 0 ? 'painted-floor' : ''}`} data-floor-panel={panel} aria-label={`Restaurant panel ${panel+1}`}>
     {map && <span className="panel-name">Panel {panel+1} · {panel === 0 ? 'usable at start' : 'future expansion'}</span>}
     <Entry panel={panel} active={panel === 0 || (panel === 1 && expanded)} />
     {panel === 0 && map && <div className="starter-label"><strong>Starter restaurant</strong><span>Cleared, usable floor</span></div>}
     {panel === 0 && !map && state._variant === 'selected' && <SelectedFootprint state={state} />}
+    {panel === 0 && !map && showPreview && <Target action="navigate" data={{story:'staff-detail',value:previewChef.id}} className="roster-placed-chef" title={`Inspect ${previewChef.name}`} style={{left:`${state.rosterPlacement.x*100}%`,top:`${state.rosterPlacement.y*100}%`}}><Character name={previewChef.name} /></Target>}
     {panel > 0 && (panel === 2 || !expanded) && <Garbage panel={panel} state={state} full={map} />}
     {panel === 1 && <Dock state={state} locked={!map && !expanded} future={map} />}
     {map && <span className="viewport-guide">Viewport guide · no dividing wall</span>}
@@ -52,14 +56,7 @@ function Shop({ state }) {
 }
 
 function Staff({ state }) {
-  const chefs = roster(state);
-  const count = state._variant === 'full' ? 4 : chefs.length;
-  return <div className="phone-scene catalog-scene staff-scene"><Header title="Staff" subtitle="People, experience and potential" balance={<Money amount={1240} />} /><ReturnDoor /><div className="staff-tabs"><span className="staff-capacity">Staff {count} / 4</span><Nav story="staff-applicants">Job applicants</Nav></div><div className="catalog-content"><p className="roster-caption">Assigned and unassigned chefs share staff capacity.</p>{chefs.map(chef=>{
-    const level = state.chefLevels?.[chef.id] || chef.level;
-    const assigned = chefAssigned(state, chef);
-    const tier = level >= 12 ? 'Gold' : level >= 8 ? 'Silver' : level >= 5 ? 'Copper' : level >= 3 ? 'Steel' : 'Wood';
-    return <article className="staff-card" key={chef.id}><div className="staff-summary"><Character name={chef.name} /><div><h3>{chef.name}</h3><p>{chef.role}</p><span>{tier} · Level {level}</span></div></div><dl className="compact-facts"><div><dt>Cooking speed</dt><dd>{chefSpeed(chef, level)}×</dd></div><div><dt>Growth / level</dt><dd>+{Math.round(chef.growthRate*100)}%</dd></div><div><dt>Capability ceiling</dt><dd>Level {chef.ceiling} · {chef.tier}</dd></div></dl><p className="profile-line">{chef.trait}</p><Nav story="staff-detail" data={{value:chef.id}} className="staff-detail-action"><Icon name="info" /><span>{assigned ? 'Assigned' : 'Unassigned'} · details</span></Nav></article>;
-  })}</div></div>;
+  return <div className="phone-scene restaurant-scene staff-scene"><div className="restaurant-viewport" data-pan-scroll tabIndex={0} aria-label="Pan restaurant floor"><div className="restaurant-world"><FloorPanels state={state} /></div></div><RestaurantHud state={state} /><RosterTray state={state} /></div>;
 }
 
 const upgradeTracks = [{id:'hull',name:'Hull',unit:'Maximum hull',price:90,icon:'submarine'},{id:'harpoon',name:'Harpoon',unit:'Reeling strength',price:110,icon:'harpoon'},{id:'collector',name:'Collector',unit:'Pickup reach',price:80,icon:'salvage'}];
