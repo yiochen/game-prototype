@@ -52,6 +52,8 @@ The library also isolates nine shared components using the same code as their in
 
 The HUD follows the latest user direction: the styled coin count is at the upper-left of the viewport, with a floating Shop button below it. Both stay anchored while the restaurant pans. Shop has no physical entrance or floor footprint; it opens from live or edit mode, preserves that mode and camera panel on return, and carries the refreshed-stock sparkle until Shop opens. HUD controls remain transparent without cream/yellow backing containers. A wireframe outline marks targets for review. The Workshop remains a physical hut beside the submarine. Character backgrounds and occupations should be varied; cultural identity is flavor, not a mechanic.
 
+The reference layout uses existing Sushi Loop controls only, as explicitly selected by the user. Its level meter, Settings, Tasks and extra Workshop shortcut are excluded from this wireframe. This scope choice is settled; detailed screen composition remains subject to review.
+
 ## Current open decisions
 
 - Exact grid dimensions, garbage-patch geometry/costs, dock footprint/approach and restaurant expansion pacing.

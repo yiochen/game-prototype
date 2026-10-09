@@ -494,7 +494,7 @@ export const stories = [
       element('Floating Shop', 'Open Shop from Live or Edit on any panel. Returning restores the same view and camera panel. The button has no doorway or floor footprint.', 'Press feedback: 0.97 scale for 70 ms. Scene crossfade takes 200 ms; no camera movement or constant button bounce.'),
       element('Stock cue', 'A small sparkle belongs to the floating Shop button and clears when Shop opens.', 'Proposed subtle sparkle loop: 1.8 s; on entry fade out for 150 ms. Reduced motion keeps the cue static.'),
     ],
-    notes: ['Workshop remains a compact physical hut beside the submarine. Extra controls in the reference are still open for review.', motionNote, mockNote],
+    notes: ['The user chose the reference layout with existing Sushi Loop controls only. Workshop remains a compact physical hut beside the submarine; the reference’s level meter, Settings, Tasks and extra Workshop shortcut are outside this wireframe.', motionNote, mockNote],
   },
   {
     id: 'component-money', group: 'components', title: 'Currency display', scene: 'component', variant: 'money', component: 'money',

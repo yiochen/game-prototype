@@ -14,6 +14,8 @@ When the player enters another scene, including through the floating Shop button
 
 The coin count is styled text at the upper-left of the viewport, with the floating Shop button directly below it. Both stay in place while the restaurant pans. These HUD controls use transparent presentation without cream/yellow backing containers, with clear touch targets and enough separation from the scene. The physical Workshop hut remains beside the submarine in the middle panel. The Shop revision is recorded after the historical answers in the [UI interview](./ui-design-interview.md#restaurant-hud-revision--2026-10-09).
 
+Use the reference layout with existing Sushi Loop controls only. The reference's global level meter, Settings, Tasks and extra Workshop shortcut are excluded from the current wireframe.
+
 ## Restaurant and growth
 
 - Start with a small rectangular workable area and an operating starter bar: a short open belt, one chef, and a few seats.
