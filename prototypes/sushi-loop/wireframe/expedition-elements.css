@@ -6,10 +6,16 @@
 .prototype-stage .salvage-fragment{position:absolute;color:var(--muted);font-size:27px;line-height:1;z-index:2;pointer-events:none}
 .prototype-stage .sf-one{right:23%;top:24%;transform:rotate(16deg)}.prototype-stage .sf-two{left:16%;bottom:24%;transform:rotate(-19deg)}
 .prototype-stage .expedition-obstacles{position:absolute;inset:0;pointer-events:none;z-index:1}
-.prototype-stage .expedition-obstacle{position:absolute;aspect-ratio:2/1;pointer-events:none}
+.prototype-stage .expedition-obstacle{position:absolute;pointer-events:none}
 .prototype-stage .expedition-obstacle svg{display:block;width:100%;height:100%;fill:#cdd9e1;stroke:#627b8c;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
 .prototype-stage .expedition-obstacle .obstacle-detail{fill:none;stroke:#8aa0af;stroke-width:1.5}
 .prototype-stage .obstacle-wreck svg{fill:#dce3e8;stroke:#6f8190}
+.prototype-stage .expedition-tunnel-walls{position:absolute;inset:0;pointer-events:none}
+.prototype-stage .expedition-tunnel-walls svg{display:block;width:100%;height:100%;fill:#b8c9d4;stroke:#8199aa;stroke-width:2;stroke-linejoin:round}
+.prototype-stage .expedition-tunnel-walls .tunnel-wall-detail{fill:none;stroke:#9fb3c1;stroke-width:1.5}
+.prototype-stage .expedition-scene,.prototype-stage .obstacle-corridor-demo{background:#edf2f5}
+.prototype-stage .corridor-travel .expedition-ship{left:25%}
+.prototype-stage .expedition-scene.corridor-travel .expedition-world-label{left:58%;top:105px}
 .prototype-stage .expedition-route-feature{position:absolute;width:24%;aspect-ratio:100/70;pointer-events:none;z-index:1}
 .prototype-stage .expedition-route-feature svg{display:block;width:100%;height:100%;fill:none;stroke:#8ba1af;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .prototype-stage .route-current{width:30%}.prototype-stage .route-boost,.prototype-stage .route-portal{width:18%}
@@ -56,7 +62,7 @@
 .prototype-stage .expedition-element-demo{position:relative;isolation:isolate;width:100%;height:320px;overflow:hidden;border:1px solid var(--line);border-radius:6px;flex-shrink:0}
 .prototype-stage .expedition-element-demo .expedition-hud .hull-meter{width:auto;flex:1;min-width:0}
 .prototype-stage .expedition-element-demo .expedition-world-label{top:45px}
-.prototype-stage .obstacle-element-demo{height:160px}.prototype-stage .pickup-element-demo{height:160px}.prototype-stage .creature-element-demo{height:220px}
+.prototype-stage .obstacle-element-demo{height:330px}.prototype-stage .obstacle-corridor-demo{height:520px}.prototype-stage .pickup-element-demo{height:160px}.prototype-stage .creature-element-demo{height:220px}
 .prototype-stage .hud-element-demo{height:112px}.prototype-stage .resistance-element-demo{height:140px}.prototype-stage .resistance-element-demo .creature-meter{top:50px;left:18px;right:18px}
 .prototype-stage .harpoon-element-demo{height:200px}.prototype-stage .preparation-element-demo{height:500px}.prototype-stage .catch-element-demo{height:390px}.prototype-stage .route-element-demo{height:190px}
 .prototype-stage .route-element-demo .expedition-route-feature{width:40%}

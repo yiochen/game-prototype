@@ -14,22 +14,32 @@ export function ExpeditionPickup({ className = '', style }) {
   return <span className={`salvage-fragment ${className}`} style={style} role="img" aria-label="Salvage pickup">◇</span>;
 }
 
-export function ExpeditionSurroundings({ pickups = true }) {
-  return <><div className="sea-dashes" aria-hidden="true"><i /><i /><i /><i /></div><div className="sea-floor" aria-hidden="true"><span>⌁</span><span>♧</span><span>⌁</span><span>♧</span></div>{pickups && <><ExpeditionPickup className="sf-one" /><ExpeditionPickup className="sf-two" /></>}</>;
+export function ExpeditionSurroundings({ pickups = true, tunnel = false }) {
+  return <><div className="sea-dashes" aria-hidden="true"><i /><i /><i /><i /></div>{!tunnel && <div className="sea-floor" aria-hidden="true"><span>⌁</span><span>♧</span><span>⌁</span><span>♧</span></div>}{pickups && <><ExpeditionPickup className="sf-one" /><ExpeditionPickup className="sf-two" /></>}</>;
 }
 
 const obstacleWidths = { small: 18, medium: 32, large: 50 };
-export function ExpeditionObstacle({ kind = 'reef', size = 'large', style = {} }) {
+const obstacleDepths = { short: 55, medium: 95, long: 140 };
+const obstacleForms = { reef: 'reef ridge', boulder: 'rock shelf', wreck: 'wreck section' };
+export function ExpeditionObstacle({ kind = 'reef', size = 'large', length = 'long', style = {} }) {
   const width = obstacleWidths[size] || obstacleWidths.large;
-  return <div className={`expedition-obstacle obstacle-${kind} obstacle-${size}`} style={{ width:`${width}%`, ...style }} role="img" aria-label={`${size[0].toUpperCase()+size.slice(1)} ${kind} obstacle`} data-obstacle-size={size} data-obstacle-kind={kind}>
-    <svg viewBox="0 0 200 100" aria-hidden="true">
-      {kind === 'reef' ? <><path d="M2 97V72l17-8 6-26 24 5 12-27 26 7 13 19 25-5 19 13 28-7 26 25v29Z"/><path d="m22 79 21-14 25 9 19-17 22 22 31-18 26 13M60 25l9 18M104 91l4-12M147 57l6 11" className="obstacle-detail"/></> : kind === 'boulder' ? <><path d="m16 85-9-37 23-28 32-14 67 5 46 20 18 41-34 23H61Z"/><path d="m30 22 29 26-15 37M59 48l52-15 41 35M129 12l-18 21 3 55M152 68l32 2" className="obstacle-detail"/></> : <><path d="m3 75 34 20h125l35-23-27-22H25Z"/><path d="M57 51V29h75v22M82 28V8h12v20M109 50V36h13v14M47 61l13 14M82 62l8 14M127 60l8 17M165 62l-8 13" className="obstacle-detail"/><path d="m42 94 13-14 20 13 16-15 18 15" className="obstacle-detail"/></>}
+  const depth = obstacleDepths[length] || obstacleDepths.long;
+  return <div className={`expedition-obstacle obstacle-${kind} obstacle-${size} obstacle-length-${length}`} style={{ width:`${width}%`, height:`${depth}%`, ...style }} role="img" aria-label={`${size[0].toUpperCase()+size.slice(1)} ${obstacleForms[kind] || kind} obstacle`} data-obstacle-size={size} data-obstacle-kind={kind} data-obstacle-length={length} data-obstacle-depth={depth}>
+    <svg viewBox="0 0 200 1000" preserveAspectRatio="none" aria-hidden="true">
+      {kind === 'reef' ? <><path d="M0 0h176l-14 84 26 95-15 101 20 117-24 82 16 122-25 97 20 98-16 113 11 91H0Z"/><path d="M45 0 29 121 52 249 31 382 53 499 35 651 54 798 37 1000M100 0 117 143 96 286 116 418 95 579 118 739 101 891 115 1000M30 121l86 22M32 382l84 36M35 651l81 88M39 914l72-21" className="obstacle-detail"/></> : kind === 'boulder' ? <><path d="M35 0h116l39 90-14 140 17 126-16 178 16 153-18 168-12 145H29L11 861l17-167-17-141 17-165-15-137 10-143Z"/><path d="M35 0 72 117 45 245 76 391 43 553 77 715 51 862 73 1000M151 0 123 123 151 282 127 437 151 603 122 775 147 1000M72 117l51 6M46 245l105 37M76 391l51 46M43 553l106 50M77 715l45 60M51 862l89 64" className="obstacle-detail"/></> : <><path d="M37 0h126l23 104-6 169 10 153-9 165 5 168-24 241H37L14 759l6-169-9-164 9-153-6-169Z"/><path d="M100 0v1000M34 112h132M31 237h138M33 370h134M31 500h138M34 636h132M35 764h130M43 895h113M52 40v66M148 126v104M53 250v113M150 381v109M54 510v119M145 648v108M58 781v106" className="obstacle-detail"/><path d="m37 552 30-28 20 23 28-22 50 25M31 838l38-27 30 20 36-23 29 23" className="obstacle-detail"/></>}
     </svg>
   </div>;
 }
 
-export function ExpeditionObstacles() {
-  return <div className="expedition-obstacles" aria-label="Route obstacles with a clear right-side passage"><ExpeditionObstacle kind="reef" size="large" style={{ left:'0%', top:'67%' }}/><ExpeditionObstacle kind="wreck" size="medium" style={{ left:'3%', top:'34%' }}/><ExpeditionObstacle kind="boulder" size="small" style={{ right:'7%', top:'20%' }}/></div>;
+export function ExpeditionTunnelWalls({ wide = false }) {
+  return <div className={`expedition-tunnel-walls ${wide ? 'tunnel-walls-wide' : ''}`} role="img" aria-label={wide ? 'Continuous canyon walls around a wider encounter chamber' : 'Continuous underwater canyon walls'}>
+    <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">{wide ? <><path d="M0 0h26l-7 154 17 165-13 183 14 165-17 164 8 169H0Z"/><path d="M1000 0h-26l7 154-17 165 13 183-14 165 17 164-8 169h28Z"/></> : <><path d="M0 0h54l-13 133 23 101-19 114 21 119-24 111 17 133-20 140 14 149H0Z"/><path d="M1000 0h-54l13 133-23 101 19 114-21 119 24 111-17 133 20 140-14 149h53Z"/></>}<path d="M13 0 22 152 11 316 25 482 13 654 22 822 13 1000M987 0 978 152 989 316 975 482 987 654 978 822 987 1000" className="tunnel-wall-detail"/></svg>
+  </div>;
+}
+
+export function ExpeditionObstacles({ mode = 'travel' }) {
+  const chamber = mode === 'encounter';
+  return <div className={`expedition-obstacles corridor-${mode}`} data-corridor-mode={mode} role="group" aria-label={chamber ? 'Wide encounter chamber inside the underwater tunnel' : 'Long staggered obstacles around a connected bending underwater passage'}><ExpeditionTunnelWalls wide={chamber}/>{chamber ? <><ExpeditionObstacle kind="reef" size="small" length="long" style={{left:'-14%',top:'-20%'}}/><ExpeditionObstacle kind="wreck" size="small" length="long" style={{right:'-14%',top:'-20%'}}/></> : <><ExpeditionObstacle kind="reef" size="large" length="medium" style={{ left:'0%', top:'-50%' }}/><ExpeditionObstacle kind="wreck" size="medium" length="long" style={{ right:'0%', top:'64%' }}/><ExpeditionObstacle kind="boulder" size="small" length="short" style={{ left:'0%', top:'88%' }}/></>}</div>;
 }
 
 export function ExpeditionRouteFeature({ kind = 'current', style = {} }) {
@@ -39,7 +49,7 @@ export function ExpeditionRouteFeature({ kind = 'current', style = {} }) {
 }
 
 export function ExpeditionTravelFeatures() {
-  return <><ExpeditionRouteFeature kind="portal" style={{ left:'13%', top:'23%' }}/><ExpeditionRouteFeature kind="current" style={{ right:'8%', top:'36%' }}/><ExpeditionRouteFeature kind="boost" style={{ right:'14%', top:'52%' }}/></>;
+  return <><ExpeditionRouteFeature kind="portal" style={{ left:'70%', top:'20%' }}/><ExpeditionRouteFeature kind="current" style={{ right:'12%', top:'40%' }}/><ExpeditionRouteFeature kind="boost" style={{ left:'34%', top:'78%' }}/></>;
 }
 
 export function ExpeditionHullMeter({ percent = 78, danger = false }) {
@@ -109,8 +119,8 @@ function Example({ label, children, className = '' }) {
 
 export function ExpeditionElementExamples({ component, state = {} }) {
   switch (component) {
-    case 'expedition-surroundings': return <Example label="Ocean, depth dashes and sea floor"><ExpeditionSurroundings pickups={false}/><ExpeditionWorldLabel label="Travelling"/><ExpeditionSteeringHint/></Example>;
-    case 'expedition-obstacle': return <>{['reef','boulder','wreck'].flatMap(kind=>['small','medium','large'].map(size=><Example key={`${kind}-${size}`} label={`${kind[0].toUpperCase()+kind.slice(1)} · ${size} · ${obstacleWidths[size]}% width`} className="obstacle-element-demo"><ExpeditionObstacle kind={kind} size={size} style={{left:`${(100-obstacleWidths[size])/2}%`,top:'30%'}}/></Example>))}</>;
+    case 'expedition-surroundings': return <><Example label="Continuous canyon walls and water depth"><ExpeditionTunnelWalls/><ExpeditionSurroundings pickups={false} tunnel/><ExpeditionWorldLabel label="Travelling"/><ExpeditionSteeringHint/></Example><Example label="Wider creature encounter chamber"><ExpeditionTunnelWalls wide/><ExpeditionSurroundings pickups={false} tunnel/></Example></>;
+    case 'expedition-obstacle': return <>{['reef','boulder','wreck'].flatMap(kind=>['small','medium','large'].map((size,index)=>{const length=['short','medium','long'][index];return <Example key={`${kind}-${size}`} label={`${obstacleForms[kind]} · ${obstacleWidths[size]}% wide · ${obstacleDepths[length]}% deep`} className="obstacle-element-demo"><ExpeditionObstacle kind={kind} size={size} length={length} style={{left:`${(100-obstacleWidths[size])/2}%`,top:length==='long' ? '-20%' : length==='medium' ? '3%' : '22%'}}/></Example>;}))}<Example label="Connected tunnel passage · free lateral steering" className="obstacle-corridor-demo corridor-travel"><ExpeditionSurroundings tunnel/><ExpeditionObstacles/><ExpeditionSubmarine/><ExpeditionTravelFeatures/></Example></>;
     case 'expedition-pickup': return <Example label="Salvage pickup" className="pickup-element-demo"><ExpeditionPickup style={{left:'48%',top:'40%'}}/></Example>;
     case 'expedition-submarine': return <><Example label="Travelling submarine"><ExpeditionSubmarine/></Example><Example label="Ready before departure"><ExpeditionSubmarine preparation/></Example></>;
     case 'expedition-creature': return <>{['aiming','hooked','escaping','caught'].map(mode=><Example key={mode} label={`${mode[0].toUpperCase()+mode.slice(1)} creature`} className="creature-element-demo"><ExpeditionCreature state={mode}/></Example>)}</>;

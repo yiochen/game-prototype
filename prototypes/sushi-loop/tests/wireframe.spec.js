@@ -137,15 +137,15 @@ test('variable garbage clusters preview their own footprint and cost, cancel saf
   expect(new Set(sizes).size).toBe(3);
   const balance = () => stage(page).locator('.garbage-cluster-balance .wire-money');
   await expect(balance()).toHaveText('1,240');
-  await stage(page).getByRole('button', { name: 'Inspect small garbage cluster', exact: true }).click();
-  await expect(dialog(page).getByRole('img', { name: 'Small garbage cluster selected for clearing', exact: true })).toBeVisible();
+  await stage(page).getByRole('button', { name: 'Inspect broken sofa garbage cluster', exact: true }).click();
+  await expect(dialog(page).getByRole('img', { name: 'Broken sofa garbage cluster selected for clearing', exact: true })).toBeVisible();
   await expect(dialog(page).getByRole('button', { name: 'Clear 80', exact: true })).toBeEnabled();
   await dialog(page).getByRole('button', { name: 'Cancel', exact: true }).click();
   await at(page, 'component-garbage-cluster');
   await expect(clusters).toHaveCount(3);
   await expect(balance()).toHaveText('1,240');
   for (const [name, price, remaining, coins] of [
-    ['small', 80, 2, '1,160'], ['wide', 160, 1, '1,000'], ['irregular', 240, 0, '760'],
+    ['broken sofa', 80, 2, '1,160'], ['wrecked car', 160, 1, '1,000'], ['collapsed shelving', 240, 0, '760'],
   ]) {
     await stage(page).getByRole('button', { name: `Inspect ${name} garbage cluster`, exact: true }).click();
     await expect(dialog(page).getByRole('img', { name: new RegExp(`^${name} garbage cluster selected`, 'i') })).toBeVisible();
@@ -164,41 +164,41 @@ test('restaurant cleanup reuses the selected cluster and keeps other footprints 
   await page.setViewportSize({ width: 390, height: 844 });
   await open(page, 'restaurant-edit');
   await panTo(page, 2);
-  await stage(page).getByRole('button', { name: 'Inspect wide garbage cluster', exact: true }).click();
-  await expect(dialog(page).getByRole('img', { name: 'Wide garbage cluster selected for clearing', exact: true })).toBeVisible();
+  await stage(page).getByRole('button', { name: 'Inspect wrecked car garbage cluster', exact: true }).click();
+  await expect(dialog(page).getByRole('img', { name: 'Wrecked car garbage cluster selected for clearing', exact: true })).toBeVisible();
   await dialog(page).getByRole('button', { name: 'Clear 160', exact: true }).click();
   await at(page, 'restaurant-edit');
-  await expect(stage(page).getByRole('button', { name: 'Inspect wide garbage cluster', exact: true })).toHaveCount(0);
-  await expect(stage(page).getByRole('button', { name: 'Inspect small garbage cluster', exact: true })).toBeVisible();
-  await expect(stage(page).getByRole('button', { name: 'Inspect irregular garbage cluster', exact: true })).toHaveCount(1);
+  await expect(stage(page).getByRole('button', { name: 'Inspect wrecked car garbage cluster', exact: true })).toHaveCount(0);
+  await expect(stage(page).getByRole('button', { name: 'Inspect broken sofa garbage cluster', exact: true })).toBeVisible();
+  await expect(stage(page).getByRole('button', { name: 'Inspect collapsed shelving garbage cluster', exact: true })).toHaveCount(1);
   await expect(stage(page).locator('.hud-savings .coin-count')).toHaveText('1,080');
   await expect.poll(() => floorPosition(page)).toBeCloseTo(2, 1);
   await expect(stage(page).getByRole('button', { name: 'People layer', exact: true })).toBeVisible();
   await open(page, 'restaurant-live');
   await panTo(page, 2);
-  await stage(page).getByRole('button', { name: 'Inspect small garbage cluster', exact: true }).click();
+  await stage(page).getByRole('button', { name: 'Inspect broken sofa garbage cluster', exact: true }).click();
   await dialog(page).getByRole('button', { name: 'Clear 80', exact: true }).click();
   await at(page, 'restaurant-live');
-  await expect(stage(page).getByRole('button', { name: 'Inspect small garbage cluster', exact: true })).toHaveCount(0);
-  await expect(stage(page).getByRole('button', { name: 'Inspect wide garbage cluster', exact: true })).toBeVisible();
-  await expect(stage(page).getByRole('button', { name: 'Inspect irregular garbage cluster', exact: true })).toHaveCount(1);
+  await expect(stage(page).getByRole('button', { name: 'Inspect broken sofa garbage cluster', exact: true })).toHaveCount(0);
+  await expect(stage(page).getByRole('button', { name: 'Inspect wrecked car garbage cluster', exact: true })).toBeVisible();
+  await expect(stage(page).getByRole('button', { name: 'Inspect collapsed shelving garbage cluster', exact: true })).toHaveCount(1);
   await expect(stage(page).locator('.hud-savings .coin-count')).toHaveText('1,160');
   await stage(page).getByRole('button', { name: 'Shop', exact: true }).click();
   await expect(stage(page).locator('.paper-heading .wire-money')).toHaveText('1,160');
   await stage(page).getByRole('button', { name: 'Return to restaurant', exact: true }).click();
   await at(page, 'restaurant-live');
   await open(page, 'floor-plan');
-  await stage(page).getByRole('button', { name: 'Inspect irregular garbage cluster', exact: true }).click();
+  await stage(page).getByRole('button', { name: 'Inspect collapsed shelving garbage cluster', exact: true }).click();
   await dialog(page).getByRole('button', { name: 'Cancel', exact: true }).click();
   await at(page, 'floor-plan');
   await expect(stage(page).getByRole('button', { name: /^Inspect .* garbage cluster$/ })).toHaveCount(3);
-  await stage(page).getByRole('button', { name: 'Inspect irregular garbage cluster', exact: true }).click();
+  await stage(page).getByRole('button', { name: 'Inspect collapsed shelving garbage cluster', exact: true }).click();
   await dialog(page).getByRole('button', { name: 'Clear 240', exact: true }).click();
   await at(page, 'floor-plan');
   await expect(stage(page).getByRole('button', { name: /^Inspect .* garbage cluster$/ })).toHaveCount(2);
 });
 
-test('shared expedition elements include varied half-width obstacles and match the preserved scene', async ({ page }) => {
+test('shared expedition elements include long tunnel barriers and match the preserved scene', async ({ page }) => {
   const componentIds = [
     'expedition-surroundings', 'expedition-obstacle', 'expedition-pickup', 'expedition-submarine',
     'expedition-creature', 'expedition-hud', 'expedition-resistance', 'expedition-following-range',
@@ -211,22 +211,40 @@ test('shared expedition elements include varied half-width obstacles and match t
     await open(page, 'component-expedition-obstacle');
     const available = await page.locator('#example-select option').evaluateAll(options => options.map(option => option.value));
     for (const id of componentIds) expect(available).toContain(`component-${id}`);
-    await expect(stage(page).getByRole('img', { name: /obstacle$/ })).toHaveCount(9);
-    const sizes = await stage(page).locator('.expedition-obstacle').evaluateAll(elements => elements.map(element => ({
+    const isolatedObstacles = stage(page).locator('.obstacle-element-demo .expedition-obstacle');
+    await expect(isolatedObstacles).toHaveCount(9);
+    const sizes = await isolatedObstacles.evaluateAll(elements => elements.map(element => ({
       size: element.dataset.obstacleSize,
       ratio: element.getBoundingClientRect().width / element.parentElement.getBoundingClientRect().width,
+      depth: element.getBoundingClientRect().height / element.parentElement.getBoundingClientRect().height,
+      lengthToWidth: element.getBoundingClientRect().height / element.getBoundingClientRect().width,
     })));
-    for (const item of sizes) expect(item.ratio).toBeCloseTo({small: .18, medium: .32, large: .5}[item.size], 2);
+    for (const item of sizes) {
+      expect(item.ratio).toBeCloseTo({small: .18, medium: .32, large: .5}[item.size], 2);
+      expect(item.depth).toBeGreaterThan(.54);
+      expect(item.lengthToWidth).toBeGreaterThan(2);
+    }
+    expect(sizes.some(item => item.depth > 1)).toBe(true);
     await open(page, 'expedition-travel');
-    const reef = stage(page).getByRole('img', { name: 'Large reef obstacle', exact: true });
+    const reef = stage(page).getByRole('img', { name: 'Large reef ridge obstacle', exact: true });
     await expect(reef).toBeVisible();
     const measure = () => reef.evaluate(element => {
       const box = element.getBoundingClientRect(), world = element.parentElement.getBoundingClientRect();
-      return {width: box.width, height: box.height, x: box.x - world.x, y: box.y - world.y, worldWidth: world.width};
+      return {width: box.width, height: box.height, x: box.x - world.x, y: box.y - world.y, worldWidth: world.width, worldHeight: world.height};
     });
     const before = await measure();
     expect(before.width / before.worldWidth).toBeCloseTo(.5, 2);
     expect(before.x + before.width).toBeLessThanOrEqual(before.worldWidth * .51);
+    expect(before.height).toBeGreaterThan(before.worldHeight * .9);
+    expect(before.y).toBeLessThan(0);
+    const shipIsClear = await stage(page).locator('.expedition-obstacles').evaluate(world => {
+      const ship = world.closest('.expedition-scene').querySelector('.expedition-ship > svg').getBoundingClientRect();
+      return [...world.querySelectorAll('.expedition-obstacle')].every(element => {
+        const obstacle = element.getBoundingClientRect();
+        return ship.right <= obstacle.left || ship.left >= obstacle.right || ship.bottom <= obstacle.top || ship.top >= obstacle.bottom;
+      });
+    });
+    expect(shipIsClear).toBe(true);
     await expect(stage(page).getByRole('img', { name: 'Lateral current', exact: true })).toBeVisible();
     await stage(page).getByRole('button', { name: 'Pause', exact: true }).click();
     expect(await measure()).toEqual(before);
