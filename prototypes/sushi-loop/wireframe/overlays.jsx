@@ -3,6 +3,7 @@ import { Target, Icon, Character, Money } from './common.jsx';
 import { RecipeTile } from './components.jsx';
 import { ResumeDeck } from './applicants.jsx';
 import { applicantSet, chefFor, roster, chefAssigned, chefSpeed } from './fixtures.js';
+import { GarbageCluster, garbageClusterFor } from './garbage-cluster.jsx';
 
 const recipes = {
   salmon: { name: 'Salmon nigiri', tier: 'Wood', level: 1, price: 18, seconds: 4.2, symbol: '◓' },
@@ -73,9 +74,11 @@ function Fire({ story, state }) {
   return <Dialog story={story} title={`Fire ${chef.name}?`} className="confirmation-dialog" footer={<div className="dialog-action-pair"><Navigate story="staff-detail">Cancel</Navigate><Target action="fire-confirm" className="danger-action">Fire {chef.name.split(' ')[0]}</Target></div>}><div className="dialog-scroll"><div className="confirmation-portrait"><Character name={chef.name}/></div><p>{chef.name} will permanently leave your staff, including their level and upgrades.</p></div></Dialog>;
 }
 
-function Expansion({ story }) {
+function Expansion({ story, state }) {
   const poor = variantFor(story) === 'unaffordable';
-  return <Dialog story={story} title="Clear this patch?" className="expansion-dialog" showClose={false} footer={<div className="dialog-action-pair"><Target action="dismiss">Cancel</Target><Target action="clear-confirm" className="primary-action" disabled={poor}>Clear <Money kind="coins" amount={240}/></Target></div>}><div className="dialog-scroll"><div className="patch-preview" aria-label="Selected garbage patch">{Array.from({length:12},(_,i) => <span key={i}/>)}</div></div></Dialog>;
+  const cluster = garbageClusterFor(state.selectedGarbageClusterId);
+  const cannotAfford = poor || (state.coinBalance ?? 1240) < cluster.cost;
+  return <Dialog story={story} title="Clear this patch?" className="expansion-dialog" showClose={false} footer={<div className="dialog-action-pair"><Target action="dismiss">Cancel</Target><Target action="clear-confirm" data={{garbageClusterId:cluster.id}} className="primary-action" disabled={cannotAfford}>Clear <Money kind="coins" amount={cluster.cost}/></Target></div>}><div className="dialog-scroll"><div className="patch-preview" aria-label="Selected garbage patch"><GarbageCluster cluster={cluster} interactive={false} selected/></div></div></Dialog>;
 }
 
 function Pause({ story }) {

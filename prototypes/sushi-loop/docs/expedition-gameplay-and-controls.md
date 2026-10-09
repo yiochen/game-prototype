@@ -8,6 +8,8 @@ The UI interview subsequently accepted locked portrait orientation throughout th
 
 Use the [interactive wireframe](https://game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#expedition-start) and its shared behavior/motion annotations for current screen composition and controls. Apply the supplied [doodle UI and art catalog](../design/art-directions/doodle.png), also shown in the [catalog concept page](https://game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#concept-doodle-catalog), to the finished visual treatment. The catalog's sample branding, amounts, extra controls and junction belts do not add features or override accepted gameplay. These pages remain review drafts; presentation fixtures do not implement the simulation, clocks or game saves described below. Later UI revisions supersede conflicting historical interview presentation without removing the combat, progression and persistence contracts.
 
+All expedition presentation elements should be available in the wireframe's Shared components group and reused by their complete scenes. Coverage includes ocean/canyon scenery, submarine and salvage pickups, obstacles and travel cues, the hull/run-salvage/Pause HUD, creature and resistance bar, following strip and cable states, attack warnings and Harpoon states. Preparation, Paused and early-return cards, resume countdown, first/repeat catch presentation, material-backed recipe award and each result composition also use shared renderers. Isolated state examples and integrated screens must stay consistent; their review controls advance fixtures rather than performing combat, collision, charging or reward transactions.
+
 ## Day and night loop
 
 The restaurant owner operates the submarine. Ordinary customers remain the sushi bar's guests. The restaurant persists across sessions, with no reset of its layout, chefs, upgrades, or savings.
@@ -41,6 +43,8 @@ The expedition HUD overlays the full-screen scene. Its top status row places the
 ## Travel encounters
 
 Solid obstacles and varied route sections supply ordinary navigation challenges. Exact content patterns remain to be authored.
+
+The wireframe shows obstacles at varied visual sizes, including a large example spanning roughly half the portrait playfield width, to review scale and readable passages alongside the ship and pickups. These are presentation fixtures. They do not settle production collision shapes, obstacle frequency, damage, route difficulty or upgrade scaling; those remain authored content and playtest tuning under the accepted steering, hit-protection and safe-position rules. Shared obstacle and travel-cue renderers are used in both component examples and the expedition scene.
 
 **Boosts:** temporarily increase forward speed and prevent collision damage while the player steers and collects salvage. They occur during ordinary travel and end before the creature encounter.
 

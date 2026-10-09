@@ -10,6 +10,7 @@ import { Overlay } from './overlays.jsx';
 import { Icon } from './common.jsx';
 import { Feedback } from './feedback.jsx';
 import { chefFor, roster } from './fixtures.js';
+import { garbageClusterFor } from './garbage-cluster.jsx';
 
 const byId = new Map(stories.map(story => [story.id, story]));
 const route = () => byId.has(location.hash.slice(1)) ? location.hash.slice(1) : 'floor-plan';
@@ -25,6 +26,7 @@ function fixtureFor(story) {
     selectedRecipe: story.variant === 'undiscovered' ? 'unknown' : ['new', 'unavailable'].includes(story.variant) ? 'eel' : ['idle', 'unassigned'].includes(story.variant) ? null : 'salmon',
     currentRecipe: ['idle', 'unassigned'].includes(story.variant) ? null : 'salmon', seenRecipes: [],
     selectedUpgrade: 'hull', selectedChef: 'lena', demoPatchCleared: false,
+    selectedGarbageClusterId: 'large', selectedGarbagePanel: 1, clearedGarbageClusterIds: [], coinBalance: story.id === 'expansion-unaffordable' ? 0 : 1240,
     placement: false, toast: story.id === 'inventory-empty' ? 'No belt tiles left' : '', hiredApplicants: story.component === 'roster-tray' || story.id === 'staff-full' ? ['ama', 'mateo'] : [], applicantRefresh: false,
     chefLevel: story.variant === 'new' ? 5 : story.variant === 'max' && story.overlay === 'chef-detail' ? 8 : 2,
     chefUnassigned: false, chefLevels: {}, unassignedChefs: [], removedChefs: [],
@@ -94,13 +96,14 @@ function App() {
       if (['shop', 'workshop'].includes(destination.scene) && !previousStory.overlay) fixture.paperBackdropVariant = previousStory.variant;
       if (destination.scene === 'staff' && !previousStory.overlay) fixture.staffReturnStory = destination.overlay ? previous.id : 'staff-roster';
       if (destination.overlay === 'recipes' && previousStory.overlay === 'chef-detail') fixture.popupReturnStory = previous.id;
-      else if (['recipes', 'expansion'].includes(destination.overlay) && !previousStory.overlay) fixture.popupReturnStory = previousStory.scene === 'restaurant' ? previous.id : 'restaurant-live';
+      else if (['recipes', 'expansion'].includes(destination.overlay) && !previousStory.overlay) fixture.popupReturnStory = ['restaurant', 'floor-plan'].includes(previousStory.scene) ? previous.id : 'restaurant-live';
+      if (destination.overlay === 'expansion' && previousStory.component === 'garbage-cluster') fixture.popupReturnStory = previous.id;
       if (previousStory.scene === 'expedition' && !previousStory.overlay && !['pause', 'return', 'resume'].includes(previousStory.variant)) fixture.expeditionBackdrop = previousStory.variant;
     }
     if (id === 'catch-first') fixture.repeatCatch = false;
     if (byId.get(id).scene === 'shop') fixture.shopVisited = true;
     if (id === 'catch-repeat') fixture.repeatCatch = true;
-    if (['expansion', 'expansion-unaffordable'].includes(id)) { fixture.panel = 1; fixture.panFraction = 1; }
+    if (['expansion', 'expansion-unaffordable'].includes(id)) { fixture.panel = fixture.selectedGarbagePanel ?? 1; fixture.panFraction = fixture.panel; }
     if (options.panel !== undefined) { fixture.panel = options.panel; fixture.panFraction = options.panel; }
     const next = { id, fixture, returnRestaurant, returnPanel };
     viewRef.current = next; setView(next); setMenu(false);
@@ -126,6 +129,10 @@ function App() {
     const navigate = (id, message) => { if (message) fixture.toast = message; go(id, { fixture }); };
     switch (action) {
       case 'navigate':
+        if (destination === 'expansion' && button.dataset.garbageClusterId) {
+          fixture.selectedGarbageClusterId = button.dataset.garbageClusterId;
+          fixture.selectedGarbagePanel = Number(button.dataset.garbagePanel ?? 1);
+        }
         if ((destination === 'staff-detail' && value) || (destination === 'recipe-picker' && current.overlay !== 'chef-detail')) { fixture.selectedChef = value || fixture.placedChef || 'lena'; fixture.chefLevel = fixture.chefLevels[fixture.selectedChef] || chefFor(fixture).level; fixture.chefUnassigned = fixture.unassignedChefs.includes(fixture.selectedChef); }
         navigate(destination); break;
       case 'layer': fixture.trayOpen = !(fixture.layer === value && fixture.trayOpen); fixture.layer = value; if (current.component === 'editor-controls') change(fixture); else navigate(value === 'floor' ? 'restaurant-floor' : 'restaurant-edit'); break;
@@ -140,7 +147,15 @@ function App() {
       case 'level-up': fixture.chefLevel += 1; fixture.chefLevels[fixture.selectedChef] = fixture.chefLevel; change(fixture, 'Chef level preview updated.'); break;
       case 'unassign': fixture.chefUnassigned = true; fixture.unassignedChefs = [...new Set([...fixture.unassignedChefs, fixture.selectedChef])]; if (fixture.rosterPlacement?.chefId === fixture.selectedChef) fixture.rosterPlacement = null; change(fixture, 'Chef is unassigned in this example.'); break;
       case 'fire-confirm': fixture.removedChefs = [...fixture.removedChefs, fixture.selectedChef]; if (fixture.rosterPlacement?.chefId === fixture.selectedChef) fixture.rosterPlacement = null; navigate('staff-roster', 'Confirmed dismissal shown. Reset restores the example.'); break;
-      case 'clear-confirm': fixture.demoPatchCleared = true; go(['restaurant-edit', 'restaurant-floor', 'restaurant-selected'].includes(fixture.popupReturnStory) ? fixture.popupReturnStory : 'restaurant-expanded', { fixture, panel: 1 }); break;
+      case 'clear-confirm': {
+        const cluster = garbageClusterFor(fixture.selectedGarbageClusterId);
+        if (fixture.coinBalance < cluster.cost || fixture.clearedGarbageClusterIds.includes(cluster.id)) break;
+        fixture.coinBalance -= cluster.cost;
+        fixture.clearedGarbageClusterIds.push(cluster.id);
+        if (cluster.id === 'large') fixture.demoPatchCleared = true;
+        const returnStory = cluster.id !== 'large' || ['floor-plan', 'restaurant-edit', 'restaurant-floor', 'restaurant-selected', 'component-garbage-cluster'].includes(fixture.popupReturnStory) ? fixture.popupReturnStory : 'restaurant-expanded';
+        go(returnStory, { fixture, panel: fixture.selectedGarbagePanel }); break;
+      }
       case 'resume': navigate('expedition-resume'); break;
       case 'confirm-return': navigate('results-early'); break;
       case 'place':
