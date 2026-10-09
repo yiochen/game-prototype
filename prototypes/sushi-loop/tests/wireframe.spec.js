@@ -47,7 +47,7 @@ for (const [name, width, height] of [
   ['small-phone', 320, 740], ['phone', 390, 844],
   ['landscape', 844, 390], ['desktop', 1440, 1000],
 ]) {
-  test(`all 56 deep-linked examples render without errors or horizontal clipping at ${name}`, async ({ page }) => {
+  test(`all 57 deep-linked examples render without errors or horizontal clipping at ${name}`, async ({ page }) => {
     test.setTimeout(90_000);
     await page.setViewportSize({ width, height });
     // Layout checks measure the settled popup, not its entrance translation.
@@ -56,7 +56,7 @@ for (const [name, width, height] of [
     page.on('pageerror', (error) => errors.push(error.message));
     await open(page, 'floor-plan');
     const examples = await page.locator('#example-select option').evaluateAll((options) => options.map((option) => ({ id: option.value, title: option.textContent })));
-    expect(examples).toHaveLength(56);
+    expect(examples).toHaveLength(57);
     for (const example of examples) {
       await open(page, example.id);
       await expect(page.locator('#story-title')).toHaveText(example.title);
@@ -85,6 +85,45 @@ for (const [name, width, height] of [
     await screenshot(page, `wireframe-${name}`);
   });
 }
+
+test('doodle concept catalog loads the original image and supports contained phone zoom and a full-size link', async ({ page }) => {
+  for (const [width, height] of [[320, 740], [390, 844], [844, 390]]) {
+    await page.setViewportSize({ width, height });
+    await open(page, 'concept-doodle-catalog');
+    await expect(stage(page).getByRole('heading', { name: 'Doodle UI & art catalog', exact: true })).toBeVisible();
+    const image = stage(page).getByRole('img', { name: /^Doodle UI and art catalog:/ });
+    await expect.poll(() => image.evaluate(element => element.complete && element.naturalWidth)).toBe(1024);
+    expect(await image.evaluate(element => element.naturalHeight)).toBe(1536);
+    const scroll = stage(page).getByLabel('Scroll doodle UI and art catalog', { exact: true });
+    const fitted = await scroll.evaluate(element => ({ width: element.clientWidth, imageWidth: element.querySelector('img').getBoundingClientRect().width }));
+    expect(fitted.imageWidth).toBeLessThanOrEqual(fitted.width + 1);
+    const link = stage(page).getByRole('link', { name: 'Open full-size catalog', exact: true });
+    await expect(link).toHaveAttribute('href', await image.getAttribute('src'));
+    await expect(link).toHaveAttribute('target', '_blank');
+    await stage(page).getByRole('button', { name: 'Zoom catalog', exact: true }).click();
+    await expect(stage(page).getByRole('button', { name: 'Fit catalog', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    expect(await image.evaluate(element => element.getBoundingClientRect().width)).toBe(1024);
+    await scroll.hover({ position: { x: 90, y: 90 } });
+    await page.mouse.wheel(450, 400);
+    await expect.poll(() => scroll.evaluate(element => element.scrollLeft)).toBeGreaterThan(0);
+    await expect.poll(() => scroll.evaluate(element => element.scrollTop)).toBeGreaterThan(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width + 1);
+    await stage(page).getByRole('button', { name: 'Fit catalog', exact: true }).click();
+    await expect(stage(page).getByRole('button', { name: 'Zoom catalog', exact: true })).toHaveAttribute('aria-pressed', 'false');
+    expect(await scroll.evaluate(element => element.scrollWidth)).toBeLessThanOrEqual(fitted.width + 1);
+  }
+  const catalogUrl = await stage(page).getByRole('img', { name: /^Doodle UI and art catalog:/ }).getAttribute('src');
+  const [original] = await Promise.all([
+    page.waitForEvent('popup'),
+    stage(page).getByRole('link', { name: 'Open full-size catalog', exact: true }).click(),
+  ]);
+  await original.waitForLoadState();
+  await expect(original).toHaveURL(catalogUrl);
+  expect(await original.locator('img').evaluate(element => element.naturalWidth)).toBe(1024);
+  await original.close();
+  await at(page, 'concept-doodle-catalog');
+  await screenshot(page, 'doodle-concept-catalog');
+});
 
 test('phone example menu supports search, selection, dismissal and behavior/motion notes', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });

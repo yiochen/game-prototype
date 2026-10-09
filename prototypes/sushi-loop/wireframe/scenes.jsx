@@ -4,6 +4,7 @@ import { RestaurantHud, EditorControls, Dock, HullMeter, UpgradeCard, SalvageRec
 import { roster, chefAssigned } from './fixtures.js';
 import { RosterTray } from './staff-tray.jsx';
 import { PaperPage } from './paper-page.jsx';
+import { ConceptCatalog } from './concept-catalog.jsx';
 
 function Nav({ children, story = 'restaurant-live', className = '', data = {}, ...rest }) {
   return <Target action="navigate" data={{story,...data}} className={className} {...rest}>{children}</Target>;
@@ -101,6 +102,7 @@ function Results({ state }) {
 export function Scene({ story, state = {} }) {
   const sceneState = {...state,_variant:story.variant || 'live'};
   switch (story.scene) {
+    case 'concept': return <ConceptCatalog />;
     case 'component': return <ComponentGallery story={story} state={sceneState} paperBackground={story.component === 'paper-page' ? <PaperRestaurant state={sceneState} /> : undefined} />;
     case 'floor-plan': return <FloorPlan state={sceneState} />;
     case 'restaurant': return <Restaurant state={sceneState} />;

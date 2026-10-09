@@ -6,6 +6,8 @@ Open `/prototypes/sushi-loop/` from the repository development server or a Netli
 
 On phones, the story menu and annotations are accessible without shrinking touch targets. Scene content retains a portrait presentation. The full restaurant overview can pan across three portrait-width panels; the panel divisions are camera guides, not walls.
 
+The **Concept & art** group contains `#concept-doodle-catalog`, which displays the supplied [doodle UI and art catalog](../design/art-directions/doodle.png) unchanged. Zoom reads its details within a contained scroll area, Fit restores the overview, and Open full-size catalog opens the original image in another tab. The image guides materials, shapes, icons and sprites; its illustrative branding, Map/Settings/level controls and junction belts do not extend the accepted wireframe scope. This reference page has its own review comments and behavior/motion notes and is separate from the shared component library.
+
 ## Run and verify
 
 From the repository root:
@@ -66,7 +68,7 @@ Use the Markdown export to collect all local story comments for sharing or backu
 
 Stories cover the full floor plan; starter/expanded/live/edit/floor/selection/charging/reopen restaurant states; recipe eligibility, idle placement, unavailable, undiscovered and NEW states; roster, applicants, full capacity, chef detail, insufficient coins, maximum level and firing; normal/owned/unaffordable Shop; normal/maximum/unaffordable Workshop; preparation, travel, shooting window, pursuit, danger, pause, return confirmation and resume; first/repeat catches, recipe award and three result outcomes; expansion and inventory exhaustion.
 
-The library also isolates thirteen shared components using the same code as their integrated appearances. Each component page includes behavior and state-transition motion notes; the overall library has 56 examples across nine groups.
+The library also isolates thirteen shared components using the same code as their integrated appearances. Each component page includes behavior and state-transition motion notes; the overall library has 57 examples across ten groups, including the distinct Concept & art catalog reference.
 
 The HUD follows the latest user direction: the styled coin count is at the upper-left of the viewport, with a floating Shop button below it and a reserved earnings line that prevents Shop from jumping when +420 while away appears. Both stay anchored while the restaurant pans. Shop has no physical entrance or floor footprint; it opens from live or edit mode, preserves that mode and exact camera position on return through the curled paper corner, and carries the refreshed-stock sparkle until Shop opens. HUD controls remain transparent without cream/yellow backing containers. A wireframe outline marks targets for review. The Workshop remains a physical hut to the submarine’s right within their shared 3 × 3 floor-cell footprint. Character backgrounds and occupations should be varied; cultural identity is flavor, not a mechanic.
 

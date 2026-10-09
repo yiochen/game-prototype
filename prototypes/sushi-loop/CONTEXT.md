@@ -109,7 +109,7 @@ A customer with no walking route to an exit or usable seat. Their panic and slow
 _Avoid_: Belt congestion
 
 **Edit layer**:
-A category of restaurant content selectable in edit mode: People, Layout, or Floor. Layer controls are shown as icons without visible text labels.
+A category of restaurant content selectable in edit mode: People, Layout, or Floor. Controls form a vertical right-side icon stack; only the selected layer shows its name, including while its tray is collapsed.
 _Avoid_: Separate gameplay mode
 
 **People layer**:
@@ -121,7 +121,7 @@ The edit layer containing seats, belt tiles, and applicable placed furniture.
 _Avoid_: Floor layer
 
 **Floor layer**:
-The edit layer containing floor tiles and their appearance.
+The edit layer containing floor tiles and their appearance, presented as a paginated thumbnail palette.
 _Avoid_: Layout layer
 
 **Chef level**:

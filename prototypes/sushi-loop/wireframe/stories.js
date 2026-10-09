@@ -17,6 +17,7 @@ const floorOnlyNote = 'This review pass draws the restaurant floor, entries, exp
 
 export const storyGroups = [
   { id: 'layout', title: 'Floor plan' },
+  { id: 'concept', title: 'Concept & art' },
   { id: 'components', title: 'Shared components' },
   { id: 'restaurant', title: 'Restaurant' },
   { id: 'recipes', title: 'Recipe picker' },
@@ -40,6 +41,16 @@ export const stories = [
       element('Covered future dock', 'When access is locked, patchwork rags cover both landmarks with small openings that reveal parts of their silhouettes. Both targets are unavailable; show no Future access instructions.', 'Cloth stays still while locked. Proposed unlocking fades the covering locally over 240 ms; reduced motion uses an immediate reveal.'),
     ],
     notes: [floorOnlyNote, 'The sketch supersedes the earlier two-panel image layout. The combined dock footprint is 3 × 3 cells; overall grid dimensions, patch shapes, prices and dock approach remain open.', 'Activating later entries or the dock when a cleared route reaches them is a proposal, not an approved rule.', motionNote, mockNote],
+  },
+  {
+    id: 'concept-doodle-catalog', group: 'concept', title: 'Doodle UI & art catalog', scene: 'concept', variant: 'catalog',
+    description: 'The supplied doodle catalog is displayed unchanged as a visual reference for materials, shapes, icons, sprites and scene artwork. Screen composition and controls continue to follow the wireframes.',
+    elements: [
+      element('Full supplied catalog', 'Show the complete original 1024 × 1536 image in a scrollable viewport. Keep its aspect ratio and artwork unchanged. The catalog’s illustrative branding, Map, Settings, level HUD and junction-belt examples do not add controls or gameplay to Sushi Loop.', 'The reference image stays still. Native scrolling follows the user directly; do not animate or reconstruct the catalog artwork.'),
+      element('Zoom / Fit catalog', 'Zoom displays the original image at its natural width inside the contained scroll area so its annotations can be read on a phone. Fit restores the full-width overview. Both controls preserve the surrounding explorer and its comment context.', 'Change the image size immediately; no animated zoom or delayed interaction. Keyboard focus remains on the same control.'),
+      element('Open full-size catalog', 'Open the same original image in a separate tab for browser zoom or sharing. Supply an accessible link and retain this concept page as the source of review comments.', 'Use normal link navigation without a popup entrance or custom transition.'),
+    ],
+    notes: ['This is a concept reference page, not another shared component or an approved screen. The catalog informs the doodle art vocabulary; accepted Sushi Loop behavior and controls remain in the wireframes.', motionNote],
   },
   {
     id: 'restaurant-live', group: 'restaurant', title: 'Live service · starter floor', scene: 'restaurant', variant: 'live',
