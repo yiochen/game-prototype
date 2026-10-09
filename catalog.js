@@ -15,6 +15,6 @@ for (const prototype of [...catalog].sort((a, b) => Number(Boolean(b.new)) - Num
   const genre = document.createElement('p'); genre.className = 'genre'; genre.textContent = prototype.genre || 'Prototype';
   const title = document.createElement('h2'); title.textContent = prototype.title;
   const description = document.createElement('p'); description.textContent = prototype.description;
-  const action = document.createElement('span'); action.className = 'play-link'; action.textContent = 'Come play ↗';
+  const action = document.createElement('span'); action.className = 'play-link'; action.textContent = prototype.action || 'Come play ↗';
   body.append(genre, title, description, action); link.append(art, body); list.append(link);
 }

@@ -4,11 +4,11 @@ const URL = '/prototypes/dumpling-disco/?test&ntl-drawer-state=hidden';
 async function boot(page, tutorial = false) { await page.goto(URL); await expect(page.locator('canvas')).toHaveAttribute('data-ready', 'true'); await page.getByRole('button', { name: tutorial ? 'Show me how' : 'Straight to the disco' }).click(); }
 async function shot(page, name) { await mkdir('artifacts/dumpling-disco', { recursive: true }); await page.screenshot({ path: `artifacts/dumpling-disco/${name}.png` }); }
 
-test('the playground features Dumpling Disco among four games with its cover loaded', async ({ page }) => {
-  await page.goto('/'); await expect(page.locator('.prototype')).toHaveCount(4);
+test('the playground features Dumpling Disco among the prototypes with its cover loaded', async ({ page }) => {
+  await page.goto('/'); await expect(page.locator('.prototype')).toHaveCount(5);
   await expect(page.locator('.prototype').first()).toHaveAttribute('href', './prototypes/dumpling-disco/');
   await expect(page.getByRole('link', { name: /Pollen Club|Floaty Ferry/ })).toHaveCount(0);
-  await expect.poll(() => page.locator('.prototype-art img').evaluateAll(imgs => imgs.length === 1 && imgs.every(img => img.complete && img.naturalWidth > 0))).toBe(true);
+  await expect.poll(() => page.locator('.prototype-art img').evaluateAll(imgs => imgs.length === 2 && imgs.every(img => img.complete && img.naturalWidth > 0))).toBe(true);
   await page.setViewportSize({ width: 320, height: 740 }); expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true); await shot(page, 'playground');
 });
 

@@ -1,0 +1,7 @@
+.prototype-stage .paginated-tray{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;align-items:center;gap:5px;width:100%;min-width:0}
+.prototype-stage .paginated-tray .tray-page-button{width:44px;min-width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:5px}
+.prototype-stage .tray-page-button svg{width:20px;height:20px}
+.prototype-stage .paginated-tray-items{display:grid;grid-template-columns:repeat(var(--tray-page-size),minmax(0,1fr));gap:5px;min-width:0}
+.prototype-stage .paginated-tray .inventory-item{width:100%;min-width:44px;min-height:92px;flex-basis:auto}
+.prototype-stage .paginated-tray .floor-swatch{width:60px;justify-self:center;min-height:60px;flex-basis:auto}
+@media(max-width:360px){.prototype-stage .paginated-tray{gap:3px}.prototype-stage .paginated-tray-items{gap:3px}.prototype-stage .paginated-tray .floor-swatch{width:54px;padding:5px}}
