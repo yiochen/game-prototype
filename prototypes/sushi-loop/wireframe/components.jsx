@@ -9,6 +9,23 @@ export function RestaurantHud({ state = {}, children }) {
   </div>;
 }
 
+function InventoryItem({ label, value, art, count, layer }) {
+  const swatch = layer === 'floor';
+  return <Target action={swatch ? 'paint' : 'place'} data={{value}} className={`inventory-item ${swatch ? 'floor-swatch' : ''}`} title={label}>{art}{!swatch && <><strong>{label}</strong><small>{count}</small></>}</Target>;
+}
+
+export function EditorControls({ state = {} }) {
+  const layer = state.layer || (state._variant === 'floor' ? 'floor' : 'people');
+  const open = state.trayOpen !== false;
+  const palettes = [{label:'Plain tile',value:'plain'},{label:'Blue wave',value:'wave'},{label:'Checker',value:'checker'}];
+  const inventory = [{label:'Belt tile',value:'belt',art:<span className="mini-belt" aria-hidden="true">→</span>,count:String(state.beltCount ?? 12)},{label:'Chair',value:'chair',art:<span className="mini-chair" aria-hidden="true">⊓</span>,count:'3'},{label:'Plant',value:'plant',art:<span className="mini-plant" aria-hidden="true">♧</span>,count:'1'}];
+  return <div className={`editor-controls editor-layer-${layer}`} data-tray-open={open} aria-label="Restaurant editor">
+    <Target action="navigate" data={{story:'restaurant-live'}} className="live-action" title="Live"><Icon name="play" /><span>Live</span></Target>
+    <div className="layer-tabs" role="group" aria-label="Editing layer">{['people','layout','floor'].map(name=><Target key={name} action="layer" data={{value:name}} className={layer === name ? 'layer-tab active' : 'layer-tab'} title={`${name[0].toUpperCase()+name.slice(1)} layer`} aria-pressed={layer === name} aria-expanded={layer === name && open} aria-controls="editor-inventory-tray"><Icon name={name} /></Target>)}</div>
+    <div id="editor-inventory-tray" className="edit-controls" aria-label={`${layer[0].toUpperCase()+layer.slice(1)} inventory`} aria-hidden={!open} inert={!open ? true : undefined}><div className="inventory-tray">{layer === 'people' ? <InventoryItem label="Omar" value="omar" art={<Character name="Omar" />} count="Unassigned chef" layer={layer} /> : layer === 'floor' ? palettes.map(item=><InventoryItem key={item.value} {...item} art={<span className={`floor-sample ${item.value}`} aria-hidden="true" />} layer={layer} />) : inventory.map(item=><InventoryItem key={item.value} {...item} layer={layer} />)}</div></div>
+  </div>;
+}
+
 export function Dock({ state = {}, locked = false, future = false }) {
   const charging = state._variant === 'charging';
   return <div className={`dock-zone ${locked ? 'dock-locked' : ''}`}>
@@ -56,6 +73,7 @@ export function ComponentGallery({ story, state = {} }) {
   let examples;
   switch (key) {
     case 'restaurant-hud': examples = <>{example('Fixed upper-left · Live and Edit',<RestaurantHud state={state}/>,'hud-example')}{example('Refreshed Shop stock · earnings beside savings',<RestaurantHud state={{...state,_variant:'offline'}}/>,'hud-example')}</>; break;
+    case 'editor-controls': examples = example('Layer controls and owned inventory',<EditorControls state={state}/>,'editor-example'); break;
     case 'money': examples = <>{example('Restaurant coins',<div className="coin-count"><Money amount={1240} /></div>)}{example('Banked salvage',<Money kind="salvage" amount={180} />)}{example('Price in an action',<Target action="purchase" data={{value:'belt'}}><Money amount={40} /><span>Buy</span></Target>)}</>; break;
     case 'character': examples = <>{['Lena Brooks','Omar Haddad','Ama Mensah','Mateo Rivera','Noor Haddad'].map(name=>example(name,<Character name={name} />))}{['Rosa','Ellis','Samir','June'].map(name=>example(`${name} · guest`,<Character name={name} kind="guest" />))}</>; break;
     case 'dock': examples = <>{example('Ready · navigation available',<Dock state={state} />,'dock-example')}{example('Charging · stays in restaurant',<Dock state={{...state,_variant:'charging'}} />,'dock-example')}{example('Future access · unavailable',<Dock locked state={state} />,'dock-example')}</>; break;

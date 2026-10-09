@@ -17,11 +17,13 @@ const route = () => byId.has(location.hash.slice(1)) ? location.hash.slice(1) : 
 function fixtureFor(story) {
   return {
     panel: ['expansion', 'expansion-unaffordable', 'restaurant-charging'].includes(story.id) ? 1 : 0,
-    layer: story.variant === 'floor' ? 'floor' : 'people',
+    panFraction: ['expansion', 'expansion-unaffordable', 'restaurant-charging'].includes(story.id) ? 1 : 0,
+    layer: story.variant === 'floor' ? 'floor' : story.id === 'inventory-empty' ? 'layout' : 'people', trayOpen: true,
+    beltCount: story.id === 'inventory-empty' ? 0 : 12, toastEpoch: 0,
     selectedRecipe: story.variant === 'undiscovered' ? 'unknown' : ['new', 'unavailable'].includes(story.variant) ? 'eel' : ['idle', 'unassigned'].includes(story.variant) ? null : 'salmon',
     currentRecipe: ['idle', 'unassigned'].includes(story.variant) ? null : 'salmon', seenRecipes: [],
     selectedUpgrade: 'hull', selectedChef: 'lena', demoPatchCleared: false,
-    placement: false, toast: '', hiredApplicants: [], applicantRefresh: false,
+    placement: false, toast: story.id === 'inventory-empty' ? 'No belt tiles left' : '', hiredApplicants: [], applicantRefresh: false,
     chefLevel: story.variant === 'new' ? 5 : story.variant === 'max' && story.overlay === 'chef-detail' ? 8 : 2,
     chefUnassigned: false, chefLevels: {}, unassignedChefs: [], removedChefs: [],
     purchasedItems: [], upgradeLevels: {}, painted: false, rotation: 0, shopVisited: false,
@@ -80,8 +82,9 @@ function App() {
     }
     if (id === 'restaurant-live' && ['shop', 'workshop', 'staff'].includes(previousStory.scene) && !options.reset) {
       id = returnRestaurant; fixture.panel = previousStory.scene === 'workshop' ? 0 : returnPanel;
+      if (previousStory.scene === 'workshop') fixture.panFraction = 0;
     }
-    if (id === 'restaurant-live' && ['expedition-start', 'results'].includes(previousStory.scene) && !options.reset) fixture.panel = 0;
+    if (id === 'restaurant-live' && ['expedition-start', 'results'].includes(previousStory.scene) && !options.reset) { fixture.panel = 0; fixture.panFraction = 0; }
     if (options.reset) { fixture = fixtureFor(byId.get(id)); returnRestaurant = 'restaurant-live'; returnPanel = 0; }
     else {
       if (destination.overlay === 'recipes' && previousStory.overlay === 'chef-detail') fixture.popupReturnStory = previous.id;
@@ -91,41 +94,40 @@ function App() {
     if (id === 'catch-first') fixture.repeatCatch = false;
     if (byId.get(id).scene === 'shop') fixture.shopVisited = true;
     if (id === 'catch-repeat') fixture.repeatCatch = true;
-    if (['expansion', 'expansion-unaffordable'].includes(id)) fixture.panel = 1;
-    if (options.panel !== undefined) fixture.panel = options.panel;
+    if (['expansion', 'expansion-unaffordable'].includes(id)) { fixture.panel = 1; fixture.panFraction = 1; }
+    if (options.panel !== undefined) { fixture.panel = options.panel; fixture.panFraction = options.panel; }
     const next = { id, fixture, returnRestaurant, returnPanel };
     viewRef.current = next; setView(next); setMenu(false);
     if (location.hash !== `#${id}`) history.pushState(null, '', `#${id}`);
   }
 
   function change(fixture, message) {
-    const next = { ...viewRef.current, fixture: { ...fixture, ...(message ? { toast: message } : {}) } };
+    const next = { ...viewRef.current, fixture: { ...fixture, ...(message ? { toast: message, toastEpoch: fixture.toastEpoch + 1 } : {}) } };
     viewRef.current = next; setView(next);
   }
 
   function dismiss() {
     const current = byId.get(viewRef.current.id), fixture = viewRef.current.fixture;
-    const destinations = { recipes: fixture.popupReturnStory, applicants: 'staff-roster', 'chef-detail': 'staff-roster', fire: 'staff-detail', expansion: fixture.popupReturnStory, 'inventory-empty': 'restaurant-edit', 'early-return': 'expedition-pause' };
-    if (destinations[current.overlay]) go(destinations[current.overlay], { panel: fixture.panel });
+    const destinations = { recipes: fixture.popupReturnStory, applicants: 'staff-roster', 'chef-detail': 'staff-roster', fire: 'staff-detail', expansion: fixture.popupReturnStory, 'early-return': 'expedition-pause' };
+    if (destinations[current.overlay]) go(destinations[current.overlay]);
   }
 
   function act(event) {
     const button = event.target.closest('button[data-action]');
     if (!button || button.disabled) return;
-    const { action, value, story: destination, panel } = button.dataset;
+    const { action, value, story: destination } = button.dataset;
     const current = byId.get(viewRef.current.id), fixture = structuredClone(viewRef.current.fixture);
     const navigate = (id, message) => { if (message) fixture.toast = message; go(id, { fixture }); };
     switch (action) {
       case 'navigate':
         if ((destination === 'staff-detail' && value) || (destination === 'recipe-picker' && current.overlay !== 'chef-detail')) { fixture.selectedChef = value || fixture.placedChef || 'lena'; fixture.chefLevel = fixture.chefLevels[fixture.selectedChef] || chefFor(fixture).level; fixture.chefUnassigned = fixture.unassignedChefs.includes(fixture.selectedChef); }
         navigate(destination); break;
-      case 'pan': fixture.panel = Number(panel); change(fixture); stage.current.querySelector('[data-pan-scroll]')?.scrollTo({ left: fixture.panel * stage.current.querySelector('[data-pan-scroll]').clientWidth, behavior: reduced() ? 'instant' : 'smooth' }); break;
-      case 'layer': fixture.layer = value; navigate(value === 'floor' ? 'restaurant-floor' : 'restaurant-edit'); break;
+      case 'layer': fixture.trayOpen = !(fixture.layer === value && fixture.trayOpen); fixture.layer = value; if (current.component === 'editor-controls') change(fixture); else navigate(value === 'floor' ? 'restaurant-floor' : 'restaurant-edit'); break;
       case 'select-object': navigate('restaurant-selected'); break;
       case 'select-recipe': fixture.selectedRecipe = value; fixture.seenRecipes = [...new Set([...fixture.seenRecipes, value])]; change(fixture); break;
       case 'prepare': fixture.currentRecipe = fixture.selectedRecipe; navigate(fixture.popupReturnStory, 'Recipe prepared in this example. The chef’s blackboard updates.'); break;
       case 'select-upgrade': fixture.selectedUpgrade = value; change(fixture); break;
-      case 'purchase': fixture.purchasedItems = [...fixture.purchasedItems, value]; change(fixture, `${value || 'Item'} added to mock inventory.`); break;
+      case 'purchase': fixture.purchasedItems = [...fixture.purchasedItems, value]; if (value === 'belt') fixture.beltCount += 1; change(fixture, `${value || 'Item'} added to mock inventory.`); break;
       case 'upgrade': fixture.upgradeLevels[value || fixture.selectedUpgrade] = (fixture.upgradeLevels[value || fixture.selectedUpgrade] || 0) + 1; change(fixture, 'Upgrade preview advanced one example level.'); break;
       case 'hire': fixture.hiredApplicants = [...fixture.hiredApplicants, value]; change(fixture, 'Chef added to the mock roster, unassigned.'); break;
       case 'refresh-applicants': fixture.applicantRefresh = true; change(fixture, 'New example applications. Refresh now shows its cooldown state.'); break;
@@ -136,11 +138,12 @@ function App() {
       case 'resume': navigate('expedition-resume'); break;
       case 'confirm-return': navigate('results-early'); break;
       case 'place':
+        if (value === 'belt' && fixture.beltCount === 0) { change(fixture, 'No belt tiles left'); break; }
         if (['omar', 'lena', 'ama', 'mateo', 'noor'].includes(value)) { fixture.selectedChef = value; fixture.placedChef = value; fixture.unassignedChefs = fixture.unassignedChefs.filter(id => id !== value); fixture.chefUnassigned = false; fixture.chefLevel = fixture.chefLevels[value] || chefFor(fixture).level; fixture.currentRecipe = null; fixture.selectedRecipe = null; navigate('recipe-idle'); }
         else { fixture.placement = value || 'chair'; change(fixture); }
         break;
       case 'finish-placement': fixture.placement = false; change(fixture, 'Sample placement shown. No layout rules are simulated.'); break;
-      case 'paint': fixture.painted = !fixture.painted; change(fixture, 'Floor swatch applied to the sample area.'); break;
+      case 'paint': fixture.painted = !fixture.painted; change(fixture); break;
       case 'rotate': fixture.rotation = (fixture.rotation + 90) % 360; change(fixture); break;
       case 'remove': case 'remove-object': navigate('restaurant-edit', 'Object returned to mock inventory.'); break;
       case 'cancel-placement': fixture.placement = false; change(fixture); break;
@@ -172,13 +175,13 @@ function App() {
 
   useEffect(() => {
     if (!view.fixture.toast) return;
-    const timer = setTimeout(() => setView(previous => ({ ...previous, fixture: { ...previous.fixture, toast: '' } })), 4200);
+    const timer = setTimeout(() => setView(previous => ({ ...previous, fixture: { ...previous.fixture, toast: '' } })), view.fixture.toast === 'No belt tiles left' ? 2200 : 4200);
     return () => clearTimeout(timer);
-  }, [view.fixture.toast]);
+  }, [view.fixture.toast, view.fixture.toastEpoch]);
 
   useLayoutEffect(() => {
     const viewport = stage.current.querySelector('[data-pan-scroll]');
-    if (viewport) viewport.scrollLeft = viewRef.current.fixture.panel * viewport.clientWidth;
+    if (viewport) viewport.scrollLeft = (viewRef.current.fixture.panFraction ?? viewRef.current.fixture.panel) * viewport.clientWidth;
     const dialog = stage.current.querySelector('dialog');
     if (dialog) dialog.querySelector('button:not(:disabled), [href], input, select')?.focus({ preventScroll: true });
     document.title = `${story.title} · Sushi Loop wireframes`;
@@ -231,8 +234,9 @@ function App() {
         <div className="stage-area"><div ref={stage} id="prototype-stage" className={`prototype-stage ${story.scene === 'floor-plan' ? 'frame--map' : 'frame--phone'} ${targets ? '' : 'hide-targets'}`} data-scene={story.scene} data-story={story.id} aria-label="Interactive wireframe preview" onClick={act} onScrollCapture={event => {
           const viewport = event.target;
           if (!viewport.hasAttribute('data-pan-scroll')) return;
-          const panel = Math.min(2, Math.max(0, Math.round(viewport.scrollLeft / viewport.clientWidth)));
-          if (panel !== viewRef.current.fixture.panel) setView(previous => ({ ...previous, fixture: { ...previous.fixture, panel } }));
+          const panFraction = Math.min(2, Math.max(0, viewport.scrollLeft / viewport.clientWidth));
+          const panel = Math.round(panFraction);
+          if (Math.abs(panFraction - viewRef.current.fixture.panFraction) > .001) change({ ...viewRef.current.fixture, panel, panFraction });
         }}>
           <div className="scene-host" inert={!!story.overlay}><Scene story={story} state={view.fixture}/></div>
           {story.overlay && <Overlay story={story} state={view.fixture}/>}

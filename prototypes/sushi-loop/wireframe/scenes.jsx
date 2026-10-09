@@ -1,13 +1,12 @@
 import React from 'react';
 import { Target, Icon, Money, Character } from './common.jsx';
-import { RestaurantHud, Dock, HullMeter, UpgradeCard, SalvageReceipt, ComponentGallery } from './components.jsx';
+import { RestaurantHud, EditorControls, Dock, HullMeter, UpgradeCard, SalvageReceipt, ComponentGallery } from './components.jsx';
 import { roster, chefAssigned, chefSpeed } from './fixtures.js';
 
 function Nav({ children, story = 'restaurant-live', className = '', data = {}, ...rest }) {
   return <Target action="navigate" data={{story,...data}} className={className} {...rest}>{children}</Target>;
 }
 function ReturnDoor() { return <Nav className="scene-return"><Icon name="arrow-left" /><span>Restaurant</span></Nav>; }
-function Dish({ type = 'salmon', className = '' }) { return <span className={`wire-dish ${className}`} aria-hidden="true"><i className="rice" /><i className={`fish ${type}`} /><i className="nori" /></span>; }
 function Note({ children }) { return <p className="scene-note"><Icon name="info" />{children}</p>; }
 function Header({ title, subtitle, balance, actions }) { return <header className="scene-header"><div><h2>{title}</h2>{subtitle && <p>{subtitle}</p>}</div>{balance}{actions}</header>; }
 function Entry({ panel, active = false }) { return <div className={`customer-entry ${active ? 'active' : ''}`}><span className="entry-door" /><span>Entry {panel+1}</span>{active ? <small>Customer access</small> : <small><Icon name="lock" /> Future access</small>}</div>; }
@@ -17,29 +16,17 @@ function Garbage({ panel, state, full = false }) {
   return <div className={`garbage-field ${full ? 'plan-garbage' : ''} ${partial ? 'partial-clearance' : ''}`} aria-label="Garbage awaiting clearance"><span className="debris d1">▧</span><span className="debris d2">▱</span><span className="debris d3">▧</span><span className="debris d4">▱</span><p className="garbage-label">Garbage to clear</p><Nav story="expansion" className={`clearance-target ${panel === 2 ? 'later-patch' : ''}`}><Icon name="trash" /><strong>{partial ? 'Next patch' : 'Clear patch'}</strong><small>Expand this way →</small></Nav></div>;
 }
 
-function StarterRestaurant({ state, edit = false }) {
-  const placedChef = roster(state).find(chef => chef.id === (state.placedChef || 'lena') && chefAssigned(state, chef));
-  const selected = state._variant === 'selected';
-  const recipeName = state.currentRecipe === null ? 'Choose recipe' : ({eel:'Eel',tuna:'Tuna',cucumber:'Cucumber',salmon:'Salmon'}[state.currentRecipe] || 'Salmon');
-  return <div className={`starter-service ${edit ? 'editable' : ''}`}>
-    <div className="open-belt"><span className="belt-direction">→ → → →</span><Dish className="plate-one" /><Dish type="tuna" className="plate-two" /><span className="belt-direction return-direction">← ← ←</span></div>
-    {placedChef ? <Nav story="recipe-picker" data={{value:placedChef.id}} className="placed-chef"><Character name={placedChef.name} /><span className="blackboard"><b>{recipeName}</b><small>{state.currentRecipe === null ? 'Idle' : state.currentRecipe === 'eel' ? 'Copper recipe' : 'Wood recipe'}</small></span></Nav> : <span className="scene-guest-name">No chef assigned · Choose one in Edit</span>}
-    <div className="customer c-one"><span className="preference"><Dish /><i className="preference-time" /></span><Character name="Rosa" kind="guest" />{edit ? <Target action="select-object" data={{value:'chair'}} className={`chair-target ${selected ? 'object-selected' : ''}`}><span className="chair" style={{transform:`rotate(${Number(state.rotation || 0)}deg)`}}>Seat</span></Target> : <span className="chair">Seat</span>}</div>
-    <div className="customer c-two"><span className="happy">☺</span><Character name="Ellis" kind="guest" /><span className="chair">Seat</span></div>
-    <div className="customer c-three"><Character name="Samir" kind="guest" /><span className="chair">Seat</span></div>
-    <div className="customer c-four"><Character name="June" kind="guest" /><span className="chair">Seat</span></div>
-    {edit ? <div className="empty-cell"><span>Empty cell</span><Target action="place" data={{value:'chair'}} className="cell-place" title="Preview chair placement"><Icon name="plus" /></Target></div> : <div className="scene-guest-name">Rosa · bicycle mechanic</div>}
-    {selected && <div className="object-tools"><Target action="rotate" data={{value:'chair'}} className="icon-control" title="Rotate selected chair"><Icon name="rotate" /></Target><Target action="remove" data={{value:'chair'}} className="icon-control" title="Remove selected chair"><Icon name="trash" /></Target></div>}
-  </div>;
+function SelectedFootprint({ state }) {
+  return <div className="selected-footprint"><Target action="select-object" data={{value:'chair'}} className="chair-target object-selected" title="Selected chair"><span className="mini-chair" aria-hidden="true" style={{transform:`rotate(${Number(state.rotation || 0)}deg)`}}>⊓</span></Target><div className="object-tools"><Target action="rotate" data={{value:'chair'}} className="icon-control" title="Rotate selected chair"><Icon name="rotate" /></Target><Target action="remove" data={{value:'chair'}} className="icon-control" title="Remove selected chair"><Icon name="trash" /></Target></div></div>;
 }
 
 function FloorPanels({ state, map = false }) {
   const expanded = ['expanded','charging'].includes(state._variant) || state.demoPatchCleared;
-  const edit = ['edit','floor','selected'].includes(state._variant);
   return [0,1,2].map(panel=><section key={panel} className={`floor-panel ${panel === 0 || (panel === 1 && expanded) ? 'cleared' : 'uncleared'} ${state.painted && panel === 0 ? 'painted-floor' : ''}`} data-floor-panel={panel} aria-label={`Restaurant panel ${panel+1}`}>
-    {map ? <span className="panel-name">Panel {panel+1} · {panel === 0 ? 'usable at start' : 'future expansion'}</span> : <span className="world-panel-number">{panel+1} / 3</span>}
+    {map && <span className="panel-name">Panel {panel+1} · {panel === 0 ? 'usable at start' : 'future expansion'}</span>}
     <Entry panel={panel} active={panel === 0 || (panel === 1 && expanded)} />
-    {panel === 0 && (map ? <div className="starter-label"><strong>Starter restaurant</strong><span>Cleared, usable floor</span><small>Place belts, chefs and seats here</small></div> : <StarterRestaurant state={state} edit={edit} />)}
+    {panel === 0 && map && <div className="starter-label"><strong>Starter restaurant</strong><span>Cleared, usable floor</span></div>}
+    {panel === 0 && !map && state._variant === 'selected' && <SelectedFootprint state={state} />}
     {panel > 0 && (panel === 2 || !expanded) && <Garbage panel={panel} state={state} full={map} />}
     {panel === 1 && <Dock state={state} locked={!map && !expanded} future={map} />}
     {map && <span className="viewport-guide">Viewport guide · no dividing wall</span>}
@@ -47,22 +34,12 @@ function FloorPanels({ state, map = false }) {
 }
 
 function FloorPlan({ state }) {
-  return <div className="floorplan-scene"><Header title="Full restaurant floor plan" subtitle="Three portrait panels · one continuous room" actions={<Nav story="shop" className="hud-action plan-shop-shortcut"><Icon name="basket"/><strong>Shop</strong></Nav>}/><div className="plan-scroll" tabIndex={0} aria-label="Scroll full restaurant plan"><div className="floor-plan-world"><FloorPanels state={state} map /></div></div><div className="plan-legend"><span><i className="legend-clear" />Usable at start</span><span><i className="legend-garbage" />Garbage patches</span><span><i className="legend-guide" />Viewport guides</span><span>Shop is a floating HUD button · no floor footprint</span></div><Note>Swipe sideways to inspect. Blue dashed outlines mark tappable targets. Clearance, prices and access rules are preview states.</Note><div className="scene-footer"><Nav className="primary-action"><Icon name="play" /><span>Open restaurant view</span></Nav><Nav story="expansion"><Icon name="trash" /><span>Preview clearance popup</span></Nav></div></div>;
-}
-
-function InventoryItem({ label, value, art, count, layer }) {
-  return <Target action={layer === 'floor' ? 'paint' : 'place'} data={{value}} className="inventory-item">{art}<strong>{label}</strong><small>{count}</small></Target>;
-}
-function EditTray({ state }) {
-  const layer = state._variant === 'floor' ? 'floor' : (state.layer || 'people');
-  const palettes = [{label:'Plain tile',value:'plain'},{label:'Blue wave',value:'wave'},{label:'Checker',value:'checker'}];
-  const inventory = [{label:'Belt tile',value:'belt',art:<span className="mini-belt">→</span>,count:'12 in inventory'},{label:'Chair',value:'chair',art:<span className="mini-chair">⊓</span>,count:'3 in inventory'},{label:'Plant',value:'plant',art:<span className="mini-plant">♧</span>,count:'1 in inventory'}];
-  return <div className="edit-controls"><div className="edit-toolbar"><span><Icon name="pause" /> Service paused</span><Nav className="live-action"><Icon name="play" /> Live</Nav></div><div className="layer-tabs" role="group" aria-label="Editing layer">{['people','layout','floor'].map(name=><Target key={name} action="layer" data={{value:name}} className={layer === name ? 'layer-tab active' : 'layer-tab'} title={`${name[0].toUpperCase()+name.slice(1)} layer`}><Icon name={name} /></Target>)}</div><div className="inventory-tray">{layer === 'people' ? <InventoryItem label="Omar" value="omar" art={<Character name="Omar" />} count="Unassigned chef" layer={layer} /> : layer === 'floor' ? palettes.map(item=><InventoryItem key={item.value} {...item} art={<span className={`floor-sample ${item.value}`} />} count="Owned" layer={layer} />) : inventory.map(item=><InventoryItem key={item.value} {...item} layer={layer} />)}</div><p className="tray-hint">{layer === 'floor' ? 'Select a style, then tap the floor to preview.' : 'Tap an item to preview placement. Edits are presentation only.'}</p></div>;
+  return <div className="floorplan-scene"><Header title="Full restaurant floor plan" subtitle="Three portrait panels · one continuous room" actions={<Nav story="shop" className="hud-action plan-shop-shortcut"><Icon name="basket"/><strong>Shop</strong></Nav>}/><div className="plan-scroll" tabIndex={0} aria-label="Scroll full restaurant plan"><div className="floor-plan-world"><FloorPanels state={state} map /></div></div><div className="plan-legend"><span><i className="legend-clear" />Usable at start</span><span><i className="legend-garbage" />Garbage patches</span><span><i className="legend-guide" />Viewport guides</span><span>Shop is a floating HUD button · no floor footprint</span></div><div className="scene-footer"><Nav className="primary-action"><Icon name="play" /><span>Open restaurant view</span></Nav><Nav story="expansion"><Icon name="trash" /><span>Preview clearance popup</span></Nav></div></div>;
 }
 
 function Restaurant({ state }) {
   const edit = ['edit','floor','selected'].includes(state._variant);
-  return <div className={`phone-scene restaurant-scene ${edit ? 'edit-scene' : ''}`}><div className="restaurant-viewport" data-pan-scroll tabIndex={0} aria-label="Pan restaurant floor"><div className="restaurant-world"><FloorPanels state={state} /></div></div><RestaurantHud state={state}/>{!edit && <div className="restaurant-actions"><Nav story="restaurant-edit" className="hud-action"><Icon name="edit" /><span>Edit</span></Nav><Nav story="staff-roster" className="hud-action"><Icon name="staff" /><span>Staff</span></Nav></div>}<div className="pan-controls" aria-label="Jump to restaurant panel">{[0,1,2].map(panel=><Target key={panel} action="pan" data={{panel}} aria-pressed={Number(state.panel || 0) === panel} className={`pan-dot ${Number(state.panel || 0) === panel ? 'active' : ''}`}><span>{panel+1}</span></Target>)}<small>Swipe to pan →</small></div>{edit && <EditTray state={state} />}{state.placement && !['omar','chef'].includes(state.placement) && <div className="placement-preview"><span><Icon name="layout" /> {state.placement === 'belt' ? 'Belt tile' : state.placement === 'chair' ? 'Chair' : 'Plant'} preview</span><Target action="finish-placement" className="place-here">Place here</Target><Target action="cancel-placement" className="icon-control" title="Cancel placement preview"><Icon name="close" /></Target></div>}</div>;
+  return <div className={`phone-scene restaurant-scene ${edit ? 'edit-scene' : ''}`}><div className="restaurant-viewport" data-pan-scroll tabIndex={0} aria-label="Pan restaurant floor"><div className="restaurant-world"><FloorPanels state={state} /></div></div><RestaurantHud state={state}/>{!edit && <div className="restaurant-actions"><Nav story="restaurant-edit" className="hud-action"><Icon name="edit" /><span>Edit</span></Nav><Nav story="staff-roster" className="hud-action"><Icon name="staff" /><span>Staff</span></Nav></div>}{edit && <EditorControls state={state} />}{state.placement && !['omar','chef'].includes(state.placement) && <div className="placement-preview"><span><Icon name="layout" /> {state.placement === 'belt' ? 'Belt tile' : state.placement === 'chair' ? 'Chair' : 'Plant'}</span><Target action="finish-placement" className="place-here">Place here</Target><Target action="cancel-placement" className="icon-control" title="Cancel placement preview"><Icon name="close" /></Target></div>}</div>;
 }
 
 function ShopCard({ label, description, art, value, price, qty, state, poor }) {

@@ -82,10 +82,6 @@ function Expansion({ story }) {
   return <Dialog story={story} title="Clear this patch?" eyebrow="First expansion · panel 2" className="expansion-dialog" footer={<div className="dialog-action-pair"><Target action="dismiss">Cancel</Target><Target action="clear-confirm" className="primary-action" disabled={poor}>Clear <Money kind="coins" amount={240}/></Target></div>}><div className="dialog-scroll"><div className="patch-preview" aria-label="Selected garbage patch, three cells by four cells">{Array.from({length:12},(_,i) => <span key={i}/>)}</div><dl className="overlay-facts expansion-facts"><Fact label="Selected footprint">3 × 4 cells</Fact><Fact label="Clearance price"><Money kind="coins" amount={240}/></Fact></dl><p>Open more usable restaurant floor toward the submarine and Workshop.</p><p className="inline-note">The highlighted footprint is permanent once cleared.</p>{poor && <p className="inline-reason">Not enough coins · example balance 80 / 240.</p>}</div></Dialog>;
 }
 
-function InventoryEmpty({ story }) {
-  return <Dialog story={story} title="No belt tiles left" className="confirmation-dialog" footer={<div className="dialog-action-pair"><Target action="dismiss">Keep editing</Target><Navigate story="shop" className="primary-action">Visit Shop</Navigate></div>}><div className="dialog-scroll"><div className="empty-inventory-symbol" aria-hidden="true">□ □ □</div><p>You have used every tile in this placement preview.</p><p>Buy more from the Shop, then return to this restaurant layout.</p></div></Dialog>;
-}
-
 function Pause({ story }) {
   return <Dialog story={story} title="Paused" eyebrow="Expedition preserved" className="pause-dialog" showClose={false} footer={<><Target action="resume" className="primary-action full-width">Resume</Target><Navigate story="expedition-return" className="quiet-action full-width">Return early…</Navigate></>}><div className="dialog-scroll"><p>Your submarine, creature, and hazards are waiting right here.</p></div></Dialog>;
 }
@@ -99,6 +95,6 @@ function RecipeAward({ story }) {
 }
 
 export function Overlay({ story, state }) {
-  const Component = { recipes: Recipes, applicants: Applicants, 'chef-detail': ChefDetail, fire: Fire, expansion: Expansion, 'inventory-empty': InventoryEmpty, pause: Pause, 'early-return': EarlyReturn, 'recipe-award': RecipeAward }[story.overlay];
+  const Component = { recipes: Recipes, applicants: Applicants, 'chef-detail': ChefDetail, fire: Fire, expansion: Expansion, pause: Pause, 'early-return': EarlyReturn, 'recipe-award': RecipeAward }[story.overlay];
   return Component ? <Component story={story} state={state}/> : null;
 }
