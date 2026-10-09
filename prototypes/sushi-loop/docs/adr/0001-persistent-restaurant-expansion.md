@@ -1,0 +1,3 @@
+# Grow a persistent restaurant through obstacle clearance
+
+The core progression keeps one restaurant and its accumulated layout rather than rebuilding through separate restaurant stages. Players begin with a small rectangular workable area and spend cash to clear predefined neighboring expansion patches, choosing their expansion order. Applied clearance is permanent and cannot be refunded, unlike purchased floor objects. This preserves attachment to the business and gives lasting incremental progress while floor space competes with chefs, seating, and upgrades for cash. Patch geometry, costs, and purchase controls remain open.

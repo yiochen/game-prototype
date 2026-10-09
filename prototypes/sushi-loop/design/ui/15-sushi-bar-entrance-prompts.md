@@ -1,0 +1,21 @@
+# Sushi-bar return entrance — UI question 15
+
+Built-in image-generation edits using the previously inspected `13a-simple-expedition-start.png`. Both replace its superseded back-arrow button with a scene destination. Appearance is pending; no extra travel or early-return mechanics are implied.
+
+## A — sushi-bar airlock
+
+```text
+Use case: precise-object-edit, finished commercial 2D portrait mobile game UI screenshot.
+Edit the supplied expedition START SCREEN reference. Preserve its portrait composition, polished hand-drawn ink doodle art, navy and teal ocean-bed canyon, coral and seaweed edges, shipwreck, yellow upward-facing submarine at roughly 70% screen height, Expedition title, and large coral Start button overlay near the bottom. This is a stationary preparation view before the journey begins.
+REMOVE the small ivory back-arrow button at top left. Replace that generic navigation control with a real navigable SCENE LANDMARK in the upper-left canyon edge, below the title, occupying about 23% screen width and 20% screen height. Option A: a compact brass-and-timber AIRLOCK DOORWAY built into the left rock wall, rendered as flat 2D illustrated game scenery at the same overhead three-quarter angle as the reference environment. A round outer airlock rim and small sheltered landing imply an underwater access passage. Through the open doorway, warm light and a tiny sushi-counter glimpse; a short red split sushi curtain with one simple fish pictogram. A small wooden sign physically attached to the entrance reads exactly "Sushi Bar" in highly readable cream/dark ink lettering. Make the tappable destination recognizable as a doorway, sized for thumb tapping, visually distinct from coral. No floating rectangular navigation card, arrow, button outline, teleport glow, or instruction text around it.
+Keep the calm open water, submarine and Start unobstructed. No equipment summary, meters, currency, upcoming creature, recipe reward preview, active-play HUD, pause button, joystick, footer panel, phone frame, or labels A/B. This is a complete crisp commercial mobile-game screen, not a sketch or concept illustration. Only change the return-navigation landmark; maintain the accepted visual style and other UI.
+```
+
+## B — surface lift
+
+```text
+Use case: precise-object-edit, finished commercial 2D portrait mobile game UI screenshot.
+Edit the supplied expedition START SCREEN reference. Preserve its portrait composition, polished hand-drawn ink doodle art, navy and teal ocean-bed canyon, coral and seaweed edges, shipwreck, yellow upward-facing submarine at roughly 70% screen height, Expedition title, and large coral Start button overlay near the bottom. This is a stationary preparation view before the journey begins.
+REMOVE the small ivory back-arrow button at top left. Replace that generic navigation control with a real navigable SCENE LANDMARK in the upper-left canyon edge, below the title, occupying about 23% screen width and 20% screen height. Option B: a compact brass-and-timber UNDERWATER LIFT CABIN resting on a small landing beside the reef, rendered as flat 2D illustrated game scenery at the same overhead three-quarter angle as the reference environment. Two clearly visible hoist cables rise upward along the far left edge and disappear out of view, showing that this cabin leads upward to the restaurant. A warm-lit open cabin door is clearly tappable. Above it, a small red canopy with one simple fish pictogram and an attached wooden destination sign reading exactly "Sushi Bar" in highly readable cream/dark ink lettering. Give the cabin a simple mechanical pulley and side supports so it is visually distinct from an ordinary doorway. Make the destination sized for thumb tapping and unmistakably part of the scenery. No floating rectangular navigation card, arrow, button outline, teleport glow, or instruction text around it.
+Keep the calm open water, submarine and Start unobstructed. No equipment summary, meters, currency, upcoming creature, recipe reward preview, active-play HUD, pause button, joystick, footer panel, phone frame, or labels A/B. This is a complete crisp commercial mobile-game screen, not a sketch or concept illustration. Only change the return-navigation landmark; maintain the accepted visual style and other UI.
+```
