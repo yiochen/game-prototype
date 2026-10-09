@@ -2,6 +2,13 @@ import React from 'react';
 import { Target, Icon, Money, Character } from './common.jsx';
 
 // These composites are used directly in both the complete scenes and the isolated gallery.
+export function RestaurantHud({ state = {}, children }) {
+  return <div className="restaurant-hud">
+    <div className="hud-top-row"><div className="hud-savings"><div className="coin-count"><Money amount={1240}/></div>{state._variant === 'offline' && <span className="income-toast">+420 while away</span>}</div>{children}</div>
+    <nav className="restaurant-shortcuts" aria-label="Restaurant shortcuts"><Target action="navigate" data={{story:'shop'}} className="hud-action shop-shortcut" title="Shop"><Icon name="basket"/><strong>Shop</strong>{!state.shopVisited && <span className="stock-spark" aria-label="New Shop stock">✦</span>}</Target></nav>
+  </div>;
+}
+
 export function Dock({ state = {}, locked = false, future = false }) {
   const charging = state._variant === 'charging';
   return <div className={`dock-zone ${locked ? 'dock-locked' : ''}`}>
@@ -48,6 +55,7 @@ export function ComponentGallery({ story, state = {} }) {
   const key = story.component || story.variant;
   let examples;
   switch (key) {
+    case 'restaurant-hud': examples = <>{example('Fixed upper-left · Live and Edit',<RestaurantHud state={state}/>,'hud-example')}{example('Refreshed Shop stock · earnings beside savings',<RestaurantHud state={{...state,_variant:'offline'}}/>,'hud-example')}</>; break;
     case 'money': examples = <>{example('Restaurant coins',<div className="coin-count"><Money amount={1240} /></div>)}{example('Banked salvage',<Money kind="salvage" amount={180} />)}{example('Price in an action',<Target action="purchase" data={{value:'belt'}}><Money amount={40} /><span>Buy</span></Target>)}</>; break;
     case 'character': examples = <>{['Lena Brooks','Omar Haddad','Ama Mensah','Mateo Rivera','Noor Haddad'].map(name=>example(name,<Character name={name} />))}{['Rosa','Ellis','Samir','June'].map(name=>example(`${name} · guest`,<Character name={name} kind="guest" />))}</>; break;
     case 'dock': examples = <>{example('Ready · navigation available',<Dock state={state} />,'dock-example')}{example('Charging · stays in restaurant',<Dock state={{...state,_variant:'charging'}} />,'dock-example')}{example('Future access · unavailable',<Dock locked state={state} />,'dock-example')}</>; break;

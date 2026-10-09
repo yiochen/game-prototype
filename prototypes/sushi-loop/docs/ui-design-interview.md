@@ -1923,3 +1923,11 @@ Recommendation: A because it tells the player when the action will return withou
 ## Wrap-up status
 
 The user wrapped the grilling session after Question 205. The accepted restaurant gameplay, expedition loop, art direction, and UI decisions are consolidated in [gameplay-and-controls.md](./gameplay-and-controls.md), [expedition-gameplay-and-controls.md](./expedition-gameplay-and-controls.md), [art-direction.md](./art-direction.md), and the corresponding interview record. Question 206 is deferred as the only unanswered interview choice. Remaining work is design and balance refinement for prototyping, not a claim that every implementation detail is settled.
+
+## Restaurant HUD revision — 2026-10-09
+
+The user supplied a top-of-screen layout reference and explicitly replaced the physical Shop entrance with a floating button. The current wireframe places the coin count at the upper-left of the viewport and the floating Shop button directly below it. Both remain fixed while the restaurant pans; Shop has no physical corner entrance or floor footprint. This supersedes the Shop entrance placement in Question 123 and the location of the stock cue in Questions 192–193. Those historical answers remain above as the discussion record.
+
+Shop remains accessible in both live and edit mode. Returning preserves the originating restaurant mode and camera panel; the restaurant doorway inside Shop remains unchanged. The small new-stock sparkle moves to the floating Shop button and still clears when Shop opens, as accepted in Question 194. Button press feedback is proposed at 0.97 scale for 70 ms, followed by the existing 200 ms scene crossfade; reduced motion uses a fade without travel.
+
+The earlier direction for styled coin numerals and transparent HUD controls remains current: the supplied layout does not establish cream/yellow backing containers. The physical Workshop hut stays beside the submarine in the middle panel. The reference's other controls do not establish new accepted game systems or navigation.

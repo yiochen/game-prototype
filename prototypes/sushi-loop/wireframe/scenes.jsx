@@ -1,6 +1,6 @@
 import React from 'react';
 import { Target, Icon, Money, Character } from './common.jsx';
-import { Dock, HullMeter, UpgradeCard, SalvageReceipt, ComponentGallery } from './components.jsx';
+import { RestaurantHud, Dock, HullMeter, UpgradeCard, SalvageReceipt, ComponentGallery } from './components.jsx';
 import { roster, chefAssigned, chefSpeed } from './fixtures.js';
 
 function Nav({ children, story = 'restaurant-live', className = '', data = {}, ...rest }) {
@@ -9,9 +9,8 @@ function Nav({ children, story = 'restaurant-live', className = '', data = {}, .
 function ReturnDoor() { return <Nav className="scene-return"><Icon name="arrow-left" /><span>Restaurant</span></Nav>; }
 function Dish({ type = 'salmon', className = '' }) { return <span className={`wire-dish ${className}`} aria-hidden="true"><i className="rice" /><i className={`fish ${type}`} /><i className="nori" /></span>; }
 function Note({ children }) { return <p className="scene-note"><Icon name="info" />{children}</p>; }
-function Header({ title, subtitle, balance }) { return <header className="scene-header"><div><h2>{title}</h2>{subtitle && <p>{subtitle}</p>}</div>{balance}</header>; }
+function Header({ title, subtitle, balance, actions }) { return <header className="scene-header"><div><h2>{title}</h2>{subtitle && <p>{subtitle}</p>}</div>{balance}{actions}</header>; }
 function Entry({ panel, active = false }) { return <div className={`customer-entry ${active ? 'active' : ''}`}><span className="entry-door" /><span>Entry {panel+1}</span>{active ? <small>Customer access</small> : <small><Icon name="lock" /> Future access</small>}</div>; }
-function ShopEntrance() { return <Nav story="shop" className="world-shop"><Icon name="shop" /><strong>Shop</strong><span className="stock-spark">✦</span></Nav>; }
 
 function Garbage({ panel, state, full = false }) {
   const partial = state.demoPatchCleared && panel === 1;
@@ -40,7 +39,6 @@ function FloorPanels({ state, map = false }) {
   return [0,1,2].map(panel=><section key={panel} className={`floor-panel ${panel === 0 || (panel === 1 && expanded) ? 'cleared' : 'uncleared'} ${state.painted && panel === 0 ? 'painted-floor' : ''}`} data-floor-panel={panel} aria-label={`Restaurant panel ${panel+1}`}>
     {map ? <span className="panel-name">Panel {panel+1} · {panel === 0 ? 'usable at start' : 'future expansion'}</span> : <span className="world-panel-number">{panel+1} / 3</span>}
     <Entry panel={panel} active={panel === 0 || (panel === 1 && expanded)} />
-    {panel === 0 && <ShopEntrance />}
     {panel === 0 && (map ? <div className="starter-label"><strong>Starter restaurant</strong><span>Cleared, usable floor</span><small>Place belts, chefs and seats here</small></div> : <StarterRestaurant state={state} edit={edit} />)}
     {panel > 0 && (panel === 2 || !expanded) && <Garbage panel={panel} state={state} full={map} />}
     {panel === 1 && <Dock state={state} locked={!map && !expanded} future={map} />}
@@ -49,7 +47,7 @@ function FloorPanels({ state, map = false }) {
 }
 
 function FloorPlan({ state }) {
-  return <div className="floorplan-scene"><Header title="Full restaurant floor plan" subtitle="Three portrait panels · one continuous room" /><div className="plan-scroll" tabIndex={0} aria-label="Scroll full restaurant plan"><div className="floor-plan-world"><FloorPanels state={state} map /></div></div><div className="plan-legend"><span><i className="legend-clear" />Usable at start</span><span><i className="legend-garbage" />Garbage patches</span><span><i className="legend-guide" />Viewport guides</span></div><Note>Swipe sideways to inspect. Blue dashed outlines mark tappable targets. Clearance, prices and access rules are preview states.</Note><div className="scene-footer"><Nav className="primary-action"><Icon name="play" /><span>Open restaurant view</span></Nav><Nav story="expansion"><Icon name="trash" /><span>Preview clearance popup</span></Nav></div></div>;
+  return <div className="floorplan-scene"><Header title="Full restaurant floor plan" subtitle="Three portrait panels · one continuous room" actions={<Nav story="shop" className="hud-action plan-shop-shortcut"><Icon name="basket"/><strong>Shop</strong></Nav>}/><div className="plan-scroll" tabIndex={0} aria-label="Scroll full restaurant plan"><div className="floor-plan-world"><FloorPanels state={state} map /></div></div><div className="plan-legend"><span><i className="legend-clear" />Usable at start</span><span><i className="legend-garbage" />Garbage patches</span><span><i className="legend-guide" />Viewport guides</span><span>Shop is a floating HUD button · no floor footprint</span></div><Note>Swipe sideways to inspect. Blue dashed outlines mark tappable targets. Clearance, prices and access rules are preview states.</Note><div className="scene-footer"><Nav className="primary-action"><Icon name="play" /><span>Open restaurant view</span></Nav><Nav story="expansion"><Icon name="trash" /><span>Preview clearance popup</span></Nav></div></div>;
 }
 
 function InventoryItem({ label, value, art, count, layer }) {
@@ -64,8 +62,7 @@ function EditTray({ state }) {
 
 function Restaurant({ state }) {
   const edit = ['edit','floor','selected'].includes(state._variant);
-  const offline = state._variant === 'offline';
-  return <div className={`phone-scene restaurant-scene ${edit ? 'edit-scene' : ''}`}><div className="restaurant-viewport" data-pan-scroll tabIndex={0} aria-label="Pan restaurant floor"><div className="restaurant-world"><FloorPanels state={state} /></div></div><div className="restaurant-hud"><div className="coin-count"><Money amount={1240} /></div>{offline && <span className="income-toast">+420 while away</span>}<span className="restaurant-title">Sushi Loop</span></div>{!edit && <div className="restaurant-actions"><Nav story="restaurant-edit" className="hud-action"><Icon name="edit" /><span>Edit</span></Nav><Nav story="staff-roster" className="hud-action"><Icon name="staff" /><span>Staff</span></Nav></div>}<div className="pan-controls" aria-label="Jump to restaurant panel">{[0,1,2].map(panel=><Target key={panel} action="pan" data={{panel}} aria-pressed={Number(state.panel || 0) === panel} className={`pan-dot ${Number(state.panel || 0) === panel ? 'active' : ''}`}><span>{panel+1}</span></Target>)}<small>Swipe to pan →</small></div>{edit && <EditTray state={state} />}{state.placement && !['omar','chef'].includes(state.placement) && <div className="placement-preview"><span><Icon name="layout" /> {state.placement === 'belt' ? 'Belt tile' : state.placement === 'chair' ? 'Chair' : 'Plant'} preview</span><Target action="finish-placement" className="place-here">Place here</Target><Target action="cancel-placement" className="icon-control" title="Cancel placement preview"><Icon name="close" /></Target></div>}</div>;
+  return <div className={`phone-scene restaurant-scene ${edit ? 'edit-scene' : ''}`}><div className="restaurant-viewport" data-pan-scroll tabIndex={0} aria-label="Pan restaurant floor"><div className="restaurant-world"><FloorPanels state={state} /></div></div><RestaurantHud state={state}/>{!edit && <div className="restaurant-actions"><Nav story="restaurant-edit" className="hud-action"><Icon name="edit" /><span>Edit</span></Nav><Nav story="staff-roster" className="hud-action"><Icon name="staff" /><span>Staff</span></Nav></div>}<div className="pan-controls" aria-label="Jump to restaurant panel">{[0,1,2].map(panel=><Target key={panel} action="pan" data={{panel}} aria-pressed={Number(state.panel || 0) === panel} className={`pan-dot ${Number(state.panel || 0) === panel ? 'active' : ''}`}><span>{panel+1}</span></Target>)}<small>Swipe to pan →</small></div>{edit && <EditTray state={state} />}{state.placement && !['omar','chef'].includes(state.placement) && <div className="placement-preview"><span><Icon name="layout" /> {state.placement === 'belt' ? 'Belt tile' : state.placement === 'chair' ? 'Chair' : 'Plant'} preview</span><Target action="finish-placement" className="place-here">Place here</Target><Target action="cancel-placement" className="icon-control" title="Cancel placement preview"><Icon name="close" /></Target></div>}</div>;
 }
 
 function ShopCard({ label, description, art, value, price, qty, state, poor }) {

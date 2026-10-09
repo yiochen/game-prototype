@@ -11,6 +11,7 @@ const icons = {
   edit: <path d="m4 16-1 5 5-1L20 8l-4-4zM13 7l4 4" />,
   staff: <><circle cx="9" cy="7" r="3" /><path d="M3 20v-3a6 6 0 0 1 12 0v3M16 4a3 3 0 0 1 0 6M19 20v-3a6 6 0 0 0-2-4" /></>,
   shop: <path d="M3 9h18l-2-6H5zM5 9v12h14V9M9 21v-7h6v7M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0" />,
+  basket: <path d="M3 9h18l-2 11H5L3 9M7 9l3-6M17 9l-3-6M9 12v5M15 12v5" />,
   workshop: <path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7" />,
   submarine: <><rect x="3" y="8" width="17" height="11" rx="5" /><circle cx="9" cy="13.5" r="2" /><path d="M13 8V4h4M20 11h2v6h-2" /></>,
   'arrow-left': <path d="m10 5-7 7 7 7M3 12h18" />,

@@ -32,9 +32,9 @@ The component menu is review chrome. Labels such as advance-to-state are review 
 
 ## Shared components
 
-The React entry is `app.jsx`. `common.jsx` owns shared primitives such as icons, currency amounts, portraits and tappable targets. `components.jsx` owns shared composite components such as the dock, recipe tile, hull meter, Workshop upgrade card and salvage receipt. Full scenes in `scenes.jsx`, popups in `overlays.jsx`, and the standalone component pages must render these same React components. Do not make a separate look-alike copy for the gallery. Scene wrappers supply context, state fixtures and navigation; shared components own the reusable element structure and presentation. React and React DOM belong to this prototype’s package rather than the root’s shared game tooling.
+The React entry is `app.jsx`. `common.jsx` owns shared primitives such as icons, currency amounts, portraits and tappable targets. `components.jsx` owns shared composite components such as `RestaurantHud`, the dock, recipe tile, hull meter, Workshop upgrade card and salvage receipt. Full scenes in `scenes.jsx`, popups in `overlays.jsx`, and the standalone component pages must render these same React components. Do not make a separate look-alike copy for the gallery. Scene wrappers supply context, state fixtures and navigation; shared components own the reusable element structure and presentation. React and React DOM belong to this prototype’s package rather than the root’s shared game tooling.
 
-The Shared components group has eight review pages: currency display, character portrait, dock with Workshop hut, recipe catalog tile, hull meter, upgrade card, salvage receipt, and tap target. Feedback on one of these pages can target the reusable component directly; updating that component must propagate to its integrated scenes. Whole-screen stories remain useful for checking spacing, composition and interaction context after a shared change.
+The Shared components group has nine review pages: restaurant HUD, currency display, character portrait, dock with Workshop hut, recipe catalog tile, hull meter, upgrade card, salvage receipt, and tap target. The shared `RestaurantHud` renders the coin count and floating Shop control in isolation and in combined restaurant views. Feedback on one of these pages can target the reusable component directly; updating that component must propagate to its integrated scenes. Whole-screen stories remain useful for checking spacing, composition and interaction context after a shared change.
 
 ## Feedback on each page
 
@@ -48,9 +48,9 @@ Use the Markdown export to collect all local story comments for sharing or backu
 
 Stories cover the full floor plan; starter/expanded/live/edit/floor/selection/charging/reopen restaurant states; recipe eligibility, idle placement, unavailable, undiscovered and NEW states; roster, applicants, full capacity, chef detail, insufficient coins, maximum level and firing; normal/owned/unaffordable Shop; normal/maximum/unaffordable Workshop; preparation, travel, shooting window, pursuit, danger, pause, return confirmation and resume; first/repeat catches, recipe award and three result outcomes; expansion and inventory exhaustion.
 
-The library also isolates eight shared components using the same code as their integrated appearances. Each component page includes behavior and state-transition motion notes; the overall library has 51 examples across nine groups.
+The library also isolates nine shared components using the same code as their integrated appearances. Each component page includes behavior and state-transition motion notes; the overall library has 52 examples across nine groups.
 
-The HUD follows the latest user direction: styled currency text and transparent scene controls, without cream/yellow UI backing containers. A wireframe outline marks targets for review. Physical scene signage and modal surfaces are distinct from those HUD containers. Character backgrounds and occupations should be varied; cultural identity is flavor, not a mechanic.
+The HUD follows the latest user direction: the styled coin count is at the upper-left of the viewport, with a floating Shop button below it. Both stay anchored while the restaurant pans. Shop has no physical entrance or floor footprint; it opens from live or edit mode, preserves that mode and camera panel on return, and carries the refreshed-stock sparkle until Shop opens. HUD controls remain transparent without cream/yellow backing containers. A wireframe outline marks targets for review. The Workshop remains a physical hut beside the submarine. Character backgrounds and occupations should be varied; cultural identity is flavor, not a mechanic.
 
 ## Current open decisions
 

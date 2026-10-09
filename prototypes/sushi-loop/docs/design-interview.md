@@ -274,3 +274,7 @@ Players can purchase expansion patches in live preview as well as edit mode. Tap
 ## Interview order
 
 Resolve the recurring activity first; then customer success and failure, transport and production rules, spatial constraints, phone controls, automation, and progression. Ask one decision at a time, with a recommendation and a concrete scenario. Record confirmed decisions as they emerge; use ADRs only for consequential tradeoffs.
+
+## Restaurant HUD revision — 2026-10-09
+
+The latest UI review supersedes the physical Shop entrance described in this historical checkpoint. Shop is now a viewport-fixed floating button at the upper-left below the styled coin count, reachable while panning and in both live and edit mode. It has no floor footprint. Shop return preserves the camera panel and live/edit state, and its new-stock sparkle clears on opening. The Workshop remains a compact physical hut beside the submarine in the middle panel. See the [UI revision record](./ui-design-interview.md#restaurant-hud-revision--2026-10-09) and [current restaurant behavior](./gameplay-and-controls.md#restaurant-hud).

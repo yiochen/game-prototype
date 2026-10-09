@@ -31,7 +31,7 @@ for (const [name, width, height] of [
   ['small-phone', 320, 740], ['phone', 390, 844],
   ['landscape', 844, 390], ['desktop', 1440, 1000],
 ]) {
-  test(`all 51 deep-linked examples render without errors or horizontal clipping at ${name}`, async ({ page }) => {
+  test(`all 52 deep-linked examples render without errors or horizontal clipping at ${name}`, async ({ page }) => {
     test.setTimeout(90_000);
     await page.setViewportSize({ width, height });
     // Layout checks measure the settled popup, not its entrance translation.
@@ -40,7 +40,7 @@ for (const [name, width, height] of [
     page.on('pageerror', (error) => errors.push(error.message));
     await open(page, 'floor-plan');
     const examples = await page.locator('#example-select option').evaluateAll((options) => options.map((option) => ({ id: option.value, title: option.textContent })));
-    expect(examples).toHaveLength(51);
+    expect(examples).toHaveLength(52);
     for (const example of examples) {
       await open(page, example.id);
       await expect(page.locator('#story-title')).toHaveText(example.title);
@@ -93,7 +93,7 @@ test('phone example menu supports search, selection, dismissal and behavior/moti
   await expect(page.locator('#story-sidebar')).not.toBeVisible();
 });
 
-test('scene landmarks navigate between Shop, editing, Workshop and restaurant', async ({ page }) => {
+test('floating Shop and scene landmarks navigate between editing, Workshop and restaurant', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await open(page, 'restaurant-live');
   await stage(page).getByRole('button', { name: /Shop/ }).click();
@@ -302,6 +302,40 @@ test('native phone swipes pan the restaurant while fixed controls stay reachable
   await expect(stage(page).getByRole('button', { name: 'Edit', exact: true })).toBeVisible();
   await screenshot(page, 'wireframe-touch-pan');
   await context.close();
+});
+
+test('floating Shop stays below upper-left savings during panning and preserves the editing panel on return', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await open(page, 'restaurant-edit');
+  await page.evaluate(() => document.fonts.ready);
+  await expect(stage(page).locator('.restaurant-world [data-story="shop"]')).toHaveCount(0);
+  const shop = stage(page).getByRole('button', { name: 'Shop', exact: true });
+  const coin = stage(page).locator('.restaurant-hud .coin-count');
+  const before = await shop.boundingBox();
+  const amount = await coin.boundingBox();
+  const frame = await stage(page).boundingBox();
+  expect(before.y).toBeGreaterThan(amount.y + amount.height);
+  expect(amount.x - frame.x).toBeLessThan(20);
+  expect(before.x - frame.x).toBeLessThan(20);
+  await expect(shop.locator('.stock-spark')).toBeVisible();
+  await stage(page).locator('[data-action="pan"][data-panel="2"]').click();
+  await expect.poll(() => stage(page).locator('[data-pan-scroll]').evaluate(element => element.scrollLeft / element.clientWidth)).toBeGreaterThan(1.9);
+  const after = await shop.boundingBox();
+  const afterFrame = await stage(page).boundingBox();
+  expect(after.x - afterFrame.x).toBeCloseTo(before.x - frame.x, 1);
+  expect(after.y - afterFrame.y).toBeCloseTo(before.y - frame.y, 1);
+  await shop.click();
+  await at(page, 'shop');
+  await stage(page).getByRole('button', { name: 'Restaurant', exact: true }).click();
+  await at(page, 'restaurant-edit');
+  await expect(stage(page).locator('[data-action="pan"][data-panel="2"]')).toHaveAttribute('aria-pressed', 'true');
+  await expect(shop.locator('.stock-spark')).toHaveCount(0);
+  await expect(stage(page).getByText('Service paused', { exact: true })).toBeVisible();
+  await open(page, 'floor-plan');
+  await expect(stage(page).locator('.floor-plan-world [data-story="shop"]')).toHaveCount(0);
+  await stage(page).getByRole('button', { name: 'Shop', exact: true }).click();
+  await stage(page).getByRole('button', { name: 'Restaurant', exact: true }).click();
+  await at(page, 'floor-plan');
 });
 
 test('nested dialogs return to their parent and an inventory Shop detour stays in editing', async ({ page }) => {

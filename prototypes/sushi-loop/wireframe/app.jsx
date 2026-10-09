@@ -24,7 +24,7 @@ function fixtureFor(story) {
     placement: false, toast: '', hiredApplicants: [], applicantRefresh: false,
     chefLevel: story.variant === 'new' ? 5 : story.variant === 'max' && story.overlay === 'chef-detail' ? 8 : 2,
     chefUnassigned: false, chefLevels: {}, unassignedChefs: [], removedChefs: [],
-    purchasedItems: [], upgradeLevels: {}, painted: false, rotation: 0,
+    purchasedItems: [], upgradeLevels: {}, painted: false, rotation: 0, shopVisited: false,
     popupReturnStory: 'restaurant-live', expeditionBackdrop: 'travel',
     repeatCatch: ['catch-repeat', 'results-complete'].includes(story.id),
   };
@@ -73,8 +73,9 @@ function App() {
     snapshots.current.set(previous.id, structuredClone(previous));
     let returnRestaurant = previous.returnRestaurant, returnPanel = previous.returnPanel;
     let fixture = structuredClone(options.fixture || previous.fixture);
-    if (['shop', 'workshop', 'staff'].includes(destination.scene) && previousStory.scene === 'restaurant') {
-      returnRestaurant = previousStory.overlay === 'inventory-empty' ? 'restaurant-edit' : ['edit', 'floor', 'selected'].includes(previousStory.variant) ? previous.id : 'restaurant-live';
+    if (['shop', 'workshop', 'staff'].includes(destination.scene) && ['restaurant', 'floor-plan'].includes(previousStory.scene)) {
+      returnRestaurant = previousStory.scene === 'floor-plan' ? previous.id : previousStory.overlay === 'inventory-empty' ? 'restaurant-edit' : ['edit', 'floor', 'selected'].includes(previousStory.variant) ? previous.id : 'restaurant-live';
+      if (destination.scene === 'shop' && !previousStory.overlay) returnRestaurant = previous.id;
       returnPanel = fixture.panel;
     }
     if (id === 'restaurant-live' && ['shop', 'workshop', 'staff'].includes(previousStory.scene) && !options.reset) {
@@ -88,6 +89,7 @@ function App() {
       if (previousStory.scene === 'expedition' && !previousStory.overlay && !['pause', 'return', 'resume'].includes(previousStory.variant)) fixture.expeditionBackdrop = previousStory.variant;
     }
     if (id === 'catch-first') fixture.repeatCatch = false;
+    if (byId.get(id).scene === 'shop') fixture.shopVisited = true;
     if (id === 'catch-repeat') fixture.repeatCatch = true;
     if (['expansion', 'expansion-unaffordable'].includes(id)) fixture.panel = 1;
     if (options.panel !== undefined) fixture.panel = options.panel;
