@@ -47,7 +47,7 @@ for (const [name, width, height] of [
   ['small-phone', 320, 740], ['phone', 390, 844],
   ['landscape', 844, 390], ['desktop', 1440, 1000],
 ]) {
-  test(`all 55 deep-linked examples render without errors or horizontal clipping at ${name}`, async ({ page }) => {
+  test(`all 56 deep-linked examples render without errors or horizontal clipping at ${name}`, async ({ page }) => {
     test.setTimeout(90_000);
     await page.setViewportSize({ width, height });
     // Layout checks measure the settled popup, not its entrance translation.
@@ -56,7 +56,7 @@ for (const [name, width, height] of [
     page.on('pageerror', (error) => errors.push(error.message));
     await open(page, 'floor-plan');
     const examples = await page.locator('#example-select option').evaluateAll((options) => options.map((option) => ({ id: option.value, title: option.textContent })));
-    expect(examples).toHaveLength(55);
+    expect(examples).toHaveLength(56);
     for (const example of examples) {
       await open(page, example.id);
       await expect(page.locator('#story-title')).toHaveText(example.title);
@@ -114,13 +114,13 @@ test('floating Shop and scene landmarks navigate between editing, Workshop and r
   await open(page, 'restaurant-live');
   await stage(page).getByRole('button', { name: /Shop/ }).click();
   await at(page, 'shop');
-  await stage(page).getByRole('button', { name: 'Restaurant', exact: true }).click();
+  await stage(page).getByRole('button', { name: 'Return to restaurant', exact: true }).click();
   await at(page, 'restaurant-live');
   await stage(page).getByRole('button', { name: 'Edit', exact: true }).click();
   await at(page, 'restaurant-edit');
   await stage(page).getByRole('button', { name: /Shop/ }).click();
   await at(page, 'shop');
-  await stage(page).getByRole('button', { name: 'Restaurant', exact: true }).click();
+  await stage(page).getByRole('button', { name: 'Return to restaurant', exact: true }).click();
   await at(page, 'restaurant-edit');
   await expect(stage(page).getByRole('button', { name: 'Live', exact: true })).toBeVisible();
   await expect(stage(page).getByText('Service paused', { exact: true })).toHaveCount(0);
@@ -128,9 +128,9 @@ test('floating Shop and scene landmarks navigate between editing, Workshop and r
   await panTo(page, 1);
   await stage(page).getByRole('button', { name: 'Workshop', exact: true }).click();
   await at(page, 'workshop');
-  await stage(page).getByRole('button', { name: 'Sushi Bar', exact: true }).click();
-  await at(page, 'restaurant-live');
-  await expect.poll(() => floorPosition(page)).toBeLessThan(.01);
+  await stage(page).getByRole('button', { name: 'Return to restaurant', exact: true }).click();
+  await at(page, 'restaurant-expanded');
+  await expect.poll(() => floorPosition(page)).toBeCloseTo(1, 1);
 });
 
 test('expedition navigation preserves a deliberate start, pause/resume and confirmed early return', async ({ page }) => {
@@ -204,10 +204,12 @@ test('recipe inspection keeps current production until Prepare; idle chefs requi
   await openRecipesFromStaff(page);
   await expect(dialog(page).locator('.is-preparing')).toHaveCount(0);
   await open(page, 'restaurant-edit');
-  await action(page, 'place').filter({ hasText: 'Omar' }).click();
-  await at(page, 'recipe-idle');
-  await expect(dialog(page).getByRole('heading', { name: 'Choose a recipe', exact: true })).toBeVisible();
-  await expect(action(page, 'prepare')).toBeDisabled();
+  await stage(page).getByRole('button', { name: 'Inspect Omar Haddad', exact: true }).click();
+  await at(page, 'staff-detail');
+  await expect(dialog(page).getByRole('heading', { name: 'Omar Haddad', exact: true })).toBeVisible();
+  await dialog(page).getByRole('button', { name: 'Close dialog', exact: true }).click();
+  await at(page, 'restaurant-edit');
+  await expect(stage(page).getByRole('button', { name: 'People layer', exact: true })).toHaveAttribute('aria-expanded', 'true');
   await open(page, 'recipe-new');
   const eel = dialog(page).getByRole('button', { name: 'Inspect Eel roll', exact: true });
   await expect(eel).toContainText('NEW');
@@ -216,6 +218,7 @@ test('recipe inspection keeps current production until Prepare; idle chefs requi
 });
 
 test('tap markers are visible by default and phone controls retain at least 44px touch targets', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.setViewportSize({ width: 320, height: 740 });
   await open(page, 'restaurant-live');
   const edit = stage(page).getByRole('button', { name: 'Edit', exact: true });
@@ -349,7 +352,7 @@ test('floating Shop stays below upper-left savings during panning and preserves 
   expect(after.y - afterFrame.y).toBeCloseTo(before.y - frame.y, 1);
   await shop.click();
   await at(page, 'shop');
-  await stage(page).getByRole('button', { name: 'Restaurant', exact: true }).click();
+  await stage(page).getByRole('button', { name: 'Return to restaurant', exact: true }).click();
   await at(page, 'restaurant-edit');
   await expect.poll(() => floorPosition(page)).toBeCloseTo(1.35, 1);
   await expect(shop.locator('.stock-spark')).toHaveCount(0);
@@ -358,7 +361,7 @@ test('floating Shop stays below upper-left savings during panning and preserves 
   await open(page, 'floor-plan');
   await expect(stage(page).locator('.floor-plan-world [data-story="shop"]')).toHaveCount(0);
   await stage(page).getByRole('button', { name: 'Shop', exact: true }).click();
-  await stage(page).getByRole('button', { name: 'Restaurant', exact: true }).click();
+  await stage(page).getByRole('button', { name: 'Return to restaurant', exact: true }).click();
   await at(page, 'floor-plan');
 });
 
@@ -369,7 +372,7 @@ test('nested dialogs return to their parent and an inventory toast leaves editin
   await expect(stage(page).getByRole('status')).toContainText('No belt tiles left');
   await stage(page).getByRole('button', { name: 'Shop', exact: true }).click();
   await at(page, 'shop');
-  await stage(page).getByRole('button', { name: 'Restaurant', exact: true }).click();
+  await stage(page).getByRole('button', { name: 'Return to restaurant', exact: true }).click();
   await at(page, 'inventory-empty');
   await expect(dialog(page)).toHaveCount(0);
   await expect(stage(page).getByRole('button', { name: 'Live', exact: true })).toBeVisible();
@@ -389,10 +392,10 @@ test('refreshed hires retain their identity and cooking speed through paged rost
   await dialog(page).getByRole('button', { name: 'Refresh', exact: true }).click();
   await dialog(page).getByRole('button', { name: 'Next applicant', exact: true }).click();
   await dialog(page).getByRole('button', { name: 'Hire Ellis Morgan', exact: true }).click();
-  await dialog(page).getByRole('button', { name: 'Back to staff', exact: true }).click();
+  await dialog(page).getByRole('button', { name: 'Close dialog', exact: true }).click();
   await at(page, 'staff-roster');
-  await stage(page).getByRole('button', { name: 'Next staff page', exact: true }).click();
   for (const name of ['Mateo Rivera', 'Ellis Morgan']) {
+    if (name === 'Ellis Morgan') await stage(page).getByRole('button', { name: 'Next staff page', exact: true }).click();
     const profile = stage(page).getByRole('button', { name: `Inspect ${name}`, exact: true });
     await expect(profile).toContainText('Unassigned');
     await profile.click();
@@ -458,9 +461,16 @@ test('floor-plan editor layers toggle the tray, swatches have no captions and Li
   await floor.click();
   await expect(floor).toHaveAttribute('aria-expanded', 'true');
   await expect(stage(page).locator('.layer-selected-name')).toHaveText('Floor');
-  const swatches = tray.getByRole('button');
-  await expect(swatches).toHaveCount(3);
+  const swatches = tray.locator('.floor-swatch');
+  await expect(swatches).toHaveCount(2);
   for (const swatch of await swatches.all()) expect((await swatch.textContent()).trim()).toBe('');
+  await expect(tray.getByRole('button', { name: 'Blue wave', exact: true })).toBeVisible();
+  await expect(tray.getByRole('button', { name: 'Previous floor page', exact: true })).toBeDisabled();
+  await tray.getByRole('button', { name: 'Next floor page', exact: true }).click();
+  await expect(swatches).toHaveCount(1);
+  await expect(tray.getByRole('button', { name: 'Checker', exact: true })).toBeVisible();
+  await expect(tray.getByRole('button', { name: 'Next floor page', exact: true })).toBeDisabled();
+  await tray.getByRole('button', { name: 'Previous floor page', exact: true }).click();
   await expect(tray.getByRole('button', { name: 'Blue wave', exact: true })).toBeVisible();
   await expect(stage(page).getByText(/Service paused|Select a style, then|Owned/)).toHaveCount(0);
   const live = stage(page).getByRole('button', { name: 'Live', exact: true });
@@ -589,6 +599,7 @@ test('touch drags place a roster preview without opening stats, while taps inspe
     await dialog(page).getByRole('button', { name: 'Back to staff', exact: true }).tap();
     await expect(stage(page).locator('.roster-placed-chef')).toHaveCount(0);
     await expect(profile).toContainText('Unassigned');
+    await stage(page).getByRole('button', { name: 'Dismiss notification', exact: true }).click();
     // Place once more, then dismissal must remove both profile and preview marker.
     await stage(page).scrollIntoViewIfNeeded();
     const nextCard = await profile.boundingBox(), nextFrame = await stage(page).boundingBox();
@@ -606,7 +617,7 @@ test('touch drags place a roster preview without opening stats, while taps inspe
     await expect(profile).toHaveCount(0);
     await open(page, 'component-roster-tray');
     await stage(page).getByRole('button', { name: 'Next staff page', exact: true }).tap();
-    await expect(stage(page).getByRole('button', { name: 'Inspect Ama Mensah', exact: true })).toBeVisible();
+    await expect(stage(page).getByRole('button', { name: 'Inspect Mateo Rivera', exact: true })).toBeVisible();
     await at(page, 'component-roster-tray');
     await stage(page).getByRole('button', { name: 'Previous staff page', exact: true }).tap();
     await expect(stage(page).getByRole('button', { name: 'Inspect Lena Brooks', exact: true })).toBeVisible();
@@ -644,4 +655,190 @@ test('paper résumé touch swipes browse in both directions without hiring and s
     await stage(page).getByRole('button', { name: 'Hire Mateo Rivera', exact: true }).tap();
     await expect(stage(page).getByRole('heading', { name: 'Mateo Rivera', exact: true })).toHaveCount(0);
   } finally { await context.close(); }
+});
+
+test('Shop, Workshop and the shared paper page reveal an inert restaurant behind a top-right return corner', async ({ page }) => {
+  for (const width of [320, 390, 844]) {
+    await page.setViewportSize({ width, height: width === 844 ? 390 : 844 });
+    for (const id of ['shop', 'workshop', 'component-paper-page']) {
+      await open(page, id);
+      const paper = stage(page).locator('.paper-page');
+      const corner = paper.getByRole('button', { name: 'Return to restaurant', exact: true });
+      await corner.scrollIntoViewIfNeeded();
+      const pageBox = await paper.boundingBox(), cornerBox = await corner.boundingBox();
+      expect(cornerBox.x + cornerBox.width).toBeCloseTo(pageBox.x + pageBox.width - 8, 0);
+      expect(cornerBox.y - pageBox.y).toBeCloseTo(8, 0);
+      expect(cornerBox.width).toBeGreaterThanOrEqual(44);
+      expect(cornerBox.height).toBeGreaterThanOrEqual(44);
+      await expect(paper.locator('.paper-restaurant-background')).toHaveAttribute('inert', '');
+      await expect(paper.locator('.paper-restaurant-background [data-floor-panel]')).toHaveCount(3);
+      await expect(paper.locator('.paper-sheet')).toBeVisible();
+      await corner.hover();
+      await expect.poll(async () => (await corner.boundingBox()).width).toBeCloseTo(72, 0);
+      if (id === 'shop') {
+        await expect(paper.locator('.catalog-card')).toHaveCount(4);
+        await expect(paper.locator('.group-heading, .scene-note, .scene-return')).toHaveCount(0);
+        const prices = paper.locator('.buy-action');
+        await expect(prices).toHaveText(['40', '80', '320', '600']);
+        await expect(paper.getByRole('button', { name: 'Buy Belt tile', exact: true })).toBeEnabled();
+      }
+      if (id === 'workshop') await expect(paper.locator('.workshop-door')).toHaveCount(0);
+    }
+  }
+});
+
+test('paper corner returns restore the collapsed editor, exact camera and opener focus', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await open(page, 'restaurant-expanded');
+  await panTo(page, 1.2);
+  await stage(page).getByRole('button', { name: 'Edit', exact: true }).click();
+  await stage(page).getByRole('button', { name: 'People layer', exact: true }).click();
+  await expect(stage(page).locator('#editor-inventory-tray')).toHaveAttribute('inert', '');
+  for (const name of ['Shop', 'Workshop']) {
+    const opener = stage(page).getByRole('button', { name, exact: true });
+    await opener.click();
+    await at(page, name.toLowerCase());
+    await expect.poll(() => floorPosition(page)).toBeCloseTo(1.2, 1);
+    const corner = stage(page).getByRole('button', { name: 'Return to restaurant', exact: true });
+    await corner.focus();
+    await page.keyboard.press('Enter');
+    await at(page, 'restaurant-edit');
+    await expect.poll(() => floorPosition(page)).toBeCloseTo(1.2, 1);
+    await expect(stage(page).locator('#editor-inventory-tray')).toHaveAttribute('inert', '');
+    await expect(opener).toBeFocused();
+  }
+});
+
+test('the HUD reserves away-earnings space and recipe tiles show known dish prices', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 740 });
+  await open(page, 'component-restaurant-hud');
+  const examples = stage(page).locator('.hud-example');
+  const relativeShopPosition = example => example.evaluate(element => {
+    const frame = element.querySelector('.restaurant-hud').getBoundingClientRect();
+    const shop = element.querySelector('.shop-shortcut').getBoundingClientRect();
+    return { x: shop.x - frame.x, y: shop.y - frame.y };
+  });
+  const steady = await relativeShopPosition(examples.nth(0));
+  const away = await relativeShopPosition(examples.nth(1));
+  expect(steady.x).toBeCloseTo(away.x, 1);
+  expect(steady.y).toBeCloseTo(away.y, 1);
+  await expect(examples.nth(0).getByText('+420 while away', { exact: true })).toBeHidden();
+  await expect(examples.nth(1).getByText('+420 while away', { exact: true })).toBeVisible();
+  await open(page, 'component-recipe-tile');
+  const salmon = stage(page).getByRole('button', { name: 'Inspect Salmon nigiri', exact: true });
+  const eel = stage(page).getByRole('button', { name: 'Inspect Eel roll', exact: true });
+  await expect(salmon.locator('.recipe-tile-price')).toHaveText('18');
+  await expect(eel.locator('.recipe-tile-price')).toHaveText('48');
+  await expect(salmon).toHaveAccessibleDescription(/Price 18 coins/);
+  await expect(stage(page).getByRole('button', { name: 'Inspect Undiscovered dish', exact: true }).locator('.recipe-tile-price')).toHaveCount(0);
+  await open(page, 'recipe-picker');
+  await expect(dialog(page).getByRole('button', { name: 'Inspect Salmon nigiri', exact: true }).locator('.recipe-tile-price')).toHaveText('18');
+  await expect(dialog(page).getByRole('button', { name: 'Inspect Cucumber maki', exact: true }).locator('.recipe-tile-price')).toHaveText('12');
+});
+
+test('compact roster cards share their row with edge carets and preserve accessible pagination', async ({ page }) => {
+  for (const width of [320, 390]) {
+    await page.setViewportSize({ width, height: 844 });
+    await open(page, 'component-roster-tray');
+    const rail = stage(page).getByRole('navigation', { name: 'Staff pages', exact: true });
+    const profiles = rail.locator('.roster-profile');
+    await expect(profiles).toHaveCount(3);
+    await expect(rail.getByRole('group', { name: 'Staff page 1 of 2', exact: true })).toBeVisible();
+    await expect(rail.getByText('1 / 2', { exact: true })).toHaveCount(0);
+    const previous = rail.getByRole('button', { name: 'Previous staff page', exact: true });
+    const next = rail.getByRole('button', { name: 'Next staff page', exact: true });
+    await expect(previous).toBeDisabled();
+    const cards = await Promise.all((await profiles.all()).map(profile => profile.boundingBox()));
+    const left = await previous.boundingBox(), right = await next.boundingBox();
+    expect(left.x + left.width).toBeLessThanOrEqual(cards[0].x);
+    expect(right.x).toBeGreaterThanOrEqual(cards[2].x + cards[2].width);
+    expect(left.y + left.height / 2).toBeCloseTo(cards[0].y + cards[0].height / 2, 1);
+    expect(right.y + right.height / 2).toBeCloseTo(cards[2].y + cards[2].height / 2, 1);
+    for (const card of cards) {
+      expect(card.width).toBeGreaterThanOrEqual(44);
+      expect(card.width).toBeLessThan(90);
+      expect(card.height).toBeGreaterThanOrEqual(44);
+    }
+    await next.click();
+    await expect(rail.getByRole('group', { name: 'Staff page 2 of 2', exact: true })).toBeVisible();
+    await expect(rail.getByRole('button', { name: 'Inspect Mateo Rivera', exact: true })).toBeVisible();
+    await expect(next).toBeDisabled();
+    await previous.click();
+    await expect(rail.getByRole('button', { name: 'Inspect Lena Brooks', exact: true })).toBeVisible();
+    await at(page, 'component-roster-tray');
+  }
+});
+
+test('People uses shared roster profiles and closes stats or applicants back to the same editor', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 740 });
+  for (const origin of ['restaurant-edit', 'component-editor-controls']) {
+    await open(page, origin);
+    await expect(stage(page).getByRole('group', { name: 'Staff page 1 of 1', exact: true })).toBeVisible();
+    await expect(stage(page).getByRole('button', { name: 'Inspect Lena Brooks', exact: true })).toBeVisible();
+    await stage(page).getByRole('button', { name: 'Inspect Omar Haddad', exact: true }).click();
+    await expect(dialog(page).getByRole('heading', { name: 'Omar Haddad', exact: true })).toBeVisible();
+    await expect(dialog(page).locator('.chef-facts')).toContainText('Cooking speed');
+    await dialog(page).getByRole('button', { name: 'Close dialog', exact: true }).click();
+    await at(page, origin);
+    await expect(stage(page).getByRole('button', { name: 'People layer', exact: true })).toHaveAttribute('aria-expanded', 'true');
+    await stage(page).getByRole('button', { name: 'Applicants', exact: true }).click();
+    await expect(dialog(page).getByRole('button', { name: 'Back to staff', exact: true })).toHaveCount(0);
+    await dialog(page).getByRole('button', { name: 'Close dialog', exact: true }).click();
+    await at(page, origin);
+    await expect(stage(page).getByRole('button', { name: 'Inspect Omar Haddad', exact: true })).toBeVisible();
+  }
+});
+
+test('inventory edge carets browse objects without closing the editor or resetting the empty-belt state', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 740 });
+  await open(page, 'inventory-empty');
+  const rail = stage(page).getByRole('navigation', { name: 'Inventory pages', exact: true });
+  const previous = rail.getByRole('button', { name: 'Previous inventory page', exact: true });
+  const next = rail.getByRole('button', { name: 'Next inventory page', exact: true });
+  await expect(previous).toBeDisabled();
+  await expect(rail.getByRole('button', { name: 'Belt tile', exact: true })).toContainText('0');
+  await expect(rail.getByRole('button', { name: 'Chair', exact: true })).toBeVisible();
+  await next.click();
+  await expect(rail.getByRole('button', { name: 'Plant', exact: true })).toBeVisible();
+  await expect(next).toBeDisabled();
+  await previous.click();
+  await rail.getByRole('button', { name: 'Belt tile', exact: true }).click();
+  await expect(stage(page).getByRole('status')).toHaveText('No belt tiles left');
+  await expect(dialog(page)).toHaveCount(0);
+  await expect(stage(page).getByRole('button', { name: 'Live', exact: true })).toBeVisible();
+});
+
+test('pause, early-return, dismissal and recipe-award overlays keep only their essential copy', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.setViewportSize({ width: 320, height: 740 });
+  await open(page, 'expedition-pause');
+  await expect(dialog(page).getByRole('heading', { name: 'Paused', exact: true })).toBeVisible();
+  await expect(dialog(page).locator('.dialog-eyebrow, .dialog-scroll')).toHaveCount(0);
+  const resume = await dialog(page).getByRole('button', { name: 'Resume', exact: true }).boundingBox();
+  const early = await dialog(page).getByRole('button', { name: 'Return early…', exact: true }).boundingBox();
+  expect(resume.y).toBeCloseTo(early.y, 1);
+  expect(early.x).toBeGreaterThan(resume.x + resume.width);
+  for (const button of [resume, early]) { expect(button.width).toBeGreaterThanOrEqual(44); expect(button.height).toBeGreaterThanOrEqual(44); }
+  await dialog(page).getByRole('button', { name: 'Return early…', exact: true }).click();
+  await expect(dialog(page).locator('.dialog-scroll')).toHaveText('Keep your haul. No completion bonus.');
+  await open(page, 'expedition-resume');
+  await expect(stage(page).getByRole('status')).toHaveText(/3\s*Returning to ship\.\.\./);
+  await expect(stage(page).getByText(/Resuming expedition|Scene remains frozen|Frozen scene|Paused · no steering/)).toHaveCount(0);
+  await open(page, 'staff-fire');
+  await expect(dialog(page).getByText(/coin refund/)).toHaveCount(0);
+  await expect(dialog(page)).toContainText('permanently leave');
+  await open(page, 'recipe-award');
+  await expect(dialog(page).getByText(/Chef requirement|Copper · Lv/)).toHaveCount(0);
+  await expect(dialog(page)).toContainText('Base prep time');
+  const award = dialog(page).getByRole('img', { name: 'Eel roll on a copper material background', exact: true });
+  await expect(award).toBeVisible();
+  expect(await award.evaluate(element => getComputedStyle(element).backgroundImage)).not.toBe('none');
+  await open(page, 'staff-applicants');
+  await expect(dialog(page).getByRole('button', { name: 'Back to staff', exact: true })).toHaveCount(0);
+  const close = dialog(page).getByRole('button', { name: 'Close dialog', exact: true });
+  await close.focus();
+  await page.keyboard.press('Shift+Tab');
+  expect(await dialog(page).evaluate(element => element.contains(document.activeElement))).toBe(true);
+  await page.keyboard.press('Tab');
+  await expect(close).toBeFocused();
 });

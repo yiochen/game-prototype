@@ -63,7 +63,7 @@
 .prototype-stage .recipe-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
 .prototype-stage .recipe-tile { position: relative; display: flex; align-items: center; flex-direction: column; gap: 5px; min-height: 118px; padding: 12px 8px 9px; overflow: visible; border-radius: 8px; text-align: center; transition: outline-color 160ms ease, box-shadow 160ms ease; }
 .prototype-stage .recipe-tile.tier-wood, .prototype-stage .recipe-details.tier-wood { background-color: var(--paper); background-image: repeating-linear-gradient(4deg, transparent 0 9px, rgb(35 51 69 / 7%) 9px 10px); }
-.prototype-stage .recipe-tile.tier-copper, .prototype-stage .recipe-details.tier-copper { background-color: var(--paper); background-image: repeating-linear-gradient(90deg, transparent 0 20px, rgb(35 51 69 / 8%) 20px 21px); }
+.prototype-stage .recipe-tile.tier-copper, .prototype-stage .recipe-details.tier-copper, .prototype-stage .award-dish.tier-copper { background-color: var(--paper); background-image: repeating-linear-gradient(90deg, transparent 0 20px, rgb(35 51 69 / 8%) 20px 21px); }
 .prototype-stage .recipe-tile.tier-silver, .prototype-stage .recipe-details.tier-silver { background-color: var(--paper); background-image: repeating-linear-gradient(135deg, transparent 0 13px, rgb(35 51 69 / 8%) 13px 14px); }
 .prototype-stage .recipe-tile.is-preparing { box-shadow: inset 0 0 0 2px var(--ink); }
 .prototype-stage .recipe-tile.is-inspected { outline: 2px solid var(--accent); outline-offset: 3px; }
@@ -102,8 +102,7 @@
 .prototype-stage .confirmation-dialog, .prototype-stage .pause-dialog { width: min(100%, 345px); }
 .prototype-stage .confirmation-portrait { text-align: center; margin: 0 0 13px; }
 .prototype-stage .confirmation-portrait svg, .prototype-stage .confirmation-portrait .character { width: 74px; height: 80px; }
-.prototype-stage .pause-dialog .dialog-header { border-bottom: 0; padding-bottom: 2px; }
-.prototype-stage .pause-dialog .dialog-scroll { padding-top: 3px; padding-bottom: 20px; }
+.prototype-stage .pause-dialog .dialog-header { border-bottom: 0; }
 .prototype-stage .expansion-dialog { align-self: end; margin-bottom: 2%; width: min(100%, 370px); }
 .prototype-stage .patch-preview { display: grid; grid-template-columns: repeat(3, 1fr); width: 87px; height: 115px; margin: 3px auto 4px; border: 2px solid var(--accent); outline: 2px dashed var(--accent); outline-offset: 3px; }
 .prototype-stage .patch-preview span { border: 1px solid var(--line); background: repeating-linear-gradient(135deg, transparent 0 6px, rgb(35 51 69 / 20%) 6px 7px); }

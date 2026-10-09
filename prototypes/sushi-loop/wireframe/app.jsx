@@ -29,7 +29,7 @@ function fixtureFor(story) {
     chefLevel: story.variant === 'new' ? 5 : story.variant === 'max' && story.overlay === 'chef-detail' ? 8 : 2,
     chefUnassigned: false, chefLevels: {}, unassignedChefs: [], removedChefs: [],
     purchasedItems: [], upgradeLevels: {}, painted: false, rotation: 0, shopVisited: false,
-    popupReturnStory: 'restaurant-live', expeditionBackdrop: 'travel',
+    popupReturnStory: 'restaurant-live', staffReturnStory: 'staff-roster', expeditionBackdrop: 'travel',
     repeatCatch: ['catch-repeat', 'results-complete'].includes(story.id),
   };
 }
@@ -64,6 +64,7 @@ function App() {
   const [search, setSearch] = useState('');
   const [width, setWidth] = useState(innerWidth);
   const stage = useRef(null), sidebar = useRef(null), documentation = useRef(null);
+  const focusOnReturn = useRef(null);
   const snapshots = useRef(new Map());
   const story = byId.get(view.id);
   const mobileMenu = width < 900;
@@ -72,6 +73,7 @@ function App() {
   function go(requestedId, options = {}) {
     const previous = viewRef.current, previousStory = byId.get(previous.id);
     let id = requestedId;
+    if (id === 'staff-roster' && previousStory.overlay && !options.reset) id = previous.fixture.staffReturnStory || id;
     const destination = byId.get(id);
     if (!destination) return;
     snapshots.current.set(previous.id, structuredClone(previous));
@@ -79,16 +81,18 @@ function App() {
     let fixture = structuredClone(options.fixture || previous.fixture);
     if (['shop', 'workshop', 'staff'].includes(destination.scene) && ['restaurant', 'floor-plan'].includes(previousStory.scene)) {
       returnRestaurant = previousStory.scene === 'floor-plan' ? previous.id : ['edit', 'floor', 'selected'].includes(previousStory.variant) ? previous.id : 'restaurant-live';
-      if (['shop', 'staff'].includes(destination.scene) && !previousStory.overlay) returnRestaurant = previous.id;
+      if (!previousStory.overlay) returnRestaurant = previous.id;
       returnPanel = fixture.panel;
     }
     if (id === 'restaurant-live' && ['shop', 'workshop', 'staff'].includes(previousStory.scene) && !options.reset) {
-      id = returnRestaurant; fixture.panel = previousStory.scene === 'workshop' ? 0 : returnPanel;
-      if (previousStory.scene === 'workshop') fixture.panFraction = 0;
+      id = returnRestaurant; fixture.panel = returnPanel;
+      if (['shop', 'workshop'].includes(previousStory.scene)) focusOnReturn.current = previousStory.scene;
     }
     if (id === 'restaurant-live' && ['expedition-start', 'results'].includes(previousStory.scene) && !options.reset) { fixture.panel = 0; fixture.panFraction = 0; }
-    if (options.reset) { fixture = fixtureFor(byId.get(id)); fixture.reviewEpoch = previous.fixture.reviewEpoch + 1; returnRestaurant = 'restaurant-live'; returnPanel = 0; }
+    if (options.reset) { fixture = fixtureFor(byId.get(id)); fixture.reviewEpoch = previous.fixture.reviewEpoch + 1; returnRestaurant = 'restaurant-live'; returnPanel = 0; focusOnReturn.current = null; }
     else {
+      if (['shop', 'workshop'].includes(destination.scene) && !previousStory.overlay) fixture.paperBackdropVariant = previousStory.variant;
+      if (destination.scene === 'staff' && !previousStory.overlay) fixture.staffReturnStory = destination.overlay ? previous.id : 'staff-roster';
       if (destination.overlay === 'recipes' && previousStory.overlay === 'chef-detail') fixture.popupReturnStory = previous.id;
       else if (['recipes', 'expansion'].includes(destination.overlay) && !previousStory.overlay) fixture.popupReturnStory = previousStory.scene === 'restaurant' ? previous.id : 'restaurant-live';
       if (previousStory.scene === 'expedition' && !previousStory.overlay && !['pause', 'return', 'resume'].includes(previousStory.variant)) fixture.expeditionBackdrop = previousStory.variant;
@@ -110,7 +114,7 @@ function App() {
 
   function dismiss() {
     const current = byId.get(viewRef.current.id), fixture = viewRef.current.fixture;
-    const destinations = { recipes: fixture.popupReturnStory, applicants: 'staff-roster', 'chef-detail': 'staff-roster', fire: 'staff-detail', expansion: fixture.popupReturnStory, 'early-return': 'expedition-pause' };
+    const destinations = { recipes: fixture.popupReturnStory, applicants: fixture.staffReturnStory, 'chef-detail': fixture.staffReturnStory, fire: 'staff-detail', expansion: fixture.popupReturnStory, 'early-return': 'expedition-pause' };
     if (destinations[current.overlay]) go(destinations[current.overlay]);
   }
 
@@ -206,6 +210,10 @@ function App() {
     if (viewport) viewport.scrollLeft = (viewRef.current.fixture.panFraction ?? viewRef.current.fixture.panel) * viewport.clientWidth;
     const dialog = stage.current.querySelector('dialog');
     if (dialog) dialog.querySelector('button:not(:disabled), [href], input, select')?.focus({ preventScroll: true });
+    else if (focusOnReturn.current) {
+      stage.current.querySelector(`.scene-host button[data-story="${focusOnReturn.current}"]:not(:disabled)`)?.focus({ preventScroll: true });
+      focusOnReturn.current = null;
+    }
     document.title = `${story.title} · Sushi Loop wireframes`;
   }, [story.id, width, view.fixture.reviewEpoch]);
 
@@ -233,6 +241,8 @@ function App() {
   const term = search.toLowerCase().trim();
   const visibleGroups = storyGroups.map(group => ({ ...group, stories: stories.filter(example => example.group === group.id && `${example.title} ${group.title}`.toLowerCase().includes(term)) })).filter(group => group.stories.length);
   const next = nextEvents[story.id];
+  const staffPopup = ['chef-detail', 'applicants', 'fire'].includes(story.overlay) || (story.overlay === 'recipes' && byId.get(view.fixture.popupReturnStory)?.overlay === 'chef-detail');
+  const backdropStory = staffPopup ? byId.get(view.fixture.staffReturnStory) || story : story;
   return <>
     <header className="studio-header"><a className="studio-brand" href="#floor-plan" aria-label="Sushi Loop wireframe studio" onClick={event => { event.preventDefault(); go('floor-plan', { reset: true }); }}><span className="brand-mark" aria-hidden="true"><Icon name="submarine"/></span><span>Sushi Loop<small>Wireframe studio</small></span></a><span className="draft-label">Review draft <span>· Mock data</span></span><a className="catalog-link" href="../../">Playground <Icon name="arrow-right"/></a></header>
     <div className="studio-layout">
@@ -260,7 +270,7 @@ function App() {
           const panel = Math.round(panFraction);
           if (Math.abs(panFraction - viewRef.current.fixture.panFraction) > .001) change({ ...viewRef.current.fixture, panel, panFraction });
         }}>
-          <div className="scene-host" inert={!!story.overlay}><Scene key={view.fixture.reviewEpoch} story={story} state={view.fixture}/></div>
+          <div className="scene-host" inert={!!story.overlay}><Scene key={view.fixture.reviewEpoch} story={backdropStory} state={view.fixture}/></div>
           {story.overlay && <Overlay key={view.fixture.reviewEpoch} story={story} state={view.fixture}/>}
           {view.fixture.toast && <div className="mock-toast" role="status">{view.fixture.toast}<button type="button" data-action="dismiss-toast" aria-label="Dismiss notification"><Icon name="close"/></button></div>}
         </div></div>

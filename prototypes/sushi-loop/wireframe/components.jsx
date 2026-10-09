@@ -1,13 +1,16 @@
 import React, { useId } from 'react';
 import { Target, Icon, Money, Character } from './common.jsx';
 import { RosterTray } from './staff-tray.jsx';
+import { PaginatedTray } from './inventory-tray.jsx';
 import { ResumeDeck } from './applicants.jsx';
+import { PaperPage } from './paper-page.jsx';
 import { applicantSet, roster } from './fixtures.js';
+import './components-review.css';
 
 // These composites are used directly in both the complete scenes and the isolated gallery.
 export function RestaurantHud({ state = {}, children }) {
   return <div className="restaurant-hud">
-    <div className="hud-top-row"><div className="hud-savings"><div className="coin-count"><Money amount={1240}/></div>{state._variant === 'offline' && <span className="income-toast">+420 while away</span>}</div>{children}</div>
+    <div className="hud-top-row"><div className="hud-savings"><div className="coin-count"><Money amount={1240}/></div><span className={`income-toast ${state._variant === 'offline' ? '' : 'income-toast-placeholder'}`} aria-hidden={state._variant !== 'offline' ? true : undefined}>+420 while away</span></div>{children}</div>
     <nav className="restaurant-shortcuts" aria-label="Restaurant shortcuts"><Target action="navigate" data={{story:'shop'}} className="hud-action shop-shortcut" title="Shop"><Icon name="basket"/><strong>Shop</strong>{!state.shopVisited && <span className="stock-spark" aria-label="New Shop stock">✦</span>}</Target></nav>
   </div>;
 }
@@ -25,7 +28,7 @@ export function EditorControls({ state = {} }) {
   return <div className={`editor-controls editor-layer-${layer}`} data-tray-open={open} aria-label="Restaurant editor">
     <Target action="navigate" data={{story:'restaurant-live'}} className="live-action" title="Live"><Icon name="play" /><span>Live</span></Target>
     <div className="layer-tabs" role="group" aria-label="Editing layer">{['people','layout','floor'].map(name=><Target key={name} action="layer" data={{value:name}} className={layer === name ? 'layer-tab active' : 'layer-tab'} title={`${name[0].toUpperCase()+name.slice(1)} layer`} aria-pressed={layer === name} aria-expanded={layer === name && open} aria-controls="editor-inventory-tray">{layer === name && <span className="layer-selected-name" aria-hidden="true">{name[0].toUpperCase()+name.slice(1)}</span>}<Icon name={name} /></Target>)}</div>
-    <div id="editor-inventory-tray" className="edit-controls" aria-label={`${layer[0].toUpperCase()+layer.slice(1)} inventory`} aria-hidden={!open} inert={!open ? true : undefined}><div className="inventory-tray">{layer === 'people' ? <InventoryItem label="Omar" value="omar" art={<Character name="Omar" />} count="Unassigned chef" layer={layer} /> : layer === 'floor' ? palettes.map(item=><InventoryItem key={item.value} {...item} art={<span className={`floor-sample ${item.value}`} aria-hidden="true" />} layer={layer} />) : inventory.map(item=><InventoryItem key={item.value} {...item} layer={layer} />)}</div></div>
+    <div id="editor-inventory-tray" className="edit-controls" aria-label={`${layer[0].toUpperCase()+layer.slice(1)} inventory`} aria-hidden={!open} inert={!open ? true : undefined}>{layer === 'people' ? <RosterTray state={state} embedded /> : <div className="inventory-tray"><PaginatedTray key={layer} items={layer === 'floor' ? palettes : inventory} label={layer === 'floor' ? 'Floor' : 'Inventory'} renderItem={item=><InventoryItem key={item.value} {...item} art={layer === 'floor' ? <span className={`floor-sample ${item.value}`} aria-hidden="true" /> : item.art} layer={layer} />} /></div>}</div>
   </div>;
 }
 
@@ -43,8 +46,9 @@ export function Dock({ state = {}, locked = false, future = false }) {
 export function RecipeTile({ recipe, recipeKey, selected, current, seen = [], isNew = false }) {
   const unknown = recipeKey === 'unknown';
   const classes = ['recipe-tile', `tier-${recipe.tier.toLowerCase()}`, recipeKey === selected && 'is-inspected', recipeKey === current && 'is-preparing', unknown && 'is-undiscovered'].filter(Boolean).join(' ');
-  return <Target action="select-recipe" className={classes} data={{value:recipeKey}} title={`Inspect ${recipe.name}`} aria-description={`${recipe.tier} material.${recipeKey === current ? ' Currently preparing.' : ''}${recipeKey === selected ? ' Selected for inspection.' : ''}`}>
+  return <Target action="select-recipe" className={classes} data={{value:recipeKey}} title={`Inspect ${recipe.name}`} aria-description={`${recipe.tier} material.${!unknown && recipe.price != null ? ` Price ${recipe.price} coins.` : ''}${recipeKey === current ? ' Currently preparing.' : ''}${recipeKey === selected ? ' Selected for inspection.' : ''}`}>
     <span className={`recipe-dish ${unknown ? 'dish-silhouette' : ''}`} aria-hidden="true">{recipe.symbol}</span><span className="recipe-tile-name">{recipe.name}</span><span className="sr-only">{recipe.tier} material.</span>
+    {!unknown && recipe.price != null && <span className="recipe-tile-price"><Money amount={recipe.price} /></span>}
     {isNew && !seen.includes(recipeKey) && <span className="new-label">NEW</span>}
     {recipeKey === current && <span className="sr-only">Currently preparing.</span>}{recipeKey === selected && <span className="sr-only">Selected for inspection.</span>}
   </Target>;
@@ -65,14 +69,14 @@ export function SalvageReceipt({ completed = true, repeatCatch = false }) {
 }
 
 const galleryRecipes = {
-  salmon:{name:'Salmon nigiri',tier:'Wood',symbol:'◓'},
-  eel:{name:'Eel roll',tier:'Copper',symbol:'≋'},
+  salmon:{name:'Salmon nigiri',tier:'Wood',symbol:'◓',price:18},
+  eel:{name:'Eel roll',tier:'Copper',symbol:'≋',price:48},
   unknown:{name:'Undiscovered dish',tier:'Silver',symbol:'?'},
 };
 const hullTrack = {id:'hull',name:'Hull',unit:'Maximum hull',current:'100',next:'125',price:90,icon:'submarine'};
 const example = (label, children, className = '') => <section className={`component-example ${className}`} key={label}><h3>{label}</h3>{children}</section>;
 
-export function ComponentGallery({ story, state = {} }) {
+export function ComponentGallery({ story, state = {}, paperBackground }) {
   const key = story.component || story.variant;
   let examples;
   switch (key) {
@@ -80,14 +84,15 @@ export function ComponentGallery({ story, state = {} }) {
     case 'editor-controls': examples = example('Layer controls and owned inventory',<EditorControls state={state}/>,'editor-example'); break;
     case 'roster-tray': examples = example('Paged profiles · drag or inspect',<RosterTray state={state}/>,'roster-example'); break;
     case 'applicant-resume': examples = example('Paper résumés · browse and hire',<ResumeDeck candidates={applicantSet(state).filter(candidate=>!state.hiredApplicants?.includes(candidate.id))} full={roster(state).length >= 4}/>,'resume-example'); break;
-    case 'money': examples = <>{example('Restaurant coins',<div className="coin-count"><Money amount={1240} /></div>)}{example('Banked salvage',<Money kind="salvage" amount={180} />)}{example('Price in an action',<Target action="purchase" data={{value:'belt'}}><Money amount={40} /><span>Buy</span></Target>)}</>; break;
+    case 'paper-page': examples = example('Top-right corner returns to restaurant',<PaperPage title="Shop" balance={<Money amount={1240}/>} background={paperBackground}><div className="paper-gallery-content"><p>Restaurant supplies</p><Target action="purchase" data={{value:'belt'}} title="Buy Belt tile"><Money amount={40}/></Target></div></PaperPage>,'component-paper-page-example'); break;
+    case 'money': examples = <>{example('Restaurant coins',<div className="coin-count"><Money amount={1240} /></div>)}{example('Banked salvage',<Money kind="salvage" amount={180} />)}{example('Price in an action',<Target action="purchase" data={{value:'belt'}} title="Buy Belt tile"><Money amount={40} /></Target>)}</>; break;
     case 'character': examples = <>{['Lena Brooks','Omar Haddad','Ama Mensah','Mateo Rivera','Noor Haddad'].map(name=>example(name,<Character name={name} />))}{['Rosa','Ellis','Samir','June'].map(name=>example(`${name} · guest`,<Character name={name} kind="guest" />))}</>; break;
     case 'dock': examples = <>{example('Ready · navigation available',<div className="dock-floor-grid"><Dock state={state} /></div>,'dock-example')}{example('Charging · stays in restaurant',<div className="dock-floor-grid"><Dock state={{...state,_variant:'charging'}} /></div>,'dock-example')}{example('Covered · unavailable',<div className="dock-floor-grid"><Dock locked state={state} /></div>,'dock-example')}</>; break;
     case 'recipe-tile': examples = <>{example('Current recipe',<RecipeTile recipe={galleryRecipes.salmon} recipeKey="salmon" current="salmon" selected={state.selectedRecipe} />)}{example('New discovery',<RecipeTile recipe={galleryRecipes.eel} recipeKey="eel" selected={state.selectedRecipe} seen={state.seenRecipes || []} isNew />)}{example('Undiscovered',<RecipeTile recipe={galleryRecipes.unknown} recipeKey="unknown" selected={state.selectedRecipe} />)}</>; break;
     case 'hull-meter': examples = <>{example('Healthy hull',<HullMeter />)}{example('Low hull',<HullMeter percent={22} danger />)}</>; break;
     case 'upgrade-card': examples = <>{example('Affordable upgrade',<UpgradeCard track={hullTrack} level={1+Number(state.upgradeLevels?.hull || 0)} />)}{example('Insufficient salvage',<UpgradeCard track={hullTrack} poor />)}{example('Capability ceiling',<UpgradeCard track={{...hullTrack,current:'200'}} level={5} max />)}</>; break;
     case 'receipt': examples = <>{example('Complete · first discovery',<SalvageReceipt />)}{example('Complete · repeat catch',<SalvageReceipt repeatCatch />)}{example('Unfinished route',<SalvageReceipt completed={false} />)}</>; break;
-    case 'tap-target': examples = <>{example('Text navigation',<Target action="navigate" data={{story:'restaurant-live'}}>Restaurant</Target>)}{example('Icon target',<Target action="navigate" data={{story:'staff-roster'}} title="Open staff roster"><Icon name="staff" /></Target>)}{example('Disabled action',<Target action="purchase" disabled><Money amount={600} />Buy</Target>)}</>; break;
+    case 'tap-target': examples = <>{example('Text navigation',<Target action="navigate" data={{story:'restaurant-live'}}>Restaurant</Target>)}{example('Icon target',<Target action="navigate" data={{story:'staff-roster'}} title="Open staff roster"><Icon name="staff" /></Target>)}{example('Disabled action',<Target action="purchase" disabled title="Buy item"><Money amount={600} /></Target>)}</>; break;
     default: examples = example('Shared component',<Icon name="info" />);
   }
   return <div className={`phone-scene component-gallery component-gallery-${key}`}><header className="scene-header"><div><h2>{story.title}</h2><p>The same React component used in the complete screens.</p></div></header><div className="component-examples">{examples}</div></div>;

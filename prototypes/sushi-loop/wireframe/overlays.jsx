@@ -53,7 +53,7 @@ function Applicants({ story, state }) {
   const count = variantFor(story) === 'full' ? 4 : Math.min(4, roster(state).length);
   const full = count >= 4, hired = state.hiredApplicants, refreshed = state.applicantRefresh;
   const candidates = applicantSet(state).filter(candidate => !hired.includes(candidate.id));
-  return <Dialog story={story} title="Job applicants" eyebrow={`Staff ${count} / 4 · ${full ? 'Roster full' : `${4-count} spaces available`}`} className="applicants-dialog" footer={<><div className="refresh-row"><div><strong>Refresh applications</strong><p>{refreshed ? 'Cooldown preview · available in 04:59' : 'Free · replaces the complete set'}</p></div><Target action="refresh-applicants" disabled={refreshed}>{refreshed ? 'Wait' : 'Refresh'}</Target></div><Navigate story="staff-roster" className="full-width">Back to staff</Navigate></>}>
+  return <Dialog story={story} title="Job applicants" eyebrow={`Staff ${count} / 4 · ${full ? 'Roster full' : `${4-count} spaces available`}`} className="applicants-dialog" footer={<div className="refresh-row"><div><strong>Refresh applications</strong><p>{refreshed ? 'Cooldown preview · available in 04:59' : 'Free · replaces the complete set'}</p></div><Target action="refresh-applicants" disabled={refreshed}>{refreshed ? 'Wait' : 'Refresh'}</Target></div>}>
     <ResumeDeck candidates={candidates} full={full}/>
   </Dialog>;
 }
@@ -70,7 +70,7 @@ function ChefDetail({ story, state }) {
 
 function Fire({ story, state }) {
   const chef = chefFor(state);
-  return <Dialog story={story} title={`Fire ${chef.name}?`} className="confirmation-dialog" footer={<div className="dialog-action-pair"><Navigate story="staff-detail">Cancel</Navigate><Target action="fire-confirm" className="danger-action">Fire {chef.name.split(' ')[0]}</Target></div>}><div className="dialog-scroll"><div className="confirmation-portrait"><Character name={chef.name}/></div><p>{chef.name} will permanently leave your staff, including their level and upgrades.</p><p className="inline-reason">There is no coin refund.</p></div></Dialog>;
+  return <Dialog story={story} title={`Fire ${chef.name}?`} className="confirmation-dialog" footer={<div className="dialog-action-pair"><Navigate story="staff-detail">Cancel</Navigate><Target action="fire-confirm" className="danger-action">Fire {chef.name.split(' ')[0]}</Target></div>}><div className="dialog-scroll"><div className="confirmation-portrait"><Character name={chef.name}/></div><p>{chef.name} will permanently leave your staff, including their level and upgrades.</p></div></Dialog>;
 }
 
 function Expansion({ story }) {
@@ -79,15 +79,15 @@ function Expansion({ story }) {
 }
 
 function Pause({ story }) {
-  return <Dialog story={story} title="Paused" eyebrow="Expedition preserved" className="pause-dialog" showClose={false} footer={<><Target action="resume" className="primary-action full-width">Resume</Target><Navigate story="expedition-return" className="quiet-action full-width">Return early…</Navigate></>}><div className="dialog-scroll"><p>Your submarine, creature, and hazards are waiting right here.</p></div></Dialog>;
+  return <Dialog story={story} title="Paused" className="pause-dialog" showClose={false} footer={<div className="dialog-action-pair"><Target action="resume" className="primary-action">Resume</Target><Navigate story="expedition-return" className="quiet-action">Return early…</Navigate></div>}/>;
 }
 
 function EarlyReturn({ story }) {
-  return <Dialog story={story} title="Return early?" className="confirmation-dialog" showClose={false} footer={<div className="dialog-action-pair"><Navigate story="expedition-pause">Stay paused</Navigate><Target action="confirm-return" className="danger-action">Return early</Target></div>}><div className="dialog-scroll"><p>Keep your collected salvage and any earned recipes.</p><p>You will receive no completion bonus. An unfinished pursuit earns no recipe.</p><p className="inline-note">Your submarine must recharge before another departure.</p></div></Dialog>;
+  return <Dialog story={story} title="Return early?" className="confirmation-dialog" showClose={false} footer={<div className="dialog-action-pair"><Navigate story="expedition-pause">Stay paused</Navigate><Target action="confirm-return" className="danger-action">Return early</Target></div>}><div className="dialog-scroll"><p>Keep your haul. No completion bonus.</p></div></Dialog>;
 }
 
 function RecipeAward({ story }) {
-  return <Dialog story={story} title="New recipe discovered!" eyebrow="First catch · Eel" className="recipe-award-dialog" showClose={false} footer={<Navigate story="results-complete" className="primary-action full-width">Continue</Navigate>}><div className="dialog-scroll"><div className="award-dish" aria-hidden="true"><span>≋</span><i/><i/><i/><i/></div><h3 className="award-name">Eel roll</h3><p className="award-subtitle">Added to your restaurant collection</p><dl className="overlay-facts award-facts"><Fact label="Price / dish"><Money kind="coins" amount={48}/></Fact><Fact label="Base prep time">6.0 sec</Fact><Fact label="Chef requirement">Copper · Lv 5</Fact></dl><p className="inline-note">Already earned. Continue opens your expedition receipt.</p></div></Dialog>;
+  return <Dialog story={story} title="New recipe discovered!" eyebrow="First catch · Eel" className="recipe-award-dialog" showClose={false} footer={<Navigate story="results-complete" className="primary-action full-width">Continue</Navigate>}><div className="dialog-scroll"><div className="award-dish tier-copper" role="img" aria-label="Eel roll on a copper material background"><span aria-hidden="true">≋</span><i/><i/><i/><i/></div><h3 className="award-name">Eel roll</h3><p className="award-subtitle">Added to your restaurant collection</p><dl className="overlay-facts award-facts"><Fact label="Price / dish"><Money kind="coins" amount={48}/></Fact><Fact label="Base prep time">6.0 sec</Fact></dl><p className="inline-note">Already earned. Continue opens your expedition receipt.</p></div></Dialog>;
 }
 
 export function Overlay({ story, state }) {

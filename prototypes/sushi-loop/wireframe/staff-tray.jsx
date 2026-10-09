@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Target, Icon, Character } from './common.jsx';
 import { roster, chefAssigned } from './fixtures.js';
+import { PaginatedTray } from './inventory-tray.jsx';
 import './staff-tray.css';
 
 function dropAt(element, x, y) {
@@ -20,15 +21,12 @@ function dropAt(element, x, y) {
 }
 
 // Presentation-only roster. The parent owns the mock assignment through the bubbling event.
-export function RosterTray({ state = {} }) {
+export function RosterTray({ state = {}, embedded = false }) {
   const chefs = roster(state);
-  const [page, setPage] = useState(0);
   const [drag, setDrag] = useState(null);
   const container = useRef(null);
   const pointer = useRef(null);
   const suppressClick = useRef(false);
-  const pages = Math.max(1, Math.ceil(chefs.length / 2));
-  const activePage = Math.min(page, pages - 1);
 
   function start(event, chef) {
     if (event.button !== 0 || !event.isPrimary) return;
@@ -67,14 +65,13 @@ export function RosterTray({ state = {} }) {
     event.stopPropagation();
   }
 
-  return <div className="roster-tray-shell" ref={container} data-roster-tray>
+  return <div className={`roster-tray-shell ${embedded ? 'roster-tray-embedded' : ''}`} ref={container} data-roster-tray>
     <section className="roster-tray" aria-label="Staff roster">
       <header className="roster-tray-header"><h2>Staff <small className="roster-count">{chefs.length} / 4</small></h2>
         <Target action="navigate" data={{ story: 'staff-applicants' }} className="roster-applicants"><Icon name="staff" /><span>Applicants</span></Target>
-        <Target action="navigate" data={{ story: 'restaurant-live' }} className="roster-close" title="Close staff tray"><Icon name="close" /></Target>
+        {!embedded && <Target action="navigate" data={{ story: 'restaurant-live' }} className="roster-close" title="Close staff tray"><Icon name="close" /></Target>}
       </header>
-      <div className="roster-profiles" role="group" aria-label={`Staff page ${activePage + 1} of ${pages}`}>
-        {chefs.slice(activePage * 2, activePage * 2 + 2).map(chef => <Target key={chef.id}
+      <PaginatedTray items={chefs} pageSize={3} label="Staff" className="roster-pagination" itemsClassName="roster-profiles" renderItem={chef => <Target key={chef.id}
           action="navigate" data={{ story: 'staff-detail', value: chef.id }}
           title={`Inspect ${chef.name}`} className={`roster-profile ${drag?.chef.id === chef.id ? 'roster-profile-dragging' : ''}`}
           onPointerDown={event => start(event, chef)} onPointerMove={move}
@@ -83,13 +80,7 @@ export function RosterTray({ state = {} }) {
           <Character name={chef.name} />
           <span className="roster-profile-copy"><strong>{chef.name}</strong><small>{chefAssigned(state, chef) ? 'Assigned' : 'Unassigned'}</small></span>
           <span className="roster-drag-grip" aria-hidden="true">⠿</span>
-        </Target>)}
-      </div>
-      <nav className="roster-pagination" aria-label="Staff pages">
-        <Target className="roster-page-button" title="Previous staff page" disabled={activePage === 0} onClick={() => setPage(activePage - 1)}><Icon name="arrow-left" /></Target>
-        <span aria-live="polite">{activePage + 1} / {pages}</span>
-        <Target className="roster-page-button" title="Next staff page" disabled={activePage === pages - 1} onClick={() => setPage(activePage + 1)}><Icon name="arrow-right" /></Target>
-      </nav>
+        </Target>} />
     </section>
     {drag && <div className={`roster-drag-ghost ${drag.valid ? 'roster-drop-valid' : ''}`} style={{ left: drag.x, top: drag.y }} aria-hidden="true"><Character name={drag.chef.name} /><span>{drag.chef.name}</span></div>}
   </div>;

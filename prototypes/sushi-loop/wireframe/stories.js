@@ -1,9 +1,9 @@
 // Review inventory. These fixtures describe intended UI behavior, not gameplay rules.
 const element = (name, behavior, motion) => ({ name, behavior, motion });
-const returnDoor = () => element(
-  'Sushi Bar doorway',
-  'Return to the restaurant. Workshop and expedition returns recenter on cleared floor; Shop preserves the prior view and Live/Edit mode.',
-  'Press feedback: 0.97 scale for 70 ms. Scene crossfade: 200 ms; consume the opening touch to avoid a second action.'
+const paperReturn = () => element(
+  'Top-right curled paper corner',
+  'Shop and Workshop share a paper page over the originating restaurant. Its curled upper-right corner reveals that actual floor plan and is the Return to Restaurant target. Returning preserves Live/Edit mode, tray state and exact camera position; omit a doorway or full-width return button. Supply an accessible return name.',
+  'The curl grows from 48 px to 72 px on hover or press over 160 ms. A 200 ms paper exit fade is proposed; current wireframe return restores the restaurant directly without moving the floor. Reduced motion also restores directly; consume the opener touch.'
 );
 const closePopup = () => element(
   'Close / system Back',
@@ -45,9 +45,9 @@ export const stories = [
     id: 'restaurant-live', group: 'restaurant', title: 'Live service · starter floor', scene: 'restaurant', variant: 'live',
     description: 'A floor-plan-only starter restaurant keeps fixed navigation visible while the continuous room pans freely. Service characters and furniture are omitted for this layout review.',
     elements: [
-      element('Coin count', 'Shows restaurant savings at the upper-left, above the floating Shop button. Styled numerals use no cream/yellow backing container. It stays fixed while panning; no income-rate counter.', 'A sale updates the number immediately in the intended game; a nearby icon can pulse for 180 ms with repeated events coalesced.'),
+      element('Coin count', 'Shows restaurant savings at the upper-left, above the floating Shop button. Reserve the credited-earnings line even when absent so +420 while away can appear without moving Shop. Styled numerals use no cream/yellow backing container; no income-rate counter.', 'A sale updates the number immediately in the intended game; a nearby icon can pulse for 180 ms with repeated events coalesced.'),
       element('Edit control', 'The bottom-left Edit target opens editing. Intended restaurant service pauses immediately; the wireframe does not display Service paused text.', 'Press feedback for 70 ms; edit chrome appears over 200 ms without changing the camera position.'),
-      element('Staff control', 'The bottom-left Staff target opens a paginated bottom tray of draggable chef profiles while keeping the restaurant visible. Tap a profile to inspect its stats in a popup; Job applicants opens resume browsing.', 'Tray enters over 200 ms. Intended service remains live; the tray does not add a full-scene scrim.'),
+      element('Staff control', 'The bottom-left Staff target opens a paginated bottom tray of three compact draggable chef profiles per row, with previous/next carets at the row edges and no visible page number, while keeping the restaurant visible. Tap a profile to inspect its stats in a popup; Job applicants opens resume browsing.', 'Tray enters over 200 ms. Intended service remains live; the tray does not add a full-scene scrim.'),
       element('Floating Shop', 'The upper-left Shop button opens its scene from any camera position in Live or Edit. Returning restores that mode and exact camera position.', 'Shop has 70 ms press feedback and a 200 ms scene crossfade. It never travels with the camera.'),
       element('Finger panning', 'Drag or swipe the floor to pan at a fixed scale. There are no numbered panel buttons, directional shortcuts or snapping between panels.', 'The floor follows the finger directly; release retains the resulting camera position. Fixed HUD controls remain still.'),
       element('Future floor', 'Garbage remains on the floor and opens a selected patch card. The finished left wall marks the room boundary.', 'A selected garbage patch centers over 300 ms; its outline fades in for 160 ms.'),
@@ -73,7 +73,8 @@ export const stories = [
       element('Right-side layer icons', 'People, Layout and Floor buttons stay vertically stacked at the right, outside the bottom tray. Show the selected layer’s name beside its icon, including while its tray is collapsed; other layers remain icon-only. All have accessible names.', 'An active-layer outline and adjacent title crossfade over 140 ms. Controls remain fixed while the floor pans; reduced motion updates the title immediately.'),
       element('Selected-layer toggle', 'Tap the active layer to collapse its tray; tap it again to reopen the same content. The chosen layer remains selected while collapsed.', 'Tray height changes over 200 ms with ease-out. The layer stack follows its top edge over the same duration, staying outside the tray. Reduced motion applies both positions immediately.'),
       element('Different-layer selection', 'Tap another layer to select it and open its content, including when the prior tray was collapsed.', 'Active outline and content update immediately. Tray height and the layer stack position ease to the new content height over 200 ms.'),
-      element('Bottom inventory tray', 'The tray shows the selected layer content and stays separate from the right-side controls. Full-game drag placement and validation are future implementation.', 'Inventory selection reacts on press. Future drag follows the finger directly, with an invalid item settling back over 180 ms.'),
+      element('People roster tray', 'Reuse the shared roster component with three compact profiles per row, same-row edge carets and no visible page number. Tap inspects stats; drag previews placement while preserving the layer’s tray toggle.', 'Use the shared roster’s 70 ms tap response, direct drag ghost and 160 ms page-content crossfade.'),
+      element('Bottom inventory tray', 'People uses the shared compact roster tray rather than a separate Omar inventory card. Layout and Floor use paginated two-item rows with previous/next carets at the left and right edges, without visible page numbers. The tray stays separate from the right-side controls. Full-game drag placement and validation are future implementation.', 'Inventory selection reacts on press. Future drag follows the finger directly, with an invalid item settling back over 180 ms.'),
       element('Finger panning', 'Drag or swipe the floor freely; there are no numbered or directional pan controls and no panel snapping.', 'Camera follows the finger directly at a fixed scale and retains its position when a tray changes.'),
     ],
     notes: [floorOnlyNote, 'Editing still pauses restaurant characters and belts in the intended game; removing the paused label does not change that rule.', motionNote, mockNote],
@@ -82,7 +83,7 @@ export const stories = [
     id: 'restaurant-floor', group: 'restaurant', title: 'Edit · floor palette', scene: 'restaurant', variant: 'floor',
     description: 'The Floor layer shows thumbnail-only style choices in the bottom tray, with the Floor name beside its selected icon in the separate right-side stack.',
     elements: [
-      element('Style thumbnails', 'Show pattern thumbnails without visible style names, Owned captions or instructional text. Each target retains an accessible style name and selected state. Newest purchases appear first and the free original style last.', 'Selection outline appears over 100 ms. The palette stays in place while a fixture style changes.'),
+      element('Style thumbnails', 'Show pattern thumbnails in a two-item paginated row with same-row carets at both edges, without visible page numbers, style names, Owned captions or instructional text. Each target retains an accessible style name and selected state. Newest purchases appear first and the free original style last.', 'Selection outline appears over 100 ms. The palette stays in place while a fixture style changes.'),
       element('Floor-layer toggle', 'Tap the active Floor icon to collapse the palette and tap again to reopen it. Its adjacent Floor name remains visible when collapsed; choosing another layer moves the visible name to that layer and opens its content.', 'Palette height changes over 200 ms; the right-side layer stack follows its top edge and stays outside it. Selected name crossfades over 140 ms; reduced motion applies both positions immediately.'),
       element('Paintable floor', 'Full-game painting is cosmetic: tap paints one cell and a stroke paints crossed cells, including beneath furniture. This wireframe previews a style without implementing paint-cell rules.', 'A changed floor surface crossfades over 120 ms. The full-game shared floor shader may use a subtle slow ambient flare.'),
       element('Finger panning', 'Pan by dragging or swiping the floor; no numbered panel shortcuts or edge carets. Keep the chosen style while panning or collapsing the tray.', 'Follow the finger directly at a fixed scale. Do not snap to a panel or clear the selection on release.'),
@@ -116,7 +117,7 @@ export const stories = [
     id: 'restaurant-offline', group: 'restaurant', title: 'Reopen · earnings notice', scene: 'restaurant', variant: 'offline',
     description: 'The floor-plan-only restaurant shows an illustrative credited-earnings notice beside the coin balance, with no collection popup.',
     elements: [
-      element('Coin balance and notice', 'Automatically show updated savings and earned amount. Suppress the notice when earnings are zero; it does not pause service.', 'Notice fades in over 120 ms, holds for 2.2 s and fades out for 200 ms. No claim action or blocking animation.'),
+      element('Coin balance and notice', 'Automatically show updated savings and earned amount in an always-reserved line so Shop remains stationary. Suppress the notice when earnings are zero without removing its layout space; it does not pause service.', 'Notice fades in over 120 ms, holds for 2.2 s and fades out for 200 ms. No claim action or blocking animation.'),
       element('Restored scene', 'Draw the floor and navigation for this review. The intended game still restores saved customers and plates after offline credit; those props are omitted here.', 'Restore the intended saved positions directly; do not animate a backlog of missed sales or customer visits.'),
       element('Floating Shop sparkle', 'A cue attached to the upper-left HUD button signals refreshed goods until entering Shop. Opening Shop clears it.', 'A quiet sparkle loop over 1.8 s; fade it out for 150 ms on entry. The cue stays attached when panning.'),
     ],
@@ -126,7 +127,7 @@ export const stories = [
     id: 'recipe-picker', group: 'recipes', title: 'Picker · eligible recipe', scene: 'restaurant', variant: 'eligible', overlay: 'recipes',
     description: 'A large portrait dialog overlays the visible restaurant. Its two-column catalog scrolls above a fixed details panel.',
     elements: [
-      element('Catalog tiles', 'Tap a discovered dish to inspect it; inspection leaves the chef’s current recipe intact. Current and inspected recipes have distinguishable outlines.', 'Tile press for 70 ms; selected outline appears for 100 ms. Lower details crossfade over 140 ms without moving the catalog.'),
+      element('Catalog tiles', 'Discovered tiles show each dish’s fixed coin selling price beside its artwork and name. Tap to inspect without changing the chef’s current recipe; current and inspected outlines remain distinct. Undiscovered tiles do not reveal a price.', 'Tile press for 70 ms; selected outline appears for 100 ms. Lower details crossfade over 140 ms without moving the catalog.'),
       element('Recipe header and catalog', 'Show the chef’s level without a Wood chef or other tier suffix. Preserve catalog ordering without visible group headings; use material textures and muted/outline states to distinguish recipes.', 'The catalog scrolls directly with input. Header stays stable; no title transition accompanies recipe inspection.'),
       element('Fixed recipe details', 'Show dish, fixed selling price and chef-adjusted preparation time on a board made from the recipe tier’s material. Material texture conveys required tier without a visible tier label; retain tier information in accessible descriptions. Exclude base time and belt-loading waits.', 'Details stay anchored while catalog scrolls. Content and board material crossfade together over 140 ms, without counting through intermediate facts.'),
       element('Prepare', 'Choose the inspected eligible recipe, close the picker and update the blackboard. If it is already current, show noninteractive Preparing instead.', 'Apply on tap; close over 160 ms. Blackboard updates immediately and shakes 2° over 260 ms.'),
@@ -179,11 +180,11 @@ export const stories = [
   },
   {
     id: 'staff-roster', group: 'staff', title: 'Roster', scene: 'staff', variant: 'roster',
-    description: 'A bottom tray over the visible restaurant pages through draggable chef profiles, two per page. Tapping a profile opens its stats popup; applicants remain a separate view.',
+    description: 'A bottom tray over the visible restaurant pages through three compact draggable chef profiles per row, with edge carets on the same row and no visible page number. Tapping a profile opens its stats popup; applicants remain a separate view.',
     elements: [
       element('Staff capacity', 'Show current and maximum staff in both roster and applicant views. Assigned and unassigned chefs both count.', 'Update directly after hire/fire/expansion; briefly emphasize changed count for 180 ms.'),
-      element('Chef profiles', 'Show portrait, name and assignment state on two draggable targets per page. A tap opens that chef’s level and stats in a popup; it does not place or unassign them. A valid drop on the visible cleared starter floor previews a neutral footprint and updates assignment presentation while keeping the tray open.', 'Tap press 70 ms; stats popup uses the standard 220 ms entrance. Drag activates after 8 px, source fades over 120 ms and a portrait ghost follows directly. Valid-target outline appears immediately; invalid or cancelled preview removes the ghost immediately. A 160 ms snap-back remains a proposed full-game effect.'),
-      element('Roster pagination', 'Previous and Next page the tray without replacing the restaurant. Controls have accessible names and at least 44 × 44 px targets; unavailable directions are disabled.', 'Profile page settles with a 160 ms content crossfade; the tray stays in place. Reduced motion updates the page immediately.'),
+      element('Chef profiles', 'Show portrait, name and assignment state on three compact draggable targets per row. A tap opens that chef’s level and stats in a popup; it does not place or unassign them. A valid drop on the visible cleared starter floor previews a neutral footprint and updates assignment presentation while keeping the tray open.', 'Tap press 70 ms; stats popup uses the standard 220 ms entrance. Drag activates after 8 px, source fades over 120 ms and a portrait ghost follows directly. Valid-target outline appears immediately; invalid or cancelled preview removes the ghost immediately. A 160 ms snap-back remains a proposed full-game effect.'),
+      element('Roster pagination', 'Left and right carets sit at the two edges of the profile row and page the tray without replacing the restaurant. Show no page number; announce the current page accessibly. Controls have accessible names and at least 44 × 44 px targets; unavailable directions are disabled.', 'Profile page settles with a 160 ms content crossfade; the tray stays in place. Reduced motion updates the page immediately.'),
       element('Job applicants', 'Open separate paper-resume browsing while retaining the roster as the return context. No roster tabs.', popupEntrance),
       element('Tray close / Back', 'Close the roster tray and restore the same restaurant mode and camera position. The tray is not a fullscreen scene and adds no scene-wide scrim.', 'Tray exits over 160 ms. Restore focus to Staff; reduced motion uses a fade.'),
     ],
@@ -197,6 +198,7 @@ export const stories = [
       element('Previous / Next applicant', 'Accessible 44 × 44 px controls provide the same browsing as swipes. Show the current position and number of remaining applications; disable unavailable directions.', 'Use the same 200 ms horizontal settle as swipe navigation. Do not delay action availability until animation completes.'),
       element('Hire', 'Mock one immediate hire into unassigned roster, keeping resume browsing open. Intended game deducts the visible cost with no confirmation. Hired offers leave the remaining pool without automatic replacement.', 'Press 70 ms; capacity and roster change immediately. Resume content changes over 160 ms and a local Hired cue fades over 180 ms.'),
       element('Refresh', 'Replace the applicant set and begin a free real-time cooldown. No confirmation and no pinned candidate; reset browsing to the first new resume.', 'Resume set crossfades over 180 ms. Cooldown stops press feedback until available again.'),
+      element('Header X', 'Close resume browsing and restore its originating roster/editor view. Omit the redundant Back to staff footer button; system Back has the same dismissal behavior.', 'Popup fades out over 160 ms and restores focus to the opener; reduced motion uses a fade without travel.'),
       closePopup(),
     ],
     notes: ['Refresh countdown visibility remains deferred (UI interview Q206). This prototype can show an unavailable Refresh state without running a timer.', motionNote, mockNote],
@@ -208,6 +210,7 @@ export const stories = [
       element('Capacity status', 'Show current/max and a full-roster explanation; player can expand or fire a chef.', 'Static readable status; no alert shake.'),
       element('Disabled Hire', 'The current resume’s Hire action is unavailable at the limit. Browsing remains available; do not automatically replace a chef or open a firing flow.', 'No click animation or shortage popup. Preserve cost legibility and disabled semantics.'),
       element('Refresh', 'Refresh is independent from capacity and may remain available when its cooldown permits.', 'Candidate set crossfades for 180 ms if refreshed.'),
+      element('Header X', 'Close resume browsing and restore its originating roster/editor view. Omit the redundant Back to staff footer button; system Back has the same dismissal behavior.', 'Popup fades out over 160 ms and restores focus to the opener; reduced motion uses a fade without travel.'),
       closePopup(),
     ],
     notes: ['Insufficient coins also disable only the affected Hire action while retaining its price.', motionNote, mockNote],
@@ -249,7 +252,7 @@ export const stories = [
   },
   {
     id: 'staff-fire', group: 'staff', title: 'Fire confirmation', scene: 'staff', variant: 'fire', overlay: 'fire',
-    description: 'Name the chef and explain permanent removal with no refund before offering the destructive action.',
+    description: 'Name the chef and explain permanent removal before offering the destructive action, without a separate refund sentence.',
     elements: [
       element('Named confirmation', 'Identify exactly which chef is removed. It is a UI confirmation, not a second purchase.', popupEntrance),
       element('Cancel', 'Return to the chef detail popup without changing assignment or progression.', 'Confirmation exits for 160 ms; restore focus to Fire.'),
@@ -259,13 +262,13 @@ export const stories = [
   },
   {
     id: 'shop', group: 'shop', title: 'Shop · available goods', scene: 'shop', variant: 'normal',
-    description: 'Stable belt/chair essentials sit beside limited rotating goods and an optional floor-style offer. Purchases stay in Shop.',
+    description: 'A single catalog combines unlimited essentials, limited rotating goods and an optional floor-style offer on a paper page over the restaurant. Price-only purchase targets retain accessible item-specific Buy names; purchases stay in Shop.',
     elements: [
-      element('Stable essentials', 'Buy an unlimited belt tile or ordinary chair for inventory. Intended purchases spend the shown restaurant-coin price.', 'Press 70 ms; fixture inventory count changes immediately and a compact Added cue fades for 180 ms.'),
+      element('Stable essentials', 'Buy an unlimited belt tile or ordinary chair for inventory through a coin-price-only target, with no visible Buy label. Retain an accessible Buy plus item name. Intended purchases spend the shown restaurant-coin price; omit catalog section headings and implementation notes.', 'Press 70 ms; fixture inventory count changes immediately and a compact Added cue fades for 180 ms.'),
       element('Rotating goods', 'Show remaining quantity; purchase reduces that offer count. Refresh happens on expedition return, not from a Shop refresh button.', 'Count crossfades for 140 ms; sold-out/disabled state changes in place.'),
       element('Floor style offer', 'Show name, a large repeated-tile pattern and price. Buy once to unlock unlimited floor use; no rarity badge or tile quantity.', 'Immediate purchase; text-only style-unlocked toast appears beside coin balance for about 2.2 s, then fades 200 ms.'),
       element('Restaurant coin count', 'Restaurant purchases use coins, never expedition salvage. Clear the floating HUD button’s stock sparkle on Shop entry.', 'Balance updates directly; the floating Shop sparkle fades over 150 ms.'),
-      returnDoor(),
+      paperReturn(),
     ],
     notes: ['At most one floor style appears per refresh and none is guaranteed. Furniture functions and all prices remain open.', motionNote, mockNote],
   },
@@ -273,9 +276,9 @@ export const stories = [
     id: 'shop-owned', group: 'shop', title: 'Shop · style owned', scene: 'shop', variant: 'owned',
     description: 'A purchased floor-style offer remains in its slot until the next rotation.',
     elements: [
-      element('Owned floor-style card', 'Keep the pattern and name; replace both price and Buy with Owned. Exclude this style from future shop selections.', 'Owned crossfades in over 160 ms; card neither disappears nor collapses.'),
+      element('Owned floor-style card', 'Keep the pattern and name; replace the price-only purchase target with Owned. Exclude this style from future shop selections.', 'Owned crossfades in over 160 ms; card neither disappears nor collapses.'),
       element('Owned status', 'Noninteractive. Apply the style later in the restaurant Floor layer; buying it did not move the player there.', 'No press animation or repeated unlock toast.'),
-      returnDoor(),
+      paperReturn(),
     ],
     notes: [motionNote, mockNote],
   },
@@ -283,20 +286,20 @@ export const stories = [
     id: 'shop-unaffordable', group: 'shop', title: 'Shop · insufficient coins', scene: 'shop', variant: 'unaffordable',
     description: 'Unaffordable offers retain their preview and price so the player can plan purchases.',
     elements: [
-      element('Disabled Buy', 'Cannot purchase; no shortage dialog appears on tap. Other affordable offers may remain active.', 'Muted target has no press bounce. Enable in place over 140 ms when affordability changes in the intended game.'),
+      element('Disabled purchase price', 'Cannot purchase; no shortage dialog appears on tap. Other affordable offers may remain active.', 'Muted target has no press bounce. Enable in place over 140 ms when affordability changes in the intended game.'),
       element('Offer details', 'Pattern, quantity and price remain legible even when unavailable.', 'Static presentation; no flashing warning.'),
-      returnDoor(),
+      paperReturn(),
     ],
     notes: [motionNote, mockNote],
   },
   {
     id: 'workshop', group: 'workshop', title: 'Workshop · three upgrade tracks', scene: 'workshop', variant: 'normal',
-    description: 'Hull, Harpoon and Collector cards appear together, with current level, next benefit and salvage cost.',
+    description: 'Hull, Harpoon and Collector cards appear together on the shared paper page over the restaurant, with current level, next benefit and salvage cost. The upper-right curled corner returns to the originating restaurant.',
     elements: [
       element('Upgrade cards', 'Compare maximum hull, reeling strength and pickup reach. Upgrade buys one level immediately with salvage; no confirmation.', 'Press 70 ms; level/stat/next cost crossfade for 140 ms while card positions remain stable.'),
       element('Salvage balance', 'Shows banked upgrade currency, separate from restaurant coins and expedition result totals.', 'Update directly; optional 180 ms numeral emphasis without counting through intermediate values.'),
       element('Submarine preview', 'Selected equipment milestones may change hull panels/harpoon/collector art while retaining silhouette and footprint.', 'New part crossfades over 220 ms; avoid changing scale or implying a bigger hitbox.'),
-      returnDoor(),
+      paperReturn(),
     ],
     notes: ['Live service and passive charging continue in intended gameplay; entering from Edit preserves paused restaurant state.', motionNote, mockNote],
   },
@@ -306,7 +309,7 @@ export const stories = [
     elements: [
       element('MAX card', 'Replace Upgrade and salvage cost with noninteractive MAX; remove the next-stat arrow. Other tracks remain independent.', 'Crossfade purchase area to MAX over 160 ms; keep full-card geometry.'),
       element('Submarine preview', 'Retain any visible purchased equipment changes across restaurant dock, Workshop and expedition.', 'No repeated unlock celebration on scene entry.'),
-      returnDoor(),
+      paperReturn(),
     ],
     notes: [motionNote, mockNote],
   },
@@ -316,7 +319,7 @@ export const stories = [
     elements: [
       element('Disabled Upgrade', 'No purchase and no shortage popup on tap. Keep cost legible.', 'No press animation; availability can crossfade over 140 ms when banked salvage changes.'),
       element('Current → next stat', 'Retain comparison for planning; the disabled state does not hide the upgrade benefit.', 'Static values and arrow; no tempting pulse on a disabled control.'),
-      returnDoor(),
+      paperReturn(),
     ],
     notes: [motionNote, mockNote],
   },
@@ -376,29 +379,29 @@ export const stories = [
   },
   {
     id: 'expedition-pause', group: 'expedition', title: 'Pause card', scene: 'expedition', variant: 'pause', overlay: 'pause',
-    description: 'A centered card overlays the frozen saved expedition, with Resume and a separate Return early action.',
+    description: 'A minimal centered Paused card overlays the frozen saved expedition. Resume and Return early sit side by side without an eyebrow or explanatory paragraph.',
     elements: [
-      element('Paused card', 'Outside taps leave the card open and world frozen. Reopening an unfinished expedition restores this same card.', popupEntrance),
+      element('Paused card', 'Show only the Paused title and side-by-side Resume and Return early actions. Omit Expedition preserved and the explanatory sentence. Outside taps leave the card open and world frozen; reopening an unfinished expedition restores this same card.', popupEntrance),
       element('Resume', 'Close the card and start a visible countdown; do not resume immediately or consume the menu tap as steering.', 'Card fades out for 160 ms; countdown appears in place with an opacity transition.'),
-      element('Return early', 'Open confirmation explaining retained salvage and missing completion bonus; include unfinished-catch consequence during pursuit.', 'Confirmation content replaces the card with a 180 ms crossfade.'),
+      element('Return early', 'Open a concise confirmation stating the retained-reward and no-completion-bonus outcome in one sentence. Intended unfinished catches still earn no recipe.', 'Confirmation content replaces the card with a 180 ms crossfade.'),
     ],
     notes: ['In intended gameplay, restaurant service proceeds independently while expedition is paused. The prototype holds a static visual fixture.', motionNote],
   },
   {
     id: 'expedition-return', group: 'expedition', title: 'Return early confirmation', scene: 'expedition', variant: 'return', overlay: 'early-return',
-    description: 'Confirmation keeps already earned rewards while explaining that completion bonus and an unfinished recipe catch are not earned.',
+    description: 'A short confirmation uses one sentence about keeping earned rewards without a completion bonus, followed by Stay paused and Return early.',
     elements: [
-      element('Cancel', 'Return to Paused without resuming the world.', 'Confirmation exits and pause card returns over 160 ms; restore focus to Return early.'),
+      element('Stay paused', 'Return to Paused without resuming the world.', 'Confirmation exits and pause card returns over 160 ms; restore focus to Return early.'),
       element('Return early', 'End the mock journey and open Returned early results. Intended gameplay retains earned salvage and begins recharge.', 'Scene transitions over 220 ms; no reward subtraction or lost-cargo animation.'),
-      element('Retained-reward explanation', 'Name the consequences before the second Return early action. Outside taps keep confirmation open.', 'Static readable text; no timed dismissal.'),
+      element('Retained-reward explanation', 'Use one short outcome sentence, without separate paragraphs about unfinished catches or recharge. Intended rules still retain earned rewards, omit completion bonus and unfinished-catch recipes, and begin recharge. Outside taps keep confirmation open.', 'Static readable text; no timed dismissal.'),
     ],
     notes: [motionNote, mockNote],
   },
   {
     id: 'expedition-resume', group: 'expedition', title: 'Resume countdown', scene: 'expedition', variant: 'resume',
-    description: 'A short visible countdown holds the whole expedition frozen before continuing. This review state can be advanced explicitly.',
+    description: 'A numeral and Returning to ship… form the whole resume cue. The expedition stays frozen until completion without extra Frozen scene or Paused · no steering text. Review playback can be advanced explicitly.',
     elements: [
-      element('Countdown', 'Intended automatic completion restarts saved timers and play without extra protection or capture progress.', 'Each numeral changes via a 100 ms crossfade with no zoom. Exact countdown duration remains open.'),
+      element('Countdown', 'Show only the numeral and Returning to ship… in the countdown. Omit Resuming expedition, Scene remains frozen during countdown, Frozen scene and Paused · no steering copy. Intended completion restarts saved timers and play without extra protection or capture progress.', 'Each numeral changes via a 100 ms crossfade with no zoom. Exact countdown duration remains open.'),
       element('Prepared touch', 'A fresh playfield touch may wait during countdown. On completion, anchor to its current position and move only from subsequent drag.', 'No ship movement, snapping or accumulated drag while countdown remains visible.'),
       element('Continue demo', 'Wireframe-only advance returns to a pursuit fixture; it is not an accepted game button.', 'Countdown fades for 120 ms; selected fixture becomes visible without a physics step.'),
     ],
@@ -426,8 +429,8 @@ export const stories = [
     id: 'recipe-award', group: 'rewards', title: 'First-catch recipe award', scene: 'catch', variant: 'first', overlay: 'recipe-award',
     description: 'A dedicated discovery card shows the new dish and recipe-wide facts after the brief first catch cutscene.',
     elements: [
-      element('Recipe artwork and name', 'Show the earned recipe; it remains retained if the presentation is interrupted.', 'Card rises 12 px over 220 ms, artwork reveals with a 180 ms fade. Reduced motion removes travel.'),
-      element('Recipe facts', 'Show fixed dish price, base preparation time and required chef quality. Base time here is distinct from the chef-adjusted picker time.', 'Facts appear together after a short 120 ms fade, without a staggered mandatory wait.'),
+      element('Recipe artwork and name', 'Show the earned recipe on a board/roll made from its required material; the Eel fixture uses a copper texture. Material conveys required chef tier without a visible Chef requirement row. Keep tier information accessible and retain the recipe if presentation is interrupted.', 'Card rises 12 px over 220 ms, artwork reveals with a 180 ms fade. Reduced motion removes travel.'),
+      element('Recipe facts', 'Show fixed dish price and base preparation time. Required chef quality is conveyed by the roll’s material and an accessible description rather than a visible Chef requirement row. Base time here is distinct from the chef-adjusted picker time.', 'Facts appear together after a short 120 ms fade, without a staggered mandatory wait.'),
       element('Continue', 'Open receipt-only results. This action does not earn the recipe and does not clear its NEW marker in the restaurant picker.', '70 ms press then 200 ms scene crossfade; consume the touch.'),
     ],
     notes: [motionNote, mockNote],
@@ -497,7 +500,7 @@ export const stories = [
     id: 'component-restaurant-hud', group: 'components', title: 'Restaurant HUD · floating Shop', scene: 'component', variant: 'restaurant-hud', component: 'restaurant-hud',
     description: 'The shared restaurant HUD follows the reference placement: savings at the upper-left and a floating Shop directly below. It is rendered independently here and in every restaurant state.',
     elements: [
-      element('Fixed savings', 'Styled coin count stays in the upper-left as the restaurant pans. Earnings appear beside it without adding a background panel.', 'Amounts update immediately; earned text fades in for 120 ms, holds for about 2.2 s and fades out for 200 ms. Camera movement never moves the HUD.'),
+      element('Fixed savings', 'Styled coin count stays in the upper-left as the restaurant pans. An earnings line reserves space even when absent; +420 while away appears there without moving the Shop button. Earnings add no background panel.', 'Amounts update immediately; earned text fades in for 120 ms, holds for about 2.2 s and fades out for 200 ms. Camera movement never moves the HUD.'),
       element('Floating Shop', 'Open Shop from Live or Edit on any panel. Returning restores the same view and exact camera position. The button has no doorway or floor footprint.', 'Press feedback: 0.97 scale for 70 ms. Scene crossfade takes 200 ms; no camera movement or constant button bounce.'),
       element('Stock cue', 'A small sparkle belongs to the floating Shop button and clears when Shop opens.', 'Proposed subtle sparkle loop: 1.8 s; on entry fade out for 150 ms. Reduced motion keeps the cue static.'),
     ],
@@ -505,26 +508,28 @@ export const stories = [
   },
   {
     id: 'component-editor-controls', group: 'components', title: 'Editor controls · layers & tray', scene: 'component', variant: 'editor-controls', component: 'editor-controls',
-    description: 'The shared editor-controls renderer is isolated here and reused in every combined edit view. Review right-side layers, top-right Live and bottom-tray states together.',
+    description: 'The shared editor-controls renderer is isolated here and reused in every combined edit view. Review right-side layers, top-right Live and bottom-tray states together. People reuses the roster tray; Layout and Floor use the same edge-caret pagination pattern.',
     elements: [
       element('Top-right Live', 'Return to live mode with immediate edits retained and no confirmation. The editor omits Service paused text; intended NPC and belt pause semantics remain unchanged.', 'Press 70 ms; edit chrome fades over 160 ms. State changes on input rather than at the end of the fade.'),
       element('Vertical layer stack', 'People, Layout and Floor buttons remain at the right, outside the tray, with accessible names and selected state. Only the selected layer shows its adjacent name, including while its tray is collapsed.', 'The stack follows the tray top edge over 200 ms with ease-out. Selected title and outline crossfade over 140 ms; the stack remains fixed while the restaurant floor pans.'),
       element('Active-layer toggle', 'Tap the selected layer to collapse its tray; tap it again to reopen the same layer. Collapsing retains the selected layer and fixture selection.', 'Tray height and stack position change together over 200 ms. Reduced motion applies the collapsed or expanded positions immediately.'),
       element('Different-layer selection', 'Selecting a different layer opens its content, including from a collapsed tray.', 'Content changes immediately; tray height and stack position ease to the new content height over 200 ms.'),
-      element('Floor thumbnails', 'Floor content uses thumbnails only, with no visible style names, Owned labels or instructions. Preserve accessible style names and selected semantics.', 'Selected thumbnail outline appears over 100 ms; pattern changes can crossfade over 120 ms.'),
+      element('People roster tray', 'Render the same compact RosterTray as its isolated page and Staff scene, with three profiles per row and inline left/right carets. A profile tap opens stats and a drag exposes placement; no separate Omar inventory card.', 'The shared drag ghost follows input directly. Pagination crossfades content over 160 ms without shifting the layer controls.'),
+      element('Layout pagination', 'Layout inventory uses two items per page with carets at the same row’s left and right edges. Omit a visible page counter; announce the current page accessibly and disable unavailable directions.', 'A page-content crossfade takes 160 ms; targets and tray geometry stay stable.'),
+      element('Floor thumbnails', 'Floor content uses two thumbnail-only choices per page, with carets on the same row at the left and right edges and no visible page number, style names, Owned labels or instructions. Preserve accessible style names and selected semantics.', 'Selected thumbnail outline appears over 100 ms; pattern changes can crossfade over 120 ms.'),
     ],
     notes: ['The component demonstrates presentation fixtures only. Shared revisions must update this page and the combined restaurant edit, floor, selected-object and empty-inventory views.', motionNote, mockNote],
   },
   {
     id: 'component-roster-tray', group: 'components', title: 'Roster tray · paged profiles', scene: 'component', variant: 'roster-tray', component: 'roster-tray',
-    description: 'The shared bottom roster tray is isolated here and reused over the restaurant. Inspect two-per-page profiles, tap-versus-drag behavior and accessible pagination.',
+    description: 'The shared bottom roster tray is isolated here and reused over the restaurant. Inspect three compact profiles per row, tap-versus-drag behavior and edge-caret pagination without visible page numbers. The same tray also supplies the editor People layer.',
     elements: [
       element('Chef profile targets', 'Each profile shows portrait, name and assignment state. Tap opens the selected chef’s level and stats in a popup. Dragging uses the same affordance as the integrated roster; a valid starter-floor drop previews assignment and keeps the tray open. Full-game placement validation remains out of scope.', 'Tap press 70 ms. After 8 px of drag, source fades over 120 ms and a portrait ghost follows directly. Valid outline appears immediately; invalid or cancelled drag removes the ghost immediately. A future 160 ms snap-back is proposed, with direct restoration under reduced motion.'),
-      element('Paged bottom tray', 'Display two profiles per page with current/max capacity. Previous and Next have accessible names and at least 44 × 44 px targets; page changes keep the tray and restaurant visible.', 'Tray enters over 200 ms and exits over 160 ms. Profile content crossfades over 160 ms on pagination, without replacing the scene.'),
+      element('Paged bottom tray', 'Display three compact profiles per row with current/max capacity. Place Previous and Next carets at the left and right edges on that same row. Hide visible page numbers while announcing page changes accessibly. Carets have at least 44 × 44 px targets; page changes keep the tray and restaurant visible.', 'Tray enters over 200 ms and exits over 160 ms. Profile content crossfades over 160 ms on pagination, without replacing the scene.'),
       element('Job applicants', 'Open the shared paper-resume view and preserve the roster as its return context.', popupEntrance),
       element('Tray close', 'Close the tray without changing chef assignments or the originating restaurant mode/camera. Do not add a fullscreen roster or scene-wide scrim.', 'Exit over 160 ms; return focus to Staff in the integrated view. Reduced motion uses a fade.'),
     ],
-    notes: ['Changes to this shared tray must propagate to the isolated page and all staff/restaurant compositions. Four fixture chefs show two pages. The drag ghost and neutral footprint demonstrate presentation, with valid drops limited to visible cleared starter floor and no game assignment simulation.', motionNote, mockNote],
+    notes: ['Changes to this shared tray must propagate to the isolated page, editor People layer and staff/restaurant compositions. Four fixture chefs show two pages, with three profiles on the first. The drag ghost and neutral footprint demonstrate presentation, with valid drops limited to visible cleared starter floor and no game assignment simulation.', motionNote, mockNote],
   },
   {
     id: 'component-applicant-resume', group: 'components', title: 'Applicant resume · swipe browsing', scene: 'component', variant: 'applicant-resume', component: 'applicant-resume',
@@ -536,6 +541,16 @@ export const stories = [
       element('Refresh', 'Replace the remaining set, reset to its first resume and enter the accepted free real-time cooldown. No pinned applicant or confirmation step.', 'Set crossfades over 180 ms. Refresh remains stable while unavailable; countdown visibility is still deferred.'),
     ],
     notes: ['The user confirmed swipes for browsing with explicit Hire. Hiring rules and cooldowns are fixtures; no economy or real timer runs. Shared changes must propagate to available/full-capacity applicant stories.', motionNote, mockNote],
+  },
+  {
+    id: 'component-paper-page', group: 'components', title: 'Paper page · curled return corner', scene: 'component', variant: 'paper-page', component: 'paper-page',
+    description: 'The shared paper-page treatment used in Shop and Workshop is isolated here over the actual restaurant floor plan. Its curled upper-right corner is the return target.',
+    elements: [
+      element('Paper surface', 'Present catalog or upgrade content on a paper sheet while retaining the originating restaurant behind it. Shop uses one combined catalog without section headings or implementation notes; Workshop shows its upgrade tracks on the same surface.', 'A 200 ms paper entrance fade is proposed; preserve underlying restaurant geometry and camera. Current wireframe entry is direct, and reduced motion also updates the view directly.'),
+      paperReturn(),
+      element('Return semantics', 'The curl replaces the old Restaurant bar and Sushi Bar doorway. Return to the same Live/Edit mode, open/collapsed layer state and exact camera position. Give the icon-only corner an accessible Return to Restaurant label and a target of at least 44 × 44 px.', 'Press affects the curl without moving nearby content. Current navigation is immediate and restores focus to the Shop or Workshop opener without scrolling the floor. A future 200 ms exit fade must not delay the state change.'),
+    ],
+    notes: ['The paper surface and corner are shared with Shop and Workshop rather than duplicated gallery artwork. Corner growth and opener focus restoration are implemented; paper entrance/exit fades remain proposed. They navigate review fixtures only; no gameplay currency, production or timer logic runs.', motionNote, mockNote],
   },
   {
     id: 'component-money', group: 'components', title: 'Currency display', scene: 'component', variant: 'money', component: 'money',
@@ -574,7 +589,7 @@ export const stories = [
     id: 'component-recipe-tile', group: 'components', title: 'Recipe catalog tile', scene: 'component', variant: 'recipe-tile', component: 'recipe-tile',
     description: 'The same recipe-tile renderer used inside every chef recipe picker is shown here with current, inspected, NEW, above-tier and undiscovered treatments. Revisions carry through to all picker stories.',
     elements: [
-      element('Tier board and dish', 'Discovered tiles show artwork and name on their tier’s material board, without visible Wood or other tier labels. Undiscovered tiles show unidentified engraved silhouettes. Distinct grain/metal patterns convey the tier beyond color; retain it in accessible descriptions.', 'Artwork may crossfade on discovery over 180 ms; no pulsing mystery teaser. Material stays consistent with the fixed details board.'),
+      element('Tier board and dish', 'Discovered tiles show artwork, name and fixed coin selling price on their tier’s material board, without visible Wood or other tier labels. Undiscovered tiles show unidentified engraved silhouettes without revealing or inventing a price. Distinct grain/metal patterns convey the tier beyond color; retain it in accessible descriptions.', 'Artwork may crossfade on discovery over 180 ms; no pulsing mystery teaser. Material stays consistent with the fixed details board.'),
       element('Current and inspected outlines', 'Keep current cooking assignment and inspection selection distinct, including when they are the same tile. Tap inspection does not Prepare.', 'Press 70 ms; selected outline changes over 100 ms. The fixed details panel crossfades separately over 140 ms.'),
       element('NEW marker', 'Present until inspected in the restaurant picker. Above-tier inspection also clears it; the expedition award does not.', 'Marker fades away over 140 ms after inspection, with no constant attention loop.'),
       element('Unavailable tile', 'A discovered above-tier tile remains inspectable with muted artwork; eligibility is handled by the picker’s Prepare area.', 'Retain target response and selection outline. Do not turn an inspectable tile into a disabled tap target.'),

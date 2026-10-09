@@ -3,12 +3,11 @@ import { Target, Icon, Money, Character } from './common.jsx';
 import { RestaurantHud, EditorControls, Dock, HullMeter, UpgradeCard, SalvageReceipt, ComponentGallery } from './components.jsx';
 import { roster, chefAssigned } from './fixtures.js';
 import { RosterTray } from './staff-tray.jsx';
+import { PaperPage } from './paper-page.jsx';
 
 function Nav({ children, story = 'restaurant-live', className = '', data = {}, ...rest }) {
   return <Target action="navigate" data={{story,...data}} className={className} {...rest}>{children}</Target>;
 }
-function ReturnDoor() { return <Nav className="scene-return"><Icon name="arrow-left" /><span>Restaurant</span></Nav>; }
-function Note({ children }) { return <p className="scene-note"><Icon name="info" />{children}</p>; }
 function Header({ title, subtitle, balance, actions }) { return <header className="scene-header"><div><h2>{title}</h2>{subtitle && <p>{subtitle}</p>}</div>{balance}{actions}</header>; }
 function Entry({ panel, active = false }) { return <div className={`customer-entry ${active ? 'active' : ''}`}><span className="entry-door" /><span>Entry {panel+1}</span>{active ? <small>Customer access</small> : <small><Icon name="lock" /> Future access</small>}</div>; }
 
@@ -47,12 +46,15 @@ function Restaurant({ state }) {
 }
 
 function ShopCard({ label, description, art, value, price, qty, state, poor }) {
-  return <article className="catalog-card"><div className="catalog-art">{art}</div><div><h3>{label}</h3><p>{description}</p>{qty && <small>{qty}</small>}{state.purchasedItems?.includes(value) && <small className="added-marker">✓ Added to inventory</small>}</div><Target action="purchase" data={{value}} className="buy-action" disabled={poor}><Money amount={price} /><span>Buy</span></Target></article>;
+  return <article className="catalog-card"><div className="catalog-art">{art}</div><div><h3>{label}</h3><p>{description}</p>{qty && <small>{qty}</small>}{state.purchasedItems?.includes(value) && <small className="added-marker">✓ Added to inventory</small>}</div><Target action="purchase" data={{value}} className="buy-action" title={`Buy ${label}`} disabled={poor}><Money amount={price} /></Target></article>;
+}
+function PaperRestaurant({ state }) {
+  return <div className="restaurant-viewport" data-pan-scroll><div className="restaurant-world"><FloorPanels state={{...state,_variant:state.paperBackdropVariant || 'live'}} /></div></div>;
 }
 function Shop({ state }) {
   const owned = state._variant === 'owned' || state.purchasedItems?.includes('blue-wave');
   const poor = state._variant === 'unaffordable';
-  return <div className="phone-scene catalog-scene shop-scene"><Header title="Shop" subtitle="Supplies for your restaurant" balance={<Money amount={poor ? 24 : 1240} />} /><ReturnDoor /><div className="catalog-content"><h3 className="group-heading">Essentials <small>Always available</small></h3><ShopCard label="Belt tile" description="Connect your conveyor route." art={<span className="mini-belt">→</span>} value="belt" price={40} state={state} poor={poor} /><ShopCard label="Chair" description="A simple seat beside the belt." art={<span className="mini-chair">⊓</span>} value="chair" price={80} state={state} poor={poor} /><h3 className="group-heading">Rotating stock <small>Refreshes after an expedition</small></h3><ShopCard label="Comfy chair" description="An appearance upgrade." art={<span className="mini-chair fancy">⊓</span>} value="comfy-chair" price={320} qty="2 remaining" state={state} poor={poor} /><article className="catalog-card floor-offer"><div className="catalog-art"><span className="floor-sample wave" /></div><div><h3>Blue Wave</h3><p>Floor style · preview</p></div>{owned ? <span className="owned-state"><Icon name="check" />Owned</span> : <Target action="purchase" data={{value:'blue-wave'}} className="buy-action" disabled={poor}><Money amount={600} /><span>Buy</span></Target>}</article><Note>Purchased items appear in the editing tray. This wireframe only previews the purchase feedback.</Note></div></div>;
+  return <div className="phone-scene shop-scene"><PaperPage title="Shop" balance={<Money amount={poor ? 24 : 1240} />} background={<PaperRestaurant state={state}/>}><div className="catalog-content"><ShopCard label="Belt tile" description="Connect your conveyor route." art={<span className="mini-belt">→</span>} value="belt" price={40} state={state} poor={poor} /><ShopCard label="Chair" description="A simple seat beside the belt." art={<span className="mini-chair">⊓</span>} value="chair" price={80} state={state} poor={poor} /><ShopCard label="Comfy chair" description="An appearance upgrade." art={<span className="mini-chair fancy">⊓</span>} value="comfy-chair" price={320} qty="2 remaining" state={state} poor={poor} /><article className="catalog-card floor-offer"><div className="catalog-art"><span className="floor-sample wave" /></div><div><h3>Blue Wave</h3><p>Floor style</p></div>{owned ? <span className="owned-state"><Icon name="check" />Owned</span> : <Target action="purchase" data={{value:'blue-wave'}} className="buy-action" title="Buy Blue Wave" disabled={poor}><Money amount={600} /></Target>}</article></div></PaperPage></div>;
 }
 
 function Staff({ state }) {
@@ -64,11 +66,11 @@ function exampleStat(track, steps = 0) { return track.id === 'hull' ? String(100
 function Workshop({ state }) {
   const max = state._variant === 'max';
   const poor = state._variant === 'unaffordable';
-  return <div className="phone-scene catalog-scene workshop-scene"><Header title="Workshop" subtitle="Permanent submarine upgrades" balance={<Money kind="salvage" amount={poor ? 18 : 180} />} /><Nav className="workshop-door"><span className="airlock"><Icon name="arrow-left" /><b>Sushi Bar</b></span></Nav><div className="ship-preview"><Icon name="submarine" /><span>Equipment preview</span></div><div className="catalog-content">{upgradeTracks.map(track=>{
+  return <div className="phone-scene workshop-scene"><PaperPage title="Workshop" balance={<Money kind="salvage" amount={poor ? 18 : 180} />} background={<PaperRestaurant state={state}/>}><div className="ship-preview"><Icon name="submarine" /></div><div className="catalog-content">{upgradeTracks.map(track=>{
     const steps = Number(state.upgradeLevels?.[track.id] || 0);
     const capped = max && track.id === 'hull';
     return <UpgradeCard key={track.id} track={{...track,current:capped ? '200' : exampleStat(track,steps),next:exampleStat(track,steps+1)}} level={capped ? 5 : 1+steps} max={capped} poor={poor} selected={state.selectedUpgrade === track.id} />;
-  })}<Note>One tap previews the new level. All numbers are illustrative; upgrades use salvage.</Note></div></div>;
+  })}</div></PaperPage></div>;
 }
 
 function SeaDecor() { return <><div className="sea-dashes"><i /><i /><i /><i /></div><div className="sea-floor"><span>⌁</span><span>♧</span><span>⌁</span><span>♧</span></div><span className="salvage-fragment sf-one">◇</span><span className="salvage-fragment sf-two">◇</span></>; }
@@ -83,7 +85,7 @@ function Expedition({ state }) {
   const encounter = ['encounter','pursuit','danger'].includes(backdrop);
   const pursuit = ['pursuit','danger'].includes(backdrop);
   const danger = backdrop === 'danger';
-  return <div className={`phone-scene ocean-scene expedition-scene ${danger ? 'danger-scene' : ''} ${paused ? 'paused-scene' : ''}`}><SeaDecor /><div className="expedition-hud"><HullMeter percent={danger ? 22 : 78} danger={danger} /><div className="run-salvage"><Money kind="salvage" amount={36} /></div><Nav story="expedition-pause" className="icon-control pause-control"><Icon name="pause" /><span className="sr-only">Pause</span></Nav></div>{encounter && <div className="creature-meter"><span>Eel · {pursuit ? 'Reeling resistance' : 'Creature resistance'}</span><i><b style={{width:`${pursuit ? 46 : 100}%`}} /></i></div>}<div className="expedition-world-label">{variant === 'travel' ? 'Travelling' : paused ? 'Frozen scene' : danger ? 'Cable at its limit' : pursuit ? 'Pursuit' : 'Encounter'}</div>{pursuit && <><div className={`following-strip ${danger ? 'taut' : ''}`}><span>Following range</span></div><div className={`harpoon-cable ${danger ? 'frayed' : ''}`} /></>}{danger && <div className="attack-column"><span>Attack warning</span></div>}{encounter && <Creature danger={danger} pursuit={pursuit} />}<div className="expedition-ship"><Icon name="submarine" /><span>You</span></div>{encounter && !pursuit && <Nav story="expedition-pursuit" className="harpoon-control" disabled={paused}><Icon name="harpoon" /><strong>Harpoon</strong></Nav>}{variant === 'resume' && <div className="resume-countdown" role="status"><strong>3</strong><span>Resuming expedition</span><small>Scene remains frozen during countdown</small></div>}<p className="steering-hint">{paused ? 'Paused · no steering' : 'Drag to steer · illustrated interaction area'}</p></div>;
+  return <div className={`phone-scene ocean-scene expedition-scene ${danger ? 'danger-scene' : ''} ${paused ? 'paused-scene' : ''}`}><SeaDecor /><div className="expedition-hud"><HullMeter percent={danger ? 22 : 78} danger={danger} /><div className="run-salvage"><Money kind="salvage" amount={36} /></div><Nav story="expedition-pause" className="icon-control pause-control"><Icon name="pause" /><span className="sr-only">Pause</span></Nav></div>{encounter && <div className="creature-meter"><span>Eel · {pursuit ? 'Reeling resistance' : 'Creature resistance'}</span><i><b style={{width:`${pursuit ? 46 : 100}%`}} /></i></div>}{!paused && <div className="expedition-world-label">{variant === 'travel' ? 'Travelling' : danger ? 'Cable at its limit' : pursuit ? 'Pursuit' : 'Encounter'}</div>}{pursuit && <><div className={`following-strip ${danger ? 'taut' : ''}`}><span>Following range</span></div><div className={`harpoon-cable ${danger ? 'frayed' : ''}`} /></>}{danger && <div className="attack-column"><span>Attack warning</span></div>}{encounter && <Creature danger={danger} pursuit={pursuit} />}<div className="expedition-ship"><Icon name="submarine" /><span>You</span></div>{encounter && !pursuit && <Nav story="expedition-pursuit" className="harpoon-control" disabled={paused}><Icon name="harpoon" /><strong>Harpoon</strong></Nav>}{variant === 'resume' && <div className="resume-countdown" role="status"><strong>3</strong><span>Returning to ship...</span></div>}{!paused && <p className="steering-hint">Drag to steer · illustrated interaction area</p>}</div>;
 }
 function Catch({ state }) {
   const repeat = state._variant === 'repeat';
@@ -99,7 +101,7 @@ function Results({ state }) {
 export function Scene({ story, state = {} }) {
   const sceneState = {...state,_variant:story.variant || 'live'};
   switch (story.scene) {
-    case 'component': return <ComponentGallery story={story} state={sceneState} />;
+    case 'component': return <ComponentGallery story={story} state={sceneState} paperBackground={story.component === 'paper-page' ? <PaperRestaurant state={sceneState} /> : undefined} />;
     case 'floor-plan': return <FloorPlan state={sceneState} />;
     case 'restaurant': return <Restaurant state={sceneState} />;
     case 'shop': return <Shop state={sceneState} />;
