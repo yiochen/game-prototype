@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8efd9">
+  <meta name="description" content="A warm, doodled sushi restaurant and three little ocean expeditions. A native Android exhibition built with Godot.">
+  <title>A little kitchen. A big ocean.</title>
+  <link rel="stylesheet" href="./page.css">
+</head>
+<body>
+  <header><a href="../../">← All little games</a><span class="pill"><span class="dot" aria-hidden="true"></span> ANDROID EXHIBITION</span></header>
+  <main>
+    <section class="hero" aria-labelledby="game-title">
+      <div>
+        <p class="eyebrow" id="game-name">A hand-drawn little adventure</p>
+        <h1 id="game-title">A little kitchen.<br>A big ocean.</h1>
+        <p class="intro">Keep the sushi rolling, make your regulars smile, and take a tiny yellow submarine somewhere wonderful.</p>
+        <div class="actions"><a class="button" href="#install">Get ready to play <span aria-hidden="true">↗</span></a><span class="pill">3 ocean routes</span></div>
+        <p class="note">A native Android game made with Godot. The exhibition APK is shared privately through Google Drive.</p>
+      </div>
+      <figure class="art"><img src="./godot/assets/v2/title_vignette.png" alt="A warm doodled sushi kitchen above a little yellow submarine in the teal ocean" width="720" height="1050"><figcaption>Made for a little escape.</figcaption></figure>
+    </section>
+    <section class="intro-strip" aria-label="What is inside">
+      <article class="feature"><img src="./godot/assets/v2/cucumber.png" alt="" width="42" height="42"><div><h2>Your own sushi corner</h2><p>Arrange belts and chairs, hire chefs, and find a rhythm that keeps everyone happy.</p></div></article>
+      <article class="feature"><img src="./godot/assets/v2/submarine.png" alt="" width="42" height="42"><div><h2>A world below the water</h2><p>Steer, collect salvage, and bring home new recipes from three handcrafted routes.</p></div></article>
+      <article class="feature"><img src="./godot/assets/v2/gear.png" alt="" width="42" height="42"><div><h2>Room to make it yours</h2><p>Improve your submarine and kitchen. Your progress saves automatically.</p></div></article>
+    </section>
+    <section aria-labelledby="routes-title">
+      <div class="section-heading"><h2 id="routes-title">Three little voyages.</h2><p>Start easy. Follow your curiosity.</p></div>
+      <div class="routes">
+        <article class="route"><span class="number">VOYAGE 01</span><img src="./godot/assets/v2/creature_salmon.png" alt="Doodled salmon" width="96" height="78"><h3>Sunlit Shallows</h3><p>Find your sea legs in gentle water and meet your first catch.</p></article>
+        <article class="route"><span class="number">VOYAGE 02</span><img src="./godot/assets/v2/creature_shrimp.png" alt="Doodled shrimp" width="96" height="78"><h3>Coral Current</h3><p>Ride the water, weave around the reef, and discover something delicious.</p></article>
+        <article class="route"><span class="number">VOYAGE 03</span><img src="./godot/assets/v2/creature_eel.png" alt="Doodled eel" width="96" height="78"><h3>Lantern Trench</h3><p>Follow the glow into deeper water. A spark of adventure awaits.</p></article>
+      </div>
+    </section>
+    <section class="install" id="install" aria-labelledby="install-title">
+      <div><span class="eyebrow">TAKE IT WITH YOU</span><h2 id="install-title">Your pocket-sized escape.</h2><p>The Android APK is provided in the private Google Drive handoff. Open that link on your phone to download the exhibition build.</p><p class="support">Portrait play · Touch controls · Local save<br>No account or internet connection needed to play.</p></div>
+      <ol><li><strong>Download the APK</strong> from the shared Drive link to your Android phone.</li><li><strong>Open the download.</strong> If Android asks, allow installation from the browser or Files app you are using.</li><li><strong>Install and open the game.</strong> Head to your sushi bar, then tap the submarine when you are ready for a voyage.</li></ol>
+    </section>
+  </main>
+  <footer><span id="edition">Three-route exhibition</span><span>Built with Godot · Drawn for small moments of joy</span></footer>
+  <script type="module">
+    import branding from './godot/branding.json';
+    document.title = `${branding.title} · Android exhibition`;
+    document.querySelector('#game-name').textContent = branding.title;
+    document.querySelector('#edition').textContent = `${branding.edition} · ${branding.version}`;
+  </script>
+</body>
+</html>

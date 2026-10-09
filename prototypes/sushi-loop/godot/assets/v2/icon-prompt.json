@@ -1,0 +1,22 @@
+{
+  "mode": "built-in image_gen compositing/edit",
+  "inputs": [
+    {
+      "path": "submarine.png",
+      "role": "identity and shape source"
+    },
+    {
+      "path": "prototypes/sushi-loop/design/art-directions/01-doodle.png",
+      "role": "style reference"
+    }
+  ],
+  "initial_source": "/Users/yiouchen/.codex/generated_images/01a11f3a-66e8-72a2-b2e6-035237c5d8eb/exec-1a4fce4c-440a-4bba-988a-c5ccd0d60874.png",
+  "final_source": "/Users/yiouchen/.codex/generated_images/01a11f3a-66e8-72a2-b2e6-035237c5d8eb/exec-b0309b5f-657c-4600-aa3c-06ad64aceb05.png",
+  "prompt": "Create a finished square Android launcher icon by compositing the submarine in FIRST image into a new opaque icon painting. Keep the recognizable cute squat mustard-yellow submarine silhouette, the single round blue porthole, small top cap/headlamp, two side tanks and grey rear hatch with2dark slits. SECOND image is the exact accepted style reference: warm hand-painted cozy doodle, bold irregular brown-black ink outlines, broad gouache patches and restrained paper grain. This is a launcher icon, not a scene screenshot.\n\nCanvas512x512square, completely OPAQUE edge to edge, warm aged-cream gouache paper background with subtle natural flecks. Center the yellow submarine with nose pointingUP, slightly tilted at most5degrees, strongly readable and cheerful. Give every important part of the sub a generous18%inset from ALL four image edges so it survives a circular Android adaptive crop: main subject must stay inside the central64% square. The sub should be big enough to read clearly at48px but never near the canvas edges. A tiny muted teal wave swoosh and small coral colored brush accent near the bottom may frame it, also within the safe area; no other objects.\n\nDark confident irregular ink contour and warm yellow broad shapes, quiet material grain, luminous single blue window. Match the hand-painted doodle reference, not flat SVG, not glossy3D, not etched steampunk. No rounded outer icon border (Android supplies mask), no transparent margins, no alpha, no UI, no letters, no text, no logo or game name, no watermark.",
+  "safe_area_refinement": "Make only one composition correction to this finished launcher icon: zoom the entire submarine and its teal/coral accent group OUT by25%, keeping them centered in the same square canvas. The current submarine is too tall for safe Android masking. Preserve all shapes, proportions, paintwork, colors and grain exactly; do not redraw or restyle.\nFinal full icon illustration group must occupy at most64% of canvas height and64% of width, with AT LEAST18% clear cream-paper margin on the top, bottom, left and right. Important: top of nose and bottom of propeller must both move inward; all wave/coral marks also sit within that central64% square. Fill newly empty outer area with the same opaque warm cream paper texture. The whole output remains an opaque square with no border, no text, no transparent pixels.",
+  "outputs": [
+    "icon.png",
+    "../icon.png"
+  ],
+  "notes": "Opaque square; full-size generated source preserved as tool output. Android export scales it. Older deterministic icon preserved at ../icon-prototype.png. No Python image editing; copies only."
+}
