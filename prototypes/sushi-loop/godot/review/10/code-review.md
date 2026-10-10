@@ -1,5 +1,29 @@
 # Ticket #10 review
 
+## Doodle and animation revision
+
+Pinned base: `9551cb225210e4cfc3f98f25f3c4de922a71b35c`. Two independent reviewers examined `9551cb2...c5776d8`, with particular attention to the visual revision `fd6db2d...c5776d8`. Sources were `AGENTS.md`, issue #10, the parent specification, the supplied `doodle.png` reference and the user's corrections. The target remains Godot Android. This revision does not implement later tickets.
+
+### Standards
+
+No documented standards violations or actionable baseline smells found. The prototype remains independent, content tuning stays separate from rules, and ArtBook and the renderer centralize sprite registration and presentation. Tests use isolated storage; signing material is ignored. Validation is appropriate to the native artwork and renderer changes.
+
+Standards findings: **0**.
+
+### Spec
+
+The new artwork follows the compact chibi proportions, rounded ink, elevated front/top shading and quiet floor of the supplied doodle catalog. Feet register at tile centers with a fixed scale across clips. Fifteen character clips each contain six different drawings at least 445 native pixels tall.
+
+The connected conveyor has four equal 502 × 460 cuts with six synchronized phases. Rails stay fixed while slats and dishes move. Actual runtime recording shows broad belts, continuous joins and sushi above the belt pass. The HUD and square grid remain intact on portrait screens. No later-ticket feature work was introduced; the full inventory requested by issue #33 remains separate from this authorized correction.
+
+Spec findings: **0**.
+
+The reviewers also identified publication evidence that needed refreshing: the production README, Android captures and release links. Those documents are updated with the revised build before publishing; these were documentation follow-ups, not code findings.
+
+Total findings in this revision: Standards **0**; Spec **0**.
+
+## Original implementation review
+
 Pinned base: `9551cb225210e4cfc3f98f25f3c4de922a71b35c` (`origin/main`). Independent parallel reviews examined the committed native change against `AGENTS.md`, issue #10 and the parent specification. Runtime target is the user-confirmed Godot Android adaptation.
 
 ## Standards

@@ -2,9 +2,13 @@
 
 This review covers [issue #10](https://github.com/yiochen/game-prototype/issues/10) only, adapted to the user-confirmed Godot Android target. Later tickets have not been implemented. Shop, Edit and Staff remain visible but disabled until their own tickets are approved.
 
+The visual revision follows the supplied [doodle catalog](../../../design/art-directions/doodle.png): elevated front/top artwork on a square grid, feet at tile centers, broad connected conveyors and a quiet drawn floor. Fifteen character clips contain six different drawings each, at least 445 native pixels tall. Smooth sampling preserves their detail at phone size. Sushi is drawn above the complete belt pass.
+
+The conveyor starts as one connected strip. Each of its six surface phases is cut into the same four 502 × 460 regions: left cap, two center modules and right cap. The rails and supports stay fixed while the deck slats scroll. All tiles share phase and speed, so adjoining pieces stay connected during motion.
+
 ## Try the Android build
 
-1. Install the [signed release APK in My Drive](https://drive.google.com/file/d/11Xc_wS-RMYopaDi8S4Qji_9n_w__Jy0H/view?usp=drivesdk). The Android package is `com.yiochen.sushilooptickets`.
+1. Install the [revised signed release APK in My Drive](https://drive.google.com/file/d/1esvJwG5976m8Mp_2psX4EKNtXk3n9IkG/view?usp=drivesdk), version **0.1.1**, code **11**. The Android package is `com.yiochen.sushilooptickets`; this APK can update the previous build.
 2. Watch Mina prepare salmon nigiri, load the conveyor and begin her next dish. Customers arrive, walk to the three seats, eat and leave automatically.
 3. Watch a completed meal add 14 coins once. Its local cue contains a coin icon without an amount label.
 4. Drag the room horizontally. The HUD stays fixed and the square cells retain their scale.
@@ -13,6 +17,8 @@ This review covers [issue #10](https://github.com/yiochen/game-prototype/issues/
 The displayed title and version come from `branding.json`; the artwork contains no game title. Android uses the full portrait surface. Wide desktop windows contain the same portrait room at its original scale.
 
 ## Evidence
+
+Watch the actual production renderer in [the motion preview GIF](animation/live-service.gif) or [the 24 fps recording](animation/live-service.mp4). [The six-frame registration sheet](animation/six-frame-registration.png) shows every character and belt clip, including foot crosses at tile centers. [The pixel audit](animation/art-audit.json) verifies unique drawings, unchanged structural belt pixels, and exact reconstruction of every strip from its cuts.
 
 These are captures of the actual Godot renderer, with observable snapshots stored in each directory's `manifest.json`:
 
@@ -32,14 +38,15 @@ The backpressure capture uses the public entrance command to stop arrivals, so t
 
 - 51 deterministic public-session checks: production, pathing, capacity, fixed-price sales, elapsed time and exact save continuation.
 - 24 persistence checks: atomic saves, checksums, valid backups, domain validation and preservation of unrecoverable files.
-- 56 native application checks: physical touch, fixed HUD, clipping, configured camera extent, real control states, save/reopen and recovery Retry.
+- 57 native application checks: physical touch, fixed HUD, clipping, configured camera extent, real control states, tile-center anchoring, save/reopen and recovery Retry.
+- 296 artwork checks: six distinct drawings per clip, native resolution, fixed character scale, connected conveyor topology, exact joins, synchronized phases, mipmapped textures and sushi layering. **428 native checks passed in total.**
 - The native application suite also passes in visible 320 × 720 and 1440 × 1000 windows.
 - Existing repository engine suite: 129 checks passed. Vite build passed. Existing Sushi Loop studio: 35 Playwright checks passed, including phone, wide and landscape pages.
-- [Independent Standards and Spec reviews](code-review.md): all four findings resolved and independently verified after the fixes.
+- [Independent Standards and Spec reviews](code-review.md): **0 remaining findings on either axis** for the doodle revision. The four original implementation findings were resolved and independently verified before this revision.
 
-Final Android emulator checks at 1080 × 2400 passed real touch panning, unchanged background save bytes, update preservation, force-stop and reopen. Reopened state matched uninterrupted public-session simulation after 6.7 active seconds: coins 246 → 274 from exactly two 14-coin sales, with matching chef, customer, belt and random state. No runtime errors were observed. The exact signed release was installed and launched; it serves customers and is non-debuggable.
+Final Android emulator checks at 1080 × 2400 passed real touch panning, unchanged background save bytes, update preservation, force-stop and reopen. Reopened state matched uninterrupted public-session simulation, including chef, customer, belt, camera and random state. The final package update preserved all 3,440 paused save bytes exactly. No runtime errors were observed. The installed package's SHA-256 matches the uploaded release; it serves customers and is non-debuggable.
 
-- [Android service](android/android-final-service.png), [touch pan](android/android-panned.png), [reopened room](android/android-reopened.png) and [signed release](android/android-release-service.png).
+- [Signed Android release serving customers](android/android-release-service.png), [touch pan](android/android-panned.png) and [reopened room](android/android-reopened.png).
 - [Lifecycle/continuation results](android/android-verification.json), [release results](android/android-release-verification.json) and [build fingerprints](android/release-build.json).
 
-The release APK is 68,963,674 bytes. SHA-256: `2127003d9845567ac9aa39b0cef08b77b037a5e01d4d634aaf17ca16e7dbcae5`. All 52 recorded source/media fingerprints match this implementation. Drive readback confirmed the file size and MD5 `722505275ca2dc32d40305db62616819`; sharing permissions were unchanged.
+The release APK is **86,054,904 bytes**. SHA-256: `794a88ed0fc95cb9553b1840b38fd40c81c757e12cfd8fdbcd63223671385fc3`. All **55** recorded source/media fingerprints match this implementation. [Drive readback](android/drive-verification.json) confirmed the file size and MD5 `53a51917f07f30d286cb373c1d3ec3fe`; sharing permissions were unchanged.
