@@ -5,12 +5,15 @@ import { PaginatedTray } from './inventory-tray.jsx';
 import { ResumeDeck } from './applicants.jsx';
 import { PaperPage } from './paper-page.jsx';
 import { applicantSet, roster } from './fixtures.js';
+import { GarbageClusterExamples } from './garbage-cluster.jsx';
+import { ExpeditionElementExamples, EXPEDITION_COMPONENT_KEYS, ExpeditionHullMeter as HullMeter } from './expedition-elements.jsx';
+export { ExpeditionHullMeter as HullMeter } from './expedition-elements.jsx';
 import './components-review.css';
 
 // These composites are used directly in both the complete scenes and the isolated gallery.
 export function RestaurantHud({ state = {}, children }) {
   return <div className="restaurant-hud">
-    <div className="hud-top-row"><div className="hud-savings"><div className="coin-count"><Money amount={1240}/></div><span className={`income-toast ${state._variant === 'offline' ? '' : 'income-toast-placeholder'}`} aria-hidden={state._variant !== 'offline' ? true : undefined}>+420 while away</span></div>{children}</div>
+    <div className="hud-top-row"><div className="hud-savings"><div className="coin-count"><Money amount={state.coinBalance ?? 1240}/></div><span className={`income-toast ${state._variant === 'offline' ? '' : 'income-toast-placeholder'}`} aria-hidden={state._variant !== 'offline' ? true : undefined}>+420 while away</span></div>{children}</div>
     <nav className="restaurant-shortcuts" aria-label="Restaurant shortcuts"><Target action="navigate" data={{story:'shop'}} className="hud-action shop-shortcut" title="Shop"><Icon name="basket"/><strong>Shop</strong>{!state.shopVisited && <span className="stock-spark" aria-label="New Shop stock">✦</span>}</Target></nav>
   </div>;
 }
@@ -54,10 +57,6 @@ export function RecipeTile({ recipe, recipeKey, selected, current, seen = [], is
   </Target>;
 }
 
-export function HullMeter({ percent = 78, danger = false }) {
-  return <div className={`hull-meter ${danger ? 'low-hull' : ''}`}><span>Hull</span><i><b style={{width:`${percent}%`}} /></i></div>;
-}
-
 export function UpgradeCard({ track, level = 1, max = false, poor = false, selected = false }) {
   return <article className={`upgrade-card ${selected ? 'selected' : ''}`}><div className="upgrade-title"><Icon name={track.icon} /><h3>{track.name}</h3><span>Level {level}</span></div><div className="stat-preview"><span>{track.unit}</span><strong>{track.current}{!max && <> <i>→</i> {track.next}</>}</strong></div>{max ? <span className="max-state">MAX</span> : <Target action="upgrade" data={{value:track.id}} className="upgrade-action" disabled={poor}><Money kind="salvage" amount={track.price} /><span>Upgrade</span></Target>}</article>;
 }
@@ -76,10 +75,12 @@ const galleryRecipes = {
 const hullTrack = {id:'hull',name:'Hull',unit:'Maximum hull',current:'100',next:'125',price:90,icon:'submarine'};
 const example = (label, children, className = '') => <section className={`component-example ${className}`} key={label}><h3>{label}</h3>{children}</section>;
 
-export function ComponentGallery({ story, state = {}, paperBackground }) {
+export function ComponentGallery({ story, state = {}, paperBackground, suppliedExamples }) {
   const key = story.component || story.variant;
   let examples;
   switch (key) {
+    case 'garbage-cluster': examples = <GarbageClusterExamples state={state} />; break;
+    case 'pause-dialog': case 'early-return-dialog': case 'recipe-award': examples = null; break;
     case 'restaurant-hud': examples = <>{example('Fixed upper-left · Live and Edit',<RestaurantHud state={state}/>,'hud-example')}{example('Refreshed Shop stock · earnings beside savings',<RestaurantHud state={{...state,_variant:'offline'}}/>,'hud-example')}</>; break;
     case 'editor-controls': examples = example('Layer controls and owned inventory',<EditorControls state={state}/>,'editor-example'); break;
     case 'roster-tray': examples = example('Paged profiles · drag or inspect',<RosterTray state={state}/>,'roster-example'); break;
@@ -93,7 +94,7 @@ export function ComponentGallery({ story, state = {}, paperBackground }) {
     case 'upgrade-card': examples = <>{example('Affordable upgrade',<UpgradeCard track={hullTrack} level={1+Number(state.upgradeLevels?.hull || 0)} />)}{example('Insufficient salvage',<UpgradeCard track={hullTrack} poor />)}{example('Capability ceiling',<UpgradeCard track={{...hullTrack,current:'200'}} level={5} max />)}</>; break;
     case 'receipt': examples = <>{example('Complete · first discovery',<SalvageReceipt />)}{example('Complete · repeat catch',<SalvageReceipt repeatCatch />)}{example('Unfinished route',<SalvageReceipt completed={false} />)}</>; break;
     case 'tap-target': examples = <>{example('Text navigation',<Target action="navigate" data={{story:'restaurant-live'}}>Restaurant</Target>)}{example('Icon target',<Target action="navigate" data={{story:'staff-roster'}} title="Open staff roster"><Icon name="staff" /></Target>)}{example('Disabled action',<Target action="purchase" disabled title="Buy item"><Money amount={600} /></Target>)}</>; break;
-    default: examples = example('Shared component',<Icon name="info" />);
+    default: examples = EXPEDITION_COMPONENT_KEYS.includes(key) ? <ExpeditionElementExamples component={key} state={state} /> : suppliedExamples || example('Shared component',<Icon name="info" />);
   }
   return <div className={`phone-scene component-gallery component-gallery-${key}`}><header className="scene-header"><div><h2>{story.title}</h2><p>The same React component used in the complete screens.</p></div></header><div className="component-examples">{examples}</div></div>;
 }

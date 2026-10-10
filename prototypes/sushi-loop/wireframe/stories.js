@@ -28,7 +28,59 @@ export const storyGroups = [
   { id: 'rewards', title: 'Catch & rewards' },
 ];
 
+const expeditionComponents = [
+  ['expedition-tile', 'Expedition tiles · modular kit', 'Square water cells define the expedition layout. Shared floor and wall tiles combine into connected obstacles with integer cell footprints, including 1 × 1, 1 × 2 and 2 × 2 pieces. Start, middle and end modules form long runs; separate decoration layers do not block movement. Tile counts are review fixtures, and the grid does not introduce lane snapping.', 'The future world scrolls together with its tiles. The gallery is static; direct relative lateral steering remains continuous.'],
+  ['expedition-surroundings', 'Ocean · tiled canyon & scenery', 'A shared square-cell water grid, connected canyon wall tiles and separate underwater decoration establish the route without covering the ship or HUD. Foreground, midground and background decor are noncolliding visual layers.', 'World dressing scrolls with the route in the intended game; this review fixture stays still.'],
+  ['expedition-obstacle', 'Obstacles · tiled tunnel barriers', 'Connected square rock, reef and wreck tiles build long barriers along forward travel. Integer cell footprints can occupy half the playfield width and extend beyond a screen in length. Tiled canyon walls and staggered obstacles leave a continuous steering passage. Exact dimensions and spacing remain content work.', 'Obstacles travel with the route. Contact feedback belongs to the future simulation; no artificial obstacle movement or damage is added by this gallery.'],
+  ['expedition-pickup', 'Salvage · collectible pickup', 'Salvage fragments are separate world items, visibly smaller than obstacles. Collected salvage belongs to this expedition; the top HUD shows the run total rather than the banked Workshop balance.', 'Future collection draws a fragment toward the ship and updates the run total immediately. The gallery shows static collectible states.'],
+  ['expedition-submarine', 'Submarine · ship states', 'Use the same ship silhouette in preparation, travel, pursuit and catch scenes. Its visual footprint remains much smaller than half-width obstacles, with lateral room to steer.', 'Direct relative steering follows a fresh playfield drag; release stops lateral movement. The wireframe does not implement steering or collision simulation.'],
+  ['expedition-creature', 'Creature · encounter & catch', 'The same creature renderer supports aiming, hooked pursuit, approaching escape and caught presentation. The escape warning changes expression or movement tone, not the creature hit area or path.', 'Restless motion warns before shooting-window expiry; caught artwork stays recognizable. Motion is proposed and respects reduced motion.'],
+  ['expedition-hud', 'Expedition HUD · hull, salvage & pause', 'Reuse the stable top row: continuous hull meter left, current-run salvage in the center and Pause at right. Low hull changes only the hull meter; keep normal travel space clear.', 'Numbers update on events. A proposed gentle low-hull pulse stays inside the meter; no screen-edge warning tint.'],
+  ['expedition-resistance', 'Creature resistance · aiming & reeling', 'The separate creature-name row appears below the ship HUD. Resistance stays full while aiming and drops toward capture during valid following; it is not an escape countdown.', 'Update fill with intended catch progress, without jumping the HUD or delaying logic for animation.'],
+  ['expedition-following-range', 'Following range · strip & cable', 'A faint full-height vertical strip tracks the creature horizontally, with no top or bottom border. The shared cable communicates hooked, taut and frayed states without becoming a second HUD.', 'Strip follows the creature. Cable feedback reflects actual following/grace state in the future simulation.'],
+  ['expedition-attack-warning', 'Attack warning · hazard column', 'A local column shows an incoming creature attack in the world. Preserve readable boundaries and a clear steering route; the warning does not cover the persistent HUD.', 'Future warning leads the attack with a brief local cue. The gallery is static and introduces no new attack timer.'],
+  ['expedition-harpoon', 'Harpoon · ready, cooldown & shot', 'The contextual lower-right control shows ready, muted cooldown with a circular fill, and disabled states. A shared projectile travels straight upward from the ship. A fresh press fires once; holding does not repeat.', 'Press feedback takes 70 ms. Future cooldown fills the ring and restores readiness without numeric countdown text.'],
+  ['expedition-resume-countdown', 'Resume · countdown', 'Show only the count and Returning to ship... over the preserved expedition. Ship, creature, hazards and timers stay frozen during countdown; opener input cannot steer.', 'Future countdown updates the numeral; the fixture displays a still count. Return to the preserved scene without accumulated movement.'],
+  ['expedition-preparation', 'Departure · airlock & Start', 'Reuse the Sushi Bar airlock, ready ship/battery and explicit Start action. Opening preparation or returning through the airlock consumes no charge; Start consumes readiness.', 'Consume the opener touch and use the shared press response. No automatic launch or repeated Start action.'],
+  ['expedition-catch-reward', 'Catch celebration · first & repeat', 'Use the shared caught-creature presentation for a short first-discovery celebration and a familiar catch with earned repeat salvage. First catch proceeds to its recipe award; repeat catch proceeds to results.', 'The intended celebration lasts only a few seconds and advances automatically. This fixture previews the states without a simulated timer.'],
+  ['expedition-route-feature', 'Route features · currents, boosts & portals', 'Distinct current arrows, boost and portal cues are ordinary-travel world elements. Currents allow steering; boosts and portal passages end before aiming or pursuit. These visual examples do not implement the future route mechanics.', 'Future cues scroll with the world. Keep direction and entrances legible, with no mandatory control footer or extra steering button.'],
+];
+const worldComponentStories = [
+  {
+    id: 'component-garbage-cluster', group: 'components', title: 'Garbage clusters · paid clearance', scene: 'component', component: 'garbage-cluster', variant: 'garbage-cluster',
+    description: 'Each garbage cluster is one distinctive broken object: a sofa, wrecked car or collapsed shelving with varied supporting rubbish. Configurable footprints set occupied floor cells independently of its artwork. Each cluster is inspected and paid for separately.',
+    elements: [
+      element('Variable footprint', 'Show a whole broken sofa, wrecked car and collapsed shelving as distinct compositions across compact, broad and tall footprints. Do not repeat the same rubbish tile over the cells; the grid describes occupancy only. Sizes and prices are illustrative. Unselected clusters show no price.', 'World clusters stay fixed to their floor cells while the camera pans. Proposed clearance fades only the selected debris over 350 ms.'),
+      element('Inspect and pay', 'Tap any uncleared cluster to open the same minimal confirmation with its exact footprint and cost on Clear. Cancel preserves it; insufficient coins disable Clear. A confirmed preview deducts that fixture cost once and clears only the chosen cluster.', popupEntrance),
+      element('Shared scene use', 'Use this same renderer for adjacent restaurant expansion patches and the confirmation silhouette. A cleared example remains cleared until Reset; wireframe fixture state is not saved game progress.', 'State updates immediately on Clear. Reset restores the original examples and mock balance without an animation delay.'),
+    ], notes: [motionNote, mockNote],
+  },
+  ...expeditionComponents.map(([component, title, behavior, motion]) => ({
+    id: `component-${component}`, group: 'components', title, scene: 'component', component, variant: component,
+    description: behavior,
+    elements: [element('Shared presentation and states', behavior, motion), element('Scene integration', 'The complete expedition scenes render this same component. Review its isolated states here and its spacing with other elements in the full scene.', 'Shared presentation changes apply in both contexts. Existing gameplay, input and reward contracts remain unchanged.')],
+    notes: [motionNote, mockNote],
+  })),
+  ...[
+    ['pause-dialog', 'Pause card · expedition', 'pause', 'pause'],
+    ['early-return-dialog', 'Return confirmation · expedition', 'early-return', 'return'],
+    ['recipe-award', 'Recipe award · first discovery', 'recipe-award', 'award'],
+  ].map(([component, title, overlay, variant]) => ({
+    id: `component-${component}`, group: 'components', title, scene: 'component', component, overlay, variant,
+    description: 'The exact shared dialog from the expedition flow is shown over a neutral review stage. Its actions and focus behavior match the complete scene.',
+    elements: [element('Shared dialog', 'Use the same dialog, copy and actions in this isolated page and the full flow. Pause offers side-by-side Resume and Return early; early return retains earned rewards; the recipe award uses its material board and Continue.', popupEntrance)],
+    notes: [motionNote, mockNote],
+  })),
+  {
+    id: 'component-expedition-results', group: 'components', title: 'Expedition results · three outcomes', scene: 'component', component: 'expedition-results', variant: 'complete',
+    description: 'Complete, early return and hull depletion reuse the same outcome presentation and salvage receipt as the complete results scenes.',
+    elements: [element('Outcome background, receipt and action', 'Keep a distinct backdrop/title per outcome, earned salvage and one Restaurant action. Incomplete routes have no completion bonus. The first-discovery award already covered the recipe; omit its recap.', 'Proposed 220 ms scene crossfade. Receipt values appear together without delayed counting or extra required interaction.')],
+    notes: [motionNote, mockNote],
+  },
+];
+
 export const stories = [
+  ...worldComponentStories,
   {
     id: 'floor-plan', group: 'layout', title: 'Full restaurant floor plan', scene: 'floor-plan', variant: 'overview',
     description: 'Three portrait-width panels form one continuous restaurant. Only the first is usable initially; future floor is blocked by garbage. The middle panel reserves the submarine and a compact Workshop hut.',
@@ -51,6 +103,15 @@ export const stories = [
       element('Open full-size catalog', 'Open the same original image in a separate tab for browser zoom or sharing. Supply an accessible link and retain this concept page as the source of review comments.', 'Use normal link navigation without a popup entrance or custom transition.'),
     ],
     notes: ['This is a concept reference page, not another shared component or an approved screen. The catalog informs the doodle art vocabulary; accepted Sushi Loop behavior and controls remain in the wireframes.', motionNote],
+  },
+  {
+    id: 'concept-underwater-tile-kit', group: 'concept', title: 'Underwater tunnel tile kit', scene: 'concept', variant: 'underwater-tile-kit',
+    description: 'The supplied example guides a square-cell expedition layout, modular floor and wall obstacles, multi-cell footprints and layered underwater scenery.',
+    elements: [
+      element('Supplied tile-kit reference', 'Display the unchanged original 1280 × 960 image. Follow its square-grid construction and composable obstacle vocabulary within the accepted submarine view and controls. Sample gear count, distance, shield, mines and other kit objects are reference content, not additional required mechanics.', 'The image stays still and scrolls directly; preserve its aspect ratio.'),
+      element('Zoom / Fit and full-size image', 'Zoom shows the original at natural width inside a contained scroll area. Fit restores the overview; the full-size link opens the same image separately.', 'Image sizing changes immediately and keeps the review explorer in place.'),
+    ],
+    notes: ['Use the shared expedition tile and obstacle examples to review the implemented composition. The doodle catalog continues to govern the finished art treatment; tile counts and pixel size remain fixtures.', motionNote],
   },
   {
     id: 'restaurant-live', group: 'restaurant', title: 'Live service · starter floor', scene: 'restaurant', variant: 'live',

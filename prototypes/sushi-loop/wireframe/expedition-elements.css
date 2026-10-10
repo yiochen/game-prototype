@@ -1,0 +1,79 @@
+.prototype-stage .sea-dashes{position:absolute;inset:100px 15px 0;pointer-events:none}
+.prototype-stage .sea-dashes i{position:absolute;width:65px;height:12px;border-top:1px dashed #b0c2cd;transform:rotate(-6deg)}
+.prototype-stage .sea-dashes i:nth-child(1){top:15%;left:10%}.prototype-stage .sea-dashes i:nth-child(2){top:36%;right:8%;width:39px}.prototype-stage .sea-dashes i:nth-child(3){top:60%;left:14%;width:40px}.prototype-stage .sea-dashes i:nth-child(4){top:75%;right:15%;width:58px}
+.prototype-stage .expedition-tile-grid{container-type:inline-size;position:relative;isolation:isolate;background:#edf2f5}
+.prototype-stage .expedition-water-grid{position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(to right,#91a6b523 1px,transparent 1px),linear-gradient(to bottom,#91a6b523 1px,transparent 1px);background-size:10cqw 10cqw}
+.prototype-stage .expedition-tile-block{position:absolute;left:calc(var(--grid-column)*10cqw);top:calc(var(--grid-row)*10cqw);width:calc(var(--grid-columns)*10cqw);height:calc(var(--grid-rows)*10cqw);display:grid;grid-template-columns:repeat(var(--grid-columns),minmax(0,1fr));grid-template-rows:repeat(var(--grid-rows),minmax(0,1fr));pointer-events:none}
+.prototype-stage .expedition-tile-block[data-collidable="false"]{z-index:2}
+.prototype-stage .expedition-tile{display:block;min-width:0;min-height:0;width:100%;height:100%;aspect-ratio:1}
+.prototype-stage .expedition-tile svg{display:block;width:100%;height:100%;fill:#ccd9e1;stroke:#8da3b1;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}
+.prototype-stage .expedition-tile .tile-detail{fill:none;stroke:#a2b4bf;stroke-width:1.4}
+.prototype-stage .expedition-tile .tile-run-cap{fill:none;stroke:#718b9d;stroke-width:2}
+.prototype-stage .tile-boulder svg{fill:#c3d3df}.prototype-stage .tile-wreck svg{fill:#d9e1e7;stroke:#98aab7}.prototype-stage .tile-column svg{fill:#d2dde4}
+.prototype-stage .tile-decoration{z-index:1}.prototype-stage .tile-decoration svg{fill:none;stroke:#90a9b7;stroke-width:5}
+.prototype-stage .tile-decoration .tile-kelp,.prototype-stage .tile-decoration .tile-coral{fill:none}
+.prototype-stage .decor-background{opacity:.38}.prototype-stage .decor-midground{opacity:.65}.prototype-stage .decor-foreground{opacity:.86}
+.prototype-stage .salvage-fragment{position:absolute;color:var(--muted);font-size:27px;line-height:1;z-index:2;pointer-events:none}
+.prototype-stage .sf-one{left:70cqw;top:70cqw;transform:rotate(16deg)}.prototype-stage .sf-two{left:20cqw;top:170cqw;transform:rotate(-19deg)}
+.prototype-stage .expedition-obstacles{position:absolute;inset:0;pointer-events:none;z-index:1}
+.prototype-stage .expedition-tunnel-walls{position:absolute;inset:0;pointer-events:none}
+.prototype-stage .expedition-tunnel-walls .expedition-tile svg{fill:#b7cad8;stroke:#91a9ba}
+.prototype-stage .corridor-travel .expedition-ship{left:40cqw;top:120cqw;bottom:auto}
+.prototype-stage .expedition-scene.corridor-travel .expedition-world-label{left:58%;top:105px}
+.prototype-stage .expedition-route-feature{position:absolute;width:24%;aspect-ratio:100/70;pointer-events:none;z-index:1}
+.prototype-stage .expedition-route-feature svg{display:block;width:100%;height:100%;fill:none;stroke:#8ba1af;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.prototype-stage .route-current{width:30%}.prototype-stage .route-boost,.prototype-stage .route-portal{width:18%}
+.prototype-stage .route-boost svg{fill:#edf2f5d9}.prototype-stage .route-portal svg{fill:#e0e8ed99}
+.prototype-stage .expedition-hud{position:absolute;top:18px;left:17px;right:17px;display:flex;align-items:center;gap:13px;z-index:3}
+.prototype-stage .hull-meter{display:flex;flex-direction:column;gap:4px;flex:1;min-width:0}
+.prototype-stage .hull-meter>span{font-size:.69rem}.prototype-stage .hull-meter>i{display:block;height:12px;border:1.5px solid var(--ink);background:white;overflow:hidden}
+.prototype-stage .hull-meter b{height:100%;display:block;background:#859eaf}.prototype-stage .hull-meter.low-hull b{background:var(--danger)}.prototype-stage .hull-meter.low-hull{color:var(--danger)}
+.prototype-stage .run-salvage{font-size:1rem;flex-shrink:0}.prototype-stage .run-salvage .wire-money svg{width:20px;height:20px}
+.prototype-stage .expedition-hud .pause-control{min-width:44px;min-height:44px;flex-shrink:0;background:transparent}
+.prototype-stage .creature-meter{position:absolute;top:91px;left:28px;right:28px;display:flex;flex-direction:column;gap:5px;font-size:.68rem;z-index:3}
+.prototype-stage .creature-meter>i{display:block;height:13px;border:1px solid var(--ink);background:white;overflow:hidden}.prototype-stage .creature-meter b{height:100%;display:block;background:#c1ced7}
+.prototype-stage .expedition-world-label{position:absolute;top:145px;left:17px;font-size:.66rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);z-index:2}
+.prototype-stage .expedition-ship{position:absolute;left:40cqw;bottom:35%;width:20cqw;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:2}
+.prototype-stage .expedition-ship>svg{width:20cqw;height:20cqw}.prototype-stage .expedition-ship>span{font-size:.65rem;color:var(--muted)}
+.prototype-stage .sea-creature{position:absolute;right:14%;top:32%;width:120px;height:86px;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:2}
+.prototype-stage .creature-body{width:89px;height:59px;border:2px solid var(--ink);border-radius:50% 40% 40% 50%;background:#d5e1e8;position:relative}
+.prototype-stage .creature-body:before{content:'';position:absolute;right:-21px;top:10px;border-right:22px solid var(--ink);border-top:19px solid transparent;border-bottom:19px solid transparent}
+.prototype-stage .creature-body span{position:absolute;left:18px;top:5px;font-size:27px}.prototype-stage .creature-body i{position:absolute;width:19px;height:16px;left:40px;bottom:7px;border-left:1px solid var(--ink);border-bottom:1px solid var(--ink);border-radius:0 0 0 14px}
+.prototype-stage .sea-creature small{font-size:.61rem;color:var(--muted)}.prototype-stage .sea-creature.escaping{right:8%;top:26%}
+.prototype-stage .following-strip{position:absolute;left:50%;right:auto;top:0;bottom:0;width:220px;transform:translateX(-50%);border:1px dashed var(--accent);border-top:0;border-bottom:0;border-radius:0;background:rgba(46,108,142,.035);pointer-events:none}
+.prototype-stage .following-strip span{position:absolute;left:8px;bottom:107px;font-size:.57rem;color:var(--muted)}.prototype-stage .following-strip.taut{border-color:var(--danger)}
+.prototype-stage .harpoon-cable{position:absolute;top:43%;left:48%;height:20%;border-left:2px solid var(--ink);transform:rotate(30deg);transform-origin:bottom;z-index:2;pointer-events:none}
+.prototype-stage .harpoon-cable.frayed{border-color:var(--danger);border-style:dashed;transform:rotate(45deg);height:26%;top:34%;left:47%}
+.prototype-stage .attack-column{position:absolute;top:0;bottom:0;left:61%;width:52px;border-left:1.5px solid var(--danger);border-right:1.5px solid var(--danger);background:repeating-linear-gradient(135deg,transparent 0,transparent 12px,#a2474717 12px,#a2474717 19px);pointer-events:none}
+.prototype-stage .attack-column span{position:absolute;top:24%;left:3px;right:3px;text-align:center;font-size:.55rem;color:var(--danger)}
+.prototype-stage .harpoon-control{position:absolute;right:17px;bottom:27%;min-width:101px;min-height:58px;display:flex;align-items:center;justify-content:center;gap:6px;background:transparent;font-size:.8rem;z-index:3}
+.prototype-stage .harpoon-control-icon{position:relative;display:inline-flex;align-items:center;justify-content:center;width:29px;height:29px;flex-shrink:0}.prototype-stage .harpoon-control-icon>.wire-icon{width:25px;height:25px}
+.prototype-stage .harpoon-control-icon .harpoon-cooldown-ring{position:absolute;inset:-6px;width:41px;height:41px;fill:none;stroke:#c0cbd3;stroke-width:2;transform:rotate(-90deg)}
+.prototype-stage .harpoon-cooldown-ring .harpoon-cooldown-progress{stroke:#6b8ba0;stroke-dasharray:65 120;stroke-linecap:round}
+.prototype-stage .harpoon-projectile{position:absolute;left:52%;top:42%;width:18px;height:64px;z-index:2;pointer-events:none}.prototype-stage .harpoon-projectile svg{width:100%;height:100%;fill:none;stroke:var(--ink);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.prototype-stage .projectile-trail{stroke:#9eb1be;stroke-dasharray:3 4}
+.prototype-stage .steering-hint{position:absolute;bottom:79px;left:18px;right:18px;text-align:center;font-size:.66rem;color:var(--muted);z-index:2}
+.prototype-stage .resume-countdown{position:absolute;left:15%;right:15%;top:35%;display:flex;flex-direction:column;align-items:center;gap:9px;z-index:4;background:#edf2f5e8;padding:18px 10px}.prototype-stage .resume-countdown strong{font-size:5rem;font-family:Georgia,serif;font-weight:400;line-height:1}.prototype-stage .resume-countdown span{font-size:.85rem}
+.prototype-stage .underwater-title{position:absolute;top:34px;left:22px;right:22px;text-align:center}
+.prototype-stage .prep-airlock{position:absolute;left:14px;top:115px;width:107px;height:105px}.prototype-stage .prep-airlock .airlock{font-size:.85rem;align-content:center;gap:8px}
+.prototype-stage .prep-sub{position:absolute;left:20%;right:20%;top:46%;display:flex;flex-direction:column;align-items:center;gap:13px}.prototype-stage .prep-sub>svg{width:155px;height:73px}.prototype-stage .battery-ready{font-size:.73rem;color:var(--muted)}
+.prototype-stage .start-action{position:absolute;left:45px;right:45px;bottom:105px}.prototype-stage .start-action .primary-action{background:transparent}.prototype-stage .start-action p{text-align:center;margin-top:9px;font-size:.7rem;color:var(--muted)}
+.prototype-stage .catch-focus{position:absolute;left:20px;right:20px;top:22%;height:48%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px}
+.prototype-stage .catch-focus .sea-creature{position:relative;top:auto;right:auto;width:160px;height:115px}.prototype-stage .catch-focus .creature-body{width:130px;height:83px}.prototype-stage .catch-focus .creature-body span{left:25px;top:14px}.prototype-stage .catch-focus .creature-body:before{top:18px}
+.prototype-stage .catch-focus h2{font-size:1.65rem;z-index:1}.prototype-stage .catch-focus p{font-size:.85rem;color:var(--muted);z-index:1}
+.prototype-stage .catch-rings{position:absolute;width:220px;height:220px;border:1px dashed #a9bac6;border-radius:50%;top:0}.prototype-stage .catch-rings:after{content:'';position:absolute;inset:12px;border:1px dashed #bac8d0;border-radius:50%}
+.prototype-stage .repeat-reward{display:flex;flex-direction:column;gap:5px;align-items:center;font-size:1.2rem;margin-top:5px}.prototype-stage .repeat-reward small{font-size:.68rem;color:var(--muted)}
+.prototype-stage .expedition-component-example{width:100%}
+.prototype-stage .expedition-element-demo{position:relative;isolation:isolate;width:100%;height:320px;overflow:hidden;border:1px solid var(--line);border-radius:6px;flex-shrink:0}
+.prototype-stage .expedition-element-demo .expedition-hud .hull-meter{width:auto;flex:1;min-width:0}
+.prototype-stage .expedition-element-demo .expedition-world-label{top:45px}
+.prototype-stage .obstacle-element-demo{height:330px}.prototype-stage .obstacle-corridor-demo{height:760px}.prototype-stage .tile-footprint-demo{height:180px}.prototype-stage .tile-run-demo{height:310px}.prototype-stage .pickup-element-demo{height:160px}.prototype-stage .creature-element-demo{height:220px}
+.prototype-stage .hud-element-demo{height:112px}.prototype-stage .resistance-element-demo{height:140px}.prototype-stage .resistance-element-demo .creature-meter{top:50px;left:18px;right:18px}
+.prototype-stage .harpoon-element-demo{height:200px}.prototype-stage .preparation-element-demo{height:500px}.prototype-stage .catch-element-demo{height:390px}.prototype-stage .route-element-demo{height:190px}
+.prototype-stage .route-element-demo .expedition-route-feature{width:40%}
+.prototype-stage .expedition-element-demo .following-strip{width:72%;max-width:220px}
+.prototype-stage .catch-element-demo .catch-focus{top:12%;height:76%}
+.prototype-stage .paused-scene .expedition-obstacles,.prototype-stage .paused-scene .expedition-route-feature{animation-play-state:paused}
+.prototype-stage .expedition-result-example{width:100%;margin-bottom:14px}
+.prototype-stage .expedition-result-example>.results-scene{width:100%;height:530px;min-height:530px;border:1px solid var(--line);border-radius:6px;flex-shrink:0;padding:24px 12px}
+.prototype-stage .expedition-result-example .result-content{gap:10px}
+.prototype-stage .expedition-result-example .result-content h2{font-size:1.4rem}
