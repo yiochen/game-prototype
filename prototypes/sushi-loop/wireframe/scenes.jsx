@@ -5,7 +5,7 @@ import { roster, chefAssigned } from './fixtures.js';
 import { RosterTray } from './staff-tray.jsx';
 import { PaperPage } from './paper-page.jsx';
 import { ConceptCatalog } from './concept-catalog.jsx';
-import { ExpeditionSurroundings, ExpeditionObstacles, ExpeditionTravelFeatures, ExpeditionHud, ExpeditionResistance, ExpeditionWorldLabel, ExpeditionSteeringHint, ExpeditionSubmarine, ExpeditionCreature, ExpeditionFollowingRange, ExpeditionAttackWarning, ExpeditionHarpoonControl, ExpeditionResumeCountdown, ExpeditionPreparation, ExpeditionCatchReward } from './expedition-elements.jsx';
+import { ExpeditionTileGrid, ExpeditionSurroundings, ExpeditionObstacles, ExpeditionTravelFeatures, ExpeditionHud, ExpeditionResistance, ExpeditionWorldLabel, ExpeditionSteeringHint, ExpeditionSubmarine, ExpeditionCreature, ExpeditionFollowingRange, ExpeditionAttackWarning, ExpeditionHarpoonControl, ExpeditionResumeCountdown, ExpeditionPreparation, ExpeditionCatchReward } from './expedition-elements.jsx';
 import { GarbageCluster, garbageClusterFor } from './garbage-cluster.jsx';
 
 function Nav({ children, story = 'restaurant-live', className = '', data = {}, ...rest }) {
@@ -80,7 +80,7 @@ function Workshop({ state }) {
 }
 
 function ExpeditionStart() {
-  return <div className="phone-scene ocean-scene preparation-scene"><ExpeditionSurroundings/><ExpeditionPreparation/></div>;
+  return <ExpeditionTileGrid className="phone-scene ocean-scene preparation-scene"><ExpeditionSurroundings/><ExpeditionPreparation/></ExpeditionTileGrid>;
 }
 function Expedition({ state }) {
   const variant = state._variant;
@@ -89,11 +89,11 @@ function Expedition({ state }) {
   const encounter = ['encounter','pursuit','danger'].includes(backdrop);
   const pursuit = ['pursuit','danger'].includes(backdrop);
   const danger = backdrop === 'danger';
-  return <div className={`phone-scene ocean-scene expedition-scene corridor-${encounter ? 'encounter' : 'travel'} ${danger ? 'danger-scene' : ''} ${paused ? 'paused-scene' : ''}`}><ExpeditionSurroundings tunnel/><ExpeditionObstacles mode={encounter ? 'encounter' : 'travel'}/>{backdrop === 'travel' && <ExpeditionTravelFeatures/>}<ExpeditionHud percent={danger ? 22 : 78} danger={danger}/>{encounter && <ExpeditionResistance pursuit={pursuit}/>} {!paused && <ExpeditionWorldLabel label={variant === 'travel' ? 'Travelling' : danger ? 'Cable at its limit' : pursuit ? 'Pursuit' : 'Encounter'}/>} {pursuit && <ExpeditionFollowingRange danger={danger}/>} {danger && <ExpeditionAttackWarning/>}{encounter && <ExpeditionCreature state={danger ? 'escaping' : pursuit ? 'hooked' : 'aiming'}/>}<ExpeditionSubmarine/>{encounter && !pursuit && <ExpeditionHarpoonControl disabled={paused} cooldown={Boolean(state.harpoonCooling)} firing={Boolean(state.harpoonFiring)}/>} {variant === 'resume' && <ExpeditionResumeCountdown/>}{!paused && <ExpeditionSteeringHint/>}</div>;
+  return <ExpeditionTileGrid className={`phone-scene ocean-scene expedition-scene corridor-${encounter ? 'encounter' : 'travel'} ${danger ? 'danger-scene' : ''} ${paused ? 'paused-scene' : ''}`}><ExpeditionSurroundings tunnel/><ExpeditionObstacles mode={encounter ? 'encounter' : 'travel'}/>{backdrop === 'travel' && <ExpeditionTravelFeatures/>}<ExpeditionHud percent={danger ? 22 : 78} danger={danger}/>{encounter && <ExpeditionResistance pursuit={pursuit}/>} {!paused && <ExpeditionWorldLabel label={variant === 'travel' ? 'Travelling' : danger ? 'Cable at its limit' : pursuit ? 'Pursuit' : 'Encounter'}/>} {pursuit && <ExpeditionFollowingRange danger={danger}/>} {danger && <ExpeditionAttackWarning/>}{encounter && <ExpeditionCreature state={danger ? 'escaping' : pursuit ? 'hooked' : 'aiming'}/>}<ExpeditionSubmarine/>{encounter && !pursuit && <ExpeditionHarpoonControl disabled={paused} cooldown={Boolean(state.harpoonCooling)} firing={Boolean(state.harpoonFiring)}/>} {variant === 'resume' && <ExpeditionResumeCountdown/>}{!paused && <ExpeditionSteeringHint/>}</ExpeditionTileGrid>;
 }
 function Catch({ state }) {
   const repeat = state._variant === 'repeat';
-  return <div className="phone-scene ocean-scene catch-scene"><ExpeditionSurroundings/><ExpeditionCatchReward repeat={repeat}/></div>;
+  return <ExpeditionTileGrid className="phone-scene ocean-scene catch-scene"><ExpeditionSurroundings/><ExpeditionCatchReward repeat={repeat}/></ExpeditionTileGrid>;
 }
 function Results({ state }) {
   const early = state._variant === 'early';
@@ -105,7 +105,7 @@ function Results({ state }) {
 export function Scene({ story, state = {} }) {
   const sceneState = {...state,_variant:story.variant || 'live'};
   switch (story.scene) {
-    case 'concept': return <ConceptCatalog />;
+    case 'concept': return <ConceptCatalog catalog={story.variant === 'underwater-tile-kit' ? 'underwater-tile-kit' : 'doodle'} />;
     case 'component': return <ComponentGallery story={story} state={sceneState} paperBackground={story.component === 'paper-page' ? <PaperRestaurant state={sceneState} /> : undefined} suppliedExamples={story.component === 'expedition-results' ? ['complete','early','hull'].map(variant=><section className="component-example expedition-result-example" key={variant}><h3>{variant === 'complete' ? 'Complete' : variant === 'early' ? 'Returned early' : 'Hull depleted'}</h3><Results state={{...sceneState,_variant:variant}}/></section>) : undefined}/>;
     case 'floor-plan': return <FloorPlan state={sceneState} />;
     case 'restaurant': return <Restaurant state={sceneState} />;

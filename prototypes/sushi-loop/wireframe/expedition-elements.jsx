@@ -3,43 +3,55 @@ import { Target, Icon, Money } from './common.jsx';
 import './expedition-elements.css';
 
 export const EXPEDITION_COMPONENT_KEYS = [
-  'expedition-surroundings', 'expedition-obstacle', 'expedition-pickup',
+  'expedition-surroundings', 'expedition-tile', 'expedition-obstacle', 'expedition-pickup',
   'expedition-submarine', 'expedition-creature', 'expedition-hud',
   'expedition-resistance', 'expedition-following-range', 'expedition-attack-warning',
   'expedition-harpoon', 'expedition-resume-countdown', 'expedition-preparation',
   'expedition-catch-reward', 'expedition-route-feature',
 ];
 
+export const EXPEDITION_GRID_COLUMNS = 10;
+
+export function ExpeditionTileGrid({ children, className = '' }) {
+  return <div className={`expedition-tile-grid ${className}`} data-grid-columns={EXPEDITION_GRID_COLUMNS}><div className="expedition-water-grid" aria-hidden="true"/>{children}</div>;
+}
+
+export function ExpeditionTile({ kind = 'reef', segment = 'middle', edge = 'inside', collidable = true, anchor = 'floor', layer = 'midground', column = 0, row = 0 }) {
+  const decoration = !collidable;
+  return <span className={`expedition-tile tile-${kind} tile-${segment} tile-edge-${edge} ${decoration ? `tile-decoration decor-${layer}` : 'tile-collider'}`} data-tile-kind={kind} data-tile-role={segment} data-grid-column={column} data-grid-row={row} data-collidable={String(collidable)} data-anchor={anchor} data-decor-layer={decoration ? layer : undefined} aria-hidden="true"><svg viewBox="0 0 100 100" aria-hidden="true">
+    {kind === 'kelp' ? <><path d="M46 98q-23-20-11-40T29 15M51 99q21-28 6-49T63 4M47 91q-3-27 16-38T76 19" className="tile-kelp"/></> : kind === 'coral' ? <><path d="M52 94V36M52 64 28 47V24M52 77 77 56V34M52 44 38 29V12M77 56l12-15M28 47 15 34" className="tile-coral"/><circle cx="38" cy="12" r="5"/><circle cx="77" cy="33" r="5"/></> : kind === 'column' ? <><path d="M23 0h54v100H23Z"/><path d="M35 0v100M65 0v100" className="tile-detail"/>{segment === 'start' && <path d="m23 12 15-8 12 12L64 6l13 8" className="tile-detail"/>}{segment === 'end' && <path d="M18 86h64v14H18Z"/>}</> : kind === 'wreck' ? <><rect x="0" y="0" width="100" height="100"/><path d="M0 26h100M0 74h100M50 0v100M18 0v24M82 27v46M18 75v25" className="tile-detail"/>{segment !== 'middle' && <path d={segment === 'start' ? 'M0 6h100M6 6v20M94 6v20' : 'M0 94h100M6 74v20M94 74v20'} className="tile-run-cap"/>}</> : <><rect x="0" y="0" width="100" height="100"/><path d={kind === 'boulder' ? 'M17 0 34 22 18 52 39 79 28 100M72 0 57 27 80 50 61 79 74 100M18 52l39-25M39 79l41-29' : 'M31 0 21 26 39 52 24 81 33 100M75 0 60 28 77 58 59 86 69 100M21 26l39 2M39 52l38 6M24 81l35 5'} className="tile-detail"/>{kind === 'reef' && <><circle cx="12" cy="67" r="8"/><circle cx="90" cy="36" r="7"/></>}{segment !== 'middle' && <path d={segment === 'start' ? 'M0 6h100' : 'M0 94h100'} className="tile-run-cap"/>}</>}
+  </svg></span>;
+}
+
+export function ExpeditionTileBlock({ kind = 'reef', column = 0, row = 0, columns = 1, rows = 1, anchor = 'floor', collidable = true, layer = 'midground', label, className = '', ...data }) {
+  const cells = Array.from({length:rows}, (_, y) => Array.from({length:columns}, (_, x) => <ExpeditionTile key={`${x}-${y}`} kind={kind} segment={y === 0 ? 'start' : y === rows-1 ? 'end' : 'middle'} edge={x === 0 ? 'left' : x === columns-1 ? 'right' : 'inside'} column={column+x} row={row+y} anchor={anchor} collidable={collidable} layer={layer}/>));
+  return <div className={`expedition-tile-block ${className}`} style={{'--grid-column':column,'--grid-row':row,'--grid-columns':columns,'--grid-rows':rows}} role="img" aria-label={label || `${columns} by ${rows} ${kind} ${collidable ? 'collider' : 'decoration'}`} data-grid-column={column} data-grid-row={row} data-grid-columns={columns} data-grid-rows={rows} data-collidable={String(collidable)} data-anchor={anchor} data-decor-layer={collidable ? undefined : layer} {...data}>{cells}</div>;
+}
+
 export function ExpeditionPickup({ className = '', style }) {
   return <span className={`salvage-fragment ${className}`} style={style} role="img" aria-label="Salvage pickup">◇</span>;
 }
 
 export function ExpeditionSurroundings({ pickups = true, tunnel = false }) {
-  return <><div className="sea-dashes" aria-hidden="true"><i /><i /><i /><i /></div>{!tunnel && <div className="sea-floor" aria-hidden="true"><span>⌁</span><span>♧</span><span>⌁</span><span>♧</span></div>}{pickups && <><ExpeditionPickup className="sf-one" /><ExpeditionPickup className="sf-two" /></>}</>;
+  return <><div className="sea-dashes" aria-hidden="true"><i /><i /><i /><i /></div><ExpeditionTileBlock kind="kelp" column={0} row={5} collidable={false} anchor="wall" layer="background" label="Background kelp decoration"/><ExpeditionTileBlock kind="coral" column={9} row={9} collidable={false} anchor="wall" layer="midground" label="Midground coral decoration"/>{!tunnel && <ExpeditionTileBlock kind="kelp" column={0} row={15} columns={1} rows={2} collidable={false} layer="foreground" label="Foreground kelp decoration"/>}{pickups && <><ExpeditionPickup className="sf-one" /><ExpeditionPickup className="sf-two" /></>}</>;
 }
 
-const obstacleWidths = { small: 18, medium: 32, large: 50 };
-const obstacleDepths = { short: 55, medium: 95, long: 140 };
+const obstacleColumns = { small: 2, medium: 3, large: 5 };
+const obstacleRows = { short: 12, medium: 20, long: 28 };
 const obstacleForms = { reef: 'reef ridge', boulder: 'rock shelf', wreck: 'wreck section' };
-export function ExpeditionObstacle({ kind = 'reef', size = 'large', length = 'long', style = {} }) {
-  const width = obstacleWidths[size] || obstacleWidths.large;
-  const depth = obstacleDepths[length] || obstacleDepths.long;
-  return <div className={`expedition-obstacle obstacle-${kind} obstacle-${size} obstacle-length-${length}`} style={{ width:`${width}%`, height:`${depth}%`, ...style }} role="img" aria-label={`${size[0].toUpperCase()+size.slice(1)} ${obstacleForms[kind] || kind} obstacle`} data-obstacle-size={size} data-obstacle-kind={kind} data-obstacle-length={length} data-obstacle-depth={depth}>
-    <svg viewBox="0 0 200 1000" preserveAspectRatio="none" aria-hidden="true">
-      {kind === 'reef' ? <><path d="M0 0h176l-14 84 26 95-15 101 20 117-24 82 16 122-25 97 20 98-16 113 11 91H0Z"/><path d="M45 0 29 121 52 249 31 382 53 499 35 651 54 798 37 1000M100 0 117 143 96 286 116 418 95 579 118 739 101 891 115 1000M30 121l86 22M32 382l84 36M35 651l81 88M39 914l72-21" className="obstacle-detail"/></> : kind === 'boulder' ? <><path d="M35 0h116l39 90-14 140 17 126-16 178 16 153-18 168-12 145H29L11 861l17-167-17-141 17-165-15-137 10-143Z"/><path d="M35 0 72 117 45 245 76 391 43 553 77 715 51 862 73 1000M151 0 123 123 151 282 127 437 151 603 122 775 147 1000M72 117l51 6M46 245l105 37M76 391l51 46M43 553l106 50M77 715l45 60M51 862l89 64" className="obstacle-detail"/></> : <><path d="M37 0h126l23 104-6 169 10 153-9 165 5 168-24 241H37L14 759l6-169-9-164 9-153-6-169Z"/><path d="M100 0v1000M34 112h132M31 237h138M33 370h134M31 500h138M34 636h132M35 764h130M43 895h113M52 40v66M148 126v104M53 250v113M150 381v109M54 510v119M145 648v108M58 781v106" className="obstacle-detail"/><path d="m37 552 30-28 20 23 28-22 50 25M31 838l38-27 30 20 36-23 29 23" className="obstacle-detail"/></>}
-    </svg>
-  </div>;
+export function ExpeditionObstacle({ kind = 'reef', size = 'large', length = 'long', column = 0, row = 0 }) {
+  const columns = obstacleColumns[size] || obstacleColumns.large;
+  const rows = obstacleRows[length] || obstacleRows.long;
+  return <ExpeditionTileBlock kind={kind} column={column} row={row} columns={columns} rows={rows} anchor={kind === 'reef' ? 'wall' : 'floor'} className={`expedition-obstacle obstacle-${kind} obstacle-${size} obstacle-length-${length}`} label={`${size[0].toUpperCase()+size.slice(1)} ${obstacleForms[kind] || kind} obstacle`} data-obstacle-size={size} data-obstacle-kind={kind} data-obstacle-length={length}/>;
 }
 
 export function ExpeditionTunnelWalls({ wide = false }) {
-  return <div className={`expedition-tunnel-walls ${wide ? 'tunnel-walls-wide' : ''}`} role="img" aria-label={wide ? 'Continuous canyon walls around a wider encounter chamber' : 'Continuous underwater canyon walls'}>
-    <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">{wide ? <><path d="M0 0h26l-7 154 17 165-13 183 14 165-17 164 8 169H0Z"/><path d="M1000 0h-26l7 154-17 165 13 183-14 165 17 164-8 169h28Z"/></> : <><path d="M0 0h54l-13 133 23 101-19 114 21 119-24 111 17 133-20 140 14 149H0Z"/><path d="M1000 0h-54l13 133-23 101 19 114-21 119 24 111-17 133 20 140-14 149h53Z"/></>}<path d="M13 0 22 152 11 316 25 482 13 654 22 822 13 1000M987 0 978 152 989 316 975 482 987 654 978 822 987 1000" className="tunnel-wall-detail"/></svg>
-  </div>;
+  return <div className={`expedition-tunnel-walls ${wide ? 'tunnel-walls-wide' : ''}`} role="group" aria-label={wide ? 'Continuous tile walls around a wider encounter chamber' : 'Continuous underwater tile canyon walls'}><ExpeditionTileBlock kind="boulder" column={0} row={-4} columns={1} rows={40} anchor="wall" label="Left connected tile wall"/><ExpeditionTileBlock kind="boulder" column={9} row={-4} columns={1} rows={40} anchor="wall" label="Right connected tile wall"/></div>;
 }
 
 export function ExpeditionObstacles({ mode = 'travel' }) {
   const chamber = mode === 'encounter';
-  return <div className={`expedition-obstacles corridor-${mode}`} data-corridor-mode={mode} role="group" aria-label={chamber ? 'Wide encounter chamber inside the underwater tunnel' : 'Long staggered obstacles around a connected bending underwater passage'}><ExpeditionTunnelWalls wide={chamber}/>{chamber ? <><ExpeditionObstacle kind="reef" size="small" length="long" style={{left:'-14%',top:'-20%'}}/><ExpeditionObstacle kind="wreck" size="small" length="long" style={{right:'-14%',top:'-20%'}}/></> : <><ExpeditionObstacle kind="reef" size="large" length="medium" style={{ left:'0%', top:'-50%' }}/><ExpeditionObstacle kind="wreck" size="medium" length="long" style={{ right:'0%', top:'64%' }}/><ExpeditionObstacle kind="boulder" size="small" length="short" style={{ left:'0%', top:'88%' }}/></>}</div>;
+  return <div className={`expedition-obstacles corridor-${mode}`} data-corridor-mode={mode} role="group" aria-label={chamber ? 'Wide encounter chamber inside the underwater tile tunnel' : 'Connected tile obstacles around a bending underwater passage'}><ExpeditionTunnelWalls wide={chamber}/>{chamber ? <><ExpeditionObstacle kind="reef" size="small" length="long" column={-1} row={-4}/><ExpeditionObstacle kind="wreck" size="small" length="long" column={9} row={-4}/></> : <><ExpeditionObstacle kind="reef" size="large" length="medium" column={0} row={-10}/><ExpeditionObstacle kind="wreck" size="medium" length="long" column={7} row={15}/><ExpeditionObstacle kind="boulder" size="small" length="short" column={0} row={21}/></>}</div>;
 }
 
 export function ExpeditionRouteFeature({ kind = 'current', style = {} }) {
@@ -49,7 +61,7 @@ export function ExpeditionRouteFeature({ kind = 'current', style = {} }) {
 }
 
 export function ExpeditionTravelFeatures() {
-  return <><ExpeditionRouteFeature kind="portal" style={{ left:'70%', top:'20%' }}/><ExpeditionRouteFeature kind="current" style={{ right:'12%', top:'40%' }}/><ExpeditionRouteFeature kind="boost" style={{ left:'34%', top:'78%' }}/></>;
+  return <><ExpeditionRouteFeature kind="portal" style={{ left:'70cqw', top:'50cqw' }}/><ExpeditionRouteFeature kind="current" style={{ left:'60cqw', top:'105cqw' }}/><ExpeditionRouteFeature kind="boost" style={{ left:'40cqw', top:'170cqw' }}/></>;
 }
 
 export function ExpeditionHullMeter({ percent = 78, danger = false }) {
@@ -114,13 +126,14 @@ export function ExpeditionCatchReward({ repeat = false }) {
 }
 
 function Example({ label, children, className = '' }) {
-  return <section className="component-example expedition-component-example"><h3>{label}</h3><div className={`expedition-element-demo ocean-scene ${className}`}>{children}</div></section>;
+  return <section className="component-example expedition-component-example"><h3>{label}</h3><ExpeditionTileGrid className={`expedition-element-demo ocean-scene ${className}`}>{children}</ExpeditionTileGrid></section>;
 }
 
 export function ExpeditionElementExamples({ component, state = {} }) {
   switch (component) {
     case 'expedition-surroundings': return <><Example label="Continuous canyon walls and water depth"><ExpeditionTunnelWalls/><ExpeditionSurroundings pickups={false} tunnel/><ExpeditionWorldLabel label="Travelling"/><ExpeditionSteeringHint/></Example><Example label="Wider creature encounter chamber"><ExpeditionTunnelWalls wide/><ExpeditionSurroundings pickups={false} tunnel/></Example></>;
-    case 'expedition-obstacle': return <>{['reef','boulder','wreck'].flatMap(kind=>['small','medium','large'].map((size,index)=>{const length=['short','medium','long'][index];return <Example key={`${kind}-${size}`} label={`${obstacleForms[kind]} · ${obstacleWidths[size]}% wide · ${obstacleDepths[length]}% deep`} className="obstacle-element-demo"><ExpeditionObstacle kind={kind} size={size} length={length} style={{left:`${(100-obstacleWidths[size])/2}%`,top:length==='long' ? '-20%' : length==='medium' ? '3%' : '22%'}}/></Example>;}))}<Example label="Connected tunnel passage · free lateral steering" className="obstacle-corridor-demo corridor-travel"><ExpeditionSurroundings tunnel/><ExpeditionObstacles/><ExpeditionSubmarine/><ExpeditionTravelFeatures/></Example></>;
+    case 'expedition-tile': return <><Example label="1×1 rock · floor anchor" className="tile-footprint-demo"><ExpeditionTileBlock kind="boulder" column={4} row={2} columns={1} rows={1}/></Example><Example label="1×2 column · two connected square cells" className="tile-footprint-demo"><ExpeditionTileBlock kind="column" column={4} row={1} columns={1} rows={2}/></Example><Example label="2×2 rock cluster · floor anchor" className="tile-footprint-demo"><ExpeditionTileBlock kind="boulder" column={4} row={1} columns={2} rows={2}/></Example><Example label="Connected runs · start, middle and end tiles" className="tile-run-demo"><ExpeditionTileBlock kind="reef" column={2} row={1} columns={2} rows={6} anchor="wall"/><ExpeditionTileBlock kind="wreck" column={6} row={1} columns={2} rows={6}/></Example><Example label="Wall anchors · connected edge tiles" className="tile-run-demo"><ExpeditionTunnelWalls/><ExpeditionTileBlock kind="reef" column={1} row={2} columns={1} rows={3} anchor="wall"/></Example><Example label="Visual decor · background, midground, foreground" className="tile-run-demo"><ExpeditionTileBlock kind="kelp" column={1} row={1} collidable={false} layer="background"/><ExpeditionTileBlock kind="coral" column={4} row={3} collidable={false} layer="midground"/><ExpeditionTileBlock kind="kelp" column={7} row={5} collidable={false} layer="foreground"/></Example></>;
+    case 'expedition-obstacle': return <>{['reef','boulder','wreck'].flatMap(kind=>['small','medium','large'].map((size,index)=>{const length=['short','medium','long'][index];return <Example key={`${kind}-${size}`} label={`${obstacleForms[kind]} · ${obstacleColumns[size]}×${obstacleRows[length]} connected tiles`} className="obstacle-element-demo"><ExpeditionObstacle kind={kind} size={size} length={length} column={Math.floor((EXPEDITION_GRID_COLUMNS-obstacleColumns[size])/2)} row={1}/></Example>;}))}<Example label="Connected tile tunnel · free lateral steering" className="obstacle-corridor-demo corridor-travel"><ExpeditionSurroundings tunnel/><ExpeditionObstacles/><ExpeditionSubmarine/><ExpeditionTravelFeatures/></Example></>;
     case 'expedition-pickup': return <Example label="Salvage pickup" className="pickup-element-demo"><ExpeditionPickup style={{left:'48%',top:'40%'}}/></Example>;
     case 'expedition-submarine': return <><Example label="Travelling submarine"><ExpeditionSubmarine/></Example><Example label="Ready before departure"><ExpeditionSubmarine preparation/></Example></>;
     case 'expedition-creature': return <>{['aiming','hooked','escaping','caught'].map(mode=><Example key={mode} label={`${mode[0].toUpperCase()+mode.slice(1)} creature`} className="creature-element-demo"><ExpeditionCreature state={mode}/></Example>)}</>;

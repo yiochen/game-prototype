@@ -56,7 +56,7 @@ for (const [name, width, height] of [
     page.on('pageerror', (error) => errors.push(error.message));
     await open(page, 'floor-plan');
     const examples = await page.locator('#example-select option').evaluateAll((options) => options.map((option) => ({ id: option.value, title: option.textContent })));
-    expect(examples).toHaveLength(76);
+    expect(examples).toHaveLength(78);
     for (const example of examples) {
       await open(page, example.id);
       await expect(page.locator('#story-title')).toHaveText(example.title);
@@ -86,15 +86,19 @@ for (const [name, width, height] of [
   });
 }
 
-test('doodle concept catalog loads the original image and supports contained phone zoom and a full-size link', async ({ page }) => {
+for (const [story, heading, imageName, scrollName, naturalWidth, naturalHeight] of [
+  ['concept-doodle-catalog', 'Doodle UI & art catalog', /^Doodle UI and art catalog:/, 'Scroll doodle UI and art catalog', 1024, 1536],
+  ['concept-underwater-tile-kit', 'Underwater tunnel tile kit', /^Underwater tunnel tile kit:/, 'Scroll underwater tunnel tile kit', 1280, 960],
+]) {
+test(`${heading} loads the original image and supports contained phone zoom and a full-size link`, async ({ page }) => {
   for (const [width, height] of [[320, 740], [390, 844], [844, 390]]) {
     await page.setViewportSize({ width, height });
-    await open(page, 'concept-doodle-catalog');
-    await expect(stage(page).getByRole('heading', { name: 'Doodle UI & art catalog', exact: true })).toBeVisible();
-    const image = stage(page).getByRole('img', { name: /^Doodle UI and art catalog:/ });
-    await expect.poll(() => image.evaluate(element => element.complete && element.naturalWidth)).toBe(1024);
-    expect(await image.evaluate(element => element.naturalHeight)).toBe(1536);
-    const scroll = stage(page).getByLabel('Scroll doodle UI and art catalog', { exact: true });
+    await open(page, story);
+    await expect(stage(page).getByRole('heading', { name: heading, exact: true })).toBeVisible();
+    const image = stage(page).getByRole('img', { name: imageName });
+    await expect.poll(() => image.evaluate(element => element.complete && element.naturalWidth)).toBe(naturalWidth);
+    expect(await image.evaluate(element => element.naturalHeight)).toBe(naturalHeight);
+    const scroll = stage(page).getByLabel(scrollName, { exact: true });
     const fitted = await scroll.evaluate(element => ({ width: element.clientWidth, imageWidth: element.querySelector('img').getBoundingClientRect().width }));
     expect(fitted.imageWidth).toBeLessThanOrEqual(fitted.width + 1);
     const link = stage(page).getByRole('link', { name: 'Open full-size catalog', exact: true });
@@ -102,7 +106,7 @@ test('doodle concept catalog loads the original image and supports contained pho
     await expect(link).toHaveAttribute('target', '_blank');
     await stage(page).getByRole('button', { name: 'Zoom catalog', exact: true }).click();
     await expect(stage(page).getByRole('button', { name: 'Fit catalog', exact: true })).toHaveAttribute('aria-pressed', 'true');
-    expect(await image.evaluate(element => element.getBoundingClientRect().width)).toBe(1024);
+    expect(await image.evaluate(element => element.getBoundingClientRect().width)).toBe(naturalWidth);
     await scroll.hover({ position: { x: 90, y: 90 } });
     await page.mouse.wheel(450, 400);
     await expect.poll(() => scroll.evaluate(element => element.scrollLeft)).toBeGreaterThan(0);
@@ -112,18 +116,19 @@ test('doodle concept catalog loads the original image and supports contained pho
     await expect(stage(page).getByRole('button', { name: 'Zoom catalog', exact: true })).toHaveAttribute('aria-pressed', 'false');
     expect(await scroll.evaluate(element => element.scrollWidth)).toBeLessThanOrEqual(fitted.width + 1);
   }
-  const catalogUrl = await stage(page).getByRole('img', { name: /^Doodle UI and art catalog:/ }).getAttribute('src');
+  const catalogUrl = await stage(page).getByRole('img', { name: imageName }).getAttribute('src');
   const [original] = await Promise.all([
     page.waitForEvent('popup'),
     stage(page).getByRole('link', { name: 'Open full-size catalog', exact: true }).click(),
   ]);
   await original.waitForLoadState();
   await expect(original).toHaveURL(catalogUrl);
-  expect(await original.locator('img').evaluate(element => element.naturalWidth)).toBe(1024);
+  expect(await original.locator('img').evaluate(element => element.naturalWidth)).toBe(naturalWidth);
   await original.close();
-  await at(page, 'concept-doodle-catalog');
-  await screenshot(page, 'doodle-concept-catalog');
+  await at(page, story);
+  await screenshot(page, story);
 });
+}
 
 test('variable garbage clusters preview their own footprint and cost, cancel safely and clear only the paid cluster', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 740 });
@@ -198,34 +203,68 @@ test('restaurant cleanup reuses the selected cluster and keeps other footprints 
   await expect(stage(page).getByRole('button', { name: /^Inspect .* garbage cluster$/ })).toHaveCount(2);
 });
 
-test('shared expedition elements include long tunnel barriers and match the preserved scene', async ({ page }) => {
+test('shared expedition elements use square tiles and connected tunnel barriers matching the preserved scene', async ({ page }) => {
   const componentIds = [
-    'expedition-surroundings', 'expedition-obstacle', 'expedition-pickup', 'expedition-submarine',
+    'expedition-tile', 'expedition-surroundings', 'expedition-obstacle', 'expedition-pickup', 'expedition-submarine',
     'expedition-creature', 'expedition-hud', 'expedition-resistance', 'expedition-following-range',
     'expedition-attack-warning', 'expedition-harpoon', 'expedition-resume-countdown',
     'expedition-preparation', 'expedition-catch-reward', 'expedition-route-feature',
     'pause-dialog', 'early-return-dialog', 'recipe-award', 'expedition-results',
   ];
+  const verifyTiles = async () => {
+    const tiles = await stage(page).locator('.expedition-tile').evaluateAll(elements => elements.map(element => {
+      const box = element.getBoundingClientRect();
+      return {width:box.width, height:box.height, column:Number(element.dataset.gridColumn), row:Number(element.dataset.gridRow)};
+    }));
+    expect(tiles.length).toBeGreaterThan(0);
+    for (const tile of tiles) {
+      expect(tile.width).toBeGreaterThan(0);
+      expect(tile.width).toBeCloseTo(tile.height, 1);
+      expect(Number.isInteger(tile.column) && Number.isInteger(tile.row)).toBe(true);
+    }
+    const blocks = await stage(page).locator('.expedition-tile-block').evaluateAll(elements => elements.map(element => {
+      const box = element.getBoundingClientRect(), tile = element.querySelector('.expedition-tile').getBoundingClientRect();
+      return {
+        width:box.width/tile.width, height:box.height/tile.height,
+        columns:Number(element.dataset.gridColumns), rows:Number(element.dataset.gridRows),
+        cellCount:element.querySelectorAll('.expedition-tile').length,
+        collision:element.dataset.collidable, layer:element.dataset.decorLayer,
+      };
+    }));
+    for (const block of blocks) {
+      expect(block.width).toBeCloseTo(block.columns, 1);
+      expect(block.height).toBeCloseTo(block.rows, 1);
+      expect(block.cellCount).toBe(block.columns * block.rows);
+      if (block.layer) expect(block.collision).toBe('false');
+    }
+  };
   for (const [width, height] of [[320, 740], [390, 844], [844, 390]]) {
     await page.setViewportSize({ width, height });
+    await open(page, 'component-expedition-tile');
+    await verifyTiles();
+    const footprints = await stage(page).locator('.expedition-tile-block').evaluateAll(elements => elements.map(element => `${element.dataset.gridColumns}x${element.dataset.gridRows}`));
+    for (const size of ['1x1','1x2','2x2']) expect(footprints).toContain(size);
+    const layers = await stage(page).locator('.expedition-tile-block[data-collidable="false"]').evaluateAll(elements => elements.map(element => element.dataset.decorLayer));
+    for (const layer of ['foreground','midground','background']) expect(layers).toContain(layer);
     await open(page, 'component-expedition-obstacle');
+    await verifyTiles();
     const available = await page.locator('#example-select option').evaluateAll(options => options.map(option => option.value));
     for (const id of componentIds) expect(available).toContain(`component-${id}`);
     const isolatedObstacles = stage(page).locator('.obstacle-element-demo .expedition-obstacle');
     await expect(isolatedObstacles).toHaveCount(9);
     const sizes = await isolatedObstacles.evaluateAll(elements => elements.map(element => ({
       size: element.dataset.obstacleSize,
-      ratio: element.getBoundingClientRect().width / element.parentElement.getBoundingClientRect().width,
+      ratio: element.getBoundingClientRect().width / element.closest('.expedition-tile-grid').clientWidth,
       depth: element.getBoundingClientRect().height / element.parentElement.getBoundingClientRect().height,
       lengthToWidth: element.getBoundingClientRect().height / element.getBoundingClientRect().width,
     })));
     for (const item of sizes) {
-      expect(item.ratio).toBeCloseTo({small: .18, medium: .32, large: .5}[item.size], 2);
-      expect(item.depth).toBeGreaterThan(.54);
+      expect(item.ratio).toBeCloseTo({small: .2, medium: .3, large: .5}[item.size], 2);
       expect(item.lengthToWidth).toBeGreaterThan(2);
     }
     expect(sizes.some(item => item.depth > 1)).toBe(true);
     await open(page, 'expedition-travel');
+    await verifyTiles();
     const reef = stage(page).getByRole('img', { name: 'Large reef ridge obstacle', exact: true });
     await expect(reef).toBeVisible();
     const measure = () => reef.evaluate(element => {
@@ -235,8 +274,9 @@ test('shared expedition elements include long tunnel barriers and match the pres
     const before = await measure();
     expect(before.width / before.worldWidth).toBeCloseTo(.5, 2);
     expect(before.x + before.width).toBeLessThanOrEqual(before.worldWidth * .51);
-    expect(before.height).toBeGreaterThan(before.worldHeight * .9);
     expect(before.y).toBeLessThan(0);
+    const longBarrier = await stage(page).locator('.expedition-obstacle[data-obstacle-length="long"]').boundingBox();
+    expect(longBarrier.height).toBeGreaterThan(before.worldHeight);
     const shipIsClear = await stage(page).locator('.expedition-obstacles').evaluate(world => {
       const ship = world.closest('.expedition-scene').querySelector('.expedition-ship > svg').getBoundingClientRect();
       return [...world.querySelectorAll('.expedition-obstacle')].every(element => {
@@ -245,6 +285,31 @@ test('shared expedition elements include long tunnel barriers and match the pres
       });
     });
     expect(shipIsClear).toBe(true);
+    // Expand obstacles by the ship's footprint, then carry reachable free
+    // intervals between every vertical boundary to verify a continuous route.
+    const connectedPassage = await stage(page).locator('.expedition-obstacles').evaluate(world => {
+      const bounds=world.getBoundingClientRect();
+      const ship=world.closest('.expedition-scene').querySelector('.expedition-ship > svg').getBoundingClientRect();
+      const marginX=ship.width/2+2, marginY=ship.height/2+2;
+      const obstacles=[...world.querySelectorAll('.expedition-tile-block[data-collidable="true"]')].map(el=>{
+        const b=el.getBoundingClientRect();
+        return {left:b.left-marginX,right:b.right+marginX,top:b.top-marginY,bottom:b.bottom+marginY};
+      });
+      const top=bounds.top+marginY,bottom=bounds.bottom-marginY;
+      const boundaries=[...new Set([top,bottom,...obstacles.flatMap(b=>[b.top,b.bottom]).filter(y=>y>top && y<bottom)])].sort((a,b)=>a-b);
+      let reachable;
+      for(let i=0;i<boundaries.length-1;i++) {
+        const y=(boundaries[i]+boundaries[i+1])/2;
+        let free=[[bounds.left+marginX,bounds.right-marginX]];
+        for(const b of obstacles.filter(b=>b.top<y && b.bottom>y)) {
+          free=free.flatMap(([left,right])=>b.right<=left || b.left>=right ? [[left,right]] : [[left,Math.min(right,b.left)],[Math.max(left,b.right),right]].filter(([l,r])=>r>l));
+        }
+        reachable=reachable ? free.filter(([left,right])=>reachable.some(([l,r])=>Math.min(right,r)>Math.max(left,l))) : free;
+        if(!reachable.length) return false;
+      }
+      return true;
+    });
+    expect(connectedPassage).toBe(true);
     await expect(stage(page).getByRole('img', { name: 'Lateral current', exact: true })).toBeVisible();
     await stage(page).getByRole('button', { name: 'Pause', exact: true }).click();
     expect(await measure()).toEqual(before);

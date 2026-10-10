@@ -1,20 +1,24 @@
 .prototype-stage .sea-dashes{position:absolute;inset:100px 15px 0;pointer-events:none}
 .prototype-stage .sea-dashes i{position:absolute;width:65px;height:12px;border-top:1px dashed #b0c2cd;transform:rotate(-6deg)}
 .prototype-stage .sea-dashes i:nth-child(1){top:15%;left:10%}.prototype-stage .sea-dashes i:nth-child(2){top:36%;right:8%;width:39px}.prototype-stage .sea-dashes i:nth-child(3){top:60%;left:14%;width:40px}.prototype-stage .sea-dashes i:nth-child(4){top:75%;right:15%;width:58px}
-.prototype-stage .sea-floor{position:absolute;bottom:0;left:0;right:0;height:65px;border-top:2px solid #aebcc7;border-radius:50% 30% 0 0;background:#d9e2e8;display:flex;align-items:flex-start;justify-content:space-around;font-size:30px;color:#859aa8;pointer-events:none}
-.prototype-stage .sea-floor span{margin-top:-25px}
+.prototype-stage .expedition-tile-grid{container-type:inline-size;position:relative;isolation:isolate;background:#edf2f5}
+.prototype-stage .expedition-water-grid{position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(to right,#91a6b523 1px,transparent 1px),linear-gradient(to bottom,#91a6b523 1px,transparent 1px);background-size:10cqw 10cqw}
+.prototype-stage .expedition-tile-block{position:absolute;left:calc(var(--grid-column)*10cqw);top:calc(var(--grid-row)*10cqw);width:calc(var(--grid-columns)*10cqw);height:calc(var(--grid-rows)*10cqw);display:grid;grid-template-columns:repeat(var(--grid-columns),minmax(0,1fr));grid-template-rows:repeat(var(--grid-rows),minmax(0,1fr));pointer-events:none}
+.prototype-stage .expedition-tile-block[data-collidable="false"]{z-index:2}
+.prototype-stage .expedition-tile{display:block;min-width:0;min-height:0;width:100%;height:100%;aspect-ratio:1}
+.prototype-stage .expedition-tile svg{display:block;width:100%;height:100%;fill:#ccd9e1;stroke:#8da3b1;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}
+.prototype-stage .expedition-tile .tile-detail{fill:none;stroke:#a2b4bf;stroke-width:1.4}
+.prototype-stage .expedition-tile .tile-run-cap{fill:none;stroke:#718b9d;stroke-width:2}
+.prototype-stage .tile-boulder svg{fill:#c3d3df}.prototype-stage .tile-wreck svg{fill:#d9e1e7;stroke:#98aab7}.prototype-stage .tile-column svg{fill:#d2dde4}
+.prototype-stage .tile-decoration{z-index:1}.prototype-stage .tile-decoration svg{fill:none;stroke:#90a9b7;stroke-width:5}
+.prototype-stage .tile-decoration .tile-kelp,.prototype-stage .tile-decoration .tile-coral{fill:none}
+.prototype-stage .decor-background{opacity:.38}.prototype-stage .decor-midground{opacity:.65}.prototype-stage .decor-foreground{opacity:.86}
 .prototype-stage .salvage-fragment{position:absolute;color:var(--muted);font-size:27px;line-height:1;z-index:2;pointer-events:none}
-.prototype-stage .sf-one{right:23%;top:24%;transform:rotate(16deg)}.prototype-stage .sf-two{left:16%;bottom:24%;transform:rotate(-19deg)}
+.prototype-stage .sf-one{left:70cqw;top:70cqw;transform:rotate(16deg)}.prototype-stage .sf-two{left:20cqw;top:170cqw;transform:rotate(-19deg)}
 .prototype-stage .expedition-obstacles{position:absolute;inset:0;pointer-events:none;z-index:1}
-.prototype-stage .expedition-obstacle{position:absolute;pointer-events:none}
-.prototype-stage .expedition-obstacle svg{display:block;width:100%;height:100%;fill:#cdd9e1;stroke:#627b8c;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
-.prototype-stage .expedition-obstacle .obstacle-detail{fill:none;stroke:#8aa0af;stroke-width:1.5}
-.prototype-stage .obstacle-wreck svg{fill:#dce3e8;stroke:#6f8190}
 .prototype-stage .expedition-tunnel-walls{position:absolute;inset:0;pointer-events:none}
-.prototype-stage .expedition-tunnel-walls svg{display:block;width:100%;height:100%;fill:#b8c9d4;stroke:#8199aa;stroke-width:2;stroke-linejoin:round}
-.prototype-stage .expedition-tunnel-walls .tunnel-wall-detail{fill:none;stroke:#9fb3c1;stroke-width:1.5}
-.prototype-stage .expedition-scene,.prototype-stage .obstacle-corridor-demo{background:#edf2f5}
-.prototype-stage .corridor-travel .expedition-ship{left:25%}
+.prototype-stage .expedition-tunnel-walls .expedition-tile svg{fill:#b7cad8;stroke:#91a9ba}
+.prototype-stage .corridor-travel .expedition-ship{left:40cqw;top:120cqw;bottom:auto}
 .prototype-stage .expedition-scene.corridor-travel .expedition-world-label{left:58%;top:105px}
 .prototype-stage .expedition-route-feature{position:absolute;width:24%;aspect-ratio:100/70;pointer-events:none;z-index:1}
 .prototype-stage .expedition-route-feature svg{display:block;width:100%;height:100%;fill:none;stroke:#8ba1af;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -29,8 +33,8 @@
 .prototype-stage .creature-meter{position:absolute;top:91px;left:28px;right:28px;display:flex;flex-direction:column;gap:5px;font-size:.68rem;z-index:3}
 .prototype-stage .creature-meter>i{display:block;height:13px;border:1px solid var(--ink);background:white;overflow:hidden}.prototype-stage .creature-meter b{height:100%;display:block;background:#c1ced7}
 .prototype-stage .expedition-world-label{position:absolute;top:145px;left:17px;font-size:.66rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);z-index:2}
-.prototype-stage .expedition-ship{position:absolute;left:30%;bottom:35%;width:114px;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:2}
-.prototype-stage .expedition-ship>svg{width:110px;height:55px}.prototype-stage .expedition-ship>span{font-size:.65rem;color:var(--muted)}
+.prototype-stage .expedition-ship{position:absolute;left:40cqw;bottom:35%;width:20cqw;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:2}
+.prototype-stage .expedition-ship>svg{width:20cqw;height:20cqw}.prototype-stage .expedition-ship>span{font-size:.65rem;color:var(--muted)}
 .prototype-stage .sea-creature{position:absolute;right:14%;top:32%;width:120px;height:86px;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:2}
 .prototype-stage .creature-body{width:89px;height:59px;border:2px solid var(--ink);border-radius:50% 40% 40% 50%;background:#d5e1e8;position:relative}
 .prototype-stage .creature-body:before{content:'';position:absolute;right:-21px;top:10px;border-right:22px solid var(--ink);border-top:19px solid transparent;border-bottom:19px solid transparent}
@@ -62,7 +66,7 @@
 .prototype-stage .expedition-element-demo{position:relative;isolation:isolate;width:100%;height:320px;overflow:hidden;border:1px solid var(--line);border-radius:6px;flex-shrink:0}
 .prototype-stage .expedition-element-demo .expedition-hud .hull-meter{width:auto;flex:1;min-width:0}
 .prototype-stage .expedition-element-demo .expedition-world-label{top:45px}
-.prototype-stage .obstacle-element-demo{height:330px}.prototype-stage .obstacle-corridor-demo{height:520px}.prototype-stage .pickup-element-demo{height:160px}.prototype-stage .creature-element-demo{height:220px}
+.prototype-stage .obstacle-element-demo{height:330px}.prototype-stage .obstacle-corridor-demo{height:760px}.prototype-stage .tile-footprint-demo{height:180px}.prototype-stage .tile-run-demo{height:310px}.prototype-stage .pickup-element-demo{height:160px}.prototype-stage .creature-element-demo{height:220px}
 .prototype-stage .hud-element-demo{height:112px}.prototype-stage .resistance-element-demo{height:140px}.prototype-stage .resistance-element-demo .creature-meter{top:50px;left:18px;right:18px}
 .prototype-stage .harpoon-element-demo{height:200px}.prototype-stage .preparation-element-demo{height:500px}.prototype-stage .catch-element-demo{height:390px}.prototype-stage .route-element-demo{height:190px}
 .prototype-stage .route-element-demo .expedition-route-feature{width:40%}
