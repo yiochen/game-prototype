@@ -1,0 +1,37 @@
+{
+  "content_version": 1,
+  "starting_coins": 120,
+  "floor": {
+    "columns": 9,
+    "viewport_columns": 9,
+    "rows": 16,
+    "world_columns": 27,
+    "entrance": { "x": 4, "y": 1 }
+  },
+  "recipes": {
+    "salmon_nigiri": {
+      "name": "Salmon nigiri",
+      "price": 14,
+      "preparation_seconds": 3.4
+    }
+  },
+  "service": {
+    "step_seconds": 0.05,
+    "belt_seconds_per_cell": 1.1,
+    "first_arrival_seconds": 0.8,
+    "arrival_seconds": 4.8,
+    "arrival_jitter_seconds": 0.8,
+    "walking_cells_per_second": 2.5,
+    "eating_seconds": 5.2
+  },
+  "objects": [
+    { "id": "chef-1", "kind": "chef", "name": "Mina", "x": 3, "y": 9, "facing": "north", "recipe_id": "salmon_nigiri" },
+    { "id": "belt-1", "kind": "belt", "x": 3, "y": 8, "facing": "east" },
+    { "id": "belt-2", "kind": "belt", "x": 4, "y": 8, "facing": "east" },
+    { "id": "belt-3", "kind": "belt", "x": 5, "y": 8, "facing": "east" },
+    { "id": "belt-4", "kind": "belt", "x": 6, "y": 8, "facing": "east" },
+    { "id": "seat-1", "kind": "seat", "x": 4, "y": 7, "facing": "south" },
+    { "id": "seat-2", "kind": "seat", "x": 5, "y": 7, "facing": "south" },
+    { "id": "seat-3", "kind": "seat", "x": 6, "y": 7, "facing": "south" }
+  ]
+}
