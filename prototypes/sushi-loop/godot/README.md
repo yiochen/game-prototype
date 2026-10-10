@@ -9,7 +9,7 @@ godot --path prototypes/sushi-loop/godot
 godot --path prototypes/sushi-loop/godot -- --gallery
 ```
 
-The restaurant uses square cells, bottom-centered art and a fixed transparent HUD. On a wider window the portrait world is clipped to a centered play area. Android stays in portrait orientation; tall phones fill their available height.
+The restaurant uses square cells, 3/4 front-and-top artwork with feet on tile centers, and a fixed transparent HUD. Characters and the connected conveyor use six-frame loops with high-resolution sources and smooth mipmapped sampling. On a wider window the portrait world is clipped to a centered play area. Android stays in portrait orientation; tall phones fill their available height.
 
 ## Validate and build
 

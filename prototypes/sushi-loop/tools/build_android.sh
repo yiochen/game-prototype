@@ -100,7 +100,7 @@ with tempfile.TemporaryDirectory(prefix="sushi-loop-android-") as temporary:
         path.relative_to(project).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
         for path in sorted(project.rglob("*"))
         if path.is_file() and path.suffix.lower() in (".gd", ".tscn", ".godot", ".cfg", ".json", ".png", ".jpg", ".jpeg", ".webp", ".svg", ".ttf", ".otf", ".wav", ".ogg")
-        and path.relative_to(project).parts[0] not in ("tests", "tools")
+        and path.relative_to(project).parts[0] not in ("tests", "tools", "review")
         and "provenance" not in path.relative_to(project).parts
     }
     config_file = project / "project.godot"

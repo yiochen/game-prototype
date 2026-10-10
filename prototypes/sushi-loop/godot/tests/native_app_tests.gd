@@ -75,6 +75,7 @@ func _test_geometry(app) -> void:
 	_expect(clip is Control and clip.clip_contents and clip.get_global_rect().is_equal_approx(portrait), "The real parent clips adjoining restaurant floor to exactly the portrait rectangle")
 	_expect(portrait.size.x <= portrait.size.y * 9.0 / 16.0 + 0.01, "Wider windows preserve the supported portrait composition")
 	var base: Vector2 = app.world.cell_base(0, 0)
+	_expect(base.is_equal_approx(app.world.floor_origin + Vector2(0.5, 0.5) * app.world.cell), "Feet register at the actual center of the occupied square tile")
 	var horizontal: Vector2 = app.world.cell_base(1, 0) - base
 	var vertical: Vector2 = app.world.cell_base(0, 1) - base
 	_expect(horizontal.is_equal_approx(Vector2(app.world.cell, 0)) and vertical.is_equal_approx(Vector2(0, app.world.cell)), "Actual restaurant cell centers have equal horizontal and vertical pitch")
@@ -99,10 +100,12 @@ func _test_geometry(app) -> void:
 			all_loaded = false
 			continue
 		var fitted: Rect2 = app.world.art.fit(key, Vector2(160, 230), Vector2(90, 140))
-		anchored = anchored and is_equal_approx(fitted.get_center().x, 160.0) and is_equal_approx(fitted.end.y, 230.0)
+		var anchor: Array = app.world.art.metadata[key].anchor
+		var registered := fitted.position + Vector2(float(anchor[0]), float(anchor[1])) * fitted.size
+		anchored = anchored and registered.is_equal_approx(Vector2(160, 230))
 		anchored = anchored and is_equal_approx(fitted.size.x / fitted.size.y, texture.get_width() / float(texture.get_height()))
 	_expect(all_loaded, "Gameplay resolves all required finished chef, guest, food, belt and room sprites")
-	_expect(all_loaded and anchored, "Production sprites retain their aspect ratio and bottom-center anchor")
+	_expect(all_loaded and anchored, "Production sprites preserve aspect ratio and their measured foot, deck or plate anchor")
 
 func _test_configured_camera(app) -> void:
 	var original: RefCounted = app.session
