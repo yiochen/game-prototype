@@ -9,6 +9,7 @@ import { WorldAssetCatalog } from './world-asset-catalog.jsx';
 import { ObjectReview } from './object-review.jsx';
 import { WorldShowcase } from './world-showcase.jsx';
 import { ProjectionStudy } from './projection-study.jsx';
+import { CharacterScaleStudy } from './character-scale-study.jsx';
 
 function Nav({ children, story = 'restaurant-live', className = '', data = {}, ...rest }) {
   return <Target action="navigate" data={{story,...data}} className={className} {...rest}>{children}</Target>;
@@ -109,6 +110,7 @@ export function Scene({ story, state = {} }) {
     case 'object-review': return <ObjectReview objectId={story.objectId}/>;
     case 'world-showcase': return <WorldShowcase key={story.variant} sceneId={story.variant}/>;
     case 'projection-study': return <ProjectionStudy/>;
+    case 'character-scale-study': return <CharacterScaleStudy/>;
     case 'concept': return story.variant === 'world-assets' ? <WorldAssetCatalog /> : <ConceptCatalog />;
     case 'component': return <ComponentGallery story={story} state={sceneState} paperBackground={story.component === 'paper-page' ? <PaperRestaurant state={sceneState} /> : undefined} />;
     case 'floor-plan': return <FloorPlan state={sceneState} />;

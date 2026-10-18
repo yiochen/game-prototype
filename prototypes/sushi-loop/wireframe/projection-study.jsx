@@ -58,7 +58,7 @@ export function ProjectionStudy() {
       <div className="projection-study-kicker"><span>PROJECTION STUDY</span><span className="projection-study-badge">70% environment selected</span></div>
       <h2>Same tiles. Four heights.</h2>
       <p>70% environment height is selected. Production recapture is pending; characters will keep their separate 35° ordinary orthographic camera. The historical comparisons below retain their original geometry and registration.</p>
-      <nav aria-label="Art review pages"><a href="#scene-restaurant">Restaurant scene ↗</a><a href="#scene-underwater">Underwater scene ↗</a><a href="#object-library">Production library ↗</a></nav>
+      <nav aria-label="Art review pages"><a href="#character-scale-study">B / C Blender scale comparison ↗</a><a href="#scene-restaurant">Restaurant scene ↗</a><a href="#scene-underwater">Underwater scene ↗</a><a href="#object-library">Production library ↗</a></nav>
       <p className="projection-study-status" role="status">{count} comparison captures · {references.filter(group => studyImageUrl(group.reference.image)).length} camera reference · {projectionGroups.length} comparisons</p>
     </header>
     <section className="projection-character-concepts" aria-labelledby="character-proportions-title">

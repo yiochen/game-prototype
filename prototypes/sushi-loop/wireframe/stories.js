@@ -34,6 +34,18 @@ export const storyGroups = [
 
 export const stories = [
   {
+    id: 'character-scale-study', group: 'scene-review', title: 'Character B / C scale study', scene: 'character-scale-study',
+    reviewBranch: 'codex/sushi-loop-33-art-catalog',
+    description: 'Compare modeled B Playful and C Chunky at 100%, 125% and 150%, keeping the ordinary 35-degree character camera fixed. Each native still uses the same capture frame, root and world scale; the character width and physical ground footprint must fit within one tile.',
+    elements: [
+      element('Two anatomy designs, three scales', 'The B/C rows share the three scale columns and one display tile pitch. Front and right-side views are shown together; the shared view-pair control exposes back and left-side views. Measurements come from native Blender captures across all four directions.', 'One static pose per direction. Browser controls change the review display; they do not animate or squash the source images.'),
+      element('Ground registration and one-cell bounds', 'Feet remain registered at the center of the square game tile. The outer square marks one floor cell, and a dotted ground box shows the conservative footprint envelope across all four facings. Height is allowed to extend above a tile.', 'One common tile-size control applies to every capture and the neighboring-tile arrangement.'),
+      element('Three by three tile arrangement', 'Choose either design, any scale and one of the four directions to inspect repeated sprites on nine adjacent cells. Back-to-front image order preserves the registered ground roots.', 'Comparison areas pan horizontally. Vertical touch and wheel scrolling belong to the document.'),
+      element('Original concept reference', 'The ImageGen board remains available below the native study. Its estimated height is not used as measured calibration.', 'The reference opens inline without replacing the modeled stills.'),
+    ],
+    notes: ['This isolated still study does not replace production characters or add animations.', 'The 70% environment projection is selected separately; character captures retain the ordinary 35-degree camera. Final scene approval and issue #33 remain open.'],
+  },
+  {
     id: 'projection-study', group: 'scene-review', title: 'Projection height study', scene: 'projection-study',
     reviewBranch: 'codex/sushi-loop-33-art-catalog',
     description: '70% environment height is selected, with production recapture pending. Choose shorter, cartoony character proportions from four concept options; characters retain their separate 35-degree camera. The original four-ratio captures remain as a reference.',
