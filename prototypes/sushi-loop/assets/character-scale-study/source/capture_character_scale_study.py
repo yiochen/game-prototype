@@ -203,7 +203,9 @@ class StaticCharacter:
             self.ico('coat-button-'+str(sign),(sign*.072,-.148,waist+.055),(.009,.007,.009),'white',role='costume')
         # C has added physical occiput, cheek, temple and torso depth; camera is identical.
         head_mid=head_bottom+head_height/2
-        self.box('head',(0,head_y,head_mid),(head_width,head_depth,head_height),'skin',.053,role='head')
+        head=self.box('head',(0,head_y,head_mid),(head_width,head_depth,head_height),'skin',.125,role='head',segments=8)
+        for polygon in head.data.polygons:polygon.use_smooth=True
+        normal=head.modifiers.new('Weighted face normals','WEIGHTED_NORMAL');normal.keep_sharp=True;normal.weight=50
         front=head_y-head_depth/2
         ear_x=head_width/2+.013
         for sign in (-1,1):
@@ -217,20 +219,47 @@ class StaticCharacter:
         self.box('nose',(0,front-.020,nose_z),(.059,.047,.051),'skin',.018,role='face')
         mouth_z=head_bottom+head_height*.235
         self.mesh('smile',[(-.044,front-.014,mouth_z+.011),(0,front-.019,mouth_z-.007),(.044,front-.014,mouth_z+.011),(.036,front-.017,mouth_z-.009),(0,front-.022,mouth_z-.021),(-.036,front-.017,mouth_z-.009)],[(0,1,4,5),(1,2,3,4)],'eye','face')
-        # Low-poly curls wrap the side/back of a full volume, not a frontal strip.
-        cap_width=.574 if chunky else .532;cap_depth=.496 if chunky else .444
-        self.box('hair-cap',(0,.026,hair_top-.060),(cap_width,cap_depth,.145),'hair',.040,role='hair')
-        curl_x=.262 if chunky else .246
-        curl_y=.236 if chunky else .205
-        curl_z=head_bottom+head_height*.70
+        # Rounded scalp and occiput, with overlapping sculpted curl groups.
+        # Real depth on all sides; no box cap or front-only hair strip.
+        def curl(name, location, radius, shade='hair', phase=0.):
+            obj=self.ico(name,location,radius,shade,role='hair',subdivisions=2)
+            centre=Vector(location)
+            for vertex in obj.data.vertices:
+                q=vertex.co-centre
+                # Small broad lobes avoid identical beads without noisy micro-detail.
+                angle=math.atan2(q.y/max(radius[1],.001),q.x/max(radius[0],.001))
+                wave=1.+.035*math.sin(3.*angle+phase)
+                vertex.co=centre+q*wave
+            for polygon in obj.data.polygons:polygon.use_smooth=True
+            return obj
+        hair_width=.292 if chunky else .272
+        hair_depth=.255 if chunky else .232
+        curl('rounded-crown',(0,.025,head_bottom+head_height*.89),
+             (hair_width,hair_depth,.157),'hair')
+        curl('rounded-occiput',(0,.123 if chunky else .105,head_bottom+head_height*.59),
+             (.270 if chunky else .250,.190,.255),'hair')
+        # Staggered back rows follow an oval skull; the lower row wraps the nape.
+        for row,(fraction,spread,depth) in enumerate(((.25,.185,.235),(.46,.221,.262),(.69,.232,.258),(.91,.203,.230))):
+            if not chunky:depth-=.020;spread-=.013
+            for i,t in enumerate((-1.,-.50,0.,.50,1.)):
+                x=t*spread
+                y=depth-.035*abs(t)**1.7
+                z=head_bottom+head_height*fraction+.016*math.cos(i*1.8+row)
+                curl('back-curl-%s-%s'%(row,i),(x,y,z),(.083,.060,.082),
+                     '563027' if (i+row)%3==0 else 'hair',i+row*.7)
+        # Temple curls overlap the fringe and back instead of forming straight rails.
         for sign in (-1,1):
-            for j,z in enumerate((curl_z-.085,curl_z+.025)):
-                self.ico('temple-curl-'+str(sign)+'-'+str(j),(sign*curl_x,.090,z),(.053,.082,.075),'hair',role='hair')
-            self.ico('side-upper-curl-'+str(sign),(sign*(curl_x-.008),-.008,head_bottom+head_height*.94),(.061,.080,.068),'hair',role='hair')
-        for i,x in enumerate((-.191,-.095,0,.095,.191)):
-            self.ico('back-curl-'+str(i),(x,curl_y,head_bottom+head_height*.66),(.072,.070 if chunky else .060,.094),'hair',role='hair')
-        for i,x in enumerate((-.202,-.101,0,.101,.202)):
-            self.ico('front-curl-'+str(i),(x,front+.010,head_bottom+head_height*.94+(i%2)*.012),(.070,.054,.061),'hair',role='hair')
+            for j,(y,fraction,radius) in enumerate(((-.086,.83,.059),(.023,.77,.062),(.115,.71,.061),(.178,.57,.057),(.180,.36,.054))):
+                x=sign*(.265 if chunky else .246)
+                curl('temple-curl-%s-%s'%(sign,j),(x,y,head_bottom+head_height*fraction),
+                     (radius,.075,.083),'563027' if j==1 else 'hair',j*.9+sign)
+            curl('side-crown-'+str(sign),(sign*(.246 if chunky else .228),.045,head_bottom+head_height*1.005),
+                 (.072,.111,.078),'hair',sign)
+        # Uneven overlapping fringe: larger central locks, shorter corner curls.
+        for i,(x,fraction,rx,rz) in enumerate(((-.224,.93,.063,.065),(-.136,.90,.080,.077),(-.045,.94,.082,.070),(.049,.91,.084,.078),(.143,.94,.077,.070),(.225,.96,.059,.062))):
+            if not chunky:x*=.93
+            curl('fringe-curl-'+str(i),(x,front+.006,head_bottom+head_height*fraction),
+                 (rx,.071,rz),'5A3329' if i in (1,4) else 'hair',i*.8)
         self.box('toque-band',(0,.009,hat_base),(.553 if chunky else .528,.458 if chunky else .413,.088),'white',.013,role='hat')
         for row,y in enumerate((-.096,.096)):
             for i,x in enumerate((-.166,0,.166)):
@@ -241,7 +270,7 @@ class StaticCharacter:
         for part in self.parts:
             if part.get('anatomyRole') not in ('shoe','leg'):
                 for vertex in part.data.vertices:vertex.co.z-=lower_body_drop
-        self.anatomy={'minimalFootHeight':.043,'lowerBodyDrop':lower_body_drop,'footwear':'Tiny navy toe ends; no boots, cuffs or stacked soles.',
+        self.anatomy={'hairRevision':'Rounded crown and occiput; staggered overlapping smooth curls, fuller temples and back; softened cheek corners.','selectedScale':'125','minimalFootHeight':.043,'lowerBodyDrop':lower_body_drop,'footwear':'Tiny navy toe ends; no boots, cuffs or stacked soles.',
                       'legTop':leg_top-lower_body_drop,'torsoTop':torso_top-lower_body_drop,'headBottom':head_bottom-lower_body_drop,'headWidth':head_width,'headDepth':head_depth,'headHeight':head_height,
                       'torsoDepth':body_depth,'hatBandHeight':hat_base-lower_body_drop,'pose':'relaxed arms, both soles planted, no held food',
                       'designNotes':'Deeper occiput, broader cheeks, rounder belly/back and shorter exposed legs.' if chunky else 'Playful enlarged head, moderate side depth and short but visible trousers.'}
@@ -340,7 +369,7 @@ def create_study(runtime,output_dir='/private/tmp/sushi33-bc-study',keep_scene=F
     manifest={'schemaVersion':1,'title':'B Playful / C Chunky native proportion and scale comparison','status':'models-authored-capture-pending',
               'cellSize':CELL,'sourceScale':SOURCE_SCALE,'frameSize':FRAME,'root':ROOT,'projection':'character-orthographic',
               'camera':{'elevationDegrees':ELEVATION,'pixelAspect':[1,1],'projection':'character-orthographic'},
-              'scales':[{'id':i,'factor':v,'label':i+'%'} for i,v in SCALES],'directions':['S','E','N','W'],
+              'selectedScale':'125','revision':3,'scales':[{'id':i,'factor':v,'label':i+'%'} for i,v in SCALES],'directions':['S','E','N','W'],
               'scene':scene.name,'nativeProject':project.name,'createdAtUnix':time.time(),'sourceScriptSHA256':file_hash(__file__),
               'sourceConcept':'../../design/art-directions/character-proportions-v1.png',
               'productionPresentationHashBefore':before,'userLiveFileBefore':original_filepath,
@@ -349,7 +378,7 @@ def create_study(runtime,output_dir='/private/tmp/sushi33-bc-study',keep_scene=F
                        'One tile means full horizontal silhouette width and physical XY extent; head and hat can rise above the tile.',
                        'Ordinary 35 degree character camera is retained. Ground tile guides on the review site use the square game layout.',
                        'Standing still comparison only; no animation was requested or captured.',
-                       'Revision2: removed bulky boots; tiny matching-color foot ends and shorter actual leg stubs. Intact upper body lowered by0.15cells; camera/proportions/scales unchanged.'],
+                       'Revision3: fuller rounded hair crown and occiput, staggered curls, softened cheek corners; user selected125percent. Revision2 removed bulky boots; tiny matching-color foot ends and shorter actual leg stubs. Intact upper body lowered by0.15cells; camera/proportions/scales unchanged.'],
               'variants':[]}
     try:
         with activate(scene):

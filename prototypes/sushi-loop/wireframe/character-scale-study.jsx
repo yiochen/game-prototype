@@ -82,7 +82,7 @@ export function CharacterScaleStudy() {
   const [pair, setPair] = useState('front');
   const [guides, setGuides] = useState(true);
   const [layoutVariant, setLayoutVariant] = useState('C');
-  const [layoutScale, setLayoutScale] = useState('150');
+  const [layoutScale, setLayoutScale] = useState(characterScaleStudy.selectedScale || '125');
   const [layoutDirection, setLayoutDirection] = useState('S');
   const directions = pair === 'front' ? ['S', 'E'] : ['N', 'W'];
   const variant = characterVariants.find(item => item.id === layoutVariant) || characterVariants[0];
@@ -94,7 +94,7 @@ export function CharacterScaleStudy() {
     <header className="character-scale-header">
       <div className="character-scale-kicker"><span>CHARACTER PROPORTION STUDY</span><span className="character-scale-badge">Blender stills · 35° camera</span></div>
       <h2>B and C, on the same tiles.</h2>
-      <p>Compare Playful and Chunky at 100%, 125% and 150%. Tiny feet, short leg stubs and fuller side volume are modeled in 3D; the camera stays at 35°. Every image retains the same native canvas, ground root and pixels per tile.</p>
+      <p>Compare Playful and Chunky at 100%, 125% and 150%. 125% is the selected size. Rounded cheeks and layered curls add volume around the temples and back; tiny feet and short leg stubs remain. All are modeled in 3D; the camera stays at 35°. Every image retains the same native canvas, ground root and pixels per tile.</p>
       <nav aria-label="Related art reviews"><a href="#projection-study">Projection & concept reference ↗</a><a href="#scene-restaurant">Restaurant scene ↗</a><a href="#object-library">Production library ↗</a></nav>
       <p className="character-scale-status" role="status">{count} / 24 native captures · 2 designs · 3 scales · 4 directions</p>
     </header>
@@ -109,8 +109,8 @@ export function CharacterScaleStudy() {
       <div className="character-scale-section-heading"><span>01 · B / C AT ONE WORLD SCALE</span><h3 id="character-scale-comparison-title">Compare the face and the side volume</h3><p>The three scale columns share one tile pitch. Pan sideways across the columns; use View pair to inspect the other two directions. Measurements cover all four facings.</p></div>
       <div className="character-scale-comparison-scroll" tabIndex="0" role="region" aria-label="Pan B and C scale comparisons horizontally">
         <table className="character-scale-table" style={{ '--character-scale-column': `${columnWidth}px` }}>
-          <thead><tr><th scope="col">Native 35° camera</th>{characterScales.map(size => <th scope="col" key={size.id}><strong>{size.label}</strong><span>actual model scale</span></th>)}</tr></thead>
-          <tbody>{characterVariants.map(item => <tr key={item.id} data-character-design={item.id}><th scope="row"><span className="character-scale-design-letter">{item.id}</span><strong>{item.name.replace(/^[BC][ ·—-]*/, '')}</strong><p>{item.description}</p></th>{characterScales.map(size => <td key={size.id} data-character-comparison={`${item.id}-${size.id}`}><div className="character-scale-facing-pair">{directions.map(direction => <CharacterCapture key={direction} variant={item} scale={size} direction={direction} tilePitch={tilePitch} guides={guides}/>)}</div><Measurements entry={characterScaleMeasurement(item, size)}/></td>)}</tr>)}</tbody>
+          <thead><tr><th scope="col">Native 35° camera</th>{characterScales.map(size => <th scope="col" key={size.id} className={size.id === characterScaleStudy.selectedScale ? 'is-selected-scale' : undefined}><strong>{size.label}</strong><span>{size.id === characterScaleStudy.selectedScale ? 'Selected size' : 'actual model scale'}</span></th>)}</tr></thead>
+          <tbody>{characterVariants.map(item => <tr key={item.id} data-character-design={item.id}><th scope="row"><span className="character-scale-design-letter">{item.id}</span><strong>{item.name.replace(/^[BC][ ·—-]*/, '')}</strong><p>{item.description}</p></th>{characterScales.map(size => <td key={size.id} className={size.id === characterScaleStudy.selectedScale ? 'is-selected-scale' : undefined} data-character-comparison={`${item.id}-${size.id}`}><div className="character-scale-facing-pair">{directions.map(direction => <CharacterCapture key={direction} variant={item} scale={size} direction={direction} tilePitch={tilePitch} guides={guides}/>)}</div><Measurements entry={characterScaleMeasurement(item, size)}/></td>)}</tr>)}</tbody>
         </table>
       </div>
     </section>}

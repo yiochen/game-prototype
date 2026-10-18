@@ -15,6 +15,8 @@ for (const [width, height] of [[390, 844], [844, 390], [1440, 1000]]) {
     await expect(stage).toHaveClass(/frame--document/);
     await expect(stage.locator('.character-scale-status')).toHaveText('24 / 24 native captures · 2 designs · 3 scales · 4 directions');
     await expect(stage.locator('.character-scale-pending')).toHaveCount(0);
+    await expect(stage.getByLabel('Tile layout character scale', { exact: true })).toHaveValue('125');
+    await expect(stage.locator('thead .is-selected-scale')).toContainText('125%');
     await expect(stage.locator('[data-character-design]')).toHaveCount(2);
     await expect(stage.locator('[data-character-comparison]')).toHaveCount(6);
     await expect(stage.locator('.character-scale-fit.is-fit')).toHaveCount(6);

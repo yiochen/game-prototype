@@ -21,6 +21,8 @@
     ],
     "projection": "character-orthographic"
   },
+  "selectedScale": "125",
+  "revision": 3,
   "scales": [
     {
       "id": "100",
@@ -44,10 +46,10 @@
     "N",
     "W"
   ],
-  "scene": "S33 B C Study d805808b",
+  "scene": "S33 B C Study f772d83f",
   "nativeProject": "character-scale-study.blend",
-  "createdAtUnix": 1792360412.073283,
-  "sourceScriptSHA256": "9d97ec9fc0fb9ff0cd6c4daa05ec939a88c0d54edad5598ac3f3f817b96e4d41",
+  "createdAtUnix": 1792366265.821522,
+  "sourceScriptSHA256": "a9f33b6fe12ac98f76708cebed0215b69879b15451a8e4df252a8b098667cbef",
   "sourceConcept": "../../design/art-directions/character-proportions-v1.png",
   "productionPresentationHashBefore": "a92c3b96d245ec3672847edb2fc790df6cb98342b594a27b30aa926f6f2b2a01",
   "userLiveFileBefore": "/Users/yiouchen/.codex/worktrees/1834/tile-foundry/assets/blender/dancing-adventurer-v2/dancing-adventurer.blend",
@@ -57,7 +59,7 @@
     "One tile means full horizontal silhouette width and physical XY extent; head and hat can rise above the tile.",
     "Ordinary 35 degree character camera is retained. Ground tile guides on the review site use the square game layout.",
     "Standing still comparison only; no animation was requested or captured.",
-    "Revision2: removed bulky boots; tiny matching-color foot ends and shorter actual leg stubs. Intact upper body lowered by0.15cells; camera/proportions/scales unchanged."
+    "Revision3: fuller rounded hair crown and occiput, staggered curls, softened cheek corners; user selected125percent. Revision2 removed bulky boots; tiny matching-color foot ends and shorter actual leg stubs. Intact upper body lowered by0.15cells; camera/proportions/scales unchanged."
   ],
   "variants": [
     {
@@ -79,15 +81,219 @@
         1
       ],
       "source": {
-        "collection": "S33 B C Study d805808b__B",
-        "root": "S33 B C Study d805808b__B__ground-root",
+        "collection": "S33 B C Study f772d83f__B",
+        "root": "S33 B C Study f772d83f__B__ground-root",
         "editableStaticMesh": true,
         "pose": "relaxed arms, both soles planted, no held food",
-        "geometryHash": "34f5e621bffa275a0d1e2b4ce056e6ff647922b6f34a76350f5b83f80b12d706",
-        "materialsHash": "acfea0840983372d8d48edd84969f0792a27f33139c20810078ccfc9abe3dd6f",
+        "geometryHash": "2ab786d7335492802664cd7bfc0cb98cf782410beaac732beffbad1da5c9bab8",
+        "materialsHash": "88bd5ffaf7da32efa6196a6eee6f6ec6a86eb737f668d0894c0ee28950847261",
         "materials": [
           {
-            "name": "S33 B C Study d805808b__B__blue",
+            "name": "S33 B C Study f772d83f__B__563027",
+            "diffuseColor": [
+              0.093058966,
+              0.029556835,
+              0.020288562,
+              1.0
+            ],
+            "nodes": [
+              {
+                "type": "BSDF_PRINCIPLED",
+                "name": "Principled BSDF",
+                "values": {
+                  "Base Color": [
+                    0.093058966,
+                    0.029556835,
+                    0.020288562,
+                    1.0
+                  ],
+                  "Metallic": 0.0,
+                  "Roughness": 0.879999995,
+                  "IOR": 1.5,
+                  "Alpha": 1.0,
+                  "Thin Wall": 0.0,
+                  "Normal": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "Weight": 0.0,
+                  "Diffuse Roughness": 0.0,
+                  "Subsurface Weight": 0.0,
+                  "Subsurface Radius": [
+                    1.0,
+                    0.200000003,
+                    0.100000001
+                  ],
+                  "Subsurface Scale": 0.005,
+                  "Subsurface IOR": 1.399999976,
+                  "Subsurface Anisotropy": 0.0,
+                  "Specular IOR Level": 0.180000007,
+                  "Specular Tint": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "Anisotropic": 0.0,
+                  "Anisotropic Rotation": 0.0,
+                  "Tangent": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "Transmission Weight": 0.0,
+                  "Coat Weight": 0.0,
+                  "Coat Roughness": 0.029999999,
+                  "Coat IOR": 1.5,
+                  "Coat Tint": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "Coat Normal": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "Sheen Weight": 0.0,
+                  "Sheen Roughness": 0.5,
+                  "Sheen Tint": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "Emission Color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "Emission Strength": 0.0,
+                  "Thin Film Thickness": 0.0,
+                  "Thin Film IOR": 1.330000043
+                }
+              },
+              {
+                "type": "OUTPUT_MATERIAL",
+                "name": "Material Output",
+                "values": {
+                  "Displacement": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "Thickness": 0.0
+                }
+              }
+            ]
+          },
+          {
+            "name": "S33 B C Study f772d83f__B__5A3329",
+            "diffuseColor": [
+              0.102241732,
+              0.033104766,
+              0.022173885,
+              1.0
+            ],
+            "nodes": [
+              {
+                "type": "BSDF_PRINCIPLED",
+                "name": "Principled BSDF",
+                "values": {
+                  "Base Color": [
+                    0.102241732,
+                    0.033104766,
+                    0.022173885,
+                    1.0
+                  ],
+                  "Metallic": 0.0,
+                  "Roughness": 0.879999995,
+                  "IOR": 1.5,
+                  "Alpha": 1.0,
+                  "Thin Wall": 0.0,
+                  "Normal": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "Weight": 0.0,
+                  "Diffuse Roughness": 0.0,
+                  "Subsurface Weight": 0.0,
+                  "Subsurface Radius": [
+                    1.0,
+                    0.200000003,
+                    0.100000001
+                  ],
+                  "Subsurface Scale": 0.005,
+                  "Subsurface IOR": 1.399999976,
+                  "Subsurface Anisotropy": 0.0,
+                  "Specular IOR Level": 0.180000007,
+                  "Specular Tint": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "Anisotropic": 0.0,
+                  "Anisotropic Rotation": 0.0,
+                  "Tangent": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "Transmission Weight": 0.0,
+                  "Coat Weight": 0.0,
+                  "Coat Roughness": 0.029999999,
+                  "Coat IOR": 1.5,
+                  "Coat Tint": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "Coat Normal": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "Sheen Weight": 0.0,
+                  "Sheen Roughness": 0.5,
+                  "Sheen Tint": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "Emission Color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "Emission Strength": 0.0,
+                  "Thin Film Thickness": 0.0,
+                  "Thin Film IOR": 1.330000043
+                }
+              },
+              {
+                "type": "OUTPUT_MATERIAL",
+                "name": "Material Output",
+                "values": {
+                  "Displacement": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "Thickness": 0.0
+                }
+              }
+            ]
+          },
+          {
+            "name": "S33 B C Study f772d83f__B__blue",
             "diffuseColor": [
               0.017641954,
               0.171441108,
@@ -189,7 +395,7 @@
             ]
           },
           {
-            "name": "S33 B C Study d805808b__B__blush",
+            "name": "S33 B C Study f772d83f__B__blush",
             "diffuseColor": [
               0.686685324,
               0.18447499,
@@ -291,7 +497,7 @@
             ]
           },
           {
-            "name": "S33 B C Study d805808b__B__eye",
+            "name": "S33 B C Study f772d83f__B__eye",
             "diffuseColor": [
               0.024157632,
               0.014443844,
@@ -393,7 +599,7 @@
             ]
           },
           {
-            "name": "S33 B C Study d805808b__B__hair",
+            "name": "S33 B C Study f772d83f__B__hair",
             "diffuseColor": [
               0.074213572,
               0.024157632,
@@ -495,7 +701,7 @@
             ]
           },
           {
-            "name": "S33 B C Study d805808b__B__navy",
+            "name": "S33 B C Study f772d83f__B__navy",
             "diffuseColor": [
               0.01850022,
               0.046665087,
@@ -597,7 +803,7 @@
             ]
           },
           {
-            "name": "S33 B C Study d805808b__B__red",
+            "name": "S33 B C Study f772d83f__B__red",
             "diffuseColor": [
               0.693871737,
               0.072271854,
@@ -699,7 +905,7 @@
             ]
           },
           {
-            "name": "S33 B C Study d805808b__B__skin",
+            "name": "S33 B C Study f772d83f__B__skin",
             "diffuseColor": [
               0.332451522,
               0.095307469,
@@ -801,7 +1007,7 @@
             ]
           },
           {
-            "name": "S33 B C Study d805808b__B__white",
+            "name": "S33 B C Study f772d83f__B__white",
             "diffuseColor": [
               1.0,
               0.904661179,
@@ -905,6 +1111,8 @@
         ]
       },
       "anatomy": {
+        "hairRevision": "Rounded crown and occiput; staggered overlapping smooth curls, fuller temples and back; softened cheek corners.",
+        "selectedScale": "125",
         "minimalFootHeight": 0.043,
         "lowerBodyDrop": 0.15,
         "footwear": "Tiny navy toe ends; no boots, cuffs or stacked soles.",
@@ -1008,17 +1216,17 @@
       "baseBounds": {
         "min": [
           -0.314670354,
-          -0.252499998,
+          -0.276484996,
           0.0
         ],
         "max": [
           0.314670354,
-          0.256038398,
+          0.303898543,
           1.372000098
         ],
         "dimensions": [
           0.629340708,
-          0.5085383960000001,
+          0.5803835390000001,
           1.372000098
         ]
       }
@@ -1042,15 +1250,219 @@
         1
       ],
       "source": {
-        "collection": "S33 B C Study d805808b__C",
-        "root": "S33 B C Study d805808b__C__ground-root",
+        "collection": "S33 B C Study f772d83f__C",
+        "root": "S33 B C Study f772d83f__C__ground-root",
         "editableStaticMesh": true,
         "pose": "relaxed arms, both soles planted, no held food",
-        "geometryHash": "3fb788762767b2db42a56a6d505c1e23efb4b5a14e939102b4fe0cd6588ef845",
-        "materialsHash": "c8f90d875a43603ecc3a203e631ed3ab8dc3a67fe3e6fec502e6c39362646eb6",
+        "geometryHash": "3b691d549105a099a35a219611ab3097b22d297e9922b243db8f1cf5da4925c3",
+        "materialsHash": "0e7b20a525362ff37656a21711a7d567cd9a97ff049e566922624fd8873dbf17",
         "materials": [
           {
-            "name": "S33 B C Study d805808b__C__blue",
+            "name": "S33 B C Study f772d83f__C__563027",
+            "diffuseColor": [
+              0.093058966,
+              0.029556835,
+              0.020288562,
+              1.0
+            ],
+            "nodes": [
+              {
+                "type": "BSDF_PRINCIPLED",
+                "name": "Principled BSDF",
+                "values": {
+                  "Base Color": [
+                    0.093058966,
+                    0.029556835,
+                    0.020288562,
+                    1.0
+                  ],
+                  "Metallic": 0.0,
+                  "Roughness": 0.879999995,
+                  "IOR": 1.5,
+                  "Alpha": 1.0,
+                  "Thin Wall": 0.0,
+                  "Normal": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "Weight": 0.0,
+                  "Diffuse Roughness": 0.0,
+                  "Subsurface Weight": 0.0,
+                  "Subsurface Radius": [
+                    1.0,
+                    0.200000003,
+                    0.100000001
+                  ],
+                  "Subsurface Scale": 0.005,
+                  "Subsurface IOR": 1.399999976,
+                  "Subsurface Anisotropy": 0.0,
+                  "Specular IOR Level": 0.180000007,
+                  "Specular Tint": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "Anisotropic": 0.0,
+                  "Anisotropic Rotation": 0.0,
+                  "Tangent": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "Transmission Weight": 0.0,
+                  "Coat Weight": 0.0,
+                  "Coat Roughness": 0.029999999,
+                  "Coat IOR": 1.5,
+                  "Coat Tint": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "Coat Normal": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "Sheen Weight": 0.0,
+                  "Sheen Roughness": 0.5,
+                  "Sheen Tint": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "Emission Color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "Emission Strength": 0.0,
+                  "Thin Film Thickness": 0.0,
+                  "Thin Film IOR": 1.330000043
+                }
+              },
+              {
+                "type": "OUTPUT_MATERIAL",
+                "name": "Material Output",
+                "values": {
+                  "Displacement": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "Thickness": 0.0
+                }
+              }
+            ]
+          },
+          {
+            "name": "S33 B C Study f772d83f__C__5A3329",
+            "diffuseColor": [
+              0.102241732,
+              0.033104766,
+              0.022173885,
+              1.0
+            ],
+            "nodes": [
+              {
+                "type": "BSDF_PRINCIPLED",
+                "name": "Principled BSDF",
+                "values": {
+                  "Base Color": [
+                    0.102241732,
+                    0.033104766,
+                    0.022173885,
+                    1.0
+                  ],
+                  "Metallic": 0.0,
+                  "Roughness": 0.879999995,
+                  "IOR": 1.5,
+                  "Alpha": 1.0,
+                  "Thin Wall": 0.0,
+                  "Normal": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "Weight": 0.0,
+                  "Diffuse Roughness": 0.0,
+                  "Subsurface Weight": 0.0,
+                  "Subsurface Radius": [
+                    1.0,
+                    0.200000003,
+                    0.100000001
+                  ],
+                  "Subsurface Scale": 0.005,
+                  "Subsurface IOR": 1.399999976,
+                  "Subsurface Anisotropy": 0.0,
+                  "Specular IOR Level": 0.180000007,
+                  "Specular Tint": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "Anisotropic": 0.0,
+                  "Anisotropic Rotation": 0.0,
+                  "Tangent": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "Transmission Weight": 0.0,
+                  "Coat Weight": 0.0,
+                  "Coat Roughness": 0.029999999,
+                  "Coat IOR": 1.5,
+                  "Coat Tint": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "Coat Normal": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "Sheen Weight": 0.0,
+                  "Sheen Roughness": 0.5,
+                  "Sheen Tint": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "Emission Color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "Emission Strength": 0.0,
+                  "Thin Film Thickness": 0.0,
+                  "Thin Film IOR": 1.330000043
+                }
+              },
+              {
+                "type": "OUTPUT_MATERIAL",
+                "name": "Material Output",
+                "values": {
+                  "Displacement": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "Thickness": 0.0
+                }
+              }
+            ]
+          },
+          {
+            "name": "S33 B C Study f772d83f__C__blue",
             "diffuseColor": [
               0.017641954,
               0.171441108,
@@ -1152,7 +1564,7 @@
             ]
           },
           {
-            "name": "S33 B C Study d805808b__C__blush",
+            "name": "S33 B C Study f772d83f__C__blush",
             "diffuseColor": [
               0.686685324,
               0.18447499,
@@ -1254,7 +1666,7 @@
             ]
           },
           {
-            "name": "S33 B C Study d805808b__C__eye",
+            "name": "S33 B C Study f772d83f__C__eye",
             "diffuseColor": [
               0.024157632,
               0.014443844,
@@ -1356,7 +1768,7 @@
             ]
           },
           {
-            "name": "S33 B C Study d805808b__C__hair",
+            "name": "S33 B C Study f772d83f__C__hair",
             "diffuseColor": [
               0.074213572,
               0.024157632,
@@ -1458,7 +1870,7 @@
             ]
           },
           {
-            "name": "S33 B C Study d805808b__C__navy",
+            "name": "S33 B C Study f772d83f__C__navy",
             "diffuseColor": [
               0.01850022,
               0.046665087,
@@ -1560,7 +1972,7 @@
             ]
           },
           {
-            "name": "S33 B C Study d805808b__C__red",
+            "name": "S33 B C Study f772d83f__C__red",
             "diffuseColor": [
               0.693871737,
               0.072271854,
@@ -1662,7 +2074,7 @@
             ]
           },
           {
-            "name": "S33 B C Study d805808b__C__skin",
+            "name": "S33 B C Study f772d83f__C__skin",
             "diffuseColor": [
               0.332451522,
               0.095307469,
@@ -1764,7 +2176,7 @@
             ]
           },
           {
-            "name": "S33 B C Study d805808b__C__white",
+            "name": "S33 B C Study f772d83f__C__white",
             "diffuseColor": [
               1.0,
               0.904661179,
@@ -1868,6 +2280,8 @@
         ]
       },
       "anatomy": {
+        "hairRevision": "Rounded crown and occiput; staggered overlapping smooth curls, fuller temples and back; softened cheek corners.",
+        "selectedScale": "125",
         "minimalFootHeight": 0.043,
         "lowerBodyDrop": 0.15,
         "footwear": "Tiny navy toe ends; no boots, cuffs or stacked soles.",
@@ -1904,10 +2318,10 @@
             "W": "geometry/C/100/W.json"
           },
           "heightTiles": 1.2605389058589935,
-          "projectedWidthTiles": 0.6440000385046005,
+          "projectedWidthTiles": 0.6514013260602951,
           "footprint": {
-            "width": 0.644000054,
-            "depth": 0.644000054
+            "width": 0.651401282,
+            "depth": 0.651401282
           },
           "fitsOneTile": true
         },
@@ -1932,10 +2346,10 @@
             "W": "geometry/C/125/W.json"
           },
           "heightTiles": 1.575673684477806,
-          "projectedWidthTiles": 0.8050001040101051,
+          "projectedWidthTiles": 0.8142516240477562,
           "footprint": {
-            "width": 0.805000066,
-            "depth": 0.805000066
+            "width": 0.814251601,
+            "depth": 0.814251601
           },
           "fitsOneTile": true
         },
@@ -1960,41 +2374,34 @@
             "W": "geometry/C/150/W.json"
           },
           "heightTiles": 1.8908084630966187,
-          "projectedWidthTiles": 0.9660000801086426,
+          "projectedWidthTiles": 0.9771019220352173,
           "footprint": {
-            "width": 0.96600008,
-            "depth": 0.96600008
+            "width": 0.977101922,
+            "depth": 0.977101922
           },
           "fitsOneTile": true
         }
       },
       "baseBounds": {
         "min": [
-          -0.322000027,
-          -0.278499991,
+          -0.325747967,
+          -0.302485019,
           0.0
         ],
         "max": [
-          0.322000027,
-          0.295544803,
+          0.325653315,
+          0.323898554,
           1.282000065
         ],
         "dimensions": [
-          0.644000054,
-          0.574044794,
+          0.651401282,
+          0.626383573,
           1.282000065
         ]
       }
     }
   ],
   "productionPresentationHashAfter": "a92c3b96d245ec3672847edb2fc790df6cb98342b594a27b30aa926f6f2b2a01",
-  "nativeProjectSHA256": "86e8e5a268924dd8ec1b01ede44a72f08c15090789d6b794c5f2a6176f4efba3",
-  "capturedAtUnix": 1792360473.463052,
-  "userRequests": [
-    "Sure. Let's render them in blender and put them in tile layout. I would B and C comparison. Also scaling them up a little bit, do 100%, 125%, 150% if possible. Make sure they don't extrude one tile",
-    "The shoes are too big. They almost dont need shoes. Just minimal leg would be enough"
-  ],
-  "oneTileClarification": "Full character width and ground footprint stay within one tile; head and hat may rise above it.",
-  "sourceConceptSHA256": "4913c53988c95077151a18a5a64edc7101615bfe0fd54884ef7501be3bde4865",
-  "revision": 2
+  "nativeProjectSHA256": "090de305875bef9b993c1f8ffbb9a1f0175b8883461dee84ecc8a4db140ba8c2",
+  "capturedAtUnix": 1792366307.563207
 }
