@@ -47,7 +47,7 @@ for (const [name, width, height] of [
   ['small-phone', 320, 740], ['phone', 390, 844],
   ['landscape', 844, 390], ['desktop', 1440, 1000],
 ]) {
-  test(`all 57 deep-linked examples render without errors or horizontal clipping at ${name}`, async ({ page }) => {
+  test(`all 58 deep-linked examples render without errors or horizontal clipping at ${name}`, async ({ page }) => {
     test.setTimeout(90_000);
     await page.setViewportSize({ width, height });
     // Layout checks measure the settled popup, not its entrance translation.
@@ -56,7 +56,7 @@ for (const [name, width, height] of [
     page.on('pageerror', (error) => errors.push(error.message));
     await open(page, 'floor-plan');
     const examples = await page.locator('#example-select option').evaluateAll((options) => options.map((option) => ({ id: option.value, title: option.textContent })));
-    expect(examples).toHaveLength(57);
+    expect(examples).toHaveLength(58);
     for (const example of examples) {
       await open(page, example.id);
       await expect(page.locator('#story-title')).toHaveText(example.title);

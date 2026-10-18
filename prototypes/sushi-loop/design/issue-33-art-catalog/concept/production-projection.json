@@ -1,0 +1,102 @@
+{
+  "projection": "top-down-oblique-square-grid",
+  "name": "square top/front oblique",
+  "cellSize": 128,
+  "anchor": [
+    96,
+    248
+  ],
+  "axes": [
+    "x",
+    "depth-toward-viewer",
+    "height-up"
+  ],
+  "affineMatrix": [
+    [
+      128,
+      0,
+      0
+    ],
+    [
+      0,
+      128,
+      -128
+    ]
+  ],
+  "blenderAxes": {
+    "x": "X",
+    "depth": "-Y",
+    "height": "Z"
+  },
+  "yUpAxes": {
+    "x": "X",
+    "depth": "Z",
+    "height": "Y"
+  },
+  "capture": {
+    "camera": "orthographic",
+    "elevationDegrees": 45,
+    "verticalProjectionStretch": 1.4142135623730951
+  },
+  "groundCorners": [
+    [
+      32.0,
+      184.0
+    ],
+    [
+      160.0,
+      184.0
+    ],
+    [
+      160.0,
+      312.0
+    ],
+    [
+      32.0,
+      312.0
+    ]
+  ],
+  "topCorners": [
+    [
+      32.0,
+      152.0
+    ],
+    [
+      160.0,
+      152.0
+    ],
+    [
+      160.0,
+      280.0
+    ],
+    [
+      32.0,
+      280.0
+    ]
+  ],
+  "frontCorners": [
+    [
+      32.0,
+      280.0
+    ],
+    [
+      160.0,
+      280.0
+    ],
+    [
+      160.0,
+      312.0
+    ],
+    [
+      32.0,
+      312.0
+    ]
+  ],
+  "heightPx": 32,
+  "sphereVerticalToHorizontalRatio": 1.4142135623730951,
+  "trueShapePlanes": [
+    "grid-aligned top",
+    "grid-aligned front"
+  ],
+  "limitation": "Arbitrary planes and rounded forms are not generally undistorted"
+}

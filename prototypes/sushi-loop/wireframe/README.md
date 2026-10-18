@@ -86,3 +86,9 @@ The reference layout uses existing Sushi Loop controls only, as explicitly selec
 The three-panel sketch is the current floor-plan reference. Earlier generated restaurant mockups are useful style exploration but do not override this layout. Each screen and popup remains subject to the user’s review before being archived as an approved design.
 
 Accepted source documents: [UI interview](../docs/ui-design-interview.md), [restaurant behavior](../docs/gameplay-and-controls.md), [expedition behavior](../docs/expedition-gameplay-and-controls.md), and [doodle art direction](../docs/art-direction.md).
+
+## Issue #33 world asset review
+
+Open `#art-catalog` for the low-poly concept sheet and all 17 world-asset families. Fit/Zoom and Open full-size retain the original image; Browse items selects a family and shows its concept detail plus the required production directions/states. The new example uses the existing device-local Comments workflow, with the issue #33 branch in exported/GitHub handoffs. No feedback is automatically submitted.
+
+Concept approval is still pending. The sheet and its static motion studies are not production sprites or completed animation. After approval, the actual reusable sprites, complete motion/state sets and tiled previews will be reviewed on this site. The eventual game remains Godot Android. Do not close #33 until the user approves the finished scene assets. Existing wireframe/reference stories remain available.

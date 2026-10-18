@@ -43,6 +43,17 @@ export const stories = [
     notes: [floorOnlyNote, 'The sketch supersedes the earlier two-panel image layout. The combined dock footprint is 3 × 3 cells; overall grid dimensions, patch shapes, prices and dock approach remain open.', 'Activating later entries or the dock when a cleared route reaches them is a proposal, not an approved rule.', motionNote, mockNote],
   },
   {
+    id: 'art-catalog', group: 'concept', title: 'World asset catalog · #33', scene: 'concept', variant: 'world-assets',
+    reviewBranch: 'codex/sushi-loop-33-art-catalog',
+    description: 'Review the proposed low-poly world-art sheet and complete 17-family inventory for issue #33. Concept approval is pending; production sprites and animation are not yet represented as finished.',
+    elements: [
+      element('Concept sheet / Browse items', 'Inspect the full concept sheet or select an asset family with its items, directions and required states. The family detail is a magnified view of concept artwork, not an extracted game sprite.', 'Switch views immediately. The concept sheet is static; its illustrated frame studies do not play an animation.'),
+      element('Fit / Zoom / full size', 'Fit contains the complete sheet width. Zoom uses the original 1024-pixel width with scrolling contained inside the portrait frame. Open full size shows the unchanged image.', 'Native scrolling only, with no automatic motion.'),
+      element('Concept feedback', 'Use Comments and include the numbered sheet panel or W01–W17 family. Feedback is device-local until explicitly exported or submitted through the existing GitHub form. This preview cannot approve or close an issue.', 'No approval animation or simulated production state.'),
+    ],
+    notes: ['The wireframe site is the review destination for issue #33. The eventual game remains Godot Android.', 'After concept approval, create real reusable sprites, complete animation/state sets and tiled seam/attachment/layering previews here. Keep #33 open until the user approves all scene assets.', 'Current main low-poly references supersede the historical doodle wording in #33. Preserve the one-input/one-output belt rule; catalog T/cross junctions add no requirements.', mockNote],
+  },
+  {
     id: 'concept-doodle-catalog', group: 'concept', title: 'Restaurant UI & item catalog', scene: 'concept', variant: 'catalog',
     description: 'The accepted low-poly restaurant catalog is a visual reference for materials, shapes, icons, sprites and scene artwork. Screen composition and controls continue to follow the wireframes.',
     elements: [
