@@ -67,3 +67,9 @@ Library cards show the first actual pose on its unchanged full authored canvas a
 
 
 The studio has one document-level vertical scroller. Object reviews and libraries, concept sheets, component galleries, paper pages and dialogs grow to their full content height. Desktop sidebars flow with the page, and mobile Examples expands inline without locking the body. New route selections reveal the destination heading; browser Back restores the prior route’s page position. In-page playback and filter changes do not request a navigation scroll. `single-scroll.spec.js` exercises these rules, including touch swipes over sprites and wide maps.
+
+
+Direction-independent effects can declare `facingPolicy: "camera-facing"`. The four separately captured world-facing contexts then retain readable artwork toward the fixed camera. The review header and first-scene subtitle explain this policy; the renderer still uses each native directional atlas without rotating or substituting it. Physical objects retain their ordinary four-direction wording.
+
+
+The editable-source reference follows each object’s immutable `source.blend` revision for the exact captured model. The Download .blend action follows `production.editableProject` to the current complete native library, falling back to the object revision when no canonical project is declared. Both paths require safe relative paths.

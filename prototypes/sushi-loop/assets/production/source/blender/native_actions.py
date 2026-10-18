@@ -361,7 +361,7 @@ def bake_asset(asset_id,asset,output_dir=None,replace=False,canonical_direction=
         root['native_action_record']=json.dumps({'source':'native_actions.py','assetId':asset_id,'clips':{k:[a['action'] for a in v['actions']] for k,v in record['clips'].items()}})
         record['actionCount']=len(created);record['createdAtUnix']=time.time();record['status']='native-actions-baked-needs-visual-review'
         source_root=pathlib.Path(__file__).parent
-        record['sourceFiles']={name:hashlib.sha256((source_root/name).read_bytes()).hexdigest() for name in ('native_actions.py','character_builders.py','prop_builders.py','world_components.py','food_belt_builders.py','creature_fx_builders.py','character_composition.py','production_library.py') if (source_root/name).exists()}
+        record['sourceFiles']={name:hashlib.sha256((source_root/name).read_bytes()).hexdigest() for name in ('native_actions.py','character_builders.py','prop_builders.py','world_components.py','food_belt_builders.py','creature_fx_builders.py','character_composition.py','production_library.py','catalog_variants.py') if (source_root/name).exists()}
         if output_dir:
             folder=pathlib.Path(output_dir)/_safe_name(asset_id);folder.mkdir(parents=True,exist_ok=True)
             (folder/'rig-actions.json').write_text(json.dumps(record,indent=2)+'\n')

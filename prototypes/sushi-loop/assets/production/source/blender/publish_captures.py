@@ -285,7 +285,8 @@ def main():
             info['projection']='top-down-oblique-square-grid';camera_meta['projection']='top-down-oblique-square-grid';camera_meta['name']='square top/front oblique'
         asset.update(status='ready',frameSize=info['frame'],root=info['anchor'],sourceScale=args.runtime_scale,projection=info['projection'],footprint=info['footprint'],height=info['height'],clips=[])
         asset['productionStage']='Native Blender pass · awaiting final art approval'
-        if info.get('variants'):asset['variants']=info['variants']
+        if info.get('facingPolicy'):asset['facingPolicy']=info['facingPolicy']
+        if info.get('variants'):asset['variants']={name:{**value,'clips':[canonical_clip_id(c,info['clips'][c],len(info['clips'])==1) for c in value.get('clips',[])]} for name,value in info['variants'].items()}
         asset['kind']=kind_for(asset)
         asset['layer']=0 if asset['kind']=='floor' or aid=='dock-floor' else 1 if asset['kind']=='belt' else 3 if aid.startswith('dish-') else 2
         if aid.startswith('decor-background-') or aid=='decor-light-shafts':asset['layer']=1
@@ -308,7 +309,7 @@ def main():
             clip_ids.add(export_clip)
             clip={'id':export_clip,'sourceClipId':source_clip,'name':export_clip.replace('-',' ').title(),'frames':count,'fps':12,'static':static,'loop':False if static else recipe.get('loop',True),'frameOrder':list(range(count)),'directions':{}}
             for direction in DIRECTIONS:
-                raw=raw_root/capture_id/(source_clip+'-'+direction);frames=sorted(raw.glob('*.png'))
+                raw=raw_root/capture_id/(source_clip+'-'+direction);frames=[raw/(f'{index:03d}.png') for index in range(count) if (raw/(f'{index:03d}.png')).is_file()]
                 if len(frames)!=count:raise ValueError(f'{aid}/{source_clip}/{direction}: {len(frames)} != {count}; capture batch incomplete')
                 fingerprint=capture_fingerprint(frames,camera_meta,'floor' if asset['kind']=='floor' else 'object' if static else 'animation',args.runtime_scale)
                 packed=source/'registered'/aid/(export_clip+'-'+direction)

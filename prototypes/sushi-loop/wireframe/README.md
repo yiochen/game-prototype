@@ -89,6 +89,10 @@ Accepted source documents: [UI interview](../docs/ui-design-interview.md), [rest
 
 ## Issue #33 world asset review
 
-Open `#art-catalog` for the low-poly concept sheet and all 17 world-asset families. Fit/Zoom and Open full-size retain the original image; Browse items selects a family and shows its concept detail plus the required production directions/states. The new example uses the existing device-local Comments workflow, with the issue #33 branch in exported/GitHub handoffs. No feedback is automatically submitted.
+The concept sheet is approved and remains at `#art-catalog`. Open `#object-library` for 117 stable native-asset review entries across 17 families, or share an individual `#object-<id>` link. Actual captures publish in complete batches; queued/working states remain explicit and never substitute a crop of the concept sheet for a sprite.
 
-Concept approval is still pending. The sheet and its static motion studies are not production sprites or completed animation. After approval, the actual reusable sprites, complete motion/state sets and tiled previews will be reviewed on this site. The eventual game remains Godot Android. Do not close #33 until the user approves the finished scene assets. Existing wireframe/reference stories remain available.
+Each object page is the review destination for four cardinal facings, repeated/joined 3×3 placements, related-object scale comparisons, and every published animation/facing. Playback, exact pause/scrub, grid/root/footprint/port overlays and the existing device-local Comments workflow support inspection. A completed model or structural check does not mark its art approved.
+
+Motion runs at 12 fps. Conveyors use 24 frames per two-second loop; their separate conveyed plate matches the 0.5 cell/second deck speed. Baseline and upgraded submarine assemblies share one entry with six states each. Recipe and salvage variants likewise remain within their parent pages. The same registered sprites supply isolated views and scene comparisons.
+
+The [editable Blender source and capture workflow](../assets/production/source/README.md) explains the native models, independent action cohorts, authored projection/camera records, full-frame captures and source provenance. This is a native Blender review pass; no completed imagegen surface-refinement pass is claimed. Final user approval of all finished scene assets remains pending, and #33 stays open. The eventual game target remains Godot Android. Existing wireframe/reference stories remain available.

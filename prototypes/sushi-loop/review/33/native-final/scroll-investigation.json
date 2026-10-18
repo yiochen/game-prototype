@@ -1,0 +1,52 @@
+{
+  "originalFailure": {
+    "test": "far-down library navigation opens the object header, Back restores position, and review controls do not jump",
+    "step": "after Play/Pause",
+    "expectedPageTop": 160,
+    "observedPageTop": 0,
+    "report": "browser-failure-report.json"
+  },
+  "isolatedUnmodifiedRuns": {
+    "passed": 1,
+    "failed": 0
+  },
+  "instrumentedRuns": {
+    "passed": 20,
+    "failed": 0,
+    "stablePageTop": 160,
+    "buttonTopRange": [
+      227.484375,
+      230.484375
+    ],
+    "buttonBottomRange": [
+      271.484375,
+      274.484375
+    ],
+    "documentHeight": 3315,
+    "historyRestoration": "manual",
+    "lateAppScrollCalls": false,
+    "lateHistoryEvents": false
+  },
+  "tracedUnmodifiedRepeats": {
+    "passed": 10,
+    "failed": 0,
+    "durationSeconds": 40.7,
+    "traces": "scroll-repeat-traces"
+  },
+  "conclusion": "Original jump not reproduced; cause not established. No app code or test assertions changed.",
+  "secondFailure": {
+    "test": "phone swipes over object library, sprites, and wide floor plan",
+    "startPageTop": 292,
+    "observedPageTop": 321,
+    "expectedGreaterThan": 322,
+    "cause": "gesture began with too little document scroll room; page reached its bottom clamp",
+    "report": "browser-second-failure-report.json",
+    "trace": "final-suite-attempt2"
+  },
+  "testSetupFix": {
+    "reservedScrollRoom": 180,
+    "minimumScrollRoomAssertion": 160,
+    "preservedMovementAssertion": "greater than starting position plus 30 pixels",
+    "preservedNestedScrollerAssertion": true
+  }
+}

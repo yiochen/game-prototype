@@ -29,7 +29,7 @@ for (const [width, height] of [[320, 740], [844, 390], [1440, 1000]]) {
       const source = stage.getByRole('link', { name: 'Editable Blender source ↗', exact: true });
       await expect(source).toHaveAttribute('href', `https://github.com/yiochen/game-prototype/blob/codex/sushi-loop-33-art-catalog/prototypes/sushi-loop/assets/production/${object.source.blend}`);
       await expect(source).toHaveAttribute('target', '_blank');
-      await expect(stage.getByRole('link', { name: 'Download .blend ↓', exact: true })).toHaveAttribute('href', `https://raw.githubusercontent.com/yiochen/game-prototype/codex/sushi-loop-33-art-catalog/prototypes/sushi-loop/assets/production/${object.source.blend}`);
+      await expect(stage.getByRole('link', { name: 'Download .blend ↓', exact: true })).toHaveAttribute('href', `https://raw.githubusercontent.com/yiochen/game-prototype/codex/sushi-loop-33-art-catalog/prototypes/sushi-loop/assets/production/${library.production?.editableProject || object.source.blend}`);
     }
     for (const title of ['Four directions', 'Repeated 3 × 3', 'Interaction & scale', 'Every animation · all directions']) await expect(stage.locator('.object-review-section h3', { hasText: title })).toHaveCount(1);
     const scenes = stage.locator('.object-tile-scene');
@@ -183,4 +183,21 @@ test('native library thumbnails mount near the browser viewport and release offs
     await expect(preview).toHaveAttribute('data-thumbnail-state', 'queued');
     await expect(preview.locator('svg')).toHaveCount(0);
   }
+});
+
+
+test('camera-facing effects explain four world-facing contexts while ordinary objects retain directional review', async ({ page }) => {
+  const cameraFacing = objects.find(object => object.facingPolicy === 'camera-facing' && object.clips?.length);
+  test.skip(!cameraFacing, 'Awaiting native camera-facing effect exports');
+  await page.goto(`${url}#object-${cameraFacing.id}`);
+  const stage = page.locator('#prototype-stage');
+  await expect(stage.locator('.object-facing-policy')).toHaveText('Camera-facing artwork · four world-facing contexts');
+  const firstSection = stage.locator('.object-review-section').first();
+  await expect(firstSection).toContainText('Four facing contexts: camera-facing artwork stays readable');
+  await expect(firstSection.getByRole('img', { name: `${cameraFacing.name}: camera-facing artwork in North, East, South and West world-facing contexts`, exact: true })).toBeVisible();
+  for (const direction of ['N', 'E', 'S', 'W']) await expect(firstSection.locator(`[data-object="${cameraFacing.id}"][data-direction="${direction}"]`)).toHaveCount(1);
+  const ordinary = objects.find(object => object.facingPolicy !== 'camera-facing' && object.clips?.length);
+  await page.goto(`${url}#object-${ordinary.id}`);
+  await expect(stage.locator('.object-facing-policy')).toHaveCount(0);
+  await expect(stage.locator('.object-review-section').first()).toContainText('Same tile pitch and ground root in every facing.');
 });

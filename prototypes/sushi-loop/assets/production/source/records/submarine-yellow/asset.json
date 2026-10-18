@@ -40,6 +40,36 @@
       "frames": 12,
       "fps": 12,
       "loop": true
+    },
+    "upgraded-idle": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "upgraded-travel": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "upgraded-impact": {
+      "frames": 12,
+      "fps": 12,
+      "loop": false
+    },
+    "upgraded-protection": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "upgraded-dock-charging": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "upgraded-dock-ready": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
     }
   },
   "footprint": [
@@ -59,5 +89,27 @@
       0.21
     ]
   },
-  "camera_elevation_degrees": 65
+  "camera_elevation_degrees": 65,
+  "variants": {
+    "baseline": {
+      "clips": [
+        "idle",
+        "travel",
+        "impact",
+        "protection",
+        "dock-charging",
+        "dock-ready"
+      ]
+    },
+    "upgraded": {
+      "clips": [
+        "upgraded-idle",
+        "upgraded-travel",
+        "upgraded-impact",
+        "upgraded-protection",
+        "upgraded-dock-charging",
+        "upgraded-dock-ready"
+      ]
+    }
+  }
 }

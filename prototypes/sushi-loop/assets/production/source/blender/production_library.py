@@ -14,13 +14,15 @@ def module(name,file):
     m=importlib.util.module_from_spec(spec);sys.modules[name]=m;spec.loader.exec_module(m);return m
 
 def load():
-    global P,F,C,X,W,H
+    global P,F,C,X,W,H,V,B
     P=module('prop_builders','prop_builders.py')
     F=module('s33fb','food_belt_builders.py')
     C=module('s33chars','character_builders.py')
     X=module('s33fx','creature_fx_builders.py')
     W=module('s33world','world_components.py')
     H=module('s33compose','character_composition.py')
+    V=module('s33variants','catalog_variants.py')
+    B=module('s33billboards','catalog_billboards.py')
 
 def remap(a,mapping):
     pose=a['pose'];old=a['clips']
@@ -79,6 +81,7 @@ def add_equipment_active(asset,asset_id):
                 if name=='dark_mouth':obj.scale.z*=.96+.04*math.sin(phase)
                 elif name.startswith('guard_'):obj.rotation_euler.x+=.06*math.sin(phase+index*.45)
     asset['pose']=pose
+    asset['variants']={'default':{'clips':list(asset['clips'])}}
     asset.setdefault('notes',[]).append('Active state is restrained native panel breathing, barrel recoil or intake pulse only; no simulation, damage, capacity or timing mechanic.')
     return asset
 
@@ -185,6 +188,10 @@ def build(aid):
                 o.location.z=.06+((i*.29+t*1.5)%1.5);o.location.x+=.025*math.sin(t*math.tau+i)
         b.motion['rise']=rise;a=b.finish({'rise':{'frames':12,'fps':12,'loop':True}});projection='square-top-front-oblique'
     else:raise ValueError('No production builder for '+aid)
+    if aid in ['chef-blackboard','bubble-preference','salvage-metal']:a=V.augment(a,aid,F,P)
+    if aid in B.BILLBOARD_IDS:a=B.augment(a)
+    if aid in ['garbage-sofa','garbage-car','garbage-shelving']:
+        a['variants']={'normal':{'clips':['idle']},'highlighted':{'clips':['highlighted']},'clearance':{'clips':['clearance']}}
     if aid in ['plant-angular','column-broken','decor-foreground-coral','decor-ruin-fragment']:
         a=add_static_preview(a,'idle')
     if aid in ['sub-hull-panels','sub-harpoon-mount','sub-collector-inlet']:
@@ -208,6 +215,11 @@ def build(aid):
         frame=(fw,fh);root=(fw//2,ry)
     fixed_frames={
         'creature-eel':((448,512),(224,352)),
+        'creature-fish':((448,512),(224,352)),
+        'garbage-sofa':((448,576),(224,352)),
+        'garbage-car':((576,768),(288,480)),
+        'garbage-shelving':((448,672),(224,448)),
+        'harpoon-projectile':((256,352),(128,224)),
         'boost-trail':((448,544),(224,352)),
         'attack-reef-fragments':((320,448),(160,320)),
     }

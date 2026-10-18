@@ -64,6 +64,41 @@ def matrix_valid(value):
                 for row in value))
 
 
+def validate_variant_clips(variants, clips):
+    """Bind each declared appearance to actual canonical runtime clip IDs.
+
+    Native source names may contain underscores, but public variant references
+    must already use normalized hyphens so a runtime lookup works without repair.
+    This checks metadata integrity only; it does not grade variant appearance.
+    """
+    if not isinstance(variants, dict):
+        return {}, []
+    available = {clip.get('id') for clip in clips if isinstance(clip.get('id'), str)}
+    records, errors = {}, []
+    for variant, entry in variants.items():
+        item = {'referencedClipIds': [], 'resolvedClipIds': [], 'errors': []}
+        records[variant] = item
+        references = entry.get('clips') if isinstance(entry, dict) else None
+        if not isinstance(references, list) or not references:
+            item['errors'].append('requires a nonempty clips list bound to actual runtime exports')
+        else:
+            for reference in references:
+                if not isinstance(reference, str) or not reference:
+                    item['errors'].append('clip reference must be a nonempty string')
+                    continue
+                item['referencedClipIds'].append(reference)
+                normalized = reference.replace('_', '-')
+                if reference != normalized:
+                    item['errors'].append(f'clip reference {reference!r} is not normalized; use {normalized!r}')
+                if normalized not in available:
+                    item['errors'].append(f'references missing normalized runtime clip {normalized!r}')
+                else:
+                    item['resolvedClipIds'].append(normalized)
+        item['valid'] = not item['errors']
+        errors.extend(f'Variant {variant}: {error}' for error in item['errors'])
+    return records, errors
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('manifest', type=Path)
@@ -280,6 +315,9 @@ def main():
             errors.append('Missing required states: ' + ', '.join(missing_states))
         required_variants = requirements.get('variants', planned.get('variants', ['default']))
         declared_variants = obj.get('variants', [])
+        variant_records, variant_errors = validate_variant_clips(declared_variants, clips)
+        result['coverage']['variantClipBindings'] = variant_records
+        errors.extend(variant_errors)
         if isinstance(declared_variants, dict):
             declared_variants = list(declared_variants)
         available_variants = {v.get('id') if isinstance(v, dict) else v for v in declared_variants}

@@ -1,6 +1,6 @@
-# Issue 33 world asset catalog — concept approval
+# Issue 33 world asset catalog — approved concept and native review
 
-Status: **Awaiting user approval of the concept sheet and inventory.** Issue #33 remains open. No production model, sprite, animation or Godot preview is represented as complete by this sheet.
+Status: **Concept approved; finished scene assets awaiting user approval.** The native Blender library covers 117 review entries across the 17 families below. Captures publish in complete batches on the wireframe site; model presence and structural checks do not imply final art approval. Issue #33 remains open. The image below remains a concept reference, not a production sprite sheet.
 
 Base: latest `origin/main` verified through GitHub on 2026-10-17, `c7160c598d97023b7503339771fe7e1e8e48d45f`. Work branch: `codex/sushi-loop-33-art-catalog`. The existing main checkout and its local changes were preserved.
 
@@ -34,7 +34,7 @@ The numbered sheet establishes proposed colors, silhouettes, identities and mate
 
 Excluded from this milestone: full HUDs, controls/dialogs, recipe material panels, Shop/Workshop paper pages, receipts/results backgrounds and full-screen catch cutscenes. The small world catch pose/clip remains included.
 
-## Production contract after concept approval
+## Production contract
 
 - Use `generate-blender-characters`: concept → real editable Blender MCP mesh/materials → rig/poses → fixed-camera transparent capture. Retain `.blend`, modeling script, rig/camera metadata, original frames and actual model/pose validation views. No generic mannequin substitutions.
 - Use `generate-block-tiles`: SVG geometry reference + imagegen for standard floors/blocks; Blender MCP model/capture + required imagegen surface refinement for complex objects. The user's requested Blender authoring applies to complex objects including the connected animated conveyor, with square-floor/reference helpers used for calibration. Retain all editable sources and raw renders/refinements.
@@ -64,4 +64,4 @@ The refinement addressed tapered belt geometry, empty-deck slat motion studies, 
 
 ## Current live-review entry
 
-The wireframe route is `#art-catalog`, with the complete sheet and a 17-family browser. This first page is concept review only. Final issue acceptance will use actual animated sprites and tiled compositions on the same site, rather than requiring a Godot/Android catalog build. The Android game implementation remains a later integration target.
+The approved sheet remains at `#art-catalog`. Native review uses `#object-library` and 117 individual `#object-<id>` pages, each with four facings, repeated/joined placements, related-object scale compositions and all published directional animations. The [source workflow](../../../assets/production/source/README.md) links editable models, native actions and reproducible capture instructions. Conveyors use 24 samples at 12 fps; baseline/upgraded submarine geometry shares one entry with twelve clips. Capture status stays explicit while batches publish. This is a native Blender pass; imagegen surface refinement and final scene-art approval are not represented as complete. Issue #33 remains open until the user approves the finished scene assets. Godot Android remains the game target.

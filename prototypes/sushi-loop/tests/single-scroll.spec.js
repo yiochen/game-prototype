@@ -56,6 +56,12 @@ test('phone swipes scroll the page over the object library, sprites, and wide fl
     await page.goto(`${url}#${story}`);
     const target = page.locator(selector).first();
     await target.scrollIntoViewIfNeeded();
+    // Leave room for the gesture to move the document instead of testing its bottom clamp.
+    await page.evaluate(() => {
+      const maxTop = document.scrollingElement.scrollHeight - innerHeight;
+      if (maxTop - scrollY < 180) scrollTo(0, Math.max(0, maxTop - 180));
+    });
+    expect(await page.evaluate(() => document.scrollingElement.scrollHeight - innerHeight - scrollY)).toBeGreaterThanOrEqual(160);
     const bounds = await target.boundingBox();
     const x = Math.min(350, Math.max(40, bounds.x + bounds.width / 2));
     const y = Math.min(720, Math.max(350, bounds.y + Math.min(bounds.height - 12, 210)));
