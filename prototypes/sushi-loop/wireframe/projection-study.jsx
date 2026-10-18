@@ -1,6 +1,7 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
 import { projectionStudy, projectionGroups, projectionRatios, studyGeometry, studyImageUrl, studySourceUrl } from './projection-study-data.js';
 import './projection-study.css';
+import characterProportionsUrl from '../design/art-directions/character-proportions-v1.png?url';
 
 function StudyCapture({ group, ratio, tilePitch, overlays, reference = false }) {
   const patternId = useId();
@@ -54,12 +55,16 @@ export function ProjectionStudy() {
   const count = projectionGroups.reduce((sum, group) => sum + projectionRatios.filter(ratio => studyImageUrl(group.images?.[ratio.id])).length, 0);
   return <div className="phone-scene projection-study">
     <header className="projection-study-header">
-      <div className="projection-study-kicker"><span>PROJECTION STUDY</span><span className="projection-study-badge">Experimental · awaiting review</span></div>
+      <div className="projection-study-kicker"><span>PROJECTION STUDY</span><span className="projection-study-badge">70% environment selected</span></div>
       <h2>Same tiles. Four heights.</h2>
-      <p>Compare vertical height at 100%, 70%, 50% and 40%. The square floor, top-face scale, geometry and registered ground roots stay fixed across each row.</p>
+      <p>70% environment height is selected. Production recapture is pending; characters will keep their separate 35° ordinary orthographic camera. The historical comparisons below retain their original geometry and registration.</p>
       <nav aria-label="Art review pages"><a href="#scene-restaurant">Restaurant scene ↗</a><a href="#scene-underwater">Underwater scene ↗</a><a href="#object-library">Production library ↗</a></nav>
       <p className="projection-study-status" role="status">{count} comparison captures · {references.filter(group => studyImageUrl(group.reference.image)).length} camera reference · {projectionGroups.length} comparisons</p>
     </header>
+    <section className="projection-character-concepts" aria-labelledby="character-proportions-title">
+      <div className="projection-section-heading"><span>NEXT · CHARACTER SHAPE</span><h3 id="character-proportions-title">Character proportions · choose a direction</h3><p>Four concepts for Lena with shorter legs and a more cartoony silhouette: A · Compact, B · Playful, C · Chunky, D · Super chibi. The intended camera stays at 35° ordinary orthographic.</p></div>
+      <figure><a href={characterProportionsUrl} target="_blank" rel="noopener noreferrer" aria-label="Open full-size character proportion concepts"><img src={characterProportionsUrl} alt="Lena character proportion concepts: A Compact, B Playful, C Chunky and D Super chibi" width="1774" height="887"/></a><figcaption>ImageGen anatomy concepts for choosing proportions. These are not calibrated Blender captures or registered sprites. <a href={characterProportionsUrl} target="_blank" rel="noopener noreferrer">Open full-size concept board ↗</a></figcaption></figure>
+    </section>
     <div className="projection-study-controls" aria-label="Projection comparison controls">
       <label>World scale<select aria-label="Study tile size" value={tilePitch} onChange={event => setTilePitch(Number(event.target.value))}><option value="48">48 px / tile</option><option value="64">64 px / tile</option><option value="96">96 px / tile</option></select></label>
       <label className="projection-overlay-toggle"><input type="checkbox" checked={overlays} onChange={event => setOverlays(event.target.checked)}/> Ground roots</label>
@@ -69,6 +74,6 @@ export function ProjectionStudy() {
     {!!objects.length && <section className="projection-study-section"><div className="projection-section-heading"><span>01 · INDIVIDUAL OBJECTS</span><h3>Read the silhouette and side faces</h3><p>Every column uses its declared capture canvas and the same world pitch. The images are displayed uniformly; no alpha fitting or browser height squash is applied.</p></div><ComparisonTable groups={objects} tilePitch={tilePitch} overlays={overlays} label="individual projection comparisons"/></section>}
     {!!references.length && <section className="projection-study-section projection-reference-section"><div className="projection-section-heading"><span>CHARACTER CAMERA REFERENCE</span><h3>The current character camera is separate</h3><p>The chef’s four study captures above use the environment projection. This additional reference uses the current 35° ordinary orthographic character camera; it is not the 100% environment baseline.</p></div><div className="projection-reference-scroll">{references.map(group => <div className="projection-character-reference" key={group.id}><h4>{group.name}</h4><StudyCapture group={group} reference tilePitch={tilePitch} overlays={overlays}/></div>)}</div></section>}
     {!!assemblies.length && <section className="projection-study-section"><div className="projection-section-heading"><span>02 · SHARED ARRANGEMENT</span><h3>Compare the connected group</h3><p>Conveyor joins and neighboring props use one captured native arrangement in all four projections. The wider comparison retains the same tile size as the individual objects.</p></div><ComparisonTable groups={assemblies} tilePitch={tilePitch} overlays={overlays} label="connected projection arrangement"/></section>}
-    <footer className="projection-study-footer"><p>Projection experiment for discussion. These captures have not been adopted into the production sprite library. Final asset approval and Godot Android integration remain separate review steps.</p><p>Ambient and contact shading are deferred to Godot. This page adds only square calibration lines and optional registration guides.</p></footer>
+    <footer className="projection-study-footer"><p>70% environment height has been selected; production recapture is pending. The original comparison captures stay here as a reference. Characters retain the separate 35° camera while their proportions are reviewed. Final asset approval and Godot Android integration remain separate review steps.</p><p>Ambient and contact shading are deferred to Godot. This page adds only square calibration lines and optional registration guides.</p></footer>
   </div>;
 }

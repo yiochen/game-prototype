@@ -36,13 +36,14 @@ export const stories = [
   {
     id: 'projection-study', group: 'scene-review', title: 'Projection height study', scene: 'projection-study',
     reviewBranch: 'codex/sushi-loop-33-art-catalog',
-    description: 'An experimental native capture comparison at 100%, 70%, 50% and 40% vertical height. Square floor/top projection, geometry, placements, root registration and world display scale stay fixed.',
+    description: '70% environment height is selected, with production recapture pending. Choose shorter, cartoony character proportions from four concept options; characters retain their separate 35-degree camera. The original four-ratio captures remain as a reference.',
     elements: [
+      element('Character proportion concepts', 'Review A Compact, B Playful, C Chunky and D Super chibi as anatomy directions for Lena. The intended character camera remains 35-degree ordinary orthographic. ImageGen concepts are not calibrated captures or registered sprites.', 'One responsive concept image with a full-size link; vertical scrolling belongs to the page.'),
       element('Four native height captures', 'Compare each object and the connected arrangement in four ratio columns. Captures use the same frame and registered world origin within each row. Missing exports remain labeled; no ratio is substituted.', 'Static projection study. Changing the common tile size or root guide updates immediately; native geometry and images are not animated or squashed in the browser.'),
       element('Shared world scale and comparison scrolling', 'One tile-size control applies to every ratio and group. Individual rows share a horizontal comparison table; the wider assembly retains its native scale. Vertical touch scrolling belongs to the document.', 'Nearby captures mount as their cells approach the viewport, including horizontal panning. Their layout boxes stay fixed, so loading does not move the page.'),
       element('Character camera reference', 'The chef pose uses the environment projection for the four study ratios. A separate current 35-degree ordinary orthographic reference keeps that distinction explicit; it is not the 100% environment baseline.', 'All references are static. Ambient and contact shading remain deferred to Godot.'),
     ],
-    notes: ['Experimental comparison only. No production asset, source geometry or projection contract is replaced by this page.', 'The user chooses a direction after reviewing the study. Final scene approval and issue #33 remain open.'],
+    notes: ['70% environment height is selected. Production recapture is pending; historical comparison captures are unchanged.', 'Character proportions await a choice; the 35-degree ordinary orthographic character camera stays fixed. Final scene approval and issue #33 remain open.'],
   },
   {
     id: 'scene-restaurant', group: 'scene-review', title: 'Restaurant scene', scene: 'world-showcase', variant: 'restaurant',

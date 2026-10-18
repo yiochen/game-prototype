@@ -2,6 +2,12 @@
 
 Accepted direction: colorful low-poly game art with a square-grid environment and undistorted characters. The four images below are the current references for both scenes.
 
+## Character proportion exploration
+
+[Character proportions v1](character-proportions-v1.png) compares four new anatomy directions—A Compact, B Playful, C Chunky and D Super Chibi—with an illustrative redraw of the current chef. The same Lena identity and outfit are retained. These ImageGen concepts target the same ordinary 35-degree character camera; they are not calibrated or registered sprite captures. The existing native reference remains under `assets/projection-study/sprites/chef-lena/ordinary-35.png`.
+
+The user selected **70% projected environment height** and retained the **35-degree ordinary character camera**. Shorter-legged, more cartoony character anatomy is awaiting a concept choice before Blender remodeling. The accepted choices will be captured together in a later production revision; existing production sprites and the historical projection-comparison captures remain unchanged at this stage. Exact prompt, reference roles and SHA256 values are retained in [the generation record](sources/character-proportions-v1.json).
+
 ## Final references
 
 | Scene | Theme concept | Item catalog |
