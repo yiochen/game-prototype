@@ -5,6 +5,7 @@ It bakes complete independent clip cohorts, including composed food visibility,
 rig channels, procedural tube geometry and conveyor shader phase.
 """
 import bpy
+import contextlib
 import json
 import math
 import pathlib
@@ -220,7 +221,47 @@ def _restore_values(objects,states,armatures,bones,nodes,node_values,shapes,shap
     bpy.context.view_layer.update()
 
 
+@contextlib.contextmanager
+def _sampling_visibility(asset):
+    """Make the owned rig evaluable while sampling, then restore presentation.
+
+    Hidden layer collections otherwise leave evaluated palm transforms stale,
+    so a held plate can be sampled at its unposed ground origin.
+    """
+    collection=asset['collection'];layers=[];collections=[];armatures=[]
+    def path_to(layer):
+        if layer.collection==collection:return [layer]
+        for child in layer.children:
+            path=path_to(child)
+            if path:return [layer]+path
+        return []
+    path=path_to(bpy.context.view_layer.layer_collection)
+    if not path:raise ValueError('Asset collection is not in the current sampling view layer')
+    try:
+        for layer in path:
+            layers.append((layer,layer.exclude,layer.hide_viewport))
+            col=layer.collection;collections.append((col,col.hide_viewport))
+            layer.exclude=False;layer.hide_viewport=False;col.hide_viewport=False
+        bpy.context.view_layer.update()
+        for obj in _all_objects(asset):
+            if obj.type=='ARMATURE':
+                armatures.append((obj,obj.hide_viewport,obj.hide_get()))
+                obj.hide_viewport=False;obj.hide_set(False)
+        bpy.context.view_layer.update()
+        yield
+    finally:
+        for obj,viewport,hidden in armatures:obj.hide_viewport=viewport;obj.hide_set(hidden)
+        for layer,exclude,viewport in reversed(layers):layer.exclude=exclude;layer.hide_viewport=viewport
+        for col,viewport in reversed(collections):col.hide_viewport=viewport
+        bpy.context.view_layer.update()
+
+
 def bake_asset(asset_id,asset,output_dir=None,replace=False,canonical_direction=True):
+    with _sampling_visibility(asset):
+        return _bake_asset_visible(asset_id,asset,output_dir,replace,canonical_direction)
+
+
+def _bake_asset_visible(asset_id,asset,output_dir=None,replace=False,canonical_direction=True):
     """Bake one asset into independent clip cohorts. Returns a JSON-safe record.
     Existing action bindings and visible pose are restored; new native actions
     and sampled shape keys persist. Explicit replace only removes previous
@@ -266,7 +307,11 @@ def bake_asset(asset_id,asset,output_dir=None,replace=False,canonical_direction=
                 node_closures[clip]={k:_num(v[2].default_value) for k,v in nodes.items()}
         flat=[frame for frames in samples.values() for frame in frames]
         reference=flat[0]
-        object_channels={o.name:[p for p in reference['objects'][o.name] if not p.startswith('_') and any(_different(reference['objects'][o.name][p],f['objects'][o.name][p]) for f in flat[1:])] for o in objects}
+        object_channels={o.name:[p for p in reference['objects'][o.name] if not p.startswith('_') and (
+            any(_different(reference['objects'][o.name][p],f['objects'][o.name][p]) for f in flat[1:]) or
+            # Constant posed attachments still need keys if the saved baseline
+            # differs. The world ground root retains external facing control.
+            (o!=root and _different(reference['objects'][o.name][p],states[o.name][p])))] for o in objects}
         # A composed plate/knife render flag must also affect the native viewport.
         for name,paths in object_channels.items():
             if 'hide_render' in paths and 'hide_viewport' not in paths:paths.append('hide_viewport')

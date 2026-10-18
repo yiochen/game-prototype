@@ -20,6 +20,7 @@ const floorOnlyNote = 'This review pass draws the restaurant floor, entries, exp
 export const storyGroups = [
   { id: 'layout', title: 'Floor plan' },
   { id: 'concept', title: 'Concept & art' },
+  { id: 'scene-review', title: 'Scene art review · #33' },
   { id: 'asset-review', title: 'Object sprite review · #33' },
   { id: 'components', title: 'Shared components' },
   { id: 'restaurant', title: 'Restaurant' },
@@ -32,6 +33,28 @@ export const storyGroups = [
 ];
 
 export const stories = [
+  {
+    id: 'scene-restaurant', group: 'scene-review', title: 'Restaurant scene', scene: 'world-showcase', variant: 'restaurant',
+    reviewBranch: 'codex/sushi-loop-33-art-catalog',
+    description: 'The native restaurant catalog assembled into one complete room. Inspect the connected serving belt, staff and seated customers, entrance, furniture, storage and decor at the same registered scale.',
+    elements: [
+      element('Complete restaurant composition', 'The scene reuses published native catalog sprites with their fixed roots, captured directions and support offsets. Open any linked object below the map to inspect its own four-way views and animations.', 'A shared 12 fps review clock plays the exported clips and staged presentation paths. The plate follows the native curve centerline; its staged travel clock is independent of slat timing.'),
+      element('Fit, detail and calibration', 'Fit shows the complete composition. 2× and 4× zoom keep native proportions and allow horizontal panning. Optional tile grid and root/port overlays expose placement without changing the artwork.', 'Zoom and overlays update immediately. Vertical touch and wheel gestures continue scrolling the document; there is no second vertical scroller.'),
+      element('Review playback', 'Play, Pause and the timeline inspect the 48-second composed scene cycle. Comments remain attached to this exact scene deep link.', 'Reduced motion starts paused. Scrubbing pauses playback on the chosen frame; leaving the browser tab pauses presentation time.'),
+    ],
+    notes: ['Scene art review only; service, pathfinding, economy and editing simulation are not implemented here.', 'The approved catalog assets remain subject to final scene approval. Issue #33 remains open, and the eventual game target remains Godot Android.'],
+  },
+  {
+    id: 'scene-underwater', group: 'scene-review', title: 'Underwater scene', scene: 'world-showcase', variant: 'underwater',
+    reviewBranch: 'codex/sushi-loop-33-art-catalog',
+    description: 'A complete underwater composition built from the native catalog: submarine, creatures, connected canyon and reef modules, route markers, salvage and layered water effects.',
+    elements: [
+      element('Complete underwater composition', 'Native terrain modules form connected passages around the submarine route. Creatures, salvage and effects share the registered world scale. Linked object pages expose their original directions and every captured state.', 'The native sprite clips and staged routes use one 12 fps clock. Cardinal travel selects actual captured facings while retaining each object’s registered ground center.'),
+      element('Fit, detail and calibration', 'Fit shows the entire underwater scene. Zoom allows horizontal map inspection, and optional grid/root overlays expose the same native placements.', 'The page owns vertical scrolling at every zoom. Artwork is never resized by its alpha silhouette.'),
+      element('Review playback', 'Play, Pause and the frame timeline control the shared 48-second composition. Use the scene tabs to compare restaurant and underwater art.', 'Reduced motion starts paused. Scrubbing and browser visibility retain the same presentation-only playback behavior as the object catalog.'),
+    ],
+    notes: ['A staged art composition; steering, encounters, collision and rewards remain Godot Android integration work.', 'Final scene-asset approval remains pending, and this review does not close issue #33.'],
+  },
   ...objectReviewStories,
   {
     id: 'floor-plan', group: 'layout', title: 'Full restaurant floor plan', scene: 'floor-plan', variant: 'overview',

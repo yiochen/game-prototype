@@ -4,7 +4,7 @@
 
 Review route: `/prototypes/sushi-loop/?ntl-drawer-state=hidden#object-library`. Each object has its own `#object-<id>` page. The approved concept remains available at `#art-catalog` for comparison.
 
-The current native pass contains **117 objects across 17 families**. All **117 entries are published and ready for review**. Structural/source checks cover the full inventory; browser checks exercise the shared layouts and representative objects below. The saved version 9 Blender project is a normal editable `.blend` of approximately **4.4 MB**, with **2,078 owned objects and 3,196 independent native actions**. These are source inventory totals, not a declaration of finished visual approval.
+The current native pass contains **117 objects across 17 families**. All **117 entries are published and ready for review**. Structural/source checks cover the full inventory; browser checks exercise the shared layouts and representative objects below. The saved version 10 Blender project is a normal editable `.blend` of approximately **4.4 MB**, with **2,078 owned objects and 3,314 independent native actions**. These are source inventory totals, not a declaration of finished visual approval.
 
 For each object, review its four directions on the square tile grid, repeated placement in a 3×3 arrangement, scale beside interacting objects, and every directional animation. Fixed capture frames and shared tile scale are retained across poses; use the animation pause and frame controls to inspect contact, layering and clearance.
 
@@ -27,6 +27,12 @@ All eight corner conveyors have a curved lower frame and legs placed beneath the
 ### Forward-walk revision
 
 The four customer walk and panic cycles now move grounded feet backward relative to the character and recover forward while lifted. This fixes the shared native gait that appeared to moonwalk. Frame order, four-direction facing, 12-frame timing and fixed sprite roots remain unchanged. The native action check covers all 32 customer/facing/walk-panic combinations, including evaluated sole contacts and loop closure; the original failing baseline is retained. [Forward-walk evidence](forward-walk/README.md) includes the 32-case browser pass, all four customers on a translating floor, and a before/after planted-boot comparison.
+
+### Complete scene previews
+
+The full restaurant (`#scene-restaurant`) and underwater (`#scene-underwater`) pages compose the same registered catalog assets at one tile scale. The restaurant has 69 placements with a connected conveyor island, chefs, seated diners and a walking aisle. The underwater scene has 77 placements with connected canyon/reef/wreck sections, an exploring submarine, creatures, currents and layered scenery. Playback, scrubbing, fit/detail zoom and optional grid/root overlays remain available alongside per-object links.
+
+The restaurant composition exposed a native held-food attachment defect. The baker now exposes each rig while sampling and retains constant posed attachment transforms. The corrected 12-character library passes 96 native holding cases /1,152 samples; the historical failure is retained. [Full-scene evidence](full-scenes/README.md) records scene layouts, phone/landscape controls and the before-fix source proof. Final asset approval remains pending.
 
 ### Final verification record
 

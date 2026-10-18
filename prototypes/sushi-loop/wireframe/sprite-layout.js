@@ -22,9 +22,32 @@ export function spriteFrame(object, clip, direction, seconds = 0) {
   const rect = entry.rects?.[frame] || [(offset + frame) % columns * width * sourceScale, Math.floor((offset + frame) / columns) * height * sourceScale, width * sourceScale, height * sourceScale];
   return { image: entry.image, frame, frames, frameSize, root, rect, atlasSize: entry.atlasSize || [width * sourceScale * columns, height * sourceScale * rows] };
 }
+const facingAlong = (start, end, fallback = 'S') => {
+  const dx = end[0] - start[0], dy = end[1] - start[1];
+  if (Math.abs(dx) + Math.abs(dy) < 1e-9) return fallback;
+  return Math.abs(dx) >= Math.abs(dy) ? (dx > 0 ? 'E' : 'W') : (dy > 0 ? 'S' : 'N');
+};
+const registeredRootCell = (object, direction = 'S') => object?.directionRootCells?.[direction] || object?.rootCell || footprintFor(object || {}, direction).map(value => value / 2);
+
+// Motion paths retain the initial facing's ground center, even when a rectangular
+// object changes facing and its native footprint changes from1x2 to2x1.
+const pathPlacement = (placement, point, direction, object) => {
+  const original = registeredRootCell(object, placement.direction || 'S');
+  const facing = registeredRootCell(object, direction);
+  return { ...placement, x: point[0] + original[0] - facing[0], y: point[1] + original[1] - facing[1], direction };
+};
+
 export function sceneBounds(placements, objects, cellSize = 128, gridSize = [3, 3]) {
   let minX = 0, minY = 0, maxX = gridSize[0] * cellSize, maxY = gridSize[1] * cellSize;
-  for (const placement of placements) {
+  const swept = placements.flatMap(placement => {
+    const points = placement.motion?.path;
+    if (!points?.length) return [placement];
+    const object = objects.find(candidate => candidate.id === placement.object);
+    const facing = placement.direction || 'S';
+    const directions = placement.motion.faceTravel ? [...new Set(points.slice(1).map((point, index) => facingAlong(points[index], point, facing)))] : [facing];
+    return points.flatMap(point => directions.map(direction => pathPlacement(placement, point, direction, object)));
+  });
+  for (const placement of swept) {
     const object = objects.find(candidate => candidate.id === placement.object);
     if (!object) continue;
     const clip = clipFor(object, placement.clip);
@@ -67,20 +90,21 @@ export function directionPlacements(object, clip) {
 }
 
 // A presentation path moves only its separate sprite; it is not belt/game simulation.
-export function placementAtTime(placement, seconds = 0) {
+export function placementAtTime(placement, seconds = 0, object) {
   const motion = placement.motion;
   if (!motion?.path?.length || motion.path.length < 2) return placement;
   const points = motion.path;
   const segments = points.slice(1).map((point, index) => Math.hypot(point[0] - points[index][0], point[1] - points[index][1]));
   const distance = segments.reduce((sum, length) => sum + length, 0);
   if (!distance) return placement;
-  const progress = Math.max(0, seconds) / positive(motion.duration, 4);
+  const progress = Math.max(0, seconds + (Number(motion.phase) || 0)) / positive(motion.duration, 4);
   let remaining = (motion.loop === false ? Math.min(1, progress) : progress % 1) * distance;
   for (let index = 0; index < segments.length; index++) {
     if (remaining <= segments[index] || index === segments.length - 1) {
       const t = segments[index] ? Math.min(1, remaining / segments[index]) : 0;
       const [x, y] = points[index], [nextX, nextY] = points[index + 1];
-      return { ...placement, x: x + (nextX - x) * t, y: y + (nextY - y) * t };
+      const direction = motion.faceTravel ? facingAlong(points[index], points[index + 1], placement.direction || 'S') : placement.direction || 'S';
+      return pathPlacement(placement, [x + (nextX - x) * t, y + (nextY - y) * t], direction, object);
     }
     remaining -= segments[index];
   }

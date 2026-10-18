@@ -1,6 +1,6 @@
 # Issue 33 native asset source and capture workflow
 
-The approved concept has become an editable native Blender library covering **117 catalog entries across 17 families**. The [project](blender/sushi-loop-world-library.blend) contains the actual meshes, materials, character/creature rigs, independent action cohorts and cosmetic assemblies. It opens as a normal Blender project. The initial camera view shows Rosa’s corrected walk facing east; enable another asset collection in the Outliner to inspect it.
+The approved concept has become an editable native Blender library covering **117 catalog entries across 17 families**. The [project](blender/sushi-loop-world-library.blend) contains the actual meshes, materials, character/creature rigs, independent action cohorts and cosmetic assemblies. It opens as a normal Blender project. The initial camera view shows Samir’s corrected held-food pose facing west; enable another asset collection in the Outliner to inspect it.
 
 **Finished scene-art approval is pending. Issue #33 remains open.** This delivery is labeled a native Blender review pass. It does not claim a completed imagegen surface-refinement pass. Captures are published in complete batches; [the runtime manifest](../library.json) is the authority for each page's published status, while [the native index](native-records/index.json) inventories editable model/action evidence. A model in that index does not, by itself, establish complete or approved sprite coverage.
 
@@ -38,6 +38,8 @@ Corner supports now use the same height and materials as the straight conveyor, 
 Section 03 includes authored connections for all 42 modules with native ports, tiled patches for the four floor styles, and the four dock assembly views. Belts meet directed straight neighbors; wall, terrain and rope pieces meet neighbors with matching native edge profiles. Overlays expose port alignment. Use `publish_captures.py --repo <repo> --interactions-only` to rebuild these fixtures from the retained native records without repacking sprites.
 
 Customer walk and panic cycles use a backward-moving grounded stance and a forward lifted recovery relative to local front `-Y`. The sprites remain in place at their authored ground root. A forward-moving game character travels **0.56 world cells per gait cycle** to keep its support foot planted: walk uses one gait cycle in its 12-frame loop (0.56 cells/second), while panic uses two (1.12 cells/second). The native gait audit checks evaluated foot bones, deformed sole contact, toe direction and cycle closure in all four facings; it also retains the failing moonwalk baseline.
+
+The native baker temporarily exposes only the target collection and armature while sampling, restoring their presentation state afterward. This keeps evaluated hand attachments current even when other catalog objects are hidden. Constant posed object transforms are keyed when they differ from the saved baseline; the world ground root keeps its external facing control. Native held-food checks compare the actual evaluated palm meshes with the food-root position across all 12 characters and four directions.
 
 ## Reproduce a native capture
 

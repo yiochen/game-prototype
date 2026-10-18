@@ -73,3 +73,14 @@ Direction-independent effects can declare `facingPolicy: "camera-facing"`. The f
 
 
 The editable-source reference follows each object’s immutable `source.blend` revision for the exact captured model. The Download .blend action follows `production.editableProject` to the current complete native library, falling back to the object revision when no canonical project is declared. Both paths require safe relative paths.
+
+
+## Full scene composition review
+
+`#scene-restaurant` and `#scene-underwater` assemble the actual catalog components into complete animated scenes. The restaurant and underwater data modules own their placements, floor choice, registered support offsets, path periods and inspection links. No concept artwork substitutes for production sprites. These are staged art studies; Godot Android remains the game target.
+
+The shared `SpriteScene` accepts an explicit `floorId`, `background`, `showGrid`, `animateFloor` and `sceneId`. Showcase grids and root overlays start hidden, with fit/2×/4× views, 12-fps play/pause and frame scrubbing. The body remains the only vertical scroller; detail views pan horizontally. Floor animation is sampled from the native floor atlas.
+
+A placement may stagger its clip with `timeOffset` seconds. A path may stagger its position with `motion.phase` seconds. `motion.faceTravel: true` chooses the existing captured N/E/S/W atlas along the current segment; it never rotates a bitmap. Path points retain the initial facing's ground-root convention. The renderer compensates x/y when a directional footprint or root changes, so rectangular submarines and attached effects turn without a half-cell jump. Bounds include the complete native canvases for all path facings.
+
+Each 48-second scene cycle is a common multiple of its native loops and staged motion periods. The restaurant plates follow the real connected curve geometry with a staged circulation clock, independent of deck slat timing. Native joins, world-root continuity, cycle closure, assets/clip references and phone controls are covered by the scene-specific unit and browser tests.
