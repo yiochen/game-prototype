@@ -1,6 +1,6 @@
 # Issue 33 native asset source and capture workflow
 
-The approved concept has become an editable native Blender library covering **117 catalog entries across 17 families**. The [project](blender/sushi-loop-world-library.blend) contains the actual meshes, materials, character/creature rigs, independent action cohorts and cosmetic assemblies. It opens as a normal Blender project. The initial camera view shows Lena holding a dish; enable another asset collection in the Outliner to inspect it.
+The approved concept has become an editable native Blender library covering **117 catalog entries across 17 families**. The [project](blender/sushi-loop-world-library.blend) contains the actual meshes, materials, character/creature rigs, independent action cohorts and cosmetic assemblies. It opens as a normal Blender project. The initial camera view shows the corrected north-to-east conveyor corner; enable another asset collection in the Outliner to inspect it.
 
 **Finished scene-art approval is pending. Issue #33 remains open.** This delivery is labeled a native Blender review pass. It does not claim a completed imagegen surface-refinement pass. Captures are published in complete batches; [the runtime manifest](../library.json) is the authority for each page's published status, while [the native index](native-records/index.json) inventories editable model/action evidence. A model in that index does not, by itself, establish complete or approved sprite coverage.
 
@@ -25,13 +25,17 @@ One logical cell is 128 pixels. Blender axes are `x = X`, `depth = -Y`, `height 
 
 People, rounded dishes and creatures use the declared ordinary orthographic art camera, normally at 35° elevation. The submarine uses a recorded 65° overhead exception. These assets share the same logical cell pitch and projected ground root; their physical floor depth is foreshortened. Seat, palm, deck and equipment attachments remain separate from sprite bounds. Do not apply a seated support elevation twice.
 
-Every animated clip runs at **12 fps**. Most native states use 12 samples; the twenty directed conveyor modules use **24 unique frames over two seconds**, with fixed rails and moving deck material. This avoids the reversed-motion aliasing of seven slat periods sampled in twelve frames. The separate plate preview moves three cells in six seconds, matching the deck's 0.5 cell/second speed. Duplicate closing keys belong to native interpolation only and are excluded from runtime sprite frames. Static states remain explicitly static.
+Every animated clip runs at **12 fps**. Most native states use 12 samples; the twenty directed conveyor modules use **24 unique frames over two seconds**, with fixed rails and moving deck material. This avoids the reversed-motion aliasing of seven slat periods sampled in twelve frames. The separate plate is a staged review animation along the deck centerline, including the native quarter-circle turns. Its travel clock is independent of the moving slat material and resets at the start cap; it is not a gameplay transport simulation. Duplicate closing keys belong to native interpolation only and are excluded from runtime sprite frames. Static states remain explicitly static.
 
 The submarine stays one catalog entry: baseline and upgraded geometry each expose the same six states, for twelve clips in total. Their ground root, footprint and camera frame remain fixed. Recipe, salvage and equipment variants belong to their parent entries rather than adding new catalog objects. Inspect the current per-entry variant/clip records for exact coverage.
 
 Reaction bubbles and reward coins use a native visual pivot that counter-rotates the world ground root around Z. These effects face the fixed art camera in all four world-facing contexts; the source retains the actual driver. Physical characters, furniture, food, belts and terrain keep separate directional views.
 
 Each object has one complete authored capture frame for every pose and facing. Larger action bounds use a declared larger frame, never per-pose fitting. Current clearance contracts include eel 448×512/root (224,352), boost trail 448×544/root (224,352), and reef fragments 320×448/root (160,320). Camera records remain the authoritative values for any later revision.
+
+Corner supports now use the same height and materials as the straight conveyor, with a quarter-annular lower frame and four legs fully beneath the curved deck. Reversed corners use incoming-to-outgoing UVs and the same negative slat phase as the straight modules, preserving phase at their joins. The native `catalog_corner_supports.py` and `catalog_belt_flow.py` helpers retain these changes for later iteration.
+
+Section 03 includes authored connections for all 42 modules with native ports, tiled patches for the four floor styles, and the four dock assembly views. Belts meet directed straight neighbors; wall, terrain and rope pieces meet neighbors with matching native edge profiles. Overlays expose port alignment. Use `publish_captures.py --repo <repo> --interactions-only` to rebuild these fixtures from the retained native records without repacking sprites.
 
 ## Reproduce a native capture
 

@@ -1341,9 +1341,8 @@
         "allStatesAllDirections": true
       },
       "status": "planned",
-      "notes": "Start faces outgoing direction; end faces incoming port. No T/cross/split/merge. Separate dish can remain stationary over moving deck.",
+      "notes": "Suffix names travel direction in the canonical S capture. Start is capped behind travel and exposes only outgoing N. Closed edges are omitted from the ports map, matching runtime portDefinition; they are not null-valued open ports. No T/cross/split/merge. Separate dishes remain independent of the moving deck.",
       "ports": {
-        "incoming": null,
         "outgoing": "N"
       },
       "geometry": "start"
@@ -1388,9 +1387,8 @@
         "allStatesAllDirections": true
       },
       "status": "planned",
-      "notes": "Start faces outgoing direction; end faces incoming port. No T/cross/split/merge. Separate dish can remain stationary over moving deck.",
+      "notes": "Suffix names travel direction in the canonical S capture. Start is capped behind travel and exposes only outgoing E. Closed edges are omitted from the ports map, matching runtime portDefinition; they are not null-valued open ports. No T/cross/split/merge. Separate dishes remain independent of the moving deck.",
       "ports": {
-        "incoming": null,
         "outgoing": "E"
       },
       "geometry": "start"
@@ -1435,9 +1433,8 @@
         "allStatesAllDirections": true
       },
       "status": "planned",
-      "notes": "Start faces outgoing direction; end faces incoming port. No T/cross/split/merge. Separate dish can remain stationary over moving deck.",
+      "notes": "Suffix names travel direction in the canonical S capture. Start is capped behind travel and exposes only outgoing S. Closed edges are omitted from the ports map, matching runtime portDefinition; they are not null-valued open ports. No T/cross/split/merge. Separate dishes remain independent of the moving deck.",
       "ports": {
-        "incoming": null,
         "outgoing": "S"
       },
       "geometry": "start"
@@ -1482,9 +1479,8 @@
         "allStatesAllDirections": true
       },
       "status": "planned",
-      "notes": "Start faces outgoing direction; end faces incoming port. No T/cross/split/merge. Separate dish can remain stationary over moving deck.",
+      "notes": "Suffix names travel direction in the canonical S capture. Start is capped behind travel and exposes only outgoing W. Closed edges are omitted from the ports map, matching runtime portDefinition; they are not null-valued open ports. No T/cross/split/merge. Separate dishes remain independent of the moving deck.",
       "ports": {
-        "incoming": null,
         "outgoing": "W"
       },
       "geometry": "start"
@@ -1529,10 +1525,9 @@
         "allStatesAllDirections": true
       },
       "status": "planned",
-      "notes": "Start faces outgoing direction; end faces incoming port. No T/cross/split/merge. Separate dish can remain stationary over moving deck.",
+      "notes": "Suffix names travel direction in the canonical S capture. End terminates toward N and exposes only incoming S. Closed edges are omitted from the ports map, matching runtime portDefinition; they are not null-valued open ports. No T/cross/split/merge. Separate dishes remain independent of the moving deck.",
       "ports": {
-        "incoming": "N",
-        "outgoing": null
+        "incoming": "S"
       },
       "geometry": "end"
     },
@@ -1576,10 +1571,9 @@
         "allStatesAllDirections": true
       },
       "status": "planned",
-      "notes": "Start faces outgoing direction; end faces incoming port. No T/cross/split/merge. Separate dish can remain stationary over moving deck.",
+      "notes": "Suffix names travel direction in the canonical S capture. End terminates toward E and exposes only incoming W. Closed edges are omitted from the ports map, matching runtime portDefinition; they are not null-valued open ports. No T/cross/split/merge. Separate dishes remain independent of the moving deck.",
       "ports": {
-        "incoming": "E",
-        "outgoing": null
+        "incoming": "W"
       },
       "geometry": "end"
     },
@@ -1623,10 +1617,9 @@
         "allStatesAllDirections": true
       },
       "status": "planned",
-      "notes": "Start faces outgoing direction; end faces incoming port. No T/cross/split/merge. Separate dish can remain stationary over moving deck.",
+      "notes": "Suffix names travel direction in the canonical S capture. End terminates toward S and exposes only incoming N. Closed edges are omitted from the ports map, matching runtime portDefinition; they are not null-valued open ports. No T/cross/split/merge. Separate dishes remain independent of the moving deck.",
       "ports": {
-        "incoming": "S",
-        "outgoing": null
+        "incoming": "N"
       },
       "geometry": "end"
     },
@@ -1670,10 +1663,9 @@
         "allStatesAllDirections": true
       },
       "status": "planned",
-      "notes": "Start faces outgoing direction; end faces incoming port. No T/cross/split/merge. Separate dish can remain stationary over moving deck.",
+      "notes": "Suffix names travel direction in the canonical S capture. End terminates toward W and exposes only incoming E. Closed edges are omitted from the ports map, matching runtime portDefinition; they are not null-valued open ports. No T/cross/split/merge. Separate dishes remain independent of the moving deck.",
       "ports": {
-        "incoming": "W",
-        "outgoing": null
+        "incoming": "E"
       },
       "geometry": "end"
     },
@@ -5179,6 +5171,26 @@
       },
       "status": "planned",
       "notes": "Authored presentation only; demonstrate safe following position; no damage/attack scheduling. Hatched amber strip distinct from faint following guide."
+    }
+  ],
+  "contractRevisions": [
+    {
+      "id": "directed-conveyor-cap-ports-v2",
+      "date": "2026-10-17",
+      "objects": [
+        "belt-start-n",
+        "belt-start-e",
+        "belt-start-s",
+        "belt-start-w",
+        "belt-end-n",
+        "belt-end-e",
+        "belt-end-s",
+        "belt-end-w"
+      ],
+      "previousPlanSha256": "29dd32bb01509ed9b3dc3a7d84cdac151c39f3803b9ce05e9281f8a4cd6e594e",
+      "preservedFailureSha256": "30f6315d319bdd9bc44ec5348988d7121d83b852aa25275a4f7037cf1d32dc6a",
+      "nativeAuthority": "food_belt_builders.py::belt and export/source/<id>/asset.json::flow",
+      "rationale": "The native straight/start/end suffix denotes travel direction, not the edge from which an end cap accepts items. End caps block the forward edge and accept the opposite edge; start caps block the rear edge and expose only the forward edge. The review portDefinition maps actual open ports only, so closed edges must be absent rather than null. Corrects a stale planning interpretation without weakening exact audit equality or altering native geometry/flow."
     }
   ]
 }

@@ -178,7 +178,12 @@ def set_registration(asset,info,camera_meta):
     asset['sockets3D']=info.get('sockets',{})
     asset['sockets']={d:{name:project_point(point,d,camera_meta) for name,point in info.get('sockets',{}).items()} for d in DIRECTIONS}
     asset['socketSpace']='root-relative logical pixels projected from declared native attachment points'
+    if 'supportLayout' in info:asset['supportLayout']=info['supportLayout']
+    flow=info.get('flow')
+    if asset['kind']=='belt' and isinstance(flow,dict):
+        asset['portDefinition']={name:flow[name] for name in ('incoming','outgoing') if flow.get(name) in DIRECTIONS}
     raw_ports=info.get('ports')
+    asset['portProfiles']={p.get('name',p.get('direction','port-'+str(i))):p['profile'] for i,p in enumerate(raw_ports or []) if isinstance(p,dict) and p.get('profile')}
     if raw_ports:
         ports={p.get('name',p.get('direction','port-'+str(i))):p['position'] for i,p in enumerate(raw_ports) if isinstance(p,dict) and 'position' in p}
     elif asset['kind']=='belt':
@@ -190,6 +195,97 @@ def set_registration(asset,info,camera_meta):
     else:ports={}
     if ports:asset['ports']={d:{name:project_point(point,d,camera_meta) for name,point in ports.items()} for d in DIRECTIONS}
 
+
+
+def connected_belt_scene(asset,byid,place,scene,with_dish=False):
+    """Use native directed ports; the staged plate follows the actual deck arc."""
+    vectors={'N':(0,-1),'E':(1,0),'S':(0,1),'W':(-1,0)}
+    opposite={'N':'S','E':'W','S':'N','W':'E'}
+    center=(2,2);aid=asset['id'];flow=asset.get('portDefinition',{})
+    incoming,outgoing=flow.get('incoming'),flow.get('outgoing')
+    if not incoming and not outgoing:raise ValueError(aid+': native belt flow is required')
+    def at(side,distance=1):
+        dx,dy=vectors[side];return [center[0]+dx*distance,center[1]+dy*distance]
+    def belt(ident,point):return place(ident,*point,clip='running')
+    corner=bool(incoming and outgoing and opposite[incoming]!=outgoing)
+    if corner:
+        upstream=opposite[incoming]
+        route=[belt('belt-start-'+upstream.lower(),at(incoming,2)),belt('belt-straight-'+upstream.lower(),at(incoming)),belt(aid,center),belt('belt-straight-'+outgoing.lower(),at(outgoing)),belt('belt-end-'+outgoing.lower(),at(outgoing,2))]
+        vi,vo=vectors[incoming],vectors[outgoing]
+        arc_center=[center[i]+.5*(vi[i]+vo[i]) for i in (0,1)]
+        radius=[-.5*vo[i] for i in (0,1)]
+        end_radius=[-.5*vi[i] for i in (0,1)]
+        turn=math.pi/2 if radius[0]*end_radius[1]-radius[1]*end_radius[0]>0 else -math.pi/2
+        angle=math.atan2(radius[1],radius[0])
+        arc=[[arc_center[0]+.5*math.cos(angle+turn*step/16),arc_center[1]+.5*math.sin(angle+turn*step/16)] for step in range(17)]
+        path=[at(incoming,2),at(incoming)]+arc+[at(outgoing),at(outgoing,2)]
+        duration=8
+    else:
+        forward=outgoing or opposite[incoming]
+        backward=opposite[forward]
+        if not incoming:
+            route=[belt(aid,center),belt('belt-straight-'+forward.lower(),at(forward)),belt('belt-end-'+forward.lower(),at(forward,2))]
+            path=[list(center),at(forward),at(forward,2)]
+        elif not outgoing:
+            route=[belt('belt-start-'+forward.lower(),at(backward,2)),belt('belt-straight-'+forward.lower(),at(backward)),belt(aid,center)]
+            path=[at(backward,2),at(backward),list(center)]
+        else:
+            route=[belt('belt-start-'+forward.lower(),at(backward)),belt(aid,center),belt('belt-end-'+forward.lower(),at(forward))]
+            path=[at(backward),list(center),at(forward)]
+        duration=4
+    for item in route:
+        if item['object'] not in byid:raise KeyError('Connected belt fixture references '+item['object'])
+    if with_dish:
+        sockets=asset.get('sockets',{});deck=sockets.get('S',sockets).get('deck',[0,-81.92])
+        # This isolated fixture contains only connected decks at one elevation.
+        # Its attached plate must stay above every module as its ground row changes.
+        route.append(place('dish-salmon',*path[0],offset=deck,renderPass='foreground',motion={'path':path,'duration':duration,'loop':True}))
+    value=scene('Staged dish travel along the connected deck' if with_dish else 'Connected incoming and outgoing modules',route,(5,5),note='Staged review motion follows the deck centerline, including the native quarter-circle turn. Plate travel is independent of slat timing and repeats from the start cap.' if with_dish else 'Open ports meet their matching directed neighbors; caps close the beginning and end of this route.')
+    value['connectionReview']={'kind':'directed-belt','object':aid}
+    return value
+
+
+def connected_module_scene(asset,byid,place,scene):
+    """Join compatible native loft profiles without reversing asymmetric sections."""
+    aid=asset['id']
+    if asset['kind']=='floor':
+        value=scene('Connected 3 × 3 floor patch',[place(aid,x,y) for y in range(3) for x in range(3)],(3,3),note='Complete authored floor edges touch at one shared tile pitch; no gap or silhouette fitting is applied.')
+        value['connectionReview']={'kind':'floor-patch','object':aid}
+        return value
+    profiles=set(asset.get('portProfiles',{}).values())
+    ports=asset.get('ports',{}).get('S',{})
+    if len(profiles)!=1 or not ports or any(side not in DIRECTIONS for side in ports):return None
+    profile=next(iter(profiles))
+    peers=[other for other in byid.values() if set(other.get('portProfiles',{}).values())==profiles and set(other.get('ports',{}).get('S',{}))=={'W','E'}]
+    peers.sort(key=lambda other:(not other['id'].endswith('-middle'),other['id']!=aid,other['id']))
+    if not peers:raise ValueError(aid+': no matching straight native profile for '+profile)
+    peer=peers[0]['id'];center=(2,2);placements=[place(aid,*center)]
+    vectors={'N':(0,-1),'E':(1,0),'S':(0,1),'W':(-1,0)}
+    directions={'W':'S','E':'S','N':'E','S':'W'}
+    for side in DIRECTIONS:
+        if side in ports:
+            dx,dy=vectors[side];placements.append(place(peer,center[0]+dx,center[1]+dy,directions[side]))
+    value=scene('Connected matching-profile modules',placements,(5,5),note='Each reviewed port meets the same native cross-section with its authored handedness. Outside edges remain open so the joins can be inspected.')
+    value['connectionReview']={'kind':'profile-join','object':aid,'profile':profile}
+    return value
+
+
+def hydrate_registrations(manifest,target):
+    """Read previously captured metadata; never copy or repack image assets."""
+    for asset in manifest['objects']:
+        source=asset.get('source',{});record=source.get('assetRecord');camera=source.get('camera')
+        if not record or not camera:continue
+        record_path,camera_path=target/record,target/camera
+        if record_path.is_file() and camera_path.is_file():
+            set_registration(asset,json.loads(record_path.read_text()),json.loads(camera_path.read_text()))
+
+
+def refresh_interactions(manifest,ids=None):
+    byid={asset['id']:asset for asset in manifest['objects']}
+    for aid in ids or byid:
+        if aid not in byid:raise KeyError('Unknown object for interaction refresh: '+aid)
+        byid[aid]['interactions']=interaction_context(byid[aid],byid)
+    return manifest
 
 def interaction_context(asset,byid):
     """Recorded visual fixtures only; does not introduce simulation or mechanics."""
@@ -211,11 +307,9 @@ def interaction_context(asset,byid):
         return [scene('Separate customer seated on the stool',[place(stool,1,1),place(aid,1,1,clip='seated-wait'),place(belt,1,2,clip='running'),plate(dish,1,2)]),scene('Walking height beside a chef',[place(aid,1,1,clip='walk'),place(chef,3,1,clip='work')])]
     if aid in ['stool-wood','stool-blue']:
         return [scene('Seat, separate customer and serving belt',[place(aid,1,1),place(customer,1,1,clip='seated-wait',offset=[0,-3.84] if aid=='stool-blue' else [0,0]),place(belt,1,2,clip='running'),plate(dish,1,2)],note='Independent customer layer uses the declared blue cushion attachment delta: 0.03 world units = 3.84 logical pixels above the wood-seat support.' if aid=='stool-blue' else None)]
-    if kind=='belt':
-        result=[scene('Touching empty modules',[place(aid,x,1,clip='running') for x in range(3)],(4,3)),scene('Independent stationary dish over a running deck',[place(aid,1,1,clip='running'),plate(dish,1,1)],(3,3))]
-        if aid=='belt-corner-n-e':result[0]=scene('Connected straight → corner → straight',[place(belt,1,0,'W','running'),place(aid,1,1,clip='running'),place(belt,2,1,clip='running')],(4,3))
-        if aid=='belt-straight-e':result.append(scene('Separate dish conveyed across connected modules',[place(aid,x,1,clip='running') for x in range(4)]+[place(dish,0,1,offset=deck,motion={'path':[[0,1],[3,1]],'duration':6,'loop':True})],(4,3)))
-        return result
+    if kind=='belt':return [connected_belt_scene(asset,byid,place,scene),connected_belt_scene(asset,byid,place,scene,with_dish=True)]
+    connected=connected_module_scene(asset,byid,place,scene)
+    if connected:return [connected]
     if aid.startswith('dish-'):
         return [scene('Dish on the running serving surface',[place(belt,1,1,clip='running'),plate(aid,1,1),place(stool,1,2),place(customer,1,2,'N','seated-wait')],(4,4))]
     if family=='W06':return [scene('Blackboard shares the chef cell',[place(aid,1,1,offset=[-42,12]),place(chef,1,1,clip='work'),place(belt,1,2,clip='running')],(4,4),note='Within-cell recipe board and chef are independent registered layers; overlays expose their common cell.')]
@@ -231,13 +325,18 @@ def interaction_context(asset,byid):
             footprint=byid.get(ident,{}).get('footprint',[1,1])
             x,y,z=point
             return place(ident,1.5+x-footprint[0]/2,1.5-y-footprint[1]/2,offset=[0,-128*z])
-        placements=[place('dock-floor',0,0),on_dock(sub,[-.70,-.42,.23]),on_dock('workshop-hut',[.78,.35,.23])]
+        placements=[place('dock-floor',0,0),on_dock(sub,[-.70,-.42,.23]),on_dock('workshop-hut',[.78,.35,.23]),on_dock('dock-entry',[0,-1.5,0])]
         if aid=='dock-cover':placements.append(on_dock(aid,[0,0,.23]))
-        elif aid=='dock-entry':placements.append(on_dock(aid,[0,-1.5,0]))
-        return [scene('Shared dock, submarine and hut to its right',placements,(4,4),note='Registered native dock offsets and deck support elevation; the hut remains to the submarine’s right.')]
+        value=scene('Connected dock entry, shared deck and hut',placements,(4,4),note='The ramp overlaps the dock at its authored native position. The submarine and hut retain the shared deck elevation; the hut stays to the submarine’s right.')
+        value['connectionReview']={'kind':'dock-assembly','object':aid}
+        return [value]
     if family=='W11':return [scene('Joined terrain beside a ship-sized lane',[place(aid,0,1),place(aid,asset['footprint'][0],1),place(sub,3,0,'N','travel')],(5,4),note='Shared cell pitch and independent support masks. Only compatible declared port profiles form final obstacle joins.')]
     if family=='W12':return [scene('Layered scenery beside the submarine and creature',[place(aid,0,1),place(sub,2,0,'N','travel'),place(eel,4,1,'N','swim')],(6,4))]
-    if family=='W13':return [scene('Submarine equipment and creature scale',[place(aid,0,1),place(eel,3,1,'S','swim')]+([] if aid==sub else [place(sub,1,0)]),(5,4))]
+    if family=='W13':
+        result=[scene('Submarine equipment and creature scale',[place(aid,0,1),place(eel,3,1,'S','swim')]+([] if aid==sub else [place(sub,1,0)]),(5,4))]
+        if aid==sub and asset.get('variants'):
+            result.append(scene('Baseline and upgraded native assemblies at the same scale',[place(sub,1,1,clip='idle'),place(sub,3,1,clip='upgraded-idle')],(5,4)))
+        return result
     if family=='W14':return [scene('Route object beside the traveling submarine',[place(aid,0,1),place(sub,3,0,'N','travel')],(5,4))]
     if family=='W15':return [scene('Creature, submarine and separate cable scale',[place(sub,0,0,'S','travel'),place(aid,2,0,'S','pursuit'),place('harpoon-cable',1,2,'E','taut')],(5,5),note='Presentation comparison. Cable endpoints and hook sockets remain visible through attachment overlays; no capture logic runs.')]
     if family in ['W16','W17']:return [scene('World effect beside submarine and eel',[place(sub,0,0,'N','travel'),place(eel,3,0,'N','pursuit'),place(aid,1,2)],(6,5))]
@@ -247,7 +346,8 @@ def interaction_context(asset,byid):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--repo',type=Path,required=True)
-    parser.add_argument('--ids',nargs='+',required=True,help='Capture IDs; optional capture-id=stable-id mapping. Comma-separated batches accepted.')
+    parser.add_argument('--interactions-only',action='store_true',help='Refresh recorded registrations and interaction fixtures from existing source records; do not copy or repack captures')
+    parser.add_argument('--ids',nargs='+',default=[],help='Capture IDs; optional capture-id=stable-id mapping. Comma-separated batches accepted.')
     parser.add_argument('--native',type=Path,default=HERE/'export')
     parser.add_argument('--raw-root',type=Path,help='Alternate completed raw-frame root, e.g. raw-belts-v24; metadata/source still come from --native')
     parser.add_argument('--runtime-scale',type=int,choices=[1,2,3,4],default=2)
@@ -257,6 +357,14 @@ def main():
     manifest_path=target/'library.json';manifest=json.loads(manifest_path.read_text())
     byid={asset['id']:asset for asset in manifest['objects']}
     entries=[value for argument in args.ids for value in argument.split(',') if value]
+    hydrate_registrations(manifest,target)
+    if args.interactions_only:
+        ids=[ALIASES.get(entry.split('=')[-1].replace('_','-'),entry.split('=')[-1].replace('_','-')) for entry in entries] or None
+        refresh_interactions(manifest,ids)
+        write_json(manifest_path,manifest)
+        print('Refreshed interaction fixtures for',len(ids or byid),'objects; no captures copied or repacked')
+        return
+    if not entries:parser.error('--ids is required unless --interactions-only is used')
     models=source/'blender';models.mkdir(parents=True,exist_ok=True)
     # Preserve editable versions and every new sibling native authoring helper.
     native_hashes={}
@@ -338,8 +446,6 @@ def main():
             asset.setdefault('validation',{})['rigEvidence']='not-exported-yet'
         asset['source']=source_info
         asset['interactions']=interaction_context(asset,byid)
-        if aid=='submarine-yellow' and info.get('variants'):
-            asset['interactions'].append({'name':'Baseline and upgraded native assemblies at the same scale','gridSize':[5,4],'placements':[{'object':aid,'x':1,'y':1,'direction':'S','clip':'idle'},{'object':aid,'x':3,'y':1,'direction':'S','clip':'upgraded-idle'}]})
         asset['captureFingerprint']=json_hash({'asset':info,'camera':camera_meta,'rawFrames':raw_records})
         print(aid,[(clip['id'],clip['frames']) for clip in asset['clips']])
     manifest['approval']={'concept':'approved','finalAssets':'pending','issue':33}

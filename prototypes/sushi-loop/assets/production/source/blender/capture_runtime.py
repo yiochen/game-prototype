@@ -115,7 +115,7 @@ def queue_capture(asset_ids):
             scene().render.filepath=str(path/(f'{i:03d}.png'));bpy.ops.render.render(write_still=True,scene=SCENE_NAME)
             source=OUT/'source'/aid;source.mkdir(parents=True,exist_ok=True)
             (source/'camera.json').write_text(json.dumps(record,indent=2)+'\n')
-            (source/'asset.json').write_text(json.dumps({k:a[k] for k in ['id','projection','frame','anchor','scale','clips','footprint','height','sockets','ports','flow','camera_elevation_degrees','nonblocking','depth_layer','composition_context','facingPolicy'] if k in a},indent=2)+'\n')
+            (source/'asset.json').write_text(json.dumps({k:a[k] for k in ['id','projection','frame','anchor','scale','clips','footprint','height','sockets','ports','flow','camera_elevation_degrees','nonblocking','depth_layer','composition_context','facingPolicy','supportLayout'] if k in a},indent=2)+'\n')
             job_status.update(done=job_status['done']+1,current=[aid,clip,direction,i],updated=time.time())
             (OUT/'capture-status.json').write_text(json.dumps(job_status,indent=2)+'\n')
             return .01

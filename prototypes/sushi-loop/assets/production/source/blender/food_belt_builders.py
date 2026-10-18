@@ -1,8 +1,17 @@
 """Native food, seamless tile floors and directed conveyor authoring for issue33.
 All dimensions in world cells; X right, -Y screen depth, Z up.
 """
-import bpy, math
+import bpy, math, importlib.util
+from pathlib import Path
 from mathutils import Vector
+
+# Load beside this source so fresh builds and in-place native corner fixes use
+# exactly the same stationary support recipe, including when loaded via MCP.
+_support_spec=importlib.util.spec_from_file_location('s33_corner_supports',str(Path(__file__).with_name('catalog_corner_supports.py')))
+_corner_supports=importlib.util.module_from_spec(_support_spec);_support_spec.loader.exec_module(_corner_supports)
+
+_flow_spec=importlib.util.spec_from_file_location('s33_catalog_belt_flow',str(Path(__file__).with_name('catalog_belt_flow.py')))
+_belt_flow=importlib.util.module_from_spec(_flow_spec);_flow_spec.loader.exec_module(_belt_flow)
 
 def linear(v):return v/12.92 if v<=.04045 else ((v+.055)/1.055)**2.4
 def mat(name,color):
@@ -139,18 +148,25 @@ def belt(aid):
         inp={'N':'S','E':'W','S':'N','W':'E'}[suffix];out=suffix
         if 'start' in aid:b.box('start_cap',(0,.46,z-.015),(.87,.08,.16),M['red'],.01);inp=None
         if 'end' in aid:b.box('end_cap',(0,-.46,z-.015),(.87,.08,.16),M['red'],.01);out=None
-    # No outline or cap at connecting ports; supports stay inside the cell.
-    for x in [-.28,.28]:
-        for y in [-.28,.28]:b.box('wood_leg_'+str((x,y)),(x,y,.25),(.10,.10,.50),M['wood_dark'],.008)
-    b.box('lower_wood_frame',(0,0,.47),(.74,.74,.10),M['wood'],.015)
+    # No outline or cap at connecting ports. Corner supports follow the same
+    # arc as the deck; straight/start/end supports retain their original shape.
+    support_recipe=None
+    if corner:
+        support_recipe=_corner_supports.add(b,M['wood'],M['wood_dark'])
+    else:
+        for x in [-.28,.28]:
+            for y in [-.28,.28]:b.box('wood_leg_'+str((x,y)),(x,y,.25),(.10,.10,.50),M['wood_dark'],.008)
+        b.box('lower_wood_frame',(0,0,.47),(.74,.74,.10),M['wood'],.015)
     orient=bpy.data.objects.new(aid+'__orientation',None);b.collection.objects.link(orient);orient.parent=b.root
     for part in b.parts.values():part.parent=orient
     orient.rotation_euler.z=quarter
     def pose(clip,t):phase.outputs[0].default_value=(7*t if reverse else -7*t)
     result=b.finish(.68,{'running':{'frames':24,'fps':12,'loop':True}},pose)
+    if support_recipe:_corner_supports.record(result,support_recipe)
     result['flow']={'incoming':inp,'outgoing':out,'deckHeight':z,'periodCells':1/7,'durationSeconds':2,'speedCellsPerSecond':.5,'turnPhaseMapping':'endpoint derivative matched, compressed radially inside turn'}
     b.sockets['deck']=[0,0,z]
     result['phaseNode']=phase
+    if corner:_belt_flow.augment(result,aid)
     return result
 
 def create_asset(aid):
