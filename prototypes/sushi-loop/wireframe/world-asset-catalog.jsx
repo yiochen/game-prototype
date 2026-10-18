@@ -22,7 +22,7 @@ export function WorldAssetCatalog() {
 
   return <div className="phone-scene world-catalog-scene">
     <header className="world-catalog-header">
-      <span className="world-catalog-status">ISSUE 33 · CONCEPT APPROVAL PENDING</span>
+      <span className="world-catalog-status">ISSUE 33 · CONCEPT APPROVED · ASSETS IN PROGRESS</span>
       <h2>World asset catalog</h2>
       <p>17 families · 8 chefs · 4 customers · 3 dishes</p>
       <div className="world-catalog-tabs" role="group" aria-label="Catalog view">

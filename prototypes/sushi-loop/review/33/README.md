@@ -11,3 +11,9 @@ This is the first concept-approval page, not the completed issue #33 production 
 - Existing feedback tests and new catalog branch-specific persistence/handoff test passed. No external feedback was posted.
 - Actual phone-size sheet, chef and dish views are captured alongside this document. Imagegen concept details remain labeled as concepts throughout.
 - Independent code review identified missing multi-panel mappings and retained scroll positions; both were fixed and covered by browser checks.
+
+## Production batch1
+
+Ten actual Blender exports are published under `#object-library`: cream floor, wood/blue stools, crate, barrel, three recipes, straight east belt and north-to-east turn. Each has four native directional captures, nine-copy repetition and a shared-scale comparison. Belts have12unique frames at12fps, exact pause/scrub, touching seams and a separately conveyed plate. The native editable `.blend` and Python modeling/rig/camera source are versioned in `assets/production/source/blender/`. Final asset approval remains pending;107objects remain queued.
+
+Validation:141engine/registrationtests,productionbuild,fiveactual-spritebrowserchecks,previous37wireframechecks,tenstructuralassetpasseswithzerofailures. The structural audit does not certify visualquality orfullcoverage. Actualconnected-Landphonecapturesareincluded.

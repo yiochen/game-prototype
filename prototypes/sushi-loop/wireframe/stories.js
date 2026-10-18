@@ -1,3 +1,5 @@
+import { objectReviewStories } from './object-review-data.js';
+
 // Review inventory. These fixtures describe intended UI behavior, not gameplay rules.
 const element = (name, behavior, motion) => ({ name, behavior, motion });
 const paperReturn = () => element(
@@ -18,6 +20,7 @@ const floorOnlyNote = 'This review pass draws the restaurant floor, entries, exp
 export const storyGroups = [
   { id: 'layout', title: 'Floor plan' },
   { id: 'concept', title: 'Concept & art' },
+  { id: 'asset-review', title: 'Object sprite review · #33' },
   { id: 'components', title: 'Shared components' },
   { id: 'restaurant', title: 'Restaurant' },
   { id: 'recipes', title: 'Recipe picker' },
@@ -29,6 +32,7 @@ export const storyGroups = [
 ];
 
 export const stories = [
+  ...objectReviewStories,
   {
     id: 'floor-plan', group: 'layout', title: 'Full restaurant floor plan', scene: 'floor-plan', variant: 'overview',
     description: 'Three portrait-width panels form one continuous restaurant. Only the first is usable initially; future floor is blocked by garbage. The middle panel reserves the submarine and a compact Workshop hut.',

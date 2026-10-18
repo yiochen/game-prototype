@@ -51,7 +51,7 @@ function Annotations({ story }) {
     <Feedback key={story.id} story={story}/>
     <dl className="element-notes">{story.elements.map(element => <div className="element-note" key={element.name}><dt>{element.name}</dt><dd>{element.behavior}</dd><dd className="motion-note"><span>Motion</span>{element.motion}</dd></div>)}</dl>
     {!!story.notes?.length && <div className="design-decisions"><h3>For discussion</h3><ul>{story.notes.map(note => <li key={note}>{note}</li>)}</ul></div>}
-    <p className="notes-disclaimer">Motion values are proposals. Reduced motion removes decorative movement. These wireframes are awaiting design approval.</p>
+    <p className="notes-disclaimer">{story.scene === 'object-review' ? 'Production clips use their registered frames. Reduced motion starts playback paused. Final scene-asset approval is pending.' : 'Motion values are proposals. Reduced motion removes decorative movement. These wireframes are awaiting design approval.'}</p>
   </>;
 }
 
@@ -263,7 +263,7 @@ function App() {
           <button id="open-comments" className="studio-button" aria-label="Comments" title="Review this example" onClick={() => showNotes(true)}><Icon name="comment"/><span>Comments</span></button>
         </div>
         <div className="preview-heading"><div><p className="eyebrow">{storyGroups.find(group => group.id === story.group)?.title}</p><h1 id="story-title" tabIndex={-1}>{story.title}</h1></div><span className="target-key"><i/>Dashed = tap</span></div>
-        <div className="stage-area"><div ref={stage} id="prototype-stage" className={`prototype-stage ${story.scene === 'floor-plan' ? 'frame--map' : 'frame--phone'} ${targets ? '' : 'hide-targets'}`} data-scene={story.scene} data-story={story.id} aria-label="Interactive wireframe preview" onClick={act} onScrollCapture={event => {
+        <div className="stage-area"><div ref={stage} id="prototype-stage" className={`prototype-stage ${story.scene === 'floor-plan' ? 'frame--map' : 'frame--phone'} ${targets ? '' : 'hide-targets'}`} data-scene={story.scene} data-story={story.id} aria-label={story.scene === 'object-review' ? 'Production sprite review' : 'Interactive wireframe preview'} onClick={act} onScrollCapture={event => {
           const viewport = event.target;
           if (!viewport.hasAttribute('data-pan-scroll')) return;
           const panFraction = Math.min(2, Math.max(0, viewport.scrollLeft / viewport.clientWidth));
@@ -274,8 +274,8 @@ function App() {
           {story.overlay && <Overlay key={view.fixture.reviewEpoch} story={story} state={view.fixture}/>}
           {view.fixture.toast && <div className="mock-toast" role="status">{view.fixture.toast}<button type="button" data-action="dismiss-toast" aria-label="Dismiss notification"><Icon name="close"/></button></div>}
         </div></div>
-        <div className="flow-toolbar"><p>{next ? next[1] : story.scene === 'floor-plan' ? 'Swipe across the complete floor plan. Open a marked destination or clearance patch.' : 'Portrait composition · UI-only prototype'}</p>{next && <button className="studio-button" onClick={() => go(story.id === 'expedition-resume' ? `expedition-${view.fixture.expeditionBackdrop || 'travel'}` : next[0])}>Preview next event <Icon name="arrow-right"/></button>}</div>
-        <p className="studio-hint">Switch examples to inspect a state, or tap the marked controls to follow a flow. All values are illustrative.</p>
+        <div className="flow-toolbar"><p>{next ? next[1] : story.scene === 'floor-plan' ? 'Swipe across the complete floor plan. Open a marked destination or clearance patch.' : story.scene === 'object-review' ? 'Production sprite review · fixed roots · 12 fps' : 'Portrait composition · UI-only prototype'}</p>{next && <button className="studio-button" onClick={() => go(story.id === 'expedition-resume' ? `expedition-${view.fixture.expeditionBackdrop || 'travel'}` : next[0])}>Preview next event <Icon name="arrow-right"/></button>}</div>
+        <p className="studio-hint">{story.scene === 'object-review' ? 'Inspect the registered sprite exports. Use Comments to review this object; issue #33 remains open for final approval.' : 'Switch examples to inspect a state, or tap the marked controls to follow a flow. All values are illustrative.'}</p>
       </main>
       <aside ref={documentation} className="documentation" id="documentation" aria-label="Behavior and animation notes"><Annotations story={story}/></aside>
     </div>

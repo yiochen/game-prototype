@@ -47,7 +47,7 @@ for (const [name, width, height] of [
   ['small-phone', 320, 740], ['phone', 390, 844],
   ['landscape', 844, 390], ['desktop', 1440, 1000],
 ]) {
-  test(`all 58 deep-linked examples render without errors or horizontal clipping at ${name}`, async ({ page }) => {
+  test(`all base wireframe deep-linked examples render without errors or horizontal clipping at ${name}`, async ({ page }) => {
     test.setTimeout(90_000);
     await page.setViewportSize({ width, height });
     // Layout checks measure the settled popup, not its entrance translation.
@@ -56,8 +56,9 @@ for (const [name, width, height] of [
     page.on('pageerror', (error) => errors.push(error.message));
     await open(page, 'floor-plan');
     const examples = await page.locator('#example-select option').evaluateAll((options) => options.map((option) => ({ id: option.value, title: option.textContent })));
-    expect(examples).toHaveLength(58);
-    for (const example of examples) {
+    expect(examples.length).toBeGreaterThanOrEqual(58);
+    // Production objects have their own renderer/registration suite and stable page inventory.
+    for (const example of examples.filter(example => !example.id.startsWith('object-'))) {
       await open(page, example.id);
       await expect(page.locator('#story-title')).toHaveText(example.title);
       await expect(stage(page).locator('.scene-host')).not.toBeEmpty();

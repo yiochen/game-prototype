@@ -6,6 +6,7 @@ import { RosterTray } from './staff-tray.jsx';
 import { PaperPage } from './paper-page.jsx';
 import { ConceptCatalog } from './concept-catalog.jsx';
 import { WorldAssetCatalog } from './world-asset-catalog.jsx';
+import { ObjectReview } from './object-review.jsx';
 
 function Nav({ children, story = 'restaurant-live', className = '', data = {}, ...rest }) {
   return <Target action="navigate" data={{story,...data}} className={className} {...rest}>{children}</Target>;
@@ -103,6 +104,7 @@ function Results({ state }) {
 export function Scene({ story, state = {} }) {
   const sceneState = {...state,_variant:story.variant || 'live'};
   switch (story.scene) {
+    case 'object-review': return <ObjectReview objectId={story.objectId}/>;
     case 'concept': return story.variant === 'world-assets' ? <WorldAssetCatalog /> : <ConceptCatalog />;
     case 'component': return <ComponentGallery story={story} state={sceneState} paperBackground={story.component === 'paper-page' ? <PaperRestaurant state={sceneState} /> : undefined} />;
     case 'floor-plan': return <FloorPlan state={sceneState} />;
