@@ -4,7 +4,7 @@
 
 Review route: `/prototypes/sushi-loop/?ntl-drawer-state=hidden#object-library`. Each object has its own `#object-<id>` page. The approved concept remains available at `#art-catalog` for comparison.
 
-The current native pass contains **117 objects across 17 families**. All **117 entries are published and ready for review**. Structural/source checks cover the full inventory; browser checks exercise the shared layouts and representative objects below. The saved version 8 Blender project is a normal editable `.blend` of approximately **4.4 MB**, with **2,078 owned objects and 3,186 independent native actions**. These are source inventory totals, not a declaration of finished visual approval.
+The current native pass contains **117 objects across 17 families**. All **117 entries are published and ready for review**. Structural/source checks cover the full inventory; browser checks exercise the shared layouts and representative objects below. The saved version 9 Blender project is a normal editable `.blend` of approximately **4.4 MB**, with **2,078 owned objects and 3,196 independent native actions**. These are source inventory totals, not a declaration of finished visual approval.
 
 For each object, review its four directions on the square tile grid, repeated placement in a 3×3 arrangement, scale beside interacting objects, and every directional animation. Fixed capture frames and shared tile scale are retained across poses; use the animation pause and frame controls to inspect contact, layering and clearance.
 
@@ -23,6 +23,10 @@ The [production source guide](../../assets/production/source/README.md) describe
 ### Connected-module revision
 
 All eight corner conveyors have a curved lower frame and legs placed beneath the curve, replacing the extra square table. Section 03 now shows corner-to-straight belt routes, matching wall and terrain panels, continuous rope posts, tiled floor patches, and dock assemblies. Four reversed corner UV directions were corrected so animated slats keep the same phase across their joins. The normal editable Blender project and reproducible builders include these changes. [Connected-fixture evidence](connected-fixtures/README.md) records all 50 assembled examples, 100 visible-dish samples, phone/landscape checks, and the corrected dish-layering defect.
+
+### Forward-walk revision
+
+The four customer walk and panic cycles now move grounded feet backward relative to the character and recover forward while lifted. This fixes the shared native gait that appeared to moonwalk. Frame order, four-direction facing, 12-frame timing and fixed sprite roots remain unchanged. The native action check covers all 32 customer/facing/walk-panic combinations, including evaluated sole contacts and loop closure; the original failing baseline is retained. [Forward-walk evidence](forward-walk/README.md) includes the 32-case browser pass, all four customers on a translating floor, and a before/after planted-boot comparison.
 
 ### Final verification record
 

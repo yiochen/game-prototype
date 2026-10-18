@@ -367,9 +367,11 @@ def _pose_character(arm,clip,t,rest_mats,builder):
         quick=2 if clip=='panic' else 1
         for s,off in [('L',0),('R',.5)]:
             g=(t*quick+off)%1
-            if g<.5:y=.14*(1-4*g);z=.11
+            # Canonical front is -Y. During stance the grounded sole travels
+            # rearward relative to the body; forward root motion cancels it.
+            if g<.5:y=-.14+.56*g;z=.11
             else:
-                u=(g-.5)*2;y=-.14+.28*u;z=.11+.085*sin(math.pi*u)
+                u=(g-.5)*2;y=.14-.28*u;z=.11+.085*sin(math.pi*u)
             feet[s].y=y;feet[s].z=z
             arm_targets[s].y+=(-.085 if s=='L' else .085)*sin(phase*quick)
             arm_targets[s].z+=.025*cos(phase*quick)
