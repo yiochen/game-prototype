@@ -55,8 +55,8 @@ const seats = [
   place('ellis-stool', 'stool-blue', 7.2, 2),
   place('ellis-waiting', 'customer-ellis', 7.2, 2, 'S', 'seated-wait', { offset: [0, -3.84], timeOffset: .6 }),
   place('north-open-stool', 'stool-wood', 6, 2),
-  place('samir-stool', 'stool-blue', 10, 4, 'W'),
-  place('samir-dining', 'customer-samir', 10, 4, 'W', 'eat', { offset: [0, -3.84], timeOffset: .8 }),
+  place('samir-stool', 'stool-blue', 10, 5.2, 'W'),
+  place('samir-dining', 'customer-samir', 10, 5.2, 'W', 'eat', { offset: [0, -3.84], timeOffset: .8 }),
   place('west-open-stool', 'stool-wood', 2, 4.7, 'E'),
   place('south-open-stool-wood', 'stool-wood', 4.3, 7, 'N'),
   place('south-open-stool-blue', 'stool-blue', 7.6, 7, 'N'),
@@ -65,17 +65,21 @@ const seats = [
 export const restaurantShowcase = {
   id: 'restaurant',
   title: 'The restaurant, assembled',
-  description: 'A warm cutaway dining room with a complete conveyor island, working chefs, seated guests and an open entrance aisle.',
-  gridSize: [12, 10],
+  description: 'A warm cutaway dining room with a complete conveyor island, working chefs, seated guests and dense garden borders around a broad entrance.',
+  gridSize: [12, 12],
   floorId: 'floor-cream',
   background: '#e7dfcf',
   duration: 48,
   placements: [
     ...walls,
-    place('back-plant', 'plant-angular', 1, 1.15, 'S', 'idle'),
     place('back-lantern', 'lantern-gold', 2.4, 1.1, 'S', 'ambient', { timeOffset: .3 }),
     place('back-barrel', 'barrel-wood', 8.7, 1.1),
-    place('back-crate', 'crate-wood', 9.8, 1.1),
+    // Multi-cell native assemblies pack off-grid pots, rocks, foliage and small
+    // accents into the margins while leaving the conveyor and dining aisle open.
+    place('west-border-garden', 'restaurant-border-garden-a', .05, .65, 'S', 'ambient'),
+    place('east-border-garden', 'restaurant-border-garden-b', 9.95, .8, 'S', 'ambient', { timeOffset: .35 }),
+    place('front-west-garden', 'restaurant-corner-garden-a', .05, 7.95, 'S', 'ambient', { timeOffset: .65 }),
+    place('front-east-garden', 'restaurant-corner-garden-b', 8.95, 7.95, 'S', 'ambient', { timeOffset: .15 }),
     ...belts,
     // The recipe boards use the approved independent shared-cell registration.
     place('lena-board', 'chef-blackboard', 4.4, 5, 'S', 'selected', { offset: [-42, 12] }),
@@ -85,21 +89,19 @@ export const restaurantShowcase = {
     place('omar-preparing', 'chef-omar', 6.1, 4, 'N', 'hold', { timeOffset: .7 }),
     ...seats,
     ...plates,
-    place('west-plant', 'plant-angular', .8, 6.3, 'S', 'idle', { timeOffset: .5 }),
-    place('east-plant', 'plant-angular', 10.3, 7.1, 'S', 'idle', { timeOffset: .7 }),
-    place('entrance-lantern', 'lantern-gold', 3.1, 8.7, 'S', 'ambient', { timeOffset: .8 }),
-    place('blank-welcome-sign', 'sign-blank', 10, 8.6),
+    place('entrance-lantern', 'lantern-gold', 3.05, 9.55, 'S', 'ambient', { timeOffset: .8 }),
+    place('blank-welcome-sign', 'sign-blank', 8.05, 9.5),
     // A closed8.96-cell path /16s matches the native walking gait's .56cell/s.
     // It stays in the open front aisle, away from stools, gateposts and belts.
-    place('june-in-aisle', 'customer-june', 4.2, 7.9, 'E', 'walk', {
+    place('june-in-aisle', 'customer-june', 4.05, 7.9, 'E', 'walk', {
       motion: {
-        path: [[4.2, 7.9], [8.18, 7.9], [8.18, 8.4], [4.2, 8.4], [4.2, 7.9]],
+        path: [[4.05, 7.9], [8.03, 7.9], [8.03, 8.4], [4.05, 8.4], [4.05, 7.9]],
         duration: 16, loop: true, phase: 2, faceTravel: true,
       },
     }),
-    // Left-front entry leaves the counter and walking lane visible through the
-    // cutaway. Its roof and pillars retain their native3×1 footprint and root.
-    place('restaurant-entrance', 'entry-finished', .5, 9),
+    // The four-cell entrance is centered on the aisle. Its own front row keeps
+    // the native pillars and two-cell opening clear of the walking loop.
+    place('restaurant-entrance', 'entry-finished', 4, 11),
   ],
   highlights: [
     {
@@ -119,8 +121,13 @@ export const restaurantShowcase = {
     },
     {
       title: 'A finished cutaway room',
-      description: 'Matching wall profiles wrap the back and sides, with finished ends, a blank sign, storage, plants and lanterns around the open entrance.',
-      objectIds: ['wall-middle', 'wall-inner-corner', 'wall-outer-corner', 'wall-end', 'entry-finished', 'sign-blank', 'plant-angular', 'lantern-gold'],
+      description: 'Matching wall profiles wrap the back and sides, with finished ends, a four-tile entrance, a blank sign, storage and lanterns framing its central opening.',
+      objectIds: ['wall-middle', 'wall-inner-corner', 'wall-outer-corner', 'wall-end', 'entry-finished', 'sign-blank', 'barrel-wood', 'lantern-gold'],
+    },
+    {
+      title: 'Dense garden borders',
+      description: 'Two narrow border gardens and two broad corner gardens combine off-grid foliage, stones, pots and small accents into four reusable native assemblies.',
+      objectIds: ['restaurant-border-garden-a', 'restaurant-border-garden-b', 'restaurant-corner-garden-a', 'restaurant-corner-garden-b'],
     },
   ],
   note: 'Animated scene composition for asset review. Dish circulation is staged independently of slat timing; the aisle walk is a presentation path. This is not occupancy, cooking or service simulation. All sprites retain their native scale and ground registration; final art approval remains pending.',

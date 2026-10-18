@@ -14,7 +14,7 @@ def module(name,file):
     m=importlib.util.module_from_spec(spec);sys.modules[name]=m;spec.loader.exec_module(m);return m
 
 def load():
-    global P,F,C,X,W,H,V,B
+    global P,F,C,X,W,H,V,B,G
     P=module('prop_builders','prop_builders.py')
     F=module('s33fb','food_belt_builders.py')
     C=module('s33chars','character_builders.py')
@@ -23,6 +23,7 @@ def load():
     H=module('s33compose','character_composition.py')
     V=module('s33variants','catalog_variants.py')
     B=module('s33billboards','catalog_billboards.py')
+    G=module('s33clusters','catalog_clusters.py')
 
 def remap(a,mapping):
     pose=a['pose'];old=a['clips']
@@ -154,6 +155,8 @@ def build(aid):
     elif aid in X.SUPPORTED_IDS:
         a=X.create_asset(aid);projection=a['projection']
         if aid=='bubble-preference':attach_food(a)
+    elif aid in G.CLUSTER_IDS:
+        a=G.create_asset(aid);projection='square-top-front-oblique'
     elif aid in W.ASSET_IDS or aid in W.PROP_ALIASES:
         a=W.create_asset(aid);projection='square-top-front-oblique'
     elif aid=='submarine-yellow':
@@ -188,6 +191,7 @@ def build(aid):
                 o.location.z=.06+((i*.29+t*1.5)%1.5);o.location.x+=.025*math.sin(t*math.tau+i)
         b.motion['rise']=rise;a=b.finish({'rise':{'frames':12,'fps':12,'loop':True}});projection='square-top-front-oblique'
     else:raise ValueError('No production builder for '+aid)
+    if aid=='entry-finished':a=G.upgrade_entry(a)
     if aid in ['chef-blackboard','bubble-preference','salvage-metal']:a=V.augment(a,aid,F,P)
     if aid in B.BILLBOARD_IDS:a=B.augment(a)
     if aid in ['garbage-sofa','garbage-car','garbage-shelving']:

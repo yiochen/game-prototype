@@ -1,0 +1,5563 @@
+{
+  "version": 1,
+  "issue": 33,
+  "status": "production-contract-not-art-result",
+  "date": "2026-10-17",
+  "git": {
+    "repository": "yiochen/game-prototype",
+    "worktreeHead": "989c51c7306147b89f4af4c40ed664fd98cff97a",
+    "originMain": "c7160c598d97023b7503339771fe7e1e8e48d45f"
+  },
+  "authority": {
+    "approvedConcept": "prototypes/sushi-loop/design/issue-33-art-catalog/concept/world-asset-catalog-v02.png",
+    "inventory": "prototypes/sushi-loop/design/issue-33-art-catalog/concept/catalog.md",
+    "inventorySHA256": "443d0371c1e46d08743557587d74dca6c548ba004a3f0076ddbb30dd7e6eb10c",
+    "note": "Concept approval given by user in current task. Issue remains open until finished world assets approved."
+  },
+  "geometry": {
+    "cellSize": 128,
+    "defaultFrame": [
+      192,
+      320
+    ],
+    "defaultRoot": [
+      96,
+      248
+    ],
+    "captureScale": 4,
+    "environmentProjection": "square-top-front-oblique",
+    "equation": [
+      "screenX=anchorX+cellSize*x",
+      "screenY=anchorY+cellSize*(depth-height)"
+    ],
+    "blenderAxes": {
+      "x": "X",
+      "depth": "-Y",
+      "height": "Z"
+    },
+    "environmentElevationDegrees": 45,
+    "environmentVerticalProjectionStretch": 1.4142135623730951,
+    "characterProjection": "character-orthographic",
+    "characterInitialElevationDegrees": 35,
+    "characterPixelAspect": [
+      1,
+      1
+    ],
+    "neverFitIndividualPoses": true
+  },
+  "animation": {
+    "fps": 12,
+    "minimumUniqueFrames": 6,
+    "defaultLoopFrames": 12,
+    "preferredComplexLoopFrames": 24,
+    "excludeDuplicateClosingFrame": true,
+    "staticItemsExplicit": true
+  },
+  "reviewPageContract": {
+    "routeByStableObjectId": true,
+    "sections": [
+      "Isolated four directions on square tile map",
+      "3x3 arrangement of this object, with valid joining/repetition for connectors",
+      "Interaction size comparison on the same tile pitch",
+      "All states, variants and directions with 12fps playback/pause/scrub"
+    ],
+    "requiredControls": [
+      "variant",
+      "state",
+      "direction",
+      "play/pause",
+      "frame scrub",
+      "root overlay",
+      "footprint overlay",
+      "ports/sockets overlay",
+      "grid toggle",
+      "reduced motion"
+    ],
+    "mustUseActualReusableSprites": true,
+    "placeholdersNeverCountAsProduced": true,
+    "eachPageMayPublishIncrementally": true
+  },
+  "prospectiveEvals": [
+    {
+      "skill": "generate-blender-characters",
+      "run": "evals-characters/run.json",
+      "status": "prepared-not-run",
+      "caseCount": 3
+    },
+    {
+      "skill": "generate-block-tiles",
+      "run": "evals-tiles/run.json",
+      "status": "prepared-not-run",
+      "caseCount": 11
+    }
+  ],
+  "productionStages": [
+    "planned",
+    "modeled",
+    "rigged-or-static",
+    "native-captured",
+    "surface-refined-if-required",
+    "structurally-audited",
+    "visually-reviewed",
+    "published-for-user-review",
+    "user-approved"
+  ],
+  "objects": [
+    {
+      "id": "floor-cream",
+      "family": "W01",
+      "label": "Cream floor",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "chef-lena",
+          "belt-straight-e"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Static tile; shared-scale square floor. No extra texture-only object variants required."
+    },
+    {
+      "id": "floor-blue-wave",
+      "family": "W01",
+      "label": "Blue wave floor",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "chef-lena",
+          "belt-straight-e"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Static tile; shared-scale square floor. No extra texture-only object variants required."
+    },
+    {
+      "id": "floor-checker",
+      "family": "W01",
+      "label": "Checker floor",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "chef-lena",
+          "belt-straight-e"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Static tile; shared-scale square floor. No extra texture-only object variants required."
+    },
+    {
+      "id": "entry-finished",
+      "family": "W02",
+      "label": "Finished entrance",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        4,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "floor-cream",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Four-tile-wide native entrance assembly with outer-cell supports and an open two-cell-wide center passage. Roof and columns are modeled at the shared tile scale; pitched roof has an explicit 0.12-world-unit depth overhang allowance. Static actual-model capture in all four facings; decorative architecture adds no access or blocking rules."
+    },
+    {
+      "id": "wall-middle",
+      "family": "W02",
+      "label": "Wall middle",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "floor-cream",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Perimeter dressing; no new blocking/access rules. Rotate actual model for four views, even symmetric pieces."
+    },
+    {
+      "id": "wall-inner-corner",
+      "family": "W02",
+      "label": "Wall inner corner",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "floor-cream",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Perimeter dressing; no new blocking/access rules. Rotate actual model for four views, even symmetric pieces."
+    },
+    {
+      "id": "wall-outer-corner",
+      "family": "W02",
+      "label": "Wall outer corner",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "floor-cream",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Perimeter dressing; no new blocking/access rules. Rotate actual model for four views, even symmetric pieces."
+    },
+    {
+      "id": "wall-end",
+      "family": "W02",
+      "label": "Wall end cap",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "floor-cream",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Perimeter dressing; no new blocking/access rules. Rotate actual model for four views, even symmetric pieces."
+    },
+    {
+      "id": "plant-angular",
+      "family": "W02",
+      "label": "Angular potted plant",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "floor-cream",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Perimeter dressing; no new blocking/access rules. Rotate actual model for four views, even symmetric pieces."
+    },
+    {
+      "id": "barrel-wood",
+      "family": "W02",
+      "label": "Wood barrel",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "floor-cream",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Perimeter dressing; no new blocking/access rules. Rotate actual model for four views, even symmetric pieces."
+    },
+    {
+      "id": "crate-wood",
+      "family": "W02",
+      "label": "Wood crate",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "floor-cream",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Perimeter dressing; no new blocking/access rules. Rotate actual model for four views, even symmetric pieces."
+    },
+    {
+      "id": "lantern-gold",
+      "family": "W02",
+      "label": "Golden lantern",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "ambient"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "floor-cream",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Perimeter dressing; no new blocking/access rules. Rotate actual model for four views, even symmetric pieces."
+    },
+    {
+      "id": "sign-blank",
+      "family": "W02",
+      "label": "Blank shop sign",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "floor-cream",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Perimeter dressing; no new blocking/access rules. Rotate actual model for four views, even symmetric pieces."
+    },
+    {
+      "id": "slate-rock",
+      "family": "W02",
+      "label": "Subdued slate rock",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "floor-cream",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Perimeter dressing; no new blocking/access rules. Rotate actual model for four views, even symmetric pieces."
+    },
+    {
+      "id": "dock-post-rope",
+      "family": "W02",
+      "label": "Dock post and rope",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "floor-cream",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Perimeter dressing; no new blocking/access rules. Rotate actual model for four views, even symmetric pieces."
+    },
+    {
+      "id": "stool-wood",
+      "family": "W03",
+      "label": "Backless honey-wood stool",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "customer-rosa",
+          "belt-straight-e"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Static; declared seat socket and separate occupied character capture."
+    },
+    {
+      "id": "stool-blue",
+      "family": "W03",
+      "label": "Blue-seat cosmetic stool",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "customer-rosa",
+          "belt-straight-e"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Same support/seat height as wood stool; appearance only."
+    },
+    {
+      "id": "belt-straight-n",
+      "family": "W04",
+      "label": "Straight conveyor flowing N",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-salmon",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Frozen state is scrub/pause of running, not a second baked animation. Shared deck phase; fixed rails.",
+      "ports": {
+        "incoming": "S",
+        "outgoing": "N"
+      },
+      "geometry": "straight"
+    },
+    {
+      "id": "belt-straight-e",
+      "family": "W04",
+      "label": "Straight conveyor flowing E",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-salmon",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Frozen state is scrub/pause of running, not a second baked animation. Shared deck phase; fixed rails.",
+      "ports": {
+        "incoming": "W",
+        "outgoing": "E"
+      },
+      "geometry": "straight"
+    },
+    {
+      "id": "belt-straight-s",
+      "family": "W04",
+      "label": "Straight conveyor flowing S",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-salmon",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Frozen state is scrub/pause of running, not a second baked animation. Shared deck phase; fixed rails.",
+      "ports": {
+        "incoming": "N",
+        "outgoing": "S"
+      },
+      "geometry": "straight"
+    },
+    {
+      "id": "belt-straight-w",
+      "family": "W04",
+      "label": "Straight conveyor flowing W",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-salmon",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Frozen state is scrub/pause of running, not a second baked animation. Shared deck phase; fixed rails.",
+      "ports": {
+        "incoming": "E",
+        "outgoing": "W"
+      },
+      "geometry": "straight"
+    },
+    {
+      "id": "belt-corner-n-e",
+      "family": "W04",
+      "label": "Corner entering N, exiting E",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-cucumber",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Eight flows use four corner shapes. Model connected route first; cap/corner export cannot introduce tapered ports.",
+      "ports": {
+        "incoming": "N",
+        "outgoing": "E"
+      },
+      "geometry": "corner"
+    },
+    {
+      "id": "belt-corner-e-n",
+      "family": "W04",
+      "label": "Corner entering E, exiting N",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-cucumber",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Eight flows use four corner shapes. Model connected route first; cap/corner export cannot introduce tapered ports.",
+      "ports": {
+        "incoming": "E",
+        "outgoing": "N"
+      },
+      "geometry": "corner"
+    },
+    {
+      "id": "belt-corner-n-w",
+      "family": "W04",
+      "label": "Corner entering N, exiting W",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-cucumber",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Eight flows use four corner shapes. Model connected route first; cap/corner export cannot introduce tapered ports.",
+      "ports": {
+        "incoming": "N",
+        "outgoing": "W"
+      },
+      "geometry": "corner"
+    },
+    {
+      "id": "belt-corner-w-n",
+      "family": "W04",
+      "label": "Corner entering W, exiting N",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-cucumber",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Eight flows use four corner shapes. Model connected route first; cap/corner export cannot introduce tapered ports.",
+      "ports": {
+        "incoming": "W",
+        "outgoing": "N"
+      },
+      "geometry": "corner"
+    },
+    {
+      "id": "belt-corner-s-e",
+      "family": "W04",
+      "label": "Corner entering S, exiting E",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-cucumber",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Eight flows use four corner shapes. Model connected route first; cap/corner export cannot introduce tapered ports.",
+      "ports": {
+        "incoming": "S",
+        "outgoing": "E"
+      },
+      "geometry": "corner"
+    },
+    {
+      "id": "belt-corner-e-s",
+      "family": "W04",
+      "label": "Corner entering E, exiting S",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-cucumber",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Eight flows use four corner shapes. Model connected route first; cap/corner export cannot introduce tapered ports.",
+      "ports": {
+        "incoming": "E",
+        "outgoing": "S"
+      },
+      "geometry": "corner"
+    },
+    {
+      "id": "belt-corner-s-w",
+      "family": "W04",
+      "label": "Corner entering S, exiting W",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-cucumber",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Eight flows use four corner shapes. Model connected route first; cap/corner export cannot introduce tapered ports.",
+      "ports": {
+        "incoming": "S",
+        "outgoing": "W"
+      },
+      "geometry": "corner"
+    },
+    {
+      "id": "belt-corner-w-s",
+      "family": "W04",
+      "label": "Corner entering W, exiting S",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-cucumber",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Eight flows use four corner shapes. Model connected route first; cap/corner export cannot introduce tapered ports.",
+      "ports": {
+        "incoming": "W",
+        "outgoing": "S"
+      },
+      "geometry": "corner"
+    },
+    {
+      "id": "belt-start-n",
+      "family": "W04",
+      "label": "Conveyor start N",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-eel",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Suffix names travel direction in the canonical S capture. Start is capped behind travel and exposes only outgoing N. Closed edges are omitted from the ports map, matching runtime portDefinition; they are not null-valued open ports. No T/cross/split/merge. Separate dishes remain independent of the moving deck.",
+      "ports": {
+        "outgoing": "N"
+      },
+      "geometry": "start"
+    },
+    {
+      "id": "belt-start-e",
+      "family": "W04",
+      "label": "Conveyor start E",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-eel",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Suffix names travel direction in the canonical S capture. Start is capped behind travel and exposes only outgoing E. Closed edges are omitted from the ports map, matching runtime portDefinition; they are not null-valued open ports. No T/cross/split/merge. Separate dishes remain independent of the moving deck.",
+      "ports": {
+        "outgoing": "E"
+      },
+      "geometry": "start"
+    },
+    {
+      "id": "belt-start-s",
+      "family": "W04",
+      "label": "Conveyor start S",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-eel",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Suffix names travel direction in the canonical S capture. Start is capped behind travel and exposes only outgoing S. Closed edges are omitted from the ports map, matching runtime portDefinition; they are not null-valued open ports. No T/cross/split/merge. Separate dishes remain independent of the moving deck.",
+      "ports": {
+        "outgoing": "S"
+      },
+      "geometry": "start"
+    },
+    {
+      "id": "belt-start-w",
+      "family": "W04",
+      "label": "Conveyor start W",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-eel",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Suffix names travel direction in the canonical S capture. Start is capped behind travel and exposes only outgoing W. Closed edges are omitted from the ports map, matching runtime portDefinition; they are not null-valued open ports. No T/cross/split/merge. Separate dishes remain independent of the moving deck.",
+      "ports": {
+        "outgoing": "W"
+      },
+      "geometry": "start"
+    },
+    {
+      "id": "belt-end-n",
+      "family": "W04",
+      "label": "Conveyor end N",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-eel",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Suffix names travel direction in the canonical S capture. End terminates toward N and exposes only incoming S. Closed edges are omitted from the ports map, matching runtime portDefinition; they are not null-valued open ports. No T/cross/split/merge. Separate dishes remain independent of the moving deck.",
+      "ports": {
+        "incoming": "S"
+      },
+      "geometry": "end"
+    },
+    {
+      "id": "belt-end-e",
+      "family": "W04",
+      "label": "Conveyor end E",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-eel",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Suffix names travel direction in the canonical S capture. End terminates toward E and exposes only incoming W. Closed edges are omitted from the ports map, matching runtime portDefinition; they are not null-valued open ports. No T/cross/split/merge. Separate dishes remain independent of the moving deck.",
+      "ports": {
+        "incoming": "W"
+      },
+      "geometry": "end"
+    },
+    {
+      "id": "belt-end-s",
+      "family": "W04",
+      "label": "Conveyor end S",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-eel",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Suffix names travel direction in the canonical S capture. End terminates toward S and exposes only incoming N. Closed edges are omitted from the ports map, matching runtime portDefinition; they are not null-valued open ports. No T/cross/split/merge. Separate dishes remain independent of the moving deck.",
+      "ports": {
+        "incoming": "N"
+      },
+      "geometry": "end"
+    },
+    {
+      "id": "belt-end-w",
+      "family": "W04",
+      "label": "Conveyor end W",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "running"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "dish-eel",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Suffix names travel direction in the canonical S capture. End terminates toward W and exposes only incoming E. Closed edges are omitted from the ports map, matching runtime portDefinition; they are not null-valued open ports. No T/cross/split/merge. Separate dishes remain independent of the moving deck.",
+      "ports": {
+        "incoming": "E"
+      },
+      "geometry": "end"
+    },
+    {
+      "id": "chef-lena",
+      "family": "W05",
+      "label": "Lena Brooks",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "idle",
+        "work",
+        "hold",
+        "load"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "belt-straight-e",
+          "chef-blackboard",
+          "dish-salmon"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "All four states in all four directions; idle covers inactive. No invented walking/station. Hold/load keep separate dish socket.",
+      "projection": "character-orthographic",
+      "sockets": [
+        "leftHand",
+        "rightHand",
+        "dish",
+        "beltLoad"
+      ]
+    },
+    {
+      "id": "chef-omar",
+      "family": "W05",
+      "label": "Omar Haddad",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "idle",
+        "work",
+        "hold",
+        "load"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "belt-straight-e",
+          "chef-blackboard",
+          "dish-salmon"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "All four states in all four directions; idle covers inactive. No invented walking/station. Hold/load keep separate dish socket.",
+      "projection": "character-orthographic",
+      "sockets": [
+        "leftHand",
+        "rightHand",
+        "dish",
+        "beltLoad"
+      ]
+    },
+    {
+      "id": "chef-ama",
+      "family": "W05",
+      "label": "Ama Mensah",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "idle",
+        "work",
+        "hold",
+        "load"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "belt-straight-e",
+          "chef-blackboard",
+          "dish-salmon"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "All four states in all four directions; idle covers inactive. No invented walking/station. Hold/load keep separate dish socket.",
+      "projection": "character-orthographic",
+      "sockets": [
+        "leftHand",
+        "rightHand",
+        "dish",
+        "beltLoad"
+      ]
+    },
+    {
+      "id": "chef-mateo",
+      "family": "W05",
+      "label": "Mateo Rivera",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "idle",
+        "work",
+        "hold",
+        "load"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "belt-straight-e",
+          "chef-blackboard",
+          "dish-salmon"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "All four states in all four directions; idle covers inactive. No invented walking/station. Hold/load keep separate dish socket.",
+      "projection": "character-orthographic",
+      "sockets": [
+        "leftHand",
+        "rightHand",
+        "dish",
+        "beltLoad"
+      ]
+    },
+    {
+      "id": "chef-noor",
+      "family": "W05",
+      "label": "Noor Haddad",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "idle",
+        "work",
+        "hold",
+        "load"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "belt-straight-e",
+          "chef-blackboard",
+          "dish-salmon"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "All four states in all four directions; idle covers inactive. No invented walking/station. Hold/load keep separate dish socket.",
+      "projection": "character-orthographic",
+      "sockets": [
+        "leftHand",
+        "rightHand",
+        "dish",
+        "beltLoad"
+      ]
+    },
+    {
+      "id": "chef-dalia",
+      "family": "W05",
+      "label": "Dalia Farouk",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "idle",
+        "work",
+        "hold",
+        "load"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "belt-straight-e",
+          "chef-blackboard",
+          "dish-salmon"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "All four states in all four directions; idle covers inactive. No invented walking/station. Hold/load keep separate dish socket.",
+      "projection": "character-orthographic",
+      "sockets": [
+        "leftHand",
+        "rightHand",
+        "dish",
+        "beltLoad"
+      ]
+    },
+    {
+      "id": "chef-ellis",
+      "family": "W05",
+      "label": "Ellis Morgan",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "idle",
+        "work",
+        "hold",
+        "load"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "belt-straight-e",
+          "chef-blackboard",
+          "dish-salmon"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "All four states in all four directions; idle covers inactive. No invented walking/station. Hold/load keep separate dish socket.",
+      "projection": "character-orthographic",
+      "sockets": [
+        "leftHand",
+        "rightHand",
+        "dish",
+        "beltLoad"
+      ]
+    },
+    {
+      "id": "chef-rowan",
+      "family": "W05",
+      "label": "Rowan McLeod",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "idle",
+        "work",
+        "hold",
+        "load"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "belt-straight-e",
+          "chef-blackboard",
+          "dish-salmon"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "All four states in all four directions; idle covers inactive. No invented walking/station. Hold/load keep separate dish socket.",
+      "projection": "character-orthographic",
+      "sockets": [
+        "leftHand",
+        "rightHand",
+        "dish",
+        "beltLoad"
+      ]
+    },
+    {
+      "id": "chef-blackboard",
+      "family": "W06",
+      "label": "Integrated chef blackboard",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "idle",
+        "recipe-change"
+      ],
+      "variants": [
+        "salmon-nigiri",
+        "cucumber-maki",
+        "eel-roll"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Board/base within chef cell, three recipe artworks. Selected appearance is material/outline metadata, not duplicate geometry."
+    },
+    {
+      "id": "customer-rosa",
+      "family": "W07",
+      "label": "Rosa",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "walk",
+        "stand",
+        "seated-wait",
+        "eat",
+        "sit-down",
+        "stand-up",
+        "happy",
+        "restless",
+        "puzzled",
+        "panic"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "stool-wood",
+          "belt-straight-e",
+          "dish-salmon"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Arrive/leave reuse walk; panic includes slow-wander gesture. Sit/stand baked support elevation explicit; stool captured separately. Shared anatomy scale and root.",
+      "projection": "character-orthographic",
+      "sockets": [
+        "seat",
+        "leftHand",
+        "rightHand",
+        "mouth",
+        "bubble"
+      ]
+    },
+    {
+      "id": "customer-ellis",
+      "family": "W07",
+      "label": "Ellis",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "walk",
+        "stand",
+        "seated-wait",
+        "eat",
+        "sit-down",
+        "stand-up",
+        "happy",
+        "restless",
+        "puzzled",
+        "panic"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "stool-wood",
+          "belt-straight-e",
+          "dish-salmon"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Arrive/leave reuse walk; panic includes slow-wander gesture. Sit/stand baked support elevation explicit; stool captured separately. Shared anatomy scale and root.",
+      "projection": "character-orthographic",
+      "sockets": [
+        "seat",
+        "leftHand",
+        "rightHand",
+        "mouth",
+        "bubble"
+      ]
+    },
+    {
+      "id": "customer-samir",
+      "family": "W07",
+      "label": "Samir",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "walk",
+        "stand",
+        "seated-wait",
+        "eat",
+        "sit-down",
+        "stand-up",
+        "happy",
+        "restless",
+        "puzzled",
+        "panic"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "stool-wood",
+          "belt-straight-e",
+          "dish-salmon"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Arrive/leave reuse walk; panic includes slow-wander gesture. Sit/stand baked support elevation explicit; stool captured separately. Shared anatomy scale and root.",
+      "projection": "character-orthographic",
+      "sockets": [
+        "seat",
+        "leftHand",
+        "rightHand",
+        "mouth",
+        "bubble"
+      ]
+    },
+    {
+      "id": "customer-june",
+      "family": "W07",
+      "label": "June",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "walk",
+        "stand",
+        "seated-wait",
+        "eat",
+        "sit-down",
+        "stand-up",
+        "happy",
+        "restless",
+        "puzzled",
+        "panic"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "stool-wood",
+          "belt-straight-e",
+          "dish-salmon"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Arrive/leave reuse walk; panic includes slow-wander gesture. Sit/stand baked support elevation explicit; stool captured separately. Shared anatomy scale and root.",
+      "projection": "character-orthographic",
+      "sockets": [
+        "seat",
+        "leftHand",
+        "rightHand",
+        "mouth",
+        "bubble"
+      ]
+    },
+    {
+      "id": "dish-salmon",
+      "family": "W08",
+      "label": "Salmon Nigiri",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "chef-lena",
+          "belt-corner-n-e",
+          "customer-rosa"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Same dish geometry for belt/held/seated/bubble; placement uses explicit sockets, not hand-painted combined scene."
+    },
+    {
+      "id": "dish-cucumber",
+      "family": "W08",
+      "label": "Cucumber Maki",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "chef-lena",
+          "belt-corner-n-e",
+          "customer-rosa"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Same dish geometry for belt/held/seated/bubble; placement uses explicit sockets, not hand-painted combined scene."
+    },
+    {
+      "id": "dish-eel",
+      "family": "W08",
+      "label": "Eel Roll",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "chef-lena",
+          "belt-corner-n-e",
+          "customer-rosa"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Same dish geometry for belt/held/seated/bubble; placement uses explicit sockets, not hand-painted combined scene."
+    },
+    {
+      "id": "bubble-preference",
+      "family": "W08",
+      "label": "Dish preference bubble",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "appear",
+        "fade"
+      ],
+      "variants": [
+        "salmon-nigiri",
+        "cucumber-maki",
+        "eel-roll"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "customer-rosa"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Preference circular timer fill is manually scrubbed presentation parameter. Coin has no amount text. Direction-independent effects still shown in four scene-facing contexts."
+    },
+    {
+      "id": "bubble-happy",
+      "family": "W08",
+      "label": "Happy bubble",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "appear",
+        "happy-transition",
+        "fade"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "customer-rosa"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Preference circular timer fill is manually scrubbed presentation parameter. Coin has no amount text. Direction-independent effects still shown in four scene-facing contexts."
+    },
+    {
+      "id": "bubble-puzzled",
+      "family": "W08",
+      "label": "Puzzled bubble",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "appear",
+        "fade"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "customer-rosa"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Preference circular timer fill is manually scrubbed presentation parameter. Coin has no amount text. Direction-independent effects still shown in four scene-facing contexts."
+    },
+    {
+      "id": "bubble-panic",
+      "family": "W08",
+      "label": "Panic bubble",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "appear",
+        "fade"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "customer-rosa"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Preference circular timer fill is manually scrubbed presentation parameter. Coin has no amount text. Direction-independent effects still shown in four scene-facing contexts."
+    },
+    {
+      "id": "coin-pop",
+      "family": "W08",
+      "label": "World coin icon",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "pop"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "customer-rosa"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Preference circular timer fill is manually scrubbed presentation parameter. Coin has no amount text. Direction-independent effects still shown in four scene-facing contexts."
+    },
+    {
+      "id": "garbage-sofa",
+      "family": "W09",
+      "label": "Whole broken sofa",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "clearance"
+      ],
+      "variants": [
+        "normal",
+        "highlighted"
+      ],
+      "footprintCells": [
+        3,
+        2
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "floor-cream",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Whole distinct assembly plus supporting rubbish, not repeated debris stamps. Mask is declared integer cells before capture; example extent may be narrowed by authored disjoint support. Clean floor revealed separately."
+    },
+    {
+      "id": "garbage-car",
+      "family": "W09",
+      "label": "Wrecked car",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "clearance"
+      ],
+      "variants": [
+        "normal",
+        "highlighted"
+      ],
+      "footprintCells": [
+        3,
+        2
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "floor-cream",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Whole distinct assembly plus supporting rubbish, not repeated debris stamps. Mask is declared integer cells before capture; example extent may be narrowed by authored disjoint support. Clean floor revealed separately."
+    },
+    {
+      "id": "garbage-shelving",
+      "family": "W09",
+      "label": "Collapsed shelving",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "clearance"
+      ],
+      "variants": [
+        "normal",
+        "highlighted"
+      ],
+      "footprintCells": [
+        2,
+        2
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "floor-cream",
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Whole distinct assembly plus supporting rubbish, not repeated debris stamps. Mask is declared integer cells before capture; example extent may be narrowed by authored disjoint support. Clean floor revealed separately."
+    },
+    {
+      "id": "dock-floor",
+      "family": "W10",
+      "label": "Shared dock floor",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        3,
+        3
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "dock-post-rope",
+          "workshop-hut"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Hut stays to submarine right. Peek holes in cover. Docked ship reuses submarine-yellow with dock charging/ready presentations; no duplicate ship design or charge timer."
+    },
+    {
+      "id": "dock-entry",
+      "family": "W10",
+      "label": "Dock entry pieces",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "dock-post-rope",
+          "workshop-hut"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Hut stays to submarine right. Peek holes in cover. Docked ship reuses submarine-yellow with dock charging/ready presentations; no duplicate ship design or charge timer."
+    },
+    {
+      "id": "workshop-hut",
+      "family": "W10",
+      "label": "Workshop hut",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "dock-floor"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Hut stays to submarine right. Peek holes in cover. Docked ship reuses submarine-yellow with dock charging/ready presentations; no duplicate ship design or charge timer."
+    },
+    {
+      "id": "dock-cover",
+      "family": "W10",
+      "label": "Patchwork dock cover",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "covered",
+        "uncover"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        3,
+        3
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "dock-post-rope",
+          "workshop-hut"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Hut stays to submarine right. Peek holes in cover. Docked ship reuses submarine-yellow with dock charging/ready presentations; no duplicate ship design or charge timer."
+    },
+    {
+      "id": "floor-underwater",
+      "family": "W11",
+      "label": "Turquoise underwater floor",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "scroll"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "rock-wall-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Static reduced-motion fallback; world-space repeating water phase, no visible seams."
+    },
+    {
+      "id": "rock-wall-middle",
+      "family": "W11",
+      "label": "Cobalt canyon rock wall middle",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "rock-wall-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Connected square-grid terrain modules; four orientations share consistent ports/heights/material. Repeated long obstacle run exceeds viewport; inspect same and offset phase if animated styling introduced.",
+      "connectorFamily": "rock",
+      "geometry": "middle"
+    },
+    {
+      "id": "rock-wall-edge",
+      "family": "W11",
+      "label": "Cobalt canyon rock wall edge",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "rock-wall-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Connected square-grid terrain modules; four orientations share consistent ports/heights/material. Repeated long obstacle run exceeds viewport; inspect same and offset phase if animated styling introduced.",
+      "connectorFamily": "rock",
+      "geometry": "edge"
+    },
+    {
+      "id": "rock-wall-corner",
+      "family": "W11",
+      "label": "Cobalt canyon rock wall corner",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "rock-wall-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Connected square-grid terrain modules; four orientations share consistent ports/heights/material. Repeated long obstacle run exceeds viewport; inspect same and offset phase if animated styling introduced.",
+      "connectorFamily": "rock",
+      "geometry": "corner"
+    },
+    {
+      "id": "rock-wall-end",
+      "family": "W11",
+      "label": "Cobalt canyon rock wall end",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "rock-wall-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Connected square-grid terrain modules; four orientations share consistent ports/heights/material. Repeated long obstacle run exceeds viewport; inspect same and offset phase if animated styling introduced.",
+      "connectorFamily": "rock",
+      "geometry": "end"
+    },
+    {
+      "id": "rock-shelf-middle",
+      "family": "W11",
+      "label": "Rock shelf middle",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "rock-shelf-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Connected square-grid terrain modules; four orientations share consistent ports/heights/material. Repeated long obstacle run exceeds viewport; inspect same and offset phase if animated styling introduced.",
+      "connectorFamily": "shelf",
+      "geometry": "middle"
+    },
+    {
+      "id": "rock-shelf-edge",
+      "family": "W11",
+      "label": "Rock shelf edge",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "rock-shelf-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Connected square-grid terrain modules; four orientations share consistent ports/heights/material. Repeated long obstacle run exceeds viewport; inspect same and offset phase if animated styling introduced.",
+      "connectorFamily": "shelf",
+      "geometry": "edge"
+    },
+    {
+      "id": "rock-shelf-corner",
+      "family": "W11",
+      "label": "Rock shelf corner",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "rock-shelf-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Connected square-grid terrain modules; four orientations share consistent ports/heights/material. Repeated long obstacle run exceeds viewport; inspect same and offset phase if animated styling introduced.",
+      "connectorFamily": "shelf",
+      "geometry": "corner"
+    },
+    {
+      "id": "rock-shelf-end",
+      "family": "W11",
+      "label": "Rock shelf end",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "rock-shelf-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Connected square-grid terrain modules; four orientations share consistent ports/heights/material. Repeated long obstacle run exceeds viewport; inspect same and offset phase if animated styling introduced.",
+      "connectorFamily": "shelf",
+      "geometry": "end"
+    },
+    {
+      "id": "reef-middle",
+      "family": "W11",
+      "label": "Bright reef middle",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "reef-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Connected square-grid terrain modules; four orientations share consistent ports/heights/material. Repeated long obstacle run exceeds viewport; inspect same and offset phase if animated styling introduced.",
+      "connectorFamily": "reef",
+      "geometry": "middle"
+    },
+    {
+      "id": "reef-edge",
+      "family": "W11",
+      "label": "Bright reef edge",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "reef-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Connected square-grid terrain modules; four orientations share consistent ports/heights/material. Repeated long obstacle run exceeds viewport; inspect same and offset phase if animated styling introduced.",
+      "connectorFamily": "reef",
+      "geometry": "edge"
+    },
+    {
+      "id": "reef-corner",
+      "family": "W11",
+      "label": "Bright reef corner",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "reef-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Connected square-grid terrain modules; four orientations share consistent ports/heights/material. Repeated long obstacle run exceeds viewport; inspect same and offset phase if animated styling introduced.",
+      "connectorFamily": "reef",
+      "geometry": "corner"
+    },
+    {
+      "id": "reef-end",
+      "family": "W11",
+      "label": "Bright reef end",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "reef-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Connected square-grid terrain modules; four orientations share consistent ports/heights/material. Repeated long obstacle run exceeds viewport; inspect same and offset phase if animated styling introduced.",
+      "connectorFamily": "reef",
+      "geometry": "end"
+    },
+    {
+      "id": "wreck-middle",
+      "family": "W11",
+      "label": "Pale wreck middle",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "wreck-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Connected square-grid terrain modules; four orientations share consistent ports/heights/material. Repeated long obstacle run exceeds viewport; inspect same and offset phase if animated styling introduced.",
+      "connectorFamily": "wreck",
+      "geometry": "middle"
+    },
+    {
+      "id": "wreck-edge",
+      "family": "W11",
+      "label": "Pale wreck edge",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "wreck-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Connected square-grid terrain modules; four orientations share consistent ports/heights/material. Repeated long obstacle run exceeds viewport; inspect same and offset phase if animated styling introduced.",
+      "connectorFamily": "wreck",
+      "geometry": "edge"
+    },
+    {
+      "id": "wreck-corner",
+      "family": "W11",
+      "label": "Pale wreck corner",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "wreck-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Connected square-grid terrain modules; four orientations share consistent ports/heights/material. Repeated long obstacle run exceeds viewport; inspect same and offset phase if animated styling introduced.",
+      "connectorFamily": "wreck",
+      "geometry": "corner"
+    },
+    {
+      "id": "wreck-end",
+      "family": "W11",
+      "label": "Pale wreck end",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "wreck-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Connected square-grid terrain modules; four orientations share consistent ports/heights/material. Repeated long obstacle run exceeds viewport; inspect same and offset phase if animated styling introduced.",
+      "connectorFamily": "wreck",
+      "geometry": "end"
+    },
+    {
+      "id": "rock-half-width",
+      "family": "W11",
+      "label": "Half-width rock barrier",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "rock-wall-middle"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Declared half-cell shape within integer-cell review grid; continuous ship-sized gap composition. Do not invent mines/gates/spikes."
+    },
+    {
+      "id": "boulder-underwater",
+      "family": "W11",
+      "label": "Underwater faceted boulder",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "floor-underwater"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned"
+    },
+    {
+      "id": "column-broken",
+      "family": "W11",
+      "label": "Broken pale column",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "floor-underwater"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned"
+    },
+    {
+      "id": "decor-foreground-rock",
+      "family": "W12",
+      "label": "Foreground rock",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "creature-eel"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Distinct visibility/depth metadata; low contrast behind actors and warning silhouettes. Ambient parameters have frozen reduced-motion state.",
+      "layer": "foreground",
+      "blocking": false
+    },
+    {
+      "id": "decor-foreground-coral",
+      "family": "W12",
+      "label": "Foreground coral",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "creature-eel"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Distinct visibility/depth metadata; low contrast behind actors and warning silhouettes. Ambient parameters have frozen reduced-motion state.",
+      "layer": "foreground",
+      "blocking": false
+    },
+    {
+      "id": "decor-starfish",
+      "family": "W12",
+      "label": "Starfish",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "creature-eel"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Distinct visibility/depth metadata; low contrast behind actors and warning silhouettes. Ambient parameters have frozen reduced-motion state.",
+      "layer": "foreground",
+      "blocking": false
+    },
+    {
+      "id": "decor-midground-coral",
+      "family": "W12",
+      "label": "Midground coral",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "ambient"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "creature-eel"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Distinct visibility/depth metadata; low contrast behind actors and warning silhouettes. Ambient parameters have frozen reduced-motion state.",
+      "layer": "midground",
+      "blocking": false
+    },
+    {
+      "id": "decor-kelp",
+      "family": "W12",
+      "label": "Kelp",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "sway"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "creature-eel"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Distinct visibility/depth metadata; low contrast behind actors and warning silhouettes. Ambient parameters have frozen reduced-motion state.",
+      "layer": "midground",
+      "blocking": false
+    },
+    {
+      "id": "decor-ruin-fragment",
+      "family": "W12",
+      "label": "Ruin fragment",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "creature-eel"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Distinct visibility/depth metadata; low contrast behind actors and warning silhouettes. Ambient parameters have frozen reduced-motion state.",
+      "layer": "midground",
+      "blocking": false
+    },
+    {
+      "id": "decor-background-rock",
+      "family": "W12",
+      "label": "Quiet background rock",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "creature-eel"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Distinct visibility/depth metadata; low contrast behind actors and warning silhouettes. Ambient parameters have frozen reduced-motion state.",
+      "layer": "background",
+      "blocking": false
+    },
+    {
+      "id": "decor-background-wreck",
+      "family": "W12",
+      "label": "Quiet background wreck",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": false,
+      "animation": null,
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "creature-eel"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Distinct visibility/depth metadata; low contrast behind actors and warning silhouettes. Ambient parameters have frozen reduced-motion state.",
+      "layer": "background",
+      "blocking": false
+    },
+    {
+      "id": "decor-background-fish",
+      "family": "W12",
+      "label": "Background fish silhouette",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "swim"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "creature-eel"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Distinct visibility/depth metadata; low contrast behind actors and warning silhouettes. Ambient parameters have frozen reduced-motion state.",
+      "layer": "background",
+      "blocking": false
+    },
+    {
+      "id": "decor-bubbles",
+      "family": "W12",
+      "label": "Ambient bubbles",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "rise"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "creature-eel"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Distinct visibility/depth metadata; low contrast behind actors and warning silhouettes. Ambient parameters have frozen reduced-motion state.",
+      "layer": "ambient",
+      "blocking": false
+    },
+    {
+      "id": "decor-light-shafts",
+      "family": "W12",
+      "label": "Underwater light shafts",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "ambient"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "creature-eel"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Distinct visibility/depth metadata; low contrast behind actors and warning silhouettes. Ambient parameters have frozen reduced-motion state.",
+      "layer": "ambient",
+      "blocking": false
+    },
+    {
+      "id": "submarine-yellow",
+      "family": "W13",
+      "label": "Yellow submarine",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "idle",
+        "travel",
+        "impact",
+        "protection",
+        "dock-charging",
+        "dock-ready"
+      ],
+      "variants": [
+        "baseline",
+        "upgraded"
+      ],
+      "footprintCells": [
+        1,
+        2
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "workshop-hut",
+          "creature-eel",
+          "salvage-metal"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Explicit rounded-prop art camera exception; same dock/dive identity and fixed root/bounds. Main dive pose points up; ready headlight restrained. No new stats/knockback/inertia.",
+      "projection": "character-orthographic",
+      "sockets": [
+        "harpoon",
+        "collector",
+        "cable",
+        "headlight"
+      ]
+    },
+    {
+      "id": "sub-hull-panels",
+      "family": "W13",
+      "label": "Submarine hull panels",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "idle",
+        "active"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Equipment attachment pieces derived from same assembly, retain declared sockets. Active motion only appropriate functional visible gesture, no new game mechanic. Standalone component coverage is one default appearance. Baseline and upgraded are required submarine-yellow assembly variants and are genuinely authored there as separate native assemblies; do not fabricate duplicate standalone pieces or duplicate sprite flags."
+    },
+    {
+      "id": "sub-harpoon-mount",
+      "family": "W13",
+      "label": "Submarine harpoon mount",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "idle",
+        "active"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Equipment attachment pieces derived from same assembly, retain declared sockets. Active motion only appropriate functional visible gesture, no new game mechanic. Standalone component coverage is one default appearance. Baseline and upgraded are required submarine-yellow assembly variants and are genuinely authored there as separate native assemblies; do not fabricate duplicate standalone pieces or duplicate sprite flags."
+    },
+    {
+      "id": "sub-collector-inlet",
+      "family": "W13",
+      "label": "Submarine collector inlet",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "idle",
+        "active"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Equipment attachment pieces derived from same assembly, retain declared sockets. Active motion only appropriate functional visible gesture, no new game mechanic. Standalone component coverage is one default appearance. Baseline and upgraded are required submarine-yellow assembly variants and are genuinely authored there as separate native assemblies; do not fabricate duplicate standalone pieces or duplicate sprite flags."
+    },
+    {
+      "id": "salvage-metal",
+      "family": "W14",
+      "label": "Metal fragment",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "shimmer",
+        "attract",
+        "collect"
+      ],
+      "variants": [
+        "plate",
+        "bent"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "floor-underwater"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Presentation parameters only; safe-passage scene shows steerable ship and no hazards. No extra rewards/progression."
+    },
+    {
+      "id": "route-current",
+      "family": "W14",
+      "label": "Lateral current cue",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "flow"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "floor-underwater"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Presentation parameters only; safe-passage scene shows steerable ship and no hazards. No extra rewards/progression."
+    },
+    {
+      "id": "boost-trail",
+      "family": "W14",
+      "label": "Boost glow and trail",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "boost"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "floor-underwater"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Presentation parameters only; safe-passage scene shows steerable ship and no hazards. No extra rewards/progression."
+    },
+    {
+      "id": "portal-rim",
+      "family": "W14",
+      "label": "Portal rim",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "idle"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "floor-underwater"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Presentation parameters only; safe-passage scene shows steerable ship and no hazards. No extra rewards/progression."
+    },
+    {
+      "id": "portal-entry",
+      "family": "W14",
+      "label": "Portal entry effect",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "enter"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "floor-underwater"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Presentation parameters only; safe-passage scene shows steerable ship and no hazards. No extra rewards/progression."
+    },
+    {
+      "id": "safe-passage",
+      "family": "W14",
+      "label": "Safe bonus passage scenery",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "ambient"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "floor-underwater"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Presentation parameters only; safe-passage scene shows steerable ship and no hazards. No extra rewards/progression."
+    },
+    {
+      "id": "creature-eel",
+      "family": "W15",
+      "label": "Eel",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "swim",
+        "aim",
+        "restless",
+        "hook",
+        "pursuit",
+        "caught",
+        "escape",
+        "weave",
+        "dash",
+        "pause"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "harpoon-projectile",
+          "harpoon-cable",
+          "eel-warning-strip"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Only approved eel and generic fish, no invented species. Poses keep stable hit silhouette; small world catch clip only, not full-screen cinematic.",
+      "projection": "character-orthographic",
+      "sockets": [
+        "hook",
+        "cable"
+      ]
+    },
+    {
+      "id": "creature-fish",
+      "family": "W15",
+      "label": "Current generic fish example",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "swim",
+        "aim",
+        "restless",
+        "hook",
+        "pursuit",
+        "caught",
+        "escape",
+        "weave",
+        "dash",
+        "pause"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "harpoon-projectile",
+          "harpoon-cable",
+          "attack-swirl"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Only approved eel and generic fish, no invented species. Poses keep stable hit silhouette; small world catch clip only, not full-screen cinematic.",
+      "projection": "character-orthographic",
+      "sockets": [
+        "hook",
+        "cable"
+      ]
+    },
+    {
+      "id": "harpoon-projectile",
+      "family": "W16",
+      "label": "Harpoon projectile",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "launch",
+        "flight",
+        "hook"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "creature-eel"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Separate projectile and explicit mount/target sockets; no baked ship or creature pixels."
+    },
+    {
+      "id": "harpoon-cable",
+      "family": "W16",
+      "label": "Harpoon cable",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "normal",
+        "taut",
+        "fraying",
+        "break"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "creature-eel"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Endpoints parametric sockets, true native source shape; break is one-shot. No resistance/countdown HUD."
+    },
+    {
+      "id": "following-strip",
+      "family": "W16",
+      "label": "Faint vertical following strip",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "flow"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "creature-eel"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Open-ended vertical strip centered at creature x; no return arrow or grace countdown."
+    },
+    {
+      "id": "attack-reef-fragments",
+      "family": "W17",
+      "label": "Reef-breaking fragments",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "windup",
+        "active",
+        "recovery"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "creature-eel",
+          "submarine-yellow",
+          "following-strip"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Authored presentation only; demonstrate safe following position; no damage/attack scheduling. Hatched amber strip distinct from faint following guide."
+    },
+    {
+      "id": "attack-swirl",
+      "family": "W17",
+      "label": "Attack swirl",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "windup",
+        "active",
+        "recovery"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "creature-eel",
+          "submarine-yellow",
+          "following-strip"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Authored presentation only; demonstrate safe following position; no damage/attack scheduling. Hatched amber strip distinct from faint following guide."
+    },
+    {
+      "id": "attack-lateral-current",
+      "family": "W17",
+      "label": "Lateral attack current",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "windup",
+        "active",
+        "recovery"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "creature-eel",
+          "submarine-yellow",
+          "following-strip"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Authored presentation only; demonstrate safe following position; no damage/attack scheduling. Hatched amber strip distinct from faint following guide."
+    },
+    {
+      "id": "eel-warning-strip",
+      "family": "W17",
+      "label": "Amber diagonal-hatched eel warning strip",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "windup",
+        "active",
+        "recovery"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "creature-eel",
+          "submarine-yellow",
+          "following-strip"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Authored presentation only; demonstrate safe following position; no damage/attack scheduling. Hatched amber strip distinct from faint following guide."
+    },
+    {
+      "id": "eel-lightning-symbol",
+      "family": "W17",
+      "label": "Eel lightning symbol",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "windup",
+        "active",
+        "recovery"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "creature-eel",
+          "submarine-yellow",
+          "following-strip"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Authored presentation only; demonstrate safe following position; no damage/attack scheduling. Hatched amber strip distinct from faint following guide."
+    },
+    {
+      "id": "eel-discharge",
+      "family": "W17",
+      "label": "Electrical discharge",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "windup",
+        "active",
+        "recovery"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        1,
+        1
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "creature-eel",
+          "submarine-yellow",
+          "following-strip"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "notes": "Authored presentation only; demonstrate safe following position; no damage/attack scheduling. Hatched amber strip distinct from faint following guide."
+    },
+    {
+      "id": "restaurant-border-garden-a",
+      "family": "W02",
+      "label": "Restaurant border garden A",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static",
+        "ambient"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        2,
+        4
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "blocking": false,
+      "notes": "Dense organic restaurant scenery authored as one reusable multi-cell native assembly. A and B are distinct component arrangements. Nonblocking decoration with no seam ports; static snapshot and twelve unique ambient samples in all four facings. Native capture determines the final frame and root; queued entries contain no generated sprite images."
+    },
+    {
+      "id": "restaurant-border-garden-b",
+      "family": "W02",
+      "label": "Restaurant border garden B",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static",
+        "ambient"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        2,
+        4
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "blocking": false,
+      "notes": "Dense organic restaurant scenery authored as one reusable multi-cell native assembly. A and B are distinct component arrangements. Nonblocking decoration with no seam ports; static snapshot and twelve unique ambient samples in all four facings. Native capture determines the final frame and root; queued entries contain no generated sprite images."
+    },
+    {
+      "id": "restaurant-corner-garden-a",
+      "family": "W02",
+      "label": "Restaurant corner garden A",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static",
+        "ambient"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        3,
+        3
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "blocking": false,
+      "notes": "Dense organic restaurant scenery authored as one reusable multi-cell native assembly. A and B are distinct component arrangements. Nonblocking decoration with no seam ports; static snapshot and twelve unique ambient samples in all four facings. Native capture determines the final frame and root; queued entries contain no generated sprite images."
+    },
+    {
+      "id": "restaurant-corner-garden-b",
+      "family": "W02",
+      "label": "Restaurant corner garden B",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static",
+        "ambient"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        3,
+        3
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "chef-lena"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "blocking": false,
+      "notes": "Dense organic restaurant scenery authored as one reusable multi-cell native assembly. A and B are distinct component arrangements. Nonblocking decoration with no seam ports; static snapshot and twelve unique ambient samples in all four facings. Native capture determines the final frame and root; queued entries contain no generated sprite images."
+    },
+    {
+      "id": "underwater-reef-garden-a",
+      "family": "W12",
+      "label": "Underwater reef garden A",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static",
+        "ambient"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        2,
+        4
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "blocking": false,
+      "notes": "Dense organic underwater scenery authored as one reusable multi-cell native assembly. A and B are distinct component arrangements. Nonblocking decoration with no seam ports; static snapshot and twelve unique ambient samples in all four facings. Native capture determines the final frame and root; queued entries contain no generated sprite images."
+    },
+    {
+      "id": "underwater-reef-garden-b",
+      "family": "W12",
+      "label": "Underwater reef garden B",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static",
+        "ambient"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        2,
+        4
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "blocking": false,
+      "notes": "Dense organic underwater scenery authored as one reusable multi-cell native assembly. A and B are distinct component arrangements. Nonblocking decoration with no seam ports; static snapshot and twelve unique ambient samples in all four facings. Native capture determines the final frame and root; queued entries contain no generated sprite images."
+    },
+    {
+      "id": "underwater-coral-garden-a",
+      "family": "W12",
+      "label": "Underwater coral garden A",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static",
+        "ambient"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        3,
+        3
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "blocking": false,
+      "notes": "Dense organic underwater scenery authored as one reusable multi-cell native assembly. A and B are distinct component arrangements. Nonblocking decoration with no seam ports; static snapshot and twelve unique ambient samples in all four facings. Native capture determines the final frame and root; queued entries contain no generated sprite images."
+    },
+    {
+      "id": "underwater-coral-garden-b",
+      "family": "W12",
+      "label": "Underwater coral garden B",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "states": [
+        "static",
+        "ambient"
+      ],
+      "variants": [
+        "default"
+      ],
+      "footprintCells": [
+        3,
+        3
+      ],
+      "animated": true,
+      "animation": {
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "defaultLoopFrames": 12,
+        "excludeDuplicateClosingFrame": true
+      },
+      "review": {
+        "isolatedFourDirections": true,
+        "repeatedPlacement": [
+          3,
+          3
+        ],
+        "interactionObjectIds": [
+          "submarine-yellow"
+        ],
+        "allStatesAllDirections": true
+      },
+      "status": "planned",
+      "blocking": false,
+      "notes": "Dense organic underwater scenery authored as one reusable multi-cell native assembly. A and B are distinct component arrangements. Nonblocking decoration with no seam ports; static snapshot and twelve unique ambient samples in all four facings. Native capture determines the final frame and root; queued entries contain no generated sprite images."
+    }
+  ],
+  "contractRevisions": [
+    {
+      "id": "directed-conveyor-cap-ports-v2",
+      "date": "2026-10-17",
+      "objects": [
+        "belt-start-n",
+        "belt-start-e",
+        "belt-start-s",
+        "belt-start-w",
+        "belt-end-n",
+        "belt-end-e",
+        "belt-end-s",
+        "belt-end-w"
+      ],
+      "previousPlanSha256": "29dd32bb01509ed9b3dc3a7d84cdac151c39f3803b9ce05e9281f8a4cd6e594e",
+      "preservedFailureSha256": "30f6315d319bdd9bc44ec5348988d7121d83b852aa25275a4f7037cf1d32dc6a",
+      "nativeAuthority": "food_belt_builders.py::belt and export/source/<id>/asset.json::flow",
+      "rationale": "The native straight/start/end suffix denotes travel direction, not the edge from which an end cap accepts items. End caps block the forward edge and accept the opposite edge; start caps block the rear edge and expose only the forward edge. The review portDefinition maps actual open ports only, so closed edges must be absent rather than null. Corrects a stale planning interpretation without weakening exact audit equality or altering native geometry/flow."
+    },
+    {
+      "id": "dense-organic-clusters-v1",
+      "date": "2026-10-18",
+      "objects": [
+        "restaurant-border-garden-a",
+        "restaurant-border-garden-b",
+        "restaurant-corner-garden-a",
+        "restaurant-corner-garden-b",
+        "underwater-reef-garden-a",
+        "underwater-reef-garden-b",
+        "underwater-coral-garden-a",
+        "underwater-coral-garden-b"
+      ],
+      "rationale": "User requested reusable dense organic restaurant and underwater garden assemblies in 2\u00d74 and 3\u00d73 footprints. Eight separate native arrangements, each with a static view and 12-frame ambient loop in four directions. These decorative assemblies add no seam ports, blocking rules, gameplay, or additional species."
+    },
+    {
+      "id": "four-tile-entrance-v1",
+      "date": "2026-10-18",
+      "objects": [
+        "entry-finished"
+      ],
+      "rationale": "User requested a four-tile-wide entrance. The native assembly now uses a4\u00d71 allocation, supports in the two outer cells and an open two-cell center; the earlier1\u00d71 planning placeholder is stale. Native idle remains aone-frame static recipe, normalized to runtime static by the publisher. The roof alone has an explicit .12 depth overhang allowance; no new access mechanic is introduced."
+    }
+  ]
+}

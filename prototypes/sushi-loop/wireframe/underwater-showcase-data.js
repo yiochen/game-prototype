@@ -24,7 +24,7 @@ const fishPatrol = patrol([
 export const underwaterShowcase = {
   id: 'underwater',
   title: 'The turquoise passage',
-  description: 'A yellow submarine explores a clear-water canyon between cobalt cliffs, a coral garden and the ribs of an old wreck.',
+  description: 'A yellow submarine explores a clear-water canyon between cobalt cliffs, densely layered reef gardens and the ribs of an old wreck.',
   gridSize: [14, 12],
   floorId: 'floor-underwater',
   background: 'linear-gradient(180deg, #07425c 0%, #117f91 44%, #0a6179 100%)',
@@ -92,12 +92,14 @@ export const underwaterShowcase = {
     item('reef-tall-kelp', 'decor-kelp', 10.3, 2.8, 'S', 'sway', { timeOffset: 0.8 }),
     item('reef-small-boulder', 'boulder-underwater', 10.5, 5.8, 'N'),
 
-    // A few native silhouettes tie the banks together without filling the lane.
-    item('west-bank-kelp-top', 'decor-kelp', 0.1, 2.8, 'S', 'sway'),
+    // Dense native composites break away from tile-center repetition. Each
+    // garden occupies a bank or corner outside the unchanged patrol routes.
+    item('west-reef-garden', 'underwater-reef-garden-a', 0, 2.4, 'S', 'ambient'),
+    item('east-reef-garden', 'underwater-reef-garden-b', 12, 4.15, 'S', 'ambient', { timeOffset: .35 }),
+    item('near-west-coral-garden', 'underwater-coral-garden-a', .05, 8.95, 'S', 'ambient', { timeOffset: .65 }),
+    item('far-east-coral-garden', 'underwater-coral-garden-b', 10.95, .05, 'S', 'ambient', { timeOffset: .15 }),
     item('west-bank-coral-mid', 'decor-midground-coral', 0.1, 6.5, 'E', 'ambient', { timeOffset: 0.6 }),
     item('west-bank-kelp-low', 'decor-kelp', 1.9, 8, 'S', 'sway', { timeOffset: 0.2 }),
-    item('east-bank-kelp-top', 'decor-kelp', 12.8, 2.9, 'N', 'sway', { timeOffset: 0.5 }),
-    item('east-bank-coral-mid', 'decor-midground-coral', 12.9, 6.1, 'S', 'ambient', { timeOffset: 0.1 }),
     item('east-bank-kelp-low', 'decor-kelp', 11.6, 9.9, 'W', 'sway', { timeOffset: 0.7 }),
 
     // Portal, currents and salvage make the central negative space a route.
@@ -130,9 +132,6 @@ export const underwaterShowcase = {
     item('reef-water-bubbles', 'decor-bubbles', 10.4, 2.4, 'S', 'rise', { timeOffset: 0.2 }),
 
     // Near framing stays outside the craft's full patrol envelope.
-    item('foreground-west-rock', 'decor-foreground-rock', 0.2, 10.9, 'S', 'static', { renderPass: 'foreground' }),
-    item('foreground-west-coral', 'decor-foreground-coral', 1.4, 11, 'S', 'idle', { renderPass: 'foreground' }),
-    item('foreground-west-kelp', 'decor-kelp', 2.3, 11, 'E', 'sway', { renderPass: 'foreground', timeOffset: 0.3 }),
     item('foreground-east-rock', 'decor-foreground-rock', 12, 10.9, 'W', 'static', { renderPass: 'foreground' }),
     item('foreground-east-coral', 'decor-foreground-coral', 11, 11, 'N', 'idle', { renderPass: 'foreground', timeOffset: 0.7 }),
     item('foreground-east-starfish', 'decor-starfish', 10, 11, 'S', 'static'),
@@ -157,6 +156,11 @@ export const underwaterShowcase = {
       title: 'Depth without losing the playfield',
       description: 'Quiet distant silhouettes and light sit behind the craft. Bright coral and broken masonry gather along the banks, with foreground framing kept outside the patrol routes.',
       objectIds: ['decor-background-rock', 'decor-background-wreck', 'decor-light-shafts', 'decor-foreground-coral', 'column-broken'],
+    },
+    {
+      title: 'Dense, reusable reef gardens',
+      description: 'Two elongated reef gardens and two broad coral gardens layer rocks, coral, kelp and seafloor accents at fractional offsets along the banks. Their footprints stay outside the craft and creature patrols.',
+      objectIds: ['underwater-reef-garden-a', 'underwater-reef-garden-b', 'underwater-coral-garden-a', 'underwater-coral-garden-b'],
     },
   ],
   note: 'A 48-second scene study using the catalog’s native tile scale, four captured facings and animation cadence. Patrol paths stage the art composition; the object pages retain the complete per-asset review.',

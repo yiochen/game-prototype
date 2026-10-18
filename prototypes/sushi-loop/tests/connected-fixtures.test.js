@@ -12,7 +12,7 @@ const python = String.raw`
 import argparse,ast,contextlib,copy,hashlib,io,json,math,os,shutil,sys,tempfile
 from pathlib import Path
 path,target=Path(sys.argv[1]),Path(sys.argv[2])
-tree=ast.parse(path.read_text());constants={'DIRECTIONS','ANGLES','ALIASES','FX_IDS','PROP_IDS'}
+tree=ast.parse(path.read_text());constants={'DIRECTIONS','ANGLES','ALIASES','FX_IDS','PROP_IDS','CLUSTER_IDS'}
 body=[node for node in tree.body if isinstance(node,ast.FunctionDef) or isinstance(node,ast.Assign) and any(isinstance(t,ast.Name) and t.id in constants for t in node.targets)]
 pack_calls=[]
 def forbidden_pack(*args,**kwargs):
@@ -40,7 +40,9 @@ with tempfile.TemporaryDirectory(prefix='sushi-context-test-') as temp:
 fields=('id','kind','family','footprint','directionFootprints','directionRootCells','rootCell','ports','portProfiles','portDefinition','sockets','interactions')
 objects=[]
 for o in manifest['objects']:
-    native=json.loads((target/o['source']['assetRecord']).read_text())
+    record=o.get('source',{}).get('assetRecord')
+    if o.get('status')=='ready' and not record:raise AssertionError('Ready object lacks native source: '+o['id'])
+    native=json.loads((target/record).read_text()) if record else {}
     objects.append({**{k:o[k] for k in fields if k in o},'native':{k:native[k] for k in ('flow','ports') if k in native}})
 print(json.dumps({'objects':objects,'probe':{'portDefinition':probe['portDefinition'],'supportLayout':probe['supportLayout']},'idempotent':idempotent,'mode':mode}))
 `;
@@ -138,6 +140,6 @@ test('context-only publication is deterministic and does not require or repack c
   assert.equal(data.mode.sameInteractions, true);
   assert.equal(data.mode.packCalls, 0);
   assert.deepEqual(data.mode.files, ['library.json']);
-  assert.match(data.mode.log, /117 objects; no captures copied or repacked/);
+  assert.ok(data.mode.log.includes(`${data.objects.length} objects; no captures copied or repacked`));
   assert.equal(byId.get('submarine-yellow').interactions.filter(scene => scene.name.startsWith('Baseline and upgraded')).length, 1);
 });

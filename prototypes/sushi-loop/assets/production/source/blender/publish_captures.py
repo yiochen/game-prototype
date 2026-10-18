@@ -26,6 +26,8 @@ ALIASES={'crate':'crate-wood','barrel':'barrel-wood','plant':'plant-angular','po
 FX_IDS={'creature-eel','creature-fish','bubble-preference','bubble-happy','bubble-puzzled','bubble-panic','coin-pop','harpoon-projectile','harpoon-cable','route-current','boost-trail','following-strip','attack-reef-fragments','attack-swirl','attack-lateral-current','eel-warning-strip','eel-lightning-symbol','eel-discharge'}
 PROP_IDS={'stool-wood','stool-blue','chef-blackboard','plant-angular','barrel-wood','crate-wood','lantern-gold','sign-blank','entry-finished','garbage-sofa','garbage-car','garbage-shelving','column-broken','decor-foreground-rock','decor-foreground-coral','decor-starfish','decor-midground-coral','decor-kelp','decor-ruin-fragment','submarine-yellow','sub-hull-panels','sub-harpoon-mount','sub-collector-inlet','salvage-metal','portal-rim','portal-entry','decor-bubbles'}
 
+CLUSTER_IDS={'restaurant-border-garden-a','restaurant-border-garden-b','restaurant-corner-garden-a','restaurant-corner-garden-b','underwater-reef-garden-a','underwater-reef-garden-b','underwater-coral-garden-a','underwater-coral-garden-b'}
+
 
 def sha(path):
     digest=hashlib.sha256()
@@ -61,6 +63,7 @@ def model_script_for(asset):
     ident=asset['id']
     if asset.get('family') in ['W05','W07']:return 'character_builders.py'
     if ident in FX_IDS:return 'creature_fx_builders.py'
+    if ident in CLUSTER_IDS or ident=='entry-finished':return 'catalog_clusters.py'
     if ident.startswith(('floor-','dish-','belt-')):return 'food_belt_builders.py'
     if ident in PROP_IDS:return 'prop_builders.py'
     return 'world_components.py'
@@ -299,6 +302,17 @@ def interaction_context(asset,byid):
         value={'name':name,'gridSize':list(grid),'placements':placements}
         if note:value['note']=note
         return value
+    if aid in CLUSTER_IDS:
+        # Keep comparison actors wholly outside each authored multi-cell assembly.
+        # Decorative clusters deliberately expose no seam ports or blocking rules.
+        width,depth=asset['footprint']
+        actor=chef if family=='W02' else sub
+        actor_clip='idle' if family=='W02' else 'travel'
+        actor_direction='S' if family=='W02' else 'N'
+        return [scene('Dense organic assembly and neighboring '+('chef' if family=='W02' else 'submarine'),
+          [place(aid,0,1,clip='ambient'),place(actor,width+1,1,actor_direction,actor_clip)],
+          (width+4,max(depth+2,4)),
+          note='Native multi-cell assembly at its authored capture scale. The neighboring actor occupies separate cells beyond the full cluster footprint; this decorative arrangement has no seam ports or blocking rules.')]
     deck=byid.get(belt,{}).get('sockets',{});deck=deck.get('S',deck).get('deck',[0,-81.92])
     plate=lambda ident,x,y:place(ident,x,y,offset=deck)
     if family=='W05':

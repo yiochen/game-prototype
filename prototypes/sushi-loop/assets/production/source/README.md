@@ -1,8 +1,25 @@
 # Issue 33 native asset source and capture workflow
 
-The approved concept has become an editable native Blender library covering **117 catalog entries across 17 families**. The [project](blender/sushi-loop-world-library.blend) contains the actual meshes, materials, character/creature rigs, independent action cohorts and cosmetic assemblies. It opens as a normal Blender project. The initial camera view shows Samir’s corrected held-food pose facing west; enable another asset collection in the Outliner to inspect it.
+The approved concept has become an editable native Blender library covering **125 catalog entries across 17 families**. The [project](blender/sushi-loop-world-library.blend) contains the actual meshes, materials, character/creature rigs, independent action cohorts and cosmetic assemblies. It opens as a normal Blender project. Version 11 starts on `restaurant-corner-garden-a`, clip `ambient`, native frame 4, facing south; enable another asset collection in the Outliner to inspect it.
 
 **Finished scene-art approval is pending. Issue #33 remains open.** This delivery is labeled a native Blender review pass. It does not claim a completed imagegen surface-refinement pass. Captures are published in complete batches; [the runtime manifest](../library.json) is the authority for each page's published status, while [the native index](native-records/index.json) inventories editable model/action evidence. A model in that index does not, by itself, establish complete or approved sprite coverage.
+
+## Current native pass: version 11
+
+The isolated normal project contains **4,455 owned objects and 5,776 independent native actions**. Its frozen project SHA-256 is `732a5a4cc73c908f69ccc832e8dc1e66a63c81307157427d9b73e0efdc2acbcd`. This source revision adds eight dense, reusable scenery assemblies; it does not add eight new gameplay systems.
+
+| Native cluster pair | Footprint per assembly | Components per assembly |
+| --- | --- | --- |
+| `restaurant-border-garden-a/b` | 2 × 4 cells | 22 |
+| `restaurant-corner-garden-a/b` | 3 × 3 cells | 24 |
+| `underwater-reef-garden-a/b` | 2 × 4 cells | 24 |
+| `underwater-coral-garden-a/b` | 3 × 3 cells | 26 |
+
+Each assembly has independently editable native components at irregular fractional positions, with varied native scales and orientations. Foliage, coral and lantern motion use staggered phases in a **12-frame, 12 fps ambient loop**, plus an explicit **one-frame static** state. The source helper `blender/catalog_clusters.py` retains the layouts, component roles, meshes and composition recipes. Per-component grounding uses one fixed offset measured from the evaluated source mesh base, placing it on the 0.035-high island. No animation frame or facing is fitted to its silhouette.
+
+The same helper rebuilds `entry-finished` as a **four-tile-wide modeled entrance** with a **two-tile clear center**, wider native columns/lintel, additional roof bars and four side curtain panels. Its logical ground footprint is 4 × 1, the ground root stays centered, and the original clip IDs remain. The modeled roof retains an explicit **0.12-cell depth-overhang allowance** beyond the ground footprint; this does not enlarge the ground support mask or stretch the sprite. Declared height is 2.30 to cover the native roof ridge.
+
+Native geometry checks passed for all eight clusters and the wider entrance over **388 facing/frame samples**. All nine new capture sets are complete and published. The full **125-entry preflight passes 11,872 frames**, with no failed or pending IDs; source audit passes all 125 objects with zero errors. Focused browser review covers all eight new object pages, both scenes and the corrected entrance clearance; the five scene regressions pass. [Dense-cluster evidence](../../../review/33/decoration-clusters/README.md) retains the final results and the earlier grounding/occlusion findings. Captures retain **4× source resolution**, with whole authored frames uniformly sampled to **2× runtime atlases**.
 
 ## What is retained
 
@@ -61,12 +78,12 @@ Stop any MCP capture targeting the same output folder before starting background
   --background "$ART_WORK/export/source/sushi-loop-world-library.blend" \
   --python "$ART_WORK/capture_worker.py" -- \
   --export-root "$ART_WORK/export" \
-  --ids chef-lena --clips hold --directions S --frames 5 \
-  --worker lena-proof --mcp-idle-confirmed \
+  --ids restaurant-corner-garden-a --clips ambient --directions S --frames 3 \
+  --worker garden-proof --mcp-idle-confirmed \
   --output "$ART_WORK/raw-proof"
 ```
 
-`--frames` is zero-based, so this selects native timeline frame 6. Omit `--clips`, `--directions` and `--frames` to capture every authored state in N/E/S/W. Workers load the saved native actions through `native_actions.apply_clip`; they do not rerig, infer a camera from alpha, or transform the rendered bitmap. They use the same EEVEE lighting, color settings and 4× camera calibration as the MCP capture runtime. Whole asset IDs are exclusively reserved, and completed files are reused only when their receipts match the native project, metadata, helper version, dimensions and PNG checksum. Partition whole IDs between concurrent workers.
+`--frames` is zero-based, so this selects native timeline frame 4. Omit `--clips`, `--directions` and `--frames` to capture every authored state in N/E/S/W. Workers load the saved native actions through `native_actions.apply_clip`; they do not rerig, infer a camera from alpha, or transform the rendered bitmap. They use the same EEVEE lighting, color settings and 4× camera calibration as the MCP capture runtime. Whole asset IDs are exclusively reserved, and completed files are reused only when their receipts match the native project, metadata, helper version, dimensions and PNG checksum. Partition whole IDs between concurrent workers.
 
 For a mesh or rig change, edit the native model through Blender MCP and retain the changed modeling source. Rebuild that entry with `production_library.build`, bake its independent clips with `native_actions.bake_asset`, and save the isolated production library. `finalize_project.py` converts that isolated library into a normal main project in a separate background process, using a new output filename. Freeze worker inputs before replacing the canonical project. Never run a live-session `save_as_mainfile` over the user's unrelated Blender project.
 
@@ -77,5 +94,7 @@ A clip can involve several native action owners: an armature, plate root, knife 
 Publication requires a complete state/facing set. The one-frame diagnostic above is intentionally insufficient. Once complete captures and their matching source metadata are staged, use `publish_captures.py --repo <repo> --native <iteration-export> --ids <stable-id>`. `--raw-root <folder>` selects a separate completed capture batch, such as the 24-frame belt batch, without overwriting earlier raw attempts. The publisher retains previous packs and sources, checks exact frame counts, and uniformly samples full authored frames. Use a Python environment with Pillow and the registered-sheet helpers from the installed character/tile skills.
 
 Review `/prototypes/sushi-loop/#object-library`; each stable `#object-<id>` page contains four facings, a repeated/joined 3×3 grid, related-object scale fixtures and all published directional states. Pause, scrub and overlays expose registration and timing. The concept sheet remains at `#art-catalog`. Comments are review feedback, not final approval or game saves.
+
+The complete composition pages are `#scene-restaurant` and `#scene-underwater`. The restaurant now uses a 12 × 12 layout with two 2 × 4 border gardens, two 3 × 3 corner gardens and the four-tile entrance at `(4,11)`. The underwater page uses a 14 × 12 layout with two reef gardens and two coral gardens along the banks/corners. These placements replace loose scattered dressing while retaining the registered belt/terrain joins, seated supports and staged travel lanes. Playback, scrubbing and fit/detail zoom inspect the same catalog sprites; no separate flattened background or per-object bitmap transform is introduced.
 
 Structural audits, native-versus-capture parity and browser checks support review, but do not establish natural deformation, convincing joins, correct layering or final art approval. The user must approve the actual finished scene assets before #33 can close. The review site introduces no restaurant/expedition simulation; Godot Android remains the game implementation target.
