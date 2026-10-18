@@ -6,6 +6,16 @@ import { underwaterShowcase } from './underwater-showcase-data.js';
 import './world-showcase.css';
 
 const showcases = { restaurant: restaurantShowcase, underwater: underwaterShowcase };
+const conceptReferences = {
+  restaurant: {
+    src: new URL('../design/art-directions/restaurant-concept.png', import.meta.url).href,
+    alt: 'Original restaurant concept art showing the cream tile floor, warm wood furniture, red conveyor loop, chefs and diners.',
+  },
+  underwater: {
+    src: new URL('../design/art-directions/underwater-concept.png', import.meta.url).href,
+    alt: 'Original underwater concept art showing a yellow submarine in turquoise water with cobalt cliffs, coral, kelp and ruins.',
+  },
+};
 const objectById = new Map(libraryObjects.map(object => [object.id, object]));
 const clock = frame => `${Math.floor(frame / 12 / 60).toString().padStart(2, '0')}:${Math.floor(frame / 12 % 60).toString().padStart(2, '0')}`;
 
@@ -18,6 +28,7 @@ function ObjectLinks({ ids, className = '' }) {
 
 export function WorldShowcase({ sceneId = 'restaurant' }) {
   const showcase = showcases[sceneId] || restaurantShowcase;
+  const concept = conceptReferences[showcase.id];
   const [zoom, setZoom] = useState(1);
   const [overlays, setOverlays] = useState(false);
   const [grid, setGrid] = useState(false);
@@ -47,6 +58,13 @@ export function WorldShowcase({ sceneId = 'restaurant' }) {
       <SpriteScene sceneId={showcase.id || sceneId} placements={showcase.placements} gridSize={showcase.gridSize} floorId={showcase.floorId} background={showcase.background} animateFloor={showcase.id === 'underwater'} showGrid={grid} overlays={overlays} zoom={zoom} seconds={frame / 12} label={`${showcase.title}: complete composed scene`}/>
       <figcaption><span>{zoom === 1 ? 'Complete scene' : `${zoom}× detail · pan horizontally`}</span><span>Fit · 2× · 4×</span></figcaption>
     </figure>
+    <section className="world-concept-reference" aria-labelledby={`world-concept-${sceneId}`}>
+      <div className="world-section-heading"><div><span className="world-section-eyebrow">ART DIRECTION</span><h3 id={`world-concept-${sceneId}`}>Original concept art</h3></div><a href={concept.src} target="_blank" rel="noopener noreferrer">Open full-size <span aria-hidden="true">↗</span></a></div>
+      <figure>
+        <img src={concept.src} width="1024" height="1536" alt={concept.alt} loading="lazy" decoding="async"/>
+        <figcaption>The original concept, preserved as a reference for composition, color and atmosphere.</figcaption>
+      </figure>
+    </section>
     <section className="world-highlights" aria-labelledby={`world-highlights-${sceneId}`}>
       <div className="world-section-heading"><div><span className="world-section-eyebrow">LOOK CLOSER</span><h3 id={`world-highlights-${sceneId}`}>The details in context</h3></div><span className="world-review-status">For review</span></div>
       <div className="world-highlight-grid">{showcase.highlights.map((highlight, index) => <article className="world-highlight" key={highlight.title}><span className="world-highlight-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><div><h4>{highlight.title}</h4><p>{highlight.description}</p><ObjectLinks ids={highlight.objectIds}/></div></article>)}</div>

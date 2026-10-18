@@ -99,3 +99,5 @@ The [editable Blender source and capture workflow](../assets/production/source/R
 
 
 Full native scene previews are available at `#scene-restaurant` and `#scene-underwater`, with links from the Object library and the Scene art review navigation group. They share the registered sprite renderer and show complete restaurant/underwater compositions, playback, zoom, optional calibration overlays and per-object inspection links. They preserve one body scrollbar and respect reduced motion. The scenes are staged artwork review, not game simulation.
+
+Both full scene pages retain the unchanged original scene concept beneath the assembled sprite preview, with a full-size image link for art-direction comparison.
