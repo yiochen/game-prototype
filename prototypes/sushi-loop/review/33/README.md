@@ -22,11 +22,19 @@ Native fish clips are **in-place gesture studies**. Clip names do not demonstrat
 
 The [production source guide](../../assets/production/source/README.md) describes the reproducible Blender workflow. The [editable native project](../../assets/production/source/blender/sushi-loop-world-library.blend), [native action index](../../assets/production/source/native-records/index.json) and [runtime publication manifest](../../assets/production/library.json) record the source and published captures. Consult the runtime manifest for the actual publication status while the final pass is being promoted.
 
-### Dense gardens and four-tile entrance: current revision
+### Seven-column portrait composition
+
+Both full scenes now use fixed seven-column cameras rather than fitting the transparent margins of every sprite canvas. The restaurant is 7×13 with a tall 16-piece closed conveyor, a back entrance, chefs on the working side and diners around the counter. The underwater scene is 7×14 with connected cliff banks and a clear central hero lane. Selected multi-cell garden variants continue beyond the viewport as edge framing; all native sprites retain their authored scale, root, frame and animation.
+
+[Seven-column scene evidence](seven-column-scenes/README.md) records six responsive scene cases, measured phone tile pitch, twelve-time actor views and the five passing browser regressions. The production build and all 164 engine/helper tests pass.
+
+The earlier automatic framing displayed about 14.8 restaurant columns and 16.9 underwater columns including transparent capture margins. The new camera gives each world tile roughly twice the phone-screen width. This is a composition/readability pass; expressive character proportions, stronger environment silhouettes and richer material treatment still need native art refinement. Broad ambient lighting and ground-contact shadows are reserved for the later Godot renderer, following the user's direction; current sprites contain rendered form shading, not runtime lighting maps.
+
+### Dense gardens and four-tile entrance: source revision
 
 `restaurant-border-garden-a/b` and `underwater-reef-garden-a/b` each occupy 2 × 4 cells. `restaurant-corner-garden-a/b` and `underwater-coral-garden-a/b` each occupy 3 × 3. Their 22–26 native components combine closely packed foliage, stones, coral and restrained accents at fractional positions; A/B variants change the actual arrangement. Staggered ambient motion and a static view remain separately inspectable. Fixed source-mesh ground offsets put the components on their islands without fitting individual frames.
 
-The restaurant composition is now 12 × 12, with four garden assemblies around the room and the four-tile entrance at `(4,11)`. The underwater composition is 14 × 12, with four native reef/coral assemblies along the banks and corners. Existing directed belt joins, matched terrain profiles, seated registrations and staged travel lanes remain the composition's reference points. The modeled entrance preserves its centered ground root and clip IDs, leaves two center tiles clear, and explicitly allows the roof to project 0.12 cell beyond its 4 × 1 ground footprint in depth.
+At the dense-cluster delivery checkpoint, the restaurant composition was 12 × 12, with four garden assemblies around the room and the four-tile entrance at `(4,11)`. The underwater composition was 14 × 12, with four native reef/coral assemblies along the banks and corners. Existing directed belt joins, matched terrain profiles, seated registrations and staged travel lanes remain the composition's reference points. The modeled entrance preserves its centered ground root and clip IDs, leaves two center tiles clear, and explicitly allows the roof to project 0.12 cell beyond its 4 × 1 ground footprint in depth.
 
 The editable `catalog_clusters.py` recipe is retained with the native source. Source captures remain 4×; runtime sprites uniformly sample the complete authored frame at 2×. All poses and facings keep their declared capture frame. Native geometry validation passed all eight clusters and the entrance over **388 samples**. All 420 new frames are complete, and the focused object/scene checks pass. [Dense-cluster evidence](decoration-clusters/README.md) records final renders, all directions, capture checks and the entrance-clearance correction.
 

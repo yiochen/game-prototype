@@ -5,7 +5,7 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { restaurantShowcase } from '../wireframe/restaurant-showcase-data.js';
 import { underwaterShowcase } from '../wireframe/underwater-showcase-data.js';
-import { groundRoot, placementAtTime, footprintFor } from '../wireframe/sprite-layout.js';
+import { groundRoot, placementAtTime, footprintFor, sceneBounds } from '../wireframe/sprite-layout.js';
 
 const production = new URL('../assets/production/', import.meta.url);
 const library = JSON.parse(readFileSync(new URL('library.json', production)));
@@ -82,12 +82,12 @@ function topology(placements) {
   return { all, mates, open: all.filter(port => !mates.get(port.key).length), joins: [...mates.values()].filter(matches => matches.length).length / 2 };
 }
 
-test('the restaurant conveyor is one directed18-module closed loop at native deck ports', () => {
+test('the portrait restaurant conveyor is one directed16-module closed loop at native deck ports', () => {
   const belts = restaurantShowcase.placements.filter(p => objects.get(p.object).kind === 'belt');
-  assert.equal(belts.length, 18);
+  assert.equal(belts.length, 16);
   const graph = topology(belts);
   assert.equal(graph.open.length, 0);
-  assert.equal(graph.joins, 18);
+  assert.equal(graph.joins, belts.length);
   const visited = new Set();
   let current = belts[0];
   do {
@@ -98,46 +98,82 @@ test('the restaurant conveyor is one directed18-module closed loop at native dec
     assert.equal(next[0].role, 'incoming');
     current = next[0].placement;
   } while (current.id !== belts[0].id);
-  assert.equal(visited.size, 18);
+  assert.equal(visited.size, belts.length);
 });
 
-test('restaurant walls form a continuous cutaway with two genuinely finished ends', () => {
+test('seven-column cameras preserve native hero scale, the back entrance and continuous room edges', () => {
+  for (const scene of [restaurantShowcase, underwaterShowcase]) {
+    const [x, y, width, height] = scene.cameraBounds;
+    assert.deepEqual([x, y, width], [0, 0, 7]);
+    assert.deepEqual(scene.gridSize, [width, height]);
+    assert.ok(height > width, `${scene.id}: the composition must remain portrait`);
+    const padded = sceneBounds(scene.placements, library.objects, 128, scene.gridSize);
+    assert.ok(padded[2] > width * 128, `${scene.id}: outer art must be cropped by the authored camera, not shrink the playfield through automatic canvas fitting`);
+  }
+  const [left, top, width, height] = restaurantShowcase.cameraBounds.map(value => value * 128);
+  const inside = ([x, y]) => x >= left && x <= left + width && y >= top - .001 && y <= top + height;
+  const chefs = restaurantShowcase.placements.filter(p => objects.get(p.object).family === 'W05');
+  assert.ok(chefs.length >= 2, 'The working edge needs its two visible chefs');
+  for (const chef of chefs) {
+    const object = objects.get(chef.object), root = groundRoot(chef, object);
+    const rise = project([0, 0, native(object).height], chef.direction, object);
+    assert.ok(inside(root) && inside(root.map((value, axis) => value + rise[axis])), `${chef.id}: native feet and head remain inside the fixed camera`);
+    assert.ok(Math.abs(rise[1]) / width >= .18, `${chef.id}: the native character must remain a readable hero at this camera width`);
+  }
+  const entrance = restaurantShowcase.placements.find(p => p.id === 'restaurant-entrance');
+  const object = objects.get(entrance.object), record = native(object), root = groundRoot(entrance, object);
+  assert.deepEqual(footprintFor(object, entrance.direction), [4, 1]);
+  assert.ok(Math.abs(root[0] - (left + width / 2)) < .001, 'The four-tile entrance is centered on the portrait room');
+  assert.ok(root[0] - 2 * 128 >= left && root[0] + 2 * 128 <= left + width, 'The entrance retains all four tiles inside the camera');
+  assert.ok(inside(root.map((value, axis) => value + project([0, 0, record.height], entrance.direction, object)[axis])), 'The entrance roof remains inside the upper camera edge');
+  const beltRoots = restaurantShowcase.placements.filter(p => objects.get(p.object).kind === 'belt').map(p => groundRoot(p, objects.get(p.object)));
+  assert.ok(root[1] < Math.min(...beltRoots.map(point => point[1])), 'The entrance anchors the back of the room');
+  const opening = record.supportLayout.openCenterCells;
+  assert.equal(opening.length, 2);
+  assert.deepEqual(opening.map(([x]) => x).sort(), [1, 2], 'The two center cells stay open between the outer supports');
+  assert.ok(record.supportLayout.supportCells.every(([x, y]) => !opening.some(cell => cell[0] === x && cell[1] === y)));
+
   const walls = restaurantShowcase.placements.filter(p => p.object.startsWith('wall-'));
   const graph = topology(walls);
-  assert.equal(walls.length, 20);
-  assert.equal(graph.joins, 19);
-  assert.deepEqual(graph.open, []);
-  assert.equal(walls.filter(p => p.object === 'wall-end').length, 2);
-  const left = graph.mates.get('back-left-wall-corner:W')[0];
-  const right = graph.mates.get('back-right-wall-corner:S')[0];
-  assert.equal(left.placement.id, 'back-wall-0');
-  assert.equal(right.placement.id, 'side-wall-1-0');
+  assert.equal(walls.length, 32);
+  assert.equal(graph.joins, walls.length - 2, 'Two uninterrupted room-wall runs preserve every native seam');
+  assert.equal(graph.open.length, 4);
+  for (const port of graph.open) {
+    const ring = port.rings.flat();
+    assert.ok(ring.length && (ring.every(point => point[1] < top) || ring.every(point => point[1] > top + height)), `${port.key}: unfinished native wall cross-section must remain wholly outside the authored camera`);
+  }
 });
 
-test('underwater canyon, shelf, reef and wreck preserve actual profile geometry through their joins', () => {
+test('both underwater banks join actual native cliff profiles and continue wholly beyond the camera', () => {
   const terrain = underwaterShowcase.placements.filter(p => native(objects.get(p.object)).ports?.length);
   const graph = topology(terrain);
-  assert.equal(terrain.length, 33);
-  assert.equal(graph.joins, 28);
-  const knownJoins = [
-    ['west-wall-bottom-turn:N', 'west-wall-lower-seam'],
-    ['east-wall-upper-turn:N', 'east-wall-upper-seam'],
-    ['wreck-rib-turn:N', 'wreck-rising-rib'],
-    ['near-shelf-turn:N', 'near-shelf-upright'],
-    ['reef-north-turn:N', 'reef-upright'],
-  ];
-  for (const [port, neighbor] of knownJoins) assert.equal(graph.mates.get(port)[0]?.placement.id, neighbor, port);
-  // Exposed cutaway/embedded tips are intentional; no other native port may
-  // silently become an open seam when a module is moved or turned.
+  assert.equal(terrain.length, 34);
+  assert.equal(graph.joins, terrain.length - 2);
+  const [, top, , height] = underwaterShowcase.cameraBounds.map(value => value * 128);
+  for (const side of ['west', 'east']) {
+    const bank = terrain.filter(p => p.id.startsWith(`${side}-bank-`)).sort((a, b) => a.y - b.y);
+    assert.equal(bank.length, 17);
+    assert.equal(bank.filter(p => p.y >= 0 && p.y < underwaterShowcase.gridSize[1]).length, 14);
+    assert.deepEqual([...new Set(bank.map(p => p.object))].sort(), ['rock-wall-edge', 'rock-wall-middle']);
+    for (let i = 1; i < bank.length; i++) {
+      const previous = bank[i - 1];
+      assert.ok(graph.all.filter(port => port.placement.id === previous.id).some(port => graph.mates.get(port.key).some(mate => mate.placement.id === bank[i].id)), `${previous.id} must join its next visible/overscan neighbor through the real cross-section`);
+    }
+  }
+  // These are intentional offscreen continuations, not visible unfinished ends.
+  // Test the complete elevated profile: a ground point alone can be outside
+  // while the tall cliff cross-section still projects into the bottom of frame.
   const intentionalOpen = {
-    'west-wall-front-edge:W': 'Canyon continues beyond the west cutaway boundary.',
-    'east-wall-distant-edge:W': 'Rotated native W port reaches the east cutaway boundary.',
-    'wreck-buried-rib:W': 'Open rib disappears toward the rocky bank.',
-    'near-shelf-west-run:W': 'Shelf exposes its bank-side cutaway cross-section.',
-    'reef-west-lip:W': 'Reef lip ends inside the bank-side coral cluster.',
+    'west-bank-0:E': 'The west cliff continues beyond the top camera boundary.',
+    'west-bank-16:W': 'The west cliff continues below the bottom camera boundary.',
+    'east-bank-0:W': 'The east cliff continues beyond the top camera boundary.',
+    'east-bank-16:E': 'The east cliff continues below the bottom camera boundary.',
   };
   assert.deepEqual(graph.open.map(port => port.key).sort(), Object.keys(intentionalOpen).sort());
-  for (const explanation of Object.values(intentionalOpen)) assert.ok(explanation.length > 20);
+  for (const port of graph.open) {
+    const ring = port.rings.flat();
+    assert.ok(ring.length && (ring.every(point => point[1] < top) || ring.every(point => point[1] > top + height)), `${port.key}: ${intentionalOpen[port.key]}`);
+  }
 });
 
 test('matching labels and coincident points cannot hide a flipped asymmetric reef or wreck end', () => {

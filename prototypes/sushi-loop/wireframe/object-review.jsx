@@ -13,7 +13,7 @@ const blendSourceUrl = path => {
 const primaryClip = object => object.clips?.find(clip => clip.id === 'idle') || object.clips?.[0];
 const exported = object => object.clips?.some(clip => DIRECTIONS.some(direction => imageUrl(clip.directions?.[direction]?.image)));
 
-export function SpriteScene({ placements, gridSize = [3, 3], seconds = 0, overlays = false, zoom = 1, label, labels = false, floorId, showGrid = true, background = '#eef2ed', animateFloor = false, sceneId }) {
+export function SpriteScene({ placements, gridSize = [3, 3], seconds = 0, overlays = false, zoom = 1, label, labels = false, floorId, showGrid = true, background = '#eef2ed', animateFloor = false, sceneId, cameraBounds }) {
   const pattern = useId();
   const cell = spriteLibrary.cellSize || 128;
   const firstObject = libraryObjects.find(object => object.id === placements[0]?.object);
@@ -21,7 +21,8 @@ export function SpriteScene({ placements, gridSize = [3, 3], seconds = 0, overla
   const floor = objectsById.get(floorId || (underwater ? 'floor-underwater' : 'floor-plain')) || (!underwater && objectsById.get('floor-cream'));
   const floorFrame = spriteFrame(floor, floor && primaryClip(floor), 'S', animateFloor ? seconds : 0);
   const floorUrl = imageUrl(floorFrame?.image);
-  const bounds = sceneBounds(placements, libraryObjects, cell, gridSize);
+  // A composed world has an authored camera; object studies still include their full capture canvases.
+  const bounds = cameraBounds ? cameraBounds.map(value => value * cell) : sceneBounds(placements, libraryObjects, cell, gridSize);
   const timedPlacements = placements.map(placement => placementAtTime(placement, seconds, objectsById.get(placement.object)));
   return <div className="object-scene-scroll" style={{ background }} tabIndex={0} aria-label={`Pan ${label}`} data-scene-id={sceneId}>
     <svg className="object-tile-scene" style={{ width: `${zoom * 100}%`, background }} viewBox={bounds.join(' ')} role="img" aria-label={label}>

@@ -55,7 +55,7 @@ export function WorldShowcase({ sceneId = 'restaurant' }) {
       <div className="world-view-controls"><label>Zoom<select aria-label="Scene zoom" value={zoom} onChange={event => setZoom(Number(event.target.value))}><option value="1">Fit</option><option value="2">2×</option><option value="4">4×</option></select></label><div className="world-overlay-toggles"><label><input type="checkbox" checked={grid} onChange={event => setGrid(event.target.checked)}/> Tile grid</label><label><input type="checkbox" checked={overlays} onChange={event => setOverlays(event.target.checked)}/> Roots &amp; ports</label></div></div>
     </div>
     <figure className="world-showcase-figure">
-      <SpriteScene sceneId={showcase.id || sceneId} placements={showcase.placements} gridSize={showcase.gridSize} floorId={showcase.floorId} background={showcase.background} animateFloor={showcase.id === 'underwater'} showGrid={grid} overlays={overlays} zoom={zoom} seconds={frame / 12} label={`${showcase.title}: complete composed scene`}/>
+      <SpriteScene sceneId={showcase.id || sceneId} placements={showcase.placements} gridSize={showcase.gridSize} cameraBounds={showcase.cameraBounds} floorId={showcase.floorId} background={showcase.background} animateFloor={showcase.id === 'underwater'} showGrid={grid} overlays={overlays} zoom={zoom} seconds={frame / 12} label={`${showcase.title}: complete composed scene`}/>
       <figcaption><span>{zoom === 1 ? 'Complete scene' : `${zoom}× detail · pan horizontally`}</span><span>Fit · 2× · 4×</span></figcaption>
     </figure>
     <section className="world-concept-reference" aria-labelledby={`world-concept-${sceneId}`}>

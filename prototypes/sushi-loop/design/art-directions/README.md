@@ -54,3 +54,13 @@ Keep footprint, support/collision, art bounds, ground root and visual height sep
 - [Generation prompts](sources/generation-prompts.json): exact built-in imagegen prompts for the four final references, including relevant refinements and historical input roles.
 
 The stored restaurant guide uses 112-pixel cells on a 1024 × 1536 concept canvas. These are composition values, not a locked runtime resolution. Generated concepts can approximate geometry; use the authored profile and registered assets for exact joins and attachments in production. Historical input names remain inside verbatim prompts for provenance; superseded studies, non-low-poly references and intermediate image renders have been removed.
+
+## Lighting and shadow separation
+
+Reserve floor-contact shadows, broad ambient shading and scene lighting for the Godot renderer. Keep these effects separate from reusable color sprites so characters, furniture and scenery share one adjustable lighting setup. Start with inexpensive soft contact-shadow layers for the Android target; use selective 2D lights and authored occluders where needed.
+
+Subtle shading within an object can remain in its art to describe faces, bevels and crevices. A color sprite alone does not provide the geometry needed for accurate three-dimensional ambient occlusion. If stronger dynamic surface lighting is required, export registered normal/specular or occlusion data from Blender using the same camera, frame, facing and animation samples. Existing native previews contain rendered form shading; they are not claimed to be pure albedo or to include auxiliary lighting maps.
+
+The wireframe scene review should establish a coherent seven-column portrait composition and readable native silhouettes. Runtime shadow work does not replace the character proportion, acting, material and environment-shape refinements still needed to approach the concept art.
+
+Godot implementation reference: [2D lighting and shadows](https://docs.godotengine.org/en/stable/tutorials/2d/2d_lights_and_shadows.html), including authored occluders and optional normal/specular maps via CanvasTexture.

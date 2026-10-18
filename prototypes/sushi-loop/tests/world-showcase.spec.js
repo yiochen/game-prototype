@@ -26,6 +26,9 @@ for (const [width, height] of [[320, 740], [844, 390], [1440, 1000]]) {
       const slider = stage.getByRole('slider', { name: 'Scene animation frame' });
       await expect(slider).toHaveAttribute('max', String(scene.duration * 12 - 1));
       const beforeBounds = await svg.getAttribute('viewBox');
+      const expectedCamera = scene.cameraBounds.map(value => value * 128);
+      expect(beforeBounds).toBe(expectedCamera.join(' '));
+      expect(expectedCamera[2]).toBe(896);
       const sources = await svg.locator('[data-sprite-source]').evaluateAll(nodes => nodes.map(node => node.dataset.spriteSource));
       expect(sources.length).toBe(scene.placements.length);
       expect(sources.every(source => source.startsWith('sprites/') && !/concept|catalog-v0/.test(source))).toBe(true);
