@@ -29,6 +29,7 @@ for (const [width, height] of [[320, 740], [844, 390], [1440, 1000]]) {
       const source = stage.getByRole('link', { name: 'Editable Blender source ↗', exact: true });
       await expect(source).toHaveAttribute('href', `https://github.com/yiochen/game-prototype/blob/codex/sushi-loop-33-art-catalog/prototypes/sushi-loop/assets/production/${object.source.blend}`);
       await expect(source).toHaveAttribute('target', '_blank');
+      await expect(stage.getByRole('link', { name: 'Download .blend ↓', exact: true })).toHaveAttribute('href', `https://raw.githubusercontent.com/yiochen/game-prototype/codex/sushi-loop-33-art-catalog/prototypes/sushi-loop/assets/production/${object.source.blend}`);
     }
     for (const title of ['Four directions', 'Repeated 3 × 3', 'Interaction & scale', 'Every animation · all directions']) await expect(stage.locator('.object-review-section h3', { hasText: title })).toHaveCount(1);
     const scenes = stage.locator('.object-tile-scene');
@@ -109,4 +110,77 @@ test('a static prop page can play and scrub its animated interaction partner ind
   expect(await animated.count()).toBeGreaterThan(0);
   await stage.getByRole('button', { name: 'Play animations' }).click();
   await expect(stage.getByRole('button', { name: 'Pause animations' })).toBeVisible();
+});
+
+
+for (const id of ['chef-lena', 'customer-rosa']) {
+  test(`${id} exposes every real clip in four directions while keeping closed atlases unmounted`, async ({ page }) => {
+    const object = objects.find(candidate => candidate.id === id);
+    test.skip(!object?.clips?.length, `Awaiting actual ${id} Blender exports`);
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(`${url}#object-${id}`);
+    const stage = page.locator('#prototype-stage');
+    const exportedStates = object.clips.map(clip => clip.id);
+    if (object.status === 'ready') for (const required of object.requirements?.states || []) expect(exportedStates).toContain(required);
+    await expect(stage.locator('.object-animation')).toHaveCount(object.clips.length);
+    const before = await stage.locator('.object-tile-scene').first().locator('[data-sprite-source]').first().evaluate(element => ['x', 'y', 'width', 'height'].map(name => element.getAttribute(name)));
+    for (const clip of object.clips) {
+      const action = stage.locator(`[data-animation="${clip.id}"]`);
+      if (!await action.evaluate(element => element.open)) await action.locator('summary').click();
+      await expect(stage.locator('.object-animation[open]')).toHaveCount(1);
+      await expect(stage.locator('.object-animation:not([open]) svg')).toHaveCount(0);
+      for (const direction of ['N', 'E', 'S', 'W']) {
+        await expect(action.locator(`[data-object="${id}"][data-direction="${direction}"] [data-sprite-source]`)).toHaveCount(1);
+      }
+      const first = stage.locator('.object-tile-scene').first().locator(`[data-object="${id}"][data-direction="N"]`);
+      const frames = clip.frames || 1;
+      for (const frame of [...new Set([0, Math.floor((frames - 1) / 2), frames - 1])]) {
+        await stage.getByRole('slider', { name: 'Animation frame' }).fill(String(frame));
+        await expect(first).toHaveAttribute('data-frame', String(frame));
+      }
+      const after = await first.locator('[data-sprite-source]').evaluate(element => ['x', 'y', 'width', 'height'].map(name => element.getAttribute(name)));
+      expect(after, `${clip.id} frame/root registration`).toEqual(before);
+      const decoded = await action.locator('svg image').evaluateAll(async elements => Promise.all(elements.map(element => new Promise(resolve => { const image = new Image(); image.onload = () => resolve([image.naturalWidth, image.naturalHeight]); image.onerror = () => resolve([0, 0]); image.src = element.getAttribute('href'); }))));
+      for (const [width, height] of decoded) { expect(width).toBeGreaterThan(0); expect(height).toBeGreaterThan(0); }
+      const displayed = await stage.locator(`[data-object="${id}"] [data-sprite-source]`).evaluateAll(elements => [...new Set(elements.map(element => element.dataset.spriteSource))]);
+      const contextCount = (object.interactions || []).flatMap(scene => scene.placements).filter(placement => placement.object === id).length;
+      expect(displayed.length, `${clip.id} should not mount unrelated action atlases`).toBeLessThanOrEqual(4 + contextCount);
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(391);
+  });
+}
+
+
+test('native library thumbnails mount near the browser viewport and release offscreen atlas nodes', async ({ page }) => {
+  const published = objects.filter(object => object.status === 'ready' && object.source?.blend && object.clips?.some(clip => Object.values(clip.directions || {}).some(entry => entry.image)));
+  test.skip(published.length < 12, 'Awaiting enough published native objects to exercise offscreen cards');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto(`${url}#object-library`);
+  const stage = page.locator('#prototype-stage');
+  await stage.getByRole('combobox', { name: 'Show', exact: true }).selectOption('exported');
+  const first = stage.locator(`[data-thumbnail-object="${published[0].id}"]`);
+  const last = stage.locator(`[data-thumbnail-object="${published.at(-1).id}"]`);
+  await expect(first.locator('[data-thumbnail-source]')).toHaveCount(1);
+  await expect(last.locator('svg')).toHaveCount(0);
+  await expect(last).toHaveAttribute('data-thumbnail-state', 'deferred');
+  const initialSize = await first.evaluate(element => [element.getBoundingClientRect().width, element.getBoundingClientRect().height]);
+  expect(await stage.locator('[data-thumbnail-source]').count()).toBeLessThan(published.length / 2);
+  await last.scrollIntoViewIfNeeded();
+  await expect(last.locator('[data-thumbnail-source]')).toHaveCount(1);
+  await expect(first.locator('svg')).toHaveCount(0);
+  await expect(first).toHaveAttribute('data-thumbnail-state', 'deferred');
+  expect(await first.evaluate(element => [element.getBoundingClientRect().width, element.getBoundingClientRect().height])).toEqual(initialSize);
+  expect(await stage.locator('[data-thumbnail-source]').count()).toBeLessThan(published.length / 2);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await expect(first.locator('[data-thumbnail-source]')).toHaveCount(1);
+  await expect(last.locator('svg')).toHaveCount(0);
+  const queued = objects.find(object => !object.clips?.length);
+  if (queued) {
+    await stage.getByRole('combobox', { name: 'Show', exact: true }).selectOption('queued');
+    const preview = stage.locator(`[data-thumbnail-object="${queued.id}"]`);
+    await expect(preview).toHaveAttribute('data-thumbnail-state', 'queued');
+    await expect(preview.locator('svg')).toHaveCount(0);
+  }
 });

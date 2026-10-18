@@ -347,9 +347,15 @@ def _submarine(b,offset=(0,0,0),scale=1.,prefix='sub',equipment=False):
     def p(v):return(ox+v[0]*scale,oy+v[1]*scale,oz+v[2]*scale)
     b.ico(prefix+'_hull',p((0,0,.40)),(.36*scale,.50*scale,.33*scale),'yellow',2)
     b.ico(prefix+'_belly',p((0,-.03,.27)),(.33*scale,.45*scale,.18*scale),'gold',1)
-    b.cyl(prefix+'_port_rim',p((0,-.448,.44)),.218*scale,.075*scale,'yellow_light',12,(math.pi/2,0,0))
-    b.cyl(prefix+'_port_glass',p((0,-.493,.44)),.171*scale,.035*scale,'blue_light',12,(math.pi/2,0,0))
-    b.ico(prefix+'_glass_glint',p((-.045,-.518,.49)),(.045*scale,.014*scale,.06*scale),'cyan')
+    # Upper-front canopy normal(0,-.6,.8): visible in both dock and65deg
+    # overhead art cameras, rather than reading as a front-facing icon.
+    canopy_angle=math.atan2(.6,.8)
+    b.cyl(prefix+'_port_rim',p((0,-.25,.66)),.218*scale,.075*scale,'yellow_light',12,(canopy_angle,0,0))
+    b.cyl(prefix+'_port_glass',p((0,-.280,.700)),.171*scale,.035*scale,'blue_light',12,(canopy_angle,0,0))
+    glint=b.ico(prefix+'_glass_glint',p((-.047,-.303,.735)),(.047*scale,.057*scale,.012*scale),'cyan')
+    glint.rotation_euler.x=canopy_angle
+    b.cyl(prefix+'_nose_headlight_rim',p((0,-.481,.38)),.080*scale,.048*scale,'gold',8,(math.pi/2,0,0))
+    b.cyl(prefix+'_nose_headlight_lens',p((0,-.510,.38)),.057*scale,.020*scale,'yellow_light',8,(math.pi/2,0,0))
     for s in (-1,1):
         b.cyl(prefix+'_side_thruster_'+str(s),p((s*.39,.04,.37)),.14*scale,.40*scale,'red',8,(math.pi/2,0,0))
         b.cyl(prefix+'_thruster_lip_'+str(s),p((s*.39,-.17,.37)),.15*scale,.05*scale,'gold',8,(math.pi/2,0,0))
@@ -378,7 +384,9 @@ def build_submarine(b,upgraded=False):
         for n,o in b.parts.items():o.location.z+=.018*math.sin(math.tau*t)
         prop.rotation_euler.y+=math.tau*t
     def travel(t):
-        for n,o in b.parts.items():o.location.z+=.01*math.sin(math.tau*t*2)
+        for n,o in b.parts.items():
+            o.location.z+=.01*math.sin(math.tau*t*2)
+            o.location.x+=.012*math.sin(math.tau*t+.37)
         prop.rotation_euler.y+=math.tau*t*2
     def impact(t):
         for o in b.parts.values():o.location.x+=.045*math.sin(t*math.tau*3)*(1-t)

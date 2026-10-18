@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { spriteFrame, sceneBounds, orderPlacements, repeatedPlacements, placementAtTime, reviewFrameCount, groundRoot, attachmentMarkers } from '../wireframe/sprite-layout.js';
+import { spriteFrame, sceneBounds, orderPlacements, repeatedPlacements, placementAtTime, reviewFrameCount, groundRoot, attachmentMarkers, footprintFor, directionPlacements } from '../wireframe/sprite-layout.js';
 
 const character = { id: 'chef', kind: 'character', frameSize: [192, 320], root: [96, 248], sourceScale: 4, clips: [{ id: 'work', fps: 12, frames: 12, directions: { N: { image: 'chef/work-N.png', columns: 6, rows: 2 }, S: { image: 'chef/work-S.png', columns: 6, rows: 2 } } }] };
 const clip = character.clips[0];
@@ -51,11 +51,16 @@ test('scene bounds retain upward artwork and attachment offsets instead of clipp
   assert.equal(lifted[3], normal[3] + 50);
 });
 
-test('all decks precede food and people; foreground keeps ground-depth ordering', () => {
-  const objects = [character, { id: 'belt', kind: 'belt' }, { id: 'dish', kind: 'prop' }, { id: 'floor', kind: 'floor' }];
-  const placed = [{ object: 'dish', x: 1, y: 0 }, { object: 'belt', x: 1, y: 3 }, { object: 'chef', x: 1, y: 1 }, { object: 'floor', x: 0, y: 2 }];
-  assert.deepEqual(orderPlacements(placed, objects).map(value => value.object), ['floor', 'belt', 'dish', 'chef']);
-  assert.deepEqual(placed.map(value => value.object), ['dish', 'belt', 'chef', 'floor']);
+test('ground depth puts a chef behind the front belt, its attached dish above the deck, and a near customer in front', () => {
+  const objects = [character, { id: 'belt', kind: 'belt', layer: 1 }, { id: 'dish', kind: 'prop', layer: 3 }, { id: 'floor', kind: 'floor' }, { id: 'customer', kind: 'character', layer: 2 }];
+  const placed = [{ object: 'customer', x: 1, y: 2 }, { object: 'dish', x: 1, y: 1, offset: [0, -82] }, { object: 'belt', x: 1, y: 1 }, { object: 'chef', x: 1, y: 0 }, { object: 'floor', x: 0, y: 3 }];
+  assert.deepEqual(orderPlacements(placed, objects).map(value => value.object), ['floor', 'chef', 'belt', 'dish', 'customer']);
+  assert.deepEqual(placed.map(value => value.object), ['customer', 'dish', 'belt', 'chef', 'floor']);
+});
+
+test('explicit background scenery stays first and foreground or overhead pieces stay last', () => {
+  const objects = [{ id: 'far-scenery', renderPass: 'background' }, { id: 'customer', kind: 'character' }, { id: 'arch-front', renderPass: 'overhead' }];
+  assert.deepEqual(orderPlacements([{ object: 'arch-front', x: 0, y: 0 }, { object: 'customer', x: 0, y: 5 }, { object: 'far-scenery', x: 0, y: 9 }], objects).map(value => value.object), ['far-scenery', 'customer', 'arch-front']);
 });
 
 test('a separate plate follows a belt presentation path at constant distance speed, and scrubs exactly', () => {
@@ -95,4 +100,23 @@ test('a static object still plays the running belt or character in its interacti
   assert.equal(reviewFrameCount(stool, [stool, belt]), 12);
   assert.equal(reviewFrameCount({ ...stool, interactions: [{ placements: [{ object: 'belt', clip: 'paused' }] }] }, [stool, belt]), 1);
   assert.equal(reviewFrameCount({ ...stool, interactions: [{ placements: [{ object: 'missing' }] }] }, [stool, belt]), 1);
+});
+
+
+test('rectangular footprints rotate registration, repeated spacing and facing-panel clearance together', () => {
+  const entry = { id: 'entry', footprint: [3, 1], directionFootprints: { N: [3, 1], E: [1, 3], S: [3, 1], W: [1, 3] } };
+  assert.deepEqual(footprintFor(entry, 'E'), [1, 3]);
+  assert.deepEqual(groundRoot({ x: 0, y: 0, direction: 'E' }, entry), [64, 192]);
+  assert.deepEqual(groundRoot({ x: 0, y: 0, direction: 'S' }, entry), [192, 64]);
+  const repeated = repeatedPlacements(entry, 'W', 'static');
+  assert.deepEqual([repeated[4].x, repeated[4].y], [1, 3]);
+  assert.deepEqual(directionPlacements(entry, 'static').map(placement => placement.x), [0, 4, 8, 12]);
+  assert.deepEqual(groundRoot({ x: 0, y: 0, direction: 'E' }, { ...entry, directionRootCells: { E: [.5, 2] } }), [64, 256]);
+});
+
+
+test('foreground depth follows the full ground footprint while support height preserves seat layering', () => {
+  const objects = [{ id: 'large-prop', kind: 'prop', footprint: [3, 3] }, { id: 'customer', kind: 'character', footprint: [1, 1] }, { id: 'stool', kind: 'prop', footprint: [1, 1] }];
+  assert.deepEqual(orderPlacements([{ object: 'large-prop', x: 0, y: 0 }, { object: 'customer', x: 1, y: 0 }], objects).map(value => value.object), ['customer', 'large-prop']);
+  assert.deepEqual(orderPlacements([{ object: 'stool', x: 1, y: 1 }, { object: 'customer', x: 1, y: 1, offset: [0, -84] }], objects).map(value => value.object), ['stool', 'customer']);
 });

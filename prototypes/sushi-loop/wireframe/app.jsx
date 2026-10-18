@@ -10,6 +10,7 @@ import { Overlay } from './overlays.jsx';
 import { Icon } from './common.jsx';
 import { Feedback } from './feedback.jsx';
 import { chefFor, roster } from './fixtures.js';
+import './single-scroll.css';
 
 const byId = new Map(stories.map(story => [story.id, story]));
 const route = () => byId.has(location.hash.slice(1)) ? location.hash.slice(1) : 'floor-plan';
@@ -65,6 +66,9 @@ function App() {
   const [width, setWidth] = useState(innerWidth);
   const stage = useRef(null), sidebar = useRef(null), documentation = useRef(null);
   const focusOnReturn = useRef(null);
+  const previousStoryId = useRef(view.id);
+  const scrollPositions = useRef(new Map());
+  const scrollDestination = useRef(null);
   const snapshots = useRef(new Map());
   const story = byId.get(view.id);
   const mobileMenu = width < 900;
@@ -77,6 +81,7 @@ function App() {
     const destination = byId.get(id);
     if (!destination) return;
     snapshots.current.set(previous.id, structuredClone(previous));
+    scrollPositions.current.set(previous.id, window.scrollY);
     let returnRestaurant = previous.returnRestaurant, returnPanel = previous.returnPanel;
     let fixture = structuredClone(options.fixture || previous.fixture);
     if (['shop', 'workshop', 'staff'].includes(destination.scene) && ['restaurant', 'floor-plan'].includes(previousStory.scene)) {
@@ -103,6 +108,7 @@ function App() {
     if (['expansion', 'expansion-unaffordable'].includes(id)) { fixture.panel = 1; fixture.panFraction = 1; }
     if (options.panel !== undefined) { fixture.panel = options.panel; fixture.panFraction = options.panel; }
     const next = { id, fixture, returnRestaurant, returnPanel };
+    scrollDestination.current = { id };
     viewRef.current = next; setView(next); setMenu(false);
     if (location.hash !== `#${id}`) history.pushState(null, '', `#${id}`);
   }
@@ -119,6 +125,10 @@ function App() {
   }
 
   function act(event) {
+    const link = event.target.closest('a[href^="#"]');
+    if (link && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && byId.has(link.hash.slice(1))) {
+      event.preventDefault(); go(link.hash.slice(1), { reset: true }); return;
+    }
     const button = event.target.closest('button[data-action]');
     if (!button || button.disabled) return;
     const { action, value, story: destination } = button.dataset;
@@ -162,16 +172,20 @@ function App() {
 
   useEffect(() => {
     if (!byId.has(location.hash.slice(1))) history.replaceState(null, '', '#floor-plan');
+    const previousRestoration = history.scrollRestoration;
+    history.scrollRestoration = 'manual';
     const restore = () => {
       const id = route(), previous = viewRef.current;
       if (id === previous.id) return;
       snapshots.current.set(previous.id, structuredClone(previous));
+      scrollPositions.current.set(previous.id, window.scrollY);
+      scrollDestination.current = { id, top: scrollPositions.current.get(id) };
       const next = structuredClone(snapshots.current.get(id) || { id, fixture: fixtureFor(byId.get(id)), returnRestaurant: 'restaurant-live', returnPanel: 0 });
       viewRef.current = next; setView(next); setMenu(false);
     };
     const resize = () => setWidth(innerWidth);
     addEventListener('hashchange', restore); addEventListener('popstate', restore); addEventListener('resize', resize);
-    return () => { removeEventListener('hashchange', restore); removeEventListener('popstate', restore); removeEventListener('resize', resize); };
+    return () => { history.scrollRestoration = previousRestoration; removeEventListener('hashchange', restore); removeEventListener('popstate', restore); removeEventListener('resize', resize); };
   }, []);
 
   useEffect(() => {
@@ -214,6 +228,13 @@ function App() {
       stage.current.querySelector(`.scene-host button[data-story="${focusOnReturn.current}"]:not(:disabled)`)?.focus({ preventScroll: true });
       focusOnReturn.current = null;
     }
+    if (previousStoryId.current !== story.id) {
+      const destination = scrollDestination.current;
+      if (destination?.id === story.id && Number.isFinite(destination.top)) window.scrollTo(0, destination.top);
+      else document.querySelector('#story-title')?.scrollIntoView({ block: 'start' });
+      scrollDestination.current = null;
+      previousStoryId.current = story.id;
+    }
     document.title = `${story.title} · Sushi Loop wireframes`;
   }, [story.id, width, view.fixture.reviewEpoch]);
 
@@ -221,7 +242,7 @@ function App() {
     if (menu) document.querySelector('#story-search')?.focus();
     const keyboard = event => {
       if (event.key === 'Escape') { if (menu) { setMenu(false); document.querySelector('#open-menu')?.focus(); } else dismiss(); }
-      const dialog = menu ? sidebar.current : stage.current.querySelector('dialog');
+      const dialog = menu ? null : stage.current.querySelector('dialog');
       if (event.key !== 'Tab' || !dialog) return;
       const elements = [...dialog.querySelectorAll('button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), [tabindex="0"]')].filter(element => element.getClientRects().length);
       const first = elements[0], last = elements.at(-1);
@@ -239,23 +260,23 @@ function App() {
   }
 
   const term = search.toLowerCase().trim();
-  const visibleGroups = storyGroups.map(group => ({ ...group, stories: stories.filter(example => example.group === group.id && `${example.title} ${group.title}`.toLowerCase().includes(term)) })).filter(group => group.stories.length);
+  const visibleGroups = storyGroups.map(group => ({ ...group, stories: stories.filter(example => example.group === group.id && `${example.title} ${group.title}`.toLowerCase().includes(term) && (term || group.id !== 'asset-review' || example.id === 'object-library' || example.id === story.id)) })).filter(group => group.stories.length);
+  const documentScene = !!story.overlay || ['object-review', 'concept', 'component', 'shop', 'workshop'].includes(story.scene);
   const next = nextEvents[story.id];
   const staffPopup = ['chef-detail', 'applicants', 'fire'].includes(story.overlay) || (story.overlay === 'recipes' && byId.get(view.fixture.popupReturnStory)?.overlay === 'chef-detail');
   const backdropStory = staffPopup ? byId.get(view.fixture.staffReturnStory) || story : story;
   return <>
     <header className="studio-header"><a className="studio-brand" href="#floor-plan" aria-label="Sushi Loop wireframe studio" onClick={event => { event.preventDefault(); go('floor-plan', { reset: true }); }}><span className="brand-mark" aria-hidden="true"><Icon name="submarine"/></span><span>Sushi Loop<small>Wireframe studio</small></span></a><span className="draft-label">Review draft <span>· Mock data</span></span><a className="catalog-link" href="../../">Playground <Icon name="arrow-right"/></a></header>
     <div className="studio-layout">
-      <button className="menu-scrim" aria-label="Close example menu" hidden={!menu} onClick={() => setMenu(false)}/>
-      <aside ref={sidebar} id="story-sidebar" className="story-sidebar" aria-label="Wireframe examples" role={menu ? 'dialog' : undefined} aria-modal={menu ? true : undefined} inert={mobileMenu && !menu}>
-        <div className="sidebar-heading"><span>EXAMPLES</span><button className="studio-button mobile-only" aria-label="Close example menu" onClick={() => setMenu(false)}><Icon name="close"/></button></div>
+      <aside ref={sidebar} id="story-sidebar" className="story-sidebar" aria-label="Wireframe examples" inert={mobileMenu && !menu}>
+        <div className="sidebar-heading"><span>EXAMPLES</span><button className="studio-button mobile-only" aria-label="Close example menu" onClick={() => { setMenu(false); document.querySelector('#open-menu')?.focus(); }}><Icon name="close"/></button></div>
         <label className="search-label" htmlFor="story-search">Find a scene or component</label><input id="story-search" type="search" value={search} onChange={event => setSearch(event.target.value)} placeholder="Search examples…" autoComplete="off"/>
-        <nav id="story-nav">{visibleGroups.map(group => <details className="story-group" open key={group.id}><summary>{group.title}<span>{group.stories.length}</span></summary>{group.stories.map(example => <a href={`#${example.id}`} key={example.id} className="story-link" data-story={example.id} aria-current={story.id === example.id ? 'page' : undefined} onClick={event => { event.preventDefault(); go(example.id, { reset: true }); }}><span className="story-dot" aria-hidden="true"/>{example.title}</a>)}</details>)}</nav>
+        <nav id="story-nav">{visibleGroups.map(group => <details className="story-group" open={!!term || group.id === story.group} key={group.id}><summary>{group.title}<span>{group.stories.length}</span></summary>{group.stories.map(example => <a href={`#${example.id}`} key={example.id} className="story-link" data-story={example.id} aria-current={story.id === example.id ? 'page' : undefined} onClick={event => { event.preventDefault(); go(example.id, { reset: true }); }}><span className="story-dot" aria-hidden="true"/>{example.title}</a>)}</details>)}</nav>
         {!visibleGroups.length && <p>No matching examples.</p>}<div className="sidebar-footer">{stories.length} examples · shared React UI<br/>Presentation only. No saved game.</div>
       </aside>
       <main className="studio-main">
         <div className="preview-toolbar">
-          <button id="open-menu" className="studio-button menu-trigger" aria-controls="story-sidebar" aria-expanded={menu} onClick={() => setMenu(true)}><Icon name="layout"/><span>Examples</span></button>
+          <button id="open-menu" className="studio-button menu-trigger" aria-controls="story-sidebar" aria-expanded={menu} onClick={() => setMenu(value => !value)}><Icon name="layout"/><span>Examples</span></button>
           <label className="example-select-label" htmlFor="example-select">Example<select id="example-select" value={story.id} onChange={event => go(event.target.value, { reset: true })}>{storyGroups.map(group => <optgroup label={group.title} key={group.id}>{stories.filter(example => example.group === group.id).map(example => <option value={example.id} key={example.id}>{example.title}</option>)}</optgroup>)}</select></label>
           <button id="reset-example" className="studio-button" aria-label="Reset" title="Reset this mock example" onClick={() => go(story.id, { reset: true })}><Icon name="rotate"/><span>Reset</span></button>
           <label className="targets-toggle"><input type="checkbox" checked={targets} onChange={event => setTargets(event.target.checked)}/><span>Tap targets</span></label>
@@ -263,7 +284,7 @@ function App() {
           <button id="open-comments" className="studio-button" aria-label="Comments" title="Review this example" onClick={() => showNotes(true)}><Icon name="comment"/><span>Comments</span></button>
         </div>
         <div className="preview-heading"><div><p className="eyebrow">{storyGroups.find(group => group.id === story.group)?.title}</p><h1 id="story-title" tabIndex={-1}>{story.title}</h1></div><span className="target-key"><i/>Dashed = tap</span></div>
-        <div className="stage-area"><div ref={stage} id="prototype-stage" className={`prototype-stage ${story.scene === 'floor-plan' ? 'frame--map' : 'frame--phone'} ${targets ? '' : 'hide-targets'}`} data-scene={story.scene} data-story={story.id} aria-label={story.scene === 'object-review' ? 'Production sprite review' : 'Interactive wireframe preview'} onClick={act} onScrollCapture={event => {
+        <div className="stage-area"><div ref={stage} id="prototype-stage" className={`prototype-stage ${story.scene === 'floor-plan' ? 'frame--map' : 'frame--phone'} ${documentScene ? 'frame--document' : ''} ${story.overlay ? 'frame--overlay-document' : ''} ${targets ? '' : 'hide-targets'}`} data-scene={story.scene} data-story={story.id} aria-label={story.scene === 'object-review' ? 'Production sprite review' : 'Interactive wireframe preview'} onClick={act} onScrollCapture={event => {
           const viewport = event.target;
           if (!viewport.hasAttribute('data-pan-scroll')) return;
           const panFraction = Math.min(2, Math.max(0, viewport.scrollLeft / viewport.clientWidth));

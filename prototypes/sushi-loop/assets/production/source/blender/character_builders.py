@@ -216,7 +216,7 @@ class CharacterBuilder:
             for i,(x,y,h) in enumerate([(-.13,-.03,.20),(0,-.03,.25),(.13,-.03,.20),(-.11,.10,.21),(.10,.10,.23)]):
                 self.box('toque_fold_'+str(i),(x,y,1.47+h/2),(.19,.21,h),'white','head',.026,rot=(0,(-.09 if i==0 else .06 if i==2 else 0),0))
         elif style=='turban':
-            self.ico('turban',(0,.01,1.44),(.29,.24,.22),'yellow',1)
+            self.ico('turban',(0,.01,1.44),(.29,.24,.22),'yellow',subdiv=1)
             for i in range(3):self.box('turban_fold_'+str(i),(0,-.195,1.37+i*.065),(.48,.045,.075),'yellow_light' if i%2 else 'yellow','head',.015,rot=(0,-.12+i*.03,0))
             self.ico('turban_knot',(.20,-.10,1.54),(.10,.09,.12),'yellow_light')
         elif style=='headband':
@@ -351,7 +351,7 @@ def _pose_character(arm,clip,t,rest_mats,builder):
         hand_dirs['R']=Vector((0,-.07,-.005));head_yaw=-.025*u
     if seated:
         for s,sign in [('L',-1),('R',1)]:
-            feet[s]=_lerp(feet[s],(sign*.13,-.26,seat_plane-.34),seated)
+            feet[s]=_lerp(feet[s],(sign*.13,-.27,seat_plane-.17),seated)
             arm_targets[s]=_lerp(arm_targets[s],(sign*.18,-.17,.77),seated)
             hand_dirs[s]=_lerp(hand_dirs[s],(0,-.065,-.018),seated)
         lean=.018*sin(phase)

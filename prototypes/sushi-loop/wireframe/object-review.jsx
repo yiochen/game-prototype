@@ -1,6 +1,6 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
 import { libraryObjects, spriteLibrary, imageUrl, objectStoryId } from './object-review-data.js';
-import { DIRECTIONS, DIRECTION_NAMES, clipFor, spriteFrame, sceneBounds, orderPlacements, repeatedPlacements, directionPlacements, placementAtTime, reviewFrameCount, groundRoot, attachmentMarkers } from './sprite-layout.js';
+import { DIRECTIONS, DIRECTION_NAMES, clipFor, spriteFrame, sceneBounds, orderPlacements, repeatedPlacements, directionPlacements, placementAtTime, reviewFrameCount, groundRoot, attachmentMarkers, footprintFor } from './sprite-layout.js';
 import './object-review.css';
 
 const statuses = { ready: 'Ready to review', working: 'In production', queued: 'Queued' };
@@ -36,7 +36,7 @@ function SpriteScene({ placements, gridSize = [3, 3], seconds = 0, overlays, zoo
         const frame = spriteFrame(object, clip, direction, seconds);
         const url = imageUrl(frame?.image);
         const [x, y] = groundRoot(placement, object, cell);
-        const footprint = object.footprint || [1, 1];
+        const footprint = footprintFor(object, direction);
         return <g key={index} data-object={object.id} data-direction={direction} data-frame={url ? frame.frame : undefined}>
           <title>{object.name}, {DIRECTION_NAMES[direction]}{url ? `, ${clip.name || clip.id}, frame ${frame.frame + 1} of ${frame.frames}` : ': export pending'}</title>
           {overlays && <rect x={placement.x * cell} y={placement.y * cell} width={footprint[0] * cell} height={footprint[1] * cell} className="object-footprint"/>}
@@ -70,6 +70,38 @@ function usePlayback(maxFrames) {
   return { frame, playing: playing && maxFrames > 1, toggle: () => setPlaying(value => !value), scrub: value => { setPlaying(false); setFrame(Number(value)); } };
 }
 
+// A thumbnail retains its authored canvas. Only nearby cards mount an atlas image.
+function LibraryThumbnail({ object }) {
+  const host = useRef(null);
+  const [near, setNear] = useState(false);
+  useEffect(() => {
+    const element = host.current;
+    if (!element) return;
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => setNear(entries[0].isIntersecting), { root: null, rootMargin: '96px 0px' });
+      observer.observe(element);
+      return () => observer.disconnect();
+    }
+    const measure = () => { const bounds = element.getBoundingClientRect(); setNear(bounds.bottom >= -96 && bounds.top <= window.innerHeight + 96); };
+    measure(); window.addEventListener('scroll', measure, { passive: true }); window.addEventListener('resize', measure);
+    return () => { window.removeEventListener('scroll', measure); window.removeEventListener('resize', measure); };
+  }, []);
+  const available = clip => DIRECTIONS.some(direction => imageUrl(clip.directions?.[direction]?.image));
+  const clip = object.clips?.find(clip => clip.id === 'idle' && available(clip)) || object.clips?.find(available);
+  const direction = ['S', 'N', 'E', 'W'].find(direction => imageUrl(clip?.directions?.[direction]?.image));
+  const frame = direction && spriteFrame(object, clip, direction, 0);
+  const url = imageUrl(frame?.image);
+  const footprint = footprintFor(object, direction);
+  const rootCell = object.directionRootCells?.[direction] || object.rootCell || [footprint[0] / 2, footprint[1] / 2];
+  const cell = spriteLibrary.cellSize || 128;
+  return <span ref={host} className="object-library-thumbnail" data-thumbnail-object={object.id} data-thumbnail-state={!url ? 'queued' : near ? 'mounted' : 'deferred'} aria-hidden="true">
+    {near && url ? <svg viewBox={`0 0 ${frame.frameSize[0]} ${frame.frameSize[1]}`} preserveAspectRatio="xMidYMid meet">
+      <rect x={frame.root[0] - rootCell[0] * cell} y={frame.root[1] - rootCell[1] * cell} width={footprint[0] * cell} height={footprint[1] * cell} fill="#e9e8dc" stroke="#b3c2b3" strokeWidth="2"/>
+      <svg width={frame.frameSize[0]} height={frame.frameSize[1]} viewBox={frame.rect.join(' ')} overflow="hidden" preserveAspectRatio="none" data-thumbnail-source={frame.image}><image href={url} width={frame.atlasSize[0]} height={frame.atlasSize[1]}/></svg>
+    </svg> : <span>{url ? 'Preview' : 'Queued'}</span>}
+  </span>;
+}
+
 function ObjectLibrary() {
   const [filter, setFilter] = useState('');
   const [state, setState] = useState(() => libraryObjects.some(exported) ? 'exported' : 'all');
@@ -77,11 +109,11 @@ function ObjectLibrary() {
   const count = libraryObjects.filter(exported).length;
   return <div className="phone-scene object-review-scene">
     <header className="object-review-header"><span className="object-review-eyebrow">ISSUE 33 · PRODUCTION REVIEW</span><h2>Object library</h2><p>Concept approved. Inspect each real sprite export as it arrives.</p><p className="object-library-progress" role="status">{count} with exports · {libraryObjects.length - count} awaiting exports</p></header>
-    <div className="object-review-scroll" tabIndex={0} aria-label="Scroll production object library">
+    <div className="object-review-scroll" aria-label="Scroll production object library">
       <div className="object-library-filters"><label>Find an object<input type="search" value={filter} onChange={event => setFilter(event.target.value)} placeholder="Chef, belt, stool…"/></label><label>Show<select value={state} onChange={event => setState(event.target.value)}><option value="all">All objects</option><option value="exported">With sprite exports</option><option value="queued">Awaiting exports</option></select></label></div>
       {!libraryObjects.length && <p className="object-queued-note">Blender production is starting. Object pages will appear here as the inventory is registered.</p>}
       {!!libraryObjects.length && !visible.length && <p className="object-queued-note">No objects match this filter.</p>}
-      <div className="object-library-list">{visible.map(object => <a className="object-library-card" href={`#${objectStoryId(object)}`} key={object.id}><span><small>{object.family} · {object.id}</small><strong>{object.name}</strong><span>{object.footprint?.join(' × ') || '1 × 1'} cells · {object.clips?.length || 0} registered states</span></span><span className={`object-status is-${object.status || 'queued'}`}>{statusText(object)}</span><span aria-hidden="true">↗</span></a>)}</div>
+      <div className="object-library-list">{visible.map(object => <a className="object-library-card" href={`#${objectStoryId(object)}`} key={object.id}><LibraryThumbnail object={object}/><span className="object-library-card-text"><small className="object-family">{object.family} · {object.id}</small><strong>{object.name}</strong><span className="object-card-meta">{object.footprint?.join(' × ') || '1 × 1'} cells · {object.clips?.length || 0} registered states</span><span className={`object-status is-${object.status || 'queued'}`}>{statusText(object)}</span></span><span aria-hidden="true">↗</span></a>)}</div>
       <a className="object-concept-return" href="#art-catalog">View approved concept sheet ↗</a>
       <p className="object-queued-note">Queued states show no substitute artwork. Final approval is yours; issue #33 stays open.</p>
     </div>
@@ -99,15 +131,18 @@ function ObjectDetail({ object }) {
   const { frame, playing, toggle, scrub } = usePlayback(maxFrames);
   const seconds = frame / 12;
   const currentClip = clipFor(object, clipId);
-  const footprint = object.footprint || [1, 1];
+  const footprint = footprintFor(object, direction);
   const interactions = object.interactions || [];
   const sourceUrl = blendSourceUrl(object);
+  const downloadUrl = sourceUrl?.replace('https://github.com/yiochen/game-prototype/blob/', 'https://raw.githubusercontent.com/yiochen/game-prototype/');
   const facings = directionPlacements(object, currentClip?.id);
-  const grid = [4 * (footprint[0] + 1) - 1, Math.max(2, footprint[1] + 1)];
+  const extent = Math.max(...DIRECTIONS.flatMap(facing => footprintFor(object, facing)));
+  const maxDepth = Math.max(...DIRECTIONS.map(facing => footprintFor(object, facing)[1]));
+  const grid = [4 * (extent + 1) - 1, Math.max(2, maxDepth + 1)];
   return <div className="phone-scene object-review-scene">
-    <header className="object-review-header"><a href="#object-library" className="object-library-return">← Object library</a><div className="object-review-heading"><h2>{object.name}</h2><span className={`object-status is-${object.status || 'queued'}`}>{statusText(object)}</span></div><p>{object.family} · {footprint.join(' × ')} cells · {object.projection === 'character-orthographic' ? 'Orthographic art camera' : 'Square top/front grid'}</p>{object.productionStage && <p className="object-production-stage">{object.productionStage}</p>}{sourceUrl && <a className="object-blend-source" href={sourceUrl} target="_blank" rel="noopener noreferrer">Editable Blender source ↗</a>}</header>
+    <header className="object-review-header"><a href="#object-library" className="object-library-return">← Object library</a><div className="object-review-heading"><h2>{object.name}</h2><span className={`object-status is-${object.status || 'queued'}`}>{statusText(object)}</span></div><p>{object.family} · {footprint.join(' × ')} cells · {object.projection === 'character-orthographic' ? 'Orthographic art camera' : 'Square top/front grid'}</p>{object.productionStage && <p className="object-production-stage">{object.productionStage}</p>}{sourceUrl && <div className="object-source-links"><a className="object-blend-source" href={sourceUrl} target="_blank" rel="noopener noreferrer">Editable Blender source ↗</a><a className="object-blend-source" href={downloadUrl} download>Download .blend ↓</a></div>}</header>
     <div className="object-review-controls" aria-label="Sprite review controls"><div className="object-playback-row"><button type="button" onClick={toggle} disabled={maxFrames <= 1} aria-label={playing ? 'Pause animations' : 'Play animations'}>{playing ? 'Ⅱ Pause' : '▶ Play'}</button><label className="object-scrub">Frame {frame + 1} / {maxFrames}<input aria-label="Animation frame" type="range" min="0" max={maxFrames - 1} value={frame} disabled={maxFrames <= 1} onChange={event => scrub(event.target.value)}/></label><span>12 fps</span></div><div className="object-grid-controls"><label><input type="checkbox" checked={overlays} onChange={event => setOverlays(event.target.checked)}/> Roots &amp; attachments</label><label>Zoom<select aria-label="Scene zoom" value={zoom} onChange={event => setZoom(Number(event.target.value))}><option value="1">Fit</option><option value="2">2×</option><option value="4">4×</option></select></label></div></div>
-    <div className="object-review-scroll" tabIndex={0} aria-label={`Scroll ${object.name} review`}>
+    <div className="object-review-scroll" aria-label={`Scroll ${object.name} review`}>
       {!exported(object) && <p className="object-queued-note">This object is queued for Blender export. The grids below document its review layout; no finished sprite is shown.</p>}
       <div className="object-detail-metadata"><label>Scene state<select aria-label="Scene state" value={clipId} disabled={!clips.length} onChange={event => { setClipId(event.target.value); setExpandedClip(event.target.value); }}>{clips.length ? clips.map(clip => <option key={clip.id} value={clip.id}>{clip.name || clip.id}</option>) : <option value="">No exported states</option>}</select></label><label>Repeated facing<select aria-label="Repeated facing" value={direction} onChange={event => setDirection(event.target.value)}>{DIRECTIONS.map(value => <option key={value} value={value}>{DIRECTION_NAMES[value]}</option>)}</select></label></div>
       <section className="object-review-section"><h3><span>01</span> Four directions</h3><p>Same tile pitch and ground root in every facing.</p><SpriteScene placements={facings} gridSize={grid} seconds={seconds} overlays={overlays} zoom={zoom} label={`${object.name}: North, East, South and West on the tile grid`} labels/></section>

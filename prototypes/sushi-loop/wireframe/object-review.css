@@ -30,10 +30,10 @@
 .prototype-stage .object-library-filters{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
 .prototype-stage .object-library-list{padding:0 12px;display:flex;flex-direction:column;gap:7px}
 .prototype-stage .object-library-card{display:flex;align-items:center;gap:8px;padding:11px 9px;border:1px solid #d4ded6;background:#fff;text-decoration:none;color:inherit;border-radius:6px;min-height:76px}
-.prototype-stage .object-library-card>span:first-child{display:flex;flex-direction:column;gap:4px;flex:1;min-width:0}
-.prototype-stage .object-library-card small{font-size:9px;overflow-wrap:anywhere;color:#69817b}
+.prototype-stage .object-library-card-text{display:flex;flex-direction:column;gap:4px;flex:1;min-width:0}
+.prototype-stage .object-library-card .object-family{font-size:9px;overflow-wrap:anywhere;color:#69817b}
 .prototype-stage .object-library-card strong{font-size:13px;line-height:1.3}
-.prototype-stage .object-library-card>span:first-child>span{font-size:10px;color:#69817b}
+.prototype-stage .object-library-card .object-card-meta{font-size:10px;color:#69817b}
 .prototype-stage .object-library-card:hover{border-color:#8caf9e;background:#f6faf4}
 .prototype-stage .object-concept-return{display:inline-block;font-size:11px;color:#3e6c62;margin:16px 12px 0;min-height:30px}
 .prototype-stage .object-queued-note{font-size:11px;line-height:1.6;color:#6c786f;background:#f0f3eb;border:1px dashed #c6d2c2;margin:12px;padding:10px;border-radius:4px}
@@ -72,3 +72,12 @@
 
 .prototype-stage .object-production-stage{color:#7c6b3f!important;font-size:10px!important}
 .prototype-stage .object-blend-source{font-size:11px;color:#3e6c62;display:inline-flex;align-items:center;min-height:36px;text-decoration:underline;text-underline-offset:3px}
+
+.prototype-stage .object-source-links{display:flex;gap:16px;flex-wrap:wrap}
+.prototype-stage .object-source-links .object-blend-source{min-height:40px}
+
+.prototype-stage .object-library-card{min-height:118px}
+.prototype-stage .object-library-card-text{align-items:flex-start}
+.prototype-stage .object-library-thumbnail{display:flex;align-items:center;justify-content:center;flex:0 0 72px;width:72px;height:96px;overflow:hidden;border-radius:4px;background:#eef1e9}
+.prototype-stage .object-library-thumbnail>svg{display:block;width:100%;height:100%}
+.prototype-stage .object-library-thumbnail>span{font-size:9px;color:#84907f}

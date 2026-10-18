@@ -62,7 +62,10 @@ def food(aid):
         for i in range(4):b.box('glaze_'+str(i),(-.145+i*.097,0,.287),(.023,.27,.006),M['eel_sauce'],.003)
         for i,(x,y) in enumerate([(-.12,-.09),(-.06,.06),(.02,-.04),(.09,.09),(.14,-.07)]):b.box('sesame_'+str(i),(x,y,.292),(.025,.012,.004),M['white'],.001)
     b.sockets['plate_center']=[0,0,.05]
-    return b.finish(.31)
+    # Deliberate anatomy-relative scale, shared by world/held/bubble instances.
+    # A plate is 0.342 cells wide, about three quarters of a character head.
+    b.root.scale=(.6,.6,.6)
+    return b.finish(.186)
 
 def floor(aid):
     b=B(aid)
@@ -144,8 +147,8 @@ def belt(aid):
     for part in b.parts.values():part.parent=orient
     orient.rotation_euler.z=quarter
     def pose(clip,t):phase.outputs[0].default_value=(7*t if reverse else -7*t)
-    result=b.finish(.68,{'running':{'frames':12,'fps':12,'loop':True}},pose)
-    result['flow']={'incoming':inp,'outgoing':out,'deckHeight':z,'periodCells':1/7,'turnPhaseMapping':'endpoint derivative matched, compressed radially inside turn'}
+    result=b.finish(.68,{'running':{'frames':24,'fps':12,'loop':True}},pose)
+    result['flow']={'incoming':inp,'outgoing':out,'deckHeight':z,'periodCells':1/7,'durationSeconds':2,'speedCellsPerSecond':.5,'turnPhaseMapping':'endpoint derivative matched, compressed radially inside turn'}
     b.sockets['deck']=[0,0,z]
     result['phaseNode']=phase
     return result

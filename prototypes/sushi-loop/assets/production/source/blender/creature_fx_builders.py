@@ -300,12 +300,12 @@ def build_creature(builder,eel=True):
         q=ring/(sections-1)
         y=y_tail+(y_head-y_tail)*q
         if eel:
-            width=.035+.19*(math.sin(q*math.pi*.93)**.6)
-            height=.035+.17*(math.sin(q*math.pi*.93)**.65)
+            width=.035+.18*q**.55
+            height=.035+.16*q**.5
         else:
             width=.035+.25*math.sin(q*math.pi)**.75
             height=.035+.30*math.sin(q*math.pi)**.75
-        if q>.88:
+        if not eel and q>.88:
             width*=1.12;height*=1.1
         for side in range(sides):
             a=side*TAU/sides
@@ -341,7 +341,7 @@ def build_creature(builder,eel=True):
     fin_verts=[];fin_faces=[]
     for ring in range(sections):
         q=ring/(sections-1);y=y_tail+(y_head-y_tail)*q
-        top=center_z+(.035+(.17 if eel else .30)*math.sin(q*math.pi*.93)**.65)
+        top=center_z+(.035+.16*q**.5 if eel else .035+.30*math.sin(q*math.pi*.93)**.65)
         crest=(.17 if eel else .20)*math.sin(q*math.pi)**1.2
         fin_verts.extend([(-.009,y,top),(.009,y,top),(0,y,top+crest)])
     for ring in range(sections-1):
@@ -349,15 +349,40 @@ def build_creature(builder,eel=True):
             fin_faces.append((ring*3+side,ring*3+(side+1)%3,(ring+1)*3+(side+1)%3,(ring+1)*3+side))
     dorsal=b.mesh('continuous_dorsal_fin',fin_verts,fin_faces,'yellow' if eel else 'blue_dark');weight(dorsal)
     # Sculpted tail paddle and paired side fins are complete real wedges, not icons.
-    tail_width=.24 if eel else .29
-    tail=b.mesh('tail_fin',[(-tail_width,y_tail-.22,center_z+.18),(tail_width,y_tail-.22,center_z+.18),(0,y_tail+.08,center_z),(0,y_tail-.25,center_z-.17),(0,y_tail-.20,center_z+.05)],[(0,1,4),(1,2,4),(2,0,4),(0,2,3),(2,1,3),(1,0,3)],'yellow' if eel else 'blue_dark');weight(tail)
+    if eel:
+        # Slender curved continuation of the tail, with a narrow vertical yellow
+        # ribbon rather than a broad triangular fish paddle. Complete connected
+        # cross-sections keep the fin dimensional in all four native views.
+        tail_vertices=[];tail_faces=[]
+        stations=[(0.,.045,.035,.045),(.018,-.075,.035,.085),(.067,-.18,.026,.065),(.125,-.27,.009,.022)]
+        for x,dy,width,rise in stations:
+            tail_vertices.extend([(x-width,y_tail+dy,center_z),(x,y_tail+dy,center_z+rise),(x+width,y_tail+dy,center_z),(x,y_tail+dy,center_z-rise*.55)])
+        for ring in range(len(stations)-1):
+            for side in range(4):tail_faces.append((ring*4+side,ring*4+(side+1)%4,(ring+1)*4+(side+1)%4,(ring+1)*4+side))
+        tail_faces.extend([(3,2,1,0),(12,13,14,15)])
+        tail=b.mesh('tail_fin',tail_vertices,tail_faces,'yellow');weight(tail)
+    else:
+        tail_width=.29
+        tail=b.mesh('tail_fin',[(-tail_width,y_tail-.22,center_z+.18),(tail_width,y_tail-.22,center_z+.18),(0,y_tail+.08,center_z),(0,y_tail-.25,center_z-.17),(0,y_tail-.20,center_z+.05)],[(0,1,4),(1,2,4),(2,0,4),(0,2,3),(2,1,3),(1,0,3)],'blue_dark');weight(tail)
     for sign in (-1,1):
-        fin=b.mesh('side_fin_'+str(sign),[(sign*.16,.13,center_z),(sign*.42,-.02,center_z-.04),(sign*.28,-.24,center_z-.12),(sign*.13,-.03,center_z-.06)],[(0,1,2),(0,2,3),(0,3,1),(1,3,2)],'yellow' if eel else 'blue_dark');weight(fin)
-        eye=b.ico('eye_white_'+str(sign),(sign*.15,y_head-.045,center_z+.105),(.105,.105,.105),'white',2);weight(eye,force_head=True)
-        pupil=b.ico('eye_pupil_'+str(sign),(sign*.19,y_head+.019,center_z+.11),(.055,.058,.06),'navy',2);weight(pupil,force_head=True)
-        shine=b.ico('eye_glint_'+str(sign),(sign*.205,y_head+.049,center_z+.137),(.018,.02,.02),'white',1);weight(shine,force_head=True)
+        fin_points=([(sign*.15,.13,center_z),(sign*.285,.02,center_z-.025),(sign*.24,-.13,center_z-.07),(sign*.145,-.045,center_z-.05)] if eel else [(sign*.16,.13,center_z),(sign*.42,-.02,center_z-.04),(sign*.28,-.24,center_z-.12),(sign*.13,-.03,center_z-.06)])
+        fin=b.mesh('side_fin_'+str(sign),fin_points,[(0,1,2),(0,2,3),(0,3,1),(1,3,2)],'yellow' if eel else 'blue_dark');weight(fin)
+        eye=b.ico('eye_white_'+str(sign),(sign*.145,y_head-.045,center_z+.150),(.065,.065,.065),'white',2);weight(eye,force_head=True)
+        # Pupils sit toward the crown, with only a modest forward/lateral offset.
+        # They remain visible from the elevated ordinary actor camera rather than
+        # disappearing onto the hidden front of a giant white eyeball.
+        pupil=b.ico('eye_pupil_'+str(sign),(sign*.155,y_head-.023,center_z+.193),(.037,.037,.037),'navy',2);weight(pupil,force_head=True)
+        shine=b.ico('eye_glint_'+str(sign),(sign*.160,y_head-.017,center_z+.221),(.011,.011,.011),'white',1);weight(shine,force_head=True)
     mouth=b.beam('mouth',(-.07,y_head+.043,center_z-.055),(.07,y_head+.043,center_z-.055),.025,'navy');weight(mouth,force_head=True)
-    b.sockets={'hook':[0,.16,center_z+.12],'cable':[0,.16,center_z+.12],'nose':[0,y_head+.08,center_z]}
+    # Canonical authored front is S=-Y. The inner orientation is independent
+    # of the capture root so a renderer can rotate root for N/E/S/W inspection.
+    facing=bpy.data.objects.new(b.id+'__canonical_S_facing',None)
+    b.collection.objects.link(facing);facing.parent=b.root
+    facing.rotation_euler.z=math.pi
+    arm.parent=facing
+    b.sockets={'hook':[0,-.16,center_z+.12],'cable':[0,-.16,center_z+.12],'nose':[0,-(y_head+.08),center_z]}
+    b.root['canonical_front']='S=-Y'
+    b.root['inner_orientation_degrees']=180
     clips={name:_clip(24,True) for name in ['normal','swim','aim','restless','pursuit','weave','dash','pause']}
     clips.update({name:_clip(12,False) for name in ['hook','caught','escape']})
     def pose(clip,t):
@@ -382,7 +407,7 @@ def build_creature(builder,eel=True):
         elif clip=='dash':arm.rotation_euler.z=.15*math.sin(t*TAU)*abs(math.sin(t*TAU))
         elif clip=='pause':arm.rotation_euler.x=.04*math.sin(t*TAU)
     b.notes += ['Continuous faceted body and dorsal ribbon with blended section weights; actual seven/five-bone chain.',
-                'Ground root never moves. Local body/fin gestures retain explicit hook/nose sockets.',
+                'Ground root never moves. Canonical front S=-Y uses a constant inner orientation; root remains free for capture facings. Socket coordinates include that orientation.',
                 'Approved blue/yellow eel or single generic blue fish; no additional species.',
                 'Native rig actions can be baked with bake_actions(); duplicate closing key omitted from sprite export.']
     return b.finish(clips,pose)
@@ -645,6 +670,25 @@ SUPPORTED_IDS=[
 ]
 
 
+def canonical_s(result, angle):
+    """Orient authored source geometry, never the capture-controlled ground root."""
+    root=result['root']
+    inner=bpy.data.objects.new(root['asset_id']+'__canonical_S_facing',None)
+    result['collection'].objects.link(inner)
+    inner.parent=root;inner.rotation_euler.z=angle
+    for child in list(root.children):
+        if child != inner:
+            child.parent=inner
+    c,s=math.cos(angle),math.sin(angle)
+    for name,point in result['sockets'].items():
+        x,y,z=point
+        result['sockets'][name]=[c*x-s*y,s*x+c*y,z]
+    root['sockets']=json.dumps(result['sockets'])
+    root['canonical_front']='S=-Y'
+    root['inner_orientation_degrees']=math.degrees(angle)
+    return result
+
+
 def create_asset(asset_id):
     if asset_id not in SUPPORTED_IDS:
         raise ValueError('Unknown creature/worldFX asset: '+str(asset_id))
@@ -654,11 +698,11 @@ def create_asset(asset_id):
     if asset_id.startswith('bubble-'):
         return build_bubble(b,asset_id.split('-',1)[1])
     if asset_id=='coin-pop':return build_coin(b)
-    if asset_id=='harpoon-projectile':return build_harpoon(b)
-    if asset_id=='harpoon-cable':return build_cable(b)
+    if asset_id=='harpoon-projectile':return canonical_s(build_harpoon(b),math.pi)
+    if asset_id=='harpoon-cable':return canonical_s(build_cable(b),math.pi)
     if asset_id in ['route-current','attack-lateral-current']:
-        return build_flow(b,'current' if asset_id=='route-current' else 'attack')
-    if asset_id=='boost-trail':return build_flow(b,'boost')
+        return canonical_s(build_flow(b,'current' if asset_id=='route-current' else 'attack'),-math.pi/2)
+    if asset_id=='boost-trail':return canonical_s(build_flow(b,'boost'),math.pi)
     if asset_id=='following-strip':return build_flow(b,'follow')
     if asset_id=='attack-reef-fragments':return build_fragments(b)
     if asset_id=='attack-swirl':return build_swirl(b)

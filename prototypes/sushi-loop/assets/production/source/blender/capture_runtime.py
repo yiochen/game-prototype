@@ -18,14 +18,14 @@ def scene():
     bpy.context.window.scene=sc
     return sc
 
-def camera_record(sc,cam,projection,frame,root,scale):
+def camera_record(sc,cam,projection,frame,root,scale,elevation=None):
     return {'projection':'character-orthographic' if projection=='character-orthographic' else 'top-down-oblique-square-grid','frame':list(frame),'anchor':list(root),'cellSize':128,'captureScale':scale,'fps':12,
       'axes':{'x':'X','depth':'-Y','height':'Z'},
       'camera':{'type':'orthographic','worldMatrix':[list(row) for row in cam.matrix_world],
       'projectionMatrix':[list(row) for row in cam.calc_matrix_camera(bpy.context.evaluated_depsgraph_get(),x=sc.render.resolution_x,y=sc.render.resolution_y,scale_x=sc.render.pixel_aspect_x,scale_y=sc.render.pixel_aspect_y)],
-      'pixelAspect':[sc.render.pixel_aspect_x,sc.render.pixel_aspect_y],'worldUnitsPerCell':1,'elevationDegrees':35 if projection=='character-orthographic' else 45}}
+      'pixelAspect':[sc.render.pixel_aspect_x,sc.render.pixel_aspect_y],'worldUnitsPerCell':1,'elevationDegrees':elevation if elevation is not None else 35 if projection=='character-orthographic' else 45}}
 
-def configure_camera(projection='square-top-front-oblique',frame=(192,320),root=(96,248),scale=4):
+def configure_camera(projection='square-top-front-oblique',frame=(192,320),root=(96,248),scale=4,elevation_degrees=None):
     sc=scene();sc.render.engine='BLENDER_EEVEE'
     sc.render.resolution_x=frame[0]*scale;sc.render.resolution_y=frame[1]*scale;sc.render.resolution_percentage=100
     sc.render.pixel_aspect_x=1 if projection=='character-orthographic' else math.sqrt(2);sc.render.pixel_aspect_y=1
@@ -33,7 +33,8 @@ def configure_camera(projection='square-top-front-oblique',frame=(192,320),root=
     if cam is None:
         cam=bpy.data.objects.new('S33 Capture Camera',bpy.data.cameras.new('S33 Capture Camera'));sc.collection.objects.link(cam)
     sc.camera=cam;cam.data.type='ORTHO';cam.data.sensor_fit='HORIZONTAL';cam.data.ortho_scale=frame[0]/128
-    elevation=math.radians(35 if projection=='character-orthographic' else 45)
+    elevation_value=elevation_degrees if elevation_degrees is not None else 35 if projection=='character-orthographic' else 45
+    elevation=math.radians(elevation_value)
     cam.location=(0,-10*math.cos(elevation),10*math.sin(elevation));cam.rotation_euler=(-cam.location).to_track_quat('-Z','Y').to_euler()
     cam.data.shift_x=0;cam.data.shift_y=0;bpy.context.view_layer.update()
     def px(v):
@@ -58,7 +59,7 @@ def configure_camera(projection='square-top-front-oblique',frame=(192,320),root=
             data=bpy.data.lights.new(name,'AREA');light=bpy.data.objects.new(name,data);sc.collection.objects.link(light)
         light.data.energy=power;light.data.shape='DISK';light.data.size=size;light.location=loc;light.rotation_euler=(-light.location).to_track_quat('-Z','Y').to_euler()
     sc.render.image_settings.compression=30
-    record=camera_record(sc,cam,projection,frame,root,scale)
+    record=camera_record(sc,cam,projection,frame,root,scale,elevation_value)
     record['calibration']={'root':list(projected),'unitX':list(X),'unitDepth':list(D),'unitHeight':list(H)}
     return record
 
@@ -69,6 +70,10 @@ def register(asset_id,asset,projection='square-top-front-oblique',frame=(192,320
 
 def show_only(asset_id):
     sc=scene()
+    # Failed authoring attempts can leave an unregistered collection. Never let
+    # those leak into another object's capture; this isolated scene is ours.
+    for collection in sc.collection.children:
+        collection.hide_render=True;collection.hide_viewport=True
     for aid,asset in assets.items():asset['collection'].hide_render=aid!=asset_id;asset['collection'].hide_viewport=aid!=asset_id
     asset=assets[asset_id];asset['collection'].hide_render=False;asset['collection'].hide_viewport=False
     return asset
@@ -76,7 +81,7 @@ def show_only(asset_id):
 def preview(asset_id,clip=None,direction='S',t=.25):
     a=show_only(asset_id);clip=clip or next(iter(a['clips']))
     a['pose'](clip,t);a['root'].rotation_euler.z={'S':0,'E':math.pi/2,'N':math.pi,'W':-math.pi/2}[direction]
-    record=configure_camera(a['projection'],a['frame'],a['anchor'],a['scale'])
+    record=configure_camera(a['projection'],a['frame'],a['anchor'],a['scale'],a.get('camera_elevation_degrees'))
     path=OUT/'validation'/asset_id;path.mkdir(parents=True,exist_ok=True)
     scene().render.filepath=str(path/(clip+'-'+direction+'.png'))
     started=time.monotonic();bpy.ops.render.render(write_still=True,scene=SCENE_NAME)
@@ -105,12 +110,12 @@ def queue_capture(asset_ids):
             aid,clip,direction,i,count=jobs.pop(0);a=show_only(aid)
             a['pose'](clip,i/count if a['clips'][clip].get('loop') else i/max(1,count-1))
             a['root'].rotation_euler.z={'S':0,'E':math.pi/2,'N':math.pi,'W':-math.pi/2}[direction]
-            record=configure_camera(a['projection'],a['frame'],a['anchor'],a['scale'])
+            record=configure_camera(a['projection'],a['frame'],a['anchor'],a['scale'],a.get('camera_elevation_degrees'))
             path=OUT/'raw-frames'/aid/(clip+'-'+direction);path.mkdir(parents=True,exist_ok=True)
             scene().render.filepath=str(path/(f'{i:03d}.png'));bpy.ops.render.render(write_still=True,scene=SCENE_NAME)
             source=OUT/'source'/aid;source.mkdir(parents=True,exist_ok=True)
             (source/'camera.json').write_text(json.dumps(record,indent=2)+'\n')
-            (source/'asset.json').write_text(json.dumps({k:a[k] for k in ['id','projection','frame','anchor','scale','clips','footprint','height','sockets'] if k in a},indent=2)+'\n')
+            (source/'asset.json').write_text(json.dumps({k:a[k] for k in ['id','projection','frame','anchor','scale','clips','footprint','height','sockets','ports','flow','camera_elevation_degrees','nonblocking','depth_layer','composition_context'] if k in a},indent=2)+'\n')
             job_status.update(done=job_status['done']+1,current=[aid,clip,direction,i],updated=time.time())
             (OUT/'capture-status.json').write_text(json.dumps(job_status,indent=2)+'\n')
             return .01

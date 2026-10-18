@@ -105,9 +105,12 @@ test('restaurant concept catalog loads the low-poly image and supports contained
     await expect(stage(page).getByRole('button', { name: 'Fit catalog', exact: true })).toHaveAttribute('aria-pressed', 'true');
     expect(await image.evaluate(element => element.getBoundingClientRect().width)).toBe(1024);
     await scroll.hover({ position: { x: 90, y: 90 } });
-    await page.mouse.wheel(450, 400);
+    await page.mouse.wheel(450, 0);
     await expect.poll(() => scroll.evaluate(element => element.scrollLeft)).toBeGreaterThan(0);
-    await expect.poll(() => scroll.evaluate(element => element.scrollTop)).toBeGreaterThan(0);
+    const pageTop = await page.evaluate(() => window.scrollY);
+    await page.mouse.wheel(0, 400);
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(pageTop);
+    expect(await scroll.evaluate(element => element.scrollTop)).toBe(0);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width + 1);
     await stage(page).getByRole('button', { name: 'Fit catalog', exact: true }).click();
     await expect(stage(page).getByRole('button', { name: 'Zoom catalog', exact: true })).toHaveAttribute('aria-pressed', 'false');
@@ -130,7 +133,7 @@ test('phone example menu supports search, selection, dismissal and behavior/moti
   await page.setViewportSize({ width: 390, height: 844 });
   await open(page, 'floor-plan');
   await page.getByRole('button', { name: 'Examples', exact: true }).click();
-  const menu = page.getByRole('dialog', { name: 'Wireframe examples' });
+  const menu = page.getByRole('complementary', { name: 'Wireframe examples' });
   await expect(menu).toBeVisible();
   await menu.getByRole('searchbox').fill('recipe');
   await expect(menu.getByRole('link', { name: 'Picker · chef tier too low', exact: true })).toBeVisible();

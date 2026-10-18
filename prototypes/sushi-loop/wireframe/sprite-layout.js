@@ -41,18 +41,29 @@ export function sceneBounds(placements, objects, cellSize = 128, gridSize = [3, 
 export function orderPlacements(placements, objects) {
   return placements.map((placement, index) => ({ ...placement, _index: index })).sort((a, b) => {
     const get = placement => objects.find(object => object.id === placement.object);
-    // All floor/deck passes precede foreground. Food is always above its supporting belt.
+    const pass = placement => {
+      const object = get(placement) || {};
+      const value = placement.renderPass || object.renderPass || (object.kind === 'floor' ? 'background' : 'world');
+      return value === 'background' ? 0 : ['foreground', 'overhead', 'overlay'].includes(value) ? 2 : 1;
+    };
     const rank = placement => placement.layer ?? get(placement)?.layer ?? (get(placement)?.kind === 'floor' ? 0 : get(placement)?.kind === 'belt' ? 1 : 2);
-    return rank(a) - rank(b) || a.y - b.y || a._index - b._index;
+    const depth = placement => {
+      const object = get(placement) || {};
+      const footprint = footprintFor(object, placement.direction);
+      const rootCell = object.directionRootCells?.[placement.direction || 'S'] || object.rootCell || [footprint[0] / 2, footprint[1] / 2];
+      // A support-height offset changes projection, not the object's ground depth.
+      return placement.y + rootCell[1];
+    };
+    return pass(a) - pass(b) || depth(a) - depth(b) || rank(a) - rank(b) || a._index - b._index;
   });
 }
 export function repeatedPlacements(object, direction = 'S', clip) {
-  const footprint = object.footprint || [1, 1];
+  const footprint = footprintFor(object, direction);
   return Array.from({ length: 9 }, (_, index) => ({ object: object.id, x: index % 3 * footprint[0], y: Math.floor(index / 3) * footprint[1], direction, clip }));
 }
 export function directionPlacements(object, clip) {
-  const width = (object.footprint || [1, 1])[0];
-  return DIRECTIONS.map((direction, index) => ({ object: object.id, direction, clip, x: index * (width + 1), y: 0 }));
+  const extent = Math.max(...DIRECTIONS.flatMap(direction => footprintFor(object, direction)));
+  return DIRECTIONS.map((direction, index) => ({ object: object.id, direction, clip, x: index * (extent + 1), y: 0 }));
 }
 
 // A presentation path moves only its separate sprite; it is not belt/game simulation.
@@ -95,8 +106,8 @@ export function reviewFrameCount(object, library = []) {
 }
 
 export function groundRoot(placement, object, cellSize = 128) {
-  const footprint = object.footprint || [1, 1];
-  const rootCell = object.rootCell || [footprint[0] / 2, footprint[1] / 2];
+  const footprint = footprintFor(object, placement.direction);
+  const rootCell = object.directionRootCells?.[placement.direction || 'S'] || object.rootCell || [footprint[0] / 2, footprint[1] / 2];
   return [(placement.x + rootCell[0]) * cellSize + (placement.offset?.[0] || 0), (placement.y + rootCell[1]) * cellSize + (placement.offset?.[1] || 0)];
 }
 
@@ -107,4 +118,8 @@ export function attachmentMarkers(object, clip, direction) {
   const socketEntries = Array.isArray(sockets) ? sockets.map((value, index) => [value.name || `socket ${index + 1}`, value.position || value]) : Object.entries(sockets).map(([name, value]) => [name, value.position || value]);
   const portEntries = Array.isArray(ports) ? ports.map((value, index) => [value.name || `port ${index + 1}`, value.position || value]) : Object.entries(ports).map(([name, value]) => [name, value.position || value]);
   return [...socketEntries.map(([name, position]) => ({ name, position, kind: 'socket' })), ...portEntries.map(([name, position]) => ({ name, position, kind: 'port' }))].filter(marker => Array.isArray(marker.position) && marker.position.length >= 2 && marker.position.slice(0, 2).every(value => Number.isFinite(value)));
+}
+
+export function footprintFor(object, direction = 'S') {
+  return object.directionFootprints?.[direction] || object.footprint || [1, 1];
 }
