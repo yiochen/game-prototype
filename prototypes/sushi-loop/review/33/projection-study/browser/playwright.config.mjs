@@ -1,0 +1,2 @@
+import{createRequire}from'node:module';const{defineConfig}=createRequire('/Users/yiouchen/dev/game-prototype/package.json')('@playwright/test');
+export default defineConfig({testDir:'/private/tmp/sushi-projection-ui/qa',testMatch:'projection-study.spec.mjs',timeout:90000,workers:1,use:{baseURL:'http://127.0.0.1:4185',headless:true,reducedMotion:'reduce',trace:'retain-on-failure'},reporter:[['list'],['json',{outputFile:'/private/tmp/sushi-projection-ui/qa/results.json'}]],outputDir:'/private/tmp/sushi-projection-ui/qa/results'});

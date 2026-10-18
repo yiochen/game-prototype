@@ -52,7 +52,7 @@ function Annotations({ story }) {
     <Feedback key={story.id} story={story}/>
     <dl className="element-notes">{story.elements.map(element => <div className="element-note" key={element.name}><dt>{element.name}</dt><dd>{element.behavior}</dd><dd className="motion-note"><span>Motion</span>{element.motion}</dd></div>)}</dl>
     {!!story.notes?.length && <div className="design-decisions"><h3>For discussion</h3><ul>{story.notes.map(note => <li key={note}>{note}</li>)}</ul></div>}
-    <p className="notes-disclaimer">{['object-review', 'world-showcase'].includes(story.scene) ? 'Production clips use their registered frames. Reduced motion starts playback paused. Final scene-asset approval is pending.' : 'Motion values are proposals. Reduced motion removes decorative movement. These wireframes are awaiting design approval.'}</p>
+    <p className="notes-disclaimer">{story.scene === 'projection-study' ? 'Experimental native projection captures. Production assets remain unchanged; no ratio has been approved.' : ['object-review', 'world-showcase'].includes(story.scene) ? 'Production clips use their registered frames. Reduced motion starts playback paused. Final scene-asset approval is pending.' : 'Motion values are proposals. Reduced motion removes decorative movement. These wireframes are awaiting design approval.'}</p>
   </>;
 }
 
@@ -261,7 +261,7 @@ function App() {
 
   const term = search.toLowerCase().trim();
   const visibleGroups = storyGroups.map(group => ({ ...group, stories: stories.filter(example => example.group === group.id && `${example.title} ${group.title}`.toLowerCase().includes(term) && (term || group.id !== 'asset-review' || example.id === 'object-library' || example.id === story.id)) })).filter(group => group.stories.length);
-  const documentScene = !!story.overlay || ['object-review', 'world-showcase', 'concept', 'component', 'shop', 'workshop'].includes(story.scene);
+  const documentScene = !!story.overlay || ['object-review', 'world-showcase', 'projection-study', 'concept', 'component', 'shop', 'workshop'].includes(story.scene);
   const next = nextEvents[story.id];
   const staffPopup = ['chef-detail', 'applicants', 'fire'].includes(story.overlay) || (story.overlay === 'recipes' && byId.get(view.fixture.popupReturnStory)?.overlay === 'chef-detail');
   const backdropStory = staffPopup ? byId.get(view.fixture.staffReturnStory) || story : story;
@@ -283,8 +283,8 @@ function App() {
           <button id="toggle-notes" className="studio-button" aria-label="Notes" aria-controls="documentation" aria-expanded={notes} onClick={() => notes ? setNotes(false) : showNotes()}><Icon name="info"/><span>Notes</span></button>
           <button id="open-comments" className="studio-button" aria-label="Comments" title="Review this example" onClick={() => showNotes(true)}><Icon name="comment"/><span>Comments</span></button>
         </div>
-        <div className="preview-heading"><div><p className="eyebrow">{storyGroups.find(group => group.id === story.group)?.title}</p><h1 id="story-title" tabIndex={-1}>{story.title}</h1></div>{story.scene !== 'world-showcase' && <span className="target-key"><i/>Dashed = tap</span>}</div>
-        <div className="stage-area"><div ref={stage} id="prototype-stage" className={`prototype-stage ${['floor-plan', 'world-showcase'].includes(story.scene) ? 'frame--map' : 'frame--phone'} ${documentScene ? 'frame--document' : ''} ${story.overlay ? 'frame--overlay-document' : ''} ${targets ? '' : 'hide-targets'}`} data-scene={story.scene} data-story={story.id} aria-label={['object-review', 'world-showcase'].includes(story.scene) ? 'Production sprite review' : 'Interactive wireframe preview'} onClick={act} onScrollCapture={event => {
+        <div className="preview-heading"><div><p className="eyebrow">{storyGroups.find(group => group.id === story.group)?.title}</p><h1 id="story-title" tabIndex={-1}>{story.title}</h1></div>{!['world-showcase', 'projection-study'].includes(story.scene) && <span className="target-key"><i/>Dashed = tap</span>}</div>
+        <div className="stage-area"><div ref={stage} id="prototype-stage" className={`prototype-stage ${['floor-plan', 'world-showcase', 'projection-study'].includes(story.scene) ? 'frame--map' : 'frame--phone'} ${documentScene ? 'frame--document' : ''} ${story.overlay ? 'frame--overlay-document' : ''} ${targets ? '' : 'hide-targets'}`} data-scene={story.scene} data-story={story.id} aria-label={story.scene === 'projection-study' ? 'Experimental projection review' : ['object-review', 'world-showcase'].includes(story.scene) ? 'Production sprite review' : 'Interactive wireframe preview'} onClick={act} onScrollCapture={event => {
           const viewport = event.target;
           if (!viewport.hasAttribute('data-pan-scroll')) return;
           const panFraction = Math.min(2, Math.max(0, viewport.scrollLeft / viewport.clientWidth));
@@ -295,8 +295,8 @@ function App() {
           {story.overlay && <Overlay key={view.fixture.reviewEpoch} story={story} state={view.fixture}/>}
           {view.fixture.toast && <div className="mock-toast" role="status">{view.fixture.toast}<button type="button" data-action="dismiss-toast" aria-label="Dismiss notification"><Icon name="close"/></button></div>}
         </div></div>
-        <div className="flow-toolbar"><p>{next ? next[1] : story.scene === 'floor-plan' ? 'Swipe across the complete floor plan. Open a marked destination or clearance patch.' : ['object-review', 'world-showcase'].includes(story.scene) ? 'Production art review · registered sprites · 12 fps' : 'Portrait composition · UI-only prototype'}</p>{next && <button className="studio-button" onClick={() => go(story.id === 'expedition-resume' ? `expedition-${view.fixture.expeditionBackdrop || 'travel'}` : next[0])}>Preview next event <Icon name="arrow-right"/></button>}</div>
-        <p className="studio-hint">{['object-review', 'world-showcase'].includes(story.scene) ? 'Inspect the registered sprite exports. Use Comments to review this example; issue #33 remains open for final approval.' : 'Switch examples to inspect a state, or tap the marked controls to follow a flow. All values are illustrative.'}</p>
+        <div className="flow-toolbar"><p>{next ? next[1] : story.scene === 'floor-plan' ? 'Swipe across the complete floor plan. Open a marked destination or clearance patch.' : story.scene === 'projection-study' ? 'Experimental projection study · shared world scale · native captures' : ['object-review', 'world-showcase'].includes(story.scene) ? 'Production art review · registered sprites · 12 fps' : 'Portrait composition · UI-only prototype'}</p>{next && <button className="studio-button" onClick={() => go(story.id === 'expedition-resume' ? `expedition-${view.fixture.expeditionBackdrop || 'travel'}` : next[0])}>Preview next event <Icon name="arrow-right"/></button>}</div>
+        <p className="studio-hint">{story.scene === 'projection-study' ? 'Compare the four ratios and use Comments to record your preference. This study does not replace production artwork.' : ['object-review', 'world-showcase'].includes(story.scene) ? 'Inspect the registered sprite exports. Use Comments to review this example; issue #33 remains open for final approval.' : 'Switch examples to inspect a state, or tap the marked controls to follow a flow. All values are illustrative.'}</p>
       </main>
       <aside ref={documentation} className="documentation" id="documentation" aria-label="Behavior and animation notes"><Annotations story={story}/></aside>
     </div>

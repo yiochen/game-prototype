@@ -34,6 +34,17 @@ export const storyGroups = [
 
 export const stories = [
   {
+    id: 'projection-study', group: 'scene-review', title: 'Projection height study', scene: 'projection-study',
+    reviewBranch: 'codex/sushi-loop-33-art-catalog',
+    description: 'An experimental native capture comparison at 100%, 70%, 50% and 40% vertical height. Square floor/top projection, geometry, placements, root registration and world display scale stay fixed.',
+    elements: [
+      element('Four native height captures', 'Compare each object and the connected arrangement in four ratio columns. Captures use the same frame and registered world origin within each row. Missing exports remain labeled; no ratio is substituted.', 'Static projection study. Changing the common tile size or root guide updates immediately; native geometry and images are not animated or squashed in the browser.'),
+      element('Shared world scale and comparison scrolling', 'One tile-size control applies to every ratio and group. Individual rows share a horizontal comparison table; the wider assembly retains its native scale. Vertical touch scrolling belongs to the document.', 'Nearby captures mount as their cells approach the viewport, including horizontal panning. Their layout boxes stay fixed, so loading does not move the page.'),
+      element('Character camera reference', 'The chef pose uses the environment projection for the four study ratios. A separate current 35-degree ordinary orthographic reference keeps that distinction explicit; it is not the 100% environment baseline.', 'All references are static. Ambient and contact shading remain deferred to Godot.'),
+    ],
+    notes: ['Experimental comparison only. No production asset, source geometry or projection contract is replaced by this page.', 'The user chooses a direction after reviewing the study. Final scene approval and issue #33 remain open.'],
+  },
+  {
     id: 'scene-restaurant', group: 'scene-review', title: 'Restaurant scene', scene: 'world-showcase', variant: 'restaurant',
     reviewBranch: 'codex/sushi-loop-33-art-catalog',
     description: 'The native restaurant catalog assembled into one complete room. Inspect the connected serving belt, staff and seated customers, entrance, furniture, storage and decor at the same registered scale.',
