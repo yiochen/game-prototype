@@ -8,7 +8,7 @@ Mode: built-in image_gen. Deliverables: three static, polished portrait result-s
 
 Target: `41a-results-complete.png`.
 
-Style references: `08a-results-restaurant.png` and `../art-directions/01-doodle.png`.
+Historical style references: `08a-results-restaurant.png` and the superseded `01-doodle.png` study, which has been removed. The [current low-poly style/projection guide](../art-directions/README.md) governs future artwork; the historical prompts below are preserved verbatim.
 
 Exact prompt:
 

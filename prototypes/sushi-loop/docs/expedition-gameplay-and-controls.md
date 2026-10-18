@@ -1,12 +1,14 @@
 # Sushi Loop: expedition gameplay and controls
 
-Checkpoint accepted by the user on 2026-10-05. This consolidates decisions accepted during the expedition interview; it is a design document, not an implemented game. The detailed record is [expedition-design-interview.md](./expedition-design-interview.md), vocabulary is in [CONTEXT.md](../CONTEXT.md), and the selected visual direction is [doodle](./art-direction.md).
+Checkpoint accepted by the user on 2026-10-05. This consolidates decisions accepted during the expedition interview; it is a design document, not an implemented game. The detailed record is [expedition-design-interview.md](./expedition-design-interview.md), vocabulary is in [CONTEXT.md](../CONTEXT.md), and the current visual direction is [low-poly](./art-direction.md).
 
 The UI interview subsequently accepted locked portrait orientation throughout the game, including the sushi bar, expedition, Workshop, and related screens. Rotating the device does not switch to a landscape layout. Exact device insets and sizes remain open; see [Question 31 in the UI interview](./ui-design-interview.md#question-31-game-screen-orientation).
 
 ## Current UI references
 
-Use the [interactive wireframe](https://game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#expedition-start) and its shared behavior/motion annotations for current screen composition and controls. Apply the supplied [doodle UI and art catalog](../design/art-directions/doodle.png), also shown in the [catalog concept page](https://game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#concept-doodle-catalog), to the finished visual treatment. The catalog's sample branding, amounts, extra controls and junction belts do not add features or override accepted gameplay. These pages remain review drafts; presentation fixtures do not implement the simulation, clocks or game saves described below. Later UI revisions supersede conflicting historical interview presentation without removing the combat, progression and persistence contracts.
+Use the [interactive wireframe](https://game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#expedition-start) and its shared behavior/motion annotations for current screen composition and controls. Apply the [low-poly art style and projection](../design/art-directions/README.md), with the [restaurant UI/item catalog](../design/art-directions/restaurant-item-catalog.png) also shown in the [catalog concept page](https://game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#concept-doodle-catalog). The catalog's sample branding, amounts, extra controls and junction belts do not add features or override accepted gameplay. These pages remain review drafts; presentation fixtures do not implement the simulation, clocks or game saves described below. Later UI revisions supersede conflicting historical interview presentation without removing the combat, progression and persistence contracts.
+
+The [underwater concept](../design/art-directions/underwater-concept.png) establishes the scene treatment, and the [underwater item catalog](../design/art-directions/underwater-item-catalog.png) guides square-cell modular layout, floor/wall mounting and separate scenery layers. Its sample HUD and dodge-runner mechanics do not add features or replace the accepted expedition controls.
 
 ## Day and night loop
 
@@ -41,6 +43,10 @@ The expedition HUD overlays the full-screen scene. Its top status row places the
 ## Travel encounters
 
 Solid obstacles and varied route sections supply ordinary navigation challenges. Exact content patterns remain to be authored.
+
+The expedition layout uses square cells and integer tile footprints. Reusable floor-mounted and wall-mounted blocker modules connect into long rock, reef and underwater wreck barriers aligned with forward travel, shaping a canyon or tunnel corridor around the ship and pickups. Widths vary up to roughly half the portrait playfield, while connected obstacle length may extend beyond the visible screen. Keep floor tiles square across portrait sizes. The ten-column grid and example tile widths/rows are review fixtures, not fixed production dimensions or balance requirements.
+
+Foreground, midground and background decor remain separate noncolliding visual layers, with ship, hazards, pickups and controls clearly readable. Preserve the overhead view and free relative lateral drag; the layout grid and reference add no runner lanes, lane snapping, cell-stepped steering or jumping. These are presentation fixtures for modular assembly, scale and readable passages. They do not settle production collision shapes, obstacle frequency, damage, route difficulty or upgrade scaling; those remain authored content and playtest tuning under the accepted steering, hit-protection and safe-position rules. Shared tile, obstacle and travel-cue renderers are used in both component examples and the expedition scene.
 
 **Boosts:** temporarily increase forward speed and prevent collision damage while the player steers and collects salvage. They occur during ordinary travel and end before the creature encounter.
 
@@ -129,4 +135,4 @@ A proposed teaching sequence is cooking/customer sales, a simple layout edit and
 - Charging effects/message wording and duration, ready-headlight animation colors/timing, tutorial details, results receipt and background styling, catch-cutscene content/exact timing, equipment appearance thresholds/artwork and Workshop stat units, Workshop landmark art and paper-corner treatment, countdown duration, steering-finger handoff, portrait HUD insets/sizes, low-hull warning threshold/color/pulse, creature-bar entrance/exit presentation, and pre-escape warning duration/animation.
 - Additional travel encounter candidates and ambient hazards during the final creature section.
 
-These are prototype tuning and content decisions, not extra rules silently inferred from the images. The supplied doodle catalog defines finished visual treatment within the wireframe-selected UI; current gameplay documents retain the simulation and control contracts. Earlier paired doodle studies remain historical art exploration.
+These are prototype tuning and content decisions, not extra rules silently inferred from the images. The current low-poly concepts, item catalogs and art-directions README define finished visual treatment within the wireframe-selected UI; current gameplay documents retain the simulation and control contracts. Superseded paired studies have been removed.

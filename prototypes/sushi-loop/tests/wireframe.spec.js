@@ -86,15 +86,15 @@ for (const [name, width, height] of [
   });
 }
 
-test('doodle concept catalog loads the original image and supports contained phone zoom and a full-size link', async ({ page }) => {
+test('restaurant concept catalog loads the low-poly image and supports contained phone zoom and a full-size link', async ({ page }) => {
   for (const [width, height] of [[320, 740], [390, 844], [844, 390]]) {
     await page.setViewportSize({ width, height });
     await open(page, 'concept-doodle-catalog');
-    await expect(stage(page).getByRole('heading', { name: 'Doodle UI & art catalog', exact: true })).toBeVisible();
-    const image = stage(page).getByRole('img', { name: /^Doodle UI and art catalog:/ });
+    await expect(stage(page).getByRole('heading', { name: 'Restaurant UI & item catalog', exact: true })).toBeVisible();
+    const image = stage(page).getByRole('img', { name: /^Low-poly restaurant UI and item catalog:/ });
     await expect.poll(() => image.evaluate(element => element.complete && element.naturalWidth)).toBe(1024);
     expect(await image.evaluate(element => element.naturalHeight)).toBe(1536);
-    const scroll = stage(page).getByLabel('Scroll doodle UI and art catalog', { exact: true });
+    const scroll = stage(page).getByLabel('Scroll restaurant UI and item catalog', { exact: true });
     const fitted = await scroll.evaluate(element => ({ width: element.clientWidth, imageWidth: element.querySelector('img').getBoundingClientRect().width }));
     expect(fitted.imageWidth).toBeLessThanOrEqual(fitted.width + 1);
     const link = stage(page).getByRole('link', { name: 'Open full-size catalog', exact: true });
@@ -112,7 +112,7 @@ test('doodle concept catalog loads the original image and supports contained pho
     await expect(stage(page).getByRole('button', { name: 'Zoom catalog', exact: true })).toHaveAttribute('aria-pressed', 'false');
     expect(await scroll.evaluate(element => element.scrollWidth)).toBeLessThanOrEqual(fitted.width + 1);
   }
-  const catalogUrl = await stage(page).getByRole('img', { name: /^Doodle UI and art catalog:/ }).getAttribute('src');
+  const catalogUrl = await stage(page).getByRole('img', { name: /^Low-poly restaurant UI and item catalog:/ }).getAttribute('src');
   const [original] = await Promise.all([
     page.waitForEvent('popup'),
     stage(page).getByRole('link', { name: 'Open full-size catalog', exact: true }).click(),
@@ -122,7 +122,7 @@ test('doodle concept catalog loads the original image and supports contained pho
   expect(await original.locator('img').evaluate(element => element.naturalWidth)).toBe(1024);
   await original.close();
   await at(page, 'concept-doodle-catalog');
-  await screenshot(page, 'doodle-concept-catalog');
+  await screenshot(page, 'restaurant-concept-catalog');
 });
 
 test('phone example menu supports search, selection, dismissal and behavior/motion notes', async ({ page }) => {

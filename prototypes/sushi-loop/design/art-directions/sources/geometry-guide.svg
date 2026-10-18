@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1536" viewBox="0 0 1024 1536">
+<desc>Geometry guide only: square top/front oblique environment, 112 pixel square cells. Characters use separate undistorted orthographic art. Cyan crosses are standing roots; orange dots are seat contact points.</desc>
+<defs>
+<pattern id="floor" x="64" y="272" width="112" height="112" patternUnits="userSpaceOnUse"><rect width="112" height="112" fill="#f3d8a5"/><path d="M0 112V0H112" fill="none" stroke="#ceb280" stroke-width="2"/></pattern>
+<g id="stool"><rect x="12" y="72" width="16" height="40" fill="#694324"/><rect x="84" y="72" width="16" height="40" fill="#694324"/><rect x="0" y="56" width="112" height="16" fill="#8b592d"/><rect x="0" y="-56" width="112" height="112" fill="#bf8447" stroke="#9b632f" stroke-width="3"/><path d="M37 -56V56M74 -56V56" stroke="#ae753c" stroke-width="2"/></g>
+<g id="prep"><rect x="12" y="64" width="16" height="48" fill="#694324"/><rect x="84" y="64" width="16" height="48" fill="#694324"/><rect x="0" y="48" width="112" height="16" fill="#7c4d2e"/><rect x="0" y="-64" width="112" height="112" fill="#9d6537" stroke="#694324" stroke-width="4"/><rect x="12" y="-52" width="88" height="88" fill="#33343b"/></g>
+<g id="dining"><rect x="12" y="72" width="16" height="40" fill="#694324"/><rect x="84" y="72" width="16" height="40" fill="#694324"/><rect x="0" y="56" width="112" height="16" fill="#8b592d"/><rect x="0" y="-56" width="112" height="112" fill="#c48a50" stroke="#9b632f" stroke-width="3"/></g>
+<g id="root"><path d="M-12 0H12M0 -12V12" stroke="#18aab2" stroke-width="4"/><circle r="3" fill="#18aab2"/></g>
+<g id="seat"><circle r="6" fill="#f08b25" stroke="#ffffff" stroke-width="2"/></g>
+</defs>
+<rect width="1024" height="1536" fill="#6a6570"/>
+<rect x="64" y="160" width="896" height="1376" fill="url(#floor)"/>
+<!-- Front-facing restaurant entrance; all axis-aligned geometry. -->
+<rect x="288" y="48" width="448" height="224" fill="#9b632f"/>
+<rect x="400" y="48" width="224" height="224" fill="#554230"/>
+<rect x="400" y="48" width="224" height="112" fill="#cf3e35"/>
+<path d="M512 48V160" stroke="#97332e" stroke-width="4"/>
+<rect x="288" y="0" width="448" height="48" fill="#284e78"/>
+<rect x="288" y="0" width="448" height="112" fill="#346499" opacity=".55"/>
+<rect x="304" y="48" width="32" height="224" fill="#b7793e"/>
+<rect x="688" y="48" width="32" height="224" fill="#b7793e"/>
+<!-- Counter: 112-pixel square top modules, elevation 56, no end-on side plane. -->
+<rect x="528" y="1056" width="24" height="56" fill="#694324"/>
+<rect x="912" y="1056" width="24" height="56" fill="#694324"/>
+<rect x="512" y="1000" width="448" height="56" fill="#b93630"/>
+<path d="M512 328H624V888H960V1000H512Z" fill="#d84638" stroke="#9f2d2d" stroke-width="3"/>
+<path d="M526 342H610V902H946V986H526Z" fill="#414148"/>
+<path d="M526 440H610M526 552H610M526 664H610M526 776H610M624 902V986M736 902V986M848 902V986" stroke="#62616a" stroke-width="3"/>
+<!-- Prep stands and backless stools. Every top footprint is 112x112. -->
+<use href="#prep" x="288" y="496"/>
+<use href="#prep" x="288" y="720"/>
+<use href="#dining" x="624" y="496"/>
+<use href="#dining" x="624" y="720"/>
+<use href="#dining" x="624" y="1056"/>
+<use href="#dining" x="848" y="1056"/>
+<use href="#stool" x="736" y="496"/>
+<use href="#stool" x="736" y="720"/>
+<use href="#stool" x="624" y="1168"/>
+<use href="#stool" x="848" y="1168"/>
+<!-- Standing ground roots, not art silhouettes. -->
+<use href="#root" x="456" y="608"/><use href="#root" x="456" y="832"/>
+<use href="#root" x="232" y="776"/><use href="#root" x="232" y="1112"/>
+<!-- Seated hips must meet these raised support-plane points. -->
+<use href="#seat" x="792" y="496"/><use href="#seat" x="792" y="720"/>
+<use href="#seat" x="680" y="1168"/><use href="#seat" x="904" y="1168"/>
+<!-- UI zones; final icons and counter come from the style reference. -->
+<rect x="28" y="28" width="288" height="96" rx="24" fill="#fff0ce" stroke="#3d2c20" stroke-width="4"/>
+<rect x="240" y="1344" width="144" height="144" rx="24" fill="#fff0ce" stroke="#3d2c20" stroke-width="4"/>
+<rect x="416" y="1344" width="144" height="144" rx="24" fill="#fff0ce" stroke="#3d2c20" stroke-width="4"/>
+<rect x="592" y="1344" width="144" height="144" rx="24" fill="#fff0ce" stroke="#3d2c20" stroke-width="4"/>
+</svg>

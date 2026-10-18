@@ -1,6 +1,6 @@
 # Workshop restaurant-entry options
 
-Built-in image generation variations based on the restaurant half of [the selected doodle art reference](../art-directions/01-doodle.png). Pending UI interview Question 9. Common HUD/toolbar arrangement is illustrative; this question concerns only Workshop access. Restaurant cell-occupancy rules remain authoritative.
+Historical built-in image generation variations based on the restaurant half of the superseded `01-doodle.png` study, which has been removed. The current [restaurant concept](../art-directions/restaurant-concept.png) and [low-poly style/projection guide](../art-directions/README.md) govern future artwork; the exact historical prompts below remain unchanged. Pending UI interview Question 9. Common HUD/toolbar arrangement is illustrative; this question concerns only Workshop access. Restaurant cell-occupancy rules remain authoritative.
 
 ## A — fixed toolbar entry
 

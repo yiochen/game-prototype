@@ -1,28 +1,35 @@
-# Selected art direction: doodle
+# Selected art direction: low-poly
 
 Status: accepted by the user. Applies to both the sushi restaurant and submarine expedition.
 
-## Visual reference
+## Visual references
 
-![Doodle UI and art component catalog](../design/art-directions/doodle.png)
+The [art-directions README](../design/art-directions/README.md) defines the shared style and projection. The current references are:
 
-Follow this supplied catalog for the finished UI and game artwork. It is available in the wireframe's [Doodle UI & art catalog concept page](https://game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#concept-doodle-catalog), with zoom and access to the full original. Apply its materials, silhouettes, sprites, icons, dishes, bubbles and modular environment treatment to the [current wireframe composition and controls](https://game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#floor-plan).
+- Restaurant: [approved theme concept](../design/art-directions/restaurant-concept.png) and [UI/item catalog](../design/art-directions/restaurant-item-catalog.png).
+- Expedition: [standalone underwater concept](../design/art-directions/underwater-concept.png) and [underwater item catalog](../design/art-directions/underwater-item-catalog.png).
 
-The catalog's Night Harbor name, sample numbers, Settings/Map/global level controls and T/cross belt artwork are examples, not new game requirements. Keep the selected wireframe's control set, transparent restaurant HUD, curled Shop/Workshop paper pages and accepted one-input/one-output belts. Square-cell occupancy, production rules and progression remain governed by the spec. The catalog is a visual reference, not a production sprite sheet; assets must be authored separately.
+The restaurant catalog is also available in the wireframe's [catalog concept page](https://game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#concept-doodle-catalog), with zoom and access to the full-size image. Apply the low-poly materials, silhouettes, characters, icons, dishes, bubbles and modular environment treatment within the [current wireframe composition and controls](https://game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#floor-plan).
 
-The earlier [paired restaurant/expedition study](../design/art-directions/01-doodle.png) remains historical visual exploration. The new component catalog is the primary art reference.
+The catalogs' Night Harbor name, sample numbers, Settings/Map/global level controls and T/cross belt artwork are examples, not new game requirements. Keep the selected wireframe's control set, transparent restaurant HUD, curled Shop/Workshop paper pages and accepted one-input/one-output belts. Square-cell occupancy, production rules and progression remain governed by the spec. Concepts and catalogs are visual references, not production sprite sheets; assets must be authored separately.
+
+The underwater catalog guides square-cell layout and modular obstacle construction. Combine floor-anchored and wall-anchored pieces with explicit one-cell or multi-cell footprints, connected runs and varied silhouettes. Foreground, midground and background dressing remain visual layers separate from collidable footprints. Its sample HUD, distance, shield and objects do not add gameplay requirements.
 
 ## Style guide
 
-- Confident, slightly irregular ink outlines with rounded, readable silhouettes.
-- Simple expressive faces and modular character shapes suited to 2D animation. Customer reactions should read at phone size.
-- Rich readable color, dimensional shading, warm wood/parchment materials, and restrained texture as shown in the catalog. Keep texture quieter than characters, sushi, pickups, and hazards.
-- Restaurant: warm wood, ivory/parchment and lantern accents against harbor navy/teal, with vivid food and character colors.
-- Expedition: deep navy and teal water, warm yellow submarine and headlight, and bright accents for interactive objects.
-- Both modes share the catalog's line treatment, shape language and hand-drawn icons. Preserve the wireframe's transparent restaurant HUD without an added cream/yellow backing container; use material surfaces where the selected component calls for them.
-- Keep square floor cells undistorted and sprite bases anchored at bottom-center. Taller front/top-facing artwork can extend above its occupied footprint; the catalog's 64px tile example does not set production pixel size.
-- Match dish icons on belts to their more detailed panel illustrations. Reuse the catalog's normal/pressed/disabled/badge visual states and expressive thought bubbles within the selected control set.
-- Commercial finish comes from consistent outlines, deliberate spacing, polished icons, and clear visual hierarchy.
+- Chunky angular low-poly forms with broad flat facets, matte materials, minimal texture, gentle ambient occlusion and soft grounding shadows. Avoid the superseded hand-drawn scene outlines and paper grain.
+- Compact blocky characters with expressive faces, angular hair and hats, and gestures that read at phone size.
+- Restaurant: cream square tiles, warm honey-brown wood, red/charcoal conveyor trim, golden lantern light, vivid food and clothing, and angular green plants. Dining stools are backless.
+- Dress outer edges with varied plants, crates, lanterns, signs and subdued faceted rocks. Frame the space while leaving playable floor, entrances, expansion connections and controls clear. Viewport divisions in the continuous floor are not borders; dressing does not change usable cells, pathfinding, capacity or earnings.
+- Expedition: cobalt/navy rock walls and turquoise water, pale columns, bright coral and kelp, and a recognizable warm yellow submarine with a blue window and headlight.
+- Both modes share geometric silhouettes, clear color hierarchy and polished UI icons. Crisp dark rims and restrained depth suit panels; preserve the wireframe's transparent restaurant HUD without an added cream/yellow backing container. Use material surfaces where the selected component calls for them.
+- Match dish icons on belts to detailed panel illustrations. Reuse the catalog's normal/pressed/disabled/badge states and expressive thought bubbles within the accepted control set.
+
+## Projection and registration
+
+Use **square top/front oblique projection** for the floor and environment objects, with parallel screen-aligned square cells and true-shape grid-aligned top/front planes. Height extends upward over rows behind the object's ground root. No perspective convergence or diamond-grid rotation.
+
+Characters use a separate ordinary orthographic art camera with no vertical stretch. Register standing feet at projected floor roots and seated hips at explicit stool-seat supports; match hands to serving surfaces. Keep footprint, support/collision, art bounds, root and height separate. The [README](../design/art-directions/README.md#environment-projection) records the mathematical contract, capture conventions, limitations and source profiles. Catalog tile-size examples and concept authoring values do not lock runtime pixel pitch.
 
 ## Gameplay presentation
 
@@ -42,16 +49,14 @@ Before an unhooked creature's shooting window expires, show a clearly restless a
 
 Confine the low-hull warning to the existing upper-left hull meter, using a warning color and gentle pulse while hull is low. Add no screen-edge tint. Exact threshold, colors, pulse timing, and intensity remain to be designed.
 
-Celebrate a successful catch with a full-screen portrait cutscene in the selected 2D doodle style. Keep it very quick, lasting only a few seconds, and play it automatically without a Skip button. Open the award dialog automatically afterward. Active gameplay and hazards have ended during this presentation. The composition, animation, and exact timing within the short-duration target remain to be designed.
+Celebrate a successful catch with a full-screen portrait cutscene in the selected low-poly style. Keep it very quick, lasting only a few seconds, and play it automatically without a Skip button. Open the award dialog automatically afterward. Active gameplay and hazards have ended during this presentation. The composition, animation, and exact timing within the short-duration target remain to be designed.
 
-Expedition results present a salvage receipt with pickups, a repeat-catch bonus when earned, and a completion bonus, followed by a prominent total earned. Show a zero completion bonus with a short explanation on failure or early return. Keep the single Restaurant continuation. The dedicated first-catch recipe award shows artwork, price and base preparation time on the required material board (copper for the Eel fixture), with accessible tier information and no separate Chef requirement row; the following results omit a recipe recap. Use the outcome titles Expedition complete, Returned early, and Hull depleted, each with a different image-generated background in the selected 2D doodle style. Keep the receipt and action visually consistent across outcomes. Backgrounds are presentation rather than additional repair, rescue, permanent-damage, or lost-reward mechanics. Exact receipt/background styling remains to be designed.
+Expedition results present a salvage receipt with pickups, a repeat-catch bonus when earned, and a completion bonus, followed by a prominent total earned. Show a zero completion bonus with a short explanation on failure or early return. Keep the single Restaurant continuation. The dedicated first-catch recipe award shows artwork, price and base preparation time on the required material board (copper for the Eel fixture), with accessible tier information and no separate Chef requirement row; the following results omit a recipe recap. Use the outcome titles Expedition complete, Returned early, and Hull depleted, each with a different image-generated background in the selected low-poly style. Keep the receipt and action visually consistent across outcomes. Backgrounds are presentation rather than additional repair, rescue, permanent-damage, or lost-reward mechanics. Exact receipt/background styling remains to be designed.
 
-Generated background studies within result-screen mockups: [bright completed-route water](../design/ui/41a-results-complete.png), [quiet return corridor](../design/ui/41b-results-returned-early.png), and [damaged submarine in a rocky alcove](../design/ui/41c-results-hull-depleted.png). These illustrate the accepted distinct-background approach; their exact composition and example amounts remain proposals. [Exact prompts and output record](../design/ui/41-results-background-prompts.md) document the built-in generation. Each is a static portrait mockup with baked-in UI rather than an isolated background or animated cutscene.
+Generated background studies within result-screen mockups: [bright completed-route water](../design/ui/41a-results-complete.png), [quiet return corridor](../design/ui/41b-results-returned-early.png), and [damaged submarine in a rocky alcove](../design/ui/41c-results-hull-depleted.png). These historical UI studies illustrate the accepted distinct-background approach; their earlier doodle finish is superseded by the current low-poly direction. Their exact composition and example amounts remain proposals. [Exact prompts and output record](../design/ui/41-results-background-prompts.md) document the built-in generation. Each is a static portrait mockup with baked-in UI rather than an isolated background or animated cutscene.
 
 At a few selected equipment levels, show visible hull-panel, harpoon, or collector improvements on the submarine. The same equipment appearance persists in the Workshop, dock, and expedition. Preserve the recognizable yellow silhouette, existing ship footprint, and collision size. These changes reflect the accepted equipment stats without adding mechanics. Exact thresholds and part artwork remain to be designed; existing references do not depict every equipment level.
 
-## Source and alternatives
+## Sources
 
-The current catalog was supplied by the user as `design/art-directions/doodle.png` and is displayed unchanged in the concept page. The earlier paired study was generated with the built-in image generation tool; its prompts are recorded in [the generation record](../design/art-directions/prompts.md).
-
-Retro atomic and bright storybook were earlier alternatives. The supplied doodle catalog is the selected direction for future work.
+The four current images and style/projection README live in [design/art-directions](../design/art-directions/README.md). Built-in imagegen prompts, the authored geometry guide, projection profile and character attachment points are kept in its sources directory. Superseded studies, non-low-poly images and intermediate renders have been removed.
