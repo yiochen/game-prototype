@@ -58,3 +58,10 @@ User feedback supersedes the stretched height experiment: raise the supporting r
 Follow-up feedback clarifies the desired direction: broad but uneven rock crowns, compact kelp/coral distributed on lower, middle and upper ledges, varied coral colors, and dark lower rock faces graduating toward bright tops. The living-ledges study implements these traits in native geometry and materials.
 
 The user hypothesized a lower camera for objects covering more than two vertical tiles. The study compares the same geometry in the established 70% oblique profile and ordinary 35° orthographic profile. Its experimental mixed rule uses the S-facing complete reference silhouette (>2 tile heights), with square floors and fixed world roots. This camera exception is not locked and does not supersede ART-01 for production. The preserved original concept is visual guidance, not proof of a specific camera or angle. Evidence: `../../review/33/decoration-study/living-ledges/README.md`.
+
+
+### Compact organic revision — pending visual approval
+
+Browser feedback sets a new study limit: every decoration's vertical rise stays below three tiles. Shape refinements use irregular shoulders and widths, compact branching coral and thick flared sponges. The gradient must not acquire a world light direction when facings vary: the study now uses emission materials, zero lights, and height/slope-driven rock tone.
+
+To remove the front gap, the experimental 35° upper view now transitions to square projected footing near ground. This explicit native capture-space exception is documented and audited; it is not a pure ordinary orthographic view over the entire model and does not replace ART-01 for connected production terrain. Physical footprints and roots stay fixed. Evidence: `../../review/33/decoration-study/compact-organic/README.md`.

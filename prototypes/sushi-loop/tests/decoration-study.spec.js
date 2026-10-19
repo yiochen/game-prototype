@@ -11,9 +11,11 @@ for (const [width, height] of [[390,844],[844,390],[1440,1200]]) {
     const ground=await scene.locator('[data-decor-layer="ground"] image').first().getAttribute('href');
     const kelp=stage.locator('[data-decor-piece="kelp"]');
     const low=stage.locator('[data-decor-piece="low-rock"]');
-    await expect(kelp).toContainText('35° ordinary orthographic');
+    await expect(kelp).toContainText('35° upper view · square footing');
     await expect(low).toContainText('70% square-grid oblique');
     await expect(kelp).toContainText('Bottom · middle · top growth');
+    for(const text of await stage.locator('[data-decor-piece] strong').allTextContents())expect(Number.parseFloat(text)).toBeLessThan(3);
+    await expect(stage).toContainText('Light-independent height shading');
     const kelpMixed=await kelp.getByRole('link',{name:'Native capture ↗'}).getAttribute('href');
     const lowMixed=await low.getByRole('link',{name:'Native capture ↗'}).getAttribute('href');
     await stage.getByLabel('Decoration projection',{exact:true}).selectOption('oblique');
