@@ -4,7 +4,7 @@ Target: **Godot Android**, as confirmed by the user. Implement **one ticket at a
 
 | Ticket | State | Evidence |
 | --- | --- | --- |
-| [#10 Operating starter restaurant](https://github.com/yiochen/game-prototype/issues/10) | Implemented; awaiting user verification | [Review and APK](10/README.md): 51 session, 24 persistence and 56 native application checks; actual phone/wide captures; Android touch, background/update persistence, exact save continuation and signed release launch |
+| [#10 Operating starter restaurant](https://github.com/yiochen/game-prototype/issues/10) | Approved #33 art integration in progress; awaiting user verification before the next ticket | [Current review and APK](10/catalog-integration/README.md); [historical v0.1.1 pass](10/README.md) |
 
 Later tickets remain pending until the user verifies the preceding slice and asks to proceed. Public issue closure occurs through the implementation PR when merged.
 

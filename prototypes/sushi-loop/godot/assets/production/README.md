@@ -1,5 +1,10 @@
 # Starter restaurant production artwork
 
+**Historical v0.1.1 artwork.** Active gameplay and the native gallery use
+`assets/catalog/`, synchronized from the approved issue #33 library. These older
+sources remain for provenance and are excluded from Android packaging. See the
+[current integration review](../../review/10/catalog-integration/README.md).
+
 Original artwork for the current Godot Android ticket #10 slice, generated with the built-in image-generation tool against the supplied `design/art-directions/doodle.png` catalog. No catalog pixels or archived game assets are reused. No game title is baked into the artwork.
 
 Load [manifest.json](manifest.json) by semantic key. Entries declare an unchanged source PNG, exact native region, measured anchor, and a shared scale reference when required. Equivalent AtlasTexture resources live in `atlas/`. [animations.json](animations.json) declares ordered six-frame loops and playback timing.

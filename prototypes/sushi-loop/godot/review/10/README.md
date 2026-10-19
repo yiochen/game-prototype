@@ -1,5 +1,10 @@
 # Ticket #10: operating starter restaurant
 
+**Historical v0.1.1 review.** The active implementation now uses the approved
+Faceted catalog from issue #33. See the [current integration review](catalog-integration/README.md)
+for the updated Android build, native screenshots, animation, validation and
+save-upgrade results. The older images and APK below document the earlier pass.
+
 This review covers [issue #10](https://github.com/yiochen/game-prototype/issues/10) only, adapted to the user-confirmed Godot Android target. Later tickets have not been implemented. Shop, Edit and Staff remain visible but disabled until their own tickets are approved.
 
 The visual revision follows the supplied [doodle catalog](../../../design/art-directions/doodle.png): elevated front/top artwork on a square grid, feet at tile centers, broad connected conveyors and a quiet drawn floor. Fifteen character clips contain six different drawings each, at least 445 native pixels tall. Smooth sampling preserves their detail at phone size. Sushi is drawn above the complete belt pass.
