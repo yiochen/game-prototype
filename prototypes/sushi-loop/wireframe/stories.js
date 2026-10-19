@@ -34,14 +34,14 @@ export const storyGroups = [
 
 export const stories = [
   {
-    id: 'character-lighting-study', group: 'scene-review', title: 'Character lighting study', scene: 'character-lighting-study',
+    id: 'character-lighting-study', group: 'scene-review', title: 'Surface lighting study', scene: 'character-lighting-study',
     reviewBranch: 'codex/sushi-loop-33-art-catalog',
-    description: 'Compare Noor’s green hat under the current emission baseline and three actual Blender overhead-light candidates. The C125 anatomy, 35° orthographic camera, fixed frame/root and 135% native grade stay unchanged.',
+    description: 'Compare Noor, a conveyor, a wood crate and a connected conveyor fixture under the emission baseline and three native Blender overhead-light candidates. Each subject keeps its own fixed camera, frame, root and 135% grade.',
     elements: [
-      element('Four native lighting candidates', 'Baseline, Soft, Faceted and Crisp use the same character pose and fixed capture registration. The facing control shows matching North, East, South or West captures across every candidate.', 'Static native Blender stills displayed directly without browser image filters.'),
-      element('Top and side separation', 'Compare the brightness of the green hat top against its sides and check that facial features remain readable. The original restaurant concept is preserved as a reference below the study.', 'Every image and square floor tile keeps the same scale within the comparison. Vertical scrolling belongs to the document.'),
+      element('Four native lighting candidates', 'Baseline, Soft, Faceted and Crisp share one subject and fixed capture registration. Subject and facing controls expose character 35° and environment 70% views without replacing production sprites.', 'Native stills are displayed directly without browser image filters. The connected conveyor South view includes a synchronized 24-frame native loop at 12 fps.'),
+      element('Top and side separation', 'Compare hat facets, wooden crate faces and conveyor rails under the same overhead-light choices. The original Noor experiment and restaurant concept are preserved.', 'Each subject retains its declared tile footprint and one fixed frame/root. Vertical scrolling belongs to the document.'),
     ],
-    notes: ['An isolated lighting experiment; no production character sprites are replaced.', 'Use Comments to choose a lighting direction before rolling it out. Issue 33 stays open for asset approval.'],
+    notes: ['An isolated lighting experiment; no production sprites are replaced.', 'Use Comments to choose a lighting direction before rolling it out. Issue 33 stays open for asset approval.'],
   },
   {
     id: 'decoration-study', group: 'scene-review', title: 'Decoration coverage & heights', scene: 'decoration-study',

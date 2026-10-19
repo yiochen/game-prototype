@@ -148,3 +148,17 @@ preserve the hat's green channel without clipping in the measured top regions.
 This is a requested experiment, not a new universal finish decision. ART-05/06
 remain the production baseline until the user chooses a lighting treatment.
 No production sprites or models are replaced, and issue 33 remains open.
+
+### Conveyor and crate transfer test — pending review
+
+The user requested the same lighting comparison on the conveyor and wood crate.
+The [environment lighting study](../../assets/environment-lighting-study/README.md)
+retains the exact Noor presets and the environment's calibrated 70% projection.
+It adds four-way straight-belt/crate stills and a connected three-module L with
+a complete native 24-frame, 12-fps South-facing loop. Geometry, UVs, registered
+roots and the native moving-deck phase remain unchanged.
+
+The lights reveal the belt rails and crate braces more clearly. Pale crate-top
+boards lose color detail under the stronger presets, while Soft retains more
+wood color. This measured transfer result is shown directly in the review page;
+no new universal lighting treatment is selected and no production asset changes.

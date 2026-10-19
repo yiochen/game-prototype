@@ -7,9 +7,12 @@
 .lighting-study-header a,.lighting-variant a{display:inline-flex;align-items:center;min-height:36px;font-size:10px;color:#42654a;text-underline-offset:3px}
 .lighting-study-header>.lighting-study-status{font-size:10px;margin-top:5px}
 .lighting-study-controls{display:flex;flex-wrap:wrap;gap:8px 24px;padding:11px 20px;background:#edf2e8;border-bottom:1px solid var(--lighting-line)}
-.lighting-study-controls label{display:flex;align-items:center;gap:8px;min-height:44px;font-size:11px;color:#49674f}
-.lighting-study-controls select{min-height:42px;max-width:100%;border:1px solid #b5c4ad;border-radius:5px;background:#fff;padding:7px 9px;color:#385841;font-size:11px}
+.lighting-study-controls label{display:flex;align-items:center;gap:8px;min-height:44px;min-width:0;max-width:100%;font-size:11px;color:#49674f}
+.lighting-study-controls select{min-height:44px;min-width:0;max-width:100%;border:1px solid #b5c4ad;border-radius:5px;background:#fff;padding:7px 9px;color:#385841;font-size:11px}
 .lighting-study-controls input{accent-color:#44684b;width:16px;height:16px;margin:0}
+.lighting-subject-intro{padding:17px 20px 0}.lighting-subject-intro h3{font-size:18px;line-height:1.3;margin:0 0 7px;letter-spacing:-.025em}.lighting-subject-intro p{font-size:11px;line-height:1.7;color:#6b7c69;margin:0;max-width:84ch}.lighting-subject-intro .lighting-projection-note{font-size:10px;color:#587353;margin-top:7px}
+.lighting-subject-intro .lighting-observation{margin-top:9px;padding:9px 11px;background:#fff4db;border-left:3px solid #c9a260;color:#79643f}
+.lighting-playback{display:flex;align-items:center;flex-wrap:wrap;gap:9px 15px;margin:14px 20px 0;padding:10px 12px;background:#edf2e8;border:1px solid var(--lighting-line);border-radius:6px}.lighting-playback button{min-height:42px;border:1px solid #aebb9f;border-radius:5px;background:#fff;color:#3e6143;padding:7px 12px;font-size:11px}.lighting-playback label{display:flex;flex:1;min-width:120px;flex-direction:column;gap:5px;font-size:10px;color:#50704b}.lighting-playback input{width:100%;accent-color:#50744d}.lighting-playback>span,.lighting-animation-note{font-size:10px;line-height:1.7;color:#6d7d66}.lighting-animation-note{margin:12px 20px 0}
 .lighting-comparison{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding:18px 20px}
 .lighting-variant{display:flex;flex-direction:column;min-width:0;background:#fff;border:1px solid var(--lighting-line);border-radius:7px;overflow:hidden}
 .lighting-variant header{padding:12px 12px 0;min-height:100px}
@@ -28,4 +31,4 @@
 .lighting-pending{padding:20px;font-size:11px;color:#75816e;line-height:1.8}
 .character-lighting-study :is(a,input,select,summary):focus-visible{outline:3px solid #4b7453;outline-offset:3px}
 @media(max-width:700px){.lighting-comparison{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:480px){.lighting-study-header{padding:18px 12px 15px}.lighting-study-header h2{font-size:25px}.lighting-study-controls{padding:9px 12px;gap:5px 14px}.lighting-comparison{padding:14px 12px;gap:10px}.lighting-variant header{padding:10px 9px 0;min-height:112px}.lighting-variant h3{font-size:14px}.lighting-variant header p{font-size:9px}.lighting-variant figcaption{padding-inline:9px}.lighting-registration-note{padding:0 12px 17px}.lighting-concept-reference{padding:12px}}
+@media(max-width:480px){.lighting-study-header{padding:18px 12px 15px}.lighting-study-header h2{font-size:25px}.lighting-study-controls{padding:9px 12px;gap:5px 14px}.lighting-subject-intro{padding:15px 12px 0}.lighting-playback{margin-inline:12px}.lighting-animation-note{margin-inline:12px}.lighting-comparison{padding:14px 12px;gap:10px}.lighting-variant header{padding:10px 9px 0;min-height:112px}.lighting-variant h3{font-size:14px}.lighting-variant header p{font-size:9px}.lighting-variant figcaption{padding-inline:9px}.lighting-registration-note{padding:0 12px 17px}.lighting-concept-reference{padding:12px}}
