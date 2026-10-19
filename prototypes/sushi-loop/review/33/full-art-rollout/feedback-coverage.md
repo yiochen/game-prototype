@@ -6,6 +6,9 @@ entries reference the frozen version-12 project
 `c02e04d6c90e34afce2b0895328d4a1e26d47817ce9d38fb2b458fa3e766fc1f`.
 Required state IDs resolve to published clips, every clip runs at 12 fps, and
 declared facings match the exported artwork. The blackboard and sign are S-only.
+Variant references and interaction clip references resolve correctly. All 13
+flat objects declare fixed-frame 2D registration with matching frame/root/scale;
+legacy native socket metadata is removed. The blank board has one blank variant.
 No request-coverage blocker was found. User visual approval remains pending;
 issue 33 must stay open.
 
