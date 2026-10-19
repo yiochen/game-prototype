@@ -104,11 +104,13 @@ test('phone feedback reports unavailable storage and uses a download when clipbo
   await expect(section.getByRole('status')).toContainText('only in this tab');
   await section.getByRole('textbox').fill('Unfinished recipe draft survives a story switch.');
   await page.getByRole('button', { name: 'Examples', exact: true }).click();
-  await page.getByRole('dialog', { name: 'Wireframe examples' }).getByRole('link', { name: 'Shop · available goods', exact: true }).click();
+  await page.locator('#story-search').fill('Shop · available goods');
+  await page.locator('#story-sidebar').getByRole('link', { name: 'Shop · available goods', exact: true }).click();
   await expect(section.getByRole('textbox')).toHaveValue('');
   await section.getByRole('textbox').fill('A separate unfinished Shop draft.');
   await page.getByRole('button', { name: 'Examples', exact: true }).click();
-  await page.getByRole('dialog', { name: 'Wireframe examples' }).getByRole('link', { name: 'Picker · eligible recipe', exact: true }).click();
+  await page.locator('#story-search').fill('Picker · eligible recipe');
+  await page.locator('#story-sidebar').getByRole('link', { name: 'Picker · eligible recipe', exact: true }).click();
   await expect(section.getByRole('textbox')).toHaveValue('Unfinished recipe draft survives a story switch.');
   await expect(section.locator('.feedback-comment-text')).toHaveText('The recipe close control should remain thumb reachable.');
   await expect(section.locator('.feedback-comment-meta')).toContainText('Only in this tab');

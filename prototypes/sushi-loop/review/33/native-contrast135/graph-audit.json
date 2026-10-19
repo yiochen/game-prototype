@@ -1,0 +1,70 @@
+{
+  "nativeProjectSHA256": "ac1ba4f49e34a028e16000ca583defb8f9190e91a54c46a850e8f468355b9cf4",
+  "nodeGroup": "S33 concept decor 0ea37dc1 sRGB Contrast 135",
+  "worldStrength": 0.0,
+  "lightCount": 0,
+  "nodes": [
+    {
+      "type": "CompositorNodeRLayers",
+      "label": "Unchanged materials and lighting"
+    },
+    {
+      "type": "CompositorNodePremulKey",
+      "label": "Unpremultiply before grading",
+      "alphaConversion": "To Straight"
+    },
+    {
+      "type": "CompositorNodeConvertColorSpace",
+      "label": "Match browser sRGB",
+      "from": "scene_linear",
+      "to": "sRGB"
+    },
+    {
+      "type": "CompositorNodeSeparateColor",
+      "label": ""
+    },
+    {
+      "type": "CompositorNodeCombineColor",
+      "label": ""
+    },
+    {
+      "type": "ShaderNodeMath",
+      "label": "Red: clamp(1.35 \u00d7 c \u2212 0.175)",
+      "operation": "MULTIPLY_ADD",
+      "factor": 1.350000023841858,
+      "offset": -0.17499999701976776,
+      "clamp": true
+    },
+    {
+      "type": "ShaderNodeMath",
+      "label": "Green: clamp(1.35 \u00d7 c \u2212 0.175)",
+      "operation": "MULTIPLY_ADD",
+      "factor": 1.350000023841858,
+      "offset": -0.17499999701976776,
+      "clamp": true
+    },
+    {
+      "type": "ShaderNodeMath",
+      "label": "Blue: clamp(1.35 \u00d7 c \u2212 0.175)",
+      "operation": "MULTIPLY_ADD",
+      "factor": 1.350000023841858,
+      "offset": -0.17499999701976776,
+      "clamp": true
+    },
+    {
+      "type": "CompositorNodeConvertColorSpace",
+      "label": "Return to working linear space",
+      "from": "sRGB",
+      "to": "scene_linear"
+    },
+    {
+      "type": "CompositorNodePremulKey",
+      "label": "",
+      "alphaConversion": "To Premultiplied"
+    },
+    {
+      "type": "NodeGroupOutput",
+      "label": ""
+    }
+  ]
+}

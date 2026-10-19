@@ -1,0 +1,1148 @@
+
+> game-prototype@0.1.0 test
+> node --test prototypes/*/tests/*.test.js
+
+TAP version 13
+# Subtest: altitude changes continuously through all seven milestones and stays navy beyond 150
+ok 1 - altitude changes continuously through all seven milestones and stays navy beyond 150
+  ---
+  duration_ms: 6.768167
+  type: 'test'
+  ...
+# Subtest: islands recede before starlight and every large cloud is gone by floor 75
+ok 2 - islands recede before starlight and every large cloud is gone by floor 75
+  ---
+  duration_ms: 0.1705
+  type: 'test'
+  ...
+# Subtest: balloons belong to new neighborhoods, including repeated types, never extensions
+ok 3 - balloons belong to new neighborhoods, including repeated types, never extensions
+  ---
+  duration_ms: 3.1755
+  type: 'test'
+  ...
+# Subtest: a balloon emerges at its floor and joins the live dock after a readable flight
+ok 4 - a balloon emerges at its floor and joins the live dock after a readable flight
+  ---
+  duration_ms: 0.690417
+  type: 'test'
+  ...
+# Subtest: balance data defines all prices, strengths and normalized relative roll boundaries
+ok 5 - balance data defines all prices, strengths and normalized relative roll boundaries
+  ---
+  duration_ms: 2.254375
+  type: 'test'
+  ...
+# Subtest: Fixed creates exactly its printed links; power purchases add no incidental link
+ok 6 - Fixed creates exactly its printed links; power purchases add no incidental link
+  ---
+  duration_ms: 2.138417
+  type: 'test'
+  ...
+# Subtest: Recall replaces Polish, counts segments regardless of length, and preserves existing links
+ok 7 - Recall replaces Polish, counts segments regardless of length, and preserves existing links
+  ---
+  duration_ms: 3.463416
+  type: 'test'
+  ...
+# Subtest: splitting six Bunny links increases Recall; purchase boundaries do not
+ok 8 - splitting six Bunny links increases Recall; purchase boundaries do not
+  ---
+  duration_ms: 2.279459
+  type: 'test'
+  ...
+# Subtest: Recall snapshots once, appends its own suit, and only future purchases reuse those links
+ok 9 - Recall snapshots once, appends its own suit, and only future purchases reuse those links
+  ---
+  duration_ms: 1.644667
+  type: 'test'
+  ...
+# Subtest: Overgrow appends the longest run’s suit, snapshots its length, and caps its bonus
+ok 10 - Overgrow appends the longest run’s suit, snapshots its length, and caps its bonus
+  ---
+  duration_ms: 4.090667
+  type: 'test'
+  ...
+# Subtest: upgrade levels replace each other, disappear at max, and affect only future purchases
+ok 11 - upgrade levels replace each other, disappear at max, and affect only future purchases
+  ---
+  duration_ms: 1.057125
+  type: 'test'
+  ...
+# Subtest: Stabilizer uses explicit odds in one draw, with Reactor applied afterward
+ok 12 - Stabilizer uses explicit odds in one draw, with Reactor applied afterward
+  ---
+  duration_ms: 1.19425
+  type: 'test'
+  ...
+# Subtest: Rebate cannot stack, affects only next three bases, and requires full price upfront
+ok 13 - Rebate cannot stack, affects only next three bases, and requires full price upfront
+  ---
+  duration_ms: 2.155875
+  type: 'test'
+  ...
+# Subtest: Vault uses cash after its price and zero-effect offers are excluded
+ok 14 - Vault uses cash after its price and zero-effect offers are excluded
+  ---
+  duration_ms: 0.553667
+  type: 'test'
+  ...
+# Subtest: invalid inputs and double purchases are no-ops; reading previews never rolls
+ok 15 - invalid inputs and double purchases are no-ops; reading previews never rolls
+  ---
+  duration_ms: 0.249791
+  type: 'test'
+  ...
+# Subtest: final result waits for reveal and the free roof, while an affordable fallback keeps runs alive
+ok 16 - final result waits for reveal and the free roof, while an affordable fallback keeps runs alive
+  ---
+  duration_ms: 13.897083
+  type: 'test'
+  ...
+# Subtest: the roof advances exactly once without touching the completed run
+ok 17 - the roof advances exactly once without touching the completed run
+  ---
+  duration_ms: 1.507375
+  type: 'test'
+  ...
+# Subtest: full runs terminate, money reconciles and identical seeds replay exactly
+ok 18 - full runs terminate, money reconciles and identical seeds replay exactly
+  ---
+  duration_ms: 448.501458
+  type: 'test'
+  ...
+# Subtest: explicit Stabilizer tables match old best-of probabilities and use one RNG draw at every level
+ok 19 - explicit Stabilizer tables match old best-of probabilities and use one RNG draw at every level
+  ---
+  duration_ms: 7.042708
+  type: 'test'
+  ...
+# Subtest: Choice 1 validates selection before spending and stacks the chosen Reactor, Assembler, Rebate and Foundation
+ok 20 - Choice 1 validates selection before spending and stacks the chosen Reactor, Assembler, Rebate and Foundation
+  ---
+  duration_ms: 0.351834
+  type: 'test'
+  ...
+# Subtest: Foundation advances on matching suited purchases, pauses on suitless cards and ends on switching
+ok 21 - Foundation advances on matching suited purchases, pauses on suitless cards and ends on switching
+  ---
+  duration_ms: 0.383459
+  type: 'test'
+  ...
+# Subtest: Mosaic variations print all suit orders, append exactly that pattern and end Foundation
+ok 22 - Mosaic variations print all suit orders, append exactly that pattern and end Foundation
+  ---
+  duration_ms: 8.901916
+  type: 'test'
+  ...
+# Subtest: Attunement locks exactly the next shops including Choice, pauses Mosaic, and does not refresh
+ok 23 - Attunement locks exactly the next shops including Choice, pauses Mosaic, and does not refresh
+  ---
+  duration_ms: 0.67475
+  type: 'test'
+  ...
+# Subtest: Attunement preserves affordable fallback and final-purchase settlement
+ok 24 - Attunement preserves affordable fallback and final-purchase settlement
+  ---
+  duration_ms: 3.351833
+  type: 'test'
+  ...
+# Subtest: Guest Parade compares against bonus rooms: Cat, Frog bonus, Cat continues
+ok 25 - Guest Parade compares against bonus rooms: Cat, Frog bonus, Cat continues
+  ---
+  duration_ms: 0.573708
+  type: 'test'
+  ...
+# Subtest: untyped powers pause Guest Parade but their rooms change the next top-floor comparison
+ok 26 - untyped powers pause Guest Parade but their rooms change the next top-floor comparison
+  ---
+  duration_ms: 0.471792
+  type: 'test'
+  ...
+# Subtest: Guest Parade rolls replay exactly, cover both other types, and cannot stack with Neighborhood Streak
+ok 27 - Guest Parade rolls replay exactly, cover both other types, and cannot stack with Neighborhood Streak
+  ---
+  duration_ms: 14.052958
+  type: 'test'
+  ...
+# Subtest: Type Lock can repeat its guest while different bonus floors keep Guest Parade going
+ok 28 - Type Lock can repeat its guest while different bonus floors keep Guest Parade going
+  ---
+  duration_ms: 0.21325
+  type: 'test'
+  ...
+# Subtest: all 24 Mosaic variants compare their first floor to the top, then append a different final bonus
+ok 29 - all 24 Mosaic variants compare their first floor to the top, then append a different final bonus
+  ---
+  duration_ms: 33.437792
+  type: 'test'
+  ...
+# Subtest: replay derives the finished score and rejects unfinished, invalid, and overlong records
+ok 30 - replay derives the finished score and rejects unfinished, invalid, and overlong records
+  ---
+  duration_ms: 17.162041
+  type: 'test'
+  ...
+# Subtest: names normalize and ranking has stable deterministic tie breakers
+ok 31 - names normalize and ranking has stable deterministic tie breakers
+  ---
+  duration_ms: 1.406959
+  type: 'test'
+  ...
+# Subtest: API computes scores, collapses identical replays and ignores forged score fields
+ok 32 - API computes scores, collapses identical replays and ignores forged score fields
+  ---
+  duration_ms: 72.630958
+  type: 'test'
+  ...
+# Subtest: simultaneous submissions retry conditional writes without dropping scores
+ok 33 - simultaneous submissions retry conditional writes without dropping scores
+  ---
+  duration_ms: 58.011
+  type: 'test'
+  ...
+# Subtest: API rejects malformed, incomplete, foreign-origin and oversized submissions
+ok 34 - API rejects malformed, incomplete, foreign-origin and oversized submissions
+  ---
+  duration_ms: 3.818834
+  type: 'test'
+  ...
+# Subtest: local runs survive reload, recompute tampered scores, resume, and fail gracefully without storage
+ok 35 - local runs survive reload, recompute tampered scores, resume, and fail gracefully without storage
+  ---
+  duration_ms: 7.451292
+  type: 'test'
+  ...
+# Subtest: five automatic gifts follow the schedule and increase coin payouts
+ok 36 - five automatic gifts follow the schedule and increase coin payouts
+  ---
+  duration_ms: 6.429667
+  type: 'test'
+  ...
+# Subtest: automatic gifts preserve floors, streaks, locks, coupons, purchases and prize RNG
+ok 37 - automatic gifts preserve floors, streaks, locks, coupons, purchases and prize RNG
+  ---
+  duration_ms: 4.240666
+  type: 'test'
+  ...
+# Subtest: all crossed gifts arrive once before drawing offers or the roof
+ok 38 - all crossed gifts arrive once before drawing offers or the roof
+  ---
+  duration_ms: 0.730292
+  type: 'test'
+  ...
+# Subtest: a maxed scheduled upgrade always becomes the full coin reward
+ok 39 - a maxed scheduled upgrade always becomes the full coin reward
+  ---
+  duration_ms: 1.716541
+  type: 'test'
+  ...
+# Subtest: partially capped upgrades keep remaining levels and compensate overflow
+ok 40 - partially capped upgrades keep remaining levels and compensate overflow
+  ---
+  duration_ms: 2.043
+  type: 'test'
+  ...
+# Subtest: purchase-only replays reconstruct rewards and reject user-selected gift actions
+ok 41 - purchase-only replays reconstruct rewards and reject user-selected gift actions
+  ---
+  duration_ms: 6.500208
+  type: 'test'
+  ...
+# Subtest: supplies collect and stack without activating, share fourteen slots, and never install into the circuit
+ok 42 - supplies collect and stack without activating, share fourteen slots, and never install into the circuit
+  ---
+  duration_ms: 2.835666
+  type: 'test'
+  ...
+# Subtest: both loaders consume one copy, cap repairs, reject ineffective uses and reject component parts
+ok 43 - both loaders consume one copy, cap repairs, reject ineffective uses and reject component parts
+  ---
+  duration_ms: 1.306542
+  type: 'test'
+  ...
+# Subtest: freeze stops all battle clocks, damage, charging, healing, loot and forge while allowing circuit edits
+ok 44 - freeze stops all battle clocks, damage, charging, healing, loot and forge while allowing circuit edits
+  ---
+  duration_ms: 1.891041
+  type: 'test'
+  ...
+# Subtest: extra capsules extend real-time freeze, and expiry simulates only the leftover time at drag speed
+ok 45 - extra capsules extend real-time freeze, and expiry simulates only the leftover time at drag speed
+  ---
+  duration_ms: 1.829083
+  type: 'test'
+  ...
+# Subtest: a complete recipe assembled during freeze waits to charge cash and begin
+ok 46 - a complete recipe assembled during freeze waits to charge cash and begin
+  ---
+  duration_ms: 0.1395
+  type: 'test'
+  ...
+# Subtest: forged consumables remain usable from the forge when storage is full
+ok 47 - forged consumables remain usable from the forge when storage is full
+  ---
+  duration_ms: 0.266083
+  type: 'test'
+  ...
+# Subtest: every level guarantees an early capsule, followed by occasional rotating supplies and cash on every kill
+ok 48 - every level guarantees an early capsule, followed by occasional rotating supplies and cash on every kill
+  ---
+  duration_ms: 3.968541
+  type: 'test'
+  ...
+# Subtest: guns accept every incoming direction in every rotation across empty space
+ok 49 - guns accept every incoming direction in every rotation across empty space
+  ---
+  duration_ms: 2.30475
+  type: 'test'
+  ...
+# Subtest: beams from different sides combine into one gun and preserve piercing
+ok 50 - beams from different sides combine into one gun and preserve piercing
+  ---
+  duration_ms: 0.208375
+  type: 'test'
+  ...
+# Subtest: amplifiers and lenses accept all four sides and preserve beam direction
+ok 51 - amplifiers and lenses accept all four sides and preserve beam direction
+  ---
+  duration_ms: 3.479
+  type: 'test'
+  ...
+# Subtest: splitters accept all four sides and branch perpendicular to each incoming beam
+ok 52 - splitters accept all four sides and branch perpendicular to each incoming beam
+  ---
+  duration_ms: 0.601959
+  type: 'test'
+  ...
+# Subtest: only reactors and mirrors rotate; rotating the reactor changes the beam path
+ok 53 - only reactors and mirrors rotate; rotating the reactor changes the beam path
+  ---
+  duration_ms: 0.37725
+  type: 'test'
+  ...
+# Subtest: splitter feedback terminates when a ray revisits a directed component
+ok 54 - splitter feedback terminates when a ray revisits a directed component
+  ---
+  duration_ms: 0.147458
+  type: 'test'
+  ...
+# Subtest: beams cross empty space and amplify in order
+ok 55 - beams cross empty space and amplify in order
+  ---
+  duration_ms: 0.224292
+  type: 'test'
+  ...
+# Subtest: splitter conserves power and mirrors route into independently powered guns
+ok 56 - splitter conserves power and mirrors route into independently powered guns
+  ---
+  duration_ms: 0.167083
+  type: 'test'
+  ...
+# Subtest: lens changes only the branch that passes through it
+ok 57 - lens changes only the branch that passes through it
+  ---
+  duration_ms: 0.43975
+  type: 'test'
+  ...
+# Subtest: crossing beams stay independent and outward rays terminate at grid boundaries
+ok 58 - crossing beams stay independent and outward rays terminate at grid boundaries
+  ---
+  duration_ms: 0.583708
+  type: 'test'
+  ...
+# Subtest: dense circuits terminate and amplification is capped
+ok 59 - dense circuits terminate and amplification is capped
+  ---
+  duration_ms: 0.264208
+  type: 'test'
+  ...
+# Subtest: inventory moves are atomic, stacked copies stay in storage, and rotation is preserved
+ok 60 - inventory moves are atomic, stacked copies stay in storage, and rotation is preserved
+  ---
+  duration_ms: 1.000875
+  type: 'test'
+  ...
+# Subtest: first acquired type queues one discovery, later duplicates stack without interruption
+ok 61 - first acquired type queues one discovery, later duplicates stack without interruption
+  ---
+  duration_ms: 0.669583
+  type: 'test'
+  ...
+# Subtest: loot falls before aging, flashes near expiry, and held or paused loot cannot expire
+ok 62 - loot falls before aging, flashes near expiry, and held or paused loot cannot expire
+  ---
+  duration_ms: 0.846875
+  type: 'test'
+  ...
+# Subtest: combat fires automatically, kills an enemy and drops a splitter first
+ok 63 - combat fires automatically, kills an enemy and drops a splitter first
+  ---
+  duration_ms: 3.096833
+  type: 'test'
+  ...
+# Subtest: piercing bypasses armor and damages a second target
+ok 64 - piercing bypasses armor and damages a second target
+  ---
+  duration_ms: 0.316542
+  type: 'test'
+  ...
+# Subtest: disconnected weapons lead to loss; an upgraded machine can complete all six waves
+ok 65 - disconnected weapons lead to loss; an upgraded machine can complete all six waves
+  ---
+  duration_ms: 53.760042
+  type: 'test'
+  ...
+# Subtest: later waves require engineering, while the opening wave gives time to salvage
+ok 66 - later waves require engineering, while the opening wave gives time to salvage
+  ---
+  duration_ms: 7.536417
+  type: 'test'
+  ...
+# Subtest: every recipe automatically starts in either order, charges once and creates one output
+ok 67 - every recipe automatically starts in either order, charges once and creates one output
+  ---
+  duration_ms: 17.480792
+  type: 'test'
+  ...
+# Subtest: recipe multisets are unique and no recipe is contained in another
+ok 68 - recipe multisets are unique and no recipe is contained in another
+  ---
+  duration_ms: 0.215167
+  type: 'test'
+  ...
+# Subtest: unrelated ingredients are accepted, preserved and movable while only recipe inputs lock
+ok 69 - unrelated ingredients are accepted, preserved and movable while only recipe inputs lock
+  ---
+  duration_ms: 3.191958
+  type: 'test'
+  ...
+# Subtest: unaffordable recipes wait intact and start automatically when cash becomes available
+ok 70 - unaffordable recipes wait intact and start automatically when cash becomes available
+  ---
+  duration_ms: 0.329542
+  type: 'test'
+  ...
+# Subtest: three slots allow arbitrary parts; an unspecified full forge rejects without consuming anything
+ok 71 - three slots allow arbitrary parts; an unspecified full forge rejects without consuming anything
+  ---
+  duration_ms: 0.3595
+  type: 'test'
+  ...
+# Subtest: installed ingredients keep their rotation when recovered and reject out-of-bounds destinations
+ok 72 - installed ingredients keep their rotation when recovered and reject out-of-bounds destinations
+  ---
+  duration_ms: 0.195875
+  type: 'test'
+  ...
+# Subtest: forged splitters branch three ways from every incoming side with the promised power
+ok 73 - forged splitters branch three ways from every incoming side with the promised power
+  ---
+  duration_ms: 0.456292
+  type: 'test'
+  ...
+# Subtest: forged components apply their effects and only cores and mirrors rotate
+ok 74 - forged components apply their effects and only cores and mirrors rotate
+  ---
+  duration_ms: 0.279291
+  type: 'test'
+  ...
+# Subtest: every kill earns cash but only one in four enemies drops a part
+ok 75 - every kill earns cash but only one in four enemies drops a part
+  ---
+  duration_ms: 0.8485
+  type: 'test'
+  ...
+# Subtest: shields absorb first, hull hits trigger feedback, and shields recharge only after the delay
+ok 76 - shields absorb first, hull hits trigger feedback, and shields recharge only after the delay
+  ---
+  duration_ms: 1.327375
+  type: 'test'
+  ...
+# Subtest: enemy shields and hull hits expose distinct animations and rail piercing hits three enemies
+ok 77 - enemy shields and hull hits expose distinct animations and rail piercing hits three enemies
+  ---
+  duration_ms: 0.502083
+  type: 'test'
+  ...
+# Subtest: earned upgrades after the third wave remain useful through a six-wave victory
+ok 78 - earned upgrades after the third wave remain useful through a six-wave victory
+  ---
+  duration_ms: 31.652334
+  type: 'test'
+  ...
+# Subtest: a staged ingredient can complete the next recipe once the current job frees slots
+ok 79 - a staged ingredient can complete the next recipe once the current job frees slots
+  ---
+  duration_ms: 0.662333
+  type: 'test'
+  ...
+# Subtest: storage, battlefield and unlocked forge sources replace lab parts and return old parts to storage
+ok 80 - storage, battlefield and unlocked forge sources replace lab parts and return old parts to storage
+  ---
+  duration_ms: 2.366542
+  type: 'test'
+  ...
+# Subtest: full storage replacement rejects atomically unless a stack exists or the incoming last copy frees a slot
+ok 81 - full storage replacement rejects atomically unless a stack exists or the incoming last copy frees a slot
+  ---
+  duration_ms: 0.770292
+  type: 'test'
+  ...
+# Subtest: same-cell drops are no-ops and occupied forge replacement never touches locked inputs
+ok 82 - same-cell drops are no-ops and occupied forge replacement never touches locked inputs
+  ---
+  duration_ms: 0.65725
+  type: 'test'
+  ...
+# Subtest: consumables cannot replace circuit components and rebuilding is allowed during freeze
+ok 83 - consumables cannot replace circuit components and rebuilding is allowed during freeze
+  ---
+  duration_ms: 0.344375
+  type: 'test'
+  ...
+# Subtest: storage caps at fourteen stacks, accepts duplicates and rejects new types without consuming their source
+ok 84 - storage caps at fourteen stacks, accepts duplicates and rejects new types without consuming their source
+  ---
+  duration_ms: 1.811333
+  type: 'test'
+  ...
+# Subtest: using the final copy frees exactly its slot, which a new type can reuse without shifting neighbors
+ok 85 - using the final copy frees exactly its slot, which a new type can reuse without shifting neighbors
+  ---
+  duration_ms: 0.226041
+  type: 'test'
+  ...
+# Subtest: a forged output waits in a consumed forge slot when storage is full, then can be recovered without loss
+ok 86 - a forged output waits in a consumed forge slot when storage is full, then can be recovered without loss
+  ---
+  duration_ms: 1.61825
+  type: 'test'
+  ...
+# Subtest: the rectangular lab has thirty cells and rays leave after its fifth row
+ok 87 - the rectangular lab has thirty cells and rays leave after its fifth row
+  ---
+  duration_ms: 0.1365
+  type: 'test'
+  ...
+# Subtest: support terminals accept and combine every input side, stop beams, and never count as guns
+ok 88 - support terminals accept and combine every input side, stop beams, and never count as guns
+  ---
+  duration_ms: 2.687834
+  type: 'test'
+  ...
+# Subtest: Shield restores during combat cooldown; Medic repairs hull only, both cap and hold full charge
+ok 89 - Shield restores during combat cooldown; Medic repairs hull only, both cap and hold full charge
+  ---
+  duration_ms: 11.66475
+  type: 'test'
+  ...
+# Subtest: support energy pauses, survives disconnection and grid moves, but clears on stacking
+ok 90 - support energy pauses, survives disconnection and grid moves, but clears on stacking
+  ---
+  duration_ms: 1.403666
+  type: 'test'
+  ...
+# Subtest: amplifiers speed support charging while piercing does not multiply repairs; lethal hits stay lethal
+ok 91 - amplifiers speed support charging while piercing does not multiply repairs; lethal hits stay lethal
+  ---
+  duration_ms: 0.518167
+  type: 'test'
+  ...
+# Subtest: snipers stop at range and attack without reaching the submarine
+ok 92 - snipers stop at range and attack without reaching the submarine
+  ---
+  duration_ms: 0.866042
+  type: 'test'
+  ...
+# Subtest: leeches drain double shield with correctly calculated hull spillover
+ok 93 - leeches drain double shield with correctly calculated hull spillover
+  ---
+  duration_ms: 0.470166
+  type: 'test'
+  ...
+# Subtest: menders heal nearby allies up to max, never themselves or distant allies
+ok 94 - menders heal nearby allies up to max, never themselves or distant allies
+  ---
+  duration_ms: 0.312542
+  type: 'test'
+  ...
+# Subtest: bombers explode once without awarding kill loot, but shooting them awards cash
+ok 95 - bombers explode once without awarding kill loot, but shooting them awards cash
+  ---
+  duration_ms: 1.448792
+  type: 'test'
+  ...
+# Subtest: every route has valid encounters covering all ten enemy roles and deterministic completion
+ok 96 - every route has valid encounters covering all ten enemy roles and deterministic completion
+  ---
+  duration_ms: 115.515042
+  type: 'test'
+  ...
+# Subtest: Foundry is beatable using starting inventory, earned cash, salvaged lens and a refit forge
+ok 97 - Foundry is beatable using starting inventory, earned cash, salvaged lens and a refit forge
+  ---
+  duration_ms: 34.663
+  type: 'test'
+  ...
+# Subtest: laser applies small continuous damage, with frame-independent armor and no shot cooldown
+ok 98 - laser applies small continuous damage, with frame-independent armor and no shot cooldown
+  ---
+  duration_ms: 5.234875
+  type: 'test'
+  ...
+# Subtest: pulse accepts all four directions, combines inputs, and terminates the circuit
+ok 99 - pulse accepts all four directions, combines inputs, and terminates the circuit
+  ---
+  duration_ms: 0.470209
+  type: 'test'
+  ...
+# Subtest: pulse charges before firing a large hit, resets, then charges again
+ok 100 - pulse charges before firing a large hit, resets, then charges again
+  ---
+  duration_ms: 8.338834
+  type: 'test'
+  ...
+# Subtest: amplified pulse charges faster; lens piercing carries through shields and multiple targets
+ok 101 - amplified pulse charges faster; lens piercing carries through shields and multiple targets
+  ---
+  duration_ms: 0.51025
+  type: 'test'
+  ...
+# Subtest: charge waits at full with no target, pauses, survives disconnection and moving but clears in hold
+ok 102 - charge waits at full with no target, pauses, survives disconnection and moving but clears in hold
+  ---
+  duration_ms: 1.203083
+  type: 'test'
+  ...
+# Subtest: laser and pulse operate independently and retarget after a kill without duplicate rewards
+ok 103 - laser and pulse operate independently and retarget after a kill without duplicate rewards
+  ---
+  duration_ms: 0.509458
+  type: 'test'
+  ...
+# Subtest: pulse preserves fractional charge across shots at different frame rates
+ok 104 - pulse preserves fractional charge across shots at different frame rates
+  ---
+  duration_ms: 4.766833
+  type: 'test'
+  ...
+# Subtest: the tutorial waits at both judgement lines until the player performs tap and hold
+ok 105 - the tutorial waits at both judgement lines until the player performs tap and hold
+  ---
+  duration_ms: 0.487417
+  type: 'test'
+  ...
+# Subtest: tap timing distinguishes perfect, good, early inputs and missed notes
+ok 106 - tap timing distinguishes perfect, good, early inputs and missed notes
+  ---
+  duration_ms: 0.260541
+  type: 'test'
+  ...
+# Subtest: repeated taps cannot score one beat twice, and a miss breaks a streak
+ok 107 - repeated taps cannot score one beat twice, and a miss breaks a streak
+  ---
+  duration_ms: 0.081292
+  type: 'test'
+  ...
+# Subtest: early steam release misses; holding through the end awards exactly once
+ok 108 - early steam release misses; holding through the end awards exactly once
+  ---
+  duration_ms: 0.130625
+  type: 'test'
+  ...
+# Subtest: holding through a beat works without a release at exactly the deadline
+ok 109 - holding through a beat works without a release at exactly the deadline
+  ---
+  duration_ms: 0.059
+  type: 'test'
+  ...
+# Subtest: every mix supports a full perfect run, ends once, and rates results from earned score
+ok 110 - every mix supports a full perfect run, ends once, and rates results from earned score
+  ---
+  duration_ms: 0.819417
+  type: 'test'
+  ...
+# Subtest: balance data defines all prices, strengths and normalized relative roll boundaries
+ok 111 - balance data defines all prices, strengths and normalized relative roll boundaries
+  ---
+  duration_ms: 4.162208
+  type: 'test'
+  ...
+# Subtest: Fixed creates exactly its printed links; power purchases add no incidental link
+ok 112 - Fixed creates exactly its printed links; power purchases add no incidental link
+  ---
+  duration_ms: 3.168792
+  type: 'test'
+  ...
+# Subtest: Recall replaces Polish, counts segments regardless of length, and preserves existing links
+ok 113 - Recall replaces Polish, counts segments regardless of length, and preserves existing links
+  ---
+  duration_ms: 6.179125
+  type: 'test'
+  ...
+# Subtest: splitting six Sun links increases Recall; purchase boundaries do not
+ok 114 - splitting six Sun links increases Recall; purchase boundaries do not
+  ---
+  duration_ms: 4.019625
+  type: 'test'
+  ...
+# Subtest: Recall snapshots once, appends its own suit, and only future purchases reuse those links
+ok 115 - Recall snapshots once, appends its own suit, and only future purchases reuse those links
+  ---
+  duration_ms: 5.962417
+  type: 'test'
+  ...
+# Subtest: Overgrow appends the longest run’s suit, snapshots its length, and caps its bonus
+ok 116 - Overgrow appends the longest run’s suit, snapshots its length, and caps its bonus
+  ---
+  duration_ms: 16.8015
+  type: 'test'
+  ...
+# Subtest: upgrade levels replace each other, disappear at max, and affect only future purchases
+ok 117 - upgrade levels replace each other, disappear at max, and affect only future purchases
+  ---
+  duration_ms: 2.755583
+  type: 'test'
+  ...
+# Subtest: Stabilizer uses explicit odds in one draw, with Reactor applied afterward
+ok 118 - Stabilizer uses explicit odds in one draw, with Reactor applied afterward
+  ---
+  duration_ms: 3.128209
+  type: 'test'
+  ...
+# Subtest: Rebate cannot stack, affects only next three bases, and requires full price upfront
+ok 119 - Rebate cannot stack, affects only next three bases, and requires full price upfront
+  ---
+  duration_ms: 1.998083
+  type: 'test'
+  ...
+# Subtest: Vault uses cash after its price and zero-effect offers are excluded
+ok 120 - Vault uses cash after its price and zero-effect offers are excluded
+  ---
+  duration_ms: 1.412084
+  type: 'test'
+  ...
+# Subtest: invalid inputs and double purchases are no-ops; reading previews never rolls
+ok 121 - invalid inputs and double purchases are no-ops; reading previews never rolls
+  ---
+  duration_ms: 0.432708
+  type: 'test'
+  ...
+# Subtest: final result waits for reveal, and an affordable fallback keeps runs alive
+ok 122 - final result waits for reveal, and an affordable fallback keeps runs alive
+  ---
+  duration_ms: 9.094167
+  type: 'test'
+  ...
+# Subtest: full runs terminate, money reconciles and identical seeds replay exactly
+ok 123 - full runs terminate, money reconciles and identical seeds replay exactly
+  ---
+  duration_ms: 332.165667
+  type: 'test'
+  ...
+# Subtest: explicit Stabilizer tables match old best-of probabilities and use one RNG draw at every level
+ok 124 - explicit Stabilizer tables match old best-of probabilities and use one RNG draw at every level
+  ---
+  duration_ms: 5.698666
+  type: 'test'
+  ...
+# Subtest: Choice 1 validates selection before spending and stacks the chosen Reactor, Assembler, Rebate and Foundation
+ok 125 - Choice 1 validates selection before spending and stacks the chosen Reactor, Assembler, Rebate and Foundation
+  ---
+  duration_ms: 0.28425
+  type: 'test'
+  ...
+# Subtest: Foundation advances on matching suited purchases, pauses on suitless cards and ends on switching
+ok 126 - Foundation advances on matching suited purchases, pauses on suitless cards and ends on switching
+  ---
+  duration_ms: 0.590208
+  type: 'test'
+  ...
+# Subtest: Mosaic variations print all suit orders, append exactly that pattern and end Foundation
+ok 127 - Mosaic variations print all suit orders, append exactly that pattern and end Foundation
+  ---
+  duration_ms: 7.115459
+  type: 'test'
+  ...
+# Subtest: Attunement locks exactly the next shops including Choice, pauses Mosaic, and does not refresh
+ok 128 - Attunement locks exactly the next shops including Choice, pauses Mosaic, and does not refresh
+  ---
+  duration_ms: 0.602958
+  type: 'test'
+  ...
+# Subtest: Attunement preserves affordable fallback and final-purchase settlement
+ok 129 - Attunement preserves affordable fallback and final-purchase settlement
+  ---
+  duration_ms: 3.913667
+  type: 'test'
+  ...
+# Subtest: conveyor keeps six columns, all 24 complete frames and original resolution
+ok 130 - conveyor keeps six columns, all 24 complete frames and original resolution
+  ---
+  duration_ms: 57.365167
+  type: 'test'
+  ...
+# Subtest: large dock cover packs five columns within the 8192 texture cap
+ok 131 - large dock cover packs five columns within the 8192 texture cap
+  ---
+  duration_ms: 57.384666
+  type: 'test'
+  ...
+# Subtest: tall frames increase columns when needed without scaling the image
+ok 132 - tall frames increase columns when needed without scaling the image
+  ---
+  duration_ms: 40.6495
+  type: 'test'
+  ...
+# Subtest: one-frame tiles retain one complete cell
+ok 133 - one-frame tiles retain one complete cell
+  ---
+  duration_ms: 53.698834
+  type: 'test'
+  ...
+# Subtest: impossible packing fails with a paging requirement instead of shrinking art
+ok 134 - impossible packing fails with a paging requirement instead of shrinking art
+  ---
+  duration_ms: 112.081709
+  type: 'test'
+  ...
+# Subtest: all existing native clip frames have a valid full-resolution atlas layout
+ok 135 - all existing native clip frames have a valid full-resolution atlas layout
+  ---
+  duration_ms: 49.0495
+  type: 'test'
+  ...
+# Subtest: native belt flow replaces stale end definitions and preserves authored support layout
+ok 136 - native belt flow replaces stale end definitions and preserves authored support layout
+  ---
+  duration_ms: 1.876458
+  type: 'test'
+  ...
+# Subtest: every declared seam port meets a compatible neighbor at the actual projected position
+ok 137 - every declared seam port meets a compatible neighbor at the actual projected position
+  ---
+  duration_ms: 1.17825
+  type: 'test'
+  ...
+# Subtest: all directed belt neighbors connect and every corner dish follows the native quarter circle
+ok 138 - all directed belt neighbors connect and every corner dish follows the native quarter circle
+  ---
+  duration_ms: 4.477792
+  type: 'test'
+  ...
+# Subtest: floors meet all cell edges and every dock view includes the native overlapping entry
+ok 139 - floors meet all cell edges and every dock view includes the native overlapping entry
+  ---
+  duration_ms: 0.387209
+  type: 'test'
+  ...
+# Subtest: context-only publication is deterministic and does not require or repack captures
+ok 140 - context-only publication is deterministic and does not require or repack captures
+  ---
+  duration_ms: 0.082875
+  type: 'test'
+  ...
+# Subtest: every review-required state selects an actual exported clip
+ok 141 - every review-required state selects an actual exported clip
+  ---
+  duration_ms: 1.259083
+  type: 'test'
+  ...
+# Subtest: all dishes and bubbles use retained original ImageGen raster artwork
+ok 142 - all dishes and bubbles use retained original ImageGen raster artwork
+  ---
+  duration_ms: 11.636
+  type: 'test'
+  ...
+# Subtest: five attack and eel cues have editable Godot 2D drawing source and no Blender model
+ok 143 - five attack and eel cues have editable Godot 2D drawing source and no Blender model
+  ---
+  duration_ms: 0.47225
+  type: 'test'
+  ...
+# Subtest: 2D animation atlases retain complete registered frames with at least six unique images
+ok 144 - 2D animation atlases retain complete registered frames with at least six unique images
+  ---
+  duration_ms: 3.302334
+  type: 'test'
+  ...
+# Subtest: flat registrations describe their current 2D canvas and contain no superseded 3D socket data
+ok 145 - flat registrations describe their current 2D canvas and contain no superseded 3D socket data
+  ---
+  duration_ms: 0.785875
+  type: 'test'
+  ...
+# Subtest: a single player-facing sign exposes only its readable surface in the review grid
+ok 146 - a single player-facing sign exposes only its readable surface in the review grid
+  ---
+  duration_ms: 0.249833
+  type: 'test'
+  ...
+# Subtest: complete scenes replace deleted garden stamps with layered individual objects
+ok 147 - complete scenes replace deleted garden stamps with layered individual objects
+  ---
+  duration_ms: 0.52075
+  type: 'test'
+  ...
+# Subtest: front-edge signs paint over their shared-tile occupant regardless of insertion order
+ok 148 - front-edge signs paint over their shared-tile occupant regardless of insertion order
+  ---
+  duration_ms: 0.352458
+  type: 'test'
+  ...
+# Subtest: all production variant bindings name real exported clips and the blackboard has one blank surface
+ok 149 - all production variant bindings name real exported clips and the blackboard has one blank surface
+  ---
+  duration_ms: 0.86225
+  type: 'test'
+  ...
+# Subtest: native seam AST includes original asymmetric sections and the approved full V2 wall/cliff sections
+ok 150 - native seam AST includes original asymmetric sections and the approved full V2 wall/cliff sections
+  ---
+  duration_ms: 76.012167
+  type: 'test'
+  ...
+# Subtest: native seam extraction follows modified source literals and loop heights without importing Blender or executing source
+ok 151 - native seam extraction follows modified source literals and loop heights without importing Blender or executing source
+  ---
+  duration_ms: 54.868
+  type: 'test'
+  ...
+# Subtest: native seam extraction rejects unknown runtime geometry and details outside their audited cliff section
+ok 152 - native seam extraction rejects unknown runtime geometry and details outside their audited cliff section
+  ---
+  duration_ms: 155.078833
+  type: 'test'
+  ...
+# Subtest: original-only source snapshots keep their V1 seam audit without requiring later modeling files
+ok 153 - original-only source snapshots keep their V1 seam audit without requiring later modeling files
+  ---
+  duration_ms: 50.374
+  type: 'test'
+  ...
+# Subtest: a rectangular actor uses its four captured facings while its world ground root follows one continuous route
+ok 154 - a rectangular actor uses its four captured facings while its world ground root follows one continuous route
+  ---
+  duration_ms: 2.412292
+  type: 'test'
+  ...
+# Subtest: phased actors share the same path at different positions and close with the scene clock
+ok 155 - phased actors share the same path at different positions and close with the scene clock
+  ---
+  duration_ms: 0.303291
+  type: 'test'
+  ...
+# Subtest: authored irregular roots and support offsets remain attached through facing changes
+ok 156 - authored irregular roots and support offsets remain attached through facing changes
+  ---
+  duration_ms: 0.147583
+  type: 'test'
+  ...
+# Subtest: swept scene bounds retain every captured facing canvas along the complete moving path
+ok 157 - swept scene bounds retain every captured facing canvas along the complete moving path
+  ---
+  duration_ms: 1.144958
+  type: 'test'
+  ...
+# Subtest: a fixed-facing curved dish path retains its original root registration and endpoint hold
+ok 158 - a fixed-facing curved dish path retains its original root registration and endpoint hold
+  ---
+  duration_ms: 0.245791
+  type: 'test'
+  ...
+# Subtest: authored segment timing preserves facing-specific gait speed through turns and loop wrap
+ok 159 - authored segment timing preserves facing-specific gait speed through turns and loop wrap
+  ---
+  duration_ms: 0.240875
+  type: 'test'
+  ...
+# Subtest: support sockets follow the currently published sprite projection without moving the ground footprint
+ok 160 - support sockets follow the currently published sprite projection without moving the ground footprint
+  ---
+  duration_ms: 0.958416
+  type: 'test'
+  ...
+# Subtest: blue cushion attachment uses the published seat delta from the native wood-seat baseline
+ok 161 - blue cushion attachment uses the published seat delta from the native wood-seat baseline
+  ---
+  duration_ms: 0.156791
+  type: 'test'
+  ...
+# Subtest: native 4x atlas selection preserves the authored logical frame and ground root across poses
+ok 162 - native 4x atlas selection preserves the authored logical frame and ground root across poses
+  ---
+  duration_ms: 0.1295
+  type: 'test'
+  ...
+# Subtest: static four-direction sheet offsets are separate atlas panels, without rotating a source sprite
+ok 163 - static four-direction sheet offsets are separate atlas panels, without rotating a source sprite
+  ---
+  duration_ms: 0.056125
+  type: 'test'
+  ...
+# Subtest: loops wrap at 12 fps; one-shot exports retain the final pose when the shared clock continues
+ok 164 - loops wrap at 12 fps; one-shot exports retain the final pose when the shared clock continues
+  ---
+  duration_ms: 0.127416
+  type: 'test'
+  ...
+# Subtest: an explicit irregular atlas layout uses its recorded source rectangles
+ok 165 - an explicit irregular atlas layout uses its recorded source rectangles
+  ---
+  duration_ms: 0.057834
+  type: 'test'
+  ...
+# Subtest: 3x3 repetition uses declared multi-cell footprint spacing with no fitting
+ok 166 - 3x3 repetition uses declared multi-cell footprint spacing with no fitting
+  ---
+  duration_ms: 0.125709
+  type: 'test'
+  ...
+# Subtest: scene bounds retain upward artwork and attachment offsets instead of clipping to the tile
+ok 167 - scene bounds retain upward artwork and attachment offsets instead of clipping to the tile
+  ---
+  duration_ms: 0.139708
+  type: 'test'
+  ...
+# Subtest: ground depth puts a chef behind the front belt, its attached dish above the deck, and a near customer in front
+ok 168 - ground depth puts a chef behind the front belt, its attached dish above the deck, and a near customer in front
+  ---
+  duration_ms: 0.317
+  type: 'test'
+  ...
+# Subtest: explicit background scenery stays first and foreground or overhead pieces stay last
+ok 169 - explicit background scenery stays first and foreground or overhead pieces stay last
+  ---
+  duration_ms: 0.255417
+  type: 'test'
+  ...
+# Subtest: a separate plate follows a belt presentation path at constant distance speed, and scrubs exactly
+ok 170 - a separate plate follows a belt presentation path at constant distance speed, and scrubs exactly
+  ---
+  duration_ms: 0.254125
+  type: 'test'
+  ...
+# Subtest: the shared review clock closes every loop even when clip durations differ
+ok 171 - the shared review clock closes every loop even when clip durations differ
+  ---
+  duration_ms: 0.103583
+  type: 'test'
+  ...
+# Subtest: multi-cell ground roots center the complete footprint and retain explicit irregular anchors
+ok 172 - multi-cell ground roots center the complete footprint and retain explicit irregular anchors
+  ---
+  duration_ms: 0.03925
+  type: 'test'
+  ...
+# Subtest: attachment overlays use explicitly recorded projected offsets and direction overrides
+ok 173 - attachment overlays use explicitly recorded projected offsets and direction overrides
+  ---
+  duration_ms: 0.108792
+  type: 'test'
+  ...
+# Subtest: a static object still plays the running belt or character in its interaction scene
+ok 174 - a static object still plays the running belt or character in its interaction scene
+  ---
+  duration_ms: 0.115
+  type: 'test'
+  ...
+# Subtest: rectangular footprints rotate registration, repeated spacing and facing-panel clearance together
+ok 175 - rectangular footprints rotate registration, repeated spacing and facing-panel clearance together
+  ---
+  duration_ms: 0.16325
+  type: 'test'
+  ...
+# Subtest: foreground depth follows the full ground footprint while support height preserves seat layering
+ok 176 - foreground depth follows the full ground footprint while support height preserves seat layering
+  ---
+  duration_ms: 0.539
+  type: 'test'
+  ...
+# Subtest: aisle walking compensates native planted-foot travel in every projected facing
+ok 177 - aisle walking compensates native planted-foot travel in every projected facing
+  ---
+  duration_ms: 1.878375
+  type: 'test'
+  ...
+# Subtest: the full C125 turning envelope stays in the clear aisle away from border, chefs and conveyor
+ok 178 - the full C125 turning envelope stays in the clear aisle away from border, chefs and conveyor
+  ---
+  duration_ms: 0.660375
+  type: 'test'
+  ...
+# Subtest: restaurant plates reference the active conveyor deck socket through the complete route
+ok 179 - restaurant plates reference the active conveyor deck socket through the complete route
+  ---
+  duration_ms: 5.915958
+  type: 'test'
+  ...
+# Subtest: restaurant: complete scene and inspection links reference real catalog objects and clips
+ok 180 - restaurant: complete scene and inspection links reference real catalog objects and clips
+  ---
+  duration_ms: 0.471333
+  type: 'test'
+  ...
+# Subtest: restaurant: scene clock closes every staged path and looping native animation
+ok 181 - restaurant: scene clock closes every staged path and looping native animation
+  ---
+  duration_ms: 2.246875
+  type: 'test'
+  ...
+# Subtest: underwater: complete scene and inspection links reference real catalog objects and clips
+ok 182 - underwater: complete scene and inspection links reference real catalog objects and clips
+  ---
+  duration_ms: 0.304917
+  type: 'test'
+  ...
+# Subtest: underwater: scene clock closes every staged path and looping native animation
+ok 183 - underwater: scene clock closes every staged path and looping native animation
+  ---
+  duration_ms: 0.410834
+  type: 'test'
+  ...
+# Subtest: the portrait restaurant conveyor is one directed16-module closed loop at native deck ports
+ok 184 - the portrait restaurant conveyor is one directed16-module closed loop at native deck ports
+  ---
+  duration_ms: 5.237375
+  type: 'test'
+  ...
+# Subtest: seven-column cameras preserve native hero scale, the back entrance and continuous room edges
+ok 185 - seven-column cameras preserve native hero scale, the back entrance and continuous room edges
+  ---
+  duration_ms: 13.166417
+  type: 'test'
+  ...
+# Subtest: both underwater banks join actual native cliff profiles and continue wholly beyond the camera
+ok 186 - both underwater banks join actual native cliff profiles and continue wholly beyond the camera
+  ---
+  duration_ms: 7.185708
+  type: 'test'
+  ...
+# Subtest: matching labels and coincident points cannot hide a flipped asymmetric reef or wreck end
+ok 187 - matching labels and coincident points cannot hide a flipped asymmetric reef or wreck end
+  ---
+  duration_ms: 1.021584
+  type: 'test'
+  ...
+# Subtest: expedition-submarine and its separate attachment keep one ground root through every turn
+ok 188 - expedition-submarine and its separate attachment keep one ground root through every turn
+  ---
+  duration_ms: 3.287208
+  type: 'test'
+  ...
+# Subtest: east-pocket-eel and its separate attachment keep one ground root through every turn
+ok 189 - east-pocket-eel and its separate attachment keep one ground root through every turn
+  ---
+  duration_ms: 3.944541
+  type: 'test'
+  ...
+1..189
+# tests 189
+# suites 0
+# pass 189
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 616.997125

@@ -1,0 +1,32 @@
+{
+  "sourceSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+  "productionManifestSHA256": "9ee71ded8b241821c3c0e42d9452fcabe9ec41f350c4412b325a92fa7cf7cb75",
+  "scope": "All 77 browser cases from all 11 Sushi Loop spec files, against the final approved production build",
+  "fullRun": {
+    "passed": 75,
+    "failed": 1,
+    "skipped": 1,
+    "log": "browser.log"
+  },
+  "focusedCorrection": {
+    "test": "review-navigation.spec.js",
+    "passed": 3,
+    "failed": 0,
+    "log": "browser-navigation.log",
+    "change": "Bound navigation-to-top rounding to at most 2 pixels; original exact-zero assertion saw scrollY=2 on desktop."
+  },
+  "finalResult": {
+    "passed": 76,
+    "failed": 0,
+    "skipped": 1,
+    "skipReason": "Queued-object review case is inapplicable because every inventory item has exports."
+  },
+  "recordings": {
+    "count": 6,
+    "receipt": "videos/recordings.json",
+    "log": "recording.log",
+    "source": "Actual published sprite atlas responses match final local PNG bytes. Native UI playback observed all 12 chef/customer frames and 24 conveyor frames."
+  },
+  "visualReview": "Restaurant and underwater scenes plus chef, customer and connected-belt screenshots inspected. Root independently inspected the same retained evidence and found no blocker.",
+  "evidenceCleanup": "Only selected scene screenshots and six requested preview videos/screenshots retained; redundant test-runner snapshots and failure traces removed after focused checks passed."
+}

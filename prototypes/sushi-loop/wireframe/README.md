@@ -86,3 +86,18 @@ The reference layout uses existing Sushi Loop controls only, as explicitly selec
 The three-panel sketch is the current floor-plan reference. Earlier generated restaurant mockups are useful style exploration but do not override this layout. Each screen and popup remains subject to the user’s review before being archived as an approved design.
 
 Accepted source documents: [UI interview](../docs/ui-design-interview.md), [restaurant behavior](../docs/gameplay-and-controls.md), [expedition behavior](../docs/expedition-gameplay-and-controls.md), and [doodle art direction](../docs/art-direction.md).
+
+## Issue #33 world asset review
+
+The concept sheet is approved and remains at `#art-catalog`. Open `#object-library` for 117 stable native-asset review entries across 17 families, or share an individual `#object-<id>` link. Actual captures publish in complete batches; queued/working states remain explicit and never substitute a crop of the concept sheet for a sprite.
+
+Each object page is the review destination for four cardinal facings, repeated/joined 3×3 placements, related-object scale comparisons, and every published animation/facing. Playback, exact pause/scrub, grid/root/footprint/port overlays and the existing device-local Comments workflow support inspection. A completed model or structural check does not mark its art approved.
+
+Motion runs at 12 fps. Conveyors use 24 frames per two-second loop; their separate conveyed plate matches the 0.5 cell/second deck speed. Baseline and upgraded submarine assemblies share one entry with six states each. Recipe and salvage variants likewise remain within their parent pages. The same registered sprites supply isolated views and scene comparisons.
+
+The [editable Blender source and capture workflow](../assets/production/source/README.md) explains the native models, independent action cohorts, authored projection/camera records, full-frame captures and source provenance. This is a native Blender review pass; no completed imagegen surface-refinement pass is claimed. Final user approval of all finished scene assets remains pending, and #33 stays open. The eventual game target remains Godot Android. Existing wireframe/reference stories remain available.
+
+
+Full native scene previews are available at `#scene-restaurant` and `#scene-underwater`, with links from the Object library and the Scene art review navigation group. They share the registered sprite renderer and show complete restaurant/underwater compositions, playback, zoom, optional calibration overlays and per-object inspection links. They preserve one body scrollbar and respect reduced motion. The scenes are staged artwork review, not game simulation.
+
+Both full scene pages retain the unchanged original scene concept beneath the assembled sprite preview, with a full-size image link for art-direction comparison.

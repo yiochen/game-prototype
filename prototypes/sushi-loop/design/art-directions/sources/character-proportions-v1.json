@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "stage": "concept-selection",
+  "tool": "built-in image_gen",
+  "userRequest": "Let's use image gen to design a few different character proportions",
+  "context": {
+    "environmentHeightScaleChosen": 0.7,
+    "characterCamera": "ordinary orthographic, 35-degree elevation, square pixels",
+    "modelChangesApplied": false
+  },
+  "prompt": "Use case: stylized-concept.\nAsset type: one character proportion exploration board for a low-poly restaurant game, for art-direction approval before Blender remodeling.\nInput images: Image 1 is the CURRENT character identity reference (Lena), not a silhouette to preserve. Image 2 is the approved game's art-style and compact-character reference; ignore all its text/UI/brand and use only the chunky faceted game art.\nPrimary request: Show the SAME chef Lena in FIVE clearly separated columns labeled CURRENT, A COMPACT, B PLAYFUL, C CHUNKY, D SUPER CHIBI. Four new, noticeably different shorter-legged cartoon proportions versus the current tall-legged model. This is one cohesive comparison board, not five different people.\nIdentity invariants: warm dark-brown skin, short angular dark-brown curls, white chef toque, cream-white chef jacket, red neckerchief, blue apron over dark navy trousers, brown shoes, tiny friendly dark eyes and smile. Preserve outfit/color/face identity consistently across every option. Make clean intentional designed shapes, not a generic mannequin.\nCamera invariants: every main figure uses the SAME ordinary orthographic camera at 35 degrees elevation, facing toward the viewer (south), no perspective/vanishing points, square pixels and no vertical stretching. Do NOT flatten the figures by changing the camera. Change actual anatomical proportions.\nPose: identical relaxed standing pose in every column, arms slightly away from sides, empty hands so the torso/legs are readable, feet planted, no food or tools.\nProportion direction:\nCURRENT: approximate existing tall-legged figure from image 1.\nA COMPACT: medium-short legs (about 75% of current leg length), compact torso, head slightly wider/larger, sensible compact footwear.\nB PLAYFUL: clearly shorter legs (about 63%), a squat torso, a noticeably bigger wider head, chunky mitt-like hands, more charming rounded-bevel silhouette while retaining low-poly facets.\nC CHUNKY: stubby legs (about 54%), a broad compact body and broader/larger head, strong playful toy-like silhouette with feet still readable.\nD SUPER CHIBI: very stubby legs (about 44%), a tiny compact torso and the largest head, very cartoony but unmistakably the same adult chef.\nComposition: wide high-resolution landscape concept sheet, five columns with generous breathing room. One large full-body main figure per column, same world scale, same foot baseline, same-size subtle square ground tile under each. Their natural total heights should differ; DO NOT resize every option to equal overall height. Include a small true side-profile view of each matching design below its large main view to make the leg/body/head relationship clear. The side-profile row also uses the same 35-degree elevation, rotated around world vertical only. Keep the same proportions between each main and side view. No animation poses.\nStyle/medium: polished colorful chunky LOW-POLY 3D game concept art matching image 2, broad readable angular facets, simple bevels, matte surfaces, sparse detail, warm cream backdrop. Avoid realistic anatomy, glossy plastic, smooth clay sculpture, detailed skin/cloth texture, outlines, pixel art or photographic rendering. The current reference's tall chef hat should remain recognizable across designs, not become arbitrarily taller to compensate for shorter bodies.\nLighting: same soft warm studio key/fill across all columns, very subtle grounding only.\nText: only title \"CHARACTER PROPORTIONS\" and subtitle \"Same 35\u00b0 camera \u00b7 different anatomy\", with the five clear column labels above. No percentages, dimension rulers or other technical text. No brand name, logos or watermarks.\nThis is concept art for choosing anatomy, not a registered or animated spritesheet.",
+  "generatedImage": "prototypes/sushi-loop/design/art-directions/character-proportions-v1.png",
+  "notes": [
+    "AI-generated design board; stated 35-degree view is a visual target, not a calibrated native camera measurement.",
+    "Four anatomy directions with current design reference. Exact leg/head dimensions will be authored and measured in Blender after selection.",
+    "Generated current column is an illustrative redraw; the original native reference is retained separately."
+  ],
+  "references": [
+    {
+      "role": "current-character identity and outfit reference",
+      "path": "prototypes/sushi-loop/assets/projection-study/sprites/chef-lena/ordinary-35.png",
+      "sha256": "0297c7a940afc6c00e5dfed690c74d3b27359ab9a338c04445ac804ced440ed5"
+    },
+    {
+      "role": "approved game art treatment and compact character vocabulary",
+      "path": "prototypes/sushi-loop/design/art-directions/restaurant-item-catalog.png",
+      "sha256": "d213f970d37a2e83846d8ee54ec14e8e74e72c2a93fb1c13e00d0bf2143e73b2"
+    }
+  ],
+  "outputSHA256": "4913c53988c95077151a18a5a64edc7101615bfe0fd54884ef7501be3bde4865",
+  "pathBase": "repository-root"
+}

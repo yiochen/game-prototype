@@ -1,0 +1,1915 @@
+{
+  "version": 1,
+  "cellSize": 128,
+  "captureScale": 4,
+  "fps": 12,
+  "directions": [
+    "N",
+    "E",
+    "S",
+    "W"
+  ],
+  "productionUnchanged": true,
+  "status": "lighting-experiment-awaiting-user-review",
+  "subjects": [
+    {
+      "id": "belt-straight",
+      "name": "Conveyor belt",
+      "description": "A full-width straight conveyor: charcoal moving deck, red rails and thick supporting legs.",
+      "frame": [
+        192,
+        352
+      ],
+      "root": [
+        96,
+        248
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "floorBounds": [
+        -0.5,
+        -0.5,
+        1,
+        1
+      ],
+      "placements": [
+        {
+          "id": "belt-straight-e",
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "cellSize": 128,
+      "captureScale": 4,
+      "fps": 12,
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "projection": "top-down-oblique-square-grid",
+      "environmentHeightRatio": 0.7,
+      "variants": [
+        {
+          "id": "baseline",
+          "name": "Current production",
+          "description": "Original emission materials and procedural deck colors.",
+          "settings": {
+            "shader": "emission",
+            "topWatts": 0,
+            "fillWattsEach": 0,
+            "topSize": 0
+          },
+          "scene": "S33 prop lighting belt-straight baseline",
+          "geometrySHA256": "5fd242678aa7e8f754f7d34de003ae11b5e659fd832aea8ae236dc6dc767676b",
+          "camera": {
+            "projection": "top-down-oblique-square-grid",
+            "frame": [
+              192,
+              352
+            ],
+            "anchor": [
+              96,
+              248
+            ],
+            "cellSize": 128,
+            "captureScale": 4,
+            "fps": 12,
+            "axes": {
+              "x": "X",
+              "depth": "-Y",
+              "height": "Z"
+            },
+            "camera": {
+              "type": "orthographic",
+              "worldMatrix": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.8192318081855774,
+                  -0.5734625458717346,
+                  -5.734623432159424
+                ],
+                [
+                  0.0,
+                  0.5734625458717346,
+                  0.8192318081855774,
+                  8.1923189163208
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "projectionMatrix": [
+                [
+                  1.3333333730697632,
+                  0.0,
+                  0.0,
+                  -0.0
+                ],
+                [
+                  0.0,
+                  0.8877494931221008,
+                  0.0,
+                  -0.4090892970561981
+                ],
+                [
+                  0.0,
+                  0.0,
+                  -0.0020001998636871576,
+                  -1.0001999139785767
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "pixelAspect": [
+                1.2206555604934692,
+                1.0
+              ],
+              "worldUnitsPerCell": 1,
+              "elevationDegrees": 55.00797980144134
+            },
+            "calibration": {
+              "root": [
+                384.0,
+                992.0000610351562
+              ],
+              "unitX": [
+                512.0,
+                0.0
+              ],
+              "unitDepth": [
+                0.0,
+                511.99993896484375
+              ],
+              "unitHeight": [
+                0.0,
+                -358.400146484375
+              ]
+            },
+            "artStyle": {
+              "revision": "2026-10-19",
+              "environmentHeightRatio": 0.7,
+              "contrast": 1.35,
+              "contrastSpace": "sRGB",
+              "lighting": "emission; zero world and light strength",
+              "lowerShading": "height ramp; camera symmetric form tone"
+            }
+          },
+          "captures": {
+            "N": {
+              "image": "sprites/belt-straight/baseline-N.png"
+            },
+            "E": {
+              "image": "sprites/belt-straight/baseline-E.png"
+            },
+            "S": {
+              "image": "sprites/belt-straight/baseline-S.png"
+            },
+            "W": {
+              "image": "sprites/belt-straight/baseline-W.png"
+            }
+          }
+        },
+        {
+          "id": "soft",
+          "name": "Soft overhead",
+          "description": "100 W overhead key, with the same four 100 W fill lights and matte materials.",
+          "settings": {
+            "shader": "matte-principled",
+            "topWatts": 100,
+            "fillWattsEach": 100,
+            "topSize": 3.5
+          },
+          "scene": "S33 prop lighting belt-straight soft",
+          "geometrySHA256": "5fd242678aa7e8f754f7d34de003ae11b5e659fd832aea8ae236dc6dc767676b",
+          "camera": {
+            "projection": "top-down-oblique-square-grid",
+            "frame": [
+              192,
+              352
+            ],
+            "anchor": [
+              96,
+              248
+            ],
+            "cellSize": 128,
+            "captureScale": 4,
+            "fps": 12,
+            "axes": {
+              "x": "X",
+              "depth": "-Y",
+              "height": "Z"
+            },
+            "camera": {
+              "type": "orthographic",
+              "worldMatrix": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.8192318081855774,
+                  -0.5734625458717346,
+                  -5.734623432159424
+                ],
+                [
+                  0.0,
+                  0.5734625458717346,
+                  0.8192318081855774,
+                  8.1923189163208
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "projectionMatrix": [
+                [
+                  1.3333333730697632,
+                  0.0,
+                  0.0,
+                  -0.0
+                ],
+                [
+                  0.0,
+                  0.8877494931221008,
+                  0.0,
+                  -0.4090892970561981
+                ],
+                [
+                  0.0,
+                  0.0,
+                  -0.0020001998636871576,
+                  -1.0001999139785767
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "pixelAspect": [
+                1.2206555604934692,
+                1.0
+              ],
+              "worldUnitsPerCell": 1,
+              "elevationDegrees": 55.00797980144134
+            },
+            "calibration": {
+              "root": [
+                384.0,
+                992.0000610351562
+              ],
+              "unitX": [
+                512.0,
+                0.0
+              ],
+              "unitDepth": [
+                0.0,
+                511.99993896484375
+              ],
+              "unitHeight": [
+                0.0,
+                -358.400146484375
+              ]
+            },
+            "artStyle": {
+              "revision": "2026-10-19",
+              "environmentHeightRatio": 0.7,
+              "contrast": 1.35,
+              "contrastSpace": "sRGB",
+              "lighting": "actual overhead area key plus four identical cardinal area fill lights",
+              "lowerShading": "original height ramp; old camera-facing form multiplier bypassed"
+            }
+          },
+          "captures": {
+            "N": {
+              "image": "sprites/belt-straight/soft-N.png"
+            },
+            "E": {
+              "image": "sprites/belt-straight/soft-E.png"
+            },
+            "S": {
+              "image": "sprites/belt-straight/soft-S.png"
+            },
+            "W": {
+              "image": "sprites/belt-straight/soft-W.png"
+            }
+          }
+        },
+        {
+          "id": "faceted",
+          "name": "Faceted overhead",
+          "description": "140 W overhead key, with the same four 100 W fill lights and matte materials.",
+          "settings": {
+            "shader": "matte-principled",
+            "topWatts": 140,
+            "fillWattsEach": 100,
+            "topSize": 3.5
+          },
+          "scene": "S33 prop lighting belt-straight faceted",
+          "geometrySHA256": "5fd242678aa7e8f754f7d34de003ae11b5e659fd832aea8ae236dc6dc767676b",
+          "camera": {
+            "projection": "top-down-oblique-square-grid",
+            "frame": [
+              192,
+              352
+            ],
+            "anchor": [
+              96,
+              248
+            ],
+            "cellSize": 128,
+            "captureScale": 4,
+            "fps": 12,
+            "axes": {
+              "x": "X",
+              "depth": "-Y",
+              "height": "Z"
+            },
+            "camera": {
+              "type": "orthographic",
+              "worldMatrix": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.8192318081855774,
+                  -0.5734625458717346,
+                  -5.734623432159424
+                ],
+                [
+                  0.0,
+                  0.5734625458717346,
+                  0.8192318081855774,
+                  8.1923189163208
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "projectionMatrix": [
+                [
+                  1.3333333730697632,
+                  0.0,
+                  0.0,
+                  -0.0
+                ],
+                [
+                  0.0,
+                  0.8877494931221008,
+                  0.0,
+                  -0.4090892970561981
+                ],
+                [
+                  0.0,
+                  0.0,
+                  -0.0020001998636871576,
+                  -1.0001999139785767
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "pixelAspect": [
+                1.2206555604934692,
+                1.0
+              ],
+              "worldUnitsPerCell": 1,
+              "elevationDegrees": 55.00797980144134
+            },
+            "calibration": {
+              "root": [
+                384.0,
+                992.0000610351562
+              ],
+              "unitX": [
+                512.0,
+                0.0
+              ],
+              "unitDepth": [
+                0.0,
+                511.99993896484375
+              ],
+              "unitHeight": [
+                0.0,
+                -358.400146484375
+              ]
+            },
+            "artStyle": {
+              "revision": "2026-10-19",
+              "environmentHeightRatio": 0.7,
+              "contrast": 1.35,
+              "contrastSpace": "sRGB",
+              "lighting": "actual overhead area key plus four identical cardinal area fill lights",
+              "lowerShading": "original height ramp; old camera-facing form multiplier bypassed"
+            }
+          },
+          "captures": {
+            "N": {
+              "image": "sprites/belt-straight/faceted-N.png"
+            },
+            "E": {
+              "image": "sprites/belt-straight/faceted-E.png"
+            },
+            "S": {
+              "image": "sprites/belt-straight/faceted-S.png"
+            },
+            "W": {
+              "image": "sprites/belt-straight/faceted-W.png"
+            }
+          }
+        },
+        {
+          "id": "crisp",
+          "name": "Crisp overhead",
+          "description": "180 W overhead key, with the same four 100 W fill lights and matte materials.",
+          "settings": {
+            "shader": "matte-principled",
+            "topWatts": 180,
+            "fillWattsEach": 100,
+            "topSize": 3.5
+          },
+          "scene": "S33 prop lighting belt-straight crisp",
+          "geometrySHA256": "5fd242678aa7e8f754f7d34de003ae11b5e659fd832aea8ae236dc6dc767676b",
+          "camera": {
+            "projection": "top-down-oblique-square-grid",
+            "frame": [
+              192,
+              352
+            ],
+            "anchor": [
+              96,
+              248
+            ],
+            "cellSize": 128,
+            "captureScale": 4,
+            "fps": 12,
+            "axes": {
+              "x": "X",
+              "depth": "-Y",
+              "height": "Z"
+            },
+            "camera": {
+              "type": "orthographic",
+              "worldMatrix": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.8192318081855774,
+                  -0.5734625458717346,
+                  -5.734623432159424
+                ],
+                [
+                  0.0,
+                  0.5734625458717346,
+                  0.8192318081855774,
+                  8.1923189163208
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "projectionMatrix": [
+                [
+                  1.3333333730697632,
+                  0.0,
+                  0.0,
+                  -0.0
+                ],
+                [
+                  0.0,
+                  0.8877494931221008,
+                  0.0,
+                  -0.4090892970561981
+                ],
+                [
+                  0.0,
+                  0.0,
+                  -0.0020001998636871576,
+                  -1.0001999139785767
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "pixelAspect": [
+                1.2206555604934692,
+                1.0
+              ],
+              "worldUnitsPerCell": 1,
+              "elevationDegrees": 55.00797980144134
+            },
+            "calibration": {
+              "root": [
+                384.0,
+                992.0000610351562
+              ],
+              "unitX": [
+                512.0,
+                0.0
+              ],
+              "unitDepth": [
+                0.0,
+                511.99993896484375
+              ],
+              "unitHeight": [
+                0.0,
+                -358.400146484375
+              ]
+            },
+            "artStyle": {
+              "revision": "2026-10-19",
+              "environmentHeightRatio": 0.7,
+              "contrast": 1.35,
+              "contrastSpace": "sRGB",
+              "lighting": "actual overhead area key plus four identical cardinal area fill lights",
+              "lowerShading": "original height ramp; old camera-facing form multiplier bypassed"
+            }
+          },
+          "captures": {
+            "N": {
+              "image": "sprites/belt-straight/crisp-N.png"
+            },
+            "E": {
+              "image": "sprites/belt-straight/crisp-E.png"
+            },
+            "S": {
+              "image": "sprites/belt-straight/crisp-S.png"
+            },
+            "W": {
+              "image": "sprites/belt-straight/crisp-W.png"
+            }
+          }
+        }
+      ],
+      "detailCrop": [
+        26,
+        115,
+        140,
+        184
+      ],
+      "regionMasks": {
+        "N": "validation/belt-straight-N.png",
+        "E": "validation/belt-straight-E.png",
+        "S": "validation/belt-straight-S.png",
+        "W": "validation/belt-straight-W.png"
+      },
+      "maskScene": "S33 prop lighting belt-straight mask"
+    },
+    {
+      "id": "crate-wood",
+      "name": "Wood crate",
+      "description": "Compare the wooden top, front boards, beveled frame and diagonal braces. Soft retains more color detail in the pale top boards; the stronger presets brighten them enough to lose detail.",
+      "frame": [
+        192,
+        352
+      ],
+      "root": [
+        96,
+        248
+      ],
+      "footprint": [
+        1,
+        1
+      ],
+      "floorBounds": [
+        -0.5,
+        -0.5,
+        1,
+        1
+      ],
+      "placements": [
+        {
+          "id": "crate-wood",
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "cellSize": 128,
+      "captureScale": 4,
+      "fps": 12,
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "projection": "top-down-oblique-square-grid",
+      "environmentHeightRatio": 0.7,
+      "variants": [
+        {
+          "id": "baseline",
+          "name": "Current production",
+          "description": "Original emission materials and procedural deck colors.",
+          "settings": {
+            "shader": "emission",
+            "topWatts": 0,
+            "fillWattsEach": 0,
+            "topSize": 0
+          },
+          "scene": "S33 prop lighting crate-wood baseline",
+          "geometrySHA256": "55c9369df22244809af62c472d5ff52819b4b737cee1a766c760878632710185",
+          "camera": {
+            "projection": "top-down-oblique-square-grid",
+            "frame": [
+              192,
+              352
+            ],
+            "anchor": [
+              96,
+              248
+            ],
+            "cellSize": 128,
+            "captureScale": 4,
+            "fps": 12,
+            "axes": {
+              "x": "X",
+              "depth": "-Y",
+              "height": "Z"
+            },
+            "camera": {
+              "type": "orthographic",
+              "worldMatrix": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.8192318081855774,
+                  -0.5734625458717346,
+                  -5.734623432159424
+                ],
+                [
+                  0.0,
+                  0.5734625458717346,
+                  0.8192318081855774,
+                  8.1923189163208
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "projectionMatrix": [
+                [
+                  1.3333333730697632,
+                  0.0,
+                  0.0,
+                  -0.0
+                ],
+                [
+                  0.0,
+                  0.8877494931221008,
+                  0.0,
+                  -0.4090892970561981
+                ],
+                [
+                  0.0,
+                  0.0,
+                  -0.0020001998636871576,
+                  -1.0001999139785767
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "pixelAspect": [
+                1.2206555604934692,
+                1.0
+              ],
+              "worldUnitsPerCell": 1,
+              "elevationDegrees": 55.00797980144134
+            },
+            "calibration": {
+              "root": [
+                384.0,
+                992.0000610351562
+              ],
+              "unitX": [
+                512.0,
+                0.0
+              ],
+              "unitDepth": [
+                0.0,
+                511.99993896484375
+              ],
+              "unitHeight": [
+                0.0,
+                -358.400146484375
+              ]
+            },
+            "artStyle": {
+              "revision": "2026-10-19",
+              "environmentHeightRatio": 0.7,
+              "contrast": 1.35,
+              "contrastSpace": "sRGB",
+              "lighting": "emission; zero world and light strength",
+              "lowerShading": "height ramp; camera symmetric form tone"
+            }
+          },
+          "captures": {
+            "N": {
+              "image": "sprites/crate-wood/baseline-N.png"
+            },
+            "E": {
+              "image": "sprites/crate-wood/baseline-E.png"
+            },
+            "S": {
+              "image": "sprites/crate-wood/baseline-S.png"
+            },
+            "W": {
+              "image": "sprites/crate-wood/baseline-W.png"
+            }
+          }
+        },
+        {
+          "id": "soft",
+          "name": "Soft overhead",
+          "description": "100 W overhead key, with the same four 100 W fill lights and matte materials.",
+          "settings": {
+            "shader": "matte-principled",
+            "topWatts": 100,
+            "fillWattsEach": 100,
+            "topSize": 3.5
+          },
+          "scene": "S33 prop lighting crate-wood soft",
+          "geometrySHA256": "55c9369df22244809af62c472d5ff52819b4b737cee1a766c760878632710185",
+          "camera": {
+            "projection": "top-down-oblique-square-grid",
+            "frame": [
+              192,
+              352
+            ],
+            "anchor": [
+              96,
+              248
+            ],
+            "cellSize": 128,
+            "captureScale": 4,
+            "fps": 12,
+            "axes": {
+              "x": "X",
+              "depth": "-Y",
+              "height": "Z"
+            },
+            "camera": {
+              "type": "orthographic",
+              "worldMatrix": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.8192318081855774,
+                  -0.5734625458717346,
+                  -5.734623432159424
+                ],
+                [
+                  0.0,
+                  0.5734625458717346,
+                  0.8192318081855774,
+                  8.1923189163208
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "projectionMatrix": [
+                [
+                  1.3333333730697632,
+                  0.0,
+                  0.0,
+                  -0.0
+                ],
+                [
+                  0.0,
+                  0.8877494931221008,
+                  0.0,
+                  -0.4090892970561981
+                ],
+                [
+                  0.0,
+                  0.0,
+                  -0.0020001998636871576,
+                  -1.0001999139785767
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "pixelAspect": [
+                1.2206555604934692,
+                1.0
+              ],
+              "worldUnitsPerCell": 1,
+              "elevationDegrees": 55.00797980144134
+            },
+            "calibration": {
+              "root": [
+                384.0,
+                992.0000610351562
+              ],
+              "unitX": [
+                512.0,
+                0.0
+              ],
+              "unitDepth": [
+                0.0,
+                511.99993896484375
+              ],
+              "unitHeight": [
+                0.0,
+                -358.400146484375
+              ]
+            },
+            "artStyle": {
+              "revision": "2026-10-19",
+              "environmentHeightRatio": 0.7,
+              "contrast": 1.35,
+              "contrastSpace": "sRGB",
+              "lighting": "actual overhead area key plus four identical cardinal area fill lights",
+              "lowerShading": "original height ramp; old camera-facing form multiplier bypassed"
+            }
+          },
+          "captures": {
+            "N": {
+              "image": "sprites/crate-wood/soft-N.png"
+            },
+            "E": {
+              "image": "sprites/crate-wood/soft-E.png"
+            },
+            "S": {
+              "image": "sprites/crate-wood/soft-S.png"
+            },
+            "W": {
+              "image": "sprites/crate-wood/soft-W.png"
+            }
+          }
+        },
+        {
+          "id": "faceted",
+          "name": "Faceted overhead",
+          "description": "140 W overhead key, with the same four 100 W fill lights and matte materials.",
+          "settings": {
+            "shader": "matte-principled",
+            "topWatts": 140,
+            "fillWattsEach": 100,
+            "topSize": 3.5
+          },
+          "scene": "S33 prop lighting crate-wood faceted",
+          "geometrySHA256": "55c9369df22244809af62c472d5ff52819b4b737cee1a766c760878632710185",
+          "camera": {
+            "projection": "top-down-oblique-square-grid",
+            "frame": [
+              192,
+              352
+            ],
+            "anchor": [
+              96,
+              248
+            ],
+            "cellSize": 128,
+            "captureScale": 4,
+            "fps": 12,
+            "axes": {
+              "x": "X",
+              "depth": "-Y",
+              "height": "Z"
+            },
+            "camera": {
+              "type": "orthographic",
+              "worldMatrix": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.8192318081855774,
+                  -0.5734625458717346,
+                  -5.734623432159424
+                ],
+                [
+                  0.0,
+                  0.5734625458717346,
+                  0.8192318081855774,
+                  8.1923189163208
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "projectionMatrix": [
+                [
+                  1.3333333730697632,
+                  0.0,
+                  0.0,
+                  -0.0
+                ],
+                [
+                  0.0,
+                  0.8877494931221008,
+                  0.0,
+                  -0.4090892970561981
+                ],
+                [
+                  0.0,
+                  0.0,
+                  -0.0020001998636871576,
+                  -1.0001999139785767
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "pixelAspect": [
+                1.2206555604934692,
+                1.0
+              ],
+              "worldUnitsPerCell": 1,
+              "elevationDegrees": 55.00797980144134
+            },
+            "calibration": {
+              "root": [
+                384.0,
+                992.0000610351562
+              ],
+              "unitX": [
+                512.0,
+                0.0
+              ],
+              "unitDepth": [
+                0.0,
+                511.99993896484375
+              ],
+              "unitHeight": [
+                0.0,
+                -358.400146484375
+              ]
+            },
+            "artStyle": {
+              "revision": "2026-10-19",
+              "environmentHeightRatio": 0.7,
+              "contrast": 1.35,
+              "contrastSpace": "sRGB",
+              "lighting": "actual overhead area key plus four identical cardinal area fill lights",
+              "lowerShading": "original height ramp; old camera-facing form multiplier bypassed"
+            }
+          },
+          "captures": {
+            "N": {
+              "image": "sprites/crate-wood/faceted-N.png"
+            },
+            "E": {
+              "image": "sprites/crate-wood/faceted-E.png"
+            },
+            "S": {
+              "image": "sprites/crate-wood/faceted-S.png"
+            },
+            "W": {
+              "image": "sprites/crate-wood/faceted-W.png"
+            }
+          }
+        },
+        {
+          "id": "crisp",
+          "name": "Crisp overhead",
+          "description": "180 W overhead key, with the same four 100 W fill lights and matte materials.",
+          "settings": {
+            "shader": "matte-principled",
+            "topWatts": 180,
+            "fillWattsEach": 100,
+            "topSize": 3.5
+          },
+          "scene": "S33 prop lighting crate-wood crisp",
+          "geometrySHA256": "55c9369df22244809af62c472d5ff52819b4b737cee1a766c760878632710185",
+          "camera": {
+            "projection": "top-down-oblique-square-grid",
+            "frame": [
+              192,
+              352
+            ],
+            "anchor": [
+              96,
+              248
+            ],
+            "cellSize": 128,
+            "captureScale": 4,
+            "fps": 12,
+            "axes": {
+              "x": "X",
+              "depth": "-Y",
+              "height": "Z"
+            },
+            "camera": {
+              "type": "orthographic",
+              "worldMatrix": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.8192318081855774,
+                  -0.5734625458717346,
+                  -5.734623432159424
+                ],
+                [
+                  0.0,
+                  0.5734625458717346,
+                  0.8192318081855774,
+                  8.1923189163208
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "projectionMatrix": [
+                [
+                  1.3333333730697632,
+                  0.0,
+                  0.0,
+                  -0.0
+                ],
+                [
+                  0.0,
+                  0.8877494931221008,
+                  0.0,
+                  -0.4090892970561981
+                ],
+                [
+                  0.0,
+                  0.0,
+                  -0.0020001998636871576,
+                  -1.0001999139785767
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "pixelAspect": [
+                1.2206555604934692,
+                1.0
+              ],
+              "worldUnitsPerCell": 1,
+              "elevationDegrees": 55.00797980144134
+            },
+            "calibration": {
+              "root": [
+                384.0,
+                992.0000610351562
+              ],
+              "unitX": [
+                512.0,
+                0.0
+              ],
+              "unitDepth": [
+                0.0,
+                511.99993896484375
+              ],
+              "unitHeight": [
+                0.0,
+                -358.400146484375
+              ]
+            },
+            "artStyle": {
+              "revision": "2026-10-19",
+              "environmentHeightRatio": 0.7,
+              "contrast": 1.35,
+              "contrastSpace": "sRGB",
+              "lighting": "actual overhead area key plus four identical cardinal area fill lights",
+              "lowerShading": "original height ramp; old camera-facing form multiplier bypassed"
+            }
+          },
+          "captures": {
+            "N": {
+              "image": "sprites/crate-wood/crisp-N.png"
+            },
+            "E": {
+              "image": "sprites/crate-wood/crisp-E.png"
+            },
+            "S": {
+              "image": "sprites/crate-wood/crisp-S.png"
+            },
+            "W": {
+              "image": "sprites/crate-wood/crisp-W.png"
+            }
+          }
+        }
+      ],
+      "detailCrop": [
+        27,
+        105,
+        138,
+        205
+      ],
+      "regionMasks": {
+        "N": "validation/crate-wood-N.png",
+        "E": "validation/crate-wood-E.png",
+        "S": "validation/crate-wood-S.png",
+        "W": "validation/crate-wood-W.png"
+      },
+      "maskScene": "S33 prop lighting crate-wood mask"
+    },
+    {
+      "id": "belt-connected",
+      "name": "Connected conveyor",
+      "description": "A three-module L: downward straight into a north-to-east corner, followed by an eastward straight. South view plays the native 24-frame loop.",
+      "frame": [
+        384,
+        448
+      ],
+      "root": [
+        192,
+        288
+      ],
+      "footprint": [
+        2,
+        2
+      ],
+      "floorBounds": [
+        -1,
+        -1,
+        2,
+        2
+      ],
+      "placements": [
+        {
+          "id": "belt-corner-n-e",
+          "offset": [
+            -0.5,
+            -0.5,
+            0
+          ]
+        },
+        {
+          "id": "belt-straight-s",
+          "offset": [
+            -0.5,
+            0.5,
+            0
+          ]
+        },
+        {
+          "id": "belt-straight-e",
+          "offset": [
+            0.5,
+            -0.5,
+            0
+          ]
+        }
+      ],
+      "cellSize": 128,
+      "captureScale": 4,
+      "fps": 12,
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "projection": "top-down-oblique-square-grid",
+      "environmentHeightRatio": 0.7,
+      "variants": [
+        {
+          "id": "baseline",
+          "name": "Current production",
+          "description": "Original emission materials and procedural deck colors.",
+          "settings": {
+            "shader": "emission",
+            "topWatts": 0,
+            "fillWattsEach": 0,
+            "topSize": 0
+          },
+          "scene": "S33 prop lighting belt-connected baseline",
+          "geometrySHA256": "131ac82a0406d429ca2e1c7771e8483a23457beff873beaf1b439d70e6b300c3",
+          "camera": {
+            "projection": "top-down-oblique-square-grid",
+            "frame": [
+              384,
+              448
+            ],
+            "anchor": [
+              192,
+              288
+            ],
+            "cellSize": 128,
+            "captureScale": 4,
+            "fps": 12,
+            "axes": {
+              "x": "X",
+              "depth": "-Y",
+              "height": "Z"
+            },
+            "camera": {
+              "type": "orthographic",
+              "worldMatrix": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.8192318081855774,
+                  -0.5734625458717346,
+                  -5.734623432159424
+                ],
+                [
+                  0.0,
+                  0.5734625458717346,
+                  0.8192318081855774,
+                  8.1923189163208
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "projectionMatrix": [
+                [
+                  0.6666666865348816,
+                  0.0,
+                  0.0,
+                  -0.0
+                ],
+                [
+                  0.0,
+                  0.697517454624176,
+                  0.0,
+                  -0.28571298718452454
+                ],
+                [
+                  0.0,
+                  0.0,
+                  -0.0020001998636871576,
+                  -1.0001999139785767
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "pixelAspect": [
+                1.2206555604934692,
+                1.0
+              ],
+              "worldUnitsPerCell": 1,
+              "elevationDegrees": 55.00797980144134
+            },
+            "calibration": {
+              "root": [
+                768.0,
+                1152.0
+              ],
+              "unitX": [
+                512.0,
+                0.0
+              ],
+              "unitDepth": [
+                0.0,
+                512.0
+              ],
+              "unitHeight": [
+                0.0,
+                -358.40008544921875
+              ]
+            },
+            "artStyle": {
+              "revision": "2026-10-19",
+              "environmentHeightRatio": 0.7,
+              "contrast": 1.35,
+              "contrastSpace": "sRGB",
+              "lighting": "emission; zero world and light strength",
+              "lowerShading": "height ramp; camera symmetric form tone"
+            }
+          },
+          "captures": {
+            "N": {
+              "image": "sprites/belt-connected/baseline-N.png"
+            },
+            "E": {
+              "image": "sprites/belt-connected/baseline-E.png"
+            },
+            "S": {
+              "image": "sprites/belt-connected/baseline-S.png",
+              "fps": 12,
+              "frames": [
+                "sprites/belt-connected/baseline-S.png",
+                "frames/belt-connected/baseline-001.png",
+                "frames/belt-connected/baseline-002.png",
+                "frames/belt-connected/baseline-003.png",
+                "frames/belt-connected/baseline-004.png",
+                "frames/belt-connected/baseline-005.png",
+                "frames/belt-connected/baseline-006.png",
+                "frames/belt-connected/baseline-007.png",
+                "frames/belt-connected/baseline-008.png",
+                "frames/belt-connected/baseline-009.png",
+                "frames/belt-connected/baseline-010.png",
+                "frames/belt-connected/baseline-011.png",
+                "frames/belt-connected/baseline-012.png",
+                "frames/belt-connected/baseline-013.png",
+                "frames/belt-connected/baseline-014.png",
+                "frames/belt-connected/baseline-015.png",
+                "frames/belt-connected/baseline-016.png",
+                "frames/belt-connected/baseline-017.png",
+                "frames/belt-connected/baseline-018.png",
+                "frames/belt-connected/baseline-019.png",
+                "frames/belt-connected/baseline-020.png",
+                "frames/belt-connected/baseline-021.png",
+                "frames/belt-connected/baseline-022.png",
+                "frames/belt-connected/baseline-023.png"
+              ]
+            },
+            "W": {
+              "image": "sprites/belt-connected/baseline-W.png"
+            }
+          }
+        },
+        {
+          "id": "soft",
+          "name": "Soft overhead",
+          "description": "100 W overhead key, with the same four 100 W fill lights and matte materials.",
+          "settings": {
+            "shader": "matte-principled",
+            "topWatts": 100,
+            "fillWattsEach": 100,
+            "topSize": 3.5
+          },
+          "scene": "S33 prop lighting belt-connected soft",
+          "geometrySHA256": "131ac82a0406d429ca2e1c7771e8483a23457beff873beaf1b439d70e6b300c3",
+          "camera": {
+            "projection": "top-down-oblique-square-grid",
+            "frame": [
+              384,
+              448
+            ],
+            "anchor": [
+              192,
+              288
+            ],
+            "cellSize": 128,
+            "captureScale": 4,
+            "fps": 12,
+            "axes": {
+              "x": "X",
+              "depth": "-Y",
+              "height": "Z"
+            },
+            "camera": {
+              "type": "orthographic",
+              "worldMatrix": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.8192318081855774,
+                  -0.5734625458717346,
+                  -5.734623432159424
+                ],
+                [
+                  0.0,
+                  0.5734625458717346,
+                  0.8192318081855774,
+                  8.1923189163208
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "projectionMatrix": [
+                [
+                  0.6666666865348816,
+                  0.0,
+                  0.0,
+                  -0.0
+                ],
+                [
+                  0.0,
+                  0.697517454624176,
+                  0.0,
+                  -0.28571298718452454
+                ],
+                [
+                  0.0,
+                  0.0,
+                  -0.0020001998636871576,
+                  -1.0001999139785767
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "pixelAspect": [
+                1.2206555604934692,
+                1.0
+              ],
+              "worldUnitsPerCell": 1,
+              "elevationDegrees": 55.00797980144134
+            },
+            "calibration": {
+              "root": [
+                768.0,
+                1152.0
+              ],
+              "unitX": [
+                512.0,
+                0.0
+              ],
+              "unitDepth": [
+                0.0,
+                512.0
+              ],
+              "unitHeight": [
+                0.0,
+                -358.40008544921875
+              ]
+            },
+            "artStyle": {
+              "revision": "2026-10-19",
+              "environmentHeightRatio": 0.7,
+              "contrast": 1.35,
+              "contrastSpace": "sRGB",
+              "lighting": "actual overhead area key plus four identical cardinal area fill lights",
+              "lowerShading": "original height ramp; old camera-facing form multiplier bypassed"
+            }
+          },
+          "captures": {
+            "N": {
+              "image": "sprites/belt-connected/soft-N.png"
+            },
+            "E": {
+              "image": "sprites/belt-connected/soft-E.png"
+            },
+            "S": {
+              "image": "sprites/belt-connected/soft-S.png",
+              "fps": 12,
+              "frames": [
+                "sprites/belt-connected/soft-S.png",
+                "frames/belt-connected/soft-001.png",
+                "frames/belt-connected/soft-002.png",
+                "frames/belt-connected/soft-003.png",
+                "frames/belt-connected/soft-004.png",
+                "frames/belt-connected/soft-005.png",
+                "frames/belt-connected/soft-006.png",
+                "frames/belt-connected/soft-007.png",
+                "frames/belt-connected/soft-008.png",
+                "frames/belt-connected/soft-009.png",
+                "frames/belt-connected/soft-010.png",
+                "frames/belt-connected/soft-011.png",
+                "frames/belt-connected/soft-012.png",
+                "frames/belt-connected/soft-013.png",
+                "frames/belt-connected/soft-014.png",
+                "frames/belt-connected/soft-015.png",
+                "frames/belt-connected/soft-016.png",
+                "frames/belt-connected/soft-017.png",
+                "frames/belt-connected/soft-018.png",
+                "frames/belt-connected/soft-019.png",
+                "frames/belt-connected/soft-020.png",
+                "frames/belt-connected/soft-021.png",
+                "frames/belt-connected/soft-022.png",
+                "frames/belt-connected/soft-023.png"
+              ]
+            },
+            "W": {
+              "image": "sprites/belt-connected/soft-W.png"
+            }
+          }
+        },
+        {
+          "id": "faceted",
+          "name": "Faceted overhead",
+          "description": "140 W overhead key, with the same four 100 W fill lights and matte materials.",
+          "settings": {
+            "shader": "matte-principled",
+            "topWatts": 140,
+            "fillWattsEach": 100,
+            "topSize": 3.5
+          },
+          "scene": "S33 prop lighting belt-connected faceted",
+          "geometrySHA256": "131ac82a0406d429ca2e1c7771e8483a23457beff873beaf1b439d70e6b300c3",
+          "camera": {
+            "projection": "top-down-oblique-square-grid",
+            "frame": [
+              384,
+              448
+            ],
+            "anchor": [
+              192,
+              288
+            ],
+            "cellSize": 128,
+            "captureScale": 4,
+            "fps": 12,
+            "axes": {
+              "x": "X",
+              "depth": "-Y",
+              "height": "Z"
+            },
+            "camera": {
+              "type": "orthographic",
+              "worldMatrix": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.8192318081855774,
+                  -0.5734625458717346,
+                  -5.734623432159424
+                ],
+                [
+                  0.0,
+                  0.5734625458717346,
+                  0.8192318081855774,
+                  8.1923189163208
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "projectionMatrix": [
+                [
+                  0.6666666865348816,
+                  0.0,
+                  0.0,
+                  -0.0
+                ],
+                [
+                  0.0,
+                  0.697517454624176,
+                  0.0,
+                  -0.28571298718452454
+                ],
+                [
+                  0.0,
+                  0.0,
+                  -0.0020001998636871576,
+                  -1.0001999139785767
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "pixelAspect": [
+                1.2206555604934692,
+                1.0
+              ],
+              "worldUnitsPerCell": 1,
+              "elevationDegrees": 55.00797980144134
+            },
+            "calibration": {
+              "root": [
+                768.0,
+                1152.0
+              ],
+              "unitX": [
+                512.0,
+                0.0
+              ],
+              "unitDepth": [
+                0.0,
+                512.0
+              ],
+              "unitHeight": [
+                0.0,
+                -358.40008544921875
+              ]
+            },
+            "artStyle": {
+              "revision": "2026-10-19",
+              "environmentHeightRatio": 0.7,
+              "contrast": 1.35,
+              "contrastSpace": "sRGB",
+              "lighting": "actual overhead area key plus four identical cardinal area fill lights",
+              "lowerShading": "original height ramp; old camera-facing form multiplier bypassed"
+            }
+          },
+          "captures": {
+            "N": {
+              "image": "sprites/belt-connected/faceted-N.png"
+            },
+            "E": {
+              "image": "sprites/belt-connected/faceted-E.png"
+            },
+            "S": {
+              "image": "sprites/belt-connected/faceted-S.png",
+              "fps": 12,
+              "frames": [
+                "sprites/belt-connected/faceted-S.png",
+                "frames/belt-connected/faceted-001.png",
+                "frames/belt-connected/faceted-002.png",
+                "frames/belt-connected/faceted-003.png",
+                "frames/belt-connected/faceted-004.png",
+                "frames/belt-connected/faceted-005.png",
+                "frames/belt-connected/faceted-006.png",
+                "frames/belt-connected/faceted-007.png",
+                "frames/belt-connected/faceted-008.png",
+                "frames/belt-connected/faceted-009.png",
+                "frames/belt-connected/faceted-010.png",
+                "frames/belt-connected/faceted-011.png",
+                "frames/belt-connected/faceted-012.png",
+                "frames/belt-connected/faceted-013.png",
+                "frames/belt-connected/faceted-014.png",
+                "frames/belt-connected/faceted-015.png",
+                "frames/belt-connected/faceted-016.png",
+                "frames/belt-connected/faceted-017.png",
+                "frames/belt-connected/faceted-018.png",
+                "frames/belt-connected/faceted-019.png",
+                "frames/belt-connected/faceted-020.png",
+                "frames/belt-connected/faceted-021.png",
+                "frames/belt-connected/faceted-022.png",
+                "frames/belt-connected/faceted-023.png"
+              ]
+            },
+            "W": {
+              "image": "sprites/belt-connected/faceted-W.png"
+            }
+          }
+        },
+        {
+          "id": "crisp",
+          "name": "Crisp overhead",
+          "description": "180 W overhead key, with the same four 100 W fill lights and matte materials.",
+          "settings": {
+            "shader": "matte-principled",
+            "topWatts": 180,
+            "fillWattsEach": 100,
+            "topSize": 3.5
+          },
+          "scene": "S33 prop lighting belt-connected crisp",
+          "geometrySHA256": "131ac82a0406d429ca2e1c7771e8483a23457beff873beaf1b439d70e6b300c3",
+          "camera": {
+            "projection": "top-down-oblique-square-grid",
+            "frame": [
+              384,
+              448
+            ],
+            "anchor": [
+              192,
+              288
+            ],
+            "cellSize": 128,
+            "captureScale": 4,
+            "fps": 12,
+            "axes": {
+              "x": "X",
+              "depth": "-Y",
+              "height": "Z"
+            },
+            "camera": {
+              "type": "orthographic",
+              "worldMatrix": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.8192318081855774,
+                  -0.5734625458717346,
+                  -5.734623432159424
+                ],
+                [
+                  0.0,
+                  0.5734625458717346,
+                  0.8192318081855774,
+                  8.1923189163208
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "projectionMatrix": [
+                [
+                  0.6666666865348816,
+                  0.0,
+                  0.0,
+                  -0.0
+                ],
+                [
+                  0.0,
+                  0.697517454624176,
+                  0.0,
+                  -0.28571298718452454
+                ],
+                [
+                  0.0,
+                  0.0,
+                  -0.0020001998636871576,
+                  -1.0001999139785767
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "pixelAspect": [
+                1.2206555604934692,
+                1.0
+              ],
+              "worldUnitsPerCell": 1,
+              "elevationDegrees": 55.00797980144134
+            },
+            "calibration": {
+              "root": [
+                768.0,
+                1152.0
+              ],
+              "unitX": [
+                512.0,
+                0.0
+              ],
+              "unitDepth": [
+                0.0,
+                512.0
+              ],
+              "unitHeight": [
+                0.0,
+                -358.40008544921875
+              ]
+            },
+            "artStyle": {
+              "revision": "2026-10-19",
+              "environmentHeightRatio": 0.7,
+              "contrast": 1.35,
+              "contrastSpace": "sRGB",
+              "lighting": "actual overhead area key plus four identical cardinal area fill lights",
+              "lowerShading": "original height ramp; old camera-facing form multiplier bypassed"
+            }
+          },
+          "captures": {
+            "N": {
+              "image": "sprites/belt-connected/crisp-N.png"
+            },
+            "E": {
+              "image": "sprites/belt-connected/crisp-E.png"
+            },
+            "S": {
+              "image": "sprites/belt-connected/crisp-S.png",
+              "fps": 12,
+              "frames": [
+                "sprites/belt-connected/crisp-S.png",
+                "frames/belt-connected/crisp-001.png",
+                "frames/belt-connected/crisp-002.png",
+                "frames/belt-connected/crisp-003.png",
+                "frames/belt-connected/crisp-004.png",
+                "frames/belt-connected/crisp-005.png",
+                "frames/belt-connected/crisp-006.png",
+                "frames/belt-connected/crisp-007.png",
+                "frames/belt-connected/crisp-008.png",
+                "frames/belt-connected/crisp-009.png",
+                "frames/belt-connected/crisp-010.png",
+                "frames/belt-connected/crisp-011.png",
+                "frames/belt-connected/crisp-012.png",
+                "frames/belt-connected/crisp-013.png",
+                "frames/belt-connected/crisp-014.png",
+                "frames/belt-connected/crisp-015.png",
+                "frames/belt-connected/crisp-016.png",
+                "frames/belt-connected/crisp-017.png",
+                "frames/belt-connected/crisp-018.png",
+                "frames/belt-connected/crisp-019.png",
+                "frames/belt-connected/crisp-020.png",
+                "frames/belt-connected/crisp-021.png",
+                "frames/belt-connected/crisp-022.png",
+                "frames/belt-connected/crisp-023.png"
+              ]
+            },
+            "W": {
+              "image": "sprites/belt-connected/crisp-W.png"
+            }
+          }
+        }
+      ],
+      "detailCrop": [
+        57,
+        91,
+        269,
+        312
+      ]
+    }
+  ],
+  "source": {
+    "blend": "source/environment-lighting.blend",
+    "recipe": "source/lighting_study.py",
+    "productionBlendSHA256": "c02e04d6c90e34afce2b0895328d4a1e26d47817ce9d38fb2b458fa3e766fc1f",
+    "sharedLightingRecipe": "../character-lighting-study/source/lighting_study.py",
+    "sharedLightingRecipeSHA256": "cedc08d4e5cc7b7223fcad2df2db0c33217bbe97a66790ccb9a54fcf5335e45d",
+    "sha256": "2131844e91b581812ca007dca1846ecf6208c4f5f8cb9f93de2b7749c27e756b",
+    "recipeSHA256": "3ef3c62f29d12280e5930edfaf873c886a8a64d30f6230501f1968dd9eef73a2"
+  }
+}

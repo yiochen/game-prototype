@@ -2,6 +2,10 @@
 
 Status: accepted by the user. Applies to both the sushi restaurant and submarine expedition.
 
+## Locked next-revision choices
+
+See the [art decision record](../design/art-directions/decisions.md): **70% environment front/height, 125% character size, C / Chunky proportions with a softer face and fuller hair, and layered full-footprint tile decoration with varied heights**. Keep the ordinary 35° character camera. These choices are approved; the full asset update awaits the user’s explicit start instruction.
+
 ## Visual references
 
 The [art-directions README](../design/art-directions/README.md) defines the shared style and projection. The current references are:
@@ -18,18 +22,18 @@ The underwater catalog guides square-cell layout and modular obstacle constructi
 ## Style guide
 
 - Chunky angular low-poly forms with broad flat facets, matte materials, minimal texture, gentle ambient occlusion and soft grounding shadows. Avoid the superseded hand-drawn scene outlines and paper grain.
-- Compact blocky characters with expressive faces, angular hair and hats, and gestures that read at phone size.
+- Compact chubby C proportions at 125%, rounded cheeks/chin, fuller layered hair, tiny feet and short leg stubs, with expressive faces and gestures that read at phone size.
 - Restaurant: cream square tiles, warm honey-brown wood, red/charcoal conveyor trim, golden lantern light, vivid food and clothing, and angular green plants. Dining stools are backless.
-- Dress outer edges with varied plants, crates, lanterns, signs and subdued faceted rocks. Frame the space while leaving playable floor, entrances, expansion connections and controls clear. Viewport divisions in the continuous floor are not borders; dressing does not change usable cells, pathfinding, capacity or earnings.
+- Build decoration over continuous floor/ground or ocean-bed tiles. Primary decoration objects fill their tile width and depth with broad forms; use varied low, medium and tall silhouettes and compatible joins instead of repeating complete large garden patches. Small accents supplement this foundation. Dress outer edges with varied plants, crates, lanterns, signs and subdued faceted rocks. Frame the space while leaving playable floor, entrances, expansion connections and controls clear. Viewport divisions in the continuous floor are not borders; dressing does not change usable cells, pathfinding, capacity or earnings.
 - Expedition: cobalt/navy rock walls and turquoise water, pale columns, bright coral and kelp, and a recognizable warm yellow submarine with a blue window and headlight.
 - Both modes share geometric silhouettes, clear color hierarchy and polished UI icons. Crisp dark rims and restrained depth suit panels; preserve the wireframe's transparent restaurant HUD without an added cream/yellow backing container. Use material surfaces where the selected component calls for them.
 - Match dish icons on belts to detailed panel illustrations. Reuse the catalog's normal/pressed/disabled/badge states and expressive thought bubbles within the accepted control set.
 
 ## Projection and registration
 
-Use **square top/front oblique projection** for the floor and environment objects, with parallel screen-aligned square cells and true-shape grid-aligned top/front planes. Height extends upward over rows behind the object's ground root. No perspective convergence or diamond-grid rotation.
+Use **square top/front oblique projection** for the floor and environment objects, with parallel screen-aligned square ground cells and true-shape grid-aligned top planes. The selected next revision scales projected front/vertical height to 70%; front planes are therefore compressed vertically. Height extends upward over rows behind the object's ground root. No perspective convergence or diamond-grid rotation.
 
-Characters use a separate ordinary orthographic art camera with no vertical stretch. Register standing feet at projected floor roots and seated hips at explicit stool-seat supports; match hands to serving surfaces. Keep footprint, support/collision, art bounds, root and height separate. The [README](../design/art-directions/README.md#environment-projection) records the mathematical contract, capture conventions, limitations and source profiles. Catalog tile-size examples and concept authoring values do not lock runtime pixel pitch.
+Characters retain a separate ordinary 35° orthographic art camera with square pixels and no vertical stretch. Register standing feet at projected floor roots and seated hips at explicit stool-seat supports; match hands to serving surfaces. Keep footprint, support/collision, art bounds, root and height separate. The [README](../design/art-directions/README.md#environment-projection) records the mathematical contract, capture conventions, limitations and source profiles. Catalog tile-size examples and concept authoring values do not lock runtime pixel pitch.
 
 ## Gameplay presentation
 

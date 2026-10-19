@@ -58,7 +58,7 @@ function githubLink(comment) {
     `**Example:** ${comment.storyTitle}`,
     `**Story ID:** \`${comment.storyId}\``,
     `**Preview:** ${storyUrl(comment.storyId)}`,
-    `**Branch:** \`${BRANCH}\``,
+    `**Branch:** \`${comment.reviewBranch || BRANCH}\``,
     '',
     '## Requested change',
     '',
@@ -79,7 +79,7 @@ function exportMarkdown(comments) {
   return [
     '# Sushi Loop wireframe feedback',
     '',
-    `Branch: \`${BRANCH}\``,
+    `Branches: ${[...new Set(comments.map(comment => comment.reviewBranch || BRANCH))].join(', ') || BRANCH}`,
     '',
     'This feedback has not been automatically sent to GitHub or Codex.',
     '',
@@ -87,6 +87,7 @@ function exportMarkdown(comments) {
       `## ${index + 1}. ${comment.storyTitle}`,
       '',
       `Story: \`${comment.storyId}\``,
+      `Branch: \`${comment.reviewBranch || BRANCH}\``,
       `Saved: ${comment.createdAt}`,
       `Storage: ${comment.persisted ? 'Saved on this device' : 'Only in this tab; device storage was unavailable'}`,
       `Preview: ${storyUrl(comment.storyId)}`,
@@ -143,7 +144,7 @@ export function Feedback({ story }) {
     if (!text) return;
     const comment = {
       id: window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`,
-      storyId: story.id, storyTitle: story.title, text,
+      storyId: story.id, storyTitle: story.title, reviewBranch: story.reviewBranch || BRANCH, text,
       createdAt: new Date().toISOString(), persisted: true,
     };
     const next = { ...store, comments: [...store.comments, comment], drafts: { ...store.drafts, [story.id]: '' } };

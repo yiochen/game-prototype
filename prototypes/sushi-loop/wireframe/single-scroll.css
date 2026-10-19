@@ -1,0 +1,104 @@
+/* The browser owns vertical scrolling throughout the review studio. Wide worlds
+   and zoomed artwork retain a horizontal pan without containing vertical swipes. */
+.story-sidebar, .documentation {
+  position: static;
+  height: auto;
+  align-self: start;
+  overflow: visible;
+}
+#story-title { scroll-margin-top: 16px; }
+
+.prototype-stage.frame--document {
+  height: auto;
+  min-height: 694px;
+  overflow: clip;
+}
+.frame--document > .scene-host { height: auto; }
+.prototype-stage.frame--document .phone-scene {
+  height: auto;
+  min-height: 694px;
+  overflow: visible;
+}
+.prototype-stage.frame--document :is(.object-review-scroll, .catalog-scene, .component-gallery, .paper-content, .dialog-scroll, .recipe-catalog, .recipe-details) {
+  height: auto;
+  max-height: none;
+  overflow: visible;
+  overscroll-behavior: auto;
+}
+.prototype-stage.frame--document :is(.concept-catalog-scroll, .world-catalog-scroll) {
+  flex: none;
+  height: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior: auto;
+  touch-action: pan-x pan-y;
+}
+.prototype-stage .object-scene-scroll {
+  overflow-y: hidden;
+  overscroll-behavior: auto;
+  touch-action: pan-x pan-y;
+}
+.prototype-stage.frame--document .paper-page {
+  height: auto;
+  min-height: 694px;
+  padding: 8px;
+  overflow: clip;
+}
+.prototype-stage.frame--document .paper-sheet {
+  position: relative;
+  inset: auto;
+  min-height: 678px;
+}
+.prototype-stage.frame--document .component-paper-page-example {
+  height: auto;
+  overflow: visible;
+}
+.prototype-stage.frame--document .component-paper-page-example .paper-page { min-height: 460px; }
+.prototype-stage.frame--document .component-paper-page-example .paper-sheet { min-height: 444px; }
+
+/* A popup remains over its frozen scene, but its contents extend the page
+   instead of introducing an independently scrolling dialog. */
+.frame--overlay-document > .scene-host {
+  position: absolute;
+  inset: 0;
+  height: 694px;
+  overflow: clip;
+}
+.prototype-stage.frame--overlay-document > .scene-host .phone-scene {
+  height: 694px;
+  min-height: 0;
+  overflow: hidden;
+}
+.prototype-stage.frame--overlay-document .overlay-scrim {
+  position: relative;
+  inset: auto;
+  min-height: 694px;
+}
+.prototype-stage.frame--overlay-document .wire-dialog {
+  max-height: none;
+  overflow: visible;
+}
+.prototype-stage.frame--overlay-document .recipe-dialog {
+  display: flex;
+  height: auto;
+}
+.prototype-stage.frame--overlay-document .recipe-details {
+  border-left: 0;
+  border-top: 2px solid var(--line);
+}
+
+@media (max-width: 899px) {
+  .menu-open { overflow: visible; }
+  .menu-open .story-sidebar {
+    position: static;
+    inset: auto;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+}
+@media (max-width: 480px) {
+  .prototype-stage.frame--document { min-height: 680px; }
+}

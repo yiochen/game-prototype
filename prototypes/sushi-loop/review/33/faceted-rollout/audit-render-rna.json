@@ -1,0 +1,160 @@
+{
+  "rna": {
+    "render": {
+      "threads": {
+        "value": "10",
+        "description": "Maximum number of CPU cores to use simultaneously while rendering (for multi-core/CPU systems)",
+        "enum": null
+      },
+      "threads_mode": {
+        "value": "AUTO",
+        "description": "Determine the amount of render threads used",
+        "enum": [
+          "AUTO",
+          "FIXED"
+        ]
+      },
+      "use_compositing": {
+        "value": "True",
+        "description": "Process the render result through the compositing pipeline, if a compositing node group is assigned to the scene",
+        "enum": null
+      },
+      "compositor_device": {
+        "value": "GPU",
+        "description": "Set how compositing is executed",
+        "enum": [
+          "CPU",
+          "GPU"
+        ]
+      },
+      "compositor_precision": {
+        "value": "AUTO",
+        "description": "The precision of compositor intermediate result",
+        "enum": [
+          "AUTO",
+          "FULL"
+        ]
+      },
+      "compositor_denoise_device": {
+        "value": "AUTO",
+        "description": "The device to use to process the denoise nodes in the compositor",
+        "enum": [
+          "AUTO",
+          "CPU",
+          "GPU"
+        ]
+      },
+      "compositor_denoise_preview_quality": {
+        "value": "BALANCED",
+        "description": "The quality used by denoise nodes during viewport and interactive compositing if the nodes' quality option is set to Follow Scene",
+        "enum": [
+          "HIGH",
+          "BALANCED",
+          "FAST"
+        ]
+      },
+      "compositor_denoise_final_quality": {
+        "value": "HIGH",
+        "description": "The quality used by denoise nodes during the compositing of final renders if the nodes' quality option is set to Follow Scene",
+        "enum": [
+          "HIGH",
+          "BALANCED",
+          "FAST"
+        ]
+      }
+    },
+    "scene": {
+      "compositing_node_group": {
+        "value": "<bpy_struct, CompositorNodeTree(\"S33 approved sRGB contrast 135 S33 Native Asset Library Export.003\") at 0x9bacb8720>",
+        "description": "Compositor Nodes",
+        "enum": null
+      }
+    },
+    "system": {
+      "gpu_backend": {
+        "value": "METAL",
+        "description": "GPU backend to use (requires restarting Blender for changes to take effect)",
+        "enum": [
+          "OPENGL",
+          "METAL",
+          "VULKAN"
+        ]
+      },
+      "gpu_preferred_device": {
+        "value": "AUTO",
+        "description": "Preferred device to select during detection (requires restarting Blender for changes to take effect)",
+        "enum": [
+          "AUTO"
+        ]
+      },
+      "audio_device": {
+        "value": "CoreAudio",
+        "description": "Audio output device",
+        "enum": [
+          "None"
+        ]
+      },
+      "legacy_compute_device_type": {
+        "value": "0",
+        "description": "For backwards compatibility only",
+        "enum": null
+      }
+    }
+  },
+  "eevee": {
+    "gi_diffuse_bounces": "3",
+    "gi_cubemap_resolution": "512",
+    "gi_visibility_resolution": "32",
+    "gi_glossy_clamp": "0.0",
+    "gi_irradiance_pool_size": "16",
+    "taa_samples": "16",
+    "taa_render_samples": "32",
+    "use_taa_reprojection": "True",
+    "ray_tracing_method": "SCREEN",
+    "use_shadow_jitter_viewport": "False",
+    "clamp_surface_direct": "0.0",
+    "clamp_surface_indirect": "10.0",
+    "clamp_volume_direct": "0.0",
+    "clamp_volume_indirect": "0.0",
+    "direct_light_intensity": "1.0",
+    "indirect_light_intensity": "1.0",
+    "volumetric_start": "0.10000000149011612",
+    "volumetric_end": "100.0",
+    "volumetric_tile_size": "8",
+    "volumetric_samples": "64",
+    "volumetric_sample_distribution": "0.800000011920929",
+    "volumetric_ray_depth": "16",
+    "volumetric_light_clamp": "0.0",
+    "use_volumetric_shadows": "False",
+    "volumetric_shadow_samples": "16",
+    "use_volume_custom_range": "False",
+    "use_fast_gi": "False",
+    "fast_gi_thickness_near": "0.10000000149011612",
+    "fast_gi_quality": "0.25",
+    "fast_gi_step_count": "8",
+    "fast_gi_ray_count": "2",
+    "fast_gi_method": "GLOBAL_ILLUMINATION",
+    "fast_gi_distance": "0.0",
+    "fast_gi_bias": "0.05000000074505806",
+    "fast_gi_resolution": "2",
+    "bokeh_max_size": "100.0",
+    "bokeh_threshold": "1.0",
+    "bokeh_neighbor_max": "10.0",
+    "use_bokeh_jittered": "False",
+    "bokeh_overblur": "5.0",
+    "motion_blur_depth_scale": "100.0",
+    "motion_blur_max": "32",
+    "motion_blur_steps": "1",
+    "use_shadows": "True",
+    "shadow_pool_size": "512",
+    "shadow_ray_count": "1",
+    "shadow_step_count": "6",
+    "light_threshold": "0.009999999776482582",
+    "use_overscan": "False",
+    "overscan_size": "3.0",
+    "ray_tracing_options": "<bpy_struct, RaytraceEEVEE at 0x9c3874ae8>",
+    "use_raytracing": "False",
+    "shadow_resolution_scale": "1.0"
+  },
+  "gpuPlatformQuery": "Not executed: gpu module required initialization. No renderer or settings changed."
+}
