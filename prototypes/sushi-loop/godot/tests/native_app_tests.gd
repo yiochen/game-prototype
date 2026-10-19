@@ -7,9 +7,10 @@ const Session = preload("res://scripts/session.gd")
 const Store = preload("res://scripts/save_store.gd")
 const SAVE_FILES := ["session.json", "session.backup.json", "session.pending.json", "session.backup.pending.json"]
 const REQUIRED_SPRITES := [
-	"chef_up", "chef_down", "chef_hold_up", "guest_a_down",
-	"guest_b_seated", "stool", "salmon_nigiri", "belt_horizontal",
-	"belt_endpoint", "floor_wood", "plant", "lantern", "barrel", "crate", "entrance",
+	"chef-lena", "chef-blackboard", "customer-rosa", "customer-ellis",
+	"customer-samir", "customer-june", "stool-wood", "dish-salmon",
+	"belt-straight-e", "belt-start-e", "belt-end-e", "floor-cream",
+	"plant-angular", "lantern-gold", "barrel-wood", "crate-wood", "entry-finished",
 ]
 var checks := 0
 var failures: Array[String] = []
@@ -41,6 +42,7 @@ func _run() -> void:
 	_test_geometry(app)
 	await _test_configured_camera(app)
 	await _test_touch_and_hud(app)
+	_test_active_clock_and_resume(app)
 	var live_textures := _sprite_signatures(app)
 	var renderer_script: Script = app.world.get_script()
 	app = await _test_reopen(app)
@@ -95,33 +97,50 @@ func _test_geometry(app) -> void:
 	var all_loaded := true
 	var anchored := true
 	for key in REQUIRED_SPRITES:
-		var texture: Texture2D = app.world.art.get_texture(key)
+		if not app.world.art.objects.has(key):
+			all_loaded = false
+			continue
+		var entry: Dictionary = app.world.art.objects[key]
+		var clip_id: String = "static" if entry.clips.has("static") else str(entry.clips.keys()[0])
+		var clip_record: Dictionary = entry.clips[clip_id]
+		var direction: String = "S" if clip_record.directions.has("S") else str(clip_record.directions.keys()[0])
+		var texture: Texture2D = app.world.art.get_texture(key, clip_id, direction, 0.0)
 		if texture == null:
 			all_loaded = false
 			continue
-		var fitted: Rect2 = app.world.art.fit(key, Vector2(160, 230), Vector2(90, 140))
-		var anchor: Array = app.world.art.metadata[key].anchor
-		var registered := fitted.position + Vector2(float(anchor[0]), float(anchor[1])) * fitted.size
+		var fitted: Rect2 = app.world.art.registered_rect(key, Vector2(160, 230), 90.0, clip_id, direction)
+		var registration: Dictionary = app.world.art.registration(key, clip_id, direction)
+		var anchor: Array = registration.root
+		var registered := fitted.position + Vector2(float(anchor[0]), float(anchor[1])) * (90.0 / 128.0)
 		anchored = anchored and registered.is_equal_approx(Vector2(160, 230))
 		anchored = anchored and is_equal_approx(fitted.size.x / fitted.size.y, texture.get_width() / float(texture.get_height()))
+		anchored = anchored and fitted.size.is_equal_approx(Vector2(float(registration.frame_size[0]), float(registration.frame_size[1])) * (90.0 / 128.0))
 	_expect(all_loaded, "Gameplay resolves all required finished chef, guest, food, belt and room sprites")
-	_expect(all_loaded and anchored, "Production sprites preserve aspect ratio and their measured foot, deck or plate anchor")
+	_expect(all_loaded and anchored, "Catalog sprites preserve the complete frame, uniform tile scale and registered foot/deck/plate root")
 
 func _test_configured_camera(app) -> void:
 	var original: RefCounted = app.session
-	app.session = load("res://scripts/session.gd").new_session(41, {"floor": {"viewport_columns": 6}})
+	app.session = load("res://scripts/session.gd").new_session(41, {"floor": {"viewport_columns": 6, "rows": 30}})
 	app._refresh()
 	app._layout()
 	await _frames()
 	_expect(is_equal_approx(app.world.cell, (app.world.portrait.size.x - 48.0) / 6.0), "Configured visible column count determines the actual square cell pitch")
-	app.session.command({"type": "set_camera", "x": 20.5, "y": 0.0})
+	var horizontal_limit := float(app.session.snapshot().floor.world_columns) - 6.0
+	app.session.command({"type": "set_camera", "x": horizontal_limit - 0.5, "y": 0.0})
 	app._refresh()
 	var start: Vector2 = app.world.portrait.position + app.world.portrait.size * Vector2(0.8, 0.6)
 	var end := start - Vector2(app.world.cell * 2.0, 0)
 	await _touch(app, start, true, 8)
 	await _drag(app, start, end, 8)
 	await _touch(app, end, false, 8)
-	_expect(is_equal_approx(float(app.session.snapshot().camera.x), 21.0), "Actual touch panning uses the configured world-minus-visible extent rather than a hard-coded camera limit")
+	_expect(is_equal_approx(float(app.session.snapshot().camera.x), horizontal_limit), "Actual touch panning uses the configured world-minus-visible extent rather than a hard-coded camera limit")
+	var hud := _hud_rects(app)
+	var vertical_end := start - Vector2(0, app.world.cell * 2.0)
+	await _touch(app, start, true, 8)
+	await _drag(app, start, vertical_end, 8)
+	await _touch(app, vertical_end, false, 8)
+	_expect(is_equal_approx(float(app.session.snapshot().camera.y), 2.0), "A vertical drag reaches rows outside a short viewport without distorting tile scale")
+	_expect(_same(hud, _hud_rects(app)), "Vertical scene panning leaves the transparent HUD and Shop stationary")
 	app.session = original
 	app._refresh()
 	app._layout()
@@ -165,6 +184,25 @@ func _test_touch_and_hud(app) -> void:
 	await _frames()
 	_expect(int(app.money.text) == int(app.session.snapshot().coins) and app.session.snapshot().coins > before.coins, "Controlled live service updates the native coin label")
 	_expect(_same(hud, _hud_rects(app)), "Changing the coin balance does not shift Shop or the other fixed controls")
+
+func _test_active_clock_and_resume(app) -> void:
+	var expected = Session.new()
+	_expect(expected.restore(app.session.save_data()), "Active-clock fixture restores the public session")
+	expected.advance(0.8)
+	app.simulation_enabled = true
+	app._process(0.8)
+	_expect(_same(expected.snapshot(), app.session.snapshot()), "An ordinary slow foreground frame accounts for all active time rather than discarding time above 250 ms")
+	var before_suspend: Dictionary = app.session.snapshot()
+	app.notification(Node.NOTIFICATION_APPLICATION_PAUSED)
+	app._process(120.0)
+	_expect(_same(before_suspend, app.session.snapshot()), "Android suspension does not run restaurant service")
+	app.notification(Node.NOTIFICATION_APPLICATION_RESUMED)
+	app._process(120.0)
+	_expect(_same(before_suspend, app.session.snapshot()), "The first resumed frame does not credit suspended time as offline income")
+	expected.advance(0.1)
+	app._process(0.1)
+	app.simulation_enabled = false
+	_expect(_same(expected.snapshot(), app.session.snapshot()), "Normal active service continues after the resumed frame")
 
 func _test_reopen(app):
 	app.session.command({"type": "set_camera", "x": 4.25, "y": 0.0})
@@ -296,7 +334,13 @@ func _write_bytes(path: String, bytes: PackedByteArray) -> void:
 func _sprite_signatures(app) -> Dictionary:
 	var result := {}
 	for key in REQUIRED_SPRITES:
-		var texture: Texture2D = app.world.art.get_texture(key)
+		if not app.world.art.objects.has(key):
+			continue
+		var entry: Dictionary = app.world.art.objects[key]
+		var clip_id: String = "static" if entry.clips.has("static") else str(entry.clips.keys()[0])
+		var clip_record: Dictionary = entry.clips[clip_id]
+		var direction: String = "S" if clip_record.directions.has("S") else str(clip_record.directions.keys()[0])
+		var texture: Texture2D = app.world.art.get_texture(key, clip_id, direction, 0.0)
 		if texture is AtlasTexture:
 			result[key] = {"source": texture.atlas.resource_path, "region": texture.region}
 		elif texture != null:

@@ -4,6 +4,7 @@ extends RefCounted
 ## There is no wall clock or file I/O here. A caller decides when time passes.
 
 const SAVE_VERSION := 1
+const MAX_EXACT_INTEGER := 9007199254740991
 const CONTENT_PATH := "res://content/starter.json"
 const DIRECTIONS := {
 	"north": Vector2i(0, -1), "east": Vector2i(1, 0),
@@ -50,7 +51,11 @@ func advance(elapsed: float) -> Array:
 	if not is_finite(elapsed) or elapsed <= 0.0 or _state.is_empty():
 		return events
 	var step := float(_configuration.service.step_seconds)
-	_remainder += elapsed
+	var accumulated := _remainder + elapsed
+	var step_count: float = floor((accumulated + 0.000000001) / step)
+	if not is_finite(step_count) or step_count > MAX_EXACT_INTEGER - int(_state.step_index):
+		return events
+	_remainder = accumulated
 	# Fixed simulation steps make caller frame rate irrelevant, including across
 	# a save made between steps. The fractional remainder is part of the save.
 	var count := int(floor((_remainder + 0.000000001) / step))
@@ -96,6 +101,9 @@ func snapshot() -> Dictionary:
 			"meal_progress": clampf(float(customer.meal_elapsed) / float(_configuration.service.eating_seconds), 0.0, 1.0),
 			"meal_dish": customer.meal_dish.duplicate(true) if customer.meal_dish is Dictionary else null,
 			"appearance": customer.appearance,
+			"facing": customer.facing,
+			"visual_phase": customer.visual_phase,
+			"visual_elapsed": customer.visual_elapsed,
 		})
 	return result
 
@@ -122,10 +130,14 @@ func restore(data: Dictionary) -> bool:
 		return false
 	if not data.get("random_state") is String or not data.random_state.is_valid_int():
 		return false
-	if not _valid_saved_state(data.state, data.configuration):
+	if data.random_state != str(int(data.random_state)):
+		return false
+	var restored_state: Dictionary = data.state.duplicate(true)
+	_migrate_visual_state(restored_state)
+	if not _valid_saved_state(restored_state, data.configuration):
 		return false
 	_configuration = data.configuration.duplicate(true)
-	_state = data.state.duplicate(true)
+	_state = restored_state
 	_normalize_restored_numbers()
 	_remainder = float(data.remainder)
 	_random.state = int(data.random_state)
@@ -135,8 +147,9 @@ func _normalize_restored_numbers() -> void:
 	# JSON represents integers and floats with the same number type. Normalize
 	# counters before future ID creation, and cell coordinates before rendering.
 	_configuration.starting_coins = int(_configuration.starting_coins)
-	for field in ["columns", "rows", "world_columns"]:
-		_configuration.floor[field] = int(_configuration.floor[field])
+	for field in ["columns", "rows", "world_columns", "viewport_columns"]:
+		if _configuration.floor.has(field):
+			_configuration.floor[field] = int(_configuration.floor[field])
 	for field in ["x", "y"]:
 		_configuration.floor.entrance[field] = int(_configuration.floor.entrance[field])
 	for recipe in _configuration.recipes.values():
@@ -171,16 +184,31 @@ func _start() -> void:
 			"chef":
 				object.preparation_elapsed = 0.0
 				object.held_dish = null
+				object.loading_elapsed = 0.0
+				object.visual_phase = "work"
+				object.visual_elapsed = 0.0
 			"belt":
 				object.travel_elapsed = 0.0
 				object.dish = null
 	_remainder = 0.0
 
+func _transition_seconds(key: String) -> float:
+	# Missing durations identify legacy v1 configurations, whose instant
+	# transitions keep their original timing when reopened.
+	return float(_configuration.service.get(key, 0.0))
+
+func _set_visual(actor: Dictionary, phase: String) -> void:
+	if actor.get("visual_phase") != phase:
+		actor.visual_phase = phase
+		actor.visual_elapsed = 0.0
+
 func _step_chefs(delta: float, events: Array) -> void:
 	for chef in _state.objects:
 		if chef.kind != "chef":
 			continue
+		chef.visual_elapsed += delta
 		if chef.held_dish == null:
+			_set_visual(chef, "work")
 			var duration := float(_configuration.recipes[chef.recipe_id].preparation_seconds)
 			chef.preparation_elapsed = minf(duration, float(chef.preparation_elapsed) + delta)
 			if float(chef.preparation_elapsed) + 0.000000001 >= duration:
@@ -188,14 +216,32 @@ func _step_chefs(delta: float, events: Array) -> void:
 				chef.held_dish = {"id": "dish-%s" % _state.next_dish_id, "recipe_id": chef.recipe_id}
 				_state.next_dish_id += 1
 				events.append({"type": "prepared", "chef_id": chef.id, "dish_id": chef.held_dish.id})
-		if chef.held_dish != null:
-			var loading := _facing_object(chef)
-			if loading.get("kind") == "belt" and loading.dish == null:
-				loading.dish = chef.held_dish
-				loading.travel_elapsed = 0.0
-				chef.held_dish = null
-				chef.preparation_elapsed = 0.0
-				events.append({"type": "loaded", "chef_id": chef.id, "belt_id": loading.id, "dish_id": loading.dish.id})
+		if chef.held_dish == null:
+			continue
+		var loading := _facing_object(chef)
+		if loading.get("kind") != "belt" or loading.dish != null:
+			chef.loading_elapsed = 0.0
+			_set_visual(chef, "hold")
+			continue
+		var loading_duration := _transition_seconds("loading_seconds")
+		if loading_duration > 0.0:
+			if chef.visual_phase != "load":
+				chef.loading_elapsed = 0.0
+				_set_visual(chef, "load")
+				continue
+			chef.loading_elapsed = minf(loading_duration, float(chef.loading_elapsed) + delta)
+			chef.visual_elapsed = chef.loading_elapsed
+			if float(chef.loading_elapsed) + 0.000000001 < loading_duration:
+				continue
+		# One ownership transfer after the visible loading motion. The plate is
+		# never simultaneously present in the chef's hands and on the belt.
+		loading.dish = chef.held_dish
+		loading.travel_elapsed = 0.0
+		chef.held_dish = null
+		chef.preparation_elapsed = 0.0
+		chef.loading_elapsed = 0.0
+		_set_visual(chef, "work")
+		events.append({"type": "loaded", "chef_id": chef.id, "belt_id": loading.id, "dish_id": loading.dish.id})
 
 func _step_belts(delta: float, events: Array) -> void:
 	var duration := float(_configuration.service.belt_seconds_per_cell)
@@ -245,6 +291,8 @@ func _step_arrivals(delta: float, events: Array) -> void:
 			"path": choice.path, "path_index": 0,
 			"meal_dish": null, "meal_elapsed": 0.0,
 			"appearance": _random.randi_range(0, 3),
+			"facing": _direction_toward(Vector2(entrance), Vector2(float(choice.path[0].x), float(choice.path[0].y))),
+			"visual_phase": "walk", "visual_elapsed": 0.0,
 		}
 		_state.next_customer_id += 1
 		_state.customers.append(customer)
@@ -256,21 +304,33 @@ func _step_arrivals(delta: float, events: Array) -> void:
 func _step_customers(delta: float, events: Array) -> void:
 	var departed: Array = []
 	for customer in _state.customers:
+		customer.visual_elapsed += delta
 		match customer.phase:
 			"walking", "leaving":
+				if customer.visual_phase == "stand-up":
+					if float(customer.visual_elapsed) + 0.000000001 >= _transition_seconds("standing_seconds"):
+						_set_visual(customer, "walk")
+					continue
 				if _walk_customer(customer, delta):
 					if customer.phase == "leaving":
 						departed.append(customer)
 						events.append({"type": "departed", "customer_id": customer.id})
 					else:
 						customer.phase = "waiting"
+						customer.facing = _object_by_id(customer.seat_id).facing
+						_set_visual(customer, "sit-down" if _transition_seconds("sitting_seconds") > 0.0 else "seated-wait")
 			"waiting":
+				if customer.visual_phase == "sit-down":
+					if float(customer.visual_elapsed) + 0.000000001 < _transition_seconds("sitting_seconds"):
+						continue
+					_set_visual(customer, "seated-wait")
 				var seat := _object_by_id(customer.seat_id)
 				var tile := _facing_object(seat)
 				if tile.get("kind") == "belt" and tile.dish != null:
 					customer.meal_dish = tile.dish
 					customer.meal_elapsed = 0.0
 					customer.phase = "eating"
+					_set_visual(customer, "eat")
 					tile.dish = null
 					tile.travel_elapsed = 0.0
 					events.append({"type": "eating_started", "customer_id": customer.id, "dish_id": customer.meal_dish.id, "seat_id": seat.id})
@@ -292,6 +352,7 @@ func _finish_meal(customer: Dictionary, events: Array) -> void:
 	customer.meal_dish = null
 	customer.meal_elapsed = 0.0
 	customer.phase = "leaving"
+	_set_visual(customer, "stand-up" if _transition_seconds("standing_seconds") > 0.0 else "walk")
 	customer.path = _walk_path(Vector2i(roundi(customer.x), roundi(customer.y)), _point(_configuration.floor.entrance))
 	customer.path_index = 0
 	events.append({
@@ -300,6 +361,12 @@ func _finish_meal(customer: Dictionary, events: Array) -> void:
 		"x": customer.x, "y": customer.y,
 	})
 
+func _direction_toward(position: Vector2, target: Vector2) -> String:
+	var movement := target - position
+	if absf(movement.x) > absf(movement.y):
+		return "east" if movement.x > 0.0 else "west"
+	return "south" if movement.y > 0.0 else "north"
+
 func _walk_customer(customer: Dictionary, delta: float) -> bool:
 	var distance := delta * float(_configuration.service.walking_cells_per_second)
 	while distance > 0.0 and int(customer.path_index) < customer.path.size():
@@ -307,6 +374,8 @@ func _walk_customer(customer: Dictionary, delta: float) -> bool:
 		var target := Vector2(float(point.x), float(point.y))
 		var position := Vector2(float(customer.x), float(customer.y))
 		var remaining := position.distance_to(target)
+		if remaining > 0.000000001:
+			customer.facing = _direction_toward(position, target)
 		if remaining <= distance + 0.000000001:
 			customer.x = target.x
 			customer.y = target.y
@@ -346,7 +415,7 @@ func _walk_path(start: Vector2i, goal: Vector2i, goal_object_id: String = "") ->
 
 func _seat_reserved(seat_id: String) -> bool:
 	for customer in _state.customers:
-		if customer.seat_id == seat_id and customer.phase != "leaving":
+		if customer.seat_id == seat_id and (customer.phase != "leaving" or customer.visual_phase == "stand-up"):
 			return true
 	return false
 
@@ -386,7 +455,7 @@ func _finite_number(value: Variant) -> bool:
 	return (value is float or value is int) and is_finite(float(value))
 
 func _nonnegative_integer(value: Variant) -> bool:
-	return _finite_number(value) and float(value) >= 0.0 and float(value) == floor(float(value))
+	return _finite_number(value) and float(value) >= 0.0 and float(value) <= MAX_EXACT_INTEGER and float(value) == floor(float(value))
 
 func _valid_configuration(config: Dictionary) -> bool:
 	for field in ["floor", "recipes", "service"]:
@@ -406,6 +475,9 @@ func _valid_configuration(config: Dictionary) -> bool:
 			return false
 	for field in ["first_arrival_seconds", "arrival_jitter_seconds"]:
 		if not _finite_number(config.service.get(field)) or float(config.service[field]) < 0.0:
+			return false
+	for field in ["loading_seconds", "sitting_seconds", "standing_seconds"]:
+		if config.service.has(field) and (not _finite_number(config.service[field]) or float(config.service[field]) < 0.0):
 			return false
 	if float(config.service.arrival_jitter_seconds) >= float(config.service.arrival_seconds):
 		return false
@@ -444,12 +516,60 @@ func _valid_point(value: Variant, floor_data: Dictionary) -> bool:
 		return false
 	return _inside(_point(value), floor_data)
 
+func _migrate_visual_state(state: Dictionary) -> void:
+	# Version 1 saves predate explicit animation clocks. Their gameplay state
+	# stays authoritative; do not replay sitting, loading or completed sales.
+	var objects: Variant = state.get("objects")
+	var customers: Variant = state.get("customers")
+	if not objects is Array or not customers is Array:
+		return
+	var seats := {}
+	for object in objects:
+		if not object is Dictionary:
+			continue
+		if object.get("kind") == "seat":
+			seats[object.get("id", "")] = object
+		if object.get("kind") != "chef":
+			continue
+		if not object.has("loading_elapsed"):
+			object.loading_elapsed = 0.0
+		if not object.has("visual_phase"):
+			object.visual_phase = "hold" if object.get("held_dish") != null else "work"
+		if not object.has("visual_elapsed"):
+			object.visual_elapsed = object.get("preparation_elapsed", 0.0) if object.visual_phase == "work" else 0.0
+	for customer in customers:
+		if not customer is Dictionary:
+			continue
+		var phase: Variant = customer.get("phase")
+		if not customer.has("visual_phase"):
+			customer.visual_phase = "eat" if phase == "eating" else "seated-wait" if phase == "waiting" else "walk"
+		if not customer.has("visual_elapsed"):
+			customer.visual_elapsed = customer.get("meal_elapsed", 0.0) if phase == "eating" else 0.0
+		if not customer.has("facing"):
+			var seat: Dictionary = seats.get(customer.get("seat_id", ""), {})
+			customer.facing = seat.get("facing", "south")
+			if customer.visual_phase == "walk" and _finite_number(customer.get("x")) and _finite_number(customer.get("y")) and customer.get("path") is Array and _nonnegative_integer(customer.get("path_index")):
+				var index := int(customer.path_index)
+				if index < customer.path.size():
+					var target: Variant = customer.path[index]
+					if target is Dictionary and _finite_number(target.get("x")) and _finite_number(target.get("y")):
+						customer.facing = _direction_toward(Vector2(float(customer.x), float(customer.y)), Vector2(float(target.x), float(target.y)))
+
+func _id_index(value: Variant, prefix: String) -> int:
+	if not value is String or not value.begins_with(prefix):
+		return 0
+	var suffix: String = value.trim_prefix(prefix)
+	if not suffix.is_valid_int():
+		return 0
+	var index := int(suffix)
+	return index if index > 0 and index <= MAX_EXACT_INTEGER and str(index) == suffix else 0
+
 func _valid_dish(value: Variant, recipes: Dictionary, dish_ids: Dictionary) -> bool:
 	if value == null:
 		return true
-	if not value is Dictionary or not value.get("id") is String or not recipes.has(value.get("recipe_id")):
+	if not value is Dictionary or _id_index(value.get("id"), "dish-") == 0 or not recipes.has(value.get("recipe_id")):
 		return false
-	if value.id.is_empty() or dish_ids.has(value.id):
+	if dish_ids.has(value.id):
 		return false
 	dish_ids[value.id] = true
 	return true
@@ -462,6 +582,8 @@ func _valid_saved_state(state: Dictionary, config: Dictionary) -> bool:
 		return false
 	if float(state.elapsed) < 0.0 or float(state.arrival_remaining) < 0.0:
 		return false
+	if absf(float(state.elapsed) - int(state.step_index) * float(config.service.step_seconds)) > 0.000001:
+		return false
 	if not state.get("camera") is Dictionary or not state.get("stats") is Dictionary or not state.get("entrance_open") is bool:
 		return false
 	if not _finite_number(state.camera.get("x")) or not _finite_number(state.camera.get("y")):
@@ -469,32 +591,67 @@ func _valid_saved_state(state: Dictionary, config: Dictionary) -> bool:
 	for field in ["sales", "served", "arrivals"]:
 		if not _nonnegative_integer(state.stats.get(field)):
 			return false
+	if int(state.stats.sales) != int(state.stats.served) or int(state.next_customer_id) != int(state.stats.arrivals) + 1:
+		return false
 	if not state.get("objects") is Array or not state.get("customers") is Array or not _valid_objects(state.objects, config):
+		return false
+	if int(state.stats.arrivals) < state.customers.size():
 		return false
 	var dish_ids: Dictionary = {}
 	var seats: Dictionary = {}
+	var occupants: Dictionary = {}
 	for object in state.objects:
+		occupants[_point(object)] = object
 		if object.kind == "chef":
 			if not object.has("held_dish") or not _valid_dish(object.held_dish, config.recipes, dish_ids):
 				return false
-			if not _finite_number(object.get("preparation_elapsed")) or float(object.preparation_elapsed) < 0.0:
+			var duration := float(config.recipes[object.recipe_id].preparation_seconds)
+			if not _finite_number(object.get("preparation_elapsed")) or float(object.preparation_elapsed) < 0.0 or float(object.preparation_elapsed) > duration:
+				return false
+			if not object.get("visual_phase") in ["work", "hold", "load"] or not _finite_number(object.get("visual_elapsed")) or float(object.visual_elapsed) < 0.0:
+				return false
+			if not _finite_number(object.get("loading_elapsed")) or float(object.loading_elapsed) < 0.0:
+				return false
+			if object.held_dish != null:
+				if object.held_dish.recipe_id != object.recipe_id or absf(float(object.preparation_elapsed) - duration) > 0.000001 or object.visual_phase == "work":
+					return false
+			elif object.visual_phase != "work":
+				return false
+			if object.visual_phase == "load":
+				var load_seconds := float(config.service.get("loading_seconds", 0.0))
+				if load_seconds <= 0.0 or float(object.loading_elapsed) >= load_seconds or absf(float(object.visual_elapsed) - float(object.loading_elapsed)) > 0.000001:
+					return false
+			elif float(object.loading_elapsed) != 0.0:
 				return false
 		elif object.kind == "belt":
 			if not object.has("dish") or not _valid_dish(object.dish, config.recipes, dish_ids):
 				return false
-			if not _finite_number(object.get("travel_elapsed")) or float(object.travel_elapsed) < 0.0:
+			if not _finite_number(object.get("travel_elapsed")) or float(object.travel_elapsed) < 0.0 or float(object.travel_elapsed) > float(config.service.belt_seconds_per_cell):
+				return false
+			if object.dish == null and float(object.travel_elapsed) != 0.0:
 				return false
 		else:
-			seats[object.id] = true
+			seats[object.id] = object
 	var customer_ids: Dictionary = {}
 	var reservations: Dictionary = {}
 	for customer in state.customers:
-		if not customer is Dictionary or not customer.get("id") is String or customer_ids.has(customer.id):
+		if not customer is Dictionary or _id_index(customer.get("id"), "customer-") == 0 or customer_ids.has(customer.id):
+			return false
+		if _id_index(customer.id, "customer-") >= int(state.next_customer_id):
 			return false
 		customer_ids[customer.id] = true
 		if not seats.has(customer.get("seat_id")) or not customer.get("phase") in ["walking", "waiting", "eating", "leaving"]:
 			return false
-		if customer.phase != "leaving":
+		if not DIRECTIONS.has(customer.get("facing")) or not _finite_number(customer.get("visual_elapsed")) or float(customer.visual_elapsed) < 0.0:
+			return false
+		var allowed_visuals: Array = {"walking": ["walk"], "waiting": ["sit-down", "seated-wait"], "eating": ["eat"], "leaving": ["stand-up", "walk"]}[customer.phase]
+		if not customer.get("visual_phase") in allowed_visuals:
+			return false
+		if customer.visual_phase in ["sit-down", "stand-up"]:
+			var seconds := float(config.service.get("sitting_seconds" if customer.visual_phase == "sit-down" else "standing_seconds", 0.0))
+			if seconds <= 0.0 or float(customer.visual_elapsed) >= seconds:
+				return false
+		if customer.phase != "leaving" or customer.visual_phase == "stand-up":
 			if reservations.has(customer.seat_id):
 				return false
 			reservations[customer.seat_id] = true
@@ -502,17 +659,55 @@ func _valid_saved_state(state: Dictionary, config: Dictionary) -> bool:
 			return false
 		if not _inside(Vector2i(floori(customer.x), floori(customer.y)), config.floor):
 			return false
-		if not _nonnegative_integer(customer.get("appearance")) or not _nonnegative_integer(customer.get("path_index")):
+		if not _nonnegative_integer(customer.get("appearance")) or int(customer.appearance) > 3 or not _nonnegative_integer(customer.get("path_index")):
 			return false
 		if not customer.get("path") is Array or int(customer.path_index) > customer.path.size():
 			return false
 		for point in customer.path:
 			if not _valid_point(point, config.floor):
 				return false
+		if not _valid_customer_path(customer, seats[customer.seat_id], occupants, config.floor):
+			return false
 		if not _finite_number(customer.get("meal_elapsed")) or float(customer.meal_elapsed) < 0.0:
 			return false
 		if not customer.has("meal_dish") or not _valid_dish(customer.meal_dish, config.recipes, dish_ids):
 			return false
 		if (customer.phase == "eating") != (customer.meal_dish != null):
 			return false
+		if customer.phase == "eating":
+			if float(customer.meal_elapsed) >= float(config.service.eating_seconds):
+				return false
+		elif float(customer.meal_elapsed) != 0.0:
+			return false
+	# Every produced plate is either still owned by one actor/tile or was sold.
+	# Counters must advance past all surviving IDs before new food/visitors spawn.
+	if int(state.next_dish_id) != int(state.stats.sales) + dish_ids.size() + 1:
+		return false
+	for dish_id in dish_ids:
+		if _id_index(dish_id, "dish-") >= int(state.next_dish_id):
+			return false
 	return true
+
+func _valid_customer_path(customer: Dictionary, seat: Dictionary, occupants: Dictionary, floor_data: Dictionary) -> bool:
+	var leaving: bool = customer.phase == "leaving"
+	var start := _point(seat) if leaving else _point(floor_data.entrance)
+	var goal := _point(floor_data.entrance) if leaving else _point(seat)
+	var previous := start
+	for point in customer.path:
+		var cell := _point(point)
+		if absi(cell.x - previous.x) + absi(cell.y - previous.y) != 1:
+			return false
+		if occupants.has(cell) and not (cell == goal and not leaving and occupants[cell].id == seat.id):
+			return false
+		previous = cell
+	if previous != goal:
+		return false
+	var index := int(customer.path_index)
+	if customer.phase in ["waiting", "eating"] and index != customer.path.size():
+		return false
+	if customer.phase == "walking" and index == customer.path.size():
+		return false
+	var segment_start := start if index == 0 else _point(customer.path[index - 1])
+	var segment_end := segment_start if index == customer.path.size() else _point(customer.path[index])
+	var position := Vector2(float(customer.x), float(customer.y))
+	return position.x >= minf(segment_start.x, segment_end.x) - 0.000001 and position.x <= maxf(segment_start.x, segment_end.x) + 0.000001 and position.y >= minf(segment_start.y, segment_end.y) - 0.000001 and position.y <= maxf(segment_start.y, segment_end.y) + 0.000001

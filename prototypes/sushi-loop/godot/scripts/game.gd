@@ -22,6 +22,7 @@ var autosave_elapsed := 0.0
 var pointer := -1
 var previous_pointer := Vector2.ZERO
 var backgrounded := false
+var skip_resume_frame := false
 var save_error := ""
 var body_font: Font
 var display_font: Font
@@ -199,8 +200,13 @@ func _layout() -> void:
 func _process(delta: float) -> void:
 	if session == null or backgrounded or save_blocked:
 		return
+	# An Android resume must not turn the suspended frame into offline income.
+	# Ordinary foreground frame delays still belong to the active session.
+	if skip_resume_frame:
+		skip_resume_frame = false
+		return
 	if not show_gallery and simulation_enabled:
-		var events: Array = advance_time(minf(delta, 0.25))
+		var events: Array = advance_time(delta)
 		if not events.is_empty():
 			save_now()
 		autosave_elapsed += delta
@@ -262,7 +268,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		var visible_columns := float(floor_data.get("viewport_columns", floor_data.columns))
 		var limit := maxf(0.0, float(floor_data.world_columns) - visible_columns)
 		var x := clampf(float(camera.x) - change.x / world.cell, 0.0, limit)
-		session.command({"type": "set_camera", "x": x, "y": 0.0})
+		var visible_rows := maxf(1.0, (world.portrait.size.y - 48.0) / world.cell)
+		var vertical_limit := maxf(0.0, float(floor_data.rows) - visible_rows)
+		var y := clampf(float(camera.y) - change.y / world.cell, 0.0, vertical_limit)
+		session.command({"type": "set_camera", "x": x, "y": y})
 		_refresh()
 		get_viewport().set_input_as_handled()
 
@@ -273,6 +282,7 @@ func _notification(what: int) -> void:
 		save_now()
 	elif what == NOTIFICATION_APPLICATION_RESUMED:
 		backgrounded = false
+		skip_resume_frame = true
 	elif what in [NOTIFICATION_WM_CLOSE_REQUEST, NOTIFICATION_WM_GO_BACK_REQUEST]:
 		save_now()
 

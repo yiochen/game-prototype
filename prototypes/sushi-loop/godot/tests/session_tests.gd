@@ -17,6 +17,9 @@ func _initialize() -> void:
 	_test_save_held_and_belt_food()
 	_test_camera_and_public_copies()
 	_test_invalid_input_and_save()
+	_test_saved_visual_transitions()
+	_test_legacy_save_migration()
+	_test_corrupt_progress_and_paths()
 	if failures.is_empty():
 		print("PASS: %s GameSession checks" % checks)
 		quit(0)
@@ -72,7 +75,7 @@ func _single_visit_config() -> Dictionary:
 func _test_starter() -> void:
 	var game := Session.new_session(17)
 	var scene: Dictionary = game.snapshot()
-	_check(scene.floor.columns == 9 and scene.floor.rows == 16 and scene.floor.world_columns == 27, "starter exposes a rectangular workable floor inside the future wider world")
+	_check(scene.floor.columns == 7 and scene.floor.viewport_columns == 7 and scene.floor.rows == 13 and scene.floor.world_columns == 21, "starter exposes a rectangular workable floor inside the future wider world")
 	_check(_objects(scene, "chef").size() == 1 and _objects(scene, "seat").size() == 3, "starter has one chef and three seats")
 	_check(_objects(scene, "belt").size() == 4, "starter uses a short four-cell belt")
 	var occupied := {}
@@ -128,7 +131,7 @@ func _test_completed_meal_price() -> void:
 func _test_full_belt_and_resume() -> void:
 	var game := Session.new_session(29)
 	_check(game.command({"type": "set_entrance_open", "open": false}).ok, "public environmental command closes arrivals")
-	game.advance(7.0)
+	game.advance(9.0)
 	var endpoint: Dictionary = _object(game.snapshot(), "belt-4")
 	_check(endpoint.dish != null, "a dish reaches the open endpoint")
 	var endpoint_dish: String = endpoint.dish.id if endpoint.dish != null else "missing"
@@ -243,3 +246,78 @@ func _test_invalid_input_and_save() -> void:
 	invalid.state.objects[0].x = invalid.state.objects[1].x
 	invalid.state.objects[0].y = invalid.state.objects[1].y
 	_check(not game.restore(invalid) and _same(before, game.snapshot()), "a malformed save with overlapping floor objects is rejected atomically")
+
+func _test_saved_visual_transitions() -> void:
+	var cooking := Session.new_session(71)
+	cooking.command({"type": "set_entrance_open", "open": false})
+	_check(_advance_until(cooking, func(scene): return _object(scene, "chef-1").visual_phase == "load" and _object(scene, "chef-1").visual_elapsed > 0.2), "chef loading is an observable timed motion")
+	var chef := _object(cooking.snapshot(), "chef-1")
+	_check(chef.held_dish != null and _object(cooking.snapshot(), "belt-1").dish == null, "loading retains single ownership in the chef's hands until handoff completes")
+	var loaded_copy := Session.new_session(1)
+	_check(loaded_copy.restore(_json_copy(cooking.save_data())) and _same(cooking.snapshot(), loaded_copy.snapshot()), "mid-load save preserves held dish and animation clock")
+	_check(_same(cooking.advance(60.0), loaded_copy.advance(60.0)) and _same(cooking.snapshot(), loaded_copy.snapshot()), "mid-load reopening neither duplicates nor loses the plate")
+	for transition in ["sit-down", "stand-up"]:
+		var original := Session.new_session(72, _single_visit_config())
+		_check(_advance_until(original, func(scene): return scene.customers.any(func(customer): return customer.visual_phase == transition and customer.visual_elapsed > 0.2)), transition + " is observable before the stable pose")
+		var before: Dictionary = original.snapshot()
+		var visitor: Dictionary = before.customers[0]
+		_check(visitor.facing == _object(before, visitor.seat_id).facing, transition + " keeps the customer's seat-facing direction")
+		var restored := Session.new_session(1)
+		_check(restored.restore(_json_copy(original.save_data())) and _same(before, restored.snapshot()), transition + " restores at the saved frame without replaying the transition")
+		var events: Array = original.advance(40.0)
+		_check(_same(events, restored.advance(40.0)) and _same(original.snapshot(), restored.snapshot()), transition + " continues identically after reopening")
+		_check(_events(events, "sale").size() == (1 if transition == "sit-down" else 0), transition + " never replays an already completed sale")
+
+func _test_legacy_save_migration() -> void:
+	var legacy_config := {"floor": {"columns": 9, "viewport_columns": 9, "rows": 16, "world_columns": 27, "entrance": {"x": 4, "y": 1}}, "service": {"loading_seconds": 0.0, "sitting_seconds": 0.0, "standing_seconds": 0.0}}
+	var old_game := Session.new_session(83, legacy_config)
+	old_game.advance(16.017)
+	var legacy := _json_copy(old_game.save_data())
+	for key in ["loading_seconds", "sitting_seconds", "standing_seconds"]:
+		legacy.configuration.service.erase(key)
+	for object in legacy.state.objects:
+		for key in ["visual_phase", "visual_elapsed", "loading_elapsed"]:
+			object.erase(key)
+	for customer in legacy.state.customers:
+		for key in ["visual_phase", "visual_elapsed", "facing"]:
+			customer.erase(key)
+	var reopened := Session.new_session(1)
+	_check(reopened.restore(legacy), "version 1 saves without animation clocks migrate successfully")
+	_check(reopened.snapshot().floor.columns == 9 and reopened.snapshot().floor.world_columns == 27 and reopened.snapshot().floor.rows == 16, "legacy floor, world width and object coordinates remain intact")
+	_check(reopened.snapshot().coins == old_game.snapshot().coins and reopened.snapshot().stats == old_game.snapshot().stats, "migration grants no replayed sale or offline income")
+	var expected: Array = old_game.advance(90.0)
+	_check(_same(expected, reopened.advance(90.0)), "legacy saves retain their original instant transition timing and seeded continuation")
+	_check(_same(old_game.snapshot(), reopened.snapshot()), "old and migrated service converge to identical future observable state")
+
+func _test_corrupt_progress_and_paths() -> void:
+	var game := Session.new_session(84)
+	game.advance(25.017)
+	var before: Dictionary = game.snapshot()
+	var original := _json_copy(game.save_data())
+	for counter in ["next_dish_id", "next_customer_id"]:
+		var regressed := _json_copy(original)
+		regressed.state[counter] = 1
+		_check(not game.restore(regressed) and _same(before, game.snapshot()), "regressed " + counter + " cannot reuse existing identities")
+	var bad_clock := _json_copy(original)
+	bad_clock.state.elapsed += 10.0
+	_check(not game.restore(bad_clock) and _same(before, game.snapshot()), "a saved elapsed clock must agree with completed fixed steps")
+	var bad_preparation := _json_copy(original)
+	bad_preparation.state.objects[0].preparation_elapsed = 999.0
+	_check(not game.restore(bad_preparation) and _same(before, game.snapshot()), "impossible chef progress is rejected atomically")
+	_check(game.advance(1.0e300).is_empty() and _same(before, game.snapshot()), "finite elapsed input that would overflow the fixed clock is rejected without mutating service")
+	var walking := Session.new_session(85)
+	walking.advance(1.5)
+	var walk_save := _json_copy(walking.save_data())
+	_check(not walk_save.state.customers.is_empty(), "path rejection fixture has a real walking visitor")
+	var through_belt := _json_copy(walk_save)
+	through_belt.state.customers[0].path[0] = {"x": 3, "y": 8}
+	_check(not walking.restore(through_belt), "saved paths cannot jump over cells or pass through a belt")
+	var off_path := _json_copy(walk_save)
+	off_path.state.customers[0].x = 0.0
+	off_path.state.customers[0].y = 0.0
+	_check(not walking.restore(off_path) and _same(walking.save_data(), walk_save), "saved customers must remain on their current reachable path segment")
+	var eating := Session.new_session(86, _single_visit_config())
+	_advance_until(eating, func(scene): return not _customer(scene, "eating").is_empty())
+	var complete_meal := _json_copy(eating.save_data())
+	complete_meal.state.customers[0].meal_elapsed = complete_meal.configuration.service.eating_seconds
+	_check(not eating.restore(complete_meal), "a meal marked already complete cannot be restored as a pending sale")
