@@ -128,3 +128,23 @@ it conflicts; historical experiments above remain evidence, not active rules.
 All earlier locked character, footprint, animation, source retention and review
 requirements continue. The user's 34 feedback items are tracked in the rollout
 review record. Issue 33 remains open until the user approves all game-scene art.
+
+## Character surface lighting experiment — pending review, 2026-10-19
+
+The user found the universal emission finish too flat and requested a lighting
+trial on the green-hatted chef. [Noor's isolated lighting study](../../assets/character-lighting-study/README.md)
+compares the production baseline with three real Blender area-light treatments.
+The 125% chunky anatomy, 35° camera, native 135% grade and darker lower-material
+ramp stay fixed. Actual matte Principled surfaces replace emission in the study;
+an overhead key distinguishes upward faces from sides, and four equal cardinal
+fills keep the face readable without introducing a preferred horizontal direction.
+
+All four facings share the same geometry, camera, scale, frame and root. Soft,
+Faceted and Crisp vary only overhead strength (100/140/180 W); equal fill remains
+100 W per lamp. Enlarged hat crops show the surface separation. Earlier overbright
+trials and clipping measurements are retained as evidence. The current candidates
+preserve the hat's green channel without clipping in the measured top regions.
+
+This is a requested experiment, not a new universal finish decision. ART-05/06
+remain the production baseline until the user chooses a lighting treatment.
+No production sprites or models are replaced, and issue 33 remains open.

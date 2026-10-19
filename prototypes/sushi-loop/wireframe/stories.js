@@ -34,6 +34,16 @@ export const storyGroups = [
 
 export const stories = [
   {
+    id: 'character-lighting-study', group: 'scene-review', title: 'Character lighting study', scene: 'character-lighting-study',
+    reviewBranch: 'codex/sushi-loop-33-art-catalog',
+    description: 'Compare Noor’s green hat under the current emission baseline and three actual Blender overhead-light candidates. The C125 anatomy, 35° orthographic camera, fixed frame/root and 135% native grade stay unchanged.',
+    elements: [
+      element('Four native lighting candidates', 'Baseline, Soft, Faceted and Crisp use the same character pose and fixed capture registration. The facing control shows matching North, East, South or West captures across every candidate.', 'Static native Blender stills displayed directly without browser image filters.'),
+      element('Top and side separation', 'Compare the brightness of the green hat top against its sides and check that facial features remain readable. The original restaurant concept is preserved as a reference below the study.', 'Every image and square floor tile keeps the same scale within the comparison. Vertical scrolling belongs to the document.'),
+    ],
+    notes: ['An isolated lighting experiment; no production character sprites are replaced.', 'Use Comments to choose a lighting direction before rolling it out. Issue 33 stays open for asset approval.'],
+  },
+  {
     id: 'decoration-study', group: 'scene-review', title: 'Decoration coverage & heights', scene: 'decoration-study',
     reviewBranch: 'codex/sushi-loop-33-art-catalog',
     description: 'Twelve underwater and restaurant decoration pieces follow the approved scene concepts. Compare each specific concept crop with four native facings, mixed and repeated 3×3 patches, and deliberate seven-column perimeters. Projection follows height; complete projected silhouettes stay below three tiles, with full-cell mass and direction-free dark lower surfaces.',
