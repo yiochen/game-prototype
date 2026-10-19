@@ -1,10 +1,16 @@
 # Selected Faceted lighting: wood and conveyor material refinement
 
+**Approved historical study — 2026-10-19.** The user approved the tuned crate
+wood and muted-clay rails and authorized regeneration of the whole native
+library. The [approved production rollout](../../review/33/faceted-rollout/README.md)
+records the completed capture and validation. This folder retains the original
+before/after comparison images.
+
 The user selected Faceted lighting on 2026-10-19. This follow-up keeps that exact
 lighting and compares original materials with a quieter, matte finish. The
 previous four-preset study is retained unchanged in `../environment-lighting-study/`.
-These candidate material changes are pending visual review, not a full production
-library recapture or final issue #33 asset approval.
+The user subsequently approved the tuned materials. This isolated study remains
+separate from the complete production recapture linked above.
 
 ## Material changes
 
@@ -55,5 +61,5 @@ independent source, pixel, clipping, animation and responsive browser evidence.
 
 The live review page shows the selected Faceted materials beside their revised
 materials with four facings, enlarged surface views and synchronized belt playback.
-It does not use a browser filter. Lighting is selected; material review and final
-scene-art approval remain open.
+It does not use a browser filter. Lighting and the tuned materials are approved;
+the current production catalog uses the full-library rollout linked above.

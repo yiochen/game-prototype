@@ -180,7 +180,7 @@ objects, ART-05's 135% native sRGB grade with alpha bypass, and separate future
 Godot ground-contact shadows. Do not add a second browser contrast filter.
 Earlier zero-light studies remain historical evidence.
 
-### Faceted material refinement — pending review
+### Approved Faceted material refinement
 
 The user also requested wood that reflects less light and conveyor rails with a
 duller color. The [material refinement study](../../assets/faceted-material-refinement/README.md)
@@ -190,7 +190,27 @@ light rig; this isolates material response and palette from lighting strength.
 All four facings retain identical geometry and registration. The South-facing
 connected fixture retains its synchronized 24-frame native moving-deck loop.
 
-The lighting choice is locked; these material adjustments await visual review.
-This isolated refinement does not recapture the entire production library or
-approve all assets. Production sprites remain unchanged and issue 33 stays open
-until the user approves the game-scene assets.
+The user approved these material adjustments on 2026-10-19 and requested the
+entire native sprite library be regenerated before issue 33 closes. Apply the
+chosen Faceted light rig to every native Blender object. Use the approved matte
+crate-wood response and muted-clay conveyor rail palette, including connected
+conveyor corners. The crate's three original wood colors retain their hue
+relationships at 42% of their former linear base
+color, with roughness 1, specular IOR level 0, metallic 0 and emission 0. Conveyor
+rails use sRGB `#966B60`, roughness 1 and specular IOR level 0.
+Other wood colors, including conveyor legs, retain their original albedo; they
+receive the universal Faceted surface lighting without the crate's darkening.
+
+Preserve the lower-height material ramp, 135% native sRGB grade, projection,
+registered roots, geometry and complete animation timing. The ImageGen artwork
+and procedural 2D effects remain 2D and are not relit in Blender. The prior
+studies remain historical comparisons. This approval authorizes the full native
+recapture and ticket closure once complete captures, publication and validation
+are finished; the rollout record tracks that completion separately.
+
+During the full-library transfer, a native pilot showed that the new diffuse
+lighting washed out the cream floor. Apply a separate 42% linear albedo
+calibration to floor materials while preserving procedural patterns and tile
+borders. This rollout quality correction keeps the floor palette readable under
+Faceted lighting; it is separate from the approved wood material treatment and
+does not change floor geometry, projection or atlas resolution.

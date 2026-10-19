@@ -1,17 +1,47 @@
 # Issue 33 native asset source and capture workflow
 
-The active catalog has **117 objects: 104 native Blender objects and 13 flat 2D artwork/effect objects**. The [editable project](blender/sushi-loop-world-library.blend) starts on the revised C125 chef Lena, holding the ImageGen dish. It contains 1,992 owned objects and 1,834 independent native actions. The eight obsolete garden bundles and former 3D dish/bubble/eel-effect entries are absent from this active native project.
+The active catalog has **117 objects: 104 native Blender objects and 13 flat 2D artwork/effect objects**. The [editable project](blender/sushi-loop-world-library.blend) starts on the revised C125 green-hatted chef Noor in the selected Faceted lighting. It retains 1,992 owned model objects and 1,834 independent native actions. The eight obsolete garden bundles and former 3D dish/bubble/eel-effect entries are absent from this active native project.
 
-**User scene-art approval is pending. Issue #33 remains open.** This is a native Blender review pass, with actual ImageGen artwork for sushi and bubbles. It does not claim ImageGen surface refinement of every native mesh. The [runtime manifest](../library.json) records each published sprite batch; the [native index](native-records/index.json) records editable model/action evidence.
+**The user approved the Faceted lighting, matte wood and muted-clay conveyor materials and authorized the complete native recapture on 2026-10-19.** Issue #33 can close when the new publication and validation finish. This is native Blender art, with actual ImageGen artwork for sushi and bubbles. It does not claim ImageGen surface refinement of every native mesh. The [runtime manifest](../library.json) records each published sprite batch; the [native index](native-records/index.json) records editable model/action evidence.
 
-## Current native pass: version 12 — approved art rollout
+## Faceted finish rollout
+
+The selected source finish uses matte Principled surfaces, a centered 140 W
+overhead area light (disk size 3.5), and four equal 100 W cardinal fills (disk
+size 4). A native material-height ramp keeps lower surfaces dark. The shared
+135% sRGB compositor preserves alpha and receives no additional browser grade.
+Crate wood uses 42% of its former linear base color, roughness 1, specular IOR level 0,
+metallic 0 and emission 0. Conveyor rails use muted clay sRGB `#966B60`, roughness
+1 and specular IOR level 0; moving deck UVs and animation timing stay fixed.
+Other wood colors, including conveyor legs, retain their original albedo.
+Floor materials receive a separate 42% linear albedo calibration to preserve
+their palette and visible tile borders under the new diffuse illumination.
+
+All **9,390 native pose/facing frames across 104 objects** have been regenerated
+and published from the frozen editable project, SHA-256
+`b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6`.
+Physical geometry, roots, camera calibration, lower shading,
+held-food artwork and action cohorts are retained. The 13 flat ImageGen and
+procedural effect entries remain 2D. [Faceted rollout evidence](../../../review/33/faceted-rollout/README.md)
+records the source identities, complete capture publication and validation.
+
+Runtime atlases retain 2× complete authored frames. The publisher chooses columns
+near six while keeping each dimension at or below 8192 pixels; dock-cover clips
+use five columns rather than shrinking their frames. This is a sprite-resource
+publication for the review site. Godot resource-import verification is separate
+from the later Godot Android game implementation.
+
+## Historical native pass: version 12 — emission finish
+
+The following version-12 hashes and audits describe the earlier emission finish;
+the Faceted rollout evidence supersedes them for the current selected lighting.
 
 Frozen editable project SHA-256: `c02e04d6c90e34afce2b0895328d4a1e26d47817ce9d38fb2b458fa3e766fc1f`.
 All native objects use the approved 135% sRGB compositor and direction-free lower material shading. Environment captures use 70% vertical projection with square ground pitch. C125 characters retain ordinary35, tiny feet, rounded heads and fuller identity-specific hair. Tall concept decorations use the documented upper35/square-footing transition and a three-tile complete-silhouette cap. Floors have explicit cell borders. Blackboard/sign are blank, single-facing front-edge overlays.
 
 Native capture is 4× logical resolution, uniformly sampled to 2× runtime atlases; every animated state retains at least six distinct frames at 12 fps, with 24-frame conveyor travel. No alpha fitting or per-pose resizing is used. Expanded car/tarp frames prevent animation clipping. [Revision review and feedback coverage](../../../review/33/full-art-rollout/README.md) includes the independent geometry/material audit and capture/browser evidence. Source recipes remain in `blender/`; original 2D images, exact prompts and Godot drawing source are in [2d/](2d/README.md).
 
-All **9,390 native frames across 104 objects** pass the [independent pixel audit](../../../review/33/full-art-rollout/independent-pixel-audit.json): fixed dimensions, complete frames, no visible alpha touching object capture edges, and at least six distinct visible frames per animated clip/facing. The 13 flat artwork/effect entries have their separate [2D source and atlas audit](2d/audit.json). These checks establish capture integrity; scene-art approval remains pending with the user.
+All **9,390 version-12 native frames across 104 objects** pass the [historical independent pixel audit](../../../review/33/full-art-rollout/independent-pixel-audit.json): fixed dimensions, complete frames, no visible alpha touching object capture edges, and at least six distinct visible frames per animated clip/facing. The 13 flat artwork/effect entries have their separate [2D source and atlas audit](2d/audit.json). New Faceted captures have their own rollout evidence.
 
 ## Re-render selected objects after an edit
 
@@ -60,12 +90,12 @@ Native geometry checks passed for all eight clusters and the wider entrance over
 | `blender/*.py` | Native modeling, composition, rig, action, capture and publication recipes. Models were authored through Blender MCP; background workers capture the saved native actions. |
 | [native-records/](native-records/README.md) | Per-entry `asset.json`, `camera.json` and `rig.json`, including model bounds, roots, clips, action owners, timing, controls and source hashes. |
 | `records/<id>/` | Metadata used for the published sprite captures. This may advance separately from the native model index. |
-| `registered/<id>/<clip>-<direction>/` | Whole-frame packing guides and hashes of unchanged source captures. |
-| `validation/` | Representative unchanged native captures retained in Git. |
+| `registered/<id>/<clip>-<direction>/` | Whole-frame packing guides and capture hashes in Git; full 4× source PNGs and intermediate sheets are locally retained and ignored. |
+| `validation/` | Historical representative native captures retained in Git; not the complete current 4× batch. |
 | [../sprites/](../sprites/) | Runtime atlases uniformly sampled from complete authored frames at 2× logical resolution. |
 | `blender/revisions/`, `blender/history/`, `records-history/`, `registered-history/` | Earlier source/capture attempts retained when a publication changes. Consult the recorded hashes rather than assuming an old revision is current. |
 
-Original 4× PNGs and redundant intermediate sheets are kept locally with their registered capture folders and omitted from Git to avoid duplicating render intermediates. The version-12 native index hashes the active model/camera/rig records. Per-rig `sourceFiles` also retain hashes sampled during intermediate baking; they do not assert that every intermediate script version was retained. The final frozen project and capture recipes are retained and verified. Nine earlier script versions referenced by intermediate bake records have not been located; see the [independent provenance review](../../../review/33/full-art-rollout/feedback-coverage.md). Keep those original hashes rather than substituting a later version.
+Original 4× PNGs and redundant intermediate sheets are kept locally with their registered capture folders and omitted from Git to avoid duplicating render intermediates. The new complete raw batch is also local at `/private/tmp/sushi33-faceted-rollout-v2/export/raw-frames`. Git retains every complete 2× runtime atlas, editable Blender projects, current recipes/records, per-frame hashes, packing guides and audits; it does not contain all 9,390 individual 4× PNGs. The current native index hashes the active model/camera/rig records. Per-rig `sourceFiles` also retain hashes sampled during intermediate baking; they do not assert that every intermediate script version was retained. The final frozen project and capture recipes are retained and verified. Nine earlier script versions referenced by intermediate bake records have not been located; see the [independent provenance review](../../../review/33/full-art-rollout/feedback-coverage.md). Keep those original hashes rather than substituting a later version.
 
 ## Registration and timing
 
@@ -128,4 +158,4 @@ Review `/prototypes/sushi-loop/#object-library`; each stable `#object-<id>` page
 
 The complete composition pages are `#scene-restaurant` and `#scene-underwater`. The restaurant uses a seven-column portrait layout with a tall, connected conveyor and the four-tile entrance at the back. The underwater page uses a seven-column channel with continuous cliff banks. Individual full-cell plants, rocks, coral, kelp and props layer over independent bordered ground tiles; eight obsolete large garden bundles are absent from the active library. These placements retain the registered belt/terrain joins, seated supports and staged travel lanes. Playback, scrubbing and fit/detail zoom inspect the same catalog sprites; no separate flattened background or per-object bitmap transform is introduced.
 
-Structural audits, native-versus-capture parity and browser checks support review, but do not establish natural deformation, convincing joins, correct layering or final art approval. The user must approve the actual finished scene assets before #33 can close. The review site introduces no restaurant/expedition simulation; Godot Android remains the game implementation target.
+Structural audits, native-versus-capture parity and browser checks support art review; they do not independently establish visual approval. The user approved the chosen finish and authorized the complete native recapture and issue closure once publication and validation finish. The review site introduces no restaurant/expedition simulation; Godot Android remains the game implementation target.

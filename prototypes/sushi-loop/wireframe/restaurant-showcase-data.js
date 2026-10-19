@@ -111,5 +111,5 @@ export const restaurantShowcase = {
       objectIds: ['entry-finished', 'wall-middle', 'lantern-gold', 'plant-angular', 'slate-rock', 'crate-wood', 'barrel-wood'],
     },
   ],
-  note: 'A seven-column scene composition using native sprite scale. The authored camera crops outer border art; individual object pages retain full sprite canvases. Dish travel is staged independently of slat timing, and the aisle walk is a presentation path. Scene-asset approval remains pending.',
+  note: 'A seven-column scene composition using native sprite scale. The authored camera crops outer border art; individual object pages retain full sprite canvases. Dish travel is staged independently of slat timing, and the aisle walk is a presentation path.',
 };

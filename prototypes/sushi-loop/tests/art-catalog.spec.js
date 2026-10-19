@@ -1,5 +1,9 @@
 import { test, expect } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
+
+const library = JSON.parse(readFileSync(new URL('../assets/production/library.json', import.meta.url), 'utf8'));
+const approvalStatus = library.approval?.finalAssets === 'approved' ? 'ISSUE 33 · ASSETS APPROVED' : 'ISSUE 33 · ART APPROVED · ROLLOUT IN PROGRESS';
 
 const url = '/prototypes/sushi-loop/?ntl-drawer-state=hidden#art-catalog';
 
@@ -9,7 +13,7 @@ test('world concept catalog keeps zoom and all 17 item families usable at phone,
     await page.goto(url);
     const stage = page.locator('#prototype-stage');
     await expect(stage).toHaveAttribute('data-story', 'art-catalog');
-    await expect(stage).toContainText('CONCEPT APPROVED');
+    await expect(stage.locator('.world-catalog-status')).toHaveText(approvalStatus);
     const image = stage.getByRole('img', { name: /^Issue 33 low-poly/ });
     await expect.poll(() => image.evaluate(el => el.complete && el.naturalWidth)).toBe(1024);
     const scroller = stage.getByLabel('Scroll world concept sheet', { exact: true });

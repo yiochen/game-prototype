@@ -1,4 +1,4 @@
-// Isolated native Blender light experiment; no production sprite substitution.
+// Historical native Blender lighting experiments; current sprites come from the production library.
 const manifests = import.meta.glob('../assets/character-lighting-study/manifest.json', { eager: true, import: 'default' });
 const images = import.meta.glob('../assets/character-lighting-study/sprites/**/*.png', { eager: true, query: '?url', import: 'default' });
 const environmentManifests = import.meta.glob('../assets/environment-lighting-study/manifest.json', { eager: true, import: 'default' });
@@ -18,7 +18,7 @@ const refinementStudy = Object.values(refinementManifests)[0];
 const activeEnvironmentStudy = refinementStudy || environmentStudy;
 const environmentRoot = refinementStudy ? 'faceted-material-refinement' : 'environment-lighting-study';
 export const lightingSubjects = [
-  { ...lightingStudy, id: lightingStudy.character?.id || 'chef-noor', name: 'Noor', description: 'Faceted is the chosen lighting treatment. The selected C125 anatomy, ordinary 35° character camera and green-hat surface comparison stay fixed.', selectedLighting: 'faceted', projection: 'character-orthographic', footprint: [1, 1], detailCrop: lightingStudy.hatCrop, detailLabel: 'Hat detail', studyRoot: 'character-lighting-study' },
+  { ...lightingStudy, id: lightingStudy.character?.id || 'chef-noor', name: 'Noor', description: 'Faceted is the approved lighting treatment. These historical comparison captures remain unchanged. The selected C125 anatomy, ordinary 35° character camera and green-hat surface comparison stay fixed.', selectedLighting: 'faceted', projection: 'character-orthographic', footprint: [1, 1], detailCrop: lightingStudy.hatCrop, detailLabel: 'Hat detail', studyRoot: 'character-lighting-study' },
   ...(activeEnvironmentStudy.subjects || []).map(subject => ({ ...subject, selectedLighting: subject.selectedLighting || activeEnvironmentStudy.selectedLighting || 'faceted', source: activeEnvironmentStudy.source, studyRoot: environmentRoot })),
 ];
 export function lightingReviewVariants(subject) {

@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { SpriteScene, usePlayback } from './object-review.jsx';
-import { libraryObjects } from './object-review-data.js';
+import { libraryObjects, finalAssetsApproved, productionArtStatus } from './object-review-data.js';
 import { restaurantShowcase } from './restaurant-showcase-data.js';
 import { underwaterShowcase } from './underwater-showcase-data.js';
 import './world-showcase.css';
@@ -66,10 +66,10 @@ export function WorldShowcase({ sceneId = 'restaurant' }) {
       </figure>
     </section>
     <section className="world-highlights" aria-labelledby={`world-highlights-${sceneId}`}>
-      <div className="world-section-heading"><div><span className="world-section-eyebrow">LOOK CLOSER</span><h3 id={`world-highlights-${sceneId}`}>The details in context</h3></div><span className="world-review-status">For review</span></div>
+      <div className="world-section-heading"><div><span className="world-section-eyebrow">LOOK CLOSER</span><h3 id={`world-highlights-${sceneId}`}>The details in context</h3></div><span className="world-review-status">{finalAssetsApproved ? 'Approved art' : 'Art rollout'}</span></div>
       <div className="world-highlight-grid">{showcase.highlights.map((highlight, index) => <article className="world-highlight" key={highlight.title}><span className="world-highlight-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><div><h4>{highlight.title}</h4><p>{highlight.description}</p><ObjectLinks ids={highlight.objectIds}/></div></article>)}</div>
     </section>
     <details className="world-asset-index"><summary><span>Inspect every object in this scene</span><span>{used.length} <span aria-hidden="true">↗</span></span></summary><ObjectLinks ids={used}/></details>
-    <footer className="world-showcase-footer"><p>{showcase.note || 'A composed art preview using the registered catalog sprites.'}</p><p>Open an object to inspect its directions and animations. Scene-asset approval is still pending.</p></footer>
+    <footer className="world-showcase-footer"><p>{showcase.note || 'A composed art preview using the registered catalog sprites.'}</p><p>Open an object to inspect its directions and animations. {productionArtStatus}.</p></footer>
   </div>;
 }

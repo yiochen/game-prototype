@@ -1,5 +1,6 @@
 """Shared approved native art treatment, issue 33, 2026-10-19.
-No world light direction: height-driven lower tone and camera-symmetric form.
+World-height lower tone, native 135% grade and the approved Faceted finish.
+The historical emission conversion below supplies stable editable base graphs.
 The native sRGB contrast group grades RGB only and preserves alpha.
 """
 import bpy, math, importlib.util
@@ -111,4 +112,5 @@ def apply(asset,aid):
     # Keep the original moving-deck phase node alive for the callback/baker.
     asset['artStyle']={'revision':REVISION,'contrast':1.35,'environmentHeightRatio':.7,'lowerTone':'native material height ramp','worldLighting':False}
     asset['root']['artStyle']=REVISION
-    return asset
+    spec=importlib.util.spec_from_file_location('s33_faceted_finish',Path(__file__).with_name('catalog_faceted.py'));finish=importlib.util.module_from_spec(spec);spec.loader.exec_module(finish)
+    return finish.apply(asset,aid)

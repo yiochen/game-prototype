@@ -137,6 +137,9 @@ def show_only(scene,asset):
     tree=scene.view_layers[0].layer_collection
     if tree is None:raise RuntimeError('Missing active native collection tree')
     for layer in layer_nodes(tree):layer.exclude=False
+    # Evaluate only the captured native asset; master camera/lights stay active.
+    # This avoids updating every other rig for each high-resolution frame.
+    for layer in tree.children:layer.exclude=layer.collection!=asset['collection']
     for collection in scene.collection.children:
         selected=collection==asset['collection']
         collection.hide_render=not selected;collection.hide_viewport=not selected
@@ -153,6 +156,7 @@ def render_configuration(runtime,scene,asset,args):
         if eevee is not None and hasattr(eevee,name):setattr(eevee,name,args.samples);sample_property=name;break
     if args.threads:
         scene.render.threads_mode='FIXED';scene.render.threads=args.threads
+    scene.render.image_settings.compression=15 # Lossless PNG; faster full-library capture.
     scene.render.use_file_extension=True
     scene.render.use_persistent_data=True
     return record,{'engine':scene.render.engine,'samples':getattr(eevee,sample_property) if sample_property else None,'sampleProperty':sample_property,'threads':args.threads or 'AUTO','filmTransparent':scene.render.film_transparent,'colorMode':scene.render.image_settings.color_mode,'colorDepth':scene.render.image_settings.color_depth}
@@ -209,7 +213,7 @@ def main():
     action_records=json.loads(manifest.read_text()).get('assets',{}) if manifest.exists() else {}
     blend=pathlib.Path(bpy.data.filepath).resolve()
     if not blend.exists():raise FileNotFoundError('Worker must load a saved production .blend')
-    version_base={'blend':sha(blend),'runtime':sha(BASE/'capture_runtime.py'),'nativeActions':sha(BASE/'native_actions.py'),'worker':sha(__file__),'catalogStyle':sha(BASE/'catalog_style.py'),'conceptFooting':sha(BASE/'concept_decoration_geometry.py'),'blenderVersion':bpy.app.version_string,'samples':args.samples,'sourceScale':'authored'}
+    version_base={'blend':sha(blend),'runtime':sha(BASE/'capture_runtime.py'),'nativeActions':sha(BASE/'native_actions.py'),'worker':sha(__file__),'catalogStyle':sha(BASE/'catalog_style.py'),'catalogFaceted':sha(BASE/'catalog_faceted.py'),'conceptFooting':sha(BASE/'concept_decoration_geometry.py'),'blenderVersion':bpy.app.version_string,'samples':args.samples,'sourceScale':'authored'}
     status={'state':'planning','worker':args.worker,'pid':os.getpid(),'ids':args.ids,'done':0,'rendered':0,'skipped':0,'total':0,'startedAtUnix':time.time(),'nativeSource':version_base,'blend':str(blend),'rawRoot':str(raw),'error':None}
     status_path=status_dir/(args.worker+'.status.json');write_json(status_path,status)
     prepared=[]
@@ -219,7 +223,8 @@ def main():
                 asset,rig,hashes=reconstruct(aid,source,action_records,scene)
                 clips=requested_clips or list(rig['clips'])
                 if any(clip not in rig['clips'] for clip in clips):raise ValueError('Requested clip absent from '+aid)
-                jobs=[(clip,direction,index) for clip in clips for direction in directions for index in indices(args.frames,int(rig['clips'][clip]['frames']))]
+                asset_directions=[d for d in directions if d in asset.get('directions',directions)]
+                jobs=[(clip,direction,index) for clip in clips for direction in asset_directions for index in indices(args.frames,int(rig['clips'][clip]['frames']))]
                 prepared.append((aid,asset,rig,hashes,jobs));status['total']+=len(jobs)
             if args.limit_frames is not None:status['total']=min(status['total'],args.limit_frames)
             status['state']='dry-run' if args.dry_run else 'rendering';write_json(status_path,status)

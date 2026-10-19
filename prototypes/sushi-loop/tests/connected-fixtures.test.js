@@ -12,7 +12,7 @@ const python = String.raw`
 import argparse,ast,contextlib,copy,hashlib,io,json,math,os,shutil,sys,tempfile
 from pathlib import Path
 path,target=Path(sys.argv[1]),Path(sys.argv[2])
-tree=ast.parse(path.read_text());constants={'DIRECTIONS','ANGLES','ALIASES','FX_IDS','PROP_IDS','CLUSTER_IDS'}
+tree=ast.parse(path.read_text());constants={'DIRECTIONS','ANGLES','ALIASES','FX_IDS','PROP_IDS','CLUSTER_IDS','MAX_ATLAS_DIMENSION'}
 body=[node for node in tree.body if isinstance(node,ast.FunctionDef) or isinstance(node,ast.Assign) and any(isinstance(t,ast.Name) and t.id in constants for t in node.targets)]
 pack_calls=[]
 def forbidden_pack(*args,**kwargs):

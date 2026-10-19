@@ -1,6 +1,6 @@
-# Current native records — version 12
+# Current native records — Faceted finish
 
-`index.json` lists the 104 active native objects in the saved project. The 13 flat artwork/effect objects use `../2d/`; eight obsolete garden bundles are removed. Superseded 3D records are in `../native-records-history/retired-v11/`. Registered capture publication is separate from editable model presence and user approval.
+`index.json` lists the 104 active native objects in the saved project. The 13 flat artwork/effect objects use `../2d/`; eight obsolete garden bundles are removed. Superseded 3D records are in `../native-records-history/retired-v11/`. The user approved the Faceted lighting and material treatment on 2026-10-19. Registered capture publication remains separate from editable model presence; see the [Faceted publication/validation evidence](../../../../review/33/faceted-rollout/README.md).
 
 ## Native model and action index
 
@@ -16,8 +16,8 @@ For recipe, salvage and submarine variants, all assemblies remain children of th
 
 The current normal editable project is [../blender/sushi-loop-world-library.blend](../blender/sushi-loop-world-library.blend). The top-level `editableProject` reference and `sourceBlendSHA256` identify the staged project. All index paths are relative to the parent `source/` directory, including `native-records/<id>/` record paths. Do not interpret an older export snapshot's hash as a newer finalized project's identity.
 
-Version 12 hashes each active `asset.json`, `camera.json` and `rig.json`; it does not contain the old `bakedSourceHashAvailability` field. Per-rig `sourceFiles` preserve hashes from intermediate baking. Some earlier versions are unavailable, while the final frozen project and capture recipes remain retained; see the [independent provenance review](../../../../review/33/full-art-rollout/feedback-coverage.md). Do not replace an unavailable historical hash with a later source version or treat the later file as proof of the earlier file's contents.
+The index hashes each active `asset.json`, `camera.json` and `rig.json`; it does not contain the old `bakedSourceHashAvailability` field. Per-rig `sourceFiles` preserve hashes from intermediate action baking. The Faceted finish changes materials and lamps while retaining those native actions; it does not invent a new bake identity for unchanged animation. Some earlier recipe versions are unavailable, while the final frozen project and current capture recipes remain retained; see the [independent provenance review](../../../../review/33/full-art-rollout/feedback-coverage.md). Do not replace an unavailable historical hash with a later source version or treat the later file as proof of the earlier file's contents.
 
 For a native clip, assign every action owner in its cohort. These can include mesh visibility, held dishes/utensils, shape keys and shader material nodes in addition to an armature. Shader owners must use the recorded exact material identity; the common embedded node-tree name alone is ambiguous.
 
-Do not edit this index or the generated per-entry records to mark artwork approved. Regenerate them from the corresponding native project and capture pipeline. [The source workflow](../README.md) describes reproducible capture and publication. Final scene-art approval remains with the user, and issue #33 stays open.
+Do not edit this index or generated per-entry records to mark artwork approved. Regenerate them from the corresponding native project and capture pipeline. User approval belongs to the runtime manifest, independent of record hashes. [The source workflow](../README.md) describes reproducible capture and publication. Issue #33 closes after the authorized full recapture, publication and validation finish.

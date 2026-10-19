@@ -92,9 +92,9 @@ export function CharacterScaleStudy() {
   const columnWidth = geometry ? geometry.frameSize[0] / geometry.cell * tilePitch * 2 + 24 : 424;
   return <div className="phone-scene character-scale-study">
     <header className="character-scale-header">
-      <div className="character-scale-kicker"><span>CHARACTER PROPORTION STUDY</span><span className="character-scale-badge">Blender stills · 35° camera</span></div>
+      <div className="character-scale-kicker"><span>HISTORICAL CHARACTER PROPORTION STUDY</span><span className="character-scale-badge">Blender stills · 35° camera</span></div>
       <h2>B and C, on the same tiles.</h2>
-      <p>Compare Playful and Chunky at 100%, 125% and 150%. 125% is the selected size. Rounded cheeks and layered curls add volume around the temples and back; tiny feet and short leg stubs remain. All are modeled in 3D; the camera stays at 35°. Every image retains the same native canvas, ground root and pixels per tile.</p>
+      <p>Compare Playful and Chunky at 100%, 125% and 150%. C Chunky at 125% is the approved character proportion. Rounded cheeks and layered curls add volume around the temples and back; tiny feet and short leg stubs remain. All are modeled in 3D; the camera stays at 35°. Every image retains the same native canvas, ground root and pixels per tile.</p>
       <nav aria-label="Related art reviews"><a href="#projection-study">Projection & concept reference ↗</a><a href="#scene-restaurant">Restaurant scene ↗</a><a href="#object-library">Production library ↗</a></nav>
       <p className="character-scale-status" role="status">{count} / 24 native captures · 2 designs · 3 scales · 4 directions</p>
     </header>
@@ -124,6 +124,6 @@ export function CharacterScaleStudy() {
       <CharacterArrangement variant={variant} scale={scale} direction={layoutDirection} tilePitch={tilePitch} guides={guides}/>
     </section>}
     <details className="character-scale-concept-reference"><summary>Original ImageGen proportion concepts</summary><figure><a href={characterProportionsUrl} target="_blank" rel="noopener noreferrer"><img src={characterProportionsUrl} alt="Original A Compact, B Playful, C Chunky and D Super chibi character proportion concepts" width="1774" height="887" loading="lazy"/></a><figcaption>B and C are the modeling references. The image concept was not tile-calibrated; the measured Blender captures above define this comparison.</figcaption></figure></details>
-    <footer className="character-scale-footer"><p>The square guides show the game’s floor layout. Character meshes keep the separate ordinary 35° camera, whose depth is naturally foreshortened. The selected 70% environment height is awaiting production recapture; this page compares characters only.</p><p>One fixed pose per direction; no animation or production character replacement is included. Final scene-asset approval and issue #33 remain open.</p>{(characterScaleStudy.source?.blend || characterScaleStudy.nativeProject) && <a href={characterStudySource(characterScaleStudy.source?.blend || characterScaleStudy.nativeProject)} target="_blank" rel="noopener noreferrer">Editable Blender study source ↗</a>}</footer>
+    <footer className="character-scale-footer"><p>The square guides show the game’s floor layout. Character meshes keep the separate ordinary 35° camera, whose depth is naturally foreshortened. The approved environment height is 70%; this page preserves the earlier character comparison.</p><p>One historical pose per direction. The approved production characters, Faceted lighting and full animations are available in the production library.</p>{(characterScaleStudy.source?.blend || characterScaleStudy.nativeProject) && <a href={characterStudySource(characterScaleStudy.source?.blend || characterScaleStudy.nativeProject)} target="_blank" rel="noopener noreferrer">Editable Blender study source ↗</a>}</footer>
   </div>;
 }

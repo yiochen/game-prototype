@@ -1,8 +1,14 @@
 # Conveyor and crate lighting transfer study
 
+**Historical study — 2026-10-19.** The user chose Faceted lighting and approved
+the later matte crate and muted-clay rail materials. See the [approved full
+production rollout](../../review/33/faceted-rollout/README.md). The original
+comparison images in this folder remain unchanged.
+
 The existing `#character-lighting-study` review page now has a Subject selector
 for Noor, a straight conveyor, a wood crate and a connected conveyor corner.
-These are isolated native Blender experiments. No production sprites are replaced.
+These were isolated native Blender experiments; this study did not replace
+production sprites when captured.
 
 The four treatments use the exact lighting recipe from Noor: production emission,
 and Soft / Faceted / Crisp matte Principled surfaces with overhead powers
@@ -61,5 +67,5 @@ geometry and phase records. Masks distinguish rail/wood top and side normals;
 the deck is a separate class. They receive no grade.
 
 See `../../review/33/environment-lighting-study/` for independent native/pixel
-checks, color measurements and responsive browser evidence. Issue 33 stays open;
-lighting selection and final scene-art approval remain pending.
+checks, color measurements and responsive browser evidence. Faceted lighting and
+the subsequent material refinement are now approved for production.

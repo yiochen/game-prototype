@@ -1,10 +1,10 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
-import { libraryObjects, spriteLibrary, imageUrl, objectStoryId } from './object-review-data.js';
+import { libraryObjects, spriteLibrary, imageUrl, objectStoryId, finalAssetsApproved, productionArtStatus } from './object-review-data.js';
 import { DIRECTIONS, DIRECTION_NAMES, clipFor, spriteFrame, sceneBounds, orderPlacements, repeatedPlacements, directionPlacements, placementAtTime, reviewFrameCount, groundRoot, attachmentMarkers, footprintFor, reviewDirections, resolveSupportSocket } from './sprite-layout.js';
 import './object-review.css';
 
 const objectsById = new Map(libraryObjects.map(object => [object.id, object]));
-const statuses = { ready: 'Ready to review', working: 'In production', queued: 'Queued' };
+const statuses = { ready: finalAssetsApproved ? 'Approved' : 'Ready to review', working: 'In production', queued: 'Queued' };
 const statusText = object => statuses[object.status] || 'Queued';
 const blendSourceUrl = path => {
   if (!path || path.startsWith('/') || path.split('/').includes('..')) return null;
@@ -110,7 +110,7 @@ function ObjectLibrary() {
   const visible = libraryObjects.filter(object => `${object.name} ${object.family} ${object.id}`.toLowerCase().includes(filter.toLowerCase()) && (state === 'all' || (state === 'exported' ? exported(object) : !exported(object))));
   const count = libraryObjects.filter(exported).length;
   return <div className="phone-scene object-review-scene">
-    <header className="object-review-header"><span className="object-review-eyebrow">ISSUE 33 · PRODUCTION REVIEW</span><h2>Object library</h2><p>Concept approved. Inspect each real sprite export as it arrives.</p><p className="object-library-progress" role="status">{count} with exports · {libraryObjects.length - count} awaiting exports</p></header>
+    <header className="object-review-header"><span className="object-review-eyebrow">ISSUE 33 · PRODUCTION REVIEW</span><h2>Object library</h2><p>Inspect registered native and 2D sprites, facings, interactions and animations.</p><p className="object-library-progress" role="status">{count} with exports · {libraryObjects.length - count} awaiting exports</p></header>
     <div className="object-review-scroll" aria-label="Scroll production object library">
       <nav className="object-showcase-links" aria-label="Full scene previews"><a href="#scene-restaurant">Restaurant scene ↗</a><a href="#scene-underwater">Underwater scene ↗</a></nav>
       <div className="object-library-filters"><label>Find an object<input type="search" value={filter} onChange={event => setFilter(event.target.value)} placeholder="Chef, belt, stool…"/></label><label>Show<select value={state} onChange={event => setState(event.target.value)}><option value="all">All objects</option><option value="exported">With sprite exports</option><option value="queued">Awaiting exports</option></select></label></div>
@@ -118,7 +118,7 @@ function ObjectLibrary() {
       {!!libraryObjects.length && !visible.length && <p className="object-queued-note">No objects match this filter.</p>}
       <div className="object-library-list">{visible.map(object => <a className="object-library-card" href={`#${objectStoryId(object)}`} key={object.id}><LibraryThumbnail object={object}/><span className="object-library-card-text"><small className="object-family">{object.family} · {object.id}</small><strong>{object.name}</strong><span className="object-card-meta">{object.footprint?.join(' × ') || '1 × 1'} cells · {object.clips?.length || 0} registered states</span><span className={`object-status is-${object.status || 'queued'}`}>{statusText(object)}</span></span><span aria-hidden="true">↗</span></a>)}</div>
       <a className="object-concept-return" href="#art-catalog">View approved concept sheet ↗</a>
-      <p className="object-queued-note">Queued states show no substitute artwork. Final approval is yours; issue #33 stays open.</p>
+      <p className="object-queued-note">{productionArtStatus}. Queued states show no substitute artwork.</p>
     </div>
   </div>;
 }

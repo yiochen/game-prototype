@@ -1,21 +1,21 @@
 {
   "state": "complete",
-  "output": "/private/tmp/sushi33-art-rollout-v12/finalized.blend",
-  "sha256": "c02e04d6c90e34afce2b0895328d4a1e26d47817ce9d38fb2b458fa3e766fc1f",
-  "bytes": 7826477,
-  "input": "/private/tmp/sushi33-art-rollout-v12/export/source/sushi-loop-world-library.blend",
-  "inputSha256": "851ff6fe4aa44599837b91fee6ffd9315d209994a4d1bc34526f22e64b68974e",
+  "output": "/private/tmp/sushi33-faceted-rollout-v2/export/source/sushi-loop-world-library.blend",
+  "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+  "bytes": 8070464,
+  "input": "/private/tmp/sushi33-faceted-rollout-v2/export/source/sushi-loop-world-library.blend",
+  "inputSha256": "5fa9f29c948e056234decadf298ddc55f04ab26c3479390d4e88513357cba2fb",
   "scene": "S33 Native Asset Library Export",
   "sceneCount": 1,
   "removedEmptyStartupScenes": [],
   "userScenesIncluded": false,
   "startup": {
-    "asset": "chef-lena",
-    "clip": "hold",
+    "asset": "chef-noor",
+    "clip": "idle",
     "frame": 4,
     "direction": "S",
     "fps": 12,
-    "camera": "S33 Capture Camera",
+    "camera": "S33 Capture Camera.240",
     "cameraRecord": {
       "projection": "character-orthographic",
       "frame": [
@@ -118,8 +118,24 @@
         "environmentHeightRatio": 0.7,
         "contrast": 1.35,
         "contrastSpace": "sRGB",
-        "lighting": "emission; zero world and light strength",
-        "lowerShading": "height ramp; camera symmetric form tone"
+        "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
+        "lightingRig": {
+          "treatment": "Faceted",
+          "overheadWatts": 140,
+          "overheadPosition": [
+            0,
+            0,
+            4.5
+          ],
+          "overheadSize": 3.5,
+          "fillWattsEach": 100,
+          "fillSize": 4,
+          "fillRadius": 3,
+          "fillZ": 1.8,
+          "horizontalSymmetry": 4,
+          "worldStrength": 0
+        },
+        "lowerShading": "world-height ramp; camera view-tone bypassed"
       }
     },
     "render": {
@@ -240,10 +256,10 @@
   ],
   "nativeActions": 1834,
   "metadataHashes": {
-    "assetJson": "db296b694310f61a258abae6d4fc563561c4690b7541b09b66202be53f35390e",
-    "rigJson": "5795cc67594b8fc4e5a3bb7b7ed176a097c8eb168ce8ee676e7fe01a338a9a20"
+    "assetJson": "54e09d425797e119b80113f598fbe4f4dd26286e83372bbd3f39c70867511ff9",
+    "rigJson": "e06e4b12727156974edf64a3a09b6d75375869b7e9be9ca54c67597b2173fea4"
   },
   "preview": null,
   "sourceScriptSha256": "12ae7f05f2e3320f313215a54a7cd51c49e41005c223e864b7df4dedcbe406ed",
-  "seconds": 0.3532850742340088
+  "seconds": 0.24025583267211914
 }

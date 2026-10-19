@@ -21,6 +21,7 @@ from pack_captures import pack
 
 HERE=Path(__file__).resolve().parent
 DIRECTIONS=['N','E','S','W']
+MAX_ATLAS_DIMENSION=8192
 ANGLES={'S':0.,'E':math.pi/2,'N':math.pi,'W':-math.pi/2}
 ALIASES={'crate':'crate-wood','barrel':'barrel-wood','plant':'plant-angular','potted-plant':'plant-angular','lantern':'lantern-gold','blank-sign':'sign-blank','entrance':'entry-finished','garbage-shelf':'garbage-shelving','submarine-base':'submarine-yellow','hull-panel':'sub-hull-panels','harpoon-mount':'sub-harpoon-mount','collector-inlet':'sub-collector-inlet'}
 FX_IDS={'creature-eel','creature-fish','bubble-preference','bubble-happy','bubble-puzzled','bubble-panic','coin-pop','harpoon-projectile','harpoon-cable','route-current','boost-trail','following-strip','attack-reef-fragments','attack-swirl','attack-lateral-current','eel-warning-strip','eel-lightning-symbol','eel-discharge'}
@@ -94,10 +95,23 @@ def copy_changed(source,destination,history=None):
     return incoming
 
 
-def capture_fingerprint(frames,camera_meta,kind,runtime_scale):
-    return {'version':2,'sourceFrames':[{'name':p.name,'sha256':sha(p)} for p in frames],
-            'cameraSHA256':json_hash(camera_meta),'kind':kind,'columns':6,'gutter':0,
-            'runtimeScale':runtime_scale,'packing':'full-authored-frame-uniform-lanczos-v2'}
+def atlas_columns(frame,frame_count,runtime_scale,limit=MAX_ATLAS_DIMENSION):
+    """Keep complete frames at their declared resolution within the texture cap."""
+    width,height=[int(v*runtime_scale) for v in frame]
+    if min(width,height,frame_count,limit)<1:
+        raise ValueError('Atlas dimensions, frame count and texture limit must be positive')
+    candidates=[columns for columns in range(1,min(frame_count,limit//width)+1)
+                if math.ceil(frame_count/columns)*height<=limit]
+    if not candidates:
+        raise ValueError(f'Cannot pack {frame_count} complete {width}x{height} frames within {limit}px; split the clip into atlas pages rather than resizing frames')
+    return min(candidates,key=lambda columns:(abs(columns-6),columns))
+
+
+def capture_fingerprint(frames,camera_meta,kind,runtime_scale,columns):
+    return {'version':3,'sourceFrames':[{'name':p.name,'sha256':sha(p)} for p in frames],
+            'cameraSHA256':json_hash(camera_meta),'kind':kind,'columns':columns,'gutter':0,
+            'runtimeScale':runtime_scale,'maximumAtlasDimension':MAX_ATLAS_DIMENSION,
+            'packing':'full-authored-frame-uniform-lanczos-v2'}
 
 
 def pack_matches(packed,fingerprint):
@@ -128,11 +142,11 @@ def archive_pack(packed,history):
     else:shutil.move(str(packed),str(destination))
 
 
-def pack_floor(frames,camera_meta,packed,runtime_scale):
+def pack_floor(frames,camera_meta,packed,runtime_scale,columns):
     """Opaque floors deliberately touch their complete authored panel edges."""
     frame=camera_meta['frame'];scale=camera_meta['captureScale']
     width,height=[int(v*runtime_scale) for v in frame]
-    columns=min(6,len(frames));rows=math.ceil(len(frames)/columns)
+    columns=min(columns,len(frames));rows=math.ceil(len(frames)/columns)
     sheet=Image.new('RGBA',(width*columns,height*rows))
     records=[];cells=[]
     packed.mkdir(parents=True);(packed/'source-captures').mkdir()
@@ -473,12 +487,13 @@ def main():
             for direction in info.get('directions',DIRECTIONS):
                 raw=raw_root/capture_id/(source_clip+'-'+direction);frames=[raw/(f'{index:03d}.png') for index in range(count) if (raw/(f'{index:03d}.png')).is_file()]
                 if len(frames)!=count:raise ValueError(f'{aid}/{source_clip}/{direction}: {len(frames)} != {count}; capture batch incomplete')
-                fingerprint=capture_fingerprint(frames,camera_meta,'floor' if asset['kind']=='floor' else 'object' if static else 'animation',args.runtime_scale)
+                columns=atlas_columns(camera_meta['frame'],count,args.runtime_scale)
+                fingerprint=capture_fingerprint(frames,camera_meta,'floor' if asset['kind']=='floor' else 'object' if static else 'animation',args.runtime_scale,columns)
                 packed=source/'registered'/aid/(export_clip+'-'+direction)
                 if packed.exists() and not pack_matches(packed,fingerprint):archive_pack(packed,source/'registered-history'/aid/(export_clip+'-'+direction))
                 if not packed.exists():
-                    if asset['kind']=='floor':guide=pack_floor(frames,camera_meta,packed,args.runtime_scale)
-                    else:guide=pack(raw,camera_path,packed,kind='object' if static else 'animation',columns=6,gutter=0,sheet_scale=args.runtime_scale)
+                    if asset['kind']=='floor':guide=pack_floor(frames,camera_meta,packed,args.runtime_scale,columns)
+                    else:guide=pack(raw,camera_path,packed,kind='object' if static else 'animation',columns=columns,gutter=0,sheet_scale=args.runtime_scale)
                     write_json(packed/'capture-fingerprint.json',fingerprint)
                 else:guide=json.loads((packed/'guide.json').read_text())
                 runtime=target/'sprites'/aid;runtime.mkdir(parents=True,exist_ok=True)

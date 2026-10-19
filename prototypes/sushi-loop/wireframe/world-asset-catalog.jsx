@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { worldAssetFamilies, conceptPanels } from './world-asset-catalog-data.js';
 import './world-asset-catalog.css';
+import { finalAssetsApproved } from './object-review-data.js';
 
 const sheet = new URL('../design/issue-33-art-catalog/concept/world-asset-catalog-v02.png', import.meta.url).href;
 
@@ -22,7 +23,7 @@ export function WorldAssetCatalog() {
 
   return <div className="phone-scene world-catalog-scene">
     <header className="world-catalog-header">
-      <span className="world-catalog-status">ISSUE 33 · CONCEPT APPROVED · ASSETS IN PROGRESS</span>
+      <span className="world-catalog-status">{finalAssetsApproved ? 'ISSUE 33 · ASSETS APPROVED' : 'ISSUE 33 · ART APPROVED · ROLLOUT IN PROGRESS'}</span>
       <h2>World asset catalog</h2>
       <p>17 families · 8 chefs · 4 customers · 3 dishes</p>
       <div className="world-catalog-tabs" role="group" aria-label="Catalog view">
@@ -39,7 +40,7 @@ export function WorldAssetCatalog() {
         <figure className={`world-catalog-sheet ${zoomed ? 'is-zoomed' : ''}`}>
           <img src={sheet} width="1024" height="1536" alt="Issue 33 low-poly world concept sheet with 17 numbered panels: chefs, customers, dishes, restaurant furniture and terrain, connected conveyors, dock, submarine, underwater modules, creatures and effects." />
         </figure>
-        <p className="world-catalog-caption">Concept artwork for approval. Browse items for the full list of assets and animation states.</p>
+        <p className="world-catalog-caption">Approved concept reference. Browse items for the full list of assets and animation states.</p>
       </> : <div className="world-catalog-details">
         <div className="world-catalog-picker"><label htmlFor="world-asset-family">Asset family</label><select id="world-asset-family" value={selected} onChange={event => browse(Number(event.target.value))}>{worldAssetFamilies.map((item, index) => <option key={item.id} value={index}>{item.id} · {item.name}</option>)}</select></div>
         <div className="world-catalog-paging">
@@ -53,13 +54,13 @@ export function WorldAssetCatalog() {
           {family.panels.map(number => <figure className="world-catalog-detail-figure" key={number}><svg className="world-catalog-panel" viewBox={conceptPanels[number].join(' ')} role="img" aria-label={`${family.name} concept detail, sheet panel ${number}`}><image href={sheet} width="1024" height="1536" /></svg><figcaption>Concept panel {number}</figcaption></figure>)}
           <h4>Items</h4><p>{family.items}</p>
           <h4>Directions &amp; states to review</h4><p>{family.states}</p>
-          <p className="world-catalog-caption">Concept detail only. Production sprites and animation are pending.</p>
+          <p className="world-catalog-caption">Historical concept detail. <a href="#object-library">Open the current production sprites and animations ↗</a></p>
         </article>
         <section className="world-catalog-contract" aria-label="Asset review contract">
-          <h4>Before final approval</h4>
+          <h4>Production review contract</h4>
           <p>Review actual reusable sprites, 12 fps animation, square-cell joins, fixed anchors and occupied-seat layering here on the wireframe site. Each animated clip has at least six unique frames.</p>
           <p>Connected belts need four straight flows, eight directed corners, four starts and four ends. Empty joins, moving slats, separate plates and paused frames must all be inspectable.</p>
-          <p>Issue #33 stays open until you approve the finished scene assets. HUDs, menus and game simulation are outside this art milestone.</p>
+          <p>The scene art and materials are approved. HUDs, menus and Godot Android game integration are outside this art milestone.</p>
         </section>
       </div>}
     </div>

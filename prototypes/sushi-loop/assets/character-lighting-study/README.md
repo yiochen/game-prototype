@@ -1,7 +1,11 @@
 # Noor: top-versus-side lighting study
 
-An isolated experiment requested after the full-catalog review. The production
-library is unchanged. Open `#character-lighting-study` on the wireframe site to
+**Historical study — 2026-10-19.** The user chose Faceted lighting and approved
+the later crate/rail materials. The [approved full production rollout](../../review/33/faceted-rollout/README.md)
+supersedes this experiment; its original comparison images remain unchanged.
+
+An isolated experiment requested after the full-catalog review. It left the
+production library unchanged at the time. Open `#character-lighting-study` on the wireframe site to
 compare one fixed Noor idle pose in all four directions, with enlarged hat views.
 
 The former emission treatment ignores lamps. Its subtle camera-facing form term
@@ -12,7 +16,7 @@ The original emission version is retained as the baseline.
 
 | Candidate | Overhead disk | Four equal fill disks | Top/side luminance ratio, four facings |
 | --- | --- | --- | --- |
-| Current production | None | None | 1.065–1.116 |
+| Before Faceted rollout | None | None | 1.065–1.116 |
 | Soft overhead | 100 W | 100 W each | 1.706–1.903 |
 | Faceted overhead | 140 W | 100 W each | 2.135–2.405 |
 | Crisp overhead | 180 W | 100 W each | 2.562–2.911 |
@@ -56,4 +60,5 @@ The renderer writes native transparent PNGs directly. `manifest.json` and
 The independent audits and responsive review evidence are in
 `../../review/33/character-lighting-study/`.
 
-No candidate has been approved for production. Issue 33 remains open.
+Faceted was subsequently approved for the complete native production library;
+this folder retains the earlier comparison and its measured results.

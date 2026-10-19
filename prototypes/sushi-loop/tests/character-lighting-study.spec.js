@@ -117,7 +117,10 @@ test('lighting subject deep links survive reload, preserve other query fields an
   expect(selected.hash).toBe('#character-lighting-study');
   await page.reload();
   await expect(subject).toHaveValue('crate-wood');
-  await expect(stage.locator('.lighting-study-status')).toContainText('material changes pending review');
+  await expect(stage.locator('.lighting-study-status')).toContainText('materials approved');
+  await expect(stage.locator('.lighting-study-status')).toContainText('historical captures unchanged');
+  await expect(stage).not.toContainText('production unchanged');
+  await expect(stage).not.toContainText('pending review');
   await expect(stage.getByRole('region', { name: 'Native Blender surface comparison' })).toHaveCount(1);
   for (const [object, expected] of [['belt-straight-e', 'belt-straight'], ['crate-wood', 'crate-wood'], ['belt-corner-n-e', 'belt-connected'], ['chef-noor', 'chef-noor']]) {
     await page.goto(`/prototypes/sushi-loop/?ntl-drawer-state=hidden&v=lighting-deep-link#object-${object}`);
@@ -153,7 +156,7 @@ for (const [width, height] of [[390, 844], [844, 390], [1440, 1000]]) {
       expect(subject.reviewVariantIds).toEqual(['faceted', 'faceted-tuned']);
       await expect(stage.locator('.lighting-variant')).toHaveCount(2);
       await expect(stage.locator('[data-lighting-variant="faceted"] .lighting-selection')).toHaveText('Chosen lighting');
-      await expect(stage.locator('[data-lighting-variant="faceted-tuned"] .lighting-selection')).toHaveText('Material trial');
+      await expect(stage.locator('[data-lighting-variant="faceted-tuned"] .lighting-selection')).toHaveText('Approved materials');
       await expect(stage.locator('.lighting-pending')).toHaveCount(0);
       const frame = subject.frame || subject.frameSize;
       const captures = stage.locator('.lighting-capture');

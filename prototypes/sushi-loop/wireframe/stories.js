@@ -1,4 +1,4 @@
-import { objectReviewStories } from './object-review-data.js';
+import { objectReviewStories, productionArtStatus } from './object-review-data.js';
 
 // Review inventory. These fixtures describe intended UI behavior, not gameplay rules.
 const element = (name, behavior, motion) => ({ name, behavior, motion });
@@ -36,47 +36,47 @@ export const stories = [
   {
     id: 'character-lighting-study', group: 'scene-review', title: 'Surface lighting study', scene: 'character-lighting-study',
     reviewBranch: 'codex/sushi-loop-33-art-catalog',
-    description: 'Faceted lighting is selected. Review less reflective wood and duller conveyor rails against the original Faceted materials, with matching camera, frame, root and 135% grade. Noor preserves the original lighting comparison.',
+    description: 'Historical lighting and material comparisons. Faceted lighting, matte wood and muted clay rails are approved. Matching cameras, frames, roots and the 135% grade preserve each experiment.',
     elements: [
-      element('Chosen Faceted lighting and material refinement', 'Faceted is chosen for future native assets. Noor retains the original lighting comparison; the environment subjects compare original Faceted materials with the tuned wood and duller belt rails under the same lighting. Character 35° and environment 70% captures retain fixed registration.', 'Native stills are displayed directly without browser image filters. The connected conveyor South view includes a synchronized 24-frame native loop at 12 fps.'),
-      element('Top and side separation', 'Review the green hat, wooden crate faces and conveyor rails with Faceted top/side separation. The material trial holds the 140 W overhead and four equal fills fixed; the original Noor experiment and restaurant concept are preserved.', 'Each subject retains its declared tile footprint and one fixed frame/root. Vertical scrolling belongs to the document.'),
+      element('Chosen Faceted lighting and material refinement', 'Faceted is the approved native lighting treatment. Noor retains the original lighting comparison; the environment subjects compare original Faceted materials with the tuned wood and duller belt rails under the same lighting. Character 35° and environment 70% captures retain fixed registration.', 'Native stills are displayed directly without browser image filters. The connected conveyor South view includes a synchronized 24-frame native loop at 12 fps.'),
+      element('Top and side separation', 'Review the green hat, wooden crate faces and conveyor rails with Faceted top/side separation. The historical material comparison holds the 140 W overhead and four equal fills fixed; the original Noor experiment and restaurant concept are preserved.', 'Each subject retains its declared tile footprint and one fixed frame/root. Vertical scrolling belongs to the document.'),
     ],
-    notes: ['Faceted lighting is selected; the material refinement is awaiting review. No production sprites are replaced.', 'Use Comments to review the less reflective wood and duller belt rails. Issue 33 stays open for asset approval.'],
+    notes: ['Historical captures remain unchanged; Faceted lighting, matte wood and muted clay rails are approved.', productionArtStatus],
   },
   {
     id: 'decoration-study', group: 'scene-review', title: 'Decoration coverage & heights', scene: 'decoration-study',
     reviewBranch: 'codex/sushi-loop-33-art-catalog',
-    description: 'Twelve underwater and restaurant decoration pieces follow the approved scene concepts. Compare each specific concept crop with four native facings, mixed and repeated 3×3 patches, and deliberate seven-column perimeters. Projection follows height; complete projected silhouettes stay below three tiles, with full-cell mass and direction-free dark lower surfaces.',
+    description: 'Historical shape and contrast study. Twelve underwater and restaurant decoration pieces follow the approved scene concepts. Compare each specific concept crop with four native facings, mixed and repeated 3×3 patches, and deliberate seven-column perimeters. Projection follows height; complete projected silhouettes stay below three tiles, with full-cell mass and direction-free dark lower surfaces.',
     elements: [
       element('Separate ground and decoration', 'Toggle the objects off to inspect the continuous bed. Floor and objects retain a common fixed tile pitch and registered ground roots.', 'Static native captures; no animation in this shape study.'),
       element('Contrast trial', 'Compare 100%, 118% and 135% object-color contrast from the same source. The selected grade applies to both layouts and the four-facing views. Floors and concept references retain their original colors; native capture links remain unadjusted.', '135% is selected. The native proof compares baked compositor output with the browser grade, with no second filter on baked images.'),
       element('Height and repetition', 'Mixed heights, concept-based perimeters and four native facings expose coverage, repetition and depth ordering. By-height mode uses 70% oblique for compact objects and a 35° upper view with square footing when the largest 70% silhouette exceeds two tiles.', 'Controls update the composition immediately; vertical scrolling belongs to the page.'),
     ],
-    notes: ['This is a focused study, not a full production asset replacement.', 'Issue 33 remains open for visual approval.'],
+    notes: ['This historical shape study retains its original lighting and contrast experiments. Current sprites are in the production library.', productionArtStatus],
   },
   {
     id: 'character-scale-study', group: 'scene-review', title: 'Character B / C scale study', scene: 'character-scale-study',
     reviewBranch: 'codex/sushi-loop-33-art-catalog',
-    description: 'Compare modeled B Playful and C Chunky at 100%, 125% and 150%, keeping the ordinary 35-degree character camera fixed. Each native still uses the same capture frame, root and world scale; the character width and physical ground footprint must fit within one tile.',
+    description: 'Historical comparison of modeled B Playful and C Chunky at 100%, 125% and 150%. C Chunky at 125% is approved, keeping the ordinary 35-degree character camera fixed. Each native still uses the same capture frame, root and world scale; the character width and physical ground footprint must fit within one tile.',
     elements: [
       element('Two anatomy designs, three scales', 'The B/C rows share the three scale columns and one display tile pitch. Front and right-side views are shown together; the shared view-pair control exposes back and left-side views. Measurements come from native Blender captures across all four directions.', 'One static pose per direction. Browser controls change the review display; they do not animate or squash the source images.'),
       element('Ground registration and one-cell bounds', 'Feet remain registered at the center of the square game tile. The outer square marks one floor cell, and a dotted ground box shows the conservative footprint envelope across all four facings. Height is allowed to extend above a tile.', 'One common tile-size control applies to every capture and the neighboring-tile arrangement.'),
       element('Three by three tile arrangement', 'Choose either design, any scale and one of the four directions to inspect repeated sprites on nine adjacent cells. Back-to-front image order preserves the registered ground roots.', 'Comparison areas pan horizontally. Vertical touch and wheel scrolling belong to the document.'),
       element('Original concept reference', 'The ImageGen board remains available below the native study. Its estimated height is not used as measured calibration.', 'The reference opens inline without replacing the modeled stills.'),
     ],
-    notes: ['This isolated still study does not replace production characters or add animations.', 'The 70% environment projection is selected separately; character captures retain the ordinary 35-degree camera. Final scene approval and issue #33 remain open.'],
+    notes: ['This isolated still study does not replace production characters or add animations.', 'C125 characters and 70% environment projection are approved; character captures retain the ordinary 35-degree camera. Current Faceted characters and animations are in the production library.'],
   },
   {
     id: 'projection-study', group: 'scene-review', title: 'Projection height study', scene: 'projection-study',
     reviewBranch: 'codex/sushi-loop-33-art-catalog',
-    description: '70% environment height is selected, with production recapture pending. Choose shorter, cartoony character proportions from four concept options; characters retain their separate 35-degree camera. The original four-ratio captures remain as a reference.',
+    description: 'Historical projection comparison. 70% environment height and C Chunky proportions at 125% are approved; characters retain their separate 35-degree camera. The original four-ratio captures remain as a reference.',
     elements: [
-      element('Character proportion concepts', 'Review A Compact, B Playful, C Chunky and D Super chibi as anatomy directions for Lena. The intended character camera remains 35-degree ordinary orthographic. ImageGen concepts are not calibrated captures or registered sprites.', 'One responsive concept image with a full-size link; vertical scrolling belongs to the page.'),
+      element('Character proportion concepts', 'Historical A Compact, B Playful, C Chunky and D Super chibi anatomy concepts for Lena; C Chunky is approved. The intended character camera remains 35-degree ordinary orthographic. ImageGen concepts are not calibrated captures or registered sprites.', 'One responsive concept image with a full-size link; vertical scrolling belongs to the page.'),
       element('Four native height captures', 'Compare each object and the connected arrangement in four ratio columns. Captures use the same frame and registered world origin within each row. Missing exports remain labeled; no ratio is substituted.', 'Static projection study. Changing the common tile size or root guide updates immediately; native geometry and images are not animated or squashed in the browser.'),
       element('Shared world scale and comparison scrolling', 'One tile-size control applies to every ratio and group. Individual rows share a horizontal comparison table; the wider assembly retains its native scale. Vertical touch scrolling belongs to the document.', 'Nearby captures mount as their cells approach the viewport, including horizontal panning. Their layout boxes stay fixed, so loading does not move the page.'),
       element('Character camera reference', 'The chef pose uses the environment projection for the four study ratios. A separate current 35-degree ordinary orthographic reference keeps that distinction explicit; it is not the 100% environment baseline.', 'All references are static. Ambient and contact shading remain deferred to Godot.'),
     ],
-    notes: ['70% environment height is selected. Production recapture is pending; historical comparison captures are unchanged.', 'Character proportions await a choice; the 35-degree ordinary orthographic character camera stays fixed. Final scene approval and issue #33 remain open.'],
+    notes: ['70% environment height is approved. Historical comparison captures remain unchanged.', 'C Chunky at 125% is approved. The 35-degree ordinary orthographic character camera stays fixed; current sprites are in the production library.'],
   },
   {
     id: 'scene-restaurant', group: 'scene-review', title: 'Restaurant scene', scene: 'world-showcase', variant: 'restaurant',
@@ -87,7 +87,7 @@ export const stories = [
       element('Fit, detail and calibration', 'Fit shows the complete composition. 2× and 4× zoom keep native proportions and allow horizontal panning. Optional tile grid and root/port overlays expose placement without changing the artwork.', 'Zoom and overlays update immediately. Vertical touch and wheel gestures continue scrolling the document; there is no second vertical scroller.'),
       element('Review playback', 'Play, Pause and the timeline inspect the 48-second composed scene cycle. Comments remain attached to this exact scene deep link.', 'Reduced motion starts paused. Scrubbing pauses playback on the chosen frame; leaving the browser tab pauses presentation time.'),
     ],
-    notes: ['Scene art review only; service, pathfinding, economy and editing simulation are not implemented here.', 'The approved catalog assets remain subject to final scene approval. Issue #33 remains open, and the eventual game target remains Godot Android.'],
+    notes: ['Scene art review only; service, pathfinding, economy and editing simulation are not implemented here.', productionArtStatus],
   },
   {
     id: 'scene-underwater', group: 'scene-review', title: 'Underwater scene', scene: 'world-showcase', variant: 'underwater',
@@ -98,7 +98,7 @@ export const stories = [
       element('Fit, detail and calibration', 'Fit shows the entire underwater scene. Zoom allows horizontal map inspection, and optional grid/root overlays expose the same native placements.', 'The page owns vertical scrolling at every zoom. Artwork is never resized by its alpha silhouette.'),
       element('Review playback', 'Play, Pause and the frame timeline control the shared 48-second composition. Use the scene tabs to compare restaurant and underwater art.', 'Reduced motion starts paused. Scrubbing and browser visibility retain the same presentation-only playback behavior as the object catalog.'),
     ],
-    notes: ['A staged art composition; steering, encounters, collision and rewards remain Godot Android integration work.', 'Final scene-asset approval remains pending, and this review does not close issue #33.'],
+    notes: ['A staged art composition; steering, encounters, collision and rewards remain Godot Android integration work.', productionArtStatus],
   },
   ...objectReviewStories,
   {
@@ -117,13 +117,13 @@ export const stories = [
   {
     id: 'art-catalog', group: 'concept', title: 'World asset catalog · #33', scene: 'concept', variant: 'world-assets',
     reviewBranch: 'codex/sushi-loop-33-art-catalog',
-    description: 'Review the proposed low-poly world-art sheet and complete 17-family inventory for issue #33. Concept approval is pending; production sprites and animation are not yet represented as finished.',
+    description: 'Preserved approved concept sheet and original 17-family inventory for issue #33. Current sprites and animation live in the production object library.',
     elements: [
       element('Concept sheet / Browse items', 'Inspect the full concept sheet or select an asset family with its items, directions and required states. The family detail is a magnified view of concept artwork, not an extracted game sprite.', 'Switch views immediately. The concept sheet is static; its illustrated frame studies do not play an animation.'),
       element('Fit / Zoom / full size', 'Fit contains the complete sheet width. Zoom uses the original 1024-pixel width with scrolling contained inside the portrait frame. Open full size shows the unchanged image.', 'Native scrolling only, with no automatic motion.'),
       element('Concept feedback', 'Use Comments and include the numbered sheet panel or W01–W17 family. Feedback is device-local until explicitly exported or submitted through the existing GitHub form. This preview cannot approve or close an issue.', 'No approval animation or simulated production state.'),
     ],
-    notes: ['The wireframe site is the review destination for issue #33. The eventual game remains Godot Android.', 'After concept approval, create real reusable sprites, complete animation/state sets and tiled seam/attachment/layering previews here. Keep #33 open until the user approves all scene assets.', 'Current main low-poly references supersede the historical doodle wording in #33. Preserve the one-input/one-output belt rule; catalog T/cross junctions add no requirements.', mockNote],
+    notes: ['The wireframe site is the review destination for issue #33. The eventual game remains Godot Android.', 'The scene art and materials are approved. The production object library provides reusable sprites, complete animation/state sets and tiled seam, attachment and layering previews.', 'Current main low-poly references supersede the historical doodle wording in #33. Preserve the one-input/one-output belt rule; catalog T/cross junctions add no requirements.', mockNote],
   },
   {
     id: 'concept-doodle-catalog', group: 'concept', title: 'Restaurant UI & item catalog', scene: 'concept', variant: 'catalog',
