@@ -4,6 +4,7 @@ for (const [width,height] of [[390,844],[844,390],[1440,1200]]) {
     await page.setViewportSize({width,height});const errors=[];page.on('pageerror',e=>errors.push(e.message));
     await page.goto('/prototypes/sushi-loop/?ntl-drawer-state=hidden#decoration-study');const stage=page.locator('#prototype-stage');
     await expect(stage).toHaveClass(/frame--document/);
+    await expect(stage.getByLabel('Decoration contrast',{exact:true})).toHaveValue('strong');
     for(const [theme,title,rows,tall,short] of [['underwater','Underwater',9,'cobalt-crags','pink-coral'],['restaurant','Restaurant',8,'slate-bank','cone-curb']]){
       await stage.getByLabel('Decoration scene',{exact:true}).selectOption(theme);
       await expect(stage.getByRole('img',{name:`Approved ${theme} concept art`,exact:true})).toBeVisible();
@@ -23,6 +24,17 @@ for (const [width,height] of [[390,844],[844,390],[1440,1200]]) {
         expect(await objects.locator('image').first().getAttribute('href')).toBe(objectSource);
         const after=await scene.boundingBox();expect(after.width).toBe(sceneBox.width);expect(after.height).toBe(sceneBox.height);
       }
+      await stage.getByLabel('Decoration contrast',{exact:true}).selectOption('strong');
+      const native=stage.locator('.decor-native-study');
+      for(const facing of ['E','N','W','S'])await stage.getByLabel('Native contrast facing',{exact:true}).selectOption(facing);
+      const pair=native.locator('.decor-native-grid svg');await expect(pair).toHaveCount(2);
+      await expect(pair.nth(0).locator('[data-decor-layer="objects"]')).toHaveCSS('filter','contrast(1.35)');
+      await expect(pair.nth(1).locator('[data-decor-layer="objects"]')).toHaveCSS('filter','none');
+      expect(await pair.nth(0).getAttribute('viewBox')).toBe(await pair.nth(1).getAttribute('viewBox'));
+      const nativeSource=await pair.nth(1).locator('[data-decor-layer="objects"] image').getAttribute('href');
+      expect(nativeSource).toBe(await native.getByRole('link',{name:'Baked PNG ↗',exact:true}).getAttribute('href'));
+      expect(nativeSource).not.toBe(await pair.nth(0).locator('[data-decor-layer="objects"] image').getAttribute('href'));
+      await native.screenshot({path:info.outputPath(`${theme}-native135-${width}.png`)});
       await stage.getByLabel('Contrast comparison piece',{exact:true}).selectOption(short);
       await comparison.screenshot({path:info.outputPath(`${theme}-contrast-${width}.png`)});
 

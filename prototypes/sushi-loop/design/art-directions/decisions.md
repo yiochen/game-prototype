@@ -82,3 +82,8 @@ Carry the four rules forward: projection based on height; maximum three projecte
 ### Contrast trial — awaiting a choice
 
 The user requests more contrast and asks whether to edit images or Blender lighting. The current capture has no directional illumination and uses emission materials; test global RGB contrast directly before changing source materials. The review page compares Original 100%, Punchier 118% and Strong 135% on the same sprites, with a selectable example and a shared display grade across both scene sets. These are reversible display previews, not new baked art, source-light changes or a locked grade. Selective lower-base/face contrast remains a material-ramp adjustment if a global grade is insufficient. Evidence: `../../review/33/decoration-contrast/README.md`.
+
+
+### Selected contrast: 135%
+
+The user selected **135%** as the preferred contrast. Retain that color direction for the next decoration revision; it supersedes the earlier 118% initial preview. The live review starts at 135%. An isolated native Blender proof applies the same sRGB contrast using a shared compositor group, preserving original alpha and direction-free lighting/materials. Four objects in four facings match the browser grade within 8-bit rounding. Do not apply the browser filter again to already baked sprites, and keep shared ground/reference images ungraded. This selects a grade, not all asset shapes or a full production rollout. Source/evidence: `../../assets/native-contrast/README.md` and `../../review/33/native-contrast135/README.md`.
