@@ -1,0 +1,7 @@
+# Approved restaurant runtime subset
+
+`tools/sync_catalog.py` copies these atlases byte for byte from the approved issue #33 production library. Run it with `--check` to verify selection, manifest provenance and every PNG hash. The manifest retains the complete authored frame, ground root, source scale, animation cadence and attachment sockets.
+
+The game and native component gallery use the same `ArtBook` and `RestaurantView`. Their only geometric scaling is `display_tile_pixels / 128`, applied uniformly to both axes. There is no alpha cropping, pose fitting, per-character height correction or browser contrast filter. Characters retain the C125 ordinary 35° capture; terrain retains the selected 70% environment projection. The board's native front-band placement stays in the chef's cell, facing the player, with recipe content composed dynamically. Plates use the native conveyor `deck` socket. Seated character actions already contain the wood-stool support calibration.
+
+One chef, four customer appearances, six customer service actions in four directions, all chef actions in four directions, the 24-frame open conveyor, the native coin-pop sale effect, and the starter's environment/food assets are included. Other catalog families stay in the source library for later tickets. No Blender authoring project is copied into this Android runtime subtree. The source `.blend` remains preserved in the production library.
