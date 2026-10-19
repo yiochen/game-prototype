@@ -70,3 +70,10 @@ To remove the front gap, the experimental 35° upper view now transitions to squ
 ### Plant-led decoration — requested study, pending visual approval
 
 Coral and kelp should sometimes be the primary mass and silhouette, rather than always being small accents on tall rocks. The new review study mixes low-support coral thickets and kelp groves with three rock-led families. Plants fill their own one-cell compositions at substantial scale, with varied heights and colors; rock-led examples retain ledge vegetation at larger proportions. The under-three-tile rise limit, full physical footprint, independent ocean bed and direction-free material tone remain in force. This is a limited comparison, not approval of all assets or authorization for production rollout. Evidence: `../../review/33/decoration-study/plant-led/README.md`.
+
+
+### Concept-referenced decoration — requested review pass
+
+The user rejects arbitrary/random compositions and requires underwater and restaurant decorations to follow the approved scene concepts. Use recognizable silhouettes, palette, materials and object groupings from those images. Each review object now carries a specific original concept crop. The twelve-piece native study replaces the exploratory patch on the live review page; it does not roll out all production art.
+
+Carry the four rules forward: projection based on height; maximum three projected tiles; full width and depth of a ground cell with substantial mass; darker lower surfaces without a world lighting direction. In this pass the cap applies to the **complete projected silhouette**, including depth, in every facing and both capture profiles. By-height mode selects a 35° upper view/square footing when the largest complete 70% silhouette exceeds two tiles; smaller shapes keep 70% oblique. This updates the earlier S-only selection test and remains a camera experiment pending review. Original concepts remain unchanged; source models, measured captures and reference hashes are retained. See `../../review/33/concept-decoration/README.md`.

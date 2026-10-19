@@ -1,72 +1,63 @@
 import React, { useId, useState } from 'react';
-import variedStudy from '../assets/decoration-study/study.json';
-import originalStudy from '../assets/decoration-study/original/study.json';
-import concept from '../design/art-directions/underwater-concept.png?url';
-import previous from '../review/33/seven-column-scenes/underwater-phone.png?url';
+import study from '../assets/concept-decoration/study.json';
+import measurements from '../assets/concept-decoration/measurements.json';
+import underwaterConcept from '../design/art-directions/underwater-concept.png?url';
+import restaurantConcept from '../design/art-directions/restaurant-concept.png?url';
 import './decoration-study.css';
-const images = import.meta.glob(['../assets/decoration-study/sprites/**/*.png', '../assets/decoration-study/original/sprites/**/*.png'], { eager: true, query: '?url', import: 'default' });
-const studies = { varied: variedStudy, original: originalStudy };
-const folders = { varied: '', original: 'original/' };
+const images = import.meta.glob('../assets/concept-decoration/sprites/**/*.png', { eager: true, query: '?url', import: 'default' });
 const directions = ['S', 'E', 'N', 'W'];
-const profileFor = (item, mode) => mode === 'mixed' && item.profiles?.ordinary35 && item.baselineSilhouetteHeight > 2 ? 'ordinary35' : 'oblique70';
-const heightFactor = (item, mode) => profileFor(item, mode) === 'ordinary35' ? Math.cos(35 * Math.PI / 180) : .7;
-const image = (version, id, direction = 'S', mode = 'oblique') => {
-  const item = studies[version].objects.find(item => item.id === id);
-  const path = item.profiles?.[profileFor(item, mode)]?.images[direction] ?? item.images[direction];
-  return images[`../assets/decoration-study/${folders[version]}${path}`];
+const themes = {
+  underwater: { title: 'Underwater', concept: underwaterConcept, floor: 'ocean-floor', background: '#19b3c8', scene: 'scene-underwater', note: 'Blue rocks frame the channel. Pink coral and branching kelp form substantial silhouettes between pale ruins. These families follow the specific forms shown in the reference.' },
+  restaurant: { title: 'Restaurant', concept: restaurantConcept, floor: 'restaurant-floor', background: '#eed29d', scene: 'scene-restaurant', note: 'Slate rocks and dense green foliage frame the cream floor. Wooden planters, crates, construction corners and golden lanterns follow the warm materials and groupings in the reference.' },
 };
-const sourceBase = 'https://github.com/yiochen/game-prototype/blob/';
-const left = ['spire', 'kelp', 'low-rock', 'column', 'low-rock', 'coral', 'spire', 'kelp', 'low-rock'];
-const right = ['coral', 'low-rock', 'kelp', 'spire', 'coral', 'low-rock', 'column', 'low-rock', 'kelp'];
-function shoreline(variant) {
-  const out = [];
-  for (let y = 0; y < 9; y++) {
-    const index = (y + variant * 3) % 9;
-    out.push({ id: left[index], x: 0, y, direction: directions[(y + variant) % 4] });
-    out.push({ id: right[(index + 2) % 9], x: 6, y, direction: directions[(y + 2 + variant) % 4] });
-    if (![2, 6].includes(y)) out.push({ id: ['low-rock', 'coral', 'kelp'][index % 3], x: 1, y, direction: directions[(y + 1) % 4] });
-    if (![1, 4, 7].includes(y)) out.push({ id: ['kelp', 'low-rock', 'coral'][index % 3], x: 5, y, direction: directions[(y + 3) % 4] });
-  }
-  out.push({ id: 'low-rock', x: 2, y: 8, direction: 'E' }, { id: 'coral', x: 4, y: 8, direction: 'W' });
-  return out;
+const source = 'https://github.com/yiochen/game-prototype/blob/codex/sushi-loop-33-art-catalog/prototypes/sushi-loop/assets/concept-decoration/';
+const profileFor = (item, mode) => mode === 'mixed' && item.heightBand !== 'ground' && measurements.objects[item.id].profiles.oblique70.maxProjectedHeight > 2 ? 'ordinary35' : 'oblique70';
+function image(id, direction = 'S', mode = 'mixed') {
+  const item = study.objects.find(item => item.id === id);
+  return images[`../assets/concept-decoration/${item.profiles[profileFor(item, mode)].images[direction]}`];
 }
-function TileScene({ version, projection, columns, rows, placements, grid, decor = true, label, className = '' }) {
-  const key = useId();
-  const study = studies[version];
-  const cell = study.cellSize;
-  const [fw, fh] = study.frameSize;
-  const [rx, ry] = study.root;
-  const place = (src, x, y, id) => <image key={id} href={src} x={(x + .5) * cell - rx} y={(y + .5) * cell - ry} width={fw} height={fh} data-decor-placement={id}/>;
-  const top = Math.max(32, ...placements.map(item => Math.ceil(study.objects.find(obj => obj.id === item.id).height * heightFactor(study.objects.find(obj => obj.id === item.id), projection) * cell - item.y * cell + 24)));
-  return <svg className={`decor-tile-scene ${className}`} viewBox={`-16 ${-top} ${columns * cell + 32} ${rows * cell + top + 16}`} role="img" aria-label={label} data-decor-columns={columns} data-decor-rows={rows} data-height-ratio={study.heightRatio} data-height-version={version} data-projection-mode={projection}>
-    <defs><pattern id={key} width={cell} height={cell} patternUnits="userSpaceOnUse"><path d={`M ${cell} 0 H 0 V ${cell}`} fill="none" stroke="#b8e3d8" strokeOpacity=".7" strokeWidth="1.4"/></pattern></defs>
-    <rect x="0" y="0" width={columns * cell} height={rows * cell} fill="#20a2bb"/>
-    <g data-decor-layer="ground">{Array.from({ length: columns * rows }, (_, i) => place(image(version, 'bed-0'), i % columns, Math.floor(i / columns), `floor-${i}`))}</g>
-    {decor && <g data-decor-layer="objects">{[...placements].sort((a, b) => a.y - b.y || a.x - b.x).map((item, i) => place(image(version, item.id, item.direction, projection), item.x, item.y, `${item.id}-${i}`))}</g>}
-    {grid && <g data-decor-layer="guides"><rect width={columns * cell} height={rows * cell} fill={`url(#${key})`}/>{placements.map((item, i) => <circle key={i} cx={(item.x + .5) * cell} cy={(item.y + .5) * cell} r="3" fill="#fff3c9" stroke="#305b65" strokeWidth="1"/>)}</g>}
+// Deliberate perimeter compositions, with the concept's open center and protruding corners.
+const layouts = {
+  underwater: [
+    ['cobalt-crags',0,0],['kelp-fan',0,1],['pink-coral',0,2],['cobalt-shelf',0,3],['pale-column',1,3],['kelp-fan',0,4],['cobalt-crags',0,5],['pink-coral',0,6],['pale-column',1,7],['kelp-fan',0,8],
+    ['kelp-fan',6,0],['reef-face',6,1],['cobalt-crags',6,2],['pink-coral',6,3],['pale-column',5,4],['kelp-fan',6,5],['cobalt-shelf',6,6],['cobalt-crags',6,7],['pink-coral',6,8],['kelp-fan',5,8],
+    ['pink-coral',1,1],['cobalt-shelf',5,2],['cobalt-crags',0,8],
+  ],
+  restaurant: [
+    ['slate-bank',0,0],['lantern-garden',1,0],['lantern-garden',5,0],['slate-bank',6,0],['angular-shrub',0,1],['crate-stack',6,1],['slate-bank',0,2],['angular-shrub',6,2],['crate-stack',0,3],['slate-bank',6,3],['slate-bank',0,4],['wood-planter',6,4],['angular-shrub',0,5],['slate-bank',6,5],['cone-curb',0,6],['angular-shrub',6,6],['slate-bank',0,7],['angular-shrub',1,7],['wood-planter',5,7],['cone-curb',6,7],
+  ],
+};
+function TileScene({ theme, mode, columns, rows, placements, grid, decor = true, label }) {
+  const key = useId(); const cell = study.cellSize;
+  const [fw, fh] = study.frameSize; const [rx, ry] = study.root;
+  const place = (src,x,y,id) => <image key={id} href={src} x={(x+.5)*cell-rx} y={(y+.5)*cell-ry} width={fw} height={fh}/>;
+  const top = Math.max(24, ...placements.map(p => Math.ceil(study.objects.find(o => o.id === p.id).height * (profileFor(study.objects.find(o => o.id === p.id), mode) === 'ordinary35' ? Math.cos(35*Math.PI/180) : .7)*cell-p.y*cell+24)));
+  return <svg className="decor-tile-scene" viewBox={`-12 ${-top} ${columns*cell+24} ${rows*cell+top+12}`} role="img" aria-label={label} data-projection-mode={mode}>
+    <defs><pattern id={key} width={cell} height={cell} patternUnits="userSpaceOnUse"><path d={`M ${cell} 0 H 0 V ${cell}`} fill="none" stroke={theme === 'underwater' ? '#b9eeee' : '#aa8a51'} strokeOpacity=".5" strokeWidth="1.2"/></pattern></defs>
+    <rect width={columns*cell} height={rows*cell} fill={themes[theme].background}/>
+    <g data-decor-layer="ground">{Array.from({length:columns*rows},(_,i)=>place(image(themes[theme].floor),i%columns,Math.floor(i/columns),`floor-${i}`))}</g>
+    {decor && <g data-decor-layer="objects">{[...placements].sort((a,b)=>a.y-b.y||a.x-b.x).map((p,i)=>place(image(p.id,p.direction,mode),p.x,p.y,`${p.id}-${i}`))}</g>}
+    {grid && <g data-decor-layer="guides"><rect width={columns*cell} height={rows*cell} fill={`url(#${key})`}/>{placements.map((p,i)=><circle key={i} cx={(p.x+.5)*cell} cy={(p.y+.5)*cell} r="3" fill="#fff0be" stroke="#366966"/>)}</g>}
   </svg>;
 }
+function ConceptCrop({ item }) {
+  return <figure className="decor-crop"><svg viewBox={[item.referenceCrop[0], item.referenceCrop[1], item.referenceCrop[2]-item.referenceCrop[0], item.referenceCrop[3]-item.referenceCrop[1]].join(' ')} role="img" aria-label={`${item.name} concept reference`}><image href={themes[item.theme].concept} width="1024" height="1536"/></svg><figcaption>Crop from the approved concept</figcaption></figure>;
+}
 export function DecorationStudy() {
-  const [version, setVersion] = useState('varied');
-  const [projection, setProjection] = useState('mixed');
-  const source = `${sourceBase}${version === 'original' ? '0edc5ae993c09ec1434ea8879a9d5543bd9a76c3' : 'codex/sushi-loop-33-art-catalog'}/prototypes/sushi-loop/assets/decoration-study/`;
-  const study = studies[version];
-  const pieces = study.objects.filter(item => item.heightBand !== 'ground');
-  const [grid, setGrid] = useState(false);
-  const [decor, setDecor] = useState(true);
-  const [variant, setVariant] = useState(0);
-  const [direction, setDirection] = useState('S');
-  const [patch, setPatch] = useState('mixed');
-  const [turns, setTurns] = useState(true);
-  const patchIds = ['spire', 'kelp', 'column', 'coral', 'low-rock', 'kelp', 'low-rock', 'coral', 'low-rock'];
-  const patchPlacements = patchIds.map((id, i) => ({ id: patch === 'mixed' ? id : patch, x: i % 3, y: Math.floor(i / 3), direction: turns ? directions[i % 4] : 'S' }));
-  return <div className="phone-scene decoration-study">
-    <header className="decor-header"><span className="decor-kicker">DECORATION STUDY · NATIVE BLENDER</span><h2>Coral thickets. Kelp groves. Living rocks.</h2><p>Five underwater pieces over a separate ocean bed. Coral and kelp now form the main mass of their own tiles: broad branching colonies, thick sponges and dense fronds over low rock supports. Three rock-led pieces provide a contrasting skyline, with larger plants on uneven ledges. Each fills one physical tile footprint. Every piece stays under three tiles of vertical rise. Height-based surface shading keeps dark bases consistent in every facing. Compare the 70% oblique view with a 35° upper view that keeps full-tile ground contact.</p><nav><a href="#scene-underwater">Current underwater scene ↗</a><a href="#character-scale-study">Character study ↗</a></nav></header>
-    <div className="decor-controls"><label>Height study<select aria-label="Decoration height study" value={version} onChange={e => setVersion(e.target.value)}><option value="varied">Plant-led & rock-led variations</option><option value="original">Original · 0.25–0.91 tiles</option></select></label><label>Projection<select aria-label="Decoration projection" value={projection} onChange={e => setProjection(e.target.value)} disabled={version === 'original'}><option value="mixed">Mixed · 35° upper view, square footing</option><option value="oblique">All objects · 70% oblique</option></select></label><label><input type="checkbox" checked={decor} onChange={e => setDecor(e.target.checked)}/> Decoration layer</label><label><input type="checkbox" checked={grid} onChange={e => setGrid(e.target.checked)}/> Tile grid & roots</label><button type="button" onClick={() => setVariant(v => 1 - v)}>Arrangement {variant ? 'B' : 'A'} · switch</button></div>
-    <section className="decor-section"><div className="decor-section-heading"><span>01 · CONNECTED EDGES</span><h3>A shoreline built from individual tiles</h3><p>The same five pieces form two different edges and lower corners. Rock-led crags anchor the outer edge; coral thickets and kelp groves provide substantial color and foliage between them. Lower pieces soften the inner edge, and the central passage stays open. Switch the decoration layer off to inspect the continuous floor.</p></div><div className="decor-scene-wrap"><TileScene version={version} projection={projection} columns={7} rows={9} placements={shoreline(variant)} grid={grid} decor={decor} label={`Underwater decoration shoreline arrangement ${variant ? 'B' : 'A'}`}/></div><p className="decor-caption">Both modes keep square ground, fixed roots and full-depth rock footings. Mixed uses a 35° upper view for taller objects, transitioning to square-grid projection near ground so the front edge has no blank strip. This camera rule remains experimental.</p></section>
-    <section className="decor-section"><div className="decor-section-heading"><span>02 · COVERAGE & REPETITION</span><h3>Nine neighbors, no padded cells</h3><p>Compare mixed heights with a repeated single object. Quarter-turns use separately rendered directions, so the lighting and projection stay consistent.</p></div><div className="decor-controls"><label>Tile selection<select aria-label="Decoration patch selection" value={patch} onChange={e => setPatch(e.target.value)}><option value="mixed">Mixed heights</option>{pieces.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label><label><input type="checkbox" checked={turns} onChange={e => setTurns(e.target.checked)}/> Vary facing</label></div><div className="decor-patch"><TileScene version={version} projection={projection} columns={3} rows={3} placements={patchPlacements} grid={grid} decor={decor} label="Three by three decoration coverage test"/></div></section>
-    <section className="decor-section"><div className="decor-section-heading"><span>03 · THE FIVE PIECES</span><h3>One-cell footprint, a varied skyline</h3><p>Compare two plant-led tiles with three rock-led tiles at the same ground pitch. The coral thicket and kelp grove rise from low rocks, so the vegetation is the subject. The other pieces keep uneven ledges with larger plant accents. Natural notches reveal the continuous ocean bed.</p></div><div className="decor-controls"><label>Inspect facing<select aria-label="Decoration object facing" value={direction} onChange={e => setDirection(e.target.value)}>{directions.map(d => <option key={d} value={d}>{d}</option>)}</select></label></div><div className="decor-piece-grid">{pieces.map(item => <article key={item.id} className="decor-piece" data-decor-piece={item.id}><TileScene version={version} projection={projection} columns={1} rows={1} placements={[{ id: item.id, x: 0, y: 0, direction }]} grid decor label={`${item.name} facing ${direction}`}/><div><span className="decor-height-band">{item.heightBand}</span><h4>{item.name}</h4><p>1 × 1 tile footprint<br/><strong>{(item.height * heightFactor(item, projection)).toFixed(2)} tiles of vertical rise</strong><br/>{profileFor(item, projection) === 'ordinary35' ? '35° upper view · square footing' : '70% square-grid oblique'}{version === 'varied' && <><br/>{item.compositionRole === 'coral-led' ? 'Coral-led · branching colony & sponges' : item.compositionRole === 'kelp-led' ? 'Kelp-led · dense, staggered fronds' : 'Rock-led · bottom / middle / top growth'}<br/>{item.compositionRole !== 'rock-led' && <>Low rock support · {item.baseHeight.toFixed(2)} world tiles<br/></>}Light-independent height shading</>}</p><a href={image(version, item.id, direction, projection)} target="_blank" rel="noreferrer">Native capture ↗</a></div></article>)}</div></section>
-    <details className="decor-reference"><summary>Compare the original concept and previous live border</summary><div className="decor-reference-grid"><figure><img src={concept} alt="Original underwater concept with dense, varied rock, coral and kelp edges" loading="lazy"/><figcaption>Original concept · color and composition reference</figcaption></figure><figure><img src={previous} alt="Previous live underwater scene with straight walls and repeating large reef patches" loading="lazy"/><figcaption>Previous live composition · repeating four-tile garden patches</figcaption></figure></div></details>
-    <footer className="decor-footer"><p>Native shape, shading and camera study for issue #33. The capture has no directional lights. Rock shading uses height and surface slope; coral has symmetric form shading. Ground-contact shadows remain a future runtime layer. Static captures only; animation, final surface refinement, gameplay collision and runtime shadows are outside this experiment. Existing full scenes and production sprites remain available for comparison.</p><a href={`${source}decoration-study.blend`} target="_blank" rel="noreferrer">Editable Blender project ↗</a><a href={`${source}source/create_and_capture.py`} target="_blank" rel="noreferrer">Modeling & capture source ↗</a></footer>
+  const [theme,setTheme] = useState('underwater'); const [mode,setMode] = useState('mixed');
+  const [grid,setGrid] = useState(false); const [decor,setDecor] = useState(true); const [patch,setPatch] = useState('mixed'); const [turns,setTurns] = useState(true);
+  const selected = themes[theme]; const pieces = study.objects.filter(o=>o.theme===theme&&o.heightBand!=='ground');
+  const patchOrder = theme==='underwater' ? ['cobalt-crags','reef-face','pale-column','kelp-fan','cobalt-shelf','pink-coral','pink-coral','kelp-fan','cobalt-shelf'] : ['slate-bank','lantern-garden','crate-stack','angular-shrub','wood-planter','slate-bank','wood-planter','cone-curb','angular-shrub'];
+  const placements = patchOrder.map((id,i)=>({id:patch==='mixed'?id:patch,x:i%3,y:Math.floor(i/3),direction:turns?directions[i%4]:'S'}));
+  return <div className="phone-scene decoration-study" data-decoration-theme={theme}>
+    <header className="decor-header"><span className="decor-kicker">ISSUE 33 · CONCEPT-REFERENCED DECORATION</span><h2>Built from the concepts.</h2><p>Twelve native decoration pieces based on recognizable forms in the two approved scenes. Each card pairs its concept crop with four captured facings. Compare their silhouettes and density on a shared tile grid.</p><p className="decor-rules">Height-based projection · maximum three tiles of projected height · full tile width and depth · darker lower surfaces</p></header>
+    <div className="decor-controls"><label>Scene<select aria-label="Decoration scene" value={theme} onChange={e=>{setTheme(e.target.value);setPatch('mixed');}}>{Object.entries(themes).map(([id,t])=><option key={id} value={id}>{t.title}</option>)}</select></label><label>Projection<select aria-label="Decoration projection" value={mode} onChange={e=>setMode(e.target.value)}><option value="mixed">By height · 70% / 35° upper view</option><option value="oblique">All pieces · 70% oblique</option></select></label><label><input type="checkbox" checked={grid} onChange={e=>setGrid(e.target.checked)}/> Tile grid & roots</label><label><input type="checkbox" checked={decor} onChange={e=>setDecor(e.target.checked)}/> Decoration layer</label></div>
+    <section className="decor-section"><div className="decor-section-heading"><span>01 · CONCEPT & COMPOSITION</span><h3>{selected.title} perimeter</h3><p>{selected.note}</p></div><div className="decor-comparison"><figure><img src={selected.concept} alt={`Approved ${theme} concept art`}/><figcaption>Original concept · preserved unchanged</figcaption></figure><figure><TileScene theme={theme} mode={mode} columns={7} rows={theme==='underwater'?9:8} placements={layouts[theme].map(([id,x,y])=>({id,x,y,direction:'S'}))} grid={grid} decor={decor} label={`${selected.title} concept decoration perimeter`}/><figcaption>Native decorations · seven-column layout · shared ground beneath</figcaption></figure></div><p className="decor-caption">The center is left open to inspect the perimeter. <a href={`#${selected.scene}`}>Full {theme} scene ↗</a></p></section>
+    <section className="decor-section"><div className="decor-section-heading"><span>02 · DENSITY & NEIGHBORS</span><h3>Full tiles, coherent families</h3><p>Inspect the mixed set or repeat one piece. Four native facings share the same roots, scale and lower-surface shading.</p></div><div className="decor-controls"><label>Tile selection<select aria-label="Decoration patch selection" value={patch} onChange={e=>setPatch(e.target.value)}><option value="mixed">Mixed concept families</option>{pieces.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select></label><label><input type="checkbox" checked={turns} onChange={e=>setTurns(e.target.checked)}/> Vary facing</label></div><div className="decor-patch"><TileScene theme={theme} mode={mode} columns={3} rows={3} placements={placements} grid={grid} decor={decor} label={`${selected.title} three by three decoration patch`}/></div></section>
+    <section className="decor-section"><div className="decor-section-heading"><span>03 · REFERENCE & FOUR FACINGS</span><h3>{pieces.length} {theme} pieces</h3><p>Full tile width and depth means the assembled object occupies its ground cell; taller art rises over the row behind. The height measurement below includes the complete projected silhouette, with the largest of the four facings shown. The lower-camera profile retains square footing near ground.</p></div><div className="decor-asset-list">{pieces.map(item=>{
+      const profile=profileFor(item,mode); const metric=measurements.objects[item.id].profiles[profile];
+      return <article key={item.id} data-decor-piece={item.id} className="decor-asset"><div className="decor-asset-intro"><ConceptCrop item={item}/><div><span className="decor-height-band">{item.kind}</span><h4>{item.name}</h4><p>{item.description}</p><p><strong>{metric.maxProjectedHeight.toFixed(2)} tiles projected height</strong><br/>1 × 1 ground cell · {(measurements.objects[item.id].planCoverage*100).toFixed(0)}% top-down coverage<br/>{profile==='ordinary35'?'35° upper view · square footing':'70% square-grid oblique'}<br/>Darker lower surfaces · no directional capture lights</p></div></div><div className="decor-directions">{directions.map(direction=><figure key={direction}><TileScene theme={theme} mode={mode} columns={1} rows={1} placements={[{id:item.id,x:0,y:0,direction}]} grid decor label={`${item.name} facing ${direction}`}/><figcaption><a href={image(item.id,direction,mode)} target="_blank" rel="noreferrer">{direction} · native capture ↗</a></figcaption></figure>)}</div></article>;
+    })}</div></section>
+    <footer className="decor-footer"><p>Editable native Blender assets for visual review. The concepts guide silhouettes, palette and groupings; no random arrangement generator is used. Material height gradients keep lower parts dark in every facing. Contact shadows remain a separate runtime layer. These are static captures; final surface polish and any plant motion follow shape approval. Issue 33 stays open.</p><a href={`${source}concept-decoration.blend`} target="_blank" rel="noreferrer">Editable Blender project ↗</a><a href={`${source}source/create_and_capture.py`} target="_blank" rel="noreferrer">Modeling & capture source ↗</a></footer>
   </div>;
 }

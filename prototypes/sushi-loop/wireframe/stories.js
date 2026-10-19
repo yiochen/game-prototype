@@ -36,10 +36,10 @@ export const stories = [
   {
     id: 'decoration-study', group: 'scene-review', title: 'Decoration coverage & heights', scene: 'decoration-study',
     reviewBranch: 'codex/sushi-loop-33-art-catalog',
-    description: 'Coral thickets and kelp groves form the main mass over low supports, beside three rock-led families with larger plant accents. Compare four facings, a 3×3 patch and a seven-column shoreline. All pieces stay below three tiles of vertical rise, with direction-free shading and selectable camera profiles.',
+    description: 'Twelve underwater and restaurant decoration pieces follow the approved scene concepts. Compare each specific concept crop with four native facings, mixed and repeated 3×3 patches, and deliberate seven-column perimeters. Projection follows height; complete projected silhouettes stay below three tiles, with full-cell mass and direction-free dark lower surfaces.',
     elements: [
       element('Separate ground and decoration', 'Toggle the objects off to inspect the continuous bed. Floor and objects retain a common fixed tile pitch and registered ground roots.', 'Static native captures; no animation in this shape study.'),
-      element('Height and repetition', 'Mixed heights, alternate shoreline arrangements and four native facings expose coverage, repetition and depth ordering. The camera experiment keeps world roots fixed while changing visible top depth.', 'Controls update the composition immediately; vertical scrolling belongs to the page.'),
+      element('Height and repetition', 'Mixed heights, concept-based perimeters and four native facings expose coverage, repetition and depth ordering. By-height mode uses 70% oblique for compact objects and a 35° upper view with square footing when the largest 70% silhouette exceeds two tiles.', 'Controls update the composition immediately; vertical scrolling belongs to the page.'),
     ],
     notes: ['This is a focused study, not a full production asset replacement.', 'Issue 33 remains open for visual approval.'],
   },
