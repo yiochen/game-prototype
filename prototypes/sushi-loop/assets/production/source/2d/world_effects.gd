@@ -25,12 +25,15 @@ func _draw() -> void:
 		draw_rect(Rect2(-27, -155, 54, 310), Color(0.95, 0.48, 0.05, fade * 0.15))
 		for i in range(12):
 			var y := -151.0 + i * 25.0 + phase * 4.0
-			draw_line(Vector2(-26, y), Vector2(26, y + 20), amber, 4.0, true)
+			draw_line(Vector2(-26, y), Vector2(26, y + 20), amber, 3.0, true)
 		draw_line(Vector2(-28, -155), Vector2(-28, 155), amber, 2.0, true)
 		draw_line(Vector2(28, -155), Vector2(28, 155), amber, 2.0, true)
 	elif effect == "eel-lightning-symbol":
 		var p := PackedVector2Array([Vector2(3,-48),Vector2(-27,5),Vector2(-3,2),Vector2(-12,48),Vector2(31,-13),Vector2(9,-9)])
 		draw_colored_polygon(p, amber)
+		var edge := PackedVector2Array(p)
+		edge.append(p[0])
+		draw_polyline(edge, Color(1.0, 226.0/255.0, 104.0/255.0, (150.0 + 80.0 * sin(phase * TAU)) / 255.0 * fade), 2.0, true)
 	elif effect == "eel-discharge":
 		for i in range(7):
 			var angle := i * TAU / 7.0 + phase * 0.13

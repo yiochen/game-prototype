@@ -2,6 +2,22 @@
 export const DIRECTIONS = ['N', 'E', 'S', 'W'];
 export const DIRECTION_NAMES = { N: 'North', E: 'East', S: 'South', W: 'West' };
 export const reviewDirections = object => object?.facingPolicy === 'single-player-facing' ? ['S'] : DIRECTIONS;
+// Resolve support height from the same published registration as its visible
+// sprite. Native batches can change projection without detaching composed art.
+export function resolveSupportSocket(placement, objects) {
+  const reference = placement.supportSocket;
+  if (!reference) return placement;
+  const positionFor = target => {
+    const support = objects instanceof Map ? objects.get(target.object) : objects.find(object => object.id === target.object);
+    const direction = target.direction || reference.direction || placement.direction || 'S';
+    const socket = support?.sockets?.[direction]?.[target.socket] || support?.sockets?.[target.socket];
+    const position = Array.isArray(socket) ? socket : socket?.position;
+    return position?.length >= 2 && position.slice(0, 2).every(Number.isFinite) ? position.slice(0, 2) : null;
+  };
+  const position = positionFor(reference);
+  const baseline = reference.relativeTo ? positionFor(reference.relativeTo) : [0, 0];
+  return { ...placement, supportOffset: position && baseline ? position.map((value, axis) => value - baseline[axis]) : [0, 0] };
+}
 const positive = (value, fallback) => Number.isFinite(Number(value)) && Number(value) > 0 ? Number(value) : fallback;
 export function clipFor(object, id) {
   return object?.clips?.find(clip => clip.id === id) || object?.clips?.[0] || null;
@@ -134,7 +150,7 @@ export function reviewFrameCount(object, library = []) {
 export function groundRoot(placement, object, cellSize = 128) {
   const footprint = footprintFor(object, placement.direction);
   const rootCell = object.directionRootCells?.[placement.direction || 'S'] || object.rootCell || [footprint[0] / 2, footprint[1] / 2];
-  return [(placement.x + rootCell[0]) * cellSize + (placement.offset?.[0] || 0), (placement.y + rootCell[1]) * cellSize + (placement.offset?.[1] || 0)];
+  return [(placement.x + rootCell[0]) * cellSize + (placement.offset?.[0] || 0) + (placement.supportOffset?.[0] || 0), (placement.y + rootCell[1]) * cellSize + (placement.offset?.[1] || 0) + (placement.supportOffset?.[1] || 0)];
 }
 
 export function attachmentMarkers(object, clip, direction) {

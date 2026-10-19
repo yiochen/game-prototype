@@ -3,11 +3,30 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { restaurantShowcase } from '../wireframe/restaurant-showcase-data.js';
 import { underwaterShowcase } from '../wireframe/underwater-showcase-data.js';
-import { placementAtTime, groundRoot } from '../wireframe/sprite-layout.js';
+import { placementAtTime, groundRoot, resolveSupportSocket } from '../wireframe/sprite-layout.js';
 const library = JSON.parse(readFileSync(new URL('../assets/production/library.json', import.meta.url), 'utf8'));
 const byId = new Map(library.objects.map(object => [object.id, object]));
 const scenes = [restaurantShowcase, underwaterShowcase];
 const divides = (whole, part) => Math.abs(whole / part - Math.round(whole / part)) < 1e-8;
+
+test('restaurant plates reference the active conveyor deck socket through the complete route', () => {
+  const deck = byId.get('belt-straight-e').sockets.S.deck;
+  const plates = restaurantShowcase.placements.filter(placement => placement.object.startsWith('dish-'));
+  assert.equal(plates.length, 6);
+  for (const plate of plates) {
+    assert.equal(plate.offset, undefined, 'No fixed100%/70% recipe may detach plates during native publication');
+    assert.deepEqual(plate.supportSocket, { object: 'belt-straight-e', socket: 'deck', direction: 'S' });
+    const resolved = resolveSupportSocket(plate, byId);
+    assert.deepEqual(resolved.supportOffset, deck);
+    for (const seconds of [0, 12, 24, 36, 48]) {
+      const at = placementAtTime(resolved, seconds, byId.get(plate.object));
+      const plain = { ...at, supportOffset: [0, 0] };
+      const supportedRoot = groundRoot(at, byId.get(plate.object));
+      const ground = groundRoot(plain, byId.get(plate.object));
+      assert.ok(supportedRoot.every((value, axis) => Math.abs(value - ground[axis] - deck[axis]) < 1e-8));
+    }
+  }
+});
 
 for (const scene of scenes) {
   test(`${scene.id}: complete scene and inspection links reference real catalog objects and clips`, () => {

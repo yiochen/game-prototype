@@ -34,4 +34,4 @@ states because the board is now blank for dynamic content. Native source capture
 for those two objects are maintained by the Blender pipeline.
 
 ImageGen artwork already contains its painted palette and lower shading. It does
-not receive the Blender compositor grade or an extra CSS contrast filter.
+not receive an extra CSS contrast filter. Standalone world dish/bubble atlases retain the painted palette. Held sushi is a 2D textured plane inside the native character capture, so that combined character sprite receives the native 135% compositor grade; it is never graded again in the browser.

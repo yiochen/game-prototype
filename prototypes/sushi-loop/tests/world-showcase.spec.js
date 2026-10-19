@@ -1,8 +1,11 @@
 import { test, expect } from '@playwright/test';
+import { readFileSync } from 'node:fs';
 import { restaurantShowcase } from '../wireframe/restaurant-showcase-data.js';
 import { underwaterShowcase } from '../wireframe/underwater-showcase-data.js';
 const url = '/prototypes/sushi-loop/?ntl-drawer-state=hidden';
 const scenes = [restaurantShowcase, underwaterShowcase];
+const library = JSON.parse(readFileSync(new URL('../assets/production/library.json', import.meta.url)));
+const deck = library.objects.find(object => object.id === 'belt-straight-e').sockets.S.deck;
 const nestedScrollers = page => page.evaluate(() => [...document.querySelectorAll('body *')].filter(element => /auto|scroll/.test(getComputedStyle(element).overflowY) && element.scrollHeight > element.clientHeight + 2 && element.getClientRects().length && !element.matches('textarea, select')).map(element => element.id || element.className));
 
 for (const [width, height] of [[320, 740], [844, 390], [1440, 1000]]) {
@@ -21,6 +24,11 @@ for (const [width, height] of [[320, 740], [844, 390], [1440, 1000]]) {
       const svg = pan.locator('.object-tile-scene');
       await expect(svg.locator(':scope > g[data-placement]')).toHaveCount(scene.placements.length);
       await expect(stage.locator('.object-export-pending')).toHaveCount(0);
+      if (scene.id === 'restaurant') {
+        const plates = svg.locator('[data-placement^="circulating-plate-"]');
+        await expect(plates).toHaveCount(6);
+        for (const plate of await plates.all()) await expect(plate).toHaveAttribute('data-support-offset', JSON.stringify(deck));
+      }
       await expect(stage.locator('.object-root, [data-calibration-grid]')).toHaveCount(0);
       await expect(stage.getByRole('button', { name: 'Play scene animations', exact: true })).toBeVisible();
       const slider = stage.getByRole('slider', { name: 'Scene animation frame' });

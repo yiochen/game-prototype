@@ -28,7 +28,7 @@ const circulation = [
 circulation[circulation.length - 1] = [...circulation[0]];
 const plates = ['dish-salmon', 'dish-cucumber', 'dish-eel', 'dish-salmon', 'dish-cucumber', 'dish-eel']
   .map((object, i) => place(`circulating-plate-${i}`, object, 3.5, 3, 'S', 'static', {
-    offset: [0, -57.344], renderPass: 'foreground',
+    supportSocket: { object: 'belt-straight-e', socket: 'deck', direction: 'S' }, renderPass: 'foreground',
     motion: { path: circulation, duration: 48, loop: true, phase: i * 8 },
   }));
 
@@ -44,9 +44,9 @@ const seats = [
   place('rosa-stool', 'stool-wood', 4, 4.5, 'W'),
   place('rosa-dining', 'customer-rosa', 4, 4.5, 'W', 'eat', { timeOffset: .25 }),
   place('samir-stool', 'stool-blue', 4, 7, 'W'),
-  place('samir-dining', 'customer-samir', 4, 7, 'W', 'eat', { offset: [0, -2.688], timeOffset: .8 }),
+  place('samir-dining', 'customer-samir', 4, 7, 'W', 'eat', { supportSocket: { object: 'stool-blue', socket: 'seat', relativeTo: { object: 'stool-wood', socket: 'seat' } }, timeOffset: .8 }),
   place('ellis-stool', 'stool-blue', 3.7, 10.4, 'N'),
-  place('ellis-waiting', 'customer-ellis', 3.7, 10.4, 'N', 'seated-wait', { offset: [0, -2.688], timeOffset: .6 }),
+  place('ellis-waiting', 'customer-ellis', 3.7, 10.4, 'N', 'seated-wait', { supportSocket: { object: 'stool-blue', socket: 'seat', relativeTo: { object: 'stool-wood', socket: 'seat' } }, timeOffset: .6 }),
 ];
 
 export const restaurantShowcase = {
