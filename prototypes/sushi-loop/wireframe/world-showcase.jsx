@@ -43,7 +43,7 @@ export function WorldShowcase({ sceneId = 'restaurant' }) {
     </nav>
     <header className="world-showcase-header">
       <div className="world-showcase-kicker"><span>SCENE ART REVIEW</span><a href="#object-library">Object library <span aria-hidden="true">↗</span></a></div>
-      <h2>{showcase.title}</h2>
+      <h2>{showcase.title}</h2><a href="#decoration-study">Decoration coverage study ↗</a>
       <p>{showcase.description}</p>
       <div className="world-showcase-meta"><span>{used.length} catalog objects</span><span>{showcase.gridSize.join(' × ')} tile map</span><span>12 fps</span></div>
     </header>

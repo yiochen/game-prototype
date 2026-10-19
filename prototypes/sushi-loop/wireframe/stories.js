@@ -34,6 +34,16 @@ export const storyGroups = [
 
 export const stories = [
   {
+    id: 'decoration-study', group: 'scene-review', title: 'Decoration coverage & heights', scene: 'decoration-study',
+    reviewBranch: 'codex/sushi-loop-33-art-catalog',
+    description: 'Five native full-footprint underwater pieces above a separate ocean bed, captured at 70% projected height. Inspect individual facings, a dense 3×3 patch and a seven-column connected shoreline.',
+    elements: [
+      element('Separate ground and decoration', 'Toggle the objects off to inspect the continuous bed. Floor and objects retain a common fixed tile pitch and registered ground roots.', 'Static native captures; no animation in this shape study.'),
+      element('Height and repetition', 'Mixed heights, alternate shoreline arrangements and four native facings expose coverage, repeated silhouettes and depth ordering.', 'Controls update the composition immediately; vertical scrolling belongs to the page.'),
+    ],
+    notes: ['This is a focused study, not a full production asset replacement.', 'Issue 33 remains open for visual approval.'],
+  },
+  {
     id: 'character-scale-study', group: 'scene-review', title: 'Character B / C scale study', scene: 'character-scale-study',
     reviewBranch: 'codex/sushi-loop-33-art-catalog',
     description: 'Compare modeled B Playful and C Chunky at 100%, 125% and 150%, keeping the ordinary 35-degree character camera fixed. Each native still uses the same capture frame, root and world scale; the character width and physical ground footprint must fit within one tile.',

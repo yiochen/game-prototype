@@ -1,0 +1,13 @@
+# Native full-tile decoration study
+
+Focused ART-04 experiment, issue 33. Five remodeled underwater families: low rock shelf, coral, kelp grove, cobalt peaks, broken column. A sixth independent ocean-bed asset supplies the continuous floor. These are static native geometry/material controls for shape and density review, not final ImageGen-reskinned art or an animated production replacement.
+
+All five objects occupy exactly one world cell in X and Y. Independent top-down mesh-union coverage is 88–95% without counting the ocean-bed floor. Heights range from 0.36 to 1.30 world cells. The floor remains separate; each decorated object uses overlapping geological forms rather than a shared rectangular platform. Kelp has native volume in every facing, and coral tubes have modeled hollow mouths.
+
+The selected environment profile is captured directly: screen X = 128 X, screen Y = 128 (-Y - 0.70 Z). Fixed 192×384 logical frame, root (96,304), source scale 4, actual PNGs 768×1536. All cardinal turns are native root rotations rendered with fixed camera/light/world scale; no bitmap rotations, fitting, cropping or per-object scaling. Ground tile is one complete fixed-frame transparent capture, with its square floor at the same root/pitch. There are 21 captures: 5×4 decor directions plus one floor.
+
+`decoration-study.blend` is an editable isolated library written through Blender MCP. It contains the geometry, materials, root controls, camera and lights. The user's live project was not overwritten. `source/create_and_capture.py` recreates this study in a new output directory with `create(NEW_DIR)` through MCP. Load its exact saved native library to render with Blender CLI using `--python source/create_and_capture.py -- --capture OUTPUT_DIR`. `geometry/` retains evaluated world vertices and polygons; `cameras/` records actual camera/root matrices, calibrated axes, frame, root and native PNG hashes. `study.json` binds these to the saved source project.
+
+Run `python source/audit.py PATH_TO_THIS_FOLDER REPORT_JSON` with Pillow installed. The audit checks native source/project/image hashes, 1×1 bounds, top-down geometry coverage, 70% camera axis calibration, 4× PNG size and transparent unclipped margins. Structural coverage does not establish final visual approval.
+
+The review route is `#decoration-study`: two seven-column shoreline arrangements, a mixed or single-object 3×3 patch, four-facing object inspection, separate ground/object controls, tile/root guides and original concept/previous live scene references. No existing production sprite or composed gameplay scene is replaced. Godot Android remains the eventual target; animation, runtime shadows and collision integration are outside this experiment.
