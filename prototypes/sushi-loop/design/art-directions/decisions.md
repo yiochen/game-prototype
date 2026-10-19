@@ -65,3 +65,8 @@ The user hypothesized a lower camera for objects covering more than two vertical
 Browser feedback sets a new study limit: every decoration's vertical rise stays below three tiles. Shape refinements use irregular shoulders and widths, compact branching coral and thick flared sponges. The gradient must not acquire a world light direction when facings vary: the study now uses emission materials, zero lights, and height/slope-driven rock tone.
 
 To remove the front gap, the experimental 35° upper view now transitions to square projected footing near ground. This explicit native capture-space exception is documented and audited; it is not a pure ordinary orthographic view over the entire model and does not replace ART-01 for connected production terrain. Physical footprints and roots stay fixed. Evidence: `../../review/33/decoration-study/compact-organic/README.md`.
+
+
+### Plant-led decoration — requested study, pending visual approval
+
+Coral and kelp should sometimes be the primary mass and silhouette, rather than always being small accents on tall rocks. The new review study mixes low-support coral thickets and kelp groves with three rock-led families. Plants fill their own one-cell compositions at substantial scale, with varied heights and colors; rock-led examples retain ledge vegetation at larger proportions. The under-three-tile rise limit, full physical footprint, independent ocean bed and direction-free material tone remain in force. This is a limited comparison, not approval of all assets or authorization for production rollout. Evidence: `../../review/33/decoration-study/plant-led/README.md`.

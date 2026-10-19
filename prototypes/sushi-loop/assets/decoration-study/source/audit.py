@@ -15,10 +15,18 @@ for obj in m['objects']:
  assert all(abs(v-1)<1e-5 for v in g['dimensions'][:2])
  assert obj['height']*math.cos(math.radians(35))<3
  if obj['heightBand']!='ground':
-  assert {d['band'] for d in obj['decorations']}=={'bottom','middle','top'}
+  if obj['compositionRole']=='rock-led':
+   assert {d['band'] for d in obj['decorations']}=={'bottom','middle','top'}
+  else:
+   assert obj['compositionRole'] in ('coral-led','kelp-led')
+   support=[v for p in g['objects'] if p['role']=='support' for v in p['vertices']]
+   plants=[v for p in g['objects'] if p['role']=='vegetation' for v in p['vertices']]
+   assert max(v[2] for v in support)<.35
+   assert max(v[2] for v in plants)>3*max(v[2] for v in support)
+   assert all(max(v[i] for v in plants)-min(v[i] for v in plants)>.7 for i in (0,1))
   for name in ['back crag','middle ledge','front shelf']:
    rock=next(p for p in g['objects'] if p['name'].endswith(' '+name));crown=[v[2] for v in rock['vertices'][-9:]]
-   assert .015<max(crown)-min(crown)<.19,(obj['id'],name,'uneven crown')
+   assert min(.015,max(crown)*.06)<max(crown)-min(crown)<.19,(obj['id'],name,'uneven crown')
    # The shoulder width changes substantially, unlike the former cut pillars.
    radii=[]
    for j in range(6):
@@ -46,7 +54,14 @@ for obj in m['objects']:
     y=round((m['root'][1]+.49*m['cellSize'])*m['sourceScale']);lo=round((m['root'][0]-.5*m['cellSize'])*m['sourceScale']);hi=round((m['root'][0]+.5*m['cellSize'])*m['sourceScale'])
     frontCoverage=sum(alpha.getpixel((x,y))>128 for x in range(lo,hi))/(hi-lo)
     assert frontCoverage>.30,(obj['id'],profile,facing,frontCoverage)
-   rec['captures'].append({'view':profile+'/'+facing,'frontEdgeCoverage':frontCoverage});out['captures']+=1
+   plantFraction=None
+   if obj.get('compositionRole') in ('coral-led','kelp-led'):
+    # Visible plant color must dominate each native capture, not just modeled height.
+    pixels=[(r,g,b) for r,g,b,a in png.crop(box).get_flattened_data() if a>128]
+    is_plant=(lambda r,g,b:g>r*1.12 and g>b*1.10) if obj['compositionRole']=='kelp-led' else (lambda r,g,b:r>b*1.12 or (r>g*1.2 and b>g*1.2))
+    plantFraction=sum(is_plant(*rgb) for rgb in pixels)/len(pixels)
+    assert plantFraction>.60,(obj['id'],profile,facing,plantFraction)
+   rec['captures'].append({'view':profile+'/'+facing,'frontEdgeCoverage':frontCoverage,'visiblePlantFraction':plantFraction});out['captures']+=1
  out['objects'].append(rec)
 assert out['captures']==41
 Path(sys.argv[2]).write_text(json.dumps(out,indent=2)+'\n');print(json.dumps(out))

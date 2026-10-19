@@ -6,7 +6,7 @@ from pathlib import Path
 from mathutils import Vector
 from bpy_extras.object_utils import world_to_camera_view
 CELL=128; FRAME=[192,768]; ROOT=[96,688]; SCALE=4; HEIGHT=.7
-PROJECTED_HEIGHTS={'low-rock':.9,'coral':1.45,'column':1.8,'kelp':2.0,'spire':2.3}
+PROJECTED_HEIGHTS={'low-rock':.9,'coral':1.1,'column':1.8,'kelp':1.5,'spire':2.3}
 FOOTING_TRANSITION=.42
 DIRS={'S':0,'E':math.pi/2,'N':math.pi,'W':-math.pi/2}
 COLORS={'rock':'347AC4','rockLight':'3C80C8','rockDark':'3074BC','sand':'2AADC0','coral':'E94781','coralLight':'F66E99','coralDark':'972D67','purple':'8754CF','blueCoral':'407BEE','orangeCoral':'F59A38','kelp':'43A447','kelpLight':'76C942','kelpDark':'237746','stone':'CADBD8','stoneSide':'9ABCBF'}
@@ -85,14 +85,18 @@ class Piece:
   faces=[tuple(reversed(range(n)))]+[(j*n+i,j*n+(i+1)%n,(j+1)*n+(i+1)%n,(j+1)*n+i) for j in range(len(points)-1) for i in range(n)]+[tuple(range((len(points)-1)*n,len(points)*n))]
   self.mesh(name,verts,faces,color)
 
- def fan(self,name,x,y,z,color):
+ def fan(self,name,x,y,z,color,size=1):
+  part_start=len(self.parts)
   self.branch(name+' curved trunk',[(x,y,z),(x-.012,y,z+.12),(x+.018,y+.015,z+.25),(x+.005,y+.025,z+.40)],[.043,.046,.035,.018],color)
   arms=[(-.09,-.025,.15,.29),(.095,.045,.20,.38),(-.065,.035,.28,.44)]
   for i,(dx,dy,start,end) in enumerate(arms):
    self.branch(name+' arm '+str(i),[(x,y,z+start),(x+dx*.7,y+dy*.6,z+(start+end)*.53),(x+dx,y+dy,z+end)],[.032,.026,.012],color)
    self.branch(name+' twig '+str(i),[(x+dx*.65,y+dy*.6,z+(start+end)*.53),(x+dx+(-.035 if dx<0 else .035),y+dy+.025,z+end-.025)],[.020,.009],color)
+  # Uniform native enlargement preserves branch thickness and organic proportions.
+  for obj in self.parts[part_start:]:
+   for v in obj.data.vertices:v.co=Vector((x,y,z))+(v.co-Vector((x,y,z)))*size
  def leaf(self,name,x,y,z,h,w,lean,phase):
-  verts=[];n=8;angle=phase*.63
+  verts=[];n=12;angle=phase*.63
   for i in range(n):
    t=i/(n-1);ww=w*(.42+.58*math.sin(t*math.pi))*(.08 if i==n-1 else 1)
    xx=x+lean*t+.035*math.sin(t*math.pi*2+phase)*math.sin(t*math.pi)
@@ -147,41 +151,68 @@ class Piece:
   assert heights,(self.id,x,y)
   return max(heights)
 
- def growth(self,kind,band,x,y,index,color='coral'):
+ def growth(self,kind,band,x,y,index,color='coral',size=1.18):
   z=self.surface(x,y)
   if kind=='kelp':
    for j,(dx,dy,h,w) in enumerate([(-.045,0,.48,.13),(.04,.018,.70,.16),(0,-.035,.60,.15)]):
+    dx*=size;dy*=size;h*=size;w*=size
     zz=self.surface(x+dx,y+dy)
     self.leaf(f'{band} kelp {index}-{j}',x+dx,y+dy,zz,h,w,.035*math.sin(index+j),index*.8+j)
   else:
    if index%2:
-    self.fan(f'{band} branching coral {index}',x,y,z,color)
+    self.fan(f'{band} branching coral {index}',x,y,z,color,size)
    else:
     for j,(dx,dy,h,r) in enumerate([(-.065,.02,.22,.082),(.055,0,.31,.10)]):
+     dx*=size;dy*=size;h*=size;r*=size
      zz=self.surface(x+dx,y+dy)
      self.tube(f'{band} flared sponge {index}-{j}',x+dx,y+dy,zz,h,r,color,lean=.012*math.sin(index+j))
   self.decorations.append({'kind':kind,'band':band,'position':[x,y,z],'color':color if kind!='kelp' else 'green','form':'kelp' if kind=='kelp' else 'branching' if index%2 else 'flared-sponge'})
 
+ def vegetation_tile(self,seed):
+  # A low native bed occupies the whole cell; the plants form the main silhouette.
+  self.base_height=.18;self.role='coral-led' if self.id=='coral' else 'kelp-led'
+  self.ledge('back crag',-.06,.12,.88,.76,.18,seed)
+  self.ledge('middle ledge',.29,-.20,.42,.60,.14,seed+2)
+  self.ledge('front shelf',-.18,-.32,.64,.36,.11,seed+4)
+  if self.id=='coral':
+   # Broad, thick branching colonies at the back and fleshy sponges at the front.
+   for index,(x,y,size,color) in enumerate([(-.19,.22,2.03,'coral'),(.17,.26,1.94,'orangeCoral'),(0,-.03,2.28,'coralLight'),(-.26,-.16,1.50,'purple'),(.26,-.13,1.50,'coral')]):
+    z=self.surface(x,y);self.fan('canopy colony '+str(index),x,y,z,color,size)
+    self.decorations.append({'kind':'coral','band':'canopy','position':[x,y,z],'color':color,'form':'branching'})
+   for index,(x,y,h,r,color) in enumerate([(-.22,-.31,.57,.12,'orangeCoral'),(.08,-.32,.67,.135,'coral'),(.30,.05,.66,.12,'purple'),(-.29,.10,.70,.13,'coralLight'),(.04,.28,.77,.13,'orangeCoral')]):
+    z=self.surface(x,y);self.tube('understory sponge '+str(index),x,y,z,h,r,color,lean=.025*math.sin(index))
+    self.decorations.append({'kind':'coral','band':'understory','position':[x,y,z],'color':color,'form':'flared-sponge'})
+  else:
+   # Staggered, volumetric fronds create a grove rather than garnish on a tower.
+   clumps=[(-.24,.26,1.57),(.17,.24,1.75),(.30,-.04,1.31),(-.27,-.06,1.40),(-.13,-.31,1.06),(.19,-.30,.91),(0,.02,1.51)]
+   for index,(x,y,height) in enumerate(clumps):
+    for j,(dx,dy,h,w) in enumerate([(-.055,.012,.78,.24),(.045,.028,1,.27),(0,-.05,.88,.26)]):
+     xx=x+dx;yy=y+dy;z=self.surface(xx,yy)
+     self.leaf(f'canopy kelp {index}-{j}',xx,yy,z,height*h,w,.04*math.sin(index+j),index*.81+j)
+    self.decorations.append({'kind':'kelp','band':'canopy','position':[x,y,self.surface(x,y)],'color':'green','form':'kelp'})
+   self.growth('coral','understory',.06,-.30,2,'orangeCoral',size=1)
+
  def build(self):
-  self.rock_parts=[];self.decorations=[];self.preserved=[];self.base_height=0
+  self.rock_parts=[];self.decorations=[];self.preserved=[];self.base_height=0;self.role='ground'
   if self.id.startswith('bed-'):self.floor(0);return
   seed={'low-rock':1,'coral':3,'kelp':5,'spire':7,'column':9}[self.id]
-  top=PROJECTED_HEIGHTS[self.id]/HEIGHT-({'low-rock':.36,'coral':.39,'kelp':.70,'spire':.48,'column':.83}[self.id])
+  if self.id in ('coral','kelp'):self.vegetation_tile(seed);return
+  self.role='rock-led'
+  top=PROJECTED_HEIGHTS[self.id]/HEIGHT-({'low-rock':.36,'spire':.48,'column':.83}[self.id])
   self.base_height=top
   self.ledge('back crag',-.06,.12,.88,.76,top,seed)
-  self.ledge('middle ledge',.29,-.20,.42,.60,top*(.48 if self.id in ('kelp','spire') else .58),seed+2)
+  self.ledge('middle ledge',.29,-.20,.42,.60,top*(.48 if self.id=='spire' else .58),seed+2)
   self.ledge('front shelf',-.18,-.32,.64,.36,min(.30,top*.24),seed+4)
-  top_kind='kelp' if self.id in ('kelp','spire') else 'coral'
-  palette={'low-rock':('purple','blueCoral'),'coral':('coral','orangeCoral'),'kelp':('purple','blueCoral'),'spire':('blueCoral','coralLight'),'column':('orangeCoral','purple')}[self.id]
-  self.growth('kelp','bottom',-.22,-.35,seed)
-  self.growth('coral','bottom',-.02,-.35,seed+1,palette[1])
-  self.growth('coral' if self.id in ('coral','column') else 'kelp','middle',.27,-.28,seed+2,palette[0])
+  palette={'low-rock':('purple','blueCoral'),'spire':('blueCoral','coralLight'),'column':('orangeCoral','purple')}[self.id]
+  self.growth('kelp','bottom',-.22,-.33,seed)
+  self.growth('coral','bottom',-.02,-.33,seed+1,palette[1])
+  self.growth('coral' if self.id=='column' else 'kelp','middle',.27,-.28,seed+2,palette[0])
   if self.id=='column':
    z=self.surface(-.11,.17)
    self.rock('original-size pale ruin',-.11,.17,.43,.40,.65,'stone',z=z,seed=4)
    self.growth('kelp','top',.17,.30,seed+3)
   else:
-   self.growth(top_kind,'top',-.10,.22,seed+3,palette[0])
+   self.growth('kelp' if self.id=='spire' else 'coral','top',-.10,.22,seed+3,palette[0])
    self.growth('coral','top',.19,.28,seed+4,palette[1])
 
 def camera(scene,profile="oblique70"):
@@ -211,7 +242,7 @@ def geometry(col):
   if o.type!='MESH':continue
   ev=o.evaluated_get(dep);me=ev.to_mesh()
   try:
-   vv=[list(ev.matrix_world@v.co) for v in me.vertices];allv+=vv;out.append({'name':o.name,'vertices':vv,'faces':[list(f.vertices) for f in me.polygons]})
+   vv=[list(ev.matrix_world@v.co) for v in me.vertices];allv+=vv;out.append({'name':o.name,'vertices':vv,'faces':[list(f.vertices) for f in me.polygons],'role':'support' if all(any(k in mat.name for k in (' rock',' stone',' sand')) for mat in o.data.materials) else 'vegetation'})
   finally:ev.to_mesh_clear()
  lo=[min(v[i] for v in allv) for i in range(3)];hi=[max(v[i] for v in allv) for i in range(3)]
  return {'objects':out,'min':lo,'max':hi,'dimensions':[hi[i]-lo[i] for i in range(3)]}
@@ -230,9 +261,9 @@ def create(out):
   bg=next(n for n in scene.world.node_tree.nodes if n.type=='BACKGROUND');bg.inputs['Color'].default_value=(.65,.8,1,1);bg.inputs['Strength'].default_value=0
   for name,pos,energy,size in []:
    data=bpy.data.lights.new(prefix+name,'AREA');o=bpy.data.objects.new(data.name,data);scene.collection.objects.link(o);o.location=pos;o.rotation_euler=(-o.location).to_track_quat('-Z','Y').to_euler();data.energy=energy;data.shape='DISK';data.size=size
-  names={'bed-0':('Ocean bed','ground'),'low-rock':('Blue coral shelf','low'),'coral':('Pink and amber reef','medium'),'kelp':('Kelp terrace','tall'),'spire':('Decorated cobalt crag','tall'),'column':('Ruin garden','medium')}
+  names={'bed-0':('Ocean bed','ground'),'low-rock':('Blue coral shelf','low'),'coral':('Coral thicket','medium'),'kelp':('Kelp grove','medium'),'spire':('Decorated cobalt crag','tall'),'column':('Ruin garden','medium')}
   for ident,(name,band) in names.items():
-   model=Piece(scene,prefix,ident);model.build();man['objects'].append({'id':ident,'name':name,'heightBand':band,'collection':model.col.name,'rootObject':model.root.name,'images':{},'receipts':{},'baseHeight':model.base_height,'decorations':model.decorations})
+   model=Piece(scene,prefix,ident);model.build();man['objects'].append({'id':ident,'name':name,'heightBand':band,'collection':model.col.name,'rootObject':model.root.name,'images':{},'receipts':{},'baseHeight':model.base_height,'compositionRole':model.role,'decorations':model.decorations})
   man['camera']=camera(scene)
   for item in man['objects']:
    pose(man,item['id'],'S');g=geometry(bpy.data.collections[item['collection']]);item['bounds']={k:g[k] for k in ('min','max','dimensions')};item['height']=g['max'][2]

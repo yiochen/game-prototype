@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "scene": "S33 decor a48b03c4",
+  "scene": "S33 decor f43c0304",
   "cellSize": 128,
   "frameSize": [
     192,
@@ -19,14 +19,14 @@
     "W"
   ],
   "nativeProject": "decoration-study.blend",
-  "sourceHash": "7c6162c19c82c868b5f84410328dcc10b5b9f18d278b7b87fd318976d333603c",
+  "sourceHash": "b1dd9977b46b9017f15950f96c1a44e8342e9c156e733c2e27450d2fda2e02bf",
   "objects": [
     {
       "id": "bed-0",
       "name": "Ocean bed",
       "heightBand": "ground",
-      "collection": "S33 decor a48b03c4 bed-0",
-      "rootObject": "S33 decor a48b03c4 bed-0 root",
+      "collection": "S33 decor f43c0304 bed-0",
+      "rootObject": "S33 decor f43c0304 bed-0 root",
       "images": {
         "S": "sprites/oblique70/bed-0/S.png"
       },
@@ -34,6 +34,7 @@
         "S": "cameras/oblique70/bed-0/S.json"
       },
       "baseHeight": 0,
+      "compositionRole": "ground",
       "decorations": [],
       "bounds": {
         "min": [
@@ -55,7 +56,7 @@
       "height": 0.0,
       "baselineSilhouetteHeight": 1.0,
       "geometry": "geometry/bed-0.json",
-      "geometrySHA256": "399674399b4f2ed034a7d5462543b6c2e813bd18338aa49febd23d14ef0c5ee9",
+      "geometrySHA256": "80c85dad4f29a3a081bed6ad463ea3e6174ca28d6b68da5a88a1d8e6b3ace9e6",
       "profiles": {
         "oblique70": {
           "images": {
@@ -71,8 +72,8 @@
       "id": "low-rock",
       "name": "Blue coral shelf",
       "heightBand": "low",
-      "collection": "S33 decor a48b03c4 low-rock",
-      "rootObject": "S33 decor a48b03c4 low-rock root",
+      "collection": "S33 decor f43c0304 low-rock",
+      "rootObject": "S33 decor f43c0304 low-rock root",
       "images": {
         "S": "sprites/oblique70/low-rock/S.png",
         "E": "sprites/oblique70/low-rock/E.png",
@@ -86,14 +87,15 @@
         "W": "cameras/oblique70/low-rock/W.json"
       },
       "baseHeight": 0.9257142857142858,
+      "compositionRole": "rock-led",
       "decorations": [
         {
           "kind": "kelp",
           "band": "bottom",
           "position": [
             -0.22,
-            -0.35,
-            0.20372021396031723
+            -0.33,
+            0.20592397849390692
           ],
           "color": "green",
           "form": "kelp"
@@ -103,8 +105,8 @@
           "band": "bottom",
           "position": [
             -0.02,
-            -0.35,
-            0.20954537136849474
+            -0.33,
+            0.21055196627433836
           ],
           "color": "blueCoral",
           "form": "flared-sponge"
@@ -152,19 +154,19 @@
         "max": [
           0.5,
           0.5,
-          1.2565455436706543
+          1.3365437984466553
         ],
         "dimensions": [
           1.0,
           1.0,
-          1.2565455436706543
+          1.3365437984466553
         ]
       },
-      "height": 1.2565455436706543,
+      "height": 1.3365437984466553,
       "intendedHeightBand": 0.9,
-      "baselineSilhouetteHeight": 1.707054650783539,
+      "baselineSilhouetteHeight": 1.771598482131958,
       "geometry": "geometry/low-rock.json",
-      "geometrySHA256": "845b68c818664c35c9f61e34cb638a173c9c2b873f61f0fa7ca1db49196b8f92",
+      "geometrySHA256": "3f634763c121c4af7005d41f928c8d1661e1324f06dbe5adaf2b01014f872779",
       "profiles": {
         "oblique70": {
           "images": {
@@ -198,10 +200,10 @@
     },
     {
       "id": "coral",
-      "name": "Pink and amber reef",
+      "name": "Coral thicket",
       "heightBand": "medium",
-      "collection": "S33 decor a48b03c4 coral",
-      "rootObject": "S33 decor a48b03c4 coral root",
+      "collection": "S33 decor f43c0304 coral",
+      "rootObject": "S33 decor f43c0304 coral root",
       "images": {
         "S": "sprites/oblique70/coral/S.png",
         "E": "sprites/oblique70/coral/E.png",
@@ -214,62 +216,118 @@
         "N": "cameras/oblique70/coral/N.json",
         "W": "cameras/oblique70/coral/W.json"
       },
-      "baseHeight": 1.6814285714285715,
+      "baseHeight": 0.18,
+      "compositionRole": "coral-led",
       "decorations": [
         {
-          "kind": "kelp",
-          "band": "bottom",
+          "kind": "coral",
+          "band": "canopy",
+          "position": [
+            -0.19,
+            0.22,
+            0.1660165426218724
+          ],
+          "color": "coral",
+          "form": "branching"
+        },
+        {
+          "kind": "coral",
+          "band": "canopy",
+          "position": [
+            0.17,
+            0.26,
+            0.16586391163565456
+          ],
+          "color": "orangeCoral",
+          "form": "branching"
+        },
+        {
+          "kind": "coral",
+          "band": "canopy",
+          "position": [
+            0,
+            -0.03,
+            0.16707716058301886
+          ],
+          "color": "coralLight",
+          "form": "branching"
+        },
+        {
+          "kind": "coral",
+          "band": "canopy",
+          "position": [
+            -0.26,
+            -0.16,
+            0.17659444528680152
+          ],
+          "color": "purple",
+          "form": "branching"
+        },
+        {
+          "kind": "coral",
+          "band": "canopy",
+          "position": [
+            0.26,
+            -0.13,
+            0.12726010578046396
+          ],
+          "color": "coral",
+          "form": "branching"
+        },
+        {
+          "kind": "coral",
+          "band": "understory",
           "position": [
             -0.22,
-            -0.35,
-            0.2744663957509492
-          ],
-          "color": "green",
-          "form": "kelp"
-        },
-        {
-          "kind": "coral",
-          "band": "bottom",
-          "position": [
-            -0.02,
-            -0.35,
-            0.28572470795883664
+            -0.31,
+            0.1019342601109084
           ],
           "color": "orangeCoral",
           "form": "flared-sponge"
         },
         {
           "kind": "coral",
-          "band": "middle",
+          "band": "understory",
           "position": [
-            0.27,
-            -0.28,
-            0.8873979199660933
-          ],
-          "color": "coral",
-          "form": "branching"
-        },
-        {
-          "kind": "coral",
-          "band": "top",
-          "position": [
-            -0.1,
-            0.22,
-            1.6175922690143498
+            0.08,
+            -0.32,
+            0.09713391401769551
           ],
           "color": "coral",
           "form": "flared-sponge"
         },
         {
           "kind": "coral",
-          "band": "top",
+          "band": "understory",
           "position": [
-            0.19,
+            0.3,
+            0.05,
+            0.13094901684329205
+          ],
+          "color": "purple",
+          "form": "flared-sponge"
+        },
+        {
+          "kind": "coral",
+          "band": "understory",
+          "position": [
+            -0.29,
+            0.1,
+            0.16198080031350748
+          ],
+          "color": "coralLight",
+          "form": "flared-sponge"
+        },
+        {
+          "kind": "coral",
+          "band": "understory",
+          "position": [
+            0.04,
             0.28,
-            1.5957570632387694
+            0.1743781376042242
           ],
           "color": "orangeCoral",
-          "form": "branching"
+          "form": "flared-sponge"
         }
       ],
       "bounds": {
@@ -281,19 +339,19 @@
         "max": [
           0.5,
           0.5,
-          2.040191650390625
+          1.1803879737854004
         ],
         "dimensions": [
           1.0,
           1.0,
-          2.040191650390625
+          1.1803879737854004
         ]
       },
-      "height": 2.040191650390625,
-      "intendedHeightBand": 1.45,
-      "baselineSilhouetteHeight": 2.255606842041016,
+      "height": 1.1803879737854004,
+      "intendedHeightBand": 1.1,
+      "baselineSilhouetteHeight": 1.6095942318439485,
       "geometry": "geometry/coral.json",
-      "geometrySHA256": "965756bd2746f208ce7f6a6ccaaeaba98396a923fad50bb8462d87134124dcfc",
+      "geometrySHA256": "44017c6b7891f9d0d8f0fd076f07b3b6766d083b0a8837c112359f6d6ab29eaa",
       "profiles": {
         "oblique70": {
           "images": {
@@ -327,10 +385,10 @@
     },
     {
       "id": "kelp",
-      "name": "Kelp terrace",
-      "heightBand": "tall",
-      "collection": "S33 decor a48b03c4 kelp",
-      "rootObject": "S33 decor a48b03c4 kelp root",
+      "name": "Kelp grove",
+      "heightBand": "medium",
+      "collection": "S33 decor f43c0304 kelp",
+      "rootObject": "S33 decor f43c0304 kelp root",
       "images": {
         "S": "sprites/oblique70/kelp/S.png",
         "E": "sprites/oblique70/kelp/E.png",
@@ -343,62 +401,96 @@
         "N": "cameras/oblique70/kelp/N.json",
         "W": "cameras/oblique70/kelp/W.json"
       },
-      "baseHeight": 2.1571428571428575,
+      "baseHeight": 0.18,
+      "compositionRole": "kelp-led",
       "decorations": [
         {
           "kind": "kelp",
-          "band": "bottom",
+          "band": "canopy",
           "position": [
-            -0.22,
-            -0.35,
-            0.2813084411309413
-          ],
-          "color": "green",
-          "form": "kelp"
-        },
-        {
-          "kind": "coral",
-          "band": "bottom",
-          "position": [
-            -0.02,
-            -0.35,
-            0.26354432011834855
-          ],
-          "color": "blueCoral",
-          "form": "flared-sponge"
-        },
-        {
-          "kind": "kelp",
-          "band": "middle",
-          "position": [
-            0.27,
-            -0.28,
-            0.9507998923188099
+            -0.24,
+            0.26,
+            0.1680645081201249
           ],
           "color": "green",
           "form": "kelp"
         },
         {
           "kind": "kelp",
-          "band": "top",
+          "band": "canopy",
           "position": [
-            -0.1,
-            0.22,
-            2.0606399102004263
+            0.17,
+            0.24,
+            0.17350596566009918
           ],
           "color": "green",
           "form": "kelp"
         },
         {
-          "kind": "coral",
-          "band": "top",
+          "kind": "kelp",
+          "band": "canopy",
+          "position": [
+            0.3,
+            -0.04,
+            0.1696090040656205
+          ],
+          "color": "green",
+          "form": "kelp"
+        },
+        {
+          "kind": "kelp",
+          "band": "canopy",
+          "position": [
+            -0.27,
+            -0.06,
+            0.1713072312198182
+          ],
+          "color": "green",
+          "form": "kelp"
+        },
+        {
+          "kind": "kelp",
+          "band": "canopy",
+          "position": [
+            -0.13,
+            -0.31,
+            0.10031124625869017
+          ],
+          "color": "green",
+          "form": "kelp"
+        },
+        {
+          "kind": "kelp",
+          "band": "canopy",
           "position": [
             0.19,
-            0.28,
-            2.126859656390745
+            -0.3,
+            0.12477339859028411
           ],
-          "color": "blueCoral",
-          "form": "branching"
+          "color": "green",
+          "form": "kelp"
+        },
+        {
+          "kind": "kelp",
+          "band": "canopy",
+          "position": [
+            0,
+            0.02,
+            0.1617006769903249
+          ],
+          "color": "green",
+          "form": "kelp"
+        },
+        {
+          "kind": "coral",
+          "band": "understory",
+          "position": [
+            0.06,
+            -0.3,
+            0.08923928202186385
+          ],
+          "color": "orangeCoral",
+          "form": "flared-sponge"
         }
       ],
       "bounds": {
@@ -410,19 +502,19 @@
         "max": [
           0.5,
           0.5,
-          2.7594828605651855
+          1.9249211549758911
         ],
         "dimensions": [
           1.0,
           1.0,
-          2.7594828605651855
+          1.9249211549758911
         ]
       },
-      "height": 2.7594828605651855,
-      "intendedHeightBand": 2.0,
-      "baselineSilhouetteHeight": 2.6498548835515976,
+      "height": 1.9249211549758911,
+      "intendedHeightBand": 1.5,
+      "baselineSilhouetteHeight": 2.0952787607908245,
       "geometry": "geometry/kelp.json",
-      "geometrySHA256": "a15f10f7d4a4cd2587924578bf77b3b49f768225261fef9c5d497f7eb144b181",
+      "geometrySHA256": "fb012d5668fdf9779750c1cfd289a5b5879a07d060dfa672fa80fc2076a23acf",
       "profiles": {
         "oblique70": {
           "images": {
@@ -458,8 +550,8 @@
       "id": "spire",
       "name": "Decorated cobalt crag",
       "heightBand": "tall",
-      "collection": "S33 decor a48b03c4 spire",
-      "rootObject": "S33 decor a48b03c4 spire root",
+      "collection": "S33 decor f43c0304 spire",
+      "rootObject": "S33 decor f43c0304 spire root",
       "images": {
         "S": "sprites/oblique70/spire/S.png",
         "E": "sprites/oblique70/spire/E.png",
@@ -473,14 +565,15 @@
         "W": "cameras/oblique70/spire/W.json"
       },
       "baseHeight": 2.8057142857142856,
+      "compositionRole": "rock-led",
       "decorations": [
         {
           "kind": "kelp",
           "band": "bottom",
           "position": [
             -0.22,
-            -0.35,
-            0.2764681738598641
+            -0.33,
+            0.27856983741256264
           ],
           "color": "green",
           "form": "kelp"
@@ -490,8 +583,8 @@
           "band": "bottom",
           "position": [
             -0.02,
-            -0.35,
-            0.2801305591992978
+            -0.33,
+            0.28231783213772427
           ],
           "color": "coralLight",
           "form": "flared-sponge"
@@ -539,19 +632,19 @@
         "max": [
           0.5,
           0.5,
-          3.424423933029175
+          3.548556327819824
         ],
         "dimensions": [
           1.0,
           1.0,
-          3.424423933029175
+          3.548556327819824
         ]
       },
-      "height": 3.424423933029175,
+      "height": 3.548556327819824,
       "intendedHeightBand": 2.3,
-      "baselineSilhouetteHeight": 3.1263406723737717,
+      "baselineSilhouetteHeight": 3.216751781105995,
       "geometry": "geometry/spire.json",
-      "geometrySHA256": "298d0a00efd4245b7540d0c93ba371bc98bb83ef514d0638138808de26e0d0e9",
+      "geometrySHA256": "2d2aa9987493cebafad3399357d5e06f138bea5896e4962a13a1377b81a37bb9",
       "profiles": {
         "oblique70": {
           "images": {
@@ -587,8 +680,8 @@
       "id": "column",
       "name": "Ruin garden",
       "heightBand": "medium",
-      "collection": "S33 decor a48b03c4 column",
-      "rootObject": "S33 decor a48b03c4 column root",
+      "collection": "S33 decor f43c0304 column",
+      "rootObject": "S33 decor f43c0304 column root",
       "images": {
         "S": "sprites/oblique70/column/S.png",
         "E": "sprites/oblique70/column/E.png",
@@ -602,14 +695,15 @@
         "W": "cameras/oblique70/column/W.json"
       },
       "baseHeight": 1.7414285714285715,
+      "compositionRole": "rock-led",
       "decorations": [
         {
           "kind": "kelp",
           "band": "bottom",
           "position": [
             -0.22,
-            -0.35,
-            0.272950263889336
+            -0.33,
+            0.2748471385167348
           ],
           "color": "green",
           "form": "kelp"
@@ -619,8 +713,8 @@
           "band": "bottom",
           "position": [
             -0.02,
-            -0.35,
-            0.2885000241655387
+            -0.33,
+            0.2850426707329458
           ],
           "color": "purple",
           "form": "flared-sponge"
@@ -657,19 +751,19 @@
         "max": [
           0.5,
           0.5,
-          2.320378541946411
+          2.443450689315796
         ],
         "dimensions": [
           1.0,
           1.0,
-          2.320378541946411
+          2.443450689315796
         ]
       },
-      "height": 2.320378541946411,
+      "height": 2.443450689315796,
       "intendedHeightBand": 1.8,
-      "baselineSilhouetteHeight": 2.458523064851761,
+      "baselineSilhouetteHeight": 2.5563644468784332,
       "geometry": "geometry/column.json",
-      "geometrySHA256": "644bf4b29962430312d4fa2a1907381a93a80777602b93f0c6b60c8565c995c3",
+      "geometrySHA256": "816bea0582b5e3a84dc3c320b1d9cc3eaffaf22cb9037185268957cdf6c05f20",
       "profiles": {
         "oblique70": {
           "images": {
@@ -784,5 +878,5 @@
       ]
     }
   },
-  "nativeProjectSHA256": "2e27ede49f00c68d006b3d1d7ba9b05164d27bdeeab9bd787615a61d38f0bd1f"
+  "nativeProjectSHA256": "d39cc848e1e83e2ba9b483cd357445097df7a48077f8d978633b260842b33bd2"
 }
