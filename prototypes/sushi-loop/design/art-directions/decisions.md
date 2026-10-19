@@ -162,3 +162,35 @@ The lights reveal the belt rails and crate braces more clearly. Pale crate-top
 boards lose color detail under the stronger presets, while Soft retains more
 wood color. This measured transfer result is shown directly in the review page;
 no new universal lighting treatment is selected and no production asset changes.
+
+
+## Selected Faceted lighting — 2026-10-19
+
+The user chose **Faceted** after reviewing Noor, the conveyor and the wood crate.
+Use this native Blender finish for future captures of every Blender object:
+matte Principled surfaces, a centered 140 W overhead area light, and four equal
+100 W cardinal fills. The overhead light separates top planes from sides; equal
+horizontal fills avoid a preferred left/right world direction. Keep the selected
+character and environment projection profiles, registered roots and framing.
+
+This decision supersedes **only** ART-06's emission-only surfaces, zero-energy
+lamps, and camera-dependent absolute-normal/view tone. Retain ART-06's
+native lower-height material ramp on characters, restaurant and underwater
+objects, ART-05's 135% native sRGB grade with alpha bypass, and separate future
+Godot ground-contact shadows. Do not add a second browser contrast filter.
+Earlier zero-light studies remain historical evidence.
+
+### Faceted material refinement — pending review
+
+The user also requested wood that reflects less light and conveyor rails with a
+duller color. The [material refinement study](../../assets/faceted-material-refinement/README.md)
+compares the original Faceted materials against tuned materials on the straight
+belt, wood crate and connected conveyor. Both variants retain the exact chosen
+light rig; this isolates material response and palette from lighting strength.
+All four facings retain identical geometry and registration. The South-facing
+connected fixture retains its synchronized 24-frame native moving-deck loop.
+
+The lighting choice is locked; these material adjustments await visual review.
+This isolated refinement does not recapture the entire production library or
+approve all assets. Production sprites remain unchanged and issue 33 stays open
+until the user approves the game-scene assets.

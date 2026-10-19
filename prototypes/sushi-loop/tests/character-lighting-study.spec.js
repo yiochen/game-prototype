@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from 'node:fs';
 
 const manifestPath = new URL('../assets/character-lighting-study/manifest.json', import.meta.url);
 const study = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, 'utf8')) : null;
-const environmentPath = new URL('../assets/environment-lighting-study/manifest.json', import.meta.url);
+const environmentPath = new URL('../assets/faceted-material-refinement/manifest.json', import.meta.url);
 const environmentStudy = existsSync(environmentPath) ? JSON.parse(readFileSync(environmentPath, 'utf8')) : null;
 const nestedScrollers = page => page.evaluate(() => [...document.querySelectorAll('body *')].filter(element => /auto|scroll/.test(getComputedStyle(element).overflowY) && element.scrollHeight > element.clientHeight + 2 && element.getClientRects().length && !element.matches('textarea, select')).map(element => element.id || element.className));
 
@@ -21,6 +21,7 @@ for (const [width, height] of [[390, 844], [844, 390], [1440, 1000]]) {
     await expect(stage).toHaveClass(/frame--document/);
     await expect(stage.locator('.lighting-variant')).toHaveCount(4);
     await expect(stage.locator('.lighting-study-status')).toContainText('16 / 16 native stills');
+    await expect(stage.locator('[data-lighting-variant="faceted"] .lighting-selection')).toHaveText('Chosen lighting');
     await expect(stage.locator('.lighting-pending')).toHaveCount(0);
     await expect(stage.getByRole('link', { name: 'Editable Blender study ↗' })).toBeVisible();
     const frame = study.frame || study.frameSize;
@@ -79,11 +80,12 @@ test('connected lighting animation starts paused, scrubs all native frames in sy
   await expect(slider).toHaveValue('0');
   await page.waitForTimeout(250);
   await expect(slider).toHaveValue('0');
-  await expect(stage.locator('.lighting-capture[data-frame-index="0"]')).toHaveCount(4);
+  await expect(stage.locator('.lighting-capture[data-frame-index="0"]')).toHaveCount(2);
   const subject = environmentStudy.subjects.find(subject => subject.id === 'belt-connected');
+  expect(subject.reviewVariantIds).toEqual(['faceted', 'faceted-tuned']);
   for (let frame = 0; frame < 24; frame++) {
     await slider.fill(String(frame));
-    await expect(stage.locator(`.lighting-capture[data-frame-index="${frame}"]`)).toHaveCount(4);
+    await expect(stage.locator(`.lighting-capture[data-frame-index="${frame}"]`)).toHaveCount(2);
     for (const variant of subject.variants) {
       await expect(stage.locator(`[data-lighting-variant="${variant.id}"] [data-lighting-source]`)).toHaveAttribute('data-lighting-source', variant.captures.S.frames[frame]);
     }
@@ -94,7 +96,7 @@ test('connected lighting animation starts paused, scrubs all native frames in sy
   const frozen = await slider.inputValue();
   await page.waitForTimeout(150);
   await expect(slider).toHaveValue(frozen);
-  await expect(stage.locator(`.lighting-capture[data-frame-index="${frozen}"]`)).toHaveCount(4);
+  await expect(stage.locator(`.lighting-capture[data-frame-index="${frozen}"]`)).toHaveCount(2);
 });
 
 test('lighting subject deep links survive reload, preserve other query fields and match object-page links', async ({ page }) => {
@@ -115,7 +117,8 @@ test('lighting subject deep links survive reload, preserve other query fields an
   expect(selected.hash).toBe('#character-lighting-study');
   await page.reload();
   await expect(subject).toHaveValue('crate-wood');
-  await expect(stage.locator('.lighting-subject-intro')).toContainText('stronger presets brighten them enough to lose detail');
+  await expect(stage.locator('.lighting-study-status')).toContainText('material changes pending review');
+  await expect(stage.getByRole('region', { name: 'Native Blender surface comparison' })).toHaveCount(1);
   for (const [object, expected] of [['belt-straight-e', 'belt-straight'], ['crate-wood', 'crate-wood'], ['belt-corner-n-e', 'belt-connected'], ['chef-noor', 'chef-noor']]) {
     await page.goto(`/prototypes/sushi-loop/?ntl-drawer-state=hidden&v=lighting-deep-link#object-${object}`);
     const link = stage.locator('.object-lighting-study-link');
@@ -146,13 +149,17 @@ for (const [width, height] of [[390, 844], [844, 390], [1440, 1000]]) {
       await subjectSelect.selectOption(subject.id);
       await expect(stage.locator('.character-lighting-study')).toHaveAttribute('data-lighting-subject', subject.id);
       await expect(stage.locator('.lighting-projection-note')).toContainText('70% square-grid environment camera');
-      await expect(stage.locator('.lighting-study-status')).toContainText('16 / 16 native stills');
+      await expect(stage.locator('.lighting-study-status')).toContainText('8 / 8 native stills');
+      expect(subject.reviewVariantIds).toEqual(['faceted', 'faceted-tuned']);
+      await expect(stage.locator('.lighting-variant')).toHaveCount(2);
+      await expect(stage.locator('[data-lighting-variant="faceted"] .lighting-selection')).toHaveText('Chosen lighting');
+      await expect(stage.locator('[data-lighting-variant="faceted-tuned"] .lighting-selection')).toHaveText('Material trial');
       await expect(stage.locator('.lighting-pending')).toHaveCount(0);
       const frame = subject.frame || subject.frameSize;
       const captures = stage.locator('.lighting-capture');
       for (const direction of ['S', 'E', 'N', 'W']) {
         await stage.getByLabel('Lighting study facing', { exact: true }).selectOption(direction);
-        await expect(stage.locator(`.lighting-capture[data-lighting-direction="${direction}"]`)).toHaveCount(4);
+        await expect(stage.locator(`.lighting-capture[data-lighting-direction="${direction}"]`)).toHaveCount(2);
         for (const capture of await captures.all()) {
           await expect(capture).toHaveAttribute('viewBox', [-subject.root[0], -subject.root[1], ...frame].join(' '));
           await expect(capture).toHaveAttribute('data-frame-root', subject.root.join(' '));
@@ -161,7 +168,7 @@ for (const [width, height] of [[390, 844], [844, 390], [1440, 1000]]) {
         }
         const sources = await stage.locator('[data-lighting-source]').evaluateAll(elements => elements.map(element => ({ source: element.dataset.lightingSource, url: element.getAttribute('href'), filter: getComputedStyle(element).filter })));
         expect(sources.every(entry => entry.filter === 'none')).toBe(true);
-        expect(new Set(sources.map(entry => entry.source)).size).toBe(4);
+        expect(new Set(sources.map(entry => entry.source)).size).toBe(2);
         const decoded = await page.evaluate(async sources => Promise.all(sources.map(({ url }) => new Promise(resolve => { const image = new Image(); image.onload = () => resolve([image.naturalWidth, image.naturalHeight]); image.onerror = () => resolve([0, 0]); image.src = url; }))), sources);
         expect(decoded.every(([w, h]) => w === frame[0] * subject.captureScale && h === frame[1] * subject.captureScale)).toBe(true);
         expect(await nestedScrollers(page)).toEqual([]);
@@ -173,7 +180,7 @@ for (const [width, height] of [[390, 844], [844, 390], [1440, 1000]]) {
         const slider = stage.getByRole('slider', { name: 'Lighting study animation frame', exact: true });
         await expect(slider).toHaveAttribute('max', '23');
         await slider.fill('5');
-        await expect(stage.locator('.lighting-capture[data-frame-index="5"]')).toHaveCount(4);
+        await expect(stage.locator('.lighting-capture[data-frame-index="5"]')).toHaveCount(2);
         for (const variant of subject.variants) await expect(stage.locator(`[data-lighting-variant="${variant.id}"] [data-lighting-source]`)).toHaveAttribute('data-lighting-source', variant.captures.S.frames[5]);
         await stage.getByRole('button', { name: 'Play lighting study animation', exact: true }).click();
         await expect.poll(() => slider.inputValue()).not.toBe('5');
@@ -184,6 +191,7 @@ for (const [width, height] of [[390, 844], [844, 390], [1440, 1000]]) {
         await slider.fill('0');
       } else await expect(stage.locator('.lighting-playback')).toHaveCount(0);
       await stage.locator('.lighting-comparison').screenshot({ path: info.outputPath(`environment-lighting-${subject.id}-${width}.png`) });
+      if (width === 390 && subject.id === 'crate-wood') await page.screenshot({ fullPage: true, path: info.outputPath('faceted-materials-phone-full-page.png') });
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width + 1);
     }
     await subjectSelect.selectOption('chef-noor');
