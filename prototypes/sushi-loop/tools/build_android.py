@@ -11,15 +11,22 @@ import re
 import secrets
 import shutil
 import subprocess
+import sys
 import tempfile
 import zipfile
 
 PROJECT = Path(__file__).resolve().parents[1] / "godot"
+# The same registration contract powers the catalog-copy CLI and release gate.
+sys.path.insert(0, str(PROJECT / "tools"))
+import catalog_contract
+import verify_recipe_variants as recipe_contract
+
 ROOT_FILES = ("project.godot", "main.tscn", "branding.json", "export_presets.cfg")
 RUNTIME_TREES = {
     "scripts": {".gd", ".gdshader", ".gdshaderinc", ".tscn", ".tres", ".res"},
     "content": {".json"},
     "assets/catalog/sprites": {".png"},
+    "assets/recipe-variants/sprites": {".png"},
     "assets/audio": {".wav", ".ogg", ".mp3"},
     "assets/fonts": {".ttf", ".otf", ".txt"},
     "assets/licenses": {".txt"},
@@ -42,6 +49,7 @@ def runtime_sources(source: Path) -> dict[str, Path]:
     source = source.resolve()
     paths = [source / name for name in ROOT_FILES]
     paths.append(source / "assets/catalog/manifest.json")
+    paths.append(source / "assets/recipe-variants/manifest.json")
     for directory, suffixes in RUNTIME_TREES.items():
         paths.extend(path for path in (source / directory).rglob("*")
                      if path.is_file() and path.suffix.lower() in suffixes)
@@ -69,19 +77,19 @@ def runtime_sources(source: Path) -> dict[str, Path]:
 def validate_catalog(source: Path, files: dict[str, Path]) -> dict:
     approved = source.parent / "assets/production"
     approved_manifest = approved / "library.json"
-    library = json.loads(approved_manifest.read_text())
-    if library.get("approval", {}).get("finalAssets") != "approved":
-        raise ValueError("The source scene-art catalog is not approved.")
+    manifest, references = catalog_contract.verify_catalog(approved, source / "assets/catalog")
     atlases = {name: path for name, path in files.items() if name.startswith("assets/catalog/sprites/")}
-    for name, path in atlases.items():
-        original = approved / Path(name).relative_to("assets/catalog")
-        if not original.is_file() or sha(path) != sha(original):
-            raise ValueError(f"Runtime atlas differs from approved source pixels: {name}")
+    if {Path(name).relative_to("assets/catalog").as_posix() for name in atlases} != references:
+        raise ValueError("The staged atlas selection differs from the verified catalog references.")
+    meals = recipe_contract.verify_recipe_variants(source)
     return {
+        "object_count": len(manifest["objects"]),
         "atlas_count": len(atlases),
         "atlas_source_bytes": sum(path.stat().st_size for path in atlases.values()),
         "approved_library_sha256": sha(approved_manifest),
         "runtime_manifest_sha256": sha(source / "assets/catalog/manifest.json"),
+        "recipe_variants": meals,
+        "recipe_manifest_sha256": sha(source / "assets/recipe-variants/manifest.json"),
     }
 
 
@@ -96,6 +104,8 @@ def stage_runtime(source: Path, project: Path) -> tuple[dict[str, str], dict]:
         hashes[relative] = sha(destination)
         if hashes[relative] != sha(path):
             raise ValueError(f"Runtime source changed while staging: {relative}")
+    catalog_contract.verify_catalog(source.parent / "assets/production", project / "assets/catalog")
+    recipe_contract.verify_recipe_variants(project, source_project=source)
     return hashes, catalog
 
 
@@ -191,6 +201,10 @@ def audit_apk(apk_path: Path, branding: dict, mode: str, build_tools: Path,
         if manifest_path not in names:
             raise ValueError("The current runtime catalog manifest is missing from the APK.")
         manifest_hash = hashlib.sha256(apk.read(manifest_path)).hexdigest()
+        recipe_manifest_path = "assets/assets/recipe-variants/manifest.json"
+        if recipe_manifest_path not in names:
+            raise ValueError("The verified native meal-variant manifest is missing from the APK.")
+        recipe_manifest_hash = hashlib.sha256(apk.read(recipe_manifest_path)).hexdigest()
         needle = password.encode()
         for name in names:
             parts = set(Path(name).parts)
@@ -212,6 +226,7 @@ def audit_apk(apk_path: Path, branding: dict, mode: str, build_tools: Path,
         "signer_sha256": signer, "package": package.group(1), "debuggable": debuggable,
         "min_sdk": minimum.group(1) if minimum else None, "target_sdk": target.group(1) if target else None,
         "permissions": permissions, "runtime_manifest_sha256": manifest_hash,
+        "recipe_manifest_sha256": recipe_manifest_hash,
         "archive_entries": len(names), "excluded_material_check": "passed",
     }
 
@@ -292,6 +307,8 @@ def main() -> int:
     verification = audit_apk(output, branding, args.mode, build_tools, environment, credentials["password"])
     if verification["runtime_manifest_sha256"] != catalog["runtime_manifest_sha256"]:
         raise ValueError("The APK catalog differs from the staged approved catalog.")
+    if verification["recipe_manifest_sha256"] != catalog["recipe_manifest_sha256"]:
+        raise ValueError("The APK native meal variants differ from the verified staged variants.")
     digest = sha(output)
     metadata = branding | {
         "mode": args.mode, "engine": engine, "apk_sha256": digest, "bytes": output.stat().st_size,

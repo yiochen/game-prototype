@@ -1,9 +1,11 @@
 class_name GameSession
 extends RefCounted
 ## The restaurant's public command / elapsed-time / save boundary.
-## There is no wall clock or file I/O here. A caller decides when time passes.
+## Construction loads tuneable content; rules have no wall clock or persistence.
+## A caller decides when time passes and where snapshots are stored.
 
 const SAVE_VERSION := 1
+const BELT_MOTION_VERSION := 1
 const MAX_EXACT_INTEGER := 9007199254740991
 const CONTENT_PATH := "res://content/starter.json"
 const DIRECTIONS := {
@@ -110,6 +112,7 @@ func snapshot() -> Dictionary:
 func save_data() -> Dictionary:
 	return {
 		"version": SAVE_VERSION,
+		"belt_motion_version": BELT_MOTION_VERSION,
 		"configuration": _configuration.duplicate(true),
 		"state": _state.duplicate(true),
 		"remainder": _remainder,
@@ -132,11 +135,25 @@ func restore(data: Dictionary) -> bool:
 		return false
 	if data.random_state != str(int(data.random_state)):
 		return false
+	if not _nonnegative_integer(data.get("belt_motion_version", 0)) or int(data.get("belt_motion_version", 0)) > BELT_MOTION_VERSION:
+		return false
+	var current_content: Variant = JSON.parse_string(FileAccess.get_file_as_string(CONTENT_PATH))
+	if not current_content is Dictionary or not current_content.get("floor") is Dictionary:
+		return false
+	var viewport_columns: Variant = current_content.floor.get("viewport_columns", current_content.floor.get("columns"))
+	if not _nonnegative_integer(viewport_columns) or int(viewport_columns) < 1:
+		return false
+	var restored_configuration: Dictionary = data.configuration.duplicate(true)
+	# Cell scale is presentation, independent of the saved restaurant footprint.
+	# Older 9-column saves keep every cell and economic rule at the new scale.
+	restored_configuration.floor.viewport_columns = int(viewport_columns)
 	var restored_state: Dictionary = data.state.duplicate(true)
 	_migrate_visual_state(restored_state)
-	if not _valid_saved_state(restored_state, data.configuration):
+	if not _valid_saved_state(restored_state, restored_configuration):
 		return false
-	_configuration = data.configuration.duplicate(true)
+	if int(data.get("belt_motion_version", 0)) == 0:
+		_migrate_belt_motion(restored_state)
+	_configuration = restored_configuration
 	_state = restored_state
 	_normalize_restored_numbers()
 	_remainder = float(data.remainder)
@@ -252,11 +269,19 @@ func _step_belts(delta: float, events: Array) -> void:
 	for tile in _state.objects:
 		if tile.kind != "belt" or tile.dish == null:
 			continue
+		var destination := _facing_object(tile)
+		if destination.get("kind") != "belt":
+			# An open endpoint retains its plate at the tile center indefinitely.
+			tile.travel_elapsed = 0.0
+			continue
+		if destination.dish != null:
+			# Do not precharge queued motion. A previously started crossing keeps
+			# its position if another input fills the target in a merged layout.
+			continue
 		tile.travel_elapsed = minf(duration, float(tile.travel_elapsed) + delta)
 		if float(tile.travel_elapsed) + 0.000000001 < duration:
 			continue
-		var destination := _facing_object(tile)
-		if destination.get("kind") == "belt" and destination.dish == null and not reserved.has(destination.id):
+		if not reserved.has(destination.id):
 			transfers.append({"from": tile, "to": destination})
 			reserved[destination.id] = true
 	for transfer in transfers:
@@ -554,6 +579,19 @@ func _migrate_visual_state(state: Dictionary) -> void:
 					var target: Variant = customer.path[index]
 					if target is Dictionary and _finite_number(target.get("x")) and _finite_number(target.get("y")):
 						customer.facing = _direction_toward(Vector2(float(customer.x), float(customer.y)), Vector2(float(target.x), float(target.y)))
+
+func _migrate_belt_motion(state: Dictionary) -> void:
+	# Earlier saves charged blocked clocks while drawing those dishes at their
+	# source centers. Keep that visible position, but retain any real crossing
+	# toward an empty belt. The motion marker prevents repeating this migration.
+	var belts := {}
+	for object in state.objects:
+		if object.kind == "belt":
+			belts[_point(object)] = object
+	for tile in belts.values():
+		var destination: Dictionary = belts.get(_point(tile) + DIRECTIONS[tile.facing], {})
+		if destination.is_empty() or destination.dish != null:
+			tile.travel_elapsed = 0.0
 
 func _id_index(value: Variant, prefix: String) -> int:
 	if not value is String or not value.begins_with(prefix):

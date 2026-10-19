@@ -4,6 +4,8 @@ extends RefCounted
 
 const MANIFEST := "res://assets/catalog/manifest.json"
 const DIRECTORY := "res://assets/catalog/"
+const MEAL_MANIFEST := "res://assets/recipe-variants/manifest.json"
+const MEAL_DIRECTORY := "res://assets/recipe-variants/"
 var objects: Dictionary = {}
 var sources: Dictionary = {}
 var used_sources: Dictionary = {}
@@ -19,6 +21,19 @@ func reload() -> void:
 		objects = data.get("objects", {})
 		metadata = objects
 		cell_size = float(data.get("cellSize", 128))
+	# Recipe-specific native clips extend the approved objects; base captures
+	# and registration remain untouched and separately hash-verifiable.
+	var meals: Variant = JSON.parse_string(FileAccess.get_file_as_string(MEAL_MANIFEST))
+	if meals is Dictionary:
+		for identity in meals.get("objects", {}):
+			if not objects.has(identity):
+				continue
+			var variants: Dictionary = meals.objects[identity].get("clips", {})
+			for clip in variants:
+				var record: Dictionary = variants[clip].duplicate(true)
+				for entry in record.directions.values():
+					entry["_directory"] = MEAL_DIRECTORY
+				objects[identity].clips[clip] = record
 
 func begin_frame() -> void:
 	used_sources.clear()
@@ -55,7 +70,7 @@ func frame_data(identity: String, clip := "static", direction := "S", seconds :=
 	var entry := direction_data(identity, clip, direction)
 	if entry.is_empty():
 		return {}
-	var path: String = DIRECTORY + str(entry.image)
+	var path: String = str(entry.get("_directory", DIRECTORY)) + str(entry.image)
 	used_sources[path] = true
 	if not sources.has(path):
 		if not ResourceLoader.exists(path):

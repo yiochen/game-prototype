@@ -11,6 +11,8 @@ func _initialize() -> void:
 	_test_autonomous_service()
 	_test_completed_meal_price()
 	_test_full_belt_and_resume()
+	_test_queued_belt_motion()
+	_test_partial_crossing_blockage()
 	_test_timing_and_seed()
 	_test_save_during_walk()
 	_test_save_during_meal()
@@ -150,6 +152,58 @@ func _test_full_belt_and_resume() -> void:
 	_check(not _events(resumed, "sale").is_empty() and not _events(resumed, "loaded").is_empty(), "new customers can take stopped dishes and release backpressure")
 	_check(_events(resumed, "loaded").any(func(event): return event.dish_id == held_id), "chef loads the previously held dish after space opens")
 
+func _test_queued_belt_motion() -> void:
+	var game := Session.new_session(291)
+	game.command({"type": "set_entrance_open", "open": false})
+	game.advance(90.0)
+	var queued: Dictionary = game.snapshot()
+	var queued_id: String = _object(queued, "belt-1").dish.id
+	_check(_objects(queued, "belt").all(func(tile): return tile.travel_progress == 0.0), "blocked dishes and the open endpoint wait at their tile centers without charging movement")
+	game.command({"type": "set_entrance_open", "open": true})
+	var crossing := false
+	for tick in range(1000):
+		game.advance(0.05)
+		var source := _object(game.snapshot(), "belt-1")
+		if source.dish != null and source.dish.id == queued_id and source.travel_progress > 0.0:
+			crossing = source.travel_progress < 0.1
+			break
+	_check(crossing, "a queued plate starts a visible crossing near zero after the next cell becomes free")
+	game.advance(0.35)
+	var partial := _object(game.snapshot(), "belt-1")
+	_check(partial.dish != null and partial.dish.id == queued_id and partial.travel_progress > 0.2 and partial.travel_progress < 0.6, "released food remains between cells for the content-defined travel duration")
+	var reopened := Session.new_session(1)
+	var restored := reopened.restore(_json_copy(game.save_data()))
+	var reopened_partial := _object(reopened.snapshot(), "belt-1")
+	_check(restored and reopened_partial.dish.id == queued_id and absf(float(reopened_partial.travel_progress) - float(partial.travel_progress)) < 0.000000001, "a paused partial belt crossing restores its dish identity and visible position")
+	var expected: Array = game.advance(45.0)
+	var actual: Array = reopened.advance(45.0)
+	_check(_same(expected, actual) and _same(game.snapshot(), reopened.snapshot()), "partial movement resumes after reopening without replayed transfers or sales")
+	_check(_events(actual, "belt_moved").filter(func(event): return event.dish_id == queued_id and event.from_id == "belt-1").size() == 1, "the queued plate crosses its source boundary exactly once")
+
+func _test_partial_crossing_blockage() -> void:
+	# Two inputs can meet in a saved/custom layout. If the quicker input fills
+	# the target, an already moving plate must pause without snapping backward.
+	var game := Session.new_session(292, {"objects": [
+		{"id": "source", "kind": "belt", "x": 1, "y": 3, "facing": "east"},
+		{"id": "other", "kind": "belt", "x": 2, "y": 2, "facing": "south"},
+		{"id": "target", "kind": "belt", "x": 2, "y": 3, "facing": "east"},
+	]})
+	game.command({"type": "set_entrance_open", "open": false})
+	var data := _json_copy(game.save_data())
+	data.state.objects[0].dish = {"id": "dish-1", "recipe_id": "salmon_nigiri"}
+	data.state.objects[0].travel_elapsed = 0.4
+	data.state.objects[1].dish = {"id": "dish-2", "recipe_id": "salmon_nigiri"}
+	data.state.objects[1].travel_elapsed = 1.0
+	data.state.next_dish_id = 3
+	_check(game.restore(data), "partial crossing fixture uses a valid saved layout with two incoming belts")
+	game.advance(0.1)
+	var position: float = _object(game.snapshot(), "source").travel_progress
+	game.advance(0.4)
+	_check(_object(game.snapshot(), "source").travel_progress == position and position > 0.0, "a crossing that becomes blocked holds its partial position instead of advancing or resetting")
+	var reopened := Session.new_session(1)
+	_check(reopened.restore(_json_copy(game.save_data())) and _same(game.snapshot(), reopened.snapshot()), "reopening a newly blocked partial crossing preserves its visible position")
+	_check(_same(game.advance(3.0), reopened.advance(3.0)) and _same(game.snapshot(), reopened.snapshot()), "a saved blocked crossing continues with the same endpoint retention and no transfer replay")
+
 func _test_timing_and_seed() -> void:
 	var continuous := Session.new_session(771)
 	var fragmented := Session.new_session(771)
@@ -269,25 +323,31 @@ func _test_saved_visual_transitions() -> void:
 		_check(_events(events, "sale").size() == (1 if transition == "sit-down" else 0), transition + " never replays an already completed sale")
 
 func _test_legacy_save_migration() -> void:
-	var legacy_config := {"floor": {"columns": 9, "viewport_columns": 9, "rows": 16, "world_columns": 27, "entrance": {"x": 4, "y": 1}}, "service": {"loading_seconds": 0.0, "sitting_seconds": 0.0, "standing_seconds": 0.0}}
-	var old_game := Session.new_session(83, legacy_config)
-	old_game.advance(16.017)
-	var legacy := _json_copy(old_game.save_data())
-	for key in ["loading_seconds", "sitting_seconds", "standing_seconds"]:
-		legacy.configuration.service.erase(key)
-	for object in legacy.state.objects:
-		for key in ["visual_phase", "visual_elapsed", "loading_elapsed"]:
-			object.erase(key)
-	for customer in legacy.state.customers:
-		for key in ["visual_phase", "visual_elapsed", "facing"]:
-			customer.erase(key)
+	var fixture: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/legacy-0.1.1-session.json"))
+	var legacy: Dictionary = fixture.save_data
+	_check(fixture.source_commit == "cdb2364b" and legacy.configuration.floor.viewport_columns == 9 and not legacy.configuration.service.has("loading_seconds"), "legacy fixture comes from the shipped 0.1.1 session and original nine-column content")
 	var reopened := Session.new_session(1)
-	_check(reopened.restore(legacy), "version 1 saves without animation clocks migrate successfully")
-	_check(reopened.snapshot().floor.columns == 9 and reopened.snapshot().floor.world_columns == 27 and reopened.snapshot().floor.rows == 16, "legacy floor, world width and object coordinates remain intact")
-	_check(reopened.snapshot().coins == old_game.snapshot().coins and reopened.snapshot().stats == old_game.snapshot().stats, "migration grants no replayed sale or offline income")
-	var expected: Array = old_game.advance(90.0)
-	_check(_same(expected, reopened.advance(90.0)), "legacy saves retain their original instant transition timing and seeded continuation")
-	_check(_same(old_game.snapshot(), reopened.snapshot()), "old and migrated service converge to identical future observable state")
+	_check(reopened.restore(legacy), "the real version 1 save without animation clocks migrates successfully")
+	var migrated := reopened.save_data()
+	var expected_configuration: Dictionary = legacy.configuration.duplicate(true)
+	expected_configuration.floor.viewport_columns = 7
+	_check(_same(migrated.configuration, expected_configuration), "only presentation width changes to seven; the saved nine-column floor, layout, economics and instant transition rules stay intact")
+	_check(_same(migrated.state.camera, legacy.state.camera) and _same(migrated.state.stats, legacy.state.stats) and migrated.state.coins == legacy.state.coins and migrated.state.elapsed == legacy.state.elapsed, "migration preserves camera, completed sales, coins and foreground time")
+	_check(migrated.random_state == legacy.random_state and migrated.remainder == legacy.remainder, "legacy migration preserves the seeded generator and fractional simulation clock")
+	var endpoint: Dictionary = migrated.state.objects.filter(func(object): return object.id == "belt-4")[0]
+	_check(endpoint.dish.id == "dish-3" and endpoint.travel_elapsed == 0.0, "legacy endpoint food keeps its identity at the center instead of retaining invisible charged movement")
+	var partial_legacy := Session.new_session(1)
+	var partial_restored := partial_legacy.restore(fixture.mid_crossing_save_data)
+	var partial := _object(partial_legacy.snapshot(), "belt-2")
+	_check(partial_restored and partial.dish.id == "dish-1" and absf(float(partial.travel_progress) - 0.5 / 1.1) < 0.000000001, "a genuine moving partial crossing from the old release retains its position during migration")
+	var pre_scaled := _json_copy(legacy)
+	pre_scaled.configuration.floor.viewport_columns = 7
+	var reference := Session.new_session(999)
+	_check(reference.restore(pre_scaled) and _same(reopened.snapshot(), reference.snapshot()), "a legacy save scaled by migration matches the same save already using the new presentation")
+	var expected: Array = reference.advance(90.0)
+	_check(_same(expected, reopened.advance(90.0)) and _same(reference.snapshot(), reopened.snapshot()), "seven-column presentation preserves exact seeded continuation of the legacy restaurant")
+	var repeated := Session.new_session(1)
+	_check(repeated.restore(_json_copy(migrated)) and _same(repeated.advance(90.0), expected) and _same(reference.snapshot(), repeated.snapshot()), "saving a migrated restaurant does not repeat migration effects or alter its future service")
 
 func _test_corrupt_progress_and_paths() -> void:
 	var game := Session.new_session(84)

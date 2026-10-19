@@ -29,7 +29,7 @@ func _run() -> void:
 			for direction in action.directions:
 				art.begin_frame()
 				var entry: Dictionary = action.directions[direction]
-				_expect(FileAccess.get_sha256(art.DIRECTORY + str(entry.image)) == entry.sha256, "%s/%s/%s ships the exact approved PNG bytes" % [identity, clip, direction])
+				_expect(FileAccess.get_sha256(str(entry.get("_directory", art.DIRECTORY)) + str(entry.image)) == entry.sha256, "%s/%s/%s ships the exact approved PNG bytes" % [identity, clip, direction])
 				var first: Dictionary = art.frame_data(identity, clip, direction)
 				var image: Image = first.texture.get_image()
 				_expect(image.has_mipmaps(), "%s/%s/%s imports real mipmaps for phone-scale sampling" % [identity, clip, direction])
@@ -60,8 +60,11 @@ func _run() -> void:
 				_expect(after.frame == (count - 1 if action.get("loop", true) == false else 0), "%s/%s honors the authored one-shot or loop boundary" % [identity, clip])
 				verified_atlases += 1
 				art.end_frame()
-	_expect(verified_atlases == 139 and verified_frames > 1300, "The audit exercises every selected atlas and directional frame")
+	_expect(verified_atlases == 171 and verified_frames > 1300, "The audit exercises every selected atlas and directional frame")
 	_expect(art.objects["coin-pop"].clips.pop.frames == 12 and art.objects["coin-pop"].clips.pop.loop == false, "Local sale feedback uses the approved twelve-frame native coin-pop one-shot")
+	_expect(world.customer_clip({"phase": "waiting", "visual_phase": "seated-wait", "meal_dish": null}) == "seated-wait-empty", "Waiting customers have no meal sprite before consumption")
+	_expect(world.customer_clip({"phase": "eating", "visual_phase": "eat", "meal_dish": {"recipe_id": "salmon_nigiri"}}) == "eat-salmon", "The actual consumed salmon dish chooses the native salmon eating clip")
+	_expect(world.customer_clip({"phase": "leaving", "visual_phase": "stand-up", "meal_dish": null}) == "stand-up", "Meal variants retain the authored empty-handed stand-up transition")
 	_test_connections(world)
 	_expect(art.objects["entry-finished"].footprint == [4.0, 1.0], "The entrance preserves the approved four-tile footprint")
 	_expect(art.objects["chef-blackboard"].facingPolicy == "single-player-facing" and art.objects["chef-blackboard"].clips.idle.directions.keys() == ["S"], "The blank front-band board has only its player-facing direction")

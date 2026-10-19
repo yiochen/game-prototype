@@ -173,7 +173,7 @@ func dish_base(belt: Dictionary) -> Vector2:
 	var direction: Vector2 = DIRECTIONS.get(str(belt.facing), Vector2.ZERO)
 	var ahead := Vector2.ZERO
 	for other in state.objects:
-		if other.kind == "belt" and float(other.x) == float(belt.x) + direction.x and float(other.y) == float(belt.y) + direction.y and other.get("dish") == null:
+		if other.kind == "belt" and float(other.x) == float(belt.x) + direction.x and float(other.y) == float(belt.y) + direction.y:
 			ahead = direction * cell * float(belt.travel_progress)
 			break
 	return cell_base(float(belt.x), float(belt.y)) + ahead + art.socket(belt_clip(belt), "deck") * cell / art.cell_size
@@ -206,13 +206,21 @@ func _board(chef: Dictionary) -> void:
 func _customer(customer: Dictionary) -> void:
 	var identity: String = CUSTOMERS[posmod(int(customer.get("appearance", 0)), CUSTOMERS.size())]
 	var direction := str(FACING.get(str(customer.get("facing", "south")), "S"))
-	var phase := str(customer.phase)
-	var fallback := "eat" if phase == "eating" else "seated-wait" if phase == "waiting" else "walk"
-	var clip := str(customer.get("visual_phase", fallback))
+	var clip := customer_clip(customer)
 	var seconds := 0.0 if reduced_motion else float(customer.get("visual_elapsed", state.elapsed))
 	# Native sit/stand actions were calibrated to the wood stool's support plane.
 	# Their ground root stays centered while hips and legs move inside the frame.
 	sprite(identity, cell_base(float(customer.x), float(customer.y)), clip, direction, seconds)
+
+func customer_clip(customer: Dictionary) -> String:
+	var phase := str(customer.phase)
+	var fallback := "eat" if phase == "eating" else "seated-wait" if phase == "waiting" else "walk"
+	var clip := str(customer.get("visual_phase", fallback))
+	if clip == "seated-wait":
+		return "seated-wait-empty"
+	if clip == "eat" and customer.get("meal_dish") is Dictionary and customer.meal_dish.get("recipe_id") == "salmon_nigiri":
+		return "eat-salmon"
+	return clip
 
 func _gallery() -> void:
 	var unit := portrait.size.x / 720.0
@@ -232,7 +240,7 @@ func _gallery() -> void:
 	for index in range(4):
 		var base := panel.position + Vector2((94 + index * 150) * unit, 570 * row_unit)
 		_gallery_tile(base, pitch)
-		var clip: String = ["walk", "sit-down", "seated-wait", "eat"][index]
+		var clip: String = ["walk", "sit-down", "seated-wait-empty", "eat-salmon"][index]
 		if index > 0:
 			sprite("stool-wood", base, "static", "S", 0.0, pitch)
 		sprite(CUSTOMERS[index], base, clip, "S", 0.0 if reduced_motion else fmod(time, 1.8), pitch)

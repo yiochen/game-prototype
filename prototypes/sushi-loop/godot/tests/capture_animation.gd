@@ -57,7 +57,7 @@ func _run() -> void:
 		["chef-lena", "load", "N", 0],
 		["customer-rosa", "walk", "S", 0],
 		["customer-rosa", "sit-down", "S", 0],
-		["customer-rosa", "eat", "S", 0],
+		["customer-rosa", "eat-salmon", "S", 0],
 		["customer-rosa", "stand-up", "S", 0],
 		["belt-straight-e", "running", "S", 0],
 		["belt-straight-e", "running", "S", 12],
