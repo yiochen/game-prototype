@@ -36,10 +36,10 @@ export const stories = [
   {
     id: 'decoration-study', group: 'scene-review', title: 'Decoration coverage & heights', scene: 'decoration-study',
     reviewBranch: 'codex/sushi-loop-33-art-catalog',
-    description: 'Five native full-footprint underwater pieces above a separate ocean bed, captured at 70% projected height. Inspect individual facings, a dense 3×3 patch and a seven-column connected shoreline.',
+    description: 'Five decorated underwater rock families above a separate ocean bed. Compare 70% oblique and mixed 35° cameras, compact growth on three ledge heights, and dark-to-light rock shading in directional views, a 3×3 patch and a seven-column shoreline.',
     elements: [
       element('Separate ground and decoration', 'Toggle the objects off to inspect the continuous bed. Floor and objects retain a common fixed tile pitch and registered ground roots.', 'Static native captures; no animation in this shape study.'),
-      element('Height and repetition', 'Mixed heights, alternate shoreline arrangements and four native facings expose coverage, repeated silhouettes and depth ordering.', 'Controls update the composition immediately; vertical scrolling belongs to the page.'),
+      element('Height and repetition', 'Mixed heights, alternate shoreline arrangements and four native facings expose coverage, repetition and depth ordering. The camera experiment keeps world roots fixed while changing visible top depth.', 'Controls update the composition immediately; vertical scrolling belongs to the page.'),
     ],
     notes: ['This is a focused study, not a full production asset replacement.', 'Issue 33 remains open for visual approval.'],
   },
