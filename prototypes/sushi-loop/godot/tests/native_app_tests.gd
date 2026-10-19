@@ -7,8 +7,9 @@ const Session = preload("res://scripts/session.gd")
 const Store = preload("res://scripts/save_store.gd")
 const SAVE_FILES := ["session.json", "session.backup.json", "session.pending.json", "session.backup.pending.json"]
 const REQUIRED_SPRITES := [
-	"chef-lena", "chef-blackboard", "customer-rosa", "customer-ellis",
-	"customer-samir", "customer-june", "stool-wood", "dish-salmon",
+	"chef-lena", "chef-omar", "chef-blackboard", "customer-rosa", "customer-ellis",
+	"customer-samir", "customer-june", "stool-wood", "dish-salmon", "dish-cucumber",
+	"bubble-preference", "bubble-happy",
 	"belt-straight-e", "belt-start-e", "belt-end-e", "floor-cream",
 	"plant-angular", "lantern-gold", "barrel-wood", "crate-wood", "entry-finished",
 ]
@@ -43,6 +44,7 @@ func _run() -> void:
 	await _test_configured_camera(app)
 	await _test_touch_and_hud(app)
 	_test_active_clock_and_resume(app)
+	await _test_reaction_restore(app)
 	var live_textures := _sprite_signatures(app)
 	var renderer_script: Script = app.world.get_script()
 	app = await _test_reopen(app)
@@ -203,6 +205,47 @@ func _test_active_clock_and_resume(app) -> void:
 	app._process(0.1)
 	app.simulation_enabled = false
 	_expect(_same(expected.snapshot(), app.session.snapshot()), "Normal active service continues after the resumed frame")
+
+func _test_reaction_restore(app) -> void:
+	var original: RefCounted = app.session
+	var probe = Session.new_session(41)
+	var found := {}
+	for step in range(3600):
+		probe.advance(0.05)
+		for customer in probe.snapshot().customers:
+			var kind := "restless" if customer.restless else str(customer.preference_phase)
+			if not kind in ["active", "satisfied", "expired", "restless"] or found.has(kind):
+				continue
+			if kind == "satisfied" and float(customer.happy_elapsed) < 0.2:
+				continue
+			found[kind] = true
+			app.session = probe
+			app._refresh()
+			await _frames()
+			var feedback: Dictionary = app.world.customer_feedback(customer)
+			var clip: String = app.world.customer_clip(customer)
+			var offset: Vector2 = app.world.customer_pose_offset(customer, app.world.cell)
+			var restored = Session.new()
+			var payload: Dictionary = JSON.parse_string(JSON.stringify(probe.save_data(), "", true, true))
+			_expect(restored.restore(payload), "A real %s visit restores through the app's production session boundary" % kind)
+			app.session = restored
+			app._refresh()
+			await _frames()
+			var reopened: Dictionary = {}
+			for current in app.world.state.customers:
+				if current.id == customer.id: reopened = current
+			_expect(not reopened.is_empty() and _same(feedback, app.world.customer_feedback(reopened)) and clip == app.world.customer_clip(reopened) and offset.is_equal_approx(app.world.customer_pose_offset(reopened, app.world.cell)), "Native %s feedback resumes the same reaction, timer and body pose after reopening" % kind)
+			if kind == "active":
+				_expect(not feedback.is_empty() and float(feedback.timer) >= 0.0 and float(feedback.timer) <= 1.0, "The actual waiting customer exposes its saved circular preference countdown")
+			if kind == "satisfied":
+				_expect(not feedback.is_empty() and str(feedback.clip).begins_with("happy-smile") and offset.y < 0.0, "Matched preferences use the generated happy face and brief body bounce")
+			if kind == "restless":
+				_expect(clip == "restless", "Unfed waiting resolves to the same customer's native restless action")
+		if found.size() == 4: break
+	_expect(found.size() == 4, "Normal demonstration play reaches all four feedback states in the actual native renderer")
+	app.session = original
+	app._refresh()
+	await _frames()
 
 func _test_reopen(app):
 	app.session.command({"type": "set_camera", "x": 4.25, "y": 0.0})

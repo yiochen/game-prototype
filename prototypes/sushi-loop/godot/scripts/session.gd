@@ -6,6 +6,8 @@ extends RefCounted
 
 const SAVE_VERSION := 1
 const BELT_MOTION_VERSION := 1
+const CUSTOMER_VISIT_VERSION := 1
+const CHEF_ART_IDS := ["chef-lena", "chef-omar"]
 const MAX_EXACT_INTEGER := 9007199254740991
 const CONTENT_PATH := "res://content/starter.json"
 const DIRECTIONS := {
@@ -17,6 +19,7 @@ var _configuration: Dictionary = {}
 var _state: Dictionary = {}
 var _random := RandomNumberGenerator.new()
 var _remainder := 0.0
+var _access_paths: Dictionary = {}
 
 static func new_session(seed_value: int = 1, configuration: Dictionary = {}) -> GameSession:
 	var session := GameSession.new()
@@ -88,6 +91,10 @@ func snapshot() -> Dictionary:
 	}
 	for original in _state.objects:
 		var object: Dictionary = original.duplicate(true)
+		if object.kind in ["chef", "seat"]:
+			var service := _chef_service(original) if object.kind == "chef" else _seat_service(original)
+			object.active = service.active
+			object.inactive_reason = service.reason
 		if object.kind == "chef":
 			object.preparation_seconds = _configuration.recipes[object.recipe_id].preparation_seconds
 			object.preparation = clampf(float(object.preparation_elapsed) / float(object.preparation_seconds), 0.0, 1.0)
@@ -100,12 +107,23 @@ func snapshot() -> Dictionary:
 		result.customers.append({
 			"id": customer.id, "x": customer.x, "y": customer.y,
 			"seat_id": customer.seat_id, "phase": customer.phase,
-			"meal_progress": clampf(float(customer.meal_elapsed) / float(_configuration.service.eating_seconds), 0.0, 1.0),
+			"meal_progress": clampf(float(customer.meal_elapsed) / float(customer.meal_duration), 0.0, 1.0),
 			"meal_dish": customer.meal_dish.duplicate(true) if customer.meal_dish is Dictionary else null,
 			"appearance": customer.appearance,
 			"facing": customer.facing,
 			"visual_phase": customer.visual_phase,
 			"visual_elapsed": customer.visual_elapsed,
+			"preferred_recipe_id": customer.preferred_recipe_id,
+			"preference_phase": customer.preference_phase,
+			"preference_phase_elapsed": customer.preference_phase_elapsed,
+			"preference_total": _customer_number("preference_seconds"),
+			"preference_remaining": maxf(0.0, _customer_number("preference_seconds") - float(customer.preference_elapsed)) if customer.preference_phase in ["pending", "active"] else 0.0,
+			"preference_progress": clampf(1.0 - float(customer.preference_elapsed) / maxf(0.000000001, _customer_number("preference_seconds")), 0.0, 1.0) if customer.preference_phase in ["pending", "active"] else 0.0,
+			"happy_elapsed": customer.happy_elapsed,
+			"happy_duration": _customer_number("happy_seconds"),
+			"restless": customer.restless, "waiting_elapsed": customer.waiting_elapsed,
+			"yielding": customer.yielding,
+			"render_offset_x": customer.render_offset_x, "render_offset_y": customer.render_offset_y,
 		})
 	return result
 
@@ -113,6 +131,7 @@ func save_data() -> Dictionary:
 	return {
 		"version": SAVE_VERSION,
 		"belt_motion_version": BELT_MOTION_VERSION,
+		"customer_visit_version": CUSTOMER_VISIT_VERSION,
 		"configuration": _configuration.duplicate(true),
 		"state": _state.duplicate(true),
 		"remainder": _remainder,
@@ -137,6 +156,8 @@ func restore(data: Dictionary) -> bool:
 		return false
 	if not _nonnegative_integer(data.get("belt_motion_version", 0)) or int(data.get("belt_motion_version", 0)) > BELT_MOTION_VERSION:
 		return false
+	if not _nonnegative_integer(data.get("customer_visit_version", 0)) or int(data.get("customer_visit_version", 0)) > CUSTOMER_VISIT_VERSION:
+		return false
 	var current_content: Variant = JSON.parse_string(FileAccess.get_file_as_string(CONTENT_PATH))
 	if not current_content is Dictionary or not current_content.get("floor") is Dictionary:
 		return false
@@ -147,8 +168,14 @@ func restore(data: Dictionary) -> bool:
 	# Cell scale is presentation, independent of the saved restaurant footprint.
 	# Older 9-column saves keep every cell and economic rule at the new scale.
 	restored_configuration.floor.viewport_columns = int(viewport_columns)
+	if not restored_configuration.has("customers"):
+		restored_configuration.customers = current_content.get("customers", {}).duplicate(true)
+	if not _valid_configuration(restored_configuration):
+		return false
 	var restored_state: Dictionary = data.state.duplicate(true)
 	_migrate_visual_state(restored_state)
+	if int(data.get("customer_visit_version", 0)) == 0:
+		_migrate_visit_state(restored_state, restored_configuration)
 	if not _valid_saved_state(restored_state, restored_configuration):
 		return false
 	if int(data.get("belt_motion_version", 0)) == 0:
@@ -158,6 +185,7 @@ func restore(data: Dictionary) -> bool:
 	_normalize_restored_numbers()
 	_remainder = float(data.remainder)
 	_random.state = int(data.random_state)
+	_rebuild_access()
 	return true
 
 func _normalize_restored_numbers() -> void:
@@ -208,11 +236,17 @@ func _start() -> void:
 				object.travel_elapsed = 0.0
 				object.dish = null
 	_remainder = 0.0
+	_rebuild_access()
 
 func _transition_seconds(key: String) -> float:
 	# Missing durations identify legacy v1 configurations, whose instant
 	# transitions keep their original timing when reopened.
 	return float(_configuration.service.get(key, 0.0))
+
+func _clock_advance(value: float, delta: float) -> float:
+	# Canonical nanosecond precision removes float-addition residue before JSON
+	# persistence, so a reopened action clock selects the same animation frame.
+	return roundf((value + delta) * 1000000000.0) / 1000000000.0
 
 func _set_visual(actor: Dictionary, phase: String) -> void:
 	if actor.get("visual_phase") != phase:
@@ -223,11 +257,15 @@ func _step_chefs(delta: float, events: Array) -> void:
 	for chef in _state.objects:
 		if chef.kind != "chef":
 			continue
-		chef.visual_elapsed += delta
+		chef.visual_elapsed = _clock_advance(float(chef.visual_elapsed), delta)
+		if not _chef_service(chef).active:
+			chef.loading_elapsed = 0.0
+			_set_visual(chef, "idle")
+			continue
 		if chef.held_dish == null:
 			_set_visual(chef, "work")
 			var duration := float(_configuration.recipes[chef.recipe_id].preparation_seconds)
-			chef.preparation_elapsed = minf(duration, float(chef.preparation_elapsed) + delta)
+			chef.preparation_elapsed = minf(duration, _clock_advance(float(chef.preparation_elapsed), delta))
 			if float(chef.preparation_elapsed) + 0.000000001 >= duration:
 				chef.preparation_elapsed = duration
 				chef.held_dish = {"id": "dish-%s" % _state.next_dish_id, "recipe_id": chef.recipe_id}
@@ -246,7 +284,7 @@ func _step_chefs(delta: float, events: Array) -> void:
 				chef.loading_elapsed = 0.0
 				_set_visual(chef, "load")
 				continue
-			chef.loading_elapsed = minf(loading_duration, float(chef.loading_elapsed) + delta)
+			chef.loading_elapsed = minf(loading_duration, _clock_advance(float(chef.loading_elapsed), delta))
 			chef.visual_elapsed = chef.loading_elapsed
 			if float(chef.loading_elapsed) + 0.000000001 < loading_duration:
 				continue
@@ -278,7 +316,7 @@ func _step_belts(delta: float, events: Array) -> void:
 			# Do not precharge queued motion. A previously started crossing keeps
 			# its position if another input fills the target in a merged layout.
 			continue
-		tile.travel_elapsed = minf(duration, float(tile.travel_elapsed) + delta)
+		tile.travel_elapsed = minf(duration, _clock_advance(float(tile.travel_elapsed), delta))
 		if float(tile.travel_elapsed) + 0.000000001 < duration:
 			continue
 		if not reserved.has(destination.id):
@@ -293,6 +331,99 @@ func _step_belts(delta: float, events: Array) -> void:
 		source.travel_elapsed = 0.0
 		events.append({"type": "belt_moved", "dish_id": destination.dish.id, "from_id": source.id, "to_id": destination.id})
 
+func _customer_number(key: String) -> float:
+	return float(_configuration.get("customers", {}).get(key, 0.0))
+
+func _rebuild_access() -> void:
+	_access_paths.clear()
+	var entrance := _point(_configuration.floor.entrance)
+	for object in _state.objects:
+		if object.kind in ["chef", "seat"]:
+			_access_paths[object.id] = _walk_path(entrance, _point(object), object.id)
+
+func _chef_service(chef: Dictionary) -> Dictionary:
+	if _facing_object(chef).get("kind") != "belt":
+		return {"active": false, "reason": "no_belt"}
+	if _access_paths.get(chef.id, []).is_empty():
+		return {"active": false, "reason": "no_access"}
+	return {"active": true, "reason": ""}
+
+func _belt_reaches(source: Dictionary, target_id: String) -> bool:
+	var seen := {}
+	var tile := source
+	while tile.get("kind") == "belt" and not seen.has(tile.id):
+		if tile.id == target_id:
+			return true
+		seen[tile.id] = true
+		tile = _facing_object(tile)
+	return false
+
+func _seat_service(seat: Dictionary) -> Dictionary:
+	var result := {"active": false, "reason": "no_belt", "ready": [], "menu": [], "front": ""}
+	var front := _facing_object(seat)
+	if front.get("kind") != "belt":
+		return result
+	result.front = front.dish.recipe_id if front.dish != null else ""
+	if _access_paths.get(seat.id, []).is_empty():
+		result.reason = "no_access"
+		return result
+	for object in _state.objects:
+		if object.kind == "belt" and object.dish != null and _belt_reaches(object, front.id):
+			if not result.ready.has(object.dish.recipe_id):
+				result.ready.append(object.dish.recipe_id)
+		elif object.kind == "chef" and _chef_service(object).active and _belt_reaches(_facing_object(object), front.id):
+			if not result.menu.has(object.recipe_id):
+				result.menu.append(object.recipe_id)
+	result.active = not result.ready.is_empty() or not result.menu.is_empty()
+	result.reason = "" if result.active else "no_supply"
+	return result
+
+func _preference_for(choices: Array) -> String:
+	var recipes: Array = []
+	for choice in choices:
+		for recipe in choice.service.ready + choice.service.menu:
+			if not recipes.has(recipe):
+				recipes.append(recipe)
+	recipes.sort()
+	return str(recipes[_random.randi_range(0, recipes.size() - 1)])
+
+func _choose_useful_seat(choices: Array, preferred: String) -> Dictionary:
+	# Prefer an immediate match, then matching food en route, then its connected
+	# chef's board. Distance breaks service-quality ties; RNG breaks equal ties.
+	var best: Array = []
+	var rank := 99
+	var length := 2147483647
+	for choice in choices:
+		var service: Dictionary = choice.service
+		var candidate_rank := 0 if service.front == preferred else 1 if service.ready.has(preferred) else 2 if service.menu.has(preferred) else 3 if not service.ready.is_empty() else 4
+		var candidate_length: int = choice.path.size()
+		if candidate_rank < rank or (candidate_rank == rank and candidate_length < length):
+			best.clear()
+			rank = candidate_rank
+			length = candidate_length
+		if candidate_rank == rank and candidate_length == length:
+			best.append(choice)
+	return best[_random.randi_range(0, best.size() - 1)]
+
+func _new_visit_fields(customer: Dictionary) -> void:
+	customer.visit_legacy = false
+	customer.first_dish_received = false
+	customer.preferred_recipe_id = ""
+	customer.preference_phase = "pending"
+	customer.preference_elapsed = 0.0
+	customer.preference_phase_elapsed = 0.0
+	customer.happy_elapsed = 0.0
+	customer.waiting_elapsed = 0.0
+	customer.restless = false
+	customer.yielding = false
+	customer.render_offset_x = 0.0
+	customer.render_offset_y = 0.0
+	customer.fullness = 0.0
+	customer.appetite_target = _random.randf_range(_customer_number("fullness_min"), _customer_number("fullness_max"))
+	customer.meal_fullness = 0.0
+	customer.meal_duration = float(_configuration.service.eating_seconds)
+	customer.departure_reason = ""
+
 func _step_arrivals(delta: float, events: Array) -> void:
 	if not _state.entrance_open:
 		return
@@ -300,71 +431,138 @@ func _step_arrivals(delta: float, events: Array) -> void:
 	if float(_state.arrival_remaining) > 0.000000001:
 		return
 	var entrance := _point(_configuration.floor.entrance)
+	# A new arrival never materializes inside an existing visitor at the door.
+	for customer in _state.customers:
+		if _render_position(customer).distance_to(Vector2(entrance)) < _customer_number("personal_space"):
+			return
 	var choices: Array = []
 	for seat in _state.objects:
 		if seat.kind != "seat" or _seat_reserved(seat.id):
 			continue
-		var path := _walk_path(entrance, Vector2i(int(seat.x), int(seat.y)), seat.id)
-		if not path.is_empty():
-			choices.append({"seat": seat, "path": path})
+		var path: Array = _access_paths.get(seat.id, [])
+		var service := _seat_service(seat)
+		if not path.is_empty() and service.active:
+			choices.append({"seat": seat, "path": path, "service": service})
 	if not choices.is_empty():
-		var choice: Dictionary = choices[_random.randi_range(0, choices.size() - 1)]
+		var preferred := _preference_for(choices)
+		var choice: Dictionary = _choose_useful_seat(choices, preferred)
 		var customer := {
 			"id": "customer-%s" % _state.next_customer_id,
 			"x": float(entrance.x), "y": float(entrance.y),
 			"seat_id": choice.seat.id, "phase": "walking",
-			"path": choice.path, "path_index": 0,
+			"path": choice.path.duplicate(true), "path_index": 0,
 			"meal_dish": null, "meal_elapsed": 0.0,
 			"appearance": _random.randi_range(0, 3),
 			"facing": _direction_toward(Vector2(entrance), Vector2(float(choice.path[0].x), float(choice.path[0].y))),
 			"visual_phase": "walk", "visual_elapsed": 0.0,
 		}
+		_new_visit_fields(customer)
+		customer.preferred_recipe_id = preferred
 		_state.next_customer_id += 1
 		_state.customers.append(customer)
 		_state.stats.arrivals += 1
-		events.append({"type": "arrived", "customer_id": customer.id, "seat_id": customer.seat_id})
+		events.append({"type": "arrived", "customer_id": customer.id, "seat_id": customer.seat_id, "preferred_recipe_id": preferred})
 	var jitter := float(_configuration.service.arrival_jitter_seconds)
 	_state.arrival_remaining = float(_configuration.service.arrival_seconds) + _random.randf_range(-jitter, jitter)
+
+func _set_preference(customer: Dictionary, phase: String) -> void:
+	if customer.preference_phase != phase:
+		customer.preference_phase = phase
+		customer.preference_phase_elapsed = 0.0
+
+func _customer_event(kind: String, customer: Dictionary) -> Dictionary:
+	return {"type": kind, "customer_id": customer.id, "seat_id": customer.seat_id, "recipe_id": customer.preferred_recipe_id, "x": customer.x, "y": customer.y}
 
 func _step_customers(delta: float, events: Array) -> void:
 	var departed: Array = []
 	for customer in _state.customers:
-		customer.visual_elapsed += delta
+		customer.visual_elapsed = _clock_advance(float(customer.visual_elapsed), delta)
+		customer.preference_phase_elapsed = _clock_advance(float(customer.preference_phase_elapsed), delta)
+		if customer.preference_phase == "satisfied":
+			customer.happy_elapsed = customer.preference_phase_elapsed
+			if float(customer.happy_elapsed) + 0.000000001 >= _customer_number("happy_seconds"):
+				_set_preference(customer, "complete")
+		elif customer.preference_phase == "expired" and customer.first_dish_received and float(customer.preference_phase_elapsed) + 0.000000001 >= _customer_number("happy_seconds"):
+			_set_preference(customer, "complete")
 		match customer.phase:
 			"walking", "leaving":
 				if customer.visual_phase == "stand-up":
 					if float(customer.visual_elapsed) + 0.000000001 >= _transition_seconds("standing_seconds"):
 						_set_visual(customer, "walk")
 					continue
-				if _walk_customer(customer, delta):
+				if _walk_with_traffic(customer, delta):
 					if customer.phase == "leaving":
 						departed.append(customer)
-						events.append({"type": "departed", "customer_id": customer.id})
+						events.append({"type": "departed", "customer_id": customer.id, "reason": customer.departure_reason})
 					else:
 						customer.phase = "waiting"
 						customer.facing = _object_by_id(customer.seat_id).facing
+						customer.render_offset_x = 0.0
+						customer.render_offset_y = 0.0
 						_set_visual(customer, "sit-down" if _transition_seconds("sitting_seconds") > 0.0 else "seated-wait")
 			"waiting":
 				if customer.visual_phase == "sit-down":
 					if float(customer.visual_elapsed) + 0.000000001 < _transition_seconds("sitting_seconds"):
 						continue
 					_set_visual(customer, "seated-wait")
+				if customer.preference_phase == "pending":
+					_set_preference(customer, "active")
+				if customer.preference_phase == "active":
+					customer.preference_elapsed = minf(_customer_number("preference_seconds"), _clock_advance(float(customer.preference_elapsed), delta))
+					if float(customer.preference_elapsed) + 0.000000001 >= _customer_number("preference_seconds"):
+						_set_preference(customer, "expired")
+						events.append(_customer_event("preference_expired", customer))
 				var seat := _object_by_id(customer.seat_id)
 				var tile := _facing_object(seat)
-				if tile.get("kind") == "belt" and tile.dish != null:
-					customer.meal_dish = tile.dish
-					customer.meal_elapsed = 0.0
-					customer.phase = "eating"
-					_set_visual(customer, "eat")
-					tile.dish = null
-					tile.travel_elapsed = 0.0
-					events.append({"type": "eating_started", "customer_id": customer.id, "dish_id": customer.meal_dish.id, "seat_id": seat.id})
+				if tile.get("kind") == "belt" and tile.dish != null and (customer.preference_phase != "active" or tile.dish.recipe_id == customer.preferred_recipe_id):
+					_take_dish(customer, seat, tile, events)
+					continue
+				customer.waiting_elapsed = _clock_advance(float(customer.waiting_elapsed), delta)
+				if not customer.restless and float(customer.waiting_elapsed) + 0.000000001 >= _customer_number("restless_seconds"):
+					customer.restless = true
+					events.append(_customer_event("customer_restless", customer))
+				if float(customer.waiting_elapsed) + 0.000000001 >= _customer_number("leave_seconds"):
+					_begin_leaving(customer, "unfed")
+					events.append(_customer_event("visit_abandoned", customer))
 			"eating":
-				customer.meal_elapsed += delta
-				if float(customer.meal_elapsed) + 0.000000001 >= float(_configuration.service.eating_seconds):
+				customer.meal_elapsed = _clock_advance(float(customer.meal_elapsed), delta)
+				if float(customer.meal_elapsed) + 0.000000001 >= float(customer.meal_duration):
 					_finish_meal(customer, events)
 	for customer in departed:
 		_state.customers.erase(customer)
+
+func _take_dish(customer: Dictionary, seat: Dictionary, tile: Dictionary, events: Array) -> void:
+	var matched: bool = not customer.first_dish_received and customer.preference_phase == "active" and tile.dish.recipe_id == customer.preferred_recipe_id
+	customer.meal_dish = tile.dish
+	customer.meal_elapsed = 0.0
+	customer.meal_duration = float(_configuration.service.eating_seconds)
+	customer.meal_fullness = 1.0
+	if not customer.visit_legacy:
+		var jitter := _customer_number("eating_jitter_seconds")
+		customer.meal_duration += _random.randf_range(-jitter, jitter)
+		customer.meal_fullness = _random.randf_range(_customer_number("dish_fullness_min"), _customer_number("dish_fullness_max"))
+	customer.first_dish_received = true
+	customer.waiting_elapsed = 0.0
+	customer.restless = false
+	customer.phase = "eating"
+	_set_visual(customer, "eat")
+	if matched:
+		_set_preference(customer, "satisfied")
+		customer.happy_elapsed = 0.0
+		events.append(_customer_event("preference_matched", customer))
+	elif not customer.preference_phase in ["satisfied", "expired"]:
+		_set_preference(customer, "complete")
+	tile.dish = null
+	tile.travel_elapsed = 0.0
+	events.append({"type": "eating_started", "customer_id": customer.id, "dish_id": customer.meal_dish.id, "recipe_id": customer.meal_dish.recipe_id, "seat_id": seat.id})
+
+func _begin_leaving(customer: Dictionary, reason: String) -> void:
+	customer.phase = "leaving"
+	customer.departure_reason = reason
+	customer.yielding = false
+	_set_visual(customer, "stand-up" if _transition_seconds("standing_seconds") > 0.0 else "walk")
+	customer.path = _walk_path(Vector2i(roundi(customer.x), roundi(customer.y)), _point(_configuration.floor.entrance))
+	customer.path_index = 0
 
 func _finish_meal(customer: Dictionary, events: Array) -> void:
 	var dish: Dictionary = customer.meal_dish
@@ -372,19 +570,82 @@ func _finish_meal(customer: Dictionary, events: Array) -> void:
 	_state.coins += price
 	_state.stats.sales += 1
 	_state.stats.served += 1
-	# The dish is consumed in the same state transition that credits its price.
-	# Saves contain the resulting state, never a pending sale to replay.
+	customer.fullness += customer.meal_fullness
+	# Consume and credit together: no reward is left pending in a save.
 	customer.meal_dish = null
 	customer.meal_elapsed = 0.0
-	customer.phase = "leaving"
-	_set_visual(customer, "stand-up" if _transition_seconds("standing_seconds") > 0.0 else "walk")
-	customer.path = _walk_path(Vector2i(roundi(customer.x), roundi(customer.y)), _point(_configuration.floor.entrance))
-	customer.path_index = 0
+	customer.meal_fullness = 0.0
+	if customer.visit_legacy or float(customer.fullness) + 0.000000001 >= float(customer.appetite_target):
+		_begin_leaving(customer, "satisfied")
+	else:
+		customer.phase = "waiting"
+		customer.waiting_elapsed = 0.0
+		customer.restless = false
+		_set_visual(customer, "seated-wait")
 	events.append({
 		"type": "sale", "customer_id": customer.id, "seat_id": customer.seat_id,
 		"dish_id": dish.id, "recipe_id": dish.recipe_id, "price": price,
 		"x": customer.x, "y": customer.y,
 	})
+
+func _render_position(customer: Dictionary) -> Vector2:
+	return Vector2(float(customer.x) + float(customer.render_offset_x), float(customer.y) + float(customer.render_offset_y))
+
+func _foot_on_floor(position: Vector2, seat_id: String, objects: Array, floor_data: Dictionary) -> bool:
+	var cell := Vector2i(floori(position.x + 0.5), floori(position.y + 0.5))
+	if not _inside(cell, floor_data):
+		return false
+	for object in objects:
+		if _point(object) == cell:
+			return object.kind == "seat" and object.id == seat_id
+	return true
+
+func _traffic_clear(position: Vector2, previous: Vector2, customer: Dictionary) -> bool:
+	if not _foot_on_floor(position, customer.seat_id, _state.objects, _configuration.floor):
+		return false
+	var space := _customer_number("personal_space")
+	for other in _state.customers:
+		if other.id == customer.id:
+			continue
+		var occupied := _render_position(other)
+		if position.distance_to(occupied) + 0.000000001 < space and position.distance_to(occupied) < previous.distance_to(occupied) - 0.000000001:
+			return false
+	return true
+
+func _walk_with_traffic(customer: Dictionary, delta: float) -> bool:
+	var candidate: Dictionary = customer.duplicate(true)
+	var finished := _walk_customer(candidate, delta)
+	var direction: Vector2i = DIRECTIONS[candidate.facing]
+	var right := Vector2(-direction.y, direction.x)
+	var desired := right * _customer_number("passing_offset")
+	var goal := _point(_configuration.floor.entrance) if customer.phase == "leaving" else _point(_object_by_id(customer.seat_id))
+	# Crossing into the entrance cell completes a departure. Requiring its
+	# exact center would make outgoing visitors compete with new arrivals.
+	if customer.phase == "leaving" and Vector2(float(candidate.x), float(candidate.y)).distance_to(Vector2(goal)) <= 0.5:
+		return true
+	# Return to the anchor when arriving at a seat or exiting through the door.
+	desired *= minf(1.0, Vector2(float(candidate.x), float(candidate.y)).distance_to(Vector2(goal)))
+	var offset := Vector2(float(customer.render_offset_x), float(customer.render_offset_y)).move_toward(desired, delta * float(_configuration.service.walking_cells_per_second))
+	candidate.render_offset_x = offset.x
+	candidate.render_offset_y = offset.y
+	var previous := _render_position(customer)
+	if _traffic_clear(_render_position(candidate), previous, customer):
+		for field in ["x", "y", "path_index", "facing", "render_offset_x", "render_offset_y"]:
+			customer[field] = candidate[field]
+		customer.yielding = false
+		return finished
+	# Yield in place, with a wider side step when two paths meet at a corner.
+	# Centerline path progress is retained, so a save can resume either state.
+	customer.yielding = true
+	for sign_value in [1.0, -1.0]:
+		var side: Vector2 = right * _customer_number("passing_offset") * 2.0 * sign_value
+		var retreat := Vector2(float(customer.render_offset_x), float(customer.render_offset_y)).move_toward(side, delta * float(_configuration.service.walking_cells_per_second))
+		var position := Vector2(float(customer.x), float(customer.y)) + retreat
+		if _traffic_clear(position, previous, customer):
+			customer.render_offset_x = retreat.x
+			customer.render_offset_y = retreat.y
+			break
+	return false
 
 func _direction_toward(position: Vector2, target: Vector2) -> String:
 	var movement := target - position
@@ -515,6 +776,8 @@ func _valid_configuration(config: Dictionary) -> bool:
 			return false
 		if float(recipe.preparation_seconds) <= 0.0:
 			return false
+	if config.has("customers") and not _valid_customer_rules(config.customers, config.service):
+		return false
 	return _valid_objects(config.objects, config)
 
 func _valid_objects(objects: Array, config: Dictionary) -> bool:
@@ -531,6 +794,8 @@ func _valid_objects(objects: Array, config: Dictionary) -> bool:
 		if cells.has(cell) or cell == _point(config.floor.entrance):
 			return false
 		if object.kind == "chef" and not config.recipes.has(object.get("recipe_id")):
+			return false
+		if object.kind == "chef" and object.has("art_id") and not object.art_id in CHEF_ART_IDS:
 			return false
 		ids[object.id] = true
 		cells[cell] = true
@@ -646,14 +911,14 @@ func _valid_saved_state(state: Dictionary, config: Dictionary) -> bool:
 			var duration := float(config.recipes[object.recipe_id].preparation_seconds)
 			if not _finite_number(object.get("preparation_elapsed")) or float(object.preparation_elapsed) < 0.0 or float(object.preparation_elapsed) > duration:
 				return false
-			if not object.get("visual_phase") in ["work", "hold", "load"] or not _finite_number(object.get("visual_elapsed")) or float(object.visual_elapsed) < 0.0:
+			if not object.get("visual_phase") in ["work", "hold", "load", "idle"] or not _finite_number(object.get("visual_elapsed")) or float(object.visual_elapsed) < 0.0:
 				return false
 			if not _finite_number(object.get("loading_elapsed")) or float(object.loading_elapsed) < 0.0:
 				return false
 			if object.held_dish != null:
 				if object.held_dish.recipe_id != object.recipe_id or absf(float(object.preparation_elapsed) - duration) > 0.000001 or object.visual_phase == "work":
 					return false
-			elif object.visual_phase != "work":
+			elif not object.visual_phase in ["work", "idle"]:
 				return false
 			if object.visual_phase == "load":
 				var load_seconds := float(config.service.get("loading_seconds", 0.0))
@@ -679,6 +944,8 @@ func _valid_saved_state(state: Dictionary, config: Dictionary) -> bool:
 			return false
 		customer_ids[customer.id] = true
 		if not seats.has(customer.get("seat_id")) or not customer.get("phase") in ["walking", "waiting", "eating", "leaving"]:
+			return false
+		if not _valid_visit(customer, config):
 			return false
 		if not DIRECTIONS.has(customer.get("facing")) or not _finite_number(customer.get("visual_elapsed")) or float(customer.visual_elapsed) < 0.0:
 			return false
@@ -706,6 +973,8 @@ func _valid_saved_state(state: Dictionary, config: Dictionary) -> bool:
 				return false
 		if not _valid_customer_path(customer, seats[customer.seat_id], occupants, config.floor):
 			return false
+		if not _foot_on_floor(_render_position(customer), customer.seat_id, state.objects, config.floor):
+			return false
 		if not _finite_number(customer.get("meal_elapsed")) or float(customer.meal_elapsed) < 0.0:
 			return false
 		if not customer.has("meal_dish") or not _valid_dish(customer.meal_dish, config.recipes, dish_ids):
@@ -713,7 +982,7 @@ func _valid_saved_state(state: Dictionary, config: Dictionary) -> bool:
 		if (customer.phase == "eating") != (customer.meal_dish != null):
 			return false
 		if customer.phase == "eating":
-			if float(customer.meal_elapsed) >= float(config.service.eating_seconds):
+			if float(customer.meal_elapsed) >= float(customer.meal_duration):
 				return false
 		elif float(customer.meal_elapsed) != 0.0:
 			return false
@@ -725,6 +994,90 @@ func _valid_saved_state(state: Dictionary, config: Dictionary) -> bool:
 		if _id_index(dish_id, "dish-") >= int(state.next_dish_id):
 			return false
 	return true
+
+func _valid_customer_rules(value: Variant, service: Dictionary) -> bool:
+	if not value is Dictionary:
+		return false
+	for key in ["preference_seconds", "happy_seconds", "restless_seconds", "eating_jitter_seconds"]:
+		if not _finite_number(value.get(key)) or float(value[key]) < 0.0:
+			return false
+	for key in ["leave_seconds", "fullness_min", "fullness_max", "dish_fullness_min", "dish_fullness_max", "passing_offset", "personal_space"]:
+		if not _finite_number(value.get(key)) or float(value[key]) <= 0.0:
+			return false
+	return float(value.restless_seconds) < float(value.leave_seconds) and float(value.fullness_min) <= float(value.fullness_max) and float(value.dish_fullness_min) <= float(value.dish_fullness_max) and float(value.eating_jitter_seconds) < float(service.eating_seconds) and float(value.passing_offset) < 0.5 and float(value.personal_space) <= 2.0 * float(value.passing_offset)
+
+func _migrate_visit_state(state: Dictionary, config: Dictionary) -> void:
+	if not state.get("customers") is Array:
+		return
+	for customer in state.customers:
+		if not customer is Dictionary:
+			continue
+		# Existing visitors finish their original one-plate visit. No new random
+		# draws, preference replay, appetite reroll or sale occurs on migration.
+		customer.visit_legacy = true
+		customer.first_dish_received = customer.get("phase") in ["eating", "leaving"]
+		customer.preferred_recipe_id = ""
+		customer.preference_phase = "complete"
+		customer.preference_elapsed = 0.0
+		customer.preference_phase_elapsed = 0.0
+		customer.happy_elapsed = 0.0
+		customer.waiting_elapsed = 0.0
+		customer.restless = false
+		customer.yielding = false
+		customer.render_offset_x = 0.0
+		customer.render_offset_y = 0.0
+		customer.fullness = 1.0 if customer.get("phase") == "leaving" else 0.0
+		customer.appetite_target = 1.0
+		customer.meal_fullness = 1.0 if customer.get("phase") == "eating" else 0.0
+		customer.meal_duration = float(config.service.eating_seconds)
+		customer.departure_reason = "satisfied" if customer.get("phase") == "leaving" else ""
+
+func _valid_visit(customer: Dictionary, config: Dictionary) -> bool:
+	for key in ["visit_legacy", "first_dish_received", "restless", "yielding"]:
+		if not customer.get(key) is bool:
+			return false
+	for key in ["preference_elapsed", "preference_phase_elapsed", "happy_elapsed", "waiting_elapsed", "fullness", "meal_fullness"]:
+		if not _finite_number(customer.get(key)) or float(customer[key]) < 0.0:
+			return false
+	for key in ["appetite_target", "meal_duration"]:
+		if not _finite_number(customer.get(key)) or float(customer[key]) <= 0.0:
+			return false
+	for key in ["render_offset_x", "render_offset_y"]:
+		if not _finite_number(customer.get(key)) or absf(float(customer[key])) > float(config.customers.passing_offset) * 2.0 + 0.000001:
+			return false
+	if not customer.get("preferred_recipe_id") is String or (not customer.visit_legacy and not config.recipes.has(customer.preferred_recipe_id)):
+		return false
+	if not customer.get("preference_phase") in ["pending", "active", "satisfied", "expired", "complete"]:
+		return false
+	if not customer.get("departure_reason") in ["", "satisfied", "unfed"]:
+		return false
+	if (customer.phase == "leaving") != (customer.departure_reason != ""):
+		return false
+	if customer.first_dish_received and customer.preference_phase in ["pending", "active"]:
+		return false
+	if customer.preference_phase == "satisfied" and not customer.first_dish_received:
+		return false
+	var preference_seconds := float(config.customers.preference_seconds)
+	if customer.preference_phase == "pending" and float(customer.preference_elapsed) != 0.0:
+		return false
+	if customer.preference_phase == "active" and float(customer.preference_elapsed) >= preference_seconds:
+		return false
+	if customer.preference_phase == "expired" and absf(float(customer.preference_elapsed) - preference_seconds) > 0.000001:
+		return false
+	if customer.phase == "eating":
+		if not customer.first_dish_received or float(customer.meal_fullness) <= 0.0:
+			return false
+	elif float(customer.meal_fullness) != 0.0:
+		return false
+	if customer.visit_legacy:
+		return customer.appetite_target == 1.0 and customer.preference_phase == "complete" and customer.preferred_recipe_id == "" and float(customer.meal_duration) == float(config.service.eating_seconds)
+	if float(customer.appetite_target) < float(config.customers.fullness_min) or float(customer.appetite_target) > float(config.customers.fullness_max):
+		return false
+	if customer.phase != "leaving" and float(customer.fullness) + 0.000000001 >= float(customer.appetite_target):
+		return false
+	if customer.phase == "eating" and (float(customer.meal_fullness) < float(config.customers.dish_fullness_min) or float(customer.meal_fullness) > float(config.customers.dish_fullness_max)):
+		return false
+	return absf(float(customer.meal_duration) - float(config.service.eating_seconds)) <= float(config.customers.eating_jitter_seconds) + 0.000001
 
 func _valid_customer_path(customer: Dictionary, seat: Dictionary, occupants: Dictionary, floor_data: Dictionary) -> bool:
 	var leaving: bool = customer.phase == "leaving"

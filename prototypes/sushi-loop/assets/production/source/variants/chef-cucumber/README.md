@@ -1,0 +1,9 @@
+# Omar cucumber hold/load · issue 11
+
+Open `chef-cucumber-project.blend` to iterate in the saved native camera. The frozen `chef-cucumber.blend` library is retained as the exact render source linked by `finalized-project.json`. Both were created separately from the approved #33 library and the issue #10 customer variants.
+
+All approved chefs originally held salmon. The second exhibition chef uses Omar's approved work/idle identity plus these native `hold-cucumber` and `load-cucumber` variants. The original approved ImageGen cucumber PNG replaces only the food-plane texture and its fixed source UV/aspect. The native body, bones, weights, materials, all twelve body/attachment/visibility actions, C125 root, ordinary 35° camera, full capture frame and selected Faceted lighting remain unchanged. Loading keeps its original one-shot timing and plate handoff visibility.
+
+`author_chef.py` ran through Blender MCP using the exact user request recorded in `authorship.json`. It appended only the owned Omar source and restored the user's prior scene/file. `audit_native_chef.py` verifies the original packed cucumber bytes and all 96 pose/facing samples. The capture worker rendered 12 frames × two clips × four directions at 12 fps, 4× source scale and 32 samples. `pack_chef.py` uniformly resamples each complete frame to 2× and packs six columns, retaining the complete root/registration and frame rectangles. No pose fitting, silhouette masks or color edits are used.
+
+Native source, editable project, actions, helpers, camera records, all source receipts, publication hashes and runtime sprites remain in the repository. Raw captures are at `/private/tmp/sushi11-chef-raw`; they can be reproduced from the saved render source. Run `godot/tools/verify_chef_variants.py` with system Python for the same strict provenance and payload verification used before Android packaging. Only the runtime manifest and eight PNG atlases ship to Android.

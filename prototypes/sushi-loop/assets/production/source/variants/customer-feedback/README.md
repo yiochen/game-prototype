@@ -1,0 +1,9 @@
+# Smiling customer feedback · issue 11
+
+The approved #33 happy balloon contains a heart. Issue #11 specifically requires a happy face after the matching first dish, so this isolated ImageGen edit replaces only that interior symbol with a clearly smiling face. The approved heart source and catalog sprites remain unchanged. The exact built-in ImageGen edit prompt, reference role, transparent-background request, original reference hash and unmodified output hash are in `imagegen.json`; the selected output is `bubble-happy-smile.png`.
+
+`pack_feedback.py` uses the established 2D pipeline: select one source alpha rectangle once, set its fixed logical width to 82 pixels, then compose 12 unique samples at 12 fps on the complete `192×320` frame, root `(96,248)`, source scale 2. The four clips are `happy-smile-appear`, `happy-smile-idle`, `happy-smile-fade` and `happy-smile-transition`. The transition pulses the smiling balloon; none of these clips contains food, changes the eater's actual dish or changes a character pose/scale. There is no Blender bubble or per-pose silhouette fitting.
+
+The game merges the additional clips into the existing `bubble-happy` object from a separate feedback manifest. Its satisfied state uses the smiling transition, idle and fade alongside the correct meal animation and a brief instance bounce. The native unused standing happy action is omitted from the runtime selection, avoiding a seated-to-standing snap and needless textures.
+
+Run `pack_feedback.py` with the bundled Pillow-enabled Python to reproduce the four atlases. `publication.json` retains source dimensions/alpha bounds, the fixed registration and every complete frame's pixel hash. Run `godot/tools/verify_feedback_variants.py` with system Python to validate the ImageGen source/provenance, fixed roots/regions/timing, frame coverage and exact PNG payload. Android packages only the feedback manifest and four PNG atlases.
