@@ -1,0 +1,11 @@
+# Living ledges review
+
+User requested: treat mixed-height projection as a hypothesis; give rock crowns shallow unevenness; vary compact coral/kelp at the bottom, middle and top; darken lower rock faces and brighten upper faces.
+
+Five native families now combine offset crags, middle ledges and low shelves with green growth and blue/purple/pink/amber coral combinations. New plants keep compact proportions. A native material height ramp darkens the assembly near ground and brightens its crown. This rendered form shading is separate from future ground-contact shadows in Godot.
+
+The same native geometry is captured in 70% square-grid oblique and ordinary 35° orthographic profiles. Mixed mode selects 35° when the reference S-facing complete silhouette exceeds two tile heights; the floor always stays square. This selection is fixed per asset, not per frame/facing. Camera profile values and the resulting foreshortened ground depth are disclosed on the page and in the asset README. The user can compare Mixed against All 70% on the same shoreline, patch and directional cards. This does not lock a new projection contract for production.
+
+41 native captures pass source/project/image hashes, actual axis calibration, 1×1 footprints, 92.1% top-down coverage, uneven cap spans, three decoration bands, unclipped alpha margins and matching world geometry/root bounds across camera profiles. Independent live MCP inspection verifies all 15 native rock-material ramps and their connected base-color shaders. Top/right/three-quarter native views and final phone patch/shoreline screenshots were inspected. The mixed view exposes less top depth and longer fronts; its isolated bases expose more floor between neighboring rows. Current study has only five primary layouts and still deliberately exposes repeated motifs.
+
+164 engine tests, production build and three responsive browser tests pass at 390×844, 844×390, and 1440×1200. Checks include actual camera-source switching on tall pieces, unchanged short-piece source and floor placement, image decoding, layer toggles, facing/repetition controls, and one document scrollbar. Sources and evidence are saved; issue 33 and final scene-asset approval remain open.

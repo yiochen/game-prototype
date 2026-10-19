@@ -51,3 +51,10 @@ After the full-tile density patch, the user requested taller decorations and spe
 ### Height construction correction
 
 User feedback supersedes the stretched height experiment: raise the supporting rock base; keep coral, kelp and other decoration at their original proportions on top. Rock crowns should be broad and relatively flat, rather than pointed. The updated study keeps the previous total projected heights to isolate this construction change. The numeric heights are still pending approval. The current page compares corrected raised bases with the original low patch; previous stretched variants remain historical only. Evidence: `../../review/33/decoration-study/rock-bases/README.md`.
+
+
+### Living ledges and camera hypothesis — pending visual review
+
+Follow-up feedback clarifies the desired direction: broad but uneven rock crowns, compact kelp/coral distributed on lower, middle and upper ledges, varied coral colors, and dark lower rock faces graduating toward bright tops. The living-ledges study implements these traits in native geometry and materials.
+
+The user hypothesized a lower camera for objects covering more than two vertical tiles. The study compares the same geometry in the established 70% oblique profile and ordinary 35° orthographic profile. Its experimental mixed rule uses the S-facing complete reference silhouette (>2 tile heights), with square floors and fixed world roots. This camera exception is not locked and does not supersede ART-01 for production. The preserved original concept is visual guidance, not proof of a specific camera or angle. Evidence: `../../review/33/decoration-study/living-ledges/README.md`.

@@ -8,7 +8,7 @@ from bpy_extras.object_utils import world_to_camera_view
 CELL=128; FRAME=[192,768]; ROOT=[96,688]; SCALE=4; HEIGHT=.7
 PROJECTED_HEIGHTS={'low-rock':1.0,'coral':1.8,'column':2.5,'kelp':3.0,'spire':4.0}
 DIRS={'S':0,'E':math.pi/2,'N':math.pi,'W':-math.pi/2}
-COLORS={'rock':'285A88','rockLight':'376F9E','rockDark':'20486D','sand':'2AADC0','coral':'E94781','coralLight':'F66E99','coralDark':'972D67','purple':'8754CF','kelp':'43A447','kelpLight':'76C942','kelpDark':'237746','stone':'CADBD8','stoneSide':'9ABCBF'}
+COLORS={'rock':'347AC4','rockLight':'4E94D5','rockDark':'214D82','sand':'2AADC0','coral':'E94781','coralLight':'F66E99','coralDark':'972D67','purple':'8754CF','blueCoral':'407BEE','orangeCoral':'F59A38','kelp':'43A447','kelpLight':'76C942','kelpDark':'237746','stone':'CADBD8','stoneSide':'9ABCBF'}
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def write(p,d):Path(p).parent.mkdir(parents=True,exist_ok=True);Path(p).write_text(json.dumps(d,indent=2)+'\n')
 def rows(m):return [[float(v) for v in r] for r in m]
@@ -29,6 +29,14 @@ class Piece:
   m=bpy.data.materials.new(self.col.name+' '+color);m.use_nodes=True;m.diffuse_color=(*rgb,1)
   p=next(n for n in m.node_tree.nodes if n.type=='BSDF_PRINCIPLED');p.inputs['Base Color'].default_value=(*rgb,1);p.inputs['Roughness'].default_value=.9
   if 'Specular IOR Level' in p.inputs:p.inputs['Specular IOR Level'].default_value=.12
+  if color.startswith('rock'):
+   # Stylized height-dependent surface tone, separate from future floor shadows.
+   nodes=m.node_tree.nodes;links=m.node_tree.links
+   pos=nodes.new('ShaderNodeNewGeometry');xyz=nodes.new('ShaderNodeSeparateXYZ')
+   span=nodes.new('ShaderNodeMapRange');span.inputs['From Min'].default_value=0;span.inputs['From Max'].default_value=max(.5,self.base_height)
+   ramp=nodes.new('ShaderNodeValToRGB');ramp.color_ramp.elements[0].color=(.17,.23,.34,1);ramp.color_ramp.elements[1].color=(1,1,1,1)
+   mix=nodes.new('ShaderNodeMixRGB');mix.blend_type='MULTIPLY';mix.inputs[0].default_value=1;mix.inputs[1].default_value=(*rgb,1)
+   links.new(pos.outputs['Position'],xyz.inputs[0]);links.new(xyz.outputs['Z'],span.inputs['Value']);links.new(span.outputs['Result'],ramp.inputs[0]);links.new(ramp.outputs['Color'],mix.inputs[2]);links.new(mix.outputs[0],p.inputs['Base Color'])
   self.mats[color]=m;return m
  def mesh(self,name,verts,faces,color):
   d=bpy.data.meshes.new(name);d.from_pydata(verts,[],faces);d.update();o=bpy.data.objects.new(self.col.name+' '+name,d);self.col.objects.link(o);o.parent=self.root;o.data.materials.append(self.mat(color));self.parts.append(o);return o
@@ -70,83 +78,79 @@ class Piece:
   o=self.mesh('ocean bed',verts,[(0,1,4),(1,2,5,4),(2,3,5),(3,0,4,5),(4,5,3)],'sand')
   # One matte color on the boundary and interior avoids baked checker seams.
   return o
- def build_original(self):
-  if self.id.startswith('bed-'):self.floor(int(self.id[-1]));return
-  self.rock('left ground stone',-.18,-.15,.64,.70,.17,seed=1)
-  self.rock('rear ground stone',.12,.20,.76,.60,.22,seed=3)
-  self.rock('right ground stone',.34,-.21,.32,.58,.13,seed=5)
-  if self.id=='low-rock':
-   self.rock('wide low shelf',-.07,.07,.80,.77,.23,z=.13,seed=2)
-   self.rock('front fragment',.26,-.29,.38,.38,.16,z=.04,seed=4)
-   self.rock('edge fragment',-.34,-.31,.27,.29,.13,z=.04,seed=1)
-  elif self.id=='coral':
-   for i,(x,y,h,r) in enumerate([(-.12,.21,.67,.17),(-.34,-.10,.48,.12),(.27,.25,.51,.15),(.19,-.04,.72,.13),(-.22,-.30,.25,.16),(.15,-.31,.39,.15),(-.35,.32,.35,.11),(.34,-.28,.25,.10)]):
-    self.tube('coral tube '+str(i),x,y,.12,h,r,'coralLight' if i%3==0 else 'purple' if i in (1,4,6) else 'coral',lean=.025*math.sin(i))
-  elif self.id=='kelp':
-   for i,(x,y,h,w) in enumerate([(-.33,.29,.88,.19),(-.06,.30,1.12,.21),(.28,.30,.94,.20),(-.31,.01,.70,.22),(.02,.02,.92,.24),(.31,-.03,.73,.22),(-.29,-.31,.48,.23),(.02,-.29,.60,.25),(.29,-.31,.46,.22)]):
-    self.leaf('kelp blade '+str(i),x,y,.12,h,w,.055*math.sin(i*2),i*.8)
-   self.rock('kelp toe rock',.34,-.30,.31,.34,.21,z=.03,seed=4)
-  elif self.id=='spire':
-   self.rock('tall asymmetric peak',-.16,.14,.64,.69,1.18,z=.12,seed=3)
-   self.rock('secondary peak',.28,-.12,.43,.65,.66,z=.10,seed=1)
-   self.rock('front skirt',-.18,-.31,.58,.36,.31,z=.04,seed=2)
-  elif self.id=='column':
-   self.rock('broken pale shaft',-.10,.17,.61,.61,.83,'stone',z=.12,seed=4)
-   self.rock('fallen column chunk',.12,-.28,.74,.35,.36,'stoneSide',z=.10,seed=2)
-   self.leaf('column growth',.30,.25,.14,.49,.18,.02,1)
-   self.leaf('column growth small',.32,.05,.13,.31,.15,.02,2)
-
- def plateau(self,height):
-  # Large geological facets and an irregular chipped rim under a broad level top.
-  # Relative variation is in the side walls, never a central pointed summit.
-  seed={'low-rock':1,'coral':3,'kelp':5,'spire':7,'column':9}[self.id]
-  outline=[(-.5,-.37),(-.39,-.5),(.34,-.5),(.5,-.32),(.5,.39),(.36,.5),(-.38,.5),(-.5,.33)]
+ def ledge(self,name,x,y,w,d,top,seed):
+  outline=[(-.5,-.35),(-.34,-.5),(.31,-.5),(.5,-.28),(.5,.38),(.32,.5),(-.36,.5),(-.5,.29)]
   verts=[]
-  for ring,(z,scale) in enumerate([(0,1),(.38*height,.87),(.76*height,.96),(height-.06,.99),(height,.94)]):
-   for i,(x,y) in enumerate(outline):
-    zz=z if ring in (0,4) else min(height-.07,z+min(.17,height*.10)*math.sin(i*1.7+ring+seed))
-    local=scale if ring in (0,4) else scale-.06*(.5+.5*math.sin(i*2.3+seed))
-    verts.append((x*local,y*local,zz))
-  faces=[tuple(reversed(range(8)))];materials=[2]
   for ring in range(4):
+   for i,(xx,yy) in enumerate(outline):
+    scale=[1,.91,.96,.88][ring];z=[0,top*.54,top-.19,top][ring]
+    if ring==1:z+=min(.15,top*.1)*math.sin(i+seed)
+    if ring==3:z-=min(.13,top*.18)*(.5+.5*math.sin(i*1.6+seed))
+    verts.append((x+xx*w*scale,y+yy*d*scale,max(0,z)))
+  verts.append((x-.04*w,y+.03*d,top-min(.065,top*.09)))
+  faces=[tuple(reversed(range(8)))];matids=[2]
+  for ring in range(3):
    for i in range(8):
     a=ring*8+i;b=ring*8+(i+1)%8;c=(ring+1)*8+(i+1)%8;d=(ring+1)*8+i
-    faces.extend([(a,b,d),(b,c,d)])
-    # Broad triangles read as rock planes; no fine-grain texture or striping.
-    shade=1 if i in (3,4) else 2 if i in (0,7) else 0
-    materials.extend([shade,1 if (ring+i+seed)%5==0 else shade])
-  faces.append(tuple(range(32,40)));materials.append(1)
-  o=self.mesh('flat crown rock base',verts,faces,'rock')
-  o.data.materials.append(self.mat('rockLight'));o.data.materials.append(self.mat('rockDark'))
-  for i,p in enumerate(o.data.polygons):p.material_index=materials[i]
-  o['support_height']=height
-  self.base_height=height
+    faces.extend([(a,b,d),(b,c,d)]);shade=2 if i in (0,7) else 0
+    matids.extend([shade,1 if (i+ring+seed)%5==0 else shade])
+  for i in range(8):faces.append((24+i,24+(i+1)%8,32));matids.append(1 if i%3 else 0)
+  o=self.mesh(name,verts,faces,'rock');o.data.materials.append(self.mat('rockLight'));o.data.materials.append(self.mat('rockDark'))
+  for i,face in enumerate(o.data.polygons):face.material_index=matids[i]
+  self.rock_parts.append(o)
+
+ def surface(self,x,y):
+  heights=[]
+  for obj in self.rock_parts:
+   for face in obj.data.polygons:
+    if len(face.vertices)!=3:continue
+    a,b,c=[obj.data.vertices[i].co for i in face.vertices]
+    den=(b.y-c.y)*(a.x-c.x)+(c.x-b.x)*(a.y-c.y)
+    if abs(den)<1e-8:continue
+    u=((b.y-c.y)*(x-c.x)+(c.x-b.x)*(y-c.y))/den;v=((c.y-a.y)*(x-c.x)+(a.x-c.x)*(y-c.y))/den
+    if min(u,v,1-u-v)>=-1e-6:heights.append(u*a.z+v*b.z+(1-u-v)*c.z)
+  assert heights,(self.id,x,y)
+  return max(heights)
+
+ def growth(self,kind,band,x,y,index,color='coral'):
+  z=self.surface(x,y)
+  if kind=='kelp':
+   for j,(dx,dy,h,w) in enumerate([(-.045,0,.48,.13),(.04,.018,.70,.16),(0,-.035,.60,.15)]):
+    zz=self.surface(x+dx,y+dy)
+    self.leaf(f'{band} kelp {index}-{j}',x+dx,y+dy,zz,h,w,.035*math.sin(index+j),index*.8+j)
+  else:
+   for j,(dx,dy,h,r) in enumerate([(-.04,.015,.25,.07),(.035,0,.39,.085)]):
+    zz=self.surface(x+dx,y+dy)
+    self.tube(f'{band} {color} {index}-{j}',x+dx,y+dy,zz,h,r,color,lean=.015*math.sin(index+j))
+  self.decorations.append({'kind':kind,'band':band,'position':[x,y,z],'color':color if kind!='kelp' else 'green'})
 
  def build(self):
-  self.build_original()
-  self.preserved=[];self.base_height=0
-  if self.id.startswith('bed-'):return
-  # Original decorative meshes move upward rigidly. Their shape, thickness and
-  # heights are untouched; all extra elevation belongs to a new geological base.
-  removed=[o for o in self.parts if 'ground stone' in o.name or self.id in ('low-rock','spire')]
-  for obj in removed:
-   self.parts.remove(obj);bpy.data.objects.remove(obj,do_unlink=True)
-  target=PROJECTED_HEIGHTS[self.id]/HEIGHT
-  if self.parts:
-   top=max(v.co.z for o in self.parts for v in o.data.vertices)
-   lift=target-top
-   for obj in self.parts:
-    self.preserved.append({'part':obj.name.removeprefix(self.col.name+' '),'translation':[0,0,lift],
-      'originalVertices':[list(v.co) for v in obj.data.vertices],'faces':[list(p.vertices) for p in obj.data.polygons]})
-    obj.location.z=lift
-   base=.12+lift
-  else:base=target
-  self.plateau(base)
+  self.rock_parts=[];self.decorations=[];self.preserved=[];self.base_height=0
+  if self.id.startswith('bed-'):self.floor(0);return
+  seed={'low-rock':1,'coral':3,'kelp':5,'spire':7,'column':9}[self.id]
+  top=PROJECTED_HEIGHTS[self.id]/HEIGHT-({'low-rock':.36,'coral':.39,'kelp':.70,'spire':.48,'column':.83}[self.id])
+  self.base_height=top
+  self.ledge('back crag',-.06,.12,.88,.76,top,seed)
+  self.ledge('middle ledge',.29,-.20,.42,.60,top*(.48 if self.id in ('kelp','spire') else .58),seed+2)
+  self.ledge('front shelf',-.18,-.32,.64,.36,min(.30,top*.24),seed+4)
+  top_kind='kelp' if self.id in ('kelp','spire') else 'coral'
+  palette={'low-rock':('purple','blueCoral'),'coral':('coral','orangeCoral'),'kelp':('purple','blueCoral'),'spire':('blueCoral','coralLight'),'column':('orangeCoral','purple')}[self.id]
+  self.growth('kelp','bottom',-.22,-.35,seed)
+  self.growth('coral','bottom',-.02,-.35,seed+1,palette[1])
+  self.growth('coral' if self.id in ('coral','column') else 'kelp','middle',.30,-.28,seed+2,palette[0])
+  if self.id=='column':
+   z=self.surface(-.11,.17)
+   self.rock('original-size pale ruin',-.11,.17,.43,.40,.65,'stone',z=z,seed=4)
+   self.growth('kelp','top',.17,.30,seed+3)
+  else:
+   self.growth(top_kind,'top',-.10,.22,seed+3,palette[0])
+   self.growth('coral','top',.19,.28,seed+4,palette[1])
 
-def camera(scene):
+def camera(scene,profile="oblique70"):
  c=scene.camera;scene.render.resolution_x=FRAME[0]*SCALE;scene.render.resolution_y=FRAME[1]*SCALE
- scene.render.pixel_aspect_x=math.sqrt(1+HEIGHT*HEIGHT);scene.render.pixel_aspect_y=1
- a=math.atan(1/HEIGHT);c.data.type='ORTHO';c.data.sensor_fit='HORIZONTAL';c.data.ortho_scale=FRAME[0]/CELL
+ ordinary=profile=="ordinary35"
+ scene.render.pixel_aspect_x=1 if ordinary else math.sqrt(1+HEIGHT*HEIGHT);scene.render.pixel_aspect_y=1
+ a=math.radians(35) if ordinary else math.atan(1/HEIGHT);c.data.type='ORTHO';c.data.sensor_fit='HORIZONTAL';c.data.ortho_scale=FRAME[0]/CELL
  c.location=(0,-10*math.cos(a),10*math.sin(a));c.rotation_euler=(-c.location).to_track_quat('-Z','Y').to_euler();c.data.shift_x=c.data.shift_y=0
  def px(p):
   v=world_to_camera_view(scene,c,Vector(p));return Vector((v.x*FRAME[0]*SCALE,(1-v.y)*FRAME[1]*SCALE))
@@ -154,9 +158,11 @@ def camera(scene):
  c.data.shift_y=1;bpy.context.view_layer.update();dy=px((0,0,0)).y-o.y;c.data.shift_y=(ROOT[1]*SCALE-o.y)/dy;bpy.context.view_layer.update()
  origin=px((0,0,0));vectors=[px(p)-origin for p in [(1,0,0),(0,-1,0),(0,0,1)]]
  assert (origin-Vector([v*SCALE for v in ROOT])).length<.05
- for actual,expected in zip(vectors,[(CELL*SCALE,0),(0,CELL*SCALE),(0,-CELL*SCALE*HEIGHT)]):assert (actual-Vector(expected)).length<.05
+ depth_factor=math.sin(a) if ordinary else 1
+ height_factor=math.cos(a) if ordinary else HEIGHT
+ for actual,expected in zip(vectors,[(CELL*SCALE,0),(0,CELL*SCALE*depth_factor),(0,-CELL*SCALE*height_factor)]):assert (actual-Vector(expected)).length<.05
  matrix=c.calc_matrix_camera(bpy.context.evaluated_depsgraph_get(),x=FRAME[0]*SCALE,y=FRAME[1]*SCALE,scale_x=scene.render.pixel_aspect_x,scale_y=1)
- return {'worldMatrix':rows(c.matrix_world),'projectionMatrix':rows(matrix),'heightRatio':HEIGHT,'elevationDegrees':math.degrees(a),'pixelAspect':[scene.render.pixel_aspect_x,1],'calibration':{'root':list(origin/SCALE),'x':list(vectors[0]/SCALE),'depth':list(vectors[1]/SCALE),'height':list(vectors[2]/SCALE)}}
+ return {'worldMatrix':rows(c.matrix_world),'projectionMatrix':rows(matrix),'profile':profile,'heightRatio':height_factor,'depthRatio':depth_factor,'elevationDegrees':math.degrees(a),'pixelAspect':[scene.render.pixel_aspect_x,1],'calibration':{'root':list(origin/SCALE),'x':list(vectors[0]/SCALE),'depth':list(vectors[1]/SCALE),'height':list(vectors[2]/SCALE)}}
 def settings(scene):
  scene.render.engine='BLENDER_EEVEE';scene.render.film_transparent=True;scene.render.image_settings.file_format='PNG';scene.render.image_settings.color_mode='RGBA';scene.render.resolution_percentage=100
  scene.view_settings.view_transform='Standard';scene.view_settings.look='None';scene.view_settings.exposure=0;scene.view_settings.gamma=1
@@ -186,15 +192,16 @@ def create(out):
   bg=next(n for n in scene.world.node_tree.nodes if n.type=='BACKGROUND');bg.inputs['Color'].default_value=(.65,.8,1,1);bg.inputs['Strength'].default_value=.7
   for name,pos,energy,size in [('key',(-3,-4,7),450,5),('fill',(4,-1,3),180,4)]:
    data=bpy.data.lights.new(prefix+name,'AREA');o=bpy.data.objects.new(data.name,data);scene.collection.objects.link(o);o.location=pos;o.rotation_euler=(-o.location).to_track_quat('-Z','Y').to_euler();data.energy=energy;data.shape='DISK';data.size=size
-  names={'bed-0':('Ocean bed','ground'),'low-rock':('Rock shelf','low'),'coral':('Coral on rock ledge','medium'),'kelp':('Kelp on rock ledge','tall'),'spire':('Cobalt plateau','tall'),'column':('Broken column','medium')}
+  names={'bed-0':('Ocean bed','ground'),'low-rock':('Blue coral shelf','low'),'coral':('Pink and amber reef','medium'),'kelp':('Kelp terrace','tall'),'spire':('Decorated cobalt crag','tall'),'column':('Ruin garden','medium')}
   for ident,(name,band) in names.items():
-   model=Piece(scene,prefix,ident);model.build();man['objects'].append({'id':ident,'name':name,'heightBand':band,'collection':model.col.name,'rootObject':model.root.name,'images':{},'receipts':{},'baseHeight':model.base_height,'preservedParts':model.preserved})
+   model=Piece(scene,prefix,ident);model.build();man['objects'].append({'id':ident,'name':name,'heightBand':band,'collection':model.col.name,'rootObject':model.root.name,'images':{},'receipts':{},'baseHeight':model.base_height,'decorations':model.decorations})
   man['camera']=camera(scene)
   for item in man['objects']:
    pose(man,item['id'],'S');g=geometry(bpy.data.collections[item['collection']]);item['bounds']={k:g[k] for k in ('min','max','dimensions')};item['height']=g['max'][2]
    if item['id'] in PROJECTED_HEIGHTS:
-    item['targetProjectedHeight']=PROJECTED_HEIGHTS[item['id']]
-    assert abs(item['height']*HEIGHT-item['targetProjectedHeight'])<1e-5
+    item['intendedHeightBand']=PROJECTED_HEIGHTS[item['id']]
+   projected=[-v[1]-.7*v[2] for part in g['objects'] for v in part['vertices']]
+   item['baselineSilhouetteHeight']=max(projected)-min(projected)
    assert min(g['min'][:2])>=-.501 and max(g['max'][:2])<=.501,(item['id'],item['bounds'])
    write(out/('geometry/'+item['id']+'.json'),g)
    item['geometry']='geometry/'+item['id']+'.json';item['geometrySHA256']=sha(out/item['geometry'])
@@ -206,11 +213,15 @@ def capture(out):
  with active(scene):
   settings(scene)
   for item in man['objects']:
-   for facing in (['S'] if item['heightBand']=='ground' else DIRS):
-    pose(man,item['id'],facing);cam=camera(scene);g=geometry(bpy.data.collections[item['collection']]);assert min(g['min'][:2])>=-.501 and max(g['max'][:2])<=.501
-    img='sprites/'+item['id']+'/'+facing+'.png';target=out/img;target.parent.mkdir(parents=True,exist_ok=True);scene.render.filepath=str(target);bpy.ops.render.render(write_still=True,scene=scene.name)
-    rec={'id':item['id'],'facing':facing,'bounds':{k:g[k] for k in ('min','max','dimensions')},'camera':cam,'frameSize':FRAME,'root':ROOT,'sourceScale':SCALE,'nativeProjectSHA256':man['nativeProjectSHA256'],'image':img,'imageSHA256':sha(target),'rootMatrix':rows(bpy.data.objects[item['rootObject']].matrix_world)}
-    path='cameras/'+item['id']+'/'+facing+'.json';write(out/path,rec);item['images'][facing]=img;item['receipts'][facing]=path
-    print('DECOR_CAPTURE '+item['id']+'/'+facing,flush=True)
+   item['profiles']={}
+   for profile in (['oblique70'] if item['heightBand']=='ground' else ['oblique70','ordinary35']):
+    item['profiles'][profile]={'images':{},'receipts':{}}
+    for facing in (['S'] if item['heightBand']=='ground' else DIRS):
+     pose(man,item['id'],facing);cam=camera(scene,profile);g=geometry(bpy.data.collections[item['collection']]);assert min(g['min'][:2])>=-.501 and max(g['max'][:2])<=.501,(item['id'],g['min'],g['max'])
+     img=f"sprites/{profile}/{item['id']}/{facing}.png";target=out/img;target.parent.mkdir(parents=True,exist_ok=True);scene.render.filepath=str(target);bpy.ops.render.render(write_still=True,scene=scene.name)
+     rec={'id':item['id'],'facing':facing,'bounds':{k:g[k] for k in ('min','max','dimensions')},'camera':cam,'frameSize':FRAME,'root':ROOT,'sourceScale':SCALE,'nativeProjectSHA256':man['nativeProjectSHA256'],'image':img,'imageSHA256':sha(target),'rootMatrix':rows(bpy.data.objects[item['rootObject']].matrix_world)}
+     path=f"cameras/{profile}/{item['id']}/{facing}.json";write(out/path,rec);item['profiles'][profile]['images'][facing]=img;item['profiles'][profile]['receipts'][facing]=path
+     print('DECOR_CAPTURE '+profile+'/'+item['id']+'/'+facing,flush=True)
+   item['images']=item['profiles']['oblique70']['images'];item['receipts']=item['profiles']['oblique70']['receipts']
  man['status']='captured';write(out/'study.json',man)
 if __name__=='__main__' and '--capture' in sys.argv:capture(sys.argv[sys.argv.index('--capture')+1])
