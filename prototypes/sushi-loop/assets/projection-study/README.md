@@ -1,6 +1,6 @@
 # Experimental height projection comparison
 
-An isolated camera study for issue #33. No height ratio has been adopted, and the production sprite library and both restaurant/underwater scenes are unchanged.
+An isolated camera study for issue #33. The user selected 70% projected environment height for the next production revision; see the [decision record](../../design/art-directions/decisions.md). This historical comparison remains unchanged, and the full production recapture is pending explicit authorization.
 
 The five standalone environment examples are the wooden stool, wooden crate, east conveyor, rock wall middle, and underwater boulder. Lena uses one frozen south-facing held-dish pose (native frame 6). The context assembly contains a straight–corner–straight conveyor with a stool, crate and boulder. This study has no animation.
 

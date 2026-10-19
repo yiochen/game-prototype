@@ -23,8 +23,10 @@ The reusable recipe can also create a new isolated editable scene via create_stu
 
 ## Selected size and hair revision 3
 
-The user selected 125% on 2026-10-18. The page highlights that column and defaults the 3×3 layout to 125%. B/C remain alternatives; no global character replacement has been approved.
+The user selected 125% on 2026-10-18. The page highlights that column and defaults the 3×3 layout to 125%. The user subsequently locked C / Chunky at 125%, including revision 3 hair and softer face; B remains a comparison reference. The full production rollout still awaits explicit authorization.
 
 Revision 3 replaces the box hair cap with a rounded crown and occiput, layered smooth curls, fuller temples and a covered nape. Asymmetric fringe groups and subtle brown variation add readable volume. Cheek/chin corners use a larger native bevel with weighted normals. Head dimensions, camera, root, costume, minimal feet and actual scale factors are unchanged. C at 125% is still 1.576 tiles high including the hat and has a conservative 0.814×0.814 tile turning envelope. All 24 native captures were regenerated and audited.
 
 Earlier flat-hair captures are retained under review/33/character-scale-study/iterations/flat-hair-v2; the complete earlier native source is available at commit 4ba88fb.
+
+The [locked art decision record](../../design/art-directions/decisions.md) governs the next asset pass and separates approved choices from work awaiting authorization.

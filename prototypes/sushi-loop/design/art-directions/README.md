@@ -2,11 +2,15 @@
 
 Accepted direction: colorful low-poly game art with a square-grid environment and undistorted characters. The four images below are the current references for both scenes.
 
+## Locked revision decisions
+
+The [decision record](decisions.md) is the authoritative checkpoint for the next asset pass: **70% environment front/height, 125% character scale, and C / Chunky proportions with rounded cheeks and fuller layered hair**. Characters retain their ordinary 35° camera. The full asset rollout is waiting for the user to finish reviewing the changes and explicitly start it.
+
 ## Character proportion exploration
 
 [Character proportions v1](character-proportions-v1.png) compares four new anatomy directions—A Compact, B Playful, C Chunky and D Super Chibi—with an illustrative redraw of the current chef. The same Lena identity and outfit are retained. These ImageGen concepts target the same ordinary 35-degree character camera; they are not calibrated or registered sprite captures. The existing native reference remains under `assets/projection-study/sprites/chef-lena/ordinary-35.png`.
 
-The user selected **70% projected environment height** and retained the **35-degree ordinary character camera**. Shorter-legged, more cartoony character anatomy is awaiting a concept choice before Blender remodeling. The accepted choices will be captured together in a later production revision; existing production sprites and the historical projection-comparison captures remain unchanged at this stage. Exact prompt, reference roles and SHA256 values are retained in [the generation record](sources/character-proportions-v1.json).
+The user selected **70% projected environment height** and retained the **35-degree ordinary character camera**. The user has now locked **C / Chunky at 125%**, with minimal feet, short legs, rounded cheek/chin corners and the fuller hair from native character-study revision 3. The accepted choices will be captured together in a later production revision; existing production sprites and the historical projection-comparison captures remain unchanged at this stage. Exact prompt, reference roles and SHA256 values are retained in [the generation record](sources/character-proportions-v1.json).
 
 ## Final references
 
@@ -23,7 +27,7 @@ Concepts establish the scene treatment. Catalogs establish the visual vocabulary
 
 - Build forms from chunky, angular low-poly geometry with broad, readable facets, simple bevels and matte surfaces. Use flat shading, gentle ambient occlusion and soft grounding shadows.
 - Keep surface detail sparse. Favor shape and color over painted texture, grain, fine engraving or smooth clay-like modeling. Scene objects use faceted silhouettes rather than heavy ink outlines.
-- Characters have compact blocky bodies, angular hair and hats, tiny expressive eyes and mouths, and clear gestures. Faces, sushi and reactions must remain readable at phone size.
+- Characters use the selected compact, chubby C proportions, softly rounded cheeks/chin, fuller layered hair, minimal feet, tiny expressive eyes and mouths, and clear gestures. Retain readable low-poly costumes while avoiding a cubic face or flat hair cap. Faces, sushi and reactions must remain readable at phone size.
 - Restaurant: pale cream square floor tiles, honey-brown wood, red and charcoal conveyor belts, warm golden lantern light, bright food and clothing accents, and angular green plants. Frame expansion areas with subdued slate rocks, crates and construction details while leaving aisles clear. Dining stools are backless.
 - Underwater: turquoise floor and water, cobalt/navy rock walls, pale broken columns, bright pink/purple coral and green kelp, with a warm yellow submarine and blue window. Keep hazards and the route distinct from decorative scenery.
 - UI uses clean cream or scene-colored rounded panels, crisp icons, dark rims and restrained depth. Strong outlines belong primarily to UI and facial details. Actual HUD controls and backing surfaces follow the accepted wireframes, even where a catalog shows another example.
@@ -34,27 +38,27 @@ Use **square top/front oblique projection** for floors and objects: conveyor mod
 
 ```text
 screenX = anchorX + cellSize * x
-screenY = anchorY + cellSize * depth - cellSize * height
+screenY = anchorY + cellSize * depth - 0.70 * cellSize * height
 ```
 
 - Floor cells are screen-aligned squares with equal horizontal and vertical pitch. Parallel edges stay parallel, with no distant shrinkage, vanishing-point convergence or diamond-grid rotation.
-- Lengths and angles remain true within grid-aligned top and front planes. A unit top and a unit front each project to a square. A short object can have a square top and a shallow rectangular front.
+- Grid-aligned top planes retain their true shape. Front-plane vertical lengths use the selected 0.70 factor: a unit top remains square, while a unit front becomes 0.70 cell tall. Front planes are no longer true-shape squares.
 - Height moves artwork straight upward over the row behind its footprint. It does not change the logical cell size or ground root.
 - The end-on side plane can collapse. Do not force a conventional isometric third face onto aligned objects. Other face orientations and rounded volumes have no true-shape guarantee.
 
-For a 3D capture, use a 45-degree orthographic environment view with a **sqrt(2) vertical projection stretch**, applied in the projection or pixel aspect before capture. Do not stretch finished sprites. In Blender Z-up coordinates, canonical `x = X`, `depth = -Y`, and `height = Z`; in Y-up coordinates, `depth = Z` and `height = Y`.
+For a 3D capture, apply the selected 0.70 profile in the native camera/projection before rendering, preserving square ground cells. Use the verified 70% study camera and calibration receipts as the implementation reference; do not stretch finished sprites. The earlier 45-degree / sqrt(2) profile in stored concept-source records is the historical 100% baseline. Existing production exports still use that baseline until the authorized recapture. In Blender Z-up coordinates, canonical `x = X`, `depth = -Y`, and `height = Z`; in Y-up coordinates, `depth = Z` and `height = Y`.
 
 ## Undistorted characters
 
-Characters use a separate **ordinary orthographic art camera**, with square pixels and no vertical stretch. About 35 degrees elevation is a starting example, not a mandatory recovered camera angle. Keep its scale and camera fixed across poses and animations.
+Characters use a separate **ordinary orthographic art camera**, with square pixels and no vertical stretch. The selected elevation is **35 degrees**, retained from the approved study. Keep its scale and camera fixed across poses and animations.
 
-Place character art using the environment's projected ground roots and logical cell scale. Standing feet meet their floor root. Seated hips meet an explicit stool-seat support point, with hands and food aligned to the serving surface. Preserve natural head, body and limb proportions rather than applying the environment stretch to people. A sphere under the environment projection becomes sqrt(2) times taller than wide, which is why the character exception matters. Any additional ordinary-orthographic exception for a rounded prop should be recorded explicitly.
+Place character art using the environment's projected ground roots and logical cell scale. Standing feet meet their floor root. Seated hips meet an explicit stool-seat support point, with hands and food aligned to the serving surface. Preserve natural head, body and limb proportions rather than applying the environment stretch to people. The environment projection distorts rounded anatomy (the historical 100% profile made spheres sqrt(2) times taller than wide), which is why the character exception matters. Any additional ordinary-orthographic exception for a rounded prop should be recorded explicitly.
 
 Keep footprint, support/collision, art bounds, ground root and visual height separate. Tall art may overlap neighboring rows without occupying those cells. Do not infer collision or seat placement from a sprite's bounding rectangle, or fit each pose independently into its frame.
 
 ## Geometry and generation sources
 
-- [Environment projection profile](sources/projection.json): affine matrix, axis conventions, top/front examples and the sphere limitation.
+- [Historical environment projection profile](sources/projection.json): original 100% affine matrix, axis conventions, top/front examples and sphere limitation. For the selected next revision, use ART-01 and the 70% native study receipts.
 - [Character registration](sources/character-registration.json): separate character-camera guidance and floor/seat attachment points for the restaurant composition.
 - [Restaurant geometry guide](sources/geometry-guide.svg): authored square grid and furniture top/front planes. Its cyan crosses and orange dots are planning markers, not final artwork.
 - [Generation prompts](sources/generation-prompts.json): exact built-in imagegen prompts for the four final references, including relevant refinements and historical input roles.
