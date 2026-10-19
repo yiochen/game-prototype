@@ -1,0 +1,5 @@
+# Previous/next review navigation
+
+The review toolbar now includes Prev/Next buttons and an index. Individual object pages cycle through the 125 objects in catalog order, wrapping at either end. Other examples follow the picker order. Navigation preserves each object's existing comment and draft storage, updates its deep link, and returns to the top so navigation remains reachable. Buttons remain at least 44 pixels tall on phone, landscape and desktop layouts.
+
+164 engine tests, production build and six focused browser checks pass. New checks verify adjacent object identity, wraparound, counter, separate drafts/comments, reload persistence, scroll position, horizontal bounds and touch target size at 390×844, 844×390 and 1325×1224. Existing feedback checks cover persistence, export and unavailable storage/clipboard. Their mobile selector was updated to the current single-scroll sidebar instead of the historical modal. Screenshots were visually checked for mobile wrapping and desktop placement beside the picker.

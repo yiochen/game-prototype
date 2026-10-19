@@ -13,6 +13,8 @@ import { chefFor, roster } from './fixtures.js';
 import './single-scroll.css';
 
 const byId = new Map(stories.map(story => [story.id, story]));
+const exampleOrder = storyGroups.flatMap(group => stories.filter(story => story.group === group.id));
+const objectOrder = stories.filter(story => story.objectId);
 const route = () => byId.has(location.hash.slice(1)) ? location.hash.slice(1) : 'floor-plan';
 
 function fixtureFor(story) {
@@ -108,7 +110,7 @@ function App() {
     if (['expansion', 'expansion-unaffordable'].includes(id)) { fixture.panel = 1; fixture.panFraction = 1; }
     if (options.panel !== undefined) { fixture.panel = options.panel; fixture.panFraction = options.panel; }
     const next = { id, fixture, returnRestaurant, returnPanel };
-    scrollDestination.current = { id };
+    scrollDestination.current = { id, top: options.scrollTop };
     viewRef.current = next; setView(next); setMenu(false);
     if (location.hash !== `#${id}`) history.pushState(null, '', `#${id}`);
   }
@@ -263,6 +265,11 @@ function App() {
   const visibleGroups = storyGroups.map(group => ({ ...group, stories: stories.filter(example => example.group === group.id && `${example.title} ${group.title}`.toLowerCase().includes(term) && (term || group.id !== 'asset-review' || example.id === 'object-library' || example.id === story.id)) })).filter(group => group.stories.length);
   const documentScene = !!story.overlay || ['object-review', 'world-showcase', 'projection-study', 'character-scale-study', 'decoration-study', 'concept', 'component', 'shop', 'workshop'].includes(story.scene);
   const next = nextEvents[story.id];
+  const reviewOrder = story.objectId ? objectOrder : exampleOrder;
+  const reviewIndex = reviewOrder.findIndex(example => example.id === story.id);
+  const previousExample = reviewOrder[(reviewIndex - 1 + reviewOrder.length) % reviewOrder.length];
+  const nextExample = reviewOrder[(reviewIndex + 1) % reviewOrder.length];
+  const reviewKind = story.objectId ? 'object' : 'example';
   const staffPopup = ['chef-detail', 'applicants', 'fire'].includes(story.overlay) || (story.overlay === 'recipes' && byId.get(view.fixture.popupReturnStory)?.overlay === 'chef-detail');
   const backdropStory = staffPopup ? byId.get(view.fixture.staffReturnStory) || story : story;
   return <>
@@ -278,6 +285,11 @@ function App() {
         <div className="preview-toolbar">
           <button id="open-menu" className="studio-button menu-trigger" aria-controls="story-sidebar" aria-expanded={menu} onClick={() => setMenu(value => !value)}><Icon name="layout"/><span>Examples</span></button>
           <label className="example-select-label" htmlFor="example-select">Example<select id="example-select" value={story.id} onChange={event => go(event.target.value, { reset: true })}>{storyGroups.map(group => <optgroup label={group.title} key={group.id}>{stories.filter(example => example.group === group.id).map(example => <option value={example.id} key={example.id}>{example.title}</option>)}</optgroup>)}</select></label>
+          <nav className="example-stepper" aria-label={story.objectId ? 'Object navigation' : 'Example navigation'}>
+            <button type="button" className="studio-button" aria-label={`Previous ${reviewKind}`} title={`Previous: ${previousExample.title}`} onClick={() => go(previousExample.id, { reset: true, scrollTop: 0 })}><Icon name="arrow-left"/><span>Prev</span></button>
+            <span className="example-position" aria-label={`${reviewKind} ${reviewIndex + 1} of ${reviewOrder.length}`}>{reviewIndex + 1} / {reviewOrder.length}</span>
+            <button type="button" className="studio-button" aria-label={`Next ${reviewKind}`} title={`Next: ${nextExample.title}`} onClick={() => go(nextExample.id, { reset: true, scrollTop: 0 })}><span>Next</span><Icon name="arrow-right"/></button>
+          </nav>
           <button id="reset-example" className="studio-button" aria-label="Reset" title="Reset this mock example" onClick={() => go(story.id, { reset: true })}><Icon name="rotate"/><span>Reset</span></button>
           <label className="targets-toggle"><input type="checkbox" checked={targets} onChange={event => setTargets(event.target.checked)}/><span>Tap targets</span></label>
           <button id="toggle-notes" className="studio-button" aria-label="Notes" aria-controls="documentation" aria-expanded={notes} onClick={() => notes ? setNotes(false) : showNotes()}><Icon name="info"/><span>Notes</span></button>
