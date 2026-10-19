@@ -15,6 +15,7 @@ for obj in m['objects']:
  coverage=sum(im.getdata())/65536
  assert coverage>=.80,(obj['id'],coverage)
  assert all(abs(v-1)<1e-5 for v in g['dimensions'][:2])
+ if 'targetProjectedHeight' in obj:assert abs(obj['height']*m['heightRatio']-obj['targetProjectedHeight'])<1e-5
  rec={'id':obj['id'],'footprintCoverage':round(coverage,4),'height':obj['height'],'captures':[]}
  for facing,path in obj['images'].items():
   receipt=json.loads((root/obj['receipts'][facing]).read_text());png=Image.open(root/path);a=png.getchannel('A');box=a.getbbox()

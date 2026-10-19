@@ -5,7 +5,8 @@ import bpy, math, json, hashlib, sys, argparse, uuid, contextlib
 from pathlib import Path
 from mathutils import Vector
 from bpy_extras.object_utils import world_to_camera_view
-CELL=128; FRAME=[192,384]; ROOT=[96,304]; SCALE=4; HEIGHT=.7
+CELL=128; FRAME=[192,768]; ROOT=[96,688]; SCALE=4; HEIGHT=.7
+PROJECTED_HEIGHTS={'low-rock':1.0,'coral':1.8,'column':2.5,'kelp':3.0,'spire':4.0}
 DIRS={'S':0,'E':math.pi/2,'N':math.pi,'W':-math.pi/2}
 COLORS={'rock':'285A88','rockLight':'376F9E','rockDark':'20486D','sand':'2AADC0','coral':'E94781','coralLight':'F66E99','coralDark':'972D67','purple':'8754CF','kelp':'43A447','kelpLight':'76C942','kelpDark':'237746','stone':'CADBD8','stoneSide':'9ABCBF'}
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
@@ -95,6 +96,20 @@ class Piece:
    self.leaf('column growth',.30,.25,.14,.49,.18,.02,1)
    self.leaf('column growth small',.32,.05,.13,.31,.15,.02,2)
 
+ def raise_canopy(self):
+  # Remodel native vertex heights around each part's attachment point. Keep the
+  # broad ground stones shallow and preserve every X/Y coordinate and tile root.
+  if self.id not in PROJECTED_HEIGHTS:return
+  upper=[o for o in self.parts if 'ground stone' not in o.name]
+  tallest=max(upper,key=lambda o:max(v.co.z for v in o.data.vertices))
+  base=min(v.co.z for v in tallest.data.vertices)
+  top=max(v.co.z for v in tallest.data.vertices)
+  factor=(PROJECTED_HEIGHTS[self.id]/HEIGHT-base)/(top-base)
+  for obj in upper:
+   attachment=min(v.co.z for v in obj.data.vertices)
+   for v in obj.data.vertices:v.co.z=attachment+(v.co.z-attachment)*factor
+   obj.data.update()
+
 def camera(scene):
  c=scene.camera;scene.render.resolution_x=FRAME[0]*SCALE;scene.render.resolution_y=FRAME[1]*SCALE
  scene.render.pixel_aspect_x=math.sqrt(1+HEIGHT*HEIGHT);scene.render.pixel_aspect_y=1
@@ -138,12 +153,15 @@ def create(out):
   bg=next(n for n in scene.world.node_tree.nodes if n.type=='BACKGROUND');bg.inputs['Color'].default_value=(.65,.8,1,1);bg.inputs['Strength'].default_value=.7
   for name,pos,energy,size in [('key',(-3,-4,7),450,5),('fill',(4,-1,3),180,4)]:
    data=bpy.data.lights.new(prefix+name,'AREA');o=bpy.data.objects.new(data.name,data);scene.collection.objects.link(o);o.location=pos;o.rotation_euler=(-o.location).to_track_quat('-Z','Y').to_euler();data.energy=energy;data.shape='DISK';data.size=size
-  names={'bed-0':('Ocean bed','ground'),'low-rock':('Low rock shelf','low'),'coral':('Full coral tile','medium'),'kelp':('Kelp grove','tall'),'spire':('Cobalt peaks','tall'),'column':('Broken column','medium')}
+  names={'bed-0':('Ocean bed','ground'),'low-rock':('Rock shelf','low'),'coral':('Full coral tile','medium'),'kelp':('Kelp grove','tall'),'spire':('Cobalt peaks','tall'),'column':('Broken column','medium')}
   for ident,(name,band) in names.items():
-   model=Piece(scene,prefix,ident);model.build();man['objects'].append({'id':ident,'name':name,'heightBand':band,'collection':model.col.name,'rootObject':model.root.name,'images':{},'receipts':{}})
+   model=Piece(scene,prefix,ident);model.build();model.raise_canopy();man['objects'].append({'id':ident,'name':name,'heightBand':band,'collection':model.col.name,'rootObject':model.root.name,'images':{},'receipts':{}})
   man['camera']=camera(scene)
   for item in man['objects']:
    pose(man,item['id'],'S');g=geometry(bpy.data.collections[item['collection']]);item['bounds']={k:g[k] for k in ('min','max','dimensions')};item['height']=g['max'][2]
+   if item['id'] in PROJECTED_HEIGHTS:
+    item['targetProjectedHeight']=PROJECTED_HEIGHTS[item['id']]
+    assert abs(item['height']*HEIGHT-item['targetProjectedHeight'])<1e-5
    assert min(g['min'][:2])>=-.501 and max(g['max'][:2])<=.501,(item['id'],item['bounds'])
    write(out/('geometry/'+item['id']+'.json'),g)
    item['geometry']='geometry/'+item['id']+'.json';item['geometrySHA256']=sha(out/item['geometry'])

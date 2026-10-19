@@ -41,3 +41,8 @@ These are review topics, not newly approved changes:
 3. **Interaction fit at the selected settings.** Validate C at 125% beside the 70% belt, seated on stools and next to counters/doorways before applying the change to every animation. Recalibrate deck, seat, hand and held-item attachments; do not inherit the old height offsets blindly.
 
 Do not infer authorization to remodel or recapture all assets from this decision record. Continue recording choices and small explicitly requested studies; begin the full production update only when the user sends it off. Scope remains issue 33 and eventual Godot Android delivery.
+
+
+## Decoration height experiment — pending review
+
+After the full-tile density patch, the user requested taller decorations and specifically encouraged 3–4 tile projected heights. The decoration study now compares the original, a moderate 1–1.6 tile set, and a bold set: rock 1, coral 1.8, column 2.5, kelp 3, peaks 4 projected tiles. The 70% camera and one-cell X/Y footprints are retained. These numeric bands are experimental, not locked; full production remodeling still awaits the user's go-ahead. Review evidence: `../../review/33/decoration-study/heights/README.md`.
