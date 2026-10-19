@@ -14,7 +14,7 @@ for (const [width, height] of [[390,844],[844,390],[1440,1200]]) {
     const decoded=await page.evaluate(async urls=>Promise.all(urls.map(src=>new Promise(resolve=>{const i=new Image();i.onload=()=>resolve([i.naturalWidth,i.naturalHeight]);i.onerror=()=>resolve([0,0]);i.src=src;}))),links);
     expect(decoded.every(([w,h])=>w===768&&h===3072)).toBe(true);
     const heightSelect=stage.getByLabel('Decoration height study',{exact:true});
-    for(const [version,peakHeight,pngHeight] of [['original','0.91',1536],['moderate','1.60',1536],['bold','4.00',3072]]) {
+    for(const [version,peakHeight,pngHeight] of [['original','0.91',1536],['raised','4.00',3072]]) {
       await heightSelect.selectOption(version);
       await expect(scene).toHaveAttribute('data-height-version',version);
       await expect(stage.locator('[data-decor-piece="spire"]')).toContainText(`${peakHeight} tiles high on screen`);
@@ -25,6 +25,8 @@ for (const [width, height] of [[390,844],[844,390],[1440,1200]]) {
       const viewBox=(await scene.getAttribute('viewBox')).split(' ').map(Number);
       expect(viewBox[1]).toBeLessThan(-Number(peakHeight)*128);
     }
+    await expect(stage.locator('[data-decor-piece="coral"]')).toContainText('Original-size decoration above');
+    await expect(stage.locator('[data-decor-piece="kelp"]')).toContainText('Rock base: 2.22 tiles');
     await stage.getByLabel('Decoration layer',{exact:true}).uncheck();
     await expect(scene.locator('[data-decor-layer="objects"]')).toHaveCount(0);
     await expect(scene.locator('[data-decor-layer="ground"] image')).toHaveCount(63);
@@ -47,11 +49,11 @@ for (const [width, height] of [[390,844],[844,390],[1440,1200]]) {
     await stage.getByLabel('Decoration patch selection',{exact:true}).selectOption('mixed');
     await stage.getByLabel('Vary facing',{exact:true}).check();
     await patch.screenshot({path:info.outputPath(`decor-patch-${width}.png`)});
-    for(const version of ['moderate','original']) {
+    for(const version of ['original']) {
       await heightSelect.selectOption(version);
       await patch.screenshot({path:info.outputPath(`decor-patch-${version}-${width}.png`)});
     }
-    await heightSelect.selectOption('bold');
+    await heightSelect.selectOption('raised');
     expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width+1);
     expect(await page.evaluate(()=>[...document.querySelectorAll('body *')].filter(e=>/auto|scroll/.test(getComputedStyle(e).overflowY)&&e.scrollHeight>e.clientHeight+2&&e.getClientRects().length&&!e.matches('textarea,select')).map(e=>e.className))).toEqual([]);
     expect(errors).toEqual([]);

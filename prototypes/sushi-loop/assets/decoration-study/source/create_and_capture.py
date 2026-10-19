@@ -70,7 +70,7 @@ class Piece:
   o=self.mesh('ocean bed',verts,[(0,1,4),(1,2,5,4),(2,3,5),(3,0,4,5),(4,5,3)],'sand')
   # One matte color on the boundary and interior avoids baked checker seams.
   return o
- def build(self):
+ def build_original(self):
   if self.id.startswith('bed-'):self.floor(int(self.id[-1]));return
   self.rock('left ground stone',-.18,-.15,.64,.70,.17,seed=1)
   self.rock('rear ground stone',.12,.20,.76,.60,.22,seed=3)
@@ -96,19 +96,52 @@ class Piece:
    self.leaf('column growth',.30,.25,.14,.49,.18,.02,1)
    self.leaf('column growth small',.32,.05,.13,.31,.15,.02,2)
 
- def raise_canopy(self):
-  # Remodel native vertex heights around each part's attachment point. Keep the
-  # broad ground stones shallow and preserve every X/Y coordinate and tile root.
-  if self.id not in PROJECTED_HEIGHTS:return
-  upper=[o for o in self.parts if 'ground stone' not in o.name]
-  tallest=max(upper,key=lambda o:max(v.co.z for v in o.data.vertices))
-  base=min(v.co.z for v in tallest.data.vertices)
-  top=max(v.co.z for v in tallest.data.vertices)
-  factor=(PROJECTED_HEIGHTS[self.id]/HEIGHT-base)/(top-base)
-  for obj in upper:
-   attachment=min(v.co.z for v in obj.data.vertices)
-   for v in obj.data.vertices:v.co.z=attachment+(v.co.z-attachment)*factor
-   obj.data.update()
+ def plateau(self,height):
+  # Large geological facets and an irregular chipped rim under a broad level top.
+  # Relative variation is in the side walls, never a central pointed summit.
+  seed={'low-rock':1,'coral':3,'kelp':5,'spire':7,'column':9}[self.id]
+  outline=[(-.5,-.37),(-.39,-.5),(.34,-.5),(.5,-.32),(.5,.39),(.36,.5),(-.38,.5),(-.5,.33)]
+  verts=[]
+  for ring,(z,scale) in enumerate([(0,1),(.38*height,.87),(.76*height,.96),(height-.06,.99),(height,.94)]):
+   for i,(x,y) in enumerate(outline):
+    zz=z if ring in (0,4) else min(height-.07,z+min(.17,height*.10)*math.sin(i*1.7+ring+seed))
+    local=scale if ring in (0,4) else scale-.06*(.5+.5*math.sin(i*2.3+seed))
+    verts.append((x*local,y*local,zz))
+  faces=[tuple(reversed(range(8)))];materials=[2]
+  for ring in range(4):
+   for i in range(8):
+    a=ring*8+i;b=ring*8+(i+1)%8;c=(ring+1)*8+(i+1)%8;d=(ring+1)*8+i
+    faces.extend([(a,b,d),(b,c,d)])
+    # Broad triangles read as rock planes; no fine-grain texture or striping.
+    shade=1 if i in (3,4) else 2 if i in (0,7) else 0
+    materials.extend([shade,1 if (ring+i+seed)%5==0 else shade])
+  faces.append(tuple(range(32,40)));materials.append(1)
+  o=self.mesh('flat crown rock base',verts,faces,'rock')
+  o.data.materials.append(self.mat('rockLight'));o.data.materials.append(self.mat('rockDark'))
+  for i,p in enumerate(o.data.polygons):p.material_index=materials[i]
+  o['support_height']=height
+  self.base_height=height
+
+ def build(self):
+  self.build_original()
+  self.preserved=[];self.base_height=0
+  if self.id.startswith('bed-'):return
+  # Original decorative meshes move upward rigidly. Their shape, thickness and
+  # heights are untouched; all extra elevation belongs to a new geological base.
+  removed=[o for o in self.parts if 'ground stone' in o.name or self.id in ('low-rock','spire')]
+  for obj in removed:
+   self.parts.remove(obj);bpy.data.objects.remove(obj,do_unlink=True)
+  target=PROJECTED_HEIGHTS[self.id]/HEIGHT
+  if self.parts:
+   top=max(v.co.z for o in self.parts for v in o.data.vertices)
+   lift=target-top
+   for obj in self.parts:
+    self.preserved.append({'part':obj.name.removeprefix(self.col.name+' '),'translation':[0,0,lift],
+      'originalVertices':[list(v.co) for v in obj.data.vertices],'faces':[list(p.vertices) for p in obj.data.polygons]})
+    obj.location.z=lift
+   base=.12+lift
+  else:base=target
+  self.plateau(base)
 
 def camera(scene):
  c=scene.camera;scene.render.resolution_x=FRAME[0]*SCALE;scene.render.resolution_y=FRAME[1]*SCALE
@@ -153,9 +186,9 @@ def create(out):
   bg=next(n for n in scene.world.node_tree.nodes if n.type=='BACKGROUND');bg.inputs['Color'].default_value=(.65,.8,1,1);bg.inputs['Strength'].default_value=.7
   for name,pos,energy,size in [('key',(-3,-4,7),450,5),('fill',(4,-1,3),180,4)]:
    data=bpy.data.lights.new(prefix+name,'AREA');o=bpy.data.objects.new(data.name,data);scene.collection.objects.link(o);o.location=pos;o.rotation_euler=(-o.location).to_track_quat('-Z','Y').to_euler();data.energy=energy;data.shape='DISK';data.size=size
-  names={'bed-0':('Ocean bed','ground'),'low-rock':('Rock shelf','low'),'coral':('Full coral tile','medium'),'kelp':('Kelp grove','tall'),'spire':('Cobalt peaks','tall'),'column':('Broken column','medium')}
+  names={'bed-0':('Ocean bed','ground'),'low-rock':('Rock shelf','low'),'coral':('Coral on rock ledge','medium'),'kelp':('Kelp on rock ledge','tall'),'spire':('Cobalt plateau','tall'),'column':('Broken column','medium')}
   for ident,(name,band) in names.items():
-   model=Piece(scene,prefix,ident);model.build();model.raise_canopy();man['objects'].append({'id':ident,'name':name,'heightBand':band,'collection':model.col.name,'rootObject':model.root.name,'images':{},'receipts':{}})
+   model=Piece(scene,prefix,ident);model.build();man['objects'].append({'id':ident,'name':name,'heightBand':band,'collection':model.col.name,'rootObject':model.root.name,'images':{},'receipts':{},'baseHeight':model.base_height,'preservedParts':model.preserved})
   man['camera']=camera(scene)
   for item in man['objects']:
    pose(man,item['id'],'S');g=geometry(bpy.data.collections[item['collection']]);item['bounds']={k:g[k] for k in ('min','max','dimensions')};item['height']=g['max'][2]

@@ -1,0 +1,11 @@
+# Raised rock bases with original-size decoration
+
+The user corrected the height experiment: only the rock base should become taller; coral and kelp must retain their proportions. Rocks should keep relatively flat tops instead of pointed summits.
+
+The current study replaces all five supporting formations with broad level crowns (over 80% of the cell area) and irregular faceted cliff sides. Coral, kelp, toe rock and ruin parts are translated rigidly from the original native meshes. Total projected heights remain 1 / 1.8 / 2.5 / 3 / 4 tiles to isolate this construction change. The page defaults to Raised rock bases and offers the Original low patch for comparison. Superseded stretched variants are historical only. Full production rollout and numerical height approval remain pending.
+
+Native checks pass 21 registered captures, 1×1 world bounds, 96–97% top-down coverage, target heights, calibrated 70% camera axes, unclipped alpha margins and all hashes. An independent comparison against the original geometry from commit 0edc5ae proves that all 22 decorative parts retain their vertices and faces up to one translation. Rock crown vertices are coplanar and their projected ground area exceeds 0.8 cells. Camera, source frame and root are unchanged from the bold study.
+
+The first flat-base pass was too smooth and pillar-like. Its screenshot and native recipe are retained under iterations/smooth-bases. Final bases use asymmetric side profiles and large triangular planes while preserving the flat crowns. MCP top/right/three-quarter views of coral, kelp and the plateau were inspected. Final phone patch and shoreline screenshots were checked for crown shape, original plant proportions, ground alignment and occlusion. This remains a static native shape/material experiment, not final surface treatment.
+
+164 engine tests, production build and all three responsive browser checks pass at 390×844, 844×390 and 1440×1200. Browser checks cover raised/original switching, displayed heights, source image dimensions, headroom, decoration/ground layers, direction controls, repeated/mixed patches, and one document scroller. Blender source, geometry, camera receipts and audits are saved in the repo. Issue 33 remains open.
