@@ -12,6 +12,7 @@ const library = JSON.parse(readFileSync(new URL('library.json', production)));
 const objects = new Map(library.objects.map(object => [object.id, object]));
 const records = new Map(), cameras = new Map();
 const native = object => {
+  assert.ok(object?.source?.assetRecord, `${object?.id}: a native topology check requires an authored asset record`);
   if (!records.has(object.id)) records.set(object.id, JSON.parse(readFileSync(new URL(object.source.assetRecord, production))));
   return records.get(object.id);
 };
@@ -145,7 +146,15 @@ test('seven-column cameras preserve native hero scale, the back entrance and con
 });
 
 test('both underwater banks join actual native cliff profiles and continue wholly beyond the camera', () => {
-  const terrain = underwaterShowcase.placements.filter(p => native(objects.get(p.object)).ports?.length);
+  const terrain = underwaterShowcase.placements.filter(p => {
+    const object = objects.get(p.object);
+    if (['imagegen-2d', 'procedural-2d'].includes(object.source?.pipeline)) {
+      assert.equal(object.source.assetRecord, undefined, `${object.id}: flat artwork must not claim a native topology record`);
+      assert.equal(object.ports, undefined, `${object.id}: 2D overlays cannot supply terrain seam ports`);
+      return false;
+    }
+    return native(object).ports?.length;
+  });
   const graph = topology(terrain);
   assert.equal(terrain.length, 34);
   assert.equal(graph.joins, terrain.length - 2);

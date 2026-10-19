@@ -1,6 +1,7 @@
 // Sprite registration is expressed in logical pixels, never inferred from alpha bounds.
 export const DIRECTIONS = ['N', 'E', 'S', 'W'];
 export const DIRECTION_NAMES = { N: 'North', E: 'East', S: 'South', W: 'West' };
+export const reviewDirections = object => object?.facingPolicy === 'single-player-facing' ? ['S'] : DIRECTIONS;
 const positive = (value, fallback) => Number.isFinite(Number(value)) && Number(value) > 0 ? Number(value) : fallback;
 export function clipFor(object, id) {
   return object?.clips?.find(clip => clip.id === id) || object?.clips?.[0] || null;
@@ -85,8 +86,9 @@ export function repeatedPlacements(object, direction = 'S', clip) {
   return Array.from({ length: 9 }, (_, index) => ({ object: object.id, x: index % 3 * footprint[0], y: Math.floor(index / 3) * footprint[1], direction, clip }));
 }
 export function directionPlacements(object, clip) {
-  const extent = Math.max(...DIRECTIONS.flatMap(direction => footprintFor(object, direction)));
-  return DIRECTIONS.map((direction, index) => ({ object: object.id, direction, clip, x: index * (extent + 1), y: 0 }));
+  const directions = reviewDirections(object);
+  const extent = Math.max(...directions.flatMap(direction => footprintFor(object, direction)));
+  return directions.map((direction, index) => ({ object: object.id, direction, clip, x: index * (extent + 1), y: 0 }));
 }
 
 // A presentation path moves only its separate sprite; it is not belt/game simulation.

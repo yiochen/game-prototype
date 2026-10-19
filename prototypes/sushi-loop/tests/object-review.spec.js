@@ -196,8 +196,42 @@ test('camera-facing effects explain four world-facing contexts while ordinary ob
   await expect(firstSection).toContainText('Four facing contexts: camera-facing artwork stays readable');
   await expect(firstSection.getByRole('img', { name: `${cameraFacing.name}: camera-facing artwork in North, East, South and West world-facing contexts`, exact: true })).toBeVisible();
   for (const direction of ['N', 'E', 'S', 'W']) await expect(firstSection.locator(`[data-object="${cameraFacing.id}"][data-direction="${direction}"]`)).toHaveCount(1);
-  const ordinary = objects.find(object => object.facingPolicy !== 'camera-facing' && object.clips?.length);
+  const ordinary = objects.find(object => !['camera-facing', 'single-player-facing'].includes(object.facingPolicy) && object.clips?.length);
   await page.goto(`${url}#object-${ordinary.id}`);
   await expect(stage.locator('.object-facing-policy')).toHaveCount(0);
   await expect(stage.locator('.object-review-section').first()).toContainText('Same tile pitch and ground root in every facing.');
 });
+
+for (const [width, height] of [[390, 844], [844, 390]]) {
+  test(`blank signs and image-generated feedback preserve their declared 2D review policy at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    const stage = page.locator('#prototype-stage');
+    for (const id of ['chef-blackboard', 'sign-blank']) {
+      await page.goto(`${url}#object-${id}`);
+      await expect(stage.locator('.object-facing-policy')).toContainText('Single player-facing surface');
+      await expect(stage.getByLabel('Repeated facing', { exact: true }).locator('option')).toHaveCount(1);
+      const firstScene = stage.locator('.object-tile-scene').first();
+      await expect(firstScene.locator(`[data-object="${id}"]`)).toHaveCount(1);
+      await expect(firstScene.locator('[data-direction="S"]')).toHaveCount(1);
+      await expect(stage.locator('.object-review-section').first()).toContainText('front-edge placement');
+      const interaction = stage.locator('.object-interaction').first();
+      await expect(interaction.locator(`[data-object="${id}"]`)).toHaveCount(1);
+      await expect(stage.locator('[data-animation^="cucumber-"]')).toHaveCount(0);
+      await expect(stage.locator('[data-animation^="eel-"]')).toHaveCount(0);
+    }
+    await page.goto(`${url}#object-bubble-happy`);
+    await expect(stage.getByRole('link', { name: 'Original ImageGen artwork ↗' })).toBeVisible();
+    await expect(stage.getByRole('link', { name: 'Editable Blender source ↗' })).toHaveCount(0);
+    const firstScene = stage.locator('.object-tile-scene').first();
+    const sources = await firstScene.locator('[data-sprite-source]').evaluateAll(elements => elements.map(element => element.dataset.spriteSource));
+    expect(sources.length).toBe(4);
+    expect(new Set(sources).size).toBe(1);
+    await stage.getByRole('slider', { name: 'Animation frame' }).fill('5');
+    await expect(firstScene.locator('[data-frame="5"]')).toHaveCount(4);
+    await page.goto(`${url}#object-eel-warning-strip`);
+    await expect(stage.getByRole('link', { name: 'Editable Godot 2D effect ↗' })).toBeVisible();
+    await expect(stage.getByRole('link', { name: 'Editable Blender source ↗' })).toHaveCount(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width + 1);
+  });
+}

@@ -41,7 +41,15 @@ fields=('id','kind','family','footprint','directionFootprints','directionRootCel
 objects=[]
 for o in manifest['objects']:
     record=o.get('source',{}).get('assetRecord')
-    if o.get('status')=='ready' and not record:raise AssertionError('Ready object lacks native source: '+o['id'])
+    source=o.get('source',{});pipeline=source.get('pipeline')
+    if o.get('status')=='ready' and not record:
+        if pipeline not in ('imagegen-2d','procedural-2d'):raise AssertionError('Ready object lacks declared native/2D provenance: '+o['id'])
+        if o['kind']=='belt' or o.get('ports'):raise AssertionError('Connected native module must retain native registration: '+o['id'])
+        reference=source.get('artwork') if pipeline=='imagegen-2d' else source.get('godot')
+        if not reference or not (target/reference).is_file():raise AssertionError('2D object lacks editable source: '+o['id'])
+        if pipeline=='imagegen-2d' and hashlib.sha256((target/reference).read_bytes()).hexdigest()!=source.get('sha256'):raise AssertionError('2D artwork hash mismatch: '+o['id'])
+        for clip in o.get('clips',[]):
+            if not clip.get('directions') or any(not (target/d['image']).is_file() for d in clip['directions'].values()):raise AssertionError('2D object lacks actual sprite exports: '+o['id'])
     native=json.loads((target/record).read_text()) if record else {}
     objects.append({**{k:o[k] for k in fields if k in o},'native':{k:native[k] for k in ('flow','ports') if k in native}})
 print(json.dumps({'objects':objects,'probe':{'portDefinition':probe['portDefinition'],'supportLayout':probe['supportLayout']},'idempotent':idempotent,'mode':mode}))
@@ -128,10 +136,10 @@ test('floors meet all cell edges and every dock view includes the native overlap
   for (const object of data.objects.filter(object => object.family === 'W10')) {
     const scene = object.interactions.find(scene => scene.connectionReview?.kind === 'dock-assembly');
     const entry = scene.placements.find(p => p.object === 'dock-entry');
-    assert.deepEqual([entry.x, entry.y, ...entry.offset], [1, 2.5, 0, 0]);
+    assert.ok(matching([entry.x, entry.y, ...entry.offset], [1, 2.5, 0, 0]));
     const sub = scene.placements.find(p => p.object === 'submarine-yellow');
     assert.ok(matching([sub.x, sub.y], [.3, .92]));
-    assert.ok(matching(sub.offset, [0, -29.44]));
+    assert.ok(matching(sub.offset, [0, -.23 * 128 * .70]), 'The .23-world-unit dock support follows the approved70% front projection');
   }
 });
 

@@ -50,8 +50,8 @@ export const worldAssetFamilies = [
   {
     "id": "W06",
     "name": "Chef blackboards",
-    "items": "Within-cell board/base and Salmon nigiri/Cucumber maki/Eel roll selection artwork",
-    "states": "Four-facing registration, selected/idle, local recipe-change shake",
+    "items": "Blank player-facing board at the front of the chef tile; recipe art is drawn dynamically",
+    "states": "One readable player-facing surface; selected/idle and local recipe-change shake",
     "panels": [
       6
     ]

@@ -18,10 +18,10 @@ const fishPatrol = patrol([[4.4, 1.6], [4.4, 2.8], [4.4, 1.6]], 24, 4);
 // first and last ports are outside the camera; every visible neighbor is joined.
 const banks = [.5, 5.5].flatMap((x, side) => Array.from({ length: 17 }, (_, i) =>
   item(`${side ? 'east' : 'west'}-bank-${i}`, [3, 7, 11].includes(i) ? 'rock-wall-edge' : 'rock-wall-middle', x, i - 1, side ? 'W' : 'E')));
-const gardens = [0, 1, 2, 3].flatMap(i => [
-  item(`west-reef-garden-${i}`, 'underwater-reef-garden-a', -.5, .2 + i * 4, 'S', 'ambient', { timeOffset: i * .2 }),
-  item(`east-reef-garden-${i}`, 'underwater-reef-garden-b', 5.5, .4 + i * 4, 'S', 'ambient', { timeOffset: .35 + i * .2 }),
-]);
+const gardens = Array.from({ length: 14 }, (_, i) => [
+  item(`west-reef-piece-${i}`, ['decor-midground-coral', 'decor-kelp', 'boulder-underwater', 'decor-foreground-coral', 'column-broken'][i % 5], -.3, i + .15, 'S', ['ambient', 'sway', 'static', 'idle', 'static'][i % 5]),
+  item(`east-reef-piece-${i}`, ['decor-kelp', 'decor-foreground-coral', 'boulder-underwater', 'column-broken', 'decor-midground-coral'][i % 5], 6.3, i + .3, 'S', ['sway', 'idle', 'static', 'static', 'ambient'][i % 5]),
+]).flat();
 
 export const underwaterShowcase = {
   id: 'underwater',
@@ -82,8 +82,8 @@ export const underwaterShowcase = {
     },
     {
       title: 'Dense borders at one world scale',
-      description: 'Two reef-garden variants form continuous outer masses. Their off-camera overhang frames the seven-column channel; their full footprints remain available in the object library.',
-      objectIds: ['underwater-reef-garden-a', 'underwater-reef-garden-b', 'boulder-underwater', 'decor-starfish'],
+      description: 'Separate full-cell coral fans, kelp, cobalt rocks and pale columns interleave along the banks. Plant-led silhouettes vary the skyline while a continuous seabed connects the pieces.',
+      objectIds: ['decor-kelp', 'decor-foreground-coral', 'decor-midground-coral', 'column-broken', 'boulder-underwater', 'decor-starfish'],
     },
   ],
   note: 'A seven-column,48-second scene study at native tile scale. The authored camera clips outer border art while keeping the central waterway in view. Patrols and the reef windup stage the art composition; individual object pages retain the complete per-asset review.',

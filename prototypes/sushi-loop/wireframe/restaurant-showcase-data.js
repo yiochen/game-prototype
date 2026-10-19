@@ -28,25 +28,25 @@ const circulation = [
 circulation[circulation.length - 1] = [...circulation[0]];
 const plates = ['dish-salmon', 'dish-cucumber', 'dish-eel', 'dish-salmon', 'dish-cucumber', 'dish-eel']
   .map((object, i) => place(`circulating-plate-${i}`, object, 3.5, 3, 'S', 'static', {
-    offset: [0, -81.92], renderPass: 'foreground',
+    offset: [0, -57.344], renderPass: 'foreground',
     motion: { path: circulation, duration: 48, loop: true, phase: i * 8 },
   }));
 
-// Both vertical wall profiles continue beyond the camera. Gardens overlap their
+// Both vertical wall profiles continue beyond the camera. Individual decorations overlap their
 // outer sides to form continuous framing rather than isolated decoration islands.
 const walls = [-.25, 6.25].flatMap((x, side) => Array.from({ length: 16 }, (_, i) =>
   place(`${side ? 'east' : 'west'}-room-wall-${i}`, 'wall-middle', x, i - 1, side ? 'W' : 'E')));
-const gardens = [0, 1, 2].flatMap(i => [
-  place(`west-border-garden-${i}`, 'restaurant-border-garden-a', -1.15, .2 + i * 4, 'S', 'ambient', { timeOffset: i * .2 }),
-  place(`east-border-garden-${i}`, 'restaurant-border-garden-b', 5.95, .4 + i * 4, 'S', 'ambient', { timeOffset: .35 + i * .2 }),
-]);
+const gardens = Array.from({ length: 13 }, (_, i) => [
+  place(`west-border-piece-${i}`, ['plant-angular', 'slate-rock', 'crate-wood', 'plant-angular', 'barrel-wood'][i % 5], -.45, i + .2, 'S', 'static'),
+  place(`east-border-piece-${i}`, ['slate-rock', 'plant-angular', 'barrel-wood', 'plant-angular', 'crate-wood'][i % 5], 6.45, i + .35, 'S', 'static'),
+]).flat();
 const seats = [
   place('rosa-stool', 'stool-wood', 4, 4.5, 'W'),
   place('rosa-dining', 'customer-rosa', 4, 4.5, 'W', 'eat', { timeOffset: .25 }),
   place('samir-stool', 'stool-blue', 4, 7, 'W'),
-  place('samir-dining', 'customer-samir', 4, 7, 'W', 'eat', { offset: [0, -3.84], timeOffset: .8 }),
+  place('samir-dining', 'customer-samir', 4, 7, 'W', 'eat', { offset: [0, -2.688], timeOffset: .8 }),
   place('ellis-stool', 'stool-blue', 3.7, 10.4, 'N'),
-  place('ellis-waiting', 'customer-ellis', 3.7, 10.4, 'N', 'seated-wait', { offset: [0, -3.84], timeOffset: .6 }),
+  place('ellis-waiting', 'customer-ellis', 3.7, 10.4, 'N', 'seated-wait', { offset: [0, -2.688], timeOffset: .6 }),
 ];
 
 export const restaurantShowcase = {
@@ -65,17 +65,17 @@ export const restaurantShowcase = {
     place('back-lantern', 'lantern-gold', .9, 1.7, 'S', 'ambient', { timeOffset: .3 }),
     place('entrance-lantern', 'lantern-gold', 5.5, 1.7, 'S', 'ambient', { timeOffset: .8 }),
     ...belts,
-    place('lena-board', 'chef-blackboard', 1.8, 4.5, 'E', 'selected', { offset: [42, 12] }),
+    place('lena-board', 'chef-blackboard', 1.8, 4.5, 'S', 'selected', { renderPass: 'foreground' }),
     place('lena-working', 'chef-lena', 1.8, 4.5, 'E', 'work'),
-    place('noor-board', 'chef-blackboard', 1.8, 7.1, 'E', 'cucumber-selected', { offset: [42, 12], timeOffset: .4 }),
+    place('noor-board', 'chef-blackboard', 1.8, 7.1, 'S', 'selected', { timeOffset: .4, renderPass: 'foreground' }),
     place('noor-working', 'chef-noor', 1.8, 7.1, 'E', 'work', { timeOffset: .5 }),
     ...seats,
     ...plates,
-    // Exactly8.96cells /16s matches the native .56cell/s walking gait. The lane
+    // Exactly3.6cells /16s matches the revised .225cell/s short-leg walking gait. The lane
     // stays west of the conveyor and outside the separate front dining stool.
     place('june-in-aisle', 'customer-june', .95, 8.8, 'E', 'walk', {
       motion: {
-        path: [[.95, 8.8], [2.15, 8.8], [2.15, 12.08], [.95, 12.08], [.95, 8.8]],
+        path: [[.95, 8.8], [1.65, 8.8], [1.65, 9.9], [.95, 9.9], [.95, 8.8]],
         duration: 16, loop: true, phase: 2, faceTravel: true,
       },
     }),
@@ -98,8 +98,8 @@ export const restaurantShowcase = {
     },
     {
       title: 'An entrance and continuous garden edges',
-      description: 'The four-tile entrance sits at the back. Two garden variants repeat along the outer walls; the seven-column camera intentionally cuts their outer overhang to frame the room.',
-      objectIds: ['entry-finished', 'wall-middle', 'lantern-gold', 'restaurant-border-garden-a', 'restaurant-border-garden-b'],
+      description: 'The four-tile entrance sits at the back. Individual full-cell shrubs, slate rocks, crates and barrels form the perimeter in varied sequences. The continuous floor stays separate underneath.',
+      objectIds: ['entry-finished', 'wall-middle', 'lantern-gold', 'plant-angular', 'slate-rock', 'crate-wood', 'barrel-wood'],
     },
   ],
   note: 'A seven-column scene composition using native sprite scale. The authored camera crops outer border art; individual object pages retain full sprite canvases. Dish travel is staged independently of slat timing, and the aisle walk is a presentation path. Scene-asset approval remains pending.',
