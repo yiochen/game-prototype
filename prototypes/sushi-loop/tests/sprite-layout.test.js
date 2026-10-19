@@ -1,9 +1,34 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { spriteFrame, sceneBounds, orderPlacements, repeatedPlacements, placementAtTime, reviewFrameCount, groundRoot, attachmentMarkers, footprintFor, directionPlacements } from '../wireframe/sprite-layout.js';
+import { spriteFrame, sceneBounds, orderPlacements, repeatedPlacements, placementAtTime, reviewFrameCount, groundRoot, attachmentMarkers, footprintFor, directionPlacements, resolveSupportSocket } from '../wireframe/sprite-layout.js';
 
 const character = { id: 'chef', kind: 'character', frameSize: [192, 320], root: [96, 248], sourceScale: 4, clips: [{ id: 'work', fps: 12, frames: 12, directions: { N: { image: 'chef/work-N.png', columns: 6, rows: 2 }, S: { image: 'chef/work-S.png', columns: 6, rows: 2 } } }] };
 const clip = character.clips[0];
+
+test('support sockets follow the currently published sprite projection without moving the ground footprint', () => {
+  const plate = { object: 'dish', x: 1, y: 2, direction: 'S', offset: [3, 1], supportSocket: { object: 'belt', socket: 'deck', direction: 'S' } };
+  for (const deck of [[0, -81.92], [0, -57.344]]) {
+    const support = { id: 'belt', sockets: { S: { deck } } };
+    const resolved = resolveSupportSocket(plate, [support]);
+    assert.deepEqual(resolved.supportOffset, deck);
+    assert.deepEqual(groundRoot(resolved, { footprint: [1, 1] }), [195, 321 + deck[1]]);
+    assert.deepEqual([resolved.x, resolved.y], [plate.x, plate.y]);
+    assert.deepEqual(resolveSupportSocket(resolved, new Map([['belt', support]])), resolved, 'Resolving twice does not add height twice');
+  }
+  assert.equal(plate.supportOffset, undefined, 'Scene data stays immutable');
+  assert.equal(resolveSupportSocket({ object: 'dish' }, [] ).supportOffset, undefined);
+  assert.deepEqual(resolveSupportSocket(plate, []).supportOffset, [0, 0], 'A missing registration never guesses a projection height');
+});
+
+test('blue cushion attachment uses the published seat delta from the native wood-seat baseline', () => {
+  const seated = { object: 'customer', direction: 'W', supportSocket: { object: 'blue', socket: 'seat', relativeTo: { object: 'wood', socket: 'seat' } } };
+  for (const scale of [128, 89.6]) {
+    const objects = [{ id: 'blue', sockets: { W: { seat: [0, -.55 * scale] } } }, { id: 'wood', sockets: { W: { seat: [0, -.52 * scale] } } }];
+    const result = resolveSupportSocket(seated, objects);
+    assert.ok(Math.abs(result.supportOffset[1] + .03 * scale) < 1e-8);
+    assert.equal(result.supportOffset[0], 0);
+  }
+});
 
 test('native 4x atlas selection preserves the authored logical frame and ground root across poses', () => {
   const first = spriteFrame(character, clip, 'N', 0);

@@ -28,12 +28,12 @@ def camera_record(sc,cam,projection,frame,root,scale,elevation=None):
 def configure_camera(projection='square-top-front-oblique',frame=(192,320),root=(96,248),scale=4,elevation_degrees=None):
     sc=scene();sc.render.engine='BLENDER_EEVEE'
     sc.render.resolution_x=frame[0]*scale;sc.render.resolution_y=frame[1]*scale;sc.render.resolution_percentage=100
-    sc.render.pixel_aspect_x=1 if projection=='character-orthographic' else math.sqrt(2);sc.render.pixel_aspect_y=1
+    sc.render.pixel_aspect_x=1 if projection=='character-orthographic' else math.sqrt(1+.7*.7);sc.render.pixel_aspect_y=1
     cam=sc.objects.get('S33 Capture Camera')
     if cam is None:
         cam=bpy.data.objects.new('S33 Capture Camera',bpy.data.cameras.new('S33 Capture Camera'));sc.collection.objects.link(cam)
     sc.camera=cam;cam.data.type='ORTHO';cam.data.sensor_fit='HORIZONTAL';cam.data.ortho_scale=frame[0]/128
-    elevation_value=elevation_degrees if elevation_degrees is not None else 35 if projection=='character-orthographic' else 45
+    elevation_value=elevation_degrees if elevation_degrees is not None else 35 if projection=='character-orthographic' else math.degrees(math.atan(1/.7))
     elevation=math.radians(elevation_value)
     cam.location=(0,-10*math.cos(elevation),10*math.sin(elevation));cam.rotation_euler=(-cam.location).to_track_quat('-Z','Y').to_euler()
     cam.data.shift_x=0;cam.data.shift_y=0;bpy.context.view_layer.update()
@@ -47,20 +47,26 @@ def configure_camera(projection='square-top-front-oblique',frame=(192,320),root=
     projected=px((0,0,0));X=px((1,0,0))-projected;D=px((0,-1,0))-projected;H=px((0,0,1))-projected
     assert (projected-Vector((root[0]*scale,root[1]*scale))).length<.05,(projected,root)
     if projection!='character-orthographic':
-        assert abs(X.x-128*scale)<.05 and abs(D.y-128*scale)<.05 and abs(H.y+128*scale)<.05,(X,D,H)
+        assert abs(X.x-128*scale)<.05 and abs(D.y-128*scale)<.05 and abs(H.y+.7*128*scale)<.05,(X,D,H)
     sc.render.film_transparent=True;sc.render.image_settings.file_format='PNG';sc.render.image_settings.color_mode='RGBA';sc.render.image_settings.color_depth='8'
     sc.render.fps=12
     sc.view_settings.view_transform='Standard';sc.view_settings.look='None';sc.view_settings.exposure=0;sc.view_settings.gamma=1
     sc.world=sc.world or bpy.data.worlds.new('S33 Soft World');sc.world.use_nodes=True
-    background=next(n for n in sc.world.node_tree.nodes if n.type=='BACKGROUND');background.inputs['Color'].default_value=(.72,.80,1,1);background.inputs['Strength'].default_value=.7
+    background=next(n for n in sc.world.node_tree.nodes if n.type=='BACKGROUND');background.inputs['Color'].default_value=(.72,.80,1,1);background.inputs['Strength'].default_value=0
     for name,loc,power,size in [('S33 Key',(-3,-4,7),450,5),('S33 Fill',(4,-1,3),160,4),('S33 Rim',(1,4,5),200,3)]:
         light=sc.objects.get(name)
         if light is None:
             data=bpy.data.lights.new(name,'AREA');light=bpy.data.objects.new(name,data);sc.collection.objects.link(light)
-        light.data.energy=power;light.data.shape='DISK';light.data.size=size;light.location=loc;light.rotation_euler=(-light.location).to_track_quat('-Z','Y').to_euler()
-    sc.render.image_settings.compression=30
+        light.data.energy=0;light.data.shape='DISK';light.data.size=size;light.location=loc;light.rotation_euler=(-light.location).to_track_quat('-Z','Y').to_euler()
+    sc.render.image_settings.compression=100
+    sc.render.dither_intensity=0
+    import importlib.util
+    spec=importlib.util.spec_from_file_location('s33_capture_style',Path(__file__).with_name('catalog_style.py'))
+    style=importlib.util.module_from_spec(spec);spec.loader.exec_module(style)
+    style.ensure_compositor(sc)
     record=camera_record(sc,cam,projection,frame,root,scale,elevation_value)
     record['calibration']={'root':list(projected),'unitX':list(X),'unitDepth':list(D),'unitHeight':list(H)}
+    record['artStyle']={'revision':'2026-10-19','environmentHeightRatio':.7,'contrast':1.35,'contrastSpace':'sRGB','lighting':'emission; zero world and light strength','lowerShading':'height ramp; camera symmetric form tone'}
     return record
 
 def register(asset_id,asset,projection='square-top-front-oblique',frame=(192,320),root=(96,248),scale=4):

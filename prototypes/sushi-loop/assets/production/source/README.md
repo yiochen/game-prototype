@@ -1,10 +1,41 @@
 # Issue 33 native asset source and capture workflow
 
-The approved concept has become an editable native Blender library covering **125 catalog entries across 17 families**. The [project](blender/sushi-loop-world-library.blend) contains the actual meshes, materials, character/creature rigs, independent action cohorts and cosmetic assemblies. It opens as a normal Blender project. Version 11 starts on `restaurant-corner-garden-a`, clip `ambient`, native frame 4, facing south; enable another asset collection in the Outliner to inspect it.
+The active catalog has **117 objects: 104 native Blender objects and 13 flat 2D artwork/effect objects**. The [editable project](blender/sushi-loop-world-library.blend) starts on the revised C125 chef Lena, holding the ImageGen dish. It contains 1,992 owned objects and 1,834 independent native actions. The eight obsolete garden bundles and former 3D dish/bubble/eel-effect entries are absent from this active native project.
 
-**Finished scene-art approval is pending. Issue #33 remains open.** This delivery is labeled a native Blender review pass. It does not claim a completed imagegen surface-refinement pass. Captures are published in complete batches; [the runtime manifest](../library.json) is the authority for each page's published status, while [the native index](native-records/index.json) inventories editable model/action evidence. A model in that index does not, by itself, establish complete or approved sprite coverage.
+**User scene-art approval is pending. Issue #33 remains open.** This is a native Blender review pass, with actual ImageGen artwork for sushi and bubbles. It does not claim ImageGen surface refinement of every native mesh. The [runtime manifest](../library.json) records each published sprite batch; the [native index](native-records/index.json) records editable model/action evidence.
 
-## Current native pass: version 11
+## Current native pass: version 12 — approved art rollout
+
+Frozen editable project SHA-256: `c02e04d6c90e34afce2b0895328d4a1e26d47817ce9d38fb2b458fa3e766fc1f`.
+All native objects use the approved 135% sRGB compositor and direction-free lower material shading. Environment captures use 70% vertical projection with square ground pitch. C125 characters retain ordinary35, tiny feet, rounded heads and fuller identity-specific hair. Tall concept decorations use the documented upper35/square-footing transition and a three-tile complete-silhouette cap. Floors have explicit cell borders. Blackboard/sign are blank, single-facing front-edge overlays.
+
+Native capture is 4× logical resolution, uniformly sampled to 2× runtime atlases; every animated state retains at least six distinct frames at 12 fps, with 24-frame conveyor travel. No alpha fitting or per-pose resizing is used. Expanded car/tarp frames prevent animation clipping. [Revision review and feedback coverage](../../../review/33/full-art-rollout/README.md) includes the independent geometry/material audit and capture/browser evidence. Source recipes remain in `blender/`; original 2D images, exact prompts and Godot drawing source are in [2d/](2d/README.md).
+
+All **9,390 native frames across 104 objects** pass the [independent pixel audit](../../../review/33/full-art-rollout/independent-pixel-audit.json): fixed dimensions, complete frames, no visible alpha touching object capture edges, and at least six distinct visible frames per animated clip/facing. The 13 flat artwork/effect entries have their separate [2D source and atlas audit](2d/audit.json). These checks establish capture integrity; scene-art approval remains pending with the user.
+
+## Re-render selected objects after an edit
+
+The project contains actual meshes/rigs/actions and packed held-food textures.
+Object/action names are the stable bindings in `native-records/`; keep those names
+when adjusting meshes or materials. To render the saved actions without rebuilding
+models or touching the project file:
+
+```sh
+python prototypes/sushi-loop/assets/production/source/blender/recapture_library.py \
+  --ids chef-lena --out /tmp/sushi-art-recapture
+```
+
+Add `--clips hold --directions S --frames 0` for one diagnostic frame, or
+`--dry-run` to inspect the plan. Original four-times-resolution PNG frames and
+receipts are written under the selected output directory; complete two-times
+runtime atlases are committed in `../sprites/`. Ground pitch, capture canvas and
+root are taken from the native record, never from a fitted silhouette.
+
+## Historical version 11 (superseded)
+
+The following sections retain earlier modeling/capture history. Their old counts, camera, source hashes and garden bundles do not describe the active version 12 project.
+
+### Version 11 inventory
 
 The isolated normal project contains **4,455 owned objects and 5,776 independent native actions**. Its frozen project SHA-256 is `732a5a4cc73c908f69ccc832e8dc1e66a63c81307157427d9b73e0efdc2acbcd`. This source revision adds eight dense, reusable scenery assemblies; it does not add eight new gameplay systems.
 
@@ -34,19 +65,19 @@ Native geometry checks passed for all eight clusters and the wider entrance over
 | [../sprites/](../sprites/) | Runtime atlases uniformly sampled from complete authored frames at 2× logical resolution. |
 | `blender/revisions/`, `blender/history/`, `records-history/`, `registered-history/` | Earlier source/capture attempts retained when a publication changes. Consult the recorded hashes rather than assuming an old revision is current. |
 
-Original 4× PNGs and redundant intermediate sheets are kept locally with their registered capture folders and omitted from Git to avoid duplicating render intermediates. The native index reports whether a historical source hash was located; an unavailable historical source version must remain explicitly marked unavailable, not replaced by another version or treated as a passing result.
+Original 4× PNGs and redundant intermediate sheets are kept locally with their registered capture folders and omitted from Git to avoid duplicating render intermediates. The version-12 native index hashes the active model/camera/rig records. Per-rig `sourceFiles` also retain hashes sampled during intermediate baking; they do not assert that every intermediate script version was retained. The final frozen project and capture recipes are retained and verified. Nine earlier script versions referenced by intermediate bake records have not been located; see the [independent provenance review](../../../review/33/full-art-rollout/feedback-coverage.md). Keep those original hashes rather than substituting a later version.
 
 ## Registration and timing
 
-One logical cell is 128 pixels. Blender axes are `x = X`, `depth = -Y`, `height = Z`. Environment capture uses the square top/front oblique projection: 45° orthographic with √2 vertical projection stretch before rendering. The actual camera matrices and calibration vectors are recorded. At 4× capture, one environment unit spans 512 source pixels along X, depth and height. Finished PNGs are never stretched to create this projection.
+One logical cell is 128 pixels. Blender axes are `x = X`, `depth = -Y`, `height = Z`. Environment capture uses the approved 70% vertical coefficient: `screenY = rootY + 128*(-Y - 0.70*Z)`. Its native orthographic camera elevation is `atan(1/0.70)`, approximately 55.008°, with pixel aspect X `sqrt(1 + 0.70²)` and Y 1. Actual matrices and calibration vectors are recorded. At 4× capture, one environment unit spans 512 source pixels along X/depth and 358.4 pixels vertically. Finished PNGs are never squeezed to create this projection.
 
-People, rounded dishes and creatures use the declared ordinary orthographic art camera, normally at 35° elevation. The submarine uses a recorded 65° overhead exception. These assets share the same logical cell pitch and projected ground root; their physical floor depth is foreshortened. Seat, palm, deck and equipment attachments remain separate from sprite bounds. Do not apply a seated support elevation twice.
+People and creatures use the declared ordinary orthographic art camera, normally at 35° elevation. The submarine uses a recorded 65° overhead exception. Tall concept decorations use the documented 35° upper view with square footing below Z=.42; this hybrid is explicitly distinct from a pure ordinary camera. These assets share the same logical cell pitch and projected ground root. Sushi is ImageGen 2D artwork; held dishes use the same image on a camera-facing plane attached to evaluated palms. Seat, palm, deck and equipment attachments remain separate from sprite bounds. Do not apply a seated support elevation twice.
 
 Every animated clip runs at **12 fps**. Most native states use 12 samples; the twenty directed conveyor modules use **24 unique frames over two seconds**, with fixed rails and moving deck material. This avoids the reversed-motion aliasing of seven slat periods sampled in twelve frames. The separate plate is a staged review animation along the deck centerline, including the native quarter-circle turns. Its travel clock is independent of the moving slat material and resets at the start cap; it is not a gameplay transport simulation. Duplicate closing keys belong to native interpolation only and are excluded from runtime sprite frames. Static states remain explicitly static.
 
 The submarine stays one catalog entry: baseline and upgraded geometry each expose the same six states, for twelve clips in total. Their ground root, footprint and camera frame remain fixed. Recipe, salvage and equipment variants belong to their parent entries rather than adding new catalog objects. Inspect the current per-entry variant/clip records for exact coverage.
 
-Reaction bubbles and reward coins use a native visual pivot that counter-rotates the world ground root around Z. These effects face the fixed art camera in all four world-facing contexts; the source retains the actual driver. Physical characters, furniture, food, belts and terrain keep separate directional views.
+Reaction/ambient bubbles and all sushi dishes use ImageGen 2D artwork, shared across four world-facing review contexts. Reward coins retain their native visual pivot that counter-rotates the world ground root around Z. Physical characters, furniture, belts and terrain keep their declared directional views; the blank sign and chef blackboard expose only their player-facing surface.
 
 Each object has one complete authored capture frame for every pose and facing. Larger action bounds use a declared larger frame, never per-pose fitting. Current clearance contracts include eel 448×512/root (224,352), boost trail 448×544/root (224,352), and reef fragments 320×448/root (160,320). Camera records remain the authoritative values for any later revision.
 
@@ -54,7 +85,7 @@ Corner supports now use the same height and materials as the straight conveyor, 
 
 Section 03 includes authored connections for all 42 modules with native ports, tiled patches for the four floor styles, and the four dock assembly views. Belts meet directed straight neighbors; wall, terrain and rope pieces meet neighbors with matching native edge profiles. Overlays expose port alignment. Use `publish_captures.py --repo <repo> --interactions-only` to rebuild these fixtures from the retained native records without repacking sprites.
 
-Customer walk and panic cycles use a backward-moving grounded stance and a forward lifted recovery relative to local front `-Y`. The sprites remain in place at their authored ground root. A forward-moving game character travels **0.56 world cells per gait cycle** to keep its support foot planted: walk uses one gait cycle in its 12-frame loop (0.56 cells/second), while panic uses two (1.12 cells/second). The native gait audit checks evaluated foot bones, deformed sole contact, toe direction and cycle closure in all four facings; it also retains the failing moonwalk baseline.
+Customer walk and panic cycles use a backward-moving grounded stance and a forward lifted recovery relative to local front `-Y`. The sprites remain in place at their authored ground root. Revised C125 short legs travel **0.225 world cells per gait cycle**: walk uses one gait cycle in its 12-frame loop (0.225 cells/second), while panic uses two (0.45 cells/second). The earlier 0.56-cell long-leg gait remains historical only. The native character audit checks evaluated foot bones, contact and anatomy across all clips/facings.
 
 The native baker temporarily exposes only the target collection and armature while sampling, restoring their presentation state afterward. This keeps evaluated hand attachments current even when other catalog objects are hidden. Constant posed object transforms are keyed when they differ from the saved baseline; the world ground root keeps its external facing control. Native held-food checks compare the actual evaluated palm meshes with the food-root position across all 12 characters and four directions.
 
@@ -78,8 +109,8 @@ Stop any MCP capture targeting the same output folder before starting background
   --background "$ART_WORK/export/source/sushi-loop-world-library.blend" \
   --python "$ART_WORK/capture_worker.py" -- \
   --export-root "$ART_WORK/export" \
-  --ids restaurant-corner-garden-a --clips ambient --directions S --frames 3 \
-  --worker garden-proof --mcp-idle-confirmed \
+  --ids chef-lena --clips hold --directions S --frames 3 \
+  --worker chef-proof --mcp-idle-confirmed \
   --output "$ART_WORK/raw-proof"
 ```
 
@@ -93,8 +124,8 @@ A clip can involve several native action owners: an armature, plate root, knife 
 
 Publication requires a complete state/facing set. The one-frame diagnostic above is intentionally insufficient. Once complete captures and their matching source metadata are staged, use `publish_captures.py --repo <repo> --native <iteration-export> --ids <stable-id>`. `--raw-root <folder>` selects a separate completed capture batch, such as the 24-frame belt batch, without overwriting earlier raw attempts. The publisher retains previous packs and sources, checks exact frame counts, and uniformly samples full authored frames. Use a Python environment with Pillow and the registered-sheet helpers from the installed character/tile skills.
 
-Review `/prototypes/sushi-loop/#object-library`; each stable `#object-<id>` page contains four facings, a repeated/joined 3×3 grid, related-object scale fixtures and all published directional states. Pause, scrub and overlays expose registration and timing. The concept sheet remains at `#art-catalog`. Comments are review feedback, not final approval or game saves.
+Review `/prototypes/sushi-loop/#object-library`; each stable `#object-<id>` page contains its declared facings, a repeated/joined 3×3 grid, related-object scale fixtures and all published states. Blank signs and chef blackboards expose one player-facing surface; flat artwork retains its authored world-facing contexts. Pause, scrub and overlays expose registration and timing. The concept sheet remains at `#art-catalog`. Comments are review feedback, not final approval or game saves.
 
-The complete composition pages are `#scene-restaurant` and `#scene-underwater`. The restaurant uses a seven-column portrait layout with a tall, connected conveyor and the four-tile entrance at the back. The underwater page uses a seven-column channel with continuous cliff banks. Selected border-garden assemblies extend beyond the fixed world camera to form continuous scenery; all eight cluster variations remain available in the object library. These placements replace loose scattered dressing while retaining the registered belt/terrain joins, seated supports and staged travel lanes. Playback, scrubbing and fit/detail zoom inspect the same catalog sprites; no separate flattened background or per-object bitmap transform is introduced.
+The complete composition pages are `#scene-restaurant` and `#scene-underwater`. The restaurant uses a seven-column portrait layout with a tall, connected conveyor and the four-tile entrance at the back. The underwater page uses a seven-column channel with continuous cliff banks. Individual full-cell plants, rocks, coral, kelp and props layer over independent bordered ground tiles; eight obsolete large garden bundles are absent from the active library. These placements retain the registered belt/terrain joins, seated supports and staged travel lanes. Playback, scrubbing and fit/detail zoom inspect the same catalog sprites; no separate flattened background or per-object bitmap transform is introduced.
 
 Structural audits, native-versus-capture parity and browser checks support review, but do not establish natural deformation, convincing joins, correct layering or final art approval. The user must approve the actual finished scene assets before #33 can close. The review site introduces no restaurant/expedition simulation; Godot Android remains the game implementation target.

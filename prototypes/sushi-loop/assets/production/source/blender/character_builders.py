@@ -41,19 +41,24 @@ ROSTER={
  'customer_june':dict(name='June',skin='skin_june',hair='hair_pink',style='bob',hat=None,accent='yellow',apron=None,top='yellow',kind='customer'),
 }
 CHARACTER_IDS=list(ROSTER)
+# C / Chunky revision 3: actual native anatomy from the approved 125% study.
+# Coordinates below are unscaled C anatomy; the ground root applies uniform 1.25.
+CHARACTER_SCALE = 1.25
+ENVIRONMENT_FRONT_SCALE = .70
+WALK_STRIDE_CELLS = .18 * CHARACTER_SCALE
 REST={
- 'pelvis':((0,0,.65),(0,0,.77)),
- 'spine':((0,0,.72),(0,0,.94)),
- 'neck':((0,0,.93),(0,0,1.015)),
- 'head':((0,0,1.015),(0,0,1.34)),
+ 'pelvis':((0,0,.15),(0,0,.205)),
+ 'spine':((0,0,.205),(0,0,.385)),
+ 'neck':((0,.005,.385),(0,.005,.43)),
+ 'head':((0,.005,.43),(0,.005,.91)),
 }
 for side,sign in [('L',-1),('R',1)]:
-    REST['upper_arm_'+side]=((sign*.225,0,.91),(sign*.305,-.005,.765))
-    REST['forearm_'+side]=((sign*.305,-.005,.765),(sign*.325,-.03,.635))
-    REST['hand_'+side]=((sign*.325,-.03,.635),(sign*.325,-.04,.565))
-    REST['thigh_'+side]=((sign*.12,0,.65),(sign*.12,-.026,.38))
-    REST['shin_'+side]=((sign*.12,-.026,.38),(sign*.12,0,.11))
-    REST['foot_'+side]=((sign*.12,0,.11),(sign*.12,-.16,.11))
+    REST['upper_arm_'+side]=((sign*.198,.004,.352),(sign*.249,-.002,.247))
+    REST['forearm_'+side]=((sign*.249,-.002,.247),(sign*.267,-.023,.211))
+    REST['hand_'+side]=((sign*.267,-.023,.211),(sign*.267,-.025,.125))
+    REST['thigh_'+side]=((sign*.115,.005,.15),(sign*.115,-.013,.085))
+    REST['shin_'+side]=((sign*.115,-.013,.085),(sign*.115,0,.035))
+    REST['foot_'+side]=((sign*.115,0,.035),(sign*.115,-.12,.035))
 
 
 def frame(head,tail):
@@ -101,7 +106,7 @@ class CharacterBuilder:
         bpy.ops.object.transform_apply(location=True,rotation=True,scale=True)
         self.add(o,name,color,bone,layer=layer)
         if bevel:
-            mod=o.modifiers.new('Soft faceted edges','BEVEL');mod.width=bevel;mod.segments=1
+            mod=o.modifiers.new('Soft faceted edges','BEVEL');mod.width=bevel;mod.segments=2
         return o
     def ico(self,name,loc,scale,color,bone='head',subdiv=1):
         bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=subdiv,radius=1,location=loc)
@@ -119,41 +124,48 @@ class CharacterBuilder:
         return self.add(o,name,color,bone)
     def garment(self):
         c=self.cfg
-        # Torso is a shaped continuous tunic; not a primitive cube held by a parent.
-        verts=[];rings=[(.655,.175,.135),(.73,.19,.145),(.88,.205,.145),(.94,.23,.13)]
-        weights=[]
-        for z,w,d in rings:
-            for x,y in [(-w,-d),(w,-d),(w,d),(-w,d)]:
-                verts.append((x,y,z));s=max(0,min(1,(z-.69)/.18));weights.append({'pelvis':1-s,'spine':s})
-        faces=[(0,3,2,1),(12,13,14,15)]+[(j*4+i,j*4+(i+1)%4,(j+1)*4+(i+1)%4,(j+1)*4+i) for j in range(3) for i in range(4)]
-        self.mesh('tailored_tunic',verts,faces,c['top'],weights=weights,bone=None)
-        self.box('pelvis',(0,0,.645),(.32,.255,.20),'navy','pelvis',.025)
-        self.cyl('neck',(0,0,.98),.082,.11,c['skin'],'neck',8)
-        # Collar pieces surround the neck and lie naturally on the garment.
-        for x in (-.075,.075):self.box('collar_'+str(x),(x,-.125,.93),(.105,.035,.075),'white' if c['kind']=='chef' else c['top'],'spine',.012,rot=(0,x*1.8,0))
+        # Broad eight-sided belly/back follows the selected C study, lowered .15.
+        rings=[(.135,.172,.137,.122),(.205,.192,.163,.140),(.305,.212,.152,.143),(.385,.209,.117,.112)]
+        vertices=[];weights=[]
+        for z,w,front,back in rings:
+            vertices += [(-w*.73,-front,z),(w*.73,-front,z),(w,-front*.60,z),(w,back*.62,z),
+                         (w*.73,back,z),(-w*.73,back,z),(-w,back*.62,z),(-w,-front*.60,z)]
+            t=max(0,min(1,(z-.16)/.18));weights += [{'pelvis':1-t,'spine':t}]*8
+        faces=[tuple(reversed(range(8))),tuple(range(24,32))]+[(j*8+i,j*8+(i+1)%8,(j+1)*8+(i+1)%8,(j+1)*8+i) for j in range(3) for i in range(8)]
+        self.mesh('tailored_tunic',vertices,faces,c['top'],weights=weights,bone=None)
+        self.box('pelvis',(0,.006,.135),(.322,.248,.13),'navy','pelvis',.027)
+        self.box('neck',(0,.005,.416),(.126,.130,.09),c['skin'],'neck',.027)
+        for sign in (-1,1):
+            self.box('collar_'+str(sign),(sign*.054,-.123,.375),(.09,.029,.073),'white' if c['kind']=='chef' else c['top'],'spine',.010,rot=(0,sign*.18,0))
         if c['kind']=='chef':
-            self.box('kerchief_knot',(0,-.17,.895),(.064,.05,.065),c['accent'],'spine',.015)
-            self.mesh('kerchief_tails',[(-.025,-.18,.89),(-.08,-.18,.80),(0,-.18,.82),(.025,-.18,.89),(.07,-.18,.81),(0,-.18,.82)],[(0,1,2),(3,4,5)],c['accent'])
-            self.mesh('apron_bib',[(-.125,-.153,.88),(.125,-.153,.88),(.15,-.159,.68),(-.15,-.159,.68)],[(0,1,2,3)],c['apron'])
-            self.mesh('apron_skirt',[(-.17,-.158,.70),(.17,-.158,.70),(.19,-.17,.485),(-.19,-.17,.485)],[(0,1,2,3)],c['apron'],bone='pelvis')
-            self.box('apron_waist',(0,-.157,.70),(.35,.025,.044),c['apron'],'pelvis',.004)
-            self.box('apron_pocket',(0,-.176,.63),(.115,.018,.065),c['apron'],'pelvis',.004)
-            for x in (-.105,.105):
-                for z in (.79,.84):self.ico('coat_button_'+str(x)+str(z),(x,-.154,z),(.014,.008,.014),'navy','spine')
+            self.box('kerchief_knot',(0,-.150,.335),(.056,.055,.058),c['accent'],'spine',.014)
+            for sign in (-1,1):self.box('kerchief_tail_'+str(sign),(sign*.035,-.157,.285),(.045,.028,.085),c['accent'],'spine',.007,rot=(0,sign*.28,0))
+            # Solid wrap skirt and thick bib carry readable volume from the side.
+            verts=[]
+            for z,w,d in ((.082,.205,.177),(.205,.205*.91,.177*.91)):
+                verts += [(-w,-d,z),(w,-d,z),(w,d*.72,z),(-w,d*.72,z)]
+            faces=[(0,3,2,1),(4,5,6,7)]+[(i,(i+1)%4,(i+1)%4+4,i+4) for i in range(4)]
+            self.mesh('apron_skirt',verts,faces,c['apron'],bone='pelvis')
+            self.box('apron_bib',(0,-.155,.277),(.26,.023,.145),c['apron'],'spine',.006)
+            self.box('apron_waist',(0,-.006,.197),(.377,.287,.035),c['apron'],'pelvis',.008)
+            self.box('apron_pocket',(0,-.183,.155),(.115,.016,.052),c['apron'],'pelvis',.008)
+            for sign in (-1,1):
+                self.box('apron_back_tie_'+str(sign),(sign*.045,.136,.190),(.10,.025,.025),c['apron'],'pelvis',.006,rot=(0,0,sign*.2))
+                self.ico('coat_button_'+str(sign),(sign*.072,-.150,.260),(.009,.007,.009),'white','spine')
         elif self.id=='customer_samir':
-            self.box('shirt_insert',(0,-.156,.80),(.18,.018,.23),'teal','spine',.005)
-            for x in (-.115,.115):self.box('jacket_lapel_'+str(x),(x,-.174,.84),(.055,.025,.19),'green','spine',.008,rot=(0,x*.7,0))
-        else:self.box('shirt_hem',(0,-.143,.675),(.34,.025,.035),c['top'],'pelvis',.004)
+            self.box('shirt_insert',(0,-.157,.270),(.15,.018,.19),'teal','spine',.005)
+            for sign in (-1,1):self.box('jacket_lapel_'+str(sign),(sign*.095,-.174,.300),(.05,.025,.15),'green','spine',.008,rot=(0,sign*.08,0))
+        else:self.box('shirt_hem',(0,-.143,.160),(.34,.025,.035),c['top'],'pelvis',.004)
     def limb(self,side,kind):
         c=self.cfg;sgn=-1 if side=='L' else 1
         if kind=='arm':
             names=['upper_arm_'+side,'forearm_'+side,'hand_'+side]
             a=Vector(REST[names[0]][0]);j=Vector(REST[names[0]][1]);end=Vector(REST[names[1]][1])
-            ring_data=[(a,.083,{names[0]:.85,'spine':.15}),((a+j)*.5,.078,{names[0]:1}), (j,.071,{names[0]:.50,names[1]:.50}),((j+end)*.5,.063,{names[1]:1}),(end,.061,{names[1]:.35,names[2]:.65})]
+            ring_data=[(a,.065,{names[0]:.85,'spine':.15}),((a+j)*.5,.061,{names[0]:1}), (j,.057,{names[0]:.50,names[1]:.50}),((j+end)*.5,.052,{names[1]:1}),(end,.048,{names[1]:.35,names[2]:.65})]
         else:
             names=['thigh_'+side,'shin_'+side,'foot_'+side]
             a=Vector(REST[names[0]][0]);j=Vector(REST[names[0]][1]);end=Vector(REST[names[1]][1])
-            ring_data=[(a,.096,{names[0]:.85,'pelvis':.15}),((a+j)*.5,.090,{names[0]:1}),(j,.081,{names[0]:.5,names[1]:.5}),((j+end)*.5,.073,{names[1]:1}),(end,.068,{names[1]:1})]
+            ring_data=[(a,.069,{names[0]:.85,'pelvis':.15}),((a+j)*.5,.067,{names[0]:1}),(j,.063,{names[0]:.5,names[1]:.5}),((j+end)*.5,.060,{names[1]:1}),(end,.058,{names[1]:1})]
         verts=[];weights=[]
         for i,(p,r,w) in enumerate(ring_data):
             d=(ring_data[min(i+1,4)][0]-ring_data[max(0,i-1)][0]).normalized();ref=Vector((0,1,0));u=d.cross(ref).normalized();v=d.cross(u).normalized()
@@ -165,52 +177,84 @@ class CharacterBuilder:
             o.data.materials.append(material(c['skin']))
             for poly in o.data.polygons:
                 if poly.index==1 or poly.index>=2+2*8:poly.material_index=1
-            hand=Vector(REST[names[2]][0])+Vector((0,-.007,-.04))
-            self.box('palm_'+side,hand,(.105,.105,.125),c['skin'],names[2],.024)
-            self.box('thumb_'+side,hand+Vector((-sgn*.05,-.022,.007)),(.048,.065,.065),c['skin'],names[2],.016)
+            hand=Vector(REST[names[2]][0])+Vector((0,-.002,-.046))
+            self.box('palm_'+side,hand,(.09,.103,.104),c['skin'],names[2],.023)
+            self.box('thumb_'+side,hand+Vector((-sgn*.038,-.033,.018)),(.035,.046,.054),c['skin'],names[2],.016)
         else:
-            self.box('boot_'+side,(sgn*.12,-.052,.092),(.18,.27,.18),'shoe',names[2],.025)
-            self.box('sole_'+side,(sgn*.12,-.059,.022),(.187,.283,.044),'sole',names[2],.014)
-            self.box('boot_cuff_'+side,(sgn*.12,.0,.175),(.16,.17,.06),'shoe',names[1],.013)
+            # Minimal navy toe ends: no boot shaft, cuff or separate sole.
+            self.box('minimal_foot_'+side,(sgn*.115,-.020,.0215),(.148,.170,.043),'navy',names[2],.012)
     def face_and_hair(self):
-        c=self.cfg
-        self.box('head',(0,-.005,1.17),(.45,.38,.40),c['skin'],'head',.055)
-        for s in (-1,1):
-            self.box('ear_'+str(s),(s*.234,-.015,1.15),(.075,.10,.12),c['skin'],'head',.025)
-            self.ico('eye_'+str(s),(s*.092,-.201,1.175),(.025,.012,.039),'eye')
-            self.ico('eye_glint_'+str(s),(s*.089,-.213,1.186),(.007,.004,.011),'white')
-            self.box('brow_'+str(s),(s*.094,-.202,1.237),(.061,.018,.018),c['hair'],'head',.005,rot=(0,s*.12,0))
-            self.ico('cheek_'+str(s),(s*.145,-.200,1.102),(.038,.009,.021),'blush')
-        self.box('nose',(0,-.214,1.127),(.057,.045,.056),c['skin'],'head',.014)
-        # Three-sided smile notch gives an expressive face without texture images.
-        self.mesh('smile',[(-.050,-.213,1.083),(0,-.220,1.065),(.050,-.213,1.083),(.040,-.216,1.061),(0,-.222,1.048),(-.040,-.216,1.061)],[(0,1,4,5),(1,2,3,4)],'eye',bone='head')
+        c=self.cfg;bottom=.43;height=.48;front=-.235
+        head=self.box('head',(0,.005,.67),(.56,.48,.48),c['skin'],'head',.125)
+        bevel=head.modifiers.get('Soft faceted edges');bevel.segments=8
+        for polygon in head.data.polygons:polygon.use_smooth=True
+        normal=head.modifiers.new('Weighted rounded face normals','WEIGHTED_NORMAL');normal.keep_sharp=True;normal.weight=50
+        for sign in (-1,1):
+            self.box('ear_'+str(sign),(sign*.293,.013,.65),(.058,.104,.119),c['skin'],'head',.024)
+            self.ico('eye_'+str(sign),(sign*.103,front-.008,.6892),(.023,.012,.034),'eye',subdiv=2)
+            self.ico('eye_glint_'+str(sign),(sign*.103-.004,front-.019,.6982),(.006,.004,.009),'white')
+            self.box('brow_'+str(sign),(sign*.105,front-.006,.7622),(.067,.017,.017),c['hair'],'head',.004,rot=(0,sign*.12,0))
+            self.ico('cheek_'+str(sign),(sign*.182,front-.007,.5908),(.037,.009,.020),'blush')
+        self.box('nose',(0,front-.020,.622),(.059,.047,.051),c['skin'],'head',.018)
+        z=.5428
+        self.mesh('smile',[(-.044,front-.014,z+.011),(0,front-.019,z-.007),(.044,front-.014,z+.011),(.036,front-.017,z-.009),(0,front-.022,z-.021),(-.036,front-.017,z-.009)],[(0,1,4,5),(1,2,3,4)],'eye',bone='head')
         if c.get('mustache'):
-            for s in (-1,1):self.box('mustache_'+str(s),(s*.036,-.233,1.091),(.088,.026,.035),c['hair'],'head',.01,rot=(0,s*.12,0))
+            for sign in (-1,1):self.ico('mustache_'+str(sign),(sign*.039,-.273,.574),(.053,.021,.022),c['hair'],subdiv=2)
         if c.get('glasses'):
-            for s in (-1,1):self.ring('glasses_'+str(s),(s*.103,-.227,1.18),.067,.011,'eye')
-            self.box('glasses_bridge',(0,-.229,1.18),(.075,.02,.012),'eye','head',.003)
-            for s in (-1,1):self.box('glasses_arm_'+str(s),(s*.185,-.09,1.18),(.014,.26,.014),'eye','head',.003)
-        self.box('hair_cap',(0,.022,1.35),(.46,.39,.15),c['hair'],'head',.035)
-        style=c['style']
-        if style in ('bob','square'):
-            self.box('hair_back',(0,.162,1.195),(.47,.13,.36),c['hair'],'head',.025)
-            for s in (-1,1):self.box('hair_side_'+str(s),(s*.205,.025,1.20),(.10,.32,.32 if style=='bob' else .21),c['hair'],'head',.022)
-            for i,x in enumerate((-.16,-.055,.055,.16)):
-                self.box('fringe_'+str(i),(x,-.177,1.315),(.11,.10,.16 if i%2==0 else .12),c['hair'],'head',.018,rot=(0,(-.07+i*.04),0))
-        elif style=='curls':
-            for i,(x,y,z) in enumerate([(-.21,.07,1.30),(.21,.07,1.30),(-.22,.10,1.15),(.22,.10,1.15),(-.15,.19,1.23),(.03,.20,1.23),(.17,.19,1.23),(-.17,-.12,1.36),(-.05,-.14,1.37),(.08,-.13,1.37),(.19,-.10,1.35)]):
-                self.ico('curl_'+str(i),(x,y,z),(.088,.084,.085),c['hair'])
+            for sign in (-1,1):self.ring('glasses_'+str(sign),(sign*.113,-.267,.694),.070,.011,'eye')
+            self.box('glasses_bridge',(0,-.269,.694),(.080,.018,.012),'eye','head',.003)
+            for sign in (-1,1):self.box('glasses_arm_'+str(sign),(sign*.208,-.090,.694),(.014,.30,.014),'eye','head',.003)
+        # Every identity gets a rounded crown and actual occiput. Hair silhouette
+        # remains specific to curls / cropped / bob / quiff / waves, never a box cap.
+        def lock(name,loc,radius,phase=0.,shade=None):
+            obj=self.ico(name,loc,radius,shade or c['hair'],subdiv=2);centre=Vector(loc)
+            for v in obj.data.vertices:
+                q=v.co-centre;angle=math.atan2(q.y/max(radius[1],.001),q.x/max(radius[0],.001))
+                v.co=centre+q*(1.+.035*math.sin(3.*angle+phase))
+            for polygon in obj.data.polygons:polygon.use_smooth=True
+            return obj
+        style=c['style'];bob=style=='bob';curly=style=='curls'
+        lock('rounded_crown',(0,.025,.8572),(.292,.255,.157))
+        lock('rounded_occiput',(0,.123,.7132),(.270,.190,.255 if curly or bob else .207))
+        # Slight material differences preserve large readable locks after grading.
+        h=COLORS[c['hair']];channels=[int(h[i:i+2],16) for i in (0,2,4)]
+        shade=''.join('%02X'%min(255,round(x*1.13+3)) for x in channels)
+        if curly:
+            for row,(fraction,spread,depth) in enumerate(((.25,.185,.235),(.46,.221,.262),(.69,.232,.258),(.91,.203,.230))):
+                for i,t in enumerate((-1.,-.5,0.,.5,1.)):
+                    lock('back_curl_%s_%s'%(row,i),(t*spread,depth-.035*abs(t)**1.7,bottom+height*fraction+.016*math.cos(i*1.8+row)),(.083,.060,.082),i+row*.7,shade if (i+row)%3==0 else None)
+            for sign in (-1,1):
+                for j,(y,fraction,radius) in enumerate(((-.086,.83,.059),(.023,.77,.062),(.115,.71,.061),(.178,.57,.057),(.180,.36,.054))):
+                    lock('temple_curl_%s_%s'%(sign,j),(sign*.265,y,bottom+height*fraction),(radius,.075,.083),j*.9+sign,shade if j==1 else None)
+                lock('side_crown_'+str(sign),(sign*.246,.045,.9124),(.072,.111,.078),sign)
+            for i,(x,fraction,rx,rz) in enumerate(((-.224,.93,.063,.065),(-.136,.90,.080,.077),(-.045,.94,.082,.070),(.049,.91,.084,.078),(.143,.94,.077,.070),(.225,.96,.059,.062))):
+                lock('fringe_curl_'+str(i),(x,front+.006,bottom+height*fraction),(rx,.071,rz),i*.8,shade if i in (1,4) else None)
+        elif bob:
+            for sign in (-1,1):
+                for i,y in enumerate((-.06,.07,.19)):
+                    lock('bob_side_%s_%s'%(sign,i),(sign*(.255-.012*i),y,.663+i*.022),(.078,.098,.203),i+sign,shade if i==1 else None)
+            for i,x in enumerate((-.213,-.108,0,.108,.213)):
+                lock('bob_fringe_'+str(i),(x,front+.006,.857-(.020 if i%2 else 0)),(.084,.069,.086),i*.7,shade if i in (1,4) else None)
+            for i,x in enumerate((-.18,0,.18)):lock('bob_nape_'+str(i),(x,.230,.552),(.107,.078,.094),i)
         elif style=='quiff':
-            for i,x in enumerate((-.17,-.055,.06,.17)):
-                self.box('quiff_'+str(i),(x,-.11,1.40+(.035 if i==1 else 0)),(.14,.27,.16),c['hair'],'head',.022,rot=(.12,-.08,0))
+            for i,x in enumerate((-.18,-.06,.06,.18)):
+                lock('swept_quiff_'+str(i),(x,-.135,.928+(.025 if i==1 else 0)),(.100,.155,.113),i*.7,shade if i==1 else None)
+            for sign in (-1,1):lock('quiff_temple_'+str(sign),(sign*.265,.025,.788),(.058,.14,.10),sign)
+            for i,x in enumerate((-.18,0,.18)):lock('quiff_back_'+str(i),(x,.24,.775),(.098,.075,.117),i)
         elif style=='waves':
-            for i,x in enumerate((-.17,-.05,.08,.19)):
-                self.ico('wave_'+str(i),(x,-.12,1.34),(.087,.09,.10),c['hair'])
+            for i,x in enumerate((-.205,-.09,.04,.17)):
+                lock('wave_'+str(i),(x,-.16,.877+.013*math.sin(i)),(.102,.106,.112),i*.9,shade if i==1 else None)
+            for sign in (-1,1):lock('wave_temple_'+str(sign),(sign*.260,.06,.765),(.063,.150,.13),sign)
+            for i,x in enumerate((-.18,0,.18)):lock('wave_back_'+str(i),(x,.24,.73),(.103,.068,.142),i)
         else:
-            for i,x in enumerate((-.15,-.05,.05,.15)):self.box('short_fringe_'+str(i),(x,-.17,1.33),(.105,.08,.10),c['hair'],'head',.015)
+            for i,x in enumerate((-.20,-.10,0,.10,.20)):
+                lock('cropped_fringe_'+str(i),(x,-.20,.873-(.012 if i%2 else 0)),(.078,.069,.067),i*.8,shade if i in (1,4) else None)
+            for sign in (-1,1):lock('cropped_temple_'+str(sign),(sign*.264,.04,.775),(.052,.137,.098),sign)
+            for i,x in enumerate((-.18,0,.18)):lock('cropped_back_'+str(i),(x,.24,.742),(.092,.060,.118),i)
         self.hat(c.get('hat'))
     def hat(self,style):
         if not style:return
+        previous=set(self.parts)
         if style=='chef':
             self.box('hat_band',(0,.01,1.425),(.46,.38,.10),'white','head',.015)
             for i,(x,y,h) in enumerate([(-.13,-.03,.20),(0,-.03,.25),(.13,-.03,.20),(-.11,.10,.21),(.10,.10,.23)]):
@@ -233,8 +277,15 @@ class CharacterBuilder:
         else:
             color={'flat_cap':'navy','teal_cap':'teal','orange_cap':'orange'}[style]
             self.box('cap_crown',(0,.025,1.43),(.46,.39,.19),color,'head',.035)
-            self.box('cap_brim',(0,-.24,1.365),(.44,.23,.055),color,'head',.015)
+            self.box('cap_brim',(0,-.165,1.365),(.44,.15,.055),color,'head',.015)
             self.box('cap_button',(0,.025,1.54),(.045,.045,.035),color,'head',.009)
+        # Match approved C hat placement without changing its recognizable style.
+        for name in set(self.parts)-previous:
+            obj=self.parts[name]
+            for vertex in obj.data.vertices:
+                vertex.co.x*=1.20;vertex.co.y*=1.20;vertex.co.z=.985+(vertex.co.z-1.425)
+            bevel=obj.modifiers.get('Soft faceted edges')
+            if bevel:bevel.width*=1.10
     def build_rig(self):
         data=bpy.data.armatures.new(self.id+'__skeleton');arm=bpy.data.objects.new(self.id+'__armature',data)
         self.collection.objects.link(arm);arm.parent=self.root;self.armature=arm
@@ -246,10 +297,10 @@ class CharacterBuilder:
             parents.update({'upper_arm_'+s:'spine','forearm_'+s:'upper_arm_'+s,'hand_'+s:'forearm_'+s,'thigh_'+s:'pelvis','shin_'+s:'thigh_'+s,'foot_'+s:'shin_'+s})
         specs={'ground':((0,0,0),(0,0,.10)),**REST}
         for side,sign in [('L',-1),('R',1)]:
-            specs['foot_goal_'+side]=((sign*.12,0,.11),(sign*.12,0,.23))
-            specs['knee_pole_'+side]=((sign*.12,-.55,.4),(sign*.12,-.55,.50))
+            specs['foot_goal_'+side]=((sign*.115,0,.035),(sign*.115,0,.11))
+            specs['knee_pole_'+side]=((sign*.115,-.20,.085),(sign*.115,-.20,.16))
             specs['hand_goal_'+side]=(REST['hand_'+side][0],tuple(Vector(REST['hand_'+side][0])+Vector((0,0,.1))))
-            specs['elbow_pole_'+side]=((sign*.60,-.08,.75),(sign*.60,-.08,.85))
+            specs['elbow_pole_'+side]=((sign*.48,-.06,.27),(sign*.48,-.06,.35))
             for n in ('foot_goal_','knee_pole_','hand_goal_','elbow_pole_'):parents[n+side]='ground'
         for name,(a,c) in specs.items():
             bone=data.edit_bones.new(name);bone.head=a;bone.tail=c;bone.matrix=frame(a,c);bone.length=(Vector(c)-Vector(a)).length
@@ -281,8 +332,8 @@ class CharacterBuilder:
            'puzzled':dict(frames=24,fps=12,loop=True),'panic':dict(frames=24,fps=12,loop=True)})
         rest_mats={n:bone.matrix_local.copy() for n,bone in arm.data.bones.items()}
         baseline={n:o.hide_render for n,o in self.parts.items()}
-        seat_plane=.655/math.cos(math.radians(35))
-        self.sockets={'ground':[0,0,0],'seat_contact':[0,0,seat_plane],'hand_left':list(REST['hand_L'][0]),'hand_right':list(REST['hand_R'][0]),'mouth':[0,-.22,1.08]}
+        seat_plane=.655*ENVIRONMENT_FRONT_SCALE/(CHARACTER_SCALE*math.cos(math.radians(35)))
+        self.sockets={'ground':[0,0,0],'seat_contact':[0,0,seat_plane],'hand_left':list(REST['hand_L'][0]),'hand_right':list(REST['hand_R'][0]),'mouth':[0,-.255,.543]}
         def pose(clip='idle',t=0):
             if clip=='idle' and clip not in clips:clip='stand'
             if clip not in clips:raise KeyError('Unknown clip %s for %s'%(clip,self.id))
@@ -293,15 +344,20 @@ class CharacterBuilder:
             for n,o in self.parts.items():o.hide_render=baseline[n]
             bpy.context.view_layer.update()
         self.root['asset_id']=self.id;self.root['display_name']=self.cfg['name'];self.root['kind']=self.cfg['kind'];self.root['projection']='character-orthographic'
-        self.root['footprint_cells']=json.dumps([1,1]);self.root['ground_root']=json.dumps([0,0,0]);self.root['anatomy_height']=1.72 if self.cfg.get('hat')=='chef' else 1.65 if self.cfg.get('hat') else 1.47
+        self.root['footprint_cells']=json.dumps([1,1]);self.root['ground_root']=json.dumps([0,0,0]);self.root['anatomy_height']=max(v.co.z for o in self.parts.values() if o.type=='MESH' for v in o.data.vertices)*CHARACTER_SCALE
+        self.root.scale=(CHARACTER_SCALE,)*3
+        self.root['anatomy_revision']='C-chunky-r3-125';self.root['uniform_native_scale']=CHARACTER_SCALE
+        self.root['character_design']='Short native legs, minimal navy toe ends, rounded .56x.48 head and full identity-specific crown/occiput/fringe.'
+        self.root['walk_stride_cells']=WALK_STRIDE_CELLS;self.root['walk_cycles_per_second']=1
+        self.root['panic_cycles_per_second']=2
         self.root['sockets']=json.dumps(self.sockets);self.root['animation_recipes']=json.dumps(clips);self.root['identity_design']=json.dumps(self.cfg)
         self.root['source']='character_builders.py';self.root['weight_validation']=json.dumps(self.weight_stats)
         self.root['seat_environment_z']=.655
         self.root['seat_character_plane']=seat_plane
-        self.root['seat_pelvis_offset']=.105
-        self.root['seat_attachment']='seat contact at environment0.655/cos35; pelvis control0.105 above contact surface; common projected world ground root, do not apply stool height twice'
+        self.root['seat_pelvis_offset']=.080
+        self.root['seat_attachment']='seat contact at environmentZ*0.70/(1.25*cos35); local pelvis control0.080 above contact; scaled ordinary35 character and 70% environment share projected ground root'
         pose('idle' if self.cfg['kind']=='chef' else 'stand',0)
-        return {'root':self.root,'collection':self.collection,'armature':arm,'parts':self.parts,'clips':clips,'pose':pose,'reset':reset,'sockets':self.sockets,'height':self.root['anatomy_height'],'footprint':[1,1],'directions':['N','E','S','W'],'weight_validation':self.weight_stats,'identity':self.cfg,'layer_tags':self.layer_tags,'rest_matrices':rest_mats,'sockets_current':lambda world=False:evaluated_sockets({'armature':arm,'root':self.root},world)}
+        return {'root':self.root,'collection':self.collection,'armature':arm,'parts':self.parts,'clips':clips,'pose':pose,'reset':reset,'sockets':self.sockets,'height':self.root['anatomy_height'],'footprint':[1,1],'directions':['N','E','S','W'],'weight_validation':self.weight_stats,'identity':self.cfg,'layer_tags':self.layer_tags,'rest_matrices':rest_mats,'sockets_current':lambda world=False:evaluated_sockets({'armature':arm,'root':self.root},world),'frameSize':[192,320],'frameRoot':[96,248],'walk_stride_cells':WALK_STRIDE_CELLS}
 
 
 def _two_bone(a,c,l1,l2,pole):
@@ -322,110 +378,106 @@ def _smooth(t):return t*t*(3-2*t)
 
 
 def _pose_character(arm,clip,t,rest_mats,builder):
+    """C anatomy retargeting, solved from actual short limbs at every sample.
+
+    Ground stance still travels rearward relative to canonical front (-Y).
+    The shorter native stride is .18 cells/cycle before uniform 125% scaling;
+    the matching world travel is .225 cells/cycle, never the legacy .56 stride.
+    """
     phase=math.tau*t;sin=math.sin;cos=math.cos
     seated=1. if clip in ('seated_wait','eat') else _smooth(t) if clip=='sit_down' else 1-_smooth(t) if clip=='stand_up' else 0.
-    seat_plane=float(builder.root.get('seat_character_plane',.655/math.cos(math.radians(35))))
-    seat_hip=seat_plane+float(builder.root.get('seat_pelvis_offset',.105))
-    hip=Vector((0,0,.65+(seat_hip-.65)*seated));lean=.025*sin(phase);head_yaw=.025*sin(phase*.5);head_tilt=0.
-    arm_targets={s:Vector(REST['hand_'+s][0]) for s in ('L','R')}
-    hand_dirs={s:Vector((0,-.01,-.07)) for s in ('L','R')}
-    feet={s:Vector(REST['foot_'+s][0]) for s in ('L','R')}
-    foot_tilt={'L':0.,'R':0.}
+    seat_plane=float(builder.root.get('seat_character_plane',.655*ENVIRONMENT_FRONT_SCALE/(CHARACTER_SCALE*math.cos(math.radians(35)))))
+    pelvis_offset=float(builder.root.get('seat_pelvis_offset',.080));seat_hip=seat_plane+pelvis_offset
+    hip=Vector((0,0,.15+(seat_hip-.15)*seated));lean=.015*sin(phase);head_yaw=.025*sin(phase*.5);head_tilt=0.
+    arm_targets={side:Vector(REST['hand_'+side][0]) for side in ('L','R')}
+    hand_dirs={side:Vector((0,-.002,-.086)) for side in ('L','R')}
+    feet={side:Vector(REST['foot_'+side][0]) for side in ('L','R')};foot_tilt={'L':0.,'R':0.}
     if clip in ('idle','stand'):
-        hip.z+=.0018*sin(phase);lean=.012*sin(phase)
-        for s in ('L','R'):arm_targets[s].y-=.008*sin(phase+(0 if s=='L' else .5))
+        hip.z+=.001*sin(phase);lean=.009*sin(phase)
+        for side in ('L','R'):arm_targets[side].y-=.006*sin(phase+(0 if side=='L' else .5))
     elif clip=='work':
-        lean=.09+.025*sin(phase*2)
-        arm_targets['L']=Vector((-.14,-.19,.79+.018*sin(phase)))
-        arm_targets['R']=Vector((.13,-.20,.80+.045*sin(phase*2)))
-        hand_dirs={s:Vector((0,-.065,-.015)) for s in ('L','R')};head_yaw=.03*sin(phase)
+        lean=.08+.022*sin(phase*2)
+        arm_targets['L']=Vector((-.115,-.156,.312+.012*sin(phase)))
+        arm_targets['R']=Vector((.107,-.164,.318+.026*sin(phase*2)))
+        hand_dirs={side:Vector((0,-.065,-.015)) for side in ('L','R')};head_yaw=.03*sin(phase)
     elif clip=='hold':
-        lean=.018*sin(phase)
-        arm_targets['R']=Vector((.16,-.22,.79+.006*sin(phase)))
-        arm_targets['L']=Vector((-.25,-.06,.66+.006*sin(phase+.3)))
+        lean=.014*sin(phase)
+        arm_targets['R']=Vector((.131,-.180,.312+.004*sin(phase)))
+        arm_targets['L']=Vector((-.205,-.049,.227+.004*sin(phase+.3)))
         hand_dirs['R']=Vector((0,-.07,0));head_yaw=.04*sin(phase)
     elif clip=='load':
-        u=sin(math.pi*t);lean=.14*u
-        arm_targets['R']=_lerp((.16,-.22,.79),(.16,-.29,.82),u)
-        arm_targets['L']=_lerp((-.25,-.06,.66),(-.15,-.18,.78),u*.7)
+        u=sin(math.pi*t);lean=.10*u
+        arm_targets['R']=_lerp((.131,-.180,.312),(.131,-.238,.331),u)
+        arm_targets['L']=_lerp((-.205,-.049,.227),(-.123,-.148,.305),u*.7)
         hand_dirs['R']=Vector((0,-.07,-.005));head_yaw=-.025*u
     if seated:
-        for s,sign in [('L',-1),('R',1)]:
-            feet[s]=_lerp(feet[s],(sign*.13,-.27,seat_plane-.17),seated)
-            arm_targets[s]=_lerp(arm_targets[s],(sign*.18,-.17,.77),seated)
-            hand_dirs[s]=_lerp(hand_dirs[s],(0,-.065,-.018),seated)
-        lean=.018*sin(phase)
+        for side,sign in [('L',-1),('R',1)]:
+            feet[side]=_lerp(feet[side],(sign*.115,-.060,seat_plane+.006),seated)
+            arm_targets[side]=_lerp(arm_targets[side],(sign*.148,-.139,.299),seated)
+            hand_dirs[side]=_lerp(hand_dirs[side],(0,-.065,-.018),seated)
+        lean=.014*sin(phase)
         if clip=='seated_wait':
-            head_yaw=.055*sin(phase);head_tilt=.025*sin(phase)
-            arm_targets['R'].z+=.012*sin(phase)
+            head_yaw=.055*sin(phase);head_tilt=.025*sin(phase);arm_targets['R'].z+=.008*sin(phase)
         elif clip=='eat':
             lift=(sin(phase)+1)*.5
-            arm_targets['R']=_lerp((.14,-.22,.78),(.08,-.20,1.04),lift)
-            arm_targets['L']=Vector((-.15,-.23,.78))
+            arm_targets['R']=_lerp((.115,-.180,.305),(.066,-.164,.474),lift)
+            arm_targets['L']=Vector((-.123,-.189,.305))
             hand_dirs['R']=Vector((0,-.065,.005));head_tilt=.025*sin(phase)
     if clip in ('walk','panic'):
         quick=2 if clip=='panic' else 1
-        for s,off in [('L',0),('R',.5)]:
+        for side,off in [('L',0),('R',.5)]:
             g=(t*quick+off)%1
-            # Canonical front is -Y. During stance the grounded sole travels
-            # rearward relative to the body; forward root motion cancels it.
-            if g<.5:y=-.14+.56*g;z=.11
+            # Stance sole moves backward (+Y), recovery moves forward (-Y).
+            # A matching root translation -.225*t cells cancels stance velocity.
+            if g<.5:y=-.045+.18*g;z=.035
             else:
-                u=(g-.5)*2;y=.14-.28*u;z=.11+.085*sin(math.pi*u)
-            feet[s].y=y;feet[s].z=z
-            arm_targets[s].y+=(-.085 if s=='L' else .085)*sin(phase*quick)
-            arm_targets[s].z+=.025*cos(phase*quick)
-        hip.z=.625+.006*cos(phase*quick*2);lean=.08 if clip=='panic' else .025
-        if clip=='panic':head_yaw=.18*sin(phase);arm_targets['L'].z+=.10;arm_targets['R'].z+=.10
+                u=(g-.5)*2;y=.045-.09*u;z=.035+.026*sin(math.pi*u)
+            feet[side].y=y;feet[side].z=z
+            arm_targets[side].y+=(-.055 if side=='L' else .055)*sin(phase*quick)
+            arm_targets[side].z+=.012*cos(phase*quick)
+        hip.z=.141+.001*cos(phase*quick*2);lean=.07 if clip=='panic' else .025
+        if clip=='panic':head_yaw=.18*sin(phase);arm_targets['L'].z+=.06;arm_targets['R'].z+=.06
     elif clip=='happy':
-        hop=sin(math.pi*t)**2;hip.z+=.10*hop
-        for s,sign in [('L',-1),('R',1)]:
-            feet[s].z+=.10*hop;arm_targets[s]=_lerp(arm_targets[s],(sign*.37,-.03,.98),hop)
+        hop=sin(math.pi*t)**2;hip.z+=.05*hop
+        for side,sign in [('L',-1),('R',1)]:
+            feet[side].z+=.05*hop;arm_targets[side]=_lerp(arm_targets[side],(sign*.30,-.025,.41),hop)
         head_tilt=-.07*hop
     elif clip=='restless':
-        hip.x=.025*sin(phase);hip.z=.643+.004*cos(phase*2);head_yaw=.13*sin(phase)
-        feet['R'].z+=.035*max(0,sin(phase));foot_tilt['R']=.08*max(0,sin(phase))
-        arm_targets['R']=Vector((.25,-.08,.72+.03*sin(phase)))
+        hip.x=.012*sin(phase);hip.z=.148+.002*cos(phase*2);head_yaw=.13*sin(phase)
+        feet['R'].z+=.018*max(0,sin(phase));foot_tilt['R']=.08*max(0,sin(phase))
+        arm_targets['R']=Vector((.205,-.066,.266+.018*sin(phase)))
     elif clip=='puzzled':
         head_tilt=.14*sin(phase);head_yaw=.09*sin(phase+.4)
-        arm_targets['R']=Vector((.24,-.09,.98+.025*sin(phase)))
-        hand_dirs['R']=Vector((-.035,-.015,.06))
-        arm_targets['L']=Vector((-.22,-.08,.69))
-    # Upper-body transform deliberately bends around the pelvis. Ground controls
-    # stay fixed for planted clips, independent of breathing/cooking motion.
-    rot=Matrix.Rotation(lean,3,'X')
-    rest_hip=Vector((0,0,.65))
-    def upper(p):return hip+rot@(Vector(p)-rest_hip)
+        arm_targets['R']=Vector((.197,-.074,.435+.015*sin(phase)))
+        hand_dirs['R']=Vector((-.035,-.015,.06));arm_targets['L']=Vector((-.180,-.066,.247))
+    rot=Matrix.Rotation(lean,3,'X');rest_hip=Vector((0,0,.15))
+    def upper(point):return hip+rot@(Vector(point)-rest_hip)
     desired={'ground':rest_mats['ground'].copy()}
     for name in ('pelvis','spine','neck','head'):
         a,c=REST[name]
         if name=='pelvis' and seated:
-            offset=hip-rest_hip
-            desired[name]=frame(Vector(a)+offset,Vector(c)+offset)
+            offset=hip-rest_hip;desired[name]=frame(Vector(a)+offset,Vector(c)+offset)
         else:desired[name]=frame(upper(a),upper(c))
     desired['head']=desired['head']@Matrix.Rotation(head_yaw,4,'Y')@Matrix.Rotation(head_tilt,4,'Z')
     actual_hands={}
-    for s,sign in [('L',-1),('R',1)]:
-        # The small hip offset is inherited by hands as well as shoulder sockets.
-        wrist=arm_targets[s]+Vector((hip.x,0,hip.z-.65))
-        shoulder=upper(REST['upper_arm_'+s][0]);elbow_pole=Vector((sign*.64,-.02,.77))+Vector((hip.x,0,hip.z-.65))
-        l1=(Vector(REST['upper_arm_'+s][1])-Vector(REST['upper_arm_'+s][0])).length
-        l2=(Vector(REST['forearm_'+s][1])-Vector(REST['forearm_'+s][0])).length
+    for side,sign in [('L',-1),('R',1)]:
+        wrist=arm_targets[side]+Vector((hip.x,0,hip.z-.15))
+        shoulder=upper(REST['upper_arm_'+side][0]);elbow_pole=Vector((sign*.48,-.02,.27))+Vector((hip.x,0,hip.z-.15))
+        l1=(Vector(REST['upper_arm_'+side][1])-Vector(REST['upper_arm_'+side][0])).length
+        l2=(Vector(REST['forearm_'+side][1])-Vector(REST['forearm_'+side][0])).length
         elbow,wrist=_two_bone(shoulder,wrist,l1,l2,elbow_pole)
-        desired['upper_arm_'+s]=frame(shoulder,elbow);desired['forearm_'+s]=frame(elbow,wrist);desired['hand_'+s]=frame(wrist,wrist+hand_dirs[s])
-        hip_joint=hip+Vector((sign*.12,0,0));ankle=feet[s];pole=Vector((sign*.12,-.65,.42))
-        l1=(Vector(REST['thigh_'+s][1])-Vector(REST['thigh_'+s][0])).length
-        l2=(Vector(REST['shin_'+s][1])-Vector(REST['shin_'+s][0])).length
+        desired['upper_arm_'+side]=frame(shoulder,elbow);desired['forearm_'+side]=frame(elbow,wrist);desired['hand_'+side]=frame(wrist,wrist+hand_dirs[side])
+        hip_joint=hip+Vector((sign*.115,.005,0));ankle=feet[side];pole=Vector((sign*.115,-.20,.085))
+        l1=(Vector(REST['thigh_'+side][1])-Vector(REST['thigh_'+side][0])).length
+        l2=(Vector(REST['shin_'+side][1])-Vector(REST['shin_'+side][0])).length
         knee,ankle=_two_bone(hip_joint,ankle,l1,l2,pole)
-        desired['thigh_'+s]=frame(hip_joint,knee);desired['shin_'+s]=frame(knee,ankle)
-        desired['foot_'+s]=frame(ankle,ankle+Vector((0,-.16,.16*foot_tilt[s])))
-        desired['foot_goal_'+s]=frame(feet[s],feet[s]+Vector((0,0,.12)))
-        desired['knee_pole_'+s]=frame(pole,pole+Vector((0,0,.1)))
-        desired['hand_goal_'+s]=frame(wrist,wrist+Vector((0,0,.1)))
-        desired['elbow_pole_'+s]=frame(elbow_pole,elbow_pole+Vector((0,0,.1)))
-        actual_hands[s]=list(wrist+hand_dirs[s]*.6)
-    # Convert desired global armature-space matrices into native parent-relative
-    # basis transforms using explicit parent goals, avoiding update-order drift.
+        desired['thigh_'+side]=frame(hip_joint,knee);desired['shin_'+side]=frame(knee,ankle)
+        desired['foot_'+side]=frame(ankle,ankle+Vector((0,-.12,.12*foot_tilt[side])))
+        desired['foot_goal_'+side]=frame(feet[side],feet[side]+Vector((0,0,.075)))
+        desired['knee_pole_'+side]=frame(pole,pole+Vector((0,0,.075)))
+        desired['hand_goal_'+side]=frame(wrist,wrist+Vector((0,0,.075)))
+        desired['elbow_pole_'+side]=frame(elbow_pole,elbow_pole+Vector((0,0,.075)))
+        actual_hands[side]=list(wrist+hand_dirs[side]*.6)
     for name,pb in arm.pose.bones.items():
         target=desired.get(name,rest_mats[name])
         if pb.parent:
@@ -434,9 +486,8 @@ def _pose_character(arm,clip,t,rest_mats,builder):
         else:basis=rest_mats[name].inverted()@target
         pb.matrix_basis=basis
     arm['current_clip']=clip;arm['current_phase']=t;arm['hand_sockets_current']=json.dumps(actual_hands)
-    arm['seat_contact_current']=json.dumps([hip.x,0,hip.z-.105]);arm['hip_control_current']=json.dumps(list(hip));arm['feet_current']=json.dumps({s:list(feet[s]) for s in feet})
-    bpy.context.view_layer.update()
-    sockets=evaluated_sockets({'armature':arm,'root':builder.root})
+    arm['seat_contact_current']=json.dumps([hip.x,0,hip.z-pelvis_offset]);arm['hip_control_current']=json.dumps(list(hip));arm['feet_current']=json.dumps({side:list(feet[side]) for side in feet})
+    bpy.context.view_layer.update();sockets=evaluated_sockets({'armature':arm,'root':builder.root})
     arm['hand_sockets_current']=json.dumps({'L':sockets['hand_left'],'R':sockets['hand_right']})
 
 
@@ -502,9 +553,9 @@ def evaluated_sockets(character,world=False):
     """
     arm=character['armature'];root=character['root'];result={'ground':[0.,0.,0.]}
     points={
-        'hand_left':('hand_L',Vector(REST['hand_L'][0])+Vector((0,-.007,-.04))),
-        'hand_right':('hand_R',Vector(REST['hand_R'][0])+Vector((0,-.007,-.04))),
-        'mouth':('head',Vector((0,-.225,1.08))),
+        'hand_left':('hand_L',Vector(REST['hand_L'][0])+Vector((0,-.002,-.046))),
+        'hand_right':('hand_R',Vector(REST['hand_R'][0])+Vector((0,-.002,-.046))),
+        'mouth':('head',Vector((0,-.255,.543))),
     }
     for name,(bone,point) in points.items():
         p=arm.pose.bones[bone].matrix@arm.data.bones[bone].matrix_local.inverted()@point
@@ -529,6 +580,6 @@ def set_seat_environment_z(character,height=.655,elevation_degrees=35):
     Wood stool=.655; blue cushion=.685. Re-pose after changing this setting.
     """
     root=character['root'];root['seat_environment_z']=float(height)
-    root['seat_character_plane']=float(height)/math.cos(math.radians(elevation_degrees))
+    root['seat_character_plane']=float(height)*ENVIRONMENT_FRONT_SCALE/(CHARACTER_SCALE*math.cos(math.radians(elevation_degrees)))
     character['sockets']['seat_contact']=[0,0,root['seat_character_plane']]
     root['sockets']=json.dumps(character['sockets'])

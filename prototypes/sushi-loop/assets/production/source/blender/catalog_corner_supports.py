@@ -12,7 +12,7 @@ import math
 LEG_KEYS = tuple('wood_leg_' + str((x, y))
                  for x in (-.28, .28) for y in (-.28, .28))
 SLAB_KEY = 'lower_wood_frame'
-SUPPORT_VERSION = 1
+SUPPORT_VERSION = 2
 
 
 def geometry():
@@ -37,12 +37,12 @@ def geometry():
                   tuple(segments * 4 + index for index in (3, 2, 1, 0))))
     legs = []
     for name, (q, radius) in zip(LEG_KEYS, (
-            (.18, .24), (.18, .76), (.82, .24), (.82, .76))):
+            (.30, .24), (.18, .76), (.70, .24), (.82, .76))):
         angle = math.pi + q * math.pi / 2
         legs.append({'part': name, 'arcFraction': q, 'radius': radius,
                      'center': [center[0] + radius * math.cos(angle),
                                 center[1] + radius * math.sin(angle), .25],
-                     'size': [.10, .10, .50], 'rotationZ': angle})
+                     'size': [.16, .16, .50], 'rotationZ': angle})
     return {'vertices': vertices, 'faces': faces, 'legs': legs,
             'layout': {
                 'version': SUPPORT_VERSION,

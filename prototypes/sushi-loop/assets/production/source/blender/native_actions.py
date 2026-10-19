@@ -406,7 +406,7 @@ def _bake_asset_visible(asset_id,asset,output_dir=None,replace=False,canonical_d
         root['native_action_record']=json.dumps({'source':'native_actions.py','assetId':asset_id,'clips':{k:[a['action'] for a in v['actions']] for k,v in record['clips'].items()}})
         record['actionCount']=len(created);record['createdAtUnix']=time.time();record['status']='native-actions-baked-needs-visual-review'
         source_root=pathlib.Path(__file__).parent
-        record['sourceFiles']={name:hashlib.sha256((source_root/name).read_bytes()).hexdigest() for name in ('native_actions.py','character_builders.py','prop_builders.py','world_components.py','food_belt_builders.py','creature_fx_builders.py','character_composition.py','production_library.py','catalog_variants.py','catalog_corner_supports.py','catalog_belt_flow.py','catalog_clusters.py') if (source_root/name).exists()}
+        record['sourceFiles']={name:hashlib.sha256((source_root/name).read_bytes()).hexdigest() for name in ('native_actions.py','character_builders.py','prop_builders.py','world_components.py','food_belt_builders.py','creature_fx_builders.py','character_composition.py','production_library.py','catalog_variants.py','catalog_corner_supports.py','catalog_belt_flow.py','catalog_clusters.py','catalog_art_revision.py','catalog_style.py','catalog_concept_decor.py','concept_decoration_geometry.py','catalog_character_revision.py','build_art_rollout.py') if (source_root/name).exists()}
         if output_dir:
             folder=pathlib.Path(output_dir)/_safe_name(asset_id);folder.mkdir(parents=True,exist_ok=True)
             (folder/'rig-actions.json').write_text(json.dumps(record,indent=2)+'\n')
@@ -540,6 +540,15 @@ def save_production_library(path,assets,records,production_scene=None,visible_as
             scene.render.pixel_aspect_x=production_scene.render.pixel_aspect_x;scene.render.pixel_aspect_y=production_scene.render.pixel_aspect_y
             scene.render.film_transparent=True
             scene.view_settings.view_transform=production_scene.view_settings.view_transform
+            scene.view_settings.look=production_scene.view_settings.look
+            scene.view_settings.exposure=production_scene.view_settings.exposure
+            scene.view_settings.gamma=production_scene.view_settings.gamma
+        import importlib.util
+        style_path=pathlib.Path(__file__).with_name('catalog_style.py')
+        spec=importlib.util.spec_from_file_location('s33_export_grade',style_path)
+        style=importlib.util.module_from_spec(spec);spec.loader.exec_module(style)
+        style.ensure_compositor(scene)
+        scene.render.use_compositing=True
         scene.render.fps=12;scene.frame_start=1;scene.frame_end=max((c['lastUniqueFrame'] for a in record_map.values() for c in a['clips'].values()),default=1)
         first=visible_asset or next(iter(asset_map));first_collection=asset_map[first]['collection']
         scene.view_layers[0].update()

@@ -9,6 +9,48 @@ const byId = new Map(library.objects.map(object => [object.id, object]));
 const scenes = [restaurantShowcase, underwaterShowcase];
 const divides = (whole, part) => Math.abs(whole / part - Math.round(whole / part)) < 1e-8;
 
+test('aisle walking compensates native planted-foot travel in every projected facing', () => {
+  const walker = restaurantShowcase.placements.find(placement => placement.id === 'june-in-aisle');
+  const object = byId.get(walker.object);
+  const audit = JSON.parse(readFileSync(new URL('../review/33/character-rollout/character-audit.json', import.meta.url))).assets[walker.object];
+  const camera = JSON.parse(readFileSync(new URL(`../assets/production/${object.source.camera}`, import.meta.url)));
+  const stride = audit.walkWorldTravelPerCycle;
+  const projected = [camera.calibration.unitX[0], camera.calibration.unitDepth[1]].map(value => value / camera.captureScale);
+  assert.ok(Math.abs(stride - .225) < 1e-8, 'Selected C125 native stance cycle is the route calibration authority');
+  for (const direction of ['N', 'E', 'S', 'W']) {
+    const axis = ['N', 'S'].includes(direction) ? 1 : 0;
+    assert.ok(Math.abs(object.locomotion.projectedWalkTravelPerCycle[direction] - stride * projected[axis] / 128) < 1e-8, 'Published game metadata must carry the camera-calibrated directional stride');
+  }
+  assert.ok(projected[1] < projected[0] * .6, 'This regression must exercise ordinary35° depth foreshortening');
+  assert.equal(walker.motion.segmentDurations.reduce((sum, duration) => sum + duration, 0), 16);
+  const unphased = { ...walker, motion: { ...walker.motion, phase: 0 } };
+  const dt = 1 / 12;
+  let start = 0;
+  for (let index = 0; index < walker.motion.segmentDurations.length; index++) {
+    const a = groundRoot(placementAtTime(unphased, start + .125, object), object);
+    const b = groundRoot(placementAtTime(unphased, start + .125 + dt, object), object);
+    const from = walker.motion.path[index], to = walker.motion.path[index + 1];
+    for (const axis of [0, 1]) {
+      const nativePlantedFootTravel = -Math.sign(to[axis] - from[axis]) * stride * projected[axis] * dt;
+      assert.ok(Math.abs(b[axis] - a[axis] + nativePlantedFootTravel) < .00001, `Segment${index}, axis${axis}: sprite root must cancel the native camera's planted-foot motion`);
+    }
+    start += walker.motion.segmentDurations[index];
+  }
+});
+
+test('the full C125 turning envelope stays in the clear aisle away from border, chefs and conveyor', () => {
+  const walker = restaurantShowcase.placements.find(placement => placement.id === 'june-in-aisle');
+  const audit = JSON.parse(readFileSync(new URL('../review/33/character-rollout/character-audit.json', import.meta.url))).assets[walker.object];
+  const halfWidth = audit.maximumWidthCells / 2, halfDepth = audit.maximumDepthCells / 2;
+  const chefs = restaurantShowcase.placements.filter(placement => byId.get(placement.object).family === 'W05');
+  for (let frame = 0; frame <= 16 * 12; frame++) {
+    const pose = placementAtTime(walker, frame / 12, byId.get(walker.object));
+    const [x, y] = groundRoot(pose, byId.get(walker.object)).map(value => value / 128);
+    assert.ok(x - halfWidth >= 1 && x + halfWidth < 3, 'The complete turning width stays between the border column and conveyor');
+    for (const chef of chefs) assert.ok(x + halfWidth <= chef.x || x - halfWidth >= chef.x + 1 || y + halfDepth <= chef.y || y - halfDepth >= chef.y + 1, 'The complete native turning footprint does not overlap a chef tile');
+  }
+});
+
 test('restaurant plates reference the active conveyor deck socket through the complete route', () => {
   const deck = byId.get('belt-straight-e').sockets.S.deck;
   const plates = restaurantShowcase.placements.filter(placement => placement.object.startsWith('dish-'));

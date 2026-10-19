@@ -1,0 +1,54 @@
+{
+  "id": "garbage-car",
+  "projection": "top-down-oblique-square-grid",
+  "frame": [
+    576,
+    768
+  ],
+  "anchor": [
+    288,
+    480
+  ],
+  "scale": 4,
+  "clips": {
+    "idle": {
+      "frames": 1,
+      "fps": 12,
+      "loop": false,
+      "static": true
+    },
+    "highlighted": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "clearance": {
+      "frames": 12,
+      "fps": 12,
+      "loop": false
+    }
+  },
+  "footprint": [
+    3,
+    2
+  ],
+  "height": 1.3,
+  "sockets": {},
+  "variants": {
+    "normal": {
+      "clips": [
+        "idle"
+      ]
+    },
+    "highlighted": {
+      "clips": [
+        "highlighted"
+      ]
+    },
+    "clearance": {
+      "clips": [
+        "clearance"
+      ]
+    }
+  }
+}

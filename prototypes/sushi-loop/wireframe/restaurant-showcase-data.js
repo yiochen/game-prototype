@@ -36,9 +36,12 @@ const plates = ['dish-salmon', 'dish-cucumber', 'dish-eel', 'dish-salmon', 'dish
 // outer sides to form continuous framing rather than isolated decoration islands.
 const walls = [-.25, 6.25].flatMap((x, side) => Array.from({ length: 16 }, (_, i) =>
   place(`${side ? 'east' : 'west'}-room-wall-${i}`, 'wall-middle', x, i - 1, side ? 'W' : 'E')));
+// Curated turns vary the repeated components without changing their cell scale.
+const westDecorFacing = ['S','E','S','W','N','S','E','N','W','E','S','W','N'];
+const eastDecorFacing = ['W','S','N','E','S','W','E','S','N','W','S','E','N'];
 const gardens = Array.from({ length: 13 }, (_, i) => [
-  place(`west-border-piece-${i}`, ['plant-angular', 'slate-rock', 'crate-wood', 'plant-angular', 'barrel-wood'][i % 5], -.45, i + .2, 'S', 'static'),
-  place(`east-border-piece-${i}`, ['slate-rock', 'plant-angular', 'barrel-wood', 'plant-angular', 'crate-wood'][i % 5], 6.45, i + .35, 'S', 'static'),
+  place(`west-border-piece-${i}`, ['plant-angular', 'slate-rock', 'crate-wood', 'plant-angular', 'barrel-wood'][i % 5], -.45, i + .2, westDecorFacing[i], 'static'),
+  place(`east-border-piece-${i}`, ['slate-rock', 'plant-angular', 'barrel-wood', 'plant-angular', 'crate-wood'][i % 5], 6.45, i + .35, eastDecorFacing[i], 'static'),
 ]).flat();
 const seats = [
   place('rosa-stool', 'stool-wood', 4, 4.5, 'W'),
@@ -48,6 +51,11 @@ const seats = [
   place('ellis-stool', 'stool-blue', 3.7, 10.4, 'N'),
   place('ellis-waiting', 'customer-ellis', 3.7, 10.4, 'N', 'seated-wait', { supportSocket: { object: 'stool-blue', socket: 'seat', relativeTo: { object: 'stool-wood', socket: 'seat' } }, timeOffset: .6 }),
 ];
+
+// C125 walks .225 physical cells per one-second cycle. Its ordinary35° camera
+// projects X travel at full scale and native depth at sin35°, unlike the square floor.
+const aisleWalkX = .225 * 2;
+const aisleWalkY = .225 * Math.sin(35 * Math.PI / 180) * 6;
 
 export const restaurantShowcase = {
   id: 'restaurant',
@@ -62,8 +70,8 @@ export const restaurantShowcase = {
     ...walls,
     ...gardens,
     place('restaurant-entrance', 'entry-finished', 1.5, 1.8),
-    place('back-lantern', 'lantern-gold', .9, 1.7, 'S', 'ambient', { timeOffset: .3 }),
-    place('entrance-lantern', 'lantern-gold', 5.5, 1.7, 'S', 'ambient', { timeOffset: .8 }),
+    place('back-lantern', 'lantern-gold', .9, 1.7, 'S', 'idle', { timeOffset: .3 }),
+    place('entrance-lantern', 'lantern-gold', 5.5, 1.7, 'S', 'idle', { timeOffset: .8 }),
     ...belts,
     place('lena-board', 'chef-blackboard', 1.8, 4.5, 'S', 'selected', { renderPass: 'foreground' }),
     place('lena-working', 'chef-lena', 1.8, 4.5, 'E', 'work'),
@@ -71,11 +79,12 @@ export const restaurantShowcase = {
     place('noor-working', 'chef-noor', 1.8, 7.1, 'E', 'work', { timeOffset: .5 }),
     ...seats,
     ...plates,
-    // Exactly3.6cells /16s matches the revised .225cell/s short-leg walking gait. The lane
-    // stays west of the conveyor and outside the separate front dining stool.
-    place('june-in-aisle', 'customer-june', .95, 8.8, 'E', 'walk', {
+    // Two seconds per horizontal leg, six per vertical leg match native projected
+    // stance travel in every facing; the complete loop stays sixteen seconds.
+    place('june-in-aisle', 'customer-june', 1, 8.8, 'E', 'walk', {
       motion: {
-        path: [[.95, 8.8], [1.65, 8.8], [1.65, 9.9], [.95, 9.9], [.95, 8.8]],
+        path: [[1, 8.8], [1 + aisleWalkX, 8.8], [1 + aisleWalkX, 8.8 + aisleWalkY], [1, 8.8 + aisleWalkY], [1, 8.8]],
+        segmentDurations: [2, 6, 2, 6],
         duration: 16, loop: true, phase: 2, faceTravel: true,
       },
     }),

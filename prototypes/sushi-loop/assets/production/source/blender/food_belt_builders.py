@@ -92,7 +92,11 @@ def floor(aid):
                 verts.extend([(x,y-.055,.002),(x,y+.055,.002)])
             faces=[(i*2,i*2+1,i*2+3,i*2+2) for i in range(64)]
             b.mesh('periodic_wave_'+str(row),verts,faces,M['blue'] if aid=='floor-blue-wave' else M['water_dark'])
-    return b.finish(.002)
+    # Registered narrow grout: boundaries remain readable in every floor style.
+    edge=mat('ocean_grout','16899E') if aid=='floor-underwater' else mat('cream_grout','BEA16B')
+    for label,verts in [('south',[(-.5,-.5,.004),(.5,-.5,.004),(.5,-.489,.004),(-.5,-.489,.004)]),('north',[(-.5,.489,.004),(.5,.489,.004),(.5,.5,.004),(-.5,.5,.004)]),('west',[(-.5,-.5,.004),(-.489,-.5,.004),(-.489,.5,.004),(-.5,.5,.004)]),('east',[(.489,-.5,.004),(.5,-.5,.004),(.5,.5,.004),(.489,.5,.004)])]:
+        b.mesh('tile_border_'+label,verts,[(0,1,2,3)],edge)
+    return b.finish(.004)
 
 def deck_material(aid):
     m=bpy.data.materials.new('S33_'+aid+'_moving_deck');m.use_nodes=True;n=m.node_tree.nodes;l=m.node_tree.links

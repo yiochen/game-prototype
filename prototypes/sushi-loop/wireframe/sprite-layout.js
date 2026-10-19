@@ -115,16 +115,20 @@ export function placementAtTime(placement, seconds = 0, object) {
   const segments = points.slice(1).map((point, index) => Math.hypot(point[0] - points[index][0], point[1] - points[index][1]));
   const distance = segments.reduce((sum, length) => sum + length, 0);
   if (!distance) return placement;
+  // Ordinary character cameras foreshorten native depth travel. Authored segment
+  // timings match each facing's projected foot stance while retaining one clock.
+  const timing = motion.segmentDurations?.length === segments.length && motion.segmentDurations.every(value => Number.isFinite(value) && value > 0) ? motion.segmentDurations : segments;
+  const period = timing.reduce((sum, length) => sum + length, 0);
   const progress = Math.max(0, seconds + (Number(motion.phase) || 0)) / positive(motion.duration, 4);
-  let remaining = (motion.loop === false ? Math.min(1, progress) : progress % 1) * distance;
+  let remaining = (motion.loop === false ? Math.min(1, progress) : progress % 1) * period;
   for (let index = 0; index < segments.length; index++) {
-    if (remaining <= segments[index] || index === segments.length - 1) {
-      const t = segments[index] ? Math.min(1, remaining / segments[index]) : 0;
+    if (remaining <= timing[index] || index === segments.length - 1) {
+      const t = timing[index] ? Math.min(1, remaining / timing[index]) : 0;
       const [x, y] = points[index], [nextX, nextY] = points[index + 1];
       const direction = motion.faceTravel ? facingAlong(points[index], points[index + 1], placement.direction || 'S') : placement.direction || 'S';
       return pathPlacement(placement, [x + (nextX - x) * t, y + (nextY - y) * t], direction, object);
     }
-    remaining -= segments[index];
+    remaining -= timing[index];
   }
   return placement;
 }

@@ -76,8 +76,142 @@ def raw_ports(asset_id, info):
     return [dict(port, name=port.get('name', port['direction'])) for port in info.get('ports', [])]
 
 
-def cross_sections(world_source):
-    """Read exact endpoint loft rings from the actual native builder source."""
+def _source_value(node, values):
+    """Resolve only native recipe literals/arithmetic, never execute source."""
+    if isinstance(node, ast.Name) and node.id in values:
+        return values[node.id]
+    if isinstance(node, (ast.Tuple, ast.List)):
+        return [_source_value(value, values) for value in node.elts]
+    if isinstance(node, ast.UnaryOp) and isinstance(node.op, (ast.UAdd, ast.USub)):
+        value = _source_value(node.operand, values)
+        return value if isinstance(node.op, ast.UAdd) else -value
+    if isinstance(node, ast.BinOp):
+        left, right = _source_value(node.left, values), _source_value(node.right, values)
+        operations = {ast.Add: lambda: left + right, ast.Sub: lambda: left - right,
+                      ast.Mult: lambda: left * right, ast.Div: lambda: left / right}
+        operation = operations.get(type(node.op))
+        if operation is not None:
+            return operation()
+    try:
+        return ast.literal_eval(node)
+    except (ValueError, TypeError) as error:
+        raise ValueError('Native cross-section must use resolvable source literals: ' + ast.unparse(node)) from error
+
+
+def _bind_source_target(target, value, values):
+    if isinstance(target, ast.Name):
+        values[target.id] = value
+    elif isinstance(target, (ast.Tuple, ast.List)) and len(target.elts) == len(value):
+        for child, item in zip(target.elts, value):
+            _bind_source_target(child, item, values)
+    else:
+        raise ValueError('Unsupported native recipe loop target: ' + ast.unparse(target))
+
+
+def _source_calls(statements, values=None):
+    """Yield recipe calls with constant assignments and finite loops expanded."""
+    values = dict(values or {})
+    for statement in statements:
+        if isinstance(statement, ast.Assign):
+            try:
+                value = _source_value(statement.value, values)
+            except ValueError:
+                pass  # Builder/scene objects are not needed for source geometry.
+            else:
+                for target in statement.targets:
+                    if isinstance(target, (ast.Name, ast.Tuple, ast.List)):
+                        _bind_source_target(target, value, values)
+        if isinstance(statement, (ast.Expr, ast.Assign)) and isinstance(statement.value, ast.Call):
+            yield statement.value, dict(values)
+        elif isinstance(statement, ast.For):
+            expression = statement.iter
+            enumerated = isinstance(expression, ast.Call) and isinstance(expression.func, ast.Name) and expression.func.id == 'enumerate'
+            if enumerated and len(expression.args) == 1 and not expression.keywords:
+                items = enumerate(_source_value(expression.args[0], values))
+            else:
+                try:
+                    items = _source_value(expression, values)
+                except ValueError:
+                    # Ignore detail-generation loops only when they cannot
+                    # contain a seam-defining _tier or _loft call.
+                    if any(isinstance(node, ast.Call) and _source_call_name(node) in ('_tier', '_loft') for node in ast.walk(statement)):
+                        raise
+                    continue
+            for item in items:
+                child_values = dict(values)
+                _bind_source_target(statement.target, item, child_values)
+                yield from _source_calls(statement.body, child_values)
+        elif isinstance(statement, ast.If):
+            # Current seam geometry is independent of end/corner dressing.
+            # Read both branches so a future conditional seam cannot disappear
+            # silently from the audit.
+            yield from _source_calls(statement.body, values)
+            yield from _source_calls(statement.orelse, values)
+
+
+def _source_call_name(call):
+    return call.func.id if isinstance(call.func, ast.Name) else call.func.attr if isinstance(call.func, ast.Attribute) else None
+
+
+def _tier_section(width_z):
+    """Cross-section of native square-miter _tier at an endpoint plane."""
+    if len(width_z) < 2 or any(len(item) != 2 or item[0] <= 0 for item in width_z):
+        raise ValueError('Native tier requires at least two positive-width height rings')
+    first, *remaining = width_z
+    return [(-first[0], first[1]), (first[0], first[1])] + [(width, z) for width, z in remaining] + [(-width, z) for width, z in reversed(remaining)]
+
+
+def _contained_in_convex_section(inner, outer):
+    """Prove a detail tier cannot change the outer native endpoint section."""
+    edges = [(outer[i], outer[(i + 1) % len(outer)]) for i in range(len(outer))]
+    def cross(a, b, point):
+        return (b[0] - a[0]) * (point[1] - a[1]) - (b[1] - a[1]) * (point[0] - a[0])
+    turns = [cross(a, b, outer[(i + 2) % len(outer)]) for i, (a, b) in enumerate(edges)]
+    signs = {1 if value > 0 else -1 for value in turns if abs(value) > 1e-9}
+    if len(signs) != 1:
+        raise ValueError('Native outer loft must be convex to prove a detail tier is contained')
+    winding = next(iter(signs))
+    return all(winding * cross(a, b, point) >= -1e-9 for point in inner for a, b in edges)
+
+
+def _revision_sections(revision_source):
+    """Read approved V2 seams from their native modeling recipe, using stdlib."""
+    tree = ast.parse(Path(revision_source).read_text())
+    result = {}
+    functions = {node.name: node for node in tree.body if isinstance(node, ast.FunctionDef)}
+    for name in ('_wall', '_rock_wall'):
+        if name not in functions:
+            raise ValueError('Missing native revision seam builder: ' + name)
+        function = functions[name]
+        profile_ids = {_source_value(node.args[1], {}) for node in ast.walk(function)
+                       if isinstance(node, ast.Call) and _source_call_name(node) == 'port' and len(node.args) >= 2}
+        if len(profile_ids) != 1:
+            raise ValueError('Native seam builder must declare one profile ID: ' + name)
+        rings, contained_tiers = [], []
+        for call, values in _source_calls(function.body):
+            kind = _source_call_name(call)
+            if name == '_wall' and kind == '_tier':
+                rings.append(_tier_section(_source_value(call.args[3], values)))
+            elif name == '_rock_wall' and kind == '_loft':
+                rings.append(_source_value(call.args[3], values))
+            elif name == '_rock_wall' and kind == '_tier':
+                contained_tiers.append(_tier_section(_source_value(call.args[3], values)))
+        if not rings:
+            raise ValueError('No native endpoint geometry found in ' + name)
+        if contained_tiers and (len(rings) != 1 or any(not _contained_in_convex_section(tier, rings[0]) for tier in contained_tiers)):
+            raise ValueError('Native detail tier extends outside the audited loft section: ' + name)
+        result[next(iter(profile_ids))] = rings
+    return result
+
+
+def cross_sections(world_source, revision_source=None):
+    """Read V1/V2 endpoint rings from native source AST, without loading bpy.
+
+    V2 rock-wall contact shoulders are inside the main loft's lower full-width
+    section, so the loft supplies the outer seam. Its broad silhouette is read
+    directly from _rock_wall's profile; it is not a copied V1 approximation.
+    """
+    world_source = Path(world_source)
     tree = ast.parse(Path(world_source).read_text())
     profiles = {}
     for node in tree.body:
@@ -110,6 +244,9 @@ def cross_sections(world_source):
                     continue
             rings.append([(w, z + base_z) for w, z in ring])
         profiles['restaurant-wall-wood-blue-v1' if function.name == 'build_wall' else 'wreck-frame-section-v1'] = rings
+    revision_source = Path(revision_source) if revision_source is not None else world_source.with_name('catalog_art_revision.py')
+    if revision_source.is_file():
+        profiles.update(_revision_sections(revision_source))
     return profiles
 
 
@@ -346,12 +483,13 @@ def main():
     parser.add_argument('--library', type=Path, default=DEFAULT_LIBRARY)
     parser.add_argument('--native-source-root', type=Path, help='Optional authoritative export/source; otherwise read published source records')
     parser.add_argument('--world-source', type=Path, default=BASE / 'world_components.py')
+    parser.add_argument('--revision-source', type=Path, help='Native V2 recipe; defaults to catalog_art_revision.py beside world source')
     parser.add_argument('--support-source', type=Path, default=BASE / 'catalog_corner_supports.py')
     parser.add_argument('--plan', type=Path, default=BASE / 'coverage-plan.json')
     parser.add_argument('--report', type=Path)
     args = parser.parse_args()
     manifest = read_json(args.library)
-    audit = Audit(manifest, args.native_source_root, cross_sections(args.world_source))
+    audit = Audit(manifest, args.native_source_root, cross_sections(args.world_source, args.revision_source))
     audit.manifest_root = args.library.parent
     expected = {item['id'] for item in read_json(args.plan)['objects']}
     if set(audit.by_id) != expected:

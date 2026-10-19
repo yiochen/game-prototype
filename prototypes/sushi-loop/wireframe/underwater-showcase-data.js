@@ -18,9 +18,12 @@ const fishPatrol = patrol([[4.4, 1.6], [4.4, 2.8], [4.4, 1.6]], 24, 4);
 // first and last ports are outside the camera; every visible neighbor is joined.
 const banks = [.5, 5.5].flatMap((x, side) => Array.from({ length: 17 }, (_, i) =>
   item(`${side ? 'east' : 'west'}-bank-${i}`, [3, 7, 11].includes(i) ? 'rock-wall-edge' : 'rock-wall-middle', x, i - 1, side ? 'W' : 'E')));
+// Explicitly arranged facings interrupt a recognizable five-piece repeat.
+const westDecorFacing = ['S','E','N','S','W','E','S','N','W','S','E','N','S','W'];
+const eastDecorFacing = ['W','S','E','N','S','W','N','E','S','N','W','E','S','N'];
 const gardens = Array.from({ length: 14 }, (_, i) => [
-  item(`west-reef-piece-${i}`, ['decor-midground-coral', 'decor-kelp', 'boulder-underwater', 'decor-foreground-coral', 'column-broken'][i % 5], -.3, i + .15, 'S', ['ambient', 'sway', 'static', 'idle', 'static'][i % 5]),
-  item(`east-reef-piece-${i}`, ['decor-kelp', 'decor-foreground-coral', 'boulder-underwater', 'column-broken', 'decor-midground-coral'][i % 5], 6.3, i + .3, 'S', ['sway', 'idle', 'static', 'static', 'ambient'][i % 5]),
+  item(`west-reef-piece-${i}`, ['decor-midground-coral', 'decor-kelp', 'boulder-underwater', 'decor-foreground-coral', 'column-broken'][i % 5], -.3, i + .15, westDecorFacing[i], ['idle', 'idle', 'static', 'idle', 'static'][i % 5]),
+  item(`east-reef-piece-${i}`, ['decor-kelp', 'decor-foreground-coral', 'boulder-underwater', 'column-broken', 'decor-midground-coral'][i % 5], 6.3, i + .3, eastDecorFacing[i], ['idle', 'idle', 'static', 'static', 'idle'][i % 5]),
 ]).flat();
 
 export const underwaterShowcase = {

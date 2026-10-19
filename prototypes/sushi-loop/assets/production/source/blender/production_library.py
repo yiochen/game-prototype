@@ -14,7 +14,7 @@ def module(name,file):
     m=importlib.util.module_from_spec(spec);sys.modules[name]=m;spec.loader.exec_module(m);return m
 
 def load():
-    global P,F,C,X,W,H,V,B,G
+    global P,F,C,X,W,H,V,B,G,R,D,T
     P=module('prop_builders','prop_builders.py')
     F=module('s33fb','food_belt_builders.py')
     C=module('s33chars','character_builders.py')
@@ -24,6 +24,9 @@ def load():
     V=module('s33variants','catalog_variants.py')
     B=module('s33billboards','catalog_billboards.py')
     G=module('s33clusters','catalog_clusters.py')
+    R=module('s33_prop_revision','catalog_art_revision.py')
+    D=module('s33_concept_decor','catalog_concept_decor.py')
+    T=module('s33_style','catalog_style.py')
 
 def remap(a,mapping):
     pose=a['pose'];old=a['clips']
@@ -136,8 +139,14 @@ def add_upgraded_variant(a):
 
 
 def build(aid):
+    retired={'restaurant-border-garden-a','restaurant-border-garden-b','restaurant-corner-garden-a','restaurant-corner-garden-b','underwater-reef-garden-a','underwater-reef-garden-b','underwater-coral-garden-a','underwater-coral-garden-b'}
+    flat={'dish-salmon','dish-cucumber','dish-eel','bubble-preference','bubble-happy','bubble-puzzled','bubble-panic','decor-bubbles','attack-swirl','attack-lateral-current','eel-warning-strip','eel-lightning-symbol','eel-discharge'}
+    if aid in retired:raise ValueError('Retired large garden bundle: '+aid)
+    if aid in flat:raise ValueError('Use the 2D pipeline for '+aid+'; source/2d/publish_2d.py')
     if 'P' not in globals():load()
-    if aid.startswith('chef-') and aid!='chef-blackboard' or aid.startswith('customer-'):
+    if aid in D.MAP:
+        a=D.create(aid);projection='character-orthographic' if a.get('squareFooting') else 'square-top-front-oblique'
+    elif aid.startswith('chef-') and aid!='chef-blackboard' or aid.startswith('customer-'):
         a=C.create_character(aid.replace('-','_'))
         H.add_held_props(a,F,'dish-salmon' if aid.startswith('chef-') else 'dish-cucumber')
         projection='character-orthographic'
@@ -196,10 +205,12 @@ def build(aid):
     if aid in B.BILLBOARD_IDS:a=B.augment(a)
     if aid in ['garbage-sofa','garbage-car','garbage-shelving']:
         a['variants']={'normal':{'clips':['idle']},'highlighted':{'clips':['highlighted']},'clearance':{'clips':['clearance']}}
-    if aid in ['plant-angular','column-broken','decor-foreground-coral','decor-ruin-fragment']:
+    if aid in ['plant-angular','decor-foreground-coral']:
         a=add_static_preview(a,'idle')
     if aid in ['sub-hull-panels','sub-harpoon-mount','sub-collector-inlet']:
         a=add_equipment_active(a,aid)
+    a=R.augment(a,aid)
+    a=T.apply(a,aid)
     for clip,config in a['clips'].items():
         config.update(frames=1 if config.get('static') else 24 if aid.startswith('belt-') else 12,fps=12)
         if config.get('static'):config['loop']=False
@@ -221,7 +232,8 @@ def build(aid):
         'creature-eel':((448,512),(224,352)),
         'creature-fish':((448,512),(224,352)),
         'garbage-sofa':((448,576),(224,352)),
-        'garbage-car':((576,768),(288,480)),
+        'garbage-car':((576,832),(288,544)),
+        'dock-cover':((736,704),(368,480)),
         'garbage-shelving':((448,672),(224,448)),
         'harpoon-projectile':((256,352),(128,224)),
         'boost-trail':((448,544),(224,352)),

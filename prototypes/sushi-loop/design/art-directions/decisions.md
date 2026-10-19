@@ -1,15 +1,15 @@
 # Art revision decisions — issue 33
 
-Decision checkpoint: 2026-10-18. Status: the four choices below are **locked by the user for the next asset revision**. Selection is not the same as production rollout: wait for the user's explicit instruction before updating the full asset library. Issue 33 remains open until the user approves the game-scene assets.
+Decision checkpoint: 2026-10-19. Status: the choices below are **locked and the user has explicitly authorized the full production asset revision**. The 2026-10-19 revamp request supersedes earlier study-only limits below. Issue 33 remains open until the user approves the game-scene assets.
 
 ## Four locked decisions
 
 | ID | Decision | Exact meaning | Current implementation |
 | --- | --- | --- | --- |
-| ART-01 | **70% environment front/height** | Preserve square ground tiles and their X/depth pitch. Project vertical height at 0.70 of the earlier environment baseline: `screenX = anchorX + cellSize*x`; `screenY = anchorY + cellSize*depth - 0.70*cellSize*height`. This is a projection coefficient, not a 70° camera, changed tile aspect, reduced physical model height, or a squeeze of finished PNGs. | Verified in the frozen [projection study](../../assets/projection-study/README.md); full production recapture pending. |
-| ART-02 | **125% character size** | Use a true uniform native root scale of 1.25 relative to the B/C study's 100% base. Do not interpret this as another 25% increase over an already enlarged sprite. Ground root, camera and logical pixels per tile stay fixed. | Selected in the [character study](../../assets/character-scale-study/README.md); production characters not replaced yet. |
-| ART-03 | **C / Chunky character proportions and revised head** | Use C as the proportion reference: chubby body, short leg stubs, tiny unobtrusive feet, full side depth, softened cheeks/chin and a less cubic face. Use the revised rounded crown, overlapping curls and fuller temple/back/nape hair volume. B remains a comparison reference, not an alternate selected production shape. Preserve each character's identity, costume and hair type when translating the proportions to the cast. | Native C revision 3 at 125%, retained at commit `a3d2a2d4c147d1b6347635e520a5a8cc0a48af7a`, is the accepted shape/scale reference. Other characters and animations await the authorized full pass. |
-| ART-04 | **Layered, full-footprint tile decoration with varied heights** | Use continuous restaurant ground/floor tiles or ocean-bed tiles beneath separate decoration sprites. Each decoration tile must substantially occupy the full width and depth of its cell, with a broad readable mass rather than a small centered prop surrounded by padding. Keep tile-based assembly; vary the decoration silhouette, composition and height across neighboring cells. | Direction locked; ground variants, decoration meshes and height families remain to be designed and reviewed before the full asset pass. |
+| ART-01 | **70% environment front/height** | Preserve square ground tiles and their X/depth pitch. Project vertical height at 0.70 of the earlier environment baseline: `screenX = anchorX + cellSize*x`; `screenY = anchorY + cellSize*depth - 0.70*cellSize*height`. This is a projection coefficient, not a 70° camera, changed tile aspect, reduced physical model height, or a squeeze of finished PNGs. | Verified in the frozen [projection study](../../assets/projection-study/README.md); Version 12 native rebuild and all 9,390 registered captures complete; awaiting user asset approval. |
+| ART-02 | **125% character size** | Use a true uniform native root scale of 1.25 relative to the B/C study's 100% base. Do not interpret this as another 25% increase over an already enlarged sprite. Ground root, camera and logical pixels per tile stay fixed. | Selected in the [character study](../../assets/character-scale-study/README.md); the production cast and registered captures are published; awaiting user asset approval. |
+| ART-03 | **C / Chunky character proportions and revised head** | Use C as the proportion reference: chubby body, short leg stubs, tiny unobtrusive feet, full side depth, softened cheeks/chin and a less cubic face. Use the revised rounded crown, overlapping curls and fuller temple/back/nape hair volume. B remains a comparison reference, not an alternate selected production shape. Preserve each character's identity, costume and hair type when translating the proportions to the cast. | Native C revision 3 at 125%, retained at commit `a3d2a2d4c147d1b6347635e520a5a8cc0a48af7a`, is the accepted shape/scale reference. All twelve production identities and their animations now use the selected proportions; user approval of the published captures remains pending. |
+| ART-04 | **Layered, full-footprint tile decoration with varied heights** | Use continuous restaurant ground/floor tiles or ocean-bed tiles beneath separate decoration sprites. Each decoration tile must substantially occupy the full width and depth of its cell, with a broad readable mass rather than a small centered prop surrounded by padding. Keep tile-based assembly; vary the decoration silhouette, composition and height across neighboring cells. | Concept-specific full-cell pieces and bordered grounds are rebuilt; final scene-art approval remains pending. |
 
 Reference: [live character study](https://deploy-preview-34--game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?v=a3d2a2d&ntl-drawer-state=hidden#character-scale-study). At the selected scale, C is approximately **1.576 tiles tall including the hat**, with a conservative **0.814 × 0.814 tile turning envelope** across four cardinal views. Those are measurements of this chef reference, not required identical dimensions for every character or accessory.
 
@@ -32,7 +32,7 @@ Reference: [live character study](https://deploy-preview-34--game-prototypes-yio
 - **Preserve readability:** depth-sort above the common ground with registered roots; taller decoration may overlap scenery behind it. Keep gameplay lanes, interaction targets and the visible collision boundary readable. Ground coverage, artwork height and collision remain separate.
 - **Approval views:** compare a dense 3×3 arrangement and a longer connected edge with a corner at phone size, including mixed heights and repeated source pieces. Judge coverage, seams, repetition and actor occlusion together. These views are the proposed validation for the next authorized study, not an instruction to start the full asset update now.
 
-## Still to resolve before the full asset pass
+## Earlier review topics before the authorized full pass
 
 These are review topics, not newly approved changes:
 
@@ -40,7 +40,7 @@ These are review topics, not newly approved changes:
 2. **Environment finish and scene coherence.** Review the 70% projection with representative furniture, conveyors, terrain and ART-04 layered decoration tiles together, including materials, color balance, height ranges and representative arrangements. The decoration architecture and full-footprint coverage are now locked; the individual designs remain subject to visual review. The projection choice alone does not approve every existing mesh or material.
 3. **Interaction fit at the selected settings.** Validate C at 125% beside the 70% belt, seated on stools and next to counters/doorways before applying the change to every animation. Recalibrate deck, seat, hand and held-item attachments; do not inherit the old height offsets blindly.
 
-Do not infer authorization to remodel or recapture all assets from this decision record. Continue recording choices and small explicitly requested studies; begin the full production update only when the user sends it off. Scope remains issue 33 and eventual Godot Android delivery.
+The user subsequently authorized the full production update on 2026-10-19. The rollout section below supersedes these earlier study-only scope limits. Scope remains issue 33 and eventual Godot Android delivery; completing the native pass does not establish final scene-art approval.
 
 
 ## Decoration height experiment — pending review
@@ -87,3 +87,44 @@ The user requests more contrast and asks whether to edit images or Blender light
 ### Selected contrast: 135%
 
 The user selected **135%** as the preferred contrast. Retain that color direction for the next decoration revision; it supersedes the earlier 118% initial preview. The live review starts at 135%. An isolated native Blender proof applies the same sRGB contrast using a shared compositor group, preserving original alpha and direction-free lighting/materials. Four objects in four facings match the browser grade within 8-bit rounding. Do not apply the browser filter again to already baked sprites, and keep shared ground/reference images ungraded. This selects a grade, not all asset shapes or a full production rollout. Source/evidence: `../../assets/native-contrast/README.md` and `../../review/33/native-contrast135/README.md`.
+
+
+## Authorized production rollout — 2026-10-19
+
+The user approved the native 135% proof and requested all objects be revamped.
+This section supersedes the earlier study-only/pending-camera wording wherever
+it conflicts; historical experiments above remain evidence, not active rules.
+
+- **ART-05 — every Blender object uses the native 135% sRGB contrast grade.**
+  Apply `clamp((c − .5) × 1.35 + .5, 0, 1)` to straight RGB in the shared
+  Blender compositor, preserve Render Layers alpha, then return to premultiplied
+  scene-linear output. Standard view, no extra look/exposure/gamma or CSS grade.
+  Production floors also use this export grade; unchanged concept reference
+  images and historical comparison controls remain ungraded.
+- **ART-06 — dark lower surfaces across the entire library.** Restaurant props,
+  architecture, characters, conveyors and underwater assets all use a native
+  world-height material ramp. Keep crown/upper surfaces brighter and preserve
+  explicit material colors. Emission surfaces, zero world strength and zero light
+  energy eliminate world directional illumination. A camera-symmetric absolute
+  normal/view term adds form without a left/right light source. Ground-contact
+  shadows stay a separate future Godot rendering layer.
+- **ART-07 — height-dependent decoration projection and a three-tile cap.**
+  Small decoration uses ART-01. If the largest complete silhouette under the
+  70% profile exceeds two tiles across any facing, use the tested ordinary35
+  upper view transitioning to square footing below Z=.42. The entire projected
+  silhouette must stay at or below three tiles in every facing, including ground
+  depth. Characters retain ordinary35 without that footing deformation.
+  Connecting modular architecture retains matching square-ground ports.
+- **ART-08 — representation and cooccupancy.** Sushi and all reaction bubbles
+  are ImageGen 2D art. Current/swirl/eel warning/lightning/discharge are 2D effects,
+  with the warning hatch suitable for direct Godot drawing. Blackboard and blank
+  sign have one player-facing blank surface, rooted at the front edge so another
+  object can share the cell. They never bake dynamic text/recipe content.
+- **ART-09 — remove obsolete large garden bundles.** Delete both A/B versions of
+  restaurant border/corner gardens and underwater reef/coral gardens from the
+  active catalog and scene examples. Continuous bordered floors plus individual
+  concept-specific full-footprint pieces replace them.
+
+All earlier locked character, footprint, animation, source retention and review
+requirements continue. The user's 34 feedback items are tracked in the rollout
+review record. Issue 33 remains open until the user approves all game-scene art.

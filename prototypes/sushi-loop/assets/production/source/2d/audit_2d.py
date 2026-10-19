@@ -9,6 +9,11 @@ objects=json.loads((HERE/'overrides.json').read_text())
 report=[]
 for ident,obj in objects.items():
     assert 'blend' not in obj['source'],ident
+    assert obj['registration']['method']=='fixed-frame-2d'
+    assert obj['registration']['completeFrame']==obj['frameSize']
+    assert obj['registration']['anchor']==obj['root']
+    assert obj['registration']['sourceScale']==obj['sourceScale']==2
+    assert not any(name in obj for name in ['sockets3D','socketSpace','captureFingerprint','height','ports','sockets'])
     if obj['source'].get('artwork'):
         source=ROOT/obj['source']['artwork']
         assert hashlib.sha256(source.read_bytes()).hexdigest()==obj['source']['sha256']

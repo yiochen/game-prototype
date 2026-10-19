@@ -17,7 +17,7 @@ for (const [width, height] of [[390, 844], [844, 390], [1325, 1224]]) {
     await next.click();
     await expect(stage).toHaveAttribute('data-story', neighbor);
     await expect(draft).toHaveValue('');
-    expect(await page.evaluate(() => window.scrollY)).toBe(0);
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
     await draft.fill('Separate review for the next object.');
     await feedback.getByRole('button', { name: 'Add comment', exact: true }).click();
     await previous.click();

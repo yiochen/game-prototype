@@ -64,3 +64,15 @@ test('a fixed-facing curved dish path retains its original root registration and
   assert.equal(pose.direction, 'W');
   close(groundRoot(pose, dish), [448, 238.08]);
 });
+
+test('authored segment timing preserves facing-specific gait speed through turns and loop wrap', () => {
+  const actor = { id: 'walker', footprint: [1, 1] };
+  const timed = { object: 'walker', direction: 'E', motion: { path: [[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]], duration: 16, segmentDurations: [2, 6, 2, 6], faceTravel: true } };
+  for (const [seconds, direction, position] of [[1, 'E', [.5, 0]], [5, 'S', [1, .5]], [9, 'W', [.5, 1]], [13, 'N', [0, .5]]]) {
+    const pose = placementAtTime(timed, seconds, actor);
+    assert.equal(pose.direction, direction);
+    close([pose.x, pose.y], position);
+  }
+  for (const turn of [2, 8, 10, 16]) close(groundRoot(placementAtTime(timed, turn - 1e-7, actor), actor), groundRoot(placementAtTime(timed, turn + 1e-7, actor), actor), .0001);
+  close(groundRoot(placementAtTime(timed, 0, actor), actor), groundRoot(placementAtTime(timed, 48, actor), actor));
+});

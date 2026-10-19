@@ -189,6 +189,15 @@ def asset_lock(folder,aid,worker,version):
             if current.get('pid')==os.getpid() and current.get('worker')==worker:path.unlink()
 
 
+@contextlib.contextmanager
+def capture_footing(asset):
+    if not asset.get('squareFooting'):
+        yield;return
+    core=load_module('s33_worker_concept_geometry',BASE/'concept_decoration_geometry.py')
+    with core.capture_projection(asset['collection'],'ordinary35'):
+        yield
+
+
 def main():
     args=arguments();args.worker=''.join(c if c.isalnum() or c in '-_' else '_' for c in args.worker)
     args.ids=list(dict.fromkeys(words(args.ids)));directions=words(args.directions);requested_clips=words(args.clips)
@@ -200,7 +209,7 @@ def main():
     action_records=json.loads(manifest.read_text()).get('assets',{}) if manifest.exists() else {}
     blend=pathlib.Path(bpy.data.filepath).resolve()
     if not blend.exists():raise FileNotFoundError('Worker must load a saved production .blend')
-    version_base={'blend':sha(blend),'runtime':sha(BASE/'capture_runtime.py'),'nativeActions':sha(BASE/'native_actions.py'),'worker':sha(__file__),'blenderVersion':bpy.app.version_string,'samples':args.samples,'sourceScale':'authored'}
+    version_base={'blend':sha(blend),'runtime':sha(BASE/'capture_runtime.py'),'nativeActions':sha(BASE/'native_actions.py'),'worker':sha(__file__),'catalogStyle':sha(BASE/'catalog_style.py'),'conceptFooting':sha(BASE/'concept_decoration_geometry.py'),'blenderVersion':bpy.app.version_string,'samples':args.samples,'sourceScale':'authored'}
     status={'state':'planning','worker':args.worker,'pid':os.getpid(),'ids':args.ids,'done':0,'rendered':0,'skipped':0,'total':0,'startedAtUnix':time.time(),'nativeSource':version_base,'blend':str(blend),'rawRoot':str(raw),'error':None}
     status_path=status_dir/(args.worker+'.status.json');write_json(status_path,status)
     prepared=[]
@@ -236,7 +245,8 @@ def main():
                             png.parent.mkdir(parents=True,exist_ok=True)
                             temporary=png.with_name(png.stem+'.'+args.worker+'.partial.png')
                             scene.render.filepath=str(temporary);began=time.monotonic()
-                            bpy.ops.render.render(write_still=True,scene=scene.name)
+                            with capture_footing(asset):
+                                bpy.ops.render.render(write_still=True,scene=scene.name)
                             observed=png_information(temporary)
                             if not observed or [observed['width'],observed['height']]!=dimensions:raise RuntimeError('Incomplete or wrongly sized render '+str(temporary))
                             os.replace(temporary,png)

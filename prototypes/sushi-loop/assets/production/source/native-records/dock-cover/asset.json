@@ -2,11 +2,11 @@
   "id": "dock-cover",
   "projection": "square-top-front-oblique",
   "frame": [
-    448,
+    736,
     704
   ],
   "anchor": [
-    224,
+    368,
     480
   ],
   "scale": 4,
@@ -27,11 +27,18 @@
     3
   ],
   "height": 1.87,
-  "sockets": {},
+  "sockets": {
+    "dock_floor": [
+      0,
+      0,
+      0
+    ]
+  },
   "ports": [],
   "nonblocking": true,
   "depth_layer": "overhead",
   "composition_context": {
+    "role": "dock-overhead-weather-tarp",
     "layoutCells": [
       3,
       3
@@ -50,6 +57,20 @@
       -0.7,
       -0.42,
       0.23
-    ]
-  }
+    ],
+    "explanation": "Patchwork weather tarp covering the docked submarine and workshop; folds to the back when the dock is uncovered."
+  },
+  "artStyle": {
+    "revision": "art-2026-10-19",
+    "contrast": 1.35,
+    "environmentHeightRatio": 0.7,
+    "lowerTone": "native material height ramp",
+    "worldLighting": false
+  },
+  "directions": [
+    "N",
+    "E",
+    "S",
+    "W"
+  ]
 }

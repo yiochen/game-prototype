@@ -17,6 +17,24 @@ SCALE = 2
 
 def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()
 
+def normalize_2d(obj):
+    """Keep flat artwork registration independent of the superseded native mesh."""
+    for name in ['height','sockets3D','socketSpace','captureFingerprint','ports','portProfiles','portDefinition','sockets']:
+        obj.pop(name,None)
+    obj['registration']={'method':'fixed-frame-2d','groundAnchorAlignment':'center','completeFrame':copy.deepcopy(obj['frameSize']),'anchor':copy.deepcopy(obj['root']),'cellSize':128,'poseFitting':False,'sourceScale':obj['sourceScale']}
+    obj['validation']={'artworkEvidence':'original-imagegen-raster' if obj['source']['pipeline']=='imagegen-2d' else 'editable-godot-2d-drawing','audit':'source/2d/audit.json','visualApproval':'pending-user-review'}
+    if obj['id'].startswith('dish-'):
+        obj['requirements']['notes']='The same generated 2D dish cutout is used on belts, in hands, at seats and inside preference bubbles. Placement uses registered support offsets; no 3D dish model is required.'
+    elif obj['id']=='bubble-preference':
+        obj['requirements']['notes']='Generated 2D blank balloon composed with the matching generated dish cutout; appearance, idle and fade frames stay camera-facing. Dynamic timer content is a runtime 2D overlay.'
+    elif obj['id'].startswith('bubble-'):
+        obj['requirements']['notes']='Generated 2D camera-facing feedback balloon with twelve-frame appearance, idle and fade states. World-facing contexts share the same readable artwork.'
+    elif obj['id']=='decor-bubbles':
+        obj['requirements']['notes']='Generated transparent 2D underwater bubble trail with twelve-frame rise and fade. No Blender bubble geometry or directional lighting.'
+    else:
+        obj['requirements']['notes']='Flat procedural 2D world cue with editable Godot drawing source and twelve-frame windup, active and recovery previews. Presentation only; no damage or attack scheduling is simulated.'
+    return obj
+
 def cutout(ident, width):
     im = Image.open(HERE / 'generated' / f'{ident}.png').convert('RGBA')
     bounds = im.getchannel('A').point(lambda a: 255 if a > 8 else 0).getbbox()
@@ -120,10 +138,10 @@ def export_object(obj):
             clip['directions'][direction]=entry
         if generated:
             for direction in DIRECTIONS: clip['directions'][direction]=copy.deepcopy(clip['directions']['S'])
-    return obj
+    return normalize_2d(obj)
 
 def merge(manifest):
-    overrides=json.loads((HERE/'overrides.json').read_text())
+    overrides={ident:normalize_2d(obj) for ident,obj in json.loads((HERE/'overrides.json').read_text()).items()}
     objects=[]
     for obj in manifest['objects']:
         if obj['id'] in DELETED: continue
@@ -136,6 +154,9 @@ def merge(manifest):
             if obj['id']=='chef-blackboard':
                 obj['clips']=[c for c in obj['clips'] if c['id'] in ['idle','selected','recipe-change']]
                 obj['requirements']['states']=['idle','selected','recipe-change']
+                obj['variants']={'blank':{'clips':['idle','selected','recipe-change']}}
+                obj['requirements']['variants']=['blank']
+                obj['requirements']['notes']='One blank player-facing board at the front of the chef tile. Recipe content is drawn dynamically in Godot; selected and recipe-change clips animate the same blank board.'
             for clip in obj['clips']:clip['directions']={'S':clip['directions']['S']}
             obj['reviewNote']='Blank player-facing surface at the front of its tile; shares the same tile with another object. Content is drawn dynamically in Godot.'
             if obj['id']=='chef-blackboard':obj['interactions']=[{'name':'Chef and blank board share one tile','gridSize':[3,2],'placements':[{'object':'chef-lena','x':1,'y':0,'direction':'E','clip':'work'},{'object':'chef-blackboard','x':1,'y':0,'direction':'S','clip':'idle','renderPass':'foreground'}],'note':obj['reviewNote']}]
@@ -156,5 +177,8 @@ if __name__=='__main__':
         overrides={obj['id']:export_object(copy.deepcopy(obj)) for obj in manifest['objects'] if obj['id'] in GENERATED+PROCEDURAL}
         (HERE/'overrides.json').write_text(json.dumps(overrides,indent=2)+'\n')
         print(f'Packed {len(overrides)} 2D objects; full fixed-frame12fps atlases.')
+    else:
+        overrides={ident:normalize_2d(obj) for ident,obj in json.loads((HERE/'overrides.json').read_text()).items()}
+        (HERE/'overrides.json').write_text(json.dumps(overrides,indent=2)+'\n')
     if args.apply:
         result=merge(manifest);manifest_path.write_text(json.dumps(result,indent=2)+'\n');print(f'Merged {len(result["objects"])} active objects.')

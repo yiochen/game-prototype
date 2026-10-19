@@ -12,6 +12,12 @@ const prompts = JSON.parse(readFileSync(new URL('source/2d/prompts.json', root))
 const library = JSON.parse(readFileSync(new URL('library.json', root)));
 const deleted = /^(restaurant-(border|corner)-garden|underwater-(reef|coral)-garden)-[ab]$/;
 
+test('every review-required state selects an actual exported clip', () => {
+  for (const object of library.objects) for (const state of object.requirements?.states || []) {
+    assert.ok(object.clips.some(clip => clip.id === state), `${object.id}/${state} must not silently fall back to another animation`);
+  }
+});
+
 test('all dishes and bubbles use retained original ImageGen raster artwork', () => {
   const generated = Object.values(overrides).filter(object => object.source.pipeline === 'imagegen-2d');
   assert.equal(generated.length, 8);
@@ -54,6 +60,20 @@ test('2D animation atlases retain complete registered frames with at least six u
   }
 });
 
+test('flat registrations describe their current 2D canvas and contain no superseded 3D socket data', () => {
+  for (const object of [...Object.values(overrides), ...library.objects.filter(object => ['imagegen-2d','procedural-2d'].includes(object.source?.pipeline))]) {
+    assert.equal(object.registration.method, 'fixed-frame-2d');
+    assert.deepEqual(object.registration.completeFrame, object.frameSize);
+    assert.deepEqual(object.registration.anchor, object.root);
+    assert.equal(object.registration.sourceScale, object.sourceScale);
+    assert.equal(object.registration.sourceCaptureScale, undefined);
+    assert.equal(object.registration.poseFitting, false);
+    for (const field of ['sockets3D','socketSpace','captureFingerprint','height','ports','sockets']) assert.equal(object[field], undefined, `${object.id}: stale native field ${field}`);
+    assert.equal(object.validation.rigEvidence, undefined);
+    assert.doesNotMatch(object.requirements.notes, /same dish geometry|projected from declared native attachment/i);
+  }
+});
+
 test('a single player-facing sign exposes only its readable surface in the review grid', () => {
   const sign = { id: 'sign-blank', footprint: [1, 1], facingPolicy: 'single-player-facing' };
   assert.deepEqual(reviewDirections(sign), ['S']);
@@ -87,4 +107,20 @@ test('front-edge signs paint over their shared-tile occupant regardless of inser
       assert.equal(orderPlacements(placements, library.objects).at(-1).object, id);
     }
   }
+});
+
+test('all production variant bindings name real exported clips and the blackboard has one blank surface', () => {
+  for (const object of library.objects) {
+    const exported = new Set(object.clips.map(clip => clip.id));
+    for (const [variant, binding] of Object.entries(object.variants || {})) {
+      assert.ok(binding.clips?.length, `${object.id}/${variant}: a variant must bind exported visual states`);
+      for (const clip of binding.clips) assert.ok(exported.has(clip), `${object.id}/${variant} binds missing clip ${clip}`);
+    }
+  }
+  const board = library.objects.find(object => object.id === 'chef-blackboard');
+  assert.deepEqual(board.variants, { blank: { clips: ['idle', 'selected', 'recipe-change'] } });
+  assert.deepEqual(board.requirements.variants, ['blank']);
+  assert.match(board.requirements.notes, /blank player-facing board/);
+  assert.match(board.requirements.notes, /drawn dynamically in Godot/);
+  assert.doesNotMatch(board.requirements.notes, /three recipe artworks/);
 });

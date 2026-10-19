@@ -62,6 +62,8 @@ def kind_for(asset):
 def model_script_for(asset):
     ident=asset['id']
     if asset.get('family') in ['W05','W07']:return 'character_builders.py'
+    if ident in {'boulder-underwater','decor-background-rock','decor-foreground-rock','column-broken','decor-ruin-fragment','decor-foreground-coral','decor-midground-coral','decor-kelp'}:return 'catalog_concept_decor.py'
+    if ident.startswith(('wall-','rock-wall-','belt-')) or ident in {'plant-angular','barrel-wood','crate-wood','slate-rock','dock-post-rope','chef-blackboard','sign-blank','garbage-sofa','garbage-car','garbage-shelving','dock-cover'}:return 'catalog_art_revision.py'
     if ident in FX_IDS:return 'creature_fx_builders.py'
     if ident in CLUSTER_IDS or ident=='entry-finished':return 'catalog_clusters.py'
     if ident.startswith(('floor-','dish-','belt-')):return 'food_belt_builders.py'
@@ -165,6 +167,19 @@ def project_point(point,direction,camera_meta):
     return [(X[i]*x-D[i]*y+H[i]*z)/scale for i in (0,1)]
 
 
+def projected_locomotion(locomotion,camera_meta):
+    """Retain physical stride and declare its actual travel on the square floor."""
+    result=dict(locomotion)
+    calibration=camera_meta['calibration'];scale=camera_meta['captureScale']
+    pitch=camera_meta.get('cellSize',128)*scale
+    factors={d:math.hypot(*calibration['unitDepth' if d in ('N','S') else 'unitX'])/pitch for d in DIRECTIONS}
+    stride=locomotion['worldTravelPerWalkCycle']
+    result['projectedWalkTravelPerCycle']={d:stride*factors[d] for d in DIRECTIONS}
+    result['projectedPanicCellsPerSecond']={d:locomotion['panicCellsPerSecond']*factors[d] for d in DIRECTIONS}
+    result['projectedUnits']='logical square-floor cells; derived from recorded native camera calibration'
+    return result
+
+
 def set_registration(asset,info,camera_meta):
     width,height=info['footprint']
     asset['directionFootprints']={d:([height,width] if d in ['E','W'] else [width,height]) for d in DIRECTIONS}
@@ -239,7 +254,7 @@ def connected_belt_scene(asset,byid,place,scene,with_dish=False):
     for item in route:
         if item['object'] not in byid:raise KeyError('Connected belt fixture references '+item['object'])
     if with_dish:
-        sockets=asset.get('sockets',{});deck=sockets.get('S',sockets).get('deck',[0,-81.92])
+        sockets=asset.get('sockets',{});deck=sockets.get('S',sockets).get('deck',[0,-57.344])
         # This isolated fixture contains only connected decks at one elevation.
         # Its attached plate must stay above every module as its ground row changes.
         route.append(place('dish-salmon',*path[0],offset=deck,renderPass='foreground',motion={'path':path,'duration':duration,'loop':True}))
@@ -313,20 +328,21 @@ def interaction_context(asset,byid):
           [place(aid,0,1,clip='ambient'),place(actor,width+1,1,actor_direction,actor_clip)],
           (width+4,max(depth+2,4)),
           note='Native multi-cell assembly at its authored capture scale. The neighboring actor occupies separate cells beyond the full cluster footprint; this decorative arrangement has no seam ports or blocking rules.')]
-    deck=byid.get(belt,{}).get('sockets',{});deck=deck.get('S',deck).get('deck',[0,-81.92])
+    deck=byid.get(belt,{}).get('sockets',{});deck=deck.get('S',deck).get('deck',[0,-57.344])
     plate=lambda ident,x,y:place(ident,x,y,offset=deck)
     if family=='W05':
         return [scene('Chef faces the neighboring serving belt',[place(aid,1,0,clip='work'),place(belt,1,1,clip='running'),plate(dish,1,1)]),scene('Completed dish and customer scale',[place(aid,0,1,clip='hold'),place(stool,2,1),place(customer,2,1,clip='seated-wait')])]
     if family=='W07':
         return [scene('Separate customer seated on the stool',[place(stool,1,1),place(aid,1,1,clip='seated-wait'),place(belt,1,2,clip='running'),plate(dish,1,2)]),scene('Walking height beside a chef',[place(aid,1,1,clip='walk'),place(chef,3,1,clip='work')])]
     if aid in ['stool-wood','stool-blue']:
-        return [scene('Seat, separate customer and serving belt',[place(aid,1,1),place(customer,1,1,clip='seated-wait',offset=[0,-3.84] if aid=='stool-blue' else [0,0]),place(belt,1,2,clip='running'),plate(dish,1,2)],note='Independent customer layer uses the declared blue cushion attachment delta: 0.03 world units = 3.84 logical pixels above the wood-seat support.' if aid=='stool-blue' else None)]
+        return [scene('Seat, separate customer and serving belt',[place(aid,1,1),place(customer,1,1,clip='seated-wait',offset=[0,-2.688] if aid=='stool-blue' else [0,0]),place(belt,1,2,clip='running'),plate(dish,1,2)],note='Independent customer layer uses the declared blue cushion attachment delta: 0.03 world units × 70% = 2.688 logical pixels above the wood-seat support.' if aid=='stool-blue' else None)]
     if kind=='belt':return [connected_belt_scene(asset,byid,place,scene),connected_belt_scene(asset,byid,place,scene,with_dish=True)]
     connected=connected_module_scene(asset,byid,place,scene)
     if connected:return [connected]
     if aid.startswith('dish-'):
         return [scene('Dish on the running serving surface',[place(belt,1,1,clip='running'),plate(aid,1,1),place(stool,1,2),place(customer,1,2,'N','seated-wait')],(4,4))]
-    if family=='W06':return [scene('Blackboard shares the chef cell',[place(aid,1,1,offset=[-42,12]),place(chef,1,1,clip='work'),place(belt,1,2,clip='running')],(4,4),note='Within-cell recipe board and chef are independent registered layers; overlays expose their common cell.')]
+    if aid=='sign-blank':return [scene('Front-edge sign shares a planted tile',[place('plant-angular',1,1),place(aid,1,1,direction='S',renderPass='foreground')],(3,3),note='One blank player-facing sign at the front of the same tile as a plant; no title is baked.')]
+    if family=='W06':return [scene('Blank blackboard shares the chef cell',[place(chef,1,1,clip='work'),place(aid,1,1,direction='S',renderPass='foreground'),place(belt,1,2,clip='running')],(4,4),note='Blank player-facing board is physically modeled in the front tile band. It shares the chef ground cell without a fixture translation; dynamic recipe content is added in game.')]
     if family=='W08':
         return [scene('World feedback attached above a customer',[place(stool,1,1),place(customer,1,1,clip='seated-wait'),place(aid,1,1,offset=[0,-90] if aid.startswith('bubble-') else [0,0])],(4,3),note='Bubble attachment is 90 logical pixels above the shared customer ground placement; sale coin effects stay near the meal.' if aid.startswith('bubble-') else None)]
     if family=='W09':
@@ -338,7 +354,7 @@ def interaction_context(asset,byid):
         def on_dock(ident,point):
             footprint=byid.get(ident,{}).get('footprint',[1,1])
             x,y,z=point
-            return place(ident,1.5+x-footprint[0]/2,1.5-y-footprint[1]/2,offset=[0,-128*z])
+            return place(ident,1.5+x-footprint[0]/2,1.5-y-footprint[1]/2,offset=[0,-89.6*z])
         placements=[place('dock-floor',0,0),on_dock(sub,[-.70,-.42,.23]),on_dock('workshop-hut',[.78,.35,.23]),on_dock('dock-entry',[0,-1.5,0])]
         if aid=='dock-cover':placements.append(on_dock(aid,[0,0,.23]))
         value=scene('Connected dock entry, shared deck and hut',placements,(4,4),note='The ramp overlaps the dock at its authored native position. The submarine and hut retain the shared deck elevation; the hut stays to the submarine’s right.')
@@ -392,10 +408,21 @@ def main():
         revision=models/'revisions'/digest[:16]/name
         revision.parent.mkdir(parents=True,exist_ok=True)
         if not revision.exists():
-            try:os.link(models/name,revision)
-            except OSError:shutil.copy2(models/name,revision)
+            # Current recipes are editable. A hardlink here would silently mutate
+            # immutable source snapshots when a recipe is edited in place.
+            shutil.copy2(models/name,revision)
         elif sha(revision)!=digest:raise ValueError('Immutable native source revision mismatch: '+str(revision))
         native_revisions[name]=str(revision.relative_to(target))
+    # Refresh selected registrations together before constructing connections.
+    # A new wall profile must see its peer's new ports even when the corner is
+    # packed before the straight module in this batch.
+    for entry in entries:
+        capture_id,explicit=(entry.split('=',1)+[None])[:2] if '=' in entry else (entry,None)
+        normalized=capture_id.replace('_','-');aid=explicit or ALIASES.get(normalized,normalized)
+        folder=native/'source'/capture_id
+        if not folder.is_dir():folder=native/'source'/normalized
+        info=json.loads((folder/'asset.json').read_text());camera=json.loads((folder/'camera.json').read_text())
+        set_registration(byid[aid],info,camera)
     for entry in entries:
         capture_id,explicit=(entry.split('=',1)+[None])[:2] if '=' in entry else (entry,None)
         normalized=capture_id.replace('_','-');aid=explicit or ALIASES.get(normalized,normalized)
@@ -406,8 +433,21 @@ def main():
         if info['projection']!='character-orthographic':
             info['projection']='top-down-oblique-square-grid';camera_meta['projection']='top-down-oblique-square-grid';camera_meta['name']='square top/front oblique'
         asset.update(status='ready',frameSize=info['frame'],root=info['anchor'],sourceScale=args.runtime_scale,projection=info['projection'],footprint=info['footprint'],height=info['height'],clips=[])
-        asset['productionStage']='Native Blender pass · awaiting final art approval'
+        asset['productionStage']='Native Blender · approved art direction · awaiting asset approval'
+        # These rebuilt concept pieces use the shared idle animation name.
+        # Keep the review contract aligned instead of relying on clip fallback.
+        state_aliases={'lantern-gold':{'ambient':'idle'},'decor-midground-coral':{'ambient':'idle'},'decor-kelp':{'sway':'idle'}}.get(aid,{})
+        if state_aliases and asset.get('requirements',{}).get('states'):
+            asset['requirements']['states']=[state_aliases.get(state,state) for state in asset['requirements']['states']]
+        if aid=='dock-cover':
+            asset['name']='Dock weather tarp'
+            asset['reviewNote']='A 3 × 3 overhead cloth shelter for the docked submarine and workshop. The patchwork roof has rolled hems, a ridge and ties; the uncover animation folds it toward the back. It is an overhead layer, separate from the dock floor.'
         if info.get('facingPolicy'):asset['facingPolicy']=info['facingPolicy']
+        if info.get('directions')==['S']:asset['facingPolicy']='single-player-facing';asset['directions']=['S']
+        asset['artStyle']=info.get('artStyle',{})
+        if info.get('locomotion'):asset['locomotion']=projected_locomotion(info['locomotion'],camera_meta)
+        if info.get('conceptReference'):asset['conceptReference']=info['conceptReference']
+        if info.get('squareFooting'):asset['projection']='height-dependent-35-square-footing'
         if info.get('variants'):asset['variants']={name:{**value,'clips':[canonical_clip_id(c,info['clips'][c],len(info['clips'])==1) for c in value.get('clips',[])]} for name,value in info['variants'].items()}
         asset['kind']=kind_for(asset)
         asset['layer']=0 if asset['kind']=='floor' or aid=='dock-floor' else 1 if asset['kind']=='belt' else 3 if aid.startswith('dish-') else 2
@@ -430,7 +470,7 @@ def main():
             if export_clip in clip_ids:raise ValueError('Canonical clip ID collision: '+aid+'/'+export_clip)
             clip_ids.add(export_clip)
             clip={'id':export_clip,'sourceClipId':source_clip,'name':export_clip.replace('-',' ').title(),'frames':count,'fps':12,'static':static,'loop':False if static else recipe.get('loop',True),'frameOrder':list(range(count)),'directions':{}}
-            for direction in DIRECTIONS:
+            for direction in info.get('directions',DIRECTIONS):
                 raw=raw_root/capture_id/(source_clip+'-'+direction);frames=[raw/(f'{index:03d}.png') for index in range(count) if (raw/(f'{index:03d}.png')).is_file()]
                 if len(frames)!=count:raise ValueError(f'{aid}/{source_clip}/{direction}: {len(frames)} != {count}; capture batch incomplete')
                 fingerprint=capture_fingerprint(frames,camera_meta,'floor' if asset['kind']=='floor' else 'object' if static else 'animation',args.runtime_scale)

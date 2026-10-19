@@ -4,13 +4,13 @@ Accepted direction: colorful low-poly game art with a square-grid environment an
 
 ## Locked revision decisions
 
-The [decision record](decisions.md) is the authoritative checkpoint for the next asset pass: **70% environment front/height, 125% character scale, C / Chunky proportions with rounded cheeks and fuller layered hair, and layered full-footprint tile decoration with varied heights**. Characters retain their ordinary 35° camera. The full asset rollout is waiting for the user to finish reviewing the changes and explicitly start it.
+The [decision record](decisions.md) is the authoritative checkpoint: **70% environment front/height, 125% character scale, C / Chunky proportions with rounded cheeks and fuller layered hair, and layered full-footprint tile decoration with varied heights**. Characters retain their ordinary 35° camera. The user authorized the full production revision on 2026-10-19. Version 12 implements the selected direction for review; final scene-art approval remains pending.
 
 ## Character proportion exploration
 
 [Character proportions v1](character-proportions-v1.png) compares four new anatomy directions—A Compact, B Playful, C Chunky and D Super Chibi—with an illustrative redraw of the current chef. The same Lena identity and outfit are retained. These ImageGen concepts target the same ordinary 35-degree character camera; they are not calibrated or registered sprite captures. The existing native reference remains under `assets/projection-study/sprites/chef-lena/ordinary-35.png`.
 
-The user selected **70% projected environment height** and retained the **35-degree ordinary character camera**. The user has now locked **C / Chunky at 125%**, with minimal feet, short legs, rounded cheek/chin corners and the fuller hair from native character-study revision 3. The accepted choices will be captured together in a later production revision; existing production sprites and the historical projection-comparison captures remain unchanged at this stage. Exact prompt, reference roles and SHA256 values are retained in [the generation record](sources/character-proportions-v1.json).
+The user selected **70% projected environment height** and retained the **35-degree ordinary character camera**. The locked **C / Chunky at 125%** uses minimal feet, short legs, rounded cheek/chin corners and the fuller hair from native character-study revision 3. The version-12 native project translates these choices across the cast while preserving character identities. Historical comparison captures remain unchanged. Exact concept prompt, reference roles and SHA256 values are retained in [the generation record](sources/character-proportions-v1.json).
 
 ## Final references
 
@@ -46,7 +46,7 @@ screenY = anchorY + cellSize * depth - 0.70 * cellSize * height
 - Height moves artwork straight upward over the row behind its footprint. It does not change the logical cell size or ground root.
 - The end-on side plane can collapse. Do not force a conventional isometric third face onto aligned objects. Other face orientations and rounded volumes have no true-shape guarantee.
 
-For a 3D capture, apply the selected 0.70 profile in the native camera/projection before rendering, preserving square ground cells. Use the verified 70% study camera and calibration receipts as the implementation reference; do not stretch finished sprites. The earlier 45-degree / sqrt(2) profile in stored concept-source records is the historical 100% baseline. Existing production exports still use that baseline until the authorized recapture. In Blender Z-up coordinates, canonical `x = X`, `depth = -Y`, and `height = Z`; in Y-up coordinates, `depth = Z` and `height = Y`.
+For a 3D capture, apply the selected 0.70 profile in the native camera/projection before rendering, preserving square ground cells. Use the verified 70% camera and calibration receipts; do not stretch finished sprites. The earlier 45-degree / sqrt(2) profile in stored concept-source records is the historical 100% baseline, superseded by the version-12 recapture. Tall concept decoration uses the documented upper35/square-footing exception when its complete 70% silhouette exceeds two tiles. In Blender Z-up coordinates, canonical `x = X`, `depth = -Y`, and `height = Z`; in Y-up coordinates, `depth = Z` and `height = Y`.
 
 ## Undistorted characters
 
@@ -69,7 +69,7 @@ The stored restaurant guide uses 112-pixel cells on a 1024 × 1536 concept canva
 
 The [locked ART-04 decision](decisions.md#decoration-design-contract-art-04) uses continuous restaurant ground/floor tiles or ocean-bed tiles beneath separate decoration objects. Each primary decoration tile should substantially fill its full cell width and depth; avoid small centered objects floating in empty tile space. Use broad rocks or composed vegetation/coral groups with natural silhouettes, layered above the common ground.
 
-Vary low, medium and tall forms, top profiles and internal arrangement across neighboring cells while preserving compatible boundary joins. Continuity comes from the shared ground and connected forms; variation comes from the tile objects. Large repeated 2×4 or 3×3 patches are not the default solution. Small accent objects may supplement the full-footprint pieces. Exact heights and individual designs await review; the complete asset update is still pending the user's start instruction.
+Vary low, medium and tall forms, top profiles and internal arrangement across neighboring cells while preserving compatible boundary joins. Continuity comes from the shared ground and connected forms; variation comes from the tile objects. Large repeated 2×4 or 3×3 patches are removed from the active catalog. Small accent objects may supplement the full-footprint pieces. Keep complete decoration silhouettes below three projected tiles across every facing. Individual designs remain subject to the user's visual approval.
 
 ## Lighting and shadow separation
 
@@ -80,3 +80,8 @@ Subtle shading within an object can remain in its art to describe faces, bevels 
 The wireframe scene review should establish a coherent seven-column portrait composition and readable native silhouettes. Runtime shadow work does not replace the character proportion, acting, material and environment-shape refinements still needed to approach the concept art.
 
 Godot implementation reference: [2D lighting and shadows](https://docs.godotengine.org/en/stable/tutorials/2d/2d_lights_and_shadows.html), including authored occluders and optional normal/specular maps via CanvasTexture.
+
+
+### Universal production finish (approved 2026-10-19)
+
+Every Blender object now follows [ART-05 through ART-09](decisions.md#authorized-production-rollout--2026-10-19): native 135% sRGB contrast, material-driven darker lower surfaces (including restaurant objects), zero directional scene lighting, and no additional browser grade. The full production revamp is authorized; issue 33 still requires the user's asset approval. Retain the 70% environment camera, selected C125 cast, concept-specific full-footprint decorations, height-dependent decor camera and maximum three-tile complete decoration silhouette. Use ImageGen 2D sushi/bubbles and procedural 2D current/eel effects.
