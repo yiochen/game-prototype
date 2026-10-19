@@ -4,7 +4,7 @@ Accepted direction: colorful low-poly game art with a square-grid environment an
 
 ## Locked revision decisions
 
-The [decision record](decisions.md) is the authoritative checkpoint for the next asset pass: **70% environment front/height, 125% character scale, and C / Chunky proportions with rounded cheeks and fuller layered hair**. Characters retain their ordinary 35° camera. The full asset rollout is waiting for the user to finish reviewing the changes and explicitly start it.
+The [decision record](decisions.md) is the authoritative checkpoint for the next asset pass: **70% environment front/height, 125% character scale, C / Chunky proportions with rounded cheeks and fuller layered hair, and layered full-footprint tile decoration with varied heights**. Characters retain their ordinary 35° camera. The full asset rollout is waiting for the user to finish reviewing the changes and explicitly start it.
 
 ## Character proportion exploration
 
@@ -64,6 +64,12 @@ Keep footprint, support/collision, art bounds, ground root and visual height sep
 - [Generation prompts](sources/generation-prompts.json): exact built-in imagegen prompts for the four final references, including relevant refinements and historical input roles.
 
 The stored restaurant guide uses 112-pixel cells on a 1024 × 1536 concept canvas. These are composition values, not a locked runtime resolution. Generated concepts can approximate geometry; use the authored profile and registered assets for exact joins and attachments in production. Historical input names remain inside verbatim prompts for provenance; superseded studies, non-low-poly references and intermediate image renders have been removed.
+
+## Tile-based decoration
+
+The [locked ART-04 decision](decisions.md#decoration-design-contract-art-04) uses continuous restaurant ground/floor tiles or ocean-bed tiles beneath separate decoration objects. Each primary decoration tile should substantially fill its full cell width and depth; avoid small centered objects floating in empty tile space. Use broad rocks or composed vegetation/coral groups with natural silhouettes, layered above the common ground.
+
+Vary low, medium and tall forms, top profiles and internal arrangement across neighboring cells while preserving compatible boundary joins. Continuity comes from the shared ground and connected forms; variation comes from the tile objects. Large repeated 2×4 or 3×3 patches are not the default solution. Small accent objects may supplement the full-footprint pieces. Exact heights and individual designs await review; the complete asset update is still pending the user's start instruction.
 
 ## Lighting and shadow separation
 
