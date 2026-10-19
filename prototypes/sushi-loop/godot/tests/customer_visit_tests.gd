@@ -6,6 +6,7 @@ var failures: Array[String] = []
 
 func _initialize() -> void:
 	_test_current_starter_and_connections()
+	_test_enclosed_assigned_chef()
 	_test_seat_choice_and_directed_menus()
 	_test_matching_first_dish()
 	_test_preference_expiry_and_later_dishes()
@@ -102,6 +103,21 @@ func _test_current_starter_and_connections() -> void:
 	var inactive: Dictionary = game.snapshot().objects.filter(func(object): return object.kind == "chef" and not object.active)[0]
 	_check(inactive.visual_phase == "idle" and inactive.preparation == 0.0 and inactive.held_dish == null, "disconnected chef visibly stays idle without preparing unusable food")
 	_check(not scene.customers.any(func(customer): return customer.has("fullness") or customer.has("appetite_target") or customer.has("remaining_dishes")), "observable customers expose no fullness meter or remaining-plate count")
+
+func _test_enclosed_assigned_chef() -> void:
+	var configuration := _base()
+	# A counter surrounds this stationary chef. Customer aisles lead directly
+	# to the seat, but no empty-floor route can enter the chef's own cell.
+	configuration.objects.append_array([
+		{"id": "counter-w", "kind": "belt", "x": 0, "y": 4, "facing": "west"},
+		{"id": "counter-e", "kind": "belt", "x": 2, "y": 4, "facing": "east"},
+		{"id": "counter-s", "kind": "belt", "x": 1, "y": 5, "facing": "south"},
+	])
+	var game := Session.new_session(32, configuration)
+	_check(_object(game.snapshot(), "chef").active and _object(game.snapshot(), "seat").active, "a stationary chef enclosed behind a valid counter still supplies a customer-accessible seat")
+	var events: Array = game.advance(8.0)
+	_check(not _events(events, "prepared").is_empty() and not _events(events, "loaded").is_empty(), "an enclosed assigned chef automatically prepares and loads food without a walking route")
+	_check(_events(events, "sale").size() == 1 and game.snapshot().coins == 134, "an enclosed kitchen serves the reachable customer and credits the ordinary fixed-price sale")
 
 func _test_seat_choice_and_directed_menus() -> void:
 	var configuration := _base({"objects": [

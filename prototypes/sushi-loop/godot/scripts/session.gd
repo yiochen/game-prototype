@@ -338,14 +338,12 @@ func _rebuild_access() -> void:
 	_access_paths.clear()
 	var entrance := _point(_configuration.floor.entrance)
 	for object in _state.objects:
-		if object.kind in ["chef", "seat"]:
+		if object.kind == "seat":
 			_access_paths[object.id] = _walk_path(entrance, _point(object), object.id)
 
 func _chef_service(chef: Dictionary) -> Dictionary:
 	if _facing_object(chef).get("kind") != "belt":
 		return {"active": false, "reason": "no_belt"}
-	if _access_paths.get(chef.id, []).is_empty():
-		return {"active": false, "reason": "no_access"}
 	return {"active": true, "reason": ""}
 
 func _belt_reaches(source: Dictionary, target_id: String) -> bool:
