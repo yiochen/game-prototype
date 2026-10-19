@@ -1,0 +1,9 @@
+# Non-destructive decoration contrast trial
+
+User asks for increased contrast and whether this needs image editing or Blender lighting. The native concept-decoration set uses emission surfaces and zero scene/world illumination, so capture lights do not control its existing shade separation. Global color contrast can be tested on the existing RGB pixels; selective face/base shading belongs in the source materials.
+
+The live `#decoration-study` now offers Original (100%), Punchier (118%) and Strong (135%). The comparison row always renders all three grades from the same original sprite. A piece selector can inspect any member of the current scene set. The global control applies its chosen grade to the seven-column perimeter, 3×3 patch and all four-way asset views. Punchier is the initial preview, not a locked art decision.
+
+Implementation: CSS `filter: contrast(1.18)` / `contrast(1.35)` on only the SVG decoration group; Original uses `none`. Floor pixels and preserved concept references are outside that group. Native PNGs, alpha, frame/root, projection geometry and capture links retain their original values; this does not export graded art or modify the Blender project. Strong can clip highlight/shadow detail and should be checked on pale ruins and lanterns as well as dark rocks. If a global grade is selected, the same operation can be deliberately incorporated during later export or rendering; if the goal is selective local form shading, edit material ramps rather than introducing directional capture lights.
+
+Verification: 164 engine tests, production build and three responsive browser tests pass. Each browser test covers both scenes and verifies all grade choices, unchanged source URLs and scene dimensions, unfiltered floors, invariant Original comparison, selectable samples and one vertical scroller. Screenshots show comparison rows at phone, landscape and desktop widths. No source assets changed; issue 33 remains pending visual approval.

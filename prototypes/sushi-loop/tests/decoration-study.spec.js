@@ -10,6 +10,22 @@ for (const [width,height] of [[390,844],[844,390],[1440,1200]]) {
       const scene=stage.getByRole('img',{name:`${title} concept decoration perimeter`,exact:true});
       const patch=stage.getByRole('img',{name:`${title} three by three decoration patch`,exact:true});
       const cards=stage.locator('[data-decor-piece]');await expect(cards).toHaveCount(6);
+      const comparison=stage.locator('.decor-contrast-study');
+      await expect(comparison.locator('.decor-contrast-grid svg')).toHaveCount(3);
+      const objects=scene.locator('[data-decor-layer="objects"]');
+      const objectSource=await objects.locator('image').first().getAttribute('href');
+      const sceneBox=await scene.boundingBox();
+      for(const [grade,filter] of [['original','none'],['strong','contrast(1.35)'],['punchier','contrast(1.18)']]){
+        await stage.getByLabel('Decoration contrast',{exact:true}).selectOption(grade);
+        await expect(objects).toHaveCSS('filter',filter);
+        await expect(scene.locator('[data-decor-layer="ground"]')).toHaveCSS('filter','none');
+        await expect(comparison.locator('[data-contrast-grade="original"] [data-decor-layer="objects"]')).toHaveCSS('filter','none');
+        expect(await objects.locator('image').first().getAttribute('href')).toBe(objectSource);
+        const after=await scene.boundingBox();expect(after.width).toBe(sceneBox.width);expect(after.height).toBe(sceneBox.height);
+      }
+      await stage.getByLabel('Contrast comparison piece',{exact:true}).selectOption(short);
+      await comparison.screenshot({path:info.outputPath(`${theme}-contrast-${width}.png`)});
+
       for(const card of await cards.all()){
         await expect(card.locator('.decor-directions svg')).toHaveCount(4);
         await expect(card.locator('.decor-crop svg')).toHaveCount(1);

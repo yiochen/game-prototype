@@ -39,6 +39,7 @@ export const stories = [
     description: 'Twelve underwater and restaurant decoration pieces follow the approved scene concepts. Compare each specific concept crop with four native facings, mixed and repeated 3×3 patches, and deliberate seven-column perimeters. Projection follows height; complete projected silhouettes stay below three tiles, with full-cell mass and direction-free dark lower surfaces.',
     elements: [
       element('Separate ground and decoration', 'Toggle the objects off to inspect the continuous bed. Floor and objects retain a common fixed tile pitch and registered ground roots.', 'Static native captures; no animation in this shape study.'),
+      element('Contrast trial', 'Compare 100%, 118% and 135% object-color contrast from the same source. The selected grade applies to both layouts and the four-facing views. Floors and concept references retain their original colors; native capture links remain unadjusted.', 'Reversible display preview; the grade is awaiting a choice.'),
       element('Height and repetition', 'Mixed heights, concept-based perimeters and four native facings expose coverage, repetition and depth ordering. By-height mode uses 70% oblique for compact objects and a 35° upper view with square footing when the largest 70% silhouette exceeds two tiles.', 'Controls update the composition immediately; vertical scrolling belongs to the page.'),
     ],
     notes: ['This is a focused study, not a full production asset replacement.', 'Issue 33 remains open for visual approval.'],

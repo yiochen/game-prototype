@@ -43,3 +43,7 @@ Native project, recipe, logical geometry, images and actual capture geometry are
 Run `python source/audit.py THIS_DIR` with Pillow to regenerate `measurements.json`. It checks all hashes, crop bounds, physical bounds and mass, calibrated axes, true projected and rendered height, frame/alpha margins and square-footing depth preservation. Run `inspect(THIS_DIR)` from `source/inspect_materials.py` inside Blender to verify the isolated scene's actual materials and lighting.
 
 This is a static native shape/material review. No ImageGen surface reskin, animation or production-library rollout is represented as completed by this study. Final polish and plant motion follow shape approval; any animations must preserve the established six-frame minimum and 12 fps. Issue 33 remains open until the user approves the scene assets.
+
+## Contrast review preview
+
+The live review page adds non-destructive 100%, 118% and 135% color-contrast previews. They affect only object color display, including the mixed/repeated layouts and four facings. Floors, original concept references and native capture links remain ungraded. The initial 118% preview is exploratory; no revised PNGs or Blender materials have been approved or exported. See [contrast evidence](../../review/33/decoration-contrast/README.md).
