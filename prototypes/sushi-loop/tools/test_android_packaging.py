@@ -2,6 +2,7 @@
 """Fast packaging-boundary tests; no SDK, imports or installed saves are touched."""
 import json
 from pathlib import Path
+import shutil
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -16,14 +17,14 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
         self.project = self.root / "godot"
-        self.branding = {"title": "Example", "version_name": "0.3.0", "version_code": 30,
+        self.branding = {"title": "Example", "version_name": "0.4.0", "version_code": 40,
                          "android_package": "example.game", "save_identity": "ExistingSave",
                          "release_signer_sha256": "ab" * 32}
         for name, text in {
-            "project.godot": '[application]\nconfig/name="Example"\nconfig/version="0.3.0"\nconfig/custom_user_dir_name="ExistingSave"\n',
+            "project.godot": '[application]\nconfig/name="Example"\nconfig/version="0.4.0"\nconfig/custom_user_dir_name="ExistingSave"\n',
             "main.tscn": "{}",
             "branding.json": json.dumps(self.branding, indent=2) + "\n",
-            "export_presets.cfg": 'package/name="Example"\npackage/unique_name="example.game"\nversion/name="0.3.0"\nversion/code=30\n',
+            "export_presets.cfg": 'package/name="Example"\npackage/unique_name="example.game"\nversion/name="0.4.0"\nversion/code=40\n',
         }.items():
             self.write(name, text)
         self.write("assets/catalog/sprites/test/static-S.png", b"approved sprite bytes")
@@ -45,6 +46,13 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.feedback_verifier = feedback_verification.start()
         self.addCleanup(feedback_verification.stop)
         self.write("assets/ui/app_icon.png", b"wordless icon")
+        # The UI gate uses the exact nine real production PNGs and eight saved
+        # ImageGen sources; corruption tests exercise provenance end to end.
+        shutil.copytree(build.PROJECT / "assets/ui/editor", self.project / "assets/ui/editor")
+        shutil.copytree(build.PROJECT.parent / "assets/ui/editor/v1", self.root / "assets/ui/editor/v1")
+        reference = self.root / "design/art-directions/restaurant-item-catalog.png"
+        reference.parent.mkdir(parents=True)
+        shutil.copyfile(build.PROJECT.parent / "design/art-directions/restaurant-item-catalog.png", reference)
         self.write("scripts/app.gd", "extends Node\n")
         approved = self.root / "assets/production"
         (approved / "sprites/test").mkdir(parents=True)
@@ -84,7 +92,12 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.assertEqual(catalog["atlas_count"], 1)
         self.assertEqual(selected["assets/audio/click.wav"], build.sha(audio))
         self.assertEqual((self.root / "staged/assets/catalog/sprites/test/static-S.png").read_bytes(), b"approved sprite bytes")
-        self.assertEqual(len(selected), 15)
+        self.assertEqual(len(selected), 25)
+        self.assertEqual(catalog["editor_ui"]["images"], 9)
+        self.assertEqual(catalog["editor_ui"]["imagegen_sources"], 8)
+        self.assertEqual(selected["assets/ui/editor/manifest.json"], catalog["editor_ui_manifest_sha256"])
+        self.assertEqual({name for name in selected if name.startswith("assets/ui/editor/")},
+                         {"assets/ui/editor/manifest.json"} | {f"assets/ui/editor/{name}.png" for name in build.editor_ui_contract.ASSETS})
         self.assertIn("assets/recipe-variants/manifest.json", selected)
         self.assertIn("assets/recipe-variants/sprites/test/eat-S.png", selected)
         self.recipe_verifier.assert_any_call(self.root / "staged", source_project=self.project)
@@ -168,34 +181,144 @@ class RuntimeBoundaryTests(unittest.TestCase):
             build.stage_runtime(self.project, self.root / "staged")
         self.assertFalse((self.root / "staged/project.godot").exists())
 
-    def test_review_package_is_isolated_without_changing_source_or_normal_runtime(self):
-        self.write("content/starter.json", '{"demo": "customer-visits", "same_runtime": true}')
+    def test_review_packages_keep_identical_runtime_and_separate_app_sandboxes(self):
+        self.write("content/starter.json", '{"same_runtime": true, "coins": 120}')
+        self.write("assets/ui/other-controls.png", b"ImageGen-derived runtime controls")
         original = {name: build.sha(path) for name, path in build.runtime_sources(self.project).items()}
         normal, normal_variant = build.resolve_branding(self.branding)
-        review, review_variant = build.resolve_branding(self.branding, review_scene="customer-visits")
         normal_source, normal_staged, _ = build.stage_build(self.project, self.root / "normal", normal)
-        review_source, review_staged, _ = build.stage_build(self.project, self.root / "review", review)
-        self.assertEqual(normal_source, review_source)
-        self.assertEqual(original, {name: build.sha(path) for name, path in build.runtime_sources(self.project).items()})
-        self.assertEqual(normal["android_package"], "example.game")
-        self.assertEqual(review["android_package"], "example.game.review11")
-        self.assertEqual(review["title"], "Example · Customer Visits")
-        self.assertEqual(review["save_identity"], normal["save_identity"])
-        self.assertEqual(review["release_signer_sha256"], normal["release_signer_sha256"])
-        self.assertEqual(review["version_code"], 30)
+        packages = {normal["android_package"]}
         self.assertEqual(normal_variant["kind"], "normal")
-        self.assertEqual(review_variant["kind"], "review")
-        self.assertEqual(set(review_variant["staged_branding_overrides"]), {"title", "android_package"})
-        changed = {name for name in normal_staged if normal_staged[name] != review_staged[name]}
-        self.assertEqual(changed, {"project.godot", "export_presets.cfg", "branding.json"})
-        self.assertNotEqual(build.fingerprint(normal_staged), build.fingerprint(review_staged))
+        for scene, issue, label in (("customer-visits", 11, "Customer Visits"),
+                                    ("restaurant-editor", 12, "Restaurant Editor")):
+            with self.subTest(scene=scene):
+                review, variant = build.resolve_branding(self.branding, review_scene=scene)
+                review_source, staged, _ = build.stage_build(self.project, self.root / scene, review)
+                self.assertEqual(normal_source, review_source)
+                self.assertEqual(review["android_package"], f"example.game.review{issue}")
+                self.assertNotIn(review["android_package"], packages)
+                packages.add(review["android_package"])
+                self.assertEqual(review["title"], f"Example · {label}")
+                self.assertEqual(review["save_identity"], normal["save_identity"])
+                self.assertEqual(review["release_signer_sha256"], normal["release_signer_sha256"])
+                self.assertEqual((review["version_name"], review["version_code"]), ("0.4.0", 40))
+                self.assertEqual((variant["kind"], variant["scene"], variant["issue"]), ("review", scene, issue))
+                self.assertEqual(set(variant["staged_branding_overrides"]), {"title", "android_package"})
+                changed = {name for name in normal_staged if normal_staged[name] != staged[name]}
+                self.assertEqual(changed, {"project.godot", "export_presets.cfg", "branding.json"})
+                self.assertEqual((self.root / scene / "content/starter.json").read_bytes(),
+                                 (self.root / "normal/content/starter.json").read_bytes())
+                self.assertEqual((self.root / scene / "assets/ui/other-controls.png").read_bytes(),
+                                 b"ImageGen-derived runtime controls")
+                self.assertNotEqual(build.fingerprint(normal_staged), build.fingerprint(staged))
+        self.assertEqual(normal["android_package"], "example.game")
+        self.assertEqual(original, {name: build.sha(path) for name, path in build.runtime_sources(self.project).items()})
         _, normal_again, _ = build.stage_build(self.project, self.root / "normal-again", normal)
         self.assertEqual(normal_staged, normal_again)
 
     def test_review_identity_cannot_be_overridden_into_normal_package(self):
-        for options in ({"package_id": "example.game"}, {"title": "Example"}):
-            with self.subTest(options=options), self.assertRaisesRegex(ValueError, "isolated title/package"):
-                build.resolve_branding(self.branding, review_scene="customer-visits", **options)
+        for scene in ("customer-visits", "restaurant-editor"):
+            for options in ({"package_id": "example.game"}, {"title": "Example"}):
+                with self.subTest(scene=scene, options=options), self.assertRaisesRegex(ValueError, "isolated title/package"):
+                    build.resolve_branding(self.branding, review_scene=scene, **options)
+
+    def test_unknown_review_scene_is_rejected_without_touching_source_identity(self):
+        original = dict(self.branding)
+        with self.assertRaisesRegex(ValueError, "Unknown isolated review scene"):
+            build.resolve_branding(self.branding, review_scene="unapproved-scene")
+        self.assertEqual(self.branding, original)
+
+    def test_imagegen_controls_ship_without_source_prompts_or_reference_art(self):
+        self.write("assets/ui/other-controls.png", b"runtime control pixels")
+        self.write("assets/ui/editor/imagegen.json", b"exact authoring prompt")
+        self.write("assets/production/source/ui/editor/reference.png", b"catalog reference")
+        files, _ = build.stage_runtime(self.project, self.root / "staged-ui")
+        self.assertIn("assets/ui/other-controls.png", files)
+        self.assertNotIn("assets/ui/editor/imagegen.json", files)
+        self.assertIn("assets/ui/editor/manifest.json", files)
+        self.assertFalse((self.root / "staged-ui/assets/ui/editor/imagegen.json").exists())
+        self.assertFalse((self.root / "staged-ui/assets/ui/editor/v1").exists())
+        self.assertFalse((self.root / "staged-ui/assets/production").exists())
+        self.assertEqual((self.root / "staged-ui/assets/ui/other-controls.png").read_bytes(), b"runtime control pixels")
+
+    def test_misplaced_raw_editor_source_image_cannot_enter_runtime_payload(self):
+        self.write("assets/ui/editor/raw/generated-source.png", b"authoring pixels")
+        with self.assertRaisesRegex(ValueError, "staged editor UI payload"):
+            build.stage_runtime(self.project, self.root / "staged")
+        self.assertFalse((self.root / "staged/project.godot").exists())
+
+    def test_missing_editor_ui_manifest_blocks_runtime_staging(self):
+        (self.project / "assets/ui/editor/manifest.json").unlink()
+        with self.assertRaisesRegex(ValueError, "Required runtime file is missing.*editor/manifest"):
+            build.stage_runtime(self.project, self.root / "staged")
+        self.assertFalse((self.root / "staged/project.godot").exists())
+
+    def test_missing_or_changed_runtime_ui_pixels_block_before_staging(self):
+        path = self.project / "assets/ui/editor/people.png"
+        original = path.read_bytes()
+        for mutation in ("missing", "changed"):
+            with self.subTest(mutation=mutation):
+                if mutation == "missing":
+                    path.unlink()
+                else:
+                    path.write_bytes(original + b"changed")
+                with self.assertRaisesRegex(ValueError, "editor UI provenance|Editor UI pixels changed"):
+                    build.stage_runtime(self.project, self.root / "staged")
+                self.assertFalse((self.root / "staged/project.godot").exists())
+                path.write_bytes(original)
+
+    def test_missing_or_changed_imagegen_source_blocks_before_staging(self):
+        path = self.root / "assets/ui/editor/v1/raw/people.png"
+        original = path.read_bytes()
+        for mutation in ("missing", "changed"):
+            with self.subTest(mutation=mutation):
+                if mutation == "missing":
+                    path.unlink()
+                else:
+                    path.write_bytes(original + b"changed")
+                with self.assertRaisesRegex(ValueError, "editor UI provenance|Editor UI source changed"):
+                    build.stage_runtime(self.project, self.root / "staged")
+                self.assertFalse((self.root / "staged/project.godot").exists())
+                path.write_bytes(original)
+
+    def test_changed_ui_manifest_or_catalog_reference_is_rejected(self):
+        path = self.project / "assets/ui/editor/manifest.json"
+        original = path.read_text()
+        changes = [lambda m: m["assets"].pop("rotate"),
+                   lambda m: m["assets"]["people"].update(sha256="0" * 64),
+                   lambda m: m.update(reference="design/art-directions/other.png")]
+        for change in changes:
+            with self.subTest(change=change):
+                manifest = json.loads(original)
+                change(manifest)
+                path.write_text(json.dumps(manifest))
+                with self.assertRaisesRegex(ValueError, "Editor UI"):
+                    build.stage_runtime(self.project, self.root / "staged")
+                self.assertFalse((self.root / "staged/project.godot").exists())
+                path.write_text(original)
+
+    def test_changed_saved_imagegen_prompt_record_is_rejected(self):
+        path = self.root / "assets/ui/editor/v1/imagegen.json"
+        source = json.loads(path.read_text())
+        source["assets"][0]["prompt"] = "Unrelated image"
+        path.write_text(json.dumps(source))
+        with self.assertRaisesRegex(ValueError, "ImageGen prompt record changed"):
+            build.stage_runtime(self.project, self.root / "staged")
+        self.assertFalse((self.root / "staged/project.godot").exists())
+
+    def test_staged_ui_is_reverified_against_original_imagegen_sources(self):
+        original_verify = build.editor_ui_contract.verify_editor_ui
+        calls = []
+        def verify(project, source_project=None):
+            calls.append((project, source_project))
+            if source_project is not None:
+                path = project / "assets/ui/editor/people.png"
+                path.write_bytes(path.read_bytes() + b"post-copy tamper")
+            return original_verify(project, source_project)
+        with patch.object(build.editor_ui_contract, "verify_editor_ui", side_effect=verify):
+            with self.assertRaisesRegex(ValueError, "Editor UI pixels changed"):
+                build.stage_runtime(self.project, self.root / "staged")
+        self.assertEqual(calls, [(self.project, None), (self.root / "staged", self.project)])
 
     def test_build_refuses_staging_inside_source_project(self):
         with self.assertRaisesRegex(ValueError, "outside the source project"):
@@ -220,7 +343,8 @@ class ApkBoundaryTests(unittest.TestCase):
                                "assets/assets/catalog/manifest.json": b'{}',
                                "assets/assets/recipe-variants/manifest.json": b'{}',
                                "assets/assets/chef-variants/manifest.json": b'{}',
-                               "assets/assets/feedback-variants/manifest.json": b'{}', **(extra or {})}.items():
+                               "assets/assets/feedback-variants/manifest.json": b'{}',
+                               "assets/assets/ui/editor/manifest.json": b'{}', **(extra or {})}.items():
                 archive.writestr(name, data)
 
     def audit(self):
@@ -230,6 +354,16 @@ class ApkBoundaryTests(unittest.TestCase):
     def test_accepts_matching_offline_release_and_both_architectures(self):
         self.archive()
         self.assertEqual(self.audit()["signer_sha256"], self.fingerprint)
+
+    def test_rejects_missing_ui_manifest_in_apk(self):
+        self.archive()
+        with zipfile.ZipFile(self.apk) as archive:
+            entries = {name: archive.read(name) for name in archive.namelist() if name != "assets/assets/ui/editor/manifest.json"}
+        with zipfile.ZipFile(self.apk, "w") as archive:
+            for name, data in entries.items():
+                archive.writestr(name, data)
+        with self.assertRaisesRegex(ValueError, "ImageGen editor UI manifest is missing"):
+            self.audit()
 
     def test_rejects_signing_secret_inside_archive(self):
         self.archive({"assets/runtime.bin": b"prefix secret-test-password suffix"})

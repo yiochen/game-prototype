@@ -8,6 +8,7 @@ const INK := Color("253b3b")
 const NIGHT := Color("103d4b")
 const PAPER := Color("ffefcf")
 const DIRECTIONS := {"north": Vector2.UP, "south": Vector2.DOWN, "east": Vector2.RIGHT, "west": Vector2.LEFT}
+const BELT_FACING := {"east": "S", "north": "E", "west": "N", "south": "W"}
 const FACING := {"north": "N", "east": "E", "south": "S", "west": "W"}
 const CUSTOMERS := ["customer-rosa", "customer-ellis", "customer-samir", "customer-june"]
 const BUBBLE_ATTACHMENT := Vector2(0, -172) # Fixed C125 head clearance, logical pixels.
@@ -22,6 +23,8 @@ var show_gallery := false
 var time := 0.0
 var sale_pops: Array = []
 var reduced_motion := false
+var editor_preview: Dictionary = {}
+var editor_selection_alpha := 1.0
 var font: Font
 var heading: Font
 
@@ -83,6 +86,7 @@ func _room() -> void:
 			var tint := Color.WHITE if x < int(state.floor.columns) else Color("b2aaa0")
 			var identity := "floor-blue-wave" if y == 0 or y == rows - 1 else "floor-cream"
 			sprite(identity, base, "static", "S", 0.0, -1.0, tint)
+	_editor_ground()
 	for item in render_plan():
 		match item.kind:
 			"belt":
@@ -99,6 +103,7 @@ func _room() -> void:
 				_board(item.value)
 			"customer":
 				_customer(item.value)
+	_editor_ghost()
 	# Thought/reaction art is a final feedback layer, following the same saved
 	# visual offset as its customer while remaining readable above furniture.
 	for customer in state.get("customers", []):
@@ -109,6 +114,34 @@ func _room() -> void:
 			# Native pop frames already rise above this registered customer root.
 			# Keep its authored scale/motion and the existing quiet alpha fade.
 			sprite("coin-pop", cell_base(float(pop.x), float(pop.y)), "pop", "S", 0.0 if reduced_motion else age, -1.0, Color(1, 1, 1, 1.0 - age / 0.9))
+
+func _editor_ground() -> void:
+	if state.get("mode", "live") != "edit": return
+	var identity := str(state.get("editor", {}).get("selected_id", ""))
+	for object in state.get("objects", []):
+		if str(object.id) != identity: continue
+		var rect := Rect2(cell_base(float(object.x), float(object.y)) - Vector2.ONE * cell * 0.5, Vector2.ONE * cell)
+		draw_rect(rect, Color(1.0, 0.79, 0.34, 0.30 * editor_selection_alpha))
+		draw_rect(rect.grow(-1.5), Color(INK, editor_selection_alpha), false, 4.0, true)
+		draw_rect(rect.grow(-3.0), Color(Color("ffcb62"), editor_selection_alpha), false, 2.0, true)
+
+func _editor_ghost() -> void:
+	if state.get("mode", "live") != "edit" or editor_preview.is_empty(): return
+	var base := cell_base(float(editor_preview.x), float(editor_preview.y))
+	var color := Color("66b87a") if editor_preview.get("valid", false) else Color("ce6254")
+	var footprint := Rect2(base - Vector2.ONE * cell * 0.5, Vector2.ONE * cell)
+	draw_rect(footprint, Color(color, 0.32))
+	draw_rect(footprint.grow(-1.5), color, false, 3.0, true)
+	var object: Dictionary = editor_preview.get("source", {})
+	var identity := str(object.get("art_id", ""))
+	var clip := "static"
+	if object.get("kind") == "chef": clip = "idle"
+	elif object.get("kind") == "belt":
+		identity = "belt-straight-e"
+		clip = "running"
+	elif object.get("kind") == "seat": identity = "stool-wood"
+	elif identity == "plant-angular": clip = "idle"
+	if not identity.is_empty(): sprite(identity, base, clip, belt_direction(object) if object.get("kind") == "belt" else str(FACING.get(object.get("facing", "south"), "S")), 0.0, -1.0, Color(1, 1, 1, 0.65))
 
 func render_plan() -> Array:
 	# Sort by ground depth, never by image height. All connected deck modules
@@ -122,6 +155,8 @@ func render_plan() -> Array:
 					result.append({"kind": "dish", "value": object, "depth": float(object.y), "priority": 3})
 			"seat":
 				result.append({"kind": "seat", "value": object, "depth": float(object.y), "priority": 0})
+			"decor":
+				result.append(_prop(str(object.get("art_id", "plant-angular")), float(object.x), float(object.y), "idle" if object.get("art_id") == "plant-angular" else "static", str(FACING.get(object.get("facing", "south"), "S"))))
 			"chef":
 				result.append({"kind": "chef", "value": object, "depth": float(object.y), "priority": 2})
 				result.append({"kind": "board", "value": object, "depth": float(object.y) + 0.4, "priority": 4})
@@ -148,8 +183,9 @@ func _decor_plan() -> Array:
 		result.append(_prop("wall-middle", float(x), -0.5))
 	for y in range(1, rows - 1):
 		result.append(_prop("wall-middle", -0.5, float(y), "static", "E"))
-	for y in [4, 7, rows - 2]:
-		result.append(_prop("barrel-wood" if y == 7 else "plant-angular", 0, float(y), "static" if y == 7 else "idle"))
+	result.append(_prop("plant-angular", 0.0, 0.0, "idle"))
+	result.append(_prop("barrel-wood", 0.0, float(rows) - 1.0))
+	result.append(_prop("plant-angular", float(columns) - 1.0, float(rows) - 1.0, "idle"))
 	for x in range(1, columns, 5):
 		result.append(_prop("lantern-gold", float(x), 0.0, "idle"))
 		result.append(_prop("crate-wood", float(x), float(rows) - 1.0))
@@ -174,8 +210,11 @@ func belt_clip(belt: Dictionary) -> String:
 		return "belt-end-e"
 	return "belt-straight-e"
 
+func belt_direction(belt: Dictionary) -> String:
+	return str(BELT_FACING.get(str(belt.get("facing", "east")), "S"))
+
 func _belt(belt: Dictionary) -> void:
-	sprite(belt_clip(belt), cell_base(float(belt.x), float(belt.y)), "running", "S", 0.0 if reduced_motion else float(state.elapsed))
+	sprite(belt_clip(belt), cell_base(float(belt.x), float(belt.y)), "running", belt_direction(belt), 0.0 if reduced_motion else float(state.elapsed))
 
 func dish_base(belt: Dictionary) -> Vector2:
 	var direction: Vector2 = DIRECTIONS.get(str(belt.facing), Vector2.ZERO)
@@ -184,7 +223,7 @@ func dish_base(belt: Dictionary) -> Vector2:
 		if other.kind == "belt" and float(other.x) == float(belt.x) + direction.x and float(other.y) == float(belt.y) + direction.y:
 			ahead = direction * cell * float(belt.travel_progress)
 			break
-	return cell_base(float(belt.x), float(belt.y)) + ahead + art.socket(belt_clip(belt), "deck") * cell / art.cell_size
+	return cell_base(float(belt.x), float(belt.y)) + ahead + art.socket(belt_clip(belt), "deck", belt_direction(belt)) * cell / art.cell_size
 
 func _dish(belt: Dictionary) -> void:
 	sprite(str(DISHES.get(str(belt.dish.recipe_id), "dish-salmon")), dish_base(belt))

@@ -7,6 +7,10 @@ extends RefCounted
 const SAVE_VERSION := 1
 const BELT_MOTION_VERSION := 1
 const CUSTOMER_VISIT_VERSION := 1
+const EDITOR_VERSION := 1
+const EDITOR_PATH := "res://content/editor.json"
+const EDITOR_LAYERS := ["people", "layout", "floor"]
+const DECOR_ART_IDS := ["plant-angular", "crate-wood", "barrel-wood"]
 const CHEF_ART_IDS := ["chef-lena", "chef-omar"]
 const MAX_EXACT_INTEGER := 9007199254740991
 const CONTENT_PATH := "res://content/starter.json"
@@ -20,6 +24,7 @@ var _state: Dictionary = {}
 var _random := RandomNumberGenerator.new()
 var _remainder := 0.0
 var _access_paths: Dictionary = {}
+var _editor_content: Dictionary = {}
 
 static func new_session(seed_value: int = 1, configuration: Dictionary = {}) -> GameSession:
 	var session := GameSession.new()
@@ -36,7 +41,14 @@ static func new_session(seed_value: int = 1, configuration: Dictionary = {}) -> 
 	return session
 
 func command(request: Dictionary) -> Dictionary:
+	if str(request.get("type", "")).begins_with("editor_"):
+		return _editor_command(request)
 	match request.get("type", ""):
+		"set_mode":
+			if not request.get("mode") in ["live", "edit"]:
+				return {"ok": false, "reason": "invalid_mode"}
+			_state.mode = request.mode
+			return {"ok": true}
 		"set_camera":
 			if not _finite_number(request.get("x")) or not _finite_number(request.get("y")):
 				return {"ok": false, "reason": "invalid_camera"}
@@ -53,7 +65,7 @@ func command(request: Dictionary) -> Dictionary:
 
 func advance(elapsed: float) -> Array:
 	var events: Array = []
-	if not is_finite(elapsed) or elapsed <= 0.0 or _state.is_empty():
+	if not is_finite(elapsed) or elapsed <= 0.0 or _state.is_empty() or _state.get("mode", "live") == "edit":
 		return events
 	var step := float(_configuration.service.step_seconds)
 	var accumulated := _remainder + elapsed
@@ -83,6 +95,9 @@ func snapshot() -> Dictionary:
 		"coins": _state.coins,
 		"camera": _state.camera.duplicate(true),
 		"entrance_open": _state.entrance_open,
+		"mode": _state.mode,
+		"editor": _state.editor.duplicate(true),
+		"inventory": _inventory_snapshot(),
 		"floor": _configuration.floor.duplicate(true),
 		"recipes": _configuration.recipes.duplicate(true),
 		"objects": [],
@@ -132,6 +147,7 @@ func save_data() -> Dictionary:
 		"version": SAVE_VERSION,
 		"belt_motion_version": BELT_MOTION_VERSION,
 		"customer_visit_version": CUSTOMER_VISIT_VERSION,
+		"editor_version": EDITOR_VERSION,
 		"configuration": _configuration.duplicate(true),
 		"state": _state.duplicate(true),
 		"remainder": _remainder,
@@ -158,6 +174,8 @@ func restore(data: Dictionary) -> bool:
 		return false
 	if not _nonnegative_integer(data.get("customer_visit_version", 0)) or int(data.get("customer_visit_version", 0)) > CUSTOMER_VISIT_VERSION:
 		return false
+	if not _nonnegative_integer(data.get("editor_version", 0)) or int(data.get("editor_version", 0)) > EDITOR_VERSION:
+		return false
 	var current_content: Variant = JSON.parse_string(FileAccess.get_file_as_string(CONTENT_PATH))
 	if not current_content is Dictionary or not current_content.get("floor") is Dictionary:
 		return false
@@ -176,6 +194,8 @@ func restore(data: Dictionary) -> bool:
 	_migrate_visual_state(restored_state)
 	if int(data.get("customer_visit_version", 0)) == 0:
 		_migrate_visit_state(restored_state, restored_configuration)
+	if int(data.get("editor_version", 0)) == 0:
+		_initialize_editor_state(restored_state)
 	if not _valid_saved_state(restored_state, restored_configuration):
 		return false
 	if int(data.get("belt_motion_version", 0)) == 0:
@@ -199,8 +219,16 @@ func _normalize_restored_numbers() -> void:
 		_configuration.floor.entrance[field] = int(_configuration.floor.entrance[field])
 	for recipe in _configuration.recipes.values():
 		recipe.price = int(recipe.price)
-	for field in ["coins", "step_index", "next_customer_id", "next_dish_id"]:
+	for field in ["coins", "step_index", "next_customer_id", "next_dish_id", "next_object_id", "discarded_dishes"]:
 		_state[field] = int(_state[field])
+	_state.editor.page = int(_state.editor.page)
+	for layer in EDITOR_LAYERS:
+		_state.editor.pages[layer] = int(_state.editor.pages[layer])
+	for entry in _state.inventory:
+		entry.count = int(entry.count)
+		if entry.kind == "chef" and not entry.assigned:
+			entry.stored_object.x = int(entry.stored_object.x)
+			entry.stored_object.y = int(entry.stored_object.y)
 	for field in _state.stats:
 		_state.stats[field] = int(_state.stats[field])
 	for objects in [_configuration.objects, _state.objects]:
@@ -235,6 +263,7 @@ func _start() -> void:
 			"belt":
 				object.travel_elapsed = 0.0
 				object.dish = null
+	_initialize_editor_state(_state)
 	_remainder = 0.0
 	_rebuild_access()
 
@@ -784,7 +813,7 @@ func _valid_objects(objects: Array, config: Dictionary) -> bool:
 	for object in objects:
 		if not object is Dictionary or not object.get("id") is String or object.id.is_empty() or ids.has(object.id):
 			return false
-		if not object.get("kind") in ["chef", "belt", "seat"] or not DIRECTIONS.has(object.get("facing")):
+		if not object.get("kind") in ["chef", "belt", "seat", "decor"] or not DIRECTIONS.has(object.get("facing")):
 			return false
 		if not _valid_point(object, config.floor):
 			return false
@@ -792,6 +821,8 @@ func _valid_objects(objects: Array, config: Dictionary) -> bool:
 		if cells.has(cell) or cell == _point(config.floor.entrance):
 			return false
 		if object.kind == "chef" and not config.recipes.has(object.get("recipe_id")):
+			return false
+		if object.kind == "decor" and not object.get("art_id") in DECOR_ART_IDS:
 			return false
 		if object.kind == "chef" and object.has("art_id") and not object.art_id in CHEF_ART_IDS:
 			return false
@@ -876,6 +907,8 @@ func _valid_dish(value: Variant, recipes: Dictionary, dish_ids: Dictionary) -> b
 	return true
 
 func _valid_saved_state(state: Dictionary, config: Dictionary) -> bool:
+	if not _valid_editor_state(state, config):
+		return false
 	for field in ["coins", "step_index", "next_customer_id", "next_dish_id"]:
 		if not _nonnegative_integer(state.get(field)):
 			return false
@@ -901,8 +934,13 @@ func _valid_saved_state(state: Dictionary, config: Dictionary) -> bool:
 	var dish_ids: Dictionary = {}
 	var seats: Dictionary = {}
 	var occupants: Dictionary = {}
-	for object in state.objects:
-		occupants[_point(object)] = object
+	var owned_objects: Array = state.objects.duplicate()
+	for entry in state.inventory:
+		if entry.kind == "chef" and not entry.assigned:
+			owned_objects.append(entry.stored_object)
+	for object in owned_objects:
+		if state.objects.has(object):
+			occupants[_point(object)] = object
 		if object.kind == "chef":
 			if not object.has("held_dish") or not _valid_dish(object.held_dish, config.recipes, dish_ids):
 				return false
@@ -931,7 +969,7 @@ func _valid_saved_state(state: Dictionary, config: Dictionary) -> bool:
 				return false
 			if object.dish == null and float(object.travel_elapsed) != 0.0:
 				return false
-		else:
+		elif object.kind == "seat":
 			seats[object.id] = object
 	var customer_ids: Dictionary = {}
 	var reservations: Dictionary = {}
@@ -986,7 +1024,7 @@ func _valid_saved_state(state: Dictionary, config: Dictionary) -> bool:
 			return false
 	# Every produced plate is either still owned by one actor/tile or was sold.
 	# Counters must advance past all surviving IDs before new food/visitors spawn.
-	if int(state.next_dish_id) != int(state.stats.sales) + dish_ids.size() + 1:
+	if int(state.next_dish_id) != int(state.stats.sales) + int(state.discarded_dishes) + dish_ids.size() + 1:
 		return false
 	for dish_id in dish_ids:
 		if _id_index(dish_id, "dish-") >= int(state.next_dish_id):
@@ -1100,3 +1138,299 @@ func _valid_customer_path(customer: Dictionary, seat: Dictionary, occupants: Dic
 	var segment_end := segment_start if index == customer.path.size() else _point(customer.path[index])
 	var position := Vector2(float(customer.x), float(customer.y))
 	return position.x >= minf(segment_start.x, segment_end.x) - 0.000001 and position.x <= maxf(segment_start.x, segment_end.x) + 0.000001 and position.y >= minf(segment_start.y, segment_end.y) - 0.000001 and position.y <= maxf(segment_start.y, segment_end.y) + 0.000001
+
+func _editor_definition() -> Dictionary:
+	if _editor_content.is_empty():
+		var loaded: Variant = JSON.parse_string(FileAccess.get_file_as_string(EDITOR_PATH))
+		if loaded is Dictionary:
+			_editor_content = loaded
+	return _editor_content
+
+func _initialize_editor_state(state: Dictionary) -> void:
+	# Versioned migration adds owned exhibition supplies once. It does not buy,
+	# debit, refund, advance service, change the layout or reset an existing meal.
+	var definition := _editor_definition()
+	state.mode = "live"
+	state.editor = {"layer": definition.get("default_layer", "layout"), "tray_open": true, "selected_id": "", "page": 0, "pages": {"people": 0, "layout": 0, "floor": 0}}
+	state.inventory = definition.get("inventory", []).duplicate(true)
+	state.next_object_id = 1
+	state.discarded_dishes = 0
+	for object in state.objects:
+		if object.kind == "chef":
+			state.inventory.append({"id": object.id, "kind": "chef", "name": object.get("name", "Chef"), "art_id": object.get("art_id", "chef-lena"), "recipe_id": object.recipe_id, "count": 0, "assigned": true, "facing": object.facing, "stored_object": null})
+
+func _inventory_snapshot() -> Array:
+	var result: Array = []
+	for entry in _state.inventory:
+		var item: Dictionary = entry.duplicate(true)
+		item.erase("stored_object")
+		result.append(item)
+	return result
+
+func _inventory_item(identity: String) -> Dictionary:
+	for entry in _state.inventory:
+		if entry.id == identity:
+			return entry
+	return {}
+
+func _editor_layer_for(object: Dictionary) -> String:
+	return "people" if object.kind == "chef" else "floor" if object.kind == "floor" else "layout"
+
+func _editor_entries(layer: String, inventory: Array) -> Array:
+	return inventory.filter(func(entry): return _editor_layer_for(entry) == layer)
+
+func _editor_page_count(layer: String, inventory: Array) -> int:
+	var page_size := int(_editor_definition().get("page_sizes", {}).get(layer, 2))
+	return maxi(1, int(ceil(float(_editor_entries(layer, inventory).size()) / maxi(1, page_size))))
+
+func _valid_editor_state(state: Dictionary, config: Dictionary) -> bool:
+	if not state.get("mode") in ["live", "edit"] or not state.get("editor") is Dictionary or not state.get("inventory") is Array:
+		return false
+	if not _nonnegative_integer(state.get("next_object_id")) or int(state.next_object_id) < 1 or not _nonnegative_integer(state.get("discarded_dishes")):
+		return false
+	var editor: Dictionary = state.editor
+	if not editor.get("layer") in EDITOR_LAYERS or not editor.get("tray_open") is bool or not editor.get("selected_id") is String or not editor.get("pages") is Dictionary:
+		return false
+	if not _nonnegative_integer(editor.get("page")):
+		return false
+	var objects: Variant = state.get("objects")
+	if not objects is Array or not _valid_objects(objects, config):
+		return false
+	var placed: Dictionary = {}
+	for object in objects:
+		if not object is Dictionary or not object.get("id") is String:
+			return false
+		placed[object.id] = object
+		if _id_index(object.id, "editor-object-") >= int(state.next_object_id):
+			return false
+	if not editor.selected_id.is_empty() and not placed.has(editor.selected_id):
+		return false
+	var inventory_ids := {}
+	var known_chefs := {}
+	for initial in config.objects:
+		if initial.kind == "chef":
+			known_chefs[initial.id] = initial
+	var known_stock := {}
+	for entry in _editor_definition().get("inventory", []):
+		known_stock[entry.id] = entry
+	for entry in state.inventory:
+		if not entry is Dictionary or not entry.get("id") is String or inventory_ids.has(entry.id) or not _nonnegative_integer(entry.get("count")):
+			return false
+		inventory_ids[entry.id] = true
+		if entry.get("kind") == "chef":
+			if not known_chefs.has(entry.id):
+				return false
+			if not entry.get("assigned") is bool or not entry.get("name") is String or not entry.get("art_id") in CHEF_ART_IDS or not config.recipes.has(entry.get("recipe_id")) or not DIRECTIONS.has(entry.get("facing")):
+				return false
+			if entry.assigned:
+				if int(entry.count) != 0 or entry.get("stored_object") != null or not placed.has(entry.id) or placed[entry.id].get("kind") != "chef":
+					return false
+			else:
+				if int(entry.count) != 1 or placed.has(entry.id) or not entry.get("stored_object") is Dictionary:
+					return false
+				if entry.stored_object.get("id") != entry.id or entry.stored_object.get("kind") != "chef" or not _valid_objects([entry.stored_object], config):
+					return false
+		elif known_stock.has(entry.id):
+			for key in known_stock[entry.id]:
+				if key != "count" and entry.get(key) != known_stock[entry.id][key]:
+					return false
+		else:
+			return false
+	for identity in known_stock:
+		if not inventory_ids.has(identity):
+			return false
+		var expected := int(known_stock[identity].count)
+		var owned := 0
+		for initial in config.objects:
+			if _owned_stock_id(initial) == identity:
+				expected += 1
+		for object in objects:
+			if _owned_stock_id(object) == identity:
+				owned += 1
+		for entry in state.inventory:
+			if entry.id == identity:
+				owned += int(entry.count)
+		if owned != expected:
+			return false
+	for identity in known_chefs:
+		if not inventory_ids.has(identity):
+			return false
+	for object in objects:
+		if object.kind == "chef" and not inventory_ids.has(object.id):
+			return false
+	for layer in EDITOR_LAYERS:
+		if not _nonnegative_integer(editor.pages.get(layer)) or int(editor.pages[layer]) >= _editor_page_count(layer, state.inventory):
+			return false
+	return int(editor.page) == int(editor.pages[editor.layer])
+
+func _editor_fail(reason: String) -> Dictionary:
+	return {"ok": false, "reason": reason}
+
+func _editor_command(request: Dictionary) -> Dictionary:
+	if _state.mode != "edit":
+		return _editor_fail("edit_required")
+	var type: String = str(request.get("type", ""))
+	match type:
+		"editor_layer":
+			if not request.get("layer") in EDITOR_LAYERS:
+				return _editor_fail("invalid_layer")
+			_state.editor.layer = request.layer
+			_state.editor.page = _state.editor.pages[request.layer]
+			_state.editor.tray_open = true
+			return {"ok": true}
+		"editor_toggle_tray":
+			_state.editor.tray_open = not _state.editor.tray_open
+			return {"ok": true}
+		"editor_page":
+			if not _nonnegative_integer(request.get("page")) or int(request.page) >= _editor_page_count(_state.editor.layer, _state.inventory):
+				return _editor_fail("invalid_page")
+			_state.editor.page = int(request.page)
+			_state.editor.pages[_state.editor.layer] = int(request.page)
+			return {"ok": true}
+		"editor_select":
+			var identity: Variant = request.get("id")
+			if identity == null or identity == "":
+				_state.editor.selected_id = ""
+				return {"ok": true}
+			if not identity is String or _object_by_id(identity).is_empty():
+				return _editor_fail("unknown_object")
+			_state.editor.selected_id = identity
+			_state.editor.layer = _editor_layer_for(_object_by_id(identity))
+			_state.editor.page = _state.editor.pages[_state.editor.layer]
+			return {"ok": true}
+		"editor_move", "editor_rotate", "editor_remove", "editor_place":
+			return _editor_change(request)
+	return _editor_fail("unknown_command")
+
+func _editor_cell_rejection(request: Dictionary, excluding_id: String = "") -> String:
+	if not _valid_point(request, _configuration.floor):
+		return "invalid_position"
+	var cell := _point(request)
+	if cell == _point(_configuration.floor.entrance):
+		return "entrance"
+	var other := _object_at(cell)
+	if not other.is_empty() and other.id != excluding_id:
+		return "occupied"
+	for customer in _state.customers:
+		if Vector2(cell).distance_to(_render_position(customer)) < 0.65:
+			return "customer_busy"
+	return ""
+
+func _editor_change(request: Dictionary) -> Dictionary:
+	var type: String = str(request.type)
+	var object: Dictionary = {}
+	var stock: Dictionary = {}
+	if type == "editor_place":
+		if not request.get("inventory_id") is String:
+			return _editor_fail("unknown_inventory")
+		stock = _inventory_item(request.inventory_id)
+		if stock.is_empty():
+			return _editor_fail("unknown_inventory")
+		if stock.kind == "floor":
+			return _editor_fail("unsupported_floor")
+		if int(stock.count) <= 0:
+			return _editor_fail("no_stock")
+	else:
+		if not request.get("id") is String:
+			return _editor_fail("unknown_object")
+		object = _object_by_id(request.id)
+		if object.is_empty():
+			return _editor_fail("unknown_object")
+		if object.kind == "seat" and _state.customers.any(func(customer): return customer.seat_id == object.id):
+			return _editor_fail("customer_busy")
+	if type in ["editor_move", "editor_place"]:
+		var reason := _editor_cell_rejection(request, str(object.get("id", "")))
+		if not reason.is_empty():
+			return _editor_fail(reason)
+	if type == "editor_place" and request.has("facing") and not DIRECTIONS.has(request.facing):
+		return _editor_fail("invalid_facing")
+	if type == "editor_rotate" and request.has("clockwise") and not request.clockwise is bool:
+		return _editor_fail("invalid_rotation")
+	var before: Dictionary = _state.duplicate(true)
+	if type == "editor_place":
+		if stock.kind == "chef":
+			object = stock.stored_object.duplicate(true)
+			stock.stored_object = null
+			stock.assigned = true
+		else:
+			while not _object_by_id("editor-object-%s" % _state.next_object_id).is_empty():
+				_state.next_object_id += 1
+			object = {"id": "editor-object-%s" % _state.next_object_id, "kind": stock.kind, "facing": stock.facing, "inventory_id": stock.id}
+			_state.next_object_id += 1
+			if stock.kind == "belt":
+				object.dish = null
+				object.travel_elapsed = 0.0
+			elif stock.kind == "decor":
+				object.art_id = stock.art_id
+		stock.count -= 1
+		object.x = int(request.x)
+		object.y = int(request.y)
+		if request.has("facing"):
+			object.facing = request.facing
+		_state.objects.append(object)
+	elif type == "editor_move":
+		object.x = int(request.x)
+		object.y = int(request.y)
+	elif type == "editor_rotate":
+		var facings := ["north", "east", "south", "west"]
+		object.facing = facings[posmod(facings.find(object.facing) + (1 if request.get("clockwise", true) else -1), facings.size())]
+	else:
+		var inventory_id := _owned_stock_id(object)
+		stock = _inventory_item(inventory_id)
+		if stock.is_empty():
+			_state = before
+			return _editor_fail("unknown_inventory")
+		stock.count += 1
+		if object.kind == "chef":
+			stock.assigned = false
+			stock.facing = object.facing
+			stock.stored_object = object.duplicate(true)
+		elif object.kind == "belt" and object.dish != null:
+			_state.discarded_dishes += 1
+		_state.objects.erase(object)
+	if type == "editor_place" and object.kind == "chef" and _facing_object(object).get("kind") != "belt":
+		# An unassigned chef needs a usable neighboring counter; movement of an
+		# already assigned chef may intentionally leave them temporarily idle.
+		if not request.has("facing"):
+			for facing in DIRECTIONS:
+				object.facing = facing
+				if _facing_object(object).get("kind") == "belt":
+					break
+		if _facing_object(object).get("kind") != "belt":
+			_state = before
+			return _editor_fail("no_belt")
+	# Moving a loaded tile carries its plate at the tile root. Restarting a
+	# partial transfer prevents a plate hovering over the previous neighbor.
+	if type in ["editor_move", "editor_rotate"] and object.kind == "belt":
+		object.travel_elapsed = 0.0
+		for other in _state.objects:
+			if other.kind == "belt" and _facing_object(other).get("id") == object.id:
+				other.travel_elapsed = 0.0
+	if type in ["editor_move", "editor_rotate"] and object.kind == "chef" and object.visual_phase == "load":
+		object.loading_elapsed = 0.0
+		object.visual_phase = "hold"
+		object.visual_elapsed = 0.0
+	_state.editor.selected_id = "" if type == "editor_remove" else object.id
+	if type != "editor_remove":
+		_state.editor.layer = _editor_layer_for(object)
+		_state.editor.page = _state.editor.pages[_state.editor.layer]
+	# Current visitors own valid continuous paths. #14 supplies recovery for
+	# occupied furniture and trapped visitors; this slice rejects such edits
+	# atomically rather than deleting visitors, plates, timers or path progress.
+	if not _valid_saved_state(_state, _configuration):
+		_state = before
+		return _editor_fail("customer_path")
+	_rebuild_access()
+	return {"ok": true, "id": object.id}
+
+func _owned_stock_id(object: Dictionary) -> String:
+	match object.kind:
+		"chef":
+			return str(object.id)
+		"belt":
+			return "belt-tile"
+		"seat":
+			return "stool-plain"
+		"decor":
+			return str(object.art_id)
+	return ""

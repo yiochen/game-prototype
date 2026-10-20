@@ -214,3 +214,9 @@ calibration to floor materials while preserving procedural patterns and tile
 borders. This rollout quality correction keeps the floor palette readable under
 Faceted lighting; it is separate from the approved wood material treatment and
 does not change floor geometry, projection or atlas resolution.
+
+## ART-10 — UI uses the approved catalog and ImageGen (2026-10-19)
+
+The user explicitly requires every UI-related ticket to inspect **Restaurant UI & item catalog** before implementation and to create corresponding UI elements with ImageGen instead of choosing an unrelated style. Reuse approved assets, follow current wireframes for composition/behavior, preserve the transparent restaurant HUD, and inspect the underwater references for expedition-specific work. Keep dynamic labels/counts separate from generated artwork and retain source/prompt/reference provenance.
+
+The [UI reference workflow](README.md#ui-reference-workflow-art-10-approved-2026-10-19) defines the implementation/review steps. Relevant normal, pressed, disabled, selected and specified NEW/MAX states must appear in the shared native gallery and full-scene phone/wider-portrait captures. Catalog branding, example values and illustrative controls do not add gameplay requirements. This applies prospectively to all remaining implementation tickets, beginning with #12; it does not reopen completed #33 world-art approval.

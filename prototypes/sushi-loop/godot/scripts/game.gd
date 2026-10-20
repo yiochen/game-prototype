@@ -5,12 +5,26 @@ const Persistence = preload("res://scripts/save_store.gd")
 const RestaurantView = preload("res://scripts/restaurant_view.gd")
 const Audio = preload("res://scripts/audio.gd")
 const Typography = preload("res://scripts/typography.gd")
+const EditorPresentation = preload("res://scripts/editor_presentation.gd")
 var session: Session
 var store: Persistence
 var world: RestaurantView
 var world_clip: Control
 var audio: Audio
 var show_gallery := false
+var show_editor_gallery := false
+var editor_ui: EditorPresentation
+var pointer_start := Vector2.ZERO
+var gesture_kind := ""
+var gesture_dragged := false
+var gesture_object := ""
+var gesture_item: Dictionary = {}
+var armed_item: Dictionary = {}
+var gesture_cell := Vector2i.ZERO
+var tap_object := ""
+var gesture_started_in_tray := false
+var previous_selection := ""
+var selection_tween: Tween
 var simulation_enabled := true
 var money: Label
 var coin: TextureRect
@@ -21,12 +35,14 @@ var gallery_buttons: Array[Button] = []
 var autosave_elapsed := 0.0
 var pointer := -1
 var previous_pointer := Vector2.ZERO
+var last_screen_press := Vector2.ZERO
 var backgrounded := false
 var skip_resume_frame := false
 var save_error := ""
 var body_font: Font
 var display_font: Font
 var save_blocked := false
+var pending_edit_save := false
 var recovery: Panel
 var recovery_title: Label
 var recovery_message: Label
@@ -34,12 +50,15 @@ var recovery_retry: Button
 var recovery_close: Button
 
 func _ready() -> void:
+	# Godot defaults to quitting on Android Back before modal UI can own it.
+	get_tree().quit_on_go_back = false
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	show_gallery = show_gallery or "--gallery" in OS.get_cmdline_user_args()
+	show_editor_gallery = show_editor_gallery or "--editor-gallery" in OS.get_cmdline_user_args()
 	store = Persistence.new()
 	session = Session.new_session(int(Time.get_unix_time_from_system()) % 2147483647)
-	if not show_gallery:
+	if not show_gallery and not show_editor_gallery:
 		var saved: Dictionary = store.load_session(_valid_saved_session)
 		if not saved.is_empty():
 			if not session.restore(saved):
@@ -50,7 +69,7 @@ func _ready() -> void:
 	body_font = Typography.body()
 	display_font = Typography.heading()
 	audio = Audio.new()
-	audio.set_muted(show_gallery or save_blocked)
+	audio.set_muted(show_gallery or show_editor_gallery or save_blocked)
 	add_child(audio)
 	world = RestaurantView.new()
 	world.show_gallery = show_gallery
@@ -76,8 +95,21 @@ func _ready() -> void:
 	money.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(money)
 	shop = make_button("Shop", "shop", true)
-	edit = make_button("Edit", "edit", true)
+	edit = make_button("Edit", "edit", false)
 	staff = make_button("Staff", "staff", true)
+	editor_ui = EditorPresentation.new()
+	add_child(editor_ui)
+	editor_ui.command_requested.connect(_editor_command)
+	editor_ui.item_pointer.connect(_inventory_pointer)
+	editor_ui.item_armed.connect(_arm_item)
+	if ResourceLoader.exists(EditorPresentation.DIRECTORY + "layout.png"):
+		edit.icon = editor_ui.icon_texture("layout")
+		for kind in ["normal", "hover", "pressed", "disabled"]:
+			edit.add_theme_stylebox_override(kind, editor_ui._style("button-wood", kind))
+	edit.pressed.connect(func(): _editor_command({"type": "set_mode", "mode": "edit"}))
+	if show_editor_gallery:
+		session.command({"type": "set_mode", "mode": "edit"})
+		session.command({"type": "editor_layer", "layer": "layout"})
 	if show_gallery:
 		edit.hide()
 		staff.hide()
@@ -92,7 +124,7 @@ func _ready() -> void:
 	resized.connect(_layout)
 	_layout()
 	_refresh()
-	if not show_gallery:
+	if not show_gallery and not show_editor_gallery:
 		save_now()
 
 func make_button(text: String, icon_name: String, disabled := false) -> Button:
@@ -180,6 +212,9 @@ func _layout() -> void:
 		button.size = Vector2(206, 110) * unit
 		button.add_theme_font_size_override("font_size", int(34 * unit))
 		button.add_theme_constant_override("icon_max_width", int(38 * unit))
+	# Editor controls share the same contained portrait and root input coordinates.
+	editor_ui.size = size
+	editor_ui.set_state(session.snapshot(), area)
 	if recovery != null:
 		recovery.position = Vector2(area.position.x + 34 * unit, area.size.y * 0.28)
 		recovery.size = Vector2(652, 600) * unit
@@ -205,7 +240,7 @@ func _process(delta: float) -> void:
 	if skip_resume_frame:
 		skip_resume_frame = false
 		return
-	if not show_gallery and simulation_enabled:
+	if not show_gallery and not show_editor_gallery and simulation_enabled:
 		var events: Array = advance_time(delta)
 		if not events.is_empty():
 			save_now()
@@ -236,55 +271,232 @@ func _refresh() -> void:
 	if money.text != coins_text:
 		money.text = coins_text
 		money.accessibility_description = "%s coins" % coins_text
+	var editing: bool = world.state.get("mode", "live") == "edit"
+	edit.visible = not show_gallery and not editing
+	staff.visible = not show_gallery and not editing
+	editor_ui.reduced_motion = world.reduced_motion
+	editor_ui.set_state(world.state, world.portrait)
+	var selected_id: String = str(world.state.get("editor", {}).get("selected_id", ""))
+	if selected_id != previous_selection:
+		previous_selection = selected_id
+		if selection_tween != null and selection_tween.is_valid(): selection_tween.kill()
+		world.editor_selection_alpha = 1.0 if world.reduced_motion else 0.0
+		if not world.reduced_motion:
+			selection_tween = create_tween()
+			selection_tween.tween_property(world, "editor_selection_alpha", 1.0, 0.14).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	var selected := _selected_object()
+	editor_ui.set_selection(world.cell_base(float(selected.get("x", 0)), float(selected.get("y", 0))), editing and not selected.is_empty())
 	world.queue_redraw()
 
 func save_now() -> bool:
 	if save_blocked:
 		return false
-	if show_gallery or session == null or store == null:
+	if show_gallery or show_editor_gallery or session == null or store == null:
 		return true
 	var success: bool = store.save_session(session.save_data())
 	save_error = "" if success else store.last_error
 	return success
 
-func _unhandled_input(event: InputEvent) -> void:
-	if session == null or show_gallery or save_blocked:
+func _selected_object() -> Dictionary:
+	var scene: Dictionary = session.snapshot()
+	var identity: String = str(scene.get("editor", {}).get("selected_id", ""))
+	for object in scene.objects:
+		if str(object.id) == identity: return object
+	return {}
+
+func _editor_command(value: Dictionary) -> Dictionary:
+	if save_blocked: return {"ok": false, "reason": "save_blocked"}
+	var result: Dictionary = session.command(value)
+	if result.get("ok", false):
+		if value.type in ["set_mode", "editor_layer", "editor_remove"]:
+			armed_item.clear()
+			editor_ui.active_item = ""
+		if value.type == "set_mode":
+			_cancel_gesture()
+		audio.play_cue("click")
+		if not save_now(): _block_edit_save()
+	else:
+		editor_ui.reject(str(result.get("reason", "invalid_position")))
+	_refresh()
+	return result
+
+func _block_edit_save() -> void:
+	# The accepted edit remains in memory. Stop further mutations until the
+	# same pending restaurant can be durably written; never reload old data
+	# over the unsaved arrangement merely because Retry was pressed.
+	pending_edit_save = true
+	save_blocked = true
+	audio.set_muted(true)
+	_cancel_gesture()
+	if recovery == null: _make_recovery()
+	_layout()
+
+func _arm_item(item: Dictionary) -> void:
+	if gesture_dragged: return
+	if item.kind == "chef":
+		editor_ui.inspect(item)
 		return
+	_editor_command({"type": "editor_select", "id": null})
+	if save_blocked: return
+	armed_item = item.duplicate(true)
+	editor_ui.active_item = str(item.id)
+	_refresh()
+
+func _inventory_pointer(item: Dictionary, event: InputEvent) -> void:
+	if not event is InputEventScreenTouch or not event.pressed or pointer != -1: return
+	if item.kind != "chef" and not str(session.snapshot().editor.selected_id).is_empty():
+		_editor_command({"type": "editor_select", "id": null})
+		if save_blocked: return
+	# gui_input localizes touch positions to the inventory card. Capture the
+	# original screen press in _input before native Control dispatch instead.
+	var local: Vector2 = last_screen_press
+	pointer = event.index
+	pointer_start = local
+	previous_pointer = local
+	gesture_kind = "inventory"
+	gesture_started_in_tray = true
+	gesture_item = item.duplicate(true)
+	gesture_dragged = false
+	gesture_object = str(item.id) if item.get("assigned", false) else ""
+	armed_item = item.duplicate(true)
+	editor_ui.active_item = str(item.id)
+	_refresh()
+
+func _cell_at(position_value: Vector2) -> Vector2i:
+	var camera: Dictionary = session.snapshot().camera
+	var coordinate := (position_value - world.floor_origin) / world.cell + Vector2(float(camera.x), float(camera.y))
+	return Vector2i(floori(coordinate.x), floori(coordinate.y))
+
+func _object_at(position_value: Vector2) -> Dictionary:
+	var coordinate := _cell_at(position_value)
+	for object in session.snapshot().objects:
+		if int(object.x) == coordinate.x and int(object.y) == coordinate.y: return object
+	return {}
+
+func _unhandled_input(event: InputEvent) -> void:
+	if session == null or show_gallery or save_blocked or pointer != -1: return
+	if not event is InputEventScreenTouch or not event.pressed: return
+	var local: Vector2 = get_global_transform_with_canvas().affine_inverse() * event.position
+	if not world.portrait.has_point(local): return
+	pointer = event.index
+	pointer_start = local
+	previous_pointer = local
+	gesture_dragged = false
+	gesture_kind = "pan"
+	gesture_started_in_tray = false
+	if session.snapshot().get("mode", "live") == "edit":
+		if not armed_item.is_empty():
+			gesture_kind = "inventory"
+			gesture_item = armed_item.duplicate(true)
+			gesture_object = str(armed_item.id) if armed_item.get("assigned", false) else ""
+		else:
+			var object := _object_at(local)
+			var selected: String = str(session.snapshot().editor.selected_id)
+			if not object.is_empty() and str(object.id) == selected:
+				gesture_kind = "object"
+				gesture_object = str(object.id)
+			else:
+				# A tile must already be selected before a drag can move it.
+				# All other drags pan; a short release selects the tapped object.
+				tap_object = str(object.get("id", ""))
+				if not selected.is_empty(): _editor_command({"type": "editor_select", "id": null})
+	get_viewport().set_input_as_handled()
+
+func _input(event: InputEvent) -> void:
 	var inverse := get_global_transform_with_canvas().affine_inverse()
-	if event is InputEventScreenTouch:
-		var local: Vector2 = inverse * event.position
-		if event.pressed and pointer == -1 and world.portrait.has_point(local):
-			pointer = event.index
-			previous_pointer = local
-		elif not event.pressed and event.index == pointer:
-			pointer = -1
-			save_now()
-	elif event is InputEventScreenDrag and event.index == pointer:
+	if event is InputEventScreenTouch and event.pressed:
+		last_screen_press = inverse * event.position
+	if pointer == -1 or session == null: return
+	if event is InputEventScreenDrag and event.index == pointer:
 		var local: Vector2 = inverse * event.position
 		var change := local - previous_pointer
 		previous_pointer = local
-		var camera: Dictionary = session.snapshot().camera
-		var floor_data: Dictionary = session.snapshot().floor
-		var visible_columns := float(floor_data.get("viewport_columns", floor_data.columns))
-		var limit := maxf(0.0, float(floor_data.world_columns) - visible_columns)
-		var x := clampf(float(camera.x) - change.x / world.cell, 0.0, limit)
-		var visible_rows := maxf(1.0, (world.portrait.size.y - 48.0) / world.cell)
-		var vertical_limit := maxf(0.0, float(floor_data.rows) - visible_rows)
-		var y := clampf(float(camera.y) - change.y / world.cell, 0.0, vertical_limit)
-		session.command({"type": "set_camera", "x": x, "y": y})
+		if not gesture_dragged and local.distance_to(pointer_start) >= 18.0:
+			gesture_dragged = true
+		if gesture_kind == "pan":
+			_pan(change)
+		elif gesture_dragged:
+			_update_preview(local)
+		get_viewport().set_input_as_handled()
+	elif event is InputEventScreenTouch and not event.pressed and event.index == pointer:
+		var local: Vector2 = inverse * event.position
+		if not event.canceled:
+			if gesture_kind == "pan" and not gesture_dragged and not tap_object.is_empty():
+				_editor_command({"type": "editor_select", "id": tap_object})
+			elif gesture_kind == "object" and gesture_dragged:
+				var coordinate := _cell_at(local)
+				_editor_command({"type": "editor_move", "id": gesture_object, "x": coordinate.x, "y": coordinate.y})
+			elif gesture_kind == "inventory":
+				if gesture_started_in_tray and not gesture_dragged and gesture_item.get("kind") == "chef":
+					armed_item.clear()
+					editor_ui.active_item = ""
+					editor_ui.inspect(gesture_item)
+				elif _floor_drop(local):
+					var coordinate := _cell_at(local)
+					var value := {"type": "editor_move", "id": gesture_object, "x": coordinate.x, "y": coordinate.y} if not gesture_object.is_empty() else {"type": "editor_place", "inventory_id": gesture_item.id, "x": coordinate.x, "y": coordinate.y}
+					var result := _editor_command(value)
+					if result.get("ok", false):
+						armed_item.clear()
+						editor_ui.active_item = ""
+				elif gesture_dragged:
+					editor_ui.reject("invalid_position")
+		_cancel_gesture()
+		save_now()
 		_refresh()
 		get_viewport().set_input_as_handled()
+
+func _floor_drop(at: Vector2) -> bool:
+	return world.portrait.has_point(at) and (not editor_ui.tray.visible or at.y < editor_ui.tray.position.y) and at.y > world.portrait.position.y + 145 * editor_ui.unit
+
+func _update_preview(at: Vector2) -> void:
+	var coordinate := _cell_at(at)
+	# Ask an isolated session through the same public save/command boundary as
+	# the real drop. A green ghost therefore includes aisle and guest checks,
+	# rather than merely looking for an empty cell.
+	var probe = Session.new()
+	var candidate := {"type": "editor_move", "id": gesture_object, "x": coordinate.x, "y": coordinate.y} if not gesture_object.is_empty() else {"type": "editor_place", "inventory_id": gesture_item.id, "x": coordinate.x, "y": coordinate.y}
+	var valid: bool = _floor_drop(at) and probe.restore(session.save_data()) and probe.command(candidate).get("ok", false)
+	var source: Dictionary = gesture_item if gesture_kind == "inventory" else _selected_object()
+	world.editor_preview = {"x": coordinate.x, "y": coordinate.y, "valid": valid, "source": source}
+	world.queue_redraw()
+
+func _cancel_gesture() -> void:
+	pointer = -1
+	gesture_kind = ""
+	gesture_object = ""
+	gesture_item.clear()
+	tap_object = ""
+	gesture_started_in_tray = false
+	world.editor_preview.clear()
+	world.queue_redraw()
+
+func _pan(change: Vector2) -> void:
+	var scene: Dictionary = session.snapshot()
+	var camera: Dictionary = scene.camera
+	var floor_data: Dictionary = scene.floor
+	var visible_columns := float(floor_data.get("viewport_columns", floor_data.columns))
+	var limit := maxf(0.0, float(floor_data.world_columns) - visible_columns)
+	var x := clampf(float(camera.x) - change.x / world.cell, 0.0, limit)
+	var visible_rows := maxf(1.0, (world.portrait.size.y - 48.0) / world.cell)
+	var vertical_limit := maxf(0.0, float(floor_data.rows) - visible_rows)
+	var y := clampf(float(camera.y) - change.y / world.cell, 0.0, vertical_limit)
+	session.command({"type": "set_camera", "x": x, "y": y})
+	_refresh()
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_PAUSED:
 		backgrounded = true
-		pointer = -1
+		_cancel_gesture()
 		save_now()
 	elif what == NOTIFICATION_APPLICATION_RESUMED:
 		backgrounded = false
 		skip_resume_frame = true
 	elif what in [NOTIFICATION_WM_CLOSE_REQUEST, NOTIFICATION_WM_GO_BACK_REQUEST]:
+		if what == NOTIFICATION_WM_GO_BACK_REQUEST and editor_ui != null and editor_ui.inspection.visible:
+			editor_ui.close_inspection()
+			return
 		save_now()
+		if what == NOTIFICATION_WM_GO_BACK_REQUEST: get_tree().quit()
 
 func _exit_tree() -> void:
 	save_now()
@@ -303,12 +515,12 @@ func _make_recovery() -> void:
 	recovery.add_theme_stylebox_override("panel", paper)
 	add_child(recovery)
 	recovery_title = Label.new()
-	recovery_title.text = "Saved restaurant\nneeds attention"
+	recovery_title.text = "Your edit needs saving" if pending_edit_save else "Saved restaurant\nneeds attention"
 	recovery_title.add_theme_font_override("font", display_font)
 	recovery_title.add_theme_color_override("font_color", Color("253b3b"))
 	recovery.add_child(recovery_title)
 	recovery_message = Label.new()
-	recovery_message.text = "Your restaurant could not be opened. Your save files have been kept. You can try opening them again."
+	recovery_message.text = "Your changes are still here. Storage could not be updated. Retry to save this arrangement. Closing keeps the last successfully saved restaurant." if pending_edit_save else "Your restaurant could not be opened. Your save files have been kept. You can try opening them again."
 	recovery_message.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	recovery_message.add_theme_font_override("font", body_font)
 	recovery_message.add_theme_color_override("font_color", Color("253b3b"))
@@ -317,10 +529,26 @@ func _make_recovery() -> void:
 	recovery_close = make_button("Close", "close")
 	recovery_retry.reparent(recovery)
 	recovery_close.reparent(recovery)
+	if pending_edit_save:
+		for button in [recovery_retry, recovery_close]:
+			button.icon = null
+			for kind in ["normal", "hover", "pressed", "disabled"]:
+				button.add_theme_stylebox_override(kind, editor_ui._style("button-wood", kind))
 	recovery_retry.pressed.connect(_retry_restore)
 	recovery_close.pressed.connect(func(): get_tree().quit())
 
 func _retry_restore() -> void:
+	if pending_edit_save:
+		save_blocked = false
+		if not save_now():
+			save_blocked = true
+			return
+		pending_edit_save = false
+		audio.set_muted(show_gallery or show_editor_gallery)
+		recovery.queue_free()
+		recovery = null
+		_refresh()
+		return
 	var saved: Dictionary = store.load_session(_valid_saved_session)
 	if saved.is_empty() and not store.last_error.is_empty():
 		return

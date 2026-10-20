@@ -2,7 +2,8 @@
 """Copy the approved #33 restaurant subset without changing sprite pixels.
 
 --check verifies selection, provenance and shipped bytes. Whole authored frames,
-logical ground roots and the shared 128px pitch are preserved.
+logical ground roots and the shared 128px pitch are preserved. The selection
+includes all native facings of movable objects used by the restaurant editor.
 """
 from __future__ import annotations
 import argparse
