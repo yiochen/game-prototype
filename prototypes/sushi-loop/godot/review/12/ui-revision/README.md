@@ -32,3 +32,13 @@ The [phone](phone/manifest.json), [wide](wide/manifest.json) and [landscape](lan
 - [Save recovery](phone/17b-pending-save-retry.png), [resumed Live](phone/18-live-resumed.png), [shared gallery](phone/19-shared-editor-normal.png).
 
 Independent Standards and Spec reviews identified the centered-floor camera limit and focused Close contrast; both were corrected and are protected by native regressions. No other actionable findings remained in those reviews. Native Android installation/touch evidence and the signed 0.4.1 review APK are recorded separately after final export.
+
+## Signed Android review build
+
+[Install the B UI review APK](https://drive.google.com/file/d/1li7i0eEnouPfGZ9w_L_GTzfME_jGanGY/view?usp=drivesdk) — **0.4.1 / code 41**, package `com.yiochen.sushilooptickets.review12`. It uses the original release signer and a separate Android save sandbox. [Drive metadata readback](apk-drive-verification.json) matches the uploaded file's size and MD5; no sharing permissions changed.
+
+The review APK is **226,640,808 bytes**, SHA-256 `de51b9bc8195ea03a94c5b100941812b9e7d4cefeb093200983dbe758e28de3f`. The normal save-compatible release is **226,636,712 bytes**, SHA-256 `1ca268271fcce80fd0565d0d9bc2d76c0fbf978602a843c97ff40479d4ff2b09`. Both are offline/nondebuggable and share all **284 runtime source files** from commit `7c64d6fc483a561c2f6a78dff7f7c85ae32dc949`. [The source/commit proof](checks/commit-runtime-verification.json) and [normal](checks/normal-build.json)/[review](checks/review-build.json) build receipts retain exact fingerprints. Verified exports ran sequentially: concurrent Godot Android exports collided in shared temporary APK files and were discarded.
+
+[Actual Android validation](android/README.md) passes **49 assertions**: 38 main touch/platform checks and 11 independent lifecycle rechecks gated on a fully rendered game. The signed 0.4.0→0.4.1 normal update preserves both save files byte-for-byte before launch; paused Layout page 1 migrates to the three-slot page 0 with all other saved fields unchanged. Actual input verifies move/rotate/return/place, occupied/tray/rail rejection, stock conservation, paging, quiet Shop feedback, disabled Floor, profile focus and system Back, Home/force-stop/Back restoration and Live resume.
+
+The review app receives no injected state and leaves the normal app's primary and backup saves untouched. Original AVD SHA256/size/mtime are unchanged, and the disposable read-only clone is stopped without saving snapshots. No app crash or Godot script error occurred. Five GLES shader-cache recompilation warnings across cold starts recovered; the final Edit/Live captures show a fully rendered game. The issue and PR remain open for user verification.
