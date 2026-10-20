@@ -98,9 +98,9 @@ def validate_catalog(source: Path, files: dict[str, Path]) -> dict:
     feedback = feedback_contract.verify_feedback_variants(source)
     editor_ui = editor_ui_contract.verify_editor_ui(source)
     expected_ui_files = {"assets/ui/editor/manifest.json"} | {
-        f"assets/ui/editor/{name}.png" for name in editor_ui_contract.ASSETS}
+        f"assets/ui/editor/{name}" for name in editor_ui["runtime_images"]}
     if {name for name in files if name.startswith("assets/ui/editor/")} != expected_ui_files:
-        raise ValueError("The staged editor UI payload differs from the nine verified control images and manifest.")
+        raise ValueError("The staged editor UI payload differs from the verified coordinated atlas and manifest.")
     return {
         "object_count": len(manifest["objects"]),
         "atlas_count": len(atlases),

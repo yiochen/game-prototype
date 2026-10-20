@@ -14,6 +14,7 @@ func _initialize() -> void:
 	_unassigned_chef_continuation()
 	_customer_protection()
 	_persistence_and_migration()
+	_three_slot_page_migration()
 	_invalid_commands_and_saves()
 	if failures.is_empty():
 		print("PASS: %s restaurant editor checks" % checks)
@@ -82,9 +83,9 @@ func _layers_and_selection() -> void:
 	_check(game.command({"type": "editor_select", "id": "chef-1"}).ok and game.snapshot().editor.layer == "people", "selecting an existing chef activates People")
 	_check(game.command({"type": "editor_toggle_tray"}).ok and not game.snapshot().editor.tray_open and game.snapshot().editor.selected_id == "chef-1", "collapsing the selected layer tray retains selection and the named layer")
 	_check(game.command({"type": "editor_layer", "layer": "layout"}).ok and game.snapshot().editor.tray_open, "changing layers opens the new tray")
-	_check(game.command({"type": "editor_page", "page": 2}).ok and game.snapshot().editor.page == 2, "the two-item Layout rail can reach its last compact page")
+	_check(game.command({"type": "editor_page", "page": 1}).ok and game.snapshot().editor.page == 1, "the three-item Layout drawer can reach its final compact page")
 	_check(game.command({"type": "editor_layer", "layer": "people"}).ok and game.snapshot().editor.page == 0, "People has its independent three-profile page")
-	_check(game.command({"type": "editor_layer", "layer": "layout"}).ok and game.snapshot().editor.page == 2, "switching layers restores the remembered compact page")
+	_check(game.command({"type": "editor_layer", "layer": "layout"}).ok and game.snapshot().editor.page == 1, "switching layers restores the remembered compact page")
 	_check(game.command({"type": "editor_layer", "layer": "floor"}).ok and _stock(game.snapshot(), "floor-cream").available == false, "Floor can be reviewed without implementing the later finish-painting ticket")
 	_check(game.command({"type": "set_camera", "x": 13.125, "y": -0.375}).ok, "the camera supports continuous fractional fixed-scale panning across the three-panel world")
 	var reopened := _reopen(game)
@@ -219,6 +220,32 @@ func _persistence_and_migration() -> void:
 	var migrated := Session.new_session(99)
 	_check(migrated.restore(legacy) and migrated.snapshot().mode == "live", "pre-editor saves receive a one-time compatible Live editor-state migration")
 	_check(_same(migrated.snapshot().objects, game.snapshot().objects) and _same(migrated.snapshot().stats, game.snapshot().stats) and migrated.snapshot().coins == game.snapshot().coins and _same(migrated.snapshot().camera, game.snapshot().camera), "migration retains every previous arrangement, service clock, sale, coin and camera")
+
+func _three_slot_page_migration() -> void:
+	var game := Session.new_session(115)
+	game.advance(4.025)
+	_edit(game)
+	game.command({"type": "editor_select", "id": "seat-5"})
+	var legacy := _json(game.save_data())
+	legacy.editor_version = 1
+	legacy.state.editor.page = 2
+	legacy.state.editor.pages.layout = 2
+	var restored := Session.new_session(99)
+	_check(restored.restore(legacy) and restored.snapshot().editor.page == 1 and restored.snapshot().editor.pages.layout == 1, "a v1 final two-item Layout page migrates to a valid three-slot page containing the same first item")
+	if restored.snapshot().editor.page == 1:
+		var expected := _json(legacy)
+		expected.editor_version = 2
+		expected.state.editor.page = 1
+		expected.state.editor.pages.layout = 1
+		_check(_same(restored.save_data(), expected), "page migration preserves the exact restaurant, paused time, selection, inventory, coins and random state")
+		_reopen(restored)
+	_check(not restored.command({"type": "editor_page", "page": 2}).ok and restored.command({"type": "editor_page", "page": 0}).ok, "new three-slot pages reject the removed third Layout page and retain normal paging")
+	for bad_page in [-1, 3, 999]:
+		var invalid := _json(legacy)
+		invalid.state.editor.page = bad_page
+		invalid.state.editor.pages.layout = bad_page
+		var before := restored.save_data()
+		_check(not restored.restore(invalid) and _same(before, restored.save_data()), "v1 migration rejects invalid old page bounds atomically")
 
 func _invalid_commands_and_saves() -> void:
 	var game := Session.new_session(19)

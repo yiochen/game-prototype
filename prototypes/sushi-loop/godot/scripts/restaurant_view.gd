@@ -121,9 +121,17 @@ func _editor_ground() -> void:
 	for object in state.get("objects", []):
 		if str(object.id) != identity: continue
 		var rect := Rect2(cell_base(float(object.x), float(object.y)) - Vector2.ONE * cell * 0.5, Vector2.ONE * cell)
-		draw_rect(rect, Color(1.0, 0.79, 0.34, 0.30 * editor_selection_alpha))
-		draw_rect(rect.grow(-1.5), Color(INK, editor_selection_alpha), false, 4.0, true)
-		draw_rect(rect.grow(-3.0), Color(Color("ffcb62"), editor_selection_alpha), false, 2.0, true)
+		draw_rect(rect, Color(Color("bfd4af"), 0.48 * editor_selection_alpha))
+		# The approved B marker keeps the tile readable under the object: pale
+		# sage fill and four navy brackets, with open edges between the corners.
+		var inset := rect.grow(-2.0)
+		var arm := cell * 0.20
+		var thickness := maxf(2.0, cell * 0.04)
+		for corner in [Vector2.ZERO, Vector2.RIGHT, Vector2.ONE, Vector2.DOWN]:
+			var point: Vector2 = inset.position + inset.size * corner
+			var across := Vector2(-1.0 if corner.x > 0.0 else 1.0, 0.0) * arm
+			var down := Vector2(0.0, -1.0 if corner.y > 0.0 else 1.0) * arm
+			draw_polyline(PackedVector2Array([point + across, point, point + down]), Color(Color("233d58"), editor_selection_alpha), thickness, true)
 
 func _editor_ghost() -> void:
 	if state.get("mode", "live") != "edit" or editor_preview.is_empty(): return

@@ -3,6 +3,8 @@
 import json
 from pathlib import Path
 import shutil
+import struct
+import zlib
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -46,13 +48,15 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.feedback_verifier = feedback_verification.start()
         self.addCleanup(feedback_verification.stop)
         self.write("assets/ui/app_icon.png", b"wordless icon")
-        # The UI gate uses the exact nine real production PNGs and eight saved
-        # ImageGen sources; corruption tests exercise provenance end to end.
+        # Exercise the actual coordinated B atlas, complete ImageGen sheets,
+        # accepted composition and references; no UI verifier mocks hide drift.
         shutil.copytree(build.PROJECT / "assets/ui/editor", self.project / "assets/ui/editor")
-        shutil.copytree(build.PROJECT.parent / "assets/ui/editor/v1", self.root / "assets/ui/editor/v1")
-        reference = self.root / "design/art-directions/restaurant-item-catalog.png"
-        reference.parent.mkdir(parents=True)
-        shutil.copyfile(build.PROJECT.parent / "design/art-directions/restaurant-item-catalog.png", reference)
+        shutil.copytree(build.PROJECT.parent / "assets/ui/editor/v5", self.root / "assets/ui/editor/v5")
+        generation = json.loads((self.root / build.editor_ui_contract.SOURCE_RECORD).read_text())
+        for record in generation["references"]:
+            reference = self.root / record["path"]
+            reference.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(build.PROJECT.parent / record["path"], reference)
         self.write("scripts/app.gd", "extends Node\n")
         approved = self.root / "assets/production"
         (approved / "sprites/test").mkdir(parents=True)
@@ -92,12 +96,13 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.assertEqual(catalog["atlas_count"], 1)
         self.assertEqual(selected["assets/audio/click.wav"], build.sha(audio))
         self.assertEqual((self.root / "staged/assets/catalog/sprites/test/static-S.png").read_bytes(), b"approved sprite bytes")
-        self.assertEqual(len(selected), 25)
-        self.assertEqual(catalog["editor_ui"]["images"], 9)
-        self.assertEqual(catalog["editor_ui"]["imagegen_sources"], 8)
+        self.assertEqual(len(selected), 17)
+        self.assertEqual(catalog["editor_ui"]["images"], 1)
+        self.assertEqual(catalog["editor_ui"]["imagegen_sources"], 2)
+        self.assertEqual((catalog["editor_ui"]["styles"], catalog["editor_ui"]["icons"]), (17, 16))
         self.assertEqual(selected["assets/ui/editor/manifest.json"], catalog["editor_ui_manifest_sha256"])
         self.assertEqual({name for name in selected if name.startswith("assets/ui/editor/")},
-                         {"assets/ui/editor/manifest.json"} | {f"assets/ui/editor/{name}.png" for name in build.editor_ui_contract.ASSETS})
+                         {"assets/ui/editor/manifest.json", "assets/ui/editor/skin.png"})
         self.assertIn("assets/recipe-variants/manifest.json", selected)
         self.assertIn("assets/recipe-variants/sprites/test/eat-S.png", selected)
         self.recipe_verifier.assert_any_call(self.root / "staged", source_project=self.project)
@@ -237,13 +242,13 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.assertNotIn("assets/ui/editor/imagegen.json", files)
         self.assertIn("assets/ui/editor/manifest.json", files)
         self.assertFalse((self.root / "staged-ui/assets/ui/editor/imagegen.json").exists())
-        self.assertFalse((self.root / "staged-ui/assets/ui/editor/v1").exists())
+        self.assertFalse((self.root / "staged-ui/assets/ui/editor/v5").exists())
         self.assertFalse((self.root / "staged-ui/assets/production").exists())
         self.assertEqual((self.root / "staged-ui/assets/ui/other-controls.png").read_bytes(), b"runtime control pixels")
 
     def test_misplaced_raw_editor_source_image_cannot_enter_runtime_payload(self):
         self.write("assets/ui/editor/raw/generated-source.png", b"authoring pixels")
-        with self.assertRaisesRegex(ValueError, "staged editor UI payload"):
+        with self.assertRaisesRegex(ValueError, "staged editor UI payload|Unexpected editor UI image payload"):
             build.stage_runtime(self.project, self.root / "staged")
         self.assertFalse((self.root / "staged/project.godot").exists())
 
@@ -254,7 +259,7 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.assertFalse((self.root / "staged/project.godot").exists())
 
     def test_missing_or_changed_runtime_ui_pixels_block_before_staging(self):
-        path = self.project / "assets/ui/editor/people.png"
+        path = self.project / "assets/ui/editor/skin.png"
         original = path.read_bytes()
         for mutation in ("missing", "changed"):
             with self.subTest(mutation=mutation):
@@ -268,7 +273,8 @@ class RuntimeBoundaryTests(unittest.TestCase):
                 path.write_bytes(original)
 
     def test_missing_or_changed_imagegen_source_blocks_before_staging(self):
-        path = self.root / "assets/ui/editor/v1/raw/people.png"
+        record = json.loads((self.root / build.editor_ui_contract.SOURCE_RECORD).read_text())
+        path = self.root / "assets/ui/editor/v5" / record["generations"][0]["raw"]
         original = path.read_bytes()
         for mutation in ("missing", "changed"):
             with self.subTest(mutation=mutation):
@@ -276,7 +282,7 @@ class RuntimeBoundaryTests(unittest.TestCase):
                     path.unlink()
                 else:
                     path.write_bytes(original + b"changed")
-                with self.assertRaisesRegex(ValueError, "editor UI provenance|Editor UI source changed"):
+                with self.assertRaisesRegex(ValueError, "editor UI provenance|Editor UI source changed|Editor UI reference changed"):
                     build.stage_runtime(self.project, self.root / "staged")
                 self.assertFalse((self.root / "staged/project.godot").exists())
                 path.write_bytes(original)
@@ -284,8 +290,8 @@ class RuntimeBoundaryTests(unittest.TestCase):
     def test_changed_ui_manifest_or_catalog_reference_is_rejected(self):
         path = self.project / "assets/ui/editor/manifest.json"
         original = path.read_text()
-        changes = [lambda m: m["assets"].pop("rotate"),
-                   lambda m: m["assets"]["people"].update(sha256="0" * 64),
+        changes = [lambda m: m["icons"].pop("rotate"),
+                   lambda m: m.update(atlas_sha256="0" * 64),
                    lambda m: m.update(reference="design/art-directions/other.png")]
         for change in changes:
             with self.subTest(change=change):
@@ -298,11 +304,99 @@ class RuntimeBoundaryTests(unittest.TestCase):
                 path.write_text(original)
 
     def test_changed_saved_imagegen_prompt_record_is_rejected(self):
-        path = self.root / "assets/ui/editor/v1/imagegen.json"
+        path = self.root / build.editor_ui_contract.SOURCE_RECORD
         source = json.loads(path.read_text())
-        source["assets"][0]["prompt"] = "Unrelated image"
+        source["generations"][0]["prompt"] = "Unrelated image"
         path.write_text(json.dumps(source))
         with self.assertRaisesRegex(ValueError, "ImageGen prompt record changed"):
+            build.stage_runtime(self.project, self.root / "staged")
+        self.assertFalse((self.root / "staged/project.godot").exists())
+
+    def mutate_ui_manifest(self, mutate):
+        path = self.project / "assets/ui/editor/manifest.json"
+        manifest = json.loads(path.read_text())
+        mutate(manifest)
+        path.write_text(json.dumps(manifest))
+
+    def test_passive_surfaces_cannot_be_omitted_from_the_coordinated_family(self):
+        path = self.project / "assets/ui/editor/manifest.json"
+        original = path.read_text()
+        for identity in ("container-tray", "container-modal", "slot-paper", "toast-error"):
+            with self.subTest(surface=identity):
+                self.mutate_ui_manifest(lambda m: m["styles"].pop(identity))
+                with self.assertRaisesRegex(ValueError, "active/passive surface"):
+                    build.stage_runtime(self.project, self.root / "staged")
+                self.assertFalse((self.root / "staged/project.godot").exists())
+                path.write_text(original)
+
+    def test_ui_source_slices_edges_and_content_cannot_drift(self):
+        path = self.project / "assets/ui/editor/manifest.json"
+        original = path.read_text()
+        changes = [
+            (lambda e: e["slice_px"].__setitem__(2, e["slice_px"][2] + 1), "asymmetric source slices"),
+            (lambda e: e["edge"].__setitem__(2, e["edge"][2] + 1), "asymmetric logical edges"),
+            (lambda e: e["content"].__setitem__(2, e["content"][2] + 1), "asymmetric content margins"),
+            (lambda e: e.update(slice_px=[e["region"][2]] * 4), "no plain stretch spans"),
+            (lambda e: e.update(content=[-1, -1, -1, -1]), "Invalid editor UI content margins"),
+            (lambda e: e.update(stretch=""), "stretch span documentation"),
+            (lambda e: e.update(states={"pressed": {"region": [0, 0, 1, 1]}}), "bypasses calibrated framing"),
+            (lambda e: e.update(states={"disabled": {"tint": "invalid"}}), "Invalid editor UI state treatment"),
+        ]
+        for change, message in changes:
+            with self.subTest(failure=message):
+                self.mutate_ui_manifest(lambda m: change(m["styles"]["control-wood"]))
+                with self.assertRaisesRegex(ValueError, message):
+                    build.stage_runtime(self.project, self.root / "staged")
+                self.assertFalse((self.root / "staged/project.godot").exists())
+                path.write_text(original)
+
+    def test_accepted_b_composition_is_required_not_an_unselected_concept(self):
+        path = self.root / build.editor_ui_contract.COMPOSITION
+        path.write_bytes(path.read_bytes() + b"changed concept")
+        with self.assertRaisesRegex(ValueError, "accepted B composition changed"):
+            build.stage_runtime(self.project, self.root / "staged")
+        self.assertFalse((self.root / "staged/project.godot").exists())
+
+    def test_source_region_pixel_proof_survives_updated_record_hash(self):
+        path = self.root / build.editor_ui_contract.SOURCE_RECORD
+        record = json.loads(path.read_text())
+        # A hash-only verifier would accept this updated record hash. The crop
+        # must still exactly explain the immutable source pixels in the atlas.
+        record["entries"]["people"]["source_region"][0] += 1
+        path.write_text(json.dumps(record))
+        self.mutate_ui_manifest(lambda m: m.update(source_record_sha256=build.sha(path)))
+        with self.assertRaisesRegex(ValueError, "atlas pixels differ from the ImageGen source crop|source region.*outside"):
+            build.stage_runtime(self.project, self.root / "staged")
+        self.assertFalse((self.root / "staged/project.godot").exists())
+
+    @staticmethod
+    def rgba_png(dimensions, pixels):
+        width, height = dimensions
+        def chunk(kind, payload):
+            return struct.pack(">I", len(payload)) + kind + payload + struct.pack(">I", zlib.crc32(kind + payload) & 0xffffffff)
+        rows = b"".join(b"\0" + pixels[row * width * 4:(row + 1) * width * 4] for row in range(height))
+        return (b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 6, 0, 0, 0))
+                + chunk(b"IDAT", zlib.compress(rows, 1)) + chunk(b"IEND", b""))
+
+    def test_repainting_atlas_is_rejected_even_with_matching_payload_hash(self):
+        manifest = json.loads((self.project / "assets/ui/editor/manifest.json").read_text())
+        path = self.project / "assets/ui/editor/skin.png"
+        dimensions, original = build.editor_ui_contract._decode_png(path.read_bytes())
+        pixels = bytearray(original)
+        x, y, _, _ = manifest["icons"]["people"]["region"]
+        pixels[((y + 4) * dimensions[0] + x + 4) * 4] ^= 1
+        path.write_bytes(self.rgba_png(dimensions, pixels))
+        self.mutate_ui_manifest(lambda m: m.update(atlas_sha256=build.sha(path), atlas_bytes=path.stat().st_size))
+        with self.assertRaisesRegex(ValueError, "atlas pixels differ from the ImageGen source crop"):
+            build.stage_runtime(self.project, self.root / "staged")
+        self.assertFalse((self.root / "staged/project.godot").exists())
+
+    def test_changed_authored_ui_calibration_or_states_block_staging(self):
+        path = self.root / "assets/ui/editor/v5/authoring.json"
+        authoring = json.loads(path.read_text())
+        authoring["assets"][0]["content"][0] += 1
+        path.write_text(json.dumps(authoring))
+        with self.assertRaisesRegex(ValueError, "authored calibration and states changed"):
             build.stage_runtime(self.project, self.root / "staged")
         self.assertFalse((self.root / "staged/project.godot").exists())
 
@@ -312,7 +406,7 @@ class RuntimeBoundaryTests(unittest.TestCase):
         def verify(project, source_project=None):
             calls.append((project, source_project))
             if source_project is not None:
-                path = project / "assets/ui/editor/people.png"
+                path = project / "assets/ui/editor/skin.png"
                 path.write_bytes(path.read_bytes() + b"post-copy tamper")
             return original_verify(project, source_project)
         with patch.object(build.editor_ui_contract, "verify_editor_ui", side_effect=verify):

@@ -1,197 +1,664 @@
 {
-  "version": 1,
+  "version": 2,
   "reference": "design/art-directions/restaurant-item-catalog.png",
   "reference_sha256": "d213f970d37a2e83846d8ee54ec14e8e74e72c2a93fb1c13e00d0bf2143e73b2",
-  "source_record": "assets/ui/editor/v1/imagegen.json",
-  "source_record_sha256": "ff136de11addc4b3f8ed8764ae5f8ae2d8fa82df2605b469e80f9edb41022862",
-  "packing_script_sha256": "56ba5a579df33270074ad90dad725e0dff8208fd951bd1497e00485975087d4f",
-  "assets": {
-    "button-wood": {
-      "image": "button-wood.png",
-      "sha256": "413d738ccb31d23e2c1b1d71d69b5da6531a92dc15ce10d7a9706d40ed51cf17",
-      "bytes": 183678,
-      "dimensions": [
-        512,
-        516
-      ],
-      "source": "assets/ui/editor/v1/raw/button-wood.png",
-      "source_sha256": "c93c3273f99aa90178d6cffddae972d020c4d7278bf6773f74171a308205f5e4",
-      "source_dimensions": [
-        1254,
-        1254
-      ],
-      "alpha_bounds": [
+  "source_record": "assets/ui/editor/v5/imagegen.json",
+  "source_record_sha256": "c0893a19e487376002d6941d8ac2d3eaa7ca12e13189f7f29acd9268f22ebc26",
+  "authoring_sha256": "14b08085ea6f55624783121e21c6dd510f8c1def7178e5589d9a8beb0a3464c4",
+  "packing_script_sha256": "c4fa8d0564eabeaa375c07246acb19785f5ed20ce28cf697c5a6faba0ecf4f45",
+  "atlas": "skin.png",
+  "atlas_sha256": "0e8b3af7114d6c8cebc267cabcfef26c4a0b74577b9716c154ad5b2438e613ad",
+  "atlas_bytes": 1706725,
+  "atlas_dimensions": [
+    2048,
+    1280
+  ],
+  "styles": {
+    "control-wood": {
+      "region": [
         0,
         0,
-        1245,
-        1254
+        296,
+        148
       ],
-      "registration": "fixed alpha trim; aspect-preserving Lanczos downsample; 2px gutter"
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {
+        "pressed": "control-pressed",
+        "disabled": "control-slate"
+      }
     },
-    "button-live": {
-      "image": "button-live.png",
-      "sha256": "bf17036b27147cf0106cf2735c89bc272774d2a37779733c2e376ad7e04b5fb5",
-      "bytes": 162877,
-      "dimensions": [
-        772,
-        325
+    "control-pressed": {
+      "region": [
+        296,
+        0,
+        291,
+        148
       ],
-      "source": "assets/ui/editor/v1/raw/button-live.png",
-      "source_sha256": "2982e31e5d455e17ba5e2593527edbd49ca1828de7b57995982f9de30fb6c7df",
-      "source_dimensions": [
-        1983,
-        793
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
       ],
-      "alpha_bounds": [
-        100,
-        27,
-        1878,
-        769
+      "edge": [
+        12,
+        12,
+        12,
+        12
       ],
-      "registration": "fixed alpha trim; aspect-preserving Lanczos downsample; 2px gutter"
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
     },
+    "control-green": {
+      "region": [
+        587,
+        0,
+        292,
+        149
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {
+        "pressed": "control-green-pressed",
+        "disabled": "control-slate"
+      }
+    },
+    "control-green-pressed": {
+      "region": [
+        879,
+        0,
+        286,
+        147
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
+    },
+    "control-slate": {
+      "region": [
+        1165,
+        0,
+        296,
+        146
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {
+        "disabled": "control-slate"
+      }
+    },
+    "slot-paper": {
+      "region": [
+        1461,
+        0,
+        238,
+        174
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {
+        "pressed": "slot-selected",
+        "selected": "slot-selected",
+        "disabled": {
+          "tint": "aeb8c7ff"
+        }
+      }
+    },
+    "slot-selected": {
+      "region": [
+        1699,
+        0,
+        234,
+        179
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {
+        "pressed": "slot-selected",
+        "selected": "slot-selected",
+        "disabled": {
+          "tint": "aeb8c7ff"
+        }
+      }
+    },
+    "container-tray": {
+      "region": [
+        0,
+        179,
+        392,
+        216
+      ],
+      "slice_px": [
+        48,
+        48,
+        48,
+        48
+      ],
+      "edge": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "content": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
+    },
+    "container-modal": {
+      "region": [
+        392,
+        179,
+        296,
+        237
+      ],
+      "slice_px": [
+        48,
+        48,
+        48,
+        48
+      ],
+      "edge": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "content": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
+    },
+    "toast-error": {
+      "region": [
+        688,
+        179,
+        288,
+        137
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
+    },
+    "noren-rail": {
+      "region": [
+        976,
+        179,
+        360,
+        124
+      ],
+      "slice_px": [
+        32,
+        32,
+        32,
+        32
+      ],
+      "edge": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "content": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
+    },
+    "context-bubble": {
+      "region": [
+        1336,
+        179,
+        254,
+        120
+      ],
+      "slice_px": [
+        48,
+        48,
+        48,
+        48
+      ],
+      "edge": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
+    },
+    "stock-badge": {
+      "region": [
+        1590,
+        179,
+        185,
+        187
+      ],
+      "slice_px": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "edge": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "content": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
+    },
+    "tab-active": {
+      "region": [
+        0,
+        416,
+        293,
+        147
+      ],
+      "slice_px": [
+        32,
+        32,
+        32,
+        32
+      ],
+      "edge": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "content": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {
+        "pressed": {
+          "tint": "d8dce9ff"
+        },
+        "selected": "tab-active",
+        "disabled": {
+          "tint": "a8afc0ff"
+        }
+      }
+    },
+    "tab-idle": {
+      "region": [
+        293,
+        416,
+        297,
+        147
+      ],
+      "slice_px": [
+        32,
+        32,
+        32,
+        32
+      ],
+      "edge": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "content": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {
+        "pressed": "tab-active",
+        "selected": "tab-active",
+        "disabled": {
+          "tint": "a8afc0ff"
+        }
+      }
+    },
+    "coin-panel": {
+      "region": [
+        590,
+        416,
+        248,
+        116
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
+    },
+    "context-action": {
+      "region": [
+        838,
+        416,
+        16,
+        16
+      ],
+      "slice_px": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "edge": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "content": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "stretch": "Borderless generated plain-cream centre sample; normally transparent over the authored capsule, with a quiet flat pressed fill.",
+      "states": {
+        "pressed": {
+          "draw_center": true,
+          "tint": "d4d9ddff"
+        }
+      },
+      "draw_center": false
+    }
+  },
+  "icons": {
     "people": {
-      "image": "people.png",
-      "sha256": "82880f72bdee66ff39542bbe056b245331f6cfbcfe6ec345ae50adf8761ab4b9",
-      "bytes": 85976,
-      "dimensions": [
-        388,
-        356
-      ],
-      "source": "assets/ui/editor/v1/raw/people.png",
-      "source_sha256": "3e4eba648f1ba86e527cb5edfe9abeb7a9bc960a53a1f40ddbbc7a7d233f39c1",
-      "source_dimensions": [
-        1316,
-        1195
-      ],
-      "alpha_bounds": [
-        0,
-        20,
-        1280,
-        1195
-      ],
-      "registration": "fixed alpha trim; aspect-preserving Lanczos downsample; 2px gutter"
+      "region": [
+        854,
+        416,
+        274,
+        318
+      ]
     },
     "layout": {
-      "image": "layout.png",
-      "sha256": "b13296f5afba3d05807ff59cd59bb25d22e564f1c14a4a917fc202d067f66a1b",
-      "bytes": 76682,
-      "dimensions": [
-        388,
-        363
-      ],
-      "source": "assets/ui/editor/v1/raw/layout.png",
-      "source_sha256": "52806e57f5ee2053d319e6538777ae71ace1d32e096174a7fe46ced2f21884cf",
-      "source_dimensions": [
-        1312,
-        1199
-      ],
-      "alpha_bounds": [
-        57,
-        19,
-        1294,
-        1175
-      ],
-      "registration": "fixed alpha trim; aspect-preserving Lanczos downsample; 2px gutter"
+      "region": [
+        1128,
+        416,
+        265,
+        276
+      ]
     },
     "floor": {
-      "image": "floor.png",
-      "sha256": "b62ceacc7bafa1f55666b0629a63603bc7c05c24c063fdc906c559dcffb29e84",
-      "bytes": 89140,
-      "dimensions": [
-        356,
-        388
-      ],
-      "source": "assets/ui/editor/v1/raw/floor.png",
-      "source_sha256": "eccadf49af59583d6eb2bf9dbb8e29fb250ac717f68a9ec4c4dbd8436cd5873a",
-      "source_dimensions": [
-        1254,
-        1254
-      ],
-      "alpha_bounds": [
-        41,
-        25,
-        1168,
-        1254
-      ],
-      "registration": "fixed alpha trim; aspect-preserving Lanczos downsample; 2px gutter"
+      "region": [
+        1393,
+        416,
+        253,
+        245
+      ]
+    },
+    "shop": {
+      "region": [
+        1646,
+        416,
+        282,
+        260
+      ]
     },
     "rotate": {
-      "image": "rotate.png",
-      "sha256": "d823bc740e37a2dabc91a7d54ee3cf6fc1baebedec774e3c359710263d8722ee",
-      "bytes": 104504,
-      "dimensions": [
-        375,
-        388
-      ],
-      "source": "assets/ui/editor/v1/raw/rotate.png",
-      "source_sha256": "410d5f294f08dab442b7868e0fef198b0926ac3413e4d36d321c42d3e0eab565",
-      "source_dimensions": [
-        1254,
-        1254
-      ],
-      "alpha_bounds": [
-        69,
-        43,
-        1240,
-        1254
-      ],
-      "registration": "fixed alpha trim; aspect-preserving Lanczos downsample; 2px gutter"
+      "region": [
+        0,
+        734,
+        242,
+        258
+      ]
     },
     "remove": {
-      "image": "remove.png",
-      "sha256": "8684170e6814d8fec7a3eaa8eb3637f0e77460e3f33ac67b25fec10344416b62",
-      "bytes": 101309,
-      "dimensions": [
-        388,
-        335
-      ],
-      "source": "assets/ui/editor/v1/raw/remove.png",
-      "source_sha256": "5bcaa9ac51e67bdd73e9598993c15ba034b0f812eef751d61019812e95da7694",
-      "source_dimensions": [
-        1312,
-        1199
-      ],
-      "alpha_bounds": [
-        0,
-        88,
-        1262,
-        1177
-      ],
-      "registration": "fixed alpha trim; aspect-preserving Lanczos downsample; 2px gutter"
+      "region": [
+        242,
+        734,
+        263,
+        251
+      ]
     },
     "caret-left": {
-      "image": "caret-left.png",
-      "sha256": "a3b478b52e8458411da548f6cd0f6131e62aac5259624fee1bf61feeafaf8b93",
-      "bytes": 46309,
-      "dimensions": [
-        388,
-        279
-      ],
-      "source": "assets/ui/editor/v1/raw/caret-left.png",
-      "source_sha256": "2a5ac0a278d1d91dd7266acd2fe12f0b3fe9f6f05cde8a49ee891b75271f6fe9",
-      "source_dimensions": [
-        1536,
-        1024
-      ],
-      "alpha_bounds": [
-        329,
-        114,
-        1498,
-        952
-      ],
-      "registration": "fixed alpha trim; aspect-preserving Lanczos downsample; 2px gutter"
+      "region": [
+        505,
+        734,
+        167,
+        247
+      ]
     },
     "caret-right": {
-      "image": "caret-right.png",
-      "sha256": "f5c795a01c9e00ae17ca9da2bcaa4cf535045e28000940e360b94bfc652e8464",
-      "bytes": 46329,
-      "dimensions": [
-        388,
-        279
-      ],
-      "derived_from": "caret-left",
-      "operation": "horizontal mirror"
+      "region": [
+        672,
+        734,
+        163,
+        251
+      ]
+    },
+    "coin": {
+      "region": [
+        835,
+        734,
+        275,
+        274
+      ]
+    },
+    "close": {
+      "region": [
+        1110,
+        734,
+        224,
+        218
+      ]
+    },
+    "retry": {
+      "region": [
+        1334,
+        734,
+        241,
+        254
+      ]
+    },
+    "warning": {
+      "region": [
+        1575,
+        734,
+        279,
+        251
+      ]
+    },
+    "play": {
+      "region": [
+        0,
+        1008,
+        221,
+        242
+      ]
+    },
+    "pointer": {
+      "region": [
+        221,
+        1008,
+        203,
+        129
+      ]
+    },
+    "edit": {
+      "region": [
+        424,
+        1008,
+        228,
+        233
+      ]
+    },
+    "check": {
+      "region": [
+        652,
+        1008,
+        248,
+        196
+      ]
     }
   }
 }

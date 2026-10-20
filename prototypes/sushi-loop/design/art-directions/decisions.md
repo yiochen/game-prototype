@@ -217,6 +217,26 @@ does not change floor geometry, projection or atlas resolution.
 
 ## ART-10 — UI uses the approved catalog and ImageGen (2026-10-19)
 
-The user explicitly requires every UI-related ticket to inspect **Restaurant UI & item catalog** before implementation and to create corresponding UI elements with ImageGen instead of choosing an unrelated style. Reuse approved assets, follow current wireframes for composition/behavior, preserve the transparent restaurant HUD, and inspect the underwater references for expedition-specific work. Keep dynamic labels/counts separate from generated artwork and retain source/prompt/reference provenance.
+The user explicitly requires every UI-related ticket to inspect **Restaurant UI & item catalog** before implementation and to create corresponding UI elements with ImageGen instead of choosing an unrelated style. Reuse approved assets, follow current wireframes for behavior and the accepted B decision below for revised composition, preserve the transparent restaurant HUD, and inspect the underwater references for expedition-specific work. Keep dynamic labels/counts separate from generated artwork and retain source/prompt/reference provenance.
 
 The [UI reference workflow](README.md#ui-reference-workflow-art-10-approved-2026-10-19) defines the implementation/review steps. Relevant normal, pressed, disabled, selected and specified NEW/MAX states must appear in the shared native gallery and full-scene phone/wider-portrait captures. Catalog branding, example values and illustrative controls do not add gameplay requirements. This applies prospectively to all remaining implementation tickets, beginning with #12; it does not reopen completed #33 world-art approval.
+
+### Whole-screen UI family and undistorted framing — 2026-10-19
+
+The user's issue #12 review rejected three defects: whole ImageGen buttons were stretched and acquired unequal padding; controls were generated in isolation without considering their neighbors; and passive containers retained generic engine styling. Begin each UI slice with a complete screen composition and an inventory of its interactive and passive surfaces, including tray/card backings, modal and recovery panels and toasts. Generate a coordinated ImageGen family using that composition and the catalog as common references. Shared materials, rims, corners, hierarchy, spacing and interaction states must work together.
+
+Retain every full original output and generation record. Calibrate fixed corners/edges and symmetric content insets; use nine-slice framing only for documented plain spans or preserve the designed aspect ratio. Never stretch complete controls or icons. Scale the family uniformly and keep icons undistorted. Compare real full-scene phone and wider-window captures with the complete composition and catalog; provenance/hash verification alone cannot establish visual acceptance. These constraints apply to all remaining UI tickets. The accepted B decision below supersedes older layout and paging requirements while retaining control semantics and the transparent HUD.
+
+
+### Accepted B — Indigo noren & warm ceramic (2026-10-19)
+
+The user approved [the final B composition](../../assets/ui/editor/v4/raw/b-indigo-ceramic.png) and explicitly allowed creative UI changes beyond the old game layout. This is an approved production direction, rather than a pending concept. It governs #12 and the shared UI family for every future UI ticket, always read with the unchanged [restaurant item catalog](restaurant-item-catalog.png) and [restaurant world concept](restaurant-concept.png).
+
+- Horizontal indigo cloth **People / Layout / Floor** categories above a warm cream drawer; **three visible Layout inventory items with paging**.
+- A compact grouped, labeled **Rotate / Return** capsule attached to selection. Return keeps the object in storage; its icon is a box with an inward arrow.
+- **Vermilion Live** as the primary action, **quiet cream Shop** and **neutral ivory/navy stock badges**.
+- Coordinated generated artwork and calibrated framing for interactive controls and passive drawers, trays, cards, panels and feedback surfaces; dynamic labels/counts remain native text.
+
+This decision explicitly supersedes the earlier right-side category stack, two-inventory-items-per-page requirement and fixed UI control placements for #12. Preserve category/action semantics, placement/drag/rotation/return, paging, edit pause, autosave/recovery and system Back. Do not add Save/Done/Cancel/Undo/page numbers. The world pictured in B is composition guidance; the approval does not replace registered native sprites, projection, roots, footprints or the locked world-art decisions. A and v2/v3 sources remain historical comparisons; only selected B is normative.
+
+The production extraction lives in `assets/ui/editor/v5/`. Retain its full generated coordinated sheets, exact prompts, references/hashes and packing procedure. Manifest version 2 must trace all active and passive regions to those sheets and record source slices, fixed logical edges and symmetric content calibration. Passing provenance checks is necessary for packaging and does not replace full-scene native visual review.

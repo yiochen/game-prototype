@@ -6,6 +6,9 @@ const RestaurantView = preload("res://scripts/restaurant_view.gd")
 const Audio = preload("res://scripts/audio.gd")
 const Typography = preload("res://scripts/typography.gd")
 const EditorPresentation = preload("res://scripts/editor_presentation.gd")
+const UISkin = preload("res://scripts/ui_skin.gd")
+const INK := Color("233d58")
+const CREAM := Color("fff3db")
 var session: Session
 var store: Persistence
 var world: RestaurantView
@@ -27,6 +30,7 @@ var previous_selection := ""
 var selection_tween: Tween
 var simulation_enabled := true
 var money: Label
+var editing_cue: Label
 var coin: TextureRect
 var shop: Button
 var edit: Button
@@ -48,6 +52,7 @@ var recovery_title: Label
 var recovery_message: Label
 var recovery_retry: Button
 var recovery_close: Button
+var skin: UISkin
 
 func _ready() -> void:
 	# Godot defaults to quitting on Android Back before modal UI can own it.
@@ -68,6 +73,7 @@ func _ready() -> void:
 			save_blocked = true
 	body_font = Typography.body()
 	display_font = Typography.heading()
+	skin = UISkin.new()
 	audio = Audio.new()
 	audio.set_muted(show_gallery or show_editor_gallery or save_blocked)
 	add_child(audio)
@@ -80,32 +86,37 @@ func _ready() -> void:
 	world_clip.add_child(world)
 	world.state = session.snapshot()
 	coin = TextureRect.new()
-	coin.texture = load("res://assets/ui/coin.svg")
+	coin.texture = skin.icon("coin")
 	coin.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	coin.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	coin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(coin)
 	money = Label.new()
 	money.add_theme_font_override("font", body_font)
-	money.add_theme_color_override("font_color", Color("ffedbf") if show_gallery else Color("253b3b"))
+	money.add_theme_color_override("font_color", CREAM if show_gallery else INK)
 	money.add_theme_color_override("font_shadow_color", Color("263a38") if show_gallery else Color("fff2c8"))
 	money.add_theme_constant_override("shadow_offset_x", 1)
 	money.add_theme_constant_override("shadow_offset_y", 1)
 	money.accessibility_name = "Coins"
 	money.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(money)
+	editing_cue = Label.new()
+	editing_cue.text = "Editing"
+	editing_cue.add_theme_font_override("font", body_font)
+	editing_cue.add_theme_color_override("font_color", INK)
+	editing_cue.add_theme_color_override("font_shadow_color", CREAM)
+	editing_cue.add_theme_constant_override("shadow_offset_y", 1)
+	editing_cue.accessibility_name = "Editing restaurant"
+	editing_cue.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(editing_cue)
 	shop = make_button("Shop", "shop", true)
 	edit = make_button("Edit", "edit", false)
-	staff = make_button("Staff", "staff", true)
+	staff = make_button("Staff", "people", true)
 	editor_ui = EditorPresentation.new()
 	add_child(editor_ui)
 	editor_ui.command_requested.connect(_editor_command)
 	editor_ui.item_pointer.connect(_inventory_pointer)
 	editor_ui.item_armed.connect(_arm_item)
-	if ResourceLoader.exists(EditorPresentation.DIRECTORY + "layout.png"):
-		edit.icon = editor_ui.icon_texture("layout")
-		for kind in ["normal", "hover", "pressed", "disabled"]:
-			edit.add_theme_stylebox_override(kind, editor_ui._style("button-wood", kind))
 	edit.pressed.connect(func(): _editor_command({"type": "set_mode", "mode": "edit"}))
 	if show_editor_gallery:
 		session.command({"type": "set_mode", "mode": "edit"})
@@ -130,54 +141,40 @@ func _ready() -> void:
 func make_button(text: String, icon_name: String, disabled := false) -> Button:
 	var button := Button.new()
 	button.text = text
-	button.icon = load("res://assets/ui/" + icon_name + ".svg")
+	button.icon = skin.icon(icon_name)
 	button.expand_icon = true
 	button.disabled = disabled
 	button.accessibility_name = text
 	button.add_theme_font_override("font", body_font)
-	button.add_theme_color_override("font_color", Color("fff4d7"))
-	button.add_theme_color_override("font_hover_color", Color("fff9e8"))
-	button.add_theme_color_override("font_pressed_color", Color("ffefbb"))
-	button.add_theme_color_override("font_disabled_color", Color("c8cbc0"))
-	button.add_theme_color_override("icon_disabled_color", Color("a9b9b5"))
-	button.add_theme_constant_override("h_separation", 10)
-	for kind in ["normal", "hover", "pressed", "disabled", "focus"]:
-		button.add_theme_stylebox_override(kind, button_style(kind))
+	button.add_theme_color_override("font_color", INK)
+	button.add_theme_color_override("font_hover_color", INK)
+	button.add_theme_color_override("font_pressed_color", INK)
+	button.add_theme_color_override("font_hover_pressed_color", INK)
+	button.add_theme_color_override("font_focus_color", INK)
+	button.add_theme_color_override("font_disabled_color", Color("75828b"))
+	button.add_theme_color_override("icon_disabled_color", Color("8e9ba5"))
+	_style_native_button(button, 1.0)
 	add_child(button)
 	button.pressed.connect(func(): audio.play_cue("click"))
 	return button
 
-func button_style(kind: String) -> StyleBoxFlat:
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color("a5673b")
-	style.border_color = Color("523b2e")
-	style.set_border_width_all(3)
-	style.border_width_bottom = 8
-	style.set_corner_radius_all(15)
-	style.content_margin_left = 15
-	style.content_margin_right = 15
-	style.content_margin_top = 8
-	style.content_margin_bottom = 12
-	style.shadow_color = Color(0.04, 0.13, 0.14, 0.25)
-	style.shadow_size = 6
-	style.shadow_offset = Vector2(0, 4)
-	if kind == "hover":
-		style.bg_color = Color("b87e45")
-	elif kind == "pressed":
-		style.bg_color = Color("885735")
-		style.border_color = Color("f2cc6b")
-		style.border_width_bottom = 3
-		style.shadow_size = 2
-	elif kind == "disabled":
-		style.bg_color = Color("405e60")
-		style.border_color = Color("30494d")
-		style.shadow_size = 0
-	elif kind == "focus":
-		style.bg_color = Color.TRANSPARENT
-		style.border_color = Color("ffdd73")
-		style.set_border_width_all(4)
-		style.shadow_size = 0
-	return style
+func _style_native_button(button: Button, unit: float) -> void:
+	if is_equal_approx(float(button.get_meta("skin_unit", -1.0)), unit): return
+	button.set_meta("skin_unit", unit)
+	var role := str(button.get_meta("skin_role", "control-wood"))
+	for kind in ["normal", "hover", "pressed", "disabled"]:
+		button.add_theme_stylebox_override(kind, skin.style(role, unit, kind))
+	for kind in ["font_color", "font_hover_color", "font_pressed_color", "font_hover_pressed_color", "font_focus_color"]:
+		button.add_theme_color_override(kind, CREAM if role == "control-green" else INK)
+	button.add_theme_constant_override("h_separation", int(10 * unit))
+	button.add_theme_constant_override("outline_size", 0)
+	button.add_theme_color_override("font_outline_color", Color("594431"))
+	var focus := StyleBoxFlat.new()
+	focus.bg_color = Color.TRANSPARENT
+	focus.border_color = Color("f16b50")
+	focus.set_border_width_all(maxi(1, int(3 * unit)))
+	focus.set_corner_radius_all(maxi(1, int(18 * unit)))
+	button.add_theme_stylebox_override("focus", focus)
 
 func _layout() -> void:
 	if world == null:
@@ -197,6 +194,11 @@ func _layout() -> void:
 	money.position = Vector2(area.position.x + 94 * unit, top - 2 * unit)
 	money.size = Vector2(300, 60) * unit
 	money.add_theme_font_size_override("font_size", int(43 * unit))
+	money.add_theme_constant_override("shadow_offset_x", maxi(1, int(unit)))
+	money.add_theme_constant_override("shadow_offset_y", maxi(1, int(unit)))
+	editing_cue.position = Vector2(area.position.x + 34 * unit, top + 64 * unit)
+	editing_cue.size = Vector2(166, 50) * unit
+	editing_cue.add_theme_font_size_override("font_size", int(28 * unit))
 	shop.position = Vector2(area.position.x + (440 * unit if show_gallery else 34 * unit), 112 * unit if show_gallery else 145 * unit)
 	shop.size = Vector2(224, 108) * unit
 	edit.position = Vector2(area.position.x + 34 * unit, area.end.y - 156 * unit)
@@ -206,16 +208,19 @@ func _layout() -> void:
 	for button in [shop, edit, staff]:
 		button.add_theme_font_size_override("font_size", int(34 * unit))
 		button.add_theme_constant_override("icon_max_width", int(48 * unit))
+		_style_native_button(button, unit)
 	for i in range(gallery_buttons.size()):
 		var button: Button = gallery_buttons[i]
 		button.position = Vector2(area.position.x + (38 + i * 220) * unit, area.end.y - 185 * unit)
 		button.size = Vector2(206, 110) * unit
 		button.add_theme_font_size_override("font_size", int(34 * unit))
 		button.add_theme_constant_override("icon_max_width", int(38 * unit))
+		_style_native_button(button, unit)
 	# Editor controls share the same contained portrait and root input coordinates.
 	editor_ui.size = size
 	editor_ui.set_state(session.snapshot(), area)
 	if recovery != null:
+		recovery.add_theme_stylebox_override("panel", skin.style("container-modal", unit))
 		recovery.position = Vector2(area.position.x + 34 * unit, area.size.y * 0.28)
 		recovery.size = Vector2(652, 600) * unit
 		recovery_title.position = Vector2(32, 32) * unit
@@ -231,6 +236,7 @@ func _layout() -> void:
 		for button in [recovery_retry, recovery_close]:
 			button.add_theme_font_size_override("font_size", int(34 * unit))
 			button.add_theme_constant_override("icon_max_width", int(44 * unit))
+			_style_native_button(button, unit)
 
 func _process(delta: float) -> void:
 	if session == null or backgrounded or save_blocked:
@@ -272,6 +278,8 @@ func _refresh() -> void:
 		money.text = coins_text
 		money.accessibility_description = "%s coins" % coins_text
 	var editing: bool = world.state.get("mode", "live") == "edit"
+	editing_cue.visible = editing and not show_gallery
+	shop.visible = show_gallery or not editing
 	edit.visible = not show_gallery and not editing
 	staff.visible = not show_gallery and not editing
 	editor_ui.reduced_motion = world.reduced_motion
@@ -306,6 +314,12 @@ func _selected_object() -> Dictionary:
 
 func _editor_command(value: Dictionary) -> Dictionary:
 	if save_blocked: return {"ok": false, "reason": "save_blocked"}
+	if value.get("type") == "editor_shop":
+		# The drawer shortcut exposes the existing unavailable feature without
+		# introducing purchases or mutating the paused restaurant.
+		audio.play_cue("click")
+		editor_ui.reject("shop_unavailable")
+		return {"ok": false, "reason": "shop_unavailable"}
 	var result: Dictionary = session.command(value)
 	if result.get("ok", false):
 		if value.type in ["set_mode", "editor_layer", "editor_remove"]:
@@ -453,13 +467,8 @@ func _floor_drop(at: Vector2) -> bool:
 		return false
 	if editor_ui.inspection.visible or (recovery != null and recovery.is_visible_in_tree()):
 		return false
-	if editor_ui.tray.is_visible_in_tree() and editor_ui.tray.get_global_rect().has_point(at):
-		return false
-	var controls: Array = [shop, editor_ui.live, editor_ui.rotate, editor_ui.remove]
-	controls.append_array(editor_ui.layers.values())
-	for control in controls:
-		if control.is_visible_in_tree() and control.get_global_rect().has_point(at):
-			return false
+	for blocked: Rect2 in editor_ui.blocked_rects():
+		if blocked.has_point(at): return false
 	return true
 
 func _update_preview(at: Vector2) -> void:
@@ -491,8 +500,13 @@ func _pan(change: Vector2) -> void:
 	var visible_columns := float(floor_data.get("viewport_columns", floor_data.columns))
 	var limit := maxf(0.0, float(floor_data.world_columns) - visible_columns)
 	var x := clampf(float(camera.x) - change.x / world.cell, 0.0, limit)
-	var visible_rows := maxf(1.0, (world.portrait.size.y - 48.0) / world.cell)
-	var vertical_limit := maxf(0.0, float(floor_data.rows) - visible_rows)
+	var visible_bottom := world.portrait.end.y - 24.0
+	if scene.get("mode", "live") == "edit":
+		visible_bottom = editor_ui.occlusion_top()
+	# Tall windows center the floor below the HUD. Include that real origin so
+	# the final tile can reach the rail rather than remaining hidden behind it.
+	var floor_bottom := world.floor_origin.y + float(floor_data.rows) * world.cell
+	var vertical_limit := maxf(0.0, (floor_bottom - visible_bottom) / world.cell)
 	var y := clampf(float(camera.y) - change.y / world.cell, 0.0, vertical_limit)
 	session.command({"type": "set_camera", "x": x, "y": y})
 	_refresh()
@@ -521,33 +535,29 @@ func _valid_saved_session(data: Dictionary) -> bool:
 func _make_recovery() -> void:
 	recovery = Panel.new()
 	recovery.accessibility_name = "Saved restaurant needs attention"
-	var paper := StyleBoxFlat.new()
-	paper.bg_color = Color("ffefcf")
-	paper.border_color = Color("513d32")
-	paper.set_border_width_all(4)
-	paper.set_corner_radius_all(18)
-	recovery.add_theme_stylebox_override("panel", paper)
+	# Startup recovery is created before the first world layout. Use the same
+	# positive base scale as new buttons; _layout calibrates it before drawing.
+	recovery.add_theme_stylebox_override("panel", skin.style("container-modal"))
 	add_child(recovery)
 	recovery_title = Label.new()
 	recovery_title.text = "Your edit needs saving" if pending_edit_save else "Saved restaurant\nneeds attention"
 	recovery_title.add_theme_font_override("font", display_font)
-	recovery_title.add_theme_color_override("font_color", Color("253b3b"))
+	recovery_title.add_theme_color_override("font_color", INK)
 	recovery.add_child(recovery_title)
 	recovery_message = Label.new()
 	recovery_message.text = "Your changes are still here. Storage could not be updated. Retry to save this arrangement. Closing keeps the last successfully saved restaurant." if pending_edit_save else "Your restaurant could not be opened. Your save files have been kept. You can try opening them again."
 	recovery_message.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	recovery_message.add_theme_font_override("font", body_font)
-	recovery_message.add_theme_color_override("font_color", Color("253b3b"))
+	recovery_message.add_theme_color_override("font_color", INK)
 	recovery.add_child(recovery_message)
-	recovery_retry = make_button("Retry", "arrow")
+	recovery_retry = make_button("Retry", "retry")
 	recovery_close = make_button("Close", "close")
+	recovery_retry.set_meta("skin_role", "control-green")
+	recovery_retry.set_meta("skin_unit", -1.0)
+	for kind in ["font_color", "font_hover_color", "font_pressed_color", "font_hover_pressed_color", "font_focus_color"]:
+		recovery_retry.add_theme_color_override(kind, CREAM)
 	recovery_retry.reparent(recovery)
 	recovery_close.reparent(recovery)
-	if pending_edit_save:
-		for button in [recovery_retry, recovery_close]:
-			button.icon = null
-			for kind in ["normal", "hover", "pressed", "disabled"]:
-				button.add_theme_stylebox_override(kind, editor_ui._style("button-wood", kind))
 	recovery_retry.pressed.connect(_retry_restore)
 	recovery_close.pressed.connect(func(): get_tree().quit())
 

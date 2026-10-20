@@ -16,17 +16,30 @@ func run() -> void:
 		push_error("An isolated capture output directory is required.")
 		quit(1)
 		return
+	# macOS may clamp the initial --resolution to its desktop work area. Match
+	# the isolated native test's explicit window size before laying out the app.
+	var requested_size := OS.get_environment("SUSHI_LOOP_TEST_SIZE").split("x")
+	if requested_size.size() == 2 and requested_size[0].is_valid_int() and requested_size[1].is_valid_int():
+		root.size = Vector2i(int(requested_size[0]), int(requested_size[1]))
 	DirAccess.make_dir_recursive_absolute(destination)
 	app = APP.instantiate()
 	app.simulation_enabled = false
 	root.add_child(app)
 	await frames()
 	app.session = Session.new_session(41)
+	# This isolated review camera lifts the existing two counters above the
+	# open drawer; it does not change runtime camera defaults or user saves.
+	app.session.command({"type": "set_camera", "x": 0.0, "y": 1.25})
 	app.advance_time(1.0)
 	app._layout()
 	await capture("01-live-before-edit")
 	await tap(app.edit.get_global_rect().get_center())
 	await capture("02-edit-layout")
+	var before_shop: Dictionary = app.session.save_data()
+	await tap(app.editor_ui.shop.get_global_rect().get_center())
+	verify(same(before_shop, app.session.save_data()) and app.editor_ui.rejection.visible, "Editor Shop must show unavailable feedback without changing the paused restaurant")
+	await capture("02b-editor-shop-unavailable")
+	await create_timer(1.35).timeout
 	await tap(app.world.cell_base(2, 5))
 	verify(str(app.session.snapshot().editor.selected_id) == "seat-1", "The demonstrated stool must be selected")
 	await capture("03-selected-stool")

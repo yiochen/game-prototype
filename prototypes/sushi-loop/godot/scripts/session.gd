@@ -7,7 +7,7 @@ extends RefCounted
 const SAVE_VERSION := 1
 const BELT_MOTION_VERSION := 1
 const CUSTOMER_VISIT_VERSION := 1
-const EDITOR_VERSION := 1
+const EDITOR_VERSION := 2
 const EDITOR_PATH := "res://content/editor.json"
 const EDITOR_LAYERS := ["people", "layout", "floor"]
 const DECOR_ART_IDS := ["plant-angular", "crate-wood", "barrel-wood"]
@@ -196,6 +196,8 @@ func restore(data: Dictionary) -> bool:
 		_migrate_visit_state(restored_state, restored_configuration)
 	if int(data.get("editor_version", 0)) == 0:
 		_initialize_editor_state(restored_state)
+	elif int(data.get("editor_version", 0)) == 1:
+		if not _migrate_editor_paging(restored_state): return false
 	if not _valid_saved_state(restored_state, restored_configuration):
 		return false
 	if int(data.get("belt_motion_version", 0)) == 0:
@@ -1180,8 +1182,32 @@ func _editor_entries(layer: String, inventory: Array) -> Array:
 	return inventory.filter(func(entry): return _editor_layer_for(entry) == layer)
 
 func _editor_page_count(layer: String, inventory: Array) -> int:
-	var page_size := int(_editor_definition().get("page_sizes", {}).get(layer, 2))
+	var page_size := int(_editor_definition().get("page_sizes", {}).get(layer, 3))
 	return maxi(1, int(ceil(float(_editor_entries(layer, inventory).size()) / maxi(1, page_size))))
+
+func _migrate_editor_paging(state: Dictionary) -> bool:
+	# v1 displayed two Layout/Floor items. Preserve the first visible item's
+	# page when opening that save in the approved three-slot drawer. Validate
+	# v1 bounds before conversion so malformed saves do not become valid.
+	if not state.get("editor") is Dictionary or not state.get("inventory") is Array:
+		return false
+	var editor: Dictionary = state.editor
+	if not editor.get("layer") in EDITOR_LAYERS or not editor.get("pages") is Dictionary or not _nonnegative_integer(editor.get("page")):
+		return false
+	if not _nonnegative_integer(editor.pages.get(editor.layer)) or int(editor.page) != int(editor.pages[editor.layer]):
+		return false
+	for entry in state.inventory:
+		if not entry is Dictionary or not entry.get("kind") in ["chef", "belt", "seat", "decor", "floor"]: return false
+	for layer in EDITOR_LAYERS:
+		var old_size := 3 if layer == "people" else 2
+		var entry_count := _editor_entries(layer, state.inventory).size()
+		var old_count := maxi(1, int(ceil(float(entry_count) / old_size)))
+		if not _nonnegative_integer(editor.pages.get(layer)) or int(editor.pages[layer]) >= old_count:
+			return false
+		var page_size := maxi(1, int(_editor_definition().get("page_sizes", {}).get(layer, 3)))
+		editor.pages[layer] = mini(int(floor(float(int(editor.pages[layer]) * old_size) / page_size)), _editor_page_count(layer, state.inventory) - 1)
+	editor.page = editor.pages[editor.layer]
+	return true
 
 func _valid_editor_state(state: Dictionary, config: Dictionary) -> bool:
 	if not state.get("mode") in ["live", "edit"] or not state.get("editor") is Dictionary or not state.get("inventory") is Array:

@@ -41,6 +41,7 @@ func _run() -> void:
 	await _frames(4)
 	_expect(_same(stopped, app.session.snapshot()), "The opt-in controlled clock prevents frame-driven simulation in tests")
 	_test_geometry(app)
+	_test_skin(app)
 	await _test_configured_camera(app)
 	await _test_touch_and_hud(app)
 	await _test_editor(app)
@@ -71,6 +72,47 @@ func _expect(condition: bool, description: String) -> void:
 func _frames(count: int = 3) -> void:
 	for index in range(count):
 		await process_frame
+
+func _skin_source(surface: StyleBox) -> Array:
+	if surface is StyleBoxFlat or surface is StyleBoxTexture: return []
+	return [surface.texture.resource_path, surface.region]
+
+func _skin_calibrated(surface: StyleBox, skin, unit: float) -> bool:
+	if _skin_source(surface).is_empty(): return false
+	for raw in skin.manifest.styles.values():
+		var candidates: Array = [raw]
+		for treatment in raw.get("states", {}).values():
+			if treatment is Dictionary:
+				var variant: Dictionary = raw.duplicate(true)
+				variant.merge(treatment, true)
+				candidates.append(variant)
+		for entry in candidates:
+			var source: Array = entry.region
+			if not surface.region.is_equal_approx(Rect2(float(source[0]), float(source[1]), float(source[2]), float(source[3]))): continue
+			var matches := true
+			for side in [SIDE_LEFT, SIDE_TOP, SIDE_RIGHT, SIDE_BOTTOM]:
+				matches = matches and is_equal_approx(surface.get_margin(side), float(entry.content[side]) * unit)
+				matches = matches and is_equal_approx(float(surface.edges[side]), float(entry.edge[side]) * unit)
+			if matches: return true
+	return false
+
+func _test_skin(app) -> void:
+	# Exercise every material in its real screen role, including passive B
+	# containers. Fixed corners and content insets follow their manifest roles.
+	var editor = app.editor_ui
+	var unit: float = app.world.portrait.size.x / 720.0
+	var surfaces: Array = [app.shop.get_theme_stylebox("normal"), app.edit.get_theme_stylebox("normal"), app.staff.get_theme_stylebox("normal"), editor.live.get_theme_stylebox("normal"), editor.previous.get_theme_stylebox("normal"), editor.tray.get_theme_stylebox("panel"), editor.category_rail.get_theme_stylebox("panel"), editor.context_bubble.get_theme_stylebox("panel"), editor.inspection_panel.get_theme_stylebox("panel"), editor.inspection_preview_panel.get_theme_stylebox("panel"), editor.rejection.get_theme_stylebox("normal")]
+	var generated := true
+	var calibrated := true
+	for surface in surfaces:
+		generated = generated and not _skin_source(surface).is_empty()
+		calibrated = calibrated and _skin_calibrated(surface, editor.skin, unit)
+	_expect(generated, "Every HUD control, category rail, drawer, context capsule, profile well, modal and toast uses the coordinated generated B family")
+	_expect(calibrated, "Generated surfaces retain their documented fixed corner edges and content insets at the actual viewport scale")
+	_expect(_skin_source(surfaces[0]) == _skin_source(surfaces[1]) and _skin_source(surfaces[1]) == _skin_source(surfaces[2]), "Shop, Edit and Staff share the same neutral ceramic native frame")
+	_expect(_skin_source(editor.live.get_theme_stylebox("normal")) != _skin_source(app.edit.get_theme_stylebox("normal")), "Live has the distinct generated vermilion primary surface")
+	_expect(editor.previous.size.is_equal_approx(editor.next.size), "Both inventory pagers keep matching undistorted touch targets")
+	_expect(app.coin.stretch_mode == TextureRect.STRETCH_KEEP_ASPECT_CENTERED and app.coin.texture is AtlasTexture, "The generated coin preserves its aspect ratio in the transparent HUD")
 
 func _test_geometry(app) -> void:
 	var portrait: Rect2 = app.world.portrait
@@ -206,21 +248,42 @@ func _test_editor(app) -> void:
 	app._layout()
 	await _frames()
 	await _tap(app, app.edit.get_global_rect().get_center())
-	_expect(app.session.snapshot().mode == "edit" and app.editor_ui.visible and not app.edit.visible and not app.staff.visible, "Actual Edit touch opens the shared native editor and replaces Live actions")
+	_expect(app.session.snapshot().mode == "edit" and app.editor_ui.visible and app.editing_cue.visible and not app.shop.visible and not app.edit.visible and not app.staff.visible, "Actual Edit touch opens the shared native editor, shows Editing and moves Shop into the category rail")
 	_expect(not quit_on_go_back and auto_accept_quit, "The native app owns Android Back while retaining normal window-close behavior")
 	var paused: Dictionary = app.session.snapshot()
 	app.advance_time(20.0)
 	_expect(_same(paused, app.session.snapshot()), "The editor pauses actual customer, chef and conveyor simulation")
-	var controls: Array = [app.editor_ui.live, app.editor_ui.previous, app.editor_ui.next]
+	var camera_before_probe: Dictionary = app.session.save_data()
+	app._pan(Vector2(0, -app.world.cell * 100.0))
+	var final_row: Vector2 = app.world.cell_base(0.0, float(app.session.snapshot().floor.rows) - 1.0)
+	_expect(final_row.y + app.world.cell * 0.5 <= app.editor_ui.occlusion_top() + 0.01 and final_row.y - app.world.cell * 0.5 >= app.world.portrait.position.y + 145.0 * app.editor_ui.unit, "Editor vertical panning reveals the entire final floor row above the rail, including in tall windows with a centered floor")
+	_expect(app.session.restore(camera_before_probe), "The camera-boundary probe restores the same paused restaurant")
+	app._refresh()
+	var controls: Array = [app.editor_ui.live, app.editor_ui.previous, app.editor_ui.next, app.editor_ui.shop]
 	for button in app.editor_ui.layers.values(): controls.append(button)
 	var editor_fit := true
 	for button in controls:
 		var physical: Rect2 = app.get_viewport_transform() * button.get_global_rect()
 		editor_fit = editor_fit and app.world.portrait.encloses(button.get_global_rect()) and physical.size.x >= 44 and physical.size.y >= 44 and not button.accessibility_name.is_empty()
 	_expect(editor_fit, "Editor Live, layer and paging controls remain contained with native names and at least 44 physical pixel targets")
+	var rail_rect: Rect2 = app.editor_ui.category_rail.get_global_rect()
+	var prior_right := rail_rect.position.x
+	var horizontal := true
+	for layer in ["people", "layout", "floor"]:
+		var button: Button = app.editor_ui.layers[layer]
+		var rect: Rect2 = button.get_global_rect()
+		horizontal = horizontal and rail_rect.encloses(rect) and rect.position.x >= prior_right and button.text == str(layer).capitalize()
+		prior_right = rect.end.x
+	_expect(horizontal and rail_rect.encloses(app.editor_ui.shop.get_global_rect()) and app.editor_ui.shop.get_global_rect().position.x >= prior_right, "People, Layout, Floor and quiet Shop form one horizontal category rail with all names visible")
+	_expect(app.editor_ui.tray.get_global_rect().position.y >= rail_rect.end.y - 0.01, "The three-slot cream drawer begins below the indigo category rail")
+	var before_shop: Dictionary = app.session.save_data()
+	var before_shop_bytes: Dictionary = _save_bytes()
+	await _tap(app, app.editor_ui.shop.get_global_rect().get_center())
+	_expect(_same(before_shop, app.session.save_data()) and _same(before_shop_bytes, _save_bytes()) and app.editor_ui.rejection.visible and "Shop" in app.editor_ui.rejection.text, "The editor Shop shortcut shows unavailable feedback while preserving the paused restaurant and both saves")
 	await _tap(app, app.editor_ui.layers.people.get_global_rect().get_center())
-	_expect(app.editor_ui.layers.people.text == "People" and app.editor_ui.layers.layout.text.is_empty() and app.editor_ui.layers.floor.text.is_empty(), "Only the active People layer has a visible name")
+	_expect(app.editor_ui.layers.people.text == "People" and app.editor_ui.layers.layout.text == "Layout" and app.editor_ui.layers.floor.text == "Floor", "Every category keeps its visible name when People is active")
 	_expect(app.editor_ui.cards.size() == 3 and app.editor_ui.previous.disabled and app.editor_ui.next.disabled, "The compact People rail shows three existing staff with disabled boundary carets")
+	_expect(_skin_source(app.editor_ui.cards[0].get_theme_stylebox("normal")) != _skin_source(app.editor_ui.layers.people.get_theme_stylebox("normal")) and app.editor_ui.cards[0].get_theme_color("font_color") == Color("233d58"), "Roster cards use generated cream mats and navy ink beside the indigo category rail")
 	var before_profile: Dictionary = app.session.save_data()
 	var profile_tap: Vector2 = app.editor_ui.cards[0].get_global_rect().get_center()
 	await _touch(app, profile_tap, true, 19)
@@ -228,6 +291,7 @@ func _test_editor(app) -> void:
 	await _touch(app, profile_tap + Vector2(2, 1), false, 19)
 	await create_timer(0.23).timeout
 	_expect(app.editor_ui.inspection.visible and not app.editor_ui.inspection_preview.entry.is_empty() and "Salmon nigiri" in app.editor_ui.inspection_details.text and app.armed_item.is_empty() and _same(before_profile, app.session.save_data()), "A roster profile tap opens real recipe/preparation details without arming, moving or changing its chef")
+	_expect(app.editor_ui.inspection_close.has_focus() and app.editor_ui.inspection_close.get_theme_color("font_focus_color") == Color("233d58") and app.editor_ui.live.get_theme_color("font_focus_color") == Color("fff3db"), "Focused staff-detail Close remains navy on cream, and Live retains cream focus text on vermilion")
 	app.notification(Node.NOTIFICATION_WM_GO_BACK_REQUEST)
 	_expect(not app.editor_ui.inspection.visible and _same(before_profile, app.session.save_data()), "System Back closes staff details and returns to the same saved editor")
 	await _tap(app, app.editor_ui.cards[0].get_global_rect().get_center())
@@ -241,9 +305,9 @@ func _test_editor(app) -> void:
 	_expect(not app.editor_ui.inspection.visible and int(_object(app.session.snapshot(), "chef-1").x) == 4, "Dragging a roster profile moves its existing chef without opening the inspection popup")
 	app._editor_command({"type": "editor_select", "id": null})
 	await _tap(app, app.editor_ui.layers.layout.get_global_rect().get_center())
-	_expect(app.session.snapshot().editor.layer == "layout" and app.session.snapshot().editor.tray_open and app.editor_ui.cards.size() == 2, "Switching to Layout opens the same compact rail with two inventory items")
+	_expect(app.session.snapshot().editor.layer == "layout" and app.session.snapshot().editor.tray_open and app.editor_ui.cards.size() == 3, "Switching to Layout opens the coordinated drawer with three inventory slots")
 	await _tap(app, app.editor_ui.layers.layout.get_global_rect().get_center())
-	_expect(not app.session.snapshot().editor.tray_open and not app.editor_ui.tray.visible, "Tapping the active layer collapses its tray")
+	_expect(not app.session.snapshot().editor.tray_open and not app.editor_ui.tray.visible and app.editor_ui.category_rail.visible and app.editor_ui.shop.visible, "Tapping the active layer collapses the drawer and keeps the category rail and Shop available")
 	await _tap(app, app.editor_ui.layers.layout.get_global_rect().get_center())
 	var seat := _object(app.session.snapshot(), "seat-1")
 	if seat.is_empty():
@@ -258,7 +322,7 @@ func _test_editor(app) -> void:
 	app.session.command({"type": "set_camera", "x": 0.0, "y": 0.0})
 	app._refresh()
 	await _tap(app, at)
-	_expect(app.session.snapshot().editor.selected_id == seat_id and app.editor_ui.rotate.visible and app.editor_ui.remove.visible, "Tapping a real floor object selects its registered tile and exposes native rotate/removal controls")
+	_expect(app.session.snapshot().editor.selected_id == seat_id and app.editor_ui.rotate.visible and app.editor_ui.remove.visible and app.editor_ui.context_bubble.visible and app.editor_ui.context_bubble.get_global_rect().encloses(app.editor_ui.rotate.get_global_rect()) and app.editor_ui.context_bubble.get_global_rect().encloses(app.editor_ui.remove.get_global_rect()) and app.editor_ui.rotate.text == "Rotate" and app.editor_ui.remove.text == "Return", "Tapping a floor object exposes labelled Rotate and Return in one contextual ceramic capsule")
 	var destination: Vector2 = app.world.cell_base(3, 5)
 	await _touch(app, at, true, 12)
 	await _drag(app, at, destination, 12)
@@ -275,6 +339,8 @@ func _test_editor(app) -> void:
 	_expect(_same(before_rejection, app.session.save_data()) and app.editor_ui.rejection.visible, "Rejected object drop restores the exact arrangement and shows brief feedback")
 	await _test_rejected_overlay_release(app, destination, app.world.cell_base(1, 12), "the open inventory tray")
 	await _test_rejected_overlay_release(app, destination, app.editor_ui.layers.people.get_global_rect().get_center(), "a visible People layer control")
+	var capsule_target: Vector2 = _valid_underlay(app, app.editor_ui.context_bubble.get_global_rect(), seat_id)
+	await _test_rejected_overlay_release(app, destination, capsule_target, "the contextual Rotate/Return capsule")
 	app.session.command({"type": "set_camera", "x": 1.0, "y": 0.0})
 	app._refresh()
 	var outside_portrait: Vector2 = Vector2(app.world.portrait.position.x - 2.0, app.world.cell_base(0, 4).y)
@@ -309,7 +375,7 @@ func _test_editor(app) -> void:
 	await _touch(app, outside - Vector2(app.world.cell, 0), false, 14)
 	_expect(str(app.session.snapshot().editor.selected_id).is_empty() and float(app.session.snapshot().camera.x) > camera_before, "A swipe outside the selection deselects and pans in that same gesture")
 	await _tap(app, app.editor_ui.next.get_global_rect().get_center())
-	_expect(int(app.session.snapshot().editor.page) == 1 and app.editor_ui.page_announcement.accessibility_name == "Layout page 2 of 3" and not app.editor_ui.previous.disabled, "The edge caret changes inventory pages with an accessible announcement and no visible page number")
+	_expect(int(app.session.snapshot().editor.page) == 1 and app.editor_ui.page_announcement.accessibility_name == "Layout page 2 of 2" and not app.editor_ui.previous.disabled, "The edge caret changes inventory pages with an accessible announcement and no visible page number")
 	await _tap(app, app.editor_ui.layers.floor.get_global_rect().get_center())
 	_expect(app.editor_ui.cards.size() == 1 and app.editor_ui.cards[0].disabled and app.editor_ui.layers.floor.text == "Floor", "Floor keeps its approved tray composition and shows the current floor without adding future painting mechanics")
 	app._editor_command({"type": "editor_select", "id": "chef-1"})
@@ -319,6 +385,8 @@ func _test_editor(app) -> void:
 	app._editor_command({"type": "editor_rotate", "id": "chef-1"})
 	var pending: Dictionary = app.session.save_data()
 	_expect(app.save_blocked and app.pending_edit_save and app.recovery.visible and "saving" in app.recovery_title.text, "An immediate edit write failure opens a blocking, readable retry instead of silently losing the accepted arrangement")
+	_expect(app.recovery_retry.get_theme_color("font_focus_color") == Color("fff3db") and app.recovery_close.get_theme_color("font_focus_color") == Color("233d58") and app.edit.get_theme_color("font_focus_color") == Color("233d58"), "HUD and recovery focus colors preserve the same primary and neutral text contrast")
+	_expect(_skin_calibrated(app.recovery.get_theme_stylebox("panel"), app.skin, app.editor_ui.unit) and _skin_source(app.recovery_retry.get_theme_stylebox("normal")) == _skin_source(app.skin.style("control-green", app.editor_ui.unit)) and _skin_source(app.recovery_close.get_theme_stylebox("normal")) == _skin_source(app.skin.style("control-wood", app.editor_ui.unit)) and app.recovery_title.get_theme_color("font_color") == Color("233d58"), "Save retry uses the same calibrated cream recovery panel, navy type and vermilion primary as the editor")
 	_expect(not app._editor_command({"type": "editor_remove", "id": "chef-1"}).ok and _same(pending, app.session.save_data()), "A pending editor save blocks further mutations while preserving the exact in-memory arrangement")
 	await _tap(app, app.recovery_retry.get_global_rect().get_center())
 	_expect(app.save_blocked and _same(pending, app.session.save_data()), "Retrying while storage is unavailable keeps the accepted in-memory edit intact")
@@ -331,7 +399,7 @@ func _test_editor(app) -> void:
 	var restored = Session.new()
 	_expect(app.save_now() and restored.restore(app.store.load_session()) and _same(edit_saved, restored.snapshot()), "Every accepted editor change immediately persists mode, camera, layer and tray state through the actual save store")
 	await _tap(app, app.editor_ui.live.get_global_rect().get_center())
-	_expect(app.session.snapshot().mode == "live" and not app.editor_ui.visible and app.edit.visible, "Top-right Live returns directly to service without Save, Done, Cancel or Undo")
+	_expect(app.session.snapshot().mode == "live" and not app.editor_ui.visible and app.edit.visible and app.shop.visible and not app.editing_cue.visible, "Top-right Live returns directly to service without Save, Done, Cancel or Undo")
 	var elapsed_before := float(app.session.snapshot().elapsed)
 	app.advance_time(1.0)
 	_expect(float(app.session.snapshot().elapsed) > elapsed_before, "Returning to Live resumes the actual operating simulation")
@@ -340,6 +408,19 @@ func _test_editor(app) -> void:
 	app._layout()
 	app.save_now()
 	await _frames()
+
+func _valid_underlay(app, rect: Rect2, identity: String) -> Vector2:
+	# Prefer the capsule's pointer/padding outside either action button.
+	var samples := [Vector2(0.5, 0.94), Vector2(0.02, 0.5), Vector2(0.98, 0.5)]
+	for y in [0.15, 0.5, 0.85]:
+		for x in [0.15, 0.5, 0.85]: samples.append(Vector2(x, y))
+	for sample in samples:
+		var target: Vector2 = rect.position + rect.size * sample
+		var cell: Vector2i = app._cell_at(target)
+		var probe = Session.new()
+		if probe.restore(app.session.save_data()) and probe.command({"type": "editor_move", "id": identity, "x": cell.x, "y": cell.y}).ok:
+			return target
+	return rect.get_center()
 
 func _test_rejected_overlay_release(app, source: Vector2, target: Vector2, region_name: String) -> void:
 	# Stabilize both canonical save copies so this exercises durable rejection,
@@ -455,7 +536,7 @@ func _test_gallery(live_textures: Dictionary, renderer_script: Script) -> void:
 		var pressed: Button = gallery.gallery_buttons[1]
 		var disabled: Button = gallery.gallery_buttons[2]
 		_expect(not normal.disabled and not normal.button_pressed and pressed.button_pressed and disabled.disabled, "Review buttons exercise real native control states rather than painted labels")
-		_expect(normal.get_theme_stylebox("normal").bg_color != pressed.get_theme_stylebox("pressed").bg_color and normal.get_theme_stylebox("normal").bg_color != disabled.get_theme_stylebox("disabled").bg_color, "Normal, pressed and disabled controls have distinct production styles")
+		_expect(_skin_source(normal.get_theme_stylebox("normal")) != _skin_source(pressed.get_theme_stylebox("pressed")) and _skin_source(normal.get_theme_stylebox("normal")) != _skin_source(disabled.get_theme_stylebox("disabled")), "Normal, pressed and disabled controls render distinct generated atlas regions")
 		var fit := true
 		for button in gallery.gallery_buttons:
 			var physical: Rect2 = gallery.get_viewport_transform() * button.get_global_rect()
@@ -478,7 +559,7 @@ func _test_editor_gallery() -> void:
 	root.add_child(gallery)
 	await _frames()
 	_expect(gallery.editor_ui.visible and gallery.editor_ui.get_script() == load("res://scripts/editor_presentation.gd"), "Shared editor gallery instantiates the same native presentation used by gameplay")
-	_expect(gallery.editor_ui.layers.layout.icon != null and gallery.editor_ui.previous.material != null, "Shared gallery renders generated catalog artwork and the production slate-blue disabled state")
+	_expect(gallery.editor_ui.layers.layout.icon != null and _skin_source(gallery.editor_ui.previous.get_theme_stylebox("disabled")) == _skin_source(gallery.editor_ui.skin.style("control-slate", gallery.editor_ui.unit)), "Shared gallery renders generated catalog artwork and the authored slate-blue disabled state")
 	gallery.queue_free()
 	await _frames()
 

@@ -1,5 +1,7 @@
 # Issue 12 · paused restaurant editor
 
+**Current UI review:** the user selected B's indigo noren and warm ceramic direction. See the [0.4.1 UI revision guide](ui-revision/README.md) for its horizontal three-item drawer, nine-patch family, latest native captures and Android verification. The 0.4.0 implementation and evidence below are retained as history.
+
 Implements [#12](https://github.com/yiochen/game-prototype/issues/12) on **Godot Android**, from merged `main` at `7d43957282613afcd3e5f8d173007f04979ccbc9`. The final runtime is `e405297e0a4eaa8f1778a51a84ec53909eb5e321`. This slice is ready for user verification before the next ticket or merge.
 
 ## Try the editor
