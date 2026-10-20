@@ -34,7 +34,26 @@ func run() -> void:
 	app._layout()
 	await capture("01-live-before-edit")
 	await tap(app.edit.get_global_rect().get_center())
+	verify(app.editor_ui.cards.size() == 4 and app.editor_ui.cards[3].get_meta("entry").id == "crate-wood", "Layout must open with the first four goods")
 	await capture("02-edit-layout")
+	var curtain: Button = app.editor_ui.layers.people
+	var curtain_target := curtain.get_global_rect()
+	var rod_target: Rect2 = app.editor_ui.category_rod.get_global_rect()
+	var before_press: Dictionary = app.session.save_data()
+	await touch(curtain_target.get_center(), true)
+	await capture("02a-curtain-pressed")
+	verify(curtain.get_meta("visual").scale.x < 1.0 and curtain.get_global_rect() == curtain_target and app.editor_ui.category_rod.get_global_rect() == rod_target and same(before_press, app.session.save_data()), "Holding a curtain must press only its artwork before category activation")
+	verify(curtain.get_meta("visual_surface").get_theme_stylebox("panel").region == app.editor_ui.skin.style("tab-idle", app.editor_ui.unit).region, "Holding an inactive curtain must preserve the current selection underline until release")
+	verify(curtain.get_meta("visual_focus").get_theme_stylebox("panel").bg_color.a == 0, "The curtain focus cue must stay transparent and keep the current selection underline")
+	await touch(curtain_target.get_center(), false, true)
+	await capture("02a2-curtain-cancelled")
+	verify(curtain.get_meta("visual").scale.is_equal_approx(Vector2.ONE) and same(before_press, app.session.save_data()), "Canceling a curtain must restore its artwork without changing the editor")
+	await touch(curtain_target.get_center(), true)
+	app.propagate_notification(Node.NOTIFICATION_APPLICATION_PAUSED)
+	verify(not bool(curtain.get_meta("visual_pressed", false)) and curtain.get_meta("visual").scale.is_equal_approx(Vector2.ONE), "Pausing while a curtain is held must immediately cancel its native and visual press")
+	app.propagate_notification(Node.NOTIFICATION_APPLICATION_RESUMED)
+	await touch(curtain_target.get_center(), false)
+	verify(same(before_press, app.session.save_data()), "An orphan release after pausing must preserve the current category and paused restaurant")
 	var before_shop: Dictionary = app.session.save_data()
 	await tap(app.editor_ui.shop.get_global_rect().get_center())
 	verify(same(before_shop, app.session.save_data()) and app.editor_ui.rejection.visible, "Editor Shop must show unavailable feedback without changing the paused restaurant")
@@ -74,7 +93,11 @@ func run() -> void:
 	verify(not object_at(str(app.session.snapshot().editor.selected_id)).is_empty() and object_at(str(app.session.snapshot().editor.selected_id)).x == 3 and object_at(str(app.session.snapshot().editor.selected_id)).y == 4, "The inventory drop must place a new selected object")
 	await capture("12-inventory-placed")
 	await tap(app.editor_ui.next.get_global_rect().get_center())
+	verify(app.editor_ui.cards.size() == 1 and app.editor_ui.cards[0].get_meta("entry").id == "barrel-wood" and app.editor_ui.next.disabled and not app.editor_ui.previous.disabled, "The final Layout page must contain the fifth good with the correct paging boundaries")
 	await capture("13-inventory-next-page")
+	await tap(app.editor_ui.previous.get_global_rect().get_center())
+	verify(app.editor_ui.cards.size() == 4 and app.editor_ui.cards[3].get_meta("entry").id == "crate-wood" and app.editor_ui.previous.disabled, "Paging back must restore the first four goods")
+	await capture("13b-inventory-previous-page")
 	await tap(app.editor_ui.layers.people.get_global_rect().get_center())
 	await capture("14-people-profiles")
 	await tap(app.editor_ui.cards[0].get_global_rect().get_center())
@@ -124,7 +147,20 @@ func run() -> void:
 	await touch(app.editor_ui.layers.people.get_global_rect().get_center(), true)
 	await capture("20-shared-layer-pressed")
 	await touch(app.editor_ui.layers.people.get_global_rect().get_center(), false)
+	verify(app.editor_ui.cards.size() == 3 and app.editor_ui.previous.disabled and app.editor_ui.next.disabled, "The People page must retain three profiles and quiet boundary carets")
 	await capture("21-shared-roster-boundary-disabled")
+	await tap(app.editor_ui.layers.floor.get_global_rect().get_center())
+	verify(app.editor_ui.cards.size() == 1 and app.editor_ui.cards[0].disabled and app.editor_ui.cards[0].get_meta("preview").goods.has("floor-cream"), "The shared Floor preview must use the separate Blender slab render")
+	await capture("22-shared-floor-current")
+	app.world.reduced_motion = true
+	app._refresh()
+	var reduced_target: Rect2 = app.editor_ui.layers.people.get_global_rect()
+	await touch(reduced_target.get_center(), true)
+	verify(app.editor_ui.layers.people.get_meta("visual").scale.is_equal_approx(Vector2.ONE * 0.975) and app.editor_ui.layers.people.get_global_rect() == reduced_target, "Reduced motion must show the pressed curtain immediately without moving its target")
+	await capture("23-shared-reduced-motion-pressed")
+	await touch(reduced_target.get_center(), false)
+	verify(app.editor_ui.layers.people.get_meta("visual").scale.is_equal_approx(Vector2.ONE) and app.session.snapshot().editor.layer == "people", "Reduced-motion release must restore the artwork and activate People")
+	await capture("24-shared-reduced-motion-released")
 	var file := FileAccess.open(destination.path_join("manifest.json"), FileAccess.WRITE)
 	file.store_string(JSON.stringify({"screens": screens, "input": "Actual InputEventScreenTouch and InputEventScreenDrag through the production viewport", "shared_presentation": "res://scripts/editor_presentation.gd"}, "\t"))
 	file.close()
@@ -137,11 +173,12 @@ func run() -> void:
 func frames(count := 3) -> void:
 	for index in range(count): await process_frame
 
-func touch(at: Vector2, down: bool) -> void:
+func touch(at: Vector2, down: bool, cancelled := false) -> void:
 	var event := InputEventScreenTouch.new()
 	event.index = 22
 	event.position = app.get_viewport_transform() * at
 	event.pressed = down
+	event.canceled = cancelled
 	Input.parse_input_event(event)
 	await frames(2)
 
@@ -165,7 +202,24 @@ func capture(name: String) -> void:
 	var image := root.get_texture().get_image()
 	if image.save_png(destination.path_join(name + ".png")) != OK:
 		push_error("Could not save " + name)
-	screens.append({"name": name, "pixels": [image.get_width(), image.get_height()], "canvas": [app.size.x, app.size.y], "portrait": [app.world.portrait.position.x, app.world.portrait.size.x, app.world.portrait.size.y], "cell_pitch": app.world.cell, "editor": app.session.snapshot().editor, "session": app.session.snapshot()})
+	screens.append({"name": name, "pixels": [image.get_width(), image.get_height()], "canvas": [app.size.x, app.size.y], "portrait": [app.world.portrait.position.x, app.world.portrait.size.x, app.world.portrait.size.y], "cell_pitch": app.world.cell, "editor": app.session.snapshot().editor, "presentation": presentation_state(), "session": app.session.snapshot()})
+
+func rect_values(control: Control) -> Array:
+	var bounds := control.get_global_rect()
+	return [bounds.position.x, bounds.position.y, bounds.size.x, bounds.size.y]
+
+func presentation_state() -> Dictionary:
+	var editor = app.editor_ui
+	var result := {"backing": rect_values(editor.inventory_backing), "rod": rect_values(editor.category_rod), "dock": rect_values(editor.bottom_dock), "tray": rect_values(editor.tray), "coin_capsule": rect_values(app.coin_panel), "editing_capsule": rect_values(app.editing_panel), "reduced_motion": editor.reduced_motion, "buttons": {}, "goods": []}
+	for key in ["people", "layout", "floor", "shop", "live", "previous", "next"]:
+		var button: Button = editor.layers[key] if editor.layers.has(key) else editor.get(key)
+		var visual: Control = button.get_meta("visual")
+		var physical: Rect2 = app.get_viewport_transform() * button.get_global_rect()
+		result.buttons[key] = {"target": rect_values(button), "artwork": rect_values(visual), "scale": [visual.scale.x, visual.scale.y], "physical_target": [physical.size.x, physical.size.y], "disabled": button.disabled, "pressed": bool(button.get_meta("visual_pressed", false))}
+	for card in editor.cards:
+		var preview: Control = card.get_meta("preview")
+		result.goods.append({"id": card.get_meta("entry").id, "target": rect_values(card), "preview": rect_values(preview), "caption": card.get_meta("name_label").text, "stock": card.get_meta("stock").text, "blender_preview": preview.goods.has(str(card.get_meta("entry").art_id))})
+	return result
 
 func same(a: Variant, b: Variant) -> bool:
 	if (a is int or a is float) and (b is int or b is float): return absf(float(a) - float(b)) < 0.000000001

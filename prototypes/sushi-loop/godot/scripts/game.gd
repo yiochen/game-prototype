@@ -32,6 +32,9 @@ var simulation_enabled := true
 var money: Label
 var editing_cue: Label
 var coin: TextureRect
+var coin_panel: Panel
+var editing_panel: Panel
+var editing_icon: TextureRect
 var shop: Button
 var edit: Button
 var staff: Button
@@ -85,6 +88,12 @@ func _ready() -> void:
 	add_child(world_clip)
 	world_clip.add_child(world)
 	world.state = session.snapshot()
+	coin_panel = Panel.new()
+	coin_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(coin_panel)
+	editing_panel = Panel.new()
+	editing_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(editing_panel)
 	coin = TextureRect.new()
 	coin.texture = skin.icon("coin")
 	coin.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -92,11 +101,11 @@ func _ready() -> void:
 	coin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(coin)
 	money = Label.new()
+	money.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	money.add_theme_font_override("font", body_font)
-	money.add_theme_color_override("font_color", CREAM if show_gallery else INK)
-	money.add_theme_color_override("font_shadow_color", Color("263a38") if show_gallery else Color("fff2c8"))
-	money.add_theme_constant_override("shadow_offset_x", 1)
-	money.add_theme_constant_override("shadow_offset_y", 1)
+	money.add_theme_color_override("font_color", INK)
+	money.add_theme_constant_override("shadow_offset_x", 0)
+	money.add_theme_constant_override("shadow_offset_y", 0)
 	money.accessibility_name = "Coins"
 	money.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(money)
@@ -104,11 +113,15 @@ func _ready() -> void:
 	editing_cue.text = "Editing"
 	editing_cue.add_theme_font_override("font", body_font)
 	editing_cue.add_theme_color_override("font_color", INK)
-	editing_cue.add_theme_color_override("font_shadow_color", CREAM)
-	editing_cue.add_theme_constant_override("shadow_offset_y", 1)
 	editing_cue.accessibility_name = "Editing restaurant"
 	editing_cue.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(editing_cue)
+	editing_icon = TextureRect.new()
+	editing_icon.texture = skin.icon("edit")
+	editing_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	editing_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	editing_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(editing_icon)
 	shop = make_button("Shop", "shop", true)
 	edit = make_button("Edit", "edit", false)
 	staff = make_button("Staff", "people", true)
@@ -171,10 +184,34 @@ func _style_native_button(button: Button, unit: float) -> void:
 	button.add_theme_color_override("font_outline_color", Color("594431"))
 	var focus := StyleBoxFlat.new()
 	focus.bg_color = Color.TRANSPARENT
-	focus.border_color = Color("f16b50")
-	focus.set_border_width_all(maxi(1, int(3 * unit)))
-	focus.set_corner_radius_all(maxi(1, int(18 * unit)))
+	focus.shadow_color = Color(0.78, 0.28, 0.15, 0.6)
+	focus.shadow_size = maxi(2, int(6 * unit))
+	focus.set_corner_radius_all(maxi(1, int(42 * unit)))
 	button.add_theme_stylebox_override("focus", focus)
+
+func _layout_hud(area: Rect2, unit: float) -> void:
+	var top: float = 124 * unit if show_gallery else 32 * unit
+	coin_panel.position = Vector2(area.position.x + 24 * unit, top)
+	skin.apply_panel(coin_panel, "coin-panel", unit)
+	coin_panel.size = Vector2(240, 100) * unit
+	coin.position = coin_panel.position + Vector2(14, 21) * unit
+	coin.size = Vector2.ONE * 54 * unit
+	money.position = coin_panel.position + Vector2(76, 17) * unit
+	money.size = Vector2(148, 64) * unit
+	# A larger earned balance must stay inside its own capsule without covering
+	# Editing or Live. Measure the actual typeface rather than counting digits.
+	var font_size := int(38 * unit)
+	while font_size > maxi(8, int(20 * unit)) and body_font.get_string_size(money.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x > 148 * unit:
+		font_size -= 1
+	money.add_theme_font_size_override("font_size", font_size)
+	editing_panel.position = Vector2(area.position.x + 280 * unit, top)
+	skin.apply_panel(editing_panel, "control-wood", unit)
+	editing_panel.size = Vector2(166, 100) * unit
+	editing_icon.position = editing_panel.position + Vector2(15, 34) * unit
+	editing_icon.size = Vector2.ONE * 30 * unit
+	editing_cue.position = editing_panel.position + Vector2(50, 21) * unit
+	editing_cue.size = Vector2(104, 56) * unit
+	editing_cue.add_theme_font_size_override("font_size", int(28 * unit))
 
 func _layout() -> void:
 	if world == null:
@@ -188,17 +225,7 @@ func _layout() -> void:
 	world_clip.size = area.size
 	world.position = -area.position
 	var unit: float = area.size.x / 720.0
-	var top: float = 124 * unit if show_gallery else 42 * unit
-	coin.position = Vector2(area.position.x + 34 * unit, top)
-	coin.size = Vector2.ONE * 54 * unit
-	money.position = Vector2(area.position.x + 94 * unit, top - 2 * unit)
-	money.size = Vector2(300, 60) * unit
-	money.add_theme_font_size_override("font_size", int(43 * unit))
-	money.add_theme_constant_override("shadow_offset_x", maxi(1, int(unit)))
-	money.add_theme_constant_override("shadow_offset_y", maxi(1, int(unit)))
-	editing_cue.position = Vector2(area.position.x + 34 * unit, top + 64 * unit)
-	editing_cue.size = Vector2(166, 50) * unit
-	editing_cue.add_theme_font_size_override("font_size", int(28 * unit))
+	_layout_hud(area, unit)
 	shop.position = Vector2(area.position.x + (440 * unit if show_gallery else 34 * unit), 112 * unit if show_gallery else 145 * unit)
 	shop.size = Vector2(224, 108) * unit
 	edit.position = Vector2(area.position.x + 34 * unit, area.end.y - 156 * unit)
@@ -222,16 +249,17 @@ func _layout() -> void:
 	if recovery != null:
 		recovery.add_theme_stylebox_override("panel", skin.style("container-modal", unit))
 		recovery.position = Vector2(area.position.x + 34 * unit, area.size.y * 0.28)
-		recovery.size = Vector2(652, 600) * unit
+		recovery.size = Vector2(652, 680) * unit
 		recovery_title.position = Vector2(32, 32) * unit
 		recovery_title.size = Vector2(588, 120) * unit
 		recovery_title.add_theme_font_size_override("font_size", int(44 * unit))
 		recovery_message.position = Vector2(32, 170) * unit
-		recovery_message.size = Vector2(588, 240) * unit
+		recovery_message.size.x = 588 * unit
 		recovery_message.add_theme_font_size_override("font_size", int(36 * unit))
-		recovery_retry.position = Vector2(32, 452) * unit
+		recovery_message.size = Vector2(588, 300) * unit
+		recovery_retry.position = Vector2(32, 500) * unit
 		recovery_retry.size = Vector2(288, 110) * unit
-		recovery_close.position = Vector2(344, 452) * unit
+		recovery_close.position = Vector2(344, 500) * unit
 		recovery_close.size = Vector2(276, 110) * unit
 		for button in [recovery_retry, recovery_close]:
 			button.add_theme_font_size_override("font_size", int(34 * unit))
@@ -277,8 +305,11 @@ func _refresh() -> void:
 	if money.text != coins_text:
 		money.text = coins_text
 		money.accessibility_description = "%s coins" % coins_text
+		_layout_hud(world.portrait, world.portrait.size.x / 720.0)
 	var editing: bool = world.state.get("mode", "live") == "edit"
 	editing_cue.visible = editing and not show_gallery
+	editing_panel.visible = editing_cue.visible
+	editing_icon.visible = editing_cue.visible
 	shop.visible = show_gallery or not editing
 	edit.visible = not show_gallery and not editing
 	staff.visible = not show_gallery and not editing
@@ -545,9 +576,13 @@ func _make_recovery() -> void:
 	recovery_title.add_theme_color_override("font_color", INK)
 	recovery.add_child(recovery_title)
 	recovery_message = Label.new()
-	recovery_message.text = "Your changes are still here. Storage could not be updated. Retry to save this arrangement. Closing keeps the last successfully saved restaurant." if pending_edit_save else "Your restaurant could not be opened. Your save files have been kept. You can try opening them again."
-	recovery_message.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	# Establish wrap width before assigning long text. A zero-width Label can
+	# cache a many-line minimum and retain that inflated height after layout.
+	recovery_message.size = Vector2(588, 300)
 	recovery_message.add_theme_font_override("font", body_font)
+	recovery_message.add_theme_font_size_override("font_size", 36)
+	recovery_message.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	recovery_message.text = "Your changes are still here. Storage could not be updated. Retry to save this arrangement. Closing keeps the last successfully saved restaurant." if pending_edit_save else "Your restaurant could not be opened. Your save files have been kept. You can try opening them again."
 	recovery_message.add_theme_color_override("font_color", INK)
 	recovery.add_child(recovery_message)
 	recovery_retry = make_button("Retry", "retry")

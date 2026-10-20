@@ -19,6 +19,7 @@ class NinePatch extends StyleBox:
 	var edges: Array = []
 	var draw_center := true
 	var tint := Color.WHITE
+	var minimum_height := 0.0
 
 	func _init(source_texture: Texture2D, entry: Dictionary, unit: float) -> void:
 		texture = source_texture
@@ -31,9 +32,13 @@ class NinePatch extends StyleBox:
 			set_content_margin(SIDES[index], float(entry.content[index]) * unit)
 		draw_center = bool(entry.get("draw_center", true))
 		tint = Color(str(entry.get("tint", "ffffffff")))
+		minimum_height = float(entry.get("minimum_height", 0.0)) * unit
 
 	func _get_minimum_size() -> Vector2:
-		return Vector2(float(edges[0]) + float(edges[2]), float(edges[1]) + float(edges[3]))
+		# Pill art needs its complete source height at the corner scale, not just
+		# the sum of its two corner strips. Compressing away the centre span
+		# pinches the rounded ends into points even with undistorted corners.
+		return Vector2(float(edges[0]) + float(edges[2]), maxf(float(edges[1]) + float(edges[3]), minimum_height))
 
 	func _draw(canvas: RID, rect: Rect2) -> void:
 		if texture == null or not rect.has_area():
@@ -91,6 +96,13 @@ func content_rect(identity: String, target: Rect2, unit := 1.0, state := "normal
 	var start := Vector2(surface.get_margin(SIDE_LEFT), surface.get_margin(SIDE_TOP))
 	var end := Vector2(surface.get_margin(SIDE_RIGHT), surface.get_margin(SIDE_BOTTOM))
 	return Rect2(target.position + start, (target.size - start - end).max(Vector2.ZERO))
+
+func apply_panel(panel: Panel, identity: String, unit := 1.0, state := "normal") -> void:
+	var surface := style(identity, unit, state)
+	panel.add_theme_stylebox_override("panel", surface)
+	# Panel does not derive its native minimum from its StyleBox as Button
+	# does. Apply it explicitly so an undersized layout cannot pinch a pill.
+	panel.custom_minimum_size = surface.get_minimum_size()
 
 static func fit_rect(native_size: Vector2, target: Rect2) -> Rect2:
 	if native_size.x <= 0.0 or native_size.y <= 0.0 or not target.has_area():

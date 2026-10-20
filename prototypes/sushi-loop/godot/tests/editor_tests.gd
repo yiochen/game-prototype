@@ -14,7 +14,7 @@ func _initialize() -> void:
 	_unassigned_chef_continuation()
 	_customer_protection()
 	_persistence_and_migration()
-	_three_slot_page_migration()
+	_four_slot_page_migration()
 	_invalid_commands_and_saves()
 	if failures.is_empty():
 		print("PASS: %s restaurant editor checks" % checks)
@@ -79,11 +79,14 @@ func _pause_and_resume() -> void:
 
 func _layers_and_selection() -> void:
 	var game := Session.new_session(3)
+	var content: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://content/editor.json"))
+	_check(_same(content.page_sizes, {"people": 3, "layout": 4, "floor": 3}), "the drawer content has four Layout goods while People and Floor retain three slots")
+	_check(game.save_data().editor_version == 3, "new saves declare editor version 3 for four-item Layout paging")
 	_edit(game)
 	_check(game.command({"type": "editor_select", "id": "chef-1"}).ok and game.snapshot().editor.layer == "people", "selecting an existing chef activates People")
 	_check(game.command({"type": "editor_toggle_tray"}).ok and not game.snapshot().editor.tray_open and game.snapshot().editor.selected_id == "chef-1", "collapsing the selected layer tray retains selection and the named layer")
 	_check(game.command({"type": "editor_layer", "layer": "layout"}).ok and game.snapshot().editor.tray_open, "changing layers opens the new tray")
-	_check(game.command({"type": "editor_page", "page": 1}).ok and game.snapshot().editor.page == 1, "the three-item Layout drawer can reach its final compact page")
+	_check(game.command({"type": "editor_page", "page": 1}).ok and game.snapshot().editor.page == 1, "the four-item Layout drawer can reach its final compact page")
 	_check(game.command({"type": "editor_layer", "layer": "people"}).ok and game.snapshot().editor.page == 0, "People has its independent three-profile page")
 	_check(game.command({"type": "editor_layer", "layer": "layout"}).ok and game.snapshot().editor.page == 1, "switching layers restores the remembered compact page")
 	_check(game.command({"type": "editor_layer", "layer": "floor"}).ok and _stock(game.snapshot(), "floor-cream").available == false, "Floor can be reviewed without implementing the later finish-painting ticket")
@@ -221,31 +224,62 @@ func _persistence_and_migration() -> void:
 	_check(migrated.restore(legacy) and migrated.snapshot().mode == "live", "pre-editor saves receive a one-time compatible Live editor-state migration")
 	_check(_same(migrated.snapshot().objects, game.snapshot().objects) and _same(migrated.snapshot().stats, game.snapshot().stats) and migrated.snapshot().coins == game.snapshot().coins and _same(migrated.snapshot().camera, game.snapshot().camera), "migration retains every previous arrangement, service clock, sale, coin and camera")
 
-func _three_slot_page_migration() -> void:
+func _four_slot_page_migration() -> void:
 	var game := Session.new_session(115)
 	game.advance(4.025)
 	_edit(game)
 	game.command({"type": "editor_select", "id": "seat-5"})
-	var legacy := _json(game.save_data())
-	legacy.editor_version = 1
-	legacy.state.editor.page = 2
-	legacy.state.editor.pages.layout = 2
+	game.command({"type": "editor_toggle_tray"})
+	game.command({"type": "set_camera", "x": 4.375, "y": 0.125})
 	var restored := Session.new_session(99)
-	_check(restored.restore(legacy) and restored.snapshot().editor.page == 1 and restored.snapshot().editor.pages.layout == 1, "a v1 final two-item Layout page migrates to a valid three-slot page containing the same first item")
-	if restored.snapshot().editor.page == 1:
+	for example in [
+		[1, 0, 0, "layout"],
+		[1, 1, 0, "layout"],
+		[1, 2, 1, "layout"],
+		[2, 0, 0, "layout"],
+		[2, 1, 0, "layout"],
+		[1, 2, 1, "people"],
+		[2, 1, 0, "floor"],
+	]:
+		var legacy := _json(game.save_data())
+		legacy.editor_version = example[0]
+		legacy.state.editor.layer = example[3]
+		legacy.state.editor.pages.layout = example[1]
+		legacy.state.editor.page = legacy.state.editor.pages[example[3]]
 		var expected := _json(legacy)
-		expected.editor_version = 2
-		expected.state.editor.page = 1
-		expected.state.editor.pages.layout = 1
-		_check(_same(restored.save_data(), expected), "page migration preserves the exact restaurant, paused time, selection, inventory, coins and random state")
+		expected.editor_version = 3
+		expected.state.editor.pages.layout = example[2]
+		expected.state.editor.page = expected.state.editor.pages[example[3]]
+		_check(restored.restore(legacy) and _same(restored.save_data(), expected), "v%s Layout page %s migrates to page %s with %s active; every other saved field is preserved" % example)
 		_reopen(restored)
-	_check(not restored.command({"type": "editor_page", "page": 2}).ok and restored.command({"type": "editor_page", "page": 0}).ok, "new three-slot pages reject the removed third Layout page and retain normal paging")
-	for bad_page in [-1, 3, 999]:
-		var invalid := _json(legacy)
-		invalid.state.editor.page = bad_page
-		invalid.state.editor.pages.layout = bad_page
+	_check(restored.command({"type": "editor_layer", "layer": "layout"}).ok and not restored.command({"type": "editor_page", "page": 2}).ok and restored.command({"type": "editor_page", "page": 1}).ok, "four-item Layout paging accepts its second page and rejects a third page")
+	for old_version in [1, 2]:
+		var legacy := _json(game.save_data())
+		legacy.editor_version = old_version
+		legacy.state.editor.page = 1
+		legacy.state.editor.pages.layout = 1
 		var before := restored.save_data()
-		_check(not restored.restore(invalid) and _same(before, restored.save_data()), "v1 migration rejects invalid old page bounds atomically")
+		for layer in ["people", "layout", "floor"]:
+			var old_page_count := (3 if old_version == 1 else 2) if layer == "layout" else 1
+			for bad_page in [-1, old_page_count, 999, 0.5, "0", true, null]:
+				var invalid := _json(legacy)
+				invalid.state.editor.pages[layer] = bad_page
+				if layer == "layout": invalid.state.editor.page = bad_page
+				_check(not restored.restore(invalid) and _same(before, restored.save_data()), "v%s rejects malformed or out-of-range old %s pages atomically" % [old_version, layer])
+			var missing := _json(legacy)
+			missing.state.editor.pages.erase(layer)
+			_check(not restored.restore(missing) and _same(before, restored.save_data()), "v%s rejects a missing remembered %s page" % [old_version, layer])
+		var mismatched := _json(legacy)
+		mismatched.state.editor.page = 0
+		_check(not restored.restore(mismatched) and _same(before, restored.save_data()), "v%s rejects an active page that disagrees with its remembered layer before both could map to zero" % old_version)
+		for corruption in ["tray", "selection", "inventory", "mode"]:
+			var invalid := _json(legacy)
+			match corruption:
+				"tray": invalid.state.editor.tray_open = "yes"
+				"selection": invalid.state.editor.selected_id = "missing"
+				"inventory": invalid.state.inventory[0].count += 1
+				"mode": invalid.state.mode = "shop"
+			_check(not restored.restore(invalid) and _same(before, restored.save_data()), "v%s paging migration still rejects corrupt %s data without changing the session" % [old_version, corruption])
 
 func _invalid_commands_and_saves() -> void:
 	var game := Session.new_session(19)

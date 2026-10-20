@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Fast packaging-boundary tests; no SDK, imports or installed saves are touched."""
 import json
+import hashlib
 from pathlib import Path
 import shutil
 import struct
@@ -13,12 +14,88 @@ import zipfile
 import build_android as build
 
 
+def make_goods_fixture(root):
+    """Independent native-receipt fixture for pixel and packaging boundaries."""
+    source = root / build.editor_goods_contract.SOURCE_ROOT
+    runtime = root / 'godot/assets/ui/editor-goods'
+    runtime.mkdir(parents=True, exist_ok=True)
+    source.mkdir(parents=True, exist_ok=True)
+    production = root / build.editor_goods_contract.PRODUCTION_BLEND
+    production.parent.mkdir(parents=True, exist_ok=True)
+    production.write_bytes(b'editable production Blender fixture')
+    for relative, data in [('source/editor-goods.blend', b'editable native capture fixture'),
+                           ('source/capture_goods.py', b'# native Blender capture fixture\n'),
+                           ('source/pack_goods.py', b'# unchanged pixel packing fixture\n')]:
+        path = source / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(data)
+    camera = {'id': 'editor-goods-three-quarter-v1', 'projection': 'ordinary-orthographic-three-quarter',
+              'elevation_degrees': 35, 'azimuth_degrees': 35, 'pixel_aspect': [1, 1]}
+    provenance = {'source_root': build.editor_goods_contract.SOURCE_ROOT,
+                  'method': build.editor_goods_contract.METHOD,
+                  'production_blend': build.editor_goods_contract.PRODUCTION_BLEND,
+                  'production_blend_sha256': build.sha(production),
+                  'blend': 'source/editor-goods.blend', 'recipe': 'source/capture_goods.py',
+                  'packing_recipe': 'source/pack_goods.py',
+                  'records': 'records/captures.json'}
+    for field in ('blend', 'recipe', 'packing_recipe'):
+        provenance[f'{field}_sha256'] = build.sha(source / provenance[field])
+    dimensions = [1176, 784]
+    atlas = bytearray(dimensions[0] * dimensions[1] * 4)
+    sprites, captures = {}, {}
+    for index, identity in enumerate(sorted(build.editor_goods_contract.SPRITES)):
+        frame = bytearray(384 * 384 * 4)
+        for y in range(10, 374):
+            for x in range(10, 374):
+                offset = (y * 384 + x) * 4
+                frame[offset:offset + 4] = bytes([index * 30 + 20, 90, 130, 255])
+        relative = f'renders/{identity}.png'
+        render = source / relative
+        render.parent.mkdir(parents=True, exist_ok=True)
+        render.write_bytes(RuntimeBoundaryTests.rgba_png([384, 384], frame))
+        x, y = index % 3 * 392 + 4, index // 3 * 392 + 4
+        for row in range(384):
+            start = ((y + row) * dimensions[0] + x) * 4
+            atlas[start:start + 384 * 4] = frame[row * 384 * 4:(row + 1) * 384 * 4]
+        geometry = hashlib.sha256(identity.encode()).hexdigest()
+        sprite = {'region': [x, y, 384, 384], 'source_render': relative, 'source_sha256': build.sha(render),
+                  'camera_id': camera['id'], 'source_collection': f'ASSET_{identity}',
+                  'geometry_sha256': geometry, 'alpha_bounds': [10, 10, 374, 374],
+                  'native_collection': f'CAPTURE_{identity}', 'camera': camera | {'resolution': [384, 384]}}
+        capture = {'art_id': identity, 'source_collection': sprite['source_collection'],
+                   'native_objects': [identity], 'geometry_origin': 'production mesh copy',
+                   'geometry_sha256': geometry, 'source_production_sha256': provenance['production_blend_sha256'],
+                   'camera': camera | {'resolution': [384, 384]}, 'source_render': relative,
+                   'source_sha256': sprite['source_sha256'], 'native_collection': sprite['native_collection']}
+        if identity == 'floor-cream':
+            sprite['floor_thickness'] = capture['floor_thickness'] = 0.06
+        sprites[identity], captures[identity] = sprite, capture
+    records = {key: value for key, value in provenance.items() if key in
+               {'method', 'production_blend', 'production_blend_sha256', 'blend', 'blend_sha256', 'recipe', 'recipe_sha256'}}
+    records.update(schema_version=1, main_file_preserved=True, original_scene_restored=True, sprites=captures)
+    receipt = source / provenance['records']
+    receipt.parent.mkdir(parents=True, exist_ok=True)
+    receipt.write_text(json.dumps(records))
+    provenance['records_sha256'] = build.sha(receipt)
+    image = runtime / 'atlas.png'
+    image.write_bytes(RuntimeBoundaryTests.rgba_png(dimensions, atlas))
+    manifest = {'schema_version': 1, 'atlas': 'atlas.png', 'atlas_size': dimensions,
+                'padding': 4, 'native_render_size': [384, 384],
+                'atlas_sha256': build.sha(image), 'atlas_bytes': image.stat().st_size,
+                'camera': camera, 'provenance': provenance, 'sprites': sprites}
+    (runtime / 'manifest.json').write_text(json.dumps(manifest))
+    return manifest
+
+
 class RuntimeBoundaryTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory(prefix="sushi-android-packaging-test-")
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
         self.project = self.root / "godot"
+        production_pin = patch.object(build.editor_goods_contract, 'PRODUCTION_BLEND_SHA256', hashlib.sha256(b'editable production Blender fixture').hexdigest())
+        production_pin.start()
+        self.addCleanup(production_pin.stop)
         self.branding = {"title": "Example", "version_name": "0.4.0", "version_code": 40,
                          "android_package": "example.game", "save_identity": "ExistingSave",
                          "release_signer_sha256": "ab" * 32}
@@ -51,12 +128,22 @@ class RuntimeBoundaryTests(unittest.TestCase):
         # Exercise the actual coordinated B atlas, complete ImageGen sheets,
         # accepted composition and references; no UI verifier mocks hide drift.
         shutil.copytree(build.PROJECT / "assets/ui/editor", self.project / "assets/ui/editor")
-        shutil.copytree(build.PROJECT.parent / "assets/ui/editor/v5", self.root / "assets/ui/editor/v5")
+        ui_source = Path(build.editor_ui_contract.SOURCE_RECORD).parent
+        shutil.copytree(build.PROJECT.parent / ui_source, self.root / ui_source)
+        historical = Path(build.editor_ui_contract.HISTORICAL_SOURCE_RECORD)
+        historical_record = json.loads((build.PROJECT.parent / historical).read_text())
+        historical_path = self.root / historical
+        historical_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(build.PROJECT.parent / historical, historical_path)
+        original_floor = Path(historical_record['entries']['floor']['source'])
+        (self.root / original_floor).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(build.PROJECT.parent / original_floor, self.root / original_floor)
         generation = json.loads((self.root / build.editor_ui_contract.SOURCE_RECORD).read_text())
         for record in generation["references"]:
             reference = self.root / record["path"]
             reference.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(build.PROJECT.parent / record["path"], reference)
+        make_goods_fixture(self.root)
         self.write("scripts/app.gd", "extends Node\n")
         approved = self.root / "assets/production"
         (approved / "sprites/test").mkdir(parents=True)
@@ -96,13 +183,16 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.assertEqual(catalog["atlas_count"], 1)
         self.assertEqual(selected["assets/audio/click.wav"], build.sha(audio))
         self.assertEqual((self.root / "staged/assets/catalog/sprites/test/static-S.png").read_bytes(), b"approved sprite bytes")
-        self.assertEqual(len(selected), 17)
+        self.assertEqual(len(selected), 19)
         self.assertEqual(catalog["editor_ui"]["images"], 1)
-        self.assertEqual(catalog["editor_ui"]["imagegen_sources"], 2)
-        self.assertEqual((catalog["editor_ui"]["styles"], catalog["editor_ui"]["icons"]), (17, 16))
+        self.assertEqual(catalog["editor_ui"]["imagegen_sources"], 3)
+        self.assertEqual((catalog["editor_ui"]["styles"], catalog["editor_ui"]["icons"]), (19, 16))
         self.assertEqual(selected["assets/ui/editor/manifest.json"], catalog["editor_ui_manifest_sha256"])
         self.assertEqual({name for name in selected if name.startswith("assets/ui/editor/")},
                          {"assets/ui/editor/manifest.json", "assets/ui/editor/skin.png"})
+        self.assertEqual(catalog['editor_goods']['sprites'], 6)
+        self.assertEqual({name for name in selected if name.startswith('assets/ui/editor-goods/')},
+                         {'assets/ui/editor-goods/manifest.json', 'assets/ui/editor-goods/atlas.png'})
         self.assertIn("assets/recipe-variants/manifest.json", selected)
         self.assertIn("assets/recipe-variants/sprites/test/eat-S.png", selected)
         self.recipe_verifier.assert_any_call(self.root / "staged", source_project=self.project)
@@ -243,6 +333,8 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.assertIn("assets/ui/editor/manifest.json", files)
         self.assertFalse((self.root / "staged-ui/assets/ui/editor/imagegen.json").exists())
         self.assertFalse((self.root / "staged-ui/assets/ui/editor/v5").exists())
+        self.assertFalse((self.root / 'staged-ui/assets/ui/editor/v6').exists())
+        self.assertFalse((self.root / 'staged-ui/assets/ui/editor/goods-v1').exists())
         self.assertFalse((self.root / "staged-ui/assets/production").exists())
         self.assertEqual((self.root / "staged-ui/assets/ui/other-controls.png").read_bytes(), b"runtime control pixels")
 
@@ -274,7 +366,7 @@ class RuntimeBoundaryTests(unittest.TestCase):
 
     def test_missing_or_changed_imagegen_source_blocks_before_staging(self):
         record = json.loads((self.root / build.editor_ui_contract.SOURCE_RECORD).read_text())
-        path = self.root / "assets/ui/editor/v5" / record["generations"][0]["raw"]
+        path = (self.root / build.editor_ui_contract.SOURCE_RECORD).parent / record["generations"][0]["raw"]
         original = path.read_bytes()
         for mutation in ("missing", "changed"):
             with self.subTest(mutation=mutation):
@@ -321,7 +413,7 @@ class RuntimeBoundaryTests(unittest.TestCase):
     def test_passive_surfaces_cannot_be_omitted_from_the_coordinated_family(self):
         path = self.project / "assets/ui/editor/manifest.json"
         original = path.read_text()
-        for identity in ("container-tray", "container-modal", "slot-paper", "toast-error"):
+        for identity in ("container-tray", "container-modal", "slot-paper", "toast-error", 'noren-rod', 'noren-dock'):
             with self.subTest(surface=identity):
                 self.mutate_ui_manifest(lambda m: m["styles"].pop(identity))
                 with self.assertRaisesRegex(ValueError, "active/passive surface"):
@@ -357,6 +449,41 @@ class RuntimeBoundaryTests(unittest.TestCase):
             build.stage_runtime(self.project, self.root / "staged")
         self.assertFalse((self.root / "staged/project.godot").exists())
 
+    def test_pill_minimum_height_cannot_be_missing_or_under_100(self):
+        path = self.project / 'assets/ui/editor/manifest.json'
+        original = path.read_text()
+        for identity in sorted(build.editor_ui_contract.PILL_STYLES):
+            for value in (None, 99):
+                with self.subTest(style=identity, minimum_height=value):
+                    def change(manifest):
+                        if value is None:
+                            manifest['styles'][identity].pop('minimum_height', None)
+                        else:
+                            manifest['styles'][identity]['minimum_height'] = value
+                    self.mutate_ui_manifest(change)
+                    with self.assertRaisesRegex(ValueError, 'minimum height is missing or invalid|pill minimum height is below 100'):
+                        build.stage_runtime(self.project, self.root / 'staged')
+                    self.assertFalse((self.root / 'staged/project.godot').exists())
+                    path.write_text(original)
+
+    def test_pill_minimum_height_cannot_undershoot_the_uniform_source_height(self):
+        # All four corner ratios still agree; the declared minimum must also
+        # keep the complete source silhouette tall enough at that scale.
+        self.mutate_ui_manifest(lambda m: m['styles']['coin-panel'].update(edge=[100, 100, 100, 100]))
+        with self.assertRaisesRegex(ValueError, 'minimum height is below its uniformly scaled source height'):
+            build.stage_runtime(self.project, self.root / 'staged')
+        self.assertFalse((self.root / 'staged/project.godot').exists())
+
+    def test_pill_minimum_height_must_match_its_saved_source_calibration(self):
+        path = self.root / build.editor_ui_contract.SOURCE_RECORD
+        record = json.loads(path.read_text())
+        record['entries']['coin-panel']['minimum_height'] = 101
+        path.write_text(json.dumps(record))
+        self.mutate_ui_manifest(lambda m: m.update(source_record_sha256=build.sha(path)))
+        with self.assertRaisesRegex(ValueError, 'minimum height differs from its packing record'):
+            build.stage_runtime(self.project, self.root / 'staged')
+        self.assertFalse((self.root / 'staged/project.godot').exists())
+
     def test_source_region_pixel_proof_survives_updated_record_hash(self):
         path = self.root / build.editor_ui_contract.SOURCE_RECORD
         record = json.loads(path.read_text())
@@ -368,6 +495,61 @@ class RuntimeBoundaryTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "atlas pixels differ from the ImageGen source crop|source region.*outside"):
             build.stage_runtime(self.project, self.root / "staged")
         self.assertFalse((self.root / "staged/project.godot").exists())
+
+    def test_old_v5_ui_cannot_replace_the_current_amendment(self):
+        self.mutate_ui_manifest(lambda m: m.update(version=2, source_record=build.editor_ui_contract.HISTORICAL_SOURCE_RECORD))
+        with self.assertRaisesRegex(ValueError, 'manifest version 3'):
+            build.stage_runtime(self.project, self.root / 'staged')
+        self.assertFalse((self.root / 'staged/project.godot').exists())
+
+    def test_inherited_source_cannot_claim_a_new_prompt_after_record_rehash(self):
+        path = self.root / build.editor_ui_contract.SOURCE_RECORD
+        record = json.loads(path.read_text())
+        inherited = next(item for item in record['generations'] if 'inherits' in item)
+        inherited['prompt'] += '\nUnrecorded change.'
+        path.write_text(json.dumps(record))
+        self.mutate_ui_manifest(lambda m: m.update(source_record_sha256=build.sha(path)))
+        with self.assertRaisesRegex(ValueError, 'inherited v5 generation provenance changed'):
+            build.stage_runtime(self.project, self.root / 'staged')
+        self.assertFalse((self.root / 'staged/project.godot').exists())
+
+    def test_current_source_requires_the_latest_complete_composition(self):
+        path = self.root / build.editor_ui_contract.SOURCE_RECORD
+        record = json.loads(path.read_text())
+        current = next(item for item in record['generations'] if 'inherits' not in item)
+        latest = record['latest_composition']['path']
+        current['reference_paths'].remove(latest)
+        del current['reference_sha256'][latest]
+        path.write_text(json.dumps(record))
+        self.mutate_ui_manifest(lambda m: m.update(source_record_sha256=build.sha(path)))
+        with self.assertRaisesRegex(ValueError, 'does not use the latest B amendment composition'):
+            build.stage_runtime(self.project, self.root / 'staged')
+        self.assertFalse((self.root / 'staged/project.godot').exists())
+
+    def test_complete_composition_requires_its_saved_generation_prompt(self):
+        path = self.root / build.editor_ui_contract.SOURCE_RECORD
+        record = json.loads(path.read_text())
+        record['composition_generation']['prompt'] = 'Unrecorded composition'
+        path.write_text(json.dumps(record))
+        self.mutate_ui_manifest(lambda m: m.update(source_record_sha256=build.sha(path)))
+        with self.assertRaisesRegex(ValueError, 'complete-screen generation provenance is missing'):
+            build.stage_runtime(self.project, self.root / 'staged')
+        self.assertFalse((self.root / 'staged/project.godot').exists())
+
+    def test_approved_floor_icon_cannot_be_replaced_by_another_valid_crop(self):
+        path = self.root / build.editor_ui_contract.SOURCE_RECORD
+        record = json.loads(path.read_text())
+        # Reusing another valid source crop and atlas rectangle can pass crop
+        # equality; the independent v5 Floor proof must still reject it.
+        record['entries']['floor'] = dict(record['entries']['people'])
+        path.write_text(json.dumps(record))
+        def replace_floor(manifest):
+            manifest['icons']['floor'] = dict(manifest['icons']['people'])
+            manifest['source_record_sha256'] = build.sha(path)
+        self.mutate_ui_manifest(replace_floor)
+        with self.assertRaisesRegex(ValueError, 'approved Floor icon pixels changed'):
+            build.stage_runtime(self.project, self.root / 'staged')
+        self.assertFalse((self.root / 'staged/project.godot').exists())
 
     @staticmethod
     def rgba_png(dimensions, pixels):
@@ -392,7 +574,7 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.assertFalse((self.root / "staged/project.godot").exists())
 
     def test_changed_authored_ui_calibration_or_states_block_staging(self):
-        path = self.root / "assets/ui/editor/v5/authoring.json"
+        path = (self.root / build.editor_ui_contract.SOURCE_RECORD).parent / 'authoring.json'
         authoring = json.loads(path.read_text())
         authoring["assets"][0]["content"][0] += 1
         path.write_text(json.dumps(authoring))
@@ -414,10 +596,103 @@ class RuntimeBoundaryTests(unittest.TestCase):
                 build.stage_runtime(self.project, self.root / "staged")
         self.assertEqual(calls, [(self.project, None), (self.root / "staged", self.project)])
 
+    def test_staged_goods_are_reverified_against_native_blender_renders(self):
+        original_verify = build.editor_goods_contract.verify_editor_goods
+        calls = []
+        def verify(project, source_project=None):
+            calls.append((project, source_project))
+            if source_project is not None:
+                path = project / 'assets/ui/editor-goods/atlas.png'
+                path.write_bytes(path.read_bytes() + b'post-copy tamper')
+            return original_verify(project, source_project)
+        with patch.object(build.editor_goods_contract, 'verify_editor_goods', side_effect=verify):
+            with self.assertRaisesRegex(ValueError, 'Editor goods atlas pixels changed'):
+                build.stage_runtime(self.project, self.root / 'staged')
+        self.assertEqual(calls, [(self.project, None), (self.root / 'staged', self.project)])
+
+    def test_missing_goods_manifest_blocks_runtime_staging(self):
+        (self.project / 'assets/ui/editor-goods/manifest.json').unlink()
+        with self.assertRaisesRegex(ValueError, 'Required runtime file is missing.*editor-goods/manifest'):
+            build.stage_runtime(self.project, self.root / 'staged')
+        self.assertFalse((self.root / 'staged/project.godot').exists())
+
+    def test_unregistered_raw_goods_render_cannot_enter_the_runtime(self):
+        self.write('assets/ui/editor-goods/raw/source-render.png', b'authoring output')
+        with self.assertRaisesRegex(ValueError, 'Unexpected editor goods image payload'):
+            build.stage_runtime(self.project, self.root / 'staged')
+        self.assertFalse((self.root / 'staged/project.godot').exists())
+
     def test_build_refuses_staging_inside_source_project(self):
         with self.assertRaisesRegex(ValueError, "outside the source project"):
             build.stage_build(self.project, self.project / "nested-stage", self.branding)
         self.assertFalse((self.project / "nested-stage").exists())
+
+
+class EditorGoodsBoundaryTests(unittest.TestCase):
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory(prefix='sushi-editor-goods-test-')
+        self.addCleanup(self.temporary.cleanup)
+        self.root = Path(self.temporary.name)
+        self.project = self.root / 'godot'
+        production_pin = patch.object(build.editor_goods_contract, 'PRODUCTION_BLEND_SHA256', hashlib.sha256(b'editable production Blender fixture').hexdigest())
+        production_pin.start()
+        self.addCleanup(production_pin.stop)
+        self.manifest = make_goods_fixture(self.root)
+        self.manifest_path = self.project / 'assets/ui/editor-goods/manifest.json'
+
+    def save_manifest(self):
+        self.manifest_path.write_text(json.dumps(self.manifest))
+
+    def test_accepts_complete_native_receipts_and_exact_render_pixels(self):
+        self.assertEqual(build.editor_goods_contract.verify_editor_goods(self.project)['sprites'], 6)
+
+    def test_repainted_goods_atlas_cannot_pass_with_an_updated_payload_hash(self):
+        path = self.project / 'assets/ui/editor-goods/atlas.png'
+        dimensions, pixels = build.editor_ui_contract._decode_png(path.read_bytes())
+        pixels = bytearray(pixels)
+        x, y, _, _ = self.manifest['sprites']['floor-cream']['region']
+        pixels[((y + 20) * dimensions[0] + x + 20) * 4] ^= 1
+        path.write_bytes(RuntimeBoundaryTests.rgba_png(dimensions, pixels))
+        self.manifest.update(atlas_sha256=build.sha(path), atlas_bytes=path.stat().st_size)
+        self.save_manifest()
+        with self.assertRaisesRegex(ValueError, 'atlas pixels differ from the native Blender render'):
+            build.editor_goods_contract.verify_editor_goods(self.project)
+
+    def test_goods_resizing_is_rejected(self):
+        self.manifest['sprites']['floor-cream']['region'][2] -= 1
+        self.save_manifest()
+        with self.assertRaisesRegex(ValueError, 'native render was rescaled'):
+            build.editor_goods_contract.verify_editor_goods(self.project)
+
+    def test_floor_requires_recorded_native_thickness(self):
+        self.manifest['sprites']['floor-cream']['floor_thickness'] = 0
+        self.save_manifest()
+        with self.assertRaisesRegex(ValueError, 'no physical thickness'):
+            build.editor_goods_contract.verify_editor_goods(self.project)
+
+    def test_capture_geometry_drift_is_rejected_after_receipt_hash_update(self):
+        path = self.root / build.editor_goods_contract.SOURCE_ROOT / self.manifest['provenance']['records']
+        record = json.loads(path.read_text())
+        record['sprites']['floor-cream']['geometry_sha256'] = '0' * 64
+        path.write_text(json.dumps(record))
+        self.manifest['provenance']['records_sha256'] = build.sha(path)
+        self.save_manifest()
+        with self.assertRaisesRegex(ValueError, 'geometry registration changed'):
+            build.editor_goods_contract.verify_editor_goods(self.project)
+
+    def test_native_scene_source_cannot_change_silently(self):
+        source = self.root / build.editor_goods_contract.SOURCE_ROOT
+        (source / self.manifest['provenance']['blend']).write_bytes(b'changed source')
+        with self.assertRaisesRegex(ValueError, 'blend source hash changed'):
+            build.editor_goods_contract.verify_editor_goods(self.project)
+
+    def test_world_source_cannot_be_replaced_by_updating_the_goods_hash(self):
+        path = self.root / build.editor_goods_contract.PRODUCTION_BLEND
+        path.write_bytes(b'changed production geometry')
+        self.manifest['provenance']['production_blend_sha256'] = build.sha(path)
+        self.save_manifest()
+        with self.assertRaisesRegex(ValueError, 'production Blender source hash changed'):
+            build.editor_goods_contract.verify_editor_goods(self.project)
 
 
 class ApkBoundaryTests(unittest.TestCase):
@@ -438,6 +713,7 @@ class ApkBoundaryTests(unittest.TestCase):
                                "assets/assets/recipe-variants/manifest.json": b'{}',
                                "assets/assets/chef-variants/manifest.json": b'{}',
                                "assets/assets/feedback-variants/manifest.json": b'{}',
+                               "assets/assets/ui/editor-goods/manifest.json": b'{}',
                                "assets/assets/ui/editor/manifest.json": b'{}', **(extra or {})}.items():
                 archive.writestr(name, data)
 
@@ -457,6 +733,16 @@ class ApkBoundaryTests(unittest.TestCase):
             for name, data in entries.items():
                 archive.writestr(name, data)
         with self.assertRaisesRegex(ValueError, "ImageGen editor UI manifest is missing"):
+            self.audit()
+
+    def test_rejects_missing_native_goods_manifest_in_apk(self):
+        self.archive()
+        with zipfile.ZipFile(self.apk) as archive:
+            entries = {name: archive.read(name) for name in archive.namelist() if name != 'assets/assets/ui/editor-goods/manifest.json'}
+        with zipfile.ZipFile(self.apk, 'w') as archive:
+            for name, data in entries.items():
+                archive.writestr(name, data)
+        with self.assertRaisesRegex(ValueError, 'Blender editor goods manifest is missing'):
             self.audit()
 
     def test_rejects_signing_secret_inside_archive(self):

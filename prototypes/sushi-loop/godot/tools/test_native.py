@@ -59,7 +59,16 @@ def main() -> int:
     try:
         with tempfile.TemporaryDirectory(prefix="sushi-loop-native-test-") as temporary:
             project = Path(temporary) / "project"
-            shutil.copytree(source, project, ignore=shutil.ignore_patterns(".godot", ".local", "build", "android", "__pycache__", "export_credentials.cfg", "*.keystore", "*.jks"))
+            # Historical capture evidence is not a runtime resource. Importing
+            # hundreds of review PNGs makes every isolated test unnecessarily
+            # expensive and can exhaust its import timeout.
+            ignored = shutil.ignore_patterns(".godot", ".local", "build", "android", "__pycache__", "export_credentials.cfg", "*.keystore", "*.jks")
+            def test_ignored(directory, names):
+                matches = set(ignored(directory, names))
+                if Path(directory) == source:
+                    matches.add("review")
+                return matches
+            shutil.copytree(source, project, ignore=test_ignored)
             config_file = project / "project.godot"
             config = config_file.read_text()
             config = re.sub(r"^config/(?:use_custom_user_dir|custom_user_dir_name)=.*\n?", "", config, flags=re.M)

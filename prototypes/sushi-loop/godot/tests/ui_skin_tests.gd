@@ -20,6 +20,7 @@ func _init() -> void:
 func _run() -> void:
 	var texture := _fixture_texture()
 	_test_content_and_fit(texture)
+	_test_pill_minimum_height()
 	if DisplayServer.get_name() != "headless":
 		await _test_rendered_edges(texture)
 	else:
@@ -131,6 +132,20 @@ func _test_rendered_edges(texture: Texture2D) -> void:
 		_expect(centre and inside, "Only the centre expands; neighboring atlas pixels do not enter its region")
 	_expect(pixels.get_pixel(100, 500).a < 0.01 and _color(pixels, 20, 464, Color.RED), "Generated focus framing leaves the control centre transparent")
 	viewport.queue_free()
+
+func _test_pill_minimum_height() -> void:
+	var skin := RestaurantSkin.new()
+	for unit in [0.5, 1.0, 1.5]:
+		for identity in ["control-wood", "control-pressed", "control-green", "control-green-pressed", "control-slate", "coin-panel", "context-bubble", "toast-error"]:
+			var panel := Panel.new()
+			var surface := skin.style(identity, unit)
+			skin.apply_panel(panel, identity, unit)
+			root.add_child(panel)
+			# Request an intentionally undersized native panel. The actual native
+			# surface must refuse it, including at phone and enlarged UI scales.
+			panel.size = Vector2(160, 40) * unit
+			_expect(panel.size.y >= 100.0 * unit and surface.get_minimum_size().y >= 100.0 * unit, "%s refuses a pill height that would pinch its rounded ends at scale %s" % [identity, unit])
+			panel.free()
 
 func _color(image: Image, x: int, y: int, expected: Color) -> bool:
 	var actual := image.get_pixel(x, y)
