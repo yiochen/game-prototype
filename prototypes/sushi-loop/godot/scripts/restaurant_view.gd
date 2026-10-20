@@ -27,6 +27,11 @@ var editor_preview: Dictionary = {}
 var editor_selection_alpha := 1.0
 var font: Font
 var heading: Font
+var _hit_records: Array[Dictionary] = []
+var _hit_signature: Array = []
+var _capture_hits := false
+var _record_only := false
+var _current_owner := ""
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -53,7 +58,11 @@ func sprite(identity: String, base: Vector2, clip := "static", direction := "S",
 	var pitch := cell if tile_pixels < 0.0 else tile_pixels
 	var data: Dictionary = art.frame_data(identity, clip, direction, seconds)
 	if not data.is_empty():
-		draw_texture_rect_region(data.texture, art.registered_rect(identity, base, pitch, clip, direction), data.region, tint, false)
+		var destination: Rect2 = art.registered_rect(identity, base, pitch, clip, direction)
+		if _capture_hits:
+			_hit_records.append({"owner_id": _current_owner, "art_id": identity, "clip": clip, "direction": direction, "frame": data.frame, "frames": data.frames, "texture": data.texture, "source_path": data.source_path, "region": data.region, "rect": destination, "tint": tint})
+		if not _record_only:
+			draw_texture_rect_region(data.texture, destination, data.region, tint, false)
 
 func caption(text: String, at: Vector2, pixels: int = 30, color := INK, use_heading := false) -> void:
 	draw_string(heading if use_heading else font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, maxi(1, pixels), color)
@@ -62,6 +71,8 @@ func _draw() -> void:
 	if font == null:
 		return
 	art.begin_frame()
+	_hit_records.clear()
+	_hit_signature.clear()
 	draw_rect(Rect2(Vector2.ZERO, size), NIGHT)
 	if show_gallery:
 		_gallery()
@@ -87,22 +98,7 @@ func _room() -> void:
 			var identity := "floor-blue-wave" if y == 0 or y == rows - 1 else "floor-cream"
 			sprite(identity, base, "static", "S", 0.0, -1.0, tint)
 	_editor_ground()
-	for item in render_plan():
-		match item.kind:
-			"belt":
-				_belt(item.value)
-			"dish":
-				_dish(item.value)
-			"sprite":
-				sprite(item.key, item.base, item.get("clip", "static"), item.get("direction", "S"), 0.0 if reduced_motion else float(state.elapsed))
-			"chef":
-				_chef(item.value)
-			"seat":
-				_seat_at(item.value, cell_base(float(item.value.x), float(item.value.y)), cell)
-			"board":
-				_board(item.value)
-			"customer":
-				_customer(item.value)
+	_render_room_items()
 	_editor_ghost()
 	# Thought/reaction art is a final feedback layer, following the same saved
 	# visual offset as its customer while remaining readable above furniture.
@@ -114,6 +110,67 @@ func _room() -> void:
 			# Native pop frames already rise above this registered customer root.
 			# Keep its authored scale/motion and the existing quiet alpha fade.
 			sprite("coin-pop", cell_base(float(pop.x), float(pop.y)), "pop", "S", 0.0 if reduced_motion else age, -1.0, Color(1, 1, 1, 1.0 - age / 0.9))
+
+func _render_room_items() -> void:
+	# Rendering and picking share this exact pass, including sprite frame,
+	# attachment geometry and painter order. Other decorative/editor layers
+	# never enter its ownership records.
+	_hit_records.clear()
+	_capture_hits = true
+	for item in render_plan():
+		_current_owner = str(item.get("owner_id", ""))
+		if item.kind in ["belt", "dish", "chef", "seat", "board"]:
+			_current_owner = str(item.value.get("id", ""))
+		match item.kind:
+			"belt": _belt(item.value)
+			"dish": _dish(item.value)
+			"sprite": sprite(item.key, item.base, item.get("clip", "static"), item.get("direction", "S"), 0.0 if reduced_motion else float(state.elapsed))
+			"chef": _chef(item.value)
+			"seat": _seat_at(item.value, cell_base(float(item.value.x), float(item.value.y)), cell)
+			"board": _board(item.value)
+			"customer": _customer(item.value)
+	_capture_hits = false
+	_current_owner = ""
+	_hit_signature = _geometry_signature()
+
+func _geometry_signature() -> Array:
+	return [state.hash(), portrait, floor_origin, cell, size, reduced_motion, show_gallery, time, art.revision]
+
+func _ensure_sprite_hits() -> void:
+	if _hit_signature == _geometry_signature(): return
+	if show_gallery or state.is_empty():
+		_hit_records.clear()
+		_hit_signature = _geometry_signature()
+		return
+	# Headless tests do not receive CanvasItem._draw. Input can also arrive
+	# after camera/layout/state changed but before the next rendered frame.
+	# Resolve the same item pass without invoking any drawing primitives.
+	_record_only = true
+	_render_room_items()
+	_record_only = false
+
+func sprite_hits() -> Array[Dictionary]:
+	_ensure_sprite_hits()
+	return _hit_records.duplicate(true)
+
+func object_at(point: Vector2) -> Dictionary:
+	if show_gallery or not portrait.has_point(point) or not Rect2(Vector2.ZERO, size).has_point(point): return {}
+	_ensure_sprite_hits()
+	for index in range(_hit_records.size() - 1, -1, -1):
+		var item: Dictionary = _hit_records[index]
+		var bounds: Rect2 = item.rect
+		if not bounds.has_area() or not bounds.has_point(point) or float(item.tint.a) <= ArtBook.PICK_ALPHA: continue
+		var uv := (point - bounds.position) / bounds.size
+		var source: Rect2 = item.region
+		if not art.frame_has_ink(item, source.position + uv * source.size): continue
+		# An opaque guest or fixed room prop blocks furniture behind it. Only
+		# sprites explicitly registered to an owned object can select that object.
+		var identity := str(item.owner_id)
+		if identity.is_empty(): return {}
+		for object in state.get("objects", []):
+			if str(object.get("id", "")) == identity: return object
+		return {}
+	return {}
 
 func _editor_ground() -> void:
 	if state.get("mode", "live") != "edit": return
@@ -164,7 +221,9 @@ func render_plan() -> Array:
 			"seat":
 				result.append({"kind": "seat", "value": object, "depth": float(object.y), "priority": 0})
 			"decor":
-				result.append(_prop(str(object.get("art_id", "plant-angular")), float(object.x), float(object.y), "idle" if object.get("art_id") == "plant-angular" else "static", str(FACING.get(object.get("facing", "south"), "S"))))
+				var prop := _prop(str(object.get("art_id", "plant-angular")), float(object.x), float(object.y), "idle" if object.get("art_id") == "plant-angular" else "static", str(FACING.get(object.get("facing", "south"), "S")))
+				prop["owner_id"] = str(object.get("id", ""))
+				result.append(prop)
 			"chef":
 				result.append({"kind": "chef", "value": object, "depth": float(object.y), "priority": 2})
 				result.append({"kind": "board", "value": object, "depth": float(object.y) + 0.4, "priority": 4})
@@ -254,7 +313,7 @@ func _chef_at(chef: Dictionary, base: Vector2, pitch: float) -> void:
 	var clip := chef_clip(chef)
 	var seconds := 0.0 if reduced_motion else float(chef.get("visual_elapsed", state.get("elapsed", time)))
 	sprite(str(chef.get("art_id", "chef-lena")), base, clip, str(FACING.get(chef.get("facing", "south"), "S")), seconds, pitch, activity_tint(chef))
-	if chef.get("held_dish") != null and not clip.begins_with("load") and chef.get("active", true):
+	if not _record_only and chef.get("held_dish") != null and not clip.begins_with("load") and chef.get("active", true):
 		var center := base - Vector2(pitch * 0.42, pitch * 1.25)
 		draw_circle(center, pitch * 0.10, PAPER)
 		draw_arc(center, pitch * 0.10, 0, TAU, 24, INK, 1.4, true)

@@ -366,7 +366,7 @@ func _test_editor(app) -> void:
 		for candidate in app.session.snapshot().objects:
 			if candidate.kind == "seat": seat = candidate; break
 	var seat_id: String = str(seat.id)
-	var at: Vector2 = app.world.cell_base(float(seat.x), float(seat.y))
+	var at: Vector2 = _sprite_point(app, seat_id)
 	await _touch(app, at, true, 16)
 	await _drag(app, at, at - Vector2(app.world.cell, 0), 16)
 	await _touch(app, at - Vector2(app.world.cell, 0), false, 16)
@@ -379,15 +379,16 @@ func _test_editor(app) -> void:
 	var pointer: Rect2 = app.editor_ui.context_pointer.get_global_rect()
 	var capsule: Rect2 = app.editor_ui.context_bubble.get_global_rect()
 	_expect(pointer.position.y >= capsule.end.y - 28 * app.editor_ui.unit and pointer.end.y <= capsule.end.y + 1 * app.editor_ui.unit, "The context pointer occupies the capsule's lower material edge instead of floating beneath its bounds")
-	var destination: Vector2 = app.world.cell_base(3, 5)
+	var destination: Vector2 = app.world.cell_base(3, 5) + at - app.world.cell_base(float(seat.x), float(seat.y))
 	await _touch(app, at, true, 12)
 	await _drag(app, at, destination, 12)
 	_expect(not app.world.editor_preview.is_empty() and app.world.editor_preview.valid, "An actual selected-object drag shows a valid registered tile preview")
 	await _touch(app, destination, false, 12)
 	var moved := _object(app.session.snapshot(), seat_id)
 	_expect(int(moved.x) == 3 and int(moved.y) == 5 and app.session.snapshot().editor.selected_id == seat_id, "Releasing the selected-object drag moves it and leaves it selected")
+	destination = _sprite_point(app, seat_id)
 	var before_rejection: Dictionary = app.session.save_data()
-	var blocked: Vector2 = app.world.cell_base(3, 6)
+	var blocked: Vector2 = app.world.cell_base(3, 6) + destination - app.world.cell_base(3, 5)
 	await _touch(app, destination, true, 12)
 	await _drag(app, destination, blocked, 12)
 	_expect(not app.world.editor_preview.is_empty() and not app.world.editor_preview.valid, "Dragging onto a real conveyor shows an invalid placement preview")
@@ -400,7 +401,7 @@ func _test_editor(app) -> void:
 	app.session.command({"type": "set_camera", "x": 1.0, "y": 0.0})
 	app._refresh()
 	var outside_portrait: Vector2 = Vector2(app.world.portrait.position.x - 2.0, app.world.cell_base(0, 4).y)
-	await _test_rejected_overlay_release(app, app.world.cell_base(3, 5), outside_portrait, "outside the portrait over an otherwise valid world tile")
+	await _test_rejected_overlay_release(app, _sprite_point(app, seat_id), outside_portrait, "outside the portrait over an otherwise valid world tile")
 	app.session.command({"type": "set_camera", "x": 0.0, "y": 0.0})
 	app._refresh()
 	var facing: String = str(moved.facing)
@@ -410,7 +411,7 @@ func _test_editor(app) -> void:
 	_expect(str(app.session.snapshot().editor.selected_id).is_empty() and not app.armed_item.is_empty() and not app.editor_ui.rotate.visible and not app.editor_ui.remove.visible, "Arming Layout inventory clears the old floor selection so object tools cannot target a different object")
 	await _tap(app, app.editor_ui.layers.people.get_global_rect().get_center())
 	await _tap(app, app.editor_ui.layers.layout.get_global_rect().get_center())
-	await _tap(app, app.world.cell_base(3, 5))
+	await _tap(app, _sprite_point(app, seat_id))
 	var coins: int = int(app.session.snapshot().coins)
 	await _tap(app, app.editor_ui.remove.get_global_rect().get_center())
 	_expect(_object(app.session.snapshot(), seat_id).is_empty() and int(app.session.snapshot().coins) == coins, "The native return-to-inventory control removes purchased furniture without a refund")
@@ -771,6 +772,28 @@ func _test_curtain_lifecycle(app) -> void:
 		_expect(app.session.snapshot().editor.layer == probe.layer and editor.cards.size() == (1 if probe.layer == "floor" else 3), "A fresh curtain press works normally after %s" % probe.name)
 		await _tap(app, editor.layers.layout.get_global_rect().get_center(), 27)
 
+func _sprite_point(app, identity: String) -> Vector2:
+	var object := _object(app.session.snapshot(), identity)
+	var ground: Vector2 = app.world.cell_base(float(object.x), float(object.y))
+	var best := Vector2(INF, INF)
+	var distance := INF
+	for record in app.world.sprite_hits():
+		if str(record.owner_id) != identity: continue
+		var pixels: Image = record.texture.get_image()
+		if pixels.is_compressed(): pixels.decompress()
+		var region: Rect2 = record.region
+		var bounds: Rect2 = record.rect
+		for y in range(3, int(region.size.y), 8):
+			for x in range(3, int(region.size.x), 8):
+				if pixels.get_pixelv(Vector2i(region.position) + Vector2i(x, y)).a < 0.9: continue
+				var point := bounds.position + (Vector2(x, y) + Vector2(0.5, 0.5)) / region.size * bounds.size
+				if point.distance_squared_to(ground) >= distance or not app._floor_drop(point): continue
+				if app.world.object_at(point).get("id") != identity: continue
+				best = point
+				distance = point.distance_squared_to(ground)
+	_expect(best.is_finite(), "The %s gesture starts on a visible opaque owned sprite pixel outside protected UI" % identity)
+	return best
+
 func _valid_underlay(app, rect: Rect2, identity: String) -> Vector2:
 	# Prefer the capsule's pointer/padding outside either action button.
 	var samples := [Vector2(0.5, 0.94), Vector2(0.02, 0.5), Vector2(0.98, 0.5)]
@@ -778,7 +801,9 @@ func _valid_underlay(app, rect: Rect2, identity: String) -> Vector2:
 		for x in [0.15, 0.5, 0.85]: samples.append(Vector2(x, y))
 	for sample in samples:
 		var target: Vector2 = rect.position + rect.size * sample
-		var cell: Vector2i = app._cell_at(target)
+		var object := _object(app.session.snapshot(), identity)
+		var grab: Vector2 = _sprite_point(app, identity) - app.world.cell_base(float(object.x), float(object.y))
+		var cell: Vector2i = app._cell_at(target - grab)
 		var probe = Session.new()
 		if probe.restore(app.session.save_data()) and probe.command({"type": "editor_move", "id": identity, "x": cell.x, "y": cell.y}).ok:
 			return target
@@ -791,7 +816,9 @@ func _test_rejected_overlay_release(app, source: Vector2, target: Vector2, regio
 	app.save_now()
 	var before: Dictionary = app.session.save_data()
 	var saved: Dictionary = _save_bytes()
-	var coordinate: Vector2i = app._cell_at(target)
+	var selected := _object(app.session.snapshot(), str(before.state.editor.selected_id))
+	var grab: Vector2 = source - app.world.cell_base(float(selected.x), float(selected.y))
+	var coordinate: Vector2i = app._cell_at(target - grab)
 	var probe = Session.new()
 	var underlying_tile_accepts: bool = probe.restore(before) and probe.command({"type": "editor_move", "id": before.state.editor.selected_id, "x": coordinate.x, "y": coordinate.y}).ok
 	await _touch(app, source, true, 23)

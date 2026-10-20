@@ -59,22 +59,23 @@ func run() -> void:
 	verify(same(before_shop, app.session.save_data()) and app.editor_ui.rejection.visible, "Editor Shop must show unavailable feedback without changing the paused restaurant")
 	await capture("02b-editor-shop-unavailable")
 	await create_timer(1.35).timeout
-	await tap(app.world.cell_base(2, 5))
+	await tap(sprite_point("seat-1"))
 	verify(str(app.session.snapshot().editor.selected_id) == "seat-1", "The demonstrated stool must be selected")
 	await capture("03-selected-stool")
 	await touch(app.editor_ui.rotate.get_global_rect().get_center(), true)
 	await capture("04-rotate-pressed")
 	await touch(app.editor_ui.rotate.get_global_rect().get_center(), false)
 	await capture("05-stool-rotated")
-	var at: Vector2 = app.world.cell_base(2, 5)
-	var target: Vector2 = app.world.cell_base(3, 5)
+	var at: Vector2 = sprite_point("seat-1")
+	var target: Vector2 = app.world.cell_base(3, 5) + at - app.world.cell_base(2, 5)
 	await touch(at, true)
 	await drag(at, target)
 	await capture("06-valid-object-drag")
 	await touch(target, false)
 	verify(object_at("seat-1").x == 3 and object_at("seat-1").y == 5, "The demonstrated selected move must commit")
 	await capture("07-object-moved")
-	var blocked: Vector2 = app.world.cell_base(3, 6)
+	target = sprite_point("seat-1")
+	var blocked: Vector2 = app.world.cell_base(3, 6) + target - app.world.cell_base(3, 5)
 	await touch(target, true)
 	await drag(target, blocked)
 	await capture("08-invalid-object-drag")
@@ -242,6 +243,28 @@ func same(a: Variant, b: Variant) -> bool:
 			if not same(a[index], b[index]): return false
 		return true
 	return a == b
+
+func sprite_point(identity: String) -> Vector2:
+	var object := object_at(identity)
+	var ground: Vector2 = app.world.cell_base(float(object.x), float(object.y))
+	var best := Vector2(INF, INF)
+	var distance := INF
+	for record in app.world.sprite_hits():
+		if str(record.owner_id) != identity: continue
+		var pixels: Image = record.texture.get_image()
+		if pixels.is_compressed(): pixels.decompress()
+		var region: Rect2 = record.region
+		var bounds: Rect2 = record.rect
+		for y in range(3, int(region.size.y), 8):
+			for x in range(3, int(region.size.x), 8):
+				if pixels.get_pixelv(Vector2i(region.position) + Vector2i(x, y)).a < 0.9: continue
+				var point := bounds.position + (Vector2(x, y) + Vector2(0.5, 0.5)) / region.size * bounds.size
+				if point.distance_squared_to(ground) >= distance or not app._floor_drop(point): continue
+				if app.world.object_at(point).get("id") != identity: continue
+				best = point
+				distance = point.distance_squared_to(ground)
+	verify(best.is_finite(), "The %s gesture starts on a visible opaque owned sprite pixel outside protected UI" % identity)
+	return best
 
 func object_at(identity: String) -> Dictionary:
 	for object in app.session.snapshot().objects:

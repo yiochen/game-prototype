@@ -10,13 +10,19 @@ const CHEF_MANIFEST := "res://assets/chef-variants/manifest.json"
 const CHEF_DIRECTORY := "res://assets/chef-variants/"
 const FEEDBACK_MANIFEST := "res://assets/feedback-variants/manifest.json"
 const FEEDBACK_DIRECTORY := "res://assets/feedback-variants/"
+const PICK_ALPHA := 0.1
 var objects: Dictionary = {}
 var sources: Dictionary = {}
 var used_sources: Dictionary = {}
 var metadata: Dictionary = {}
 var cell_size := 128.0
+var revision := 0
+var alpha_masks: Dictionary = {}
 
 func reload() -> void:
+	revision += 1
+	alpha_masks.clear()
+	used_sources.clear()
 	objects.clear()
 	sources.clear()
 	metadata.clear()
@@ -54,6 +60,9 @@ func end_frame() -> void:
 	for path in sources.keys():
 		if not used_sources.has(path):
 			sources.erase(path)
+			alpha_masks.erase(path)
+	for path in alpha_masks.keys():
+		if not sources.has(path): alpha_masks.erase(path)
 
 func clip_data(identity: String, clip := "static") -> Dictionary:
 	var clips: Dictionary = objects.get(identity, {}).get("clips", {})
@@ -92,8 +101,29 @@ func frame_data(identity: String, clip := "static", direction := "S", seconds :=
 	index = mini(index, count - 1) if action.get("loop", true) == false else index % count
 	var rect: Array = entry.rects[index]
 	var result := registration(identity, clip, direction)
-	result.merge({"texture": sources[path], "region": Rect2(float(rect[0]), float(rect[1]), float(rect[2]), float(rect[3])), "frame": index, "frames": count})
+	result.merge({"texture": sources[path], "source_path": path, "region": Rect2(float(rect[0]), float(rect[1]), float(rect[2]), float(rect[3])), "frame": index, "frames": count})
 	return result
+
+func frame_has_ink(frame: Dictionary, atlas_pixel: Vector2) -> bool:
+	# Keep one compact CPU alpha mask beside each currently loaded atlas. The
+	# image is read/decompressed once, not copied or downloaded for each touch.
+	var texture: Texture2D = frame.get("texture")
+	if texture == null: return false
+	var path := str(frame.get("source_path", "texture:%s" % texture.get_instance_id()))
+	var cached: Dictionary = alpha_masks.get(path, {})
+	if cached.get("texture_id", -1) != texture.get_instance_id():
+		var pixels := texture.get_image()
+		if pixels == null: return false
+		if pixels.is_compressed() and pixels.decompress() != OK: return false
+		var mask := BitMap.new()
+		mask.create_from_image_alpha(pixels, PICK_ALPHA)
+		cached = {"texture_id": texture.get_instance_id(), "mask": mask}
+		alpha_masks[path] = cached
+	var mask: BitMap = cached.mask
+	var point := Vector2i(floori(atlas_pixel.x), floori(atlas_pixel.y))
+	var dimensions := mask.get_size()
+	if point.x < 0 or point.y < 0 or point.x >= dimensions.x or point.y >= dimensions.y: return false
+	return mask.get_bitv(point)
 
 func registered_rect(identity: String, base: Vector2, tile_pixels: float, clip := "static", direction := "S") -> Rect2:
 	var data := registration(identity, clip, direction)

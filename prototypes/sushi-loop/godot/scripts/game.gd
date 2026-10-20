@@ -25,6 +25,7 @@ var gesture_item: Dictionary = {}
 var armed_item: Dictionary = {}
 var gesture_cell := Vector2i.ZERO
 var tap_object := ""
+var gesture_grab_offset := Vector2.ZERO # Pointer offset from the object's ground root, in tiles.
 var gesture_started_in_tray := false
 var previous_selection := ""
 var selection_tween: Tween
@@ -478,14 +479,21 @@ func _inventory_pointer(item: Dictionary, event: InputEvent) -> void:
 
 func _cell_at(position_value: Vector2) -> Vector2i:
 	var camera: Dictionary = session.snapshot().camera
-	var coordinate := (position_value - world.floor_origin) / world.cell + Vector2(float(camera.x), float(camera.y))
+	var coordinate := (_world_position(position_value) - world.floor_origin) / world.cell + Vector2(float(camera.x), float(camera.y))
+	return Vector2i(floori(coordinate.x), floori(coordinate.y))
+
+func _world_position(position_value: Vector2) -> Vector2:
+	return world.get_global_transform().affine_inverse() * get_global_transform() * position_value
+
+func _placement_cell_at(position_value: Vector2) -> Vector2i:
+	if gesture_kind != "object": return _cell_at(position_value)
+	var ground := _world_position(position_value) - gesture_grab_offset * world.cell
+	var camera: Dictionary = session.snapshot().camera
+	var coordinate := (ground - world.floor_origin) / world.cell + Vector2(float(camera.x), float(camera.y))
 	return Vector2i(floori(coordinate.x), floori(coordinate.y))
 
 func _object_at(position_value: Vector2) -> Dictionary:
-	var coordinate := _cell_at(position_value)
-	for object in session.snapshot().objects:
-		if int(object.x) == coordinate.x and int(object.y) == coordinate.y: return object
-	return {}
+	return world.object_at(_world_position(position_value))
 
 func _unhandled_input(event: InputEvent) -> void:
 	if session == null or show_gallery or save_blocked or pointer != -1: return
@@ -496,6 +504,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	pointer_start = local
 	previous_pointer = local
 	gesture_dragged = false
+	gesture_grab_offset = Vector2.ZERO
 	gesture_kind = "pan"
 	gesture_started_in_tray = false
 	if session.snapshot().get("mode", "live") == "edit":
@@ -509,8 +518,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			if not object.is_empty() and str(object.id) == selected:
 				gesture_kind = "object"
 				gesture_object = str(object.id)
+				# Grabbing a head, shelf top or other raised part must not snap its
+				# ground root to the finger's tile when dragging begins.
+				gesture_grab_offset = (_world_position(local) - world.cell_base(float(object.x), float(object.y))) / world.cell
 			else:
-				# A tile must already be selected before a drag can move it.
+				# An object must already be selected before a drag can move it.
 				# All other drags pan; a short release selects the tapped object.
 				tap_object = str(object.get("id", ""))
 				if not selected.is_empty(): _editor_command({"type": "editor_select", "id": null})
@@ -539,7 +551,7 @@ func _input(event: InputEvent) -> void:
 				_editor_command({"type": "editor_select", "id": tap_object})
 			elif gesture_kind == "object" and gesture_dragged:
 				if _floor_drop(local):
-					var coordinate := _cell_at(local)
+					var coordinate := _placement_cell_at(local)
 					_editor_command({"type": "editor_move", "id": gesture_object, "x": coordinate.x, "y": coordinate.y})
 				else:
 					editor_ui.reject("invalid_position")
@@ -572,7 +584,7 @@ func _floor_drop(at: Vector2) -> bool:
 	return true
 
 func _update_preview(at: Vector2) -> void:
-	var coordinate := _cell_at(at)
+	var coordinate := _placement_cell_at(at)
 	# Ask an isolated session through the same public save/command boundary as
 	# the real drop. A green ghost therefore includes aisle and guest checks,
 	# rather than merely looking for an empty cell.
@@ -588,6 +600,7 @@ func _cancel_gesture() -> void:
 	gesture_kind = ""
 	gesture_object = ""
 	gesture_item.clear()
+	gesture_grab_offset = Vector2.ZERO
 	tap_object = ""
 	gesture_started_in_tray = false
 	world.editor_preview.clear()

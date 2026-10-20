@@ -1,0 +1,12 @@
+# Issue 12 — select the visible scene object
+
+Recorded 2026-10-20 for the existing restaurant-editor slice and PR #36. This is a behavior correction after the [curtain restoration](../curtain-restoration/contract.md); its approved v8 UI artwork and control geometry remain unchanged.
+
+- Scene selection follows the visible, registered sprite under the pointer, including raised parts such as a chef hat or plant leaves. The ground tile beneath the pointer is not the selection target.
+- Resolve the current clip, facing and animation frame using the same registered destination rectangle, source region, attachments and painter order as production rendering. Sample source alpha with the shared 0.1 threshold; transparent pixels fall through to the next visible sprite in reverse painter order.
+- A chef's body, front recipe board and recipe image select that chef. A conveyor's deck and carried dish select that conveyor. Owned decor selects its own object. Opaque guest sprites and fixed room decorations block owned objects behind them and are not editable.
+- Clip scene picking to the restaurant portrait and world control bounds. Native controls and the continuous beige bottom backing keep their existing input shielding. Feedback bubbles, selection brackets, placement ghosts and other decorative editor overlays do not become editable scene objects.
+- A selected-object drag records the pointer's offset from the object's registered ground root in tile units. Keep that offset when deriving each destination tile, so grabbing a hat or another raised pixel does not snap the object's root under the finger. An unselected-object drag keeps the existing pan-first behavior.
+- Keep grid placement and its occupied/busy/path/stock validation, inventory drag placement, rotation, Return-to-storage, camera, category/paging, edit pause, autosave/recovery and system Back unchanged. This is issue #12 only; do not add Save/Done/Cancel/Undo/page numbers or start another implementation ticket.
+
+The next review build is **0.4.5 / code 45**. Both Android package names, `SushiLoopTickets` save identity and the pinned release signer remain unchanged. Upgrade from normal 0.4.4 must preserve all saved fields and both save files before launch. No new art, UI atlas, save schema or balance change is authorized. Preserve earlier review evidence and the exact v8 sources as history. Issue #12 and PR #36 remain open for user verification.
