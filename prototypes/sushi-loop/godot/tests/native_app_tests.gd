@@ -273,6 +273,14 @@ func _test_editor(app) -> void:
 	_expect(not app.world.editor_preview.is_empty() and not app.world.editor_preview.valid, "Dragging onto a real conveyor shows an invalid placement preview")
 	await _touch(app, blocked, false, 12)
 	_expect(_same(before_rejection, app.session.save_data()) and app.editor_ui.rejection.visible, "Rejected object drop restores the exact arrangement and shows brief feedback")
+	await _test_rejected_overlay_release(app, destination, app.world.cell_base(1, 12), "the open inventory tray")
+	await _test_rejected_overlay_release(app, destination, app.editor_ui.layers.people.get_global_rect().get_center(), "a visible People layer control")
+	app.session.command({"type": "set_camera", "x": 1.0, "y": 0.0})
+	app._refresh()
+	var outside_portrait: Vector2 = Vector2(app.world.portrait.position.x - 2.0, app.world.cell_base(0, 4).y)
+	await _test_rejected_overlay_release(app, app.world.cell_base(3, 5), outside_portrait, "outside the portrait over an otherwise valid world tile")
+	app.session.command({"type": "set_camera", "x": 0.0, "y": 0.0})
+	app._refresh()
 	var facing: String = str(moved.facing)
 	await _tap(app, app.editor_ui.rotate.get_global_rect().get_center())
 	_expect(_object(app.session.snapshot(), seat_id).facing != facing and app.session.snapshot().editor.selected_id == seat_id, "The native Rotate button turns the selected object without losing selection")
@@ -332,6 +340,23 @@ func _test_editor(app) -> void:
 	app._layout()
 	app.save_now()
 	await _frames()
+
+func _test_rejected_overlay_release(app, source: Vector2, target: Vector2, region_name: String) -> void:
+	# Stabilize both canonical save copies so this exercises durable rejection,
+	# not merely a renderer ghost or an in-memory object position.
+	app.save_now()
+	app.save_now()
+	var before: Dictionary = app.session.save_data()
+	var saved: Dictionary = _save_bytes()
+	var coordinate: Vector2i = app._cell_at(target)
+	var probe = Session.new()
+	var underlying_tile_accepts: bool = probe.restore(before) and probe.command({"type": "editor_move", "id": before.state.editor.selected_id, "x": coordinate.x, "y": coordinate.y}).ok
+	await _touch(app, source, true, 23)
+	await _drag(app, source, target, 23)
+	_expect(underlying_tile_accepts and not app._floor_drop(target) and not app.world.editor_preview.is_empty() and not app.world.editor_preview.valid, "Selected-object dragging into %s rejects its UI region even though the underlying world tile accepts the move" % region_name)
+	await _touch(app, target, false, 23)
+	_expect(_same(before, app.session.save_data()) and app.editor_ui.rejection.visible, "Releasing a selected object into %s preserves arrangement, selection and inventory and shows rejection" % region_name)
+	_expect(_same(saved, _save_bytes()) and _same(before, app.store.load_session()), "Rejected selected-object release into %s preserves both exact saved copies" % region_name)
 
 func _test_active_clock_and_resume(app) -> void:
 	var expected = Session.new()

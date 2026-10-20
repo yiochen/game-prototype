@@ -424,8 +424,11 @@ func _input(event: InputEvent) -> void:
 			if gesture_kind == "pan" and not gesture_dragged and not tap_object.is_empty():
 				_editor_command({"type": "editor_select", "id": tap_object})
 			elif gesture_kind == "object" and gesture_dragged:
-				var coordinate := _cell_at(local)
-				_editor_command({"type": "editor_move", "id": gesture_object, "x": coordinate.x, "y": coordinate.y})
+				if _floor_drop(local):
+					var coordinate := _cell_at(local)
+					_editor_command({"type": "editor_move", "id": gesture_object, "x": coordinate.x, "y": coordinate.y})
+				else:
+					editor_ui.reject("invalid_position")
 			elif gesture_kind == "inventory":
 				if gesture_started_in_tray and not gesture_dragged and gesture_item.get("kind") == "chef":
 					armed_item.clear()
@@ -446,7 +449,18 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func _floor_drop(at: Vector2) -> bool:
-	return world.portrait.has_point(at) and (not editor_ui.tray.visible or at.y < editor_ui.tray.position.y) and at.y > world.portrait.position.y + 145 * editor_ui.unit
+	if not world.portrait.has_point(at) or at.y <= world.portrait.position.y + 145 * editor_ui.unit:
+		return false
+	if editor_ui.inspection.visible or (recovery != null and recovery.is_visible_in_tree()):
+		return false
+	if editor_ui.tray.is_visible_in_tree() and editor_ui.tray.get_global_rect().has_point(at):
+		return false
+	var controls: Array = [shop, editor_ui.live, editor_ui.rotate, editor_ui.remove]
+	controls.append_array(editor_ui.layers.values())
+	for control in controls:
+		if control.is_visible_in_tree() and control.get_global_rect().has_point(at):
+			return false
+	return true
 
 func _update_preview(at: Vector2) -> void:
 	var coordinate := _cell_at(at)
