@@ -6,6 +6,10 @@ const MANIFEST := "res://assets/catalog/manifest.json"
 const DIRECTORY := "res://assets/catalog/"
 const MEAL_MANIFEST := "res://assets/recipe-variants/manifest.json"
 const MEAL_DIRECTORY := "res://assets/recipe-variants/"
+const CHEF_MANIFEST := "res://assets/chef-variants/manifest.json"
+const CHEF_DIRECTORY := "res://assets/chef-variants/"
+const FEEDBACK_MANIFEST := "res://assets/feedback-variants/manifest.json"
+const FEEDBACK_DIRECTORY := "res://assets/feedback-variants/"
 var objects: Dictionary = {}
 var sources: Dictionary = {}
 var used_sources: Dictionary = {}
@@ -23,17 +27,23 @@ func reload() -> void:
 		cell_size = float(data.get("cellSize", 128))
 	# Recipe-specific native clips extend the approved objects; base captures
 	# and registration remain untouched and separately hash-verifiable.
-	var meals: Variant = JSON.parse_string(FileAccess.get_file_as_string(MEAL_MANIFEST))
-	if meals is Dictionary:
-		for identity in meals.get("objects", {}):
-			if not objects.has(identity):
-				continue
-			var variants: Dictionary = meals.objects[identity].get("clips", {})
-			for clip in variants:
-				var record: Dictionary = variants[clip].duplicate(true)
-				for entry in record.directions.values():
-					entry["_directory"] = MEAL_DIRECTORY
-				objects[identity].clips[clip] = record
+	_merge_variants(MEAL_MANIFEST, MEAL_DIRECTORY)
+	_merge_variants(CHEF_MANIFEST, CHEF_DIRECTORY)
+	_merge_variants(FEEDBACK_MANIFEST, FEEDBACK_DIRECTORY)
+
+func _merge_variants(path: String, directory: String) -> void:
+	var variants: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	if not variants is Dictionary:
+		return
+	for identity in variants.get("objects", {}):
+		if not objects.has(identity):
+			continue
+		var clips: Dictionary = variants.objects[identity].get("clips", {})
+		for clip in clips:
+			var record: Dictionary = clips[clip].duplicate(true)
+			for entry in record.directions.values():
+				entry["_directory"] = directory
+			objects[identity].clips[clip] = record
 
 func begin_frame() -> void:
 	used_sources.clear()

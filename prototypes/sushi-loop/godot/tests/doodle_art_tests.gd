@@ -19,7 +19,7 @@ func _run() -> void:
 	root.add_child(world)
 	world.update_layout()
 	var art = world.art
-	_expect(art.objects.size() == 28 and art.cell_size == 128.0, "The starter loads the approved 28-object subset at one 128px logical pitch")
+	_expect(art.objects.size() == 31 and art.cell_size == 128.0, "The starter loads the approved 31-object subset at one 128px logical pitch")
 	var verified_atlases := 0
 	var verified_frames := 0
 	for identity in art.objects:
@@ -60,11 +60,12 @@ func _run() -> void:
 				_expect(after.frame == (count - 1 if action.get("loop", true) == false else 0), "%s/%s honors the authored one-shot or loop boundary" % [identity, clip])
 				verified_atlases += 1
 				art.end_frame()
-	_expect(verified_atlases == 171 and verified_frames > 1300, "The audit exercises every selected atlas and directional frame")
+	_expect(verified_atlases == 224 and verified_frames == 2493, "The audit exercises every selected atlas and directional frame")
 	_expect(art.objects["coin-pop"].clips.pop.frames == 12 and art.objects["coin-pop"].clips.pop.loop == false, "Local sale feedback uses the approved twelve-frame native coin-pop one-shot")
 	_expect(world.customer_clip({"phase": "waiting", "visual_phase": "seated-wait", "meal_dish": null}) == "seated-wait-empty", "Waiting customers have no meal sprite before consumption")
 	_expect(world.customer_clip({"phase": "eating", "visual_phase": "eat", "meal_dish": {"recipe_id": "salmon_nigiri"}}) == "eat-salmon", "The actual consumed salmon dish chooses the native salmon eating clip")
 	_expect(world.customer_clip({"phase": "leaving", "visual_phase": "stand-up", "meal_dish": null}) == "stand-up", "Meal variants retain the authored empty-handed stand-up transition")
+	_test_visit_presentation(world)
 	_test_connections(world)
 	_expect(art.objects["entry-finished"].footprint == [4.0, 1.0], "The entrance preserves the approved four-tile footprint")
 	_expect(art.objects["chef-blackboard"].facingPolicy == "single-player-facing" and art.objects["chef-blackboard"].clips.idle.directions.keys() == ["S"], "The blank front-band board has only its player-facing direction")
@@ -83,7 +84,52 @@ func _run() -> void:
 			printerr("FAIL: " + failure)
 		quit(1)
 
+func _test_visit_presentation(world) -> void:
+	var active := {"phase": "waiting", "visual_phase": "seated-wait", "preferred_recipe_id": "cucumber_maki", "preference_phase": "active", "preference_phase_elapsed": 2.4, "preference_progress": 0.6}
+	var feedback: Dictionary = world.customer_feedback(active)
+	_expect(feedback.object == "bubble-preference" and feedback.clip == "cucumber-idle" and is_equal_approx(float(feedback.timer), 0.6), "Active preference shows the correct approved food bubble and saved circular timer progress")
+	var pending := active.duplicate(true)
+	pending.preference_phase = "pending"
+	_expect(world.customer_feedback(pending).is_empty(), "Walking and sitting do not start an early visible preference cycle")
+	var expired := active.duplicate(true)
+	expired.preference_phase = "expired"
+	expired.preference_phase_elapsed = 0.4
+	feedback = world.customer_feedback(expired)
+	_expect(feedback.clip == "cucumber-fade" and feedback.timer < 0, "Expiry fades the same food thought bubble once without a new timer")
+	expired.preference_phase_elapsed = 3.4
+	_expect(world.customer_feedback(expired).is_empty(), "A long-expired preference stays hidden while the next dish is accepted")
+	var happy := {"phase": "eating", "visual_phase": "eat", "meal_dish": {"recipe_id": "salmon_nigiri"}, "preference_phase": "satisfied", "happy_elapsed": 0.3, "happy_duration": 2.2}
+	feedback = world.customer_feedback(happy)
+	_expect(feedback.object == "bubble-happy" and feedback.clip == "happy-smile-transition" and world.customer_pose_offset(happy, 128).y < 0, "A matching first dish shows the isolated ImageGen happy face and a brief whole-instance bounce")
+	_expect(world.customer_clip(happy) == "eat-salmon", "Happiness retains the actual consumed food instead of swapping the character meal")
+	happy.happy_elapsed = 1.7
+	_expect(world.customer_feedback(happy).clip == "happy-smile-fade" and world.customer_pose_offset(happy, 128).is_zero_approx(), "The happy face fades after its brief bounce finishes")
+	happy.preference_phase = "complete"
+	_expect(world.customer_feedback(happy).is_empty(), "Later dishes do not restart the preference or happy bubble cycle")
+	var restless := {"phase": "waiting", "visual_phase": "seated-wait", "restless": true}
+	_expect(world.customer_clip(restless) == "restless", "An unfed restless guest uses its native empty-handed fidget action")
+	restless.visual_phase = "stand-up"
+	_expect(world.customer_clip(restless) == "stand-up", "Restlessness does not replace the authored leaving transition")
+	_expect(world.chef_clip({"art_id": "chef-omar", "recipe_id": "cucumber_maki", "visual_phase": "hold", "active": true}) == "hold-cucumber", "Omar holds the correct approved cucumber plate")
+	_expect(world.chef_clip({"art_id": "chef-omar", "recipe_id": "cucumber_maki", "visual_phase": "load", "active": true}) == "load-cucumber", "Omar's one-shot loading animation keeps cucumber food identity")
+	_expect(world.chef_clip({"visual_phase": "work", "active": false}) == "idle" and world.activity_tint({"active": false}) != Color.WHITE, "Disconnected service uses a quiet idle treatment instead of an error badge")
+	_expect(world.art.objects["bubble-happy"].clips.has("happy-smile-appear") and world.art.objects["bubble-happy"].clips.has("happy-smile-idle") and not world.art.objects["customer-rosa"].clips.has("happy"), "Smiling feedback extends the balloon without shipping unused native happy body actions")
+	var passing := {"render_offset_x": 0.18, "render_offset_y": -0.12}
+	_expect(world.customer_pose_offset(passing, 128).is_equal_approx(Vector2(0.18, -0.12) * 128), "Passing offsets are separate from the logical tile root and scale")
+	world.reduced_motion = true
+	happy.preference_phase = "satisfied"
+	happy.happy_elapsed = 0.3
+	_expect(world.customer_pose_offset(happy, 128).is_zero_approx(), "Reduced motion removes the brief bounce while preserving visit state")
+	world.reduced_motion = false
+	_expect(world.gallery_customers().size() == 5 and world.gallery_customers()[4].restless, "The shared native gallery covers waiting, preference, happy, expired and restless moments")
+
 func _test_connections(world) -> void:
+	var original: Dictionary = world.state
+	world.state = original.duplicate(true)
+	world.state.objects = []
+	world.state.customers = []
+	for index in range(4):
+		world.state.objects.append({"id": "art-belt-%s" % index, "kind": "belt", "x": index + 1, "y": 8, "facing": "east", "travel_progress": 0.0, "dish": {"recipe_id": "salmon_nigiri"}})
 	var art = world.art
 	var belts: Array = []
 	for object in world.state.objects:
@@ -118,6 +164,7 @@ func _test_connections(world) -> void:
 			first_dish = mini(first_dish, index)
 			dish_count += 1
 	_expect(dish_count == 4 and first_dish > last_belt, "Every connected belt surface is drawn before every carried plate")
+	world.state = original
 
 func _expect(condition: bool, description: String) -> void:
 	checks += 1

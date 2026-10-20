@@ -16,8 +16,16 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
         self.project = self.root / "godot"
-        for name in build.ROOT_FILES:
-            self.write(name, "[application]\n" if name == "project.godot" else "{}")
+        self.branding = {"title": "Example", "version_name": "0.3.0", "version_code": 30,
+                         "android_package": "example.game", "save_identity": "ExistingSave",
+                         "release_signer_sha256": "ab" * 32}
+        for name, text in {
+            "project.godot": '[application]\nconfig/name="Example"\nconfig/version="0.3.0"\nconfig/custom_user_dir_name="ExistingSave"\n',
+            "main.tscn": "{}",
+            "branding.json": json.dumps(self.branding, indent=2) + "\n",
+            "export_presets.cfg": 'package/name="Example"\npackage/unique_name="example.game"\nversion/name="0.3.0"\nversion/code=30\n',
+        }.items():
+            self.write(name, text)
         self.write("assets/catalog/sprites/test/static-S.png", b"approved sprite bytes")
         self.write("assets/recipe-variants/manifest.json", '{"fixture": "variant verifier is independently tested"}')
         self.write("assets/recipe-variants/sprites/test/eat-S.png", b"native variant fixture")
@@ -26,6 +34,16 @@ class RuntimeBoundaryTests(unittest.TestCase):
         recipe_verification = patch.object(build.recipe_contract, "verify_recipe_variants", return_value={"objects": 1, "atlases": 1})
         self.recipe_verifier = recipe_verification.start()
         self.addCleanup(recipe_verification.stop)
+        self.write("assets/chef-variants/manifest.json", '{"fixture": "chef verifier is independently tested"}')
+        self.write("assets/chef-variants/sprites/test/hold-S.png", b"native chef fixture")
+        chef_verification = patch.object(build.chef_contract, "verify_chef_variants", return_value={"objects": 1, "atlases": 1})
+        self.chef_verifier = chef_verification.start()
+        self.addCleanup(chef_verification.stop)
+        self.write("assets/feedback-variants/manifest.json", '{"fixture": "feedback verifier is independently tested"}')
+        self.write("assets/feedback-variants/sprites/test/smile-S.png", b"2D feedback fixture")
+        feedback_verification = patch.object(build.feedback_contract, "verify_feedback_variants", return_value={"objects": 1, "atlases": 1})
+        self.feedback_verifier = feedback_verification.start()
+        self.addCleanup(feedback_verification.stop)
         self.write("assets/ui/app_icon.png", b"wordless icon")
         self.write("scripts/app.gd", "extends Node\n")
         approved = self.root / "assets/production"
@@ -66,10 +84,12 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.assertEqual(catalog["atlas_count"], 1)
         self.assertEqual(selected["assets/audio/click.wav"], build.sha(audio))
         self.assertEqual((self.root / "staged/assets/catalog/sprites/test/static-S.png").read_bytes(), b"approved sprite bytes")
-        self.assertEqual(len(selected), 11)
+        self.assertEqual(len(selected), 15)
         self.assertIn("assets/recipe-variants/manifest.json", selected)
         self.assertIn("assets/recipe-variants/sprites/test/eat-S.png", selected)
         self.recipe_verifier.assert_any_call(self.root / "staged", source_project=self.project)
+        self.chef_verifier.assert_any_call(self.root / "staged", source_project=self.project)
+        self.feedback_verifier.assert_any_call(self.root / "staged", source_project=self.project)
         self.assertFalse((self.root / "staged/.local").exists())
         self.assertFalse((self.root / "staged/assets/production").exists())
 
@@ -136,6 +156,52 @@ class RuntimeBoundaryTests(unittest.TestCase):
             build.stage_runtime(self.project, self.root / "staged")
         self.assertFalse((self.root / "staged/project.godot").exists())
 
+    def test_stale_native_chef_variant_evidence_blocks_staging(self):
+        self.chef_verifier.side_effect = ValueError("Stale native chef variant evidence")
+        with self.assertRaisesRegex(ValueError, "Stale native chef"):
+            build.stage_runtime(self.project, self.root / "staged")
+        self.assertFalse((self.root / "staged/project.godot").exists())
+
+    def test_stale_imagegen_feedback_evidence_blocks_staging(self):
+        self.feedback_verifier.side_effect = ValueError("Stale ImageGen feedback evidence")
+        with self.assertRaisesRegex(ValueError, "Stale ImageGen"):
+            build.stage_runtime(self.project, self.root / "staged")
+        self.assertFalse((self.root / "staged/project.godot").exists())
+
+    def test_review_package_is_isolated_without_changing_source_or_normal_runtime(self):
+        self.write("content/starter.json", '{"demo": "customer-visits", "same_runtime": true}')
+        original = {name: build.sha(path) for name, path in build.runtime_sources(self.project).items()}
+        normal, normal_variant = build.resolve_branding(self.branding)
+        review, review_variant = build.resolve_branding(self.branding, review_scene="customer-visits")
+        normal_source, normal_staged, _ = build.stage_build(self.project, self.root / "normal", normal)
+        review_source, review_staged, _ = build.stage_build(self.project, self.root / "review", review)
+        self.assertEqual(normal_source, review_source)
+        self.assertEqual(original, {name: build.sha(path) for name, path in build.runtime_sources(self.project).items()})
+        self.assertEqual(normal["android_package"], "example.game")
+        self.assertEqual(review["android_package"], "example.game.review11")
+        self.assertEqual(review["title"], "Example · Customer Visits")
+        self.assertEqual(review["save_identity"], normal["save_identity"])
+        self.assertEqual(review["release_signer_sha256"], normal["release_signer_sha256"])
+        self.assertEqual(review["version_code"], 30)
+        self.assertEqual(normal_variant["kind"], "normal")
+        self.assertEqual(review_variant["kind"], "review")
+        self.assertEqual(set(review_variant["staged_branding_overrides"]), {"title", "android_package"})
+        changed = {name for name in normal_staged if normal_staged[name] != review_staged[name]}
+        self.assertEqual(changed, {"project.godot", "export_presets.cfg", "branding.json"})
+        self.assertNotEqual(build.fingerprint(normal_staged), build.fingerprint(review_staged))
+        _, normal_again, _ = build.stage_build(self.project, self.root / "normal-again", normal)
+        self.assertEqual(normal_staged, normal_again)
+
+    def test_review_identity_cannot_be_overridden_into_normal_package(self):
+        for options in ({"package_id": "example.game"}, {"title": "Example"}):
+            with self.subTest(options=options), self.assertRaisesRegex(ValueError, "isolated title/package"):
+                build.resolve_branding(self.branding, review_scene="customer-visits", **options)
+
+    def test_build_refuses_staging_inside_source_project(self):
+        with self.assertRaisesRegex(ValueError, "outside the source project"):
+            build.stage_build(self.project, self.project / "nested-stage", self.branding)
+        self.assertFalse((self.project / "nested-stage").exists())
+
 
 class ApkBoundaryTests(unittest.TestCase):
     def setUp(self):
@@ -143,16 +209,18 @@ class ApkBoundaryTests(unittest.TestCase):
         self.addCleanup(self.temporary.cleanup)
         self.apk = Path(self.temporary.name) / "game.apk"
         self.fingerprint = "ab" * 32
-        self.branding = {"android_package": "example.game", "version_code": 20, "version_name": "0.2.0",
+        self.branding = {"title": "Example", "android_package": "example.game", "version_code": 20, "version_name": "0.2.0",
                          "release_signer_sha256": self.fingerprint}
-        self.badging = "package: name='example.game' versionCode='20' versionName='0.2.0'\nsdkVersion:'24'\ntargetSdkVersion:'35'\n"
+        self.badging = "package: name='example.game' versionCode='20' versionName='0.2.0'\napplication-label:'Example'\nsdkVersion:'24'\ntargetSdkVersion:'35'\n"
         self.signer = f"Signer #1 certificate SHA-256 digest: {self.fingerprint}\n"
 
     def archive(self, extra=None):
         with zipfile.ZipFile(self.apk, "w") as archive:
             for name, data in {"lib/arm64-v8a/libgodot_android.so": b"arm", "lib/x86_64/libgodot_android.so": b"x64",
                                "assets/assets/catalog/manifest.json": b'{}',
-                               "assets/assets/recipe-variants/manifest.json": b'{}', **(extra or {})}.items():
+                               "assets/assets/recipe-variants/manifest.json": b'{}',
+                               "assets/assets/chef-variants/manifest.json": b'{}',
+                               "assets/assets/feedback-variants/manifest.json": b'{}', **(extra or {})}.items():
                 archive.writestr(name, data)
 
     def audit(self):
@@ -183,6 +251,12 @@ class ApkBoundaryTests(unittest.TestCase):
         self.archive()
         self.badging += "uses-permission: name='android.permission.INTERNET'\n"
         with self.assertRaisesRegex(ValueError, "Internet permission"):
+            self.audit()
+
+    def test_rejects_wrong_launcher_label_even_when_package_and_version_match(self):
+        self.archive()
+        self.badging = self.badging.replace("application-label:'Example'", "application-label:'Other demo'")
+        with self.assertRaisesRegex(ValueError, "app label"):
             self.audit()
 
 

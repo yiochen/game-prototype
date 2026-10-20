@@ -10,6 +10,8 @@ const PAPER := Color("ffefcf")
 const DIRECTIONS := {"north": Vector2.UP, "south": Vector2.DOWN, "east": Vector2.RIGHT, "west": Vector2.LEFT}
 const FACING := {"north": "N", "east": "E", "south": "S", "west": "W"}
 const CUSTOMERS := ["customer-rosa", "customer-ellis", "customer-samir", "customer-june"]
+const BUBBLE_ATTACHMENT := Vector2(0, -172) # Fixed C125 head clearance, logical pixels.
+const INACTIVE_TINT := Color(0.56, 0.62, 0.65, 0.82)
 const DISHES := {"salmon_nigiri": "dish-salmon", "cucumber_maki": "dish-cucumber", "eel_nigiri": "dish-eel"}
 var art = ArtBook.new()
 var state: Dictionary = {}
@@ -91,10 +93,16 @@ func _room() -> void:
 				sprite(item.key, item.base, item.get("clip", "static"), item.get("direction", "S"), 0.0 if reduced_motion else float(state.elapsed))
 			"chef":
 				_chef(item.value)
+			"seat":
+				_seat_at(item.value, cell_base(float(item.value.x), float(item.value.y)), cell)
 			"board":
 				_board(item.value)
 			"customer":
 				_customer(item.value)
+	# Thought/reaction art is a final feedback layer, following the same saved
+	# visual offset as its customer while remaining readable above furniture.
+	for customer in state.get("customers", []):
+		_feedback_at(customer, cell_base(float(customer.x), float(customer.y)), cell)
 	for pop in sale_pops:
 		var age := time - float(pop.time)
 		if age >= 0.0 and age < 0.9:
@@ -113,12 +121,12 @@ func render_plan() -> Array:
 				if object.get("dish") != null:
 					result.append({"kind": "dish", "value": object, "depth": float(object.y), "priority": 3})
 			"seat":
-				result.append(_prop("stool-wood", float(object.x), float(object.y), "static", str(FACING.get(object.facing, "S"))))
+				result.append({"kind": "seat", "value": object, "depth": float(object.y), "priority": 0})
 			"chef":
 				result.append({"kind": "chef", "value": object, "depth": float(object.y), "priority": 2})
 				result.append({"kind": "board", "value": object, "depth": float(object.y) + 0.4, "priority": 4})
 	for customer in state.get("customers", []):
-		result.append({"kind": "customer", "value": customer, "depth": float(customer.y), "priority": 2})
+		result.append({"kind": "customer", "value": customer, "depth": float(customer.y) + float(customer.get("render_offset_y", 0)), "priority": 2})
 	result.sort_custom(func(a: Dictionary, b: Dictionary):
 		if not is_equal_approx(float(a.depth), float(b.depth)):
 			return float(a.depth) < float(b.depth)
@@ -181,79 +189,160 @@ func dish_base(belt: Dictionary) -> Vector2:
 func _dish(belt: Dictionary) -> void:
 	sprite(str(DISHES.get(str(belt.dish.recipe_id), "dish-salmon")), dish_base(belt))
 
+func activity_tint(object: Dictionary) -> Color:
+	return Color.WHITE if object.get("active", true) else INACTIVE_TINT
+
+func chef_clip(chef: Dictionary) -> String:
+	if not chef.get("active", true):
+		return "idle"
+	var clip := str(chef.get("visual_phase", "hold" if chef.get("held_dish") != null else "work"))
+	if chef.get("art_id", "chef-lena") == "chef-omar" and chef.get("recipe_id") == "cucumber_maki" and clip in ["hold", "load"]:
+		return clip + "-cucumber"
+	return clip
+
 func _chef(chef: Dictionary) -> void:
-	var held := chef.get("held_dish") != null
-	var clip := str(chef.get("visual_phase", "hold" if held else "work"))
-	var seconds := 0.0 if reduced_motion else float(chef.get("visual_elapsed", state.elapsed))
-	sprite("chef-lena", cell_base(float(chef.x), float(chef.y)), clip, str(FACING.get(chef.facing, "N")), seconds)
-	if held and clip != "load":
-		var center := cell_base(float(chef.x), float(chef.y)) - Vector2(cell * 0.42, cell * 1.25)
-		draw_circle(center, cell * 0.10, PAPER)
-		draw_arc(center, cell * 0.10, 0, TAU, 24, INK, 1.4, true)
-		draw_line(center, center - Vector2(0, cell * 0.05), INK, 1.4, true)
+	_chef_at(chef, cell_base(float(chef.x), float(chef.y)), cell)
+
+func _chef_at(chef: Dictionary, base: Vector2, pitch: float) -> void:
+	var clip := chef_clip(chef)
+	var seconds := 0.0 if reduced_motion else float(chef.get("visual_elapsed", state.get("elapsed", time)))
+	sprite(str(chef.get("art_id", "chef-lena")), base, clip, str(FACING.get(chef.get("facing", "south"), "S")), seconds, pitch, activity_tint(chef))
+	if chef.get("held_dish") != null and not clip.begins_with("load") and chef.get("active", true):
+		var center := base - Vector2(pitch * 0.42, pitch * 1.25)
+		draw_circle(center, pitch * 0.10, PAPER)
+		draw_arc(center, pitch * 0.10, 0, TAU, 24, INK, 1.4, true)
+		draw_line(center, center - Vector2(0, pitch * 0.05), INK, 1.4, true)
+
+func _seat_at(seat: Dictionary, base: Vector2, pitch: float) -> void:
+	sprite("stool-wood", base, "static", str(FACING.get(seat.get("facing", "south"), "S")), 0.0, pitch, activity_tint(seat))
 
 func _board(chef: Dictionary) -> void:
-	var base := cell_base(float(chef.x), float(chef.y))
-	# Front placement and blank face are modeled in the source. Do not translate
-	# this fixture to a second ground cell or rotate it away from the player.
-	sprite("chef-blackboard", base, "idle", "S")
-	var face: Vector2 = base + art.socket("chef-blackboard", "display_face") * cell / art.cell_size
-	# Dynamic recipe content is UI on the board, independent of native artwork.
-	# A uniform quarter-size copy of the food sprite is centered on its plate root.
-	var food := str(DISHES.get(str(chef.recipe_id), "dish-salmon"))
-	sprite(food, face, "static", "S", 0.0, cell * 0.28)
+	_board_at(chef, cell_base(float(chef.x), float(chef.y)), cell)
+
+func _board_at(chef: Dictionary, base: Vector2, pitch: float) -> void:
+	# Front placement and blank face are modeled in the source. This fixture
+	# stays in the chef's cell and always faces the player.
+	var tint := activity_tint(chef)
+	sprite("chef-blackboard", base, "idle", "S", 0.0, pitch, tint)
+	var face: Vector2 = base + art.socket("chef-blackboard", "display_face") * pitch / art.cell_size
+	sprite(str(DISHES.get(str(chef.get("recipe_id", "salmon_nigiri")), "dish-salmon")), face, "static", "S", 0.0, pitch * 0.28, tint)
 
 func _customer(customer: Dictionary) -> void:
+	_customer_at(customer, cell_base(float(customer.x), float(customer.y)), cell)
+
+func customer_pose_offset(customer: Dictionary, pitch: float) -> Vector2:
+	var result := Vector2(float(customer.get("render_offset_x", 0)), float(customer.get("render_offset_y", 0))) * pitch
+	var happy := float(customer.get("happy_elapsed", 100.0))
+	if not reduced_motion and customer.get("preference_phase") == "satisfied" and happy >= 0.0 and happy < 0.55:
+		result.y -= sin(PI * happy / 0.55) * pitch * 0.14
+	return result
+
+func _customer_at(customer: Dictionary, base: Vector2, pitch: float) -> void:
 	var identity: String = CUSTOMERS[posmod(int(customer.get("appearance", 0)), CUSTOMERS.size())]
 	var direction := str(FACING.get(str(customer.get("facing", "south")), "S"))
-	var clip := customer_clip(customer)
-	var seconds := 0.0 if reduced_motion else float(customer.get("visual_elapsed", state.elapsed))
-	# Native sit/stand actions were calibrated to the wood stool's support plane.
-	# Their ground root stays centered while hips and legs move inside the frame.
-	sprite(identity, cell_base(float(customer.x), float(customer.y)), clip, direction, seconds)
+	var seconds := 0.0 if reduced_motion else float(customer.get("visual_elapsed", state.get("elapsed", time)))
+	# Sit/stand actions retain their native wood-stool support calibration.
+	# Passing and brief happiness move only the visual instance, never its cell.
+	sprite(identity, base + customer_pose_offset(customer, pitch), customer_clip(customer), direction, seconds, pitch)
 
 func customer_clip(customer: Dictionary) -> String:
-	var phase := str(customer.phase)
+	var phase := str(customer.get("phase", "waiting"))
 	var fallback := "eat" if phase == "eating" else "seated-wait" if phase == "waiting" else "walk"
 	var clip := str(customer.get("visual_phase", fallback))
+	if customer.get("restless", false) and phase == "waiting" and clip in ["seated-wait", "seated-wait-empty", "restless"]:
+		return "restless"
 	if clip == "seated-wait":
 		return "seated-wait-empty"
 	if clip == "eat" and customer.get("meal_dish") is Dictionary and customer.meal_dish.get("recipe_id") == "salmon_nigiri":
 		return "eat-salmon"
 	return clip
 
+func customer_feedback(customer: Dictionary) -> Dictionary:
+	var phase := str(customer.get("preference_phase", "pending"))
+	var prefix := "cucumber-" if customer.get("preferred_recipe_id") == "cucumber_maki" else ""
+	var age := maxf(0.0, float(customer.get("preference_phase_elapsed", float(customer.get("preference_total", 0)) - float(customer.get("preference_remaining", 0)))))
+	if phase == "active":
+		return {"object": "bubble-preference", "clip": prefix + ("appear" if age < 1.0 else "idle"), "seconds": age if age < 1.0 else age - 1.0, "timer": clampf(float(customer.get("preference_progress", 1)), 0, 1)}
+	if phase == "expired" and age < 1.0:
+		return {"object": "bubble-preference", "clip": prefix + "fade", "seconds": age, "timer": -1.0}
+	if phase == "satisfied":
+		var happy := maxf(0.0, float(customer.get("happy_elapsed", 0)))
+		var duration := float(customer.get("happy_duration", 2.2))
+		if happy >= duration:
+			return {}
+		var clip := "happy-smile-transition" if happy < 1.0 else "happy-smile-fade" if happy >= duration - 1.0 else "happy-smile-idle"
+		return {"object": "bubble-happy", "clip": clip, "seconds": happy if happy < 1.0 else happy - (duration - 1.0) if clip == "happy-smile-fade" else happy - 1.0, "timer": -1.0}
+	return {}
+
+func _feedback_at(customer: Dictionary, base: Vector2, pitch: float) -> void:
+	var feedback := customer_feedback(customer)
+	if feedback.is_empty():
+		return
+	var bubble_base: Vector2 = base + customer_pose_offset(customer, pitch) + BUBBLE_ATTACHMENT * pitch / art.cell_size
+	sprite(feedback.object, bubble_base, feedback.clip, "S", 0.0 if reduced_motion else float(feedback.seconds), pitch)
+	if float(feedback.timer) >= 0.0:
+		var center: Vector2 = bubble_base + Vector2(37, -84) * pitch / art.cell_size
+		var radius := pitch * 0.115
+		var stroke := maxf(1.4, pitch * 0.032)
+		draw_circle(center, radius + stroke, Color("fff5dc"))
+		draw_arc(center, radius, 0, TAU, 36, Color("c5ccbc"), stroke, true)
+		var progress := float(feedback.timer)
+		if progress > 0.001:
+			draw_arc(center, radius, -PI * 0.5, -PI * 0.5 + TAU * progress, 36, Color("3c8d7b") if progress > 0.25 else Color("bf8147"), stroke, true)
+
+func gallery_customers() -> Array:
+	var base := {"id": "review-guest", "appearance": 0, "phase": "waiting", "visual_phase": "seated-wait", "visual_elapsed": time, "facing": "south", "meal_dish": null, "preference_phase": "pending", "preferred_recipe_id": "salmon_nigiri", "preference_total": 8.0, "preference_remaining": 8.0, "preference_progress": 1.0, "preference_phase_elapsed": 0.0, "restless": false}
+	var result: Array = []
+	for index in range(5):
+		result.append(base.duplicate(true))
+	result[1].merge({"preference_phase": "active", "preferred_recipe_id": "cucumber_maki", "preference_phase_elapsed": 2.0 + fmod(time, 6.0), "preference_progress": 0.75 - fmod(time, 6.0) / 8.0}, true)
+	result[2].merge({"phase": "eating", "visual_phase": "eat", "meal_dish": {"recipe_id": "salmon_nigiri"}, "preference_phase": "satisfied", "happy_elapsed": fmod(time, 2.2), "happy_duration": 2.2}, true)
+	result[3].merge({"preference_phase": "expired", "preference_phase_elapsed": fmod(time, 3.0)}, true)
+	result[4].merge({"preference_phase": "expired", "preference_phase_elapsed": 5.0, "restless": true}, true)
+	return result
+
 func _gallery() -> void:
 	var unit := portrait.size.x / 720.0
 	var left := portrait.position.x + 36.0 * unit
 	caption("Shared components", Vector2(left, 58 * unit), int(40 * unit), PAPER, true)
-	caption("Approved Faceted art · same scene renderer", Vector2(left, 101 * unit), int(22 * unit), Color("a9d6d0"))
+	caption("Customer visits · preferences and reactions", Vector2(left, 101 * unit), int(22 * unit), Color("a9d6d0"))
 	var panel := Rect2(left, 240 * unit, portrait.size.x - 72 * unit, minf(940 * unit, portrait.size.y - 475 * unit))
 	draw_style_box(_paper_style(), panel)
 	var row_unit := panel.size.y / 940.0
-	var pitch := minf(116 * unit, 144 * row_unit)
-	caption("Four facings · C125 chef", panel.position + Vector2(24 * unit, 42 * row_unit), int(27 * unit), INK, true)
-	for index in range(4):
-		var base := panel.position + Vector2((94 + index * 150) * unit, 260 * row_unit)
-		_gallery_tile(base, pitch)
-		sprite("chef-lena", base, "work", ["N", "E", "S", "W"][index], 0.0 if reduced_motion else time, pitch)
-	caption("Guests · walk, sit, wait, eat", panel.position + Vector2(24 * unit, 370 * row_unit), int(27 * unit), INK, true)
-	for index in range(4):
-		var base := panel.position + Vector2((94 + index * 150) * unit, 570 * row_unit)
-		_gallery_tile(base, pitch)
-		var clip: String = ["walk", "sit-down", "seated-wait-empty", "eat-salmon"][index]
-		if index > 0:
-			sprite("stool-wood", base, "static", "S", 0.0, pitch)
-		sprite(CUSTOMERS[index], base, clip, "S", 0.0 if reduced_motion else fmod(time, 1.8), pitch)
-	caption("24-frame connected conveyor", panel.position + Vector2(24 * unit, 675 * row_unit), int(27 * unit), INK, true)
-	var start := panel.position + Vector2(106 * unit, 825 * row_unit)
+	var pitch := minf(112 * unit, 106 * row_unit)
+	caption("One guest, five moments", panel.position + Vector2(24 * unit, 30 * row_unit), int(27 * unit), INK, true)
+	var guests := gallery_customers()
+	var labels := ["Waiting", "Preference", "Happy", "Expired", "Restless", "Inactive"]
+	for index in range(6):
+		var column := index % 3
+		var row := 0 if index < 3 else 1
+		var base := panel.position + Vector2((112 + column * 212) * unit, (300 + row * 325) * row_unit)
+		if index < 5:
+			_gallery_tile(base, pitch)
+			_seat_at({"facing": "south", "active": true}, base, pitch)
+			_customer_at(guests[index], base, pitch)
+			_feedback_at(guests[index], base, pitch)
+		else:
+			var chef_base := base - Vector2(pitch * 0.5, 0)
+			var seat_base := base + Vector2(pitch * 0.5, 0)
+			_gallery_tile(chef_base, pitch)
+			_gallery_tile(seat_base, pitch)
+			var chef := {"art_id": "chef-lena", "recipe_id": "salmon_nigiri", "facing": "south", "active": false, "visual_phase": "idle", "visual_elapsed": time}
+			_chef_at(chef, chef_base, pitch)
+			_board_at(chef, chef_base, pitch)
+			_seat_at({"facing": "south", "active": false}, seat_base, pitch)
+		caption(labels[index], panel.position + Vector2((57 + column * 212) * unit, (380 + row * 325) * row_unit), int(25 * unit))
+	caption("Connected service", panel.position + Vector2(24 * unit, 740 * row_unit), int(27 * unit), INK, true)
+	var start := panel.position + Vector2(108 * unit, 860 * row_unit)
 	for index in range(4):
 		var base := start + Vector2(float(index) * pitch, 0)
 		_gallery_tile(base, pitch)
 		var identity: String = ["belt-start-e", "belt-straight-e", "belt-straight-e", "belt-end-e"][index]
 		sprite(identity, base, "running", "S", 0.0 if reduced_motion else time, pitch)
-	var dish_at: Vector2 = start + Vector2(fmod(0.0 if reduced_motion else time * 0.7, 3.0) * pitch, 0) + art.socket("belt-straight-e", "deck") * pitch / art.cell_size
-	sprite("dish-salmon", dish_at, "static", "S", 0.0, pitch)
-	caption("Whole frames · registered tile roots", panel.position + Vector2(24 * unit, 924 * row_unit), int(23 * unit))
+	for index in range(2):
+		var progress := fmod((0.0 if reduced_motion else time * 0.7) + float(index) * 1.5, 3.0)
+		var at: Vector2 = start + Vector2(progress * pitch, 0) + art.socket("belt-straight-e", "deck") * pitch / art.cell_size
+		sprite("dish-salmon" if index == 0 else "dish-cucumber", at, "static", "S", 0.0, pitch)
 
 func _gallery_tile(base: Vector2, pitch: float) -> void:
 	sprite("floor-cream", base, "static", "S", 0.0, pitch)

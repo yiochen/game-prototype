@@ -27,9 +27,12 @@ SELECTION = {
     'belt-straight-e': (['running'], ['S']),
     'belt-end-e': (['running'], ['S']),
     'chef-lena': (['idle', 'work', 'hold', 'load'], DIRECTIONS),
+    'chef-omar': (['idle', 'work', 'hold', 'load'], DIRECTIONS),
     'chef-blackboard': (['idle'], ['S']),
     'coin-pop': (['pop'], ['S']),
-    **{identity: (['stand', 'walk', 'seated-wait', 'eat', 'sit-down', 'stand-up'], DIRECTIONS)
+    'bubble-preference': (['appear', 'idle', 'fade', 'cucumber-appear', 'cucumber-idle', 'cucumber-fade'], ['S']),
+    'bubble-happy': (['happy-transition', 'idle', 'fade'], ['S']),
+    **{identity: (['stand', 'walk', 'seated-wait', 'eat', 'sit-down', 'stand-up', 'restless'], DIRECTIONS)
        for identity in ['customer-rosa', 'customer-ellis', 'customer-samir', 'customer-june']},
     **{identity: (['static'], ['S']) for identity in ['dish-salmon', 'dish-cucumber', 'dish-eel']},
     **{identity: (['idle'], ['S']) for identity in ['garbage-sofa', 'garbage-car', 'garbage-shelving']},

@@ -1,6 +1,6 @@
 # Issue 10 · approved catalog integration
 
-The art catalog PR [#34](https://github.com/yiochen/game-prototype/pull/34) is merged into `main` at `fbcfef76c3fb4032cfdeee19d8ca1a16160b6354`. This continuation rebases [PR #32](https://github.com/yiochen/game-prototype/pull/32) onto that commit and implements only [#10](https://github.com/yiochen/game-prototype/issues/10). PR #32 and issue #10 remain open for user verification.
+The art catalog PR [#34](https://github.com/yiochen/game-prototype/pull/34) is merged into `main` at `fbcfef76c3fb4032cfdeee19d8ca1a16160b6354`. This continuation rebases [PR #32](https://github.com/yiochen/game-prototype/pull/32) onto that commit and implements only [#10](https://github.com/yiochen/game-prototype/issues/10). The user verified this slice; PR #32 was merged into main at `d30f3cbe8b5f590c162e719828d9e605ecd24150` on 2026-10-19, closing issue #10. The original release evidence below is retained unchanged.
 
 ## Playable starter
 
