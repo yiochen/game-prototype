@@ -1,0 +1,17 @@
+Fixture corrected through actual Return and card/world taps: all6 belts are on row3.
+PASS: Actual inventory drops fill row3 and the final empty-tile plant gate is accepted despite disconnecting the guest route
+PASS: Route closure consumes only the seven owned supplies without a purchase or coin change
+PASS: Seated guests retain their complete seated meal and visit state while the layout closes their route
+Waiting for a real walking or leaving guest to need the blocked route...
+PASS: An unreachable walking or leaving guest enters wander mode on free floor with the existing walk animation
+PASS: The same blocked guest visibly moves across free floor instead of remaining stuck or disappearing
+PASS: Wandering preserves the guest identity, assigned goal, departure phase and meal/visit state
+PASS: Edit and Home keep the complete wandering save byte-stable without advancing navigation, service or RNG
+PASS: Force-stop preserves the saved wandering position, origin, cursor and retry clock
+PASS: Cold reopen restores every paused field including fractional wandering route bookkeeping and the guest visit
+PASS: Live resumes the restored wandering movement with the same guest and visit
+PASS: Returning the plant gate restores the route and owned stock without altering coins
+PASS: The same wandering guest automatically resumes its goal route or completes departure when the layout is reopened
+PASS: The complete route-block/wander/reopen/unblock proof leaves both normal app saves untouched
+PASS: No app runtime error or crash occurs during the actual blocked-route wandering proof
+{"focused_assertions": 14, "combined_assertions": 69, "passed": true}
