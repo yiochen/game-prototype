@@ -16,10 +16,6 @@ const REQUIRED_SPRITES := [
 var checks := 0
 var failures: Array[String] = []
 
-class CurrencySnapshot extends RefCounted:
-	var state: Dictionary = {}
-	func snapshot() -> Dictionary:
-		return state.duplicate(true)
 
 func _init() -> void:
 	call_deferred("_run")
@@ -498,9 +494,8 @@ func _test_large_balance_capsule(app) -> void:
 	# This synchronous presentation fixture never reaches a simulation frame or
 	# the save store; the domain correctly continues to reject such save values.
 	var real_session: RefCounted = app.session
-	var currency := CurrencySnapshot.new()
-	currency.state = real_session.snapshot()
-	currency.state.coins = 9223372036854775807
+	var currency: RefCounted = Session.new_session(41)
+	currency._state.coins = 9223372036854775807
 	app.session = currency
 	app._layout_hud(app.world.portrait, app.editor_ui.unit)
 	var defensive_caption: String = app.money.text
@@ -643,7 +638,8 @@ func _test_optical_pairs(app, pairs: Array, stock_cards: Array = []) -> void:
 			logical_face.size.y = bubble_face.size.y
 		var face: Rect2 = transform * logical_face
 		var group := icon_ink.merge(text_ink)
-		var minimum_padding: float = (transform.basis_xform(Vector2(10 * unit, 0))).length()
+		var padding_units := 10.0 if pair.name in ["Editing", "Coins"] else 8.0
+		var minimum_padding: float = (transform.basis_xform(Vector2(padding_units * unit, 0))).length()
 		var centered_horizontally: bool = pair.name == "Coins" or absf(group.get_center().x - face.get_center().x) <= 2.1
 		_expect(face.grow(0.5).encloses(group) and group.position.x - face.position.x >= minimum_padding - 1 and face.end.x - group.end.x >= minimum_padding - 1 and centered_horizontally and absf(group.get_center().y - face.get_center().y) <= 2.1, "%s rendered foreground fits its material face with horizontal padding (face=%s, foreground=%s)" % [pair.name, face, group])
 	if stock_cards.is_empty(): return

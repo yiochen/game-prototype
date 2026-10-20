@@ -1,0 +1,44 @@
+{
+  "method": "Native Godot4.7.2 with real rendered foreground/background pixel differences, actual ScreenTouch/ScreenDrag and unique disposable save identity per case",
+  "cases": [
+    {
+      "script": "native_app_tests.gd",
+      "resolution": "320x720",
+      "log": "native-320x720.log",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "script": "native_app_tests.gd",
+      "resolution": "1440x1000",
+      "log": "native-1440x1000.log",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "script": "native_app_tests.gd",
+      "resolution": "1280x720",
+      "log": "native-1280x720.log",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "script": "ui_skin_tests.gd",
+      "resolution": "720x1560",
+      "log": "ui-skin-visible.log",
+      "exit_code": 0,
+      "passed": true,
+      "verification": "Standalone UISkin fixture run passed83 checks. Its test script, UISkin renderer, manifest and atlas are unchanged since that run; application scene changes were verified by all three native cases."
+    }
+  ],
+  "sources": {
+    "scripts/game.gd": "4ef8d1d9f93121f2e1c6245a9f98edadc442495bb193038aca7b656eedc60006",
+    "scripts/editor_presentation.gd": "3ddbdbf8b6e280b2d0cfb59339c65fd8a1fc62dbdcdc0be139756d5b703009ca",
+    "scripts/ui_skin.gd": "f4963753dfae0d539062b2aeec0d7f16c06ca56b57947b12691226b12bab1eeb",
+    "assets/ui/editor/manifest.json": "f9215433b8fb5efb3f56d2f0fc8fd49304322f15a4c97e9baac41e9bed065a3a",
+    "assets/ui/editor/skin.png": "03f9b53613a68be018459196b90c6408fe3e91b04d6df27e7c6118c7a6e8b777",
+    "tests/native_app_tests.gd": "c83bd4909e94a6ac4925e8e0dbbb3278795b76be4e68163358c0fe2e8e512de5",
+    "tests/ui_skin_tests.gd": "01095fc17498aee153a7e666ffbd5ee97e0b5cb5d6941a2296fb5711642d3355",
+    "tests/capture_editor.gd": "4b6108e6e7d0ea48401cf5e66b9a3efb80f2b88d7aefbb3915f91ecae3ad7740"
+  }
+}
