@@ -1,0 +1,3655 @@
+{
+  "fixture": {
+    "floor": {
+      "columns": 7,
+      "entrance": {
+        "x": 3,
+        "y": 0
+      },
+      "rows": 7,
+      "viewport_columns": 7,
+      "world_columns": 21
+    },
+    "objects": [
+      {
+        "art_id": "chef-lena",
+        "facing": "east",
+        "id": "chef",
+        "kind": "chef",
+        "recipe_id": "salmon_nigiri",
+        "x": 2,
+        "y": 6
+      },
+      {
+        "facing": "south",
+        "id": "belt",
+        "kind": "belt",
+        "x": 3,
+        "y": 6
+      },
+      {
+        "facing": "south",
+        "id": "seat",
+        "kind": "seat",
+        "x": 3,
+        "y": 5
+      },
+      {
+        "art_id": "crate-wood",
+        "facing": "south",
+        "id": "wall-0",
+        "kind": "decor",
+        "x": 0,
+        "y": 3
+      },
+      {
+        "art_id": "crate-wood",
+        "facing": "south",
+        "id": "wall-1",
+        "kind": "decor",
+        "x": 1,
+        "y": 3
+      },
+      {
+        "art_id": "crate-wood",
+        "facing": "south",
+        "id": "wall-2",
+        "kind": "decor",
+        "x": 2,
+        "y": 3
+      },
+      {
+        "art_id": "crate-wood",
+        "facing": "south",
+        "id": "wall-4",
+        "kind": "decor",
+        "x": 4,
+        "y": 3
+      },
+      {
+        "art_id": "crate-wood",
+        "facing": "south",
+        "id": "wall-5",
+        "kind": "decor",
+        "x": 5,
+        "y": 3
+      },
+      {
+        "art_id": "crate-wood",
+        "facing": "south",
+        "id": "wall-6",
+        "kind": "decor",
+        "x": 6,
+        "y": 3
+      }
+    ],
+    "service": {
+      "arrival_jitter_seconds": 0.0,
+      "arrival_seconds": 1000.0,
+      "first_arrival_seconds": 0.1,
+      "walking_cells_per_second": 2.0
+    }
+  },
+  "screens": [
+    {
+      "name": "01-blocking-edit-accepted",
+      "pixels": [
+        320,
+        720
+      ],
+      "portrait": [
+        0.0,
+        720.0,
+        1620.0
+      ],
+      "snapshot": {
+        "camera": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "coins": 120,
+        "customers": [
+          {
+            "appearance": 1,
+            "facing": "south",
+            "happy_duration": 2.2,
+            "happy_elapsed": 0.0,
+            "id": "customer-1",
+            "meal_dish": null,
+            "meal_progress": 0.0,
+            "navigation_mode": "wander",
+            "phase": "walking",
+            "preference_phase": "pending",
+            "preference_phase_elapsed": 0.5,
+            "preference_progress": 1.0,
+            "preference_remaining": 7.0,
+            "preference_total": 7.0,
+            "preferred_recipe_id": "salmon_nigiri",
+            "render_offset_x": -0.239999994635582,
+            "render_offset_y": 0.0,
+            "restless": false,
+            "seat_id": "seat",
+            "visual_elapsed": 0.5,
+            "visual_phase": "walk",
+            "waiting_elapsed": 0.0,
+            "x": 3.0,
+            "y": 1.00000011920929,
+            "yielding": false
+          }
+        ],
+        "editor": {
+          "layer": "layout",
+          "page": 0,
+          "pages": {
+            "floor": 0,
+            "layout": 0,
+            "people": 0
+          },
+          "selected_id": "editor-object-1",
+          "tray_open": false
+        },
+        "elapsed": 0.6,
+        "entrance_open": true,
+        "floor": {
+          "columns": 7,
+          "entrance": {
+            "x": 3,
+            "y": 0
+          },
+          "rows": 7,
+          "viewport_columns": 7,
+          "world_columns": 21
+        },
+        "inventory": [
+          {
+            "art_id": "belt-straight-e",
+            "count": 6.0,
+            "facing": "east",
+            "id": "belt-tile",
+            "kind": "belt",
+            "name": "Conveyor"
+          },
+          {
+            "art_id": "stool-wood",
+            "count": 4.0,
+            "facing": "south",
+            "id": "stool-plain",
+            "kind": "seat",
+            "name": "Wood stool"
+          },
+          {
+            "art_id": "plant-angular",
+            "count": 2.0,
+            "facing": "south",
+            "id": "plant-angular",
+            "kind": "decor",
+            "name": "Potted plant"
+          },
+          {
+            "art_id": "crate-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "crate-wood",
+            "kind": "decor",
+            "name": "Wood crate"
+          },
+          {
+            "art_id": "barrel-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "barrel-wood",
+            "kind": "decor",
+            "name": "Wood barrel"
+          },
+          {
+            "art_id": "floor-cream",
+            "available": false,
+            "count": 0.0,
+            "id": "floor-cream",
+            "kind": "floor",
+            "name": "Cream floor"
+          },
+          {
+            "art_id": "chef-lena",
+            "assigned": true,
+            "count": 0,
+            "facing": "east",
+            "id": "chef",
+            "kind": "chef",
+            "name": "Chef",
+            "recipe_id": "salmon_nigiri"
+          }
+        ],
+        "mode": "edit",
+        "objects": [
+          {
+            "active": true,
+            "art_id": "chef-lena",
+            "facing": "east",
+            "held_dish": null,
+            "id": "chef",
+            "inactive_reason": "",
+            "kind": "chef",
+            "loading_elapsed": 0.0,
+            "preparation": 0.176470588235294,
+            "preparation_seconds": 3.4,
+            "recipe_id": "salmon_nigiri",
+            "visual_elapsed": 0.6,
+            "visual_phase": "work",
+            "x": 2,
+            "y": 6
+          },
+          {
+            "dish": null,
+            "facing": "south",
+            "id": "belt",
+            "kind": "belt",
+            "travel_progress": 0.0,
+            "x": 3,
+            "y": 6
+          },
+          {
+            "active": false,
+            "facing": "south",
+            "id": "seat",
+            "inactive_reason": "no_access",
+            "kind": "seat",
+            "x": 3,
+            "y": 5
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-0",
+            "kind": "decor",
+            "x": 0,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-1",
+            "kind": "decor",
+            "x": 1,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-2",
+            "kind": "decor",
+            "x": 2,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-4",
+            "kind": "decor",
+            "x": 4,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-5",
+            "kind": "decor",
+            "x": 5,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-6",
+            "kind": "decor",
+            "x": 6,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "editor-object-1",
+            "inventory_id": "crate-wood",
+            "kind": "decor",
+            "x": 3,
+            "y": 3
+          }
+        ],
+        "recipes": {
+          "cucumber_maki": {
+            "name": "Cucumber maki",
+            "preparation_seconds": 14.0,
+            "price": 10.0
+          },
+          "salmon_nigiri": {
+            "name": "Salmon nigiri",
+            "preparation_seconds": 3.4,
+            "price": 14.0
+          }
+        },
+        "stats": {
+          "arrivals": 1,
+          "sales": 0,
+          "served": 0
+        },
+        "version": 1
+      },
+      "trigger": {
+        "command": {
+          "inventory_id": "crate-wood",
+          "type": "editor_place",
+          "x": 3,
+          "y": 3
+        },
+        "result": {
+          "id": "editor-object-1",
+          "ok": true
+        }
+      }
+    },
+    {
+      "name": "02-guest-wandering",
+      "pixels": [
+        320,
+        720
+      ],
+      "portrait": [
+        0.0,
+        720.0,
+        1620.0
+      ],
+      "snapshot": {
+        "camera": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "coins": 120,
+        "customers": [
+          {
+            "appearance": 1,
+            "facing": "east",
+            "happy_duration": 2.2,
+            "happy_elapsed": 0.0,
+            "id": "customer-1",
+            "meal_dish": null,
+            "meal_progress": 0.0,
+            "navigation_mode": "wander",
+            "phase": "walking",
+            "preference_phase": "pending",
+            "preference_phase_elapsed": 1.5,
+            "preference_progress": 1.0,
+            "preference_remaining": 7.0,
+            "preference_total": 7.0,
+            "preferred_recipe_id": "salmon_nigiri",
+            "render_offset_x": 0.0,
+            "render_offset_y": 0.239999994635582,
+            "restless": false,
+            "seat_id": "seat",
+            "visual_elapsed": 1.5,
+            "visual_phase": "walk",
+            "waiting_elapsed": 0.0,
+            "x": 4.30000114440918,
+            "y": 1.0,
+            "yielding": false
+          }
+        ],
+        "editor": {
+          "layer": "layout",
+          "page": 0,
+          "pages": {
+            "floor": 0,
+            "layout": 0,
+            "people": 0
+          },
+          "selected_id": "editor-object-1",
+          "tray_open": false
+        },
+        "elapsed": 1.6,
+        "entrance_open": true,
+        "floor": {
+          "columns": 7,
+          "entrance": {
+            "x": 3,
+            "y": 0
+          },
+          "rows": 7,
+          "viewport_columns": 7,
+          "world_columns": 21
+        },
+        "inventory": [
+          {
+            "art_id": "belt-straight-e",
+            "count": 6.0,
+            "facing": "east",
+            "id": "belt-tile",
+            "kind": "belt",
+            "name": "Conveyor"
+          },
+          {
+            "art_id": "stool-wood",
+            "count": 4.0,
+            "facing": "south",
+            "id": "stool-plain",
+            "kind": "seat",
+            "name": "Wood stool"
+          },
+          {
+            "art_id": "plant-angular",
+            "count": 2.0,
+            "facing": "south",
+            "id": "plant-angular",
+            "kind": "decor",
+            "name": "Potted plant"
+          },
+          {
+            "art_id": "crate-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "crate-wood",
+            "kind": "decor",
+            "name": "Wood crate"
+          },
+          {
+            "art_id": "barrel-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "barrel-wood",
+            "kind": "decor",
+            "name": "Wood barrel"
+          },
+          {
+            "art_id": "floor-cream",
+            "available": false,
+            "count": 0.0,
+            "id": "floor-cream",
+            "kind": "floor",
+            "name": "Cream floor"
+          },
+          {
+            "art_id": "chef-lena",
+            "assigned": true,
+            "count": 0,
+            "facing": "east",
+            "id": "chef",
+            "kind": "chef",
+            "name": "Chef",
+            "recipe_id": "salmon_nigiri"
+          }
+        ],
+        "mode": "live",
+        "objects": [
+          {
+            "active": true,
+            "art_id": "chef-lena",
+            "facing": "east",
+            "held_dish": null,
+            "id": "chef",
+            "inactive_reason": "",
+            "kind": "chef",
+            "loading_elapsed": 0.0,
+            "preparation": 0.470588235294118,
+            "preparation_seconds": 3.4,
+            "recipe_id": "salmon_nigiri",
+            "visual_elapsed": 1.6,
+            "visual_phase": "work",
+            "x": 2,
+            "y": 6
+          },
+          {
+            "dish": null,
+            "facing": "south",
+            "id": "belt",
+            "kind": "belt",
+            "travel_progress": 0.0,
+            "x": 3,
+            "y": 6
+          },
+          {
+            "active": false,
+            "facing": "south",
+            "id": "seat",
+            "inactive_reason": "no_access",
+            "kind": "seat",
+            "x": 3,
+            "y": 5
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-0",
+            "kind": "decor",
+            "x": 0,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-1",
+            "kind": "decor",
+            "x": 1,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-2",
+            "kind": "decor",
+            "x": 2,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-4",
+            "kind": "decor",
+            "x": 4,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-5",
+            "kind": "decor",
+            "x": 5,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-6",
+            "kind": "decor",
+            "x": 6,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "editor-object-1",
+            "inventory_id": "crate-wood",
+            "kind": "decor",
+            "x": 3,
+            "y": 3
+          }
+        ],
+        "recipes": {
+          "cucumber_maki": {
+            "name": "Cucumber maki",
+            "preparation_seconds": 14.0,
+            "price": 10.0
+          },
+          "salmon_nigiri": {
+            "name": "Salmon nigiri",
+            "preparation_seconds": 3.4,
+            "price": 14.0
+          }
+        },
+        "stats": {
+          "arrivals": 1,
+          "sales": 0,
+          "served": 0
+        },
+        "version": 1
+      },
+      "trigger": {}
+    },
+    {
+      "name": "03-guest-still-wandering",
+      "pixels": [
+        320,
+        720
+      ],
+      "portrait": [
+        0.0,
+        720.0,
+        1620.0
+      ],
+      "snapshot": {
+        "camera": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "coins": 120,
+        "customers": [
+          {
+            "appearance": 1,
+            "facing": "west",
+            "happy_duration": 2.2,
+            "happy_elapsed": 0.0,
+            "id": "customer-1",
+            "meal_dish": null,
+            "meal_progress": 0.0,
+            "navigation_mode": "wander",
+            "phase": "walking",
+            "preference_phase": "pending",
+            "preference_phase_elapsed": 4.0,
+            "preference_progress": 1.0,
+            "preference_remaining": 7.0,
+            "preference_total": 7.0,
+            "preferred_recipe_id": "salmon_nigiri",
+            "render_offset_x": 0.0,
+            "render_offset_y": -0.239999994635582,
+            "restless": false,
+            "seat_id": "seat",
+            "visual_elapsed": 4.0,
+            "visual_phase": "walk",
+            "waiting_elapsed": 0.0,
+            "x": 2.4649977684021,
+            "y": 1.0,
+            "yielding": false
+          }
+        ],
+        "editor": {
+          "layer": "layout",
+          "page": 0,
+          "pages": {
+            "floor": 0,
+            "layout": 0,
+            "people": 0
+          },
+          "selected_id": "editor-object-1",
+          "tray_open": false
+        },
+        "elapsed": 4.1,
+        "entrance_open": true,
+        "floor": {
+          "columns": 7,
+          "entrance": {
+            "x": 3,
+            "y": 0
+          },
+          "rows": 7,
+          "viewport_columns": 7,
+          "world_columns": 21
+        },
+        "inventory": [
+          {
+            "art_id": "belt-straight-e",
+            "count": 6.0,
+            "facing": "east",
+            "id": "belt-tile",
+            "kind": "belt",
+            "name": "Conveyor"
+          },
+          {
+            "art_id": "stool-wood",
+            "count": 4.0,
+            "facing": "south",
+            "id": "stool-plain",
+            "kind": "seat",
+            "name": "Wood stool"
+          },
+          {
+            "art_id": "plant-angular",
+            "count": 2.0,
+            "facing": "south",
+            "id": "plant-angular",
+            "kind": "decor",
+            "name": "Potted plant"
+          },
+          {
+            "art_id": "crate-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "crate-wood",
+            "kind": "decor",
+            "name": "Wood crate"
+          },
+          {
+            "art_id": "barrel-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "barrel-wood",
+            "kind": "decor",
+            "name": "Wood barrel"
+          },
+          {
+            "art_id": "floor-cream",
+            "available": false,
+            "count": 0.0,
+            "id": "floor-cream",
+            "kind": "floor",
+            "name": "Cream floor"
+          },
+          {
+            "art_id": "chef-lena",
+            "assigned": true,
+            "count": 0,
+            "facing": "east",
+            "id": "chef",
+            "kind": "chef",
+            "name": "Chef",
+            "recipe_id": "salmon_nigiri"
+          }
+        ],
+        "mode": "live",
+        "objects": [
+          {
+            "active": true,
+            "art_id": "chef-lena",
+            "facing": "east",
+            "held_dish": {
+              "id": "dish-1",
+              "recipe_id": "salmon_nigiri"
+            },
+            "id": "chef",
+            "inactive_reason": "",
+            "kind": "chef",
+            "loading_elapsed": 0.7,
+            "preparation": 1.0,
+            "preparation_seconds": 3.4,
+            "recipe_id": "salmon_nigiri",
+            "visual_elapsed": 0.7,
+            "visual_phase": "load",
+            "x": 2,
+            "y": 6
+          },
+          {
+            "dish": null,
+            "facing": "south",
+            "id": "belt",
+            "kind": "belt",
+            "travel_progress": 0.0,
+            "x": 3,
+            "y": 6
+          },
+          {
+            "active": false,
+            "facing": "south",
+            "id": "seat",
+            "inactive_reason": "no_access",
+            "kind": "seat",
+            "x": 3,
+            "y": 5
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-0",
+            "kind": "decor",
+            "x": 0,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-1",
+            "kind": "decor",
+            "x": 1,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-2",
+            "kind": "decor",
+            "x": 2,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-4",
+            "kind": "decor",
+            "x": 4,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-5",
+            "kind": "decor",
+            "x": 5,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-6",
+            "kind": "decor",
+            "x": 6,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "editor-object-1",
+            "inventory_id": "crate-wood",
+            "kind": "decor",
+            "x": 3,
+            "y": 3
+          }
+        ],
+        "recipes": {
+          "cucumber_maki": {
+            "name": "Cucumber maki",
+            "preparation_seconds": 14.0,
+            "price": 10.0
+          },
+          "salmon_nigiri": {
+            "name": "Salmon nigiri",
+            "preparation_seconds": 3.4,
+            "price": 14.0
+          }
+        },
+        "stats": {
+          "arrivals": 1,
+          "sales": 0,
+          "served": 0
+        },
+        "version": 1
+      },
+      "trigger": {}
+    },
+    {
+      "name": "04-seat-route-restored",
+      "pixels": [
+        320,
+        720
+      ],
+      "portrait": [
+        0.0,
+        720.0,
+        1620.0
+      ],
+      "snapshot": {
+        "camera": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "coins": 120,
+        "customers": [
+          {
+            "appearance": 1,
+            "facing": "south",
+            "happy_duration": 2.2,
+            "happy_elapsed": 0.0,
+            "id": "customer-1",
+            "meal_dish": null,
+            "meal_progress": 0.0,
+            "navigation_mode": "goal",
+            "phase": "walking",
+            "preference_phase": "pending",
+            "preference_phase_elapsed": 6.1,
+            "preference_progress": 1.0,
+            "preference_remaining": 7.0,
+            "preference_total": 7.0,
+            "preferred_recipe_id": "salmon_nigiri",
+            "render_offset_x": -0.239999994635582,
+            "render_offset_y": 0.0,
+            "restless": false,
+            "seat_id": "seat",
+            "visual_elapsed": 6.1,
+            "visual_phase": "walk",
+            "waiting_elapsed": 0.0,
+            "x": 3.0,
+            "y": 3.01499557495117,
+            "yielding": false
+          }
+        ],
+        "editor": {
+          "layer": "layout",
+          "page": 0,
+          "pages": {
+            "floor": 0,
+            "layout": 0,
+            "people": 0
+          },
+          "selected_id": "",
+          "tray_open": false
+        },
+        "elapsed": 6.2,
+        "entrance_open": true,
+        "floor": {
+          "columns": 7,
+          "entrance": {
+            "x": 3,
+            "y": 0
+          },
+          "rows": 7,
+          "viewport_columns": 7,
+          "world_columns": 21
+        },
+        "inventory": [
+          {
+            "art_id": "belt-straight-e",
+            "count": 6.0,
+            "facing": "east",
+            "id": "belt-tile",
+            "kind": "belt",
+            "name": "Conveyor"
+          },
+          {
+            "art_id": "stool-wood",
+            "count": 4.0,
+            "facing": "south",
+            "id": "stool-plain",
+            "kind": "seat",
+            "name": "Wood stool"
+          },
+          {
+            "art_id": "plant-angular",
+            "count": 2.0,
+            "facing": "south",
+            "id": "plant-angular",
+            "kind": "decor",
+            "name": "Potted plant"
+          },
+          {
+            "art_id": "crate-wood",
+            "count": 2.0,
+            "facing": "south",
+            "id": "crate-wood",
+            "kind": "decor",
+            "name": "Wood crate"
+          },
+          {
+            "art_id": "barrel-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "barrel-wood",
+            "kind": "decor",
+            "name": "Wood barrel"
+          },
+          {
+            "art_id": "floor-cream",
+            "available": false,
+            "count": 0.0,
+            "id": "floor-cream",
+            "kind": "floor",
+            "name": "Cream floor"
+          },
+          {
+            "art_id": "chef-lena",
+            "assigned": true,
+            "count": 0,
+            "facing": "east",
+            "id": "chef",
+            "kind": "chef",
+            "name": "Chef",
+            "recipe_id": "salmon_nigiri"
+          }
+        ],
+        "mode": "live",
+        "objects": [
+          {
+            "active": true,
+            "art_id": "chef-lena",
+            "facing": "east",
+            "held_dish": null,
+            "id": "chef",
+            "inactive_reason": "",
+            "kind": "chef",
+            "loading_elapsed": 0.0,
+            "preparation": 0.529411764705882,
+            "preparation_seconds": 3.4,
+            "recipe_id": "salmon_nigiri",
+            "visual_elapsed": 1.8,
+            "visual_phase": "work",
+            "x": 2,
+            "y": 6
+          },
+          {
+            "dish": {
+              "id": "dish-1",
+              "recipe_id": "salmon_nigiri"
+            },
+            "facing": "south",
+            "id": "belt",
+            "kind": "belt",
+            "travel_progress": 0.0,
+            "x": 3,
+            "y": 6
+          },
+          {
+            "active": true,
+            "facing": "south",
+            "id": "seat",
+            "inactive_reason": "",
+            "kind": "seat",
+            "x": 3,
+            "y": 5
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-0",
+            "kind": "decor",
+            "x": 0,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-1",
+            "kind": "decor",
+            "x": 1,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-2",
+            "kind": "decor",
+            "x": 2,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-4",
+            "kind": "decor",
+            "x": 4,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-5",
+            "kind": "decor",
+            "x": 5,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-6",
+            "kind": "decor",
+            "x": 6,
+            "y": 3
+          }
+        ],
+        "recipes": {
+          "cucumber_maki": {
+            "name": "Cucumber maki",
+            "preparation_seconds": 14.0,
+            "price": 10.0
+          },
+          "salmon_nigiri": {
+            "name": "Salmon nigiri",
+            "preparation_seconds": 3.4,
+            "price": 14.0
+          }
+        },
+        "stats": {
+          "arrivals": 1,
+          "sales": 0,
+          "served": 0
+        },
+        "version": 1
+      },
+      "trigger": {
+        "command": {
+          "id": "editor-object-1",
+          "type": "editor_remove"
+        },
+        "result": {
+          "id": "editor-object-1",
+          "ok": true
+        }
+      }
+    }
+  ],
+  "source": "Actual production main.tscn and RestaurantView; public Session APIs only",
+  "wander_timeline": [
+    {
+      "elapsed": 0.65,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 0.55,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": -0.194038063287735,
+          "render_offset_y": 0.0459619387984276,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 0.55,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.06500005722046,
+          "y": 1.00000011920929,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 0.7,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 0.6,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": -0.148076117038727,
+          "render_offset_y": 0.0919238775968552,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 0.6,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.13000011444092,
+          "y": 1.00000011920929,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 0.75,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 0.65,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": -0.102114178240299,
+          "render_offset_y": 0.137885808944702,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 0.65,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.19500017166138,
+          "y": 1.00000011920929,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 0.8,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 0.7,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": -0.0561522431671619,
+          "render_offset_y": 0.18384775519371,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 0.7,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.26000022888184,
+          "y": 1.00000011920929,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 0.85,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 0.75,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": -0.0101903006434441,
+          "render_offset_y": 0.229809701442719,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 0.75,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.32500028610229,
+          "y": 1.00000011920929,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 0.9,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 0.8,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 0.8,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.39000034332275,
+          "y": 1.00000011920929,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 0.95,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 0.85,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 0.85,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.45500040054321,
+          "y": 1.00000011920929,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.0,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 0.9,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 0.9,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.52000045776367,
+          "y": 1.00000011920929,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.05,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 0.95,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 0.95,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.58500051498413,
+          "y": 1.00000011920929,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.1,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.0,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.0,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.65000057220459,
+          "y": 1.00000011920929,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.15,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.05,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.05,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.71500062942505,
+          "y": 1.00000011920929,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.2,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.1,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.1,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.78000068664551,
+          "y": 1.00000011920929,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.25,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.15,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.15,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.84500074386597,
+          "y": 1.00000011920929,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.3,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.2,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.2,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.91000080108643,
+          "y": 1.00000011920929,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.35,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.25,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.25,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.97500085830688,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.4,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.3,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.3,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.04000091552734,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.45,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.35,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.35,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.1050009727478,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.5,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.4,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.4,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.17000102996826,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.55,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.45,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.45,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.23500108718872,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.6,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.5,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.5,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.30000114440918,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.65,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.55,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.55,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.36500120162964,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.7,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.6,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.6,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.4300012588501,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.75,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.65,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.65,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.49500131607056,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.8,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.7,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.7,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.56000137329102,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.85,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.75,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.75,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.62500143051147,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.9,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.8,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.8,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.69000148773193,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 1.95,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.85,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.85,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.75500154495239,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.0,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.9,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.9,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.82000160217285,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.05,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 1.95,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 1.95,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.88500165939331,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.1,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.0,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.0,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.95000171661377,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.15,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "east",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.05,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.05,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 5.0,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.2,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.1,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.174999997019768,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.1,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.93499994277954,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.25,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.15,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.109999999403954,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.15,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.86999988555908,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.3,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.2,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": 0.0450000017881393,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.2,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.80499982833862,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.35,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.25,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.0199999958276749,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.25,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.73999977111816,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.4,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.3,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.0849999934434891,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.3,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.67499971389771,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.45,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.35,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.149999991059303,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.35,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.60999965667725,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.5,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.4,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.214999988675117,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.4,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.54499959945679,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.55,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.45,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.45,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.47999954223633,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.6,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.5,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.5,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.41499948501587,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.65,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.55,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.55,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.34999942779541,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.7,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.6,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.6,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.28499937057495,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.75,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.65,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.65,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.21999931335449,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.8,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.7,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.7,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.15499925613403,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.85,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.75,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.75,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.08999919891357,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.9,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.8,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.8,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 4.02499914169312,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 2.95,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.85,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.85,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.95999908447266,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.0,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.9,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.9,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.8949990272522,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.05,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 2.95,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 2.95,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.82999897003174,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.1,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.0,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.0,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.76499891281128,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.15,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.05,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.05,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.69999885559082,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.2,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.1,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.1,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.63499879837036,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.25,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.15,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.15,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.5699987411499,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.3,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.2,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.2,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.50499868392944,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.35,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.25,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.25,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.43999862670898,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.4,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.3,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.3,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.37499856948853,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.45,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.35,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.35,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.30999851226807,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.5,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.4,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.4,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.24499845504761,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.55,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.45,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.45,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.17999839782715,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.6,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.5,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.5,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.11499834060669,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.65,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.55,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.55,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 3.04999828338623,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.7,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.6,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.6,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 2.98499822616577,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.75,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.65,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.65,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 2.91999816894531,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.8,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.7,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.7,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 2.85499811172485,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.85,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.75,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.75,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 2.78999805450439,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.9,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.8,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.8,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 2.72499799728394,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 3.95,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.85,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.85,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 2.65999794006348,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 4.0,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.9,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.9,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 2.59499788284302,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 4.05,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 3.95,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 3.95,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 2.52999782562256,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 4.1,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 4.0,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 4.0,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 2.4649977684021,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 4.15,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 4.05,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 4.05,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 2.39999771118164,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 4.2,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 4.1,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 4.1,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 2.33499765396118,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 4.25,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 4.15,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 4.15,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 2.26999759674072,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 4.3,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 4.2,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 4.2,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 2.20499753952026,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 4.35,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 4.25,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 4.25,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 2.1399974822998,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 4.4,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 4.3,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 4.3,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 2.07499742507935,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 4.45,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 4.35,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 4.35,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 2.00999736785889,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 4.5,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 4.4,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 4.4,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 1.94499731063843,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 4.55,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 4.45,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 4.45,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 1.87999725341797,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    },
+    {
+      "elapsed": 4.6,
+      "guests": [
+        {
+          "appearance": 1,
+          "facing": "west",
+          "happy_duration": 2.2,
+          "happy_elapsed": 0.0,
+          "id": "customer-1",
+          "meal_dish": null,
+          "meal_progress": 0.0,
+          "navigation_mode": "wander",
+          "phase": "walking",
+          "preference_phase": "pending",
+          "preference_phase_elapsed": 4.5,
+          "preference_progress": 1.0,
+          "preference_remaining": 7.0,
+          "preference_total": 7.0,
+          "preferred_recipe_id": "salmon_nigiri",
+          "render_offset_x": 0.0,
+          "render_offset_y": -0.239999994635582,
+          "restless": false,
+          "seat_id": "seat",
+          "visual_elapsed": 4.5,
+          "visual_phase": "walk",
+          "waiting_elapsed": 0.0,
+          "x": 1.81499719619751,
+          "y": 1.0,
+          "yielding": false
+        }
+      ]
+    }
+  ]
+}

@@ -183,15 +183,23 @@ func _customer_protection() -> void:
 		if _object(walking.snapshot(), current.seat_id).x == point.x and _object(walking.snapshot(), current.seat_id).y == point.y:
 			continue
 		if Vector2(point.x, point.y).distance_to(Vector2(current.x, current.y)) > 1.0:
-			_reject_unchanged(walking, {"type": "editor_place", "inventory_id": "crate-wood", "x": point.x, "y": point.y}, "customer_path")
-			blocked_a_future_cell = true
+			var result := walking.command({"type": "editor_place", "inventory_id": "crate-wood", "x": point.x, "y": point.y})
+			_check(result.ok, "furniture may occupy the guest's former future route; navigation can reroute or wander")
+			blocked_a_future_cell = result.ok
 			break
-	_check(blocked_a_future_cell, "a furnishing cannot strand a paused visitor by occupying their remaining aisle path")
-	var before: Array = game.snapshot().customers
-	_check(game.command({"type": "editor_place", "inventory_id": "plant-angular", "x": 0, "y": 11}).ok and _same(before, game.snapshot().customers), "a safe edit leaves every customer's preference, meal, position, path and visit progress intact")
+	_check(blocked_a_future_cell, "a paused visitor no longer reserves every tile of their remaining aisle path")
+	var before: Array = _customer_visit_values(game.save_data().state.customers)
+	_check(game.command({"type": "editor_place", "inventory_id": "plant-angular", "x": 0, "y": 11}).ok and _same(before, _customer_visit_values(game.save_data().state.customers)), "a safe edit leaves every customer's preference, meal, position and visit progress intact while navigation may replan")
 	_reopen(game)
 	game.command({"type": "set_mode", "mode": "live"})
 	_check(not game.advance(20.0).is_empty(), "Live service resumes normally with customer-safe changed arrangements")
+
+func _customer_visit_values(customers: Array) -> Array:
+	var values := customers.duplicate(true)
+	for customer in values:
+		for key in ["path", "path_index", "path_origin", "navigation_mode", "navigation_retry_elapsed", "wander_cursor"]:
+			customer.erase(key)
+	return values
 
 func _persistence_and_migration() -> void:
 	var game := Session.new_session(15)
