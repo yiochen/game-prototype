@@ -418,10 +418,10 @@ func _layout_button_visual(button: Button, bounds: Rect2, font_size: float, icon
 			focus.position = icon.position - Vector2(4, 4) * unit
 			focus.size = icon.size + Vector2(8, 8) * unit
 	else:
-		var text_width := body.get_string_size(button.text, HORIZONTAL_ALIGNMENT_LEFT, -1, pixels).x
+		var text_width := UISkin.caption_ink(body, button.text, pixels).size.x
 		var gap := 8 * unit
-		var combined := minf(face.size.x - 16 * unit, text_width + icon_width * unit + gap)
-		icon.size = Vector2(icon_width, icon_width) * unit
+		icon.size = UISkin.fit_rect(icon.texture.get_size(), Rect2(Vector2.ZERO, Vector2.ONE * icon_width * unit)).size
+		var combined := minf(face.size.x - 16 * unit, text_width + icon.size.x + gap)
 		icon.position = Vector2(face.position.x + (face.size.x - combined) * 0.5, face.get_center().y - icon.size.y * 0.5)
 		var text_target := Rect2(Vector2(icon.position.x + icon.size.x + gap, face.position.y), Vector2(maxf(0.0, combined - icon.size.x - gap), face.size.y))
 		UISkin.layout_caption(caption, text_target, pixels)

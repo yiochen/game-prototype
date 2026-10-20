@@ -232,19 +232,20 @@ func _style_native_button(button: Button, unit: float, held = null) -> void:
 	var icon: TextureRect = button.get_meta("visual_icon")
 	icon.texture = button.icon
 	var icon_width := float(button.get_theme_constant("icon_max_width"))
+	var fitted_icon := UISkin.fit_rect(icon.texture.get_size(), Rect2(Vector2.ZERO, Vector2.ONE * icon_width)).size
 	var caption: Label = button.get_meta("visual_label")
 	caption.text = button.text
 	caption.add_theme_color_override("font_color", CREAM if role == "control-green" else INK)
 	var font_size := button.get_theme_font_size("font_size")
-	var available_width := maxf(0.0, face.size.x - icon_width - 26 * unit)
-	while font_size > maxi(8, int(20 * unit)) and body_font.get_string_size(button.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x > available_width:
+	var available_width := maxf(0.0, face.size.x - fitted_icon.x - 26 * unit)
+	while font_size > maxi(8, int(20 * unit)) and UISkin.caption_ink(body_font, button.text, font_size).size.x > available_width:
 		font_size -= 1
-	var text_width := body_font.get_string_size(button.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
-	var group_width := icon_width + 10 * unit + text_width
+	var text_width := UISkin.caption_ink(body_font, button.text, font_size).size.x
+	var group_width := fitted_icon.x + 10 * unit + text_width
 	var left := face.get_center().x - group_width * 0.5
-	icon.position = Vector2(left, face.get_center().y - icon_width * 0.5)
-	icon.size = Vector2.ONE * icon_width
-	UISkin.layout_caption(caption, Rect2(left + icon_width + 10 * unit, face.position.y, text_width, face.size.y), font_size)
+	icon.position = Vector2(left, face.get_center().y - fitted_icon.y * 0.5)
+	icon.size = fitted_icon
+	UISkin.layout_caption(caption, Rect2(left + fitted_icon.x + 10 * unit, face.position.y, text_width, face.size.y), font_size)
 
 func _layout_hud(area: Rect2, unit: float) -> void:
 	var top: float = 124 * unit if show_gallery else 32 * unit
@@ -280,13 +281,13 @@ func _layout_hud(area: Rect2, unit: float) -> void:
 	editing_panel.size = Vector2(190, 100) * unit
 	var editing_face := skin.face_rect("control-wood", Rect2(editing_panel.position, editing_panel.size), unit)
 	var editing_font_size := maxi(8, int(28 * unit))
-	var caption_width := body_font.get_string_size(editing_cue.text, HORIZONTAL_ALIGNMENT_LEFT, -1, editing_font_size).x
-	var group_width := 40 * unit + caption_width
+	var caption_width := UISkin.caption_ink(body_font, editing_cue.text, editing_font_size).size.x
+	var editing_icon_size := UISkin.fit_rect(editing_icon.texture.get_size(), Rect2(Vector2.ZERO, Vector2.ONE * 30 * unit)).size
+	var group_width := editing_icon_size.x + 10 * unit + caption_width
 	var group_left := editing_face.get_center().x - group_width * 0.5
-	var edit_fit := UISkin.fit_rect(editing_icon.texture.get_size(), Rect2(group_left, editing_face.get_center().y - 15 * unit, 30 * unit, 30 * unit))
-	editing_icon.position = edit_fit.position
-	editing_icon.size = edit_fit.size
-	UISkin.layout_caption(editing_cue, Rect2(group_left + 40 * unit, editing_face.position.y, caption_width, editing_face.size.y), editing_font_size)
+	editing_icon.position = Vector2(group_left, editing_face.get_center().y - editing_icon_size.y * 0.5)
+	editing_icon.size = editing_icon_size
+	UISkin.layout_caption(editing_cue, Rect2(group_left + editing_icon_size.x + 10 * unit, editing_face.position.y, caption_width, editing_face.size.y), editing_font_size)
 
 func _place_native_button(button: Button, bounds: Rect2, unit: float, font_size: float, icon_width: float) -> void:
 	# Lower the previous viewport's native minimum before assigning the new
