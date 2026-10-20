@@ -341,6 +341,7 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.assertFalse((self.root / "staged-ui/assets/ui/editor/v5").exists())
         self.assertFalse((self.root / 'staged-ui/assets/ui/editor/v6').exists())
         self.assertFalse((self.root / 'staged-ui/assets/ui/editor/v7').exists())
+        self.assertFalse((self.root / 'staged-ui/assets/ui/editor/v8').exists())
         self.assertFalse((self.root / 'staged-ui/assets/ui/editor/goods-v1').exists())
         self.assertFalse((self.root / "staged-ui/assets/production").exists())
         self.assertEqual((self.root / "staged-ui/assets/ui/other-controls.png").read_bytes(), b"runtime control pixels")
@@ -600,28 +601,38 @@ class RuntimeBoundaryTests(unittest.TestCase):
                 self.assertFalse((self.root / 'staged/project.godot').exists())
                 path.write_text(original)
 
-    def test_curtain_loop_apertures_cannot_drift_or_enter_stretched_spans(self):
+    def test_restored_curtains_must_use_their_exact_v6_source_crops(self):
         manifest_path = self.project / 'assets/ui/editor/manifest.json'
         source_path = self.root / build.editor_ui_contract.SOURCE_RECORD
         original_manifest, original_record = manifest_path.read_text(), source_path.read_text()
         for identity in ('tab-idle', 'tab-active'):
-            with self.subTest(identity=identity, failure='registration'):
-                self.mutate_ui_manifest(lambda m: m['styles'][identity]['loop_apertures_px'][0].__setitem__(0, 1))
-                with self.assertRaisesRegex(ValueError, 'curtain loop aperture registration changed'):
-                    build.stage_runtime(self.project, self.root / 'staged')
-                manifest_path.write_text(original_manifest)
-            with self.subTest(identity=identity, failure='stretched span'):
-                record = json.loads(original_record)
-                manifest = json.loads(original_manifest)
-                for entry in (record['entries'][identity], manifest['styles'][identity]):
-                    entry['loop_apertures_px'][0][0] = entry['slice_px'][0] + 1
-                source_path.write_text(json.dumps(record))
-                manifest['source_record_sha256'] = build.sha(source_path)
-                manifest_path.write_text(json.dumps(manifest))
-                with self.assertRaisesRegex(ValueError, 'curtain loop aperture leaves its fixed corner'):
-                    build.stage_runtime(self.project, self.root / 'staged')
-                manifest_path.write_text(original_manifest)
-                source_path.write_text(original_record)
+            for mutation in ('offset', 'alternate valid curtain'):
+                with self.subTest(identity=identity, mutation=mutation):
+                    record = json.loads(original_record)
+                    manifest = json.loads(original_manifest)
+                    if mutation == 'offset':
+                        record['entries'][identity]['source_region'][0] += 1
+                    else:
+                        other = 'tab-active' if identity == 'tab-idle' else 'tab-idle'
+                        record['entries'][identity] = dict(record['entries'][other])
+                        manifest['styles'][identity] = dict(manifest['styles'][other])
+                    source_path.write_text(json.dumps(record))
+                    manifest['source_record_sha256'] = build.sha(source_path)
+                    manifest_path.write_text(json.dumps(manifest))
+                    with self.assertRaisesRegex(ValueError, 'restored curtain must retain its exact v6 source crop and generation'):
+                        build.stage_runtime(self.project, self.root / 'staged')
+                    manifest_path.write_text(original_manifest)
+                    source_path.write_text(original_record)
+
+    def test_restored_curtains_cannot_claim_new_generation_provenance(self):
+        source_path = self.root / build.editor_ui_contract.SOURCE_RECORD
+        record = json.loads(source_path.read_text())
+        del record['generations'][0]['inherits']
+        source_path.write_text(json.dumps(record))
+        self.mutate_ui_manifest(lambda m: m.update(source_record_sha256=build.sha(source_path)))
+        with self.assertRaisesRegex(ValueError, 'curtain restoration requires unchanged v6 sheets without new generated artwork'):
+            build.stage_runtime(self.project, self.root / 'staged')
+        self.assertFalse((self.root / 'staged/project.godot').exists())
 
     def test_approved_floor_icon_cannot_be_replaced_by_another_valid_crop(self):
         path = self.root / build.editor_ui_contract.SOURCE_RECORD

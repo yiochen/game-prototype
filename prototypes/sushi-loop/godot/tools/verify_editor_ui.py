@@ -16,7 +16,7 @@ import zlib
 REFERENCE = 'design/art-directions/restaurant-item-catalog.png'
 WORLD_REFERENCE = 'design/art-directions/restaurant-concept.png'
 COMPOSITION = 'assets/ui/editor/v4/raw/b-indigo-ceramic.png'
-SOURCE_RECORD = 'assets/ui/editor/v7/imagegen.json'
+SOURCE_RECORD = 'assets/ui/editor/v8/imagegen.json'
 PARENT_SOURCE_RECORD = 'assets/ui/editor/v6/imagegen.json'
 PARENT_RECORD_SHA256 = 'c10c77509f38ea55eb320aa37dc146e17aa595a05a8ede4713769e1ff26d5208'
 HISTORICAL_SOURCE_RECORD = 'assets/ui/editor/v5/imagegen.json'
@@ -162,7 +162,7 @@ def _verify(project, source_project):
     manifest = json.loads((runtime / 'manifest.json').read_text())
     require(manifest.get('version') == 4, 'Editor UI requires the current B alignment manifest version 4')
     require(manifest.get('reference') == REFERENCE and sha(prototype / REFERENCE) == manifest['reference_sha256'], 'Editor UI catalog reference changed')
-    require(manifest.get('source_record') == SOURCE_RECORD, 'Editor UI requires the current B v7 source record')
+    require(manifest.get('source_record') == SOURCE_RECORD, 'Editor UI requires the current B v8 source record')
     source_record = _path(prototype, manifest['source_record'], 'ImageGen record')
     require(sha(source_record) == manifest['source_record_sha256'], 'Editor ImageGen prompt record changed')
     require(sha(source_record.parent / 'pack.py') == manifest['packing_script_sha256'], 'Editor UI packing procedure changed')
@@ -243,9 +243,7 @@ def _verify(project, source_project):
             inherited_ids.add(inheritance['generation'])
             inherited_sources += 1
         else:
-            require(source.is_relative_to(source_record.parent / 'raw') and record['id'] == 'curtains', 'Editor UI new source must be the coordinated curtain revision')
-            require(set(record['reference_paths']) >= {REFERENCE, latest['path']}, 'Editor UI new generation does not use the latest B amendment composition')
-            new_sources += 1
+            raise ValueError('Editor UI curtain restoration requires unchanged v6 sheets without new generated artwork')
         for reference in record['reference_paths']:
             require(reference in referenced and record['reference_sha256'][reference] == referenced[reference]['sha256'], 'Editor UI generation reference hash changed')
         data = source.read_bytes()
@@ -255,8 +253,8 @@ def _verify(project, source_project):
         require(source_dimensions == record['dimensions'] and min(source_dimensions) >= 768, f'Editor UI full source resolution changed: {relative}')
         require(any(pixels[i] == 0 for i in range(3, len(pixels), 4)) and any(pixels[i] == 255 for i in range(3, len(pixels), 4)), f'Editor UI source lacks clean transparency: {relative}')
         sources[relative] = (digest, source_dimensions, pixels, record['id'])
-    require(inherited_ids == set(parent_generations) and inherited_sources == 3 and new_sources in {0, 1} and len(sources) == inherited_sources + new_sources,
-            'Editor UI requires the three unchanged v6 sheets with at most one coordinated curtain revision')
+    require(inherited_ids == set(parent_generations) and inherited_sources == 3 and new_sources == 0 and len(sources) == 3,
+            'Editor UI curtain restoration requires exactly the three unchanged v6 sheets')
     occupied = []
     used_sources = set()
     for identity in sorted(identities):
@@ -270,6 +268,11 @@ def _verify(project, source_project):
         region = _region(entry['region'], dimensions, f'atlas region: {identity}')
         require(record['region'] == entry['region'], f'Editor UI region registration changed: {identity}')
         source_region = _region(record['source_region'], source_dimensions, f'source region: {identity}')
+        if identity in {'tab-active', 'tab-idle'}:
+            original = parent['entries'][identity]
+            require(record['source'] == original['source'] and record['source_sha256'] == original['source_sha256'] and
+                    record['generation'] == original['generation'] and record['source_region'] == original['source_region'],
+                    f'Editor UI restored curtain must retain its exact v6 source crop and generation: {identity}')
         require(region[2:] == (source_region[2] + GUTTER * 2, source_region[3] + GUTTER * 2), f'Editor UI source crop was rescaled: {identity}')
         interior = [region[0] + GUTTER, region[1] + GUTTER, source_region[2], source_region[3]]
         require(_crop(atlas_pixels, dimensions, interior) == _crop(pixels, source_dimensions, source_region), f'Editor UI atlas pixels differ from the ImageGen source crop: {identity}')
@@ -298,19 +301,6 @@ def _verify(project, source_project):
                 face = _region(entry['face_px'], region[2:], f'visible face bounds: {identity}')
                 require(record.get('face_px') == list(face), f'Editor UI visible face bounds differ from its packing record: {identity}')
             _calibration(identity, entry, region)
-            if identity in {'tab-active', 'tab-idle'}:
-                apertures = entry.get('loop_apertures_px')
-                require(isinstance(apertures, list) and len(apertures) == 2 and record.get('loop_apertures_px') == apertures,
-                        f'Editor UI curtain loop aperture registration changed: {identity}')
-                left, top, right, _ = entry['slice_px']
-                for index, bounds in enumerate(apertures):
-                    ax, ay, aw, ah = _region(bounds, region[2:], f'curtain loop aperture: {identity}')
-                    require(ay + ah <= top and (ax + aw <= left if index == 0 else ax >= region[2] - right),
-                            f'Editor UI curtain loop aperture leaves its fixed corner: {identity}')
-                    alpha = _crop(atlas_pixels, dimensions, [region[0] + ax, region[1] + ay, aw, ah])[3::4]
-                    center = ((region[1] + ay + ah // 2) * dimensions[0] + region[0] + ax + aw // 2) * 4 + 3
-                    require(atlas_pixels[center] == 0 and sum(value == 0 for value in alpha) > len(alpha) / 2,
-                            f'Editor UI curtain loop aperture is not visibly open: {identity}')
             require(all(record.get(key) == entry[key] for key in ('slice_px', 'edge', 'content', 'stretch')), f'Editor UI calibration differs from its packing record: {identity}')
             require(record.get('minimum_height') == entry.get('minimum_height'), f'Editor UI minimum height differs from its packing record: {identity}')
             require(isinstance(entry.get('states', {}), dict), f'Invalid editor UI states: {identity}')

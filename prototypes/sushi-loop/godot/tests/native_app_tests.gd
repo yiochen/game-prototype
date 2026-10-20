@@ -311,6 +311,7 @@ func _test_editor(app) -> void:
 	_expect(horizontal and app.world.portrait.encloses(app.editor_ui.shop.get_global_rect()) and app.editor_ui.shop.get_global_rect().position.x >= prior_right and absf(shop_face.get_center().y - curtain_face.get_center().y) < 0.1, "People, Layout, Floor and quiet Shop retain clear horizontal targets and align their visible material faces")
 	_expect(app.editor_ui.tray.get_global_rect().position.y >= rail_rect.end.y - 0.01, "The compact cream drawer begins below the separate hanging category panels")
 	_test_compact_inventory(app)
+	await _test_restored_rail(app)
 	await _test_visible_ink_alignment(app)
 	await _test_curtain_feedback(app)
 	await _test_curtain_lifecycle(app)
@@ -347,17 +348,17 @@ func _test_editor(app) -> void:
 	_expect(app.session.snapshot().editor.layer == "layout" and app.session.snapshot().editor.tray_open and app.editor_ui.cards.size() == 4, "Switching to Layout opens the compact drawer with four inventory slots")
 	await _touch(app, app.editor_ui.layers.layout.get_global_rect().get_center(), true)
 	await _touch(app, app.editor_ui.layers.layout.get_global_rect().get_center(), false)
-	var dock_bounds: Rect2 = app.editor_ui.bottom_dock.get_global_rect()
-	var covered_floor := dock_bounds.get_center()
-	_expect(not app._floor_drop(covered_floor), "The visible bottom dock blocks floor drops while the category row moves")
+	var moving_backing: Rect2 = app.editor_ui.inventory_backing.get_global_rect()
+	var covered_floor := moving_backing.end - Vector2(4, 78) * app.editor_ui.unit
+	_expect(app.editor_ui.inventory_backing.is_visible_in_tree() and moving_backing.has_point(covered_floor) and not app._floor_drop(covered_floor), "The visible full-width cream backdrop blocks exposed floor drops while the category row moves")
 	var before_backing_gesture: Dictionary = app.session.save_data()
 	await _touch(app, covered_floor, true, 26)
 	await _drag(app, covered_floor, covered_floor + Vector2(app.world.cell * 0.35, 0), 26)
 	await _touch(app, covered_floor + Vector2(app.world.cell * 0.35, 0), false, 26)
-	_expect(_same(before_backing_gesture, app.session.save_data()), "A real touch and drag beginning on the visible bottom dock cannot pan or select the covered floor")
+	_expect(_same(before_backing_gesture, app.session.save_data()), "A real touch and drag beginning on the exposed cream backdrop cannot pan or select the covered floor")
 	await create_timer(0.23).timeout
 	_expect(not app.session.snapshot().editor.tray_open and not app.editor_ui.tray.visible and app.editor_ui.category_rail.visible and app.editor_ui.shop.visible, "Tapping the active layer collapses the drawer and keeps the category rail and Shop available")
-	_expect(not app.editor_ui.inventory_backing.is_visible_in_tree() and app.editor_ui.category_rail.get_theme_stylebox("panel") is StyleBoxEmpty and app.editor_ui.bottom_dock.is_visible_in_tree(), "Collapsed curtains hang freely over the restaurant without a category background panel, above the visible bottom dock")
+	_expect(app.editor_ui.inventory_backing.is_visible_in_tree() and app.editor_ui.inventory_backing.get_global_rect().encloses(app.editor_ui.category_rail.get_global_rect()) and app.editor_ui.inventory_backing.get_global_rect().encloses(app.editor_ui.bottom_dock.get_global_rect()) and app.editor_ui.category_rail.get_theme_stylebox("panel") is StyleBoxEmpty, "Collapsed curtains retain the same unframed cream backdrop continuously through the bottom dock")
 	_expect(app.editor_ui.category_rail.get_global_rect().end.y <= app.editor_ui.bottom_dock.get_global_rect().position.y + 0.01, "The collapsed curtain row reserves space above the bottom dock so the selected underline remains visible")
 	await _tap(app, app.editor_ui.layers.layout.get_global_rect().get_center())
 	var seat := _object(app.session.snapshot(), "seat-1")
@@ -514,7 +515,8 @@ func _test_compact_inventory(app) -> void:
 	var unit: float = editor.unit
 	var tray_bounds: Rect2 = editor.tray.get_global_rect()
 	var dock_bounds: Rect2 = editor.bottom_dock.get_global_rect()
-	_expect(editor.cards.size() == 4 and not editor.inventory_backing.is_visible_in_tree() and editor.category_rail.get_theme_stylebox("panel") is StyleBoxEmpty and editor.category_rail.mouse_filter == Control.MOUSE_FILTER_IGNORE, "Four goods sit below freely hanging curtains without an extra category backing panel")
+	var backing: Rect2 = editor.inventory_backing.get_global_rect()
+	_expect(editor.cards.size() == 4 and editor.inventory_backing.is_visible_in_tree() and editor.inventory_backing.mouse_filter == Control.MOUSE_FILTER_STOP and backing.encloses(editor.category_rail.get_global_rect()) and backing.encloses(tray_bounds) and is_equal_approx(backing.position.x, app.world.portrait.position.x) and is_equal_approx(backing.size.x, app.world.portrait.size.x) and is_equal_approx(backing.end.y, app.world.portrait.end.y) and editor.inventory_backing.color.a > 0.99 and editor.category_rail.get_theme_stylebox("panel") is StyleBoxEmpty, "One opaque full-width beige backdrop covers the unframed category rail and compact drawer through the footer, with native input shielding")
 	_expect(editor.tray.size.x < app.world.portrait.size.x * 0.8 and editor.bottom_dock.is_visible_in_tree() and app.world.portrait.encloses(dock_bounds) and dock_bounds.size.y >= 48 * unit, "The inventory panel hugs its goods while a substantial bottom dock stays inside the portrait")
 	var captions := ["Belt", "Stool", "Plant", "Crate"]
 	var goods_ready := true
@@ -555,14 +557,77 @@ func _test_compact_inventory(app) -> void:
 		separated = separated and button.is_visible_in_tree() and visual.is_visible_in_tree() and button.self_modulate.a == 0 and visual.modulate.a > 0 and visual.get_global_rect().encloses(rect) and rect.position.x > previous_end
 		previous_end = rect.end.x
 	_expect(separated and editor.category_rod.is_visible_in_tree() and editor.category_rod.size.y >= 32 * unit, "Separate curtains hang from one substantial shared rod with open gaps between them")
-	var category_bounds: Rect2 = editor.category_rail.get_global_rect()
-	var category_blocks := false
+	var backing_blocks := false
 	for blocked: Rect2 in editor.blocked_rects():
-		category_blocks = category_blocks or blocked.is_equal_approx(category_bounds)
-	_expect(not category_blocks, "The removed category background cannot leave an invisible blanket that swallows restaurant gestures")
+		backing_blocks = backing_blocks or blocked.encloses(backing)
+	_expect(backing_blocks, "The entire visible beige backdrop shields scene gestures, including space beside the narrower goods drawer")
 	for button in [editor.live, editor.shop]:
 		var visual: Control = button.get_meta("visual")
 		_expect(button.get_global_rect().encloses(visual.get_global_rect()) and is_equal_approx(visual.size.y, button.size.y) and visual.size.y >= 100 * unit - 0.01, "%s renders the full-height rounded capsule within its native touch target" % button.text)
+
+func _test_restored_rail(app) -> void:
+	var editor = app.editor_ui
+	var unit: float = editor.unit
+	var area: Rect2 = app.world.portrait
+	var rod_face: Rect2 = editor.skin.face_rect("noren-rod", editor.category_rod.get_global_rect(), unit)
+	_expect(absf(rod_face.position.x - area.position.x) < 0.1 and absf(rod_face.end.x - area.end.x) < 0.1, "The rod's visible wood face reaches both portrait edges rather than stopping at its transparent source margins")
+	if DisplayServer.get_name() == "headless": return
+	var previous_mode: int = app.process_mode
+	app.process_mode = Node.PROCESS_MODE_DISABLED
+	await _frames()
+	await RenderingServer.frame_post_draw
+	var pixels: Image = root.get_texture().get_image()
+	app.process_mode = previous_mode
+	_expect(pixels != null, "The restored curtain/backdrop composite is checked in the rendered native viewport")
+	if pixels == null: return
+	var transform: Transform2D = app.get_viewport_transform()
+	var physical_rod: Rect2 = transform * rod_face
+	var row := clampi(int(roundf(physical_rod.get_center().y)), 0, pixels.get_height() - 1)
+	var physical_area: Rect2 = transform * area
+	var left := pixels.get_pixel(clampi(int(ceilf(physical_area.position.x)), 0, pixels.get_width() - 1), row)
+	var right := pixels.get_pixel(clampi(int(floorf(physical_area.end.x)) - 1, 0, pixels.get_width() - 1), row)
+	_expect(_wood_pixel(left) and _wood_pixel(right), "Visible brown wood crosses the complete portrait width at the rod center, including the first and last screen pixels")
+	var seam_samples: Array[Vector2] = []
+	var previous_rect := Rect2()
+	for layer in ["people", "layout", "floor"]:
+		var visual: Control = editor.layers[layer].get_meta("visual")
+		var bounds := visual.get_global_rect()
+		var physical: Rect2 = transform * bounds
+		var runs: Array[int] = []
+		var run_width := 0
+		for x in range(maxi(0, int(ceilf(physical.position.x))), mini(pixels.get_width(), int(floorf(physical.end.x)))):
+			var navy := _navy_pixel(pixels.get_pixel(x, row))
+			if navy: run_width += 1
+			elif run_width > 0:
+				runs.append(run_width)
+				run_width = 0
+		if run_width > 0: runs.append(run_width)
+		var navy_width := 0
+		for width in runs: navy_width += width
+		_expect(runs.size() == 2 and navy_width < physical.size.x * 0.45, "%s original solid straps meet the rendered wood as two distinct navy bands with wood between them (runs=%s)" % [str(layer).capitalize(), runs])
+		if previous_rect.has_area():
+			var face: Rect2 = editor.skin.face_rect("tab-idle", bounds, unit)
+			seam_samples.append(Vector2((previous_rect.end.x + bounds.position.x) * 0.5, face.get_center().y))
+		previous_rect = bounds
+	var tray_bounds: Rect2 = editor.tray.get_global_rect()
+	seam_samples.append(Vector2(area.position.x + 3 * unit, tray_bounds.position.y + 50 * unit))
+	seam_samples.append(Vector2(area.end.x - 3 * unit, tray_bounds.position.y + 50 * unit))
+	seam_samples.append(Vector2(area.get_center().x, editor.category_rail.get_global_rect().end.y - 3 * unit))
+	seam_samples.append(Vector2(area.position.x + 2 * unit, area.end.y - 2 * unit))
+	seam_samples.append(Vector2(area.end.x - 2 * unit, area.end.y - 2 * unit))
+	var uninterrupted := true
+	var expected: Color = editor.inventory_backing.color
+	for sample in seam_samples:
+		var at := transform * sample
+		var pixel := pixels.get_pixel(clampi(int(roundf(at.x)), 0, pixels.get_width() - 1), clampi(int(roundf(at.y)), 0, pixels.get_height() - 1))
+		uninterrupted = uninterrupted and absf(pixel.r - expected.r) < 0.04 and absf(pixel.g - expected.g) < 0.04 and absf(pixel.b - expected.b) < 0.04
+	_expect(uninterrupted, "Rendered beige remains continuous through curtain seams, beside the narrow goods drawer and at both footer corners")
+
+func _wood_pixel(color: Color) -> bool:
+	return color.r > 0.3 and color.r > color.g * 1.2 and color.g > color.b * 1.2
+
+func _navy_pixel(color: Color) -> bool:
+	return color.r < 0.3 and color.g < 0.35 and color.b > 0.14 and color.b > color.r * 1.25
 
 func _difference_ink_bounds(pixels: Image, background: Image, logical: Rect2, transform: Transform2D) -> Rect2:
 	var physical: Rect2 = transform * logical

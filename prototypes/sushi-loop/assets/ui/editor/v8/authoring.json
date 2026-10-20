@@ -1,0 +1,1240 @@
+{
+  "version": 4,
+  "runtime": "godot/assets/ui/editor",
+  "reference": "design/art-directions/restaurant-item-catalog.png",
+  "accepted_composition": {
+    "path": "assets/ui/editor/v4/raw/b-indigo-ceramic.png"
+  },
+  "surface_inventory": [
+    "control-wood",
+    "control-pressed",
+    "control-green",
+    "control-green-pressed",
+    "control-slate",
+    "slot-paper",
+    "slot-selected",
+    "container-tray",
+    "container-modal",
+    "toast-error",
+    "noren-rail",
+    "context-bubble",
+    "stock-badge",
+    "tab-active",
+    "tab-idle",
+    "coin-panel",
+    "noren-rod",
+    "noren-dock",
+    "context-action",
+    "people",
+    "layout",
+    "floor",
+    "shop",
+    "rotate",
+    "remove",
+    "caret-left",
+    "caret-right",
+    "coin",
+    "close",
+    "retry",
+    "warning",
+    "play",
+    "pointer",
+    "edit",
+    "check"
+  ],
+  "latest_composition": {
+    "path": "assets/ui/editor/v6/raw/composition.png"
+  },
+  "composition_generation": {
+    "mode": "builtin-image_gen-edit",
+    "prompt": "Use case: ui-mockup / precise-object-edit.\nRefine this approved Indigo Noren & warm ceramic portrait restaurant-editor concept into a more faithful fabric-and-shadow UI. Output the same ONE full portrait screen. Keep the restaurant world illustration and its arrangement unchanged; revise the UI only.\n\n1. Bottom categories are THREE SEPARATE deep-indigo hanging noren cloth panels: People, Layout, Floor. A visible warm cedar ROD runs horizontally through two small fabric LOOPS at the top of each panel. Clear small gaps separate the three curtains, with gently rounded bottom cloth corners and subtle fabric folds. There is NO continuous dark background plate joining the curtains. Behind the hanging curtains AND their seams, one warm-cream inventory panel continues upward all the way behind the rod, so every gap reveals cream rather than the game world.\n2. The category icons are single-color warm IVORY silhouettes on cloth: friendly person, BACKLESS STOOL furniture, four floor squares. No colored character portrait, blue/brown stool drawing or red icon backing. Keep a small muted-vermilion active underline for Layout only.\n3. Shop is a separate soft round-ended cream PILL to the right of the three curtains, with navy basket and label. Full semicircular ends, not a rectangular card.\n4. Make the inventory drawer substantially SHORTER: reduce the image sizes and show FOUR goods across: Belt (6), Stool (4), Plant (2), Crate (2). Each is a small carefully lit THREE-QUARTER product view that shows top/front/side, with a quiet cream mat, bold short navy name and neutral small quantity seal. The goods mats have NO dark outlines, only soft shallow shadows. Use narrow cream left/right paging strips at the outer edges, matching the exact mat height and material; little navy chevrons stay much quieter than the products. Each strip should be only about one-quarter of a goods mat's width. No giant framed arrow buttons.\n5. Add a clearly visible slim CEDAR BOTTOM DOCK/base under the cream drawer, with a rounded edge and soft lower shadow, tying the drawer together. Keep it restrained rather than a huge wooden frame.\n6. Live at upper right becomes a true VERMILION PILL with fully round ends, shorter width, compact balanced padding around its white play icon and text. Coin count and Editing label each receive matching warm-cream rounded pill backgrounds with soft shadows. The existing count and text remain.\n7. The selected-item action bubble stays cream and compact with Rotate/Return. Lower its little pointer slightly so it emerges cleanly from the bottom edge, aiming at the selected stool without floating inside the capsule. Bring the bubble slightly closer to the selected object.\n8. For ALL UI surfaces use SHADOW to convey separation. Remove every dark navy/brown outline, ink rim, dark bevel and hard border. Cream panel edges separate through tone and soft shadow, not dark strokes. Cloth uses subtle folds and shadows. Preserve navy TEXT and navy action glyphs, so readability remains strong.\n\nKeep the complete calm mobile-game composition, typography hierarchy, restaurant identity and clean phone readability. No branding, game title, added settings, save/done/undo, annotation, asset sheet, frame or watermark. Exact labels are Editing, Live, People, Layout, Floor, Shop, Rotate, Return, Belt, Stool, Plant, Crate; preserve count1,240 and stocks6,4,2,2. This is the complete screen reference for a coherent reusable production UI family, not a new restaurant or a decorative moodboard.",
+    "raw": "../v6/raw/composition.png",
+    "reference_paths": [
+      "assets/ui/editor/v4/raw/b-indigo-ceramic.png"
+    ],
+    "raw_sha256": "9b5dd98c0e78fac075a4297b6a4c4320e658c9eb1315c04e907eed2dafceef7b",
+    "dimensions": [
+      853,
+      1844
+    ],
+    "reference_sha256": {
+      "assets/ui/editor/v4/raw/b-indigo-ceramic.png": "8e77f369bcee02c1f49be0ce40c97152d210b963104c55dc3528121b3208af0c"
+    }
+  },
+  "references": [
+    {
+      "path": "assets/ui/editor/v4/raw/b-indigo-ceramic.png",
+      "role": "Original user-selected B complete screen, preserved unchanged"
+    },
+    {
+      "path": "assets/ui/editor/v6/raw/composition.png",
+      "role": "Complete-screen amendment reflecting separated hanging curtains, borderless pills, four compact goods and cedar dock"
+    },
+    {
+      "path": "design/art-directions/restaurant-item-catalog.png",
+      "role": "Required Restaurant UI & item catalog, common vocabulary and materials"
+    },
+    {
+      "path": "design/art-directions/restaurant-concept.png",
+      "role": "Approved world context inherited by complete B screen"
+    },
+    {
+      "path": "assets/ui/editor/v6/raw/surfaces.png",
+      "role": "Coordinated v6 surfaces supplied to new icon generation"
+    },
+    {
+      "path": "assets/ui/editor/v5/raw/surfaces.png",
+      "role": "Historical v5 reference used by the unchanged original Floor and coin generation"
+    }
+  ],
+  "generations": [
+    {
+      "id": "surfaces",
+      "mode": "builtin-image_gen",
+      "prompt": "Use case: production mobile-game UI surface family, precise approved design translation.\nCreate one genuinely transparent high-resolution SQUARE production asset sheet with EXACTLY FOUR COLUMNS and FIVE ROWS, twenty evenly spaced cells. Reference1 is the full revised Noren/ceramic UI composition; reference2 is its restaurant UI & item catalog. These are one coherent professional game UI, no independent new styling. Use the cream, indigo fabric and warm cedar in reference1. No text, icons, numbers, labels or grid. Transparent margins at least25px separate assets. Every item axis aligned front view, symmetrical, centered, complete.\n\nCRITICAL: NO DARK BORDER OR OUTLINE ON ANY SURFACE. No dark ink rim, brownstroke, darkbevel, blackedge. Convey separation only with gentle tone and a soft shallow DROP SHADOW below/right. Cream is light warm ivory. Simple clean edges, no distress. All buttons true pill shapes with full semicircular ends, not rectangles. All panels empty and near-flat at center for nine-patch. Corners fixed; broad plain center and straight edge spans stretch. All four source corners same size. Avoid highlights crossing borders.\n\nExact cell order row-major:\nROW1:\n1 neutral CREAM PILL button, full semicircular ends, soft small lower shadow, empty inside.\n2 matching PRESSED cream pill, same dimensions, quieter shadow, subtlywarmer.\n3 muted VERMILION PILL button, same full rounded ends, restrained cream-red highlight, softredlower shadow, no darkrim.\n4 matching PRESSED vermilion pill, exactly same silhouette and dimension.\nROW2:\n5 disabled neutral cream/slate PILL, calm desaturated, same silhouette.\n6 GOODS MAT: tall roundedrectangle warmcream, almostflat, subtle shallowshadow, EMPTY. No darkrim.\n7 selected GOODS MAT: same geometry/material, slightlywarmer center and slightly stronger softshadow, no colored outline.\n8 cream INVENTORY DRAWER large wide roundedrectangle, broad plain cream center, subtle light edge and shortsoftshadow, NO woodbase built into it.\nROW3:\n9 cream MODAL large roundedrectangle, same surface asdrawer.\n10 cream TOAST PILL, same family, tiny warm redshadow atbottom but NO border.\n11 CREAM BACKING panel for behind curtains, wide roundedrectangle, exact same ivory asdrawer, no dark plate or cloth.\n12 CREAM ACTION BUBBLE wide pill, NO tail (separate icon later), same softshadow, empty.\nROW4:\n13 round cream STOCK BADGE, no rim, plain empty center, shallowshadow.\n14 ACTIVE INDIGO HANGING CURTAIN. One separate horizontal fabric panel with EXACTLY TWO small matching fabric LOOPS sticking up above its topedge, near left and right corners. Transparentgap betweenloops abovetopedge. Eachloopis a solidshortvertical fabricstrap, NOT a ring with a hole. It hangs over a ROD that willbe drawn separately behindit. Cloth has subtle verticalfolds and roundedbottomcorners. NO rod inthiscell. NO darkborder. A tiny mutedvermilion underline nearbottomcenter only. Body widtharound280,height145; two loopsextend25pxabovetop. Keep loopshorizontallywithin50pxofouteredges sofixedcornerscontain them. Plaincenter foriconslater.\n15 INACTIVE INDIGO HANGING CURTAIN, EXACT same shape,two loops,dimensions andfabric as14, NOunderline. No rodinside.\n16 CREAM COIN COUNTER PILL same as neutralbutton, fullsemicircularends, no rim.\nROW5:\n17 warmCEDAR ROD: verywide THIN horizontalcylinder, smoothlyroundedendcaps, about8timeswiderthanheight, restrainedwarmhighlight andsoftshadow, no outline,nohooksorcurtains.\n18 warmCEDAR BOTTOM DOCK: wide THIN smoothlyrounded horizontal base, warmwoodtoplip andshallowsoftshadow, emptyandunornamented. About8timeswiderthanheight, no darkstroke, noframe.\n19 matching NEUTRAL CREAM PILL spare, blanksameas1.\n20 matching CREAM SQUARE plain swatch, softlyroundedcorners, nopattern.\n\nEach shape isolated on true alpha; do not include opaque backgrounds, checkerboards, text,sceneelements, branding, symbols. The reference1 entire UI hierarchy is the authority. This sheet is a practical reusable skin of that screen. ",
+      "transparent": true,
+      "raw": "../v6/raw/surfaces.png",
+      "reference_paths": [
+        "assets/ui/editor/v6/raw/composition.png",
+        "design/art-directions/restaurant-item-catalog.png"
+      ],
+      "raw_sha256": "d706a772c066da623390fefe72ee8dc50ad4fc2cad54b502a388cfd3812182b6",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "reference_sha256": {
+        "assets/ui/editor/v6/raw/composition.png": "9b5dd98c0e78fac075a4297b6a4c4320e658c9eb1315c04e907eed2dafceef7b",
+        "design/art-directions/restaurant-item-catalog.png": "d213f970d37a2e83846d8ee54ec14e8e74e72c2a93fb1c13e00d0bf2143e73b2"
+      },
+      "inherits": {
+        "source_record": "assets/ui/editor/v6/imagegen.json",
+        "source_record_sha256": "c10c77509f38ea55eb320aa37dc146e17aa595a05a8ede4713769e1ff26d5208",
+        "generation": "surfaces"
+      }
+    },
+    {
+      "id": "icons",
+      "mode": "builtin-image_gen",
+      "prompt": "Use case: production game UI icons, one coherent family from complete screen.\nReference1 is latest complete Indigo Noren & cream restaurant UI. Reference2 restaurant UI & item catalog. Reference3 actual coordinated new surface sheet, match thosematerials. Produce transparent SQUARE highresolution 4columns x4rows sheet with16 isolated icons, one per equalcell, roomy50pxtransparentmargins. NO panel/button backgrounds, frames, text, letters,watermark, opaque board or checker. Crisp restrained professional gamepictograms. Navyglyphsoncream, warmIVORYglyphsonindigo. Singleflatcolor for clothcategories, NOoutline,darkhair,eyes,coloredaccentsor3Dreliefinsideivoryicons. Avoid thickdarkcontourselsewhere. Entire familycleanwithroundedshapevocabulary.\n\nExact roworder:\nROW1:\n1 PEOPLE: single solid warmIVORY silhouette of a friendly person head andshoulders, with a smallnegative-space smile/hairbreak allowed only as transparentcutout. ONEcolor, noindigoface/hair.\n2 LAYOUT: single solid warmIVORY BACKLESS STOOL pictogram, chunkyflatseat andshortlegs, ONEcolor noindigoaccent, notagateway.\n3 FLOOR: four warmIVORYsquaretiles in2x2grid, screenalignedsquares, onecolor.\n4 SHOP: flatdeepnavy filledbasket withhandle andtransparentcutoutslats.\nROW2:\n5 ROTATE: flatdeepnavy curved3/4circulararrowboldreadable.\n6 RETURN: flatdeepnavy openstoragebox withdownwardarrowintoit; NOTtrash.\n7 LEFT: quietnarrowdeepnavyleftchevron, thinnerthanrotatearrow, roundedends.\n8 RIGHT: matchingquietnarrowrightchevron.\nROW3:\n9 COIN: goldenstarcoin asreference, restrainedillustratedshading.\n10 CLOSE: flatnavyroundedX.\n11 RETRY: flatnavycircularretryarrow.\n12 WARNING: mutedvermiliontriangleexclamation.\nROW4:\n13 PLAY: solidIVORYrighttriangle, nooutlineandnobackground, suitredpill.\n14 POINTER: shallowplainCREAMdownwardtriangularspeechbubbletail, NOoutline,noindigorim,nodarkedge, shortsoftshadowunderslopingedges, openunoutlinedtop. Notwholebubble.\n15 EDIT: flatnavypencildiagonallytilted.\n16 CHECK: flatnavyroundedcheckmark.\n\nKeep silhouettes distinct and internallysinglecolor, especially People/Layout/Floor. Eachiconselfcontainedwithtruealpha; no straymarks; no component touchesneighbor. These icons sit ontheprovidedcreampills/indigocurtains, coherentwithreference1.",
+      "transparent": true,
+      "raw": "../v6/raw/icons.png",
+      "reference_paths": [
+        "assets/ui/editor/v6/raw/composition.png",
+        "design/art-directions/restaurant-item-catalog.png",
+        "assets/ui/editor/v6/raw/surfaces.png"
+      ],
+      "raw_sha256": "b2b00eb3155ea4fc4a5f6f4e64dc368aa172fc894f851ef7e7b47a197cfda027",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "reference_sha256": {
+        "assets/ui/editor/v6/raw/composition.png": "9b5dd98c0e78fac075a4297b6a4c4320e658c9eb1315c04e907eed2dafceef7b",
+        "design/art-directions/restaurant-item-catalog.png": "d213f970d37a2e83846d8ee54ec14e8e74e72c2a93fb1c13e00d0bf2143e73b2",
+        "assets/ui/editor/v6/raw/surfaces.png": "d706a772c066da623390fefe72ee8dc50ad4fc2cad54b502a388cfd3812182b6"
+      },
+      "inherits": {
+        "source_record": "assets/ui/editor/v6/imagegen.json",
+        "source_record_sha256": "c10c77509f38ea55eb320aa37dc146e17aa595a05a8ede4713769e1ff26d5208",
+        "generation": "icons"
+      }
+    },
+    {
+      "id": "icons-v5",
+      "mode": "builtin-image_gen",
+      "prompt": "Use case: ui-mockup production game icon sheet.\nCreate ONE coherent ICON FAMILY on a genuinely TRANSPARENT background for the approved Indigo Noren & warm ceramic restaurant game interface.\nReference1 is the approved complete screen: match its careful rounded silhouettes, clean dark indigo ink, warm ivory/cream on navy tabs, subtle hand-painted relief and restrained outlines.\nReference2 is the restaurant catalog for understandable icon/object identities.\nReference3 is the new coordinated SURFACE FAMILY these icons will sit on. Use its actual ivory, indigo and vermilion palette, but do not paint those panel backgrounds into the icons. Ignore any transparent-edge artifacts in the reference sheet.\n\nOutput one high-resolution SQUARE image, ideally2048x2048, EXACT4columns by4rows with equal cell sizes. Sixteen separate icons, centered one per cell in row-major order. Each icon stays inside its own cell, with at least55px transparent spacing allaround. Icons have consistent optical scale and controlled drawn contour thickness, no picture-frame or button behind them, no labels or letters. Clean genuine alpha outside the silhouettes. No background, no black board or checker pattern, no ornamental shadow blobs, watermarks, titles, grid, numbers or registration marks. No loose speckles outside the icons.\n\nROW1 left-to-right:\n1 PEOPLE: charming cream head/bust with simple indigo hair/face accents and clear friendly silhouette, like approved People tab.\n2 LAYOUT: a simple readable CREAM BACKLESS STOOL with a chunky seat and two/four short legs, thin indigo contour. A furniture pictogram, NOT a torii gate or building.\n3 FLOOR: FOUR small cream square floor tiles in a2x2 square, fine dark indigo gaps/rims. Screen-aligned squares, not diamonds.\n4 SHOP: deep indigo basket with a handle, filled bold silhouette with three cream cutout slats.\n\nROW2:\n5 ROTATE: one bold dark-indigo curved three-quarter circular arrow with a clear arrowhead, like approved action bubble.\n6 RETURN TO INVENTORY: bold dark-indigo OPEN STORAGE BOX with an arrow pointing DOWN INTO IT. Retain object in storage, no trash or delete bin.\n7 LEFT CARET: broad clean dark-indigo left chevron with gently rounded ends.\n8 RIGHT CARET: matching broad clean dark-indigo right chevron.\n\nROW3:\n9 COIN: golden warm illustrated coin, fine dark rim and simple star emboss, restrained bright top and lower shading, crisp at smallscale.\n10 CLOSE: thick dark-indigo X with rounded ends.\n11 RETRY: dark-indigo circular-arrow retry symbol, clearly legible.\n12 WARNING: muted vermilion exclamation inside a fine triangular outline, cream small interior, no text.\n\nROW4:\n13 PLAY: simple warm-IVORY filled right-pointing triangle, thin quiet dark-red edge suitable on primary vermilion button.\n14 POINTER: a small downward-pointing triangular CREAM speech-bubble TAIL with a fine INDIGO outline along its two sloping sides, OPEN/UNOUTLINED top edge. Plain, shallow triangle, no whole bubble behind it. It will attach to a separate cream action capsule.\n15 EDIT: deep-indigo chunky pencil, diagonally tilted, clear simple form.\n16 CHECK: bold deep-indigo check mark with rounded ends.\n\nThe family should look bespoke and commercial, consistent with the complete restaurant UI, using clean silhouette design and sparse highlight/shadow detail. No 3D photographic lighting, shiny gold glyphs everywhere, generic thin vector line icons, gradients across transparent regions, or arbitrary new visual motifs.",
+      "transparent": true,
+      "raw": "../v6/raw/icons-v5.png",
+      "reference_paths": [
+        "assets/ui/editor/v4/raw/b-indigo-ceramic.png",
+        "design/art-directions/restaurant-item-catalog.png",
+        "assets/ui/editor/v5/raw/surfaces.png"
+      ],
+      "raw_sha256": "7d17610994886011bd648ea1f96b91fca699fff989bccac55a13e21c4b1ed8b9",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "reference_sha256": {
+        "assets/ui/editor/v4/raw/b-indigo-ceramic.png": "8e77f369bcee02c1f49be0ce40c97152d210b963104c55dc3528121b3208af0c",
+        "design/art-directions/restaurant-item-catalog.png": "d213f970d37a2e83846d8ee54ec14e8e74e72c2a93fb1c13e00d0bf2143e73b2",
+        "assets/ui/editor/v5/raw/surfaces.png": "0e66697975081db0f49ab1d364efcad73b44ca8a77a3700553e4762345bad5a0"
+      },
+      "inherits": {
+        "source_record": "assets/ui/editor/v6/imagegen.json",
+        "source_record_sha256": "c10c77509f38ea55eb320aa37dc146e17aa595a05a8ede4713769e1ff26d5208",
+        "generation": "icons-v5"
+      }
+    }
+  ],
+  "assets": [
+    {
+      "id": "control-wood",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        14,
+        88,
+        312,
+        140
+      ],
+      "slice_px": [
+        64,
+        64,
+        64,
+        64
+      ],
+      "edge": [
+        42,
+        42,
+        42,
+        42
+      ],
+      "content": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {
+        "pressed": "control-pressed",
+        "disabled": "control-slate"
+      },
+      "minimum_height": 100,
+      "face_px": [
+        18,
+        14,
+        287,
+        96
+      ]
+    },
+    {
+      "id": "control-pressed",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        331,
+        88,
+        309,
+        140
+      ],
+      "slice_px": [
+        64,
+        64,
+        64,
+        64
+      ],
+      "edge": [
+        42,
+        42,
+        42,
+        42
+      ],
+      "content": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "minimum_height": 100,
+      "face_px": [
+        13,
+        14,
+        286,
+        96
+      ]
+    },
+    {
+      "id": "control-green",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        640,
+        88,
+        311,
+        140
+      ],
+      "slice_px": [
+        64,
+        64,
+        64,
+        64
+      ],
+      "edge": [
+        42,
+        42,
+        42,
+        42
+      ],
+      "content": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {
+        "pressed": "control-green-pressed",
+        "disabled": "control-slate"
+      },
+      "minimum_height": 100,
+      "face_px": [
+        15,
+        14,
+        283,
+        96
+      ]
+    },
+    {
+      "id": "control-green-pressed",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        952,
+        88,
+        293,
+        140
+      ],
+      "slice_px": [
+        64,
+        64,
+        64,
+        64
+      ],
+      "edge": [
+        42,
+        42,
+        42,
+        42
+      ],
+      "content": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "minimum_height": 100,
+      "face_px": [
+        12,
+        14,
+        268,
+        96
+      ]
+    },
+    {
+      "id": "control-slate",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        13,
+        326,
+        314,
+        141
+      ],
+      "slice_px": [
+        64,
+        64,
+        64,
+        64
+      ],
+      "edge": [
+        42,
+        42,
+        42,
+        42
+      ],
+      "content": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {
+        "disabled": "control-slate"
+      },
+      "minimum_height": 100,
+      "face_px": [
+        19,
+        11,
+        288,
+        96
+      ]
+    },
+    {
+      "id": "slot-paper",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        351,
+        247,
+        237,
+        315
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {
+        "pressed": "slot-selected",
+        "selected": "slot-selected",
+        "disabled": {
+          "tint": "ffffffff"
+        }
+      },
+      "face_px": [
+        22,
+        14,
+        203,
+        272
+      ]
+    },
+    {
+      "id": "slot-selected",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        608,
+        247,
+        240,
+        315
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {
+        "pressed": "slot-selected",
+        "selected": "slot-selected",
+        "disabled": {
+          "tint": "aeb8c7ff"
+        }
+      },
+      "face_px": [
+        20,
+        15,
+        204,
+        272
+      ]
+    },
+    {
+      "id": "container-tray",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        848,
+        300,
+        397,
+        231
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "content": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "face_px": [
+        17,
+        14,
+        369,
+        185
+      ]
+    },
+    {
+      "id": "container-modal",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        10,
+        572,
+        376,
+        240
+      ],
+      "slice_px": [
+        48,
+        48,
+        48,
+        48
+      ],
+      "edge": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "content": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "face_px": [
+        23,
+        13,
+        340,
+        192
+      ]
+    },
+    {
+      "id": "toast-error",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        390,
+        627,
+        255,
+        127
+      ],
+      "slice_px": [
+        58,
+        58,
+        58,
+        58
+      ],
+      "edge": [
+        32,
+        32,
+        32,
+        32
+      ],
+      "content": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "minimum_height": 100,
+      "face_px": [
+        17,
+        13,
+        231,
+        79
+      ]
+    },
+    {
+      "id": "noren-rail",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        648,
+        597,
+        316,
+        190
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "face_px": [
+        19,
+        15,
+        291,
+        138
+      ]
+    },
+    {
+      "id": "context-bubble",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        964,
+        626,
+        279,
+        129
+      ],
+      "slice_px": [
+        60,
+        60,
+        60,
+        60
+      ],
+      "edge": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "content": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "minimum_height": 100,
+      "face_px": [
+        22,
+        14,
+        249,
+        88
+      ]
+    },
+    {
+      "id": "stock-badge",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        26,
+        859,
+        210,
+        201
+      ],
+      "slice_px": [
+        92,
+        92,
+        92,
+        92
+      ],
+      "edge": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "content": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "face_px": [
+        22,
+        10,
+        171,
+        156
+      ]
+    },
+    {
+      "id": "tab-active",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        282,
+        830,
+        331,
+        225
+      ],
+      "slice_px": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "edge": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "content": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {
+        "pressed": {
+          "tint": "d8dce9ff"
+        },
+        "selected": "tab-active",
+        "disabled": {
+          "tint": "a8afc0ff"
+        }
+      },
+      "face_px": [
+        15,
+        34,
+        308,
+        166
+      ]
+    },
+    {
+      "id": "tab-idle",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        645,
+        830,
+        329,
+        225
+      ],
+      "slice_px": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "edge": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "content": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {
+        "pressed": "tab-active",
+        "selected": "tab-active",
+        "disabled": {
+          "tint": "a8afc0ff"
+        }
+      },
+      "face_px": [
+        14,
+        34,
+        306,
+        166
+      ]
+    },
+    {
+      "id": "coin-panel",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        982,
+        877,
+        263,
+        139
+      ],
+      "slice_px": [
+        64,
+        64,
+        64,
+        64
+      ],
+      "edge": [
+        41,
+        41,
+        41,
+        41
+      ],
+      "content": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "minimum_height": 100,
+      "face_px": [
+        15,
+        17,
+        238,
+        93
+      ]
+    },
+    {
+      "id": "noren-rod",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        15,
+        1131,
+        380,
+        54
+      ],
+      "slice_px": [
+        26,
+        26,
+        26,
+        26
+      ],
+      "edge": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "content": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "face_px": [
+        16,
+        8,
+        355,
+        25
+      ]
+    },
+    {
+      "id": "noren-dock",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        398,
+        1122,
+        457,
+        79
+      ],
+      "slice_px": [
+        36,
+        36,
+        36,
+        36
+      ],
+      "edge": [
+        22,
+        22,
+        22,
+        22
+      ],
+      "content": [
+        9,
+        9,
+        9,
+        9
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "face_px": [
+        18,
+        11,
+        432,
+        46
+      ]
+    },
+    {
+      "id": "context-action",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "../v6/raw/surfaces.png",
+      "source_region": [
+        1070,
+        678,
+        8,
+        8
+      ],
+      "slice_px": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "edge": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "content": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "stretch": "Borderless generated plain cream centre sample; normally transparent over the action capsule with a quiet pressed fill.",
+      "states": {
+        "pressed": {
+          "draw_center": true,
+          "tint": "f6e1b6ff"
+        },
+        "focus": {
+          "draw_center": true,
+          "tint": "f6e1b6ff"
+        }
+      },
+      "draw_center": false,
+      "face_px": [
+        0,
+        0,
+        16,
+        16
+      ]
+    },
+    {
+      "id": "floor",
+      "kind": "icon",
+      "generation": "icons-v5",
+      "source": "../v6/raw/icons-v5.png",
+      "source_region": [
+        664,
+        100,
+        245,
+        237
+      ],
+      "ink_px": [
+        7,
+        7,
+        239,
+        231
+      ]
+    },
+    {
+      "id": "coin",
+      "kind": "icon",
+      "generation": "icons-v5",
+      "source": "../v6/raw/icons-v5.png",
+      "source_region": [
+        45,
+        685,
+        267,
+        266
+      ],
+      "ink_px": [
+        7,
+        7,
+        261,
+        259
+      ]
+    },
+    {
+      "id": "people",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "../v6/raw/icons.png",
+      "source_region": [
+        60,
+        76,
+        225,
+        281
+      ],
+      "ink_px": [
+        12,
+        14,
+        206,
+        258
+      ]
+    },
+    {
+      "id": "layout",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "../v6/raw/icons.png",
+      "source_region": [
+        353,
+        129,
+        257,
+        211
+      ],
+      "ink_px": [
+        15,
+        16,
+        235,
+        186
+      ]
+    },
+    {
+      "id": "shop",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "../v6/raw/icons.png",
+      "source_region": [
+        945,
+        94,
+        269,
+        252
+      ],
+      "ink_px": [
+        12,
+        13,
+        251,
+        232
+      ]
+    },
+    {
+      "id": "rotate",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "../v6/raw/icons.png",
+      "source_region": [
+        53,
+        409,
+        242,
+        246
+      ],
+      "ink_px": [
+        12,
+        13,
+        222,
+        225
+      ]
+    },
+    {
+      "id": "remove",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "../v6/raw/icons.png",
+      "source_region": [
+        361,
+        405,
+        260,
+        243
+      ],
+      "ink_px": [
+        14,
+        15,
+        237,
+        221
+      ]
+    },
+    {
+      "id": "caret-left",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "../v6/raw/icons.png",
+      "source_region": [
+        711,
+        428,
+        146,
+        222
+      ],
+      "ink_px": [
+        14,
+        12,
+        123,
+        204
+      ]
+    },
+    {
+      "id": "caret-right",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "../v6/raw/icons.png",
+      "source_region": [
+        1035,
+        428,
+        140,
+        222
+      ],
+      "ink_px": [
+        13,
+        11,
+        122,
+        204
+      ]
+    },
+    {
+      "id": "close",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "../v6/raw/icons.png",
+      "source_region": [
+        379,
+        718,
+        206,
+        207
+      ],
+      "ink_px": [
+        14,
+        15,
+        185,
+        183
+      ]
+    },
+    {
+      "id": "retry",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "../v6/raw/icons.png",
+      "source_region": [
+        661,
+        715,
+        247,
+        233
+      ],
+      "ink_px": [
+        16,
+        7,
+        224,
+        216
+      ]
+    },
+    {
+      "id": "warning",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "../v6/raw/icons.png",
+      "source_region": [
+        959,
+        706,
+        263,
+        233
+      ],
+      "ink_px": [
+        14,
+        15,
+        244,
+        207
+      ]
+    },
+    {
+      "id": "play",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "../v6/raw/icons.png",
+      "source_region": [
+        75,
+        987,
+        198,
+        215
+      ],
+      "ink_px": [
+        21,
+        14,
+        172,
+        197
+      ]
+    },
+    {
+      "id": "pointer",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "../v6/raw/icons.png",
+      "source_region": [
+        340,
+        1038,
+        280,
+        180
+      ],
+      "ink_px": [
+        30,
+        14,
+        228,
+        133
+      ]
+    },
+    {
+      "id": "edit",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "../v6/raw/icons.png",
+      "source_region": [
+        657,
+        974,
+        235,
+        231
+      ],
+      "ink_px": [
+        18,
+        14,
+        208,
+        206
+      ]
+    },
+    {
+      "id": "check",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "../v6/raw/icons.png",
+      "source_region": [
+        964,
+        997,
+        250,
+        193
+      ],
+      "ink_px": [
+        12,
+        13,
+        232,
+        173
+      ]
+    }
+  ],
+  "authoring_notes": "No ImageGen call or new artwork. Restore the exact user-approved v6 cloth curtain crops and their native corner calibration. Other v7 optical face/icon measurements and thicker rod/dock material calibration remain. Three unchanged v6 generation receipts and the full-screen reference are inherited with pinned SHA256. Every atlas crop preserves original RGBA pixels and four transparent gutter pixels. The beige inventory backdrop is rendered separately across the entire bottom UI. Godot positions the old fabric straps over an edge-to-edge cedar rod; no open-ring replacement is used.",
+  "composition_inherits": {
+    "source_record": "assets/ui/editor/v6/imagegen.json",
+    "source_record_sha256": "c10c77509f38ea55eb320aa37dc146e17aa595a05a8ede4713769e1ff26d5208"
+  }
+}

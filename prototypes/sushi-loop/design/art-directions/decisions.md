@@ -258,3 +258,9 @@ The user rejected pill surfaces whose sides became pointed when compressed verti
 The user's [latest alignment amendment](../../godot/review/12/alignment-revision/contract.md) removes the visible backing behind the category curtains and the paging caret surfaces, superseding those v6 treatments. Keep native touch targets generous, make the goods cards and drawer tighter, add bottom stock padding, and thicken the dock and rod. The rod must visibly pass through the curtain loop holes. Preserve independent cloth, monochrome icons, four Layout goods and native Blender merchandise views.
 
 Align dynamic Godot labels and icons against each generated surface's measured visible face, accounting separately for transparent texture margins, shadows and font ink bounds. Add real left padding to the currency display and visually center Live's icon/text. Keep the shared 100-unit pill minimum and soft shadow separation. Preserve v5/v6 sources and review evidence unchanged; this is a revision request awaiting visual approval, within issue #12 only.
+
+### B correction — exact v6 curtains and continuous backdrop (2026-10-20)
+
+The user's [current correction](../../godot/review/12/curtain-restoration/contract.md) restores the exact previous v6 curtain artwork without regeneration, with its straps positioned slightly lower against an edge-to-edge wooden rod. An overall beige backdrop extends behind the category rail and goods down to the footer. This supersedes v7's regenerated open rings and removed overall rail backing.
+
+Preserve the compact goods cards, bare paging carets, bottom padding, thicker dock, monochrome icons, optical native captions and 100-unit pill minimum. The v8 record inherits exactly the three unchanged v6 source sheets; the source gate proves each curtain's exact generation, crop and pixels. Preserve all v7 source and review files unchanged as history. This remains a correction within issue #12 awaiting user verification.

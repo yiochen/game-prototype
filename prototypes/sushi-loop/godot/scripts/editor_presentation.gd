@@ -120,8 +120,7 @@ func _ready() -> void:
 	live.pressed.connect(func(): command_requested.emit({"type": "set_mode", "mode": "live"}))
 	inventory_backing = ColorRect.new()
 	inventory_backing.color = CREAM
-	inventory_backing.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	inventory_backing.hide()
+	inventory_backing.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(inventory_backing)
 	category_rail = Panel.new()
 	category_rail.accessibility_name = "Editor categories"
@@ -547,8 +546,8 @@ func refresh_layout() -> void:
 	for button: Button in inset_buttons:
 		button.custom_minimum_size = Vector2(100, 100) * unit
 	skin.apply_panel(tray, "container-tray", unit)
-	# The noren hang freely. Their rail is only a layout container, never a
-	# cream frame behind the fabric or the neighbouring Shop pill.
+	# One continuous beige backing sits behind the whole footer. The category
+	# row is only a layout container, without a separate framed panel.
 	category_rail.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	category_rail.custom_minimum_size = Vector2.ZERO
 	skin.apply_panel(category_rod, "noren-rod" if skin.manifest.styles.has("noren-rod") else "noren-rail", unit)
@@ -581,9 +580,15 @@ func refresh_layout() -> void:
 	tray.size = Vector2(drawer_width, DRAWER_HEIGHT) * unit
 	_move_control(category_rail, Vector2(area.position.x, area.end.y - (drawer_height + CATEGORY_HEIGHT) * unit))
 	category_rail.size = Vector2(area.size.x, CATEGORY_HEIGHT * unit)
-	inventory_backing.hide()
-	category_rod.position = Vector2(0, 10.7) * unit
-	category_rod.size = Vector2(720, 34) * unit
+	# Overscan only the generated rod's transparent end padding. Its visible
+	# wood reaches both portrait edges exactly while the corner scale stays fixed.
+	var rod_frame := Rect2(Vector2.ZERO, Vector2(area.size.x, 34 * unit))
+	var rod_face := skin.face_rect("noren-rod", rod_frame, unit)
+	var rod_left := rod_face.position.x
+	var rod_right := rod_frame.end.x - rod_face.end.x
+	category_rod.position = Vector2(-rod_left, 0)
+	category_rod.size = Vector2(area.size.x + rod_left + rod_right, 34 * unit)
+	_update_inventory_backing()
 	bottom_dock.position = Vector2(area.position.x + 6 * unit, area.end.y - DOCK_HEIGHT * unit)
 	bottom_dock.size = Vector2(area.size.x - 12 * unit, DOCK_HEIGHT * unit)
 	title.visible = false
@@ -636,9 +641,9 @@ func refresh_layout() -> void:
 		button.add_theme_font_size_override("font_size", maxi(1, int(30 * unit)))
 		button.add_theme_constant_override("icon_max_width", int(40 * unit))
 		_style_button(button)
-		_layout_button_visual(button, Rect2(4, 0, tab_width - 8, CATEGORY_HEIGHT), 30, 36)
+		_layout_button_visual(button, Rect2(4, 3, tab_width - 8, 100), 30, 36)
 		tab_left += tab_width
-	var curtain_face := skin.face_rect("tab-idle", Rect2(Vector2.ZERO, Vector2(176, CATEGORY_HEIGHT) * unit), unit)
+	var curtain_face := skin.face_rect("tab-idle", Rect2(Vector2(0, 3) * unit, Vector2(176, 100) * unit), unit)
 	var shop_face := skin.face_rect("control-wood", Rect2(Vector2.ZERO, Vector2(160, 100) * unit), unit)
 	shop.position = Vector2(532 * unit, curtain_face.get_center().y - shop_face.get_center().y)
 	shop.size = Vector2(176, 100) * unit
@@ -701,7 +706,7 @@ func occlusion_top() -> float:
 
 func blocked_rects() -> Array[Rect2]:
 	var result: Array[Rect2] = []
-	var controls: Array = [live, tray, previous, next, bottom_dock, category_rod, context_bubble, shop]
+	var controls: Array = [live, inventory_backing, tray, previous, next, bottom_dock, category_rod, context_bubble, shop]
 	controls.append_array(layers.values())
 	# Departing inventory cards fade briefly outside a newly narrowed final
 	# page. Their visible rectangles still shield the restaurant while fading.
@@ -726,8 +731,15 @@ func _move_control(control: Control, target: Vector2) -> void:
 		control.position = target
 		return
 	var motion := create_tween()
-	motion.tween_property(control, "position", target, 0.20).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	if control == category_rail:
+		motion.tween_method(_move_category_with_backing, control.position, target, 0.20).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	else:
+		motion.tween_property(control, "position", target, 0.20).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	control.set_meta("position_tween", motion)
+
+func _move_category_with_backing(position_value: Vector2) -> void:
+	category_rail.position = position_value
+	_update_inventory_backing()
 
 func set_selection(base: Vector2, show: bool) -> void:
 	target_base = base
@@ -741,7 +753,17 @@ func reject(reason: String) -> void:
 	rejection.show()
 	rejection_seconds = 1.3
 
+func _update_inventory_backing() -> void:
+	if category_rail == null or category_rod == null or inventory_backing == null: return
+	# Follow the real moving rail, including the exposed blank space while the
+	# drawer opens or closes. That entire visible field shields world gestures.
+	var top := category_rail.position.y + category_rod.position.y
+	inventory_backing.position = Vector2(area.position.x, top)
+	inventory_backing.size = Vector2(area.size.x, maxf(0.0, area.end.y - top))
+	inventory_backing.show()
+
 func _process(delta: float) -> void:
+	_update_inventory_backing()
 	if rejection_seconds > 0:
 		rejection_seconds -= delta
 		if rejection_seconds <= 0: rejection.hide()
