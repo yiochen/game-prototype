@@ -1,0 +1,35 @@
+PASS: Existing v41 primary and backup match the protected paused baseline
+Serving...
+Performing Incremental Install
+Success
+Install command complete in 663 ms
+PASS: Installed normal APK matches final release SHA256
+PASS: Normal v41→v42 installation preserves both save files byte for byte before launch
+PASS: Migrated v2 paused save retains every saved field with only editor_version3 and the documented three-to-four-slot Layout page mapping
+PASS: Review12 package is absent before first installation
+Serving...
+Performing Incremental Install
+Success
+Install command complete in 826 ms
+PASS: Installed review APK matches final release SHA256
+PASS: Fresh review starts the two-menu scene with its original owned supplies
+PASS: Edit press feedback is captured on pointer down before its release enters Edit
+PASS: Shop pointer down preserves exact paused state before release feedback
+PASS: Quiet cream Shop shows unavailable feedback while preserving the paused restaurant
+PASS: Dragging a People press outside cancels without changing layer, tray or paused state
+PASS: People pointer remains armed only visually before release or background
+PASS: Home during a held People touch preserves every paused saved field
+PASS: Same-process rendered resume cancels held People press without changing layer or tray
+PASS: The original People gesture orphan release after resume performs no action
+PASS: A fresh People press after background cancellation works normally
+PASS: Returning to Layout after cancelled-touch verification retains the complete original paused state
+PASS: Edit freezes customer paths, food, chef progress, timers, fractional remainder and RNG
+PASS: Disconnected stool is free for touch editing
+PASS: Touch rotation changes facing and retains selection
+Traceback (most recent call last):
+  File "/private/tmp/sushi12-noren-review/run_editor_qa.py", line 96, in <module>
+    raw,moved=wait_save(REVIEW,lambda d:obj(d,'seat-5').get('y')==5)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sushi12-noren-review/qa_common.py", line 44, in wait_save
+    raise AssertionError('Saved state did not reach expected transition: '+json.dumps(last and {'elapsed':last['state'].get('elapsed'),'mode':last['state'].get('mode'),'editor':last['state'].get('editor')}))
+AssertionError: Saved state did not reach expected transition: {"elapsed": 6.3500000000000005, "mode": "edit", "editor": {"layer": "layout", "page": 0, "pages": {"floor": 0, "layout": 0, "people": 0}, "selected_id": "seat-5", "tray_open": true}}

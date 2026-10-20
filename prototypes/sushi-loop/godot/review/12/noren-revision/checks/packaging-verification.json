@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "scope": "Asset provenance and Android packaging boundaries. Native visual review and user acceptance are separate.",
+  "packaging_tests": {
+    "command": "python3 -m unittest discover -s prototypes/sushi-loop/tools -p test_android_packaging.py",
+    "exit_code": 0,
+    "tests": 57,
+    "elapsed_seconds": 38.287,
+    "result": "OK",
+    "output": "packaging-tests.log"
+  },
+  "android_preflight": {
+    "command": "python3 prototypes/sushi-loop/tools/build_android.py --check",
+    "exit_code": 0,
+    "mode": "runtime-preflight-only",
+    "engine": "4.7.2.stable.official.ed1daf0bf",
+    "runtime_files": 286,
+    "android_package": "com.yiochen.sushilooptickets",
+    "version_name": "0.4.2",
+    "version_code": 42,
+    "output": "android-preflight.json"
+  },
+  "editor_ui": {
+    "command": "python3 prototypes/sushi-loop/godot/tools/verify_editor_ui.py",
+    "exit_code": 0,
+    "manifest_version": 3,
+    "manifest_sha256": "efac70144ae7b6b4663642468120db24145ff2419c339dafd4287e78f1bb03e1",
+    "source_record": "assets/ui/editor/v6/imagegen.json",
+    "source_record_sha256": "c10c77509f38ea55eb320aa37dc146e17aa595a05a8ede4713769e1ff26d5208",
+    "imagegen_sources": 3,
+    "styles": 19,
+    "icons": 16,
+    "png_bytes": 1680442,
+    "historical_v5_record_sha256": "c0893a19e487376002d6941d8ac2d3eaa7ca12e13189f7f29acd9268f22ebc26",
+    "output": "editor-ui-provenance.json",
+    "pill_styles": 8,
+    "pill_minimum_height": 100
+  },
+  "editor_goods": {
+    "command": "python3 prototypes/sushi-loop/godot/tools/verify_editor_goods.py",
+    "exit_code": 0,
+    "manifest_sha256": "1a0eda26e231a47051fc7f0b0a5c925fe777b0245094fa5416a60f09fbe9411b",
+    "source_blend_sha256": "bdb8d3b8d699b2b097df7d3ab5a58b8178c0dfede06814a944b91651f318329e",
+    "production_blend_sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "sprites": 6,
+    "png_bytes": 359619
+  },
+  "calibration_amendment": "Pill styles require minimum_height at least 100 and at least the complete source height at the uniform corner scale, equal in runtime and source registration. Final tight rod/dock crops and cream disabled paging treatment remain. Original ImageGen source outputs and inherited icon pixels are unchanged.",
+  "source_commit": "8d6c6e1018571acfb8c2fad6d28aeb7dcc2040a0",
+  "runtime_source_fingerprint": "38541c74c98175e1c4c8890bb7a8400b824e5794ccd95b31a7014bebde9a7ebe",
+  "all_runtime_source_files_match_commit": true,
+  "provenance_amendment": "The exact original surface-generation prompt, including its final space, is retained in authoring.json and imagegen.json. Plain-text prompt copies normalize trailing whitespace. Atlas pixels and minimum-height calibration are unchanged."
+}
