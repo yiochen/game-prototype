@@ -16,7 +16,9 @@ import zlib
 REFERENCE = 'design/art-directions/restaurant-item-catalog.png'
 WORLD_REFERENCE = 'design/art-directions/restaurant-concept.png'
 COMPOSITION = 'assets/ui/editor/v4/raw/b-indigo-ceramic.png'
-SOURCE_RECORD = 'assets/ui/editor/v6/imagegen.json'
+SOURCE_RECORD = 'assets/ui/editor/v7/imagegen.json'
+PARENT_SOURCE_RECORD = 'assets/ui/editor/v6/imagegen.json'
+PARENT_RECORD_SHA256 = 'c10c77509f38ea55eb320aa37dc146e17aa595a05a8ede4713769e1ff26d5208'
 HISTORICAL_SOURCE_RECORD = 'assets/ui/editor/v5/imagegen.json'
 HISTORICAL_RECORD_SHA256 = 'c0893a19e487376002d6941d8ac2d3eaa7ca12e13189f7f29acd9268f22ebc26'
 ATLAS = 'skin.png'
@@ -158,24 +160,27 @@ def _verify(project, source_project):
     prototype = source_project.parent
     runtime = project / 'assets/ui/editor'
     manifest = json.loads((runtime / 'manifest.json').read_text())
-    require(manifest.get('version') == 3, 'Editor UI requires the current B amendment manifest version 3')
+    require(manifest.get('version') == 4, 'Editor UI requires the current B alignment manifest version 4')
     require(manifest.get('reference') == REFERENCE and sha(prototype / REFERENCE) == manifest['reference_sha256'], 'Editor UI catalog reference changed')
-    require(manifest.get('source_record') == SOURCE_RECORD, 'Editor UI requires the current B v6 source record')
+    require(manifest.get('source_record') == SOURCE_RECORD, 'Editor UI requires the current B v7 source record')
     source_record = _path(prototype, manifest['source_record'], 'ImageGen record')
     require(sha(source_record) == manifest['source_record_sha256'], 'Editor ImageGen prompt record changed')
     require(sha(source_record.parent / 'pack.py') == manifest['packing_script_sha256'], 'Editor UI packing procedure changed')
     require(sha(source_record.parent / 'authoring.json') == manifest['authoring_sha256'], 'Editor UI authored calibration and states changed')
     generation = json.loads(source_record.read_text())
-    require(generation.get('version') == 3, 'Editor UI generation record version changed')
+    require(generation.get('version') == 4, 'Editor UI generation record version changed')
     accepted = generation['accepted_composition']
     require(accepted['path'] == COMPOSITION and sha(prototype / COMPOSITION) == accepted['sha256'], 'Editor UI accepted B composition changed')
+    parent_path = _path(prototype, PARENT_SOURCE_RECORD, 'parent ImageGen record')
+    require(sha(parent_path) == PARENT_RECORD_SHA256, 'Editor UI historical v6 parent record changed')
+    parent = json.loads(parent_path.read_text())
+    parent_generations = {record['id']: record for record in parent['generations']}
     latest = generation['latest_composition']
     latest_path = _path(prototype, latest['path'], 'latest B composition')
-    require(latest_path.is_relative_to(source_record.parent) and sha(latest_path) == latest['sha256'], 'Editor UI latest B amendment composition changed')
+    require(sha(latest_path) == latest['sha256'], 'Editor UI latest B amendment composition changed')
     historical_path = _path(prototype, HISTORICAL_SOURCE_RECORD, 'historical ImageGen record')
     require(sha(historical_path) == HISTORICAL_RECORD_SHA256, 'Editor UI historical v5 record changed')
     historical = json.loads(historical_path.read_text())
-    historical_generations = {record['id']: record for record in historical['generations']}
     references = generation['references']
     require(isinstance(references, list) and len({r['path'] for r in references}) == len(references), 'Editor UI reference set is invalid')
     referenced = {entry['path']: entry for entry in references}
@@ -185,7 +190,17 @@ def _verify(project, source_project):
         require(sha(path) == entry['sha256'] and isinstance(entry.get('role'), str) and entry['role'].strip(), f'Editor UI reference changed or lacks its role: {relative}')
     composition = generation['composition_generation']
     require(composition.get('mode') in {'builtin-image_gen', 'builtin-image_gen-edit'} and isinstance(composition.get('prompt'), str) and len(composition['prompt']) > 100, 'Editor UI complete-screen generation provenance is missing')
-    composition_path = _path(source_record.parent, composition['raw'], 'complete-screen generated output')
+    composition_inheritance = generation.get('composition_inherits')
+    if composition_inheritance is not None:
+        require(composition_inheritance == {'source_record': PARENT_SOURCE_RECORD, 'source_record_sha256': PARENT_RECORD_SHA256}, 'Editor UI inherited composition identity changed')
+        require(latest == parent['latest_composition'], 'Editor UI inherited complete-screen registration changed')
+        require({key: value for key, value in composition.items() if key != 'raw'} ==
+                {key: value for key, value in parent['composition_generation'].items() if key != 'raw'}, 'Editor UI inherited complete-screen provenance changed')
+        composition_path = _path(prototype, str((source_record.parent / composition['raw']).relative_to(prototype)), 'inherited complete-screen generated output')
+        require(composition_path == (parent_path.parent / parent['composition_generation']['raw']).resolve(), 'Editor UI inherited complete-screen source changed')
+    else:
+        composition_path = _path(source_record.parent, composition['raw'], 'complete-screen generated output')
+        require(latest_path.is_relative_to(source_record.parent), 'Editor UI latest B amendment composition escapes the current source revision')
     require(composition_path == latest_path and composition.get('raw_sha256') == latest['sha256'], 'Editor UI complete-screen output registration changed')
     composition_data = composition_path.read_bytes()
     require(composition_data[:8] == b'\x89PNG\r\n\x1a\n' and list(struct.unpack_from('>II', composition_data, 16)) == composition['dimensions'] and min(composition['dimensions']) >= 768, 'Editor UI full complete-screen output resolution changed')
@@ -207,20 +222,28 @@ def _verify(project, source_project):
     sources = {}
     generation_ids = set()
     new_sources = inherited_sources = 0
+    inherited_ids = set()
     for record in generation['generations']:
-        require(isinstance(record.get('id'), str) and record['id'] and record['id'] not in generation_ids and record.get('mode') == 'builtin-image_gen', 'Editor UI ImageGen generation identity/mode is invalid')
+        require(isinstance(record.get('id'), str) and record['id'] and record['id'] not in generation_ids and record.get('mode') in {'builtin-image_gen', 'builtin-image_gen-edit'}, 'Editor UI ImageGen generation identity/mode is invalid')
         generation_ids.add(record['id'])
         relative = str((source_record.parent / record['raw']).relative_to(prototype))
-        source = _path(source_record.parent, record['raw'], 'generated sheet')
-        require(source.is_relative_to(source_record.parent / 'raw') and relative not in sources, 'Editor UI generated source identity is invalid')
+        source = _path(prototype, relative, 'generated sheet')
+        relative = source.relative_to(prototype).as_posix()
+        require(relative not in sources, 'Editor UI generated source identity is invalid')
         require(record.get('transparent') is True and isinstance(record.get('prompt'), str) and len(record['prompt']) > 100, 'Editor UI coordinated ImageGen prompt is missing')
         require(set(record['reference_sha256']) == set(record['reference_paths']), 'Editor UI coordinated generation references are incomplete')
         if 'inherits' in record:
-            require(record['inherits'] == {'source_record': HISTORICAL_SOURCE_RECORD, 'generation': 'icons'}, 'Editor UI inherited sheet identity changed')
-            original = historical_generations['icons']
-            require(all(record.get(key) == original[key] for key in ('mode', 'prompt', 'transparent', 'reference_paths', 'reference_sha256', 'raw_sha256', 'dimensions')), 'Editor UI inherited v5 generation provenance changed')
+            inheritance = record['inherits']
+            require(isinstance(inheritance, dict) and set(inheritance) == {'source_record', 'source_record_sha256', 'generation'} and
+                    inheritance['source_record'] == PARENT_SOURCE_RECORD and inheritance['source_record_sha256'] == PARENT_RECORD_SHA256 and
+                    inheritance['generation'] in parent_generations and inheritance['generation'] not in inherited_ids, 'Editor UI inherited sheet identity changed')
+            original = parent_generations[inheritance['generation']]
+            require(all(record.get(key) == original[key] for key in ('mode', 'prompt', 'transparent', 'reference_paths', 'reference_sha256', 'raw_sha256', 'dimensions')), 'Editor UI inherited v6 generation provenance changed')
+            require(source == (parent_path.parent / original['raw']).resolve(), 'Editor UI inherited v6 sheet source changed')
+            inherited_ids.add(inheritance['generation'])
             inherited_sources += 1
         else:
+            require(source.is_relative_to(source_record.parent / 'raw') and record['id'] == 'curtains', 'Editor UI new source must be the coordinated curtain revision')
             require(set(record['reference_paths']) >= {REFERENCE, latest['path']}, 'Editor UI new generation does not use the latest B amendment composition')
             new_sources += 1
         for reference in record['reference_paths']:
@@ -232,7 +255,8 @@ def _verify(project, source_project):
         require(source_dimensions == record['dimensions'] and min(source_dimensions) >= 768, f'Editor UI full source resolution changed: {relative}')
         require(any(pixels[i] == 0 for i in range(3, len(pixels), 4)) and any(pixels[i] == 255 for i in range(3, len(pixels), 4)), f'Editor UI source lacks clean transparency: {relative}')
         sources[relative] = (digest, source_dimensions, pixels, record['id'])
-    require(len(sources) == 3 and new_sources == 2 and inherited_sources == 1, 'Editor UI requires two coordinated v6 ImageGen sheets and the unchanged inherited v5 icon sheet')
+    require(inherited_ids == set(parent_generations) and inherited_sources == 3 and new_sources in {0, 1} and len(sources) == inherited_sources + new_sources,
+            'Editor UI requires the three unchanged v6 sheets with at most one coordinated curtain revision')
     occupied = []
     used_sources = set()
     for identity in sorted(identities):
@@ -268,7 +292,25 @@ def _verify(project, source_project):
         used_sources.add(record['source'])
         require('image' not in entry, f'Editor UI bypasses the coordinated atlas: {identity}')
         if kind == 'style':
+            if identity == 'context-action' and 'face_px' not in entry:
+                require('face_px' not in record, f'Editor UI visible face bounds differ from its packing record: {identity}')
+            else:
+                face = _region(entry['face_px'], region[2:], f'visible face bounds: {identity}')
+                require(record.get('face_px') == list(face), f'Editor UI visible face bounds differ from its packing record: {identity}')
             _calibration(identity, entry, region)
+            if identity in {'tab-active', 'tab-idle'}:
+                apertures = entry.get('loop_apertures_px')
+                require(isinstance(apertures, list) and len(apertures) == 2 and record.get('loop_apertures_px') == apertures,
+                        f'Editor UI curtain loop aperture registration changed: {identity}')
+                left, top, right, _ = entry['slice_px']
+                for index, bounds in enumerate(apertures):
+                    ax, ay, aw, ah = _region(bounds, region[2:], f'curtain loop aperture: {identity}')
+                    require(ay + ah <= top and (ax + aw <= left if index == 0 else ax >= region[2] - right),
+                            f'Editor UI curtain loop aperture leaves its fixed corner: {identity}')
+                    alpha = _crop(atlas_pixels, dimensions, [region[0] + ax, region[1] + ay, aw, ah])[3::4]
+                    center = ((region[1] + ay + ah // 2) * dimensions[0] + region[0] + ax + aw // 2) * 4 + 3
+                    require(atlas_pixels[center] == 0 and sum(value == 0 for value in alpha) > len(alpha) / 2,
+                            f'Editor UI curtain loop aperture is not visibly open: {identity}')
             require(all(record.get(key) == entry[key] for key in ('slice_px', 'edge', 'content', 'stretch')), f'Editor UI calibration differs from its packing record: {identity}')
             require(record.get('minimum_height') == entry.get('minimum_height'), f'Editor UI minimum height differs from its packing record: {identity}')
             require(isinstance(entry.get('states', {}), dict), f'Invalid editor UI states: {identity}')
@@ -277,6 +319,9 @@ def _verify(project, source_project):
                 require((isinstance(treatment, str) and treatment in styles) or (isinstance(treatment, dict) and set(treatment) <= {'tint', 'draw_center'} and treatment), f'Editor UI state bypasses calibrated framing: {identity}')
                 if isinstance(treatment, dict):
                     require(type(treatment.get('draw_center', True)) is bool and isinstance(treatment.get('tint', 'ffffffff'), str) and re.fullmatch(r'(?:[0-9a-fA-F]{6}|[0-9a-fA-F]{8})', treatment.get('tint', 'ffffffff')), f'Invalid editor UI state treatment: {identity}')
+        else:
+            ink = _region(entry['ink_px'], region[2:], f'icon ink bounds: {identity}')
+            require(record.get('ink_px') == list(ink), f'Editor UI icon ink bounds differ from its packing record: {identity}')
     require(used_sources == set(sources), 'Editor UI generated sheets are unused')
     require({p.relative_to(runtime).as_posix() for p in runtime.rglob('*.png')} == {ATLAS}, 'Unexpected editor UI image payload')
     return {'images': 1, 'imagegen_sources': len(sources), 'styles': len(styles), 'icons': len(icons),

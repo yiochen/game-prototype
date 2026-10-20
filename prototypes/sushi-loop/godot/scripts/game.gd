@@ -95,7 +95,7 @@ func _ready() -> void:
 	editing_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(editing_panel)
 	coin = TextureRect.new()
-	coin.texture = skin.icon("coin")
+	coin.texture = skin.icon_ink("coin")
 	coin.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	coin.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	coin.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -117,7 +117,7 @@ func _ready() -> void:
 	editing_cue.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(editing_cue)
 	editing_icon = TextureRect.new()
-	editing_icon.texture = skin.icon("edit")
+	editing_icon.texture = skin.icon_ink("edit")
 	editing_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	editing_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	editing_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -154,7 +154,7 @@ func _ready() -> void:
 func make_button(text: String, icon_name: String, disabled := false) -> Button:
 	var button := Button.new()
 	button.text = text
-	button.icon = skin.icon(icon_name)
+	button.icon = skin.icon_ink(icon_name)
 	button.expand_icon = true
 	button.disabled = disabled
 	button.accessibility_name = text
@@ -166,52 +166,137 @@ func make_button(text: String, icon_name: String, disabled := false) -> Button:
 	button.add_theme_color_override("font_focus_color", INK)
 	button.add_theme_color_override("font_disabled_color", Color("75828b"))
 	button.add_theme_color_override("icon_disabled_color", Color("8e9ba5"))
+	# Native text remains available to accessibility and focus. Its own draw is
+	# hidden so generated padding and font line-box reserves cannot offset ink.
+	button.self_modulate.a = 0.0
+	var visual := Control.new()
+	visual.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	button.add_child(visual)
+	for key in ["visual_surface", "visual_focus"]:
+		var panel := Panel.new()
+		panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		visual.add_child(panel)
+		button.set_meta(key, panel)
+	var icon := TextureRect.new()
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	visual.add_child(icon)
+	button.set_meta("visual_icon", icon)
+	var caption := Label.new()
+	caption.add_theme_font_override("font", body_font)
+	caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	visual.add_child(caption)
+	button.set_meta("visual_label", caption)
+	button.set_meta("visual", visual)
+	button.button_down.connect(func(): _style_native_button(button, float(button.get_meta("skin_unit", 1.0)), true))
+	button.button_up.connect(func(): _style_native_button(button, float(button.get_meta("skin_unit", 1.0)), false))
+	button.mouse_exited.connect(func(): _style_native_button(button, float(button.get_meta("skin_unit", 1.0)), false))
+	button.focus_entered.connect(func(): _style_native_button(button, float(button.get_meta("skin_unit", 1.0))))
+	button.focus_exited.connect(func(): _style_native_button(button, float(button.get_meta("skin_unit", 1.0)), false))
+	button.toggled.connect(func(_pressed: bool): _style_native_button(button, float(button.get_meta("skin_unit", 1.0))))
 	_style_native_button(button, 1.0)
 	add_child(button)
 	button.pressed.connect(func(): audio.play_cue("click"))
 	return button
 
-func _style_native_button(button: Button, unit: float) -> void:
-	if is_equal_approx(float(button.get_meta("skin_unit", -1.0)), unit): return
+func _style_native_button(button: Button, unit: float, held = null) -> void:
 	button.set_meta("skin_unit", unit)
+	if held is bool: button.set_meta("visual_pressed", held)
 	var role := str(button.get_meta("skin_role", "control-wood"))
 	for kind in ["normal", "hover", "pressed", "disabled"]:
-		button.add_theme_stylebox_override(kind, skin.style(role, unit, kind))
+		button.add_theme_stylebox_override(kind, StyleBoxEmpty.new())
+	button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+	button.custom_minimum_size = Vector2(100, 100) * unit
 	for kind in ["font_color", "font_hover_color", "font_pressed_color", "font_hover_pressed_color", "font_focus_color"]:
 		button.add_theme_color_override(kind, CREAM if role == "control-green" else INK)
 	button.add_theme_constant_override("h_separation", int(10 * unit))
 	button.add_theme_constant_override("outline_size", 0)
-	button.add_theme_color_override("font_outline_color", Color("594431"))
+	var treatment := "disabled" if button.disabled else "pressed" if button.get_meta("visual_pressed", false) or (button.toggle_mode and button.button_pressed) else "normal"
+	var visual: Control = button.get_meta("visual")
+	visual.size = button.size
+	visual.modulate.a = 0.45 if button.disabled else 1.0
+	var surface: Panel = button.get_meta("visual_surface")
+	skin.apply_panel(surface, role, unit, treatment)
+	surface.size = visual.size
+	var focus_panel: Panel = button.get_meta("visual_focus")
 	var focus := StyleBoxFlat.new()
 	focus.bg_color = Color.TRANSPARENT
 	focus.shadow_color = Color(0.78, 0.28, 0.15, 0.6)
 	focus.shadow_size = maxi(2, int(6 * unit))
 	focus.set_corner_radius_all(maxi(1, int(42 * unit)))
-	button.add_theme_stylebox_override("focus", focus)
+	focus_panel.add_theme_stylebox_override("panel", focus)
+	focus_panel.size = visual.size
+	focus_panel.visible = button.has_focus()
+	var face := skin.face_rect(role, Rect2(Vector2.ZERO, visual.size), unit, treatment)
+	var icon: TextureRect = button.get_meta("visual_icon")
+	icon.texture = button.icon
+	var icon_width := float(button.get_theme_constant("icon_max_width"))
+	var caption: Label = button.get_meta("visual_label")
+	caption.text = button.text
+	caption.add_theme_color_override("font_color", CREAM if role == "control-green" else INK)
+	var font_size := button.get_theme_font_size("font_size")
+	var available_width := maxf(0.0, face.size.x - icon_width - 26 * unit)
+	while font_size > maxi(8, int(20 * unit)) and body_font.get_string_size(button.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x > available_width:
+		font_size -= 1
+	var text_width := body_font.get_string_size(button.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
+	var group_width := icon_width + 10 * unit + text_width
+	var left := face.get_center().x - group_width * 0.5
+	icon.position = Vector2(left, face.get_center().y - icon_width * 0.5)
+	icon.size = Vector2.ONE * icon_width
+	UISkin.layout_caption(caption, Rect2(left + icon_width + 10 * unit, face.position.y, text_width, face.size.y), font_size)
 
 func _layout_hud(area: Rect2, unit: float) -> void:
 	var top: float = 124 * unit if show_gallery else 32 * unit
 	coin_panel.position = Vector2(area.position.x + 24 * unit, top)
 	skin.apply_panel(coin_panel, "coin-panel", unit)
 	coin_panel.size = Vector2(240, 100) * unit
-	coin.position = coin_panel.position + Vector2(14, 21) * unit
-	coin.size = Vector2.ONE * 54 * unit
-	money.position = coin_panel.position + Vector2(76, 17) * unit
-	money.size = Vector2(148, 64) * unit
+	var coin_face := skin.face_rect("coin-panel", Rect2(coin_panel.position, coin_panel.size), unit)
+	var coin_fit := UISkin.fit_rect(coin.texture.get_size(), Rect2(coin_face.position.x + 10 * unit, coin_face.get_center().y - 27 * unit, 54 * unit, 54 * unit))
+	coin.position = coin_fit.position
+	coin.size = coin_fit.size
+	var money_frame := Rect2(coin_face.position.x + 76 * unit, coin_face.position.y, coin_face.size.x - 90 * unit, coin_face.size.y)
 	# A larger earned balance must stay inside its own capsule without covering
 	# Editing or Live. Measure the actual typeface rather than counting digits.
+	var balance_text := str(session.snapshot().get("coins", 0))
+	money.set_meta("full_balance", balance_text)
+	money.text = balance_text
+	money.accessibility_description = balance_text + " coins"
 	var font_size := int(38 * unit)
-	while font_size > maxi(8, int(20 * unit)) and body_font.get_string_size(money.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x > 148 * unit:
+	while font_size > maxi(8, int(20 * unit)) and body_font.get_string_size(money.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x > money_frame.size.x:
 		font_size -= 1
-	money.add_theme_font_size_override("font_size", font_size)
+	if body_font.get_string_size(money.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x > money_frame.size.x:
+		# Preserve the full amount in the save and accessibility description;
+		# extremely large earnings use a readable compact caption, not tiny text.
+		var magnitude := mini(6, int((balance_text.length() - 1) / 3.0))
+		var leading := balance_text.length() - magnitude * 3
+		money.text = balance_text.substr(0, leading)
+		var decimal := balance_text.substr(leading, 1)
+		if not decimal.is_empty() and decimal != "0": money.text += "." + decimal
+		money.text += ["", "K", "M", "B", "T", "Qa", "Qi"][magnitude]
+	UISkin.layout_caption(money, money_frame, font_size)
 	editing_panel.position = Vector2(area.position.x + 280 * unit, top)
 	skin.apply_panel(editing_panel, "control-wood", unit)
-	editing_panel.size = Vector2(166, 100) * unit
-	editing_icon.position = editing_panel.position + Vector2(15, 34) * unit
-	editing_icon.size = Vector2.ONE * 30 * unit
-	editing_cue.position = editing_panel.position + Vector2(50, 21) * unit
-	editing_cue.size = Vector2(104, 56) * unit
-	editing_cue.add_theme_font_size_override("font_size", int(28 * unit))
+	editing_panel.size = Vector2(190, 100) * unit
+	var editing_face := skin.face_rect("control-wood", Rect2(editing_panel.position, editing_panel.size), unit)
+	var editing_font_size := maxi(8, int(28 * unit))
+	var caption_width := body_font.get_string_size(editing_cue.text, HORIZONTAL_ALIGNMENT_LEFT, -1, editing_font_size).x
+	var group_width := 40 * unit + caption_width
+	var group_left := editing_face.get_center().x - group_width * 0.5
+	var edit_fit := UISkin.fit_rect(editing_icon.texture.get_size(), Rect2(group_left, editing_face.get_center().y - 15 * unit, 30 * unit, 30 * unit))
+	editing_icon.position = edit_fit.position
+	editing_icon.size = edit_fit.size
+	UISkin.layout_caption(editing_cue, Rect2(group_left + 40 * unit, editing_face.position.y, caption_width, editing_face.size.y), editing_font_size)
+
+func _place_native_button(button: Button, bounds: Rect2, unit: float, font_size: float, icon_width: float) -> void:
+	# Lower the previous viewport's native minimum before assigning the new
+	# rectangle; Control would otherwise clamp a phone pill to its old size.
+	button.custom_minimum_size = Vector2(100, 100) * unit
+	button.add_theme_font_size_override("font_size", maxi(1, int(font_size * unit)))
+	button.add_theme_constant_override("icon_max_width", maxi(1, int(icon_width * unit)))
+	button.position = bounds.position
+	button.size = bounds.size
+	_style_native_button(button, unit)
 
 func _layout() -> void:
 	if world == null:
@@ -226,23 +311,12 @@ func _layout() -> void:
 	world.position = -area.position
 	var unit: float = area.size.x / 720.0
 	_layout_hud(area, unit)
-	shop.position = Vector2(area.position.x + (440 * unit if show_gallery else 34 * unit), 112 * unit if show_gallery else 145 * unit)
-	shop.size = Vector2(224, 108) * unit
-	edit.position = Vector2(area.position.x + 34 * unit, area.end.y - 156 * unit)
-	edit.size = Vector2(206, 110) * unit
-	staff.position = Vector2(area.position.x + 266 * unit, area.end.y - 156 * unit)
-	staff.size = Vector2(214, 110) * unit
-	for button in [shop, edit, staff]:
-		button.add_theme_font_size_override("font_size", int(34 * unit))
-		button.add_theme_constant_override("icon_max_width", int(48 * unit))
-		_style_native_button(button, unit)
+	_place_native_button(shop, Rect2(Vector2(area.position.x + (440 * unit if show_gallery else 34 * unit), 112 * unit if show_gallery else 145 * unit), Vector2(224, 108) * unit), unit, 34, 48)
+	_place_native_button(edit, Rect2(Vector2(area.position.x + 34 * unit, area.end.y - 156 * unit), Vector2(206, 110) * unit), unit, 34, 48)
+	_place_native_button(staff, Rect2(Vector2(area.position.x + 266 * unit, area.end.y - 156 * unit), Vector2(214, 110) * unit), unit, 34, 48)
 	for i in range(gallery_buttons.size()):
 		var button: Button = gallery_buttons[i]
-		button.position = Vector2(area.position.x + (38 + i * 220) * unit, area.end.y - 185 * unit)
-		button.size = Vector2(206, 110) * unit
-		button.add_theme_font_size_override("font_size", int(34 * unit))
-		button.add_theme_constant_override("icon_max_width", int(38 * unit))
-		_style_native_button(button, unit)
+		_place_native_button(button, Rect2(Vector2(area.position.x + (38 + i * 220) * unit, area.end.y - 185 * unit), Vector2(206, 110) * unit), unit, 34, 38)
 	# Editor controls share the same contained portrait and root input coordinates.
 	editor_ui.size = size
 	editor_ui.set_state(session.snapshot(), area)
@@ -257,14 +331,8 @@ func _layout() -> void:
 		recovery_message.size.x = 588 * unit
 		recovery_message.add_theme_font_size_override("font_size", int(36 * unit))
 		recovery_message.size = Vector2(588, 300) * unit
-		recovery_retry.position = Vector2(32, 500) * unit
-		recovery_retry.size = Vector2(288, 110) * unit
-		recovery_close.position = Vector2(344, 500) * unit
-		recovery_close.size = Vector2(276, 110) * unit
-		for button in [recovery_retry, recovery_close]:
-			button.add_theme_font_size_override("font_size", int(34 * unit))
-			button.add_theme_constant_override("icon_max_width", int(44 * unit))
-			_style_native_button(button, unit)
+		_place_native_button(recovery_retry, Rect2(Vector2(32, 500) * unit, Vector2(288, 110) * unit), unit, 34, 44)
+		_place_native_button(recovery_close, Rect2(Vector2(344, 500) * unit, Vector2(276, 110) * unit), unit, 34, 44)
 
 func _process(delta: float) -> void:
 	if session == null or backgrounded or save_blocked:
@@ -302,7 +370,7 @@ func advance_time(elapsed: float) -> Array:
 func _refresh() -> void:
 	world.state = session.snapshot()
 	var coins_text := str(int(world.state.coins))
-	if money.text != coins_text:
+	if money.get_meta("full_balance", "") != coins_text:
 		money.text = coins_text
 		money.accessibility_description = "%s coins" % coins_text
 		_layout_hud(world.portrait, world.portrait.size.x / 720.0)
@@ -542,11 +610,31 @@ func _pan(change: Vector2) -> void:
 	session.command({"type": "set_camera", "x": x, "y": y})
 	_refresh()
 
+func _cancel_native_button_presses() -> void:
+	var buttons: Array = [shop, edit, staff, recovery_retry, recovery_close]
+	buttons.append_array(gallery_buttons)
+	for candidate in buttons:
+		if not is_instance_valid(candidate) or not candidate.has_meta("visual"): continue
+		var button: Button = candidate
+		var was_disabled := button.disabled
+		var was_pressed := button.button_pressed
+		# Cancel BaseButton's actual press ownership as well as its decoration;
+		# an orphan release after returning must not activate Edit or Retry.
+		if not was_disabled:
+			button.disabled = true
+			button.disabled = false
+		if button.toggle_mode: button.set_pressed_no_signal(was_pressed)
+		_style_native_button(button, float(button.get_meta("skin_unit", 1.0)), false)
+
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_PAUSED:
 		backgrounded = true
-		_cancel_gesture()
+		_cancel_native_button_presses()
+		if is_instance_valid(world): _cancel_gesture()
 		save_now()
+	elif what == NOTIFICATION_WM_WINDOW_FOCUS_OUT:
+		_cancel_native_button_presses()
+		if is_instance_valid(world): _cancel_gesture()
 	elif what == NOTIFICATION_APPLICATION_RESUMED:
 		backgrounded = false
 		skip_resume_frame = true

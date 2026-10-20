@@ -252,3 +252,9 @@ This is the current implementation direction and a request for revision, not fin
 ### Rounded pill minimum height (2026-10-19)
 
 The user rejected pill surfaces whose sides became pointed when compressed vertically. The current v6 neutral, pressed, primary, primary-pressed and disabled controls, coin/Editing panel, contextual capsule and error toast therefore require a **100 logical-unit minimum height**, with the uniformly scaled complete source height as an additional lower bound. Store `minimum_height` in authored calibration, source registration and runtime style; the shared native style enforces that minimum. This changes calibration and layout, preserving the generated source pixels.
+
+### B refinement — visible face alignment and lighter rail (2026-10-19)
+
+The user's [latest alignment amendment](../../godot/review/12/alignment-revision/contract.md) removes the visible backing behind the category curtains and the paging caret surfaces, superseding those v6 treatments. Keep native touch targets generous, make the goods cards and drawer tighter, add bottom stock padding, and thicken the dock and rod. The rod must visibly pass through the curtain loop holes. Preserve independent cloth, monochrome icons, four Layout goods and native Blender merchandise views.
+
+Align dynamic Godot labels and icons against each generated surface's measured visible face, accounting separately for transparent texture margins, shadows and font ink bounds. Add real left padding to the currency display and visually center Live's icon/text. Keep the shared 100-unit pill minimum and soft shadow separation. Preserve v5/v6 sources and review evidence unchanged; this is a revision request awaiting visual approval, within issue #12 only.

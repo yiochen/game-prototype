@@ -205,20 +205,28 @@ func capture(name: String) -> void:
 	screens.append({"name": name, "pixels": [image.get_width(), image.get_height()], "canvas": [app.size.x, app.size.y], "portrait": [app.world.portrait.position.x, app.world.portrait.size.x, app.world.portrait.size.y], "cell_pitch": app.world.cell, "editor": app.session.snapshot().editor, "presentation": presentation_state(), "session": app.session.snapshot()})
 
 func rect_values(control: Control) -> Array:
-	var bounds := control.get_global_rect()
+	return rect_array(control.get_global_rect())
+
+func rect_array(bounds: Rect2) -> Array:
 	return [bounds.position.x, bounds.position.y, bounds.size.x, bounds.size.y]
 
 func presentation_state() -> Dictionary:
 	var editor = app.editor_ui
-	var result := {"backing": rect_values(editor.inventory_backing), "rod": rect_values(editor.category_rod), "dock": rect_values(editor.bottom_dock), "tray": rect_values(editor.tray), "coin_capsule": rect_values(app.coin_panel), "editing_capsule": rect_values(app.editing_panel), "reduced_motion": editor.reduced_motion, "buttons": {}, "goods": []}
-	for key in ["people", "layout", "floor", "shop", "live", "previous", "next"]:
+	var result := {"backing_visible": editor.inventory_backing.is_visible_in_tree(), "category_panel_drawn": not (editor.category_rail.get_theme_stylebox("panel") is StyleBoxEmpty), "backing": rect_values(editor.inventory_backing), "rod": rect_values(editor.category_rod), "dock": rect_values(editor.bottom_dock), "tray": rect_values(editor.tray), "coin_capsule": rect_values(app.coin_panel), "editing_capsule": rect_values(app.editing_panel), "coin_face": rect_array(editor.skin.face_rect("coin-panel", app.coin_panel.get_global_rect(), editor.unit)), "editing_face": rect_array(editor.skin.face_rect("control-wood", app.editing_panel.get_global_rect(), editor.unit)), "coin_icon": rect_values(app.coin), "coin_text": rect_values(app.money), "editing_icon": rect_values(app.editing_icon), "editing_text": rect_values(app.editing_cue), "reduced_motion": editor.reduced_motion, "buttons": {}, "goods": []}
+	for key in ["people", "layout", "floor", "shop", "live", "previous", "next", "rotate", "remove"]:
 		var button: Button = editor.layers[key] if editor.layers.has(key) else editor.get(key)
 		var visual: Control = button.get_meta("visual")
 		var physical: Rect2 = app.get_viewport_transform() * button.get_global_rect()
-		result.buttons[key] = {"target": rect_values(button), "artwork": rect_values(visual), "scale": [visual.scale.x, visual.scale.y], "physical_target": [physical.size.x, physical.size.y], "disabled": button.disabled, "pressed": bool(button.get_meta("visual_pressed", false))}
+		var stacked: bool = button.get_meta("visual_stacked", false)
+		var face: Rect2 = editor.skin.face_rect(str(button.get_meta("skin_role")), visual.get_global_rect(), editor.unit)
+		if stacked:
+			var bubble_face: Rect2 = editor.skin.face_rect("context-bubble", editor.context_bubble.get_global_rect(), editor.unit)
+			face.position.y = bubble_face.position.y
+			face.size.y = bubble_face.size.y
+		result.buttons[key] = {"target": rect_values(button), "artwork": rect_values(visual), "face": rect_array(face), "stacked": stacked, "visible": button.is_visible_in_tree(), "surface_visible": button.get_meta("visual_surface").is_visible_in_tree(), "surface_drawn": button.get_meta("visual_surface").is_visible_in_tree() and not (button.get_meta("visual_surface").get_theme_stylebox("panel") is StyleBoxEmpty), "icon": rect_values(button.get_meta("visual_icon")), "caption": rect_values(button.get_meta("visual_label")), "scale": [visual.scale.x, visual.scale.y], "physical_target": [physical.size.x, physical.size.y], "disabled": button.disabled, "pressed": bool(button.get_meta("visual_pressed", false))}
 	for card in editor.cards:
 		var preview: Control = card.get_meta("preview")
-		result.goods.append({"id": card.get_meta("entry").id, "target": rect_values(card), "preview": rect_values(preview), "caption": card.get_meta("name_label").text, "stock": card.get_meta("stock").text, "blender_preview": preview.goods.has(str(card.get_meta("entry").art_id))})
+		result.goods.append({"id": card.get_meta("entry").id, "target": rect_values(card), "preview": rect_values(preview), "caption": card.get_meta("name_label").text, "caption_bounds": rect_values(card.get_meta("name_label")), "stock": card.get_meta("stock").text, "stock_bounds": rect_values(card.get_meta("stock")), "blender_preview": preview.goods.has(str(card.get_meta("entry").art_id))})
 	return result
 
 func same(a: Variant, b: Variant) -> bool:

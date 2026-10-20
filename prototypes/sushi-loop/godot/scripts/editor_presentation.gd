@@ -11,10 +11,10 @@ const ArtBook = preload("res://scripts/art_book.gd")
 const UISkin = preload("res://scripts/ui_skin.gd")
 const INK := Color("233d58")
 const CREAM := Color("fff3db")
-const DRAWER_HEIGHT := 220.0
-const CATEGORY_HEIGHT := 100.0
-const CARD_HEIGHT := 185.0
-const DOCK_HEIGHT := 26.0
+const DRAWER_HEIGHT := 272.0
+const CATEGORY_HEIGHT := 120.0
+const CARD_HEIGHT := 200.0
+const DOCK_HEIGHT := 54.0
 const PAGE_SIZE := 3
 const LAYOUT_PAGE_SIZE := 4
 var state: Dictionary = {}
@@ -120,10 +120,12 @@ func _ready() -> void:
 	live.pressed.connect(func(): command_requested.emit({"type": "set_mode", "mode": "live"}))
 	inventory_backing = ColorRect.new()
 	inventory_backing.color = CREAM
-	inventory_backing.mouse_filter = Control.MOUSE_FILTER_STOP
+	inventory_backing.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	inventory_backing.hide()
 	add_child(inventory_backing)
 	category_rail = Panel.new()
 	category_rail.accessibility_name = "Editor categories"
+	category_rail.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(category_rail)
 	category_rod = Panel.new()
 	category_rod.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -174,6 +176,8 @@ func _ready() -> void:
 	rotate = _button("Rotate", "context-action", "rotate", "Rotate selected object", context_bubble)
 	remove = _button("Return", "context-action", "remove", "Return selected object to inventory", context_bubble)
 	for button in [rotate, remove]:
+		button.set_meta("visual_stacked", true)
+		_add_button_visual(button)
 		button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		button.vertical_icon_alignment = VERTICAL_ALIGNMENT_TOP
 	rotate.pressed.connect(func(): command_requested.emit({"type": "editor_rotate", "id": state.editor.selected_id}))
@@ -244,7 +248,7 @@ func _notification(what: int) -> void:
 	if what not in [NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_WM_WINDOW_FOCUS_OUT] or not is_node_ready(): return
 	# A suspended window may never receive the held finger's release. Clear the
 	# native press as well as its artwork so an orphan release cannot activate it.
-	var buttons: Array = [live, shop, previous, next, inspection_close]
+	var buttons: Array = [live, shop, previous, next, rotate, remove, inspection_close]
 	buttons.append_array(layers.values())
 	for button: Button in buttons:
 		if button == null or not button.has_meta("visual"): continue
@@ -259,7 +263,7 @@ func _notification(what: int) -> void:
 		button.set_meta("visual_pressed", false)
 		var visual: Control = button.get_meta("visual")
 		visual.scale = Vector2.ONE
-		_refresh_button_visual(button)
+		_refresh_button_layout(button)
 
 func _label(value: String) -> Label:
 	var label := Label.new()
@@ -270,7 +274,7 @@ func _label(value: String) -> Label:
 	return label
 
 func icon_texture(identity: String) -> Texture2D:
-	return skin.icon(identity)
+	return skin.icon_ink(identity)
 
 func _button(value: String, role: String, icon_name: String, accessible: String, parent: Node = self) -> Button:
 	var button := Button.new()
@@ -321,7 +325,7 @@ func _add_button_visual(button: Button) -> void:
 
 func _press_button_visual(button: Button, pressed: bool) -> void:
 	button.set_meta("visual_pressed", pressed)
-	_refresh_button_visual(button)
+	_refresh_button_layout(button)
 	var visual: Control = button.get_meta("visual")
 	var previous_tween = button.get_meta("visual_tween") if button.has_meta("visual_tween") else null
 	if previous_tween is Tween and previous_tween.is_valid(): previous_tween.kill()
@@ -333,13 +337,24 @@ func _press_button_visual(button: Button, pressed: bool) -> void:
 	motion.tween_property(visual, "scale", target, 0.10 if pressed else 0.14).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	button.set_meta("visual_tween", motion)
 
+func _refresh_button_layout(button: Button) -> void:
+	if button.has_meta("visual_layout"):
+		var layout: Dictionary = button.get_meta("visual_layout")
+		_layout_button_visual(button, layout.bounds, layout.font_size, layout.icon_width)
+	else:
+		_refresh_button_visual(button)
+
 func _refresh_button_visual(button: Button) -> void:
 	if not button.has_meta("visual"): return
 	var role := str(button.get_meta("skin_role"))
 	var treatment := "disabled" if button.disabled else "pressed" if button.get_meta("visual_pressed", false) else "normal"
-	if role in ["tab-idle", "tab-active"] and not button.disabled: treatment = "normal"
+	if role in ["tab-idle", "tab-active", "context-action"] and not button.disabled: treatment = "normal"
 	var surface: Panel = button.get_meta("visual_surface")
-	skin.apply_panel(surface, role, unit, treatment)
+	if button in [previous, next]:
+		surface.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+		surface.custom_minimum_size = Vector2.ZERO
+	else:
+		skin.apply_panel(surface, role, unit, treatment)
 	var focus: Panel = button.get_meta("visual_focus")
 	focus.visible = button.has_focus()
 	var focus_signature := "%0.6f:%s" % [unit, role in ["tab-idle", "tab-active"]]
@@ -360,6 +375,7 @@ func _refresh_button_visual(button: Button) -> void:
 	visual.modulate.a = 0.45 if button.disabled else 1.0
 
 func _layout_button_visual(button: Button, bounds: Rect2, font_size: float, icon_width: float) -> void:
+	button.set_meta("visual_layout", {"bounds": bounds, "font_size": font_size, "icon_width": icon_width})
 	_refresh_button_visual(button)
 	var visual: Control = button.get_meta("visual")
 	visual.position = bounds.position * unit
@@ -371,19 +387,44 @@ func _layout_button_visual(button: Button, bounds: Rect2, font_size: float, icon
 		panel.size = visual.size
 	var icon: TextureRect = button.get_meta("visual_icon")
 	var caption: Label = button.get_meta("visual_label")
-	caption.add_theme_font_size_override("font_size", maxi(1, int(font_size * unit)))
+	var pixels := maxi(1, int(font_size * unit))
+	caption.add_theme_font_size_override("font_size", pixels)
 	caption.visible = not button.text.is_empty()
-	if button.text.is_empty():
-		icon.size = Vector2(icon_width, 32) * unit
-		icon.position = (visual.size - icon.size) * 0.5
-	else:
-		var text_width := body.get_string_size(button.text, HORIZONTAL_ALIGNMENT_LEFT, -1, maxi(1, int(font_size * unit))).x
+	var role := str(button.get_meta("skin_role"))
+	var treatment := "disabled" if button.disabled else "pressed" if button.get_meta("visual_pressed", false) else "normal"
+	if role in ["tab-idle", "tab-active", "context-action"] and not button.disabled: treatment = "normal"
+	# A texture's transparent/shadow margin is not its visible front face.
+	# Align the live glyphs and tight icon ink to that calibrated face, retaining
+	# native dynamic text instead of baking words into a screenshot.
+	var face := Rect2(Vector2.ZERO, visual.size) if button in [previous, next] else skin.face_rect(role, Rect2(Vector2.ZERO, visual.size), unit, treatment)
+	if button.get_meta("visual_stacked", false):
+		# The two actions share one generated capsule. Its visible face owns the
+		# stack's vertical centre; the actions keep separate stable touch bounds.
+		var bubble_face := skin.face_rect("context-bubble", Rect2(Vector2.ZERO, context_bubble.size), unit)
+		face.position.y = bubble_face.position.y - button.position.y - visual.position.y
+		face.size.y = bubble_face.size.y
+		var ink := UISkin.caption_ink(body, button.text, pixels)
 		var gap := 8 * unit
-		var combined := minf(visual.size.x - 16 * unit, text_width + icon_width * unit + gap)
 		icon.size = Vector2(icon_width, icon_width) * unit
-		icon.position = Vector2((visual.size.x - combined) * 0.5, (visual.size.y - icon.size.y) * 0.5)
-		caption.position = Vector2(icon.position.x + icon.size.x + gap, 0)
-		caption.size = Vector2(combined - icon.size.x - gap, visual.size.y)
+		var stack_height := icon.size.y + gap + ink.size.y
+		icon.position = Vector2(face.get_center().x - icon.size.x * 0.5, face.get_center().y - stack_height * 0.5)
+		var text_target := Rect2(Vector2(face.position.x, icon.position.y + icon.size.y + gap), Vector2(face.size.x, ink.size.y))
+		UISkin.layout_caption(caption, text_target, pixels)
+	elif button.text.is_empty():
+		icon.size = Vector2(icon_width, 32) * unit
+		icon.position = face.get_center() - icon.size * 0.5
+		if button in [previous, next]:
+			var focus: Panel = button.get_meta("visual_focus")
+			focus.position = icon.position - Vector2(4, 4) * unit
+			focus.size = icon.size + Vector2(8, 8) * unit
+	else:
+		var text_width := body.get_string_size(button.text, HORIZONTAL_ALIGNMENT_LEFT, -1, pixels).x
+		var gap := 8 * unit
+		var combined := minf(face.size.x - 16 * unit, text_width + icon_width * unit + gap)
+		icon.size = Vector2(icon_width, icon_width) * unit
+		icon.position = Vector2(face.position.x + (face.size.x - combined) * 0.5, face.get_center().y - icon.size.y * 0.5)
+		var text_target := Rect2(Vector2(icon.position.x + icon.size.x + gap, face.position.y), Vector2(maxf(0.0, combined - icon.size.x - gap), face.size.y))
+		UISkin.layout_caption(caption, text_target, pixels)
 
 func _style_button(button: Button) -> void:
 	var role: String = button.get_meta("skin_role")
@@ -501,12 +542,15 @@ func _rebuild_cards() -> void:
 func refresh_layout() -> void:
 	if not is_node_ready() or area.size.x <= 0: return
 	unit = area.size.x / 720.0
-	var inset_buttons: Array = [live, shop, previous, next, inspection_close]
+	var inset_buttons: Array = [live, shop, previous, next, rotate, remove, inspection_close]
 	inset_buttons.append_array(layers.values())
 	for button: Button in inset_buttons:
 		button.custom_minimum_size = Vector2(100, 100) * unit
 	skin.apply_panel(tray, "container-tray", unit)
-	skin.apply_panel(category_rail, "container-tray", unit)
+	# The noren hang freely. Their rail is only a layout container, never a
+	# cream frame behind the fabric or the neighbouring Shop pill.
+	category_rail.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+	category_rail.custom_minimum_size = Vector2.ZERO
 	skin.apply_panel(category_rod, "noren-rod" if skin.manifest.styles.has("noren-rod") else "noren-rail", unit)
 	skin.apply_panel(bottom_dock, "noren-dock" if skin.manifest.styles.has("noren-dock") else "control-wood", unit)
 	skin.apply_panel(context_bubble, "context-bubble", unit)
@@ -524,39 +568,46 @@ func refresh_layout() -> void:
 	_layout_button_visual(live, Rect2(0, 0, 166, 100), 32, 32)
 	tray.visible = open
 	tray.accessibility_name = "%s inventory" % layer.capitalize()
-	_move_control(tray, Vector2(area.position.x, area.end.y - drawer_height * unit))
-	tray.size = Vector2(area.size.x, DRAWER_HEIGHT * unit)
+	# Only the occupied cards own a cream drawer surface. The quiet, unbacked
+	# chevrons sit outside it, with independent 100-unit native touch targets.
+	# A short final page therefore never reserves four empty card widths.
+	var card_width := 104.0 if layer == "layout" else 132.0 if layer == "people" else 160.0
+	var card_gap := 8.0
+	var card_count := maxi(1, cards.size())
+	var contents_width := card_count * card_width + (card_count - 1) * card_gap
+	var drawer_width := contents_width + 24.0
+	var drawer_left := area.position.x + (area.size.x - drawer_width * unit) * 0.5
+	_move_control(tray, Vector2(drawer_left, area.end.y - drawer_height * unit))
+	tray.size = Vector2(drawer_width, DRAWER_HEIGHT) * unit
 	_move_control(category_rail, Vector2(area.position.x, area.end.y - (drawer_height + CATEGORY_HEIGHT) * unit))
 	category_rail.size = Vector2(area.size.x, CATEGORY_HEIGHT * unit)
-	inventory_backing.position = category_rail.position
-	inventory_backing.size = Vector2(area.size.x, maxf(0.0, area.end.y - category_rail.position.y))
-	category_rod.position = Vector2(0, 4) * unit
-	category_rod.size = Vector2(720, 24) * unit
-	bottom_dock.position = Vector2(area.position.x, area.end.y - DOCK_HEIGHT * unit)
-	bottom_dock.size = Vector2(area.size.x, DOCK_HEIGHT * unit)
+	inventory_backing.hide()
+	category_rod.position = Vector2(0, 10.7) * unit
+	category_rod.size = Vector2(720, 34) * unit
+	bottom_dock.position = Vector2(area.position.x + 6 * unit, area.end.y - DOCK_HEIGHT * unit)
+	bottom_dock.size = Vector2(area.size.x - 12 * unit, DOCK_HEIGHT * unit)
 	title.visible = false
-	previous.position = Vector2(4, 14) * unit
-	next.position = Vector2(616, 14) * unit
+	previous.position = Vector2(-100, 14) * unit
+	next.position = Vector2(drawer_width, 14) * unit
 	previous.size = Vector2(100, CARD_HEIGHT) * unit
 	next.size = previous.size
 	for button in [previous, next]:
 		button.add_theme_constant_override("icon_max_width", int(20 * unit))
 		_layout_button_visual(button, Rect2(32, 0, 36, CARD_HEIGHT), 1, 20)
-	rail.position = Vector2(108, 14) * unit
-	rail.size = Vector2(504, CARD_HEIGHT) * unit
+	rail.position = Vector2(12, 14) * unit
+	rail.size = Vector2(contents_width, CARD_HEIGHT) * unit
 	page_announcement.position = Vector2.ZERO
 	page_announcement.size = Vector2.ONE
-	var slot_width := 504.0 / (LAYOUT_PAGE_SIZE if layer == "layout" else PAGE_SIZE)
 	for index in range(cards.size()):
 		var card: Button = cards[index]
-		card.position = Vector2(index * slot_width + 4, 0) * unit
-		card.size = Vector2(slot_width - 8, CARD_HEIGHT) * unit
+		card.position = Vector2(index * (card_width + card_gap), 0) * unit
+		card.size = Vector2(card_width, CARD_HEIGHT) * unit
 		var preview: Control = card.get_meta("preview")
-		preview.position = Vector2(13, 9) * unit
-		preview.size = Vector2(slot_width - 34, 108) * unit
+		preview.position = Vector2(8, 9) * unit
+		preview.size = Vector2(card_width - 16, 108) * unit
 		var name_label: Label = card.get_meta("name_label")
 		name_label.position = Vector2(5, 118) * unit
-		name_label.size = Vector2(slot_width - 18, 34) * unit
+		name_label.size = Vector2(card_width - 10, 34) * unit
 		name_label.add_theme_font_size_override("font_size", maxi(1, int(24 * unit)))
 		name_label.visible = layer != "floor"
 		var stock: Label = card.get_meta("stock")
@@ -565,7 +616,7 @@ func refresh_layout() -> void:
 		stock_badge.visible = false
 		stock_badge.add_theme_stylebox_override("panel", skin.style("stock-badge", unit))
 		stock.position = Vector2(5, 152) * unit
-		stock.size = Vector2(slot_width - 18, 30) * unit
+		stock.size = Vector2(card_width - 10, 30) * unit
 		stock.add_theme_font_size_override("font_size", maxi(1, int(20 * unit)))
 		if layer == "floor":
 			preview.position.y = 28 * unit
@@ -587,8 +638,10 @@ func refresh_layout() -> void:
 		_style_button(button)
 		_layout_button_visual(button, Rect2(4, 0, tab_width - 8, CATEGORY_HEIGHT), 30, 36)
 		tab_left += tab_width
-	shop.position = Vector2(532, 0) * unit
-	shop.size = Vector2(176, CATEGORY_HEIGHT) * unit
+	var curtain_face := skin.face_rect("tab-idle", Rect2(Vector2.ZERO, Vector2(176, CATEGORY_HEIGHT) * unit), unit)
+	var shop_face := skin.face_rect("control-wood", Rect2(Vector2.ZERO, Vector2(160, 100) * unit), unit)
+	shop.position = Vector2(532 * unit, curtain_face.get_center().y - shop_face.get_center().y)
+	shop.size = Vector2(176, 100) * unit
 	shop.add_theme_font_size_override("font_size", maxi(1, int(30 * unit)))
 	shop.add_theme_constant_override("icon_max_width", int(32 * unit))
 	_layout_button_visual(shop, Rect2(8, 0, 160, 100), 30, 32)
@@ -641,13 +694,20 @@ func _layout_context() -> void:
 		button.size = Vector2(140, 112) * unit
 		button.add_theme_font_size_override("font_size", maxi(1, int(27 * unit)))
 		button.add_theme_constant_override("icon_max_width", int(42 * unit))
+		_layout_button_visual(button, Rect2(0, 0, 140, 112), 27, 42)
 
 func occlusion_top() -> float:
 	return category_rail.position.y if category_rail != null else area.end.y
 
 func blocked_rects() -> Array[Rect2]:
 	var result: Array[Rect2] = []
-	for control in [live, inventory_backing, category_rail, tray, context_bubble]:
+	var controls: Array = [live, tray, previous, next, bottom_dock, category_rod, context_bubble, shop]
+	controls.append_array(layers.values())
+	# Departing inventory cards fade briefly outside a newly narrowed final
+	# page. Their visible rectangles still shield the restaurant while fading.
+	if rail != null:
+		controls.append_array(rail.get_children())
+	for control in controls:
 		if control != null and control.is_visible_in_tree():
 			var bounds: Rect2 = control.get_global_rect()
 			if control == context_bubble:
@@ -682,11 +742,6 @@ func reject(reason: String) -> void:
 	rejection_seconds = 1.3
 
 func _process(delta: float) -> void:
-	# The backing reaches the bottom even while the category row slides. Its
-	# cream field is always visible through the separate curtains' loop gaps.
-	if category_rail != null and inventory_backing != null:
-		inventory_backing.position = category_rail.position
-		inventory_backing.size = Vector2(area.size.x, maxf(0.0, area.end.y - category_rail.position.y))
 	if rejection_seconds > 0:
 		rejection_seconds -= delta
 		if rejection_seconds <= 0: rejection.hide()

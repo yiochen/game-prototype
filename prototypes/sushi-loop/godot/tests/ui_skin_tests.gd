@@ -20,6 +20,7 @@ func _init() -> void:
 func _run() -> void:
 	var texture := _fixture_texture()
 	_test_content_and_fit(texture)
+	_test_calibrated_faces_and_ink(texture)
 	_test_pill_minimum_height()
 	if DisplayServer.get_name() != "headless":
 		await _test_rendered_edges(texture)
@@ -71,6 +72,33 @@ func _test_content_and_fit(texture: Texture2D) -> void:
 		_expect(target.encloses(fitted) and fitted.get_center().is_equal_approx(target.get_center()), "An asymmetric icon stays centred and inside its target")
 		_expect(is_equal_approx(fitted.size.x / fitted.size.y, 2.0 / 3.0), "Icon fitting preserves its original aspect on square, wide and tall targets")
 	_expect(not RestaurantSkin.fit_rect(Vector2.ZERO, Rect2(0, 0, 100, 100)).has_area(), "A missing icon has no invented stretched geometry")
+
+func _test_calibrated_faces_and_ink(texture: Texture2D) -> void:
+	# A deliberately asymmetric visible face: source padding and the lower
+	# shadow are not content. Coordinates cross all three nine-slice spans.
+	# Expected destination coordinates below are calculated independently from
+	# the fixed 24-source-pixel -> 18-logical-unit corner calibration.
+	var skin := RestaurantSkin.new()
+	var entry := _entry()
+	entry["image"] = "res://test-fixture-atlas.png"
+	entry["face_px"] = [8, 10, 48, 50]
+	entry["states"] = {"pressed": {"face_px": [12, 12, 48, 48]}}
+	skin.manifest.styles["fixture-face"] = entry
+	skin.textures["res://test-fixture-atlas.png"] = texture
+	for unit in [0.5, 1.0, 1.5]:
+		for dimensions in [Vector2(100, 100), Vector2(420, 70), Vector2(70, 420)]:
+			var target := Rect2(Vector2(17, 23), dimensions * unit)
+			var expected := Rect2(target.position + Vector2(6, 7.5) * unit, target.size - Vector2(18, 16.5) * unit)
+			var face: Rect2 = skin.face_rect("fixture-face", target, unit)
+			_expect(face.is_equal_approx(expected), "Visible face follows fixed source corners at scale %s and target %s instead of centering its shadow frame" % [unit, dimensions])
+			var expected_pressed := Rect2(target.position + Vector2(9, 9) * unit, target.size - Vector2(18, 18) * unit)
+			_expect(skin.face_rect("fixture-face", target, unit, "pressed").is_equal_approx(expected_pressed), "Pressed face calibration maps its own source inset at scale %s and target %s" % [unit, dimensions])
+	skin.manifest.icons["fixture-ink"] = {"image": "res://test-fixture-atlas.png", "region": [12, 12, 72, 72], "ink_px": [3, 7, 25, 41]}
+	var full: Texture2D = skin.icon("fixture-ink")
+	var ink: Texture2D = skin.icon_ink("fixture-ink")
+	_expect(full is AtlasTexture and full.region == Rect2(12, 12, 72, 72) and ink is AtlasTexture and ink.region == Rect2(15, 19, 25, 41), "Icon ink crop accounts for the atlas origin and asymmetric transparent source padding without altering the archived full frame")
+	var fitted := RestaurantSkin.fit_rect(ink.get_size(), Rect2(5, 8, 80, 80))
+	_expect(is_equal_approx(fitted.size.x / fitted.size.y, 25.0 / 41.0) and fitted.get_center().is_equal_approx(Vector2(45, 48)), "A calibrated icon fits its actual ink with a centered undistorted aspect ratio")
 
 func _test_rendered_edges(texture: Texture2D) -> void:
 	var viewport := SubViewport.new()

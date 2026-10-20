@@ -11,6 +11,7 @@ var directory := ""
 var textures: Dictionary = {}
 var styles: Dictionary = {}
 var icons: Dictionary = {}
+static var caption_bounds: Dictionary = {}
 
 class NinePatch extends StyleBox:
 	var texture: Texture2D
@@ -20,6 +21,7 @@ class NinePatch extends StyleBox:
 	var draw_center := true
 	var tint := Color.WHITE
 	var minimum_height := 0.0
+	var face := Rect2()
 
 	func _init(source_texture: Texture2D, entry: Dictionary, unit: float) -> void:
 		texture = source_texture
@@ -33,6 +35,21 @@ class NinePatch extends StyleBox:
 		draw_center = bool(entry.get("draw_center", true))
 		tint = Color(str(entry.get("tint", "ffffffff")))
 		minimum_height = float(entry.get("minimum_height", 0.0)) * unit
+		var measured: Array = entry.get("face_px", [0, 0, region.size.x, region.size.y])
+		face = Rect2(float(measured[0]), float(measured[1]), float(measured[2]), float(measured[3]))
+
+	func face_rect(target: Rect2) -> Rect2:
+		var edge_scale := minf(1.0, minf(target.size.x / maxf(float(edges[0]) + float(edges[2]), 0.001), target.size.y / maxf(float(edges[1]) + float(edges[3]), 0.001)))
+		var start := Vector2(_mapped(face.position.x, region.size.x, float(source_margins[0]), float(source_margins[2]), target.size.x, float(edges[0]) * edge_scale, float(edges[2]) * edge_scale), _mapped(face.position.y, region.size.y, float(source_margins[1]), float(source_margins[3]), target.size.y, float(edges[1]) * edge_scale, float(edges[3]) * edge_scale))
+		var end := Vector2(_mapped(face.end.x, region.size.x, float(source_margins[0]), float(source_margins[2]), target.size.x, float(edges[0]) * edge_scale, float(edges[2]) * edge_scale), _mapped(face.end.y, region.size.y, float(source_margins[1]), float(source_margins[3]), target.size.y, float(edges[1]) * edge_scale, float(edges[3]) * edge_scale))
+		return Rect2(target.position + start, end - start)
+
+	static func _mapped(value: float, source_size: float, first: float, last: float, target_size: float, target_first: float, target_last: float) -> float:
+		if value <= first and first > 0.0:
+			return value * target_first / first
+		if value >= source_size - last and last > 0.0:
+			return target_size - (source_size - value) * target_last / last
+		return target_first + (value - first) * (target_size - target_first - target_last) / maxf(source_size - first - last, 0.001)
 
 	func _get_minimum_size() -> Vector2:
 		# Pill art needs its complete source height at the corner scale, not just
@@ -90,6 +107,62 @@ func icon(identity: String) -> Texture2D:
 		result.filter_clip = true
 		icons[identity] = result
 	return icons[identity]
+
+func icon_ink(identity: String) -> Texture2D:
+	assert(manifest.icons.has(identity), "Unknown restaurant UI icon: " + identity)
+	var key := identity + ":ink"
+	if not icons.has(key):
+		var entry: Dictionary = manifest.icons[identity]
+		var bounds: Array = entry.get("ink_px", [0, 0, entry.region[2], entry.region[3]])
+		var result := AtlasTexture.new()
+		result.atlas = _texture(entry)
+		result.region = Rect2(float(entry.region[0]) + float(bounds[0]), float(entry.region[1]) + float(bounds[1]), float(bounds[2]), float(bounds[3]))
+		result.filter_clip = true
+		icons[key] = result
+	return icons[key]
+
+func face_rect(identity: String, target: Rect2, unit := 1.0, state := "normal") -> Rect2:
+	return style(identity, unit, state).face_rect(target)
+
+static func layout_caption(label: Label, target: Rect2, font_size: int) -> void:
+	# A font's line box includes ascender/descender reserves that are not ink.
+	# Shape through Godot's own text server so ligatures and fallback fonts use
+	# the same glyphs as Label, then centre those drawn glyphs on the button face.
+	label.add_theme_font_size_override("font_size", font_size)
+	var font := label.get_theme_font("font")
+	var measured := _caption_metrics(font, label.text, font_size)
+	var ink: Rect2 = measured.ink
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	label.vertical_alignment = VERTICAL_ALIGNMENT_TOP
+	label.size = Vector2(maxf(float(measured.advance), ink.end.x) + 2, font.get_height(font_size))
+	label.position = target.get_center() - Vector2(ink.get_center().x, font.get_ascent(font_size) + ink.get_center().y)
+
+static func caption_ink(font: Font, text: String, font_size: int) -> Rect2:
+	return _caption_metrics(font, text, font_size).ink
+
+static func _caption_metrics(font: Font, text: String, font_size: int) -> Dictionary:
+	var key := "%s:%d:%s" % [font.get_instance_id(), font_size, text]
+	if not caption_bounds.has(key):
+		if caption_bounds.size() >= 256:
+			caption_bounds.clear()
+		var line := TextLine.new()
+		line.add_string(text, font, font_size)
+		var server := TextServerManager.get_primary_interface()
+		var pen := 0.0
+		var bounds := Rect2()
+		var occupied := false
+		for glyph in server.shaped_text_get_glyphs(line.get_rid()):
+			for repeat_index in range(int(glyph.repeat)):
+				var raster_size := Vector2i(int(glyph.font_size), 0)
+				var ink_size := server.font_get_glyph_size(glyph.font_rid, raster_size, int(glyph.index))
+				if ink_size.x > 0.0 and ink_size.y > 0.0:
+					var offset := server.font_get_glyph_offset(glyph.font_rid, raster_size, int(glyph.index))
+					var ink := Rect2(Vector2(pen, 0) + Vector2(glyph.offset) + offset, ink_size)
+					bounds = bounds.merge(ink) if occupied else ink
+					occupied = true
+				pen += float(glyph.advance)
+		caption_bounds[key] = {"ink": bounds, "advance": pen}
+	return caption_bounds[key]
 
 func content_rect(identity: String, target: Rect2, unit := 1.0, state := "normal") -> Rect2:
 	var surface := style(identity, unit, state)

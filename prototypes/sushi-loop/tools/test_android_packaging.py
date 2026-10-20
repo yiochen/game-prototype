@@ -130,6 +130,11 @@ class RuntimeBoundaryTests(unittest.TestCase):
         shutil.copytree(build.PROJECT / "assets/ui/editor", self.project / "assets/ui/editor")
         ui_source = Path(build.editor_ui_contract.SOURCE_RECORD).parent
         shutil.copytree(build.PROJECT.parent / ui_source, self.root / ui_source)
+        # The current calibration reuses immutable v6 pixels and full-screen
+        # provenance; copying the parent keeps this fixture independent of the
+        # working checkout during subsequent tamper cases.
+        parent_source = Path(build.editor_ui_contract.PARENT_SOURCE_RECORD).parent
+        shutil.copytree(build.PROJECT.parent / parent_source, self.root / parent_source)
         historical = Path(build.editor_ui_contract.HISTORICAL_SOURCE_RECORD)
         historical_record = json.loads((build.PROJECT.parent / historical).read_text())
         historical_path = self.root / historical
@@ -185,7 +190,8 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.assertEqual((self.root / "staged/assets/catalog/sprites/test/static-S.png").read_bytes(), b"approved sprite bytes")
         self.assertEqual(len(selected), 19)
         self.assertEqual(catalog["editor_ui"]["images"], 1)
-        self.assertEqual(catalog["editor_ui"]["imagegen_sources"], 3)
+        source_record = json.loads((self.root / build.editor_ui_contract.SOURCE_RECORD).read_text())
+        self.assertEqual(catalog["editor_ui"]["imagegen_sources"], len(source_record['generations']))
         self.assertEqual((catalog["editor_ui"]["styles"], catalog["editor_ui"]["icons"]), (19, 16))
         self.assertEqual(selected["assets/ui/editor/manifest.json"], catalog["editor_ui_manifest_sha256"])
         self.assertEqual({name for name in selected if name.startswith("assets/ui/editor/")},
@@ -334,6 +340,7 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.assertFalse((self.root / "staged-ui/assets/ui/editor/imagegen.json").exists())
         self.assertFalse((self.root / "staged-ui/assets/ui/editor/v5").exists())
         self.assertFalse((self.root / 'staged-ui/assets/ui/editor/v6').exists())
+        self.assertFalse((self.root / 'staged-ui/assets/ui/editor/v7').exists())
         self.assertFalse((self.root / 'staged-ui/assets/ui/editor/goods-v1').exists())
         self.assertFalse((self.root / "staged-ui/assets/production").exists())
         self.assertEqual((self.root / "staged-ui/assets/ui/other-controls.png").read_bytes(), b"runtime control pixels")
@@ -498,7 +505,7 @@ class RuntimeBoundaryTests(unittest.TestCase):
 
     def test_old_v5_ui_cannot_replace_the_current_amendment(self):
         self.mutate_ui_manifest(lambda m: m.update(version=2, source_record=build.editor_ui_contract.HISTORICAL_SOURCE_RECORD))
-        with self.assertRaisesRegex(ValueError, 'manifest version 3'):
+        with self.assertRaisesRegex(ValueError, 'manifest version 4'):
             build.stage_runtime(self.project, self.root / 'staged')
         self.assertFalse((self.root / 'staged/project.godot').exists())
 
@@ -509,20 +516,20 @@ class RuntimeBoundaryTests(unittest.TestCase):
         inherited['prompt'] += '\nUnrecorded change.'
         path.write_text(json.dumps(record))
         self.mutate_ui_manifest(lambda m: m.update(source_record_sha256=build.sha(path)))
-        with self.assertRaisesRegex(ValueError, 'inherited v5 generation provenance changed'):
+        with self.assertRaisesRegex(ValueError, 'inherited v6 generation provenance changed'):
             build.stage_runtime(self.project, self.root / 'staged')
         self.assertFalse((self.root / 'staged/project.godot').exists())
 
     def test_current_source_requires_the_latest_complete_composition(self):
         path = self.root / build.editor_ui_contract.SOURCE_RECORD
         record = json.loads(path.read_text())
-        current = next(item for item in record['generations'] if 'inherits' not in item)
+        current = next((item for item in record['generations'] if 'inherits' not in item), record['generations'][0])
         latest = record['latest_composition']['path']
         current['reference_paths'].remove(latest)
         del current['reference_sha256'][latest]
         path.write_text(json.dumps(record))
         self.mutate_ui_manifest(lambda m: m.update(source_record_sha256=build.sha(path)))
-        with self.assertRaisesRegex(ValueError, 'does not use the latest B amendment composition'):
+        with self.assertRaisesRegex(ValueError, 'does not use the latest B amendment composition|inherited v6 generation provenance changed'):
             build.stage_runtime(self.project, self.root / 'staged')
         self.assertFalse((self.root / 'staged/project.godot').exists())
 
@@ -535,6 +542,86 @@ class RuntimeBoundaryTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'complete-screen generation provenance is missing'):
             build.stage_runtime(self.project, self.root / 'staged')
         self.assertFalse((self.root / 'staged/project.godot').exists())
+
+    def test_inherited_parent_record_cannot_be_rewritten(self):
+        path = self.root / build.editor_ui_contract.PARENT_SOURCE_RECORD
+        parent = json.loads(path.read_text())
+        parent['generations'][0]['prompt'] += '\nUnreviewed source mutation.'
+        path.write_text(json.dumps(parent))
+        with self.assertRaisesRegex(ValueError, 'historical v6 parent record changed'):
+            build.stage_runtime(self.project, self.root / 'staged')
+        self.assertFalse((self.root / 'staged/project.godot').exists())
+
+    def test_inherited_composition_cannot_claim_new_provenance(self):
+        path = self.root / build.editor_ui_contract.SOURCE_RECORD
+        record = json.loads(path.read_text())
+        record['composition_generation']['prompt'] += '\nUnreviewed composition mutation.'
+        path.write_text(json.dumps(record))
+        self.mutate_ui_manifest(lambda m: m.update(source_record_sha256=build.sha(path)))
+        with self.assertRaisesRegex(ValueError, 'inherited complete-screen provenance changed'):
+            build.stage_runtime(self.project, self.root / 'staged')
+        self.assertFalse((self.root / 'staged/project.godot').exists())
+
+    def test_inherited_sheet_parent_pin_cannot_be_replaced(self):
+        path = self.root / build.editor_ui_contract.SOURCE_RECORD
+        record = json.loads(path.read_text())
+        record['generations'][0]['inherits']['source_record_sha256'] = '0' * 64
+        path.write_text(json.dumps(record))
+        self.mutate_ui_manifest(lambda m: m.update(source_record_sha256=build.sha(path)))
+        with self.assertRaisesRegex(ValueError, 'inherited sheet identity changed'):
+            build.stage_runtime(self.project, self.root / 'staged')
+        self.assertFalse((self.root / 'staged/project.godot').exists())
+
+    def test_visible_face_and_icon_ink_bounds_must_fit_their_regions(self):
+        path = self.project / 'assets/ui/editor/manifest.json'
+        original = path.read_text()
+        for group, identity, field in [('styles', 'coin-panel', 'face_px'), ('icons', 'play', 'ink_px')]:
+            for bounds in (None, [-1, 0, 10, 10], [0, 0, 0, 10], [0, 0, 99999, 10], [0, 0, 1.5, 10]):
+                with self.subTest(identity=identity, bounds=bounds):
+                    def change(manifest):
+                        if bounds is None:
+                            manifest[group][identity].pop(field, None)
+                        else:
+                            manifest[group][identity][field] = bounds
+                    self.mutate_ui_manifest(change)
+                    with self.assertRaisesRegex(ValueError, 'visible face bounds|icon ink bounds|Invalid editor UI provenance'):
+                        build.stage_runtime(self.project, self.root / 'staged')
+                    self.assertFalse((self.root / 'staged/project.godot').exists())
+                    path.write_text(original)
+
+    def test_face_and_ink_bounds_must_match_the_saved_registration(self):
+        path = self.project / 'assets/ui/editor/manifest.json'
+        original = path.read_text()
+        for group, identity, field in [('styles', 'coin-panel', 'face_px'), ('icons', 'play', 'ink_px')]:
+            with self.subTest(identity=identity):
+                self.mutate_ui_manifest(lambda m: m[group][identity][field].__setitem__(0, m[group][identity][field][0] + 1))
+                with self.assertRaisesRegex(ValueError, 'bounds differ from its packing record|bounds.*outside its sheet'):
+                    build.stage_runtime(self.project, self.root / 'staged')
+                self.assertFalse((self.root / 'staged/project.godot').exists())
+                path.write_text(original)
+
+    def test_curtain_loop_apertures_cannot_drift_or_enter_stretched_spans(self):
+        manifest_path = self.project / 'assets/ui/editor/manifest.json'
+        source_path = self.root / build.editor_ui_contract.SOURCE_RECORD
+        original_manifest, original_record = manifest_path.read_text(), source_path.read_text()
+        for identity in ('tab-idle', 'tab-active'):
+            with self.subTest(identity=identity, failure='registration'):
+                self.mutate_ui_manifest(lambda m: m['styles'][identity]['loop_apertures_px'][0].__setitem__(0, 1))
+                with self.assertRaisesRegex(ValueError, 'curtain loop aperture registration changed'):
+                    build.stage_runtime(self.project, self.root / 'staged')
+                manifest_path.write_text(original_manifest)
+            with self.subTest(identity=identity, failure='stretched span'):
+                record = json.loads(original_record)
+                manifest = json.loads(original_manifest)
+                for entry in (record['entries'][identity], manifest['styles'][identity]):
+                    entry['loop_apertures_px'][0][0] = entry['slice_px'][0] + 1
+                source_path.write_text(json.dumps(record))
+                manifest['source_record_sha256'] = build.sha(source_path)
+                manifest_path.write_text(json.dumps(manifest))
+                with self.assertRaisesRegex(ValueError, 'curtain loop aperture leaves its fixed corner'):
+                    build.stage_runtime(self.project, self.root / 'staged')
+                manifest_path.write_text(original_manifest)
+                source_path.write_text(original_record)
 
     def test_approved_floor_icon_cannot_be_replaced_by_another_valid_crop(self):
         path = self.root / build.editor_ui_contract.SOURCE_RECORD
