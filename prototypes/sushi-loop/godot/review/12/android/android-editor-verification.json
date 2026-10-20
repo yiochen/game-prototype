@@ -1,0 +1,108 @@
+{
+  "runtime_commit": "e405297e0a4eaa8f1778a51a84ec53909eb5e321",
+  "emulator_serial": "emulator-5560",
+  "input": "Actual adb input tap/swipe/keyevent, production offline release",
+  "physical_devices_touched": false,
+  "checks": [
+    "Existing v30 primary and backup match the protected baseline",
+    "Installed normal APK matches final release SHA256",
+    "Normal v30\u2192v40 installation preserves both save files byte for byte before launch",
+    "Migrated old restaurant keeps its savings and resumes service",
+    "Review12 package is absent before first installation",
+    "Installed review APK matches final release SHA256",
+    "Fresh review starts the two-menu scene with its original owned supplies",
+    "Edit freezes customer paths, food, chef progress, timers, fractional remainder and RNG",
+    "Disconnected stool is free for touch editing",
+    "Touch rotation changes facing and retains selection",
+    "Selected-object drag commits its new tile immediately",
+    "Occupied-tile drop restores the complete prior saved arrangement",
+    "Selected-object release over the inventory tray rejects the drop even above a valid underlying floor tile",
+    "Selected-object release over a layer control rejects its underlying floor tile and leaves layer selection unchanged",
+    "Touch removal returns one stool to inventory without a coin refund",
+    "Inventory drag places one owned stool and selects it",
+    "Compact paging rail changes to the next two inventory items",
+    "People switches to the shared three-profile roster tray",
+    "Opening a chef profile is inspection and preserves the paused Edit save",
+    "System Back closes staff details without leaving the running app",
+    "System Back from staff details preserves exact paused Edit state",
+    "Active layer tap collapses its tray while retaining the layer",
+    "Current unavailable floor swatch cannot mutate the restaurant",
+    "Changing layers restores Layout page and opens its tray",
+    "One outside swipe deselects and pans continuously without leaving Edit",
+    "Home background keeps the paused save byte-stable",
+    "Home return retains exact paused Edit state, layer, tray, camera and RNG",
+    "Force-stop preserves the last immediate editor save",
+    "Cold reopen retains the exact paused restaurant and inventory",
+    "Android Back from the editor exits the app after saving",
+    "Android Back saves a stable paused restaurant before closing",
+    "Android Back reopen retains exact mode, remembered page, layer, tray and service state",
+    "Top-right Live resumes the preserved service simulation",
+    "Review12 installation and all editing/lifecycle checks leave normal app primary and backup untouched",
+    "No Godot script errors or Android runtime crashes during actual APK interaction"
+  ],
+  "normal_apk_sha256": "ff411e9093829160c64cf7766088b7b9e9057046ca76d639b1b48bd76a6f486d",
+  "review_apk_sha256": "1f2ce2e75468dfe838e50690040053c1a8db8057f27a371218274929eebf01e3",
+  "runtime_source_fingerprint": "75de50c5143e21785e8b8538dca000b241f496d84911c88269de053b7b458526",
+  "review_initial_coins": 120,
+  "paused_elapsed": 0.8,
+  "final_camera": {
+    "x": 2.014546712239583,
+    "y": 0.0
+  },
+  "saved_editor": {
+    "layer": "layout",
+    "page": 1,
+    "pages": {
+      "floor": 0,
+      "layout": 1,
+      "people": 0
+    },
+    "selected_id": "",
+    "tray_open": false
+  },
+  "runtime_errors": [],
+  "runtime_warnings": [
+    "10-19 18:52:29.483  4799  4822 E godot   : WARNING: Failed to load cached shader, recompiling.",
+    "10-19 18:52:35.236  4865  4887 E godot   : WARNING: Failed to load cached shader, recompiling."
+  ],
+  "continuation_checks": {
+    "normal_v30_to_v40": {
+      "all_customer_timer_rng_inventory_editor_fields": true,
+      "continuation_seconds": 1.31231566666691,
+      "public_session_continuation_matches": true,
+      "restored_after": true,
+      "restored_before": true
+    },
+    "paused_home": {
+      "all_customer_timer_rng_inventory_editor_fields": true,
+      "continuation_seconds": -2.42861286636753e-17,
+      "public_session_continuation_matches": true,
+      "restored_after": true,
+      "restored_before": true
+    },
+    "paused_force_stop": {
+      "all_customer_timer_rng_inventory_editor_fields": true,
+      "continuation_seconds": -2.42861286636753e-17,
+      "public_session_continuation_matches": true,
+      "restored_after": true,
+      "restored_before": true
+    },
+    "paused_android_back": {
+      "all_customer_timer_rng_inventory_editor_fields": true,
+      "continuation_seconds": -2.42861286636753e-17,
+      "public_session_continuation_matches": true,
+      "restored_after": true,
+      "restored_before": true
+    },
+    "resumed_live": {
+      "all_customer_timer_rng_inventory_editor_fields": true,
+      "continuation_seconds": 3.04632933333333,
+      "public_session_continuation_matches": true,
+      "restored_after": true,
+      "restored_before": true
+    }
+  },
+  "save_comparison_tolerance": 1e-07,
+  "runtime_warning_assessment": "Two GLES shader-cache entries were automatically recompiled after cold reopen. Subsequent native rendering was visually inspected; no script error or crash occurred.",
+  "test_environment": "Pixel_8_API_35_Review12,1080x2400/API35, isolated APFS-cloned AVD, read-only/no-snapshot-load/no-snapshot-save"
+}
