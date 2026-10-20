@@ -349,7 +349,7 @@ func _test_editor(app) -> void:
 	await _touch(app, app.editor_ui.layers.layout.get_global_rect().get_center(), true)
 	await _touch(app, app.editor_ui.layers.layout.get_global_rect().get_center(), false)
 	var moving_backing: Rect2 = app.editor_ui.inventory_backing.get_global_rect()
-	var covered_floor := moving_backing.end - Vector2(4, 78) * app.editor_ui.unit
+	var covered_floor: Vector2 = moving_backing.end - Vector2(4, 78) * app.editor_ui.unit
 	_expect(app.editor_ui.inventory_backing.is_visible_in_tree() and moving_backing.has_point(covered_floor) and not app._floor_drop(covered_floor), "The visible full-width cream backdrop blocks exposed floor drops while the category row moves")
 	var before_backing_gesture: Dictionary = app.session.save_data()
 	await _touch(app, covered_floor, true, 26)
