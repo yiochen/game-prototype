@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 10,
-  "published": 9,
-  "current": "Nine objects published; entrance approved for next preview; backdrop-wall review and native wall/belt work ongoing",
+  "completed": 11,
+  "published": 10,
+  "current": "Ten objects published; redesigned backdrop-wall approved for next preview; modular wall and belt work ongoing",
   "objects": [
     {
       "id": "plant-angular",
@@ -169,7 +169,7 @@
       "name": "Restaurant entrance backdrop",
       "kind": "backdrop",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 1,
       "editor": "catalog_backdrop_entrance_editor_v1",
@@ -183,13 +183,15 @@
       "name": "Blank wood wall backdrop",
       "kind": "backdrop",
       "pipeline": "native-3d",
-      "status": "reviewing",
+      "status": "approved",
       "clips": 1,
       "frames": 1,
       "editor": "catalog_backdrop_wall_editor_v1",
       "judge": "catalog_backdrop_wall_judge_v1",
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "round": "round-01",
+      "packetSHA256": "bd5ac60709bd13ee7f8bec88fa98a715526121639c918ed39eb9e9055309e38a"
     },
     {
       "id": "wall-middle",
@@ -222,11 +224,13 @@
       "name": "Wall outer corner",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "assessing",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "editor": "catalog_wall_outer_editor_v1",
+      "judge": "catalog_wall_outer_judge_v1"
     },
     {
       "id": "wall-end",

@@ -1,0 +1,171 @@
+{
+  "id": "backdrop-wall",
+  "name": "Blank wood wall backdrop",
+  "family": "W02",
+  "kind": "backdrop",
+  "status": "ready",
+  "footprint": [
+    1,
+    3
+  ],
+  "rootCell": [
+    0.5,
+    3
+  ],
+  "frameSize": [
+    192,
+    448
+  ],
+  "root": [
+    96.0,
+    416
+  ],
+  "sourceScale": 3,
+  "projection": "character-orthographic",
+  "facingPolicy": "single-player-facing",
+  "layer": 0,
+  "renderPass": "background",
+  "backdrop": {
+    "width": 1,
+    "height": 3,
+    "openingWidth": 0,
+    "baseboard": true,
+    "lighting": "uniform ambient"
+  },
+  "productionStage": "Approved Blender backdrop \u00b7 35\u00b0 camera \u00b7 uniform light",
+  "reviewNote": "1 \u00d7 3 projected tiles, including flat roof tiles and a continuous wooden baseboard. Repeats horizontally with no windows or extra pillars.",
+  "registration": {
+    "method": "authored-backdrop-plane",
+    "completeFrame": [
+      192,
+      448
+    ],
+    "anchor": [
+      96.0,
+      416
+    ],
+    "cellSize": 128,
+    "sourceCaptureScale": 3,
+    "poseFitting": false,
+    "contentRect": [
+      96,
+      96,
+      384,
+      1152
+    ]
+  },
+  "clips": [
+    {
+      "id": "static",
+      "name": "Static",
+      "frames": 1,
+      "fps": 12,
+      "static": true,
+      "loop": false,
+      "directions": {
+        "S": {
+          "image": "sprites/backdrop-wall/static-S.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            576,
+            1344
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              576,
+              1344
+            ]
+          ],
+          "sha256": "162cef65560c2a3c3ea712ab5466d051431f0d2bc0e31066df11efa085ade688"
+        }
+      }
+    }
+  ],
+  "requirements": {
+    "directions": [
+      "S"
+    ],
+    "states": [
+      "static"
+    ],
+    "animated": false,
+    "fps": 12,
+    "notes": "Fixed restaurant backdrop plane; no turning or per-sprite stretching."
+  },
+  "interactions": [
+    {
+      "name": "Three blank tiles, entrance, then blank walls",
+      "gridSize": [
+        11,
+        6
+      ],
+      "placements": [
+        {
+          "object": "backdrop-wall",
+          "x": 0,
+          "y": 0,
+          "direction": "S"
+        },
+        {
+          "object": "backdrop-wall",
+          "x": 1,
+          "y": 0,
+          "direction": "S"
+        },
+        {
+          "object": "backdrop-wall",
+          "x": 2,
+          "y": 0,
+          "direction": "S"
+        },
+        {
+          "object": "backdrop-wall",
+          "x": 7,
+          "y": 0,
+          "direction": "S"
+        },
+        {
+          "object": "backdrop-wall",
+          "x": 8,
+          "y": 0,
+          "direction": "S"
+        },
+        {
+          "object": "backdrop-wall",
+          "x": 9,
+          "y": 0,
+          "direction": "S"
+        },
+        {
+          "object": "backdrop-wall",
+          "x": 10,
+          "y": 0,
+          "direction": "S"
+        },
+        {
+          "object": "backdrop-entrance",
+          "x": 3,
+          "y": 0,
+          "direction": "S"
+        },
+        {
+          "object": "chef-lena",
+          "x": 4,
+          "y": 4,
+          "direction": "S",
+          "clip": "idle"
+        }
+      ]
+    }
+  ],
+  "source": {
+    "pipeline": "blender-backdrop",
+    "blend": "source/backdrop/restaurant-backdrop-35.blend",
+    "camera": "source/backdrop/camera.json",
+    "assetRecord": "source/backdrop/backdrop-wall.json",
+    "approvedSource": "../restaurant-backdrop/uniform35"
+  }
+}
