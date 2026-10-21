@@ -9,7 +9,8 @@
     248
   ],
   "cellSize": 128,
-  "captureScale": 4,
+  "captureScale": 2,
+  "sourceCaptureScale": 2,
   "fps": 12,
   "axes": {
     "x": "X",
@@ -75,48 +76,160 @@
       1.0
     ],
     "worldUnitsPerCell": 1,
-    "elevationDegrees": 35
+    "elevationDegrees": 35,
+    "orthoScale": 1.5,
+    "shiftX": 0.0,
+    "shiftY": 0.4583320617675781
   },
   "calibration": {
     "root": [
-      384.0,
-      992.0
+      192.0,
+      496.00000381469727
     ],
     "unitX": [
-      512.0,
+      255.99998474121094,
       0.0
     ],
     "unitDepth": [
       0.0,
-      293.6710205078125
+      146.8355217576027
     ],
     "unitHeight": [
       0.0,
-      -419.40594482421875
+      -209.7029685974121
+    ]
+  },
+  "declaredLogicalRegistration": {
+    "frame": [
+      192,
+      320
+    ],
+    "anchor": [
+      96,
+      248
+    ],
+    "nativeFrame": [
+      384,
+      640
+    ],
+    "nativeAnchor": [
+      192,
+      496
     ]
   },
   "artStyle": {
-    "revision": "2026-10-19",
-    "environmentHeightRatio": 0.7,
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
-    "lightingRig": {
-      "treatment": "Faceted",
-      "overheadWatts": 140,
-      "overheadPosition": [
-        0,
-        0,
-        4.5
+    "revision": "warm-soft-chef-rowan-round03-candidate",
+    "status": "pending-independent-visual-review",
+    "style": "Warm softly lit cartoon",
+    "nativeEditable": true,
+    "worldLighting": true,
+    "lighting": "Centered170W overhead plus four equal cardinal95W area fills, all4.5 size; neutral worldstrength0.22; no ground plane or directional ground shadow",
+    "lightingRig": [
+      {
+        "name": "S33 Faceted overhead.002",
+        "type": "AREA",
+        "energy": 170.0,
+        "size": 4.5,
+        "worldPosition": [
+          0.0,
+          0.0,
+          4.5
+        ],
+        "color": [
+          1.0,
+          0.9599999785423279,
+          0.8999999761581421
+        ]
+      },
+      {
+        "name": "S33 Faceted fill-0.002",
+        "type": "AREA",
+        "energy": 95.0,
+        "size": 4.5,
+        "worldPosition": [
+          3.0,
+          0.0,
+          1.7999999523162842
+        ],
+        "color": [
+          1.0,
+          0.9599999785423279,
+          0.8999999761581421
+        ]
+      },
+      {
+        "name": "S33 Faceted fill-1.002",
+        "type": "AREA",
+        "energy": 95.0,
+        "size": 4.5,
+        "worldPosition": [
+          0.0,
+          3.0,
+          1.7999999523162842
+        ],
+        "color": [
+          1.0,
+          0.9599999785423279,
+          0.8999999761581421
+        ]
+      },
+      {
+        "name": "S33 Faceted fill-2.002",
+        "type": "AREA",
+        "energy": 95.0,
+        "size": 4.5,
+        "worldPosition": [
+          -3.0,
+          0.0,
+          1.7999999523162842
+        ],
+        "color": [
+          1.0,
+          0.9599999785423279,
+          0.8999999761581421
+        ]
+      },
+      {
+        "name": "S33 Faceted fill-3.002",
+        "type": "AREA",
+        "energy": 95.0,
+        "size": 4.5,
+        "worldPosition": [
+          0.0,
+          -3.0,
+          1.7999999523162842
+        ],
+        "color": [
+          1.0,
+          0.9599999785423279,
+          0.8999999761581421
+        ]
+      }
+    ],
+    "world": {
+      "color": [
+        0.8199999928474426,
+        0.8600000143051147,
+        0.8999999761581421,
+        1.0
       ],
-      "overheadSize": 3.5,
-      "fillWattsEach": 100,
-      "fillSize": 4,
-      "fillRadius": 3,
-      "fillZ": 1.8,
-      "horizontalSymmetry": 4,
-      "worldStrength": 0
+      "strength": 0.2199999988079071
     },
-    "lowerShading": "world-height ramp; camera view-tone bypassed"
+    "colorManagement": {
+      "viewTransform": "Standard",
+      "look": "None",
+      "exposure": 0.0,
+      "gamma": 1.0
+    },
+    "materialPolicy": "Native per-part Principled materials with soft local AO; original world-height material ramp removed. Exact canonical salmon is packed2D emission/alpha, knife remains native mesh."
+  },
+  "provenance": {
+    "kind": "Saved-source measured metadata, no art/source mutation",
+    "activeBrief": "brief-v4-food-occlusion.json",
+    "project": "source/round-03.blend",
+    "projectSHA256": "070c94e7c64aef5f43beacd37867445538edeeaf0a65f39b59dca4201476f0e2",
+    "priorCamera": "inputs/source-camera.json",
+    "priorCameraSHA256": "e8a9bc00c4dca4cf153dc25d8674d37c5409314d293b593b5339eca32578c8c3",
+    "revision": "Actual output captureScale2 replaces original source record4; round01 body/rig/camera/light retained; one continuous frozen native ray occlusion law measured from final saved source."
   }
 }

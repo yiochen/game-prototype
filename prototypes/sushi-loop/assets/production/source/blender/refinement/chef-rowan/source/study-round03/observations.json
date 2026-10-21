@@ -1,0 +1,148 @@
+{
+  "activeBrief": "brief-v3-food-depth.json",
+  "task": "Diagnostic global-depth window; no full192 capture or submitted round03 candidate",
+  "editorConclusion": "No acceptable shared scalar found in the tested finer range. This is diagnostic editor evidence for coordinator/judge reconciliation, not self-approval or a new frozen criterion.",
+  "observations": [
+    {
+      "depth": 0.5,
+      "rearN": "No plate crescent in sampled hold/load.",
+      "foodW": "Most upper salmon still occluded by rear/side head in hold; mostly plate/rice plus small salmon fragments; load midpoint improves somewhat.",
+      "foodE": "Upper portion still behind head; more complete than W.",
+      "foodS": "Canonical dish remains readable."
+    },
+    {
+      "depth": 0.525,
+      "rearN": "Clean in sampled hold/load.",
+      "foodW": "Rice/plate more visible, but upper salmon mass still cut behind head in hold; load has more visible salmon.",
+      "foodE": "Improves but upper salmon still partly behind head.",
+      "foodS": "Readable."
+    },
+    {
+      "depth": 0.55,
+      "rearN": "A thin horizontal plate line appears in sampled hold, visible in enlarged fixed window and as small seam at logical size; load6 rear remains cleaner.",
+      "foodW": "Plate/rice and more salmon appear, but upper salmon mass still cut behind head in hold.",
+      "foodE": "Largely restored.",
+      "foodS": "Readable."
+    },
+    {
+      "depth": 0.575,
+      "rearN": "Clear plate crescent in hold and load, reviving rear false-smile defect.",
+      "foodW": "Substantially more complete salmon/rice/plate than .50/.525; food upper edge still meets head.",
+      "foodE": "Largely restored.",
+      "foodS": "Readable."
+    }
+  ],
+  "rangeConflict": "At the first tested value with a rear-head plate trace (.55), W hold still clips the salmon upper mass. The next tested value (.575) reveals much more W food but clearly reveals the rear plate crescent. Moving the same plane toward the camera reveals more of its unchanged projected image in every facing; it cannot independently improve W while hiding N.",
+  "inferenceLimit": "Four finite depth samples plus .45/.60 sealed baselines; no claim of exhaustive continuous scalar visual testing. Evidence does not justify a new full192 candidate under v3.",
+  "nativeRepresentativeCount": 112,
+  "poses": [
+    [
+      "hold",
+      1
+    ],
+    [
+      "hold",
+      4
+    ],
+    [
+      "hold",
+      10
+    ],
+    [
+      "load",
+      1
+    ],
+    [
+      "load",
+      6
+    ],
+    [
+      "load",
+      7
+    ],
+    [
+      "load",
+      12
+    ]
+  ],
+  "projectionChecks": [
+    {
+      "depth": 0.5,
+      "poseCount": 192,
+      "maxNativePixelError": 3.814697265625e-05,
+      "maxRayDisplacementError": 1.1780402288468105e-07,
+      "localZ": 0.22943057119846344,
+      "localHorizontalCoefficient": 0.32766081771559674
+    },
+    {
+      "depth": 0.525,
+      "poseCount": 192,
+      "maxNativePixelError": 3.814697265625e-05,
+      "maxRayDisplacementError": 1.0667607980427409e-07,
+      "localZ": 0.2409020960330963,
+      "localHorizontalCoefficient": 0.3440438586013766
+    },
+    {
+      "depth": 0.55,
+      "poseCount": 192,
+      "maxNativePixelError": 3.814697265625e-05,
+      "maxRayDisplacementError": 7.831974343072116e-08,
+      "localZ": 0.2523736357688904,
+      "localHorizontalCoefficient": 0.36042689948715645
+    },
+    {
+      "depth": 0.575,
+      "poseCount": 192,
+      "maxNativePixelError": 3.814697265625e-05,
+      "maxRayDisplacementError": 1.1339210909027177e-07,
+      "localZ": 0.26384517550468445,
+      "localHorizontalCoefficient": 0.3768099403729362
+    }
+  ],
+  "baselineImmutability": [
+    {
+      "round": "round-01",
+      "packetSHA256": "1a2b362735e93a9dd1ad0563dfdf5fb1489eaf2eb9c77e017fa4b2d4126d7deb",
+      "bindingsVerified": 998,
+      "allUnchanged": true
+    },
+    {
+      "round": "round-02",
+      "packetSHA256": "d4ecb39f1609aa39f444b3614c388336291b1547f771cb8083bf5dd67c963530",
+      "bindingsVerified": 1181,
+      "allUnchanged": true
+    }
+  ],
+  "primaryLogicalSheets": [
+    "source/study-round03/sheets/all-facing-hold01-load06-light.png",
+    "source/study-round03/sheets/all-facing-hold01-load06-gray.png",
+    "source/study-round03/sheets/all-facing-hold01-load06-dark.png"
+  ],
+  "fixedWindowDiagnosticSheets": [
+    "source/study-round03/sheets/fixed-native-window-hold01-load06-light.png",
+    "source/study-round03/sheets/fixed-native-window-hold01-load06-gray.png",
+    "source/study-round03/sheets/fixed-native-window-hold01-load06-dark.png"
+  ],
+  "allPoseEvidence": "source/study-round03/sheets/logical-{light,gray,dark}-{hold01,hold04,hold10,load01,load06,load07,load12}.png",
+  "modelChanges": "Only two ray-driver coefficients, corresponding constant planeZ and existing scalar provenance change in each newly saved diagnostic variant; exact baseline is reopened for each value. All192 projected corners/plate-bottom checks pass for each scalar. No full192 native capture or final source saved outside the study.",
+  "variants": [
+    {
+      "path": "source/study-round03/variants/d500.blend",
+      "sha256": "b47d127880014d099c25164ee487d269eb65d84dda9748287c894bf1bbd2afba"
+    },
+    {
+      "path": "source/study-round03/variants/d525.blend",
+      "sha256": "491585e89dabc656470a3a3fcbe18fad425fff6ab468d6e63179400da95b49b4"
+    },
+    {
+      "path": "source/study-round03/variants/d550.blend",
+      "sha256": "bc6084f8b77590ad798a3aabdc4fffe2e82010d750380b614dc55c9ddb4f6576"
+    },
+    {
+      "path": "source/study-round03/variants/d575.blend",
+      "sha256": "3ea51f5b9ec0b2e93edb0d17c480d89505858a351099052ae173b5a5857bbf00"
+    }
+  ],
+  "savedVariantSemanticAudit": "source/study-round03/saved-variant-semantic-audit.json",
+  "allFourSavedVariantsMatchBaselineExceptPermittedDepthFields": true
+}

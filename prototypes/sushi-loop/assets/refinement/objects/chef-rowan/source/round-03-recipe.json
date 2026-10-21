@@ -1,0 +1,88 @@
+{
+  "activeBrief": "brief-v4-food-occlusion.json",
+  "baseline": "inputs/baseline-round01.blend",
+  "baselineSHA256": "9dffcad37fb5ba662000a919c355fe45e74416078371e82adf2aa012038be024",
+  "project": "source/round-03.blend",
+  "projectSHA256": "070c94e7c64aef5f43beacd37867445538edeeaf0a65f39b59dca4201476f0e2",
+  "foodOcclusionPolicy": {
+    "representation": "One native editable camera-facing packed2D billboard; body and knife remain native3D. The food stays in its original declared state visibility schedule.",
+    "orientationDefinition": {
+      "forward": "F = normalize(horizontal(groundRootWorldRotation * nativeForward)); nativeForward is the fixed source character-forward axis (0,-1,0) in the existing ground-root frame. Retain intrinsic child orientation. Use the ground root, not animated head/hand normals or a state-dependent vector.",
+      "towardCamera": "H = normalize(horizontal(camera.matrix_world.to_3x3() * (0,0,1))), the orthographic toward-camera axis. Do not use camera location minus character location. The fixed registered capture has H=(0,-1,0).",
+      "f": "f = clamp(dot(F,H),-1,1). At the unchanged publisher orientations S0/E+90/N180/W-90, f is respectively +1/0/-1/0. In this exact source/camera contract the algebraically equivalent f=cos(rootYaw) is allowed; it must remain the same continuous law at all angles."
+    },
+    "law": "d(f) = 0.60 - 0.15 * max(0,-f)^2 world cells; no tunable coefficients or alternative piecewise per-view constants in this version.",
+    "rangeWorldCells": [
+      0.45,
+      0.6
+    ],
+    "requiredCardinalValuesWorldCells": {
+      "S": 0.6,
+      "E": 0.6,
+      "N": 0.45,
+      "W": 0.6
+    },
+    "continuity": "C1 on [-1,1]: for f<0, d=0.60-0.15*f^2 and derivative=-0.30*f; for f>=0, d=0.60 and derivative=0. Both derivatives meet at zero. Composed with the continuous native root/camera orientation, the displacement has no orientation threshold jump. Natural geometry occlusion boundaries still require visual evaluation.",
+    "worldOffset": "Let A be the unchanged evaluated food-root/plate-bottom attachment origin, and R=normalize(camera.matrix_world.to_3x3()*(0,0,1)). The billboard origin is A+d(f)*R, using the same original ray sign. In the registered camera R=(0,-cos(35deg),sin(35deg)). Derive the native plane local XYZ location through its unchanged parent transform, all from the same d. Preserve the plane rotation, yaw cancellation, mesh and fullUV. Do not independently tune Z or an XY coefficient.",
+    "permittedNativeImplementation": "Native Blender driver expressions/variables or an equivalent fully saved native editable dependency graph implementing this fixed law. It must reopen and evaluate without an external driver namespace, startup handler or undeclared script. A source-expression audit and numerical evaluation must demonstrate the same law between the four output facings.",
+    "forbiddenInputsAndMethods": [
+      "No state name, frame index, atlas cell, publisher-facing label, discrete orientation lookup, custom angle mask, hysteresis or per-pose fitted parameter.",
+      "No object visibility/holdout/shadow/material/alpha policy changes, per-view hiding or pixel masks.",
+      "No screen-space relocation, target fit, source crop/repaint/regrade/warp, altered plane shape/aspect/width, body patch or new occluder."
+    ],
+    "physicalScope": "Only the billboard display offset changes along the exact orthographic ray. Original food-root, plate-bottom palm contact, rig, actions, authored bob, body/knife envelopes and functional clearance remain exact; the offset billboard is excluded from the native physical body footprint."
+  },
+  "nativeLawExpression": "(0.60-0.15*max(0,-cos(facing))**2)",
+  "localRayCoefficients": {
+    "xy": 0.6553216354311935,
+    "z": 0.45886114908083686
+  },
+  "rootScale": 1.25,
+  "priorDrivers": [
+    {
+      "path": "rotation_euler",
+      "index": 2,
+      "expression": "-facing"
+    },
+    {
+      "path": "location",
+      "index": 0,
+      "expression": "-sin(facing)*0.39319298125871605"
+    },
+    {
+      "path": "location",
+      "index": 1,
+      "expression": "-cos(facing)*0.39319298125871605"
+    }
+  ],
+  "currentDrivers": [
+    {
+      "path": "rotation_euler",
+      "index": 2,
+      "expression": "-facing"
+    },
+    {
+      "path": "location",
+      "index": 0,
+      "expression": "-sin(facing)*0.6553216354311935*(0.60-0.15*max(0,-cos(facing))**2)"
+    },
+    {
+      "path": "location",
+      "index": 1,
+      "expression": "-cos(facing)*0.6553216354311935*(0.60-0.15*max(0,-cos(facing))**2)"
+    },
+    {
+      "path": "location",
+      "index": 2,
+      "expression": "0.45886114908083686*(0.60-0.15*max(0,-cos(facing))**2)"
+    }
+  ],
+  "allowedChanges": [
+    "existing plane location X/Y driver expressions and native polynomial identity mapping (remove default keyed identity; generator coefficients0,1)",
+    "added plane location Z native driver using the same root yaw input and native polynomial identity mapping coefficients0,1",
+    "existing depth provenance replaced with exact law string",
+    "new active policy provenance string"
+  ],
+  "scope": "No geometry, rotation/yaw driver, scale, parent, UV, material, rig/action, visibility, camera, light or render changes.",
+  "reconstruction": "Apply only to exact included round01 baseline; saved-source recapture requires no library reconstruction or external driver namespace."
+}

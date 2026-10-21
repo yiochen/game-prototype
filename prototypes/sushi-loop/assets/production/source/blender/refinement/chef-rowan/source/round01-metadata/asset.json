@@ -1,0 +1,218 @@
+{
+  "id": "chef-rowan",
+  "projection": "character-orthographic",
+  "frame": [
+    192,
+    320
+  ],
+  "anchor": [
+    96,
+    248
+  ],
+  "scale": 2,
+  "clips": {
+    "idle": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "work": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "hold": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "load": {
+      "frames": 12,
+      "fps": 12,
+      "loop": false
+    }
+  },
+  "footprint": [
+    1,
+    1
+  ],
+  "height": 1.3968749344348907,
+  "sockets": {
+    "ground": [
+      0,
+      0,
+      0
+    ],
+    "seat_contact": [
+      0,
+      0,
+      0.4477801191577021
+    ],
+    "hand_left": [
+      -0.267,
+      -0.023,
+      0.211
+    ],
+    "hand_right": [
+      0.267,
+      -0.023,
+      0.211
+    ],
+    "mouth": [
+      0,
+      -0.255,
+      0.543
+    ]
+  },
+  "artStyle": {
+    "revision": "warm-soft-chef-rowan-round01-candidate",
+    "status": "pending-independent-visual-review",
+    "style": "Warm softly lit cartoon",
+    "nativeEditable": true,
+    "worldLighting": true,
+    "lighting": "Centered170W overhead plus four equal cardinal95W area fills, all4.5 size; neutral worldstrength0.22; no ground plane or directional ground shadow",
+    "lightingRig": [
+      {
+        "name": "S33 Faceted overhead.002",
+        "type": "AREA",
+        "energy": 170.0,
+        "size": 4.5,
+        "worldPosition": [
+          0.0,
+          0.0,
+          4.5
+        ],
+        "color": [
+          1.0,
+          0.9599999785423279,
+          0.8999999761581421
+        ]
+      },
+      {
+        "name": "S33 Faceted fill-0.002",
+        "type": "AREA",
+        "energy": 95.0,
+        "size": 4.5,
+        "worldPosition": [
+          3.0,
+          0.0,
+          1.7999999523162842
+        ],
+        "color": [
+          1.0,
+          0.9599999785423279,
+          0.8999999761581421
+        ]
+      },
+      {
+        "name": "S33 Faceted fill-1.002",
+        "type": "AREA",
+        "energy": 95.0,
+        "size": 4.5,
+        "worldPosition": [
+          0.0,
+          3.0,
+          1.7999999523162842
+        ],
+        "color": [
+          1.0,
+          0.9599999785423279,
+          0.8999999761581421
+        ]
+      },
+      {
+        "name": "S33 Faceted fill-2.002",
+        "type": "AREA",
+        "energy": 95.0,
+        "size": 4.5,
+        "worldPosition": [
+          -3.0,
+          0.0,
+          1.7999999523162842
+        ],
+        "color": [
+          1.0,
+          0.9599999785423279,
+          0.8999999761581421
+        ]
+      },
+      {
+        "name": "S33 Faceted fill-3.002",
+        "type": "AREA",
+        "energy": 95.0,
+        "size": 4.5,
+        "worldPosition": [
+          0.0,
+          -3.0,
+          1.7999999523162842
+        ],
+        "color": [
+          1.0,
+          0.9599999785423279,
+          0.8999999761581421
+        ]
+      }
+    ],
+    "world": {
+      "color": [
+        0.8199999928474426,
+        0.8600000143051147,
+        0.8999999761581421,
+        1.0
+      ],
+      "strength": 0.2199999988079071
+    },
+    "colorManagement": {
+      "viewTransform": "Standard",
+      "look": "None",
+      "exposure": 0.0,
+      "gamma": 1.0
+    },
+    "materialPolicy": "Native per-part Principled materials with soft local AO; original world-height material ramp removed. Exact canonical salmon is packed2D emission/alpha, knife remains native mesh."
+  },
+  "directions": [
+    "N",
+    "E",
+    "S",
+    "W"
+  ],
+  "locomotion": {
+    "walkCellsPerSecond": 0.225,
+    "panicCellsPerSecond": 0.45,
+    "worldTravelPerWalkCycle": 0.225
+  },
+  "captureScale": 2,
+  "sourceCaptureScale": 2,
+  "foodDependency": {
+    "asset": "dish-salmon",
+    "representation": "packed2D raster texture, not modeled3D food",
+    "artwork": "../../../production/source/2d/refinement/dish-salmon/source/round01/dish-salmon.png",
+    "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+    "packet": "../dish-salmon/candidates/round01/packet.json",
+    "packetSHA256": "e7a8682233052e676135edd19ba7c98b057e6d7075074a5eb344e0a3558f3ae6",
+    "review": "../dish-salmon/reviews/round01.json",
+    "reviewSHA256": "c19b7c702158dec570e3181289b7606a87e966e3a33ecb2f0b5ada4bc5c68c67",
+    "canonicalSize": [
+      731,
+      505
+    ],
+    "canonicalAlphaRectangleTopOrigin": [
+      0,
+      0,
+      731,
+      505
+    ],
+    "policy": "Use exact canonicalsource, one fixed UV rectangle/no additional crop. Preserve .35worldcell displaywidth, platebottom palm attachment, yaw cancellation and camera-ray depthbias; exclude2Ddisplay from physicalbodybounds. Explicitly record source/UV/aspect revision from old packedfood."
+  },
+  "nativeRefinement": {
+    "activeBrief": "brief-v2-food.json",
+    "project": "source/round-01.blend",
+    "projectSHA256": "9dffcad37fb5ba662000a919c355fe45e74416078371e82adf2aa012038be024",
+    "rig": "source/round01-metadata/rig.json",
+    "nativeAudit": "candidates/round-01/native-audit.json",
+    "nativeAuditSHA256": "6614297aecaf961ccfca8d0a6b8d3feeb4ed3e92cb27dadef5c763f4c1019551",
+    "originalAssetRecord": "inputs/source-assetRecord.json",
+    "originalAssetRecordSHA256": "d52221de90cb7d7410b3e4a476b538e664c9923e37eda699ba52281f0d8bf629",
+    "changes": "Capture scale metadata4->2 and truthful final artStyle/packed canonical food provenance. Original logical registration, footprint, nominal height, clips, directions, locomotion metadata and static socket contract retained exactly."
+  }
+}

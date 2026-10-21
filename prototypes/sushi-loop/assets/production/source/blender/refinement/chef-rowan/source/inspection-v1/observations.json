@@ -1,0 +1,142 @@
+{
+  "phase": "Independent initial inspection only",
+  "reviewsAndQualityCriteriaRead": false,
+  "sourceProjectUntouched": true,
+  "sourceProjectSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+  "inputHashes": {
+    "original.png": "98d6c3a9a5f7ebc882f5b7f84a484dd344b546c3a783daa5db7a7a842ec16dc2",
+    "target.png": "0b871d7d5bfc5b32471e6b99999273bd6c7ef93ef1aed4b8f6fea08617cd44c5",
+    "family-concept.png": "f234a68dee5734e479d68eb0e914c48de059629333c498603528f47adc4f82a1"
+  },
+  "visualObservations": [
+    "Original identity is clear: light warm tan face, ginger fringe and moustache, cyan cap, ivory coat, green apron, teal tie, dark tiny feet.",
+    "Original reads as an angular toy: large rectangular cap crown and flat brim, squared face, low-resolution chunky hair clumps, planar collars and apron pieces, faceted cylindrical limbs.",
+    "Fixed target keeps that palette and character but offers rounded broad cap with shaped brim, fuller cheeks/jaw and ears, more coherent swept fringe and full moustache, curved collars/cuffs, dimensional tie, apron waist/pocket and readable shoes.",
+    "Target fabric stitching, folds and bright edge light are style cues; its framing, enlarged apparent scale and fringe halo are not capture authority.",
+    "The source all-facing action sheets show small stable feet, two-hand work gestures with native knife, and facing-independent packed salmon in hold/load. Back-facing food is largely body-occluded, as in source."
+  ],
+  "technicalFacts": {
+    "blenderVersion": "5.2.2 LTS",
+    "sourceCollection": "S33_CHARACTER_chef_rowan.001",
+    "sourceCollectionInitiallyGloballyHidden": true,
+    "evaluationProcedure": "Linked only source asset collection into new isolated active scene; cleared collection viewport/render and view layer exclusions; unhid armature; updated depsgraph before evaluated mesh/contacts.",
+    "objects": 62,
+    "meshes": 58,
+    "armatureBones": 25,
+    "rootScale": [
+      1.25,
+      1.25,
+      1.25
+    ],
+    "nominalHeight": 1.3968749344348907,
+    "animatedMaximumHeight": 1.3986088037490845,
+    "sourceAllFrameCardinalXYExtent": [
+      [
+        -0.4632700979709625,
+        -0.4632700979709625,
+        -1.932120952119476e-08
+      ],
+      [
+        0.4632700979709625,
+        0.4632701277732849,
+        1.3986088037490845
+      ]
+    ],
+    "nativeActionCohortCount": 24,
+    "evaluatedFrameRecords": 192,
+    "publisherFacingYawDegrees": {
+      "S": 0,
+      "E": 90,
+      "N": 180,
+      "W": -90
+    },
+    "frame": [
+      384,
+      640
+    ],
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "fps": 12,
+    "atlasLayout": {
+      "count": 16,
+      "columns": 6,
+      "rows": 2,
+      "size": [
+        2304,
+        1280
+      ]
+    },
+    "camera": {
+      "name": "S33 Capture Camera.240",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.5735762715339661,
+          -0.8191521763801575,
+          -8.191520690917969
+        ],
+        [
+          0.0,
+          0.8191521763801575,
+          0.5735762715339661,
+          5.735764503479004
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "type": "ORTHO",
+      "ortho_scale": 1.5,
+      "shift_x": 0.0,
+      "shift_y": 0.4583320617675781
+    },
+    "clips": {
+      "idle": {
+        "frames": 12,
+        "loop": true
+      },
+      "work": {
+        "frames": 12,
+        "loop": true
+      },
+      "hold": {
+        "frames": 12,
+        "loop": true
+      },
+      "load": {
+        "frames": 12,
+        "loop": false,
+        "behavior": "Original out-and-back; frame12 returns to frame1 pose and food socket."
+      }
+    },
+    "food": "Packed 1254x1254 2D alpha plane, explicitly labeled 2D; original texture hash 5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe. Do not substitute before updated dependency/criteria.",
+    "foodPlacement": "Food empty is midpoint of both evaluated palm centers plus +0.0225 world Z (audit max error below 6e-8); plane width 0.35 world cells; camera-ray depth bias 0.6 world cells; original facing cancellation retained.",
+    "visibility": "Food hidden in idle/work and visible all 12 frames of hold/load; native knife visible only all 12 work frames.",
+    "footContacts": "Both evaluated ankle centers remain at approximately world Z 0.04375; evaluated shoe sole reaches world Z zero to floating-point tolerance.",
+    "shaderAndLight": "Original uses Standard/None color management, centered 140 W overhead plus four cardinal 100 W fills, world-height tonal materials. Refinement should make form/material softness native while retaining rotational symmetry."
+  },
+  "evidence": [
+    "native-inventory.json",
+    "native-action-audit.json",
+    "published-original-idle.png",
+    "published-original-work.png",
+    "published-original-hold.png",
+    "published-original-load.png"
+  ],
+  "pending": "Wait for coordinator to provide revised shared quality criteria and canonical food dependency before modeling or candidate submission."
+}
