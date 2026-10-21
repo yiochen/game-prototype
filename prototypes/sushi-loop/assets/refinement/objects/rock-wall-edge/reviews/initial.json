@@ -1,0 +1,117 @@
+{
+  "asset": "rock-wall-edge",
+  "stage": "independent initial inspection before editor proposals",
+  "candidateApproval": false,
+  "inspectedFiles": [
+    {
+      "path": "inputs/original.png",
+      "sha256": "7ecab6e9903669f2999f75c241b9c3abd63da9aa4de38552528c3fc3bcf04258"
+    },
+    {
+      "path": "inputs/target.png",
+      "sha256": "546131cf85518f5619a51893d950caa68dc12a18eb505dfd2093e058820d185e"
+    },
+    {
+      "path": "inputs/source-camera.json",
+      "sha256": "817141d927acb7bcf667afe522f5b472c855e24b25f75e2dd2b6742c29a4e559"
+    },
+    {
+      "path": "inputs/source-assetRecord.json",
+      "sha256": "ef25279ece22fc2f37f617fa6d92a30c32bc68d17dfc7ca0e59ceaae98435a79"
+    },
+    {
+      "path": "inputs/source-rig.json",
+      "sha256": "90701178d664c98c1fdfeef04c3a938656e55c603a0266228a42a2f79f80575a"
+    },
+    {
+      "path": "inputs/approved-middle/project.blend",
+      "sha256": "d64f48e1548d5c56a721850701e5540a7a359e76604ade56ebb5aef8595033c9"
+    },
+    {
+      "path": "inputs/approved-middle/familySettings.json",
+      "sha256": "6561142c823c413dd01d67f7e79ebfb694daeaddc131924adec5519fdafc7662"
+    },
+    {
+      "path": "inputs/approved-middle/nativeRecipe.py",
+      "sha256": "86895edb88905ef9c266b8dd444c4b25353bf83217c1856c97884237c611bc97"
+    },
+    {
+      "path": "inputs/approved-middle/nativeAudit.json",
+      "sha256": "0a1a2e94123999f560458e98ba4cacaf693c0eee36825d4cb2ed77b382d2138c"
+    },
+    {
+      "path": "inputs/approved-middle/published-N.png",
+      "sha256": "e0cffa5ac9ac1e72a41dbdd368e2fa8d37744bc7f1558de626d442119bfc4b18"
+    },
+    {
+      "path": "inputs/approved-middle/published-E.png",
+      "sha256": "cef08ccc0b1d499cce0150a075f26edebf4a778ba6cfd99a3a2c481a71aed435"
+    },
+    {
+      "path": "inputs/approved-middle/published-S.png",
+      "sha256": "b38ba609539260893c9a435758377e33e4a55b4dbb911bcc64f65521f64aee63"
+    },
+    {
+      "path": "inputs/approved-middle/published-W.png",
+      "sha256": "1f0025906eb4203763bda59edd9d67f0bd66585cbadf1785fd16f26945b399cc"
+    },
+    {
+      "path": "../../../production/sprites/rock-wall-edge/static-N.png",
+      "sha256": "03bcd4abd6f02db09a4c5fb842621e0ad55086c1157665db1249e53b49d2a16f"
+    },
+    {
+      "path": "../../../production/sprites/rock-wall-edge/static-E.png",
+      "sha256": "12d7f1917baf657ec8a1d8cb0f41316285a2a6e18919f8ba8c7d6c8bd6959a1a"
+    },
+    {
+      "path": "../../../production/sprites/rock-wall-edge/static-S.png",
+      "sha256": "7ecab6e9903669f2999f75c241b9c3abd63da9aa4de38552528c3fc3bcf04258"
+    },
+    {
+      "path": "../../../production/sprites/rock-wall-edge/static-W.png",
+      "sha256": "41321c676057df5950cc568d1356884b4062decfec710777902c3084057a0b83"
+    }
+  ],
+  "supportingEvidence": [
+    "reviews/inspect-inputs.py",
+    "reviews/initial-source-audit.json",
+    "reviews/initial-logical-comparison.png"
+  ],
+  "sourceObservations": [
+    "N/S read as tall, largely blank blue slabs. The crown-to-front transition makes a broad horizontal tonal boundary. The few small rectangular facets appear attached to an otherwise unarticulated surface.",
+    "E/W show the broad top and end surfaces. The bottom becomes a nearly black unstructured band; W includes a thin dark horizontal finished-end stripe. That stripe is not convincing stone construction.",
+    "The actual source collection is S33_PROP_rock-wall-edge.001, with six mesh objects under an identity root. Full-width continuous crag carries both exact X=\u00b10.5 eight-point profiles. The actual root metadata and source asset record both declare W and E ports.",
+    "Native +X has finished_end_strata centered near X=.505 with an outer extent near .511; its decorative protrusion conflicts with treating the declared E plane as a flush connector. This weak original part/protrusion is not a locked design constraint. E-end character may be rebuilt inside the exact connector envelope. Native +X is most directly visible in the W published facing.",
+    "After enabling the hidden source collection for evaluated transforms, actual total bounds are min[-.5,-.510999978,0], max[.510999978,.510999978,1.163219094]. The original functional body is a full-cell base; attached relief explains the small outside bounds.",
+    "The library saves an incidental active presentation camera with a different elevation. It has no camera matching the registered source-camera record. The source-camera record and approved native middle agree on the actual publication contract, so the incidental active camera must not replace registration."
+  ],
+  "fixedTargetObservations": [
+    "The fixed target offers broad, irregular, softly worn cobalt stones with substantial turning planes, luminous cyan upper surfaces, restrained deep crevices and rounded purposeful small stones.",
+    "Useful targets are readable stone volume, more deliberate construction, softer highlights and lower-surface information. Copying every white highlight ribbon, pebble or swelling is unnecessary; the target is a single S-view design reference, not evidence for exact profiles, joins or unseen facings.",
+    "The target has a much more varied face than the source. Native changes should be materially visible at logical size, not merely small texture noise or extra parts."
+  ],
+  "approvedFamilyObservations": [
+    "All eight supplied family dependency hashes independently match the brief. I opened the actual approved project and inspected its geometry, root, camera, material nodes and symmetric SUN rig, as well as all four published frames.",
+    "The approved middle uses broad carved stone cells, cyan upper planes, deeper cobalt lower surfaces and quieter highlights than the target. It establishes shared native connector color/normal and capture/material continuity, without certifying the future edge candidate.",
+    "The actual approved middle has identity root; full-cell X=\u00b1.5 connector cuts; one native material with vertex albedo; roughness\u2248.88, specular IOR\u2248.12 and emission\u2248.38; overhead SUN 1.35 and equal four cardinal SUN fills\u2248.42 with shadows disabled. Shared endpoint Y/Z and albedo pair exactly in the native asset. Full actual measurements are retained in initial-source-audit.json."
+  ],
+  "originalScores": {
+    "shapeVolume": 2,
+    "color": 4,
+    "lightingHighlights": 3,
+    "materialDetail": 2,
+    "artifactFreeReadability": 3
+  },
+  "scoresExplanation": "Comparative observations of this original only; no numerical approval threshold or score for the sibling asset is implied.",
+  "recommendedPriorities": [
+    "Replace broad blank planes and rectangular attached facets with coherent worn stone volume and deliberate large-scale construction that reads in all four facings.",
+    "Preserve cobalt family continuity while making lower surfaces and soft facet highlights readable; remove black dead bands and thin artificial strata artifacts.",
+    "Retain both declared connectors and match the approved native middle at each shared position/profile/color/normal. Prove both joins in independently assembled current browser captures at logical, phone and fractional scale/phase."
+  ],
+  "sourceInconsistencyResolution": {
+    "finding": "Original finished-end decorative strip extends through E connector plane despite two declared ports.",
+    "authorizedResolution": "Rebuild/remove weak protruding strip and place useful edge/end stone character inside the locked two-port functional envelope. Do not waive the E port or copy a middle-only assumption.",
+    "irreconcilableConflict": false
+  },
+  "reviewLimits": "Initial inspection only. No editor proposal or candidate inspected, and no asset approval issued. Criteria remain proposed pending coordinator freeze."
+}

@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 36,
-  "published": 35,
-  "current": "35 live. Puzzled36 approved/promoted/tested, publishing next; column native editor and panic native2D editor; original Lena judge defines held-food-only criteria. All five inventorygoods native views approved, final combined atlas/game cutover pending.",
+  "completed": 37,
+  "published": 36,
+  "current": "36 live. Panic37 approved/promoted/tested, publishing. Column04 metadata+unchangedart approved and verified, next promotion after37 deploy. Lena canonical food round03 independent review; Omar bounded ray-bias criteria pending; fresh rock-wall edge editor active.",
   "objects": [
     {
       "id": "plant-angular",
@@ -790,7 +790,7 @@
       "name": "Puzzled bubble",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "approved",
+      "status": "published",
       "clips": 3,
       "frames": 144,
       "target": "inputs/target.png",
@@ -799,20 +799,24 @@
       "judge": "catalog_bubble_puzzled_judge_v1",
       "round": "round01",
       "packetSHA256": "d96db03e5f2ae6251ab785592f3ad711fd7f1069f5ed688011f9dc3bd0f1d528",
-      "reviewSHA256": "afadbf48bab0818579b5010bb094ef95974d1054f41c01b6c2bf54160cd1d3b1"
+      "reviewSHA256": "afadbf48bab0818579b5010bb094ef95974d1054f41c01b6c2bf54160cd1d3b1",
+      "publishedCommit": "598180165061b0bee076af9330986286569f8034"
     },
     {
       "id": "bubble-panic",
       "name": "Panic bubble",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "criteria-frozen",
+      "status": "approved",
       "clips": 3,
       "frames": 144,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_bubble_panic_editor_v1",
-      "judge": "catalog_bubble_panic_judge_v1"
+      "judge": "catalog_bubble_panic_judge_v1",
+      "round": "round01",
+      "packetSHA256": "7591ed424691f2f27a764e1d4c2d056621d998bb784c438f2549c2287e5ab316",
+      "reviewSHA256": "5c3de99805d8919edd602e856bfa9afc5e85083c1d969b153d65ae27f72a9fcc"
     },
     {
       "id": "coin-pop",
@@ -929,11 +933,13 @@
       "name": "Cobalt canyon rock wall edge",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "criteria-frozen",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "editor": "catalog_rock_wall_edge_editor_v1",
+      "judge": "catalog_rock_wall_edge_judge_v1"
     },
     {
       "id": "rock-wall-corner",
@@ -972,27 +978,33 @@
       "name": "Rock shelf edge",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "rock-shelf-corner",
       "name": "Rock shelf corner",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "rock-shelf-end",
       "name": "Rock shelf end",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "reef-middle",
@@ -1009,27 +1021,33 @@
       "name": "Bright reef edge",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "reef-corner",
       "name": "Bright reef corner",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "reef-end",
       "name": "Bright reef end",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "wreck-middle",
@@ -1046,18 +1064,22 @@
       "name": "Pale wreck edge",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "wreck-corner",
       "name": "Pale wreck corner",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "wreck-end",
@@ -1100,12 +1122,15 @@
       "name": "Broken pale column",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "reviewing-baseline",
+      "status": "reviewing",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
       "editor": "catalog_column_broken_editor_v1",
-      "judge": "catalog_column_broken_judge_v1"
+      "judge": "catalog_column_broken_judge_v1",
+      "round": "round-04",
+      "packetSHA256": "a877f8409d1050806a561af56526ef156ea8085c99a0914f3ae928a266b32e3f",
+      "reviewSHA256": "df08a88154b069b925ec32ca78b09a47c81fe47ee2d534177f2f59f4dcd78087"
     },
     {
       "id": "decor-foreground-rock",

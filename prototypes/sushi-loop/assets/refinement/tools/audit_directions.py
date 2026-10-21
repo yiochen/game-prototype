@@ -19,12 +19,30 @@ def audit(folder, round_name, views=None):
     views = views or packet['capture']['views']
     validation_path = (folder / 'candidates' / round_name / packet['files']['nativeValidation']['path']).resolve()
     data = json.loads(validation_path.read_text())
-    if isinstance(data.get('nativeValidation'), str):
-        validation_path = folder / data['nativeValidation']
+    native_reference = data.get('nativeValidation', data.get('sourceAudit'))
+    if isinstance(native_reference, str):
+        validation_path = (folder / native_reference).resolve()
+        bound = {(folder / 'candidates' / round_name / item['path']).resolve(): item['sha256']
+                 for item in packet['files'].values()}
+        if validation_path not in bound:
+            # Evidence-only rounds can retain a hash-bound prior packet rather
+            # than duplicate every unchanged native audit as a new resource.
+            for prior_path, prior_sha in list(bound.items()):
+                if prior_path.name != 'packet.json':
+                    continue
+                if hashlib.sha256(prior_path.read_bytes()).hexdigest() != prior_sha:
+                    raise ValueError(f'{folder.name}: referenced prior packet changed')
+                prior = json.loads(prior_path.read_text())
+                for item in prior.get('files', {}).values():
+                    path = (prior_path.parent / item['path']).resolve()
+                    if path == validation_path:
+                        bound[path] = item['sha256']
+        if validation_path not in bound or hashlib.sha256(validation_path.read_bytes()).hexdigest() != bound[validation_path]:
+            raise ValueError(f'{folder.name}: referenced native audit is not exact packet-bound evidence')
         data = json.loads(validation_path.read_text())
     measured = {view: [] for view in views}
     records = next((data[key] for key in ['renders', 'views', 'nativeCaptures',
-                    'captureRecords', 'nativeFrames', 'frames', 'audit_directions'] if data.get(key)), [])
+                    'captureRecords', 'nativeFrames', 'frames', 'audit_directions', 'renderViews'] if data.get(key)), [])
     if isinstance(records, dict) and isinstance(records.get('views'), dict):
         records = records['views']
     manifest_reference = next((data[key] for key in ['renderManifest', 'nativeRecords']
@@ -43,6 +61,10 @@ def audit(folder, round_name, views=None):
         records = manifest if isinstance(manifest, list) else manifest.get('renders', manifest.get('frames', []))
     entries = records.items() if isinstance(records, dict) else [(record.get('direction'), record) for record in records]
     for facing, record in entries:
+        if facing not in measured and isinstance(facing, str) and isinstance(record.get('clip'), str):
+            # Static native audits may key captures by their declared clip and
+            # facing ("static-N"), rather than by facing alone.
+            facing = facing.removeprefix(record['clip'] + '-')
         if facing not in measured:
             continue
         if 'rootRotationZ' in record:

@@ -1,0 +1,894 @@
+{
+  "asset": "bubble-panic",
+  "round": "round01",
+  "representation": "Existing raster + deterministic native2D; no Blender claim",
+  "registration": {
+    "frame": [
+      384,
+      640
+    ],
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "columns": 6,
+    "rows": 2,
+    "atlasSize": [
+      2304,
+      1280
+    ]
+  },
+  "coverage": {
+    "logicalSlots": 144,
+    "actualSFrames": 36,
+    "atlasEntries": 12,
+    "actualSAtlases": 3,
+    "directionAliases": [
+      "S",
+      "N",
+      "E",
+      "W"
+    ],
+    "clips": 3
+  },
+  "sourceOperations": {
+    "crop": {
+      "raw": "source/round01/resources/target.png",
+      "rawSHA256": "71e7b0b1a9c2768f2ee6eb51c0c958e37522bf6db39ddbd3e803e9a15e89c0a6",
+      "rawSize": [
+        971,
+        1620
+      ],
+      "thresholdForBoundsOnly": 8,
+      "box": [
+        163,
+        554,
+        808,
+        1153
+      ],
+      "canonical": "source/round01/bubble-panic.png",
+      "canonicalSize": [
+        645,
+        599
+      ],
+      "canonicalSHA256": "3f3348872824f3b55570c86d634eafaf50625b443f415a729c6c49b585a7bce8",
+      "cropRGBAEqualRawRectangle": true,
+      "alphaInsideRectangleUnchanged": true,
+      "rawAlpha0Bounds": [
+        66,
+        85,
+        884,
+        1483
+      ],
+      "rawAlpha1Bounds": [
+        161,
+        552,
+        810,
+        1155
+      ],
+      "omittedOutsideRectangle": {
+        "nonzeroPixels": 346,
+        "maxAlpha": 6,
+        "alphaHistogram": {
+          "1": 241,
+          "2": 18,
+          "3": 16,
+          "4": 35,
+          "5": 21,
+          "6": 15
+        },
+        "totalAlphaWeight": 660
+      },
+      "interpretation": "Exact raw target retained. Original publisher uses alpha>8 only to choose a once-only crop rectangle. Faint alpha1 outliers outside rectangle are omitted by this authorized original pipeline crop. A requirement to preserve all nonzero raw alpha in the packed cutout conflicts with this crop/82logical visible-width contract and requires coordinator resolution, never a waiver by editor."
+    },
+    "cropRGBAEqualsRawRectangle": true,
+    "uniformPhysicalSize": [
+      164,
+      152
+    ],
+    "noPaintEraseWarpRegradeOrPerFrameFit": true
+  },
+  "allFramesAlpha": [
+    {
+      "clip": "appear",
+      "index": 0,
+      "alpha0Bounds": [
+        146,
+        349,
+        239,
+        435
+      ],
+      "alpha8Bounds": [
+        146,
+        349,
+        239,
+        435
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 21,
+      "alpha1to8PixelCount": 119
+    },
+    {
+      "clip": "appear",
+      "index": 1,
+      "alpha0Bounds": [
+        140,
+        341,
+        243,
+        437
+      ],
+      "alpha8Bounds": [
+        140,
+        341,
+        243,
+        437
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 42,
+      "alpha1to8PixelCount": 113
+    },
+    {
+      "clip": "appear",
+      "index": 2,
+      "alpha0Bounds": [
+        136,
+        334,
+        249,
+        439
+      ],
+      "alpha8Bounds": [
+        136,
+        334,
+        249,
+        439
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 64,
+      "alpha1to8PixelCount": 201
+    },
+    {
+      "clip": "appear",
+      "index": 3,
+      "alpha0Bounds": [
+        130,
+        329,
+        253,
+        443
+      ],
+      "alpha8Bounds": [
+        130,
+        329,
+        253,
+        443
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 85,
+      "alpha1to8PixelCount": 288
+    },
+    {
+      "clip": "appear",
+      "index": 4,
+      "alpha0Bounds": [
+        126,
+        326,
+        258,
+        448
+      ],
+      "alpha8Bounds": [
+        126,
+        326,
+        258,
+        448
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 106,
+      "alpha1to8PixelCount": 321
+    },
+    {
+      "clip": "appear",
+      "index": 5,
+      "alpha0Bounds": [
+        122,
+        324,
+        262,
+        454
+      ],
+      "alpha8Bounds": [
+        122,
+        324,
+        262,
+        454
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 128,
+      "alpha1to8PixelCount": 335
+    },
+    {
+      "clip": "appear",
+      "index": 6,
+      "alpha0Bounds": [
+        118,
+        324,
+        265,
+        460
+      ],
+      "alpha8Bounds": [
+        118,
+        324,
+        265,
+        460
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 149,
+      "alpha1to8PixelCount": 469
+    },
+    {
+      "clip": "appear",
+      "index": 7,
+      "alpha0Bounds": [
+        116,
+        324,
+        269,
+        466
+      ],
+      "alpha8Bounds": [
+        116,
+        324,
+        269,
+        466
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 170,
+      "alpha1to8PixelCount": 477
+    },
+    {
+      "clip": "appear",
+      "index": 8,
+      "alpha0Bounds": [
+        113,
+        324,
+        271,
+        470
+      ],
+      "alpha8Bounds": [
+        113,
+        324,
+        271,
+        470
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 191,
+      "alpha1to8PixelCount": 501
+    },
+    {
+      "clip": "appear",
+      "index": 9,
+      "alpha0Bounds": [
+        112,
+        324,
+        273,
+        473
+      ],
+      "alpha8Bounds": [
+        112,
+        324,
+        273,
+        473
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 212,
+      "alpha1to8PixelCount": 519
+    },
+    {
+      "clip": "appear",
+      "index": 10,
+      "alpha0Bounds": [
+        110,
+        322,
+        273,
+        473
+      ],
+      "alpha8Bounds": [
+        110,
+        322,
+        273,
+        473
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 234,
+      "alpha1to8PixelCount": 444
+    },
+    {
+      "clip": "appear",
+      "index": 11,
+      "alpha0Bounds": [
+        110,
+        319,
+        274,
+        471
+      ],
+      "alpha8Bounds": [
+        110,
+        319,
+        274,
+        471
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 255,
+      "alpha1to8PixelCount": 410
+    },
+    {
+      "clip": "idle",
+      "index": 0,
+      "alpha0Bounds": [
+        110,
+        316,
+        274,
+        468
+      ],
+      "alpha8Bounds": [
+        110,
+        316,
+        274,
+        468
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 255,
+      "alpha1to8PixelCount": 410
+    },
+    {
+      "clip": "idle",
+      "index": 1,
+      "alpha0Bounds": [
+        110,
+        313,
+        274,
+        465
+      ],
+      "alpha8Bounds": [
+        110,
+        313,
+        274,
+        465
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 255,
+      "alpha1to8PixelCount": 410
+    },
+    {
+      "clip": "idle",
+      "index": 2,
+      "alpha0Bounds": [
+        110,
+        311,
+        274,
+        463
+      ],
+      "alpha8Bounds": [
+        110,
+        311,
+        274,
+        463
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 255,
+      "alpha1to8PixelCount": 410
+    },
+    {
+      "clip": "idle",
+      "index": 3,
+      "alpha0Bounds": [
+        110,
+        310,
+        274,
+        462
+      ],
+      "alpha8Bounds": [
+        110,
+        310,
+        274,
+        462
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 255,
+      "alpha1to8PixelCount": 410
+    },
+    {
+      "clip": "idle",
+      "index": 4,
+      "alpha0Bounds": [
+        110,
+        311,
+        274,
+        463
+      ],
+      "alpha8Bounds": [
+        110,
+        311,
+        274,
+        463
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 255,
+      "alpha1to8PixelCount": 410
+    },
+    {
+      "clip": "idle",
+      "index": 5,
+      "alpha0Bounds": [
+        110,
+        313,
+        274,
+        465
+      ],
+      "alpha8Bounds": [
+        110,
+        313,
+        274,
+        465
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 255,
+      "alpha1to8PixelCount": 410
+    },
+    {
+      "clip": "idle",
+      "index": 6,
+      "alpha0Bounds": [
+        110,
+        316,
+        274,
+        468
+      ],
+      "alpha8Bounds": [
+        110,
+        316,
+        274,
+        468
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 255,
+      "alpha1to8PixelCount": 410
+    },
+    {
+      "clip": "idle",
+      "index": 7,
+      "alpha0Bounds": [
+        110,
+        319,
+        274,
+        471
+      ],
+      "alpha8Bounds": [
+        110,
+        319,
+        274,
+        471
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 255,
+      "alpha1to8PixelCount": 410
+    },
+    {
+      "clip": "idle",
+      "index": 8,
+      "alpha0Bounds": [
+        110,
+        321,
+        274,
+        473
+      ],
+      "alpha8Bounds": [
+        110,
+        321,
+        274,
+        473
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 255,
+      "alpha1to8PixelCount": 410
+    },
+    {
+      "clip": "idle",
+      "index": 9,
+      "alpha0Bounds": [
+        110,
+        322,
+        274,
+        474
+      ],
+      "alpha8Bounds": [
+        110,
+        322,
+        274,
+        474
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 255,
+      "alpha1to8PixelCount": 410
+    },
+    {
+      "clip": "idle",
+      "index": 10,
+      "alpha0Bounds": [
+        110,
+        321,
+        274,
+        473
+      ],
+      "alpha8Bounds": [
+        110,
+        321,
+        274,
+        473
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 255,
+      "alpha1to8PixelCount": 410
+    },
+    {
+      "clip": "idle",
+      "index": 11,
+      "alpha0Bounds": [
+        110,
+        319,
+        274,
+        471
+      ],
+      "alpha8Bounds": [
+        110,
+        319,
+        274,
+        471
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 255,
+      "alpha1to8PixelCount": 410
+    },
+    {
+      "clip": "fade",
+      "index": 0,
+      "alpha0Bounds": [
+        110,
+        316,
+        274,
+        468
+      ],
+      "alpha8Bounds": [
+        110,
+        316,
+        274,
+        468
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 255,
+      "alpha1to8PixelCount": 410
+    },
+    {
+      "clip": "fade",
+      "index": 1,
+      "alpha0Bounds": [
+        110,
+        313,
+        274,
+        465
+      ],
+      "alpha8Bounds": [
+        110,
+        313,
+        274,
+        465
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 234,
+      "alpha1to8PixelCount": 412
+    },
+    {
+      "clip": "fade",
+      "index": 2,
+      "alpha0Bounds": [
+        110,
+        311,
+        274,
+        463
+      ],
+      "alpha8Bounds": [
+        110,
+        311,
+        274,
+        463
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 212,
+      "alpha1to8PixelCount": 417
+    },
+    {
+      "clip": "fade",
+      "index": 3,
+      "alpha0Bounds": [
+        110,
+        310,
+        274,
+        462
+      ],
+      "alpha8Bounds": [
+        110,
+        310,
+        274,
+        462
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 191,
+      "alpha1to8PixelCount": 422
+    },
+    {
+      "clip": "fade",
+      "index": 4,
+      "alpha0Bounds": [
+        110,
+        311,
+        274,
+        463
+      ],
+      "alpha8Bounds": [
+        110,
+        311,
+        274,
+        463
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 170,
+      "alpha1to8PixelCount": 424
+    },
+    {
+      "clip": "fade",
+      "index": 5,
+      "alpha0Bounds": [
+        110,
+        313,
+        274,
+        465
+      ],
+      "alpha8Bounds": [
+        110,
+        313,
+        274,
+        465
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 149,
+      "alpha1to8PixelCount": 427
+    },
+    {
+      "clip": "fade",
+      "index": 6,
+      "alpha0Bounds": [
+        110,
+        316,
+        274,
+        468
+      ],
+      "alpha8Bounds": [
+        110,
+        316,
+        274,
+        468
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 128,
+      "alpha1to8PixelCount": 334
+    },
+    {
+      "clip": "fade",
+      "index": 7,
+      "alpha0Bounds": [
+        110,
+        319,
+        274,
+        471
+      ],
+      "alpha8Bounds": [
+        110,
+        319,
+        274,
+        471
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 106,
+      "alpha1to8PixelCount": 345
+    },
+    {
+      "clip": "fade",
+      "index": 8,
+      "alpha0Bounds": [
+        110,
+        321,
+        274,
+        473
+      ],
+      "alpha8Bounds": [
+        110,
+        321,
+        274,
+        473
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 85,
+      "alpha1to8PixelCount": 360
+    },
+    {
+      "clip": "fade",
+      "index": 9,
+      "alpha0Bounds": [
+        110,
+        322,
+        274,
+        474
+      ],
+      "alpha8Bounds": [
+        110,
+        322,
+        274,
+        474
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 64,
+      "alpha1to8PixelCount": 279
+    },
+    {
+      "clip": "fade",
+      "index": 10,
+      "alpha0Bounds": [
+        110,
+        321,
+        274,
+        473
+      ],
+      "alpha8Bounds": [
+        110,
+        321,
+        274,
+        473
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 42,
+      "alpha1to8PixelCount": 179
+    },
+    {
+      "clip": "fade",
+      "index": 11,
+      "alpha0Bounds": [
+        110,
+        319,
+        274,
+        471
+      ],
+      "alpha8Bounds": [
+        110,
+        319,
+        274,
+        471
+      ],
+      "maxBorderAlpha": 0,
+      "maxAlpha": 21,
+      "alpha1to8PixelCount": 222
+    }
+  ],
+  "alphaSupportAudit": {
+    "path": "source/round01/crop.json",
+    "summary": "Raw target retained; original alpha>8 bounds-only rectangle; all inside RGBA unchanged."
+  },
+  "playbackInspection": "source/round01/playback-inspection.json",
+  "originalPublisherReplay": {
+    "original36AtlasRectRGBAEqual": true,
+    "candidate36FramesRGBAEqualUnchangedOriginalGeneratedFrameWithOnlySourceReplacement": true,
+    "originalRegisteredIdle0RGBAEqual": true,
+    "proof": "candidates/round01/original-replay-proof.json"
+  },
+  "contract": {
+    "clips": [
+      {
+        "id": "appear",
+        "frames": 12,
+        "fps": 12,
+        "loop": false,
+        "static": false,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "idle",
+        "frames": 12,
+        "fps": 12,
+        "loop": true,
+        "static": false,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "fade",
+        "frames": 12,
+        "fps": 12,
+        "loop": false,
+        "static": false,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      }
+    ],
+    "allAliasMetadataIdentical": true,
+    "allAtlasRectRGBAEqual": true,
+    "allBorderAlphaZero": true,
+    "minimumUniqueFrames": 6
+  },
+  "context": {
+    "harness": "candidates/round01/native-context/project.godot",
+    "methods": [
+      "sprite",
+      "_customer_at",
+      "_feedback_at",
+      "customer_pose_offset",
+      "customer_feedback",
+      "ArtBook.frame_data",
+      "ArtBook.registered_rect"
+    ],
+    "currentAttachment": [
+      0,
+      -172
+    ],
+    "poseOffsetCell": [
+      0.06,
+      -0.02
+    ],
+    "phase": "walking and leaving, navigation_mode=wander, walk customer",
+    "runtime": "4seconds: appear<1s then idle(seconds=wander_elapsed-1); reduced_motion idle frame0; timer=-1, no timer ring or runtime fade",
+    "legacy": "Separate -90logical catalog seated-wait/stool example, never used to adjust candidate registration"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "pillow": "12.3.0"
+  },
+  "technicalAmbiguity": "All raw target bytes retained. Crop omits measured faint-alpha pixels outside declared original threshold rectangle; do not read raw-alpha preservation as an unqualified packed-cutout claim."
+}

@@ -1,0 +1,201 @@
+{
+  "asset": "column-broken",
+  "round": 3,
+  "status": "candidate-ready-for-independent-review",
+  "pipeline": "native-3d",
+  "project": "source/round-03.blend",
+  "recipe": "source/round-03-recipe.py",
+  "validation": "candidates/round-03/validation.json",
+  "heroes": {
+    "N": "candidates/round-03/static-N.png",
+    "E": "candidates/round-03/static-E.png",
+    "S": "candidates/round-03/static-S.png",
+    "W": "candidates/round-03/static-W.png"
+  },
+  "rawFrames": [
+    {
+      "clip": "static",
+      "direction": "N",
+      "index": 0,
+      "nativeFrame": 1,
+      "path": "candidates/round-03/native-static-N.png",
+      "sha256": "2c61e46941e0e09c2f2ef152c05569e247bc4b1b2d5c0ce0a8c972a67fc8fb14",
+      "size": [
+        768,
+        1280
+      ]
+    },
+    {
+      "clip": "static",
+      "direction": "E",
+      "index": 0,
+      "nativeFrame": 1,
+      "path": "candidates/round-03/native-static-E.png",
+      "sha256": "5283119d7dbd6be5997b87ddf22f87222bf4dd245640dc35f5c6dcf72b850733",
+      "size": [
+        768,
+        1280
+      ]
+    },
+    {
+      "clip": "static",
+      "direction": "S",
+      "index": 0,
+      "nativeFrame": 1,
+      "path": "candidates/round-03/native-static-S.png",
+      "sha256": "75f884ef32a5fe78bad642faf419923c8bd2da527cea31a5e98cf19176e39d89",
+      "size": [
+        768,
+        1280
+      ]
+    },
+    {
+      "clip": "static",
+      "direction": "W",
+      "index": 0,
+      "nativeFrame": 1,
+      "path": "candidates/round-03/native-static-W.png",
+      "sha256": "bf2b612744421476ed930b71474602a5ef1dc8c1176ce2e2454201f47b5d81fa",
+      "size": [
+        768,
+        1280
+      ]
+    }
+  ],
+  "atlases": [
+    {
+      "clip": "static",
+      "sourceClipId": "static",
+      "direction": "N",
+      "path": "candidates/round-03/atlases/static-N.png",
+      "sha256": "e068a56cafc3caeda306ff2974b6654dbed07bf02a4efa5c77b914b982ee804e",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        384,
+        640
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          640
+        ]
+      ]
+    },
+    {
+      "clip": "static",
+      "sourceClipId": "static",
+      "direction": "E",
+      "path": "candidates/round-03/atlases/static-E.png",
+      "sha256": "8b6b18cb160f2f84a29d5a2b52287beb702668be5482bac3406ff0a0022658a5",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        384,
+        640
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          640
+        ]
+      ]
+    },
+    {
+      "clip": "static",
+      "sourceClipId": "static",
+      "direction": "S",
+      "path": "candidates/round-03/atlases/static-S.png",
+      "sha256": "dc0c9b9f74511494589012db6496ca05b6e8c059b53c1fa1564c87939456f784",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        384,
+        640
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          640
+        ]
+      ]
+    },
+    {
+      "clip": "static",
+      "sourceClipId": "static",
+      "direction": "W",
+      "path": "candidates/round-03/atlases/static-W.png",
+      "sha256": "b7f5af29dcb4f77b88bd1a5edac50ee41a8111617dab009b54211d6997a95ab2",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        384,
+        640
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          640
+        ]
+      ]
+    }
+  ],
+  "previews": {
+    "four-view-sheet": "candidates/round-03/four-view-sheet.png",
+    "logical-four-view-sheet": "candidates/round-03/logical-four-view-sheet.png",
+    "backgrounds": "candidates/round-03/backgrounds.png",
+    "enlarged-backgrounds": "candidates/round-03/enlarged-backgrounds.png",
+    "repeated": "candidates/round-03/repeated.png",
+    "consumer-desktop-four-facings": "candidates/round-03/consumer/desktop-four-facings.png",
+    "consumer-desktop-repeated": "candidates/round-03/consumer/desktop-repeated.png",
+    "consumer-desktop-interaction": "candidates/round-03/consumer/desktop-interaction.png",
+    "consumer-phone-four-facings": "candidates/round-03/consumer/phone-four-facings.png",
+    "consumer-landscape-four-facings": "candidates/round-03/consumer/landscape-four-facings.png"
+  },
+  "nativeRecords": {
+    "camera": "source/round-03-camera.json",
+    "assetRecord": "source/round-03-assetRecord.json",
+    "rig": "source/round-03-rig.json"
+  },
+  "nativeProject": {
+    "scene": "column-broken warm soft round 03",
+    "collection": "S33_PROP_column-broken",
+    "root": "column-broken__root",
+    "frame": 1,
+    "selfContained": true,
+    "externalResources": [],
+    "staticFacingsDegrees": {
+      "N": 180,
+      "E": 90,
+      "S": 0,
+      "W": -90
+    }
+  },
+  "replay": {
+    "script": "source/replay-round-03.py",
+    "command": "blender -b source/round-03.blend --python source/replay-round-03.py -- /absolute/output-directory",
+    "verification": "candidates/round-03/portable-replay.json"
+  },
+  "evidence": {
+    "sourceAudit": "candidates/round-03/source-audit.json",
+    "initialIndependentObservations": "source/initial-observations.json",
+    "packagingRecipe": "source/package-round-03.py",
+    "auditRecipe": "source/audit-round-03.py",
+    "consumer": "candidates/round-03/consumer/evidence.json",
+    "consumerRecipe": "source/consumer-round-03.mjs",
+    "portableReplay": "candidates/round-03/portable-replay.json"
+  },
+  "remainingDifferences": [
+    "Simpler continuous shaft contour and stone weathering than the ImageGen target.",
+    "Symmetric native lighting yields different turning-plane highlights from the target illustration."
+  ],
+  "resources": []
+}

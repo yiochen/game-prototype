@@ -1,0 +1,1834 @@
+{
+  "schemaVersion": 1,
+  "asset": "bubble-panic",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. Real 3D render output, editable Blender sources. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks. Follow-on design exploration: improve the modeling itself, including forms, proportions, structure, crafted details and decorations. Original part counts and awkward geometry are not constraints. The editor may rebuild native geometry to achieve the better design; the judge should reward useful improvements. Preserve the locked registration, gameplay contact/clearance, animation and modular continuity contract. See modeling-policy.json version2.",
+  "qualityCriteria": {
+    "asset": "bubble-panic",
+    "status": "proposed-awaiting-coordinator-freeze",
+    "version": 1,
+    "fixedTargetSHA256": "71e7b0b1a9c2768f2ee6eb51c0c958e37522bf6db39ddbd3e803e9a15e89c0a6",
+    "sourceType": "Existing native2D ImageGen raster plus deterministic publisher. No Blender claim applies.",
+    "outcomes": [
+      {
+        "id": "form",
+        "required": "A rounded, softly full cream speech balloon with a coherent readable rim and attached lower tail. The fixed target supplies fuller rim construction and dimensional icon forms; useful improvements are welcome within registration and identity. No dents, awkward tail joins, pinched cutout, pasted-on pieces or empty featureless dead regions."
+      },
+      {
+        "id": "emotion-identity-color",
+        "required": "Immediately read as scared/panicked trapped-customer feedback: one coral-red exclamation body with a distinct separate red dot, one small blue sweat drop, and restrained warm-gold emphasis ticks on ivory cream. Maintain clear symbol separation, familiar palette hierarchy, and the exclamation as the main read. Do not confuse it with preference, puzzled or happy feedback."
+      },
+      {
+        "id": "warm-soft-light",
+        "required": "Warm cream midtones, gently rounded shading, restrained warm reflected rim light and legible soft highlights on balloon and symbols. Rim and lower shading must stay coherent with approved heart/smile family context without flattening panic emotion or becoming harsh black contour, metallic edge, bloom or external shadow."
+      },
+      {
+        "id": "detail",
+        "required": "Purposeful simple dimensional icon detail, clean gentle occlusion, interior breathing room and tidy tail/rim construction. No noisy ornament, text, disconnected unintended fragments, excessive tiny shine dots, blurry symbol boundaries or accidental surface defects."
+      },
+      {
+        "id": "intended-size-readability",
+        "required": "Inspect at82logical-art-width and phone-scale roughly32-36px artwork width, plus enlarged. The exclamation body/dot and blue drop must remain distinguishable, the cream balloon/tail readable, and warm material finish evident at larger scale. Family references are context only, not replacement targets."
+      },
+      {
+        "id": "alpha-and-views",
+        "required": "True transparent background; clean antialiasing on light, neutral gray and dark. No opaque rectangles, matte/colored fringe, external glow, clipped edge, seams or detached debris. Same camera-facing artwork in S/N/E/W; inspect all36 unique clip frames and verify all144 alias slots, not just a hero frame."
+      },
+      {
+        "id": "motion",
+        "required": "Actually watch all three twelve-frame12fps clips with game-size and enlarged evidence. Preserve original appearance growth/opacity, bob, fade residual opacity, and idle loop. No symbol wandering, new squash, per-frame fit, recolor, temporal speckles, stalls or new unintended flash. Document the inherited discrete-bob loop/transition behavior honestly rather than changing it."
+      },
+      {
+        "id": "runtime-context",
+        "required": "Inspect current Godot feedback above a customer using the actual registered draw path and attachment. Panic is selected only for navigation_mode=wander with phase walking/leaving: appear before1s then looping idle; reduced_motion uses idle0; timer is-1 and no timer ring. Keep catalog legacy attachment/context separate. An isolated current-methods Godot harness is acceptable if labeled as such; do not invent new gameplay or claim its fade as currently selected runtime behavior."
+      }
+    ],
+    "hardContract": {
+      "projection": "screen-space-2d",
+      "facingPolicy": "camera-facing",
+      "logicalFrame": [
+        192,
+        320
+      ],
+      "physicalFrame": [
+        384,
+        640
+      ],
+      "logicalRoot": [
+        96,
+        248
+      ],
+      "physicalRoot": [
+        192,
+        496
+      ],
+      "sourceScale": 2,
+      "cellSize": 128,
+      "logicalArtWidth": 82,
+      "clips": [
+        {
+          "id": "appear",
+          "frames": 12,
+          "fps": 12,
+          "loop": false
+        },
+        {
+          "id": "idle",
+          "frames": 12,
+          "fps": 12,
+          "loop": true
+        },
+        {
+          "id": "fade",
+          "frames": 12,
+          "fps": 12,
+          "loop": false
+        }
+      ],
+      "frameOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "atlas": {
+        "columns": 6,
+        "rows": 2,
+        "size": [
+          2304,
+          1280
+        ],
+        "rectSize": [
+          384,
+          640
+        ]
+      },
+      "directions": [
+        "S",
+        "N",
+        "E",
+        "W"
+      ],
+      "uniqueClipFrames": 36,
+      "logicalAliasSlots": 144,
+      "publisherMath": {
+        "t": "index/12",
+        "phase": "t*tau",
+        "normalization": "One alpha>8 bounds crop of same asset, then uniform aspect-preserving resize to164physical pixels wide; raw target remains untouched. No extra grading, painting, warp or per-frame/facing fit.",
+        "appearScale": ".5+.5*sin((index+1)/12*pi/2)",
+        "appearAlpha": "(index+1)/12",
+        "idleScale": 1,
+        "idleAlpha": 1,
+        "fadeAlpha": "1-index/12",
+        "centerLogical": "[96,248-52-3*sin(index/12*tau)]",
+        "pastePhysical": "round(centerLogical*2-imageSize/2)",
+        "alphaRounding": "round(sourceAlpha*max(0,opacity))"
+      },
+      "currentRuntime": {
+        "source": "godot/scripts/restaurant_view.gd",
+        "attachmentLogical": [
+          0,
+          -172
+        ],
+        "placement": "base+customer_pose_offset(customer,pitch)+BUBBLE_ATTACHMENT*pitch/art.cell_size",
+        "timer": -1,
+        "phases": [
+          "walking",
+          "leaving"
+        ],
+        "navigationMode": "wander",
+        "appear": "max(0,wander_elapsed)<1",
+        "idleSeconds": "max(0,wander_elapsed)-1",
+        "reducedMotion": "idle frame0",
+        "fade": "retained delivery/catalog clip; not selected by current panic branch"
+      },
+      "legacyCatalogContext": {
+        "offsetLogical": [
+          0,
+          -90
+        ],
+        "scope": "catalog interaction only; not evidence of current Godot attachment"
+      }
+    },
+    "submissionEvidence": [
+      "Immutable hash-bound candidate packet with native2D source, exact recipe, target/original hashes, unmodified raw target and original provenance, dependency-closed resources, atlas/metadata/validation/previews and portable replay instructions.",
+      "Independently replay from declared same-asset source using exact original publisher math, compare actual frames/atlases, verify all36frames and144alias slots, root/canvas/dimensions/scale/fps/order/loop and no extra art manipulation.",
+      "Registered whole-frame sheets plus fixed-region detail at logical and enlarged sizes on light/gray/dark; all clip/frame evidence must refer to exact sealed atlas bytes.",
+      "Playable appear/idle/fade12fps at game size and enlarged, with final-frame/loop behavior and elapsed frame timing visible; judge must actually watch playback.",
+      "Current Godot-method context capture and source/metadata closure showing correct172px attachment plus shared customer_pose_offset, walking/leaving wander branch, reduced motion, no timer ring; separately label catalog90px legacy context."
+    ],
+    "verdictRule": "Visible improvement toward fixed warm-soft target and coherent family finish, no material defects/dead spots, passing capture/asset contract. Missing evidence means needs_evidence; numeric scores never substitute for inspection.",
+    "technicalAmbiguities": [
+      "Original catalog requirements.states lists appear/fade, but actual original clips also include idle. All three are locked.",
+      "Original idle has12frames but only6distinct pixel images due to rounded sinusoidal bob; this is valid inherited behavior and is not a missing-frame defect.",
+      "Fade frame11 retains1/12opacity, and appear frame0 starts1/12opacity with growth already above.5. Preserve exact original math rather than demanding fully transparent endpoints.",
+      "Target raw canvas971x1620 differs from384x640 capture. Existing2D exception explicitly authorizes one alpha-bounds crop and same-asset uniform82logical-width normalization; raw target must remain sealed.",
+      "Legacy catalog offset[0,-90] conflicts with current Godot BUBBLE_ATTACHMENT[0,-172]. Both must be labeled; current runtime proof must use the172px path.",
+      "Current panic branch has appear/idle, no fade selection, no timer, and fixed facingS. Do not claim catalogfade or four-facing runtime animation as new gameplay."
+    ],
+    "criteriaFile": "reviews/criteria.json",
+    "criteriaFileSHA256": "972b91f779f72b132ee58e0e27e0d9767a406f04dc6ef8c7dac1a1c82480241d",
+    "freezeStatus": "frozen-by-coordinator-before-editing"
+  },
+  "capture": {
+    "frame": [
+      384,
+      640
+    ],
+    "views": [
+      "S",
+      "N",
+      "E",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated",
+      "appear-S",
+      "appear-N",
+      "appear-E",
+      "appear-W",
+      "idle-S",
+      "idle-N",
+      "idle-E",
+      "idle-W",
+      "fade-S",
+      "fade-N",
+      "fade-E",
+      "fade-W"
+    ],
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "screen-space-2d"
+  },
+  "files": {
+    "brief": {
+      "path": "../../brief.json",
+      "sha256": "b4896deb6746eb974bc42f02fd9a256336fd64435cc0510cfbe013c5949ca776"
+    },
+    "originalProject": {
+      "path": "../../../../../production/source/2d/generated/bubble-panic.png",
+      "sha256": "7a3f2eaf2131262dda3f6858f270772929c2c5912a9c4fc48e290ee7d04bd6d1"
+    },
+    "backup": {
+      "path": "../../../../backups/7a3f2eaf2131262d-bubble-panic.png",
+      "sha256": "7a3f2eaf2131262dda3f6858f270772929c2c5912a9c4fc48e290ee7d04bd6d1"
+    },
+    "originalSnapshot": {
+      "path": "../../inputs/original.png",
+      "sha256": "f91dffab343b80a29d87dc1df5403ce0b8c2d0233ef357576a7c445a5879c5ba"
+    },
+    "target": {
+      "path": "../../inputs/target.png",
+      "sha256": "71e7b0b1a9c2768f2ee6eb51c0c958e37522bf6db39ddbd3e803e9a15e89c0a6"
+    },
+    "candidateProject": {
+      "path": "../../source/round01/bubble-panic.png",
+      "sha256": "3f3348872824f3b55570c86d634eafaf50625b443f415a729c6c49b585a7bce8"
+    },
+    "nativeValidation": {
+      "path": "validation.json",
+      "sha256": "8507c9f8f29ffd24acc56056e69e1bc2e4c59faf73c2c03c76e5754c613ebc98"
+    },
+    "targetPrompt": {
+      "path": "../../inputs/imagegen-prompt.txt",
+      "sha256": "b6042a19d88604ce0bb19d6fa22228da5018f29e7fb1236e3193bbe86156c6b4"
+    },
+    "agentPrompt:judge": {
+      "path": "../../prompts/judge.txt",
+      "sha256": "7b0b706c0f6b43eff61d84a4ed8df27f75084d1cf223551fd169b15ef066a057"
+    },
+    "agentPrompt:editor": {
+      "path": "../../prompts/editor.txt",
+      "sha256": "04cc4feb7e431af5a60c8259c9c80a43896da6813bc498d2f04527ea4cf1844d"
+    },
+    "candidateResource:frozenQualityCriteria": {
+      "path": "../../reviews/criteria.json",
+      "sha256": "972b91f779f72b132ee58e0e27e0d9767a406f04dc6ef8c7dac1a1c82480241d"
+    },
+    "candidateResource:input:imagegen-prompt.txt": {
+      "path": "../../inputs/imagegen-prompt.txt",
+      "sha256": "b6042a19d88604ce0bb19d6fa22228da5018f29e7fb1236e3193bbe86156c6b4"
+    },
+    "candidateResource:input:original.png": {
+      "path": "../../inputs/original.png",
+      "sha256": "f91dffab343b80a29d87dc1df5403ce0b8c2d0233ef357576a7c445a5879c5ba"
+    },
+    "candidateResource:input:catalog-object.json": {
+      "path": "../../inputs/catalog-object.json",
+      "sha256": "106fcabbb342fa4a62ac653ac50cb8320f45ac83f1ac4795b7231ab8a7736ebf"
+    },
+    "candidateResource:input:target.png": {
+      "path": "../../inputs/target.png",
+      "sha256": "71e7b0b1a9c2768f2ee6eb51c0c958e37522bf6db39ddbd3e803e9a15e89c0a6"
+    },
+    "candidateResource:input:approved-feedback-family-heart.png": {
+      "path": "../../inputs/approved-feedback-family-heart.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:input:approved-feedback-family-smile.png": {
+      "path": "../../inputs/approved-feedback-family-smile.png",
+      "sha256": "6448d564f806b2303658bc1e4476f38ec0dbb169e2e36044c6c620239bfd6fdf"
+    },
+    "candidateResource:input:original-2d-pipeline/overrides.json": {
+      "path": "../../inputs/original-2d-pipeline/overrides.json",
+      "sha256": "1b30458b9bef953f4a9caa4c8402405a8f2172102a0407d5eaa4eeb93a652bb4"
+    },
+    "candidateResource:input:original-2d-pipeline/README.md": {
+      "path": "../../inputs/original-2d-pipeline/README.md",
+      "sha256": "308aad3461e316b6179a47675430402267dda2f8fbb9c8ebade3132020c55083"
+    },
+    "candidateResource:input:original-2d-pipeline/prompts.json": {
+      "path": "../../inputs/original-2d-pipeline/prompts.json",
+      "sha256": "59708872f7fa5c6a9f0d682b0357a260f6e24703e66dfb90ec3f307ced5e3549"
+    },
+    "candidateResource:input:original-2d-pipeline/publish_2d.py": {
+      "path": "../../inputs/original-2d-pipeline/publish_2d.py",
+      "sha256": "6ceb9f228540ee49a96be824bd9d7f0a2aebe5173df2ea1069dcf565c687936d"
+    },
+    "candidateResource:delivery:resources:0": {
+      "path": "native-capture-evidence.json",
+      "sha256": "440da6e2c91e2902401c5339420588067e2f6229f9c13912984597b1d68c3c22"
+    },
+    "candidateResource:delivery:resources:1": {
+      "path": "native-context/assets/2d-appear-S.png",
+      "sha256": "bd5ff44289540cb35581325a2612d9d95fb559df0cfeeddedfe46f9e98825ff4"
+    },
+    "candidateResource:delivery:resources:2": {
+      "path": "native-context/assets/2d-fade-S.png",
+      "sha256": "9a8d369bc614a480489ccb26cf86c8401ae7832b0d726d31e51a36133473dd49"
+    },
+    "candidateResource:delivery:resources:3": {
+      "path": "native-context/assets/2d-idle-S.png",
+      "sha256": "9a9549f259d61f58de734d82df45eecd9d1db93db2e1bcda09c61f9eda212db2"
+    },
+    "candidateResource:delivery:resources:4": {
+      "path": "native-context/assets/context/catalog/sprites/customer-rosa/seated-wait-S.png",
+      "sha256": "a0d5f81d97a22f0cbc0a3e6aa019066fc3d6857a146ca2e085e31bf6aa84420b"
+    },
+    "candidateResource:delivery:resources:5": {
+      "path": "native-context/assets/context/catalog/sprites/customer-rosa/walk-S.png",
+      "sha256": "78bd806cd743f6405719fac594b41ae6111d42578f40a29e3275c53973d82f12"
+    },
+    "candidateResource:delivery:resources:6": {
+      "path": "native-context/assets/context/catalog/sprites/stool-wood/static-S.png",
+      "sha256": "3642fbbe699b7dcb9153392be23c9a6daab3a045220aa844f59385e804f4cf2f"
+    },
+    "candidateResource:delivery:resources:7": {
+      "path": "native-context/capture.gd",
+      "sha256": "f74d96b8ea8f13f961b5106fa6e65908ed24e516862c4a34f38bfead84a3ddd4"
+    },
+    "candidateResource:delivery:resources:8": {
+      "path": "native-context/capture.tscn",
+      "sha256": "ea37f4bbee50e7794c51ccabaa501ef572e92c74d156ee7110d950f4ba6d2161"
+    },
+    "candidateResource:delivery:resources:9": {
+      "path": "native-context/objects.json",
+      "sha256": "0208b41450449ce418ef32a6c5daae2d60a8105eed8ed011e4300d9fe1cb55d9"
+    },
+    "candidateResource:delivery:resources:10": {
+      "path": "native-context/project.godot",
+      "sha256": "9aea55f4cc42024a79d393493078fd8b3005e3216298b1afb98952a511be18a3"
+    },
+    "candidateResource:delivery:resources:11": {
+      "path": "native-context/scripts/art_book.gd",
+      "sha256": "2b3dcf2ad474139ed4d0256484bb9ec9d01b9a54da90612e54dd37fc03034c48"
+    },
+    "candidateResource:delivery:resources:12": {
+      "path": "native-context/scripts/restaurant_view.gd",
+      "sha256": "ea61f94c2b5f16398d4cddef79c18860b865a4cff766d7f3bcaefc8b2937d0cd"
+    },
+    "candidateResource:delivery:resources:13": {
+      "path": "native-context/scripts/typography.gd",
+      "sha256": "187290a2a46e233e2aea0b6bd83d022ccd0fb606d336de9ddba4994c82c8d85c"
+    },
+    "candidateResource:delivery:resources:14": {
+      "path": "original-replay-proof.json",
+      "sha256": "79ef9e26be645cc4696077a399ae2774250951115563090f223d4424253987ce"
+    },
+    "candidateResource:delivery:resources:15": {
+      "path": "../../source/initial-observations.json",
+      "sha256": "d14a39049f90e137a43a8f12b5867e2a8807f0102cd3b2cf39cfa7bddeda5b34"
+    },
+    "candidateResource:delivery:resources:16": {
+      "path": "../../source/round01/README.txt",
+      "sha256": "27d6f7292ba4f962478d9c37d3e2f115266f80f5f05c3a1488533339303cb663"
+    },
+    "candidateResource:delivery:resources:17": {
+      "path": "../../source/round01/bubble-panic.png",
+      "sha256": "3f3348872824f3b55570c86d634eafaf50625b443f415a729c6c49b585a7bce8"
+    },
+    "candidateResource:delivery:resources:18": {
+      "path": "../../source/round01/capture_native.py",
+      "sha256": "3e2bb60ba1d7a669f2ab5a2cc0514ec8af40d31df627c4672fe5eb2fb0f3337c"
+    },
+    "candidateResource:delivery:resources:19": {
+      "path": "../../source/round01/crop.json",
+      "sha256": "6352334c2e58492989d3663934de877b97e744790c9515be1c4f4ca55d324bb5"
+    },
+    "candidateResource:delivery:resources:20": {
+      "path": "../../source/round01/native_capture.gd",
+      "sha256": "f74d96b8ea8f13f961b5106fa6e65908ed24e516862c4a34f38bfead84a3ddd4"
+    },
+    "candidateResource:delivery:resources:21": {
+      "path": "../../source/round01/playback-inspection.json",
+      "sha256": "d3648d9c37d52fb15f1dee27e1f55bcb47fe84f28111d2afea7c3a4813484cfb"
+    },
+    "candidateResource:delivery:resources:22": {
+      "path": "../../source/round01/prepare_sources.py",
+      "sha256": "2254dfed63abf494d3f6dfca46e074370bc5c4a45c8a4728046c13c76d955f73"
+    },
+    "candidateResource:delivery:resources:23": {
+      "path": "../../source/round01/provenance.json",
+      "sha256": "a573ed038556d6fbdc379c9946b81632f6311163babde16e05beacb1348b3472"
+    },
+    "candidateResource:delivery:resources:24": {
+      "path": "../../source/round01/publish.py",
+      "sha256": "a61f5f8c809338802536d20c9ddfb71d7ba3aceeec8e607ee53e31fcf327b98c"
+    },
+    "candidateResource:delivery:resources:25": {
+      "path": "../../source/round01/recipe.json",
+      "sha256": "b7c8afff02f2c9ec3f6eab92c6287b0a25aafc47b34298b324716ae3ee735f3b"
+    },
+    "candidateResource:delivery:resources:26": {
+      "path": "../../source/round01/resources/approved-feedback-family-heart.png",
+      "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+    },
+    "candidateResource:delivery:resources:27": {
+      "path": "../../source/round01/resources/approved-feedback-family-smile.png",
+      "sha256": "6448d564f806b2303658bc1e4476f38ec0dbb169e2e36044c6c620239bfd6fdf"
+    },
+    "candidateResource:delivery:resources:28": {
+      "path": "../../source/round01/resources/catalog-object.json",
+      "sha256": "106fcabbb342fa4a62ac653ac50cb8320f45ac83f1ac4795b7231ab8a7736ebf"
+    },
+    "candidateResource:delivery:resources:29": {
+      "path": "../../source/round01/resources/context/catalog/sprites/customer-rosa/seated-wait-S.png",
+      "sha256": "a0d5f81d97a22f0cbc0a3e6aa019066fc3d6857a146ca2e085e31bf6aa84420b"
+    },
+    "candidateResource:delivery:resources:30": {
+      "path": "../../source/round01/resources/context/catalog/sprites/customer-rosa/walk-S.png",
+      "sha256": "78bd806cd743f6405719fac594b41ae6111d42578f40a29e3275c53973d82f12"
+    },
+    "candidateResource:delivery:resources:31": {
+      "path": "../../source/round01/resources/context/catalog/sprites/stool-wood/static-S.png",
+      "sha256": "3642fbbe699b7dcb9153392be23c9a6daab3a045220aa844f59385e804f4cf2f"
+    },
+    "candidateResource:delivery:resources:32": {
+      "path": "../../source/round01/resources/context/manifest.json",
+      "sha256": "4bcd82c7ce512391c758bc311c2c74150142e5de725fb521fd96d1082227b7b3"
+    },
+    "candidateResource:delivery:resources:33": {
+      "path": "../../source/round01/resources/context/runtime-scripts/art_book.gd",
+      "sha256": "2b3dcf2ad474139ed4d0256484bb9ec9d01b9a54da90612e54dd37fc03034c48"
+    },
+    "candidateResource:delivery:resources:34": {
+      "path": "../../source/round01/resources/context/runtime-scripts/restaurant_view.gd",
+      "sha256": "ea61f94c2b5f16398d4cddef79c18860b865a4cff766d7f3bcaefc8b2937d0cd"
+    },
+    "candidateResource:delivery:resources:35": {
+      "path": "../../source/round01/resources/context/runtime-scripts/typography.gd",
+      "sha256": "187290a2a46e233e2aea0b6bd83d022ccd0fb606d336de9ddba4994c82c8d85c"
+    },
+    "candidateResource:delivery:resources:36": {
+      "path": "../../source/round01/resources/frozen-brief.json",
+      "sha256": "b4896deb6746eb974bc42f02fd9a256336fd64435cc0510cfbe013c5949ca776"
+    },
+    "candidateResource:delivery:resources:37": {
+      "path": "../../source/round01/resources/frozen-criteria.json",
+      "sha256": "972b91f779f72b132ee58e0e27e0d9767a406f04dc6ef8c7dac1a1c82480241d"
+    },
+    "candidateResource:delivery:resources:38": {
+      "path": "../../source/round01/resources/imagegen-prompt.txt",
+      "sha256": "b6042a19d88604ce0bb19d6fa22228da5018f29e7fb1236e3193bbe86156c6b4"
+    },
+    "candidateResource:delivery:resources:39": {
+      "path": "../../source/round01/resources/native-capture/capture.log",
+      "sha256": "fb1062c7a42e019c10f9424bf890a881794b18065b65e03dad55e48cb80378fa"
+    },
+    "candidateResource:delivery:resources:40": {
+      "path": "../../source/round01/resources/native-capture/evidence.json",
+      "sha256": "440da6e2c91e2902401c5339420588067e2f6229f9c13912984597b1d68c3c22"
+    },
+    "candidateResource:delivery:resources:41": {
+      "path": "../../source/round01/resources/native-capture/legacy-catalog-90.png",
+      "sha256": "0123442a4e3e67a1bc854030b6fb4889c5f31cfc5b06c889a5a1b38b0f02a010"
+    },
+    "candidateResource:delivery:resources:42": {
+      "path": "../../source/round01/resources/native-capture/native-current-context-posed.png",
+      "sha256": "1b4bd4cab434b4afcc3d71691b2631e2d29a3e50cb2370ce8516ede79d583712"
+    },
+    "candidateResource:delivery:resources:43": {
+      "path": "../../source/round01/resources/native-capture/native-current-context.png",
+      "sha256": "af1ad61bff5b71e290f48ffb961b0aed40e20fc890dbfdcce782d4e028bbde4e"
+    },
+    "candidateResource:delivery:resources:44": {
+      "path": "../../source/round01/resources/native-capture/native-reduced-motion.png",
+      "sha256": "51b1996cf1c749cac65d4139e0a69bec5114c92439b63395623a11664f00ef4d"
+    },
+    "candidateResource:delivery:resources:45": {
+      "path": "../../source/round01/resources/native-capture/native-runtime-wander-playback.png",
+      "sha256": "bdcdf2ac1cc1c6f6cce5863f7a21cc881e3587b618030752e93547c0488a24a2"
+    },
+    "candidateResource:delivery:resources:46": {
+      "path": "../../source/round01/resources/original-2d-pipeline/README.md",
+      "sha256": "308aad3461e316b6179a47675430402267dda2f8fbb9c8ebade3132020c55083"
+    },
+    "candidateResource:delivery:resources:47": {
+      "path": "../../source/round01/resources/original-2d-pipeline/generated/bubble-panic.png",
+      "sha256": "7a3f2eaf2131262dda3f6858f270772929c2c5912a9c4fc48e290ee7d04bd6d1"
+    },
+    "candidateResource:delivery:resources:48": {
+      "path": "../../source/round01/resources/original-2d-pipeline/overrides.json",
+      "sha256": "1b30458b9bef953f4a9caa4c8402405a8f2172102a0407d5eaa4eeb93a652bb4"
+    },
+    "candidateResource:delivery:resources:49": {
+      "path": "../../source/round01/resources/original-2d-pipeline/prompts.json",
+      "sha256": "59708872f7fa5c6a9f0d682b0357a260f6e24703e66dfb90ec3f307ced5e3549"
+    },
+    "candidateResource:delivery:resources:50": {
+      "path": "../../source/round01/resources/original-2d-pipeline/publish_2d.py",
+      "sha256": "6ceb9f228540ee49a96be824bd9d7f0a2aebe5173df2ea1069dcf565c687936d"
+    },
+    "candidateResource:delivery:resources:51": {
+      "path": "../../source/round01/resources/original-atlases/2d-appear-S.png",
+      "sha256": "8c00dd526f1032d79a9e95b42a09014aa77a8122b1ab7f419da1bb6bb02cf55f"
+    },
+    "candidateResource:delivery:resources:52": {
+      "path": "../../source/round01/resources/original-atlases/2d-fade-S.png",
+      "sha256": "969e0cd22e6cb7b4366619ffff741dfac36a1a6f4b3543fdd7878ce1dbb19b2e"
+    },
+    "candidateResource:delivery:resources:53": {
+      "path": "../../source/round01/resources/original-atlases/2d-idle-S.png",
+      "sha256": "eb5d39fbd8407cf789e4d375b9c24333563af79e5c4ee6a4812ff0ae11051e26"
+    },
+    "candidateResource:delivery:resources:54": {
+      "path": "../../source/round01/resources/original-source/bubble-panic.png",
+      "sha256": "7a3f2eaf2131262dda3f6858f270772929c2c5912a9c4fc48e290ee7d04bd6d1"
+    },
+    "candidateResource:delivery:resources:55": {
+      "path": "../../source/round01/resources/original.png",
+      "sha256": "f91dffab343b80a29d87dc1df5403ce0b8c2d0233ef357576a7c445a5879c5ba"
+    },
+    "candidateResource:delivery:resources:56": {
+      "path": "../../source/round01/resources/target.png",
+      "sha256": "71e7b0b1a9c2768f2ee6eb51c0c958e37522bf6db39ddbd3e803e9a15e89c0a6"
+    },
+    "candidateResource:delivery:resources:57": {
+      "path": "../../source/round01/resources/warm-soft-reference.png",
+      "sha256": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15"
+    },
+    "candidateResource:delivery:resources:58": {
+      "path": "../../source/round01/verify.py",
+      "sha256": "930cfe0e3cf716cff446f4f081ef1406d60637d152642b4f610f2b1dec250d3d"
+    },
+    "candidateResource:delivery:rawFrames:0": {
+      "path": "raw/appear-S-0000.png",
+      "sha256": "e68123c993dab7ae02a8dc4ed87bdbbe657cc17d44358d433668ee3ba094d454"
+    },
+    "candidateResource:delivery:rawFrames:1": {
+      "path": "raw/appear-S-0000.png",
+      "sha256": "e68123c993dab7ae02a8dc4ed87bdbbe657cc17d44358d433668ee3ba094d454"
+    },
+    "candidateResource:delivery:rawFrames:2": {
+      "path": "raw/appear-S-0000.png",
+      "sha256": "e68123c993dab7ae02a8dc4ed87bdbbe657cc17d44358d433668ee3ba094d454"
+    },
+    "candidateResource:delivery:rawFrames:3": {
+      "path": "raw/appear-S-0000.png",
+      "sha256": "e68123c993dab7ae02a8dc4ed87bdbbe657cc17d44358d433668ee3ba094d454"
+    },
+    "candidateResource:delivery:rawFrames:4": {
+      "path": "raw/appear-S-0001.png",
+      "sha256": "621a7c725be64b679e34599d20ac6594683f705d725fcf1ee49c76436925d67b"
+    },
+    "candidateResource:delivery:rawFrames:5": {
+      "path": "raw/appear-S-0001.png",
+      "sha256": "621a7c725be64b679e34599d20ac6594683f705d725fcf1ee49c76436925d67b"
+    },
+    "candidateResource:delivery:rawFrames:6": {
+      "path": "raw/appear-S-0001.png",
+      "sha256": "621a7c725be64b679e34599d20ac6594683f705d725fcf1ee49c76436925d67b"
+    },
+    "candidateResource:delivery:rawFrames:7": {
+      "path": "raw/appear-S-0001.png",
+      "sha256": "621a7c725be64b679e34599d20ac6594683f705d725fcf1ee49c76436925d67b"
+    },
+    "candidateResource:delivery:rawFrames:8": {
+      "path": "raw/appear-S-0002.png",
+      "sha256": "425f1e032433ef05fa8d9583c375551e5e6a2057ca8fc98cc3e0b7f18648c70c"
+    },
+    "candidateResource:delivery:rawFrames:9": {
+      "path": "raw/appear-S-0002.png",
+      "sha256": "425f1e032433ef05fa8d9583c375551e5e6a2057ca8fc98cc3e0b7f18648c70c"
+    },
+    "candidateResource:delivery:rawFrames:10": {
+      "path": "raw/appear-S-0002.png",
+      "sha256": "425f1e032433ef05fa8d9583c375551e5e6a2057ca8fc98cc3e0b7f18648c70c"
+    },
+    "candidateResource:delivery:rawFrames:11": {
+      "path": "raw/appear-S-0002.png",
+      "sha256": "425f1e032433ef05fa8d9583c375551e5e6a2057ca8fc98cc3e0b7f18648c70c"
+    },
+    "candidateResource:delivery:rawFrames:12": {
+      "path": "raw/appear-S-0003.png",
+      "sha256": "356927e684f8c5dd7fc9460a7e6d65d3bff3b39e1b89ada59f7fced5488b210b"
+    },
+    "candidateResource:delivery:rawFrames:13": {
+      "path": "raw/appear-S-0003.png",
+      "sha256": "356927e684f8c5dd7fc9460a7e6d65d3bff3b39e1b89ada59f7fced5488b210b"
+    },
+    "candidateResource:delivery:rawFrames:14": {
+      "path": "raw/appear-S-0003.png",
+      "sha256": "356927e684f8c5dd7fc9460a7e6d65d3bff3b39e1b89ada59f7fced5488b210b"
+    },
+    "candidateResource:delivery:rawFrames:15": {
+      "path": "raw/appear-S-0003.png",
+      "sha256": "356927e684f8c5dd7fc9460a7e6d65d3bff3b39e1b89ada59f7fced5488b210b"
+    },
+    "candidateResource:delivery:rawFrames:16": {
+      "path": "raw/appear-S-0004.png",
+      "sha256": "f503ccf3910019938e25931a740c7a5751d21a825fd593a112910ebeeb059638"
+    },
+    "candidateResource:delivery:rawFrames:17": {
+      "path": "raw/appear-S-0004.png",
+      "sha256": "f503ccf3910019938e25931a740c7a5751d21a825fd593a112910ebeeb059638"
+    },
+    "candidateResource:delivery:rawFrames:18": {
+      "path": "raw/appear-S-0004.png",
+      "sha256": "f503ccf3910019938e25931a740c7a5751d21a825fd593a112910ebeeb059638"
+    },
+    "candidateResource:delivery:rawFrames:19": {
+      "path": "raw/appear-S-0004.png",
+      "sha256": "f503ccf3910019938e25931a740c7a5751d21a825fd593a112910ebeeb059638"
+    },
+    "candidateResource:delivery:rawFrames:20": {
+      "path": "raw/appear-S-0005.png",
+      "sha256": "ae9ddb4566a7faa10661a39bb0c57f0c2ec598265be8313507909f3568f4b603"
+    },
+    "candidateResource:delivery:rawFrames:21": {
+      "path": "raw/appear-S-0005.png",
+      "sha256": "ae9ddb4566a7faa10661a39bb0c57f0c2ec598265be8313507909f3568f4b603"
+    },
+    "candidateResource:delivery:rawFrames:22": {
+      "path": "raw/appear-S-0005.png",
+      "sha256": "ae9ddb4566a7faa10661a39bb0c57f0c2ec598265be8313507909f3568f4b603"
+    },
+    "candidateResource:delivery:rawFrames:23": {
+      "path": "raw/appear-S-0005.png",
+      "sha256": "ae9ddb4566a7faa10661a39bb0c57f0c2ec598265be8313507909f3568f4b603"
+    },
+    "candidateResource:delivery:rawFrames:24": {
+      "path": "raw/appear-S-0006.png",
+      "sha256": "7e3a9cf4884c9593ae98ae14bb20ceabc155ce3a5e38c873dd4f808d4eda76da"
+    },
+    "candidateResource:delivery:rawFrames:25": {
+      "path": "raw/appear-S-0006.png",
+      "sha256": "7e3a9cf4884c9593ae98ae14bb20ceabc155ce3a5e38c873dd4f808d4eda76da"
+    },
+    "candidateResource:delivery:rawFrames:26": {
+      "path": "raw/appear-S-0006.png",
+      "sha256": "7e3a9cf4884c9593ae98ae14bb20ceabc155ce3a5e38c873dd4f808d4eda76da"
+    },
+    "candidateResource:delivery:rawFrames:27": {
+      "path": "raw/appear-S-0006.png",
+      "sha256": "7e3a9cf4884c9593ae98ae14bb20ceabc155ce3a5e38c873dd4f808d4eda76da"
+    },
+    "candidateResource:delivery:rawFrames:28": {
+      "path": "raw/appear-S-0007.png",
+      "sha256": "fd8195420deee328f160cfcfeed2ecb6dd607397887b301401076b2d15d9c5d6"
+    },
+    "candidateResource:delivery:rawFrames:29": {
+      "path": "raw/appear-S-0007.png",
+      "sha256": "fd8195420deee328f160cfcfeed2ecb6dd607397887b301401076b2d15d9c5d6"
+    },
+    "candidateResource:delivery:rawFrames:30": {
+      "path": "raw/appear-S-0007.png",
+      "sha256": "fd8195420deee328f160cfcfeed2ecb6dd607397887b301401076b2d15d9c5d6"
+    },
+    "candidateResource:delivery:rawFrames:31": {
+      "path": "raw/appear-S-0007.png",
+      "sha256": "fd8195420deee328f160cfcfeed2ecb6dd607397887b301401076b2d15d9c5d6"
+    },
+    "candidateResource:delivery:rawFrames:32": {
+      "path": "raw/appear-S-0008.png",
+      "sha256": "825e6ba407e0e9dfed60702edc9afdc542b0c29af907e03385c6241aeea496ac"
+    },
+    "candidateResource:delivery:rawFrames:33": {
+      "path": "raw/appear-S-0008.png",
+      "sha256": "825e6ba407e0e9dfed60702edc9afdc542b0c29af907e03385c6241aeea496ac"
+    },
+    "candidateResource:delivery:rawFrames:34": {
+      "path": "raw/appear-S-0008.png",
+      "sha256": "825e6ba407e0e9dfed60702edc9afdc542b0c29af907e03385c6241aeea496ac"
+    },
+    "candidateResource:delivery:rawFrames:35": {
+      "path": "raw/appear-S-0008.png",
+      "sha256": "825e6ba407e0e9dfed60702edc9afdc542b0c29af907e03385c6241aeea496ac"
+    },
+    "candidateResource:delivery:rawFrames:36": {
+      "path": "raw/appear-S-0009.png",
+      "sha256": "ecbf4eea2c36ade14fc0f4a2c2304c05956c33958497dfcbe0725c1e8b5ee102"
+    },
+    "candidateResource:delivery:rawFrames:37": {
+      "path": "raw/appear-S-0009.png",
+      "sha256": "ecbf4eea2c36ade14fc0f4a2c2304c05956c33958497dfcbe0725c1e8b5ee102"
+    },
+    "candidateResource:delivery:rawFrames:38": {
+      "path": "raw/appear-S-0009.png",
+      "sha256": "ecbf4eea2c36ade14fc0f4a2c2304c05956c33958497dfcbe0725c1e8b5ee102"
+    },
+    "candidateResource:delivery:rawFrames:39": {
+      "path": "raw/appear-S-0009.png",
+      "sha256": "ecbf4eea2c36ade14fc0f4a2c2304c05956c33958497dfcbe0725c1e8b5ee102"
+    },
+    "candidateResource:delivery:rawFrames:40": {
+      "path": "raw/appear-S-0010.png",
+      "sha256": "83f81d946765e87c906230e902bac1b1ab9b29764cebdbb0d0a39f4324b0d35b"
+    },
+    "candidateResource:delivery:rawFrames:41": {
+      "path": "raw/appear-S-0010.png",
+      "sha256": "83f81d946765e87c906230e902bac1b1ab9b29764cebdbb0d0a39f4324b0d35b"
+    },
+    "candidateResource:delivery:rawFrames:42": {
+      "path": "raw/appear-S-0010.png",
+      "sha256": "83f81d946765e87c906230e902bac1b1ab9b29764cebdbb0d0a39f4324b0d35b"
+    },
+    "candidateResource:delivery:rawFrames:43": {
+      "path": "raw/appear-S-0010.png",
+      "sha256": "83f81d946765e87c906230e902bac1b1ab9b29764cebdbb0d0a39f4324b0d35b"
+    },
+    "candidateResource:delivery:rawFrames:44": {
+      "path": "raw/appear-S-0011.png",
+      "sha256": "f8a376386d2f407ec8278c42465192f4398ec5e38785747c6489fd7c6d7182eb"
+    },
+    "candidateResource:delivery:rawFrames:45": {
+      "path": "raw/appear-S-0011.png",
+      "sha256": "f8a376386d2f407ec8278c42465192f4398ec5e38785747c6489fd7c6d7182eb"
+    },
+    "candidateResource:delivery:rawFrames:46": {
+      "path": "raw/appear-S-0011.png",
+      "sha256": "f8a376386d2f407ec8278c42465192f4398ec5e38785747c6489fd7c6d7182eb"
+    },
+    "candidateResource:delivery:rawFrames:47": {
+      "path": "raw/appear-S-0011.png",
+      "sha256": "f8a376386d2f407ec8278c42465192f4398ec5e38785747c6489fd7c6d7182eb"
+    },
+    "candidateResource:delivery:rawFrames:48": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d"
+    },
+    "candidateResource:delivery:rawFrames:49": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d"
+    },
+    "candidateResource:delivery:rawFrames:50": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d"
+    },
+    "candidateResource:delivery:rawFrames:51": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d"
+    },
+    "candidateResource:delivery:rawFrames:52": {
+      "path": "raw/idle-S-0001.png",
+      "sha256": "ab858efad967a257e5c1ce32d67128ca9e5c5ff8264084b3729984d025a578b9"
+    },
+    "candidateResource:delivery:rawFrames:53": {
+      "path": "raw/idle-S-0001.png",
+      "sha256": "ab858efad967a257e5c1ce32d67128ca9e5c5ff8264084b3729984d025a578b9"
+    },
+    "candidateResource:delivery:rawFrames:54": {
+      "path": "raw/idle-S-0001.png",
+      "sha256": "ab858efad967a257e5c1ce32d67128ca9e5c5ff8264084b3729984d025a578b9"
+    },
+    "candidateResource:delivery:rawFrames:55": {
+      "path": "raw/idle-S-0001.png",
+      "sha256": "ab858efad967a257e5c1ce32d67128ca9e5c5ff8264084b3729984d025a578b9"
+    },
+    "candidateResource:delivery:rawFrames:56": {
+      "path": "raw/idle-S-0002.png",
+      "sha256": "544f48d2f8e0c8d63a48c7d47daa069aa354b57550d08b260d89d4a14e1ffcbd"
+    },
+    "candidateResource:delivery:rawFrames:57": {
+      "path": "raw/idle-S-0002.png",
+      "sha256": "544f48d2f8e0c8d63a48c7d47daa069aa354b57550d08b260d89d4a14e1ffcbd"
+    },
+    "candidateResource:delivery:rawFrames:58": {
+      "path": "raw/idle-S-0002.png",
+      "sha256": "544f48d2f8e0c8d63a48c7d47daa069aa354b57550d08b260d89d4a14e1ffcbd"
+    },
+    "candidateResource:delivery:rawFrames:59": {
+      "path": "raw/idle-S-0002.png",
+      "sha256": "544f48d2f8e0c8d63a48c7d47daa069aa354b57550d08b260d89d4a14e1ffcbd"
+    },
+    "candidateResource:delivery:rawFrames:60": {
+      "path": "raw/idle-S-0003.png",
+      "sha256": "11d31799d0c2427fc8310b1dc98a3c99569cdde16b43c7e153c622a129b84ff1"
+    },
+    "candidateResource:delivery:rawFrames:61": {
+      "path": "raw/idle-S-0003.png",
+      "sha256": "11d31799d0c2427fc8310b1dc98a3c99569cdde16b43c7e153c622a129b84ff1"
+    },
+    "candidateResource:delivery:rawFrames:62": {
+      "path": "raw/idle-S-0003.png",
+      "sha256": "11d31799d0c2427fc8310b1dc98a3c99569cdde16b43c7e153c622a129b84ff1"
+    },
+    "candidateResource:delivery:rawFrames:63": {
+      "path": "raw/idle-S-0003.png",
+      "sha256": "11d31799d0c2427fc8310b1dc98a3c99569cdde16b43c7e153c622a129b84ff1"
+    },
+    "candidateResource:delivery:rawFrames:64": {
+      "path": "raw/idle-S-0004.png",
+      "sha256": "544f48d2f8e0c8d63a48c7d47daa069aa354b57550d08b260d89d4a14e1ffcbd"
+    },
+    "candidateResource:delivery:rawFrames:65": {
+      "path": "raw/idle-S-0004.png",
+      "sha256": "544f48d2f8e0c8d63a48c7d47daa069aa354b57550d08b260d89d4a14e1ffcbd"
+    },
+    "candidateResource:delivery:rawFrames:66": {
+      "path": "raw/idle-S-0004.png",
+      "sha256": "544f48d2f8e0c8d63a48c7d47daa069aa354b57550d08b260d89d4a14e1ffcbd"
+    },
+    "candidateResource:delivery:rawFrames:67": {
+      "path": "raw/idle-S-0004.png",
+      "sha256": "544f48d2f8e0c8d63a48c7d47daa069aa354b57550d08b260d89d4a14e1ffcbd"
+    },
+    "candidateResource:delivery:rawFrames:68": {
+      "path": "raw/idle-S-0005.png",
+      "sha256": "ab858efad967a257e5c1ce32d67128ca9e5c5ff8264084b3729984d025a578b9"
+    },
+    "candidateResource:delivery:rawFrames:69": {
+      "path": "raw/idle-S-0005.png",
+      "sha256": "ab858efad967a257e5c1ce32d67128ca9e5c5ff8264084b3729984d025a578b9"
+    },
+    "candidateResource:delivery:rawFrames:70": {
+      "path": "raw/idle-S-0005.png",
+      "sha256": "ab858efad967a257e5c1ce32d67128ca9e5c5ff8264084b3729984d025a578b9"
+    },
+    "candidateResource:delivery:rawFrames:71": {
+      "path": "raw/idle-S-0005.png",
+      "sha256": "ab858efad967a257e5c1ce32d67128ca9e5c5ff8264084b3729984d025a578b9"
+    },
+    "candidateResource:delivery:rawFrames:72": {
+      "path": "raw/idle-S-0006.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d"
+    },
+    "candidateResource:delivery:rawFrames:73": {
+      "path": "raw/idle-S-0006.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d"
+    },
+    "candidateResource:delivery:rawFrames:74": {
+      "path": "raw/idle-S-0006.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d"
+    },
+    "candidateResource:delivery:rawFrames:75": {
+      "path": "raw/idle-S-0006.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d"
+    },
+    "candidateResource:delivery:rawFrames:76": {
+      "path": "raw/idle-S-0007.png",
+      "sha256": "f8a376386d2f407ec8278c42465192f4398ec5e38785747c6489fd7c6d7182eb"
+    },
+    "candidateResource:delivery:rawFrames:77": {
+      "path": "raw/idle-S-0007.png",
+      "sha256": "f8a376386d2f407ec8278c42465192f4398ec5e38785747c6489fd7c6d7182eb"
+    },
+    "candidateResource:delivery:rawFrames:78": {
+      "path": "raw/idle-S-0007.png",
+      "sha256": "f8a376386d2f407ec8278c42465192f4398ec5e38785747c6489fd7c6d7182eb"
+    },
+    "candidateResource:delivery:rawFrames:79": {
+      "path": "raw/idle-S-0007.png",
+      "sha256": "f8a376386d2f407ec8278c42465192f4398ec5e38785747c6489fd7c6d7182eb"
+    },
+    "candidateResource:delivery:rawFrames:80": {
+      "path": "raw/idle-S-0008.png",
+      "sha256": "9190d3cc2c4666f56dcabe79da0478e49746dad035f52735630f654b27d9bad4"
+    },
+    "candidateResource:delivery:rawFrames:81": {
+      "path": "raw/idle-S-0008.png",
+      "sha256": "9190d3cc2c4666f56dcabe79da0478e49746dad035f52735630f654b27d9bad4"
+    },
+    "candidateResource:delivery:rawFrames:82": {
+      "path": "raw/idle-S-0008.png",
+      "sha256": "9190d3cc2c4666f56dcabe79da0478e49746dad035f52735630f654b27d9bad4"
+    },
+    "candidateResource:delivery:rawFrames:83": {
+      "path": "raw/idle-S-0008.png",
+      "sha256": "9190d3cc2c4666f56dcabe79da0478e49746dad035f52735630f654b27d9bad4"
+    },
+    "candidateResource:delivery:rawFrames:84": {
+      "path": "raw/idle-S-0009.png",
+      "sha256": "9e20ccfa290885f0042fe040a425ea4761f74c388f45d9c8c64461a00d88d171"
+    },
+    "candidateResource:delivery:rawFrames:85": {
+      "path": "raw/idle-S-0009.png",
+      "sha256": "9e20ccfa290885f0042fe040a425ea4761f74c388f45d9c8c64461a00d88d171"
+    },
+    "candidateResource:delivery:rawFrames:86": {
+      "path": "raw/idle-S-0009.png",
+      "sha256": "9e20ccfa290885f0042fe040a425ea4761f74c388f45d9c8c64461a00d88d171"
+    },
+    "candidateResource:delivery:rawFrames:87": {
+      "path": "raw/idle-S-0009.png",
+      "sha256": "9e20ccfa290885f0042fe040a425ea4761f74c388f45d9c8c64461a00d88d171"
+    },
+    "candidateResource:delivery:rawFrames:88": {
+      "path": "raw/idle-S-0010.png",
+      "sha256": "9190d3cc2c4666f56dcabe79da0478e49746dad035f52735630f654b27d9bad4"
+    },
+    "candidateResource:delivery:rawFrames:89": {
+      "path": "raw/idle-S-0010.png",
+      "sha256": "9190d3cc2c4666f56dcabe79da0478e49746dad035f52735630f654b27d9bad4"
+    },
+    "candidateResource:delivery:rawFrames:90": {
+      "path": "raw/idle-S-0010.png",
+      "sha256": "9190d3cc2c4666f56dcabe79da0478e49746dad035f52735630f654b27d9bad4"
+    },
+    "candidateResource:delivery:rawFrames:91": {
+      "path": "raw/idle-S-0010.png",
+      "sha256": "9190d3cc2c4666f56dcabe79da0478e49746dad035f52735630f654b27d9bad4"
+    },
+    "candidateResource:delivery:rawFrames:92": {
+      "path": "raw/idle-S-0011.png",
+      "sha256": "f8a376386d2f407ec8278c42465192f4398ec5e38785747c6489fd7c6d7182eb"
+    },
+    "candidateResource:delivery:rawFrames:93": {
+      "path": "raw/idle-S-0011.png",
+      "sha256": "f8a376386d2f407ec8278c42465192f4398ec5e38785747c6489fd7c6d7182eb"
+    },
+    "candidateResource:delivery:rawFrames:94": {
+      "path": "raw/idle-S-0011.png",
+      "sha256": "f8a376386d2f407ec8278c42465192f4398ec5e38785747c6489fd7c6d7182eb"
+    },
+    "candidateResource:delivery:rawFrames:95": {
+      "path": "raw/idle-S-0011.png",
+      "sha256": "f8a376386d2f407ec8278c42465192f4398ec5e38785747c6489fd7c6d7182eb"
+    },
+    "candidateResource:delivery:rawFrames:96": {
+      "path": "raw/fade-S-0000.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d"
+    },
+    "candidateResource:delivery:rawFrames:97": {
+      "path": "raw/fade-S-0000.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d"
+    },
+    "candidateResource:delivery:rawFrames:98": {
+      "path": "raw/fade-S-0000.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d"
+    },
+    "candidateResource:delivery:rawFrames:99": {
+      "path": "raw/fade-S-0000.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d"
+    },
+    "candidateResource:delivery:rawFrames:100": {
+      "path": "raw/fade-S-0001.png",
+      "sha256": "5022c43a326dda099167bb4ff7eb28fface0e74259f41edf9dfb8b4d79a207da"
+    },
+    "candidateResource:delivery:rawFrames:101": {
+      "path": "raw/fade-S-0001.png",
+      "sha256": "5022c43a326dda099167bb4ff7eb28fface0e74259f41edf9dfb8b4d79a207da"
+    },
+    "candidateResource:delivery:rawFrames:102": {
+      "path": "raw/fade-S-0001.png",
+      "sha256": "5022c43a326dda099167bb4ff7eb28fface0e74259f41edf9dfb8b4d79a207da"
+    },
+    "candidateResource:delivery:rawFrames:103": {
+      "path": "raw/fade-S-0001.png",
+      "sha256": "5022c43a326dda099167bb4ff7eb28fface0e74259f41edf9dfb8b4d79a207da"
+    },
+    "candidateResource:delivery:rawFrames:104": {
+      "path": "raw/fade-S-0002.png",
+      "sha256": "6fc5b2978898b97417961708d2f1cef7c937281a0e565c881cf49ea4d24c910a"
+    },
+    "candidateResource:delivery:rawFrames:105": {
+      "path": "raw/fade-S-0002.png",
+      "sha256": "6fc5b2978898b97417961708d2f1cef7c937281a0e565c881cf49ea4d24c910a"
+    },
+    "candidateResource:delivery:rawFrames:106": {
+      "path": "raw/fade-S-0002.png",
+      "sha256": "6fc5b2978898b97417961708d2f1cef7c937281a0e565c881cf49ea4d24c910a"
+    },
+    "candidateResource:delivery:rawFrames:107": {
+      "path": "raw/fade-S-0002.png",
+      "sha256": "6fc5b2978898b97417961708d2f1cef7c937281a0e565c881cf49ea4d24c910a"
+    },
+    "candidateResource:delivery:rawFrames:108": {
+      "path": "raw/fade-S-0003.png",
+      "sha256": "deddf535f2d59e6ed85265754dff63fc77a65392277bed181f14aacb61a769f4"
+    },
+    "candidateResource:delivery:rawFrames:109": {
+      "path": "raw/fade-S-0003.png",
+      "sha256": "deddf535f2d59e6ed85265754dff63fc77a65392277bed181f14aacb61a769f4"
+    },
+    "candidateResource:delivery:rawFrames:110": {
+      "path": "raw/fade-S-0003.png",
+      "sha256": "deddf535f2d59e6ed85265754dff63fc77a65392277bed181f14aacb61a769f4"
+    },
+    "candidateResource:delivery:rawFrames:111": {
+      "path": "raw/fade-S-0003.png",
+      "sha256": "deddf535f2d59e6ed85265754dff63fc77a65392277bed181f14aacb61a769f4"
+    },
+    "candidateResource:delivery:rawFrames:112": {
+      "path": "raw/fade-S-0004.png",
+      "sha256": "517ecbe5cbb32bb2319995c85fe5ba76ec099974d577b5f9b127735c2639b2c0"
+    },
+    "candidateResource:delivery:rawFrames:113": {
+      "path": "raw/fade-S-0004.png",
+      "sha256": "517ecbe5cbb32bb2319995c85fe5ba76ec099974d577b5f9b127735c2639b2c0"
+    },
+    "candidateResource:delivery:rawFrames:114": {
+      "path": "raw/fade-S-0004.png",
+      "sha256": "517ecbe5cbb32bb2319995c85fe5ba76ec099974d577b5f9b127735c2639b2c0"
+    },
+    "candidateResource:delivery:rawFrames:115": {
+      "path": "raw/fade-S-0004.png",
+      "sha256": "517ecbe5cbb32bb2319995c85fe5ba76ec099974d577b5f9b127735c2639b2c0"
+    },
+    "candidateResource:delivery:rawFrames:116": {
+      "path": "raw/fade-S-0005.png",
+      "sha256": "aa60af50a0cb9dc547980cee3f669cab93f88fcc2eac38b5815f7037cf7726b2"
+    },
+    "candidateResource:delivery:rawFrames:117": {
+      "path": "raw/fade-S-0005.png",
+      "sha256": "aa60af50a0cb9dc547980cee3f669cab93f88fcc2eac38b5815f7037cf7726b2"
+    },
+    "candidateResource:delivery:rawFrames:118": {
+      "path": "raw/fade-S-0005.png",
+      "sha256": "aa60af50a0cb9dc547980cee3f669cab93f88fcc2eac38b5815f7037cf7726b2"
+    },
+    "candidateResource:delivery:rawFrames:119": {
+      "path": "raw/fade-S-0005.png",
+      "sha256": "aa60af50a0cb9dc547980cee3f669cab93f88fcc2eac38b5815f7037cf7726b2"
+    },
+    "candidateResource:delivery:rawFrames:120": {
+      "path": "raw/fade-S-0006.png",
+      "sha256": "6543c7c9f0dd8ce375ef02702a2c4430243f19a25164c03f1bc077fe6670260c"
+    },
+    "candidateResource:delivery:rawFrames:121": {
+      "path": "raw/fade-S-0006.png",
+      "sha256": "6543c7c9f0dd8ce375ef02702a2c4430243f19a25164c03f1bc077fe6670260c"
+    },
+    "candidateResource:delivery:rawFrames:122": {
+      "path": "raw/fade-S-0006.png",
+      "sha256": "6543c7c9f0dd8ce375ef02702a2c4430243f19a25164c03f1bc077fe6670260c"
+    },
+    "candidateResource:delivery:rawFrames:123": {
+      "path": "raw/fade-S-0006.png",
+      "sha256": "6543c7c9f0dd8ce375ef02702a2c4430243f19a25164c03f1bc077fe6670260c"
+    },
+    "candidateResource:delivery:rawFrames:124": {
+      "path": "raw/fade-S-0007.png",
+      "sha256": "79dfd9e5b75c1fca7ca1a91307a5d4881ebef6677094c0bc572e42a98d8cade0"
+    },
+    "candidateResource:delivery:rawFrames:125": {
+      "path": "raw/fade-S-0007.png",
+      "sha256": "79dfd9e5b75c1fca7ca1a91307a5d4881ebef6677094c0bc572e42a98d8cade0"
+    },
+    "candidateResource:delivery:rawFrames:126": {
+      "path": "raw/fade-S-0007.png",
+      "sha256": "79dfd9e5b75c1fca7ca1a91307a5d4881ebef6677094c0bc572e42a98d8cade0"
+    },
+    "candidateResource:delivery:rawFrames:127": {
+      "path": "raw/fade-S-0007.png",
+      "sha256": "79dfd9e5b75c1fca7ca1a91307a5d4881ebef6677094c0bc572e42a98d8cade0"
+    },
+    "candidateResource:delivery:rawFrames:128": {
+      "path": "raw/fade-S-0008.png",
+      "sha256": "b2bc70499d255d82e49bc4dccb21e7fa382c5b6436aa225acb211652a3f53a72"
+    },
+    "candidateResource:delivery:rawFrames:129": {
+      "path": "raw/fade-S-0008.png",
+      "sha256": "b2bc70499d255d82e49bc4dccb21e7fa382c5b6436aa225acb211652a3f53a72"
+    },
+    "candidateResource:delivery:rawFrames:130": {
+      "path": "raw/fade-S-0008.png",
+      "sha256": "b2bc70499d255d82e49bc4dccb21e7fa382c5b6436aa225acb211652a3f53a72"
+    },
+    "candidateResource:delivery:rawFrames:131": {
+      "path": "raw/fade-S-0008.png",
+      "sha256": "b2bc70499d255d82e49bc4dccb21e7fa382c5b6436aa225acb211652a3f53a72"
+    },
+    "candidateResource:delivery:rawFrames:132": {
+      "path": "raw/fade-S-0009.png",
+      "sha256": "2084b6fe470486e0cdf8d320a582af533202c86db77ab7cdc2e9bd93104d2fb6"
+    },
+    "candidateResource:delivery:rawFrames:133": {
+      "path": "raw/fade-S-0009.png",
+      "sha256": "2084b6fe470486e0cdf8d320a582af533202c86db77ab7cdc2e9bd93104d2fb6"
+    },
+    "candidateResource:delivery:rawFrames:134": {
+      "path": "raw/fade-S-0009.png",
+      "sha256": "2084b6fe470486e0cdf8d320a582af533202c86db77ab7cdc2e9bd93104d2fb6"
+    },
+    "candidateResource:delivery:rawFrames:135": {
+      "path": "raw/fade-S-0009.png",
+      "sha256": "2084b6fe470486e0cdf8d320a582af533202c86db77ab7cdc2e9bd93104d2fb6"
+    },
+    "candidateResource:delivery:rawFrames:136": {
+      "path": "raw/fade-S-0010.png",
+      "sha256": "41be0059613e2b164513ef33485eba65affa648607b0617bd0082c69d22e6444"
+    },
+    "candidateResource:delivery:rawFrames:137": {
+      "path": "raw/fade-S-0010.png",
+      "sha256": "41be0059613e2b164513ef33485eba65affa648607b0617bd0082c69d22e6444"
+    },
+    "candidateResource:delivery:rawFrames:138": {
+      "path": "raw/fade-S-0010.png",
+      "sha256": "41be0059613e2b164513ef33485eba65affa648607b0617bd0082c69d22e6444"
+    },
+    "candidateResource:delivery:rawFrames:139": {
+      "path": "raw/fade-S-0010.png",
+      "sha256": "41be0059613e2b164513ef33485eba65affa648607b0617bd0082c69d22e6444"
+    },
+    "candidateResource:delivery:rawFrames:140": {
+      "path": "raw/fade-S-0011.png",
+      "sha256": "9f34dde38652e5b21cc2e715e94bb438d2218f53da02599ed32e77384a2c9b88"
+    },
+    "candidateResource:delivery:rawFrames:141": {
+      "path": "raw/fade-S-0011.png",
+      "sha256": "9f34dde38652e5b21cc2e715e94bb438d2218f53da02599ed32e77384a2c9b88"
+    },
+    "candidateResource:delivery:rawFrames:142": {
+      "path": "raw/fade-S-0011.png",
+      "sha256": "9f34dde38652e5b21cc2e715e94bb438d2218f53da02599ed32e77384a2c9b88"
+    },
+    "candidateResource:delivery:rawFrames:143": {
+      "path": "raw/fade-S-0011.png",
+      "sha256": "9f34dde38652e5b21cc2e715e94bb438d2218f53da02599ed32e77384a2c9b88"
+    },
+    "candidateResource:delivery:atlases:0": {
+      "path": "atlases/2d-appear-S.png",
+      "sha256": "bd5ff44289540cb35581325a2612d9d95fb559df0cfeeddedfe46f9e98825ff4"
+    },
+    "candidateResource:delivery:atlases:1": {
+      "path": "atlases/2d-appear-S.png",
+      "sha256": "bd5ff44289540cb35581325a2612d9d95fb559df0cfeeddedfe46f9e98825ff4"
+    },
+    "candidateResource:delivery:atlases:2": {
+      "path": "atlases/2d-appear-S.png",
+      "sha256": "bd5ff44289540cb35581325a2612d9d95fb559df0cfeeddedfe46f9e98825ff4"
+    },
+    "candidateResource:delivery:atlases:3": {
+      "path": "atlases/2d-appear-S.png",
+      "sha256": "bd5ff44289540cb35581325a2612d9d95fb559df0cfeeddedfe46f9e98825ff4"
+    },
+    "candidateResource:delivery:atlases:4": {
+      "path": "atlases/2d-idle-S.png",
+      "sha256": "9a9549f259d61f58de734d82df45eecd9d1db93db2e1bcda09c61f9eda212db2"
+    },
+    "candidateResource:delivery:atlases:5": {
+      "path": "atlases/2d-idle-S.png",
+      "sha256": "9a9549f259d61f58de734d82df45eecd9d1db93db2e1bcda09c61f9eda212db2"
+    },
+    "candidateResource:delivery:atlases:6": {
+      "path": "atlases/2d-idle-S.png",
+      "sha256": "9a9549f259d61f58de734d82df45eecd9d1db93db2e1bcda09c61f9eda212db2"
+    },
+    "candidateResource:delivery:atlases:7": {
+      "path": "atlases/2d-idle-S.png",
+      "sha256": "9a9549f259d61f58de734d82df45eecd9d1db93db2e1bcda09c61f9eda212db2"
+    },
+    "candidateResource:delivery:atlases:8": {
+      "path": "atlases/2d-fade-S.png",
+      "sha256": "9a8d369bc614a480489ccb26cf86c8401ae7832b0d726d31e51a36133473dd49"
+    },
+    "candidateResource:delivery:atlases:9": {
+      "path": "atlases/2d-fade-S.png",
+      "sha256": "9a8d369bc614a480489ccb26cf86c8401ae7832b0d726d31e51a36133473dd49"
+    },
+    "candidateResource:delivery:atlases:10": {
+      "path": "atlases/2d-fade-S.png",
+      "sha256": "9a8d369bc614a480489ccb26cf86c8401ae7832b0d726d31e51a36133473dd49"
+    },
+    "candidateResource:delivery:atlases:11": {
+      "path": "atlases/2d-fade-S.png",
+      "sha256": "9a8d369bc614a480489ccb26cf86c8401ae7832b0d726d31e51a36133473dd49"
+    },
+    "candidateResource:round:delivery.snapshot.json": {
+      "path": "delivery.snapshot.json",
+      "sha256": "cb53236027d35e74724917d6dbae88c57326091d47c77df84044bd7e61d44361"
+    },
+    "candidateResource:round:reproduction.json": {
+      "path": "reproduction.json",
+      "sha256": "f217f1ad8e0c7bc805d08fe94b6193176955839bd69c2d156159326e80885b16"
+    },
+    "candidateResource:round:delivery.json": {
+      "path": "delivery.json",
+      "sha256": "cb53236027d35e74724917d6dbae88c57326091d47c77df84044bd7e61d44361"
+    },
+    "candidateResource:round:native-capture-evidence.json": {
+      "path": "native-capture-evidence.json",
+      "sha256": "440da6e2c91e2902401c5339420588067e2f6229f9c13912984597b1d68c3c22"
+    },
+    "candidateResource:round:validation.json": {
+      "path": "validation.json",
+      "sha256": "8507c9f8f29ffd24acc56056e69e1bc2e4c59faf73c2c03c76e5754c613ebc98"
+    },
+    "candidateResource:round:manifest.json": {
+      "path": "manifest.json",
+      "sha256": "090e54e75cb3569b220da6ab60a0ea9f91d07312f9609bc0482ca90f61e6ff09"
+    },
+    "candidateResource:round:original-replay-proof.json": {
+      "path": "original-replay-proof.json",
+      "sha256": "79ef9e26be645cc4696077a399ae2774250951115563090f223d4424253987ce"
+    },
+    "candidateResource:round:native-context/capture.tscn": {
+      "path": "native-context/capture.tscn",
+      "sha256": "ea37f4bbee50e7794c51ccabaa501ef572e92c74d156ee7110d950f4ba6d2161"
+    },
+    "candidateResource:round:native-context/capture.gd": {
+      "path": "native-context/capture.gd",
+      "sha256": "f74d96b8ea8f13f961b5106fa6e65908ed24e516862c4a34f38bfead84a3ddd4"
+    },
+    "candidateResource:round:native-context/project.godot": {
+      "path": "native-context/project.godot",
+      "sha256": "9aea55f4cc42024a79d393493078fd8b3005e3216298b1afb98952a511be18a3"
+    },
+    "candidateResource:round:native-context/objects.json": {
+      "path": "native-context/objects.json",
+      "sha256": "0208b41450449ce418ef32a6c5daae2d60a8105eed8ed011e4300d9fe1cb55d9"
+    },
+    "candidateResource:round:previews/idle-all12-three-backgrounds.png": {
+      "path": "previews/idle-all12-three-backgrounds.png",
+      "sha256": "6ff19e4699d4c4c44f662e230ec4e4c4121c0e3694a88de375edfcc4c8e2be13"
+    },
+    "candidateResource:round:previews/native-runtime-wander-playback.png": {
+      "path": "previews/native-runtime-wander-playback.png",
+      "sha256": "bdcdf2ac1cc1c6f6cce5863f7a21cc881e3587b618030752e93547c0488a24a2"
+    },
+    "candidateResource:round:previews/appear-S.png": {
+      "path": "previews/appear-S.png",
+      "sha256": "2fb19744089c3a8e7bc250b594eb3d9ac12603fb7910e272f4e4714cc35be1a9"
+    },
+    "candidateResource:round:previews/appear-full-registered-enlarged-light.png": {
+      "path": "previews/appear-full-registered-enlarged-light.png",
+      "sha256": "8476e747951a9d22f95bee9ed83bc2e9e8d8da0d475e50b9b3c54e79538fc2b6"
+    },
+    "candidateResource:round:previews/appear-full-registered-enlarged-gray.png": {
+      "path": "previews/appear-full-registered-enlarged-gray.png",
+      "sha256": "5d0c3d34a9791da8fb109367374b957b755c1e8f0f0840163b775989ba5b450a"
+    },
+    "candidateResource:round:previews/appear-full-registered-enlarged-dark.png": {
+      "path": "previews/appear-full-registered-enlarged-dark.png",
+      "sha256": "dc47f31def4b0c6d8b72f2ad1240f2494b9004a85c2346419d1c80b0f5bf0308"
+    },
+    "candidateResource:round:previews/index.html": {
+      "path": "previews/index.html",
+      "sha256": "226249739fc4a8c12c44b9f200f5f6a2f57e728e87228c2a72cb04f5d0470b41"
+    },
+    "candidateResource:round:previews/idle-S.png": {
+      "path": "previews/idle-S.png",
+      "sha256": "9011d22d6f1c9b0349cdd0913eb7fddc41b3014e940d5421153995158df5ea4b"
+    },
+    "candidateResource:round:previews/fade-all12-three-backgrounds.png": {
+      "path": "previews/fade-all12-three-backgrounds.png",
+      "sha256": "f29e23e8a07a32410e751c78684a032eacf8ab13027f1d1514e60af44a02ecfc"
+    },
+    "candidateResource:round:previews/idle-full-registered-dark.png": {
+      "path": "previews/idle-full-registered-dark.png",
+      "sha256": "d1dfa703df1327148e1d40fdc91dd678387b2f8c1bc2fc1339c0c305341c54e0"
+    },
+    "candidateResource:round:previews/idle-full-registered-gray.png": {
+      "path": "previews/idle-full-registered-gray.png",
+      "sha256": "5c75944c7d3291480b2ee4cc919b6ee93f7ba099845533cfcf7b1aa520e2cd6b"
+    },
+    "candidateResource:round:previews/original-target-candidate-family-registered-comparison.png": {
+      "path": "previews/original-target-candidate-family-registered-comparison.png",
+      "sha256": "b1a46a8a8945b3e0d718948ca097fb1252bc940e4deec92c0caf55bf1e88d1df"
+    },
+    "candidateResource:round:previews/repeated.png": {
+      "path": "previews/repeated.png",
+      "sha256": "1f956a6843f7b85d32744547bbc5ad821f2b8f04ff2cca02883fb13e30d1e53b"
+    },
+    "candidateResource:round:previews/fade-S.png": {
+      "path": "previews/fade-S.png",
+      "sha256": "05699c4831eb45868ef29d2b079f6dd4dd8d26e47a0e549d185a692318574e73"
+    },
+    "candidateResource:round:previews/idle-full-registered-enlarged-light.png": {
+      "path": "previews/idle-full-registered-enlarged-light.png",
+      "sha256": "177d91e37508f1896f997993e8dd7d11bccd24a79dd9761e1df5e2494fcc8018"
+    },
+    "candidateResource:round:previews/legacy-catalog-90.png": {
+      "path": "previews/legacy-catalog-90.png",
+      "sha256": "0123442a4e3e67a1bc854030b6fb4889c5f31cfc5b06c889a5a1b38b0f02a010"
+    },
+    "candidateResource:round:previews/fade-full-registered-light.png": {
+      "path": "previews/fade-full-registered-light.png",
+      "sha256": "2a2aeb1ab02134d1cec2e5ae82c609e7fff2fd93638950884318556a1a7e63f5"
+    },
+    "candidateResource:round:previews/appear-full-registered-light.png": {
+      "path": "previews/appear-full-registered-light.png",
+      "sha256": "2d8c97ada5158bcf5803247ecb343d3cf942180b1b2bfb5b442e0498b164a123"
+    },
+    "candidateResource:round:previews/fade-full-registered-gray.png": {
+      "path": "previews/fade-full-registered-gray.png",
+      "sha256": "b6f83c6cadc3ccde8a44e273226287dfddae7323016f03c12b43e57b05f8b4a1"
+    },
+    "candidateResource:round:previews/three-backgrounds-enlarged-logical82-stress32.png": {
+      "path": "previews/three-backgrounds-enlarged-logical82-stress32.png",
+      "sha256": "433542073f95eac636ca74a421079ae05ac057da74223e76aa7e22148daceb79"
+    },
+    "candidateResource:round:previews/fade-full-registered-dark.png": {
+      "path": "previews/fade-full-registered-dark.png",
+      "sha256": "86a68ef31efef394d88c0fa742e612924b97a647d2daa489dffaeb0838a53f9c"
+    },
+    "candidateResource:round:previews/native-reduced-motion.png": {
+      "path": "previews/native-reduced-motion.png",
+      "sha256": "51b1996cf1c749cac65d4139e0a69bec5114c92439b63395623a11664f00ef4d"
+    },
+    "candidateResource:round:previews/native-current-context-posed.png": {
+      "path": "previews/native-current-context-posed.png",
+      "sha256": "1b4bd4cab434b4afcc3d71691b2631e2d29a3e50cb2370ce8516ede79d583712"
+    },
+    "candidateResource:round:previews/appear-full-registered-gray.png": {
+      "path": "previews/appear-full-registered-gray.png",
+      "sha256": "b2999b460fdcb0dab1d89383205af7162a7f056271407b25db8740ababff9610"
+    },
+    "candidateResource:round:previews/native-current-context.png": {
+      "path": "previews/native-current-context.png",
+      "sha256": "af1ad61bff5b71e290f48ffb961b0aed40e20fc890dbfdcce782d4e028bbde4e"
+    },
+    "candidateResource:round:previews/appear-full-registered-dark.png": {
+      "path": "previews/appear-full-registered-dark.png",
+      "sha256": "b9f531213f45eb554593fd49de1f07ea60c2afebcb90e47de515e02808758661"
+    },
+    "candidateResource:round:previews/fade-full-registered-enlarged-light.png": {
+      "path": "previews/fade-full-registered-enlarged-light.png",
+      "sha256": "6e37925454b4e7b5c60b6cfa139d31fea878a47b2a53cf5229e313643616ef0c"
+    },
+    "candidateResource:round:previews/fade-full-registered-enlarged-dark.png": {
+      "path": "previews/fade-full-registered-enlarged-dark.png",
+      "sha256": "a9b6050c4f05a3fe031fd02fd9c30b3218cdae9c4788de8c7502a250f949e737"
+    },
+    "candidateResource:round:previews/fade-full-registered-enlarged-gray.png": {
+      "path": "previews/fade-full-registered-enlarged-gray.png",
+      "sha256": "b664f52707d3d43ebbe33a8722fa7be250218b5f45924b57e8e0d66feaad3ea5"
+    },
+    "candidateResource:round:previews/idle-full-registered-enlarged-gray.png": {
+      "path": "previews/idle-full-registered-enlarged-gray.png",
+      "sha256": "014b1a6b402ae2ee4a142b4afc0b1a22f0d91ece798154f88f51baf85d60e44d"
+    },
+    "candidateResource:round:previews/idle-full-registered-enlarged-dark.png": {
+      "path": "previews/idle-full-registered-enlarged-dark.png",
+      "sha256": "94f2b02f0a888050624b2c3889655c0ea48fafa8b90b60005a85dd4d91fefa06"
+    },
+    "candidateResource:round:previews/idle-full-registered-light.png": {
+      "path": "previews/idle-full-registered-light.png",
+      "sha256": "6f15bf626a29933cc229af82d0865a2a8254e0cba8f77bee532449d68a623b46"
+    },
+    "candidateResource:round:previews/four-view-sheet.png": {
+      "path": "previews/four-view-sheet.png",
+      "sha256": "e62a4d1be8a47684ffda7e8f3dcf94b28152eea6b78a3d2c8c6cbfec112cc4ca"
+    },
+    "candidateResource:round:previews/appear-all12-three-backgrounds.png": {
+      "path": "previews/appear-all12-three-backgrounds.png",
+      "sha256": "8cdf7a5521c0594e66005d4c0a1abc443541a1064460862f08b99e939dfcd812"
+    },
+    "candidateResource:round:atlases/2d-appear-S.png": {
+      "path": "atlases/2d-appear-S.png",
+      "sha256": "bd5ff44289540cb35581325a2612d9d95fb559df0cfeeddedfe46f9e98825ff4"
+    },
+    "candidateResource:round:atlases/2d-fade-S.png": {
+      "path": "atlases/2d-fade-S.png",
+      "sha256": "9a8d369bc614a480489ccb26cf86c8401ae7832b0d726d31e51a36133473dd49"
+    },
+    "candidateResource:round:atlases/2d-idle-S.png": {
+      "path": "atlases/2d-idle-S.png",
+      "sha256": "9a9549f259d61f58de734d82df45eecd9d1db93db2e1bcda09c61f9eda212db2"
+    },
+    "candidateResource:round:raw/appear-S-0009.png": {
+      "path": "raw/appear-S-0009.png",
+      "sha256": "ecbf4eea2c36ade14fc0f4a2c2304c05956c33958497dfcbe0725c1e8b5ee102"
+    },
+    "candidateResource:round:raw/appear-S-0008.png": {
+      "path": "raw/appear-S-0008.png",
+      "sha256": "825e6ba407e0e9dfed60702edc9afdc542b0c29af907e03385c6241aeea496ac"
+    },
+    "candidateResource:round:raw/fade-S-0007.png": {
+      "path": "raw/fade-S-0007.png",
+      "sha256": "79dfd9e5b75c1fca7ca1a91307a5d4881ebef6677094c0bc572e42a98d8cade0"
+    },
+    "candidateResource:round:raw/fade-S-0006.png": {
+      "path": "raw/fade-S-0006.png",
+      "sha256": "6543c7c9f0dd8ce375ef02702a2c4430243f19a25164c03f1bc077fe6670260c"
+    },
+    "candidateResource:round:raw/fade-S-0004.png": {
+      "path": "raw/fade-S-0004.png",
+      "sha256": "517ecbe5cbb32bb2319995c85fe5ba76ec099974d577b5f9b127735c2639b2c0"
+    },
+    "candidateResource:round:raw/fade-S-0010.png": {
+      "path": "raw/fade-S-0010.png",
+      "sha256": "41be0059613e2b164513ef33485eba65affa648607b0617bd0082c69d22e6444"
+    },
+    "candidateResource:round:raw/fade-S-0011.png": {
+      "path": "raw/fade-S-0011.png",
+      "sha256": "9f34dde38652e5b21cc2e715e94bb438d2218f53da02599ed32e77384a2c9b88"
+    },
+    "candidateResource:round:raw/fade-S-0005.png": {
+      "path": "raw/fade-S-0005.png",
+      "sha256": "aa60af50a0cb9dc547980cee3f669cab93f88fcc2eac38b5815f7037cf7726b2"
+    },
+    "candidateResource:round:raw/fade-S-0001.png": {
+      "path": "raw/fade-S-0001.png",
+      "sha256": "5022c43a326dda099167bb4ff7eb28fface0e74259f41edf9dfb8b4d79a207da"
+    },
+    "candidateResource:round:raw/fade-S-0000.png": {
+      "path": "raw/fade-S-0000.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d"
+    },
+    "candidateResource:round:raw/idle-S-0008.png": {
+      "path": "raw/idle-S-0008.png",
+      "sha256": "9190d3cc2c4666f56dcabe79da0478e49746dad035f52735630f654b27d9bad4"
+    },
+    "candidateResource:round:raw/fade-S-0002.png": {
+      "path": "raw/fade-S-0002.png",
+      "sha256": "6fc5b2978898b97417961708d2f1cef7c937281a0e565c881cf49ea4d24c910a"
+    },
+    "candidateResource:round:raw/fade-S-0003.png": {
+      "path": "raw/fade-S-0003.png",
+      "sha256": "deddf535f2d59e6ed85265754dff63fc77a65392277bed181f14aacb61a769f4"
+    },
+    "candidateResource:round:raw/idle-S-0009.png": {
+      "path": "raw/idle-S-0009.png",
+      "sha256": "9e20ccfa290885f0042fe040a425ea4761f74c388f45d9c8c64461a00d88d171"
+    },
+    "candidateResource:round:raw/idle-S-0010.png": {
+      "path": "raw/idle-S-0010.png",
+      "sha256": "9190d3cc2c4666f56dcabe79da0478e49746dad035f52735630f654b27d9bad4"
+    },
+    "candidateResource:round:raw/idle-S-0004.png": {
+      "path": "raw/idle-S-0004.png",
+      "sha256": "544f48d2f8e0c8d63a48c7d47daa069aa354b57550d08b260d89d4a14e1ffcbd"
+    },
+    "candidateResource:round:raw/idle-S-0005.png": {
+      "path": "raw/idle-S-0005.png",
+      "sha256": "ab858efad967a257e5c1ce32d67128ca9e5c5ff8264084b3729984d025a578b9"
+    },
+    "candidateResource:round:raw/idle-S-0011.png": {
+      "path": "raw/idle-S-0011.png",
+      "sha256": "f8a376386d2f407ec8278c42465192f4398ec5e38785747c6489fd7c6d7182eb"
+    },
+    "candidateResource:round:raw/idle-S-0007.png": {
+      "path": "raw/idle-S-0007.png",
+      "sha256": "f8a376386d2f407ec8278c42465192f4398ec5e38785747c6489fd7c6d7182eb"
+    },
+    "candidateResource:round:raw/idle-S-0006.png": {
+      "path": "raw/idle-S-0006.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d"
+    },
+    "candidateResource:round:raw/idle-S-0002.png": {
+      "path": "raw/idle-S-0002.png",
+      "sha256": "544f48d2f8e0c8d63a48c7d47daa069aa354b57550d08b260d89d4a14e1ffcbd"
+    },
+    "candidateResource:round:raw/fade-S-0008.png": {
+      "path": "raw/fade-S-0008.png",
+      "sha256": "b2bc70499d255d82e49bc4dccb21e7fa382c5b6436aa225acb211652a3f53a72"
+    },
+    "candidateResource:round:raw/fade-S-0009.png": {
+      "path": "raw/fade-S-0009.png",
+      "sha256": "2084b6fe470486e0cdf8d320a582af533202c86db77ab7cdc2e9bd93104d2fb6"
+    },
+    "candidateResource:round:raw/idle-S-0003.png": {
+      "path": "raw/idle-S-0003.png",
+      "sha256": "11d31799d0c2427fc8310b1dc98a3c99569cdde16b43c7e153c622a129b84ff1"
+    },
+    "candidateResource:round:raw/idle-S-0001.png": {
+      "path": "raw/idle-S-0001.png",
+      "sha256": "ab858efad967a257e5c1ce32d67128ca9e5c5ff8264084b3729984d025a578b9"
+    },
+    "candidateResource:round:raw/idle-S-0000.png": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d"
+    },
+    "candidateResource:round:raw/appear-S-0000.png": {
+      "path": "raw/appear-S-0000.png",
+      "sha256": "e68123c993dab7ae02a8dc4ed87bdbbe657cc17d44358d433668ee3ba094d454"
+    },
+    "candidateResource:round:raw/appear-S-0001.png": {
+      "path": "raw/appear-S-0001.png",
+      "sha256": "621a7c725be64b679e34599d20ac6594683f705d725fcf1ee49c76436925d67b"
+    },
+    "candidateResource:round:raw/appear-S-0003.png": {
+      "path": "raw/appear-S-0003.png",
+      "sha256": "356927e684f8c5dd7fc9460a7e6d65d3bff3b39e1b89ada59f7fced5488b210b"
+    },
+    "candidateResource:round:raw/appear-S-0002.png": {
+      "path": "raw/appear-S-0002.png",
+      "sha256": "425f1e032433ef05fa8d9583c375551e5e6a2057ca8fc98cc3e0b7f18648c70c"
+    },
+    "candidateResource:round:raw/appear-S-0006.png": {
+      "path": "raw/appear-S-0006.png",
+      "sha256": "7e3a9cf4884c9593ae98ae14bb20ceabc155ce3a5e38c873dd4f808d4eda76da"
+    },
+    "candidateResource:round:raw/appear-S-0007.png": {
+      "path": "raw/appear-S-0007.png",
+      "sha256": "fd8195420deee328f160cfcfeed2ecb6dd607397887b301401076b2d15d9c5d6"
+    },
+    "candidateResource:round:raw/appear-S-0005.png": {
+      "path": "raw/appear-S-0005.png",
+      "sha256": "ae9ddb4566a7faa10661a39bb0c57f0c2ec598265be8313507909f3568f4b603"
+    },
+    "candidateResource:round:raw/appear-S-0011.png": {
+      "path": "raw/appear-S-0011.png",
+      "sha256": "f8a376386d2f407ec8278c42465192f4398ec5e38785747c6489fd7c6d7182eb"
+    },
+    "candidateResource:round:raw/appear-S-0010.png": {
+      "path": "raw/appear-S-0010.png",
+      "sha256": "83f81d946765e87c906230e902bac1b1ab9b29764cebdbb0d0a39f4324b0d35b"
+    },
+    "candidateResource:round:raw/appear-S-0004.png": {
+      "path": "raw/appear-S-0004.png",
+      "sha256": "f503ccf3910019938e25931a740c7a5751d21a825fd593a112910ebeeb059638"
+    },
+    "candidateResource:round:native-context/scripts/art_book.gd": {
+      "path": "native-context/scripts/art_book.gd",
+      "sha256": "2b3dcf2ad474139ed4d0256484bb9ec9d01b9a54da90612e54dd37fc03034c48"
+    },
+    "candidateResource:round:native-context/scripts/restaurant_view.gd": {
+      "path": "native-context/scripts/restaurant_view.gd",
+      "sha256": "ea61f94c2b5f16398d4cddef79c18860b865a4cff766d7f3bcaefc8b2937d0cd"
+    },
+    "candidateResource:round:native-context/scripts/typography.gd": {
+      "path": "native-context/scripts/typography.gd",
+      "sha256": "187290a2a46e233e2aea0b6bd83d022ccd0fb606d336de9ddba4994c82c8d85c"
+    },
+    "candidateResource:round:native-context/assets/2d-appear-S.png": {
+      "path": "native-context/assets/2d-appear-S.png",
+      "sha256": "bd5ff44289540cb35581325a2612d9d95fb559df0cfeeddedfe46f9e98825ff4"
+    },
+    "candidateResource:round:native-context/assets/2d-fade-S.png": {
+      "path": "native-context/assets/2d-fade-S.png",
+      "sha256": "9a8d369bc614a480489ccb26cf86c8401ae7832b0d726d31e51a36133473dd49"
+    },
+    "candidateResource:round:native-context/assets/2d-idle-S.png": {
+      "path": "native-context/assets/2d-idle-S.png",
+      "sha256": "9a9549f259d61f58de734d82df45eecd9d1db93db2e1bcda09c61f9eda212db2"
+    },
+    "candidateResource:round:native-context/assets/context/catalog/sprites/stool-wood/static-S.png": {
+      "path": "native-context/assets/context/catalog/sprites/stool-wood/static-S.png",
+      "sha256": "3642fbbe699b7dcb9153392be23c9a6daab3a045220aa844f59385e804f4cf2f"
+    },
+    "candidateResource:round:native-context/assets/context/catalog/sprites/customer-rosa/walk-S.png": {
+      "path": "native-context/assets/context/catalog/sprites/customer-rosa/walk-S.png",
+      "sha256": "78bd806cd743f6405719fac594b41ae6111d42578f40a29e3275c53973d82f12"
+    },
+    "candidateResource:round:native-context/assets/context/catalog/sprites/customer-rosa/seated-wait-S.png": {
+      "path": "native-context/assets/context/catalog/sprites/customer-rosa/seated-wait-S.png",
+      "sha256": "a0d5f81d97a22f0cbc0a3e6aa019066fc3d6857a146ca2e085e31bf6aa84420b"
+    },
+    "candidateResource:source:initial-observations.json": {
+      "path": "../../source/initial-observations.json",
+      "sha256": "d14a39049f90e137a43a8f12b5867e2a8807f0102cd3b2cf39cfa7bddeda5b34"
+    },
+    "candidateResource:source:setup_round01.py": {
+      "path": "../../source/setup_round01.py",
+      "sha256": "08b62144181a1627540d2c9f90a51fd23abef50fc35daa9810cd24d2075acd85"
+    },
+    "candidateResource:source:round01/playback-inspection.json": {
+      "path": "../../source/round01/playback-inspection.json",
+      "sha256": "d3648d9c37d52fb15f1dee27e1f55bcb47fe84f28111d2afea7c3a4813484cfb"
+    },
+    "candidateResource:source:round01/prepare_sources.py": {
+      "path": "../../source/round01/prepare_sources.py",
+      "sha256": "2254dfed63abf494d3f6dfca46e074370bc5c4a45c8a4728046c13c76d955f73"
+    },
+    "candidateResource:source:round01/provenance.json": {
+      "path": "../../source/round01/provenance.json",
+      "sha256": "a573ed038556d6fbdc379c9946b81632f6311163babde16e05beacb1348b3472"
+    },
+    "candidateResource:source:round01/crop.json": {
+      "path": "../../source/round01/crop.json",
+      "sha256": "6352334c2e58492989d3663934de877b97e744790c9515be1c4f4ca55d324bb5"
+    },
+    "candidateResource:source:round01/recipe.json": {
+      "path": "../../source/round01/recipe.json",
+      "sha256": "b7c8afff02f2c9ec3f6eab92c6287b0a25aafc47b34298b324716ae3ee735f3b"
+    },
+    "candidateResource:source:round01/native_capture.gd": {
+      "path": "../../source/round01/native_capture.gd",
+      "sha256": "f74d96b8ea8f13f961b5106fa6e65908ed24e516862c4a34f38bfead84a3ddd4"
+    },
+    "candidateResource:source:round01/capture_native.py": {
+      "path": "../../source/round01/capture_native.py",
+      "sha256": "3e2bb60ba1d7a669f2ab5a2cc0514ec8af40d31df627c4672fe5eb2fb0f3337c"
+    },
+    "candidateResource:source:round01/verify.py": {
+      "path": "../../source/round01/verify.py",
+      "sha256": "930cfe0e3cf716cff446f4f081ef1406d60637d152642b4f610f2b1dec250d3d"
+    },
+    "candidateResource:source:round01/publish.py": {
+      "path": "../../source/round01/publish.py",
+      "sha256": "a61f5f8c809338802536d20c9ddfb71d7ba3aceeec8e607ee53e31fcf327b98c"
+    },
+    "candidateResource:source:round01/resources/catalog-object.json": {
+      "path": "../../source/round01/resources/catalog-object.json",
+      "sha256": "106fcabbb342fa4a62ac653ac50cb8320f45ac83f1ac4795b7231ab8a7736ebf"
+    },
+    "candidateResource:source:round01/resources/frozen-brief.json": {
+      "path": "../../source/round01/resources/frozen-brief.json",
+      "sha256": "b4896deb6746eb974bc42f02fd9a256336fd64435cc0510cfbe013c5949ca776"
+    },
+    "candidateResource:source:round01/resources/frozen-criteria.json": {
+      "path": "../../source/round01/resources/frozen-criteria.json",
+      "sha256": "972b91f779f72b132ee58e0e27e0d9767a406f04dc6ef8c7dac1a1c82480241d"
+    },
+    "candidateResource:source:round01/resources/context/manifest.json": {
+      "path": "../../source/round01/resources/context/manifest.json",
+      "sha256": "4bcd82c7ce512391c758bc311c2c74150142e5de725fb521fd96d1082227b7b3"
+    },
+    "candidateResource:source:round01/resources/native-capture/evidence.json": {
+      "path": "../../source/round01/resources/native-capture/evidence.json",
+      "sha256": "440da6e2c91e2902401c5339420588067e2f6229f9c13912984597b1d68c3c22"
+    },
+    "candidateResource:source:round01/resources/original-2d-pipeline/overrides.json": {
+      "path": "../../source/round01/resources/original-2d-pipeline/overrides.json",
+      "sha256": "1b30458b9bef953f4a9caa4c8402405a8f2172102a0407d5eaa4eeb93a652bb4"
+    },
+    "candidateResource:source:round01/resources/original-2d-pipeline/prompts.json": {
+      "path": "../../source/round01/resources/original-2d-pipeline/prompts.json",
+      "sha256": "59708872f7fa5c6a9f0d682b0357a260f6e24703e66dfb90ec3f307ced5e3549"
+    },
+    "candidateResource:source:round01/resources/original-2d-pipeline/publish_2d.py": {
+      "path": "../../source/round01/resources/original-2d-pipeline/publish_2d.py",
+      "sha256": "6ceb9f228540ee49a96be824bd9d7f0a2aebe5173df2ea1069dcf565c687936d"
+    },
+    "candidateResource:source:round01/resources/context/runtime-scripts/art_book.gd": {
+      "path": "../../source/round01/resources/context/runtime-scripts/art_book.gd",
+      "sha256": "2b3dcf2ad474139ed4d0256484bb9ec9d01b9a54da90612e54dd37fc03034c48"
+    },
+    "candidateResource:source:round01/resources/context/runtime-scripts/restaurant_view.gd": {
+      "path": "../../source/round01/resources/context/runtime-scripts/restaurant_view.gd",
+      "sha256": "ea61f94c2b5f16398d4cddef79c18860b865a4cff766d7f3bcaefc8b2937d0cd"
+    },
+    "candidateResource:source:round01/resources/context/runtime-scripts/typography.gd": {
+      "path": "../../source/round01/resources/context/runtime-scripts/typography.gd",
+      "sha256": "187290a2a46e233e2aea0b6bd83d022ccd0fb606d336de9ddba4994c82c8d85c"
+    }
+  },
+  "candidateRenders": {
+    "S": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d",
+      "frame": [
+        384,
+        640
+      ]
+    },
+    "N": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d",
+      "frame": [
+        384,
+        640
+      ]
+    },
+    "E": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d",
+      "frame": [
+        384,
+        640
+      ]
+    },
+    "W": {
+      "path": "raw/idle-S-0000.png",
+      "sha256": "a6985dc84901bdecd617e31fcaff340fcae8d5d173bdeb3a18ec621409a89e3d",
+      "frame": [
+        384,
+        640
+      ]
+    }
+  },
+  "previews": {
+    "appear-S": {
+      "path": "previews/appear-S.png",
+      "sha256": "2fb19744089c3a8e7bc250b594eb3d9ac12603fb7910e272f4e4714cc35be1a9"
+    },
+    "appear-N": {
+      "path": "previews/appear-S.png",
+      "sha256": "2fb19744089c3a8e7bc250b594eb3d9ac12603fb7910e272f4e4714cc35be1a9"
+    },
+    "appear-E": {
+      "path": "previews/appear-S.png",
+      "sha256": "2fb19744089c3a8e7bc250b594eb3d9ac12603fb7910e272f4e4714cc35be1a9"
+    },
+    "appear-W": {
+      "path": "previews/appear-S.png",
+      "sha256": "2fb19744089c3a8e7bc250b594eb3d9ac12603fb7910e272f4e4714cc35be1a9"
+    },
+    "idle-S": {
+      "path": "previews/idle-S.png",
+      "sha256": "9011d22d6f1c9b0349cdd0913eb7fddc41b3014e940d5421153995158df5ea4b"
+    },
+    "idle-N": {
+      "path": "previews/idle-S.png",
+      "sha256": "9011d22d6f1c9b0349cdd0913eb7fddc41b3014e940d5421153995158df5ea4b"
+    },
+    "idle-E": {
+      "path": "previews/idle-S.png",
+      "sha256": "9011d22d6f1c9b0349cdd0913eb7fddc41b3014e940d5421153995158df5ea4b"
+    },
+    "idle-W": {
+      "path": "previews/idle-S.png",
+      "sha256": "9011d22d6f1c9b0349cdd0913eb7fddc41b3014e940d5421153995158df5ea4b"
+    },
+    "fade-S": {
+      "path": "previews/fade-S.png",
+      "sha256": "05699c4831eb45868ef29d2b079f6dd4dd8d26e47a0e549d185a692318574e73"
+    },
+    "fade-N": {
+      "path": "previews/fade-S.png",
+      "sha256": "05699c4831eb45868ef29d2b079f6dd4dd8d26e47a0e549d185a692318574e73"
+    },
+    "fade-E": {
+      "path": "previews/fade-S.png",
+      "sha256": "05699c4831eb45868ef29d2b079f6dd4dd8d26e47a0e549d185a692318574e73"
+    },
+    "fade-W": {
+      "path": "previews/fade-S.png",
+      "sha256": "05699c4831eb45868ef29d2b079f6dd4dd8d26e47a0e549d185a692318574e73"
+    },
+    "appear-full-registered-light": {
+      "path": "previews/appear-full-registered-light.png",
+      "sha256": "2d8c97ada5158bcf5803247ecb343d3cf942180b1b2bfb5b442e0498b164a123"
+    },
+    "appear-full-registered-enlarged-light": {
+      "path": "previews/appear-full-registered-enlarged-light.png",
+      "sha256": "8476e747951a9d22f95bee9ed83bc2e9e8d8da0d475e50b9b3c54e79538fc2b6"
+    },
+    "appear-full-registered-gray": {
+      "path": "previews/appear-full-registered-gray.png",
+      "sha256": "b2999b460fdcb0dab1d89383205af7162a7f056271407b25db8740ababff9610"
+    },
+    "appear-full-registered-enlarged-gray": {
+      "path": "previews/appear-full-registered-enlarged-gray.png",
+      "sha256": "5d0c3d34a9791da8fb109367374b957b755c1e8f0f0840163b775989ba5b450a"
+    },
+    "appear-full-registered-dark": {
+      "path": "previews/appear-full-registered-dark.png",
+      "sha256": "b9f531213f45eb554593fd49de1f07ea60c2afebcb90e47de515e02808758661"
+    },
+    "appear-full-registered-enlarged-dark": {
+      "path": "previews/appear-full-registered-enlarged-dark.png",
+      "sha256": "dc47f31def4b0c6d8b72f2ad1240f2494b9004a85c2346419d1c80b0f5bf0308"
+    },
+    "appear-all12-three-backgrounds": {
+      "path": "previews/appear-all12-three-backgrounds.png",
+      "sha256": "8cdf7a5521c0594e66005d4c0a1abc443541a1064460862f08b99e939dfcd812"
+    },
+    "idle-full-registered-light": {
+      "path": "previews/idle-full-registered-light.png",
+      "sha256": "6f15bf626a29933cc229af82d0865a2a8254e0cba8f77bee532449d68a623b46"
+    },
+    "idle-full-registered-enlarged-light": {
+      "path": "previews/idle-full-registered-enlarged-light.png",
+      "sha256": "177d91e37508f1896f997993e8dd7d11bccd24a79dd9761e1df5e2494fcc8018"
+    },
+    "idle-full-registered-gray": {
+      "path": "previews/idle-full-registered-gray.png",
+      "sha256": "5c75944c7d3291480b2ee4cc919b6ee93f7ba099845533cfcf7b1aa520e2cd6b"
+    },
+    "idle-full-registered-enlarged-gray": {
+      "path": "previews/idle-full-registered-enlarged-gray.png",
+      "sha256": "014b1a6b402ae2ee4a142b4afc0b1a22f0d91ece798154f88f51baf85d60e44d"
+    },
+    "idle-full-registered-dark": {
+      "path": "previews/idle-full-registered-dark.png",
+      "sha256": "d1dfa703df1327148e1d40fdc91dd678387b2f8c1bc2fc1339c0c305341c54e0"
+    },
+    "idle-full-registered-enlarged-dark": {
+      "path": "previews/idle-full-registered-enlarged-dark.png",
+      "sha256": "94f2b02f0a888050624b2c3889655c0ea48fafa8b90b60005a85dd4d91fefa06"
+    },
+    "idle-all12-three-backgrounds": {
+      "path": "previews/idle-all12-three-backgrounds.png",
+      "sha256": "6ff19e4699d4c4c44f662e230ec4e4c4121c0e3694a88de375edfcc4c8e2be13"
+    },
+    "fade-full-registered-light": {
+      "path": "previews/fade-full-registered-light.png",
+      "sha256": "2a2aeb1ab02134d1cec2e5ae82c609e7fff2fd93638950884318556a1a7e63f5"
+    },
+    "fade-full-registered-enlarged-light": {
+      "path": "previews/fade-full-registered-enlarged-light.png",
+      "sha256": "6e37925454b4e7b5c60b6cfa139d31fea878a47b2a53cf5229e313643616ef0c"
+    },
+    "fade-full-registered-gray": {
+      "path": "previews/fade-full-registered-gray.png",
+      "sha256": "b6f83c6cadc3ccde8a44e273226287dfddae7323016f03c12b43e57b05f8b4a1"
+    },
+    "fade-full-registered-enlarged-gray": {
+      "path": "previews/fade-full-registered-enlarged-gray.png",
+      "sha256": "b664f52707d3d43ebbe33a8722fa7be250218b5f45924b57e8e0d66feaad3ea5"
+    },
+    "fade-full-registered-dark": {
+      "path": "previews/fade-full-registered-dark.png",
+      "sha256": "86a68ef31efef394d88c0fa742e612924b97a647d2daa489dffaeb0838a53f9c"
+    },
+    "fade-full-registered-enlarged-dark": {
+      "path": "previews/fade-full-registered-enlarged-dark.png",
+      "sha256": "a9b6050c4f05a3fe031fd02fd9c30b3218cdae9c4788de8c7502a250f949e737"
+    },
+    "fade-all12-three-backgrounds": {
+      "path": "previews/fade-all12-three-backgrounds.png",
+      "sha256": "f29e23e8a07a32410e751c78684a032eacf8ab13027f1d1514e60af44a02ecfc"
+    },
+    "four-view-sheet": {
+      "path": "previews/four-view-sheet.png",
+      "sha256": "e62a4d1be8a47684ffda7e8f3dcf94b28152eea6b78a3d2c8c6cbfec112cc4ca"
+    },
+    "original-target-candidate-family-registered-comparison": {
+      "path": "previews/original-target-candidate-family-registered-comparison.png",
+      "sha256": "b1a46a8a8945b3e0d718948ca097fb1252bc940e4deec92c0caf55bf1e88d1df"
+    },
+    "three-backgrounds-enlarged-logical82-stress32": {
+      "path": "previews/three-backgrounds-enlarged-logical82-stress32.png",
+      "sha256": "433542073f95eac636ca74a421079ae05ac057da74223e76aa7e22148daceb79"
+    },
+    "native-current-context": {
+      "path": "previews/native-current-context.png",
+      "sha256": "af1ad61bff5b71e290f48ffb961b0aed40e20fc890dbfdcce782d4e028bbde4e"
+    },
+    "native-current-context-posed": {
+      "path": "previews/native-current-context-posed.png",
+      "sha256": "1b4bd4cab434b4afcc3d71691b2631e2d29a3e50cb2370ce8516ede79d583712"
+    },
+    "native-reduced-motion": {
+      "path": "previews/native-reduced-motion.png",
+      "sha256": "51b1996cf1c749cac65d4139e0a69bec5114c92439b63395623a11664f00ef4d"
+    },
+    "legacy-catalog-90": {
+      "path": "previews/legacy-catalog-90.png",
+      "sha256": "0123442a4e3e67a1bc854030b6fb4889c5f31cfc5b06c889a5a1b38b0f02a010"
+    },
+    "native-runtime-wander-playback": {
+      "path": "previews/native-runtime-wander-playback.png",
+      "sha256": "bdcdf2ac1cc1c6f6cce5863f7a21cc881e3587b618030752e93547c0488a24a2"
+    },
+    "repeated": {
+      "path": "previews/repeated.png",
+      "sha256": "1f956a6843f7b85d32744547bbc5ad821f2b8f04ff2cca02883fb13e30d1e53b"
+    },
+    "review-page": {
+      "path": "previews/index.html",
+      "sha256": "226249739fc4a8c12c44b9f200f5f6a2f57e728e87228c2a72cb04f5d0470b41"
+    }
+  }
+}
