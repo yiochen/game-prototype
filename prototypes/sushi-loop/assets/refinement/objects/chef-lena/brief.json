@@ -109,7 +109,117 @@
       "Inspect intended-size clean light/gray/dark captures, state/facing frame contact sheets and playback; no animation flicker, clipping, dead patches, hidden hands or identity/color drift."
     ]
   },
-  "qualityCriteria": {},
+  "qualityCriteria": {
+    "asset": "chef-lena",
+    "status": "proposed; awaiting coordinator freeze",
+    "targetSHA256": "f234a68dee5734e479d68eb0e914c48de059629333c498603528f47adc4f82a1",
+    "scope": "Visible outcomes and necessary evidence for this asset only; no candidate approval.",
+    "modelingFreedom": "Reward improved proportions, forms, structural construction, tasteful garment detail and nonfunctional topology changes. Old part counts, blank forms, hard steps and weak source construction are not constraints. Native redesign remains inside identity, rig/contact, registered camera and occupied-scale locks.",
+    "intendedUse": {
+      "logicalFrame": [
+        192,
+        320
+      ],
+      "sourceFrame": [
+        384,
+        640
+      ],
+      "sourceScale": 2,
+      "cellSize": 128,
+      "viewing": "Judge full uncropped frame at logical size and enlarged. Keep one common registration/camera/light/material setup across all facings and states. Compare full original/target canvases without fitting silhouettes."
+    },
+    "hardConstraints": [
+      {
+        "id": "identity",
+        "requirement": "Lena Brooks: dark-brown skin, chocolate curls, ivory chef toque and coat, blue apron, red necktie, friendly large-head C125 character and chef role. Face/hair/garment construction may improve; no lighter/orange target skin substitution."
+      },
+      {
+        "id": "registration",
+        "requirement": "Native character-orthographic35-degree camera, square pixel aspect, one-cell footprint, height1.6, logical frame192x320, logical root96,248, final sourceScale2/frame384x640. Retain source guide calibration and original6x2/2304x1280 atlas layout with no subject fitting, per-view transforms, image warps or changed crop."
+      },
+      {
+        "id": "facing",
+        "requirement": "Use four real native views with publisher root S0/E+90/N180/W-90 and source child/rig orientation. No mirrored front substitutions, per-view fitting, palette changes or camera changes."
+      },
+      {
+        "id": "motion",
+        "requirement": "idle/work/hold/load each12 frames at12fps in all4 facings:192 native frames total. idle/work/hold loop and retain closing behavior; load remains nonlooping with original end behavior. No invented walking state or changed frame order/timing."
+      },
+      {
+        "id": "contacts",
+        "requirement": "Ground/root/feet, hand sockets, separate dish attachment, native knife, beltLoad trajectory and functional height/clearance remain consistent with source. Source declared local sockets: ground[0,0,0], seat[0,0,0.4477801191577021], left[-0.267,-0.023,0.211], right[0.267,-0.023,0.211], mouth[0,-0.255,0.543]. Audit actual evaluated moving controls rather than treating rest sockets as current hand positions."
+      },
+      {
+        "id": "native",
+        "requirement": "Editable native Blender chef geometry and native lighting/render output. Keep rig rest/bone/attachment behavior stable. Topology may change to improve design, but must not change unpredictably across action samples or introduce bad weights, detached detail or normals flips. Held dish remains separately identified2D image with original serving behavior and dependency closure."
+      },
+      {
+        "id": "lighting",
+        "requirement": "No preferred horizontal light direction for this rotatable world sprite and no directional ground shadow. Warm soft illumination must stay coherent on rotations; target rim/glare/halo has no technical authority."
+      }
+    ],
+    "visibleCriteria": [
+      {
+        "id": "shapeVolume",
+        "priority": 1,
+        "desired": "The toque has a continuous band and rounded, readable crown lobes rather than a stepped white box. Curls form a coherent chocolate crown/fringe/occiput with purposeful variation and no bead pile or scalp gaps. Head, sleeves, palms and apron have soft volume and useful silhouette transitions. Side and rear modeling must be equally finished.",
+        "useSizeGoal": "At192x320, viewers can distinguish hat band from crown, major curl groups from face/hat, sleeve/cuff from hand, and apron from coat. Enlarging reveals deliberate construction without pinched lobes, sharp unmotivated steps or melted joins.",
+        "evidence": "Front/back/both side idle plus all state/facing frame sheets; inspect hat/hair silhouette and arm/garment boundaries in maximum work/load poses."
+      },
+      {
+        "id": "color",
+        "priority": 1,
+        "desired": "Retain dark-brown Lena skin and chocolate hair with clearly different values, warm ivory fabric, blue apron and red scarf. Colors are warm and rich but not overbright, burnt orange, muddy or blacked out. New trim belongs to the same restrained palette.",
+        "useSizeGoal": "The face remains recognizably dark brown; hair remains brown rather than featureless black; the red necktie and blue apron remain distinct where visible through all action frames.",
+        "evidence": "Native frame composites on light,gray,dark backgrounds across every facing; compare original palette cues and fixed target mood without copying its lighter skin drift."
+      },
+      {
+        "id": "lightingHighlights",
+        "priority": 1,
+        "desired": "Broad soft shading reveals rounded hat folds, curls, cheeks and garment thickness. Ivory retains visible off-white form information instead of broad clipped-white flats; hair and underarms retain form rather than black cavities. Highlights are restrained and stable, with no bright alpha rim, hard specular specks, glare or preferred left/right world light.",
+        "useSizeGoal": "At logical size, hat folds/band and back/side curl groups remain legible without relying on an outline; no rotated facing looks like the unlit side of the character.",
+        "evidence": "Allfour views under one horizontally balanced rig, light/gray/dark composites, action playback to catch shifting highlight artifacts or normals discontinuities."
+      },
+      {
+        "id": "materialDetail",
+        "priority": 2,
+        "desired": "Coat collar, cuff/hem, scarf knot/tails and apron band/pocket read as integrated garment construction. Purposeful folds, edging, buttons or ties may add craft; exact target ornament/part counts are optional. Details follow the rig and remain subordinate to the face and role.",
+        "useSizeGoal": "At192x320, the collar/scarf/apron pocket are clean readable shapes wherever exposed; subpixel stitch noise or dense decorative ridges must not replace major form quality.",
+        "evidence": "Native front/profile/rear closeups plus full-size frames and motion extrema; evaluate hidden-side seams and back apron ties without inventing unseen target requirements."
+      },
+      {
+        "id": "readability",
+        "priority": 1,
+        "desired": "Lena reads immediately as a friendly curly-haired chef with a large expressive face and compact functional body. Eyes, brows and smile stay clear in front/profile as appropriate; no new hat/hair/coat proportions crowd the face, swallow hands or hide necessary action cues.",
+        "useSizeGoal": "At logical size, idle,working,holding and loading remain distinguishable; action hands/knife/dish silhouettes remain readable where physically visible. Natural rear-body occlusion is acceptable only when source-consistent and functional contact evidence passes, not an excuse for new clipping or disappearance.",
+        "evidence": "Full-frame192x320 playback and state comparisons in all4 actual facings, with shared scale and ground root."
+      },
+      {
+        "id": "deadSpotsArtifacts",
+        "priority": 1,
+        "desired": "No black patches, chalky white slabs, pinholes, coplanar flicker, bad normals, detached ends, hair/hat gaps, intersections, crawling seams, stray opaque pixels or contaminated alpha fringe. No unwanted ground shadow. Silhouette antialiasing stays clean against light,gray,dark.",
+        "useSizeGoal": "No defect that catches the eye at logical size; enlarged views distinguish intentional soft valleys from occlusion glitches. No material unfinished patch in rear,inner arms,under hat or apron/body overlaps.",
+        "evidence": "All192 actual frames through verified frame sheets, every state/facing playback and representative/background-edge views; enlarge any suspect region."
+      },
+      {
+        "id": "motionAndContacts",
+        "priority": 1,
+        "desired": "Soft construction remains stable through motion: hat/curls stay attached to head, collar/apron follow the torso without tearing, palms and utensil retain intended grip, held dish follows evaluated hands with correct depth, and load reaches the belt contact without floating or penetrating geometry. Foot/root contacts remain planted according to source behavior.",
+        "useSizeGoal": "No visible jitter, mesh pop, shading flicker, hidden hand regression, collision or discontinuous looping at12fps. Load ends in the correct placement state without accidental loop closure.",
+        "evidence": "Native all192frame capture manifest, source-vs-candidate evaluated root/foot/hand/dish/belt contact data, stable rest/skin/topology validation and playback of all16 state/facing clips; connected serving-belt/load and held-dish context at actual catalog/game scale."
+      }
+    ],
+    "requiredCandidateEvidence": [
+      "Hash-bound candidate packet linking the exact edited .blend, dependencies/textures, validation, all192 native frame files and final16 original-layout atlases. Verify actual file hashes before review.",
+      "Per-state/per-facing frame sheets with all12 frames labeled and a verified mapping to packet render paths/hashes; no omitted N/E/S/W or substituted same-angle renders.",
+      "Temporal playback for all16 clips at12fps with declared loop/nonloop behavior. Inspect actual playback; static sheets alone cannot establish temporal quality.",
+      "Light,mid-gray,dark composites at192x320 and enlarged edge inspection across states/facings, including action extrema and contact-risk frames. Previews may composite unchanged native RGBA only.",
+      "Native calibration evidence for35-degree square-pixel character camera, root/frame/scale, authored facing transforms, one-cell/height1.6 envelope and no per-view fitting.",
+      "Native rest/bone/weights/mesh stability and evaluated frame-by-frame foot/root/hand/dish/knife/beltLoad contact comparison to source, plus serving-belt assembly and load endpoint evidence. Record meaningful tolerances and any unavoidable source-consistent occlusions.",
+      "Dependency closure and representation labels: chef/knife3D versus separate packed held dish2D. No target plane or painted replacement body."
+    ],
+    "approvalRule": "No numeric score threshold. Approve only the exact hash-bound candidate after material visible improvement toward these frozen outcomes, complete192frame evidence, passing technical/contact contract and no material dead spot in required views. Missing evidence yields needs_evidence; useful authorized geometry differences alone are not blockers."
+  },
   "delivery": {
     "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
     "requiredClips": [
@@ -227,5 +337,6 @@
       "The three excluded restaurant floor designs"
     ],
     "judging": "Reward useful native modeling and decoration inspired by the target. Do not reject a change solely because it differs from the source. Reject target drift only when it harms the chosen style, readability, role or locked technical contract. Original part counts and weak shapes are not automatically constraints."
-  }
+  },
+  "criteriaVersion": 1
 }

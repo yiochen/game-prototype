@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 13,
-  "published": 12,
-  "current": "Twelve objects published; inner corner in independent review; outer corner and conveyor native editing",
+  "completed": 14,
+  "published": 13,
+  "current": "Thirteen objects published; outer corner approved and publishing; wall end and conveyor in independent review; Lena native editing",
   "objects": [
     {
       "id": "plant-angular",
@@ -228,13 +228,15 @@
       "name": "Wall outer corner",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "approved",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_wall_outer_editor_v1",
-      "judge": "catalog_wall_outer_judge_v1"
+      "judge": "catalog_wall_outer_judge_v1",
+      "round": "round-03",
+      "packetSHA256": "554037f837bcfc490ebd7153fb85f244c96551537ba18ce8a3c8675b933ba8e7"
     },
     {
       "id": "wall-end",
@@ -438,11 +440,15 @@
       "name": "Lena Brooks",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "native-editing",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "agents": {
+        "judge": "catalog_chef_lena_judge_v1",
+        "editor": "catalog_chef_lena_editor_v1"
+      }
     },
     {
       "id": "chef-omar",
