@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 9,
-  "published": 8,
-  "current": "Dock approved for publication; entrance approved; native backdrop and modular wall editing ongoing",
+  "completed": 10,
+  "published": 9,
+  "current": "Nine objects published; entrance approved for next preview; backdrop-wall review and native wall/belt work ongoing",
   "objects": [
     {
       "id": "plant-angular",
@@ -125,7 +125,7 @@
       "name": "Dock post and rope",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 4,
       "editor": "catalog_dock_rope_editor_v1",
@@ -169,19 +169,21 @@
       "name": "Restaurant entrance backdrop",
       "kind": "backdrop",
       "pipeline": "native-3d",
-      "status": "reviewing",
+      "status": "approved",
       "clips": 1,
       "frames": 1,
       "editor": "catalog_backdrop_entrance_editor_v1",
       "judge": "catalog_backdrop_entrance_judge_v1",
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "round": "round-06",
+      "packetSHA256": "c8ca93efd93f4832d8af992309cd9691c85b5a13c04fb76faa3a82ae42d16286"
     },
     {
       "id": "backdrop-wall",
       "name": "Blank wood wall backdrop",
       "kind": "backdrop",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "reviewing",
       "clips": 1,
       "frames": 1,
       "editor": "catalog_backdrop_wall_editor_v1",
@@ -242,11 +244,13 @@
       "name": "Straight conveyor flowing N",
       "kind": "belt",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "assessing",
       "clips": 1,
       "frames": 96,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "editor": "catalog_belt_straight_n_editor_v1",
+      "judge": "catalog_belt_straight_n_judge_v1"
     },
     {
       "id": "belt-straight-e",

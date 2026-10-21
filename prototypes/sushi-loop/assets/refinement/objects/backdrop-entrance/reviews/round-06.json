@@ -1,0 +1,104 @@
+{
+  "round": "round-06",
+  "asset": "backdrop-entrance",
+  "verdict": "approve",
+  "candidatePacketSHA256": "c8ca93efd93f4832d8af992309cd9691c85b5a13c04fb76faa3a82ae42d16286",
+  "inspectedFiles": [
+    "static-S-000.png",
+    "four-view-sheet.png",
+    "repeated.png",
+    "background-sheet.png",
+    "native-joined.png",
+    "independent-assembled.png",
+    "entrance-join-strips.png",
+    "rgb-join-comparison.png",
+    "native-joined-raw.png",
+    "independent-assembled-raw.png",
+    "static-S.png",
+    "reopened-S.png",
+    "wall-context-S.png"
+  ],
+  "inspectedFilesNotes": {
+    "four-view-sheet.png": "Verified byte/pixel-equivalent alias of background-sheet.png. Correctly contains S on light, gray and dark backgrounds.",
+    "static-S.png": "Verified identical pixels and packet hash to selected static-S-000.png.",
+    "native-joined-raw.png": "Inspected through actual labeled native-joined.png and native-scale join evidence. Independently verified every labeled preview pixel below its header equals the raw image composited on beige.",
+    "independent-assembled-raw.png": "Inspected through labeled independent-assembled.png, native-scale join strips/comparison, intended-size repeated.png and actual RGB samples. Independently reconstructed from bound entrance/wall exports at exact 384px offsets; pixels equal supplied raw assembly.",
+    "reopened-S.png": "Compared actual image data with selected S; sparse stochastic differences have max9 channel levels and reported mean0.00448. No framing, geometry, palette or visible style change.",
+    "wall-context-S.png": "Inspected as the exact source for registered independent assembly and native-scale RGB samples. Context only; sibling wall approval is excluded."
+  },
+  "referenceFilesInspected": [
+    "../../inputs/original.png",
+    "../../inputs/target.png",
+    "../../brief.json",
+    "validation.json",
+    "family-settings.json",
+    "../../source/round-06.blend",
+    "../round-05/independent-assembled-raw.png",
+    "../../reviews/round-05.json"
+  ],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 7,
+    "artifactFreeReadability": 9
+  },
+  "scoreContext": "Comparative style/readability evidence only. Approval rests on visible outcomes and the preserved native contract, not a score threshold.",
+  "observations": [
+    "The entrance is visibly softer and more dimensional than the original at 576x448: lantern shoulders and paper bodies have rounded soft light; brass bands remain distinct; wooden jambs, brackets, feet and threshold edges have controlled highlights.",
+    "The blue canopy retains its flat-slab construction and darker fascia, while bevel light makes the slab edges legible. Gold lanterns, ochre wall fields, warm brown wood, red cloth and cream fish retain the original palette hierarchy.",
+    "Three red panels have gentle edge turns and soft broad tonal variation; the cream fish remains continuous, readable and correctly placed. The treatment is quieter than the target but meets the chosen soft cartoon style without copying cyan gloss, mottling or halo.",
+    "The dark navy doorway remains a coherent intentional recess, and the muted threshold remains a distinct step. Dark fittings and fabric gaps are intentional. No unintended black patch, clipped emblem, disconnected hanger/band, merged panel edge, exposed geometry or alpha fringe was found.",
+    "The previous RGB seam blocker is resolved. Independently assembled entrance boundaries x=1248 and 2784 and repeated wall boundaries x=480,864,3168,3552,3936 no longer produce the repeating dark/light vertical line across wall fields or baseboard. Intended-size repeated preview is continuous; native-scale RGB evidence supports that observation.",
+    "Independent RGB row 900 samples at wall join x=480 stay around [177,145,94], rather than round-05's drop to[168,136,88]. Baseboard row 1200 stays around [164\u2013165,112,60..61], rather than the previous [153,103,56] dip. Entrance boundary samples show only small local lighting/sample variation without a coherent dark/light seam.",
+    "The native connected and independently assembled facades agree in continuous roof/fascia, blank wall field and baseboard treatment. There is no broad horizontal module gradient or directional ground shadow. Wall context labels remain explicit and do not imply wall approval.",
+    "Disabling denoising leaves faint fine sampling grain only when inspecting the native export closely. At intended size the surfaces read smooth and quiet; this creates no material defect or new seam."
+  ],
+  "blockers": [],
+  "resolvedPreviousBlockers": [
+    {
+      "from": "round-05",
+      "rank": 1,
+      "result": "Resolved: RGB continuity now holds visually at both entrance boundaries and repeated wall boundaries; verified with actual independent/native pixels rather than alpha alone."
+    }
+  ],
+  "remainingDifferences": [
+    "Roof and timber are more restrained in saturation/gloss than the fixed target; this preserves original color identity and avoids plastic glare.",
+    "Cloth folds and surface detail remain simpler than the imagegen treatment, with sufficient edge turning and tonal variation for intended-size readability.",
+    "The target's alpha noise, colored halo, canvas drift, mottled walls and strong wall gradients remain absent.",
+    "Fine stochastic render variation is visible only at native close inspection and is accepted because it is quiet at intended size.",
+    "Internal bevels produce a subpixel projected-height difference (2.99904269 tiles versus source declared 3), while original frame, root, join planes and contacts remain fixed."
+  ],
+  "technicalEvidence": {
+    "packetVerification": {
+      "recordsChecked": 96,
+      "hashFailures": [],
+      "packetSHA256": "c8ca93efd93f4832d8af992309cd9691c85b5a13c04fb76faa3a82ae42d16286",
+      "method": "Independently resolved and SHA-256 checked all bound files, candidate renders and previews before review."
+    },
+    "nativeProject": {
+      "path": "../../source/round-06.blend",
+      "sha256": "0f0bc376521da752d75893a358d097f54940e0d4908e2da09baab01ec3224151",
+      "method": "Reopened exact bound source in Blender background mode without saving."
+    },
+    "actualNativeChecks": [
+      "Named gate collection contains 114 meshes, 2 curves, 1 root; actual counts include 64 roof slabs, 3 cloth panels, 6 loops and 2 lantern bodies.",
+      "Actual camera remains ORTHO with original matrix, scale 4.5 and shift [0,0.2696022093296051]. Frame 1728x1344, square pixels, transparent film and identity source root matrix remain present.",
+      "Actual source root retains threshold socket [0,-0.5,0]. Bound validation preserves contact [864,1248.000366], logical root [288,416], pitch 383.999977 native pixels/world unit, 2-unit opening and 4-unit outer width.",
+      "Bound native audit has 12 unchanged protected gate profile objects and no protected-profile failures. Entrance join planes remain \u00b12; context wall planes remain \u00b10.5.",
+      "Actual native renderer is Cycles 256 samples, BOX filter, denoising disabled. Actual scene light is X-neutral SUN with shadows disabled; bound world is Z-only and shared material/light/camera settings are supplied.",
+      "Actual source has no image resources or linked libraries. Bound validation reports no floor meshes or ground object, and no local lamp wall illumination.",
+      "Independently reconstructed raw facade from the bound wall and entrance exports at exact 384px pitch and registered offsets; reconstructed pixels equal supplied independent-assembled-raw.png.",
+      "Verified both labeled joined previews equal actual raw images composited on beige below their 64px labels.",
+      "Verified original-layout static-S atlas pixels equal selected S capture and legacy four-view-sheet alias pixels equal the S background sheet.",
+      "Compared actual RGB at entrance and repeated joins over wall field/baseboard rows, cross-checked previous round-05 and inspected the supplied RGB comparison at native scale. No alpha-only inference was used."
+    ],
+    "limits": [
+      "Approval covers only this entrance candidate, exact selected source/render bytes and required static S.",
+      "Matching wall context is approved only as technical join evidence for this entrance; the wall itself still requires its separate fresh editor/judge pair.",
+      "Reopened diagnostic render contains minor stochastic differences and is evidence of native reproducibility, not a substitute for the selected approved render bytes.",
+      "No candidate, source, brief, target or production files were modified during review."
+    ]
+  },
+  "approvalScope": "Exact round-06 entrance packet and bytes only. No sibling wall, floor tile, production replacement or publishing permission is granted by this visual verdict."
+}

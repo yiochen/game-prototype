@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "round": "round-06",
+  "blender": "/opt/homebrew/bin/blender",
+  "pythonWithPillowNumpy": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+  "sourceReadOnly": "../../../production/source/backdrop/restaurant-backdrop-35.blend",
+  "steps": [
+    {
+      "load": "original source read-only",
+      "script": "source/build_round06.py",
+      "action": "Writes immutable native round and selected S hero"
+    },
+    {
+      "load": "source/round-06.blend",
+      "script": "source/capture_validate_round06.py",
+      "action": "Reopens exact round; renders independent S evidence, wall context, native joined scene and native metadata"
+    },
+    {
+      "load": "source/round-06.blend",
+      "script": "source/audit_reopened_round06.py",
+      "action": "Actual dependency-graph audit and calibrated equivalent wall camera checks"
+    },
+    {
+      "interpreter": "pythonWithPillowNumpy",
+      "script": "source/assemble_delivery_round06.py",
+      "action": "Copies exact S atlas, composites QA evidence and copies native family context"
+    },
+    {
+      "load": "source/round-06.blend",
+      "script": "source/export_family_settings_round06.py",
+      "action": "Serializes actual family technical settings and protected profiles"
+    },
+    {
+      "interpreter": "pythonWithPillowNumpy",
+      "script": "source/compare_rgb_joins_round06.py",
+      "action": "Binds isolated denoiser/bevel controls and writes RGB comparisons against previous and native connected captures"
+    },
+    {
+      "interpreter": "pythonWithPillowNumpy",
+      "script": "source/finalize_handoff_round06.py",
+      "action": "Finalizes diagnostic labels, delivery resources and editor handoff hashes"
+    }
+  ],
+  "note": "Rendering can vary by a single 8-bit code value across an otherwise identical reopen. Exact selected native project and PNG bytes are hash-bound. Root coordinator seals these bytes and the fresh judge decides approval."
+}

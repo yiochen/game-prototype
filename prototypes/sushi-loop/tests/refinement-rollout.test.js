@@ -48,6 +48,14 @@ test('native refinement preserves every original clip and registered root', () =
     assert.deepEqual(camera.anchor, object.root);
     assert.equal(camera.captureScale, object.sourceScale);
     assert.equal(object.registration.sourceCaptureScale, object.sourceScale);
+    if (camera.approvedRecordSHA256) {
+      const recordUrl = new URL(`../inputs/approved-camera-record.json`, new URL(object.source.blend, production));
+      assert.equal(sha(recordUrl), camera.approvedRecordSHA256);
+      const selected = read(recordUrl).assets[camera.selectedAsset];
+      for (const key of ['frame', 'anchor', 'captureScale', 'camera', 'registrationPoint', 'nativeObjectOrigin']) {
+        assert.deepEqual(camera[key], selected[key], `${object.id}: backdrop camera normalization changed ${key}`);
+      }
+    }
   }
 });
 

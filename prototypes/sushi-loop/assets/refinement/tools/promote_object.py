@@ -103,11 +103,26 @@ def main():
             require(digest(folder / record['path']) == record['sha256'], 'Supplementary record changed')
     records = {k: read(folder / v) for k, v in record_paths.items()}
     camera = records['camera']
+    nested_camera = False
+    if 'captureScale' not in camera and isinstance(camera.get('assets'), dict):
+        matches = [(name, record) for name, record in camera['assets'].items()
+                   if record.get('frame') == obj['frameSize'] and record.get('anchor') == obj['root']
+                   and record.get('captureScale') == obj['sourceScale']]
+        require(len(matches) == 1, 'Backdrop camera record must identify one exact registered asset')
+        name, selected = matches[0]
+        approved_record = folder / record_paths['camera']
+        camera = {**camera, **selected, 'selectedAsset': name,
+                  'approvedRecordSHA256': digest(approved_record)}
+        copy_file(approved_record, native_base / 'inputs/approved-camera-record.json')
+        nested_camera = True
     require(camera.get('captureScale') == obj['sourceScale'], 'Native record has stale capture scale')
     require(camera.get('frame') == obj['frameSize'] and camera.get('anchor') == obj['root'], 'Native registration differs')
     for key, name in [('camera', 'camera'), ('assetRecord', 'asset'), ('rig', 'rig')]:
         dest = PRODUCTION / 'source/records' / args.asset / f'{name}.json'
-        copy_file(folder / record_paths[key], dest, sealed=bool(delivery.get('nativeRecords')))
+        if key == 'camera' and nested_camera:
+            generate(dest, camera)
+        else:
+            copy_file(folder / record_paths[key], dest, sealed=bool(delivery.get('nativeRecords')))
         obj['source'][key] = relative(dest)
 
     atlases = delivery.get('atlases')

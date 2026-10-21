@@ -1,0 +1,175 @@
+{
+  "id": "backdrop-entrance",
+  "name": "Restaurant entrance backdrop",
+  "family": "W02",
+  "kind": "backdrop",
+  "status": "ready",
+  "footprint": [
+    4,
+    3
+  ],
+  "rootCell": [
+    2.0,
+    3
+  ],
+  "frameSize": [
+    576,
+    448
+  ],
+  "root": [
+    288.0,
+    416
+  ],
+  "sourceScale": 3,
+  "projection": "character-orthographic",
+  "facingPolicy": "single-player-facing",
+  "layer": 0,
+  "renderPass": "background",
+  "backdrop": {
+    "width": 4,
+    "height": 3,
+    "openingWidth": 2,
+    "baseboard": true,
+    "lighting": "uniform ambient"
+  },
+  "productionStage": "Approved Blender backdrop \u00b7 35\u00b0 camera \u00b7 uniform light",
+  "reviewNote": "4 \u00d7 3 projected tiles, including flat roof tiles and a continuous wooden baseboard. The clear opening is exactly 2 tiles wide.",
+  "registration": {
+    "method": "authored-backdrop-plane",
+    "completeFrame": [
+      576,
+      448
+    ],
+    "anchor": [
+      288.0,
+      416
+    ],
+    "cellSize": 128,
+    "sourceCaptureScale": 3,
+    "poseFitting": false,
+    "contentRect": [
+      96,
+      96,
+      1536,
+      1152
+    ]
+  },
+  "clips": [
+    {
+      "id": "static",
+      "name": "Static",
+      "frames": 1,
+      "fps": 12,
+      "static": true,
+      "loop": false,
+      "directions": {
+        "S": {
+          "image": "sprites/backdrop-entrance/static-S.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            1728,
+            1344
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              1728,
+              1344
+            ]
+          ],
+          "sha256": "aa1c9c4b3a3a9c4e048aee47951157ec214f31dd5b88872287b19fe135f02e71"
+        }
+      }
+    }
+  ],
+  "requirements": {
+    "directions": [
+      "S"
+    ],
+    "states": [
+      "static"
+    ],
+    "animated": false,
+    "fps": 12,
+    "notes": "Fixed restaurant backdrop plane; no turning or per-sprite stretching."
+  },
+  "source": {
+    "pipeline": "blender-backdrop",
+    "blend": "source/backdrop/restaurant-backdrop-35.blend",
+    "camera": "source/backdrop/camera.json",
+    "assetRecord": "source/backdrop/backdrop-entrance.json",
+    "approvedSource": "../restaurant-backdrop/uniform35",
+    "hashes": {
+      "source/backdrop/restaurant-backdrop-35.blend": "927a8a59e8d0f1e92669812214a8c4cdabc566905c7f33b09869c8f54335fe05",
+      "sprites/backdrop-entrance/static-S.png": "aa1c9c4b3a3a9c4e048aee47951157ec214f31dd5b88872287b19fe135f02e71"
+    }
+  },
+  "interactions": [
+    {
+      "name": "Three blank tiles, entrance, then blank walls",
+      "gridSize": [
+        11,
+        6
+      ],
+      "placements": [
+        {
+          "object": "backdrop-wall",
+          "x": 0,
+          "y": 0,
+          "direction": "S"
+        },
+        {
+          "object": "backdrop-wall",
+          "x": 1,
+          "y": 0,
+          "direction": "S"
+        },
+        {
+          "object": "backdrop-wall",
+          "x": 2,
+          "y": 0,
+          "direction": "S"
+        },
+        {
+          "object": "backdrop-wall",
+          "x": 7,
+          "y": 0,
+          "direction": "S"
+        },
+        {
+          "object": "backdrop-wall",
+          "x": 8,
+          "y": 0,
+          "direction": "S"
+        },
+        {
+          "object": "backdrop-wall",
+          "x": 9,
+          "y": 0,
+          "direction": "S"
+        },
+        {
+          "object": "backdrop-wall",
+          "x": 10,
+          "y": 0,
+          "direction": "S"
+        },
+        {
+          "object": "backdrop-entrance",
+          "x": 3,
+          "y": 0,
+          "direction": "S"
+        },
+        {
+          "object": "chef-lena",
+          "x": 4,
+          "y": 4,
+          "direction": "S",
+          "clip": "idle"
+        }
+      ]
+    }
+  ]
+}
