@@ -1,0 +1,119 @@
+{
+  "checks": [
+    "Real card and world taps close the route again without buying supplies or touching the entrance",
+    "Actual review saves use admission version1 and the four-second entrance deadline",
+    "The new unseated arrival waits standing at the entrance with no assignment or wandering",
+    "Puzzled feedback advances only its entrance wait clock while preference, body and meal clocks stay neutral",
+    "Edit freezes the complete puzzled arrival save, including its four-second deadline, feedback clock and RNG",
+    "Home preserves the waiting arrival and all paused clocks byte for byte",
+    "Force-stop keeps the exact saved entrance-wait deadline and visitor identity",
+    "Rendered cold reopen restores the same puzzled visitor and every paused field without consuming wait time",
+    "Live resumes the same entrance wait without changing the arrival into a wandering guest",
+    "The same unavailable-seat arrival leaves at its remaining four-second simulation deadline after resume",
+    "Every observed pre-departure frame keeps the unadmitted arrival at the door and never in wandering mode",
+    "A real spare stool placement preserves the waiting arrival and its exact paused feedback clock",
+    "Returning the real plant gate makes seating reachable while preserving the same paused entrance visitor",
+    "The same puzzled arrival claims a newly usable seat before its deadline without rerolling appearance or appetite",
+    "Admission starts a valid goal route and meal preference only after a usable seat exists",
+    "The admitted visitor reaches the same assigned seat instead of departing or wandering",
+    "All entrance waiting, lifecycle and seating recovery inputs leave both normal app saves unchanged",
+    "No app error or crash occurs during actual puzzled waiting, deadline departure and same-visitor seating recovery"
+  ],
+  "state_injected": false,
+  "runtime_backdoor": false,
+  "wait_seconds": 4.0,
+  "arrival_trace": [
+    {
+      "elapsed": 41.050000000000004,
+      "present": true,
+      "phase": "entrance_wait",
+      "navigation_mode": "goal",
+      "entrance_wait_elapsed": 1.7
+    },
+    {
+      "elapsed": 41.050000000000004,
+      "present": true,
+      "phase": "entrance_wait",
+      "navigation_mode": "goal",
+      "entrance_wait_elapsed": 1.7
+    },
+    {
+      "elapsed": 42.1,
+      "present": true,
+      "phase": "entrance_wait",
+      "navigation_mode": "goal",
+      "entrance_wait_elapsed": 2.75
+    },
+    {
+      "elapsed": 42.1,
+      "present": true,
+      "phase": "entrance_wait",
+      "navigation_mode": "goal",
+      "entrance_wait_elapsed": 2.75
+    },
+    {
+      "elapsed": 42.1,
+      "present": true,
+      "phase": "entrance_wait",
+      "navigation_mode": "goal",
+      "entrance_wait_elapsed": 2.75
+    },
+    {
+      "elapsed": 42.7,
+      "present": true,
+      "phase": "entrance_wait",
+      "navigation_mode": "goal",
+      "entrance_wait_elapsed": 3.35
+    },
+    {
+      "elapsed": 42.7,
+      "present": true,
+      "phase": "entrance_wait",
+      "navigation_mode": "goal",
+      "entrance_wait_elapsed": 3.35
+    },
+    {
+      "elapsed": 42.7,
+      "present": true,
+      "phase": "entrance_wait",
+      "navigation_mode": "goal",
+      "entrance_wait_elapsed": 3.35
+    },
+    {
+      "elapsed": 42.7,
+      "present": true,
+      "phase": "entrance_wait",
+      "navigation_mode": "goal",
+      "entrance_wait_elapsed": 3.35
+    },
+    {
+      "elapsed": 43.2,
+      "present": true,
+      "phase": "entrance_wait",
+      "navigation_mode": "goal",
+      "entrance_wait_elapsed": 3.85
+    },
+    {
+      "elapsed": 43.35,
+      "present": false,
+      "phase": null,
+      "navigation_mode": null,
+      "entrance_wait_elapsed": null
+    }
+  ],
+  "first_arrival_id": "customer-9",
+  "paused_entrance_wait_elapsed": 0.05,
+  "remaining_simulation_wait": 3.95,
+  "observed_simulation_until_departure": 3.9499999999999957,
+  "second_arrival_id": "customer-10",
+  "second_paused_entrance_wait_elapsed": 0.2,
+  "added_seat_id": "editor-object-10",
+  "added_seat_tile": [
+    1,
+    5
+  ],
+  "assigned_seat_id": "seat-1",
+  "same_arrival_reached_seat": true,
+  "passed": true,
+  "combined_assertion_count": 88
+}

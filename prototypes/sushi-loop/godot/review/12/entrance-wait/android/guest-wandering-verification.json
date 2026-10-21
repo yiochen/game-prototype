@@ -1,0 +1,56 @@
+{
+  "checks": [
+    "Actual inventory drops fill row3 and the final empty-tile plant gate is accepted despite disconnecting the guest route",
+    "Route closure consumes only the seven owned supplies without a purchase or coin change",
+    "Seated guests retain their complete seated meal and visit state while the layout closes their route",
+    "An unreachable walking or leaving guest enters wander mode on free floor with the existing walk animation",
+    "The same blocked guest visibly moves across free floor instead of remaining stuck or disappearing",
+    "Wandering preserves the guest identity, assigned goal, departure phase and meal/visit state",
+    "The persisted scared-bubble clock advances with the same actual wandering simulation interval",
+    "Edit and Home keep the wandering save byte-stable including the scared-bubble clock, navigation, service and RNG",
+    "Force-stop preserves the saved wandering position, origin, cursor and retry clock",
+    "Cold reopen restores every paused field including fractional wandering route bookkeeping and the guest visit",
+    "Live resumes the restored wandering movement with the same guest and visit",
+    "Returning the plant gate restores the route and owned stock without altering coins",
+    "The same wandering guest automatically resumes its goal route or completes departure when the layout is reopened",
+    "The complete route-block/wander/reopen/unblock proof leaves both normal app saves untouched",
+    "No app runtime error or crash occurs during the actual blocked-route wandering proof"
+  ],
+  "state_injected": false,
+  "runtime_backdoor": false,
+  "route_wall_row": 3,
+  "gate_tile": [
+    4,
+    3
+  ],
+  "gate_id": "editor-object-8",
+  "barrier_ids": [
+    "editor-object-2",
+    "editor-object-3",
+    "editor-object-4",
+    "editor-object-5",
+    "editor-object-6",
+    "editor-object-7",
+    "editor-object-8"
+  ],
+  "seated_customer_ids": [
+    "customer-1",
+    "customer-2",
+    "customer-3"
+  ],
+  "closure_elapsed": 13.3,
+  "customer_id": "customer-1",
+  "initial_wander_phase": "leaving",
+  "initial_goal_seat_id": "seat-4",
+  "first_wander_position": {
+    "x": 5.0,
+    "y": 6.212495803833008
+  },
+  "moved_position": {
+    "x": 5.9000091552734375,
+    "y": 5.0
+  },
+  "restored_navigation_mode": "goal",
+  "passed": true,
+  "combined_assertion_count": 70
+}
