@@ -17,6 +17,9 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('asset')
     parser.add_argument('--target',required=True)
+    parser.add_argument('--prompt',help='Exact submitted ImageGen prompt; copy with target provenance')
+    parser.add_argument('--family-concept',help='Additional family style reference supplied to ImageGen')
+    parser.add_argument('--family-settings',help='Object-relative required native family settings path; may be supplied later')
     args=parser.parse_args()
     library=json.loads((PRODUCTION/'library.json').read_text())
     original=next(o for o in library['objects'] if o['id']==args.asset)
@@ -35,6 +38,12 @@ def main():
     x,y,w,h=entry['rects'][0]
     Image.open(PRODUCTION/entry['image']).convert('RGBA').crop((x,y,x+w,y+h)).save(folder/'inputs/original.png')
     shutil.copy2(Path(args.target).expanduser().resolve(),folder/'inputs/target.png')
+    references=[{'role':'native-edit-source','path':'inputs/original.png','sha256':digest(folder/'inputs/original.png')}]
+    style=RUN/'style/warm-soft-reference.png'
+    if style.exists():references.append({'role':'style-only','path':os.path.relpath(style,folder),'sha256':digest(style)})
+    if args.family_concept:
+        shutil.copy2(Path(args.family_concept).expanduser().resolve(),folder/'inputs/family-concept.png')
+        references.append({'role':'family-style-only','path':'inputs/family-concept.png','sha256':digest(folder/'inputs/family-concept.png')})
     record={k:v for k,v in original.items()if k!='source'}
     record['source']={k:v for k,v in source.items()if k not in ['hashes','nativeScripts','rawFrames','guides']}
     (folder/'inputs/catalog-object.json').write_text(json.dumps(record,indent=2)+'\n')
@@ -46,8 +55,8 @@ def main():
         if clip.get('frames',1)>1:previews.extend(f'{clip["id"]}-{direction}'for direction in clip['directions'])
     brief={
         'asset':args.asset,'style':(RUN/'style/brief.txt').read_text().strip(),
-        'source':{'project':os.path.relpath(project,folder),'backup':os.path.relpath(backup,folder),'snapshot':'inputs/original.png','scene':'Inspect the named asset collection; do not use an unrelated active scene'},
-        'target':{'image':'inputs/target.png','provenance':'user-provided'},
+        'source':{'project':os.path.relpath(project,folder),'backup':os.path.relpath(backup,folder),'projectSHA256':digest(project),'backupSHA256':digest(backup),'snapshot':'inputs/original.png','scene':'Inspect the named asset collection; do not use an unrelated active scene'},
+        'target':{'image':'inputs/target.png','sha256':digest(folder/'inputs/target.png'),'provenance':'provided-target','references':references},
         'agentPrompts':{'judge':'prompts/judge.txt','editor':'prompts/editor.txt'},
         'capture':{'frame':[w,h],'views':views,'previews':previews,'logicalFrame':original['frameSize'],'logicalRoot':original['root'],'sourceScale':original.get('sourceScale',2),'cellSize':library['cellSize'],'fps':12,'projection':original['projection']},
         'constraints':{'preserve':['Every logical frame/root/sourceScale and per-clip/direction override','Original footprint, height/proportions, sockets, ports, rigs and projection','Every registered clip, facing, frame count and fps/loop behavior','Lighting without preferred horizontal direction for rotatable world objects; no directional ground cast shadow','Actual independent geometry views and native animation; no raster card or per-view image fitting/recolor'],'catalogContract':'inputs/catalog-object.json','pipeline':'native-3d'if source.get('blend')else 'existing-2d'},
@@ -62,6 +71,11 @@ def main():
         brief['constraints']['designFreedom']=policy['allowed']
         brief['target']['interpretation']=policy['judging']
         shutil.copy2(RUN/'prompts/imagegen-target.txt',folder/'prompts/imagegen-target.txt')
+    if args.prompt:
+        shutil.copy2(Path(args.prompt).expanduser().resolve(),folder/'inputs/imagegen-prompt.txt')
+        brief['target'].update(provenance='imagegen-builtin',prompt='inputs/imagegen-prompt.txt')
+    if args.family_settings:
+        brief['technicalResources']={'family-settings':args.family_settings}
     (folder/'brief.json').write_text(json.dumps(brief,indent=2)+'\n')
     print(f'Prepared {args.asset}: {len(views)} hero views, {len(previews)} previews; original project backup verified.')
 

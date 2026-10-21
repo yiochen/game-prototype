@@ -1,0 +1,92 @@
+{
+  "asset": "wall-middle",
+  "stage": "proposed-visible-success-criteria",
+  "status": "proposed-for-coordinator-freeze",
+  "intent": "Warm, softly lit cartoon restaurant wall with blue coping and warm timber; reward useful native modeling, structure and tasteful decoration within locked registration, function and modular contacts.",
+  "aestheticCriteria": [
+    {
+      "id": "shapeVolume",
+      "priority": 1,
+      "success": [
+        "The blue coping reads as a shaped top/cap with a distinguishable top plane and lip or side surface, rather than a flat blue rectangle.",
+        "Timber reads as a substantial constructed lower wall through legible face depth, deliberate structural transitions and restrained edge softness on nonjoining surfaces. A better native arrangement may replace the original part count.",
+        "The silhouette and distribution of volume are coherent in all four actual facings; details improve the wall identity without making the middle module resemble a freestanding terminal, crate or unrelated prop."
+      ]
+    },
+    {
+      "id": "color",
+      "priority": 2,
+      "success": [
+        "Retain the recognizable saturated blue and honey/ochre timber palette family, warmed and balanced so neither region dominates through harsh neon saturation.",
+        "Maintain clear value/color separation between cap, contact recesses and timber; broad wooden faces remain warm and readable to the base instead of merging into brown-black bands.",
+        "Variation within materials is intentional and low enough in contrast to support shape. Added details remain subordinate to the wall construction."
+      ]
+    },
+    {
+      "id": "lightingHighlights",
+      "priority": 1,
+      "success": [
+        "Broad soft highlights and gentle occlusion describe the cap and wood volume at use size; highlights follow native surfaces and do not read as painted glowing outlines.",
+        "No substantial face becomes empty flat fill, muddy underexposure, a near-black hole or a clipped white patch. Recesses stay shallow and readable.",
+        "Use a horizontally unbiased world-light treatment coherent under actual four-way model rotation. No view-specific recoloring, camera-facing highlight painting or directional ground shadow.",
+        "Preserve rich material separation without requiring the imagegen target's near-white edge streaks or plastic/glass sheen."
+      ]
+    },
+    {
+      "id": "materialDetail",
+      "priority": 2,
+      "success": [
+        "Warm wood has restrained, deliberately scaled grain or similarly convincing crafted variation that remains visible in the major faces at logical size without fine noisy texture.",
+        "Blue coping has a coherent clean cartoon finish with soft surface response; wood retains a distinct warmer, less shiny response.",
+        "Tasteful structural details or decoration are welcome when they help character and readability, avoid visual clutter and respect footprint/clearance and joins. Decorative complexity is not required for its own sake."
+      ]
+    },
+    {
+      "id": "intendedSizeReadability",
+      "priority": 1,
+      "success": [
+        "Judge the complete 192x352 logical frame, with the source registration and size unchanged, as well as enlarged crops. The visible wall should retain cap/timber hierarchy, volume and important detail at this size.",
+        "All actual N/E/S/W captures receive the same quality bar. A single front reference does not establish rear/side appearances; their surfaces must be coherent, attractive and artifact-free on their own.",
+        "Transparent sprites remain clean on light, neutral gray and dark backgrounds, with stable edges and no imagegen halo, stray alpha, colored fringe or clipped geometry."
+      ]
+    },
+    {
+      "id": "modularContinuity",
+      "priority": 1,
+      "success": [
+        "A repeated wall reads as continuous coping and timber bands across each internal boundary, without end-rounded notches, gaps, steps, exposed caps, double dark borders, highlight flares or mismatched material levels.",
+        "Boundary-local native shape and material profiles remain exactly compatible with the source W/E sections at x=-0.5,+0.5 after each actual rotation. Model improvements may occur away from the locked sections.",
+        "Show at least three repeated matching modules in all four source facings both as a native joined render and as independently alpha-composited exported sprites placed using the declared roots/ports. Both methods must pass at logical size and enlarged boundary crops.",
+        "Compare native versus independent assembly with a transparent/light/dark treatment sufficient to reveal occlusion/alpha artifacts. Do not hide an internal join with a new post, overlay or crop. Periodic wood variation may remain visible if it does not create a defective seam."
+      ]
+    },
+    {
+      "id": "artifactFree",
+      "priority": 1,
+      "success": [
+        "No coplanar flicker, broken normals, intersecting slivers, detached pieces, abrupt shader bands, dark corners, accidental exposed end faces, shadow seams or other dead spots in any required single-module or joined view.",
+        "No clipping, camera/frame/root drift, per-view fitting, target image used as a camera card or other raster substitute for the native wall."
+      ]
+    }
+  ],
+  "immutableTechnicalConstraints": [
+    "Registered native orthographic projection/pixel aspect; logical frame [192,352], root [96,256], cellSize 128; exported full frame [384,704] at sourceScale 2; retain atlas frame/rect layout.",
+    "Actual source ground root, one-cell occupied footprint, functional height 1.02 and clearance envelope; preserve blue/wood wall identity and palette family.",
+    "Exact source W/E join planes, normals, local shape and material-band profile; true model N/E/S/W facings; restaurant-wall-wood-blue-v2 family continuity.",
+    "One static frame, fps 12, loop false; editable native Blender output and closure of its external resources.",
+    "No directional ground shadow and no preferred horizontal light direction for the rotatable world sprite; no per-view color/pose fitting."
+  ],
+  "requiredEvidence": [
+    "Hash-bound immutable candidate packet with source .blend, recipe/settings, full N/E/S/W captures, original-layout atlases, four-view sheet and validation.",
+    "Native scene evidence for camera, resolution/pixel aspect, root, bounds/functional height, exact W/E boundary sections/material levels, lights and absence of per-view fitting.",
+    "Four-facing repeated native joins AND independently assembled RGBA joins, with placement/root derivation recorded; viewable at logical size and enlarged as needed.",
+    "Direct inspection or hash-verified contact sheets of all candidate renders/previews, including clean transparency against light/gray/dark backgrounds.",
+    "After approval, retain numeric material/light/world/render settings and boundary definitions for later independently reviewed wall-family members."
+  ],
+  "targetAuthorityLimits": [
+    "Target establishes style/design intent and useful modeling direction, not registration, exact silhouette width, functional height or modular boundary authority.",
+    "Do not require its terminal corner rounding, glow/halos, exaggerated white/yellow outline highlights, frame drift or stray pixels.",
+    "Original part count and weak shape design are not immutable. A native design improvement is not rejected merely for differing from the source or the single target view."
+  ],
+  "reviewRule": "Approval requires visible improvement toward these frozen outcomes and passing hard constraints in every required facing and both assembly methods. Missing evidence yields needs_evidence; a material visual or contract failure yields revise. Scores are comparative observations, not an automatic numeric threshold."
+}

@@ -53,9 +53,77 @@
       "Actual independent geometry views and native animation; no raster card or per-view image fitting/recolor"
     ],
     "catalogContract": "inputs/catalog-object.json",
-    "pipeline": "native-3d"
+    "pipeline": "native-3d",
+    "judgeMeasuredRequirements": [
+      {
+        "id": "capture-registration",
+        "outcome": "Preserve recorded orthographic projection, camera matrices and pixel aspect; 384 x 704 native frames, 192 x 352 logical frames, logical root [96,248], sourceScale 2, cellSize 128, original root/footprint/height, and per-facing registration. No camera fitting, per-view recolor or raster substitutes.",
+        "evidence": "Native source/capture validation plus exact full-frame N/E/S/W images."
+      },
+      {
+        "id": "native-views",
+        "outcome": "Static clip remains one unique frame at 12 fps, non-looping. Render actual independently rotated 3D geometry for N, E, S and W. Symmetric appearance may legitimately match.",
+        "evidence": "Native transform/capture record and all four image files."
+      },
+      {
+        "id": "modular-construction",
+        "outcome": "Retain two partial wood posts, both bindings per post, cap and sagging cream rope. Keep exact port planes x=\u00b10.5 at z=.575, opposing normals, dock-rope-v2 cross-sections/handedness, and empty sockets. Partial outer planes are intentional; do not complete them into separate full posts.",
+        "evidence": "Native geometry/bounds/profile validation and joined/repeated imagery."
+      },
+      {
+        "id": "lighting-symmetry",
+        "outcome": "Lighting has no preferred horizontal direction for rotation and produces no directional ground cast shadow. Preserve real transparency.",
+        "evidence": "Native lighting records and all facings on light/gray/dark backgrounds."
+      }
+    ],
+    "connectionPolicy": "Preserve intentional half-post cut planes at native \u00b10.5 exactly, rope/binding joins and repeated full-post continuity; no bevel shrinking protected boundary planes."
   },
-  "qualityCriteria": {},
+  "qualityCriteria": {
+    "aestheticGoals": [
+      {
+        "id": "shape-volume",
+        "priority": 1,
+        "dimension": "shapeVolume",
+        "outcome": "Wood bodies, caps, bindings and span show soft, legible local volume rather than uniform flat plates. The cream span remains a coherent sagging rope, with no separate floating beads or swollen pillow silhouette. Retain original proportions and construction contact.",
+        "review": "At logical 192 x 352 size, distinguish cap top/side, body curvature, and rope top/underside without enlarging the asset; inspect all four facings enlarged for contact and normal continuity."
+      },
+      {
+        "id": "color",
+        "priority": 2,
+        "dimension": "color",
+        "outcome": "Retain golden/amber warm wood and cream rope. Introduce moderate warm wood value/hue variation while keeping cream visibly distinct; cap highlights retain color instead of becoming a broad flat lemon/white patch. Shadows remain warm and readable.",
+        "review": "Compare baseline/target/candidate at identical registered scale; no per-facing palette shift or muddy near-face patch."
+      },
+      {
+        "id": "light-highlights",
+        "priority": 2,
+        "dimension": "lightingHighlights",
+        "outcome": "Use broad controlled highlights and gentle form shading to create the chosen softly lit cartoon treatment. Avoid hard highlight stripes, thin white rims, wet/plastic gloss, blown caps, or abrupt dark lower faces.",
+        "review": "Inspect cap edge, rope span and bindings, both body sides, and end-on near-post plane in all facings; verify horizontal lighting symmetry from native evidence."
+      },
+      {
+        "id": "material-detail",
+        "priority": 3,
+        "dimension": "materialDetail",
+        "outcome": "Wood and rope remain readable through material and form at use size. Any grain or rope surface variation is broad, restrained, coherent in 3D and subordinate to silhouette. Detailed grain, exact target segment padding and gloss are optional, not approval requirements.",
+        "review": "Reject texture noise, repeated dark stains, excessive contrast or tiny detail that merges into dirt. No requirement to match imagegen grain or target topology."
+      },
+      {
+        "id": "artifact-free-readability",
+        "priority": 1,
+        "dimension": "artifactFreeReadability",
+        "outcome": "No material dead spots, black wedges, alpha halos, coplanar flicker, seams from broken normals, rope gaps, cap/binding intersections, newly exposed ends, clipping or unwanted ground shadow. Intentional half-post outer planes are accepted.",
+        "review": "Inspect exact saved N/E/S/W frames at logical size and enlarged over light/middle/dark backgrounds, plus four-view sheet and native repeated join preview."
+      },
+      {
+        "id": "joined-continuity",
+        "priority": 1,
+        "dimension": "artifactFreeReadability",
+        "outcome": "Same-profile adjacent modules reconstruct complete posts and bindings at the declared planes without gaps, doubled ridges, disconnected rope, or visible material discontinuity. Open outer ends of the demonstration remain available for inspection.",
+        "review": "Require the catalog three-module matching-profile S placement (x=1,2,3; y=2) assembled independently from exact candidate geometry; native validation must also establish rotated port/profile consistency. Additional native join views are required if a join is occluded or ambiguous."
+      }
+    ]
+  },
   "delivery": {
     "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
     "requiredClips": [
@@ -73,5 +141,7 @@
       }
     ],
     "notes": "Write source/round-NN.blend or the actual native 2D source as appropriate; full native captures, original-layout atlases, previews, validation and delivery.json. Do not label 2D artwork as a Blender model."
-  }
+  },
+  "criteriaVersion": 1,
+  "criteriaSource": "reviews/criteria.json"
 }

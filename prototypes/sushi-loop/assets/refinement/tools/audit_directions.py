@@ -22,7 +22,7 @@ def audit(folder, round_name, views=None):
         validation_path = folder / data['nativeValidation']
         data = json.loads(validation_path.read_text())
     measured = {view: [] for view in views}
-    records = data.get('renders', data.get('views', data.get('nativeCaptures', [])))
+    records = data.get('renders', data.get('views', data.get('nativeCaptures', data.get('captureRecords', []))))
     entries = records.items() if isinstance(records, dict) else [(record.get('direction'), record) for record in records]
     for facing, record in entries:
         if facing not in measured:

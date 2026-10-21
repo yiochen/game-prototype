@@ -1,0 +1,441 @@
+{
+  "schemaVersion": 1,
+  "asset": "dock-post-rope",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. Real 3D render output, editable Blender sources. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks.",
+  "qualityCriteria": {
+    "aestheticGoals": [
+      {
+        "id": "shape-volume",
+        "priority": 1,
+        "dimension": "shapeVolume",
+        "outcome": "Wood bodies, caps, bindings and span show soft, legible local volume rather than uniform flat plates. The cream span remains a coherent sagging rope, with no separate floating beads or swollen pillow silhouette. Retain original proportions and construction contact.",
+        "review": "At logical 192 x 352 size, distinguish cap top/side, body curvature, and rope top/underside without enlarging the asset; inspect all four facings enlarged for contact and normal continuity."
+      },
+      {
+        "id": "color",
+        "priority": 2,
+        "dimension": "color",
+        "outcome": "Retain golden/amber warm wood and cream rope. Introduce moderate warm wood value/hue variation while keeping cream visibly distinct; cap highlights retain color instead of becoming a broad flat lemon/white patch. Shadows remain warm and readable.",
+        "review": "Compare baseline/target/candidate at identical registered scale; no per-facing palette shift or muddy near-face patch."
+      },
+      {
+        "id": "light-highlights",
+        "priority": 2,
+        "dimension": "lightingHighlights",
+        "outcome": "Use broad controlled highlights and gentle form shading to create the chosen softly lit cartoon treatment. Avoid hard highlight stripes, thin white rims, wet/plastic gloss, blown caps, or abrupt dark lower faces.",
+        "review": "Inspect cap edge, rope span and bindings, both body sides, and end-on near-post plane in all facings; verify horizontal lighting symmetry from native evidence."
+      },
+      {
+        "id": "material-detail",
+        "priority": 3,
+        "dimension": "materialDetail",
+        "outcome": "Wood and rope remain readable through material and form at use size. Any grain or rope surface variation is broad, restrained, coherent in 3D and subordinate to silhouette. Detailed grain, exact target segment padding and gloss are optional, not approval requirements.",
+        "review": "Reject texture noise, repeated dark stains, excessive contrast or tiny detail that merges into dirt. No requirement to match imagegen grain or target topology."
+      },
+      {
+        "id": "artifact-free-readability",
+        "priority": 1,
+        "dimension": "artifactFreeReadability",
+        "outcome": "No material dead spots, black wedges, alpha halos, coplanar flicker, seams from broken normals, rope gaps, cap/binding intersections, newly exposed ends, clipping or unwanted ground shadow. Intentional half-post outer planes are accepted.",
+        "review": "Inspect exact saved N/E/S/W frames at logical size and enlarged over light/middle/dark backgrounds, plus four-view sheet and native repeated join preview."
+      },
+      {
+        "id": "joined-continuity",
+        "priority": 1,
+        "dimension": "artifactFreeReadability",
+        "outcome": "Same-profile adjacent modules reconstruct complete posts and bindings at the declared planes without gaps, doubled ridges, disconnected rope, or visible material discontinuity. Open outer ends of the demonstration remain available for inspection.",
+        "review": "Require the catalog three-module matching-profile S placement (x=1,2,3; y=2) assembled independently from exact candidate geometry; native validation must also establish rotated port/profile consistency. Additional native join views are required if a join is occluded or ambiguous."
+      }
+    ]
+  },
+  "capture": {
+    "frame": [
+      384,
+      704
+    ],
+    "views": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated"
+    ],
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "top-down-oblique-square-grid"
+  },
+  "files": {
+    "brief": {
+      "path": "../../brief.json",
+      "sha256": "8a248dcda12dba264fbe918c576a36dffebea84994519f2cddd804423f89fb0c"
+    },
+    "originalProject": {
+      "path": "../../../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6"
+    },
+    "backup": {
+      "path": "../../../../backups/b1765262bfa897ad-sushi-loop-world-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6"
+    },
+    "originalSnapshot": {
+      "path": "../../inputs/original.png",
+      "sha256": "82a518bddd8b186226bfc60223a0cc297b58746460f2340443232eaaa368e949"
+    },
+    "target": {
+      "path": "../../inputs/target.png",
+      "sha256": "c99b56685c029253673449f37ebde3b14414d6dd7724d0eed8bc447fcd7f5771"
+    },
+    "candidateProject": {
+      "path": "../../source/round-06.blend",
+      "sha256": "5c20f0c3a43ead982aa4549efb575ae6d1feff5c443f92add6c1189e0e5be2af"
+    },
+    "nativeValidation": {
+      "path": "validation.json",
+      "sha256": "644e1f1011be92aaa1c8a7a3bb160cab78d8565789e74d0baa2ac2a41263441c"
+    },
+    "targetPrompt": {
+      "path": "../../inputs/imagegen-prompt.txt",
+      "sha256": "3461242018baabd8562b5fc05a701057ca5e7c5bbae47520e0465a7bdc953e53"
+    },
+    "agentPrompt:judge": {
+      "path": "../../prompts/judge.txt",
+      "sha256": "388a59866d5d20c1b6e030d60d310d24ad4016481788f111e8cb7ce33b8bb938"
+    },
+    "agentPrompt:editor": {
+      "path": "../../prompts/editor.txt",
+      "sha256": "2dfe6a337938f7ddfd5c2e860c5594810c7a9b0bcf9089e6fe53c930715bbc25"
+    },
+    "candidateResource:round:static-S-000.png": {
+      "path": "static-S-000.png",
+      "sha256": "ecbfdfcd34c84616a98c01f56ea6f2ed359911ea073efbd6a10cb5b2cd0b9786"
+    },
+    "candidateResource:round:rig.json": {
+      "path": "rig.json",
+      "sha256": "9f3d8a4fc1d032280181a389e4bdd917296053aa0006fb8cbc04500c93379f78"
+    },
+    "candidateResource:round:camera.json": {
+      "path": "camera.json",
+      "sha256": "e87596686e7e4b4fb79fc9613a5661bf4df9db194ab7137a6f0e546a1ba3215f"
+    },
+    "candidateResource:round:static-N-000.png": {
+      "path": "static-N-000.png",
+      "sha256": "0e535bb488729a169f3f09c8ecab9e96c9121a795fb483fbbdc68bc1d25ccd31"
+    },
+    "candidateResource:round:delivery.json": {
+      "path": "delivery.json",
+      "sha256": "88710183ef9f91db32d93606a52ad78d7ae6ef50b0f312679a3f8e406760823f"
+    },
+    "candidateResource:round:static-N.png": {
+      "path": "static-N.png",
+      "sha256": "0e535bb488729a169f3f09c8ecab9e96c9121a795fb483fbbdc68bc1d25ccd31"
+    },
+    "candidateResource:round:joined-comparison-E.png": {
+      "path": "joined-comparison-E.png",
+      "sha256": "b245e0b309914f7136868c8afadfd9fd62e433ed05aec75537143fdb79199d39"
+    },
+    "candidateResource:round:joined-independent-N.png": {
+      "path": "joined-independent-N.png",
+      "sha256": "539661f57fa395e4f748824b5c29d9dcab3e23660c2ea12e55b1ef39e7798b1a"
+    },
+    "candidateResource:round:joined-comparison-S.png": {
+      "path": "joined-comparison-S.png",
+      "sha256": "9dd508085d0438e9eb2edb2bdc92c0e0cecb26dbd1ae4516dad67eddbd8d9e81"
+    },
+    "candidateResource:round:static-E-000.png": {
+      "path": "static-E-000.png",
+      "sha256": "a3ef397f2ac7df15410a8a8b3b779d54e9d5ccd25279f6440e9f191562a2732e"
+    },
+    "candidateResource:round:joined-native-N.png": {
+      "path": "joined-native-N.png",
+      "sha256": "5fdf6085d4bc9aa4b59968a14214523151df1a4a97c701e7638b03091427b62b"
+    },
+    "candidateResource:round:joined-comparison-W.png": {
+      "path": "joined-comparison-W.png",
+      "sha256": "2fb9f19f2ce521994d1a595ebc2fe94329d0b1cf6183d40109c032d708bb1532"
+    },
+    "candidateResource:round:joined-native-W.png": {
+      "path": "joined-native-W.png",
+      "sha256": "9d67e47ad130af360fd8ee98e4736f93ee8e1879a47c107906fa74d686c93ebf"
+    },
+    "candidateResource:round:static-S.png": {
+      "path": "static-S.png",
+      "sha256": "ecbfdfcd34c84616a98c01f56ea6f2ed359911ea073efbd6a10cb5b2cd0b9786"
+    },
+    "candidateResource:round:joined-independent-S.png": {
+      "path": "joined-independent-S.png",
+      "sha256": "e242de3ef6733ec6947ab2c0405b8da735f249787255558e4c80cbf67a2324da"
+    },
+    "candidateResource:round:joined-independent-E.png": {
+      "path": "joined-independent-E.png",
+      "sha256": "035b38871d38b9b569e036f14a8bb3ab89cc4c61cd9c9b1160201aed439b7bf8"
+    },
+    "candidateResource:round:joined-comparison-N.png": {
+      "path": "joined-comparison-N.png",
+      "sha256": "4addb6840c61214a544a8e955494296ccd464b4b7365305f886d9d9ecc9f19b1"
+    },
+    "candidateResource:round:static-E.png": {
+      "path": "static-E.png",
+      "sha256": "a3ef397f2ac7df15410a8a8b3b779d54e9d5ccd25279f6440e9f191562a2732e"
+    },
+    "candidateResource:round:joined-independent-W.png": {
+      "path": "joined-independent-W.png",
+      "sha256": "400d0fce2d5296447e35996555f0f5aaeafa6f6fa3073e96fd1f380e0a33394a"
+    },
+    "candidateResource:round:validation.json": {
+      "path": "validation.json",
+      "sha256": "644e1f1011be92aaa1c8a7a3bb160cab78d8565789e74d0baa2ac2a41263441c"
+    },
+    "candidateResource:round:static-W.png": {
+      "path": "static-W.png",
+      "sha256": "1f5f16133e9dccd2a2a657653e4004b3e47492ad2e080826d12e1a319ca0f110"
+    },
+    "candidateResource:round:joined-native-E.png": {
+      "path": "joined-native-E.png",
+      "sha256": "cc912bb24d3ee267795a7656d47386ad905ef2b62fac5eddec235fab44ed8251"
+    },
+    "candidateResource:round:four-view-logical.png": {
+      "path": "four-view-logical.png",
+      "sha256": "6ce759134cc7374e71bc12bf4b41703982d6fd8003df6dc82ece4f4c684c4db4"
+    },
+    "candidateResource:round:backgrounds-all-facings.png": {
+      "path": "backgrounds-all-facings.png",
+      "sha256": "0a376f7651760cf25d50df735938f78edca238363a787189d0a122a9f69e8266"
+    },
+    "candidateResource:round:joined-native-S.png": {
+      "path": "joined-native-S.png",
+      "sha256": "3ade6d956e2590a36f21157b04291e273a3adc3e0ac34ce4a6206753f4e75f17"
+    },
+    "candidateResource:round:fresh-reload-S.png": {
+      "path": "fresh-reload-S.png",
+      "sha256": "45a009a5ad9d65f61d788cfa56e7a9d90420981725ab369511a8f3b7e2e11258"
+    },
+    "candidateResource:round:static-W-000.png": {
+      "path": "static-W-000.png",
+      "sha256": "1f5f16133e9dccd2a2a657653e4004b3e47492ad2e080826d12e1a319ca0f110"
+    },
+    "candidateResource:round:source-candidate-logical.png": {
+      "path": "source-candidate-logical.png",
+      "sha256": "3cb9f1789316b3e23cd2e0b8ea0e9981964d4fba44f9dfcf6f3f1d8e503a9556"
+    },
+    "candidateResource:round:four-view-sheet.png": {
+      "path": "four-view-sheet.png",
+      "sha256": "e0ed9ea7514adef91e8e554bfbd3c7cc7cb73ae164de418c55e4e58529cddc89"
+    },
+    "candidateResource:round:assetRecord.json": {
+      "path": "assetRecord.json",
+      "sha256": "f3b938fbc8e5ae4f425e2a4d4e5213716187ab57a6ade49b9ff8dd2d20fa3ae7"
+    },
+    "candidateResource:source:test-camera.py": {
+      "path": "../../source/test-camera.py",
+      "sha256": "0f874b0c2db12a3833ddd211bdcb1a7ae36a0d9efc0b8592cb80f0672adbf3a6"
+    },
+    "candidateResource:source:round-06-recipe.py": {
+      "path": "../../source/round-06-recipe.py",
+      "sha256": "7b25644acf197d8fd867d82316e19b66604079562dac29326bd2c2b0decc28e6"
+    },
+    "candidateResource:source:round-06-audit.py": {
+      "path": "../../source/round-06-audit.py",
+      "sha256": "1ea784c3bbe308b8e94aec6f2d6dbba855a939fecc0740fd5b0e22fee4cdda11"
+    },
+    "candidateResource:source:round-01-recipe.py": {
+      "path": "../../source/round-01-recipe.py",
+      "sha256": "f3db12e120de514f2a1a61917913d8f46a206e62b8bd648c002befb612035406"
+    },
+    "candidateResource:source:round-04-previews.py": {
+      "path": "../../source/round-04-previews.py",
+      "sha256": "5d3fb963b053e5164e47fdcaf64d1bf008b48c4a5ee18eff3c627164132fc6d5"
+    },
+    "candidateResource:source:inspect-source.py": {
+      "path": "../../source/inspect-source.py",
+      "sha256": "78e8715c62f1a3365d7007454813bceb155bd1a37dc855d92def499f6adfb7da"
+    },
+    "candidateResource:source:round-04.blend": {
+      "path": "../../source/round-04.blend",
+      "sha256": "8dfcaa99a9ab579137633127f4860ae088564defed45ac4ffaab8154e100bc62"
+    },
+    "candidateResource:source:round-03-audit.py": {
+      "path": "../../source/round-03-audit.py",
+      "sha256": "83440f20a0475206847cb2ae6b68abb3fdd20a114127a6785fd0ff6f5f50f978"
+    },
+    "candidateResource:source:round-06-previews.py": {
+      "path": "../../source/round-06-previews.py",
+      "sha256": "10f64c9fafdfe339bc26cbe38f1102007f0016911d6be913271d4ad99f861ed3"
+    },
+    "candidateResource:source:round-06.blend": {
+      "path": "../../source/round-06.blend",
+      "sha256": "5c20f0c3a43ead982aa4549efb575ae6d1feff5c443f92add6c1189e0e5be2af"
+    },
+    "candidateResource:source:round-02-recipe.py": {
+      "path": "../../source/round-02-recipe.py",
+      "sha256": "7a639573bc6dc57b8c034245ac54e6fc1348dd10270961b5edd2846f317c3ed0"
+    },
+    "candidateResource:source:round-03-previews.py": {
+      "path": "../../source/round-03-previews.py",
+      "sha256": "590c6d8313d1a48c4ca20ea7efb3596b61cd98e9429a43623e5e68ecdd33b9ed"
+    },
+    "candidateResource:source:round-02.blend": {
+      "path": "../../source/round-02.blend",
+      "sha256": "8d258bbad595c7fc15dfee907bd4b910a676cbaa731a0d94e627fcdd452bf9cf"
+    },
+    "candidateResource:source:round-04-recipe.py": {
+      "path": "../../source/round-04-recipe.py",
+      "sha256": "21631a33418cefa55f85b50c969be5e65e600159c641790c863c704c171e16b7"
+    },
+    "candidateResource:source:round-05.blend": {
+      "path": "../../source/round-05.blend",
+      "sha256": "73d2909396d240246aa6bd98b21a78a9178d446b86f809668b84fed5f32011e8"
+    },
+    "candidateResource:source:round-03-recipe.py": {
+      "path": "../../source/round-03-recipe.py",
+      "sha256": "83dac9a8b4f7559f7760b14105aa58bad950d3907285a19b6218dc4d6e9e13a7"
+    },
+    "candidateResource:source:inspection.json": {
+      "path": "../../source/inspection.json",
+      "sha256": "d76332dede5a66607fdc26369f0994c6b4c9981d8364828e0cb0a6b6c5fa5306"
+    },
+    "candidateResource:source:round-01.blend": {
+      "path": "../../source/round-01.blend",
+      "sha256": "3b14f7670432f23201c5882a855c2c771fd94e660fb22e9ac1ba57b384cb0fb2"
+    },
+    "candidateResource:source:inspect-bevel.py": {
+      "path": "../../source/inspect-bevel.py",
+      "sha256": "fa731528c157bdf32cbb9d0c4e5ab699f9f6029e4f48c3eb1b9fbae25cffffa7"
+    },
+    "candidateResource:source:round-05-previews.py": {
+      "path": "../../source/round-05-previews.py",
+      "sha256": "fc1afc1200fbd3fbc715bc02a9f6f9c5cb697192ec0dd74619e6e9456763d636"
+    },
+    "candidateResource:source:round-05-recipe.py": {
+      "path": "../../source/round-05-recipe.py",
+      "sha256": "c51da6ad20026062da9ab1f14406be33a06ee8222eb4ead81e55287d97ce8709"
+    },
+    "candidateResource:source:round-03.blend": {
+      "path": "../../source/round-03.blend",
+      "sha256": "0513756a448e48882c0166dd3c67c769fbc33ac1954642bfc00a8299a18b5fae"
+    },
+    "candidateResource:source:round-04-audit.py": {
+      "path": "../../source/round-04-audit.py",
+      "sha256": "de7ac5b8a12a6a7f1905dbf5b54b772bb4162910e009e23e03b296e2b1751534"
+    },
+    "candidateResource:source:round-05-audit.py": {
+      "path": "../../source/round-05-audit.py",
+      "sha256": "04508ebfa7b9a5fd753880b775e668f3b9726467ba8ef9c65724cc0c5dd544da"
+    }
+  },
+  "candidateRenders": {
+    "N": {
+      "path": "static-N-000.png",
+      "sha256": "0e535bb488729a169f3f09c8ecab9e96c9121a795fb483fbbdc68bc1d25ccd31",
+      "frame": [
+        384,
+        704
+      ]
+    },
+    "E": {
+      "path": "static-E-000.png",
+      "sha256": "a3ef397f2ac7df15410a8a8b3b779d54e9d5ccd25279f6440e9f191562a2732e",
+      "frame": [
+        384,
+        704
+      ]
+    },
+    "S": {
+      "path": "static-S-000.png",
+      "sha256": "ecbfdfcd34c84616a98c01f56ea6f2ed359911ea073efbd6a10cb5b2cd0b9786",
+      "frame": [
+        384,
+        704
+      ]
+    },
+    "W": {
+      "path": "static-W-000.png",
+      "sha256": "1f5f16133e9dccd2a2a657653e4004b3e47492ad2e080826d12e1a319ca0f110",
+      "frame": [
+        384,
+        704
+      ]
+    }
+  },
+  "previews": {
+    "four-view-sheet": {
+      "path": "four-view-sheet.png",
+      "sha256": "e0ed9ea7514adef91e8e554bfbd3c7cc7cb73ae164de418c55e4e58529cddc89"
+    },
+    "four-view-logical": {
+      "path": "four-view-logical.png",
+      "sha256": "6ce759134cc7374e71bc12bf4b41703982d6fd8003df6dc82ece4f4c684c4db4"
+    },
+    "backgrounds-all-facings": {
+      "path": "backgrounds-all-facings.png",
+      "sha256": "0a376f7651760cf25d50df735938f78edca238363a787189d0a122a9f69e8266"
+    },
+    "joined-independent-N": {
+      "path": "joined-independent-N.png",
+      "sha256": "539661f57fa395e4f748824b5c29d9dcab3e23660c2ea12e55b1ef39e7798b1a"
+    },
+    "joined-native-N": {
+      "path": "joined-native-N.png",
+      "sha256": "5fdf6085d4bc9aa4b59968a14214523151df1a4a97c701e7638b03091427b62b"
+    },
+    "joined-comparison-N": {
+      "path": "joined-comparison-N.png",
+      "sha256": "4addb6840c61214a544a8e955494296ccd464b4b7365305f886d9d9ecc9f19b1"
+    },
+    "joined-independent-E": {
+      "path": "joined-independent-E.png",
+      "sha256": "035b38871d38b9b569e036f14a8bb3ab89cc4c61cd9c9b1160201aed439b7bf8"
+    },
+    "joined-native-E": {
+      "path": "joined-native-E.png",
+      "sha256": "cc912bb24d3ee267795a7656d47386ad905ef2b62fac5eddec235fab44ed8251"
+    },
+    "joined-comparison-E": {
+      "path": "joined-comparison-E.png",
+      "sha256": "b245e0b309914f7136868c8afadfd9fd62e433ed05aec75537143fdb79199d39"
+    },
+    "joined-independent-S": {
+      "path": "joined-independent-S.png",
+      "sha256": "e242de3ef6733ec6947ab2c0405b8da735f249787255558e4c80cbf67a2324da"
+    },
+    "joined-native-S": {
+      "path": "joined-native-S.png",
+      "sha256": "3ade6d956e2590a36f21157b04291e273a3adc3e0ac34ce4a6206753f4e75f17"
+    },
+    "joined-comparison-S": {
+      "path": "joined-comparison-S.png",
+      "sha256": "9dd508085d0438e9eb2edb2bdc92c0e0cecb26dbd1ae4516dad67eddbd8d9e81"
+    },
+    "joined-independent-W": {
+      "path": "joined-independent-W.png",
+      "sha256": "400d0fce2d5296447e35996555f0f5aaeafa6f6fa3073e96fd1f380e0a33394a"
+    },
+    "joined-native-W": {
+      "path": "joined-native-W.png",
+      "sha256": "9d67e47ad130af360fd8ee98e4736f93ee8e1879a47c107906fa74d686c93ebf"
+    },
+    "joined-comparison-W": {
+      "path": "joined-comparison-W.png",
+      "sha256": "2fb9f19f2ce521994d1a595ebc2fe94329d0b1cf6183d40109c032d708bb1532"
+    },
+    "source-candidate-logical": {
+      "path": "source-candidate-logical.png",
+      "sha256": "3cb9f1789316b3e23cd2e0b8ea0e9981964d4fba44f9dfcf6f3f1d8e503a9556"
+    },
+    "repeated": {
+      "path": "joined-independent-S.png",
+      "sha256": "e242de3ef6733ec6947ab2c0405b8da735f249787255558e4c80cbf67a2324da"
+    }
+  }
+}

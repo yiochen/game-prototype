@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 8,
-  "published": 7,
-  "current": "Slate published; sign approved for next preview update; wall-middle fresh pair assessing creative target",
+  "completed": 9,
+  "published": 8,
+  "current": "Dock approved for publication; entrance approved; native backdrop and modular wall editing ongoing",
   "objects": [
     {
       "id": "plant-angular",
@@ -111,7 +111,7 @@
       "name": "Blank shop sign",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 1,
       "editor": "catalog_sign_editor_v1",
@@ -125,12 +125,14 @@
       "name": "Dock post and rope",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "approved",
       "clips": 1,
       "frames": 4,
       "editor": "catalog_dock_rope_editor_v1",
       "judge": "catalog_dock_rope_judge_v1",
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "round": "round-07",
+      "packetSHA256": "a1674534cd10da9ffa0e8a0cfd00fc8da9f5c7ff8b4497d9d545a4a21e565fa7"
     },
     {
       "id": "floor-cream",
@@ -192,7 +194,7 @@
       "name": "Wall middle",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "assessing",
+      "status": "editing",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
@@ -205,36 +207,46 @@
       "name": "Wall inner corner",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "editing",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2,
+      "editor": "catalog_wall_inner_editor_v1",
+      "judge": "catalog_wall_inner_judge_v1"
     },
     {
       "id": "wall-outer-corner",
       "name": "Wall outer corner",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "wall-end",
       "name": "Wall end cap",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "belt-straight-n",
       "name": "Straight conveyor flowing N",
       "kind": "belt",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 96
+      "frames": 96,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "belt-straight-e",

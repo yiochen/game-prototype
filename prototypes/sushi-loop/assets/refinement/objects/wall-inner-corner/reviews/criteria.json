@@ -1,0 +1,60 @@
+{
+  "asset": "wall-inner-corner",
+  "status": "proposed; coordinator must freeze in brief.qualityCriteria",
+  "style": "Warm, softly lit cartoon; original blue and amber palette family; native design improvements encouraged.",
+  "referencePolicy": "Fixed target supplies aesthetic direction. Family concept supplies style only. Preserve native registration and modular function rather than target canvas drift, directional highlight bias or imagegen artifacts.",
+  "aestheticCriteria": [
+    {
+      "id": "shape-volume",
+      "priority": 1,
+      "outcome": "The blue L cap and supporting wood read as substantial, intentionally crafted volumes with softened transitions. The inside bend remains clearly open and coherent; corners and exposed faces do not look like intersecting boxes or a flat painted cutout. Useful improved forms/structure are visible at logical size.",
+      "judgeAt": "All four individual native facings, logical size and enlarged; compare directly with source and fixed target."
+    },
+    {
+      "id": "color",
+      "priority": 1,
+      "outcome": "Clear saturated blue is balanced by warm amber/golden wood. Blue top, side depth and wood bands remain distinguishable without neon white rims, black lower bands or muddy brown patches. Palette/material bands meet the approved wall-middle seamlessly.",
+      "judgeAt": "All facings on light, mid-gray and dark backgrounds; native and sprite assemblies."
+    },
+    {
+      "id": "lighting-highlights",
+      "priority": 1,
+      "outcome": "Broad soft lighting describes the cap edge roll, inside turn and wood volume, without blown highlight strips, harsh directional shading or a dark dead face. Facings receive the same horizontally symmetric lighting treatment; there is no directional ground shadow.",
+      "judgeAt": "Four-view sheet and corresponding material faces across true rotations; connected previews."
+    },
+    {
+      "id": "material-detail",
+      "priority": 2,
+      "outcome": "Blue and wood have distinct but compatible soft cartoon material character. Wood has purposeful crafted detail or surface richness that supports its construction without noisy fine grain; edge and band separation remain readable. Added structure/decoration improves the design and stays away from functional clearance and joining faces.",
+      "judgeAt": "Intended 192x352 logical frame first, enlarged second. Do not demand literal target grain, gloss, diagonal crease or source part count."
+    },
+    {
+      "id": "artifact-free-readability",
+      "priority": 1,
+      "outcome": "The complete corner reads cleanly at game size in every facing. No black/coplanar patches, faceting seams, pinched inside corners, clipping, stray pixels, detached highlights, alpha fringes, accidental halos or collapsed material gaps distract from the form.",
+      "judgeAt": "Native RGBA at logical size and enlarged on light/gray/dark; alpha-only views and assemblies."
+    },
+    {
+      "id": "modular-continuity",
+      "priority": 1,
+      "outcome": "Both corner ports connect to the approved straight wall in each true facing. Blue cap, wood band heights, profile thickness, texture scale and light response continue through joins without gaps, doubled rims, exposed end caps, vertical steps or abrupt color changes. Sprite joins remain visually sound after independent placement using authored roots/ports.",
+      "judgeAt": "All four native corner-to-straight assemblies and independently assembled exported RGBA sprites, both RGB-composited and alpha-only at logical and enlarged scales. Inspect W and N joins separately when necessary."
+    }
+  ],
+  "hardConstraints": [
+    "Keep actual registered camera/projection/pixel aspect, frame 384x704/sourceScale2, logical 192x352/root[96,256], atlas layout and fixed world scale. Do not fit each view independently.",
+    "Preserve one-cell footprint and occupied envelope, functional height1.02, source L path and concave clearance.",
+    "Preserve W/N join plane positions, normals/handedness, exact native cross-sections and approved family material bands through all rotations.",
+    "Render actual native N/E/S/W geometry rotations with the single shared capture/material/light setup; static one frame,12fps, no loop.",
+    "Use real transparent native 3D output and editable Blender source; no image warp, paint-over or camera-facing target card.",
+    "No preferred horizontal light direction or directional ground cast shadow."
+  ],
+  "requiredReviewEvidence": [
+    "Immutable candidate packet and SHA256-bound native Blender source, all required renders/previews, external resource closure and technical validation.",
+    "Four individual RGBA facings and a verified four-view sheet; inspect both 192x352 logical presentation and enlarged pixels against light/gray/dark.",
+    "Native corner-to-approved-straight assemblies covering both ports in all four true facings, with camera, geometry, bounds/clearance, ports and profile audit.",
+    "Independently assembled exported sprites placed by declared root/port positions with RGB/light-gray-dark composites and alpha-only evidence at logical and enlarged scales. Assembly must not reuse a connected native render as its sole proof.",
+    "Approved wall-middle technical family settings and validation that corner uses the same family material/capture/connection contract."
+  ],
+  "approvalRule": "Approve only actual packet-bound native exports that visibly improve the source toward the agreed style, satisfy all hard constraints and all required evidence, and show no material defect in any required facing or join. Missing evidence means needs_evidence. Initial criteria do not approve a candidate."
+}

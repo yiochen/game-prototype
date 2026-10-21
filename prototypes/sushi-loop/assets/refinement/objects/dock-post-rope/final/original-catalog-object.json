@@ -1,0 +1,437 @@
+{
+  "id": "dock-post-rope",
+  "name": "Dock post and rope",
+  "family": "W02",
+  "status": "ready",
+  "kind": "prop",
+  "footprint": [
+    1,
+    1
+  ],
+  "projection": "top-down-oblique-square-grid",
+  "frameSize": [
+    192,
+    352
+  ],
+  "root": [
+    96,
+    248
+  ],
+  "sourceScale": 2,
+  "clips": [
+    {
+      "id": "static",
+      "sourceClipId": "static",
+      "name": "Static",
+      "frames": 1,
+      "fps": 12,
+      "static": true,
+      "loop": false,
+      "frameOrder": [
+        0
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/dock-post-rope/static-N.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            704
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/dock-post-rope/static-E.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            704
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/dock-post-rope/static-S.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            704
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/dock-post-rope/static-W.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            704
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "name": "Connected matching-profile modules",
+      "gridSize": [
+        5,
+        5
+      ],
+      "placements": [
+        {
+          "object": "dock-post-rope",
+          "x": 2,
+          "y": 2,
+          "direction": "S"
+        },
+        {
+          "object": "dock-post-rope",
+          "x": 3,
+          "y": 2,
+          "direction": "S"
+        },
+        {
+          "object": "dock-post-rope",
+          "x": 1,
+          "y": 2,
+          "direction": "S"
+        }
+      ],
+      "note": "Each reviewed port meets the same native cross-section with its authored handedness. Outside edges remain open so the joins can be inspected.",
+      "connectionReview": {
+        "kind": "profile-join",
+        "object": "dock-post-rope",
+        "profile": "dock-rope-v2"
+      }
+    }
+  ],
+  "requirements": {
+    "directions": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "states": [
+      "static"
+    ],
+    "variants": [
+      "default"
+    ],
+    "animated": false,
+    "fps": 12,
+    "minimumUniqueFrames": 1,
+    "targetLoopFrames": 1,
+    "interactionObjectIds": [
+      "floor-cream",
+      "chef-lena"
+    ],
+    "notes": "Perimeter dressing; no new blocking/access rules. Rotate actual model for four views, even symmetric pieces."
+  },
+  "height": 0.78,
+  "productionStage": "Native Blender \u00b7 approved Faceted lighting and materials",
+  "layer": 2,
+  "directionFootprints": {
+    "N": [
+      1,
+      1
+    ],
+    "E": [
+      1,
+      1
+    ],
+    "S": [
+      1,
+      1
+    ],
+    "W": [
+      1,
+      1
+    ]
+  },
+  "directionRootCells": {
+    "N": [
+      0.5,
+      0.5
+    ],
+    "E": [
+      0.5,
+      0.5
+    ],
+    "S": [
+      0.5,
+      0.5
+    ],
+    "W": [
+      0.5,
+      0.5
+    ]
+  },
+  "rootCell": [
+    0.5,
+    0.5
+  ],
+  "occupiedCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "supportCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "overheadCells": [],
+  "registration": {
+    "method": "authored-3d-projection",
+    "groundAnchorAlignment": "center",
+    "completeFrame": [
+      192,
+      352
+    ],
+    "anchor": [
+      96,
+      248
+    ],
+    "cellSize": 128,
+    "poseFitting": false,
+    "sourceCaptureScale": 4
+  },
+  "sockets3D": {},
+  "sockets": {
+    "N": {},
+    "E": {},
+    "S": {},
+    "W": {}
+  },
+  "socketSpace": "root-relative logical pixels projected from declared native attachment points",
+  "ports": {
+    "N": {
+      "W": [
+        64.0,
+        -51.52002105712889
+      ],
+      "E": [
+        -64.0,
+        -51.52002105712891
+      ]
+    },
+    "E": {
+      "W": [
+        -3.91886975727153e-15,
+        12.479971313476568
+      ],
+      "E": [
+        3.91886975727153e-15,
+        -115.52001342773437
+      ]
+    },
+    "S": {
+      "W": [
+        -64.0,
+        -51.5200210571289
+      ],
+      "E": [
+        64.0,
+        -51.5200210571289
+      ]
+    },
+    "W": {
+      "W": [
+        -3.91886975727153e-15,
+        -115.52001342773437
+      ],
+      "E": [
+        3.91886975727153e-15,
+        12.479971313476568
+      ]
+    }
+  },
+  "validation": {
+    "rigEvidence": "exported; native and complete capture audits passed"
+  },
+  "source": {
+    "blend": "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "modelScript": "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+    "camera": "source/records/dock-post-rope/camera.json",
+    "guide": "source/registered/dock-post-rope/static-N/guide.json",
+    "guides": [
+      "source/registered/dock-post-rope/static-N/guide.json",
+      "source/registered/dock-post-rope/static-E/guide.json",
+      "source/registered/dock-post-rope/static-S/guide.json",
+      "source/registered/dock-post-rope/static-W/guide.json"
+    ],
+    "assetRecord": "source/records/dock-post-rope/asset.json",
+    "rawFrames": [
+      {
+        "image": "source/registered/dock-post-rope/static-N/source-captures/000.png",
+        "sha256": "ca1690883ad7117d09087fe4be588495df13ccf6ad539fec9cfc20ff61ea98f9",
+        "clip": "static",
+        "direction": "N",
+        "index": 0
+      },
+      {
+        "image": "source/registered/dock-post-rope/static-E/source-captures/000.png",
+        "sha256": "ffc2f721ba5b258edb5ae55bb6e1cf67cca2aade1df10ddd1a25e4179dc2cf44",
+        "clip": "static",
+        "direction": "E",
+        "index": 0
+      },
+      {
+        "image": "source/registered/dock-post-rope/static-S/source-captures/000.png",
+        "sha256": "846aa8ef0b3a569da55b710c60e65a91c5bf0bf559bda78cc55685765953b364",
+        "clip": "static",
+        "direction": "S",
+        "index": 0
+      },
+      {
+        "image": "source/registered/dock-post-rope/static-W/source-captures/000.png",
+        "sha256": "6056bc5d048f598800cb0bb1c1bffce6e39370e1bc2dbfd8945d844eb8a3be62",
+        "clip": "static",
+        "direction": "W",
+        "index": 0
+      }
+    ],
+    "nativeScripts": {
+      "apply_faceted_rollout.py": "source/blender/revisions/cb3861e1716061cc/apply_faceted_rollout.py",
+      "build_art_rollout.py": "source/blender/revisions/ead453f336cb44ad/build_art_rollout.py",
+      "capture_runtime.py": "source/blender/revisions/9e6aa6ffa2238a82/capture_runtime.py",
+      "capture_worker.py": "source/blender/revisions/e7b530bb29fbdc86/capture_worker.py",
+      "catalog_art_revision.py": "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+      "catalog_belt_flow.py": "source/blender/revisions/0e7a979f8a0897e2/catalog_belt_flow.py",
+      "catalog_billboards.py": "source/blender/revisions/3b8e0898192741d4/catalog_billboards.py",
+      "catalog_character_revision.py": "source/blender/revisions/babdd36f0bb79345/catalog_character_revision.py",
+      "catalog_clusters.py": "source/blender/revisions/020f94b990987f6c/catalog_clusters.py",
+      "catalog_concept_decor.py": "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py",
+      "catalog_corner_supports.py": "source/blender/revisions/5215531d424a8d75/catalog_corner_supports.py",
+      "catalog_faceted.py": "source/blender/revisions/fe2b5666ebea964e/catalog_faceted.py",
+      "catalog_style.py": "source/blender/revisions/ca784f2f23914bd0/catalog_style.py",
+      "catalog_variants.py": "source/blender/revisions/329ec9b2013c990a/catalog_variants.py",
+      "character_builders.py": "source/blender/revisions/5451da64c233cba1/character_builders.py",
+      "character_composition.py": "source/blender/revisions/caa790049c03ba74/character_composition.py",
+      "concept_decoration_geometry.py": "source/blender/revisions/f00a7b868684ee16/concept_decoration_geometry.py",
+      "creature_fx_builders.py": "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py",
+      "finalize_project.py": "source/blender/revisions/12ae7f05f2e3320f/finalize_project.py",
+      "food_belt_builders.py": "source/blender/revisions/dc3eed619cd64458/food_belt_builders.py",
+      "native_actions.py": "source/blender/revisions/d88e53edef8e7c73/native_actions.py",
+      "preflight_captures.py": "source/blender/revisions/9958888944016044/preflight_captures.py",
+      "production_library-before-state-coverage.py": "source/blender/revisions/9e9fbb9bf6e1f557/production_library-before-state-coverage.py",
+      "production_library.py": "source/blender/revisions/3b0cedd0135be38e/production_library.py",
+      "prop_builders.py": "source/blender/revisions/46d7e4eeabce858f/prop_builders.py",
+      "publish-clusters-as-ready.py": "source/blender/revisions/f0f0d6b49877c597/publish-clusters-as-ready.py",
+      "publish-held-props-as-ready.py": "source/blender/revisions/ed44640debecedec/publish-held-props-as-ready.py",
+      "publish_captures.py": "source/blender/revisions/ecc8fc53525649b3/publish_captures.py",
+      "recapture_library.py": "source/blender/revisions/3f324c8093180b18/recapture_library.py",
+      "repair_revision_links.py": "source/blender/revisions/ecfb4233536e2129/repair_revision_links.py",
+      "seed_cluster_catalog.py": "source/blender/revisions/a1f3b5c5b737b246/seed_cluster_catalog.py",
+      "source-audit.py": "source/blender/revisions/1a3528a59e203e47/source-audit.py",
+      "stage_native_iteration.py": "source/blender/revisions/07904ec941eabaeb/stage_native_iteration.py",
+      "validate_art_revision.py": "source/blender/revisions/75dc2bcc7bc02cb4/validate_art_revision.py",
+      "validate_connected_fixtures.py": "source/blender/revisions/bbbdf3647400cf44/validate_connected_fixtures.py",
+      "validate_native_belt_flow.py": "source/blender/revisions/c90d969248984174/validate_native_belt_flow.py",
+      "validate_native_character_gait.py": "source/blender/revisions/b4550625eae11704/validate_native_character_gait.py",
+      "validate_native_chef_utensils.py": "source/blender/revisions/58f8980c80afdd65/validate_native_chef_utensils.py",
+      "validate_native_clusters.py": "source/blender/revisions/0fa93bd02ed8e374/validate_native_clusters.py",
+      "validate_native_held_food.py": "source/blender/revisions/50caff770d25565b/validate_native_held_food.py",
+      "world_components.py": "source/blender/revisions/0d156c24ebd2a314/world_components.py"
+    },
+    "hashes": {
+      "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "source/blender/revisions/cb3861e1716061cc/apply_faceted_rollout.py": "cb3861e1716061cc11305971d00e81c514045b88b4058e5c65f309e3dba14713",
+      "source/blender/revisions/ead453f336cb44ad/build_art_rollout.py": "ead453f336cb44adfe271f1578de2d414edc4dfd64b768460c091ebf7fa1c678",
+      "source/blender/revisions/9e6aa6ffa2238a82/capture_runtime.py": "9e6aa6ffa2238a82183387cfe43437b019e48bc1a86b361d0b0f944b7046b229",
+      "source/blender/revisions/e7b530bb29fbdc86/capture_worker.py": "e7b530bb29fbdc868a67e8a1c3137f9f885830d47b11a3952ffe0ea4e8547ba2",
+      "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py": "46912884e4d80c820cbe62d05bd85ff4e75f4ee18037e8c6241c535718c492a7",
+      "source/blender/revisions/0e7a979f8a0897e2/catalog_belt_flow.py": "0e7a979f8a0897e2a98a063d2a568fb0be8a751f72b76f9584f6949f77140fd5",
+      "source/blender/revisions/3b8e0898192741d4/catalog_billboards.py": "3b8e0898192741d43a331b57ab87ce716adf60fdecc952497bcecefb4cacb5d4",
+      "source/blender/revisions/babdd36f0bb79345/catalog_character_revision.py": "babdd36f0bb7934567a889c643bc92b3bea7ba3d7e51135bbfc608a090e3a105",
+      "source/blender/revisions/020f94b990987f6c/catalog_clusters.py": "020f94b990987f6c4d664b5447525c6d69d66198dfd3fab8159cd9c28642ca1c",
+      "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py": "6bc09f2a9c6896f4ff951618960d0b994507c0a47b224456f829e8d13a453c6c",
+      "source/blender/revisions/5215531d424a8d75/catalog_corner_supports.py": "5215531d424a8d7560cb19ca5bf05f3218f5671c346a79dc0585644462bd4b91",
+      "source/blender/revisions/fe2b5666ebea964e/catalog_faceted.py": "fe2b5666ebea964e223b2c5a259d5f9f9fc690e12c851a0189b9a99fb151dfd3",
+      "source/blender/revisions/ca784f2f23914bd0/catalog_style.py": "ca784f2f23914bd0669eaf261073539698d9dee94c14d0604ebbb7db17f7a888",
+      "source/blender/revisions/329ec9b2013c990a/catalog_variants.py": "329ec9b2013c990aeb45233a6e2783b0f9402aa97108f15a32ecb8a64a9d1cff",
+      "source/blender/revisions/5451da64c233cba1/character_builders.py": "5451da64c233cba11920e2eaeb88889e34ac931443b51fdfb34c6f40ea8c0ed7",
+      "source/blender/revisions/caa790049c03ba74/character_composition.py": "caa790049c03ba7425be1ef44708cd6edd879fc397407be77af237facbb5f8a0",
+      "source/blender/revisions/f00a7b868684ee16/concept_decoration_geometry.py": "f00a7b868684ee16989de63e701e8d4496ecbfc14b04fab29e6a605c3d58c178",
+      "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py": "e8da19957cf01828137326c3459cb77e76ba563029ae7b057c8306d663fa9d5b",
+      "source/blender/revisions/12ae7f05f2e3320f/finalize_project.py": "12ae7f05f2e3320f313215a54a7cd51c49e41005c223e864b7df4dedcbe406ed",
+      "source/blender/revisions/dc3eed619cd64458/food_belt_builders.py": "dc3eed619cd644588da74996b99013a24ecf8ce541056d847f3a049fb54a1d95",
+      "source/blender/revisions/d88e53edef8e7c73/native_actions.py": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f",
+      "source/blender/revisions/9958888944016044/preflight_captures.py": "9958888944016044d5f12d14af97dffa88853c09b67f1f19bbeaa1945c7beebc",
+      "source/blender/revisions/9e9fbb9bf6e1f557/production_library-before-state-coverage.py": "9e9fbb9bf6e1f5573ee5c0602980863934746ca82a1ad5fc6332c1ab72babbbe",
+      "source/blender/revisions/3b0cedd0135be38e/production_library.py": "3b0cedd0135be38edaa2be2ecaad6d5b394185ab9060e3ce10080894b95c1616",
+      "source/blender/revisions/46d7e4eeabce858f/prop_builders.py": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a",
+      "source/blender/revisions/f0f0d6b49877c597/publish-clusters-as-ready.py": "f0f0d6b49877c5973404b47f0eccf5772dec35ac743b4508b7cfe269d882e790",
+      "source/blender/revisions/ed44640debecedec/publish-held-props-as-ready.py": "ed44640debecedec2b510f9c723e402f02020eba82fe81cdf0317c6d88c26c18",
+      "source/blender/revisions/ecc8fc53525649b3/publish_captures.py": "ecc8fc53525649b3970cd4ccbd5c95ee2a9d256347c268572fb4f181b0fcc2e9",
+      "source/blender/revisions/3f324c8093180b18/recapture_library.py": "3f324c8093180b18eb6c442cffe82f1fb973687e86c863c8a8499d75821e1f83",
+      "source/blender/revisions/ecfb4233536e2129/repair_revision_links.py": "ecfb4233536e212926b41ec6d5e0f6f3a2d055656ca221b452c35138ed4ee803",
+      "source/blender/revisions/a1f3b5c5b737b246/seed_cluster_catalog.py": "a1f3b5c5b737b246ef8ff14442ff36ca075dc69e96dd0009a08d5d8ae66dd116",
+      "source/blender/revisions/1a3528a59e203e47/source-audit.py": "1a3528a59e203e47a86c0be996dfc8599919159e596d482a924abee1fbd723ea",
+      "source/blender/revisions/07904ec941eabaeb/stage_native_iteration.py": "07904ec941eabaeb81536459129d1048955da55558035af9d2fc5b6776787493",
+      "source/blender/revisions/75dc2bcc7bc02cb4/validate_art_revision.py": "75dc2bcc7bc02cb4befe11ffc3007c834312c75105be3f276b18e3279fd30f4d",
+      "source/blender/revisions/bbbdf3647400cf44/validate_connected_fixtures.py": "bbbdf3647400cf44653900b4b71df4060200c5919ece393e99729c6db42b9a04",
+      "source/blender/revisions/c90d969248984174/validate_native_belt_flow.py": "c90d969248984174f14dcdf583ee3dad6dd04816ee9266b371ad67ae52fccf1a",
+      "source/blender/revisions/b4550625eae11704/validate_native_character_gait.py": "b4550625eae11704b03b19580663cf3637333cf6fe65adb5faa03d22c20da3c8",
+      "source/blender/revisions/58f8980c80afdd65/validate_native_chef_utensils.py": "58f8980c80afdd651e04fc07a83b4ee297fab78dc513cc59c2ca07e23391b8df",
+      "source/blender/revisions/0fa93bd02ed8e374/validate_native_clusters.py": "0fa93bd02ed8e3743d5f3ef437087099b76f02e4b7da83fecfffb7288601fb1e",
+      "source/blender/revisions/50caff770d25565b/validate_native_held_food.py": "50caff770d25565b6a808f11b0447f48ee652ddbef45a3ae2cf8e3f713088d33",
+      "source/blender/revisions/0d156c24ebd2a314/world_components.py": "0d156c24ebd2a31422e75286417e108d22575cf75f7e6ec87cf173aebefd1c91"
+    },
+    "rig": "source/records/dock-post-rope/rig.json"
+  },
+  "captureFingerprint": "ffed241ba40ff8f78e0d8aeaa0fb8bd87acacc06c27a06fab1aa22bf25c3417b",
+  "portProfiles": {
+    "W": "dock-rope-v2",
+    "E": "dock-rope-v2"
+  },
+  "artStyle": {
+    "revision": "faceted-approved-2026-10-19",
+    "contrast": 1.35,
+    "contrastSpace": "sRGB",
+    "environmentHeightRatio": 0.7,
+    "lowerTone": "native world-height material ramp",
+    "worldLighting": true,
+    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
+    "roughness": 0.85,
+    "specularIORLevel": 0.03,
+    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
+    "beltRailColor": "#966B60",
+    "floorAlbedoCalibration": 0.42
+  }
+}
