@@ -3,17 +3,17 @@
   "style": "Warm, softly lit cartoon with rounded readable volumes and restrained material highlights; preserve each asset identity and palette.",
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
-  "total": 118,
-  "completed": 0,
+  "total": 115,
+  "completed": 1,
   "published": 0,
-  "current": "plant-angular, crate-wood",
+  "current": "crate-wood approved; plant-angular approved; barrel-wood and stool-wood editing",
   "objects": [
     {
       "id": "plant-angular",
       "name": "Angular potted plant",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "reviewing",
       "clips": 2,
       "frames": 52,
       "editor": "catalog_plant_editor_v1",
@@ -25,30 +25,38 @@
       "name": "Wood crate",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "approved",
       "clips": 1,
       "frames": 4,
       "editor": "catalog_crate_editor_v1",
       "judge": "catalog_crate_judge_v1",
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "round": "round-02",
+      "packetSHA256": "896e38c993aeb7589b3af842a5c5a7538a2459af8e6535be09dab9d8c596fa04"
     },
     {
       "id": "barrel-wood",
       "name": "Wood barrel",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "editing",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "editor": "catalog_barrel_editor_v1",
+      "judge": "catalog_barrel_judge_v1",
+      "target": "inputs/target.png"
     },
     {
       "id": "stool-wood",
       "name": "Backless honey-wood stool",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "reviewing-baseline",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "editor": "catalog_stool_wood_editor_v1",
+      "judge": "catalog_stool_wood_judge_v1",
+      "target": "inputs/target.png"
     },
     {
       "id": "stool-blue",
@@ -100,27 +108,30 @@
       "name": "Cream floor",
       "kind": "floor",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "skipped",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "reason": "User requested restaurant floor tiles remain unchanged."
     },
     {
       "id": "floor-blue-wave",
       "name": "Blue wave floor",
       "kind": "floor",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "skipped",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "reason": "User requested restaurant floor tiles remain unchanged."
     },
     {
       "id": "floor-checker",
       "name": "Checker floor",
       "kind": "floor",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "skipped",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "reason": "User requested restaurant floor tiles remain unchanged."
     },
     {
       "id": "backdrop-entrance",
@@ -1076,5 +1087,11 @@
       "clips": 3,
       "frames": 144
     }
+  ],
+  "catalogTotal": 118,
+  "excluded": [
+    "floor-cream",
+    "floor-blue-wave",
+    "floor-checker"
   ]
 }

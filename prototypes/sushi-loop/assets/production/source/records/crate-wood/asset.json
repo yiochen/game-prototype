@@ -9,7 +9,18 @@
     96,
     248
   ],
-  "scale": 4,
+  "scale": 2,
+  "captureScale": 2,
+  "sourceScale": 2,
+  "exportFrame": [
+    384,
+    704
+  ],
+  "exportRoot": [
+    192,
+    496
+  ],
+  "cellSize": 128,
   "clips": {
     "idle": {
       "frames": 1,
@@ -18,30 +29,137 @@
       "static": true
     }
   },
+  "catalogClipMap": {
+    "static": "idle"
+  },
   "footprint": [
     1,
     1
   ],
   "height": 0.925,
   "sockets": {},
-  "artStyle": {
-    "revision": "faceted-approved-2026-10-19",
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "environmentHeightRatio": 0.7,
-    "lowerTone": "native world-height material ramp",
-    "worldLighting": true,
-    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
-    "roughness": 0.85,
-    "specularIORLevel": 0.03,
-    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
-    "beltRailColor": "#966B60",
-    "floorAlbedoCalibration": 0.42
-  },
+  "ports": {},
   "directions": [
     "N",
     "E",
     "S",
     "W"
-  ]
+  ],
+  "source": {
+    "project": "source/round-02.blend",
+    "projectFileName": "round-02.blend",
+    "sha256": "3950226374590a781e8582854f205fb7a3630abece10f6721774b8e986c9dbb5",
+    "recipe": "source/round-02.py",
+    "recipeSha256": "a5f702c61fd15a197d5b50682c5702b42531de68ccdc978c8de4fd90a1ed0a3d",
+    "pathBase": "experiment root",
+    "scene": "Crate wood warm soft round 02",
+    "collection": "S33_PROP_crate-wood",
+    "groundRootObject": "crate-wood__root",
+    "blender": "5.2.2 LTS"
+  },
+  "scene": "Crate wood warm soft round 02",
+  "collection": "S33_PROP_crate-wood",
+  "groundRootObject": "crate-wood__root",
+  "artStyle": {
+    "revision": "warm-soft-crate-round-02",
+    "pipeline": "native-3d",
+    "engine": "CYCLES",
+    "samples": 64,
+    "denoising": true,
+    "viewTransform": "Standard",
+    "look": "None",
+    "exposure": 0.0,
+    "gamma": 1.0,
+    "compositing": false,
+    "lighting": "One centered broad overhead disk and four equal cardinal disk fills; uniform world; no ground receiver",
+    "horizontalSymmetry": 4,
+    "worldStrength": 0.07999999821186066,
+    "lights": [
+      {
+        "object": "Crate broad centered overhead",
+        "type": "AREA",
+        "energyWatts": 210.0,
+        "size": 3.5,
+        "shape": "DISK",
+        "position": [
+          0.0,
+          0.0,
+          4.5
+        ],
+        "rotationEuler": [
+          0.0,
+          -0.0,
+          0.0
+        ]
+      },
+      {
+        "object": "Crate equal cardinal fill 0",
+        "type": "AREA",
+        "energyWatts": 65.0,
+        "size": 4.0,
+        "shape": "DISK",
+        "position": [
+          3.0,
+          0.0,
+          1.7999999523162842
+        ],
+        "rotationEuler": [
+          1.1618884801864624,
+          -0.0,
+          1.570796251296997
+        ]
+      },
+      {
+        "object": "Crate equal cardinal fill 1",
+        "type": "AREA",
+        "energyWatts": 65.0,
+        "size": 4.0,
+        "shape": "DISK",
+        "position": [
+          1.8369701465288538e-16,
+          3.0,
+          1.7999999523162842
+        ],
+        "rotationEuler": [
+          1.161888599395752,
+          1.3854705116500554e-07,
+          3.141592502593994
+        ]
+      },
+      {
+        "object": "Crate equal cardinal fill 2",
+        "type": "AREA",
+        "energyWatts": 65.0,
+        "size": 4.0,
+        "shape": "DISK",
+        "position": [
+          -3.0,
+          3.6739402930577075e-16,
+          1.7999999523162842
+        ],
+        "rotationEuler": [
+          1.1618884801864624,
+          -0.0,
+          -1.570796251296997
+        ]
+      },
+      {
+        "object": "Crate equal cardinal fill 3",
+        "type": "AREA",
+        "energyWatts": 65.0,
+        "size": 4.0,
+        "shape": "DISK",
+        "position": [
+          -5.510910704284357e-16,
+          -3.0,
+          1.7999999523162842
+        ],
+        "rotationEuler": [
+          1.1618884801864624,
+          4.721538804874471e-24,
+          -1.8369702788777518e-16
+        ]
+      }
+    ]
+  }
 }

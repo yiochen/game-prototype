@@ -1,0 +1,46 @@
+{
+  "round": 2,
+  "verdict": "approve",
+  "candidatePacketSHA256": "896e38c993aeb7589b3af842a5c5a7538a2459af8e6535be09dab9d8c596fa04",
+  "inspectedFiles": [
+    "N.png",
+    "E.png",
+    "S.png",
+    "W.png",
+    "four-view-sheet.png",
+    "four-view-logical.png",
+    "repeated.png"
+  ],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 8,
+    "artifactFreeReadability": 9
+  },
+  "observations": [
+    "Relative to inputs/original.png, all four views now have visibly softer rounded lid-board, rim and brace transitions. Golden edge catches and broad smooth bevel shading convey the requested cartoon volume while retaining the compact crate construction.",
+    "The lower inset has moved from the source dense dark brown to readable warm brown. The N/S diagonal braces remain distinct against it, and the lower frame does not collapse into a black band.",
+    "Honey-yellow lid boards, orange-brown side sections and amber frame/brace preserve the original wood palette family while moving materially toward the warm fixed target. Highlights remain warm rather than white.",
+    "N/S show the corresponding native diagonal braces; E/W show their end-on construction and rotated horizontal lid boards. Finish and face shading remain coherent across orientations. These side projections are attached geometry rather than detached or broken corners.",
+    "At logical 192x352 frame size, the individual boards, panel and braces remain clear. The repeated preview reads as consistent wood crates without noisy grain or busy highlight outlines.",
+    "All four direct native frames and the packet previews were inspected. Additional logical composites on light, middle gray and dark backgrounds show clean silhouettes without target-like colored fringe, black dead spots, clipping, floating shadow residue or material overlap seams."
+  ],
+  "blockers": [],
+  "remainingDifferences": [
+    "The fixed target has somewhat stronger orange contrast and shinier narrow edge catches; this candidate uses gentler low-gloss golden light, consistent with the agreed warm soft cartoon interpretation.",
+    "Large wood faces remain simplified and grain-free. This is acceptable under the frozen material criterion and improves runtime readability.",
+    "The target apparent silhouette expansion and noisy colored fringe were correctly not reproduced."
+  ],
+  "technicalEvidence": {
+    "integrity": "candidate_packet.py verify --packet candidates/round-02/packet.json returned Artifact integrity verified. Independently calculated packet SHA256 matches the assigned packet hash.",
+    "criteria": "Applied brief.json qualityCriteria, criteriaVersion 1, and the actual prompts/judge.txt named by the brief. The coordinator mentioned prompts/judge-prompt.txt, which does not exist.",
+    "nativeValidation": "Read the packet-bound validation.json. It binds the original/source hashes, edited Blender project and reproduction script and reports native mesh-only self-contained geometry, four actual root rotations, fixed camera/materials, manifold parts, no zero-area faces and no external images/libraries.",
+    "registration": "Validation reports frame 384x704, logical frame 192x352, sourceScale 2, logical root [96,248], 1x1 footprint, original and candidate mesh bounds matching to maximum delta 2.9802322387695312e-08 within tolerance 0.002, source/candidate top z 0.9150000214576721 and authored height metadata 0.925.",
+    "camera": "Validation retains orthographic scale 1.5, the declared projection/camera matrix, pixelAspect [1.2206555604934692,1.0], root calibration approximately [192,496], and common capture settings across N/E/S/W.",
+    "lighting": "Validation shows a centered overhead plus four equal cardinal fills, no ground receiver, and no preferred horizontal light. Native pixels show no directional ground cast shadow.",
+    "clipsAndMetadata": "Validation confirms one static frame per direction, sourceClipId idle, 12 fps, loop false, empty sockets and ports. Atlas resource hashes match the corresponding direct native PNGs.",
+    "visualChecks": "Inspected packet-relative N.png, E.png, S.png, W.png directly, all three packet previews directly, and review-only light/gray/dark logical composites saved as reviews/round-02-background-inspection.png.",
+    "limits": "Native technical facts are supported by the hash-bound validation report; I did not rerun Blender or alter candidate bytes. Exact root/world measurements are not inferred from silhouette pixels. Approval applies only to this packet and its bound source/renders."
+  }
+}
