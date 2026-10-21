@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 15,
+  "completed": 16,
   "published": 15,
-  "current": "Fifteen objects published; Lena in independent review; Omar native editing; conveyor rendering integration in progress",
+  "current": "Fifteen objects published; Omar approved and publishing; Lena revising profile smile; Ama initial review; conveyor runtime verification",
   "objects": [
     {
       "id": "plant-angular",
@@ -442,7 +442,7 @@
       "name": "Lena Brooks",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "independent-review",
+      "status": "revising",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -457,7 +457,7 @@
       "name": "Omar Haddad",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "native-editing",
+      "status": "approved",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -465,18 +465,24 @@
       "agents": {
         "judge": "catalog_chef_omar_judge_v1",
         "editor": "catalog_chef_omar_editor_v1"
-      }
+      },
+      "round": "round-01",
+      "packetSHA256": "69d6a1169119ccd9d2853ad4efce3d7607b3976a162853b0d3ab38479461ef60"
     },
     {
       "id": "chef-ama",
       "name": "Ama Mensah",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "initial-review",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "agents": {
+        "judge": "catalog_chef_ama_judge_v1",
+        "editor": "catalog_chef_ama_editor_v1"
+      }
     },
     {
       "id": "chef-mateo",
@@ -692,27 +698,33 @@
       "name": "Shared dock floor",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "dock-entry",
       "name": "Dock entry pieces",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "workshop-hut",
       "name": "Workshop hut",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "dock-cover",
@@ -728,9 +740,11 @@
       "name": "Turquoise underwater floor",
       "kind": "floor",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 48
+      "frames": 48,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "rock-wall-middle",
