@@ -1,0 +1,64 @@
+{
+  "asset": "barrel-wood",
+  "experiment": "editor-goods-supplement",
+  "round": 1,
+  "verdict": "approve",
+  "candidatePacketSHA256": "9ba470901f6319c9891c2b1e36276fa643b536d8a3dab893e7cc244c02af7610",
+  "briefSHA256": "a27514282f7726d8a3ed344d00c0676da6f3a9e9a6f38a56b58f77228562f157",
+  "criteriaFile": "reviews/proposedcriteria.json",
+  "criteriaFileSHA256": "d722992039e31348783fefb5aabca2211359b4245908be084d00f5d6f59acb7f",
+  "inspectedFiles": [
+    "goods.png",
+    "logical-backgrounds.png",
+    "native-backgrounds.png",
+    "native-comparison.png",
+    "context-card.png",
+    "context-card-wider.png"
+  ],
+  "additionalInspectedFiles": [
+    "consumer/context-candidate-layout-page0-1280x720.png",
+    "consumer/context-candidate-layout-page1-1280x720.png",
+    "consumer/context-candidate-floor-1280x720.png",
+    "consumer/context-candidate-barrel-selected-1280x720.png",
+    "consumer/context-candidate-barrel-empty-1280x720.png",
+    "consumer/context-candidate-layout-page1-540x960.png",
+    "consumer/context-candidate-barrel-selected-786x1398.png",
+    "consumer/context-candidate-barrel-empty-786x1398.png"
+  ],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 8,
+    "artifactFreeReadability": 9
+  },
+  "observations": [
+    "The native ordinary three-quarter view shows the approved barrel's coherent top/front/right volume, closed five-plank lid, bulging stave silhouette and two navy hoops. The lid's diagonal seam orientation agrees with the locked merchandise camera and is not fitted to the upper-looking world target.",
+    "The goods view carries the approved warm honey wood, softly modeled plank ends and restrained rounded navy bands. Compared with the old goods render, the lid has colored wood volume instead of lemon glare, and lower staves remain warm and readable rather than turning into a dark muddy block.",
+    "At 66 and 96 pixels, the barrel silhouette, lid/body division and both navy hoops remain distinct. Individual seams become quiet at 66 pixels as appropriate; the prop remains recognizable without extra grain, gloss or raster sharpening.",
+    "At native 384 pixels and on cream/light/gray/dark consumer backgrounds, edges and contacts are clean. No material black seam void, dead spot, halo, stray alpha, clipping, glare or new cast-shadow defect is visible.",
+    "Actual existing inventory contexts remain coherent with the cream cards and indigo controls. The barrel remains within its full-canvas preview slot and clear of its label/count. Layout page0, page1, Floor, selected count-1 barrel and declared count-0 disabled barrel preserve their paired controls, counts and selected/disabled presentation at phone, wider portrait and landscape sizes.",
+    "The reviewed context sheets are explicitly footer excerpts of full native consumer captures. I also inspected full phone/portrait/landscape captures and independently verified the displayed contact-sheet pixels against their bound raw screenshots. The solid room placeholder is disclosed; these captures do not claim restaurant/world rendering."
+  ],
+  "blockers": [],
+  "remainingDifferences": [
+    "The approved model retains broad useful stave facets, less saturation and less gloss than the fixed imagegen target. Those are accepted source characteristics, and this supplement correctly preserves them.",
+    "The native 35/35 goods camera differs from the target's world view. Exact approved geometry/materials and the old merchandise camera are the authorities for this supplement.",
+    "Fine plank detail is subdued at 66 pixels; silhouette, wood/lid division and navy hoops remain legible. No art redesign is needed or authorized."
+  ],
+  "technicalEvidence": {
+    "integrity": "candidate_packet.py packet verification passes. Independently calculated packet, brief and criteria SHA-256 match the values above. Approval binds goods.png SHA-256 b4c435084c3811374f0f20661ddcfebeef1eeeb2b6932d329238d5fd7aedff6f and candidate project SHA-256 a5497d212e47f7e93e0a3845cda5ae6a494b8d82beaaac7ff4eb7f6d13a67a99 through this exact packet.",
+    "independentSourceAudit": "I independently reopened the approved 7415ed8fe80f1c7e6237e262cffef13c797973143cd51a2749e720a57974d4a1 backup and the saved candidate in separate read-only Blender 5.2.2 LTS processes. The measured object/geometry/modifier/UV/transform, material graph/assignment, light and render/world/color/compositor/frame section hashes match exactly, with 23 native meshes and no external images/libraries. Individual object and material digests match. The source root was already static S-zero; there was no additional normalization or art change.",
+    "pipeline": "Actual scene.use_nodes and render.use_compositing stay true with zero compositor nodes, CYCLES samples remain 64, Standard/None view, exposure 0, gamma 1 and frame [1,1,1] remain unchanged. Allowed changes are camera matrix/ortho/zero shift, 384-square resolution/square pixel aspect and output/project filepath only.",
+    "camera": "Independent reopened camera comparison matches the locked 35-degree elevation/35-degree azimuth contract: ortho scale exactly 1.285640001296997, square pixels, native 384 x 384, zero shift, maximum world-matrix rounding error 5.960464477539063e-08 and projection-matrix error 0. No fit or crop. Bound alpha audit records complete bounds [62,35,323,350] and zero frame-edge alpha, consistent with inspected pixels.",
+    "independentPortableReplay": "I independently copied only the 37 SHA-256-pinned replay resources into a fresh temporary directory beneath reviews/, ran fresh Blender and Godot import/capture processes, and removed the temporary directory afterward. The goods render reproduced exact RGBA pixels with SHA-256 9b5a069db9aa1b4b2645fac536c069bffcda73f821ada7abce22f7f79b7f5b7f, and all 54 original/candidate consumer PNGs reproduced exact RGBA pixels. Blender PNG container bytes may differ while decoded RGBA pixels remain exact; original approved goods.png bytes are packet-bound and must be promoted without rerender.",
+    "independentConsumerScope": "Independently compared all 15 original/candidate state pairs: cards, state, rectangles, counts, names, badges, selection, disabled states and control properties are exact, and image differences are confined to the barrel preview. Layout page0 and Floor captures are entirely identical. Current copied EditorPresentation, UISkin, Typography and ArtBook scripts plus content/editor.json are byte-identical to current Godot source.",
+    "atlasAndFloor": "Independently confirmed the barrel's [396,396,384,384] atlas region equals native RGBA pixels; the other five cells and the entire atlas outside that region are exact baseline pixels. The excluded accepted floor file SHA-256 remains 6ded9330f3106d1d4941ac84e94c3e54436f098d261f5f36436d7115af239177 and its atlas crop RGBA SHA-256 remains 1cee44c04199f35fd17b2774d667dfa7ed95656ad2b8f88f16df628d2d8a1ce1.",
+    "inspectionRecords": [
+      "reviews/round-01-inspection/source-approved-native.json",
+      "reviews/round-01-inspection/source-candidate-native.json",
+      "reviews/round-01-inspection/portable-and-consumer-checks.json"
+    ],
+    "limits": "This approval covers this barrel goods supplement only. No world frames were rerendered or promoted, no production/source/brief/candidate files were changed by the judge, and no new UI design or floor change is approved."
+  }
+}

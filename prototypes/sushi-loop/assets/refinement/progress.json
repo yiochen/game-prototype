@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 33,
-  "published": 32,
-  "current": "32 objects live; Rowan33 promoted and verified, publishing next. Rock-wall native model ready; browser fractional composite fix underway. Preference and barrel goods sealed for independent review.",
+  "completed": 34,
+  "published": 33,
+  "current": "33 objects live. Preference34 approved/promoted/tested, publishing with fractional world-raster fix. Rock-wall04 sealed for independent review; puzzled editor and stool inventory view in progress.",
   "objects": [
     {
       "id": "plant-angular",
@@ -625,7 +625,7 @@
       "name": "Rowan McLeod",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -636,7 +636,8 @@
       "judgeStatus": "v3-criteria-frozen",
       "round": "round-03",
       "packetSHA256": "a22fca3510f52a82d4220b9880fb6f824e3c27c4d1c184a78b5eb0f11fbd4d39",
-      "reviewSHA256": "b57b8d69bb80169413a20d408b5c2797a260ef0566a2d369bf0aec2e92dc9680"
+      "reviewSHA256": "b57b8d69bb80169413a20d408b5c2797a260ef0566a2d369bf0aec2e92dc9680",
+      "publishedCommit": "91da3a4e3694a09a7e4d1425314edb573926391d"
     },
     {
       "id": "chef-blackboard",
@@ -756,14 +757,15 @@
       "name": "Dish preference bubble",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "reviewing",
+      "status": "approved",
       "clips": 9,
       "frames": 432,
       "target": "inputs/target.png",
       "editor": "catalog_bubble_preference_editor_v1",
       "judge": "catalog_bubble_preference_judge_v1",
       "round": "round01",
-      "packetSHA256": "ea2a4a7e294f3ef792e009975550b299ab2df7e103365033eb915b26da9cd0ea"
+      "packetSHA256": "ea2a4a7e294f3ef792e009975550b299ab2df7e103365033eb915b26da9cd0ea",
+      "reviewSHA256": "35abe452e67df074d0150a1892e171cad0c3c17e95d5519c0d0b9f8337a33652"
     },
     {
       "id": "bubble-happy",
@@ -787,11 +789,13 @@
       "name": "Puzzled bubble",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "prepared",
+      "status": "criteria-frozen",
       "clips": 3,
       "frames": 144,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "editor": "catalog_bubble_puzzled_editor_v1",
+      "judge": "catalog_bubble_puzzled_judge_v1"
     },
     {
       "id": "bubble-panic",
@@ -903,12 +907,14 @@
       "name": "Cobalt canyon rock wall middle",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "native-editing",
+      "status": "reviewing",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
       "editor": "catalog_rock_wall_middle_editor_v1",
-      "judge": "catalog_rock_wall_middle_judge_v1"
+      "judge": "catalog_rock_wall_middle_judge_v1",
+      "round": "round-04",
+      "packetSHA256": "27b739c320f276e639b27094008d8d9bd5e1512833d94720dc651c97a2cf4107"
     },
     {
       "id": "rock-wall-edge",
@@ -1098,9 +1104,11 @@
       "name": "Foreground coral",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 2,
-      "frames": 52
+      "frames": 52,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "decor-starfish",
@@ -1117,18 +1125,22 @@
       "name": "Midground coral",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 48
+      "frames": 48,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "decor-kelp",
       "name": "Kelp",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 48
+      "frames": 48,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "decor-ruin-fragment",
@@ -1145,9 +1157,11 @@
       "name": "Quiet background rock",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "decor-background-wreck",

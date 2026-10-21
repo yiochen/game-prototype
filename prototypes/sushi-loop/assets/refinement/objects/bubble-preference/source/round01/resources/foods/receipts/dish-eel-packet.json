@@ -1,0 +1,836 @@
+{
+  "schemaVersion": 1,
+  "asset": "dish-eel",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. For native3D assets use real Blender renders; this existing2D asset retains honest raster source and editable packing recipe. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks. Follow-on design exploration: improve the modeling itself, including forms, proportions, structure, crafted details and decorations. Original part counts and awkward geometry are not constraints. The editor may rebuild native geometry to achieve the better design; the judge should reward useful improvements. Preserve the locked registration, gameplay contact/clearance, animation and modular continuity contract. See modeling-policy.json version2.",
+  "qualityCriteria": {
+    "schemaVersion": 1,
+    "assetId": "dish-eel",
+    "stage": "proposed-independent-visible-success-criteria",
+    "status": "frozen-by-coordinator",
+    "fixedTargetSHA256": "e99cc33adc72bace561fba704962ce3f008064793811bc7f6a729388f25e35eb",
+    "sourceSHA256": "ae9daeb50efcfc29615ff9c8a9a949cd3e0026c7c6ad94f1a0ba544c512a5689",
+    "representation": "Existing2D raster and deterministic packing, with exact raster provenance. No fabricated3D metadata.",
+    "criteria": [
+      {
+        "id": "recipe-and-serving-identity",
+        "priority": 1,
+        "visibleSuccess": "One caramel-brown eel fillet over compact warm white rice, crossed by one continuous dark olive-green nori band, on one small ivory round ceramic serving plate. The fillet arch, rice mass, band and complete rim form a coherent appetizing serving. No garnish, chopsticks, added food, labels, scenery or ground shadow.",
+        "checkAt": [
+          "enlarged crop",
+          "66px standalone",
+          "40px bubble-food",
+          "CELL32 complete registered context"
+        ],
+        "failureExamples": [
+          "band resembles an empty black hole",
+          "eel becomes salmon-orange stripes or several separate toppings",
+          "plate becomes a second rice mass",
+          "food floats above plate"
+        ]
+      },
+      {
+        "id": "useful-form-and-plate-construction",
+        "priority": 1,
+        "visibleSuccess": "Preserve useful target design gains: a thick rounded eel arch with an understandable edge/underside, compact plump rice clusters supporting it, and a continuous smooth shallow ceramic dish with a deliberate rim/front thickness. Improve weak source construction when useful; exact old silhouette, decorative part count and tiny surface marks are not constraints.",
+        "checkAt": [
+          "enlarged crop",
+          "native132px-wide asset",
+          "66px standalone"
+        ],
+        "failureExamples": [
+          "thin brittle eel ends",
+          "melted or torn food contours",
+          "unmotivated extra layers",
+          "warped or broken elliptical rim",
+          "rice occupies or obscures all plate surface"
+        ]
+      },
+      {
+        "id": "warm-soft-light-and-controlled-materials",
+        "priority": 1,
+        "visibleSuccess": "Broad warm light makes the caramel, ivory and olive forms readable through smooth midtones. Eel glaze has a few coherent honey/caramel ribbons and bounded reflections; rice feels softly rounded; nori has a restrained olive material response; the ceramic rim carries a gentle continuous reflection. The image feels warmer and softer than the original, while retaining legible depth. No preferred horizontal world light or directional ground cast shadow.",
+        "checkAt": [
+          "enlarged light/gray/dark composites",
+          "66px standalone",
+          "40px food"
+        ],
+        "failureExamples": [
+          "dense white pinpoint glare dominates eel",
+          "photographic mottled speckle competes with form",
+          "cool patchwork plate shading dominates",
+          "gloss becomes bloom or halo",
+          "flat undifferentiated orange food"
+        ]
+      },
+      {
+        "id": "bounded-dark-regions-and-edible-detail",
+        "priority": 1,
+        "visibleSuccess": "The front/lower nori retains visible olive midtones and a coherent wrapped edge instead of a broad near-black dead area. Eel undersides, tail and contact seams may use deep brown locally when they explain thickness; they do not swallow the food shape. Rice reads as selected clustered grains at66px and40px, with detail subordinate to overall volume.",
+        "checkAt": [
+          "enlarged crop",
+          "native asset",
+          "66px standalone",
+          "40px food"
+        ],
+        "failureExamples": [
+          "lower nori is a featureless black rectangle",
+          "dark eel lip merges with band into one mass",
+          "sparkle or texture noise replaces rice structure",
+          "every seam is brightened away so layers merge"
+        ]
+      },
+      {
+        "id": "actual-small-size-readability",
+        "priority": 1,
+        "visibleSuccess": "At66px standalone and40px bubble-food width, the caramel top, pale rice, dark olive band and complete pale plate remain distinct. At CELL32, use the full registered48x80px frame: dish is about16.5px wide and food inside the preference balloon10px wide. These tiny contexts retain a compact caramel/pale/dark-band recipe grouping and plate/balloon separation; individual grains need not survive. Show true-size views and enlarged inspections, clearly labeled.",
+        "checkAt": [
+          "66px standalone",
+          "40px matching preference-food",
+          "CELL32 belt support placement",
+          "CELL32 matching blank-balloon composition"
+        ],
+        "failureExamples": [
+          "alpha-silhouette enlargement misrepresented as game size",
+          "candidate compared at a larger food scale than original",
+          "band disappears or consumes all top color",
+          "food merges with blank balloon or plate",
+          "old dish art silently used in a new-art context"
+        ]
+      },
+      {
+        "id": "clean-alpha-and-canonical-source",
+        "priority": 1,
+        "visibleSuccess": "On light, gray and dark backgrounds at true size and enlarged, contour is clean with no detached debris, white fringe, black fringe, external glow, or visible alpha box. Inspect both raw alpha>0 and alpha>8 bounds. An authorized once-only lossless rectangle crop may produce the canonical effective source, preserving original raw/provenance and every interior RGBA byte, with no threshold alpha deletion, painting, second crop or use-specific fit.",
+        "requiredEvidence": [
+          "raw and canonical SHA256",
+          "single source crop rectangle",
+          "interior RGBA equality proof",
+          "raw/canonical alpha>0 and>8 bboxes",
+          "native exports and reduced composite images"
+        ],
+        "failureExamples": [
+          "raw target outliers silently alter held-plane UV/aspect/anchor",
+          "Pillow repaint or threshold-removal described as packing",
+          "canonical source is cropped again by a consumer",
+          "checkerboard baked into source",
+          "invisible padded source used as purported food bounds"
+        ]
+      }
+    ],
+    "lockedTechnicalContract": {
+      "nativeCanvas": [
+        384,
+        640
+      ],
+      "logicalCanvas": [
+        192,
+        320
+      ],
+      "logicalRoot": [
+        96,
+        248
+      ],
+      "sourceScale": 2,
+      "logicalCellSize": 128,
+      "packingCenterNative": [
+        192,
+        496
+      ],
+      "normalizedDishWidthNative": 132,
+      "crop": "Once alpha>8 rectangle in source coordinates; uniform resize only; no per-frame/facing fitting. If canonical crop is supplied, consumers must not crop it again.",
+      "projection": "screen-space-2d; original high-oblique camera-facing depiction",
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "facings": "All four required facings have identical RGBA pixels; shared atlas reference is valid.",
+      "staticClip": {
+        "id": "static",
+        "frames": 1,
+        "fps": 12,
+        "loop": false,
+        "frameOrder": [
+          0
+        ]
+      },
+      "atlas": {
+        "columns": 1,
+        "rows": 1,
+        "size": [
+          384,
+          640
+        ],
+        "rect": [
+          0,
+          0,
+          384,
+          640
+        ]
+      },
+      "registrationCheck": "Packing code must reproduce original exactly; candidate center/scale/frame derive from same deterministic recipe. Source aspect-dependent height is uniformly scaled, not stretched or manually fitted."
+    },
+    "candidateEvidenceRequired": [
+      "Immutable packet binding exact raw/canonical source, packing recipe, output frames/atlases and validation hashes. Preserve full target/raw generation provenance; call raster2D evidence what it is.",
+      "All registered static facing entries and pixel-equality evidence, plus four-view and repeated previews with same framing.",
+      "Actual candidate images on light/gray/dark, true66px/40px and actual CELL32 reductions. Use the corresponding new dish in illustrative bubble/belt contexts and label diagnostic composition versus published dependent assets.",
+      "Dependency inventory clearly marks old preference-bubble/held captures and supplemental runtime variants. Standalone review does not approve those pending dependencies. Matching new immutable dependency recapture rounds and their independent approvals are required before final Godot cutover."
+    ],
+    "evaluationPolicy": "Judge visible outcome against this fixed target, style and technical contract; useful changes from the original are welcome. Missing evidence means needs_evidence, not approval. No numeric score threshold replaces visual inspection. Proposed criteria become binding only after coordinator reconciliation/freeze.",
+    "criteriaFile": "reviews/criteria.json",
+    "criteriaFileSHA256": "601e583c30393a0eb05ff15d307c054c8b148c4eaf99801f963a28ec1c28a5e9",
+    "clarifications": [
+      "Editor independent source/images/pipeline inspection completed before own reviews/criteria were read.",
+      "A lossless once-only alpha>8 boundingrectangle crop may be canonical unresizedPNG; preserve fullrawtarget/provenance and allinteriorRGBA. Uniformresize/paste only aftercanonicalcrop.",
+      "Explicitly declare all recipe-read files as resources; frozencriteria file is now automatically hash-bound bysealer and copied beside promoted source. Closed-copy source reproduction must not require original experiment.",
+      "Standalone approval is object/candidate-specific; packedheld texture/UV/aspect and bubble/runtime recaptures remain pending their own samepair reviews beforefinalGodotcutover."
+    ]
+  },
+  "capture": {
+    "frame": [
+      384,
+      640
+    ],
+    "views": [
+      "S",
+      "N",
+      "E",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated"
+    ],
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "screen-space-2d"
+  },
+  "files": {
+    "brief": {
+      "path": "../../brief.json",
+      "sha256": "09b8f3b30e90c6f3add71a16b1e6b1ca34b222c28e7569722dcdfa00c30754fa"
+    },
+    "originalProject": {
+      "path": "../../../../../production/source/2d/generated/dish-eel.png",
+      "sha256": "ae9daeb50efcfc29615ff9c8a9a949cd3e0026c7c6ad94f1a0ba544c512a5689"
+    },
+    "backup": {
+      "path": "../../../../backups/ae9daeb50efcfc29-dish-eel.png",
+      "sha256": "ae9daeb50efcfc29615ff9c8a9a949cd3e0026c7c6ad94f1a0ba544c512a5689"
+    },
+    "originalSnapshot": {
+      "path": "../../inputs/original.png",
+      "sha256": "a33356cce857bad3dea5addcc712544a13a3a1876fc7bb406a0ee1a874399a4e"
+    },
+    "target": {
+      "path": "../../inputs/target.png",
+      "sha256": "e99cc33adc72bace561fba704962ce3f008064793811bc7f6a729388f25e35eb"
+    },
+    "candidateProject": {
+      "path": "../../source/round01/dish-eel.png",
+      "sha256": "1944c44bacb881e815693adc0e60fe029e139b347366b45e7e869d4dbb3b4492"
+    },
+    "nativeValidation": {
+      "path": "validation.json",
+      "sha256": "c4f303a861ee91085ad923e90e08c3d62e00cb4aafc3df6e6bf86658ac0e2177"
+    },
+    "targetPrompt": {
+      "path": "../../inputs/imagegen-prompt.txt",
+      "sha256": "f9c616df2487448a61b05955fc5a8547716f798333535bf961bb82980a441682"
+    },
+    "agentPrompt:judge": {
+      "path": "../../prompts/judge.txt",
+      "sha256": "aef7cb3d06cc1bbb64dd85a3d947e464850856406a26faa438320c658593b0c5"
+    },
+    "agentPrompt:editor": {
+      "path": "../../prompts/editor.txt",
+      "sha256": "a6ad41bccde9a2b9723ede6b7b83bf6ce7de14b75a1f2cb03db9517821790a26"
+    },
+    "candidateResource:frozenQualityCriteria": {
+      "path": "../../reviews/criteria.json",
+      "sha256": "601e583c30393a0eb05ff15d307c054c8b148c4eaf99801f963a28ec1c28a5e9"
+    },
+    "candidateResource:input:imagegen-prompt.txt": {
+      "path": "../../inputs/imagegen-prompt.txt",
+      "sha256": "f9c616df2487448a61b05955fc5a8547716f798333535bf961bb82980a441682"
+    },
+    "candidateResource:input:original.png": {
+      "path": "../../inputs/original.png",
+      "sha256": "a33356cce857bad3dea5addcc712544a13a3a1876fc7bb406a0ee1a874399a4e"
+    },
+    "candidateResource:input:catalog-object.json": {
+      "path": "../../inputs/catalog-object.json",
+      "sha256": "ad7d8988d6f3a955edab663383c94c9e5b6d1a373ed4f9dab0293331436089ee"
+    },
+    "candidateResource:input:target.png": {
+      "path": "../../inputs/target.png",
+      "sha256": "e99cc33adc72bace561fba704962ce3f008064793811bc7f6a729388f25e35eb"
+    },
+    "candidateResource:input:original-2d-pipeline/overrides.json": {
+      "path": "../../inputs/original-2d-pipeline/overrides.json",
+      "sha256": "1b30458b9bef953f4a9caa4c8402405a8f2172102a0407d5eaa4eeb93a652bb4"
+    },
+    "candidateResource:input:original-2d-pipeline/README.md": {
+      "path": "../../inputs/original-2d-pipeline/README.md",
+      "sha256": "308aad3461e316b6179a47675430402267dda2f8fbb9c8ebade3132020c55083"
+    },
+    "candidateResource:input:original-2d-pipeline/prompts.json": {
+      "path": "../../inputs/original-2d-pipeline/prompts.json",
+      "sha256": "59708872f7fa5c6a9f0d682b0357a260f6e24703e66dfb90ec3f307ced5e3549"
+    },
+    "candidateResource:input:original-2d-pipeline/publish_2d.py": {
+      "path": "../../inputs/original-2d-pipeline/publish_2d.py",
+      "sha256": "6ceb9f228540ee49a96be824bd9d7f0a2aebe5173df2ea1069dcf565c687936d"
+    },
+    "candidateResource:delivery:resources:0": {
+      "path": "../../source/round01/dish-eel.png",
+      "sha256": "1944c44bacb881e815693adc0e60fe029e139b347366b45e7e869d4dbb3b4492"
+    },
+    "candidateResource:delivery:resources:1": {
+      "path": "../../source/round01/prepare_sources.py",
+      "sha256": "d78a0e3f00b757f42741430cc70c3524ded5a92c8b7dbcd590951f98875c4eea"
+    },
+    "candidateResource:delivery:resources:2": {
+      "path": "../../source/round01/provenance.json",
+      "sha256": "5e71672db49bdcd4dd5000ccc331245e04f33071e5384ddba0e8b5ed6662554a"
+    },
+    "candidateResource:delivery:resources:3": {
+      "path": "../../source/round01/publish.py",
+      "sha256": "105ed532a7ea1f23aa84cd86a5172ea0a30ad7b6643c882377dba51b7e140e68"
+    },
+    "candidateResource:delivery:resources:4": {
+      "path": "../../source/round01/recipe.json",
+      "sha256": "cce59ec42b5b426ea7dc36209b89d005bd762b749f3462982f355397cdf38330"
+    },
+    "candidateResource:delivery:resources:5": {
+      "path": "../../source/round01/resources/context-library.json",
+      "sha256": "3cefdb5cf3be1175c3b43ebc530085d88338983613fc9876e4823964a6385351"
+    },
+    "candidateResource:delivery:resources:6": {
+      "path": "../../source/round01/resources/context/author_meals.py",
+      "sha256": "aa12f662990d9dea67d42edbff38db724c6fbe96592c9092f67e0f6d5ce9abc1"
+    },
+    "candidateResource:delivery:resources:7": {
+      "path": "../../source/round01/resources/context/bubble-preference-raw.png",
+      "sha256": "819ff9ee1b8cfb803b26be62621799522221473b759ffc3a753ac413dce0dfc3"
+    },
+    "candidateResource:delivery:resources:8": {
+      "path": "../../source/round01/resources/context/character_composition.py",
+      "sha256": "caa790049c03ba7425be1ef44708cd6edd879fc397407be77af237facbb5f8a0"
+    },
+    "candidateResource:delivery:resources:9": {
+      "path": "../../source/round01/resources/context/chef-variants-manifest.json",
+      "sha256": "2f5f7ad9a04a3289c5f8fadbd8213cabac39e399cd3cb73686cd7d6e1217f5e8"
+    },
+    "candidateResource:delivery:resources:10": {
+      "path": "../../source/round01/resources/context/recipe-variants-manifest.json",
+      "sha256": "136de25903c9258f00fe7a944b6846da31b47cf8dba3bd5de179079910a2719a"
+    },
+    "candidateResource:delivery:resources:11": {
+      "path": "../../source/round01/resources/context/restaurant_view.gd",
+      "sha256": "ea61f94c2b5f16398d4cddef79c18860b865a4cff766d7f3bcaefc8b2937d0cd"
+    },
+    "candidateResource:delivery:resources:12": {
+      "path": "../../source/round01/resources/context/sprites/belt-straight-e/running-S.png",
+      "sha256": "5d6a7959eef35dff8661b93873c4cb0d3ebb5719cb1e88478d9c18b6a13853e7"
+    },
+    "candidateResource:delivery:resources:13": {
+      "path": "../../source/round01/resources/context/sprites/bubble-preference/2d-eel-idle-S.png",
+      "sha256": "376709ae7a9ca0a70af1909e40f759a3e0e7959840edfbd1cbf5313976a8eaed"
+    },
+    "candidateResource:delivery:resources:14": {
+      "path": "../../source/round01/resources/context/sprites/chef-lena/hold-E.png",
+      "sha256": "80d94d608d1cb45a711cfb278e8d191d709a05280e1b4cb3d7cd82527cdfc255"
+    },
+    "candidateResource:delivery:resources:15": {
+      "path": "../../source/round01/resources/context/sprites/chef-lena/hold-N.png",
+      "sha256": "35fad477a23254e2ca0e4297f1973e802700033fed99df5ae0f5de943fb2096b"
+    },
+    "candidateResource:delivery:resources:16": {
+      "path": "../../source/round01/resources/context/sprites/chef-lena/hold-S.png",
+      "sha256": "fd57d04e2bc0ce32895b0ecf71ec05e722139fe8ed511a7349a91e255e19ee49"
+    },
+    "candidateResource:delivery:resources:17": {
+      "path": "../../source/round01/resources/context/sprites/chef-lena/hold-W.png",
+      "sha256": "d39162d2714b49ec42b8d5453c28c8a1208fd231386ca3908a45796371c61f79"
+    },
+    "candidateResource:delivery:resources:18": {
+      "path": "../../source/round01/resources/context/sprites/customer-rosa/eat-E.png",
+      "sha256": "eda5daa5dbf5781724515bf48a234a39449d0d0533074d9f345d74ad7c668e9c"
+    },
+    "candidateResource:delivery:resources:19": {
+      "path": "../../source/round01/resources/context/sprites/customer-rosa/eat-N.png",
+      "sha256": "e9c311d663c37ba26f5bcd237c1f2490d05860b9fbc43c8b47996ad24b06acd1"
+    },
+    "candidateResource:delivery:resources:20": {
+      "path": "../../source/round01/resources/context/sprites/customer-rosa/eat-S.png",
+      "sha256": "cd982f09000a590516cf1b35b833395667ab3d0db4e7e0dae51bd1a39f891e26"
+    },
+    "candidateResource:delivery:resources:21": {
+      "path": "../../source/round01/resources/context/sprites/customer-rosa/eat-W.png",
+      "sha256": "2190b9422058763924f52e02c448d073034f06385db6a18f843790ce05c10fca"
+    },
+    "candidateResource:delivery:resources:22": {
+      "path": "../../source/round01/resources/context/sprites/customer-rosa/seated-wait-N.png",
+      "sha256": "7726be20348c60735ffbce6dec537bdaeea0ab2d954338d8a91345420f7a9a6e"
+    },
+    "candidateResource:delivery:resources:23": {
+      "path": "../../source/round01/resources/context/sprites/dish-eel/2d-static-S.png",
+      "sha256": "fdc9a6e778a0daa0156b4405bfc27ebd778788a0ddfc26d1058f06adcb4c8339"
+    },
+    "candidateResource:delivery:resources:24": {
+      "path": "../../source/round01/resources/context/sprites/stool-wood/static-S.png",
+      "sha256": "7d16f15b70adc2b720644a147488a2ff17864bc076e2cfb5b568d8fc40ebfeb9"
+    },
+    "candidateResource:delivery:resources:25": {
+      "path": "../../source/round01/resources/exact-imagegen-target-prompt.txt",
+      "sha256": "f9c616df2487448a61b05955fc5a8547716f798333535bf961bb82980a441682"
+    },
+    "candidateResource:delivery:resources:26": {
+      "path": "../../source/round01/resources/fixed-target-raw.png",
+      "sha256": "e99cc33adc72bace561fba704962ce3f008064793811bc7f6a729388f25e35eb"
+    },
+    "candidateResource:delivery:resources:27": {
+      "path": "../../source/round01/resources/frozen-brief.json",
+      "sha256": "09b8f3b30e90c6f3add71a16b1e6b1ca34b222c28e7569722dcdfa00c30754fa"
+    },
+    "candidateResource:delivery:resources:28": {
+      "path": "../../source/round01/resources/frozen-criteria.json",
+      "sha256": "601e583c30393a0eb05ff15d307c054c8b148c4eaf99801f963a28ec1c28a5e9"
+    },
+    "candidateResource:delivery:resources:29": {
+      "path": "../../source/round01/resources/inventory.json",
+      "sha256": "006a1e15a50bd924c14eab0bb240ae52203e11a94ec98a0f4b896441ac05bcf2"
+    },
+    "candidateResource:delivery:resources:30": {
+      "path": "../../source/round01/resources/original-2d-pipeline/README.md",
+      "sha256": "308aad3461e316b6179a47675430402267dda2f8fbb9c8ebade3132020c55083"
+    },
+    "candidateResource:delivery:resources:31": {
+      "path": "../../source/round01/resources/original-2d-pipeline/overrides.json",
+      "sha256": "1b30458b9bef953f4a9caa4c8402405a8f2172102a0407d5eaa4eeb93a652bb4"
+    },
+    "candidateResource:delivery:resources:32": {
+      "path": "../../source/round01/resources/original-2d-pipeline/prompts.json",
+      "sha256": "59708872f7fa5c6a9f0d682b0357a260f6e24703e66dfb90ec3f307ced5e3549"
+    },
+    "candidateResource:delivery:resources:33": {
+      "path": "../../source/round01/resources/original-2d-pipeline/publish_2d.py",
+      "sha256": "6ceb9f228540ee49a96be824bd9d7f0a2aebe5173df2ea1069dcf565c687936d"
+    },
+    "candidateResource:delivery:resources:34": {
+      "path": "../../source/round01/resources/original-artwork.png",
+      "sha256": "ae9daeb50efcfc29615ff9c8a9a949cd3e0026c7c6ad94f1a0ba544c512a5689"
+    },
+    "candidateResource:delivery:resources:35": {
+      "path": "../../source/round01/resources/original-backup.png",
+      "sha256": "ae9daeb50efcfc29615ff9c8a9a949cd3e0026c7c6ad94f1a0ba544c512a5689"
+    },
+    "candidateResource:delivery:resources:36": {
+      "path": "../../source/round01/resources/original-catalog-object.json",
+      "sha256": "ad7d8988d6f3a955edab663383c94c9e5b6d1a373ed4f9dab0293331436089ee"
+    },
+    "candidateResource:delivery:resources:37": {
+      "path": "../../source/round01/resources/original-registered.png",
+      "sha256": "a33356cce857bad3dea5addcc712544a13a3a1876fc7bb406a0ee1a874399a4e"
+    },
+    "candidateResource:delivery:resources:38": {
+      "path": "../../source/round01/resources/warm-soft-reference.png",
+      "sha256": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15"
+    },
+    "candidateResource:delivery:resources:39": {
+      "path": "../../source/round01/verify.py",
+      "sha256": "1f6b5cf7ae9c800f1ec0c936f7290c66e9fb2a771a41726aba59bb8cfbb39857"
+    },
+    "candidateResource:delivery:rawFrames:0": {
+      "path": "raw/static-N-0000.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859"
+    },
+    "candidateResource:delivery:rawFrames:1": {
+      "path": "raw/static-E-0000.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859"
+    },
+    "candidateResource:delivery:rawFrames:2": {
+      "path": "raw/static-S-0000.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859"
+    },
+    "candidateResource:delivery:rawFrames:3": {
+      "path": "raw/static-W-0000.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859"
+    },
+    "candidateResource:delivery:atlases:0": {
+      "path": "atlases/2d-static-N.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859"
+    },
+    "candidateResource:delivery:atlases:1": {
+      "path": "atlases/2d-static-E.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859"
+    },
+    "candidateResource:delivery:atlases:2": {
+      "path": "atlases/2d-static-S.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859"
+    },
+    "candidateResource:delivery:atlases:3": {
+      "path": "atlases/2d-static-W.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859"
+    },
+    "candidateResource:round:delivery.snapshot.json": {
+      "path": "delivery.snapshot.json",
+      "sha256": "29df6b5f28dea9eafcc53ab5fb7a990703c6fe5441ca7af85e43ce9f2e1f6e1d"
+    },
+    "candidateResource:round:reproduction.json": {
+      "path": "reproduction.json",
+      "sha256": "c159d959ea4982595566e321dbfe19f9d3d266cb5d6a59c8f18eeb93e959bf80"
+    },
+    "candidateResource:round:delivery.json": {
+      "path": "delivery.json",
+      "sha256": "29df6b5f28dea9eafcc53ab5fb7a990703c6fe5441ca7af85e43ce9f2e1f6e1d"
+    },
+    "candidateResource:round:validation.json": {
+      "path": "validation.json",
+      "sha256": "c4f303a861ee91085ad923e90e08c3d62e00cb4aafc3df6e6bf86658ac0e2177"
+    },
+    "candidateResource:round:previews/original-candidate-actual-widths.png": {
+      "path": "previews/original-candidate-actual-widths.png",
+      "sha256": "c7bf1f767706f777650b1f605123c1f14d33cda489f46234a6b8587b40a6a7ad"
+    },
+    "candidateResource:round:previews/canonical-source-backgrounds.png": {
+      "path": "previews/canonical-source-backgrounds.png",
+      "sha256": "4a4c31613c14d06873549e16631d1a8ecce540a2f5127ac5ecce2eced669496c"
+    },
+    "candidateResource:round:previews/full-cell32-gray.png": {
+      "path": "previews/full-cell32-gray.png",
+      "sha256": "b3b99dc18b4de782e55902d447bec81b861cbf7592b053fb0a9cf4db01a38aae"
+    },
+    "candidateResource:round:previews/full-cell32-dark.png": {
+      "path": "previews/full-cell32-dark.png",
+      "sha256": "a78f04ceb9da768e9651608c15ea9c015e21fab476fdc306a156ec1de2957c13"
+    },
+    "candidateResource:round:previews/backgrounds-actual-widths.png": {
+      "path": "previews/backgrounds-actual-widths.png",
+      "sha256": "a93f7ef007289654162718997ab17a1b0c5b831c68e6af8d3e8422df6ff4d112"
+    },
+    "candidateResource:round:previews/repeated.png": {
+      "path": "previews/repeated.png",
+      "sha256": "ba96afbd514dce33f024495ce5affa9d846d95468bfbb7e32048d41597f6cd57"
+    },
+    "candidateResource:round:previews/serving-cell32-inspection-only.png": {
+      "path": "previews/serving-cell32-inspection-only.png",
+      "sha256": "45490384672da198095034386894b1d12034e55a30da15da72445c196f6081b6"
+    },
+    "candidateResource:round:previews/serving-belt-without-foreground.png": {
+      "path": "previews/serving-belt-without-foreground.png",
+      "sha256": "dcb55f86e5252566b9469cf615b9c26c1d1011b72a8f65da7e9befafa1d8fd8c"
+    },
+    "candidateResource:round:previews/held-existing-dependency.png": {
+      "path": "previews/held-existing-dependency.png",
+      "sha256": "8ce0e691e4d9e9fc362b34ecee8cdc7011dbe7ab8f4f93b1302bb6294b179617"
+    },
+    "candidateResource:round:previews/preference-actual40-context.png": {
+      "path": "previews/preference-actual40-context.png",
+      "sha256": "638c0eba538ee844cf166c07ac35335da92ef7d8dd64ef4e88f7dbdab16e36c6"
+    },
+    "candidateResource:round:previews/full-native-light.png": {
+      "path": "previews/full-native-light.png",
+      "sha256": "68bbf34aa9cfb3d3c187a82a3beb2bdcfb5686a36dd123af83eb59fbf2f1a944"
+    },
+    "candidateResource:round:previews/serving-cell32-original-offsets.png": {
+      "path": "previews/serving-cell32-original-offsets.png",
+      "sha256": "0c5d0bbb0a7cbe8b77d5a268d40f75a058faf02e2dbf5c5f053eaaa4d979a737"
+    },
+    "candidateResource:round:previews/serving-full-original-offsets.png": {
+      "path": "previews/serving-full-original-offsets.png",
+      "sha256": "c01614b0043202f5bc38f7494352ecb303efc69d80f28996027cb4910b169e3e"
+    },
+    "candidateResource:round:previews/full-logical-light.png": {
+      "path": "previews/full-logical-light.png",
+      "sha256": "6087a3657e9f0781a1d348810b9210bc70741ba39a7525e286d67dcedbb16ba1"
+    },
+    "candidateResource:round:previews/full-cell32-light.png": {
+      "path": "previews/full-cell32-light.png",
+      "sha256": "a2a7e1e3a0849d464247d3678932541e65767fa528f332ff09d9b747141c83e5"
+    },
+    "candidateResource:round:previews/preference-full-frame.png": {
+      "path": "previews/preference-full-frame.png",
+      "sha256": "3fbb579d6ad4baf4b3243eafa869e1d1a63d4dee42da0a8d7115b86422f5e983"
+    },
+    "candidateResource:round:previews/full-native-gray.png": {
+      "path": "previews/full-native-gray.png",
+      "sha256": "aa30764ce147ddf401fce8c10de1a022e04ee374908780652766369646c9f58f"
+    },
+    "candidateResource:round:previews/full-native-dark.png": {
+      "path": "previews/full-native-dark.png",
+      "sha256": "3cb6dce4d0ea151f9327ae0044e46f66380b222cd149d32499b5d6be748b39f2"
+    },
+    "candidateResource:round:previews/cell32-serving-backgrounds.png": {
+      "path": "previews/cell32-serving-backgrounds.png",
+      "sha256": "2188c9c1b37a5bbc541dc51d8cf81f93534da589173ace5492134f30f8a82d7f"
+    },
+    "candidateResource:round:previews/full-logical-dark.png": {
+      "path": "previews/full-logical-dark.png",
+      "sha256": "da4b8ea775e8f9416d83a85d71e5f3d0164a85a7eff8d4163bc003ddc33b3a2d"
+    },
+    "candidateResource:round:previews/four-view-sheet.png": {
+      "path": "previews/four-view-sheet.png",
+      "sha256": "db15ed2e95aa323cabf0e198e28d0d6e20654655eebefc2c56dba75a49426503"
+    },
+    "candidateResource:round:previews/full-logical-gray.png": {
+      "path": "previews/full-logical-gray.png",
+      "sha256": "194332648adcce282e9d5ac6cef4f42524cf6fb71cd815bfe060f2ff6be8995b"
+    },
+    "candidateResource:round:previews/registered-frames-backgrounds.png": {
+      "path": "previews/registered-frames-backgrounds.png",
+      "sha256": "e12b25564310d6ecaa7cdd14bd8ab0ea6d0a224ffb5bb363759df29ac8eb6e7d"
+    },
+    "candidateResource:round:previews/serving-context.png": {
+      "path": "previews/serving-context.png",
+      "sha256": "509ece70753d413eaa0ca107a02300cc29b65c6690d91d73d67ff32f0d08af45"
+    },
+    "candidateResource:round:atlases/2d-static-N.png": {
+      "path": "atlases/2d-static-N.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859"
+    },
+    "candidateResource:round:atlases/2d-static-W.png": {
+      "path": "atlases/2d-static-W.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859"
+    },
+    "candidateResource:round:atlases/2d-static-S.png": {
+      "path": "atlases/2d-static-S.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859"
+    },
+    "candidateResource:round:atlases/2d-static-E.png": {
+      "path": "atlases/2d-static-E.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859"
+    },
+    "candidateResource:round:raw/static-W-0000.png": {
+      "path": "raw/static-W-0000.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859"
+    },
+    "candidateResource:round:raw/static-N-0000.png": {
+      "path": "raw/static-N-0000.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859"
+    },
+    "candidateResource:round:raw/static-E-0000.png": {
+      "path": "raw/static-E-0000.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859"
+    },
+    "candidateResource:round:raw/static-S-0000.png": {
+      "path": "raw/static-S-0000.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859"
+    },
+    "candidateResource:source:round01/prepare_sources.py": {
+      "path": "../../source/round01/prepare_sources.py",
+      "sha256": "d78a0e3f00b757f42741430cc70c3524ded5a92c8b7dbcd590951f98875c4eea"
+    },
+    "candidateResource:source:round01/provenance.json": {
+      "path": "../../source/round01/provenance.json",
+      "sha256": "5e71672db49bdcd4dd5000ccc331245e04f33071e5384ddba0e8b5ed6662554a"
+    },
+    "candidateResource:source:round01/recipe.json": {
+      "path": "../../source/round01/recipe.json",
+      "sha256": "cce59ec42b5b426ea7dc36209b89d005bd762b749f3462982f355397cdf38330"
+    },
+    "candidateResource:source:round01/verify.py": {
+      "path": "../../source/round01/verify.py",
+      "sha256": "1f6b5cf7ae9c800f1ec0c936f7290c66e9fb2a771a41726aba59bb8cfbb39857"
+    },
+    "candidateResource:source:round01/publish.py": {
+      "path": "../../source/round01/publish.py",
+      "sha256": "105ed532a7ea1f23aa84cd86a5172ea0a30ad7b6643c882377dba51b7e140e68"
+    },
+    "candidateResource:source:round01/resources/context-library.json": {
+      "path": "../../source/round01/resources/context-library.json",
+      "sha256": "3cefdb5cf3be1175c3b43ebc530085d88338983613fc9876e4823964a6385351"
+    },
+    "candidateResource:source:round01/resources/frozen-brief.json": {
+      "path": "../../source/round01/resources/frozen-brief.json",
+      "sha256": "09b8f3b30e90c6f3add71a16b1e6b1ca34b222c28e7569722dcdfa00c30754fa"
+    },
+    "candidateResource:source:round01/resources/original-catalog-object.json": {
+      "path": "../../source/round01/resources/original-catalog-object.json",
+      "sha256": "ad7d8988d6f3a955edab663383c94c9e5b6d1a373ed4f9dab0293331436089ee"
+    },
+    "candidateResource:source:round01/resources/inventory.json": {
+      "path": "../../source/round01/resources/inventory.json",
+      "sha256": "006a1e15a50bd924c14eab0bb240ae52203e11a94ec98a0f4b896441ac05bcf2"
+    },
+    "candidateResource:source:round01/resources/frozen-criteria.json": {
+      "path": "../../source/round01/resources/frozen-criteria.json",
+      "sha256": "601e583c30393a0eb05ff15d307c054c8b148c4eaf99801f963a28ec1c28a5e9"
+    },
+    "candidateResource:source:round01/resources/context/recipe-variants-manifest.json": {
+      "path": "../../source/round01/resources/context/recipe-variants-manifest.json",
+      "sha256": "136de25903c9258f00fe7a944b6846da31b47cf8dba3bd5de179079910a2719a"
+    },
+    "candidateResource:source:round01/resources/context/author_meals.py": {
+      "path": "../../source/round01/resources/context/author_meals.py",
+      "sha256": "aa12f662990d9dea67d42edbff38db724c6fbe96592c9092f67e0f6d5ce9abc1"
+    },
+    "candidateResource:source:round01/resources/context/chef-variants-manifest.json": {
+      "path": "../../source/round01/resources/context/chef-variants-manifest.json",
+      "sha256": "2f5f7ad9a04a3289c5f8fadbd8213cabac39e399cd3cb73686cd7d6e1217f5e8"
+    },
+    "candidateResource:source:round01/resources/context/restaurant_view.gd": {
+      "path": "../../source/round01/resources/context/restaurant_view.gd",
+      "sha256": "ea61f94c2b5f16398d4cddef79c18860b865a4cff766d7f3bcaefc8b2937d0cd"
+    },
+    "candidateResource:source:round01/resources/context/character_composition.py": {
+      "path": "../../source/round01/resources/context/character_composition.py",
+      "sha256": "caa790049c03ba7425be1ef44708cd6edd879fc397407be77af237facbb5f8a0"
+    },
+    "candidateResource:source:round01/resources/original-2d-pipeline/overrides.json": {
+      "path": "../../source/round01/resources/original-2d-pipeline/overrides.json",
+      "sha256": "1b30458b9bef953f4a9caa4c8402405a8f2172102a0407d5eaa4eeb93a652bb4"
+    },
+    "candidateResource:source:round01/resources/original-2d-pipeline/prompts.json": {
+      "path": "../../source/round01/resources/original-2d-pipeline/prompts.json",
+      "sha256": "59708872f7fa5c6a9f0d682b0357a260f6e24703e66dfb90ec3f307ced5e3549"
+    },
+    "candidateResource:source:round01/resources/original-2d-pipeline/publish_2d.py": {
+      "path": "../../source/round01/resources/original-2d-pipeline/publish_2d.py",
+      "sha256": "6ceb9f228540ee49a96be824bd9d7f0a2aebe5173df2ea1069dcf565c687936d"
+    }
+  },
+  "candidateRenders": {
+    "N": {
+      "path": "raw/static-N-0000.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859",
+      "frame": [
+        384,
+        640
+      ]
+    },
+    "E": {
+      "path": "raw/static-E-0000.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859",
+      "frame": [
+        384,
+        640
+      ]
+    },
+    "S": {
+      "path": "raw/static-S-0000.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859",
+      "frame": [
+        384,
+        640
+      ]
+    },
+    "W": {
+      "path": "raw/static-W-0000.png",
+      "sha256": "f101fe918968041d8f0fd71f8eb135ea4c2d13f7b8ecad214bb9129a1715e859",
+      "frame": [
+        384,
+        640
+      ]
+    }
+  },
+  "previews": {
+    "four-view-sheet": {
+      "path": "previews/four-view-sheet.png",
+      "sha256": "db15ed2e95aa323cabf0e198e28d0d6e20654655eebefc2c56dba75a49426503"
+    },
+    "repeated": {
+      "path": "previews/repeated.png",
+      "sha256": "ba96afbd514dce33f024495ce5affa9d846d95468bfbb7e32048d41597f6cd57"
+    },
+    "backgrounds-actual-widths": {
+      "path": "previews/backgrounds-actual-widths.png",
+      "sha256": "a93f7ef007289654162718997ab17a1b0c5b831c68e6af8d3e8422df6ff4d112"
+    },
+    "full-native-light": {
+      "path": "previews/full-native-light.png",
+      "sha256": "68bbf34aa9cfb3d3c187a82a3beb2bdcfb5686a36dd123af83eb59fbf2f1a944"
+    },
+    "full-logical-light": {
+      "path": "previews/full-logical-light.png",
+      "sha256": "6087a3657e9f0781a1d348810b9210bc70741ba39a7525e286d67dcedbb16ba1"
+    },
+    "full-cell32-light": {
+      "path": "previews/full-cell32-light.png",
+      "sha256": "a2a7e1e3a0849d464247d3678932541e65767fa528f332ff09d9b747141c83e5"
+    },
+    "full-native-gray": {
+      "path": "previews/full-native-gray.png",
+      "sha256": "aa30764ce147ddf401fce8c10de1a022e04ee374908780652766369646c9f58f"
+    },
+    "full-logical-gray": {
+      "path": "previews/full-logical-gray.png",
+      "sha256": "194332648adcce282e9d5ac6cef4f42524cf6fb71cd815bfe060f2ff6be8995b"
+    },
+    "full-cell32-gray": {
+      "path": "previews/full-cell32-gray.png",
+      "sha256": "b3b99dc18b4de782e55902d447bec81b861cbf7592b053fb0a9cf4db01a38aae"
+    },
+    "full-native-dark": {
+      "path": "previews/full-native-dark.png",
+      "sha256": "3cb6dce4d0ea151f9327ae0044e46f66380b222cd149d32499b5d6be748b39f2"
+    },
+    "full-logical-dark": {
+      "path": "previews/full-logical-dark.png",
+      "sha256": "da4b8ea775e8f9416d83a85d71e5f3d0164a85a7eff8d4163bc003ddc33b3a2d"
+    },
+    "full-cell32-dark": {
+      "path": "previews/full-cell32-dark.png",
+      "sha256": "a78f04ceb9da768e9651608c15ea9c015e21fab476fdc306a156ec1de2957c13"
+    },
+    "canonical-source-backgrounds": {
+      "path": "previews/canonical-source-backgrounds.png",
+      "sha256": "4a4c31613c14d06873549e16631d1a8ecce540a2f5127ac5ecce2eced669496c"
+    },
+    "registered-frames-backgrounds": {
+      "path": "previews/registered-frames-backgrounds.png",
+      "sha256": "e12b25564310d6ecaa7cdd14bd8ab0ea6d0a224ffb5bb363759df29ac8eb6e7d"
+    },
+    "preference-full-frame": {
+      "path": "previews/preference-full-frame.png",
+      "sha256": "3fbb579d6ad4baf4b3243eafa869e1d1a63d4dee42da0a8d7115b86422f5e983"
+    },
+    "preference-actual40-context": {
+      "path": "previews/preference-actual40-context.png",
+      "sha256": "638c0eba538ee844cf166c07ac35335da92ef7d8dd64ef4e88f7dbdab16e36c6"
+    },
+    "serving-full-original-offsets": {
+      "path": "previews/serving-full-original-offsets.png",
+      "sha256": "c01614b0043202f5bc38f7494352ecb303efc69d80f28996027cb4910b169e3e"
+    },
+    "serving-belt-without-foreground": {
+      "path": "previews/serving-belt-without-foreground.png",
+      "sha256": "dcb55f86e5252566b9469cf615b9c26c1d1011b72a8f65da7e9befafa1d8fd8c"
+    },
+    "serving-cell32-original-offsets": {
+      "path": "previews/serving-cell32-original-offsets.png",
+      "sha256": "0c5d0bbb0a7cbe8b77d5a268d40f75a058faf02e2dbf5c5f053eaaa4d979a737"
+    },
+    "serving-cell32-inspection-only": {
+      "path": "previews/serving-cell32-inspection-only.png",
+      "sha256": "45490384672da198095034386894b1d12034e55a30da15da72445c196f6081b6"
+    },
+    "serving-context": {
+      "path": "previews/serving-context.png",
+      "sha256": "509ece70753d413eaa0ca107a02300cc29b65c6690d91d73d67ff32f0d08af45"
+    },
+    "held-existing-dependency": {
+      "path": "previews/held-existing-dependency.png",
+      "sha256": "8ce0e691e4d9e9fc362b34ecee8cdc7011dbe7ab8f4f93b1302bb6294b179617"
+    },
+    "cell32-serving-backgrounds": {
+      "path": "previews/cell32-serving-backgrounds.png",
+      "sha256": "2188c9c1b37a5bbc541dc51d8cf81f93534da589173ace5492134f30f8a82d7f"
+    },
+    "original-candidate-actual-widths": {
+      "path": "previews/original-candidate-actual-widths.png",
+      "sha256": "c7bf1f767706f777650b1f605123c1f14d33cda489f46234a6b8587b40a6a7ad"
+    }
+  }
+}

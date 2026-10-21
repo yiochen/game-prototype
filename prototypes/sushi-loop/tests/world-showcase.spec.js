@@ -22,6 +22,13 @@ for (const [width, height] of [[320, 740], [844, 390], [1440, 1000]]) {
       await expect(stage.getByRole('heading', { name: scene.title, exact: true })).toBeVisible();
       const pan = stage.locator(`.object-scene-scroll[data-scene-id="${scene.id}"]`);
       const svg = pan.locator('.object-tile-scene');
+      await expect(svg).toHaveAttribute('data-world-raster-ready', 'true');
+      await expect(svg.locator('canvas')).toHaveCount(1);
+      expect(await svg.locator('canvas').evaluate(canvas => {
+        const rgba = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
+        for (let alpha = 3; alpha < rgba.length; alpha += 4) if (rgba[alpha]) return true;
+        return false;
+      })).toBe(true);
       await expect(svg.locator(':scope > g[data-placement]')).toHaveCount(scene.placements.length);
       await expect(stage.locator('.object-export-pending')).toHaveCount(0);
       if (scene.id === 'restaurant') {

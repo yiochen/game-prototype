@@ -1,0 +1,497 @@
+{
+  "schemaVersion": 1,
+  "asset": "barrel-wood",
+  "experiment": "editor-goods-supplement",
+  "candidate": "round-01",
+  "project": "source/round-01.blend",
+  "source": "source/round-01.blend",
+  "recipe": "source/recipe.json",
+  "validation": "candidates/round-01/validation.json",
+  "heroes": {
+    "goods": "candidates/round-01/goods.png"
+  },
+  "render": "candidates/round-01/goods.png",
+  "previews": {
+    "logical-backgrounds": "candidates/round-01/logical-backgrounds.png",
+    "native-backgrounds": "candidates/round-01/native-backgrounds.png",
+    "native-comparison": "candidates/round-01/native-comparison.png",
+    "context-card": "candidates/round-01/context-card.png",
+    "context-card-wider": "candidates/round-01/context-card-wider.png"
+  },
+  "resources": [
+    {
+      "path": "source/bench.gd",
+      "sha256": "2a4cbfcde6358f1e743f268bfa929e1dc295c758f484a2c8576898009a0646d4"
+    },
+    {
+      "path": "source/build_goods.py",
+      "sha256": "95fe3ae4167f25e4606c31ad55360725cba8743e26dac3a2c82a9177103dd3bc"
+    },
+    {
+      "path": "source/consumer-project.godot",
+      "sha256": "1b8c0436d5d2db9eaa8d19a5408aa4ed6050a93a6c5253352a42210dd2c27bcd"
+    },
+    {
+      "path": "source/initial-observations.json",
+      "sha256": "157dacc26d99fa5243c1b7df71f4e60746eaeb718eea41f3a113233af1212f5d"
+    },
+    {
+      "path": "source/inspect-approved.py",
+      "sha256": "ce1e17265617fe5f86d0873c9829c0ed94ada1b6589a6e40360961601bfcf604"
+    },
+    {
+      "path": "source/native_state.py",
+      "sha256": "120d6e54c81bd83f2d7626c17b360faaced62a6d33095bc2280b4c1c4c8ce893"
+    },
+    {
+      "path": "source/package_goods.py",
+      "sha256": "d9e626545328b2d0937b6f2f21e8b133391e3cbe7381711e29c262bcfb6010a5"
+    },
+    {
+      "path": "source/prepare_consumer.py",
+      "sha256": "e40d6a7b3ff32134783ebb89152ac0cc9440c3d5611a8e87cb5509bbb844973d"
+    },
+    {
+      "path": "source/recipe.json",
+      "sha256": "0119e71b7dc52a96ee4b2654f6f6dd364fad3da30719f9ce76d4a243de50b17e"
+    },
+    {
+      "path": "source/reopen_goods.py",
+      "sha256": "6bde2c74fb0efdaf120a3192851a07a6b61c0934801c69788a237b49bfa230d6"
+    },
+    {
+      "path": "source/replay-resources.json",
+      "sha256": "cddea6f9c5a77a8f110b2f1bf7b36b78efae3307e30a1d0b30f93520ea195909"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/catalog/manifest.json",
+      "sha256": "7af268b026a87cb45519e6e9a69631280ac7b8465d8fc98284f15d88055c8503"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/chef-variants/manifest.json",
+      "sha256": "2f5f7ad9a04a3289c5f8fadbd8213cabac39e399cd3cb73686cd7d6e1217f5e8"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/feedback-variants/manifest.json",
+      "sha256": "ca824ccff1a1b8212adcbf5ebf94ea0dc6805d8c0b86f264cd520d6d6b92371d"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/fonts/Delius-OFL.txt",
+      "sha256": "a91dc4034d78a6d18a78c55ab1a2345a310461e2171b31d2454270d816dbbfaa"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/fonts/Delius.ttf",
+      "sha256": "c0fd66626926b637d64eb13de013b3318dbd72cdf92c33e41a29a03828bab6f6"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/fonts/Nunito-OFL.txt",
+      "sha256": "ee9491ad3ea5d390878695bd6cce49beb3cacd5c4312f8ab574b541e9f7afa21"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/fonts/Nunito.ttf",
+      "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/recipe-variants/manifest.json",
+      "sha256": "136de25903c9258f00fe7a944b6846da31b47cf8dba3bd5de179079910a2719a"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/ui/app_icon.png",
+      "sha256": "9141ff3dcfa1f80df43550e81ca650d66ea096a40fd9887f0f5572c397c68258"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/ui/arrow.svg",
+      "sha256": "bb4d44a166a628ccd2c89d37a6e0f0f543ef9040ce1f0b144c6cb6b22ceb770f"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/ui/close.svg",
+      "sha256": "f8c7a49b7c1522453e3a0c8a17035920c691d6755bf36cb051aee53532ec1b4a"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/ui/coin.svg",
+      "sha256": "17ade6bd0f0854f73dc3f7f741009e29fe656bc173103a9b6f49ae54b5b710b6"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/ui/edit.svg",
+      "sha256": "40cd1bdbd29a66f5a9c6dc48c2d0ddf8748a4901e452ecc3f3d7236db1de766e"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/ui/editor/manifest.json",
+      "sha256": "42c196178f8eb2b1569a98a17a26a99e55e49a1f190f5a343279f7705ef16a88"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/ui/editor/skin.png",
+      "sha256": "7e00d095d08979d08cc96b7fc1f6b376c5ea563651638512c3e3b1dde20d627a"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/ui/editor-goods/atlas.png",
+      "sha256": "505134aecc0e4cb5d29fa43c862e9c635482985fc4d50d94ab8d2fb50bff8d33"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/ui/editor-goods/manifest.json",
+      "sha256": "1a0eda26e231a47051fc7f0b0a5c925fe777b0245094fa5416a60f09fbe9411b"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/ui/night-sky.png",
+      "sha256": "ed278147a330631baba18f86cbfffbfd12d3d56d2f3d2aee12ddb0806be55c47"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/ui/shop.svg",
+      "sha256": "a3f2474545ef51d1b7ccc095138c90cf7ca4a88d131fdf09b6b971a199a04893"
+    },
+    {
+      "path": "source/resources/current-consumer/assets/ui/staff.svg",
+      "sha256": "7ccf73a391be1aaa292ef0f81188e1cb16a0fd77238df062629f380540a1251f"
+    },
+    {
+      "path": "source/resources/current-consumer/baseline-atlas.png",
+      "sha256": "505134aecc0e4cb5d29fa43c862e9c635482985fc4d50d94ab8d2fb50bff8d33"
+    },
+    {
+      "path": "source/resources/current-consumer/content/editor.json",
+      "sha256": "a493026a6dc7d67ba62faadcfd2ace4fd052b98b70321b2a2662d61c31f69879"
+    },
+    {
+      "path": "source/resources/current-consumer/floor-cream.png",
+      "sha256": "6ded9330f3106d1d4941ac84e94c3e54436f098d261f5f36436d7115af239177"
+    },
+    {
+      "path": "source/resources/current-consumer/scripts/art_book.gd",
+      "sha256": "2b3dcf2ad474139ed4d0256484bb9ec9d01b9a54da90612e54dd37fc03034c48"
+    },
+    {
+      "path": "source/resources/current-consumer/scripts/editor_presentation.gd",
+      "sha256": "ad1ab732ed9abcb6bb39eb9d2a8933bea93eeaec6e7d01d9f37cc753cd3ef1d4"
+    },
+    {
+      "path": "source/resources/current-consumer/scripts/typography.gd",
+      "sha256": "187290a2a46e233e2aea0b6bd83d022ccd0fb606d336de9ddba4994c82c8d85c"
+    },
+    {
+      "path": "source/resources/current-consumer/scripts/ui_skin.gd",
+      "sha256": "f4963753dfae0d539062b2aeec0d7f16c06ca56b57947b12691226b12bab1eeb"
+    },
+    {
+      "path": "source/resources/current-consumer/snapshot-manifest.json",
+      "sha256": "b60718d86662ca56ccd01b604f35ea415eea8de83ed4d35c3755e86203aa9677"
+    },
+    {
+      "path": "source/round-01.blend",
+      "sha256": "a5497d212e47f7e93e0a3845cda5ae6a494b8d82beaaac7ff4eb7f6d13a67a99"
+    },
+    {
+      "path": "source/source-inspection.json",
+      "sha256": "0190b79c3869afbb230250e0d7390e946bb1b28325501d84772ddccc87f88b41"
+    },
+    {
+      "path": "source/verify_resources.py",
+      "sha256": "961e8c37c5ac013a928cd812886ab9181e91b970b496affd5183585557d3fb34"
+    },
+    {
+      "path": "inputs/approved-world-model.blend",
+      "sha256": "7415ed8fe80f1c7e6237e262cffef13c797973143cd51a2749e720a57974d4a1"
+    },
+    {
+      "path": "inputs/camera-contract.json",
+      "sha256": "68149037c6f7e7e64ce20c738eb5bd99f832c6ac79d3192e07dfb698375bff8f"
+    },
+    {
+      "path": "inputs/original.png",
+      "sha256": "1802c130e9dc0a70340442f1bb0771390c5de1a5d8c5f19c467b8343c34ff7a0"
+    },
+    {
+      "path": "inputs/target.png",
+      "sha256": "b6768907e6bf7aca13db9e02ef702af0ce1eaf138e8453839d12befa76896dd4"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-candidate-384-cream.png",
+      "sha256": "bf2bd2671d2cf69b4a32a033e6a0f5195e356fbb723cc88bb35b0a1c53d69db9"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-candidate-384-dark.png",
+      "sha256": "04734522b9f456724fe920cb4b7c8bd85105db709e0d6b13673d71c2a5729b7a"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-candidate-384-gray.png",
+      "sha256": "818a100b95d157153149c706ced51a845d4195202c3f060a201fa94a200e2257"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-candidate-384-light.png",
+      "sha256": "6ee7c1c3d6c8da5f706850320b7a16984a13c43d485b646a46217dfab503c68b"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-candidate-66-cream.png",
+      "sha256": "a0e21a0372d6496806f251bd42cc8d4053853c925fba440a2db3daeb22545b3d"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-candidate-66-dark.png",
+      "sha256": "1c66832f0ed4c520c134f7a54d88e2c6b9ea3718ae3b6e482d19cb480b159f8b"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-candidate-66-gray.png",
+      "sha256": "8f17042be8eec406ac12bfcada6bc2745d63461f411e3f79984d8a6613ccd839"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-candidate-66-light.png",
+      "sha256": "2e3310fe55ecda1f7da359a644980aa63f4a9d79c073e43aea37f261c26d7044"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-candidate-96-cream.png",
+      "sha256": "771f703671b3719ecd594da889f55fac2a622225d574659006a6bfd4a5dd1af2"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-candidate-96-dark.png",
+      "sha256": "bc897882ebd06593de71082d91b6a1ebe556cb7911eaafe7c8c6c7ae15aa2f27"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-candidate-96-gray.png",
+      "sha256": "a73637e908df3dab66a595e294f99784511e836c7f35be7dd490ba8e39af63ba"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-candidate-96-light.png",
+      "sha256": "3bccbc561e062c99c35c5610ca426cd333d7dbd032add481434b3072a11b7e19"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-original-384-cream.png",
+      "sha256": "554909deb38d027e57bdb6883a508306bce72a3f72c2985fe0ea8ffec429bc45"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-original-384-dark.png",
+      "sha256": "edf2d985cad5c7286722a9930c8e2ba802e59eefc4e71880e140e6040833da61"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-original-384-gray.png",
+      "sha256": "6715fee0ee2e3f67e2b734b27bd75c647f70438772b3aabd90a0d2f4a4634e09"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-original-384-light.png",
+      "sha256": "574e0a456e486930c424cb1bb609d173ea1b3a21cfd7e8ded7b51a36e929189e"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-original-66-cream.png",
+      "sha256": "fdc4f5cd32a3800c5ea4a6dc4753c460cb91068b9d222f8b86b5371320546b67"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-original-66-dark.png",
+      "sha256": "880625102dcd6a56acdf5241571478891262461a8fe08e4b43d86f43ed46747c"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-original-66-gray.png",
+      "sha256": "aba1c47fc01a34c3467736897db628408da2f2924401831ba335f5571e0af1ca"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-original-66-light.png",
+      "sha256": "a62ed8730790d68d2b57127cf51df219aa2c104c0a03de33187d3f0b62864658"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-original-96-cream.png",
+      "sha256": "a08145d0f69fc753dee124e6df26601bcd545e3c1746d928e86eabe277b7a9e1"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-original-96-dark.png",
+      "sha256": "da667b971aa2da56e0ae4b8c9d0f9edce7bbe02d89fd247d983b4d0989d0582d"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-original-96-gray.png",
+      "sha256": "4ee75dd1e2c5b657e5ca60e415045f0ecdcd9fa6626e6f26edea5e94c52f22cc"
+    },
+    {
+      "path": "candidates/round-01/consumer/background-original-96-light.png",
+      "sha256": "6763806ad732bd81677e8f5d96ae969cb18e621644dacfa9c58d1fbe1c8b84d1"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-candidate-barrel-empty-1280x720.png",
+      "sha256": "0efad85b6fd91de4208de064fa801764b24c706dae294a93761724883e21bb82"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-candidate-barrel-empty-540x960.png",
+      "sha256": "ec58706baacafdeeb667c786193c2e9e67d96695d1c9b1056c8bb6c516ec8941"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-candidate-barrel-empty-786x1398.png",
+      "sha256": "aa3c08952104bc71fadfe00beebbea7bf215bc514ee2a83ea565ec9ed5d1c01f"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-candidate-barrel-selected-1280x720.png",
+      "sha256": "92c58fb2f254bf385ae910503e3c64d4ceba12e3b7c2976e5f16a08495aeba89"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-candidate-barrel-selected-540x960.png",
+      "sha256": "91f31f6517667e4c92ceee62f9d6cceb405cb02abe8a441f7ae4c4f106756570"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-candidate-barrel-selected-786x1398.png",
+      "sha256": "d43fda983289537bb154822c7390678fde7016f84b1aad77790bc9e5b4d7e392"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-candidate-floor-1280x720.png",
+      "sha256": "064a7299c59f45fccb629a5762b4af18e4deabd515b8265a267db2b9f22d3b9c"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-candidate-floor-540x960.png",
+      "sha256": "e91796f3664ed6769fdfffd3e994593b07f7abd7ad29b0d6031dd7c399a518c1"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-candidate-floor-786x1398.png",
+      "sha256": "d7376e36805de420c03c37228175f079da11a43accc79a7bef1562fdec765aca"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-candidate-layout-page0-1280x720.png",
+      "sha256": "9cb064547d17cc917ed68625bf71daece55e6b0f46c4baaa801e53e5cea4a7ae"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-candidate-layout-page0-540x960.png",
+      "sha256": "83733742a3fa3854efe342fc8e993e349ed377c1cce33d5e3c871959738ec297"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-candidate-layout-page0-786x1398.png",
+      "sha256": "c73a39f6161fc911112794e43ac120caee03dfa67bcbed6cb7c2d9fbcfa21cbc"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-candidate-layout-page1-1280x720.png",
+      "sha256": "fb0d9e9b59145b482252334f0dd99a9c27f0b5bd08c6213a7aa1c38d80a5d231"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-candidate-layout-page1-540x960.png",
+      "sha256": "3177e783db6f04daf0a303ee7f062faea08d8017317d6c9c5051c1d3506baf69"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-candidate-layout-page1-786x1398.png",
+      "sha256": "c6fe8d1fd696f3fbb068a6fdb7769778e97740285a3d8aaf6a731b8c49b6f385"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-original-barrel-empty-1280x720.png",
+      "sha256": "8a50bcc26f0425269eb566091bcb124d0de1a082e312bd2b222a23b1a9c9c6d7"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-original-barrel-empty-540x960.png",
+      "sha256": "a40e3f846e247d155d1040e336ea0794d76f2e96c4e89314471174d5218151aa"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-original-barrel-empty-786x1398.png",
+      "sha256": "eb8f45df43844717bd408eb98b853691b21c72f5065c36cd445f52e392962d4e"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-original-barrel-selected-1280x720.png",
+      "sha256": "498aea862e2af65376bfd3109c62517aadf6b0866893c090fcab15f5cd6f361b"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-original-barrel-selected-540x960.png",
+      "sha256": "7648c998c62fbea6477d3aef67c0c5d6942876206a205bc513651cedb2863a0a"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-original-barrel-selected-786x1398.png",
+      "sha256": "a3b684c40bdcfc7a5a17c9b8109cb2f7a80c069125a4d7c18e96fc1e98ffd4b2"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-original-floor-1280x720.png",
+      "sha256": "064a7299c59f45fccb629a5762b4af18e4deabd515b8265a267db2b9f22d3b9c"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-original-floor-540x960.png",
+      "sha256": "e91796f3664ed6769fdfffd3e994593b07f7abd7ad29b0d6031dd7c399a518c1"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-original-floor-786x1398.png",
+      "sha256": "d7376e36805de420c03c37228175f079da11a43accc79a7bef1562fdec765aca"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-original-layout-page0-1280x720.png",
+      "sha256": "9cb064547d17cc917ed68625bf71daece55e6b0f46c4baaa801e53e5cea4a7ae"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-original-layout-page0-540x960.png",
+      "sha256": "83733742a3fa3854efe342fc8e993e349ed377c1cce33d5e3c871959738ec297"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-original-layout-page0-786x1398.png",
+      "sha256": "c73a39f6161fc911112794e43ac120caee03dfa67bcbed6cb7c2d9fbcfa21cbc"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-original-layout-page1-1280x720.png",
+      "sha256": "33d941f6951a054ca9d37d962f8df0a1f63a85971dcca93269dea53bf5a34993"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-original-layout-page1-540x960.png",
+      "sha256": "4e98e90d614e093a7efe5db5c435e3b4266e375ee1a6ed75fd84d00b6823da1a"
+    },
+    {
+      "path": "candidates/round-01/consumer/context-original-layout-page1-786x1398.png",
+      "sha256": "ff8d7e81f245a6ee9bb8fe37bc78614bec6e8d7807f8cf2f1f7302ba04905e91"
+    },
+    {
+      "path": "candidates/round-01/consumer/render-record.json",
+      "sha256": "f22aa44bad5d966fe22a86fe4a78245dea0bfc084aa127eb2741f77a709951f9"
+    },
+    {
+      "path": "candidates/round-01/consumer-atlas.png",
+      "sha256": "3cfac9040102789b2154c2bd546db4d21938fb39efaa8aabef20a58abb937f29"
+    },
+    {
+      "path": "candidates/round-01/consumer-parity.json",
+      "sha256": "0b85808299259ab0ba8a553aeb7175ff508f8aaa1036e1c0778a515e077b6bfb"
+    },
+    {
+      "path": "candidates/round-01/context-card-wider.png",
+      "sha256": "bbdaaf3e277b89129250a2062704a2f15b9900edb03a9d88c9bba763bb10f312"
+    },
+    {
+      "path": "candidates/round-01/context-card.png",
+      "sha256": "c6c0166363fa6a3683e72386f5249fd24ae578a7f96457812ba1dae96cb7d8f4"
+    },
+    {
+      "path": "candidates/round-01/goods.png",
+      "sha256": "b4c435084c3811374f0f20661ddcfebeef1eeeb2b6932d329238d5fd7aedff6f"
+    },
+    {
+      "path": "candidates/round-01/logical-backgrounds.png",
+      "sha256": "557201b34c4ab63c2f68e8414eea0c65f5f3c06b1e3c749199e43fa872c90c63"
+    },
+    {
+      "path": "candidates/round-01/native-backgrounds.png",
+      "sha256": "7581d48bbd750c81539a0ec4120f9594ba2de93e720f512c0499e3a4dd417598"
+    },
+    {
+      "path": "candidates/round-01/native-comparison.png",
+      "sha256": "72cddcbb724fed35737fb0cfbe2dc92ce18be33a35e183d6f00c13633f56e098"
+    },
+    {
+      "path": "candidates/round-01/native-parity.json",
+      "sha256": "73dd74af18ff44d37dcd6a6d1b36fc7c6a234c2dcc6296990e24930c3f612661"
+    },
+    {
+      "path": "candidates/round-01/portable-proof.json",
+      "sha256": "1999072c65d25658faa25bceffe7c52bcff1b52e375cc2be46acd86c31dd3097"
+    },
+    {
+      "path": "candidates/round-01/reopen-native.json",
+      "sha256": "c51b27e2adf2c7c562bc46d2fa93cd726ac9656b3f7434b1839c598f91e976a8"
+    },
+    {
+      "path": "candidates/round-01/reopen-proof.json",
+      "sha256": "e2294a34b50009e20a7e9d6f43a6098228f29085a1b3ae14f01ea7e8cb1b4193"
+    },
+    {
+      "path": "candidates/round-01/reopened.png",
+      "sha256": "2feb01be6657c1222010a73c76a03ec0589ec8b7b1a96b9a03cfe2f7402f7ba4"
+    },
+    {
+      "path": "candidates/round-01/validation.json",
+      "sha256": "309e68afce605f61aef77a95305af50ac2748c9f726cc26b0064fec9b19d9edd"
+    }
+  ],
+  "status": "ready-for-independent-judge",
+  "approval": null,
+  "capture": "Exact native approved model under locked ordinary orthographic three-quarter 35/35 camera; no raster fitting, crop, regrade, retouch or source art changes.",
+  "proposedIntegration": {
+    "goodsID": "barrel-wood",
+    "nativeSize": [
+      384,
+      384
+    ],
+    "keepExistingGoodsAtlasDimensionsAndRegions": true,
+    "otherGoodsAndFloorUnchanged": true,
+    "worldPromotion": false
+  },
+  "contextQualification": "Actual unchanged current Godot EditorPresentation/UISkin and accepted UI assets; solid room placeholder, no restaurant/world rendering claim. Full paired screenshots bound for five states and three viewports; contact sheets are footer excerpts."
+}

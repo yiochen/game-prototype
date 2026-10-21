@@ -1,0 +1,6 @@
+import bpy,json,hashlib
+from pathlib import Path
+B=Path(__file__).resolve().parent.parent
+s=bpy.context.scene;r=bpy.data.objects['barrel-wood__root'];col=bpy.data.collections['S33_PROP_barrel-wood']
+d={'sourceSHA256':hashlib.sha256((B/'inputs/approved-world-model.blend').read_bytes()).hexdigest(),'scene':s.name,'root':{'location':list(r.location),'rotation':list(r.rotation_euler),'scale':list(r.scale)},'meshCount':len([o for o in col.all_objects if o.type=='MESH']),'camera':{'matrix':[list(row) for row in s.camera.matrix_world],'ortho':s.camera.data.ortho_scale},'render':{'engine':s.render.engine,'frame':[s.render.resolution_x,s.render.resolution_y],'pixelAspect':[s.render.pixel_aspect_x,s.render.pixel_aspect_y],'samples':s.cycles.samples,'use_nodes':s.use_nodes,'compositing':s.render.use_compositing,'transparent':s.render.film_transparent},'materials':[m.name for m in bpy.data.materials],'lights':[{'name':o.name,'energy':o.data.energy,'matrix':[list(row) for row in o.matrix_world]} for o in s.objects if o.type=='LIGHT'],'dependencies':{'libraries':[x.filepath for x in bpy.data.libraries],'images':[{'name':x.name,'path':x.filepath,'packed':bool(x.packed_file)} for x in bpy.data.images]}}
+(B/'source/source-inspection.json').write_text(json.dumps(d,indent=2)+'\n');print(json.dumps(d,indent=2))
