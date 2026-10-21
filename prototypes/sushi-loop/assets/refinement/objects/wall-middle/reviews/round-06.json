@@ -1,0 +1,178 @@
+{
+  "asset": "wall-middle",
+  "round": 6,
+  "verdict": "approve",
+  "criteriaVersion": 1,
+  "candidatePacketSHA256": "8330022d2b5db61306810839b47782f8da317f7e77543f950016e2b80e7bae46",
+  "candidateProjectSHA256": "13a7d057b1e0650582b60f4404ca1bb9b316774feb467c781730c7e43a25f723",
+  "briefSHA256": "49a79ec52a9bf262526b55ea1edb44d20c16e48004dd2b9896aae652e87e380f",
+  "inspectedFiles": [
+    "raw/static-N-0000.png",
+    "raw/static-E-0000.png",
+    "raw/static-S-0000.png",
+    "raw/static-W-0000.png",
+    "previews/four-view-logical-backgrounds.png",
+    "previews/four-view-sheet.png",
+    "previews/join-N-logical-backgrounds.png",
+    "previews/join-N-boundary-crops.png",
+    "previews/join-N-difference-x8.png",
+    "previews/join-E-logical-backgrounds.png",
+    "previews/join-E-boundary-crops.png",
+    "previews/join-E-difference-x8.png",
+    "previews/join-S-logical-backgrounds.png",
+    "previews/join-S-boundary-crops.png",
+    "previews/join-S-difference-x8.png",
+    "previews/join-W-logical-backgrounds.png",
+    "previews/join-W-boundary-crops.png",
+    "previews/join-W-difference-x8.png",
+    "native-joins/static-N-3modules.png",
+    "sprite-joins/static-N-3modules.png",
+    "native-joins/static-E-3modules.png",
+    "sprite-joins/static-E-3modules.png",
+    "native-joins/static-S-3modules.png",
+    "sprite-joins/static-S-3modules.png",
+    "native-joins/static-W-3modules.png",
+    "sprite-joins/static-W-3modules.png"
+  ],
+  "coveredRenderNames": [
+    "N",
+    "E",
+    "S",
+    "W"
+  ],
+  "coveredPreviewNames": [
+    "four-view-logical-backgrounds",
+    "four-view-sheet",
+    "join-N-logical-backgrounds",
+    "join-N-boundary-crops",
+    "join-N-difference-x8",
+    "join-E-logical-backgrounds",
+    "join-E-boundary-crops",
+    "join-E-difference-x8",
+    "join-S-logical-backgrounds",
+    "join-S-boundary-crops",
+    "join-S-difference-x8",
+    "join-W-logical-backgrounds",
+    "join-W-boundary-crops",
+    "join-W-difference-x8",
+    "native-join-N",
+    "independent-join-N",
+    "native-join-E",
+    "independent-join-E",
+    "native-join-S",
+    "independent-join-S",
+    "native-join-W",
+    "independent-join-W",
+    "repeated"
+  ],
+  "previewAliases": {
+    "repeated": {
+      "sameActualFileAs": "independent-join-S",
+      "path": "sprite-joins/static-S-3modules.png",
+      "countedAsAdditionalUniqueImage": false
+    }
+  },
+  "inspectionMethod": {
+    "rgb": "Inspected every declared preview directly: all four logical full frames on light/gray/dark, full-scale four-view sheet, four native-versus-independent logical join sheets, all enlarged seam crops and all RGB difference x8 images. Independently verified 60 pixel-exact sheet/difference regions against the actual hashed raw/native-join/sprite-join images.",
+    "alpha": "Generated and directly inspected judge-owned alpha sheets from every actual raw frame and all eight actual join images. Examined full alpha silhouettes and amplified native-versus-independent alpha differences; numerically sampled both internal joins in every facing.",
+    "native": "Independently reopened the untouched original and exact round-06 .blend with Blender 5.2.2. Read actual geometry, boundary sections, camera/root, lights, shaders and dependency closure; no project save or candidate change.",
+    "reference": "Compared against the independently inspected fixed original and target, using the previously recorded logical-size light/gray/dark reference sheet. No editor self-rating or unrelated aesthetic review was used."
+  },
+  "scores": {
+    "shapeVolume": 7,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 7,
+    "artifactFreeReadability": 8
+  },
+  "observations": [
+    "The native result visibly improves the original. The blue coping now has a broad soft surface response and a distinct darker lower lip; the cap overhang/contact recess clearly separates it from the timber at the original logical size. The geometric crown and shallow timber relief add useful native volume while preserving the modular boundary sections.",
+    "Timber remains honey/ochre, reads warmly to the base and carries broad intentional grain that survives 192x352 logical-frame viewing. The thin horizontal construction bands remain legible without becoming black grooves. This is substantially richer than the source's largely blank faces and large dark lower ramp.",
+    "N/S broad views retain the wall hierarchy and repeat into coherent continuous coping and timber bands. E/W actual model rotations show the correct narrow depth presentation, with a soft coherent cap gradient and readable warm lower end section. No view contains a material black patch, empty failed shader area, detached sliver, clipping or blown highlight.",
+    "All four native three-module assemblies and all four independently alpha-composited assemblies are visibly continuous at logical size and enlarged seam crops. I find no meaningful cap stripe, rounded terminal notch, alpha crack, dark double seam or band-height step at their two internal joins. Repetition of the wood grain is visible, but it reads as a repeatable wall material rather than a broken connection.",
+    "The RGB difference previews show small rendering/shading differences and localized timber-bead differences rather than a continuous failed join. Independent alpha checks show opaque internal seam samples in both assembly methods in all four facings. Small outer-edge antialiasing differences do not create a visible halo or gap on light, gray or dark backgrounds.",
+    "The original rectangular endpoint profile is retained instead of copying the target's freestanding rounded left/right ends. That constraint-respecting design choice is appropriate for this middle module. Retaining the original band arrangement is accepted as the editor's native design choice; no part-count identity was required for this approval."
+  ],
+  "blockers": [],
+  "remainingDifferences": [
+    "The target is glossier, brighter and more rounded, with near-white edge streaks. The native wall uses a quieter soft enamel response, shallower relief and exact square modular cuts; it still meets the frozen warm cartoon and volume outcomes.",
+    "Wood grain is broad and regularly repeats with the module. It is simpler than the target's varied arcs, remains readable and does not expose defective seams.",
+    "The blue cut-face closure uses the disclosed common analytic object-space radiance field for camera rays. It is a native shader on the actual cut section, shared by both ends and every facing; there is no camera-coordinate image projection, per-view coefficient set, raster patch or extended geometry. Noncut surfaces remain ordinary native BSDF surfaces. This treatment is accepted for these exact reviewed bytes and settings, and must be retained explicitly in family handoff metadata."
+  ],
+  "technicalEvidence": {
+    "packetIntegrity": {
+      "allBoundFileHashesVerified": true,
+      "fileEntries": 70,
+      "candidateRenderEntries": 4,
+      "previewEntries": 23,
+      "uniqueInspectedImagePaths": 26,
+      "sourceAndBackupMatch": true
+    },
+    "frozenCriteria": "Compared packet qualityCriteria with brief.qualityCriteria and reviewed against criteriaVersion 1, including v2 modeling freedom.",
+    "independentNativeReopen": {
+      "path": "reviews/round-06-independent-native-check.json",
+      "sha256": "a38bd2cfa7c52898c8edbd638cfb452d03147b147fe5f382df16db67c36a528f",
+      "geometryBounds": [
+        [
+          -0.5,
+          0.5
+        ],
+        [
+          -0.18000000715255737,
+          0.18000000715255737
+        ],
+        [
+          0.07000000029802322,
+          1.0180000066757202
+        ]
+      ],
+      "noExtensionPastConnectorPlanes": true,
+      "functionalHeightLimit": 1.02,
+      "sourceProfileMaximumDistance": 2.9802322387695312e-08,
+      "allSourceCornersPresent": true,
+      "rootPixels": [
+        192.0,
+        511.99997329711914
+      ],
+      "logicalRoot": [
+        96,
+        256
+      ],
+      "frame": [
+        384,
+        704
+      ],
+      "pixelAspect": [
+        1.2206555604934692,
+        1.0
+      ],
+      "externalImages": [],
+      "linkedLibraries": [],
+      "candidateProjectSavedOrModified": false
+    },
+    "captureAndFunction": "Exact source root/ports and one-cell footprint are retained. Source and candidate camera matrices agree within serialization/Blender float precision, with the same projection/pixel aspect and export pixel pitch. Full frames/atlases are 384x704; source recorded captureScale 4 is explicitly resolved to export sourceScale 2. Static one-frame 12 fps/nonloop contract is unchanged. Native capture records include N=180,E=90,S=0,W=-90 actual root rotations; joining expands the canvas while retaining pixel pitch.",
+    "nativeValidation": "Read bound validation.json, native-audit.json, family-settings.json, native-camera.json, native-assetRecord.json, native-rig.json, assembly-validation.json and source/round-06.py. Independent scene reopening corroborates registration, bounds/profiles, isolated native geometry, five horizontally symmetric soft lights and no external runtime resource dependencies. The disclosed cut shader and ordinary BSDF/noncut materials are recorded in family-settings.json.",
+    "assembly": "Recomposed each actual raw RGBA frame at declared roots/port pitch and depth order; every resulting four-facing assembly matched the supplied sprite-join image byte-for-byte. No seam adjustment or extra pixels were needed.",
+    "alpha": "Both internal seam samples were alpha 255 in native and independent assemblies for N/E/S/W. Whole-image native-versus-independent alpha mean absolute deltas on occupied union were N 0.0160, E 0.0307, S 0.0157, W 0.0308 on the 0..255 scale; maxima 10,20,9,20 are isolated antialiasing differences. Direct silhouette inspection found no material missing section or extension.",
+    "rgb": "Native-versus-independent occupied opaque RGB mean absolute deltas are about 1.25..1.29/255; p99 7..9/255. Full previews and enlarged boundaries, rather than those aggregate figures alone, establish visual continuity.",
+    "contactSheetVerification": {
+      "path": "reviews/round-06-image-checks.json",
+      "sha256": "be84cb7ec07b71d13f8d8418fc80db3dc2256f2357faa198adca8ce2e57951d1",
+      "pixelExactRegionChecks": 60,
+      "allPassed": true
+    },
+    "judgeOwnedDiagnostics": [
+      {
+        "path": "reviews/round-06-direct-raw-rgb-alpha.png",
+        "sha256": "d19fdff42580bedc06840cba1a223ca5d966cfc71a8a8316897a3d60c71dcb71",
+        "mapping": "reviews/round-06-direct-raw-rgb-alpha-map.json"
+      },
+      {
+        "path": "reviews/round-06-direct-join-alpha.png",
+        "sha256": "187d10a5a89fb25d576526b0ba93e93ad72393051013429cbf03cf59929cd295",
+        "mapping": "reviews/round-06-direct-join-alpha-map.json"
+      }
+    ],
+    "limits": "Approval covers this exact candidate source, renders, previews and bound native material/light settings. It does not approve unreconciled corner/end members, unseen views, future rerenders, production integration or publication beyond existing user authorization. No independent full rerender was made by the judge; visual verdict uses the actual packet-bound native exports with independently reopened source and reproduced assembly evidence."
+  }
+}

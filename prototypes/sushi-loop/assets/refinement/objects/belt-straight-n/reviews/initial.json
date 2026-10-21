@@ -1,0 +1,282 @@
+{
+  "schemaVersion": 1,
+  "asset": "belt-straight-n",
+  "reviewType": "independent-initial-source-versus-fixed-target",
+  "stage": "criteria-proposal-only",
+  "candidateVerdict": null,
+  "independence": {
+    "sourceAndTargetInspectedBeforeEditorOpinion": true,
+    "editorProposalsRead": false,
+    "otherObjectsAestheticallyJudged": false,
+    "scope": "reviews only; no model, brief, target or production edits"
+  },
+  "style": "Warm, softly lit cartoon conveyor. Preserve the salmon/coral rail, blue-charcoal deck and warm wood palette family; improve native forms and useful structure within the locked modular contract.",
+  "inspectedFiles": [
+    {
+      "path": "inputs/original.png",
+      "sha256": "22be4f58c220fe3deacfaa8478eca14a20a5cdc94a6178948181eb11da72f090",
+      "dimensions": [
+        384,
+        704
+      ],
+      "inspection": "Direct full image and 192x352 full-canvas reduction on light, gray and dark backgrounds."
+    },
+    {
+      "path": "inputs/target.png",
+      "sha256": "01c6bcd14f746b9018eafbecc563a85515f6d2f3054acd2a90606a452e26b639",
+      "dimensions": [
+        926,
+        1698
+      ],
+      "inspection": "Direct enlarged image and 192x352 full-canvas reduction on light, gray and dark backgrounds; style comparison only."
+    },
+    {
+      "path": "inputs/source-camera.json",
+      "sha256": "f12aa69e49e6787365a25b221280301d3d41e204d9973526d540d1b02bce4181"
+    },
+    {
+      "path": "inputs/source-assetRecord.json",
+      "sha256": "a69f813bf076c62662d89810558e930e2787fc601c700f6f33e12025108db7b7"
+    },
+    {
+      "path": "inputs/source-rig.json",
+      "sha256": "f4375addf8a48673ea86d133dc80c6966bae76637c8981a483fe65b37cbab74d"
+    },
+    {
+      "path": "inputs/catalog-object.json",
+      "sha256": "586e0e552d7c25f0b42d7e9ac39e099729175e0e23ca744af6acf77a13eee2e8"
+    },
+    {
+      "path": "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "inspection": "Opened source read-only in Blender5.2.2, enabled native belt collection evaluation, inspected actual mesh vertices, UVs, hierarchy, materials and shader action keys without saving."
+    },
+    {
+      "path": "../../../production/source/blender/revisions/dc3eed619cd64458/food_belt_builders.py",
+      "inspection": "Native source construction and canonical UV/phase design; actual blend measurements supersede older builder dimensions."
+    },
+    {
+      "path": "../../../production/source/blender/revisions/d88e53edef8e7c73/native_actions.py",
+      "inspection": "Publisher apply_clip direction/root mapping, action binding and native frame evaluation."
+    }
+  ],
+  "originalCritique": {
+    "shapeVolume": "The identity is clear: parallel rails around a slatted moving deck, with wood support below. The rails read as flat rectangular salmon strips; the deck reads largely as one shaded plane with thin stripes. Exposed rail fronts are abrupt square blocks rather than crafted volumes. The under-deck construction is visually thin and the legs have little form information.",
+    "color": "The salmon rails and cool gray-blue deck separate clearly. The visible wood legs are very dark brown, nearly black at logical size, so the warm wood family is weakly expressed. The warm frame appears mainly as a narrow ochre line.",
+    "lightingHighlights": "Large surfaces are nearly uniform and bevel cues are scarce. The lower darkening consumes most of the leg volume. The source is readable as a diagram but does not yet show the soft light and rounded form of the target.",
+    "materialDetail": "The repeating slat lines communicate function but do not have a substantial rounded surface response. Rails and wood have little distinction beyond flat color. No requirement follows to retain original decorative part count or four-leg topology.",
+    "intendedSize": "At192x352, the rails, deck and two visible front supports remain identifiable, but the legs become dark bars and the construction feels sparse. Useful structure and moderate decoration can improve this without filling functional clearance."
+  },
+  "targetCritique": {
+    "usefulStyleSignals": [
+      "Salmon-orange rails gain broad rounded crown/edge transitions and restrained warm highlights; long faces still carry readable midtone color.",
+      "Blue-charcoal slats have a softly crowned, cushioned response with a narrow dark separation and a lighter shoulder; they read as repeated material rather than painted stripes.",
+      "The lower support has a warmer honey-brown midtone, visible edge thickness and coherent cross-bracing/frame attachment. Subtle wood character and a small fastening detail make it feel constructed.",
+      "The material hierarchy remains clear at logical size: warm rails, cool deck, warm wood. Richness comes primarily from form and soft light rather than dense tiny texture."
+    ],
+    "notAssemblyAuthority": [
+      "The target is926x1698, not the registered384x704 capture. Its full-canvas placement and object proportions have drifted; it cannot establish camera, root, scale, footprint or numerical height.",
+      "Its rounded isolated rail ends, apparent lower end blocks/fasteners and terminal-looking deck treatment cannot be copied across open ports if they create an end cap, narrowing, notch or repeated highlight/shadow stripe.",
+      "Low-opacity target specks/halos extend far outside the solid object. Alpha>0 bbox is[56,151,879,1612], while alpha>=16 bbox is[96,416,830,1424]. These are excluded from silhouette or registration requirements.",
+      "The single target view cannot establish unseen facings or moving slat phase. Strong directional edge shine and fine grain are aesthetic suggestions, not requirements to reproduce a favored horizontal light or texture noise."
+    ],
+    "modelingFreedom": "Reward fuller native rail volume, a stronger coherent support/frame design and purposeful crafted detail when they serve the requested style. Do not require the original topology or the target apparent part counts."
+  },
+  "nativeSourceContractObserved": {
+    "collection": "S33_FB_belt-straight-n.001",
+    "root": "belt-straight-n__root.001",
+    "measurementPose": "Publisher S root rotation0; authored child orientation is pi. Saved active scene/root pose is not the facing authority.",
+    "publisherRootRotationsDegrees": {
+      "S": 0,
+      "E": 90,
+      "N": 180,
+      "W": -90
+    },
+    "deck": {
+      "actualMesh": "belt-straight-n__connected_straight_deck.001",
+      "crossWidth": 0.7,
+      "xRange": [
+        -0.35,
+        0.35
+      ],
+      "openEndPlanesY": [
+        -0.5,
+        0.5
+      ],
+      "z": 0.64,
+      "geometry": "Single flat quad, no port cap",
+      "uvTravelEndpoints": [
+        0,
+        1
+      ]
+    },
+    "rails": {
+      "sectionWidth": 0.13,
+      "sectionHeight": 0.19,
+      "xRanges": [
+        [
+          -0.48,
+          -0.35
+        ],
+        [
+          0.35,
+          0.48
+        ]
+      ],
+      "openEndPlanesY": [
+        -0.5,
+        0.5
+      ],
+      "zRange": [
+        0.505,
+        0.695
+      ],
+      "profile": "Unbeveled rectangular actual source sections at joining planes"
+    },
+    "sourceSupportObservationOnly": {
+      "legs": 4,
+      "legSection": [
+        0.16,
+        0.16
+      ],
+      "legCentersXY": [
+        [
+          -0.28,
+          -0.28
+        ],
+        [
+          -0.28,
+          0.28
+        ],
+        [
+          0.28,
+          -0.28
+        ],
+        [
+          0.28,
+          0.28
+        ]
+      ],
+      "legZRange": [
+        0,
+        0.5
+      ],
+      "frameBounds": [
+        [
+          -0.37,
+          -0.37,
+          0.42
+        ],
+        [
+          0.37,
+          0.37,
+          0.52
+        ]
+      ],
+      "notFrozen": "These nonconnecting construction choices and counts are not aesthetic constraints."
+    },
+    "motion": {
+      "clip": "running",
+      "frames": 24,
+      "fps": 12,
+      "loopSeconds": 2,
+      "phase": "-7*i/24 for i=0..24; frame1 is i0, frame25 is duplicate closure phase-7",
+      "nativeAction": "S33_NATIVE__belt-straight-n__running__Shader_Nodetree.001",
+      "phaseOwner": "S33_belt-straight-n_moving_deck.001",
+      "keyCount": 25,
+      "interpolation": "LINEAR",
+      "slatPeriodsPerCell": 7,
+      "periodCells": 0.14285714285714285,
+      "speedCellsPerSecond": 0.5,
+      "nativeFlow": {
+        "incoming": "S",
+        "outgoing": "N"
+      }
+    },
+    "registeredCapture": {
+      "frame": [
+        384,
+        704
+      ],
+      "logicalFrame": [
+        192,
+        352
+      ],
+      "logicalRoot": [
+        96,
+        248
+      ],
+      "sourceScale": 2,
+      "cellSizeLogical": 128,
+      "worldUnitsPerCell": 1,
+      "pixelAspect": [
+        1.2206555604934692,
+        1.0
+      ],
+      "cameraReference": "inputs/source-camera.json",
+      "elevationDegrees": 55.00797980144134
+    },
+    "catalogPortsRootRelativeLogicalPixels": {
+      "N": {
+        "incoming": [
+          7.83773951454306e-15,
+          -121.34401580810547
+        ],
+        "outgoing": [
+          -7.83773951454306e-15,
+          6.65596893310547
+        ]
+      },
+      "E": {
+        "incoming": [
+          64.0,
+          -57.34402343749999
+        ],
+        "outgoing": [
+          -64.0,
+          -57.344023437500006
+        ]
+      },
+      "S": {
+        "incoming": [
+          0.0,
+          6.65596893310547
+        ],
+        "outgoing": [
+          0.0,
+          -121.34401580810547
+        ]
+      },
+      "W": {
+        "incoming": [
+          -64.0,
+          -57.34402343749999
+        ],
+        "outgoing": [
+          64.0,
+          -57.344023437500006
+        ]
+      }
+    },
+    "authorityNotes": [
+      "The saved library active scene has a presentation camera/resolution different from source-camera.json. Recreate the recorded per-object registered camera for captures; do not adopt the incidental active scene settings.",
+      "catalog-object requirements contains older targetLoopFrames12/minimumUniqueFrames6; actual source rig, atlas clip and explicit brief require24 frames. The24-frame contract is authoritative.",
+      "Catalog portProfiles is empty; exact open profiles must be verified from the actual source mesh and candidate geometry, not inferred from that empty record or target pixels."
+    ]
+  },
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "outcome": "Achieve visibly rounded, softly lit rails and a deck with legible slat volume/material character while retaining every exact functional join profile and phase."
+    },
+    {
+      "rank": 2,
+      "outcome": "Give the support/frame a coherent, substantial warm-wood construction with readable midtones and restrained crafted detail; remove the source dark-bar/dead-spot appearance."
+    },
+    {
+      "rank": 3,
+      "outcome": "Carry the same quality through four native rotations and all24 times; assembled runs must remain seamless in both color and opacity."
+    }
+  ],
+  "limits": "This is an initial independent critique and proposed criteria only. No candidate, complete96-frame set or assembled native-versus-RGBA motion evidence has been submitted or approved."
+}

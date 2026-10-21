@@ -17,6 +17,9 @@ def main():
     folder = RUN / 'objects' / args.asset
     delivery = json.loads((folder / 'delivery.json').read_text())
     candidate = folder / 'candidates' / args.round
+    assert not (folder / 'reviews' / f'{args.round}.json').exists(), 'Do not reseal a reviewed round'
+    snapshot = candidate / 'delivery.snapshot.json'
+    snapshot.write_text(json.dumps(delivery, indent=2) + '\n')
     project = folder / delivery.get('project', delivery.get('source', {}).get('blend', ''))
     assert project.is_file() and project.suffix == '.blend', 'Native Blender project required'
     command = ['python3', HELPER, 'create', '--brief', str(folder / 'brief.json'),

@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 11,
-  "published": 10,
-  "current": "Ten objects published; redesigned backdrop-wall approved for next preview; modular wall and belt work ongoing",
+  "completed": 12,
+  "published": 11,
+  "current": "Eleven objects published; wall-middle approved for next preview; corners and conveyor native editing",
   "objects": [
     {
       "id": "plant-angular",
@@ -183,7 +183,7 @@
       "name": "Blank wood wall backdrop",
       "kind": "backdrop",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 1,
       "editor": "catalog_backdrop_wall_editor_v1",
@@ -198,13 +198,15 @@
       "name": "Wall middle",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "approved",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_wall_middle_editor_v1",
-      "judge": "catalog_wall_middle_judge_v1"
+      "judge": "catalog_wall_middle_judge_v1",
+      "round": "round-06",
+      "packetSHA256": "8330022d2b5db61306810839b47782f8da317f7e77543f950016e2b80e7bae46"
     },
     {
       "id": "wall-inner-corner",
@@ -224,7 +226,7 @@
       "name": "Wall outer corner",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "assessing",
+      "status": "editing",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
@@ -237,18 +239,20 @@
       "name": "Wall end cap",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "assessed",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "editor": "catalog_wall_end_editor_v1",
+      "judge": "catalog_wall_end_judge_v1"
     },
     {
       "id": "belt-straight-n",
       "name": "Straight conveyor flowing N",
       "kind": "belt",
       "pipeline": "native-3d",
-      "status": "assessing",
+      "status": "editing",
       "clips": 1,
       "frames": 96,
       "target": "inputs/target.png",
@@ -432,18 +436,22 @@
       "name": "Lena Brooks",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 4,
-      "frames": 192
+      "frames": 192,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "chef-omar",
       "name": "Omar Haddad",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 4,
-      "frames": 192
+      "frames": 192,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "chef-ama",

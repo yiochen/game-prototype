@@ -51,7 +51,9 @@ def main():
     review_path = folder / 'reviews' / f'{args.round}.json'
     subprocess.run(['python3', str(PACKET_HELPER), 'verify', '--packet', str(packet_path),
                     '--review', str(review_path)], check=True)
-    packet, delivery = read(packet_path), read(folder / 'delivery.json')
+    packet = read(packet_path)
+    delivery_file = packet['files'].get('candidateResource:round:delivery.snapshot.json')
+    delivery = read(packet_path.parent / delivery_file['path']) if delivery_file else read(folder / 'delivery.json')
     library = read(PRODUCTION / 'library.json')
     original = next(o for o in library['objects'] if o['id'] == args.asset)
     obj = copy.deepcopy(original)
@@ -148,7 +150,8 @@ def main():
         for direction, current in clip['directions'].items():
             a = atlas_map[(clip['id'], direction)]
             source_atlas = folder / a['path']
-            require(digest(source_atlas) == a['sha256'], 'Atlas differs from delivery')
+            if 'sha256' in a:
+                require(digest(source_atlas) == a['sha256'], 'Atlas differs from delivery')
             require(a['size'] == current['atlasSize'] and a['columns'] == current['columns']
                     and a['rows'] == current['rows'] and a['rects'] == current['rects'], 'Atlas layout drift')
             image = Image.open(source_atlas)

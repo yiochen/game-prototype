@@ -1,0 +1,262 @@
+{
+  "asset": "wall-end",
+  "stage": "initial-independent-review",
+  "status": "initial-review-only; no candidate approval",
+  "independence": {
+    "editorProposalsRead": false,
+    "coordinatorAestheticVerdictsRead": false,
+    "scope": "wall-end only; reviews only"
+  },
+  "inspectedFiles": [
+    {
+      "path": "inputs/original.png",
+      "sha256": "223a929c97be1b28918fe4bcc126924bf9839b7970fb816b1d43a40d65bafae6",
+      "use": "Actual S source, native 384x704; also compared at logical size on light, gray and dark backgrounds."
+    },
+    {
+      "path": "inputs/target.png",
+      "sha256": "dc25b79286d5e3e544b88033d45df12c7775dfd4f656879aaf91150250e3c891",
+      "use": "Fixed design target, inspected whole and enlarged; main object also inspected at approximately source logical visual height. This appearance comparison does not establish registration."
+    },
+    {
+      "path": "inputs/family-concept.png",
+      "sha256": "b0195c087ab323c65f8215bfb766405fd99e1027a6b360941f707f524f20df06",
+      "use": "Blue ceramic/honey wood finish reference only, not approved native family contract."
+    },
+    {
+      "path": "../../style/warm-soft-reference.png",
+      "use": "Selected plant reference for warm soft cartoon light, volume and material finish."
+    },
+    {
+      "path": "../../../production/sprites/wall-end/static-S.png",
+      "sha256": "223a929c97be1b28918fe4bcc126924bf9839b7970fb816b1d43a40d65bafae6",
+      "use": "Actual existing facing inspected at logical 192x352 on light/gray/dark backgrounds and in native crop."
+    },
+    {
+      "path": "../../../production/sprites/wall-end/static-E.png",
+      "sha256": "70bb3f53ec5a1cce00e1421dfd6620a9a432abf4e5fec874690cf50502817d25",
+      "use": "Actual existing facing inspected at logical 192x352 on light/gray/dark backgrounds and in native crop."
+    },
+    {
+      "path": "../../../production/sprites/wall-end/static-N.png",
+      "sha256": "9426acbccfc849228fd8c3a2a864ea956cce79984ccd585f4c9eac6c1bad0ca2",
+      "use": "Actual existing facing inspected at logical 192x352 on light/gray/dark backgrounds and in native crop."
+    },
+    {
+      "path": "../../../production/sprites/wall-end/static-W.png",
+      "sha256": "c7248c1ee4ab5d4be0e33c2b1ec346ddbf9b0cb8e3774610c14c8801e921dbce",
+      "use": "Actual existing facing inspected at logical 192x352 on light/gray/dark backgrounds and in native crop."
+    },
+    {
+      "path": "inputs/source-camera.json",
+      "use": "Asset-specific registered capture record."
+    },
+    {
+      "path": "inputs/source-assetRecord.json",
+      "use": "Role, footprint, height, only W port, static clip."
+    },
+    {
+      "path": "inputs/source-rig.json",
+      "use": "Static native root and animation contract."
+    },
+    {
+      "path": "inputs/catalog-object.json",
+      "use": "Runtime atlas, registration, directions and independent W-neighbor placement contract."
+    },
+    {
+      "path": "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "use": "Read-only Blender inspection of S33_PROP_wall-end.001, root, source parts and authored W cross-section."
+    },
+    {
+      "path": "../../../production/source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+      "use": "Native source construction corroborating join profile and free-end post role."
+    },
+    {
+      "path": "../../../production/source/blender/capture_runtime.py",
+      "use": "Source rotation convention and fixed camera registration mechanics."
+    }
+  ],
+  "sourceAssessment": {
+    "identity": "One-cell low restaurant wall, blue coping over horizontal honey timber, finished terminal at the right of S and only one open connection at W.",
+    "shapeVolume": "The broad S/N faces read clearly as a wall, but the coping is a large nearly flat blue field and the post reads as a narrow vertical bar with an isolated bright top segment. E/W expose especially simple rectangular top/post shapes.",
+    "color": "Blue and honey timber are already distinguishable. The blue is flat and saturated; lower timber and the terminal post descend into a heavy brown ramp instead of maintaining warm readable material volume.",
+    "lightingHighlights": "Existing large surfaces have little broad curvature or edge response. The post top is bright, while the shaft/base lose useful form, particularly in W.",
+    "materialDetail": "Horizontal divisions establish timber construction, but the flat faces and minimal finish do not yet express crafted wood and ceramic. The post lacks a coherent finished cap-to-shaft-to-ground construction.",
+    "intendedSizeReadability": "At logical scale the source silhouette and palette are legible. Small existing strips compress into dark lines; the thin terminal is much less descriptive than the target design.",
+    "defectRisk": "No candidate reviewed. Inspect every real rotation: the W-facing terminal shaft/base and E-facing open-profile view are important places to catch muddy shading, apparent hanging bars and coping/post overlaps."
+  },
+  "targetAssessment": {
+    "usefulOutcomes": [
+      "A terminal that looks deliberately constructed: a substantial shaft with a resolved top, coping junction and base rather than a dangling bar.",
+      "Soft, readable edge transitions and broad highlight planes that give the coping and timber solid cartoon volume.",
+      "Warm honey timber with controlled broad grain and distinct blue ceramic; detail survives small size without turning into noise.",
+      "A finish consistent with the family concept while retaining the end-cap role."
+    ],
+    "notLiteralRequirements": [
+      "Original part counts, weak forms, exact board count and blank surfaces are not aesthetic constraints.",
+      "The imagegen reference does not prove camera, occupied scale, height, W continuity or unseen views. Its proportion changes cannot override the native contract.",
+      "Thin white highlight outlines, extreme gloss and isolated alpha specks/colored fringe from image generation should not be copied.",
+      "Cap, collar or foot details are useful examples of designed construction, not a mandatory recipe; equivalent native design is welcome within the envelope."
+    ]
+  },
+  "nativeContract": {
+    "sourceHashVerified": true,
+    "collection": "S33_PROP_wall-end.001",
+    "groundRoot": "wall-end__root.001",
+    "rootTransform": {
+      "location": [
+        0,
+        0,
+        0
+      ],
+      "rotationRadians": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "runtimeNativeFrame": [
+      384,
+      704
+    ],
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "logicalRoot": [
+      96,
+      256
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "camera": "Use asset-specific source-camera.json; square top/front oblique orthographic, worldUnitsPerCell=1, elevation 55.00797980144134 degrees, pixel aspect approximately [1.22065556,1]. Source authoring camera record captureScale=4 is not the final sprite scale of 2. The library active camera belongs to another capture and must not replace this record.",
+    "rotationsDegrees": {
+      "S": 0,
+      "E": 90,
+      "N": 180,
+      "W": -90
+    },
+    "footprint": [
+      1,
+      1
+    ],
+    "height": 1.02,
+    "staticClip": {
+      "frames": 1,
+      "fps": 12,
+      "loop": false
+    },
+    "join": {
+      "onlyPort": "W",
+      "position": [
+        -0.5,
+        0,
+        0
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "plane": "x=-0.5 in authored S/root space",
+      "profile": "restaurant-wall-wood-blue-v2",
+      "sourceCrossSection": [
+        {
+          "part": "panel",
+          "halfDepth": 0.105,
+          "z": [
+            0.07,
+            0.89
+          ]
+        },
+        {
+          "part": "wood strips",
+          "halfDepth": 0.115,
+          "zRanges": [
+            [
+              0.12,
+              0.145
+            ],
+            [
+              0.34,
+              0.365
+            ],
+            [
+              0.56,
+              0.585
+            ],
+            [
+              0.78,
+              0.805
+            ]
+          ]
+        },
+        {
+          "part": "wood cap",
+          "halfDepth": 0.15,
+          "z": [
+            0.86,
+            0.935
+          ]
+        },
+        {
+          "part": "blue coping",
+          "ringsHalfDepthAndZ": [
+            [
+              0.18,
+              0.93
+            ],
+            [
+              0.18,
+              0.97
+            ],
+            [
+              0.12,
+              1.01
+            ]
+          ]
+        }
+      ]
+    },
+    "sourceAuthoredVertexEnvelope": {
+      "min": [
+        -0.5,
+        -0.18,
+        0
+      ],
+      "max": [
+        0.41,
+        0.18,
+        1.02
+      ],
+      "note": "Read-only authoring geometry audit, composing parent/local basis matrices. These values describe the source, not an unapproved expansion allowance. Preserve declared footprint, height, ground contact and functional clearance."
+    },
+    "freeEnd": "At positive X/right of S. Post native source is centered [0.34,0,0.51] with dimensions [0.14,0.30,1.02]. It may be redesigned within functional limits; the source bar shape is not mandatory.",
+    "familySettings": "inputs/family-settings.json is not yet supplied. Final review requires the approved exact wall-middle family contract, including bound native/material/capture settings and evidence for the same W join."
+  },
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "outcome": "A coherent, visibly designed terminal in every actual rotation, preserving one W open connection and the fixed footprint/height/clearance."
+    },
+    {
+      "rank": 2,
+      "outcome": "Warm soft native form and crafted material separation: solid blue coping, honey timber, purposeful detail and readable midtones through the post base."
+    },
+    {
+      "rank": 3,
+      "outcome": "An invisible functional W join to the approved straight neighbor in native and independently assembled RGB/alpha previews, without hiding the free terminal."
+    }
+  ],
+  "pendingEvidence": [
+    "Root must freeze quality criteria before candidate submission.",
+    "Approved exact inputs/family-settings.json is required before final review.",
+    "No candidate packet or candidate has been reviewed or approved."
+  ]
+}

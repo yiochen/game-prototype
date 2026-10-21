@@ -94,7 +94,194 @@
       ]
     }
   },
-  "qualityCriteria": {},
+  "qualityCriteria": {
+    "schemaVersion": 1,
+    "asset": "belt-straight-n",
+    "status": "frozen-by-coordinator",
+    "styleTargetSHA256": "01c6bcd14f746b9018eafbecc563a85515f6d2f3054acd2a90606a452e26b639",
+    "sourceProjectSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "principle": "Native design improvement toward warm soft cartoon art is required. Numerical registration, functional joins and animation are hard gates. Exact target-pixel identity, original decorative topology and part counts are not required.",
+    "hardConstraints": [
+      {
+        "id": "registered-capture",
+        "requirement": "Use the registered per-object camera/projection from inputs/source-camera.json,384x704 RGBA exports, logical192x352, root96,248, source scale2, logical cell128 and original pixel aspect. Preserve camera matrix/calibration and complete frame placement in every view; no per-view fitting, warp or compositing substitute."
+      },
+      {
+        "id": "native-rotations",
+        "requirement": "Render actual native root rotations through publisher apply_clip: S0/E+90/N180/W-90 degrees, retaining authored child orientation and flow semantics. No mirrored or painted alternate facings."
+      },
+      {
+        "id": "functional-envelope",
+        "requirement": "Preserve one-cell footprint, world height envelope0..0.695, deck socket[0,0,0.64], dish/chef clearance, functional rail/deck space, ground contact and catalog sockets/ports. Decorations remain inside allowed space and do not obstruct travel or alter contacts."
+      },
+      {
+        "id": "open-profiles",
+        "requirement": "At publisher S/root0 native baseline, preserve open planes y\u00b10.5; deck x[-0.35,0.35], z0.64; rectangular rail end sections x[-0.48,-0.35] and[0.35,0.48], z[0.505,0.695], within native floating-point tolerance. Preserve those profiles after all four actual rotations. No end caps, narrowed/rounded terminal silhouettes, extra caps at joins or shifted ports. Interior softening cannot change the exact joining section."
+      },
+      {
+        "id": "source-motion",
+        "requirement": "Preserve native flowN, shader/UV direction/phase functions, seven slat periods per cell,24 unique running samples at12fps and2-second loop. Preserve source linear phase -7*i/24, i0..24, frame25 closure-7. Supply all96 native frames and four original-layout6x4 atlases2304x2816 with384x704 rects and source frame order0..23."
+      },
+      {
+        "id": "native-and-rgba-continuity",
+        "requirement": "Adjacent modules must meet at exact root/port spacing, with both moving color/height response and opacity continuous at every one of24 times and loop closure. A joined native3-module render and independent RGBA3-module assembly must show the same uninterrupted deck/rail run in every facing. Seamless RGB does not excuse an alpha notch, overlap band, end silhouette or compositing halo."
+      },
+      {
+        "id": "world-light-and-source",
+        "requirement": "Use real editable native Blender geometry/material/light/render output. Retain no preferred horizontal light direction for rotatable world sprites and no directional ground shadow. Do not use the target as a camera-facing card, baked paint-over or image warp."
+      }
+    ],
+    "visibleSuccessCriteria": [
+      {
+        "id": "shape-volume",
+        "priority": 1,
+        "dimension": "shapeVolume",
+        "observableOutcome": "Compared with the flat source, rails read as fuller, softly edged crafted forms; the cool moving deck reads as substantial repeated slats with gentle shoulder/crown response. Functional flatness/clearance and exact end profiles remain intact. Softening is visible at logical size without turning rails or slats into inflated blobs.",
+        "review": "Compare source/target/candidate at192x352 and enlarged in all four facings, then inspect joined-run boundaries."
+      },
+      {
+        "id": "support-design",
+        "priority": 1,
+        "dimension": "shapeVolume",
+        "observableOutcome": "The support/frame construction feels coherent and sturdy, with readable warm wood faces, resolved attachments and convincing contact below the belt. Useful remodeling is rewarded. A specific number of legs, braces, bolts or original subparts is not prescribed.",
+        "review": "Inspect the exposed under-deck region and silhouette in N/E/S/W. Require no implausible floating intersection or weak dark-bar read; verify clearance numerically."
+      },
+      {
+        "id": "palette-material-hierarchy",
+        "priority": 1,
+        "dimension": "color",
+        "observableOutcome": "Warm salmon/coral rails, a blue-charcoal deck and warm brown/honey wood remain distinct. The candidate has richer midtone variation than the source while preserving the palette family. Supports do not collapse into nearly black shapes, and highlights do not bleach whole rails.",
+        "review": "Inspect light/neutral-gray/dark composites at logical size; compare the same native materials across rotated views."
+      },
+      {
+        "id": "soft-light",
+        "priority": 1,
+        "dimension": "lightingHighlights",
+        "observableOutcome": "Broad gentle light and controlled edge highlights describe form across rails, deck and support. Shading stays soft and continuous through all facings, without a preferred horizontal light direction, harsh plastic glare, flat unlit expanses or black dead spots.",
+        "review": "Four-facing sheet plus enlarged surfaces; inspect light/world validation for rotational symmetry and absence of ground shadows."
+      },
+      {
+        "id": "crafted-material-detail",
+        "priority": 2,
+        "dimension": "materialDetail",
+        "observableOutcome": "The asset has intentional material character: rounded rail response, coherent moving slat separation and warmer wood construction. Purposeful grain, joints or fastening accents may enrich it, but are restrained, attached to useful structure and readable at use size. No tiny noisy texture or mandatory copied target ornaments.",
+        "review": "Compare logical and enlarged images. Detail must support the conveyor role and must not invade ports, moving deck or dish/chef clearance."
+      },
+      {
+        "id": "all-facing-readability",
+        "priority": 1,
+        "dimension": "artifactFreeReadability",
+        "observableOutcome": "All four native rotations have the same design quality and distinguish deck, rails, supports and movement. No required view is treated as a hidden back face or allowed blank/dead. At logical size the object remains unmistakably a conveyor and reads as one consistent object family.",
+        "review": "Inspect all96 frames through verified contact sheets and native12fps loops. Do not infer unseen views from the target."
+      },
+      {
+        "id": "phase-through-joins",
+        "priority": 1,
+        "dimension": "artifactFreeReadability",
+        "observableOutcome": "Slats flow steadily through each join with unchanged spacing, speed, direction and phase. At every sampled time, the nearest slat shoulder/separation crosses the join naturally; there is no seam-specific stop, dark line, double highlight, jump, flicker or reversal. Frame23-to-frame0 is equally smooth.",
+        "review": "All24 times plus explicit closure in all four native3-module runs and independent RGBA assemblies. Compare seam-adjacent color/height phase, not only a single starting frame."
+      },
+      {
+        "id": "rgb-alpha-integrity",
+        "priority": 1,
+        "dimension": "artifactFreeReadability",
+        "observableOutcome": "Transparent borders are clean and the connected run has a continuous silhouette. No target halo/specks, clipped corners, dark/bright fringes, coplanar noise, holes, missing surfaces, end-cap notches or opacity stripes at joins. Joined and assembled runs match perceptually in RGB and opacity at logical size and enlarged.",
+        "review": "Inspect each native-versus-assembled pair on light/gray/dark backgrounds, RGB views, alpha masks and marked boundary crops, supported by per-frame quantitative comparison and difference images. Explain any residual antialiasing-only difference."
+      }
+    ],
+    "requiredCandidateEvidence": {
+      "immutablePacket": "Hash-bound candidate packet with exact editable blend, external resource closure, render/settings recipe, technical validation and every actual inspected image/preview. A manifest alone cannot prove appearance.",
+      "nativeFrames": {
+        "count": 96,
+        "facings": [
+          "N",
+          "E",
+          "S",
+          "W"
+        ],
+        "samplesPerFacing": 24,
+        "size": [
+          384,
+          704
+        ],
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ],
+        "sourceTiming": "12fps,2-second loop; duplicate closure excluded from runtime atlases"
+      },
+      "atlases": {
+        "count": 4,
+        "facings": [
+          "N",
+          "E",
+          "S",
+          "W"
+        ],
+        "columns": 6,
+        "rows": 4,
+        "size": [
+          2304,
+          2816
+        ],
+        "rectSize": [
+          384,
+          704
+        ],
+        "requirement": "Keep original row-major atlas layout and frame order; verify each atlas crop hashes/matches its supplied native frame."
+      },
+      "visualPreviews": [
+        "Four-facing sheet at logical size and enlarged.",
+        "Verified contact sheets covering every one of96 frames with facing/frame labels.",
+        "Native running loop playback at12fps in N/E/S/W, including at least repeated cycles and explicit final-to-first evidence.",
+        "Three-module native straight runs in N/E/S/W at exact1-cell root spacing for all24 times, plus the rendered closure key.",
+        "Independent RGBA assemblies made only from the exported single-module sprites, three copies at exact root/port spacing with declared unmodified layer order, in N/E/S/W at all24 times, plus closure.",
+        "Native-versus-independent-RGBA paired comparisons in RGB and alpha, on light/gray/dark backgrounds, at logical scale and enlarged join crops; include both joining boundaries and complete run silhouettes."
+      ],
+      "technicalValidation": [
+        "Actual per-facing camera matrix/projection/pixel aspect and projected root/unit-axis calibration against source-camera.json; frame/atlas dimensions and exact rotations.",
+        "Actual native endpoint geometry/cross-section comparison against source blend in publisher S pose, and rotated ports; bounds, deck socket, one-cell footprint, dish/chef clearances and ground contact.",
+        "Exact deck UV endpoint mapping, phase action ownership,24 phase samples and closure key; source direction/speed and cross-module phase equality at both joins.",
+        "All-frame native-versus-independent-RGBA error statistics/difference maps separately for RGB and alpha at joins, with masks, root spacing, projection offsets and compositing order documented. Similar whole-image averages cannot hide a local seam.",
+        "Rotationally appropriate light/world/material/render settings and dependency closure. After approval, exact settings/geometry/phase reference with paths and hashes is required for the later conveyor family."
+      ]
+    },
+    "verdictRules": {
+      "approve": "Only after visible improvement toward these frozen criteria, every hard contract passing and no material defect/dead spot across all required views, times and assembly evidence. Scores are comparative evidence, not an approval threshold.",
+      "revise": "Use at most three ranked observable blockers with locations, effects and desired visible outcomes. Do not prescribe a particular modeling implementation.",
+      "needs_evidence": "Any missing required view/frame, motion/closure, RGB/alpha assembly comparison, native measurement or hash binding prevents approval. Do not infer a pass from source metadata or a successful render command."
+    },
+    "targetExceptions": [
+      "Target canvas/registration/proportional drift",
+      "Rounded or capped terminal treatment at open joins",
+      "Low-opacity stray pixels/halos",
+      "Directionally favored shine",
+      "Fine texture or decorative part counts that do not improve logical readability"
+    ],
+    "freezeNote": "Coordinator must reconcile and freeze these criteria in brief.qualityCriteria before editor candidate submission; this file does not grant approval."
+  },
   "delivery": {
     "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
     "requiredClips": [
@@ -155,5 +342,6 @@
       "The three excluded restaurant floor designs"
     ],
     "judging": "Reward useful native modeling and decoration inspired by the target. Do not reject a change solely because it differs from the source. Reject target drift only when it harms the chosen style, readability, role or locked technical contract. Original part counts and weak shapes are not automatically constraints."
-  }
+  },
+  "criteriaVersion": 1
 }
