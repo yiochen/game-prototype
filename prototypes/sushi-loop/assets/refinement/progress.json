@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 31,
-  "published": 30,
-  "current": "Thirty live; happy31 approved/checked and publishing; Rowan03 and boulder04 exactpacketreviews; rock-wall-middle freshjudgeinitial.",
+  "completed": 32,
+  "published": 31,
+  "current": "Thirty-one live; boulder32 approved/promoted/tested, publishing next; Rowan03 approved queuednext; rockwallnativeeditor; preferencefreshpair; barrelgoodsinitialjudge.",
   "objects": [
     {
       "id": "plant-angular",
@@ -625,7 +625,7 @@
       "name": "Rowan McLeod",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "independent-review",
+      "status": "approved",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -635,7 +635,8 @@
       "editorStatus": "running",
       "judgeStatus": "v3-criteria-frozen",
       "round": "round-03",
-      "packetSHA256": "a22fca3510f52a82d4220b9880fb6f824e3c27c4d1c184a78b5eb0f11fbd4d39"
+      "packetSHA256": "a22fca3510f52a82d4220b9880fb6f824e3c27c4d1c184a78b5eb0f11fbd4d39",
+      "reviewSHA256": "b57b8d69bb80169413a20d408b5c2797a260ef0566a2d369bf0aec2e92dc9680"
     },
     {
       "id": "chef-blackboard",
@@ -755,17 +756,19 @@
       "name": "Dish preference bubble",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "prepared",
+      "status": "criteria-frozen",
       "clips": 9,
       "frames": 432,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "editor": "catalog_bubble_preference_editor_v1",
+      "judge": "catalog_bubble_preference_judge_v1"
     },
     {
       "id": "bubble-happy",
       "name": "Happy bubble",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "approved",
+      "status": "published",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -774,7 +777,8 @@
       "judge": "catalog_bubble_happy_judge_v1",
       "round": "round01",
       "packetSHA256": "44986cda2208b148c96df31d58974dc7b9fdc5f59721bde50d619aa9e49d08ae",
-      "reviewSHA256": "93f2ada90c8ebe62c19cc20f64c14ee582c4177eddc34e534e8f12e0d3bd7b2d"
+      "reviewSHA256": "93f2ada90c8ebe62c19cc20f64c14ee582c4177eddc34e534e8f12e0d3bd7b2d",
+      "publishedCommit": "c628c2ee7387fd094029018179f7bfd75bebd2fc"
     },
     {
       "id": "bubble-puzzled",
@@ -897,7 +901,7 @@
       "name": "Cobalt canyon rock wall middle",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "criteria-in-progress",
+      "status": "native-editing",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
@@ -1056,14 +1060,15 @@
       "name": "Underwater faceted boulder",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "independent-review",
+      "status": "approved",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
       "editor": "catalog_boulder_underwater_editor_v1",
       "judge": "catalog_boulder_underwater_judge_v1",
       "round": "round-04",
-      "packetSHA256": "6ba206c9cb535abcd65242e050df46a04bea0a2ed2540bc6c1abe1041dc4450e"
+      "packetSHA256": "6ba206c9cb535abcd65242e050df46a04bea0a2ed2540bc6c1abe1041dc4450e",
+      "reviewSHA256": "c907266b41f7876eb708ac50bc35cb69e49721acc6e44aee827635bc710e1a65"
     },
     {
       "id": "column-broken",

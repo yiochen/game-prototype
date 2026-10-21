@@ -1,0 +1,105 @@
+{
+  "projection": "height-dependent-35-square-footing",
+  "frame": [
+    192,
+    512
+  ],
+  "anchor": [
+    96,
+    416
+  ],
+  "cellSize": 128,
+  "captureScale": 4,
+  "fps": 12,
+  "axes": {
+    "x": "X",
+    "depth": "-Y",
+    "height": "Z"
+  },
+  "camera": {
+    "type": "orthographic",
+    "worldMatrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5735762119293213,
+        -0.8191522359848022,
+        -8.191520690917969
+      ],
+      [
+        0.0,
+        0.8191522359848022,
+        0.5735762119293213,
+        5.735764503479004
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "projectionMatrix": [
+      [
+        1.3333333730697632,
+        0.0,
+        0.0,
+        -0.0
+      ],
+      [
+        0.0,
+        0.5,
+        0.0,
+        -0.6249985694885254
+      ],
+      [
+        0.0,
+        0.0,
+        -0.0020001998636871576,
+        -1.0001999139785767
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "pixelAspect": [
+      1,
+      1
+    ],
+    "worldUnitsPerCell": 1,
+    "elevationDegrees": 35,
+    "orthoScale": 1.5,
+    "shift": [
+      0.0,
+      0.8333314061164856
+    ]
+  },
+  "calibration": {
+    "root": [
+      384.0,
+      1664.0
+    ]
+  },
+  "squareFooting": {
+    "transitionHeight": 0.42,
+    "formula": "world.y *= 1 + (1/sin(35deg)-1)*max(0,1-max(0,world.z)/.42)^2",
+    "appliedAfterFacingRotation": true
+  },
+  "nativeCaptureScale": 4,
+  "nativeResolution": [
+    768,
+    2048
+  ],
+  "publishedResolution": [
+    384,
+    1024
+  ]
+}

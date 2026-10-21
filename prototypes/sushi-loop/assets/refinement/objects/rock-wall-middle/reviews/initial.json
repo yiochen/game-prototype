@@ -1,0 +1,89 @@
+{
+  "asset": "rock-wall-middle",
+  "stage": "independent-original-and-fixed-target-assessment",
+  "candidateApproval": false,
+  "independence": "Inspected original snapshot, fixed target, named native Blender asset, source records and production frames before any editor proposal or sibling aesthetic review. No candidate was supplied or reviewed.",
+  "inspectedFiles": [
+    "inputs/original.png",
+    "inputs/target.png",
+    "inputs/catalog-object.json",
+    "inputs/source-camera.json",
+    "inputs/source-assetRecord.json",
+    "inputs/source-rig.json",
+    "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "../../../production/source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+    "../../../production/source/blender/world_components.py",
+    "../../../production/source/blender/capture_runtime.py",
+    "../../../production/source/blender/capture_worker.py",
+    "../../../production/source/blender/publish_captures.py",
+    "../../../production/source/registered/rock-wall-middle/static-N/guide.json",
+    "../../../production/sprites/rock-wall-middle/static-N.png",
+    "../../../production/sprites/rock-wall-middle/static-E.png",
+    "../../../production/sprites/rock-wall-middle/static-S.png",
+    "../../../production/sprites/rock-wall-middle/static-W.png",
+    "reviews/original-four-view-logical-phone.png",
+    "reviews/original-target-backgrounds.png",
+    "reviews/original-native-audit.json"
+  ],
+  "hashes": {
+    "sourceBlendSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "originalSnapshotSHA256": "3ea6cd83777c8d7264f1f671a05d8c3270d6f337df95fb2798f62d081521518f",
+    "fixedTargetSHA256": "a77a8e2f01b34d6987635d5170cfa13e9ecf2ebfce5b13b79c44d8a75bd4bb4a"
+  },
+  "visualObservations": {
+    "original": [
+      "The original snapshot is the production S-facing frame, confirmed by its byte hash. It is a tall rectangular cobalt mass, with a very broad bright cyan upper plane, a medium-blue strip, and a near-black lower region. Two small rectangular surface plates provide little stone identity.",
+      "The registered N view has one small lower plate; S has two. E/W expose the same smooth bright broad crown and dark lower volume. None of the four views gives the varied worn stone planes and connected crevices seen in the target.",
+      "At a 128px logical cell and a 32px illustrative phone cell, the large blank upper face and nearly black lower block dominate; the plates become minor isolated marks. These scaled inspection sheets use LANCZOS and are observational aids, not actual browser/Godot sampling proof."
+    ],
+    "target": [
+      "The fixed target uses broad asymmetrical worn rock faces, shallow irregular crevices, softened facet edges, a few integrated small stones, cyan upper highlights and deeper cobalt recesses. Its structure remains readable when reduced.",
+      "Its upper and lower masses remain articulated rather than collapsing into an empty top plane and a black base. The useful warmth is approachable softly lit cartoon treatment; the original cobalt-blue palette remains part of the asset identity.",
+      "Rounded perimeter corners, apparent scale, continuous dark edge strokes and minor cyan fringe are aesthetic-image artifacts or choices, not authority for registered size, connectors or alpha. Only one target view exists; unseen views must be coherent native designs."
+    ]
+  },
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "location": "Broad crown and visible side/body surfaces across N/E/S/W",
+      "effect": "The original's broad blank planes and rectangular plates read as a block instead of worn canyon rock.",
+      "goodOutcome": "A coherent few large worn stone masses and readable irregular facets/crevices convey thick rock volume at 128px and 32px cell sizes. Added structure and purposeful small stone detail feel integrated, including in the end-facing views. Interior redesign is encouraged."
+    },
+    {
+      "rank": 2,
+      "location": "Cyan crown, horizontal tone break and near-black lower body",
+      "effect": "The large tonal split overwhelms form and hides lower material detail.",
+      "goodOutcome": "Soft broad highlights and layered cobalt midtones describe facets without a preferred horizontal light direction. Lower surfaces are darker but retain visible stone structure; no navy-black dead slab, bright plastic strip, white rim or noisy microdetail dominates."
+    },
+    {
+      "rank": 3,
+      "location": "W/E native connector planes, as published in all four orientations and repeated runs",
+      "effect": "A more attractive isolated stone is insufficient if its relief, color, normals or transparent edge expose every internal module boundary. Candidate continuity is untested at this stage.",
+      "goodOutcome": "A three-module independently assembled run reads as one continuous rock barrier and agrees with connected native geometry at the same registration. No seam gap, cap, thin border, stepped crown, lighting reset or abrupt material band appears at game size or relevant fractional consumer placement."
+    }
+  ],
+  "nativeDiscovery": {
+    "collection": "S33_PROP_rock-wall-middle.001",
+    "root": "rock-wall-middle__root.001",
+    "rootLocation": [0, 0, 0],
+    "rootRotationDegrees": [0, 0, 0],
+    "rootScale": [1, 1, 1],
+    "meshes": 5,
+    "actualSourceEnvelope": {"min": [-0.5, -0.510999978, 0], "max": [0.5, 0.510999978, 1.163219094]},
+    "nominalHeight": 1.17,
+    "contactBodyFootprint": [1, 1],
+    "repeatAxis": "Native X; W at -0.5, E at +0.5. This is not a belt orientation inference.",
+    "nativePortProfile": "rock-wall-full-cell-v2",
+    "endSectionTransverseYHeightZ": [[-0.5, 0], [0.5, 0], [0.5, 0.67], [0.45, 1.04], [0.31, 1.15], [-0.31, 1.15], [-0.45, 1.04], [-0.5, 0.67]],
+    "sourceClosure": "No linked .blend libraries; the selected asset's three procedural material node trees reference no image textures. Two unrelated food images in the full library are packed. Candidate closure must be checked against its own used resources.",
+    "savedSceneCamera": "Incidental saved presentation camera has elevation 35 degrees, square pixels and 768x1280 render resolution. It is not the rock-wall registered capture camera.",
+    "auditReproduction": "blender --background ../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend --python reviews/inspect_original.py (paths relative to this experiment). The script reveals only the named collection for evaluated transform inspection and never saves the source."
+  },
+  "evidenceLimits": [
+    "No candidate is approved. Proposed criteria need coordinator freezing in brief.qualityCriteria before candidate review.",
+    "Existing published frames were inspected through a labeled sheet whose source paths, hashes and alpha bounds are recorded in original-pixel-files.json. I did not rerender the original source or certify its current seamlessness.",
+    "The original target is one view and has no modular proof. Exact connector coordinates were read from actual mesh endpoints and the named native recipe, not inferred from target pixels.",
+    "This asset is four static frames. Animation grids, locomotion, rig deformation and loop tests are inapplicable.",
+    "Consumer applicability was corrected before criteria freeze after independently inspecting catalog_contract.py, the current 34-object Godot manifest and the composed native renderer. Rock-wall-middle is currently browser-catalog-only; Godot consumer verification remains pending if it is later shipped there. See reviews/consumer-source-facts.json."
+  ]
+}
