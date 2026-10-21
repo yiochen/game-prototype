@@ -1,0 +1,174 @@
+{
+  "asset": "stool-blue",
+  "round": 2,
+  "status": "candidate-ready-for-independent-review",
+  "pipeline": "native-3d",
+  "project": "source/round-02.blend",
+  "recipe": "source/round-02.py",
+  "validation": "candidates/round-02/validation.json",
+  "heroes": {
+    "N": "candidates/round-02/static-N.png",
+    "E": "candidates/round-02/static-E.png",
+    "S": "candidates/round-02/static-S.png",
+    "W": "candidates/round-02/static-W.png"
+  },
+  "rawFrames": [
+    {
+      "clip": "static",
+      "sourceClipId": "idle",
+      "direction": "N",
+      "frame": 0,
+      "nativeFrame": 1,
+      "path": "candidates/round-02/static-N.png",
+      "sha256": "04968f897f8fcb39ca7aededa2d60fb64f8b8c0b08c512668acfbaee4284615c"
+    },
+    {
+      "clip": "static",
+      "sourceClipId": "idle",
+      "direction": "E",
+      "frame": 0,
+      "nativeFrame": 1,
+      "path": "candidates/round-02/static-E.png",
+      "sha256": "9ad02f841e46b174c0dbc29f9ad8d9081b20d313e2ca1604c4ad81119c1da239"
+    },
+    {
+      "clip": "static",
+      "sourceClipId": "idle",
+      "direction": "S",
+      "frame": 0,
+      "nativeFrame": 1,
+      "path": "candidates/round-02/static-S.png",
+      "sha256": "8c050649d361d4ebfa27f1456a9984821ea3d20ed6dae175cb86cab246ffc024"
+    },
+    {
+      "clip": "static",
+      "sourceClipId": "idle",
+      "direction": "W",
+      "frame": 0,
+      "nativeFrame": 1,
+      "path": "candidates/round-02/static-W.png",
+      "sha256": "9c2c39fbb230a4308356c4fa89bcc685f592021e31610de8a81f694d682646b6"
+    }
+  ],
+  "previews": {
+    "four-view-sheet": "candidates/round-02/four-view-sheet.png",
+    "logical-four-view-sheet": "candidates/round-02/logical-four-view-sheet.png",
+    "repeated": "candidates/round-02/repeated.png",
+    "backgrounds": "candidates/round-02/backgrounds.png"
+  },
+  "atlases": [
+    {
+      "clip": "static",
+      "sourceClipId": "idle",
+      "direction": "N",
+      "path": "candidates/round-02/atlases/static-N.png",
+      "sha256": "04968f897f8fcb39ca7aededa2d60fb64f8b8c0b08c512668acfbaee4284615c",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        384,
+        704
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          704
+        ]
+      ]
+    },
+    {
+      "clip": "static",
+      "sourceClipId": "idle",
+      "direction": "E",
+      "path": "candidates/round-02/atlases/static-E.png",
+      "sha256": "9ad02f841e46b174c0dbc29f9ad8d9081b20d313e2ca1604c4ad81119c1da239",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        384,
+        704
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          704
+        ]
+      ]
+    },
+    {
+      "clip": "static",
+      "sourceClipId": "idle",
+      "direction": "S",
+      "path": "candidates/round-02/atlases/static-S.png",
+      "sha256": "8c050649d361d4ebfa27f1456a9984821ea3d20ed6dae175cb86cab246ffc024",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        384,
+        704
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          704
+        ]
+      ]
+    },
+    {
+      "clip": "static",
+      "sourceClipId": "idle",
+      "direction": "W",
+      "path": "candidates/round-02/atlases/static-W.png",
+      "sha256": "9c2c39fbb230a4308356c4fa89bcc685f592021e31610de8a81f694d682646b6",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        384,
+        704
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          704
+        ]
+      ]
+    }
+  ],
+  "nativeRecords": {
+    "camera": "source/round-02-camera.json",
+    "assetRecord": "source/round-02-assetRecord.json",
+    "rig": "source/round-02-rig.json"
+  },
+  "nativeProject": {
+    "scene": "stool-blue warm soft native",
+    "collection": "S33_PROP_stool_blue.001",
+    "root": "stool_blue__root.001",
+    "selfContained": true,
+    "externalResources": [],
+    "staticFacingsDegrees": {
+      "N": 0,
+      "E": -90,
+      "S": 180,
+      "W": 90
+    },
+    "frame": 1
+  },
+  "replay": {
+    "script": "source/replay-round-02.py",
+    "command": "/opt/homebrew/bin/blender -b source/round-02.blend --python source/replay-round-02.py -- /absolute/output-directory",
+    "instructions": "Run from this object folder. The project contains the complete scene, native meshes, procedural materials, neutral lighting and registered camera. Replay rotates only the common root; no camera fitting or image processing is used. Full rebuild recipe uses the immutable original source identified and hashed in validation."
+  },
+  "evidence": {
+    "reopenedSource": "candidates/round-02/reopened-source.json",
+    "reopenedNativeN": "candidates/round-02/reopened-N.png",
+    "packagingRecipe": "source/package-round-02.py"
+  }
+}

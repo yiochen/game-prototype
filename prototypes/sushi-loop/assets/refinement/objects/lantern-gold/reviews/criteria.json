@@ -1,0 +1,56 @@
+{
+  "asset": "lantern-gold",
+  "status": "proposed-awaiting-coordinator-freeze",
+  "style": "Warm, softly lit cartoon golden lantern; broad gentle transitions, rounded edge treatment, warm readable wood and controlled internal glow.",
+  "hardConstraints": [
+    "Retain the actual golden ribbed hanging lantern construction: plinth, brown upright post, forward overhang, hook, octagonal paper body, five ribs and two wood caps. Preserve the original modeled identity, proportions and geometry envelope; target shape drift is not authority.",
+    "Retain logical frame 192x384, logical root 96,288, sourceScale 2, rendered frame 384x768, one-cell footprint, registered height 1.34 and every existing camera/projection/pixel-aspect/per-clip override.",
+    "Retain the declared ground root and native transform/attachment relationships, all four N/E/S/W facings, and all 12 unique idle frames at 12 fps with looping timing and original small cage sway. Exclude the duplicate closure key from runtime frames.",
+    "Render actual editable 3D geometry, with one capture contract for every direction/frame. No raster card, target projection, per-view fit or per-view recoloring.",
+    "Illumination has no preferred horizontal direction; no directional ground cast shadow. Preserve true transparent background, with no bloom/halo painted outside the modeled silhouette.",
+    "The source palette family stays golden yellow paper/ribs with warm brown wooden supports. No added props, graphics, outlines or redesign."
+  ],
+  "aestheticCriteria": [
+    {
+      "id": "shapeVolume",
+      "observableSuccess": "The cage remains compact and ribbed with its original five-band rhythm, octagonal character, caps and support silhouette. Edges read softly rounded through light and modest bevel treatment; faces have continuous readable volume without becoming inflated, melted or cylindrical.",
+      "failureSignals": ["Lost or merged ribs", "Changed construction or support length", "Softened silhouette that grows beyond the source envelope", "Abrupt flat-face steps dominating the paper surface"]
+    },
+    {
+      "id": "color",
+      "observableSuccess": "Paper and ribs read as warm gold/honey yellow, with small warm highlight areas and amber shadow transitions. Brown wood stays brown and remains distinguishable from the gold body. Preserve useful separation among paper, rib bands, caps and post at logical game size.",
+      "failureSignals": ["White-clipped body that erases layers", "Neon lemon or orange/red palette drift", "Muddy brown-gold merging", "Uniform flat yellow"]
+    },
+    {
+      "id": "lightingHighlights",
+      "observableSuccess": "Broad gentle highlights and soft face transitions give warm cartoon volume. The lantern feels internally luminous while all structural bands remain legible. Identically oriented exposed faces receive a balanced treatment as the object rotates, and the wood has enough fill to avoid dead black areas.",
+      "failureSignals": ["Dominant lateral highlight/shadow bias", "Hard narrow specular stripes", "Blown or posterized golden faces", "Directional ground shadow", "Glow fringe outside alpha"]
+    },
+    {
+      "id": "materialDetail",
+      "observableSuccess": "Paper, gold ribs and wood have distinct but restrained surface response. Wood face/bevel variation gives the base and mount depth without noisy grain or shiny plastic; ribs have soft edges but remain deliberate structural forms. Detail remains subordinate to the readable lantern shape.",
+      "failureSignals": ["Uniform plastic gloss", "Busy or directional texture", "Near-black wood flats", "Over-smoothed bands that merge", "Uneven bright rims competing with the body"]
+    },
+    {
+      "id": "artifactFreeReadability",
+      "observableSuccess": "All four facings and the entire idle loop remain clean and immediately readable at 192x384 logical scale. The hanging cage sways as an assembly while the support stays planted; caps/ribs stay joined, and the loop closes without a visible jump. Transparent edges are clean on light, gray and dark backgrounds.",
+      "failureSignals": ["Clipping or intersection flashes", "Black patches, seams or broken corners", "Detached parts or exposed ends", "Z-fighting", "Frame-to-frame tone/alpha popping", "Jittering root or sliding base", "Texture swimming", "Cropped silhouette or halo"]
+    }
+  ],
+  "rankedDesiredOutcomes": [
+    "Soften the gold paper/rib surface into broad warm cartoon volume while retaining the exact five-rib structure and registered silhouette.",
+    "Make brown support/cap/base forms readable with warm, restrained face and bevel shading.",
+    "Maintain consistent horizontal-neutral lighting and clean joined geometry through every facing and native idle frame."
+  ],
+  "reviewEvidenceRequired": [
+    "Exact immutable candidate packet and its SHA-256, with editable source, dependent resources, all 48 native idle frames/original-layout atlases, and native technical validation.",
+    "Four-view sheet, repeated placement preview, and idle previews for N/E/S/W, bound to the same candidate bytes.",
+    "Validation of source camera/root/frame/projection/pixel aspect, dimensions/envelope, footprint, construction/attachments and native loop timing; explicit symmetric-light/no-ground-shadow evidence.",
+    "Direct visual inspection at logical game size and enlarged, on light, gray and dark backgrounds; a contact sheet may cover all frames only when its correspondence to the actual packet renders is verified."
+  ],
+  "targetInterpretation": {
+    "adopt": ["Broad warm golden shading", "Softly rounded edges", "Readable warm wooden volume", "Gentle confined internal light"],
+    "doNotAdopt": ["Different canvas occupancy or padding", "Apparent shape/proportion drift", "Extra inflated rib volume", "Imagegen edge fringe or halo", "Unseen-view invention"]
+  },
+  "approvalRule": "Approve only an exact inspected packet that visibly improves toward these frozen outcomes, passes the technical contract and has no material visual defects in required directions or motion. Missing evidence yields needs_evidence. Scores are comparative observations rather than a numeric pass threshold."
+}

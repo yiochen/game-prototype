@@ -1,0 +1,65 @@
+{
+  "round": 2,
+  "asset": "stool-blue",
+  "verdict": "approve",
+  "candidatePacketSHA256": "b63140605d991a247b9860b099742f159e27e8e4d68d6cfc0b52e71882b81b99",
+  "inspectedFiles": [
+    "static-N.png",
+    "static-E.png",
+    "static-S.png",
+    "static-W.png",
+    "four-view-sheet.png",
+    "logical-four-view-sheet.png",
+    "repeated.png",
+    "backgrounds.png"
+  ],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 7,
+    "artifactFreeReadability": 9
+  },
+  "observations": [
+    "All four native facings show a clear rounded-square blue upholstered seat over warm honey-brown legs and a structural crossbar. Cushion corners and sidewalls now have continuous soft rounding, and the prior sharp cyan panel and stacked royal-blue bevel strips are replaced with a coherent softly shaded blue volume.",
+    "The honey wood is materially brighter and warmer than the original nearly black legs. Feet, lower faces and crossbar remain visible on light, neutral and dark backgrounds; natural joints and the open gap below the seat read cleanly. The slight crossbar-height difference between N/S and E/W is consistent with the preserved native stool construction.",
+    "Lighting remains horizontally balanced across the four rotations. Broad edge transitions and gentle local shading describe form without blown white spots, hard highlight bands or a directional cast ground shadow.",
+    "At logical size, all facings retain a clean padded-seat silhouette and leg/support separation. Native views and enlargement show no material black patches, clipped corners, opaque filling of openings, coplanar interference, harsh normal seams or colored target halo. The repeated preview is coherent at one-cell pitch.",
+    "Material variation is restrained. The candidate is simpler and more matte than the imagegen target, but the cushion reads as soft upholstery and the warm supports retain their wood identity without competing texture or noise. This satisfies the frozen criterion that large-form readability takes precedence over target microtexture."
+  ],
+  "blockers": [],
+  "remainingDifferences": [
+    "Target has stronger pillow inflation, brighter edge catches and richer fabric/wood microtexture. The candidate uses subtler padding and matte materials, consistent with the immutable native envelope and intended-size readability.",
+    "Target changes the canvas placement and apparent proportions and includes colored silhouette fringe; none of those features are copied or required."
+  ],
+  "technicalEvidence": {
+    "integrity": {
+      "packetSHA256": "b63140605d991a247b9860b099742f159e27e8e4d68d6cfc0b52e71882b81b99",
+      "boundFileEntriesVerified": 53,
+      "hashMismatches": 0,
+      "helperResult": "candidate_packet.py verify --packet candidates/round-02/packet.json: Artifact integrity verified."
+    },
+    "nativeCaptureReviewed": [
+      "candidates/round-02/validation.json",
+      "candidates/round-02/reopened-source.json",
+      "candidates/round-02/delivery.json",
+      "source/round-02-camera.json",
+      "source/round-02-rig.json",
+      "inputs/source-camera.json",
+      "inputs/catalog-object.json"
+    ],
+    "checks": [
+      "Independently checked all packet files/render/preview SHA-256 entries against actual bytes, including original, backup, target, brief, candidate .blend and native evidence.",
+      "All N/E/S/W PNGs independently confirmed 384x704 with alpha bounds [106,299,278,568] safely within frame. Logical-sheet and light/neutral/dark composites were visually inspected for every facing.",
+      "Independently compared source and candidate camera world/projection matrices and pixel aspect: unchanged. Logical root [96,248], sourceScale 2, logical frame [192,352], one-cell footprint and static 1-frame/12-fps/non-looping contract match the delivery records.",
+      "Native validation reports zero source/candidate mesh-envelope delta and zero support-transform delta. Seat and ground sockets independently match catalog [0,0,0.685] and [0,0,0]. Native topology evidence reports all meshes manifold with no zero-area faces.",
+      "Four native root rotations are recorded as N=0, E=-90, S=180, W=90 using one camera and fixed materials. Lighting evidence identifies centered overhead plus four equal cardinal fills and no ground receiver.",
+      "Reopened-source evidence is bound to the submitted project SHA-256. Independently compared decoded RGBA pixels from reopened-N.png and static-N.png: identical. PNG byte hashes differ only at the container level; the saved decoded-image equivalence is independently confirmed.",
+      "Reopened project records one scene, native stool meshes, no external images and no linked libraries. Dependency closure and source preservation checks pass."
+    ],
+    "limits": [
+      "I inspected the supplied hash-bound native validation and reopened-source render evidence; I did not launch an additional independent Blender replay. Exact registration and geometry measurements derive from those native records, not imagegen pixels."
+    ]
+  },
+  "approvalScope": "Only exact source/render bytes bound by this packet. Approval does not authorize unreviewed rerenders or changes to other assets."
+}

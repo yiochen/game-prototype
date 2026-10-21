@@ -115,7 +115,9 @@ def main():
     delivered_raw = {}
     for record in delivery.get('rawFrames', []):
         if isinstance(record, dict):
-            delivered_raw[(record['clip'], record['direction'], record['index'])] = folder / record['path']
+            index = record.get('index', record.get('frame'))
+            require(type(index) is int and index >= 0, 'Raw frame needs a zero-based index')
+            delivered_raw[(record['clip'], record['direction'], index)] = folder / record['path']
         else:
             for clip_id, direction in expected:
                 match = re.search(r'(?:^|/)' + re.escape(f'{clip_id}-{direction}') + r'(?:/|-)(\d+)\.png$', record)

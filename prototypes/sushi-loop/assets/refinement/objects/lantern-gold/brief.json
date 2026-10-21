@@ -57,9 +57,76 @@
       "Actual independent geometry views and native animation; no raster card or per-view image fitting/recolor"
     ],
     "catalogContract": "inputs/catalog-object.json",
-    "pipeline": "native-3d"
+    "pipeline": "native-3d",
+    "judgeMeasuredRequirements": [
+      "Retain the actual golden ribbed hanging lantern construction: plinth, brown upright post, forward overhang, hook, octagonal paper body, five ribs and two wood caps. Preserve the original modeled identity, proportions and geometry envelope; target shape drift is not authority.",
+      "Retain logical frame 192x384, logical root 96,288, sourceScale 2, rendered frame 384x768, one-cell footprint, registered height 1.34 and every existing camera/projection/pixel-aspect/per-clip override.",
+      "Retain the declared ground root and native transform/attachment relationships, all four N/E/S/W facings, and all 12 unique idle frames at 12 fps with looping timing and original small cage sway. Exclude the duplicate closure key from runtime frames.",
+      "Render actual editable 3D geometry, with one capture contract for every direction/frame. No raster card, target projection, per-view fit or per-view recoloring.",
+      "Illumination has no preferred horizontal direction; no directional ground cast shadow. Preserve true transparent background, with no bloom/halo painted outside the modeled silhouette.",
+      "The source palette family stays golden yellow paper/ribs with warm brown wooden supports. No added props, graphics, outlines or redesign."
+    ]
   },
-  "qualityCriteria": {},
+  "qualityCriteria": {
+    "aestheticGoals": [
+      {
+        "id": "shapeVolume",
+        "observableSuccess": "The cage remains compact and ribbed with its original five-band rhythm, octagonal character, caps and support silhouette. Edges read softly rounded through light and modest bevel treatment; faces have continuous readable volume without becoming inflated, melted or cylindrical.",
+        "failureSignals": [
+          "Lost or merged ribs",
+          "Changed construction or support length",
+          "Softened silhouette that grows beyond the source envelope",
+          "Abrupt flat-face steps dominating the paper surface"
+        ]
+      },
+      {
+        "id": "color",
+        "observableSuccess": "Paper and ribs read as warm gold/honey yellow, with small warm highlight areas and amber shadow transitions. Brown wood stays brown and remains distinguishable from the gold body. Preserve useful separation among paper, rib bands, caps and post at logical game size.",
+        "failureSignals": [
+          "White-clipped body that erases layers",
+          "Neon lemon or orange/red palette drift",
+          "Muddy brown-gold merging",
+          "Uniform flat yellow"
+        ]
+      },
+      {
+        "id": "lightingHighlights",
+        "observableSuccess": "Broad gentle highlights and soft face transitions give warm cartoon volume. The lantern feels internally luminous while all structural bands remain legible. Identically oriented exposed faces receive a balanced treatment as the object rotates, and the wood has enough fill to avoid dead black areas.",
+        "failureSignals": [
+          "Dominant lateral highlight/shadow bias",
+          "Hard narrow specular stripes",
+          "Blown or posterized golden faces",
+          "Directional ground shadow",
+          "Glow fringe outside alpha"
+        ]
+      },
+      {
+        "id": "materialDetail",
+        "observableSuccess": "Paper, gold ribs and wood have distinct but restrained surface response. Wood face/bevel variation gives the base and mount depth without noisy grain or shiny plastic; ribs have soft edges but remain deliberate structural forms. Detail remains subordinate to the readable lantern shape.",
+        "failureSignals": [
+          "Uniform plastic gloss",
+          "Busy or directional texture",
+          "Near-black wood flats",
+          "Over-smoothed bands that merge",
+          "Uneven bright rims competing with the body"
+        ]
+      },
+      {
+        "id": "artifactFreeReadability",
+        "observableSuccess": "All four facings and the entire idle loop remain clean and immediately readable at 192x384 logical scale. The hanging cage sways as an assembly while the support stays planted; caps/ribs stay joined, and the loop closes without a visible jump. Transparent edges are clean on light, gray and dark backgrounds.",
+        "failureSignals": [
+          "Clipping or intersection flashes",
+          "Black patches, seams or broken corners",
+          "Detached parts or exposed ends",
+          "Z-fighting",
+          "Frame-to-frame tone/alpha popping",
+          "Jittering root or sliding base",
+          "Texture swimming",
+          "Cropped silhouette or halo"
+        ]
+      }
+    ]
+  },
   "delivery": {
     "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
     "requiredClips": [
@@ -88,5 +155,7 @@
       }
     ],
     "notes": "Write source/round-NN.blend or the actual native 2D source as appropriate; full native captures, original-layout atlases, previews, validation and delivery.json. Do not label 2D artwork as a Blender model."
-  }
+  },
+  "criteriaVersion": 1,
+  "criteriaSource": "reviews/criteria.json"
 }

@@ -61,61 +61,63 @@
       "Soft horizontally neutral world lighting across all directions; no directional ground cast shadow or added backing plane."
     ]
   },
-  "qualityCriteria": [
-    {
-      "id": "shapeVolume",
-      "priority": 1,
-      "desiredVisibleOutcome": "Seat reads as a padded rounded-square blue cushion with broad continuous surface variation and gently softened edge transitions; preserve seat size, native construction and usable attachment height. Legs and crossbar remain recognizable structural pieces.",
-      "failureExamples": [
-        "Large perfectly uniform flat top with hard stepped rim bands",
-        "Over-inflated seat that changes the native footprint, height or contact",
-        "Blobby legs or merged supports that obscure stool construction"
-      ]
-    },
-    {
-      "id": "color",
-      "priority": 2,
-      "desiredVisibleOutcome": "Retain a saturated blue cushion and warm honey wood legs/supports, with color variation that feels softly lit and friendly. Wood remains bright enough to read down to the feet; cushion blue remains distinct from wood.",
-      "failureExamples": [
-        "Nearly black lower-leg patches",
-        "Electric cyan flat panel separated by harsh royal-blue strips",
-        "Gray/brown muddy supports or palette change away from blue-and-honey-wood identity"
-      ]
-    },
-    {
-      "id": "lightingHighlights",
-      "priority": 1,
-      "desiredVisibleOutcome": "Broad low-contrast highlights and gentle occlusion describe the cushion, legs and support joints. Keep horizontal symmetry; each facing belongs to one scene and lighting scheme.",
-      "failureExamples": [
-        "Strong left/right key-light bias",
-        "Blown white/glassy spots or hard highlight stripes",
-        "Crushed dark joints, underside or feet",
-        "Any directional cast ground shadow"
-      ]
-    },
-    {
-      "id": "materialDetail",
-      "priority": 3,
-      "desiredVisibleOutcome": "Cushion and wood feel softly tactile with restrained roughness and optional subtle coherent grain or fabric variation. Prioritize clean large forms and readable edges over target microtexture.",
-      "failureExamples": [
-        "Noisy speckles or strong procedural bands visible at logical size",
-        "Heavy grain competing with shape",
-        "Cushion/wood polished plastic glare",
-        "Abrupt normal seams or coplanar flicker"
-      ]
-    },
-    {
-      "id": "artifactFreeReadability",
-      "priority": 1,
-      "desiredVisibleOutcome": "All four static facings remain clean and legible at 192x352 logical frame size as well as native enlargement. No material dead spots: opaque black patches, broken corners, clipped geometry, merged supports, exposed ends, seams or unwanted fringe. Clean transparency on light, neutral and dark backgrounds.",
-      "failureExamples": [
-        "Halo copied from imagegen target",
-        "Jagged bright/dark alpha border",
-        "Dark gap incorrectly filled by opaque background",
-        "Lost wood leg or support at use size"
-      ]
-    }
-  ],
+  "qualityCriteria": {
+    "aestheticGoals": [
+      {
+        "id": "shapeVolume",
+        "priority": 1,
+        "desiredVisibleOutcome": "Seat reads as a padded rounded-square blue cushion with broad continuous surface variation and gently softened edge transitions; preserve seat size, native construction and usable attachment height. Legs and crossbar remain recognizable structural pieces.",
+        "failureExamples": [
+          "Large perfectly uniform flat top with hard stepped rim bands",
+          "Over-inflated seat that changes the native footprint, height or contact",
+          "Blobby legs or merged supports that obscure stool construction"
+        ]
+      },
+      {
+        "id": "color",
+        "priority": 2,
+        "desiredVisibleOutcome": "Retain a saturated blue cushion and warm honey wood legs/supports, with color variation that feels softly lit and friendly. Wood remains bright enough to read down to the feet; cushion blue remains distinct from wood.",
+        "failureExamples": [
+          "Nearly black lower-leg patches",
+          "Electric cyan flat panel separated by harsh royal-blue strips",
+          "Gray/brown muddy supports or palette change away from blue-and-honey-wood identity"
+        ]
+      },
+      {
+        "id": "lightingHighlights",
+        "priority": 1,
+        "desiredVisibleOutcome": "Broad low-contrast highlights and gentle occlusion describe the cushion, legs and support joints. Keep horizontal symmetry; each facing belongs to one scene and lighting scheme.",
+        "failureExamples": [
+          "Strong left/right key-light bias",
+          "Blown white/glassy spots or hard highlight stripes",
+          "Crushed dark joints, underside or feet",
+          "Any directional cast ground shadow"
+        ]
+      },
+      {
+        "id": "materialDetail",
+        "priority": 3,
+        "desiredVisibleOutcome": "Cushion and wood feel softly tactile with restrained roughness and optional subtle coherent grain or fabric variation. Prioritize clean large forms and readable edges over target microtexture.",
+        "failureExamples": [
+          "Noisy speckles or strong procedural bands visible at logical size",
+          "Heavy grain competing with shape",
+          "Cushion/wood polished plastic glare",
+          "Abrupt normal seams or coplanar flicker"
+        ]
+      },
+      {
+        "id": "artifactFreeReadability",
+        "priority": 1,
+        "desiredVisibleOutcome": "All four static facings remain clean and legible at 192x352 logical frame size as well as native enlargement. No material dead spots: opaque black patches, broken corners, clipped geometry, merged supports, exposed ends, seams or unwanted fringe. Clean transparency on light, neutral and dark backgrounds.",
+        "failureExamples": [
+          "Halo copied from imagegen target",
+          "Jagged bright/dark alpha border",
+          "Dark gap incorrectly filled by opaque background",
+          "Lost wood leg or support at use size"
+        ]
+      }
+    ]
+  },
   "delivery": {
     "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
     "requiredClips": [

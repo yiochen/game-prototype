@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 3,
-  "published": 2,
-  "current": "plant-angular and crate-wood approved; barrel-wood revision; both stools editing",
+  "completed": 4,
+  "published": 3,
+  "current": "barrel-wood approved; stools judging; lantern-gold editing",
   "objects": [
     {
       "id": "plant-angular",
@@ -41,7 +41,7 @@
       "name": "Wood barrel",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 4,
       "editor": "catalog_barrel_editor_v1",
@@ -55,7 +55,7 @@
       "name": "Backless honey-wood stool",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "reviewing",
       "clips": 1,
       "frames": 4,
       "editor": "catalog_stool_wood_editor_v1",
@@ -67,30 +67,38 @@
       "name": "Blue-seat cosmetic stool",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "approved",
       "clips": 1,
       "frames": 4,
       "editor": "catalog_stool_blue_editor_v1",
       "judge": "catalog_stool_blue_judge_v1",
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "round": "round-02",
+      "packetSHA256": "b63140605d991a247b9860b099742f159e27e8e4d68d6cfc0b52e71882b81b99"
     },
     {
       "id": "lantern-gold",
       "name": "Golden lantern",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "editing",
       "clips": 1,
-      "frames": 48
+      "frames": 48,
+      "editor": "catalog_lantern_editor_v1",
+      "judge": "catalog_lantern_judge_v1",
+      "target": "inputs/target.png"
     },
     {
       "id": "slate-rock",
       "name": "Subdued slate rock",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "editing",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "editor": "catalog_slate_editor_v1",
+      "judge": "catalog_slate_judge_v1",
+      "target": "inputs/target.png"
     },
     {
       "id": "sign-blank",
