@@ -1,0 +1,44 @@
+{
+  "asset": "crate-wood",
+  "stage": "independent source/target inspection",
+  "inspectedFiles": [
+    "inputs/original.png",
+    "inputs/target.png",
+    "brief.json",
+    "inputs/catalog-object.json",
+    "prompts/judge.txt"
+  ],
+  "observations": [
+    "Original has the correct compact crate construction: three bright central lid boards between darker side sections, a perimeter lower frame, a dark warm panel and rising diagonal brace.",
+    "Original lid and brace have broad nearly uniform tan faces, narrow abrupt bevels and hard dark separators. The lower panel and lower rim become densely dark brown, which weakens soft volume.",
+    "Fixed target uses more golden-orange timber, rounded plank/frame/brace edges, wider soft edge catches and smooth face shading. Lower inset remains brown but is warmer and more visible than the source.",
+    "Target adds colored fringe pixels and appears modestly expanded. These are not desired model features and cannot override locked registration."
+  ],
+  "comparativeScores": {
+    "original": {
+      "shapeVolume": 5,
+      "color": 5,
+      "lightingHighlights": 4,
+      "materialDetail": 5,
+      "artifactFreeReadability": 6
+    },
+    "targetStyleOnly": {
+      "shapeVolume": 8,
+      "color": 8,
+      "lightingHighlights": 8,
+      "materialDetail": 7,
+      "artifactFreeReadability": 7
+    }
+  },
+  "priorities": [
+    "Give the lid planks, perimeter rim and diagonal brace rounded soft edge transitions and coherent three-dimensional gradients while preserving the registered silhouette.",
+    "Lift the lower front recess from the original dense dark brown into warm readable brown, retaining contact depth and clear separation from the brace/rim.",
+    "Achieve a warm golden wood palette and restrained highlight response that stay readable in every required orientation and repeated at runtime scale."
+  ],
+  "evidenceLimits": "Only source and single-view target inspected. No candidate, four-direction coherence, runtime repeated preview, native geometry or technical registration is approved at this stage.",
+  "targetCaveats": [
+    "The target contains colored noisy fringe/halo outside the crate; do not reproduce it.",
+    "The target appears slightly expanded/rounded relative to the original. Use it for treatment and volume, not registration or footprint changes.",
+    "The target is a single view. Unseen directions must preserve native crate identity and equivalent finish, without inventing target-only structure."
+  ]
+}

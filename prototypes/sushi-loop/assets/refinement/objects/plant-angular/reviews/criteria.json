@@ -1,0 +1,28 @@
+{
+  "asset": "plant-angular",
+  "version": 1,
+  "status": "proposed for coordinator freeze",
+  "aestheticGoals": {
+    "shapeVolume": "Preserve the tall angular fan in a square tapered pot. Leaves read as thick folded forms with broad planes, pointed tips, coherent overlap and softened edge transitions. The golden rim has visibly rounded corners. Exact target leaf placement is unnecessary; all facings must belong to one coherent native plant.",
+    "color": "Show fresh lime highlight planes against rich green turning faces, with warm golden-yellow rim and orange-brown pot. Avoid a uniformly olive/yellow fan or a featureless black pot opening. Foliage, crown and pot remain separable at 192x384 logical size.",
+    "lightingHighlights": "Soft broad gradients describe folded leaf volume and rounded pot edges. Deep greens and warm browns remain readable. Highlights do not clip to white or form narrow wet-plastic streaks. Maintain symmetric world light without a preferred horizontal key, and no ground cast shadow.",
+    "materialDetail": "Simple warm cartoon materials: clean broad leaf folds, smooth enough edge treatment and restrained detail. No veins, surface noise or gloss are required. Do not reproduce target halos, glow or imagegen distortions.",
+    "artifactFreeReadability": "Every facing and frame remains clean at logical and export size on light, midgray and dark backgrounds: no clipped tips, black dead patches, coplanar flicker, detached leaves, exposed unintended ends, abrupt shading seams or fringe artifacts. Natural dark crown occlusion is acceptable if individual forms remain readable.",
+    "motion": "Provide 12 unique native idle frames at 12fps for S/E/N/W and one static frame per facing. Idle is subtle coherent leaf sway or breathing with a stable pot and registered root; contact at the crown remains plausible, material/light does not swim, and frame 11 to frame 0 has no conspicuous jump. Static retains the same style and capture contract."
+  },
+  "hardConstraints": {
+    "frame": [384, 768],
+    "logicalFrame": [192, 384],
+    "logicalRoot": [96, 288],
+    "exportRoot": [192, 576],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "projection": "top-down-oblique-square-grid",
+    "footprint": [1, 1],
+    "geometryEnvelope": {"min": [-0.48, -0.48, 0.015], "max": [0.48, 0.48, 1.48]},
+    "facings": ["S", "E", "N", "W"],
+    "clips": {"idle": {"frames": 12, "fps": 12, "loop": true, "uniqueFrames": 12}, "static": {"frames": 1, "fps": 12, "loop": false}},
+    "nativeEvidence": "Actual editable scene and native exports; no AI image card, mirrored facing, image warp or per-view fitting/recolor. Preserve actual source camera matrix, pixel aspect, projection scale and root. Native validation must establish geometry envelope, footprint, root, lighting symmetry, no ground shadow, clip counts and motion continuity. Hash-bound packet must include all 52 render frames and declared motion previews."
+  },
+  "approvalRule": "Approve only a hash-bound candidate with visible improvement toward the fixed warm soft cartoon target, clean coherent outcomes across every required facing/frame, and passing technical evidence. Missing evidence yields needs_evidence. Comparative scores guide observations but impose no arbitrary numeric threshold."
+}
