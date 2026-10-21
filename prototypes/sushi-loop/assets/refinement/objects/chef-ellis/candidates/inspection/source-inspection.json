@@ -1,0 +1,4036 @@
+{
+  "collection": "S33_CHARACTER_chef_ellis.001",
+  "scenes": [
+    "ELLIS_EDITOR_INSPECTION",
+    "S33 Native Asset Library Export"
+  ],
+  "objects": [
+    {
+      "name": "chef_ellis__ground_root.001",
+      "type": "EMPTY",
+      "parent": null,
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.25,
+        1.25,
+        1.25
+      ],
+      "dims": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "verts": null,
+      "materials": null,
+      "mods": [],
+      "action": null,
+      "props": {
+        "asset_id": "chef_ellis",
+        "display_name": "Ellis Morgan",
+        "kind": "chef",
+        "projection": "character-orthographic",
+        "footprint_cells": "[1, 1]",
+        "ground_root": "[0, 0, 0]",
+        "anatomy_height": "1.3968749344348907",
+        "anatomy_revision": "C-chunky-r3-125",
+        "uniform_native_scale": "1.25",
+        "character_design": "Short native legs, minimal navy toe ends, rounded .56x.48 head and full identity-specific crown/occiput/fringe.",
+        "walk_stride_cells": "0.22499999999999998",
+        "walk_cycles_per_second": "1",
+        "panic_cycles_per_second": "2",
+        "sockets": "{\"ground\": [0, 0, 0], \"seat_contact\": [0, 0, 0.4477801191577021], \"hand_left\": [-0.267, -0.023, 0.211], \"hand_right\": [0.267, -0.023, 0.211], \"mouth\": [0, -0.255, 0.543]}",
+        "animation_recipes": "{\"idle\": {\"frames\": 12, \"fps\": 12, \"loop\": true}, \"work\": {\"frames\": 12, \"fps\": 12, \"loop\": true}, \"hold\": {\"frames\": 12, \"fps\": 12, \"loop\": true}, \"load\": {\"frames\": 12, \"fps\": 12, \"loop\": false}}",
+        "identity_design": "{\"name\": \"Ellis Morgan\", \"skin\": \"skin_ellis\", \"hair\": \"hair_ginger\", \"style\": \"curls\", \"hat\": \"flat_cap\", \"accent\": \"orange\", \"apron\": \"orange\", \"top\": \"white\", \"kind\": \"chef\", \"glasses\": true}",
+        "source": "character_builders.py",
+        "weight_validation": "{\"chef_ellis__tailored_tunic.001\": {\"vertices\": 32, \"weighted\": 32, \"unweighted\": 0}, \"chef_ellis__pelvis.001\": {\"vertices\": 8, \"weighted\": 8, \"unweighted\": 0}, \"chef_ellis__neck.001\": {\"vertices\": 8, \"weighted\": 8, \"unweighted\": 0}, \"chef_ellis__collar_-1\": {\"vertices\": 8, \"weighted\": 8, \"unweighte",
+        "seat_environment_z": "0.655",
+        "seat_character_plane": "0.4477801191577021",
+        "seat_pelvis_offset": "0.08",
+        "seat_attachment": "seat contact at environmentZ*0.70/(1.25*cos35); local pelvis control0.080 above contact; scaled ordinary35 character and 70% environment share projected ground root",
+        "food_composition": "ImageGen dish-salmon fixed alpha plane attached to evaluated palms; facing-independent image; knife during work.",
+        "held_food_source": "{\"path\": \"/Users/yiouchen/.codex/worktrees/sushi-loop-33-art-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/2d/generated/dish-salmon.png\", \"sha256\": \"5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe\", \"alphaRectangleBottomOrigin\": [0, 56, 1242, 1169], \"worldWid",
+        "artStyle": "faceted-approved-2026-10-19",
+        "production_id": "chef-ellis",
+        "native_action_record": "{\"source\": \"native_actions.py\", \"assetId\": \"chef-ellis\", \"clips\": {\"idle\": [\"S33_NATIVE__chef-ellis__idle__chef_ellis__armature.002\", \"S33_NATIVE__chef-ellis__idle__chef_ellis__ground_root.001__held_dish-salmon.001\", \"S33_NATIVE__chef-ellis__idle__chef_ellis__ground_root.001__held_dish-salmon__image"
+      }
+    },
+    {
+      "name": "chef_ellis__tailored_tunic.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.5299999713897705,
+        0.3824999928474426,
+        0.3125
+      ],
+      "verts": 32,
+      "materials": [
+        "chef-ellis approved S33_CHAR_white"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__pelvis.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.4024999737739563,
+        0.309999942779541,
+        0.16249999403953552
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_navy"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__neck.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.1574999839067459,
+        0.16249999403953552,
+        0.11250004172325134
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_skin_ellis"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__collar_-1",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.12254312634468079,
+        0.03624998778104782,
+        0.10544084012508392
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_white"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__collar_1",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.12254312634468079,
+        0.03624998778104782,
+        0.10544084012508392
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_white"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__kerchief_knot.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.07000000029802322,
+        0.06875000149011612,
+        0.07250003516674042
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_orange"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__kerchief_tail_-1",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.07858593016862869,
+        0.034999996423721313,
+        0.11282090097665787
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_orange"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__kerchief_tail_1",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.07858593016862869,
+        0.034999996423721313,
+        0.11282090097665787
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_orange"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__apron_skirt.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.5124999284744263,
+        0.38054996728897095,
+        0.1537499874830246
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_orange"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__apron_bib.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.32499995827674866,
+        0.02875000238418579,
+        0.1812499761581421
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_orange"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__apron_waist.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.4712499678134918,
+        0.35874995589256287,
+        0.04374999552965164
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_orange"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__apron_pocket.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.14374999701976776,
+        0.020000003278255463,
+        0.06499998271465302
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_orange"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__apron_back_tie_-1",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.12573669850826263,
+        0.05248069018125534,
+        0.0312500074505806
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_orange"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__coat_button_-1",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.020124558359384537,
+        0.01488618552684784,
+        0.02250000834465027
+      ],
+      "verts": 12,
+      "materials": [
+        "chef-ellis approved S33_CHAR_white"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__apron_back_tie_1",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.12573669850826263,
+        0.05248069018125534,
+        0.0312500074505806
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_orange"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__coat_button_1",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.020124558359384537,
+        0.01488618552684784,
+        0.02250000834465027
+      ],
+      "verts": 12,
+      "materials": [
+        "chef-ellis approved S33_CHAR_white"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__arm_L.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.2142907828092575,
+        0.15477719902992249,
+        0.24505746364593506
+      ],
+      "verts": 40,
+      "materials": [
+        "chef-ellis approved S33_CHAR_white",
+        "chef-ellis approved S33_CHAR_skin_ellis"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__palm_L.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.11249987781047821,
+        0.12874995172023773,
+        0.12999996542930603
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_skin_ellis"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__thumb_L.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.043749939650297165,
+        0.05749998614192009,
+        0.06749993562698364
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_skin_ellis"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__leg_L.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.17250001430511475,
+        0.16488122940063477,
+        0.18006034195423126
+      ],
+      "verts": 40,
+      "materials": [
+        "chef-ellis approved S33_CHAR_navy"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__minimal_foot_L",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.18500001728534698,
+        0.21249927580356598,
+        0.05375007539987564
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_navy"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__arm_R.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.21373659372329712,
+        0.1570740044116974,
+        0.24491377174854279
+      ],
+      "verts": 40,
+      "materials": [
+        "chef-ellis approved S33_CHAR_white",
+        "chef-ellis approved S33_CHAR_skin_ellis"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__palm_R.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.1124998927116394,
+        0.12874993681907654,
+        0.12999990582466125
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_skin_ellis"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__thumb_R.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.043749939650297165,
+        0.057499974966049194,
+        0.06749991327524185
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_skin_ellis"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__leg_R.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.17250001430511475,
+        0.16488122940063477,
+        0.18006034195423126
+      ],
+      "verts": 40,
+      "materials": [
+        "chef-ellis approved S33_CHAR_navy"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__minimal_foot_R",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.1850000023841858,
+        0.21249927580356598,
+        0.05375007167458534
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_navy"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__head.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.6999999284744263,
+        0.5999999642372131,
+        0.6000000238418579
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_skin_ellis"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted rounded face normals",
+          "WEIGHTED_NORMAL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__ear_-1.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.07250003516674042,
+        0.12999998033046722,
+        0.1487499475479126
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_skin_ellis"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__eye_-1.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.05468582734465599,
+        0.0299999862909317,
+        0.0849999487400055
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_eye"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__eye_glint_-1.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.013416372239589691,
+        0.008506402373313904,
+        0.02250000834465027
+      ],
+      "verts": 12,
+      "materials": [
+        "chef-ellis approved S33_CHAR_white"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__brow_-1.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.08449447154998779,
+        0.021249987185001373,
+        0.02992585301399231
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__cheek_-1.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.08273430168628693,
+        0.01913938671350479,
+        0.04999995231628418
+      ],
+      "verts": 12,
+      "materials": [
+        "chef-ellis approved S33_CHAR_blush"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__ear_1.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.07250003516674042,
+        0.12999998033046722,
+        0.1487499475479126
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_skin_ellis"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__eye_1.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.05468582734465599,
+        0.0299999862909317,
+        0.0849999487400055
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_eye"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__eye_glint_1.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.013416372239589691,
+        0.008506402373313904,
+        0.02250000834465027
+      ],
+      "verts": 12,
+      "materials": [
+        "chef-ellis approved S33_CHAR_white"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__brow_1.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.08449447154998779,
+        0.021249987185001373,
+        0.02992585301399231
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__cheek_1.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.08273430168628693,
+        0.01913938671350479,
+        0.04999995231628418
+      ],
+      "verts": 12,
+      "materials": [
+        "chef-ellis approved S33_CHAR_blush"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__nose.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.07374999672174454,
+        0.058749970048666,
+        0.0637499988079071
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_skin_ellis"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__smile.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.10999999195337296,
+        0.009999983012676239,
+        0.040000006556510925
+      ],
+      "verts": 6,
+      "materials": [
+        "chef-ellis approved S33_CHAR_eye"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__glasses_-1.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.20250000059604645,
+        0.02750001847743988,
+        0.20249992609024048
+      ],
+      "verts": 48,
+      "materials": [
+        "chef-ellis approved S33_CHAR_eye"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__glasses_1.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.20250000059604645,
+        0.02750001847743988,
+        0.20249992609024048
+      ],
+      "verts": 48,
+      "materials": [
+        "chef-ellis approved S33_CHAR_eye"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__glasses_bridge.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.09999998658895493,
+        0.02250000834465027,
+        0.014999955892562866
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_eye"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__glasses_arm_-1.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.017499998211860657,
+        0.3749999701976776,
+        0.017500072717666626
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_eye"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__glasses_arm_1.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.017499998211860657,
+        0.3749999701976776,
+        0.017500072717666626
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_eye"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__rounded_crown",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.7139306664466858,
+        0.6374998092651367,
+        0.40623748302459717
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__rounded_occiput",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.6601414084434509,
+        0.47499987483024597,
+        0.615187406539917
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_0_0",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.20293232798576355,
+        0.14999999105930328,
+        0.21217507123947144
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_C2612F"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_0_1",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.2003636211156845,
+        0.1499999463558197,
+        0.20887672901153564
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_0_2",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.19966986775398254,
+        0.1499999761581421,
+        0.20201414823532104
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_0_3",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.20287644863128662,
+        0.1499999463558197,
+        0.197896808385849
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_C2612F"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_0_4",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.20099693536758423,
+        0.15000000596046448,
+        0.20031017065048218
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_1_0",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.20161829888820648,
+        0.1499999463558197,
+        0.21048784255981445
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_1_1",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.19806446135044098,
+        0.14999999105930328,
+        0.20407557487487793
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_1_2",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.20239633321762085,
+        0.14999999105930328,
+        0.19851326942443848
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_C2612F"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_1_3",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.20208357274532318,
+        0.14999999105930328,
+        0.19891485571861267
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_1_4",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.19741369783878326,
+        0.1499999463558197,
+        0.2049112319946289
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_2_0",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.1982942372560501,
+        0.14999999105930328,
+        0.20621955394744873
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_2_1",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.2014649510383606,
+        0.1499999463558197,
+        0.1997092366218567
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_C2612F"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_2_2",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.20274683833122253,
+        0.14999999105930328,
+        0.19806325435638428
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_2_3",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.1990618109703064,
+        0.1499999463558197,
+        0.20279496908187866
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_2_4",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.20089104771614075,
+        0.14999999105930328,
+        0.20955398678779602
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_C2612F"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_3_0",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.2001654952764511,
+        0.1499999314546585,
+        0.2013777196407318
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_C2612F"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_3_1",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.20292752981185913,
+        0.1499999314546585,
+        0.19783124327659607
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_3_2",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.20055651664733887,
+        0.15000000596046448,
+        0.20087569952011108
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_3_3",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.199456587433815,
+        0.1499999463558197,
+        0.2077120542526245
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_C2612F"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__back_curl_3_4",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.20283880829811096,
+        0.1499999761581421,
+        0.2120549976825714
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__temple_curl_-1_0",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.14242711663246155,
+        0.1874999701976776,
+        0.20357608795166016
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__temple_curl_-1_1",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.15156717598438263,
+        0.1874999701976776,
+        0.2082251012325287
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_C2612F"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__temple_curl_-1_2",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.14789752662181854,
+        0.1874999850988388,
+        0.21255984902381897
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__temple_curl_-1_3",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.13602016866207123,
+        0.1874999701976776,
+        0.2147020399570465
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__temple_curl_-1_4",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.1315079778432846,
+        0.1874999701976776,
+        0.21476224064826965
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__side_crown_-1",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.17380937933921814,
+        0.2774999439716339,
+        0.1892569661140442
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__temple_curl_1_0",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.14242711663246155,
+        0.1874999701976776,
+        0.20357608795166016
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__temple_curl_1_1",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.14876341819763184,
+        0.1874999701976776,
+        0.21437257528305054
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_C2612F"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__temple_curl_1_2",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.14890579879283905,
+        0.1874999850988388,
+        0.20065709948539734
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__temple_curl_1_3",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.13878029584884644,
+        0.18749995529651642,
+        0.20365208387374878
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__temple_curl_1_4",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.12880051136016846,
+        0.18749995529651642,
+        0.21187499165534973
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__side_crown_1",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.17380937933921814,
+        0.2774999439716339,
+        0.20074307918548584
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__fringe_curl_0",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.15403299033641815,
+        0.17750000953674316,
+        0.16249999403953552
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__fringe_curl_1",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.1939639449119568,
+        0.17749996483325958,
+        0.19733324646949768
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_C2612F"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__fringe_curl_2",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.19512803852558136,
+        0.17749996483325958,
+        0.17148956656455994
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__fringe_curl_3",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.20389221608638763,
+        0.17749996483325958,
+        0.2017785608768463
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__fringe_curl_4",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.18825370073318481,
+        0.17750000953674316,
+        0.17464250326156616
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_C2612F"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__fringe_curl_5",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.14287734031677246,
+        0.17749996483325958,
+        0.15854597091674805
+      ],
+      "verts": 42,
+      "materials": [
+        "chef-ellis approved S33_CHAR_hair_ginger"
+      ],
+      "mods": [
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__cap_crown.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.6899999380111694,
+        0.5849999189376831,
+        0.23749999701976776
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_navy"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__cap_brim.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.6599999070167542,
+        0.22499999403953552,
+        0.06875008344650269
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_navy"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__cap_button.001",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.06749999523162842,
+        0.06749999523162842,
+        0.043750107288360596
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_CHAR_navy"
+      ],
+      "mods": [
+        [
+          "Soft faceted edges",
+          "BEVEL"
+        ],
+        [
+          "Weighted character deformation",
+          "ARMATURE"
+        ]
+      ],
+      "action": null,
+      "props": {
+        "weighted_character_geometry": "True"
+      }
+    },
+    {
+      "name": "chef_ellis__armature.001",
+      "type": "ARMATURE",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        1.1999999284744263,
+        0.2562499940395355,
+        1.1374999284744263
+      ],
+      "verts": null,
+      "materials": null,
+      "mods": [],
+      "action": null,
+      "props": {
+        "rig_solver": "analytic two-bone limbs, stable outward poles; native editable transform keys",
+        "control_space": "ground-root-local world coordinates, independent of pelvis and head",
+        "deformation": "continuous 8-sided limb rings; blended shoulder/elbow/knee and wrist weights",
+        "current_clip": "idle",
+        "current_phase": "0.0",
+        "hand_sockets_current": "{\"L\": [-0.2669999599456787, -0.02499995194375515, 0.1650000363588333], \"R\": [0.2670000195503235, -0.027876507490873337, 0.1650000363588333]}",
+        "seat_contact_current": "[0.0, 0, 0.07000000596046448]",
+        "hip_control_current": "[0.0, 0.0, 0.15000000596046448]",
+        "feet_current": "{\"L\": [-0.11500000208616257, 0.0, 0.03500000014901161], \"R\": [0.11500000208616257, 0.0, 0.03500000014901161]}"
+      }
+    },
+    {
+      "name": "chef_ellis__ground_root.001__held_dish-salmon",
+      "type": "EMPTY",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "verts": null,
+      "materials": null,
+      "mods": [],
+      "action": null,
+      "props": {}
+    },
+    {
+      "name": "chef_ellis__ground_root.001__held_dish-salmon__image_plane",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001__held_dish-salmon",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        -0.39319297671318054,
+        0.27531668543815613
+      ],
+      "rot": [
+        0.9599310755729675,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.3499999940395355,
+        0.3136473596096039,
+        0.0
+      ],
+      "verts": 4,
+      "materials": [
+        "chef-ellis approved chef_ellis__ground_root.001__held_dish-salmon__transparent_2D_material"
+      ],
+      "mods": [],
+      "action": null,
+      "props": {
+        "representation": "2D ImageGen sprite, not modeled sushi",
+        "fixed_alpha_rectangle": "[0, 56, 1242, 1169]",
+        "source_image": "/Users/yiouchen/.codex/worktrees/sushi-loop-33-art-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/2d/generated/dish-salmon.png",
+        "source_sha256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe",
+        "world_width_cells": "0.35",
+        "camera_ray_depth_bias_world_cells": "0.6"
+      }
+    },
+    {
+      "name": "chef_ellis__ground_root.001__utensil",
+      "type": "EMPTY",
+      "parent": "chef_ellis__ground_root.001",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "verts": null,
+      "materials": null,
+      "mods": [],
+      "action": null,
+      "props": {}
+    },
+    {
+      "name": "chef_ellis__ground_root.001__knife_handle",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001__utensil",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.03500000014901161,
+        0.09375,
+        0.03749999776482582
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_FB_wood_dark"
+      ],
+      "mods": [],
+      "action": null,
+      "props": {}
+    },
+    {
+      "name": "chef_ellis__ground_root.001__knife_blade",
+      "type": "MESH",
+      "parent": "chef_ellis__ground_root.001__utensil",
+      "parent_type": "OBJECT",
+      "bone": "",
+      "loc": [
+        0.0,
+        -0.07999999821186066,
+        0.004000000189989805
+      ],
+      "rot": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "dims": [
+        0.057500001043081284,
+        0.14999999105930328,
+        0.01249999925494194
+      ],
+      "verts": 8,
+      "materials": [
+        "chef-ellis approved S33_FB_metal"
+      ],
+      "mods": [],
+      "action": null,
+      "props": {}
+    }
+  ],
+  "cameras": [
+    {
+      "name": "S33 Capture Camera.240",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.5735762715339661,
+          -0.8191521763801575,
+          -8.191520690917969
+        ],
+        [
+          0.0,
+          0.8191521763801575,
+          0.5735762715339661,
+          5.735764503479004
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "ortho": 1.5,
+      "shift_y": 0.4583320617675781
+    }
+  ],
+  "actions": [
+    "S33_NATIVE__chef-ellis__hold__chef_ellis__armature.002",
+    "S33_NATIVE__chef-ellis__hold__chef_ellis__ground_root.001__held_dish-salmon.001",
+    "S33_NATIVE__chef-ellis__hold__chef_ellis__ground_root.001__held_dish-salmon__image_plane.001",
+    "S33_NATIVE__chef-ellis__hold__chef_ellis__ground_root.001__knife_blade.001",
+    "S33_NATIVE__chef-ellis__hold__chef_ellis__ground_root.001__knife_handle.001",
+    "S33_NATIVE__chef-ellis__hold__chef_ellis__ground_root.001__utensil.001",
+    "S33_NATIVE__chef-ellis__idle__chef_ellis__armature.002",
+    "S33_NATIVE__chef-ellis__idle__chef_ellis__ground_root.001__held_dish-salmon.001",
+    "S33_NATIVE__chef-ellis__idle__chef_ellis__ground_root.001__held_dish-salmon__image_plane.001",
+    "S33_NATIVE__chef-ellis__idle__chef_ellis__ground_root.001__knife_blade.001",
+    "S33_NATIVE__chef-ellis__idle__chef_ellis__ground_root.001__knife_handle.001",
+    "S33_NATIVE__chef-ellis__idle__chef_ellis__ground_root.001__utensil.001",
+    "S33_NATIVE__chef-ellis__load__chef_ellis__armature.002",
+    "S33_NATIVE__chef-ellis__load__chef_ellis__ground_root.001__held_dish-salmon.001",
+    "S33_NATIVE__chef-ellis__load__chef_ellis__ground_root.001__held_dish-salmon__image_plane.001",
+    "S33_NATIVE__chef-ellis__load__chef_ellis__ground_root.001__knife_blade.001",
+    "S33_NATIVE__chef-ellis__load__chef_ellis__ground_root.001__knife_handle.001",
+    "S33_NATIVE__chef-ellis__load__chef_ellis__ground_root.001__utensil.001",
+    "S33_NATIVE__chef-ellis__work__chef_ellis__armature.002",
+    "S33_NATIVE__chef-ellis__work__chef_ellis__ground_root.001__held_dish-salmon.001",
+    "S33_NATIVE__chef-ellis__work__chef_ellis__ground_root.001__held_dish-salmon__image_plane.001",
+    "S33_NATIVE__chef-ellis__work__chef_ellis__ground_root.001__knife_blade.001",
+    "S33_NATIVE__chef-ellis__work__chef_ellis__ground_root.001__knife_handle.001",
+    "S33_NATIVE__chef-ellis__work__chef_ellis__ground_root.001__utensil.001"
+  ]
+}

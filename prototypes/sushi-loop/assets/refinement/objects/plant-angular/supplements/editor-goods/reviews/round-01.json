@@ -1,0 +1,67 @@
+{
+  "round": 1,
+  "asset": "plant-angular",
+  "experiment": "editor-goods-supplement",
+  "verdict": "approve",
+  "candidatePacketSHA256": "03cc9d797f7e2b81c74b421c2ddc61b46c1fca46b661314b1e112e2bfc19dc17",
+  "frozenCriteriaSHA256": "64a41de342b3a5882c7fdd6d65310afb2722bcf328fe4b196be745149291ec5e",
+  "inspectedFiles": [
+    "goods.png",
+    "logical-backgrounds.png",
+    "context-card.png",
+    "native-comparison.png",
+    "consumer/background-candidate-384-cream.png",
+    "consumer/background-candidate-384-gray.png",
+    "consumer/background-candidate-384-dark.png",
+    "consumer/context-original-layout-page0-540x960.png",
+    "consumer/context-candidate-layout-page0-540x960.png",
+    "consumer/context-candidate-layout-page1-540x960.png",
+    "consumer/context-candidate-floor-540x960.png",
+    "consumer/context-candidate-plant-selected-540x960.png",
+    "consumer/context-candidate-plant-empty-540x960.png",
+    "consumer/context-candidate-layout-page0-786x1398.png",
+    "consumer/context-candidate-layout-page1-786x1398.png",
+    "consumer/context-candidate-floor-786x1398.png",
+    "consumer/context-candidate-plant-selected-786x1398.png",
+    "consumer/context-candidate-plant-empty-786x1398.png",
+    "consumer/context-candidate-layout-page0-1280x720.png",
+    "consumer/context-candidate-layout-page1-1280x720.png",
+    "consumer/context-candidate-floor-1280x720.png",
+    "consumer/context-candidate-plant-selected-1280x720.png",
+    "consumer/context-candidate-plant-empty-1280x720.png"
+  ],
+  "scores": {
+    "shapeVolume": 9,
+    "color": 8,
+    "lightingHighlights": 9,
+    "materialDetail": 9,
+    "artifactFreeReadability": 9
+  },
+  "observations": [
+    "The native goods view clearly exposes the pot top, front and right side and the folded leaf fan as three-dimensional forms. Substantial lime/green leaves and the rounded continuous golden rim visibly improve on the previous thin foliage and exposed narrow stems while preserving plant identity.",
+    "The pot's front and right corners have continuous warm terracotta shading. Its recessed opening is readable warm dark brown. The narrow dark contact line inside the rear rim is coherent cavity shading, not an intrusive black wedge or dead corner. No substantive source defect is revealed by this pinned camera.",
+    "At native 384px and in the 66px/96px full-canvas background previews, leaves remain distinct, the crown stays coherent, and the rim and pot volume remain legible. No clipping, detached piece, visible leaf intersection, painted halo, contaminated alpha or blown highlight was found on cream, gray or dark backgrounds.",
+    "All fifteen complete candidate consumer viewports were inspected across phone 540x960, wider portrait 786x1398 and landscape 1280x720. The plant reads clearly within the unchanged card and retains separate Plant/2 left labels, including selected state. The empty fixture correctly shows 0 left; its native control state is disabled. Page 0 retains Belt 6, Stool 4, Plant 2, Crate 2; page 1 retains Barrel 1. Floor remains the accepted slab preview without extra labels.",
+    "Independent native source inspection and immutable replay establish that this is the approved native plant under the original static actions and UI camera. It is not a flattened world sprite, image card, raster fitted substitute or retouched export."
+  ],
+  "blockers": [],
+  "remainingDifferences": [
+    "The fixed target depicts the world camera. This goods view intentionally reveals genuine side geometry under the pinned 35/35 camera rather than copying the target silhouette.",
+    "The native material family retains the approved yellower lime planes, golden rim and dark warm soil; exact target paint colors are not a supplement requirement.",
+    "Consumer captures run the actual unchanged EditorPresentation/UISkin in an isolated project over a solid room placeholder. This approval covers the goods artwork and unchanged consumer integration evidence; it does not claim a final combined restaurant-world render or approve unrelated UI/world changes."
+  ],
+  "technicalEvidence": {
+    "packetIntegrity": "candidate_packet.py verify passes for the exact packet and frozen criteria hashes recorded above. No candidate, source, brief, criteria, production or UI file was changed by the judge.",
+    "approvedIdentity": "Approved world project SHA256 1d9bc1fa321e705154e2c36fec41fd4092ba843f233d938f02b69e761881837c and prior world approval packet dbc501cad47d9788e499191c07351dbeb99024e3dc9cfc8b5d74a333427c9cc9 remain the authority. Saved goods project SHA256 is ec49c3a5881428abb3dbae4a46d023f0dd01aa9db1a7a5a102b24d3264d705ad; approved goods PNG SHA256 is 727b3b99df5cd8041b03b536bfb86618e243f785a0560b5dd4e94feee5bee738.",
+    "independentNativeParity": "The judge independently reopened the approved world backup in Blender, selected all twelve original WARM_NATIVE__plant-angular__static__leaf_00 through __leaf_11 actions in their matching KEplant-angular__leaf_00__shape_keys through __leaf_11__shape_keys slots, set key 1/rootS0 and rederived actual semantic state. Complete objects/base and evaluated geometry/transforms/modifiers/shape data, material nodes, light state, world/compositor/render response and complete action data exactly match the sealed candidate sections. Source bytes remain unchanged. The saved candidate's exact bindings and state were independently reopened and verified by replay; normalization is idempotent.",
+    "cameraAndOutput": "Pinned 35-degree elevation/35-degree azimuth camera matches with maximum world-matrix floating-point difference 5.960464477539063e-08 and zero projection-matrix difference; ortho scale 1.8294012546539307, zero camera shift, 384x384 at 100 percent and square pixels are exact. Output is actual RGBA with clear transparent borders and alpha bounds [73,34,311,349]. There is no per-image fitting, grading or model change.",
+    "independentReproduction": "The judge copied the 101 hash-verified immutable replay resources into judge-owned storage and ran the supplied technical replay from that copy. A fresh Blender process reproduced exact goods RGBA pixels (pixel SHA256 99ca4a116aee4194c9b347a88b30d18eee283187b5f9a9271b1a8c98a6cbaf3b, maximum channel difference 0). Fresh Godot 4.7.2 imports and the unchanged consumer reproduced all 54 native/background/context PNG pixel arrays exactly. No mutable delivery record or production resource was used by replay. Native dependency inspection has no external image or library dependency.",
+    "independentConsumerAudit": "Independently compared all 15 original/candidate full context pairs. Every changed pixel lies within the plant's existing full-canvas preview destination; page 1 and Floor are pixel-identical. Independently cropped all six goods atlas cells: plant equals the full native 384px render, all other goods including Floor are exactly preserved. Copied code/content/manifest hashes match the pinned consumer snapshot. Floor source PNG SHA256 remains 6ded9330f3106d1d4941ac84e94c3e54436f098d261f5f36436d7115af239177. Native render-record state and measured card/preview bounds agree with visible labels, selected/disabled flags and unchanged dynamic counts.",
+    "evidenceFiles": [
+      "reviews/round-01-independent-native.json",
+      "reviews/round-01-independent-portable-proof.json",
+      "reviews/round-01-independent-pixel-audit.json"
+    ],
+    "limits": "This is an exact supplement approval. Root retains responsibility for copying the exact approved bytes and constructing the final combined five-goods atlas and metadata at the authorized Godot cutover. No additional world or publishing permission is granted."
+  }
+}

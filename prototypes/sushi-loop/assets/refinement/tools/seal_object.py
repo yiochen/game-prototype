@@ -29,7 +29,9 @@ def main():
     candidate.mkdir(parents=True, exist_ok=True)
     snapshot = candidate / 'delivery.snapshot.json'
     snapshot.write_text(json.dumps(delivery, indent=2) + '\n')
-    project = folder / delivery.get('project', delivery.get('source', {}).get('blend', ''))
+    source_record = delivery.get('source', {})
+    source_project = source_record.get('blend', '') if isinstance(source_record, dict) else source_record
+    project = folder / (delivery.get('project') or source_project)
     brief = json.loads(brief_path.read_text())
     pipeline = brief.get('constraints', {}).get('pipeline')
     allowed_sources = ['.png', '.gd'] if pipeline == 'existing-2d' else ['.blend']

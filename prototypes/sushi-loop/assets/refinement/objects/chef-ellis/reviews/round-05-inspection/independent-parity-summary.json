@@ -1,0 +1,340 @@
+{
+  "baselineSHA256": "2767a8239378e0e44b41c6a4f2870ca9fece3eed9390cac78594f54efb4033a4",
+  "candidateSHA256": "0f2bd5a4a9d7a87f4b62cc195e420bd504c476632dcf6e1935f94c3cc2538e82",
+  "staticSemanticDelta": [],
+  "restExact": true,
+  "actionsExact": true,
+  "samples": {
+    "evaluatedBodyGeometry": {
+      "differentSamples": [],
+      "exact": true
+    },
+    "bodyObjectMatrices": {
+      "differentSamples": [],
+      "exact": true
+    },
+    "boneMatrices": {
+      "differentSamples": [],
+      "exact": true
+    },
+    "palms": {
+      "differentSamples": [],
+      "exact": true
+    },
+    "feet": {
+      "differentSamples": [],
+      "exact": true
+    },
+    "bodyBounds": {
+      "differentSamples": [],
+      "exact": true
+    },
+    "topology": {
+      "differentSamples": [],
+      "exact": true
+    },
+    "rootMatrix": {
+      "differentSamples": [],
+      "exact": true
+    },
+    "rotation": {
+      "differentSamples": [],
+      "exact": true
+    },
+    "props": {
+      "exact": true,
+      "differentSamples": []
+    }
+  },
+  "packedImages": [
+    {
+      "name": "dish-salmon-canonical-731x505.png",
+      "size": [
+        731,
+        505
+      ],
+      "packed": true,
+      "packedSHA256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+      "path": "//dependencies/round05/dish-salmon.png"
+    }
+  ],
+  "camera": {
+    "matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5735762119293213,
+        -0.8191522359848022,
+        -8.191520690917969
+      ],
+      [
+        0.0,
+        0.8191522359848022,
+        0.5735762119293213,
+        5.735764503479004
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "projectionMatrix": [
+      [
+        1.3333333730697632,
+        0.0,
+        0.0,
+        -0.0
+      ],
+      [
+        0.0,
+        0.800000011920929,
+        0.0,
+        -0.5499984622001648
+      ],
+      [
+        0.0,
+        0.0,
+        -0.0020001998636871576,
+        -1.0001999139785767
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "type": "ORTHO",
+    "orthoScale": 1.5,
+    "shift": [
+      0.0,
+      0.4583320617675781
+    ],
+    "sensorFit": "HORIZONTAL"
+  },
+  "foodPlane": {
+    "type": "MESH",
+    "vertices": [
+      [
+        -0.14000000059604645,
+        0.0,
+        0.0
+      ],
+      [
+        0.14000000059604645,
+        0.0,
+        0.0
+      ],
+      [
+        0.14000000059604645,
+        0.19343365728855133,
+        0.0
+      ],
+      [
+        -0.14000000059604645,
+        0.19343365728855133,
+        0.0
+      ]
+    ],
+    "uv": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0
+      ],
+      [
+        1.0,
+        1.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "drivers": [
+      {
+        "path": "rotation_euler",
+        "index": 2,
+        "expression": "-facing"
+      },
+      {
+        "path": "location",
+        "index": 0,
+        "expression": "-sin(facing)*0.39319298125871605"
+      },
+      {
+        "path": "location",
+        "index": 1,
+        "expression": "-cos(facing)*0.39319298125871605"
+      }
+    ],
+    "materials": [
+      {
+        "name": "chef-ellis approved chef_ellis__ground_root.001__held_dish-salmon__transparent_2D_material",
+        "diffuse": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        "nodes": [
+          {
+            "type": "OUTPUT_MATERIAL",
+            "name": "Material Output"
+          },
+          {
+            "type": "TEX_IMAGE",
+            "name": "Image Texture",
+            "image": "dish-salmon-canonical-731x505.png"
+          },
+          {
+            "type": "EMISSION",
+            "name": "Emission"
+          },
+          {
+            "type": "BSDF_TRANSPARENT",
+            "name": "Transparent BSDF"
+          },
+          {
+            "type": "MIX_SHADER",
+            "name": "Mix Shader"
+          }
+        ]
+      }
+    ]
+  },
+  "closuresExactToApproved04": true,
+  "contactAndFoodDisplay": {
+    "visibleFoodSampleCount": 96,
+    "maxFoodRootPalmMidpointPlus00225ZError": 4.594870769286663e-08,
+    "worldWidthRange": [
+      0.3500000014901161,
+      0.3500000014901161
+    ],
+    "worldHeightRange": [
+      0.2417920784644146,
+      0.2417920784644146
+    ],
+    "cameraRayBiasMagnitudeRange": [
+      0.5999999613404368,
+      0.6000000443535232
+    ],
+    "cameraRayBiasVectorsRounded6Decimals": [
+      [
+        0.0,
+        -0.491491,
+        0.344146
+      ]
+    ],
+    "loadEndpointChecks": [
+      {
+        "direction": "N",
+        "foodRootAndVisiblePlaneExactlyEqualFirstLast": true,
+        "bodyBoneMatricesExactlyEqualFirstLast": true,
+        "dishVisibleAtBothEnds": true
+      },
+      {
+        "direction": "E",
+        "foodRootAndVisiblePlaneExactlyEqualFirstLast": true,
+        "bodyBoneMatricesExactlyEqualFirstLast": true,
+        "dishVisibleAtBothEnds": true
+      },
+      {
+        "direction": "S",
+        "foodRootAndVisiblePlaneExactlyEqualFirstLast": true,
+        "bodyBoneMatricesExactlyEqualFirstLast": true,
+        "dishVisibleAtBothEnds": true
+      },
+      {
+        "direction": "W",
+        "foodRootAndVisiblePlaneExactlyEqualFirstLast": true,
+        "bodyBoneMatricesExactlyEqualFirstLast": true,
+        "dishVisibleAtBothEnds": true
+      }
+    ]
+  },
+  "closures": [
+    {
+      "clip": "idle",
+      "direction": "N",
+      "boneMatricesExactFirstAnd13": true,
+      "visiblePropsExactFirstAnd13": true
+    },
+    {
+      "clip": "idle",
+      "direction": "E",
+      "boneMatricesExactFirstAnd13": true,
+      "visiblePropsExactFirstAnd13": true
+    },
+    {
+      "clip": "idle",
+      "direction": "S",
+      "boneMatricesExactFirstAnd13": true,
+      "visiblePropsExactFirstAnd13": true
+    },
+    {
+      "clip": "idle",
+      "direction": "W",
+      "boneMatricesExactFirstAnd13": true,
+      "visiblePropsExactFirstAnd13": true
+    },
+    {
+      "clip": "work",
+      "direction": "N",
+      "boneMatricesExactFirstAnd13": true,
+      "visiblePropsExactFirstAnd13": true
+    },
+    {
+      "clip": "work",
+      "direction": "E",
+      "boneMatricesExactFirstAnd13": true,
+      "visiblePropsExactFirstAnd13": true
+    },
+    {
+      "clip": "work",
+      "direction": "S",
+      "boneMatricesExactFirstAnd13": true,
+      "visiblePropsExactFirstAnd13": true
+    },
+    {
+      "clip": "work",
+      "direction": "W",
+      "boneMatricesExactFirstAnd13": true,
+      "visiblePropsExactFirstAnd13": true
+    },
+    {
+      "clip": "hold",
+      "direction": "N",
+      "boneMatricesExactFirstAnd13": true,
+      "visiblePropsExactFirstAnd13": true
+    },
+    {
+      "clip": "hold",
+      "direction": "E",
+      "boneMatricesExactFirstAnd13": true,
+      "visiblePropsExactFirstAnd13": true
+    },
+    {
+      "clip": "hold",
+      "direction": "S",
+      "boneMatricesExactFirstAnd13": true,
+      "visiblePropsExactFirstAnd13": true
+    },
+    {
+      "clip": "hold",
+      "direction": "W",
+      "boneMatricesExactFirstAnd13": true,
+      "visiblePropsExactFirstAnd13": true
+    }
+  ]
+}

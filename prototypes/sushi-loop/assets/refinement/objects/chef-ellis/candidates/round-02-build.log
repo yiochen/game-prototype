@@ -1,0 +1,18 @@
+00:00.248  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-ellis/source/original-library.blend"
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-ellis/source/build_round02.py:26: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  rgb=tuple((int(h[i:i+2],16)/255/12.92 if int(h[i:i+2],16)/255<=.04045 else ((int(h[i:i+2],16)/255+.055)/1.055)**2.4) for i in (0,2,4));m=bpy.data.materials.new('Ellis02 '+name);m.use_nodes=True;m.diffuse_color=(*rgb,1);p=m.node_tree.nodes.get('Principled BSDF');p.inputs['Base Color'].default_value=(*rgb,1);p.inputs['Roughness'].default_value=r;p.inputs['Specular IOR Level'].default_value=s;return m
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-ellis/source/build_round02.py:184: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  world=bpy.data.worlds.new('Ellis02 warm ambient');world.use_nodes=True;sc.world=world;bg=world.node_tree.nodes.get('Background');bg.inputs['Color'].default_value=(.82,.77,.67,1);bg.inputs['Strength'].default_value=.25
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-ellis/source/build_round02.py:191: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  if m and m.use_nodes:
+BlenderMCP addon registered
+SAVED /Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-ellis/source/round-02.blend
+00:12.731  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-ellis/candidates/round-02/scout-S.png'
+00:13.617  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-ellis/candidates/round-02/scout-E.png'
+00:14.518  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-ellis/candidates/round-02/scout-N.png'
+00:15.665  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-ellis/candidates/round-02/scout-W.png'
+SCOUTS COMPLETE
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

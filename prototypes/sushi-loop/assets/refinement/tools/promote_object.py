@@ -83,8 +83,11 @@ def main():
     def generate(dest, value):
         generated[Path(dest)] = value
 
-    project = folder / delivery.get('project', delivery.get('source', {}).get('blend', ''))
-    recipe = folder / delivery.get('recipeScript', delivery.get('recipe', delivery.get('source', {}).get('reproductionScript', '')))
+    source_record = delivery.get('source', {})
+    source_project = source_record.get('blend', '') if isinstance(source_record, dict) else source_record
+    source_recipe = source_record.get('reproductionScript', '') if isinstance(source_record, dict) else ''
+    project = folder / (delivery.get('project') or source_project)
+    recipe = folder / (delivery.get('recipeScript') or delivery.get('recipe') or source_recipe)
     native_base = PRODUCTION / 'source/blender/refinement' / args.asset
     source_root = (folder / 'source').resolve()
     require(project.resolve().is_relative_to(source_root), 'Candidate project must belong to object source')

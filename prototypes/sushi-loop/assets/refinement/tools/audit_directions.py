@@ -1,5 +1,6 @@
 """Check measured native facing evidence against the original world publisher."""
 import argparse
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -24,14 +25,18 @@ def audit(folder, round_name, views=None):
     measured = {view: [] for view in views}
     records = next((data[key] for key in ['renders', 'views', 'nativeCaptures',
                     'captureRecords', 'nativeFrames', 'frames'] if data.get(key)), [])
-    if not records and isinstance(data.get('renderManifest'), str):
-        manifest_path = (validation_path.parent / data['renderManifest']).resolve()
+    manifest_reference = next((data[key] for key in ['renderManifest', 'nativeRecords']
+                               if isinstance(data.get(key), str)), None)
+    if not records and manifest_reference:
+        manifest_path = (validation_path.parent / manifest_reference).resolve()
         if not manifest_path.is_file():
-            manifest_path = (folder / data['renderManifest']).resolve()
-        bound = {(folder / 'candidates' / round_name / item['path']).resolve()
+            manifest_path = (folder / manifest_reference).resolve()
+        bound = {(folder / 'candidates' / round_name / item['path']).resolve(): item['sha256']
                  for item in packet['files'].values()}
         if manifest_path not in bound:
             raise ValueError(f'{folder.name}: native render manifest is not packet-bound')
+        if hashlib.sha256(manifest_path.read_bytes()).hexdigest() != bound[manifest_path]:
+            raise ValueError(f'{folder.name}: packet-bound native render manifest changed')
         manifest = json.loads(manifest_path.read_text())
         records = manifest if isinstance(manifest, list) else manifest.get('renders', manifest.get('frames', []))
     entries = records.items() if isinstance(records, dict) else [(record.get('direction'), record) for record in records]

@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 27,
-  "published": 26,
-  "current": "Twenty-six objects live; S conveyor approved and publishing27th; Ellis approved canonical salmon round05 next; Rowan exact-body display-depth repair; plant native inventory supplement preparing criteria",
+  "completed": 28,
+  "published": 27,
+  "current": "Twenty-seven objects live; Ellis approved and publishing28th; Rowan depth-only round02 preparing review; plant native inventory capture; W conveyor fresh independent judge",
   "objects": [
     {
       "id": "plant-angular",
@@ -292,7 +292,7 @@
       "name": "Straight conveyor flowing S",
       "kind": "belt",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 96,
       "target": "inputs/target.png",
@@ -302,18 +302,23 @@
       "editorStatus": "completed",
       "judgeStatus": "completed",
       "round": "round-01",
-      "packetSHA256": "612d71d45c15be7141e7e75e9e342c5eeff3a7190432799fc4c16cab011d3a14"
+      "packetSHA256": "612d71d45c15be7141e7e75e9e342c5eeff3a7190432799fc4c16cab011d3a14",
+      "deployCommit": "fcc1b817"
     },
     {
       "id": "belt-straight-w",
       "name": "Straight conveyor flowing W",
       "kind": "belt",
       "pipeline": "native-3d",
-      "status": "prepared-family-bound",
+      "status": "native-editing",
       "clips": 1,
       "frames": 96,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "editor": "catalog_belt_straight_w_editor_v1",
+      "judge": "catalog_belt_straight_w_judge_v1",
+      "editorStatus": "running",
+      "judgeStatus": "criteria-frozen"
     },
     {
       "id": "belt-corner-n-e",
@@ -598,7 +603,7 @@
       "name": "Ellis Morgan",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "approved-pending-promotion",
+      "status": "approved",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -748,27 +753,33 @@
       "name": "Happy bubble",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "queued",
+      "status": "prepared-primary-runtime-supplement-pending",
       "clips": 4,
-      "frames": 192
+      "frames": 192,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "bubble-puzzled",
       "name": "Puzzled bubble",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 3,
-      "frames": 144
+      "frames": 144,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "bubble-panic",
       "name": "Panic bubble",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 3,
-      "frames": 144
+      "frames": 144,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "coin-pop",

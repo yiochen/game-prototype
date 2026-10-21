@@ -97,12 +97,15 @@
     {
       "object": "chef-ellis",
       "food": "dish-salmon",
-      "status": "pending-new-source-round-and-independent-review",
+      "status": "approved-in-main-native-catalog",
       "sameObjectPair": {
         "editor": "catalog_chef_ellis_editor_v1",
         "judge": "catalog_chef_ellis_judge_v1"
       },
-      "runtimeExtraClips": []
+      "runtimeExtraClips": [],
+      "packetSHA256": "abec422e883650f05bfe1dba21ad4e59e323d492e1d0a58ba1e13a70e8f25453",
+      "round": "round-05",
+      "displayDepthWorldCells": 0.6
     },
     {
       "object": "chef-rowan",
@@ -294,11 +297,13 @@
     {
       "object": "plant-angular",
       "supplement": "objects/plant-angular/supplements/editor-goods",
-      "status": "prepared-only",
+      "status": "approved-pending-final-atlas",
       "sameObjectPair": {
         "editor": "catalog_plant_editor_v1",
         "judge": "catalog_plant_judge_v1"
-      }
+      },
+      "packetSHA256": "03cc9d797f7e2b81c74b421c2ddc61b46c1fca46b661314b1e112e2bfc19dc17",
+      "approval": "objects/plant-angular/supplements/editor-goods/final/approval.json"
     },
     {
       "object": "crate-wood",
@@ -362,5 +367,17 @@
     ],
     "clip": "seated-wait-empty",
     "requirement": "Refine native body in this supplemental clip while preserving intentional no-food state."
+  },
+  "feedbackVariants": {
+    "bubble-happy": {
+      "status": "pending-smile-target-and-input-preparation-before-fresh-pair",
+      "requiredRuntimeClips": [
+        "happy-smile-appear",
+        "happy-smile-idle",
+        "happy-smile-fade",
+        "happy-smile-transition"
+      ],
+      "requirement": "Same fresh happy object pair refines mainheart and existing smile variant; preserve all original runtime frames/atlas aliases/timing/feedback meanings, no stale oldstyle overlay atcutover."
+    }
   }
 }

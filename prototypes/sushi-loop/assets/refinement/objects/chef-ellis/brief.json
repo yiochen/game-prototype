@@ -112,7 +112,108 @@
       "Per-state/direction actual12fpsplayback and verified all-frame sheets,light/gray/dark readability and artifact checks."
     ]
   },
-  "qualityCriteria": {},
+  "qualityCriteria": {
+    "status": "frozen",
+    "version": 1,
+    "path": "reviews/criteria.json",
+    "sha256": "ceb45e210a00cc7e612a1aac311a8161623a3d860d156579c2b4d8493a5e227f",
+    "outcomes": [
+      {
+        "id": "shape-volume",
+        "priority": 1,
+        "outcome": "Ellis reads as a softly rounded, crafted cartoon chef in all four facings: the cap has a coherent crown/fold/brim relationship, head and ears have gentle volume, sleeves and palms feel soft, and the apron follows the torso as clothing. The broad cap and torso planes show curvature and thickness rather than looking like stacked rectangular blocks.",
+        "visibleChecks": [
+          "At logical192x320, cap, ginger curls, face, ivory coat, orange apron and dark shoes remain distinct.",
+          "E/W profiles and N back view have intentional forms; improved curls may vary in size and arrangement instead of retaining the source pellet grid.",
+          "Construction and proportion improvements remain inside the locked scale/contact/animation contract; neither original part count nor original silhouette is an aesthetic pass condition."
+        ]
+      },
+      {
+        "id": "ellis-identity-color",
+        "priority": 1,
+        "outcome": "Keep recognizable Ellis identity: light golden skin, ginger curls, round black glasses, navy cap, ivory coat, orange/amber apron and necktie, and dark shoes. Skin appears warm and light; the navy cap remains navy with readable lit volume.",
+        "visibleChecks": [
+          "Glasses stay visibly round and black while eyes, brows and friendly smile remain legible through/around them in the front view.",
+          "Orange clothing, ginger hair and warm skin remain distinguishable through value/material/shape; the coat retains an ivory body rather than becoming clipped white or gray.",
+          "The separate family concept is a style reference, not authority to replace Ellis with another chef identity."
+        ]
+      },
+      {
+        "id": "light-highlights",
+        "priority": 1,
+        "outcome": "Broad soft highlights and gentle occlusion describe the cap, face, curls and garments with warmth and depth. Dark glasses and shoes retain clean shape, and cap/hair recesses do not become black dead areas.",
+        "visibleChecks": [
+          "One shared native light/material setup works for S/E/N/W without per-facing color correction.",
+          "Rotated views have comparable warmth and readable values, with no preferred horizontal illumination direction.",
+          "Avoid hard directional ground shadows, blown coat/skin patches, tiny distracting specular flecks, crushed undersides, and bright rim halos."
+        ]
+      },
+      {
+        "id": "material-crafted-detail",
+        "priority": 2,
+        "outcome": "Use restrained material and structural detail to make Ellis feel finished: readable garment layering, collar/cuffs, apron straps/waist/pocket or fastening, and cap edge/fold detail. Rounded curls read as hair masses and glasses read as a deliberate frame rather than faceted dark polygons.",
+        "visibleChecks": [
+          "Details support silhouette and garment construction at logical use size; stitches or fabric texture may be subtle or omitted if they turn into noise.",
+          "Skin, hair, cloth, glasses and metal knife have coherent distinguishable responses; finish need not be glossy.",
+          "Purposeful additions are welcome; reproducing every target seam, rivet, stitch, or microtexture is not required."
+        ]
+      },
+      {
+        "id": "readability-artifacts",
+        "priority": 1,
+        "outcome": "Every exported frame remains clean and readable at logical size and enlarged on light, neutral gray and dark backgrounds. No required facing or action frame has a material defect or dead spot.",
+        "visibleChecks": [
+          "No popping/tearing at elbows, wrists, headwear, glasses, hair or apron; no detached decorations, coplanar flicker, abrupt shading seams, or changing topology.",
+          "No unintended clipping between cap and hair, frames and face, hands and coat/apron, or held props and native geometry.",
+          "Transparent edges have no white/colored matte fringe, detached alpha specks, or unwanted shadow.",
+          "Intentional source occlusion is allowed: the salmon is hidden behind the body in N; unseen views need coherent native design, not invented target evidence."
+        ]
+      },
+      {
+        "id": "motion-role-contact",
+        "priority": 1,
+        "outcome": "Preserve the authored motion and functional registration while giving the refined forms convincing continuity. Idle has its existing subtle bob/hand movement, work keeps the cooking/knife action, hold retains the separately composed dish, and load keeps the original out-and-back presentation gesture.",
+        "visibleChecks": [
+          "Feet remain planted and body/root registration remains stable as in the source.",
+          "The 2D salmon stays attached to the source palm-midpoint path with its original visibility and yaw cancellation; the native3D knife follows the right palm during work.",
+          "Load remains non-looping metadata with twelve samples; dish remains visible through the ending frame. Do not introduce a release, belt transfer path, walking, or a new station animation.",
+          "Garment/cap/hair improvements follow the authored rig with no sliding or frame-specific fitting."
+        ]
+      }
+    ],
+    "constraints": [
+      "Registered35-degree orthographic camera; native384x640 RGBA frame, logical192x320 frame/root96,248, sourceScale2, cellSize128, square pixels. No per-pose fit, crop, root shift, image warping or recoloring.",
+      "Publisher facing convention measured from actual root transforms: S0, E+90, N180, W-90 degrees with existing child orientation retained. Validate labels against the front glasses/brim and rear curls, not just a new dictionary.",
+      "Nominal authored native height1.3968749344348907 and one-cell physical body envelope. Preserve source authored motion excursion instead of flattening the bob to enforce the nominal height as a hard every-frame maximum. Source idle currently reaches1.3986088037490845.",
+      "All four original twelve-frame states in all four directions:192 unique capture records, sixteen clips, twelve fps, frame order0..11, six columns/two rows, each atlas2304x1280 with original rects. Idle/work/hold loop; load does not. The duplicate closure key13 is evidence only, not an exported thirteenth frame.",
+      "Keep the authored rig/rest behavior, evaluated foot/hand/socket paths and functional clearances. Rebuilt topology and proportions are allowed when those contacts and rig behavior remain correct.",
+      "Salmon is an explicitly identified packed2D cutout with fixed UV/alpha rectangle, player-facing yaw cancellation, camera-ray depth bias and original clip visibility. It is not a modeled3D food object. Knife remains native3D.",
+      "Editable native Blender model and native captures; no target image card as replacement character, no paint-over or raster repair of exports. Preserve packed/external resource closure.",
+      "Scope is Ellis only; do not edit other objects, excluded restaurant floors, source/target/brief, production exports, or deployment as part of judging."
+    ],
+    "requiredEvidence": [
+      "Hash-bound candidate packet identifying exact editable blend, all resources, recipe/settings, validation, all192 native frame records with clip/direction/index/path and measured root rotation or matrix, original-layout sixteen atlases, four-view sheet and repeated preview.",
+      "Verified contact sheets covering every frame and twelve-fps motion previews for every state/facing. Inspect every frame at intended logical size and relevant enlarged details; light/gray/dark background composites must expose dark forms and alpha defects. Decorative comparisons cannot replace native captures.",
+      "Numerical camera/root/frame/sourceScale calibration, nominal/rest height, evaluated physical body bounds, one-cell/neighboring-belt clearance and source-versus-candidate per-frame foot/palm/dish/knife attachment paths. Exclude the display-only depth-biased2D plane from physical footprint measurements and explain its projection separately.",
+      "Source-versus-candidate rig/rest/action comparison and evaluated topology stability through all192 samples, visible loop closure for idle/work/hold, correct non-loop load policy, dish/knife visibility and no invented release. Measure actual geometry/rig; metadata presence alone is insufficient.",
+      "Native in-context captures using the declared neighboring serving-belt and held-dish/customer scale placements, with readable hand/knife/dish relationships and no new clearance regressions. Treat catalog beltLoad as a role/socket requirement to validate against the actual original gesture; source has no separate declared beltLoad3D point or release event.",
+      "One shared light/material setup and capture settings across all views; dependency audit after reopening the exact saved candidate; no unrelated camera/collection contamination."
+    ],
+    "sourceBaselineNotes": [
+      "Source collection S33_CHARACTER_chef_ellis.001 starts globally hidden in viewport and render. It must be enabled in an isolated active scene before evaluating transforms. Hidden-in-viewport attachment matrices may be stale until visible; compare active/visible paths and action values honestly.",
+      "Direct source evaluation sampled all192 combinations. Visible native body bounds in S stay within the cell; work extends toY=-0.4731547832. Rest/idle frame0 maximumZ1.3968747854 agrees with nominal height within float precision. Small authored excursions above nominal are baseline behavior.",
+      "Evaluated source dish root equals the average evaluated palm mesh centroid plus0.0225 worldZ; knife root equals the evaluated right palm centroid, both to approximately6e-8 world units. The plate is a2D display at this attachment, not proof of physical bilateral palm contact on a3D dish surface.",
+      "Load frame0/11 dish root is(-0.0383553952,-0.1514338106,0.3338680863); frame5/6 is(0.0018940214,-0.2101123035,0.3785711825). It moves out and returns, with dish visible all twelve frames and knife hidden. No release/belt landing is authored.",
+      "Source visible idle/work/hold bone and visible-attachment closure at key13 matches key1 exactly. Source S atlases have12/11/12/6 distinct pixel frames for idle/work/hold/load respectively; twelve samples does not imply every sample must differ.",
+      "One packed1254x1254 dish-salmon.png is the source texture; source2D display width is0.35 world cells with0.60 camera-ray depth bias. Preserve honest representation and fixed registration.",
+      "Fixed target971x1620 has changed framing and low-alpha debris/halo. Its framing, alpha bounds, directional rim and single-view pose are not camera/registration or unseen-view evidence."
+    ],
+    "clarifications": [
+      "192 indexed capture records does not require 192 distinct pixel arrays. Source authored duplicate endpoints/poses remain valid.",
+      "Nominal height preserves original authored bob/tilt excursions; do not flatten animation.",
+      "Independent editor source/images inspection was complete before coordinator froze these judge criteria."
+    ]
+  },
   "delivery": {
     "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
     "requiredClips": [
