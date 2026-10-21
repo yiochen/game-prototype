@@ -20,8 +20,10 @@ test('each promoted sprite is the exact independently approved candidate', () =>
     const packetUrl = new URL(`candidates/${round}/packet.json`, root);
     const packet = read(packetUrl);
     const review = read(new URL(`reviews/${round}.json`, root));
-    assert.equal(sha(packetUrl), object.captureFingerprint);
-    assert.equal(review.candidatePacketSHA256, object.captureFingerprint);
+    assert.equal(sha(packetUrl), object.refinement.packetSHA256);
+    assert.equal(review.candidatePacketSHA256, object.refinement.packetSHA256);
+    if (object.source.blend) assert.equal(object.captureFingerprint, object.refinement.packetSHA256);
+    else assert.equal(object.captureFingerprint, undefined, `${object.id}: fabricated native capture field`);
     assert.equal(review.verdict, 'approve');
     assert.deepEqual(review.blockers, []);
     const files = [...Object.values(packet.files), ...Object.values(packet.candidateRenders), ...Object.values(packet.previews)];
@@ -48,11 +50,12 @@ test('native refinement preserves every original clip and registered root', () =
     for (const key of ['clips', 'frameSize', 'root', 'sourceScale', 'footprint', 'height', 'projection', 'sockets', 'ports']) {
       assert.deepEqual(object[key], original[key], `${object.id}: changed ${key}`);
     }
-    assert.equal(object.registration.sourceCaptureScale, object.sourceScale);
     if (!object.source.blend) {
       assert.equal(object.registration.method, 'fixed-frame-2d');
       assert.deepEqual(object.registration.anchor, object.root);
       assert.deepEqual(object.registration.completeFrame, object.frameSize);
+      assert.equal(object.registration.sourceScale, object.sourceScale);
+      assert.equal(object.registration.sourceCaptureScale, undefined);
       continue;
     }
     const camera = read(new URL(object.source.camera, production));

@@ -112,9 +112,10 @@ def promote(args):
     if project.suffix == '.png':
         source.update(artwork=relative(project_dest), sha256=digest(project))
     else:
-        source['godotSource'] = relative(project_dest)
-    obj['captureFingerprint'] = digest(packet_path)
-    obj['registration']['sourceCaptureScale'] = obj['sourceScale']
+        source['godot'] = relative(project_dest)
+    # Existing2D registration retains sourceScale, without native3D capture fields.
+    require('captureFingerprint' not in obj and 'sourceCaptureScale' not in obj['registration'],
+            'Existing2D object contains superseded native3D registration')
     obj['artStyle'].update(revision=f'warm-soft-{args.asset}-{args.round}', style='Warm softly lit cartoon',
                            representation='existing2D artwork with editable packing recipe')
     obj['productionStage'] = 'Existing2D · warm soft cartoon · independent judge approved'

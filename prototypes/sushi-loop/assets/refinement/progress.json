@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 23,
-  "published": 22,
-  "current": "Twenty-two objects published; eastbound conveyor approved and publishing (23rd); Ellis native editing; salmon2D candidate preparation; Rowan criteria frozen",
+  "completed": 24,
+  "published": 23,
+  "current": "Twenty-three objects published; salmon approved and publishing24th; Ellis approved pending promotion; E inventory view independent review; cucumber native2D editing; Rowan independent inspection",
   "objects": [
     {
       "id": "plant-angular",
@@ -273,7 +273,7 @@
       "name": "Straight conveyor flowing E",
       "kind": "belt",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 96,
       "target": "inputs/target.png",
@@ -283,7 +283,9 @@
       "editorStatus": "completed",
       "judgeStatus": "running",
       "round": "round-01",
-      "packetSHA256": "5b06b818a62bcfd2532cb8a4b87c5e5207485f985f8515869ede140edee803d6"
+      "packetSHA256": "5b06b818a62bcfd2532cb8a4b87c5e5207485f985f8515869ede140edee803d6",
+      "deployCommit": "132b5cc5",
+      "deployURL": "https://deploy-preview-37--game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#object-belt-straight-e"
     },
     {
       "id": "belt-straight-s",
@@ -558,29 +560,32 @@
       "name": "Ellis Morgan",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "native-editing",
+      "status": "approved-pending-promotion",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_chef_ellis_editor_v1",
       "judge": "catalog_chef_ellis_judge_v1",
-      "editorStatus": "running",
-      "judgeStatus": "initial-review"
+      "editorStatus": "completed",
+      "judgeStatus": "completed",
+      "round": "round-04",
+      "packetSHA256": "bfbb557f075c81826d2f501e2b4b329be6776078345f40b7eeccaf4d593d57d4"
     },
     {
       "id": "chef-rowan",
       "name": "Rowan McLeod",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "initial-review",
+      "status": "independent-editor-inspection",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_chef_rowan_editor_v1",
       "judge": "catalog_chef_rowan_judge_v1",
-      "editorStatus": "not-started"
+      "editorStatus": "running",
+      "judgeStatus": "criteria-v1-frozen"
     },
     {
       "id": "chef-blackboard",
@@ -642,13 +647,16 @@
       "name": "Salmon Nigiri",
       "kind": "prop",
       "pipeline": "existing-2d",
-      "status": "initial-review",
+      "status": "approved",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
       "editor": "catalog_dish_salmon_editor_v1",
       "judge": "catalog_dish_salmon_judge_v1",
-      "editorStatus": "not-started"
+      "editorStatus": "completed",
+      "round": "round01",
+      "packetSHA256": "e7a8682233052e676135edd19ba7c98b057e6d7075074a5eb344e0a3558f3ae6",
+      "judgeStatus": "completed"
     },
     {
       "id": "dish-cucumber",

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "asset": "dish-salmon",
+  "role": "fresh-independent-visual-judge",
+  "stage": "initial-before-editor-proposals",
+  "verdict": "criteria_proposed",
+  "candidateApproval": false,
+  "independence": {
+    "readEditorProposals": false,
+    "readOtherCritiques": false,
+    "editsLimitedTo": "reviews/",
+    "representation": "Existing ImageGen raster 2D with deterministic original publisher; no Blender dish project or fabricated 3D evidence."
+  },
+  "sourceEvidence": {
+    "sourceSHA256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe",
+    "backupMatchesSource": true,
+    "targetSHA256": "9edd8705a322badec900da3068958e57d6008489c09811753b5459623f36c168",
+    "publisherSHA256": "6ceb9f228540ee49a96be824bd9d7f0a2aebe5173df2ea1069dcf565c687936d",
+    "originalPublisherReproducesSnapshotAndCurrentAtlasPixels": true,
+    "detailedAudit": "reviews/initial-source-audit.json"
+  },
+  "inspectedFiles": [
+    "prompts/judge.txt",
+    "brief.json",
+    "inputs/catalog-object.json",
+    "inputs/original.png",
+    "inputs/target.png",
+    "inputs/imagegen-prompt.txt",
+    "inputs/original-2d-pipeline/README.md",
+    "inputs/original-2d-pipeline/publish_2d.py",
+    "../../style/warm-soft-reference.png",
+    "../../backups/5de7475813a133bb-dish-salmon.png",
+    "../../../production/library.json",
+    "../../../production/source/2d/generated/dish-salmon.png",
+    "../../../production/source/blender/character_composition.py",
+    "../../../production/source/blender/publish_captures.py",
+    "../../../production/sprites/dish-salmon/2d-static-S.png",
+    "../../../production/sprites/bubble-preference/2d-idle-S.png",
+    "../../../production/sprites/belt-straight-e/running-S.png",
+    "../../../production/sprites/stool-wood/static-S.png",
+    "../../../production/sprites/customer-rosa/seated-wait-N.png",
+    "../../../production/sprites/chef-lena/hold-N.png",
+    "../../../production/sprites/chef-lena/hold-E.png",
+    "../../../production/sprites/chef-lena/hold-S.png",
+    "../../../production/sprites/chef-lena/hold-W.png",
+    "reviews/initial-original-target-backgrounds.png",
+    "reviews/initial-original-contexts.png",
+    "reviews/initial-serving-context.png"
+  ],
+  "observations": {
+    "sourceStrengths": [
+      "Immediately readable salmon nigiri: orange/coral fish with broad ivory fat stripes, white rice and a round pale serving plate.",
+      "Plate silhouette and rice/fish separation survive66 logical and40 logical widths, and the orange/white/plate stack still reads at32 px cell reduction.",
+      "Original single static clip has one frame at12 fps, nonlooping. All N/E/S/W entries reference exactly the same384x640 atlas."
+    ],
+    "sourceWeaknesses": [
+      "Fish has angular interior facet-like marks and sharper wet highlight patches; rice details are dense and can merge into lumpy noise at small sizes.",
+      "Cool gray plate edges and abrupt dark undersides have a harder finish than the warm, soft style aim.",
+      "The raw source includes very low-alpha pixels outside its useful silhouette; the original alpha > 8 single crop is part of the real publisher contract."
+    ],
+    "fixedTargetDirection": [
+      "Useful target changes are a plumper, smoother fish drape, more controlled ivory fat bands, rounded warm rice clusters and a warmer ivory ceramic plate with a coherent raised rim.",
+      "The target retains one salmon nigiri and one plate; no garnish or extra props are needed. Its subtle design improvement should not be exaggerated into a different food or palette.",
+      "Target is a style/design guide, not registration evidence: it is971 \u00d7 1619 and contains low-alpha exterior pixels. Candidate packing must establish the real fixed frame contract separately."
+    ],
+    "contextFindings": [
+      "Dish has66 logical pixel width. Original packing crops atalpha > 8once, uniformly resizes to132 native pixels, and centers the cutout at native192,496. Original packed alpha bounds are126,452,258,540.",
+      "Actual preference idle uses the same food at40 logical width within the empty generated balloon.",
+      "Held source is packed inside native character captures as a camera-facing textured 2D plane using fixed alpha UVs and palm attachment; chef hold facings inspected. This is a downstream dependency, not a3D dish.",
+      "Original serving interaction places the dish atdeck offset0,-57.3440234375logical relative to the belt cell. The foreground seated customer hides part of the original plate; retain legitimate occlusion and judge the visible food within this context.",
+      "Critical alpha policy difference: the original held plane uses all nonzero alpha to define its fixed UV rectangle, while standalone publishing crops at alpha > 8. Inspect the final raw raster for faint outliers as well as the packed frame. Existing source nonzero bounds are [0,85,1242,1198] versus alpha > 8 bounds [15,237,1239,1051]; fixed target nonzero bounds are [0,109,931,1537] versus alpha > 8 bounds [121,823,852,1328]. These are audit observations, not permission to change locked attachment pose."
+    ]
+  },
+  "nextStep": "Coordinator reconciles and freezes reviews/criteria.json in brief.qualityCriteria before any candidate submission. This initial review grants no candidate or production approval."
+}
