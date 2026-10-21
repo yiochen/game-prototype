@@ -1,0 +1,298 @@
+{
+  "scenes": [
+    "S33 Native Asset Library Export"
+  ],
+  "collections": [
+    {
+      "name": "S33_PROP_rock-wall-edge.001",
+      "objects": [
+        {
+          "name": "rock-wall-edge__root.001",
+          "type": "EMPTY",
+          "parent": null,
+          "location": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "custom": {
+            "ports": "[{\"direction\": \"W\", \"position\": [-0.5, 0, 0], \"profile\": \"rock-wall-full-cell-v2\", \"normal\": [-1, 0, 0]}, {\"direction\": \"E\", \"position\": [0.5, 0, 0], \"profile\": \"rock-wall-full-cell-v2\", \"normal\": [1, 0, 0]}]",
+            "nonblocking": false,
+            "depth_layer": "world",
+            "support_cells": "[[0, 0]]",
+            "asset_id": "rock-wall-edge",
+            "family": "issue-33-world-props",
+            "footprint_cells": "[1, 1]",
+            "ground_root": "[0, 0, 0]",
+            "visual_height": 1.17,
+            "sockets": "{}",
+            "directions": "[\"N\", \"E\", \"S\", \"W\"]",
+            "animation_recipes": "{\"static\": {\"frames\": 1, \"fps\": 12, \"loop\": false, \"static\": true}}",
+            "axis_convention": "X=x; depth=-Y; height=Z",
+            "source": "prop_builders.py",
+            "notes": "[]",
+            "art_revision": "approved-art-rollout-2026-10-19-v1",
+            "art_revision_changes": "[\"Cobalt canyon has a one-cell-wide/deep contact mass and a broad uneven crown. All wall-family port sections share the same native profile.\"]",
+            "artStyle": "faceted-approved-2026-10-19",
+            "production_id": "rock-wall-edge",
+            "native_action_record": "{\"source\": \"native_actions.py\", \"assetId\": \"rock-wall-edge\", \"clips\": {\"static\": []}}"
+          }
+        },
+        {
+          "name": "rock-wall-edge__full_width_continuous_crag",
+          "type": "MESH",
+          "parent": "rock-wall-edge__root.001",
+          "location": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "custom": {},
+          "vertices": 48,
+          "faces": 42,
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0.0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              1.1632190942764282
+            ]
+          },
+          "materials": [
+            "rock-wall-edge approved S33_rock",
+            "rock-wall-edge approved S33_rock_light",
+            "rock-wall-edge approved S33_rock_dark"
+          ],
+          "modifiers": []
+        },
+        {
+          "name": "rock-wall-edge__broad_contact_shoulder",
+          "type": "MESH",
+          "parent": "rock-wall-edge__root.001",
+          "location": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "custom": {},
+          "vertices": 12,
+          "faces": 10,
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0.0010000000474974513
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0.20999999344348907
+            ]
+          },
+          "materials": [
+            "rock-wall-edge approved S33_rock_dark"
+          ],
+          "modifiers": []
+        },
+        {
+          "name": "rock-wall-edge__broad_strata_facet_0",
+          "type": "MESH",
+          "parent": "rock-wall-edge__root.001",
+          "location": [
+            -0.20999999344348907,
+            -0.5049999952316284,
+            0.4000000059604645
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "custom": {},
+          "vertices": 8,
+          "faces": 6,
+          "bounds": {
+            "min": [
+              -0.14000000059604645,
+              -0.006000000052154064,
+              -0.13500000536441803
+            ],
+            "max": [
+              0.14000000059604645,
+              0.006000000052154064,
+              0.13500000536441803
+            ]
+          },
+          "materials": [
+            "rock-wall-edge approved S33_rock_light"
+          ],
+          "modifiers": [
+            "BEVEL"
+          ]
+        },
+        {
+          "name": "rock-wall-edge__broad_strata_facet_1",
+          "type": "MESH",
+          "parent": "rock-wall-edge__root.001",
+          "location": [
+            0.18000000715255737,
+            -0.5049999952316284,
+            0.699999988079071
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "custom": {},
+          "vertices": 8,
+          "faces": 6,
+          "bounds": {
+            "min": [
+              -0.125,
+              -0.006000000052154064,
+              -0.15000000596046448
+            ],
+            "max": [
+              0.125,
+              0.006000000052154064,
+              0.15000000596046448
+            ]
+          },
+          "materials": [
+            "rock-wall-edge approved S33_rock_dark"
+          ],
+          "modifiers": [
+            "BEVEL"
+          ]
+        },
+        {
+          "name": "rock-wall-edge__broad_strata_facet_2",
+          "type": "MESH",
+          "parent": "rock-wall-edge__root.001",
+          "location": [
+            0.029999999329447746,
+            0.5049999952316284,
+            0.33000001311302185
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "custom": {},
+          "vertices": 8,
+          "faces": 6,
+          "bounds": {
+            "min": [
+              -0.17499999701976776,
+              -0.006000000052154064,
+              -0.10999999940395355
+            ],
+            "max": [
+              0.17499999701976776,
+              0.006000000052154064,
+              0.10999999940395355
+            ]
+          },
+          "materials": [
+            "rock-wall-edge approved S33_rock_light"
+          ],
+          "modifiers": [
+            "BEVEL"
+          ]
+        },
+        {
+          "name": "rock-wall-edge__finished_end_strata",
+          "type": "MESH",
+          "parent": "rock-wall-edge__root.001",
+          "location": [
+            0.5049999952316284,
+            0.0,
+            0.4699999988079071
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "custom": {},
+          "vertices": 8,
+          "faces": 6,
+          "bounds": {
+            "min": [
+              -0.006000000052154064,
+              -0.41499999165534973,
+              -0.017500000074505806
+            ],
+            "max": [
+              0.006000000052154064,
+              0.41499999165534973,
+              0.017500000074505806
+            ]
+          },
+          "materials": [
+            "rock-wall-edge approved S33_rock_dark"
+          ],
+          "modifiers": [
+            "BEVEL"
+          ]
+        }
+      ]
+    }
+  ]
+}

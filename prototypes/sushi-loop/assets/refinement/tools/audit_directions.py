@@ -73,6 +73,8 @@ def audit(folder, round_name, views=None):
             measured[facing].append(math.radians(record['rootRotationDegrees']))
         elif 'rootMatrix' in record:
             measured[facing].append(angle(record['rootMatrix']))
+        elif 'actualRootMatrix' in record:
+            measured[facing].append(angle(record['actualRootMatrix']))
     # Some native prop audits record world and local matrices for every part/pose.
     for facing, frames in data.get('nativeGeometryMeasurements', {}).items():
         if facing not in measured:

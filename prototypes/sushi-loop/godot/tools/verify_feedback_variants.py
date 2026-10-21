@@ -29,6 +29,9 @@ def _verify_feedback_variants(project: Path, source_project: Path | None = None)
     source = prototype / 'assets/production/source/variants/customer-feedback'
     runtime = project / 'assets/feedback-variants'
     manifest = read(runtime / 'manifest.json')
+    if 'refinement' in manifest:
+        from refined_feedback_contract import verify_refined_feedback
+        return verify_refined_feedback(project, source_project)
     generation = read(source / 'imagegen.json')
     publication = read(source / 'publication.json')
     base = read(source_project / 'assets/catalog/manifest.json')['objects']['bubble-happy']

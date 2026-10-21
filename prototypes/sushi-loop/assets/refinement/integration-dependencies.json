@@ -378,14 +378,15 @@
   },
   "feedbackVariants": {
     "bubble-happy": {
-      "status": "pending-smile-target-and-input-preparation-before-fresh-pair",
+      "status": "independently-approved-final-Godot-sync-pending",
       "requiredRuntimeClips": [
         "happy-smile-appear",
         "happy-smile-idle",
         "happy-smile-fade",
         "happy-smile-transition"
       ],
-      "requirement": "Same fresh happy object pair refines mainheart and existing smile variant; preserve all original runtime frames/atlas aliases/timing/feedback meanings, no stale oldstyle overlay atcutover."
+      "requirement": "Same fresh happy object pair refines mainheart and existing smile variant; preserve all original runtime frames/atlas aliases/timing/feedback meanings, no stale oldstyle overlay atcutover.",
+      "approvalReceipt": "objects/bubble-happy/final/runtime-variant-approval.json"
     }
   },
   "feedbackBubblesPreparation": {
@@ -411,5 +412,12 @@
       "frames": 432,
       "targetSHA256": "0f3e1aff5eb7b5e667e238e357c1f97b0f8ff5f5e51f3a9ffe4853ad438c8a8c"
     }
+  },
+  "importAdapters": {
+    "status": "implemented-and-tested-in-isolated-projects-runtime-cutover-pending",
+    "goods": "../../godot/tools/refined_goods_contract.py",
+    "feedback": "../../godot/tools/refined_feedback_contract.py",
+    "tests": "../../godot/tools/test_refinement_imports.py",
+    "verification": "Six integration tests accept approved goods/smile and legacy payloads; reject shifted roots/regions, stale references, wrong approval hashes, altered atlas, excluded floor and nontransparent gutters. All runtime sprite payloads unchanged."
   }
 }

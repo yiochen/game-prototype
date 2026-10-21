@@ -20,6 +20,9 @@ def main():
     parser.add_argument('--prompt',help='Exact submitted ImageGen prompt; copy with target provenance')
     parser.add_argument('--family-concept',help='Additional family style reference supplied to ImageGen')
     parser.add_argument('--family-settings',help='Object-relative required native family settings path; may be supplied later')
+    parser.add_argument('--snapshot-clip', help='Actual exported clip used as the edit reference')
+    parser.add_argument('--snapshot-direction', help='Actual exported facing used as the edit reference')
+    parser.add_argument('--snapshot-frame', type=int, default=0, help='Zero-based exported frame index; useful for visible effect phases')
     args=parser.parse_args()
     library=json.loads((PRODUCTION/'library.json').read_text())
     original=next(o for o in library['objects'] if o['id']==args.asset)
@@ -33,10 +36,16 @@ def main():
     assert digest(project)==digest(backup)
     for role in ['judge','editor']:shutil.copy2(RUN/'prompts'/f'{role}-prompt.txt',folder/'prompts'/f'{role}.txt')
     primary=next((c for c in original['clips']if c['id']=='static'),next((c for c in original['clips']if c['id']=='idle'),original['clips'][0]))
-    facing='S' if 'S' in primary['directions'] else next(iter(primary['directions']))
+    if args.snapshot_clip:
+        primary=next(c for c in original['clips'] if c['id']==args.snapshot_clip)
+    facing=args.snapshot_direction or ('S' if 'S' in primary['directions'] else next(iter(primary['directions'])))
     entry=primary['directions'][facing]
-    x,y,w,h=entry['rects'][0]
+    if not 0 <= args.snapshot_frame < len(entry['rects']):
+        raise ValueError('Snapshot frame is outside the actual exported clip')
+    x,y,w,h=entry['rects'][args.snapshot_frame]
     Image.open(PRODUCTION/entry['image']).convert('RGBA').crop((x,y,x+w,y+h)).save(folder/'inputs/original.png')
+    snapshot_record={'asset':args.asset,'clip':primary['id'],'direction':facing,'frameIndex':args.snapshot_frame,'sourceAtlas':entry['image'],'sourceAtlasSHA256':digest(PRODUCTION/entry['image']),'rect':[x,y,w,h],'snapshot':'inputs/original.png','snapshotSHA256':digest(folder/'inputs/original.png'),'processing':'Exact exported RGBA cell extraction; no fitting, cleanup or recoloring'}
+    (folder/'inputs/snapshot.json').write_text(json.dumps(snapshot_record,indent=2)+'\n')
     shutil.copy2(Path(args.target).expanduser().resolve(),folder/'inputs/target.png')
     references=[{'role':'native-edit-source','path':'inputs/original.png','sha256':digest(folder/'inputs/original.png')}]
     style=RUN/'style/warm-soft-reference.png'
@@ -55,7 +64,7 @@ def main():
         if clip.get('frames',1)>1:previews.extend(f'{clip["id"]}-{direction}'for direction in clip['directions'])
     brief={
         'asset':args.asset,'style':(RUN/'style/brief.txt').read_text().strip(),
-        'source':{'project':os.path.relpath(project,folder),'backup':os.path.relpath(backup,folder),'projectSHA256':digest(project),'backupSHA256':digest(backup),'snapshot':'inputs/original.png','scene':'Inspect the named asset collection; do not use an unrelated active scene'},
+        'source':{'project':os.path.relpath(project,folder),'backup':os.path.relpath(backup,folder),'projectSHA256':digest(project),'backupSHA256':digest(backup),'snapshot':'inputs/original.png','snapshotRecord':'inputs/snapshot.json','scene':'Inspect the named asset collection; do not use an unrelated active scene'},
         'target':{'image':'inputs/target.png','sha256':digest(folder/'inputs/target.png'),'provenance':'provided-target','references':references},
         'agentPrompts':{'judge':'prompts/judge.txt','editor':'prompts/editor.txt'},
         'capture':{'frame':[w,h],'views':views,'previews':previews,'logicalFrame':original['frameSize'],'logicalRoot':original['root'],'sourceScale':original.get('sourceScale',2),'cellSize':library['cellSize'],'fps':12,'projection':original['projection']},

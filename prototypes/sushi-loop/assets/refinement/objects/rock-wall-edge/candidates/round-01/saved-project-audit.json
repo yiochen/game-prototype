@@ -1,0 +1,215 @@
+{
+  "projectSHA256": "2c47b0609d24c2d9ace5595638f9832d3609e383d05e3b406c87a155827a3430",
+  "actualScene": "Rock wall edge native round 01",
+  "actualRootMatrix": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "actualConnectorComparison": {
+    "W": {
+      "positionMax": 0.0,
+      "albedoMax": 0.0,
+      "actualCornerNormalMax": 0.0,
+      "exactRawNormalEncoding": true,
+      "sampledVertices": 279,
+      "sampledLoops": 558
+    },
+    "E": {
+      "positionMax": 0.0,
+      "albedoMax": 0.0,
+      "actualCornerNormalMax": 0.0,
+      "exactRawNormalEncoding": true,
+      "sampledVertices": 279,
+      "sampledLoops": 558
+    }
+  },
+  "actualCrossFamilyJoins": {
+    "edge-E-to-middle-W": {
+      "alignedPositionMax": 0.0,
+      "albedoMax": 0.0,
+      "actualTangentNormalMax": 0.0007780589366576667,
+      "approvedMiddleOppositeCutBaselineNormalMax": 0.0007780589366576667
+    },
+    "edge-W-to-middle-E": {
+      "alignedPositionMax": 0.0,
+      "albedoMax": 0.0,
+      "actualTangentNormalMax": 0.0007780589366576667,
+      "approvedMiddleOppositeCutBaselineNormalMax": 0.0007780589366576667
+    }
+  },
+  "evaluatedBounds": {
+    "min": [
+      -0.5,
+      -0.500301718711853,
+      0.0
+    ],
+    "max": [
+      0.5,
+      0.5001968145370483,
+      1.1504130363464355
+    ]
+  },
+  "nativeGroundContact": {
+    "planarBottomFaceArea": 1.0000000002328306,
+    "groundBounds": {
+      "min": [
+        -0.5,
+        -0.5,
+        0.0
+      ],
+      "max": [
+        0.5,
+        0.5,
+        0.0
+      ]
+    }
+  },
+  "meshes": [
+    {
+      "object": "rock-wall-edge__continuous_carved_stone",
+      "evaluatedVertices": 35991,
+      "evaluatedPolygons": 35712,
+      "modifiers": [],
+      "coordinateSHA256": "c633eafe200f390be928344707bc2de166cd9f56160bbd1553bfa8edf714049c"
+    },
+    {
+      "object": "rock-wall-edge__E_connector_stone",
+      "evaluatedVertices": 11211,
+      "evaluatedPolygons": 11000,
+      "modifiers": [],
+      "coordinateSHA256": "4feb5cc51569ac8fd983c7c433baf0efd0308795513d47101036761b0eb5f096"
+    },
+    {
+      "object": "rock-wall-edge__full_cell_contact_completion",
+      "evaluatedVertices": 256,
+      "evaluatedPolygons": 128,
+      "modifiers": [],
+      "coordinateSHA256": "dafc84c81aadc0b05c6bcf1274b9e64dc7e5f050331de0629d00a96d38d8f2e4"
+    },
+    {
+      "object": "rock-wall-edge__W_connector_stone",
+      "evaluatedVertices": 11211,
+      "evaluatedPolygons": 11000,
+      "modifiers": [],
+      "coordinateSHA256": "e1a52329fcaa0d6f7baa70b8469f46c1f529927153b074c8e2d395d45aaaa435"
+    }
+  ],
+  "material": {
+    "name": "Rock family soft cobalt native",
+    "roughness": 0.8799999952316284,
+    "specularIORLevel": 0.11999999731779099,
+    "emissionStrength": 0.3799999952316284,
+    "nodes": [
+      "ShaderNodeOutputMaterial",
+      "ShaderNodeBsdfPrincipled",
+      "ShaderNodeVertexColor"
+    ],
+    "attribute": "stone_albedo"
+  },
+  "lights": [
+    {
+      "name": "rock-family-overhead",
+      "type": "SUN",
+      "energy": 1.350000023841858,
+      "shadow": false,
+      "rotation": [
+        0.0,
+        -0.0,
+        3.141592502593994
+      ]
+    },
+    {
+      "name": "rock-family-north",
+      "type": "SUN",
+      "energy": 0.41999998688697815,
+      "shadow": false,
+      "rotation": [
+        0.9827938079833984,
+        1.2563607754145778e-07,
+        3.141592502593994
+      ]
+    },
+    {
+      "name": "rock-family-east",
+      "type": "SUN",
+      "energy": 0.41999998688697815,
+      "shadow": false,
+      "rotation": [
+        0.9827936887741089,
+        -3.9774647575541167e-08,
+        1.5707963705062866
+      ]
+    },
+    {
+      "name": "rock-family-south",
+      "type": "SUN",
+      "energy": 0.41999998688697815,
+      "shadow": false,
+      "rotation": [
+        0.9827937483787537,
+        -0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "rock-family-west",
+      "type": "SUN",
+      "energy": 0.41999998688697815,
+      "shadow": false,
+      "rotation": [
+        0.9827936887741089,
+        3.9774647575541167e-08,
+        -1.5707963705062866
+      ]
+    }
+  ],
+  "render": {
+    "engine": "CYCLES",
+    "samples": 48,
+    "denoising": false,
+    "seed": 0,
+    "pixelFilter": "BOX",
+    "transparent": true,
+    "size": [
+      768,
+      1408
+    ],
+    "pixelAspect": [
+      1.2206555604934692,
+      1.0
+    ],
+    "viewTransform": "Standard",
+    "compositor": true
+  },
+  "resourceClosure": {
+    "fileImages": [],
+    "linkedLibraries": [],
+    "imageTextureNodes": []
+  },
+  "comparisonDependency": {
+    "path": "inputs/approved-middle/project.blend",
+    "method": "Append comparison mesh only after saved-source resource closure inspection; no saved project mutation."
+  }
+}
