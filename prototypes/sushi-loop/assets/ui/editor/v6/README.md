@@ -1,0 +1,13 @@
+# B refinement — hanging noren and compact dock
+
+This family implements the [latest issue #12 amendment](../../../../godot/review/12/noren-revision/contract.md). The selected [B composition](../v4/raw/b-indigo-ceramic.png) remains its historical starting point; [the complete revised composition](raw/composition.png) applies the requested hanging panels, rod, compact goods/dock and rounded surfaces. The revised composition and generated sheets await native visual review. Their generation does not establish final user approval.
+
+[imagegen.json](imagegen.json) retains the complete composition-generation receipt, exact prompts, reference roles/hashes, full original outputs and registered crop regions. Two new coordinated ImageGen sheets provide revised surfaces/icons. A third source is a byte-identical copy of the historical v5 icon sheet, with its original generation metadata and explicit inheritance; the accepted Floor icon keeps its original pixels and dimensions. The v5 records and images remain unchanged.
+
+[authoring.json](authoring.json) and [pack.py](pack.py) register 19 surface styles and 16 icons in one runtime atlas. Packing copies unresized source pixels and adds four transparent sampling pixels. It does not repaint, recolor, threshold alpha or synthesize artwork. Nine-patch surfaces retain symmetric insets and uniformly scaled fixed corners; only documented plain spans may extend. Icons retain their aspect ratios. Dynamic text, counts and native touch targets remain separate from the artwork.
+
+The eight pill roles—neutral/pressed/primary/primary-pressed/disabled controls, coin/Editing panel, contextual capsule and error toast—record `minimum_height: 100` in both runtime styles and source registrations. Their native minimum height also preserves the complete source silhouette at the calibrated corner scale. Shorter heights make the rounded sides appear pointed, so the provenance gate rejects missing, smaller or inconsistent minima.
+
+[The independent verifier](../../../../godot/tools/verify_editor_ui.py) checks the v6 composition and new sheets, the hash-pinned v5 generation history, every original crop pixel, transparent gutters, complete coverage and corner calibration. It separately compares Floor with the historical approved crop. The build gate runs before staging and again after copying; only the runtime atlas and manifest ship.
+
+Goods are a separate [native Blender family](../goods-v1/README.md). Their editable project, camera/geometry capture receipts and unresized render pixels have a separate provenance gate. Native phone, wider portrait-contained and landscape captures remain necessary to review material, seams, layering, press feedback, layout and touch behavior.

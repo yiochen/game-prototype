@@ -1,0 +1,865 @@
+{
+  "version": 2,
+  "runtime": "godot/assets/ui/editor",
+  "reference": "design/art-directions/restaurant-item-catalog.png",
+  "accepted_composition": {
+    "path": "assets/ui/editor/v4/raw/b-indigo-ceramic.png"
+  },
+  "references": [
+    {
+      "path": "assets/ui/editor/v4/raw/b-indigo-ceramic.png",
+      "role": "User-selected B complete-screen UI composition, primary material and hierarchy reference"
+    },
+    {
+      "path": "design/art-directions/restaurant-item-catalog.png",
+      "role": "Restaurant item catalog, shared game vocabulary and icon identities"
+    },
+    {
+      "path": "design/art-directions/restaurant-concept.png",
+      "role": "Approved restaurant world art, inherited context of accepted composition; not supplied directly to these two UI sheet calls"
+    },
+    {
+      "path": "assets/ui/editor/v5/raw/surfaces.png",
+      "role": "Coordinated surface family supplied to icon generation to match actual UI materials"
+    }
+  ],
+  "surface_inventory": [
+    "control-wood",
+    "control-pressed",
+    "control-green",
+    "control-green-pressed",
+    "control-slate",
+    "slot-paper",
+    "slot-selected",
+    "container-tray",
+    "container-modal",
+    "toast-error",
+    "noren-rail",
+    "context-bubble",
+    "stock-badge",
+    "tab-active",
+    "tab-idle",
+    "coin-panel",
+    "context-action",
+    "people",
+    "layout",
+    "floor",
+    "shop",
+    "rotate",
+    "remove",
+    "caret-left",
+    "caret-right",
+    "coin",
+    "close",
+    "retry",
+    "warning",
+    "play",
+    "pointer",
+    "edit",
+    "check"
+  ],
+  "authoring_notes": "Exact measured source crops retain original pixels. Low-opacity neighboring-sheet fringe outside each documented registration rectangle is excluded geometrically; no repaint, alpha thresholding, rescaling or artwork synthesis.",
+  "generations": [
+    {
+      "id": "surfaces",
+      "mode": "builtin-image_gen",
+      "prompt": "Use case: ui-mockup production UI asset sheet.\nCreate ONE coordinated game-interface SURFACE FAMILY on a genuinely TRANSPARENT background. This is reusable production artwork derived from an APPROVED complete-screen design, not an exploration.\n\nReference 1 is the approved Indigo Noren & warm ceramic restaurant editor. Match its material language closely: ivory/cream ceramic, fine dark indigo rims, softly illustrated cloth, thin cedar base edge, vermilion primary action, short soft lower shadows. Reference 2 is the broader restaurant item catalog for the coherent illustrated game finish only. Do not reproduce its heavy glossy wood/metal framing.\n\nOutput a high-resolution SQUARE sheet, ideally 2048 x 2048, laid out as an EXACT four-column by four-row regular grid. Sixteen assets, one per cell in strict row order below. Every asset stays fully inside its own cell, centered with at least 35px of TRANSPARENT space on every side. No overlap, no words, labels, icons, glyphs, numbers, registration marks, grid lines or background. Every surface is EMPTY inside; engine text and icons will be added later.\n\nNine-patch suitability is essential: fronts are perfectly axis-aligned, symmetrical rounded corners, all four source corner quadrants equal size, straight thin edges, generous completely plain central spans. No perspective skew, irregular carved silhouettes, embedded ornaments, extreme highlights, blobs, metallic rivets or corner fittings. Centers can have only very subtle near-flat material tone. All border geometry and visual relief are consistent at the same art scale. Keep corner roundness modest and source sampling clean. Large passive panels have exactly the same authored quality as buttons.\n\nROW 1, left to right:\n1. Neutral warm IVORY rounded-rectangle ceramic button, thin ink rim, short quiet lower shadow.\n2. Its PRESSED inset version, same dimensions, same corner shape, slightly lower/more shaded.\n3. VERMILION primary button, warm cream-red top and deep muted red lower edge, thin indigo rim. Same dimensions and corner scale as neutral.\n4. Its PRESSED version, same dimensions and corners, slightly inset.\n\nROW 2:\n5. DISABLED neutral control, desaturated slate-ivory, thin muted ink rim, flat and quiet, same dimensions as row1.\n6. Very subtle CREAM inventory MAT / card backing, rounded rectangle, nearly rimless, softly warmer than white, shallow soft lower shadow. Plain center.\n7. Selected version of this mat, delicate INDIGO rim, same dimensions.\n8. Large CREAM drawer/panel backing with softly rounded corners, fine quiet ink boundary, VERY SLIM dark cedar base edge. Empty broad center, no header. Passive surface with polished illustration.\n\nROW 3:\n9. Matching ivory MODAL / recovery panel backing, quiet fine indigo rim and soft shadow, empty broad center. Same family as drawer.\n10. Cream ERROR TOAST backing, slim muted vermilion rim, no icon or text, rounded rectangle, same restrained material.\n11. Wide DEEP INDIGO NORÉN CLOTH strip. Straight top and bottom edges with small corner radii, subtle fabric near-flat shading, fine stitched top seam. NO hanging tabs, rod, loops, fringes or notches inside; these must be a stretchable plain rail surface. No text.\n12. CREAM contextual action capsule, fine indigo rim, short shadow, empty center. NO triangular pointer; that will be a separate sprite. Wide rounded rectangle.\n\nROW 4:\n13. Round IVORY stock-count badge, delicate indigo circular rim, plain empty center, no number.\n14. Active category tab surface, deep indigo cloth tile with one SMALL VERMILION underline near bottom center; no symbol or letter. Make underline horizontally restrained.\n15. Inactive category tab surface, matching indigo cloth, quieter than active, no underline or symbol.\n16. Small warm IVORY coin-counter capsule, thin indigo rim, soft shadow, completely empty, matching the neutral buttons.\n\nEach of16has a distinct separate transparent footprint. A single unified professional cartoon mobile-game family. Retain genuine alpha outside all assets and inside no hollow fake checkerboard. No fake transparent pattern, board color, scene, branding, annotations or tutorial graphics.",
+      "transparent": true,
+      "raw": "raw/surfaces.png",
+      "reference_paths": [
+        "assets/ui/editor/v4/raw/b-indigo-ceramic.png",
+        "design/art-directions/restaurant-item-catalog.png"
+      ]
+    },
+    {
+      "id": "icons",
+      "mode": "builtin-image_gen",
+      "prompt": "Use case: ui-mockup production game icon sheet.\nCreate ONE coherent ICON FAMILY on a genuinely TRANSPARENT background for the approved Indigo Noren & warm ceramic restaurant game interface.\nReference1 is the approved complete screen: match its careful rounded silhouettes, clean dark indigo ink, warm ivory/cream on navy tabs, subtle hand-painted relief and restrained outlines.\nReference2 is the restaurant catalog for understandable icon/object identities.\nReference3 is the new coordinated SURFACE FAMILY these icons will sit on. Use its actual ivory, indigo and vermilion palette, but do not paint those panel backgrounds into the icons. Ignore any transparent-edge artifacts in the reference sheet.\n\nOutput one high-resolution SQUARE image, ideally2048x2048, EXACT4columns by4rows with equal cell sizes. Sixteen separate icons, centered one per cell in row-major order. Each icon stays inside its own cell, with at least55px transparent spacing allaround. Icons have consistent optical scale and controlled drawn contour thickness, no picture-frame or button behind them, no labels or letters. Clean genuine alpha outside the silhouettes. No background, no black board or checker pattern, no ornamental shadow blobs, watermarks, titles, grid, numbers or registration marks. No loose speckles outside the icons.\n\nROW1 left-to-right:\n1 PEOPLE: charming cream head/bust with simple indigo hair/face accents and clear friendly silhouette, like approved People tab.\n2 LAYOUT: a simple readable CREAM BACKLESS STOOL with a chunky seat and two/four short legs, thin indigo contour. A furniture pictogram, NOT a torii gate or building.\n3 FLOOR: FOUR small cream square floor tiles in a2x2 square, fine dark indigo gaps/rims. Screen-aligned squares, not diamonds.\n4 SHOP: deep indigo basket with a handle, filled bold silhouette with three cream cutout slats.\n\nROW2:\n5 ROTATE: one bold dark-indigo curved three-quarter circular arrow with a clear arrowhead, like approved action bubble.\n6 RETURN TO INVENTORY: bold dark-indigo OPEN STORAGE BOX with an arrow pointing DOWN INTO IT. Retain object in storage, no trash or delete bin.\n7 LEFT CARET: broad clean dark-indigo left chevron with gently rounded ends.\n8 RIGHT CARET: matching broad clean dark-indigo right chevron.\n\nROW3:\n9 COIN: golden warm illustrated coin, fine dark rim and simple star emboss, restrained bright top and lower shading, crisp at smallscale.\n10 CLOSE: thick dark-indigo X with rounded ends.\n11 RETRY: dark-indigo circular-arrow retry symbol, clearly legible.\n12 WARNING: muted vermilion exclamation inside a fine triangular outline, cream small interior, no text.\n\nROW4:\n13 PLAY: simple warm-IVORY filled right-pointing triangle, thin quiet dark-red edge suitable on primary vermilion button.\n14 POINTER: a small downward-pointing triangular CREAM speech-bubble TAIL with a fine INDIGO outline along its two sloping sides, OPEN/UNOUTLINED top edge. Plain, shallow triangle, no whole bubble behind it. It will attach to a separate cream action capsule.\n15 EDIT: deep-indigo chunky pencil, diagonally tilted, clear simple form.\n16 CHECK: bold deep-indigo check mark with rounded ends.\n\nThe family should look bespoke and commercial, consistent with the complete restaurant UI, using clean silhouette design and sparse highlight/shadow detail. No 3D photographic lighting, shiny gold glyphs everywhere, generic thin vector line icons, gradients across transparent regions, or arbitrary new visual motifs.",
+      "transparent": true,
+      "raw": "raw/icons.png",
+      "reference_paths": [
+        "assets/ui/editor/v4/raw/b-indigo-ceramic.png",
+        "design/art-directions/restaurant-item-catalog.png",
+        "assets/ui/editor/v5/raw/surfaces.png"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "id": "control-wood",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "raw/surfaces.png",
+      "source_region": [
+        40,
+        147,
+        288,
+        140
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {
+        "pressed": "control-pressed",
+        "disabled": "control-slate"
+      }
+    },
+    {
+      "id": "control-pressed",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "raw/surfaces.png",
+      "source_region": [
+        343,
+        147,
+        283,
+        140
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
+    },
+    {
+      "id": "control-green",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "raw/surfaces.png",
+      "source_region": [
+        640,
+        146,
+        284,
+        141
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {
+        "pressed": "control-green-pressed",
+        "disabled": "control-slate"
+      }
+    },
+    {
+      "id": "control-green-pressed",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "raw/surfaces.png",
+      "source_region": [
+        937,
+        147,
+        278,
+        139
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
+    },
+    {
+      "id": "control-slate",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "raw/surfaces.png",
+      "source_region": [
+        40,
+        411,
+        288,
+        138
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {
+        "disabled": "control-slate"
+      }
+    },
+    {
+      "id": "slot-paper",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "raw/surfaces.png",
+      "source_region": [
+        352,
+        403,
+        230,
+        166
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {
+        "pressed": "slot-selected",
+        "selected": "slot-selected",
+        "disabled": {
+          "tint": "aeb8c7ff"
+        }
+      }
+    },
+    {
+      "id": "slot-selected",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "raw/surfaces.png",
+      "source_region": [
+        591,
+        400,
+        226,
+        171
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {
+        "pressed": "slot-selected",
+        "selected": "slot-selected",
+        "disabled": {
+          "tint": "aeb8c7ff"
+        }
+      }
+    },
+    {
+      "id": "container-tray",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "raw/surfaces.png",
+      "source_region": [
+        829,
+        384,
+        384,
+        208
+      ],
+      "slice_px": [
+        48,
+        48,
+        48,
+        48
+      ],
+      "edge": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "content": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
+    },
+    {
+      "id": "container-modal",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "raw/surfaces.png",
+      "source_region": [
+        40,
+        655,
+        288,
+        229
+      ],
+      "slice_px": [
+        48,
+        48,
+        48,
+        48
+      ],
+      "edge": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "content": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
+    },
+    {
+      "id": "toast-error",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "raw/surfaces.png",
+      "source_region": [
+        339,
+        703,
+        280,
+        129
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
+    },
+    {
+      "id": "noren-rail",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "raw/surfaces.png",
+      "source_region": [
+        624,
+        709,
+        352,
+        116
+      ],
+      "slice_px": [
+        32,
+        32,
+        32,
+        32
+      ],
+      "edge": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "content": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
+    },
+    {
+      "id": "context-bubble",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "raw/surfaces.png",
+      "source_region": [
+        979,
+        714,
+        246,
+        112
+      ],
+      "slice_px": [
+        48,
+        48,
+        48,
+        48
+      ],
+      "edge": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
+    },
+    {
+      "id": "stock-badge",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "raw/surfaces.png",
+      "source_region": [
+        91,
+        954,
+        177,
+        179
+      ],
+      "slice_px": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "edge": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "content": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
+    },
+    {
+      "id": "tab-active",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "raw/surfaces.png",
+      "source_region": [
+        329,
+        970,
+        285,
+        139
+      ],
+      "slice_px": [
+        32,
+        32,
+        32,
+        32
+      ],
+      "edge": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "content": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {
+        "pressed": {
+          "tint": "d8dce9ff"
+        },
+        "selected": "tab-active",
+        "disabled": {
+          "tint": "a8afc0ff"
+        }
+      }
+    },
+    {
+      "id": "tab-idle",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "raw/surfaces.png",
+      "source_region": [
+        642,
+        970,
+        289,
+        139
+      ],
+      "slice_px": [
+        32,
+        32,
+        32,
+        32
+      ],
+      "edge": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "content": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {
+        "pressed": "tab-active",
+        "selected": "tab-active",
+        "disabled": {
+          "tint": "a8afc0ff"
+        }
+      }
+    },
+    {
+      "id": "coin-panel",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "raw/surfaces.png",
+      "source_region": [
+        963,
+        991,
+        240,
+        108
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed undistorted corner quadrants; only plain central field and straight edge spans extend. Cloth underline stays in the lower straight span.",
+      "states": {}
+    },
+    {
+      "id": "context-action",
+      "kind": "style",
+      "generation": "surfaces",
+      "source": "raw/surfaces.png",
+      "source_region": [
+        1080,
+        760,
+        8,
+        8
+      ],
+      "slice_px": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "edge": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "content": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "draw_center": false,
+      "states": {
+        "pressed": {
+          "draw_center": true,
+          "tint": "d4d9ddff"
+        }
+      },
+      "stretch": "Borderless generated plain-cream centre sample; normally transparent over the authored capsule, with a quiet flat pressed fill."
+    },
+    {
+      "id": "people",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "raw/icons.png",
+      "source_region": [
+        46,
+        57,
+        266,
+        310
+      ]
+    },
+    {
+      "id": "layout",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "raw/icons.png",
+      "source_region": [
+        357,
+        83,
+        257,
+        268
+      ]
+    },
+    {
+      "id": "floor",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "raw/icons.png",
+      "source_region": [
+        664,
+        100,
+        245,
+        237
+      ]
+    },
+    {
+      "id": "shop",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "raw/icons.png",
+      "source_region": [
+        948,
+        88,
+        274,
+        252
+      ]
+    },
+    {
+      "id": "rotate",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "raw/icons.png",
+      "source_region": [
+        52,
+        405,
+        234,
+        250
+      ]
+    },
+    {
+      "id": "remove",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "raw/icons.png",
+      "source_region": [
+        366,
+        406,
+        255,
+        243
+      ]
+    },
+    {
+      "id": "caret-left",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "raw/icons.png",
+      "source_region": [
+        702,
+        413,
+        159,
+        239
+      ]
+    },
+    {
+      "id": "caret-right",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "raw/icons.png",
+      "source_region": [
+        1031,
+        411,
+        155,
+        243
+      ]
+    },
+    {
+      "id": "coin",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "raw/icons.png",
+      "source_region": [
+        45,
+        685,
+        267,
+        266
+      ]
+    },
+    {
+      "id": "close",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "raw/icons.png",
+      "source_region": [
+        384,
+        710,
+        216,
+        210
+      ]
+    },
+    {
+      "id": "retry",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "raw/icons.png",
+      "source_region": [
+        669,
+        692,
+        233,
+        246
+      ]
+    },
+    {
+      "id": "warning",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "raw/icons.png",
+      "source_region": [
+        952,
+        696,
+        271,
+        243
+      ]
+    },
+    {
+      "id": "play",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "raw/icons.png",
+      "source_region": [
+        77,
+        973,
+        213,
+        234
+      ]
+    },
+    {
+      "id": "pointer",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "raw/icons.png",
+      "source_region": [
+        387,
+        1035,
+        195,
+        121
+      ]
+    },
+    {
+      "id": "edit",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "raw/icons.png",
+      "source_region": [
+        675,
+        975,
+        220,
+        225
+      ]
+    },
+    {
+      "id": "check",
+      "kind": "icon",
+      "generation": "icons",
+      "source": "raw/icons.png",
+      "source_region": [
+        973,
+        1005,
+        240,
+        188
+      ]
+    }
+  ]
+}

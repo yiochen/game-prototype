@@ -1,0 +1,7 @@
+# Restaurant editor UI · issue 12
+
+Eight original transparent rasters were generated with the **built-in ImageGen tool**, one call per asset. The unchanged [Restaurant UI & item catalog](../../../../design/art-directions/restaurant-item-catalog.png) supplied style reference, especially button states (§5), bottom controls (§6) and panel materials (§8). Exact prompts, reference roles and original generated file paths are in [imagegen.json](imagegen.json); full generated PNGs are retained in `raw/`.
+
+`pack.py` only trims each fixed alpha boundary, downsamples with preserved aspect ratio, adds a transparent sampling gutter and mirrors the navigation caret for the opposite direction. It does not repaint or synthesize artwork. Run with a Pillow-enabled Python to reproduce all nine runtime images. The runtime manifest records source/render hashes, full source dimensions, crop rectangles and output dimensions. `godot/tools/verify_editor_ui.py` validates the source prompts/reference, hashes, resolution, alpha PNG format and exact published payload before Android export.
+
+Godot renders readable text and accessibility labels separately. Pressed, selected, disabled and focus states use runtime presentation; these do not introduce baked-in names or controls outside the approved wireframe. The frame is reusable across editor layers, selection tools and pagination. The green frame is reserved for top-right Live. No catalog sample brand/title is baked into these assets.

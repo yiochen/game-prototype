@@ -64,3 +64,7 @@ At a few selected equipment levels, show visible hull-panel, harpoon, or collect
 ## Sources
 
 The four current images and style/projection README live in [design/art-directions](../design/art-directions/README.md). Built-in imagegen prompts, the authored geometry guide, projection profile and character attachment points are kept in its sources directory. Superseded studies, non-low-poly images and intermediate renders have been removed.
+
+## UI production requirement
+
+Every UI ticket must follow [ART-10: UI reference workflow](../design/art-directions/README.md#ui-reference-workflow-art-10-approved-2026-10-19): inspect **Restaurant UI & item catalog** and the relevant current wireframe, reuse approved assets, generate corresponding missing UI artwork through ImageGen, retain exact generation provenance, and verify the same shared controls and their relevant states in the native gallery and full scene at phone and wider portrait sizes. Expedition UI also checks the underwater catalog/concept. The catalog supplies visual finish; wireframes retain the accepted composition, behavior and control set.

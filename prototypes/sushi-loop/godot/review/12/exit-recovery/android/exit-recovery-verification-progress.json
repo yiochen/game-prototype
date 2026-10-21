@@ -1,0 +1,231 @@
+{
+  "checks": [
+    "Real legacy47 walking/wander save matches its protected primary and backup before upgrade",
+    "Installed review48 matches the exact signed release hash",
+    "Review47\u219248 installation preserves both real legacy walking/wander save files byte for byte before launch",
+    "48 cold restore preserves all legacy gameplay/navigation/schema fields exactly except the two enumerated one-ULP JSON numeric roundtrips",
+    "Idle Edit48 applies no exit fallback and keeps its complete decoded guest, phase, visit, pose, position and clocks exactly unchanged",
+    "Live converts the old blocked-seat walker directly to goal departure with seat_unreachable, clears scared clock and keeps walking pose",
+    "Exit fallback keeps the same guest, assigned seat history and complete meal/visit identity without rerolling or reseating",
+    "The legacy blocked-seat guest reaches the available entrance and leaves instead of continuing to wander",
+    "An already-admitted lower-room guest with no entrance route keeps its real departure reason and scared wandering",
+    "The true trapped guest continues moving on free floor with its original meal/visit and advancing scared clock",
+    "Returning the real plant gate restores its owned stock and entrance access without changing the paused guest visit or coins",
+    "The already-leaving guest resumes its original goal departure after gate opening and clears scared feedback",
+    "The previously trapped leaving guest completes its original departure through the reopened entrance",
+    "A v48 walking guest with an available seat route prioritizes that assigned seat despite a reachable entrance",
+    "The same goal walker reaches its assigned seat without a seat_unreachable exit or visit reroll",
+    "All review47/48 real-input exit and seat-priority cases leave both normal48 app saves untouched",
+    "No app script error or Android crash occurs through legacy recovery, true wandering, restored departure or seat priority"
+  ],
+  "state_injected": false,
+  "runtime_backdoor": false,
+  "legacy_live_trace": [
+    {
+      "elapsed": 8.0,
+      "phase": "walking",
+      "navigation_mode": "wander",
+      "departure_reason": "",
+      "x": 2.0,
+      "y": 0.0,
+      "wander_elapsed": 2.05
+    },
+    {
+      "elapsed": 8.0,
+      "phase": "walking",
+      "navigation_mode": "wander",
+      "departure_reason": "",
+      "x": 2.0,
+      "y": 0.0,
+      "wander_elapsed": 2.05
+    },
+    {
+      "elapsed": 8.0,
+      "phase": "walking",
+      "navigation_mode": "wander",
+      "departure_reason": "",
+      "x": 2.0,
+      "y": 0.0,
+      "wander_elapsed": 2.05
+    },
+    {
+      "elapsed": 8.0,
+      "phase": "walking",
+      "navigation_mode": "wander",
+      "departure_reason": "",
+      "x": 2.0,
+      "y": 0.0,
+      "wander_elapsed": 2.05
+    },
+    {
+      "elapsed": 8.0,
+      "phase": "walking",
+      "navigation_mode": "wander",
+      "departure_reason": "",
+      "x": 2.0,
+      "y": 0.0,
+      "wander_elapsed": 2.05
+    },
+    {
+      "elapsed": 8.0,
+      "phase": "walking",
+      "navigation_mode": "wander",
+      "departure_reason": "",
+      "x": 2.0,
+      "y": 0.0,
+      "wander_elapsed": 2.05
+    },
+    {
+      "elapsed": 8.0,
+      "phase": "walking",
+      "navigation_mode": "wander",
+      "departure_reason": "",
+      "x": 2.0,
+      "y": 0.0,
+      "wander_elapsed": 2.05
+    },
+    {
+      "elapsed": 8.0,
+      "phase": "walking",
+      "navigation_mode": "wander",
+      "departure_reason": "",
+      "x": 2.0,
+      "y": 0.0,
+      "wander_elapsed": 2.05
+    },
+    {
+      "elapsed": 8.0,
+      "phase": "walking",
+      "navigation_mode": "wander",
+      "departure_reason": "",
+      "x": 2.0,
+      "y": 0.0,
+      "wander_elapsed": 2.05
+    },
+    {
+      "elapsed": 8.0,
+      "phase": "walking",
+      "navigation_mode": "wander",
+      "departure_reason": "",
+      "x": 2.0,
+      "y": 0.0,
+      "wander_elapsed": 2.05
+    },
+    {
+      "elapsed": 8.0,
+      "phase": "walking",
+      "navigation_mode": "wander",
+      "departure_reason": "",
+      "x": 2.0,
+      "y": 0.0,
+      "wander_elapsed": 2.05
+    },
+    {
+      "elapsed": 8.9,
+      "phase": "leaving",
+      "navigation_mode": "goal",
+      "departure_reason": "seat_unreachable",
+      "x": 3.0,
+      "y": 1.25,
+      "wander_elapsed": 0.0
+    }
+  ],
+  "legacy_customer_id": "customer-2",
+  "direct_exit_state": {
+    "appearance": 1,
+    "appetite_target": 1.6605734825134275,
+    "departure_reason": "seat_unreachable",
+    "entrance_wait_elapsed": 0.0,
+    "facing": "south",
+    "first_dish_received": false,
+    "fullness": 0.0,
+    "happy_elapsed": 0.0,
+    "id": "customer-2",
+    "meal_dish": null,
+    "meal_duration": 5.2,
+    "meal_elapsed": 0.0,
+    "meal_fullness": 0.0,
+    "navigation_mode": "goal",
+    "navigation_retry_elapsed": 0.0,
+    "path": [
+      {
+        "x": 3,
+        "y": 0
+      },
+      {
+        "x": 3,
+        "y": 1
+      },
+      {
+        "x": 3,
+        "y": 2
+      }
+    ],
+    "path_index": 2,
+    "path_origin": {
+      "x": 2.0,
+      "y": 0.0
+    },
+    "phase": "leaving",
+    "preference_elapsed": 0.0,
+    "preference_phase": "pending",
+    "preference_phase_elapsed": 3.05,
+    "preferred_recipe_id": "cucumber_maki",
+    "render_offset_x": -0.17999999225139618,
+    "render_offset_y": 0.0,
+    "restless": false,
+    "seat_id": "seat-3",
+    "visit_legacy": false,
+    "visual_elapsed": 3.05,
+    "visual_phase": "walk",
+    "waiting_elapsed": 0.0,
+    "wander_cursor": 1,
+    "wander_elapsed": 0.0,
+    "x": 3.0,
+    "y": 1.25,
+    "yielding": false
+  },
+  "legacy_restore_payload_exact": false,
+  "legacy_restore_all_other_fields_exact": true,
+  "legacy_restore_numeric_roundtrips": [
+    {
+      "path": "remainder",
+      "from": 0.027066666666666475,
+      "to": 0.02706666666666647,
+      "absolute_difference": 3.469446951953614e-18,
+      "maximum_allowed_difference": 3.469446951953614e-18,
+      "allowance": "one ULP at this exact enumerated field only"
+    },
+    {
+      "path": "state.customers[1].appetite_target",
+      "from": 1.6605734825134277,
+      "to": 1.6605734825134275,
+      "absolute_difference": 2.220446049250313e-16,
+      "maximum_allowed_difference": 2.220446049250313e-16,
+      "allowance": "one ULP at this exact enumerated field only"
+    }
+  ],
+  "trapped_customer_id": "customer-1",
+  "trapped_departure_reason": "satisfied",
+  "trapped_original_visit": {
+    "id": "customer-1",
+    "phase": "leaving",
+    "seat_id": "seat-4",
+    "departure_reason": "satisfied",
+    "meal_dish": null,
+    "meal_duration": 4.804052782058716,
+    "meal_elapsed": 0.0,
+    "meal_fullness": 0.0,
+    "fullness": 2.05158007144928,
+    "appetite_target": 1.7673689126968384,
+    "appearance": 1,
+    "first_dish_received": true,
+    "visit_legacy": false
+  },
+  "trapped_moved_position": {
+    "x": 5.0,
+    "y": 6.193755149841309
+  },
+  "seat_first_customer_id": "customer-11",
+  "seat_first_seat_id": "seat-2"
+}

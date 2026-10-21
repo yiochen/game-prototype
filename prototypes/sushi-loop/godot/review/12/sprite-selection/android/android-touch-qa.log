@@ -1,0 +1,46 @@
+PASS: Existing v44 primary and backup match the protected paused baseline
+Serving...
+Performing Incremental Install
+Success
+Install command complete in 1692 ms
+PASS: Installed normal APK matches final release SHA256
+PASS: Normal v44→v45 installation preserves both save files byte for byte before launch
+PASS: Normal v44→v45 retains every saved field, including editor_version3 and remembered four-good Layout page1
+PASS: Review12 package is absent before first installation
+Serving...
+Performing Incremental Install
+Success
+Install command complete in 1611 ms
+PASS: Installed review APK matches final release SHA256
+PASS: Fresh review starts the two-menu scene with its original owned supplies
+PASS: Edit press feedback is captured on pointer down before its release enters Edit
+PASS: Shop pointer down preserves exact paused state before release feedback
+PASS: Quiet cream Shop shows unavailable feedback while preserving the paused restaurant
+PASS: Dragging a People press outside cancels without changing layer, tray or paused state
+PASS: People pointer remains armed only visually before release or background
+PASS: Home during a held People touch preserves every paused saved field
+PASS: Same-process rendered resume cancels held People press without changing layer or tray
+PASS: The original People gesture orphan release after resume performs no action
+PASS: A fresh People press after background cancellation works normally
+PASS: Returning to Layout after cancelled-touch verification retains the complete original paused state
+PASS: Edit freezes customer paths, food, chef progress, timers, fractional remainder and RNG
+PASS: An opaque extruded chef hat selects its owning chef rather than the underlying tile
+PASS: Dragging the selected chef by its hat preserves the root grab offset and commits tile6,11
+PASS: Dragging the hat back restores the chef ground tile without camera movement
+PASS: The opaque front recipe board selects its owning chef
+PASS: Opaque fixed room decoration is not editable and blocks scene selection
+PASS: The recipe image on a chef board maps to the chef owner
+PASS: An opaque guest pixel over a stool blocks selection of the owned stool behind it
+PASS: Actual inventory drag places one owned plant without changing grid placement behavior
+PASS: A transparent pixel inside the registered plant frame falls through without selecting or altering it
+PASS: An opaque raised plant leaf selects its plant owner outside the ground tile
+Traceback (most recent call last):
+  File "/private/tmp/sushi12-sprite-review/run_editor_qa.py", line 84, in <module>
+    paused=run_sprite_cases(paused,check,snapshot)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sushi12-sprite-review/sprite_cases.py", line 57, in run_sprite_cases
+    _,d=wait_save(REVIEW,lambda d:obj(d,identity).get('y')==3)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sushi12-sprite-review/qa_common.py", line 44, in wait_save
+    raise AssertionError('Saved state did not reach expected transition: '+json.dumps(last and {'elapsed':last['state'].get('elapsed'),'mode':last['state'].get('mode'),'editor':last['state'].get('editor')}))
+AssertionError: Saved state did not reach expected transition: {"elapsed": 6.7, "mode": "edit", "editor": {"layer": "layout", "page": 0, "pages": {"floor": 0, "layout": 0, "people": 0}, "selected_id": "editor-object-1", "tray_open": true}}

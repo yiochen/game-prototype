@@ -1,0 +1,942 @@
+{
+  "version": 4,
+  "reference": "design/art-directions/restaurant-item-catalog.png",
+  "reference_sha256": "d213f970d37a2e83846d8ee54ec14e8e74e72c2a93fb1c13e00d0bf2143e73b2",
+  "source_record": "assets/ui/editor/v8/imagegen.json",
+  "source_record_sha256": "0cb1b9074df31752f5eceef46200fe40d75f26e9bac7782e4fc2d78c59feb9d8",
+  "authoring_sha256": "3fad4575242c112dabc9ec39734e5fd4913f92cc6b73d1a891569abc7ca7c517",
+  "packing_script_sha256": "3146bcef7d7412d51831cf0783263da1302168d34b150925b1b03d17bbbbc509",
+  "atlas": "skin.png",
+  "atlas_sha256": "7e00d095d08979d08cc96b7fc1f6b376c5ea563651638512c3e3b1dde20d627a",
+  "atlas_bytes": 1680442,
+  "atlas_dimensions": [
+    2048,
+    1472
+  ],
+  "styles": {
+    "control-wood": {
+      "region": [
+        0,
+        0,
+        320,
+        148
+      ],
+      "slice_px": [
+        64,
+        64,
+        64,
+        64
+      ],
+      "edge": [
+        42,
+        42,
+        42,
+        42
+      ],
+      "content": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {
+        "pressed": "control-pressed",
+        "disabled": "control-slate"
+      },
+      "minimum_height": 100,
+      "face_px": [
+        18,
+        14,
+        287,
+        96
+      ]
+    },
+    "control-pressed": {
+      "region": [
+        320,
+        0,
+        317,
+        148
+      ],
+      "slice_px": [
+        64,
+        64,
+        64,
+        64
+      ],
+      "edge": [
+        42,
+        42,
+        42,
+        42
+      ],
+      "content": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "minimum_height": 100,
+      "face_px": [
+        13,
+        14,
+        286,
+        96
+      ]
+    },
+    "control-green": {
+      "region": [
+        637,
+        0,
+        319,
+        148
+      ],
+      "slice_px": [
+        64,
+        64,
+        64,
+        64
+      ],
+      "edge": [
+        42,
+        42,
+        42,
+        42
+      ],
+      "content": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {
+        "pressed": "control-green-pressed",
+        "disabled": "control-slate"
+      },
+      "minimum_height": 100,
+      "face_px": [
+        15,
+        14,
+        283,
+        96
+      ]
+    },
+    "control-green-pressed": {
+      "region": [
+        956,
+        0,
+        301,
+        148
+      ],
+      "slice_px": [
+        64,
+        64,
+        64,
+        64
+      ],
+      "edge": [
+        42,
+        42,
+        42,
+        42
+      ],
+      "content": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "minimum_height": 100,
+      "face_px": [
+        12,
+        14,
+        268,
+        96
+      ]
+    },
+    "control-slate": {
+      "region": [
+        1257,
+        0,
+        322,
+        149
+      ],
+      "slice_px": [
+        64,
+        64,
+        64,
+        64
+      ],
+      "edge": [
+        42,
+        42,
+        42,
+        42
+      ],
+      "content": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {
+        "disabled": "control-slate"
+      },
+      "minimum_height": 100,
+      "face_px": [
+        19,
+        11,
+        288,
+        96
+      ]
+    },
+    "slot-paper": {
+      "region": [
+        1579,
+        0,
+        245,
+        323
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {
+        "pressed": "slot-selected",
+        "selected": "slot-selected",
+        "disabled": {
+          "tint": "ffffffff"
+        }
+      },
+      "face_px": [
+        22,
+        14,
+        203,
+        272
+      ]
+    },
+    "slot-selected": {
+      "region": [
+        0,
+        323,
+        248,
+        323
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "content": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {
+        "pressed": "slot-selected",
+        "selected": "slot-selected",
+        "disabled": {
+          "tint": "aeb8c7ff"
+        }
+      },
+      "face_px": [
+        20,
+        15,
+        204,
+        272
+      ]
+    },
+    "container-tray": {
+      "region": [
+        248,
+        323,
+        405,
+        239
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "content": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "face_px": [
+        17,
+        14,
+        369,
+        185
+      ]
+    },
+    "container-modal": {
+      "region": [
+        653,
+        323,
+        384,
+        248
+      ],
+      "slice_px": [
+        48,
+        48,
+        48,
+        48
+      ],
+      "edge": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "content": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "face_px": [
+        23,
+        13,
+        340,
+        192
+      ]
+    },
+    "toast-error": {
+      "region": [
+        1037,
+        323,
+        263,
+        135
+      ],
+      "slice_px": [
+        58,
+        58,
+        58,
+        58
+      ],
+      "edge": [
+        32,
+        32,
+        32,
+        32
+      ],
+      "content": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "minimum_height": 100,
+      "face_px": [
+        17,
+        13,
+        231,
+        79
+      ]
+    },
+    "noren-rail": {
+      "region": [
+        1300,
+        323,
+        324,
+        198
+      ],
+      "slice_px": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "edge": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "content": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "face_px": [
+        19,
+        15,
+        291,
+        138
+      ]
+    },
+    "context-bubble": {
+      "region": [
+        1624,
+        323,
+        287,
+        137
+      ],
+      "slice_px": [
+        60,
+        60,
+        60,
+        60
+      ],
+      "edge": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "content": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "minimum_height": 100,
+      "face_px": [
+        22,
+        14,
+        249,
+        88
+      ]
+    },
+    "stock-badge": {
+      "region": [
+        0,
+        646,
+        218,
+        209
+      ],
+      "slice_px": [
+        92,
+        92,
+        92,
+        92
+      ],
+      "edge": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "content": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "face_px": [
+        22,
+        10,
+        171,
+        156
+      ]
+    },
+    "tab-active": {
+      "region": [
+        218,
+        646,
+        339,
+        233
+      ],
+      "slice_px": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "edge": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "content": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {
+        "pressed": {
+          "tint": "d8dce9ff"
+        },
+        "selected": "tab-active",
+        "disabled": {
+          "tint": "a8afc0ff"
+        }
+      },
+      "face_px": [
+        15,
+        34,
+        308,
+        166
+      ]
+    },
+    "tab-idle": {
+      "region": [
+        557,
+        646,
+        337,
+        233
+      ],
+      "slice_px": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "edge": [
+        24,
+        24,
+        24,
+        24
+      ],
+      "content": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {
+        "pressed": "tab-active",
+        "selected": "tab-active",
+        "disabled": {
+          "tint": "a8afc0ff"
+        }
+      },
+      "face_px": [
+        14,
+        34,
+        306,
+        166
+      ]
+    },
+    "coin-panel": {
+      "region": [
+        894,
+        646,
+        271,
+        147
+      ],
+      "slice_px": [
+        64,
+        64,
+        64,
+        64
+      ],
+      "edge": [
+        41,
+        41,
+        41,
+        41
+      ],
+      "content": [
+        14,
+        14,
+        14,
+        14
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "minimum_height": 100,
+      "face_px": [
+        15,
+        17,
+        238,
+        93
+      ]
+    },
+    "noren-rod": {
+      "region": [
+        1165,
+        646,
+        388,
+        62
+      ],
+      "slice_px": [
+        26,
+        26,
+        26,
+        26
+      ],
+      "edge": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "content": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "face_px": [
+        16,
+        8,
+        355,
+        25
+      ]
+    },
+    "noren-dock": {
+      "region": [
+        1553,
+        646,
+        465,
+        87
+      ],
+      "slice_px": [
+        36,
+        36,
+        36,
+        36
+      ],
+      "edge": [
+        22,
+        22,
+        22,
+        22
+      ],
+      "content": [
+        9,
+        9,
+        9,
+        9
+      ],
+      "stretch": "Fixed source corner quadrants preserve round ends, curtain loops and shadow depth; only the plain centre and straight edge spans extend.",
+      "states": {},
+      "face_px": [
+        18,
+        11,
+        432,
+        46
+      ]
+    },
+    "context-action": {
+      "region": [
+        2018,
+        646,
+        16,
+        16
+      ],
+      "slice_px": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "edge": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "content": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "stretch": "Borderless generated plain cream centre sample; normally transparent over the action capsule with a quiet pressed fill.",
+      "states": {
+        "pressed": {
+          "draw_center": true,
+          "tint": "f6e1b6ff"
+        },
+        "focus": {
+          "draw_center": true,
+          "tint": "f6e1b6ff"
+        }
+      },
+      "draw_center": false,
+      "face_px": [
+        0,
+        0,
+        16,
+        16
+      ]
+    }
+  },
+  "icons": {
+    "floor": {
+      "region": [
+        0,
+        879,
+        253,
+        245
+      ],
+      "ink_px": [
+        7,
+        7,
+        239,
+        231
+      ]
+    },
+    "coin": {
+      "region": [
+        253,
+        879,
+        275,
+        274
+      ],
+      "ink_px": [
+        7,
+        7,
+        261,
+        259
+      ]
+    },
+    "people": {
+      "region": [
+        528,
+        879,
+        233,
+        289
+      ],
+      "ink_px": [
+        12,
+        14,
+        206,
+        258
+      ]
+    },
+    "layout": {
+      "region": [
+        761,
+        879,
+        265,
+        219
+      ],
+      "ink_px": [
+        15,
+        16,
+        235,
+        186
+      ]
+    },
+    "shop": {
+      "region": [
+        1026,
+        879,
+        277,
+        260
+      ],
+      "ink_px": [
+        12,
+        13,
+        251,
+        232
+      ]
+    },
+    "rotate": {
+      "region": [
+        1303,
+        879,
+        250,
+        254
+      ],
+      "ink_px": [
+        12,
+        13,
+        222,
+        225
+      ]
+    },
+    "remove": {
+      "region": [
+        1553,
+        879,
+        268,
+        251
+      ],
+      "ink_px": [
+        14,
+        15,
+        237,
+        221
+      ]
+    },
+    "caret-left": {
+      "region": [
+        1821,
+        879,
+        154,
+        230
+      ],
+      "ink_px": [
+        14,
+        12,
+        123,
+        204
+      ]
+    },
+    "caret-right": {
+      "region": [
+        0,
+        1168,
+        148,
+        230
+      ],
+      "ink_px": [
+        13,
+        11,
+        122,
+        204
+      ]
+    },
+    "close": {
+      "region": [
+        148,
+        1168,
+        214,
+        215
+      ],
+      "ink_px": [
+        14,
+        15,
+        185,
+        183
+      ]
+    },
+    "retry": {
+      "region": [
+        362,
+        1168,
+        255,
+        241
+      ],
+      "ink_px": [
+        16,
+        7,
+        224,
+        216
+      ]
+    },
+    "warning": {
+      "region": [
+        617,
+        1168,
+        271,
+        241
+      ],
+      "ink_px": [
+        14,
+        15,
+        244,
+        207
+      ]
+    },
+    "play": {
+      "region": [
+        888,
+        1168,
+        206,
+        223
+      ],
+      "ink_px": [
+        21,
+        14,
+        172,
+        197
+      ]
+    },
+    "pointer": {
+      "region": [
+        1094,
+        1168,
+        288,
+        188
+      ],
+      "ink_px": [
+        30,
+        14,
+        228,
+        133
+      ]
+    },
+    "edit": {
+      "region": [
+        1382,
+        1168,
+        243,
+        239
+      ],
+      "ink_px": [
+        18,
+        14,
+        208,
+        206
+      ]
+    },
+    "check": {
+      "region": [
+        1625,
+        1168,
+        258,
+        201
+      ],
+      "ink_px": [
+        12,
+        13,
+        232,
+        173
+      ]
+    }
+  }
+}

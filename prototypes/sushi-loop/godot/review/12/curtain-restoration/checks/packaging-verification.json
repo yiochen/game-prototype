@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "verified_on": "2026-10-20",
+  "tests": 64,
+  "test_seconds": 42.403,
+  "test_command": "python3 -m unittest discover -s prototypes/sushi-loop/tools -p test_android_packaging.py -v",
+  "preflight_command": "python3 prototypes/sushi-loop/tools/build_android.py --check",
+  "provenance_schema": 4,
+  "ui": {
+    "images": 1,
+    "imagegen_sources": 3,
+    "styles": 19,
+    "icons": 16,
+    "pill_styles": 8,
+    "pill_minimum_height": 100,
+    "png_bytes": 1680442,
+    "reference_sha256": "d213f970d37a2e83846d8ee54ec14e8e74e72c2a93fb1c13e00d0bf2143e73b2",
+    "runtime_images": [
+      "skin.png"
+    ]
+  },
+  "source_record": "assets/ui/editor/v8/imagegen.json",
+  "source_record_sha256": "0cb1b9074df31752f5eceef46200fe40d75f26e9bac7782e4fc2d78c59feb9d8",
+  "parent_record": "assets/ui/editor/v6/imagegen.json",
+  "parent_record_sha256": "c10c77509f38ea55eb320aa37dc146e17aa595a05a8ede4713769e1ff26d5208",
+  "runtime_manifest_sha256": "42c196178f8eb2b1569a98a17a26a99e55e49a1f190f5a343279f7705ef16a88",
+  "runtime_atlas_sha256": "7e00d095d08979d08cc96b7fc1f6b376c5ea563651638512c3e3b1dde20d627a",
+  "verifier_sha256": "a331479e6ebf26e0d75b074231822aaac07bf4727557bf89e6c370bfed79408e",
+  "test_script_sha256": "80520b969582ac228bb4fb0ee7b6acfdd7592eb514039835988b22494d843eed",
+  "evidence_sha256": {
+    "packaging-tests.log": "d04e66fbb86c4d18f489e06687b632fefb778cdb8fc14ee86a1e731d273f2ba5",
+    "android-preflight.json": "a2f4bb132b88cc77f647a60e709d24c530a6bf3481c82240df48505adbde9f8c",
+    "editor-ui-verification.json": "4f2d93c2af90a2f765d7a5269eefba4ede115519360620455dc963016de9fd1a"
+  },
+  "checks": [
+    "exactly three pinned inherited v6 sheets with no new artwork",
+    "unchanged parent prompts, full-screen receipt, hashes and paths",
+    "both curtains exact v6 source generation, crop and runtime pixels",
+    "exact source crop pixels and transparent sampling gutters",
+    "uniform fixed corners and 100-unit pill minimum",
+    "registered visible face and icon ink bounds",
+    "runtime allowlist and staging readback",
+    "native Blender goods provenance, floor thickness and exact pixels"
+  ],
+  "limits": [
+    "Packaging and source checks do not establish visual approval.",
+    "Native mobile and Android review evidence is recorded separately."
+  ]
+}

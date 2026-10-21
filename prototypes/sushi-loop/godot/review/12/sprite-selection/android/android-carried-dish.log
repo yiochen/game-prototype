@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/private/tmp/sushi12-sprite-review/verify_carried_dish.py", line 17, in <module>
+    _,d=wait_save(REVIEW,lambda d:abs(d['state']['camera']['x'])<.000001)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sushi12-sprite-review/qa_common.py", line 44, in wait_save
+    raise AssertionError('Saved state did not reach expected transition: '+json.dumps(last and {'elapsed':last['state'].get('elapsed'),'mode':last['state'].get('mode'),'editor':last['state'].get('editor')}))
+AssertionError: Saved state did not reach expected transition: {"elapsed": 13.75, "mode": "edit", "editor": {"layer": "layout", "page": 1, "pages": {"floor": 0, "layout": 1, "people": 0}, "selected_id": "", "tray_open": false}}

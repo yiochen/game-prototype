@@ -1,0 +1,39 @@
+{
+  "emulator_serial": "emulator-5560",
+  "readiness": "Actual screencap shows rendered gold coin and edit Live control after launch; splash never satisfies gate",
+  "state_injected": false,
+  "checks": [
+    "Rendered Edit screen is ready before repeating lifecycle checks",
+    "Rendered-UI lifecycle run: paused background primary stays byte-identical",
+    "Rendered Home return retains every saved paused field",
+    "Rendered-UI lifecycle run: force-stop keeps the last saved bytes",
+    "After cold startup fully renders, force-stop restore matches every saved paused field",
+    "System Back from rendered Edit saves and exits the running game",
+    "Back-exited paused primary remains byte-identical",
+    "After cold startup fully renders, Back restore matches every saved paused field",
+    "Actual Live press on rendered editor resumes the same restaurant",
+    "Additional rendered-UI lifecycle checks leave normal app primary and backup untouched",
+    "No Godot script error or Android runtime crash through rendered cold-reopen checks"
+  ],
+  "paused_elapsed": 8.15,
+  "resumed_elapsed": 8.8,
+  "saved_editor": {
+    "layer": "layout",
+    "page": 1,
+    "pages": {
+      "floor": 0,
+      "layout": 1,
+      "people": 0
+    },
+    "selected_id": "",
+    "tray_open": false
+  },
+  "runtime_errors": [],
+  "runtime_warnings": [
+    "10-19 21:22:36.195  6163  6186 E godot   : WARNING: Failed to load cached shader, recompiling.",
+    "10-19 21:22:42.335  6235  6257 E godot   : WARNING: Failed to load cached shader, recompiling.",
+    "10-19 21:24:27.622  6504  6530 E godot   : WARNING: Failed to load cached shader, recompiling.",
+    "10-19 21:24:32.951  6579  6605 E godot   : WARNING: Failed to load cached shader, recompiling."
+  ],
+  "passed": true
+}

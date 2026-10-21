@@ -166,7 +166,7 @@ func _test_seat_choice_and_directed_menus() -> void:
 	]})
 	var blocked := Session.new_session(3, inaccessible)
 	blocked.advance(5.0)
-	_check(_object(blocked.snapshot(), "seat").inactive_reason == "no_access" and blocked.snapshot().customers.is_empty(), "a supplied seat surrounded by furniture remains inactive and never attracts an unreachable visitor")
+	_check(_object(blocked.snapshot(), "seat").inactive_reason == "no_access" and blocked.snapshot().customers.all(func(customer): return customer.phase == "entrance_wait" and customer.seat_id == ""), "a supplied seat surrounded by furniture remains inactive; any unadmitted visitor stays at the entrance instead of walking to it")
 
 func _test_matching_first_dish() -> void:
 	var game := Session.new_session(6, _base())
@@ -373,6 +373,8 @@ func _test_issue10_save_upgrade() -> void:
 	var game := Session.new_session(91)
 	_check(fixture.source_commit == "d30f3cbe" and game.restore(fixture.save_data), "the actual merged #10 save upgrades into the new visit engine")
 	var observed: Dictionary = game.snapshot()
+	for key in ["mode", "editor", "inventory"]:
+		observed.erase(key)
 	for object in observed.objects:
 		object.erase("active")
 		object.erase("inactive_reason")

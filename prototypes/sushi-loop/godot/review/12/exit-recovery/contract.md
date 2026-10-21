@@ -1,0 +1,11 @@
+# Issue 12 — unreachable assigned-seat exit recovery
+
+Recorded 2026-10-20 for the existing restaurant-editor ticket and PR #36. This refines [entrance waiting and trapped feedback](../entrance-wait/contract.md) without changing editor artwork, layout or the broader #14 rescue scope.
+
+- A walking guest first attempts to reach its assigned seat. If that seat is unreachable but the entrance is reachable from the guest's actual position, the guest leaves directly through the entrance with `departure_reason = "seat_unreachable"`. It stops wandering and the scared bubble clears.
+- If both the assigned seat and the entrance are unreachable, the already-admitted guest keeps wandering indefinitely on free floor with scared feedback. Once a goal route becomes available, retry navigation automatically. A guest already leaving continues to seek the entrance and resumes departure when its route opens.
+- Apply this fallback only while Live advances the fixed simulation step. Furniture edits may replan navigation, but do not change the visit phase or advance clocks/RNG. Paused time and save/reopen preserve the complete payload. A legacy 0.4.7 walking/wander save must restore unchanged in Edit and safely choose the entrance on its first eligible 0.4.8 Live step.
+- Keep direct guest overlap, occupied-cell/busy-seat and entrance placement guards. New unadmitted arrivals retain their four-second puzzled entrance wait and never wander. Seated guests keep their meals and visits.
+- This is a behavior correction with **no save-schema additions or version migrations**. Preserve SaveVersion, navigation version 1, admission version 1, all legacy fields, RNG and simulation time on the 0.4.7 → 0.4.8 upgrade. Keep both save files byte-identical before first launch, and compare the restored paused payload separately with any observed pre-existing JSON numeric roundtrip listed precisely.
+
+The next signed build is **0.4.8 / code 48**. Android package names, `SushiLoopTickets` save identity and the pinned release signer stay unchanged. Preserve prior 0.4.7 evidence. Actual Android proof uses only real UI input on a fresh isolated read-only AVD clone; no app-state injection. Issue #12 / PR #36 remain open for user verification.

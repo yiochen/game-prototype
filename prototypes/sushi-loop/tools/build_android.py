@@ -22,6 +22,8 @@ import catalog_contract
 import verify_recipe_variants as recipe_contract
 import verify_chef_variants as chef_contract
 import verify_feedback_variants as feedback_contract
+import verify_editor_ui as editor_ui_contract
+import verify_editor_goods as editor_goods_contract
 
 ROOT_FILES = ("project.godot", "main.tscn", "branding.json", "export_presets.cfg")
 RUNTIME_TREES = {
@@ -38,7 +40,10 @@ RUNTIME_TREES = {
 }
 FORBIDDEN_PARTS = {".local", "review", "tests", "tools", "provenance", "production"}
 FORBIDDEN_SUFFIXES = {".keystore", ".jks", ".blend", ".py", ".bak", ".tmp"}
-REVIEW_SCENES = {"customer-visits": {"issue": 11, "package_suffix": ".review11", "label": "Customer Visits"}}
+REVIEW_SCENES = {
+    "customer-visits": {"issue": 11, "package_suffix": ".review11", "label": "Customer Visits"},
+    "restaurant-editor": {"issue": 12, "package_suffix": ".review12", "label": "Restaurant Editor"},
+}
 
 
 def sha(path: Path) -> str:
@@ -57,6 +62,8 @@ def runtime_sources(source: Path) -> dict[str, Path]:
     paths.append(source / "assets/recipe-variants/manifest.json")
     paths.append(source / "assets/chef-variants/manifest.json")
     paths.append(source / "assets/feedback-variants/manifest.json")
+    paths.append(source / "assets/ui/editor/manifest.json")
+    paths.append(source / "assets/ui/editor-goods/manifest.json")
     for directory, suffixes in RUNTIME_TREES.items():
         paths.extend(path for path in (source / directory).rglob("*")
                      if path.is_file() and path.suffix.lower() in suffixes)
@@ -91,6 +98,16 @@ def validate_catalog(source: Path, files: dict[str, Path]) -> dict:
     meals = recipe_contract.verify_recipe_variants(source)
     chefs = chef_contract.verify_chef_variants(source)
     feedback = feedback_contract.verify_feedback_variants(source)
+    editor_ui = editor_ui_contract.verify_editor_ui(source)
+    expected_ui_files = {"assets/ui/editor/manifest.json"} | {
+        f"assets/ui/editor/{name}" for name in editor_ui["runtime_images"]}
+    if {name for name in files if name.startswith("assets/ui/editor/")} != expected_ui_files:
+        raise ValueError("The staged editor UI payload differs from the verified coordinated atlas and manifest.")
+    editor_goods = editor_goods_contract.verify_editor_goods(source)
+    expected_goods_files = {"assets/ui/editor-goods/manifest.json"} | {
+        f"assets/ui/editor-goods/{name}" for name in editor_goods["runtime_images"]}
+    if {name for name in files if name.startswith("assets/ui/editor-goods/")} != expected_goods_files:
+        raise ValueError("The staged editor goods payload differs from the verified Blender atlas and manifest.")
     return {
         "object_count": len(manifest["objects"]),
         "atlas_count": len(atlases),
@@ -103,6 +120,10 @@ def validate_catalog(source: Path, files: dict[str, Path]) -> dict:
         "chef_manifest_sha256": sha(source / "assets/chef-variants/manifest.json"),
         "feedback_variants": feedback,
         "feedback_manifest_sha256": sha(source / "assets/feedback-variants/manifest.json"),
+        "editor_ui": editor_ui,
+        "editor_ui_manifest_sha256": sha(source / "assets/ui/editor/manifest.json"),
+        "editor_goods": editor_goods,
+        "editor_goods_manifest_sha256": sha(source / "assets/ui/editor-goods/manifest.json"),
     }
 
 
@@ -121,6 +142,8 @@ def stage_runtime(source: Path, project: Path) -> tuple[dict[str, str], dict]:
     recipe_contract.verify_recipe_variants(project, source_project=source)
     chef_contract.verify_chef_variants(project, source_project=source)
     feedback_contract.verify_feedback_variants(project, source_project=source)
+    editor_ui_contract.verify_editor_ui(project, source_project=source)
+    editor_goods_contract.verify_editor_goods(project, source_project=source)
     return hashes, catalog
 
 
@@ -279,6 +302,14 @@ def audit_apk(apk_path: Path, branding: dict, mode: str, build_tools: Path,
         if feedback_manifest_path not in names:
             raise ValueError("The verified 2D feedback-variant manifest is missing from the APK.")
         feedback_manifest_hash = hashlib.sha256(apk.read(feedback_manifest_path)).hexdigest()
+        editor_ui_manifest_path = "assets/assets/ui/editor/manifest.json"
+        if editor_ui_manifest_path not in names:
+            raise ValueError("The verified ImageGen editor UI manifest is missing from the APK.")
+        editor_ui_manifest_hash = hashlib.sha256(apk.read(editor_ui_manifest_path)).hexdigest()
+        editor_goods_manifest_path = "assets/assets/ui/editor-goods/manifest.json"
+        if editor_goods_manifest_path not in names:
+            raise ValueError("The verified Blender editor goods manifest is missing from the APK.")
+        editor_goods_manifest_hash = hashlib.sha256(apk.read(editor_goods_manifest_path)).hexdigest()
         needle = password.encode()
         for name in names:
             parts = set(Path(name).parts)
@@ -303,6 +334,8 @@ def audit_apk(apk_path: Path, branding: dict, mode: str, build_tools: Path,
         "recipe_manifest_sha256": recipe_manifest_hash,
         "chef_manifest_sha256": chef_manifest_hash,
         "feedback_manifest_sha256": feedback_manifest_hash,
+        "editor_ui_manifest_sha256": editor_ui_manifest_hash,
+        "editor_goods_manifest_sha256": editor_goods_manifest_hash,
         "archive_entries": len(names), "excluded_material_check": "passed",
     }
 
@@ -376,6 +409,10 @@ def main() -> int:
         raise ValueError("The APK native chef variants differ from the verified staged variants.")
     if verification["feedback_manifest_sha256"] != catalog["feedback_manifest_sha256"]:
         raise ValueError("The APK 2D feedback variants differ from the verified staged variants.")
+    if verification["editor_ui_manifest_sha256"] != catalog["editor_ui_manifest_sha256"]:
+        raise ValueError("The APK ImageGen editor UI differs from the verified staged UI manifest.")
+    if verification["editor_goods_manifest_sha256"] != catalog["editor_goods_manifest_sha256"]:
+        raise ValueError("The APK Blender editor goods differ from the verified staged goods manifest.")
     digest = sha(output)
     metadata = branding | {
         "mode": args.mode, "engine": engine, "apk_sha256": digest, "bytes": output.stat().st_size,

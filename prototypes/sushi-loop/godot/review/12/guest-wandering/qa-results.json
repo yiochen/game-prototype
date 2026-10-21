@@ -1,0 +1,110 @@
+{
+  "verified_at": "2026-10-20T20:27:29.625892+00:00",
+  "engine": "Godot 4.7.2 stable",
+  "source_sha256": {
+    "scripts/session.gd": "7c821e845b384917492357f2833e393e9d8251ee54a2d8ade00755c10fe2d15a",
+    "scripts/game.gd": "d47c60680716bf90979b853843e146eb48d94fb829599aeff059d8bd94d40141",
+    "scripts/editor_presentation.gd": "ad1ab732ed9abcb6bb39eb9d2a8933bea93eeaec6e7d01d9f37cc753cd3ef1d4",
+    "tests/guest_wandering_tests.gd": "e3fbf08093a82a620a33735173bcd5d9157233ee96c98c0a1c2448b29dce3b98",
+    "tests/editor_tests.gd": "f4e0a4306390b88c4ffce14a9bc24d284b342baeeca350f33c824b47d3cb7e0b",
+    "tests/capture_guest_wandering.gd": "e1e02ecad552fe894548972e37a9184ac7b1e335f3e452ff1caef4095cddec2b"
+  },
+  "tests": [
+    {
+      "script": "guest_wandering_tests.gd",
+      "checks": 81,
+      "size": "320x720",
+      "result": "pass",
+      "log": "checks/guest_wandering_tests-320x720.log"
+    },
+    {
+      "script": "editor_tests.gd",
+      "checks": 185,
+      "size": "320x720",
+      "result": "pass",
+      "log": "checks/editor_tests-320x720.log"
+    },
+    {
+      "script": "session_tests.gd",
+      "checks": 94,
+      "size": "320x720",
+      "result": "pass",
+      "log": "checks/session_tests-320x720.log"
+    },
+    {
+      "script": "customer_visit_tests.gd",
+      "checks": 76,
+      "size": "320x720",
+      "result": "pass",
+      "log": "checks/customer_visit_tests-320x720.log"
+    },
+    {
+      "script": "save_store_tests.gd",
+      "checks": 26,
+      "size": "320x720",
+      "result": "pass",
+      "log": "checks/save_store_tests-320x720.log"
+    },
+    {
+      "script": "native_app_tests.gd",
+      "checks": 234,
+      "size": "320x720",
+      "result": "pass",
+      "log": "checks/native_app_tests-320x720.log"
+    },
+    {
+      "script": "native_app_tests.gd",
+      "checks": 234,
+      "size": "1280x720",
+      "result": "pass",
+      "log": "checks/native_app_tests-1280x720.log"
+    },
+    {
+      "script": "sprite_picking_tests.gd",
+      "checks": 37,
+      "size": "320x720",
+      "result": "pass",
+      "log": "checks/sprite_picking_tests-320x720.log"
+    }
+  ],
+  "captures": [
+    {
+      "path": "phone/01-blocking-edit-accepted.png",
+      "sha256": "ed51ec6bfe3036d49225722a58200a4f626d151bd828d1558fc5f70ab1ba1a50"
+    },
+    {
+      "path": "phone/02-guest-wandering.png",
+      "sha256": "32f3f7a20ab6aecc64209d0d043aac66e00555462583b27972a34ff9c2c44d60"
+    },
+    {
+      "path": "phone/03-guest-still-wandering.png",
+      "sha256": "2d2c01ed15cb841d41699553f68e7efa4ff94634cdbfde0c47426c176497d364"
+    },
+    {
+      "path": "phone/04-seat-route-restored.png",
+      "sha256": "6b5103a242b0f3f71ea3c198c4e037b1eb545b28fb3be9950798bf6c06b62c76"
+    },
+    {
+      "path": "landscape/01-blocking-edit-accepted.png",
+      "sha256": "8f4b3cd859124f83edd1e8c3908bf2ddabe3330211813d005001377621a0ab41"
+    },
+    {
+      "path": "landscape/02-guest-wandering.png",
+      "sha256": "120b284526f82483775e7703af967fc8c54c566765a49673aaefa89baa8a9ad6"
+    },
+    {
+      "path": "landscape/03-guest-still-wandering.png",
+      "sha256": "cab10cb89382a966ae943deef225554d8e8f3b4bd0aa073cd90fef0d97a676ac"
+    },
+    {
+      "path": "landscape/04-seat-route-restored.png",
+      "sha256": "b8eb117981f3e58265e911185dc2b5a0b26f90dfe76d04c5b5d1b4cd77ab5beb"
+    }
+  ],
+  "notes": [
+    "Tests use one disposable imported project and a fresh SushiLoopTicketsTest-guest UUID data directory for every suite/capture. No actual user save data was loaded or changed.",
+    "The trapped walking fixture remains in the same visit for three minutes, moves at most the configured walking speed through free floor, then resumes its original seat after unblocking.",
+    "The preexisting arrival_remaining binary-float clock can drift by 2e-13 seconds across JSON restore with an isolated 1000-second arrival interval. Only that field receives 1e-9 tolerance in the paid-departure continuation assertion; all other save fields and future events remain exact.",
+    "Phone and landscape PNGs were visually inspected for actual closed doorway, moving guest, reopened doorway, portrait containment and unchanged approved UI/art."
+  ]
+}

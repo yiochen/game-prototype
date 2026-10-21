@@ -8,6 +8,7 @@ const INK := Color("253b3b")
 const NIGHT := Color("103d4b")
 const PAPER := Color("ffefcf")
 const DIRECTIONS := {"north": Vector2.UP, "south": Vector2.DOWN, "east": Vector2.RIGHT, "west": Vector2.LEFT}
+const BELT_FACING := {"east": "S", "north": "E", "west": "N", "south": "W"}
 const FACING := {"north": "N", "east": "E", "south": "S", "west": "W"}
 const CUSTOMERS := ["customer-rosa", "customer-ellis", "customer-samir", "customer-june"]
 const BUBBLE_ATTACHMENT := Vector2(0, -172) # Fixed C125 head clearance, logical pixels.
@@ -22,8 +23,15 @@ var show_gallery := false
 var time := 0.0
 var sale_pops: Array = []
 var reduced_motion := false
+var editor_preview: Dictionary = {}
+var editor_selection_alpha := 1.0
 var font: Font
 var heading: Font
+var _hit_records: Array[Dictionary] = []
+var _hit_signature: Array = []
+var _capture_hits := false
+var _record_only := false
+var _current_owner := ""
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -50,7 +58,11 @@ func sprite(identity: String, base: Vector2, clip := "static", direction := "S",
 	var pitch := cell if tile_pixels < 0.0 else tile_pixels
 	var data: Dictionary = art.frame_data(identity, clip, direction, seconds)
 	if not data.is_empty():
-		draw_texture_rect_region(data.texture, art.registered_rect(identity, base, pitch, clip, direction), data.region, tint, false)
+		var destination: Rect2 = art.registered_rect(identity, base, pitch, clip, direction)
+		if _capture_hits:
+			_hit_records.append({"owner_id": _current_owner, "art_id": identity, "clip": clip, "direction": direction, "frame": data.frame, "frames": data.frames, "texture": data.texture, "source_path": data.source_path, "region": data.region, "rect": destination, "tint": tint})
+		if not _record_only:
+			draw_texture_rect_region(data.texture, destination, data.region, tint, false)
 
 func caption(text: String, at: Vector2, pixels: int = 30, color := INK, use_heading := false) -> void:
 	draw_string(heading if use_heading else font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, maxi(1, pixels), color)
@@ -59,6 +71,8 @@ func _draw() -> void:
 	if font == null:
 		return
 	art.begin_frame()
+	_hit_records.clear()
+	_hit_signature.clear()
 	draw_rect(Rect2(Vector2.ZERO, size), NIGHT)
 	if show_gallery:
 		_gallery()
@@ -83,22 +97,9 @@ func _room() -> void:
 			var tint := Color.WHITE if x < int(state.floor.columns) else Color("b2aaa0")
 			var identity := "floor-blue-wave" if y == 0 or y == rows - 1 else "floor-cream"
 			sprite(identity, base, "static", "S", 0.0, -1.0, tint)
-	for item in render_plan():
-		match item.kind:
-			"belt":
-				_belt(item.value)
-			"dish":
-				_dish(item.value)
-			"sprite":
-				sprite(item.key, item.base, item.get("clip", "static"), item.get("direction", "S"), 0.0 if reduced_motion else float(state.elapsed))
-			"chef":
-				_chef(item.value)
-			"seat":
-				_seat_at(item.value, cell_base(float(item.value.x), float(item.value.y)), cell)
-			"board":
-				_board(item.value)
-			"customer":
-				_customer(item.value)
+	_editor_ground()
+	_render_room_items()
+	_editor_ghost()
 	# Thought/reaction art is a final feedback layer, following the same saved
 	# visual offset as its customer while remaining readable above furniture.
 	for customer in state.get("customers", []):
@@ -109,6 +110,103 @@ func _room() -> void:
 			# Native pop frames already rise above this registered customer root.
 			# Keep its authored scale/motion and the existing quiet alpha fade.
 			sprite("coin-pop", cell_base(float(pop.x), float(pop.y)), "pop", "S", 0.0 if reduced_motion else age, -1.0, Color(1, 1, 1, 1.0 - age / 0.9))
+
+func _render_room_items() -> void:
+	# Rendering and picking share this exact pass, including sprite frame,
+	# attachment geometry and painter order. Other decorative/editor layers
+	# never enter its ownership records.
+	_hit_records.clear()
+	_capture_hits = true
+	for item in render_plan():
+		_current_owner = str(item.get("owner_id", ""))
+		if item.kind in ["belt", "dish", "chef", "seat", "board"]:
+			_current_owner = str(item.value.get("id", ""))
+		match item.kind:
+			"belt": _belt(item.value)
+			"dish": _dish(item.value)
+			"sprite": sprite(item.key, item.base, item.get("clip", "static"), item.get("direction", "S"), 0.0 if reduced_motion else float(state.elapsed))
+			"chef": _chef(item.value)
+			"seat": _seat_at(item.value, cell_base(float(item.value.x), float(item.value.y)), cell)
+			"board": _board(item.value)
+			"customer": _customer(item.value)
+	_capture_hits = false
+	_current_owner = ""
+	_hit_signature = _geometry_signature()
+
+func _geometry_signature() -> Array:
+	return [state.hash(), portrait, floor_origin, cell, size, reduced_motion, show_gallery, time, art.revision]
+
+func _ensure_sprite_hits() -> void:
+	if _hit_signature == _geometry_signature(): return
+	if show_gallery or state.is_empty():
+		_hit_records.clear()
+		_hit_signature = _geometry_signature()
+		return
+	# Headless tests do not receive CanvasItem._draw. Input can also arrive
+	# after camera/layout/state changed but before the next rendered frame.
+	# Resolve the same item pass without invoking any drawing primitives.
+	_record_only = true
+	_render_room_items()
+	_record_only = false
+
+func sprite_hits() -> Array[Dictionary]:
+	_ensure_sprite_hits()
+	return _hit_records.duplicate(true)
+
+func object_at(point: Vector2) -> Dictionary:
+	if show_gallery or not portrait.has_point(point) or not Rect2(Vector2.ZERO, size).has_point(point): return {}
+	_ensure_sprite_hits()
+	for index in range(_hit_records.size() - 1, -1, -1):
+		var item: Dictionary = _hit_records[index]
+		var bounds: Rect2 = item.rect
+		if not bounds.has_area() or not bounds.has_point(point) or float(item.tint.a) <= ArtBook.PICK_ALPHA: continue
+		var uv := (point - bounds.position) / bounds.size
+		var source: Rect2 = item.region
+		if not art.frame_has_ink(item, source.position + uv * source.size): continue
+		# An opaque guest or fixed room prop blocks furniture behind it. Only
+		# sprites explicitly registered to an owned object can select that object.
+		var identity := str(item.owner_id)
+		if identity.is_empty(): return {}
+		for object in state.get("objects", []):
+			if str(object.get("id", "")) == identity: return object
+		return {}
+	return {}
+
+func _editor_ground() -> void:
+	if state.get("mode", "live") != "edit": return
+	var identity := str(state.get("editor", {}).get("selected_id", ""))
+	for object in state.get("objects", []):
+		if str(object.id) != identity: continue
+		var rect := Rect2(cell_base(float(object.x), float(object.y)) - Vector2.ONE * cell * 0.5, Vector2.ONE * cell)
+		draw_rect(rect, Color(Color("bfd4af"), 0.48 * editor_selection_alpha))
+		# The approved B marker keeps the tile readable under the object: pale
+		# sage fill and four navy brackets, with open edges between the corners.
+		var inset := rect.grow(-2.0)
+		var arm := cell * 0.20
+		var thickness := maxf(2.0, cell * 0.04)
+		for corner in [Vector2.ZERO, Vector2.RIGHT, Vector2.ONE, Vector2.DOWN]:
+			var point: Vector2 = inset.position + inset.size * corner
+			var across := Vector2(-1.0 if corner.x > 0.0 else 1.0, 0.0) * arm
+			var down := Vector2(0.0, -1.0 if corner.y > 0.0 else 1.0) * arm
+			draw_polyline(PackedVector2Array([point + across, point, point + down]), Color(Color("233d58"), editor_selection_alpha), thickness, true)
+
+func _editor_ghost() -> void:
+	if state.get("mode", "live") != "edit" or editor_preview.is_empty(): return
+	var base := cell_base(float(editor_preview.x), float(editor_preview.y))
+	var color := Color("66b87a") if editor_preview.get("valid", false) else Color("ce6254")
+	var footprint := Rect2(base - Vector2.ONE * cell * 0.5, Vector2.ONE * cell)
+	draw_rect(footprint, Color(color, 0.32))
+	draw_rect(footprint.grow(-1.5), color, false, 3.0, true)
+	var object: Dictionary = editor_preview.get("source", {})
+	var identity := str(object.get("art_id", ""))
+	var clip := "static"
+	if object.get("kind") == "chef": clip = "idle"
+	elif object.get("kind") == "belt":
+		identity = "belt-straight-e"
+		clip = "running"
+	elif object.get("kind") == "seat": identity = "stool-wood"
+	elif identity == "plant-angular": clip = "idle"
+	if not identity.is_empty(): sprite(identity, base, clip, belt_direction(object) if object.get("kind") == "belt" else str(FACING.get(object.get("facing", "south"), "S")), 0.0, -1.0, Color(1, 1, 1, 0.65))
 
 func render_plan() -> Array:
 	# Sort by ground depth, never by image height. All connected deck modules
@@ -122,6 +220,10 @@ func render_plan() -> Array:
 					result.append({"kind": "dish", "value": object, "depth": float(object.y), "priority": 3})
 			"seat":
 				result.append({"kind": "seat", "value": object, "depth": float(object.y), "priority": 0})
+			"decor":
+				var prop := _prop(str(object.get("art_id", "plant-angular")), float(object.x), float(object.y), "idle" if object.get("art_id") == "plant-angular" else "static", str(FACING.get(object.get("facing", "south"), "S")))
+				prop["owner_id"] = str(object.get("id", ""))
+				result.append(prop)
 			"chef":
 				result.append({"kind": "chef", "value": object, "depth": float(object.y), "priority": 2})
 				result.append({"kind": "board", "value": object, "depth": float(object.y) + 0.4, "priority": 4})
@@ -148,8 +250,9 @@ func _decor_plan() -> Array:
 		result.append(_prop("wall-middle", float(x), -0.5))
 	for y in range(1, rows - 1):
 		result.append(_prop("wall-middle", -0.5, float(y), "static", "E"))
-	for y in [4, 7, rows - 2]:
-		result.append(_prop("barrel-wood" if y == 7 else "plant-angular", 0, float(y), "static" if y == 7 else "idle"))
+	result.append(_prop("plant-angular", 0.0, 0.0, "idle"))
+	result.append(_prop("barrel-wood", 0.0, float(rows) - 1.0))
+	result.append(_prop("plant-angular", float(columns) - 1.0, float(rows) - 1.0, "idle"))
 	for x in range(1, columns, 5):
 		result.append(_prop("lantern-gold", float(x), 0.0, "idle"))
 		result.append(_prop("crate-wood", float(x), float(rows) - 1.0))
@@ -174,8 +277,11 @@ func belt_clip(belt: Dictionary) -> String:
 		return "belt-end-e"
 	return "belt-straight-e"
 
+func belt_direction(belt: Dictionary) -> String:
+	return str(BELT_FACING.get(str(belt.get("facing", "east")), "S"))
+
 func _belt(belt: Dictionary) -> void:
-	sprite(belt_clip(belt), cell_base(float(belt.x), float(belt.y)), "running", "S", 0.0 if reduced_motion else float(state.elapsed))
+	sprite(belt_clip(belt), cell_base(float(belt.x), float(belt.y)), "running", belt_direction(belt), 0.0 if reduced_motion else float(state.elapsed))
 
 func dish_base(belt: Dictionary) -> Vector2:
 	var direction: Vector2 = DIRECTIONS.get(str(belt.facing), Vector2.ZERO)
@@ -184,7 +290,7 @@ func dish_base(belt: Dictionary) -> Vector2:
 		if other.kind == "belt" and float(other.x) == float(belt.x) + direction.x and float(other.y) == float(belt.y) + direction.y:
 			ahead = direction * cell * float(belt.travel_progress)
 			break
-	return cell_base(float(belt.x), float(belt.y)) + ahead + art.socket(belt_clip(belt), "deck") * cell / art.cell_size
+	return cell_base(float(belt.x), float(belt.y)) + ahead + art.socket(belt_clip(belt), "deck", belt_direction(belt)) * cell / art.cell_size
 
 func _dish(belt: Dictionary) -> void:
 	sprite(str(DISHES.get(str(belt.dish.recipe_id), "dish-salmon")), dish_base(belt))
@@ -207,7 +313,7 @@ func _chef_at(chef: Dictionary, base: Vector2, pitch: float) -> void:
 	var clip := chef_clip(chef)
 	var seconds := 0.0 if reduced_motion else float(chef.get("visual_elapsed", state.get("elapsed", time)))
 	sprite(str(chef.get("art_id", "chef-lena")), base, clip, str(FACING.get(chef.get("facing", "south"), "S")), seconds, pitch, activity_tint(chef))
-	if chef.get("held_dish") != null and not clip.begins_with("load") and chef.get("active", true):
+	if not _record_only and chef.get("held_dish") != null and not clip.begins_with("load") and chef.get("active", true):
 		var center := base - Vector2(pitch * 0.42, pitch * 1.25)
 		draw_circle(center, pitch * 0.10, PAPER)
 		draw_arc(center, pitch * 0.10, 0, TAU, 24, INK, 1.4, true)
@@ -247,7 +353,7 @@ func _customer_at(customer: Dictionary, base: Vector2, pitch: float) -> void:
 
 func customer_clip(customer: Dictionary) -> String:
 	var phase := str(customer.get("phase", "waiting"))
-	var fallback := "eat" if phase == "eating" else "seated-wait" if phase == "waiting" else "walk"
+	var fallback := "stand" if phase == "entrance_wait" else "eat" if phase == "eating" else "seated-wait" if phase == "waiting" else "walk"
 	var clip := str(customer.get("visual_phase", fallback))
 	if customer.get("restless", false) and phase == "waiting" and clip in ["seated-wait", "seated-wait-empty", "restless"]:
 		return "restless"
@@ -258,6 +364,16 @@ func customer_clip(customer: Dictionary) -> String:
 	return clip
 
 func customer_feedback(customer: Dictionary) -> Dictionary:
+	if customer.get("phase") == "entrance_wait":
+		if reduced_motion: return {"object": "bubble-puzzled", "clip": "idle", "seconds": 0.0, "timer": -1.0}
+		var waited := maxf(0.0, float(customer.get("entrance_wait_elapsed", 0.0)))
+		var duration := maxf(1.0, float(customer.get("entrance_wait_total", 4.0)))
+		var fading := waited >= duration - 1.0
+		return {"object": "bubble-puzzled", "clip": "fade" if fading else "appear" if waited < 1.0 else "idle", "seconds": waited - (duration - 1.0) if fading else waited if waited < 1.0 else waited - 1.0, "timer": -1.0}
+	if customer.get("navigation_mode") == "wander" and customer.get("phase") in ["walking", "leaving"]:
+		if reduced_motion: return {"object": "bubble-panic", "clip": "idle", "seconds": 0.0, "timer": -1.0}
+		var scared := maxf(0.0, float(customer.get("wander_elapsed", 0.0)))
+		return {"object": "bubble-panic", "clip": "appear" if scared < 1.0 else "idle", "seconds": scared if scared < 1.0 else scared - 1.0, "timer": -1.0}
 	var phase := str(customer.get("preference_phase", "pending"))
 	var prefix := "cucumber-" if customer.get("preferred_recipe_id") == "cucumber_maki" else ""
 	var age := maxf(0.0, float(customer.get("preference_phase_elapsed", float(customer.get("preference_total", 0)) - float(customer.get("preference_remaining", 0)))))
@@ -293,12 +409,14 @@ func _feedback_at(customer: Dictionary, base: Vector2, pitch: float) -> void:
 func gallery_customers() -> Array:
 	var base := {"id": "review-guest", "appearance": 0, "phase": "waiting", "visual_phase": "seated-wait", "visual_elapsed": time, "facing": "south", "meal_dish": null, "preference_phase": "pending", "preferred_recipe_id": "salmon_nigiri", "preference_total": 8.0, "preference_remaining": 8.0, "preference_progress": 1.0, "preference_phase_elapsed": 0.0, "restless": false}
 	var result: Array = []
-	for index in range(5):
+	for index in range(7):
 		result.append(base.duplicate(true))
 	result[1].merge({"preference_phase": "active", "preferred_recipe_id": "cucumber_maki", "preference_phase_elapsed": 2.0 + fmod(time, 6.0), "preference_progress": 0.75 - fmod(time, 6.0) / 8.0}, true)
 	result[2].merge({"phase": "eating", "visual_phase": "eat", "meal_dish": {"recipe_id": "salmon_nigiri"}, "preference_phase": "satisfied", "happy_elapsed": fmod(time, 2.2), "happy_duration": 2.2}, true)
 	result[3].merge({"preference_phase": "expired", "preference_phase_elapsed": fmod(time, 3.0)}, true)
 	result[4].merge({"preference_phase": "expired", "preference_phase_elapsed": 5.0, "restless": true}, true)
+	result[5].merge({"phase": "entrance_wait", "visual_phase": "stand", "seat_id": "", "entrance_wait_elapsed": fmod(time, 4.0), "entrance_wait_total": 4.0}, true)
+	result[6].merge({"phase": "walking", "visual_phase": "walk", "navigation_mode": "wander", "wander_elapsed": time}, true)
 	return result
 
 func _gallery() -> void:
@@ -309,17 +427,17 @@ func _gallery() -> void:
 	var panel := Rect2(left, 240 * unit, portrait.size.x - 72 * unit, minf(940 * unit, portrait.size.y - 475 * unit))
 	draw_style_box(_paper_style(), panel)
 	var row_unit := panel.size.y / 940.0
-	var pitch := minf(112 * unit, 106 * row_unit)
-	caption("One guest, five moments", panel.position + Vector2(24 * unit, 30 * row_unit), int(27 * unit), INK, true)
+	var pitch := minf(92 * unit, 92 * row_unit)
+	caption("One guest, seven moments", panel.position + Vector2(24 * unit, 30 * row_unit), int(27 * unit), INK, true)
 	var guests := gallery_customers()
-	var labels := ["Waiting", "Preference", "Happy", "Expired", "Restless", "Inactive"]
-	for index in range(6):
+	var labels := ["Waiting", "Preference", "Happy", "Expired", "Restless", "Entrance wait", "Trapped", "Inactive"]
+	for index in range(8):
 		var column := index % 3
-		var row := 0 if index < 3 else 1
-		var base := panel.position + Vector2((112 + column * 212) * unit, (300 + row * 325) * row_unit)
-		if index < 5:
+		var row := index / 3
+		var base := panel.position + Vector2((112 + column * 212) * unit, (260 + row * 280) * row_unit)
+		if index < 7:
 			_gallery_tile(base, pitch)
-			_seat_at({"facing": "south", "active": true}, base, pitch)
+			if index < 5: _seat_at({"facing": "south", "active": true}, base, pitch)
 			_customer_at(guests[index], base, pitch)
 			_feedback_at(guests[index], base, pitch)
 		else:
@@ -331,18 +449,19 @@ func _gallery() -> void:
 			_chef_at(chef, chef_base, pitch)
 			_board_at(chef, chef_base, pitch)
 			_seat_at({"facing": "south", "active": false}, seat_base, pitch)
-		caption(labels[index], panel.position + Vector2((57 + column * 212) * unit, (380 + row * 325) * row_unit), int(25 * unit))
-	caption("Connected service", panel.position + Vector2(24 * unit, 740 * row_unit), int(27 * unit), INK, true)
-	var start := panel.position + Vector2(108 * unit, 860 * row_unit)
+		caption(labels[index], panel.position + Vector2((57 + column * 212) * unit, (330 + row * 280) * row_unit), int(25 * unit))
+	var service_pitch := pitch * 0.4
+	var start := panel.position + Vector2(468 * unit, 820 * row_unit)
 	for index in range(4):
-		var base := start + Vector2(float(index) * pitch, 0)
-		_gallery_tile(base, pitch)
+		var base := start + Vector2(float(index) * service_pitch, 0)
+		_gallery_tile(base, service_pitch)
 		var identity: String = ["belt-start-e", "belt-straight-e", "belt-straight-e", "belt-end-e"][index]
-		sprite(identity, base, "running", "S", 0.0 if reduced_motion else time, pitch)
+		sprite(identity, base, "running", "S", 0.0 if reduced_motion else time, service_pitch)
 	for index in range(2):
 		var progress := fmod((0.0 if reduced_motion else time * 0.7) + float(index) * 1.5, 3.0)
-		var at: Vector2 = start + Vector2(progress * pitch, 0) + art.socket("belt-straight-e", "deck") * pitch / art.cell_size
-		sprite("dish-salmon" if index == 0 else "dish-cucumber", at, "static", "S", 0.0, pitch)
+		var at: Vector2 = start + Vector2(progress * service_pitch, 0) + art.socket("belt-straight-e", "deck") * service_pitch / art.cell_size
+		sprite("dish-salmon" if index == 0 else "dish-cucumber", at, "static", "S", 0.0, service_pitch)
+	caption("Service", panel.position + Vector2(481 * unit, 890 * row_unit), int(25 * unit))
 
 func _gallery_tile(base: Vector2, pitch: float) -> void:
 	sprite("floor-cream", base, "static", "S", 0.0, pitch)

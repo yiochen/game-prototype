@@ -1,0 +1,2297 @@
+{
+  "failures": [],
+  "fixture": {
+    "floor": {
+      "columns": 7,
+      "entrance": {
+        "x": 3,
+        "y": 0
+      },
+      "rows": 7,
+      "viewport_columns": 7,
+      "world_columns": 21
+    },
+    "objects": [
+      {
+        "art_id": "chef-lena",
+        "facing": "east",
+        "id": "chef",
+        "kind": "chef",
+        "recipe_id": "salmon_nigiri",
+        "x": 2,
+        "y": 6
+      },
+      {
+        "facing": "south",
+        "id": "seat",
+        "kind": "seat",
+        "x": 3,
+        "y": 5
+      }
+    ],
+    "service": {
+      "arrival_jitter_seconds": 0.0,
+      "arrival_seconds": 1000.0,
+      "first_arrival_seconds": 0.1,
+      "step_seconds": 0.05,
+      "walking_cells_per_second": 2.0
+    }
+  },
+  "screens": [
+    {
+      "feedback": [
+        {
+          "body_clip": "stand",
+          "bubble": {
+            "clip": "idle",
+            "object": "bubble-puzzled",
+            "seconds": 0.2,
+            "timer": -1.0
+          },
+          "id": "customer-1"
+        }
+      ],
+      "name": "01-puzzled-entrance",
+      "pixels": [
+        1280,
+        720
+      ],
+      "portrait": [
+        777.5,
+        720.0,
+        1280.0
+      ],
+      "snapshot": {
+        "camera": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "coins": 120,
+        "customers": [
+          {
+            "appearance": 1,
+            "entrance_wait_elapsed": 1.2,
+            "entrance_wait_total": 4.0,
+            "facing": "south",
+            "happy_duration": 2.2,
+            "happy_elapsed": 0.0,
+            "id": "customer-1",
+            "meal_dish": null,
+            "meal_progress": 0.0,
+            "navigation_mode": "goal",
+            "phase": "entrance_wait",
+            "preference_phase": "pending",
+            "preference_phase_elapsed": 0.0,
+            "preference_progress": 1.0,
+            "preference_remaining": 7.0,
+            "preference_total": 7.0,
+            "preferred_recipe_id": "",
+            "render_offset_x": 0.0,
+            "render_offset_y": 0.0,
+            "restless": false,
+            "seat_id": "",
+            "visual_elapsed": 0.0,
+            "visual_phase": "stand",
+            "waiting_elapsed": 0.0,
+            "wander_elapsed": 0.0,
+            "x": 3.0,
+            "y": 0.0,
+            "yielding": false
+          }
+        ],
+        "editor": {
+          "layer": "layout",
+          "page": 0,
+          "pages": {
+            "floor": 0,
+            "layout": 0,
+            "people": 0
+          },
+          "selected_id": "",
+          "tray_open": true
+        },
+        "elapsed": 1.3,
+        "entrance_open": true,
+        "floor": {
+          "columns": 7,
+          "entrance": {
+            "x": 3,
+            "y": 0
+          },
+          "rows": 7,
+          "viewport_columns": 7,
+          "world_columns": 21
+        },
+        "inventory": [
+          {
+            "art_id": "belt-straight-e",
+            "count": 6.0,
+            "facing": "east",
+            "id": "belt-tile",
+            "kind": "belt",
+            "name": "Conveyor"
+          },
+          {
+            "art_id": "stool-wood",
+            "count": 4.0,
+            "facing": "south",
+            "id": "stool-plain",
+            "kind": "seat",
+            "name": "Wood stool"
+          },
+          {
+            "art_id": "plant-angular",
+            "count": 2.0,
+            "facing": "south",
+            "id": "plant-angular",
+            "kind": "decor",
+            "name": "Potted plant"
+          },
+          {
+            "art_id": "crate-wood",
+            "count": 2.0,
+            "facing": "south",
+            "id": "crate-wood",
+            "kind": "decor",
+            "name": "Wood crate"
+          },
+          {
+            "art_id": "barrel-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "barrel-wood",
+            "kind": "decor",
+            "name": "Wood barrel"
+          },
+          {
+            "art_id": "floor-cream",
+            "available": false,
+            "count": 0.0,
+            "id": "floor-cream",
+            "kind": "floor",
+            "name": "Cream floor"
+          },
+          {
+            "art_id": "chef-lena",
+            "assigned": true,
+            "count": 0,
+            "facing": "east",
+            "id": "chef",
+            "kind": "chef",
+            "name": "Chef",
+            "recipe_id": "salmon_nigiri"
+          }
+        ],
+        "mode": "live",
+        "objects": [
+          {
+            "active": false,
+            "art_id": "chef-lena",
+            "facing": "east",
+            "held_dish": null,
+            "id": "chef",
+            "inactive_reason": "no_belt",
+            "kind": "chef",
+            "loading_elapsed": 0.0,
+            "preparation": 0.0,
+            "preparation_seconds": 3.4,
+            "recipe_id": "salmon_nigiri",
+            "visual_elapsed": 1.25,
+            "visual_phase": "idle",
+            "x": 2,
+            "y": 6
+          },
+          {
+            "active": false,
+            "facing": "south",
+            "id": "seat",
+            "inactive_reason": "no_belt",
+            "kind": "seat",
+            "x": 3,
+            "y": 5
+          }
+        ],
+        "recipes": {
+          "cucumber_maki": {
+            "name": "Cucumber maki",
+            "preparation_seconds": 14.0,
+            "price": 10.0
+          },
+          "salmon_nigiri": {
+            "name": "Salmon nigiri",
+            "preparation_seconds": 3.4,
+            "price": 14.0
+          }
+        },
+        "stats": {
+          "arrivals": 1,
+          "sales": 0,
+          "served": 0
+        },
+        "version": 1
+      },
+      "trigger": {
+        "reason": "The only seat has no connected belt."
+      }
+    },
+    {
+      "feedback": [
+        {
+          "body_clip": "stand",
+          "bubble": {
+            "clip": "fade",
+            "object": "bubble-puzzled",
+            "seconds": 0.7,
+            "timer": -1.0
+          },
+          "id": "customer-1"
+        }
+      ],
+      "name": "02-still-at-entrance",
+      "pixels": [
+        1280,
+        720
+      ],
+      "portrait": [
+        777.5,
+        720.0,
+        1280.0
+      ],
+      "snapshot": {
+        "camera": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "coins": 120,
+        "customers": [
+          {
+            "appearance": 1,
+            "entrance_wait_elapsed": 3.7,
+            "entrance_wait_total": 4.0,
+            "facing": "south",
+            "happy_duration": 2.2,
+            "happy_elapsed": 0.0,
+            "id": "customer-1",
+            "meal_dish": null,
+            "meal_progress": 0.0,
+            "navigation_mode": "goal",
+            "phase": "entrance_wait",
+            "preference_phase": "pending",
+            "preference_phase_elapsed": 0.0,
+            "preference_progress": 1.0,
+            "preference_remaining": 7.0,
+            "preference_total": 7.0,
+            "preferred_recipe_id": "",
+            "render_offset_x": 0.0,
+            "render_offset_y": 0.0,
+            "restless": false,
+            "seat_id": "",
+            "visual_elapsed": 0.0,
+            "visual_phase": "stand",
+            "waiting_elapsed": 0.0,
+            "wander_elapsed": 0.0,
+            "x": 3.0,
+            "y": 0.0,
+            "yielding": false
+          }
+        ],
+        "editor": {
+          "layer": "layout",
+          "page": 0,
+          "pages": {
+            "floor": 0,
+            "layout": 0,
+            "people": 0
+          },
+          "selected_id": "",
+          "tray_open": true
+        },
+        "elapsed": 3.8,
+        "entrance_open": true,
+        "floor": {
+          "columns": 7,
+          "entrance": {
+            "x": 3,
+            "y": 0
+          },
+          "rows": 7,
+          "viewport_columns": 7,
+          "world_columns": 21
+        },
+        "inventory": [
+          {
+            "art_id": "belt-straight-e",
+            "count": 6.0,
+            "facing": "east",
+            "id": "belt-tile",
+            "kind": "belt",
+            "name": "Conveyor"
+          },
+          {
+            "art_id": "stool-wood",
+            "count": 4.0,
+            "facing": "south",
+            "id": "stool-plain",
+            "kind": "seat",
+            "name": "Wood stool"
+          },
+          {
+            "art_id": "plant-angular",
+            "count": 2.0,
+            "facing": "south",
+            "id": "plant-angular",
+            "kind": "decor",
+            "name": "Potted plant"
+          },
+          {
+            "art_id": "crate-wood",
+            "count": 2.0,
+            "facing": "south",
+            "id": "crate-wood",
+            "kind": "decor",
+            "name": "Wood crate"
+          },
+          {
+            "art_id": "barrel-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "barrel-wood",
+            "kind": "decor",
+            "name": "Wood barrel"
+          },
+          {
+            "art_id": "floor-cream",
+            "available": false,
+            "count": 0.0,
+            "id": "floor-cream",
+            "kind": "floor",
+            "name": "Cream floor"
+          },
+          {
+            "art_id": "chef-lena",
+            "assigned": true,
+            "count": 0,
+            "facing": "east",
+            "id": "chef",
+            "kind": "chef",
+            "name": "Chef",
+            "recipe_id": "salmon_nigiri"
+          }
+        ],
+        "mode": "live",
+        "objects": [
+          {
+            "active": false,
+            "art_id": "chef-lena",
+            "facing": "east",
+            "held_dish": null,
+            "id": "chef",
+            "inactive_reason": "no_belt",
+            "kind": "chef",
+            "loading_elapsed": 0.0,
+            "preparation": 0.0,
+            "preparation_seconds": 3.4,
+            "recipe_id": "salmon_nigiri",
+            "visual_elapsed": 3.75,
+            "visual_phase": "idle",
+            "x": 2,
+            "y": 6
+          },
+          {
+            "active": false,
+            "facing": "south",
+            "id": "seat",
+            "inactive_reason": "no_belt",
+            "kind": "seat",
+            "x": 3,
+            "y": 5
+          }
+        ],
+        "recipes": {
+          "cucumber_maki": {
+            "name": "Cucumber maki",
+            "preparation_seconds": 14.0,
+            "price": 10.0
+          },
+          "salmon_nigiri": {
+            "name": "Salmon nigiri",
+            "preparation_seconds": 3.4,
+            "price": 14.0
+          }
+        },
+        "stats": {
+          "arrivals": 1,
+          "sales": 0,
+          "served": 0
+        },
+        "version": 1
+      },
+      "trigger": {
+        "same_guest": "customer-1",
+        "standing_seconds": 3.7
+      }
+    },
+    {
+      "feedback": [],
+      "name": "03-no-seat-guest-left",
+      "pixels": [
+        1280,
+        720
+      ],
+      "portrait": [
+        777.5,
+        720.0,
+        1280.0
+      ],
+      "snapshot": {
+        "camera": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "coins": 120,
+        "customers": [],
+        "editor": {
+          "layer": "layout",
+          "page": 0,
+          "pages": {
+            "floor": 0,
+            "layout": 0,
+            "people": 0
+          },
+          "selected_id": "",
+          "tray_open": true
+        },
+        "elapsed": 4.1,
+        "entrance_open": true,
+        "floor": {
+          "columns": 7,
+          "entrance": {
+            "x": 3,
+            "y": 0
+          },
+          "rows": 7,
+          "viewport_columns": 7,
+          "world_columns": 21
+        },
+        "inventory": [
+          {
+            "art_id": "belt-straight-e",
+            "count": 6.0,
+            "facing": "east",
+            "id": "belt-tile",
+            "kind": "belt",
+            "name": "Conveyor"
+          },
+          {
+            "art_id": "stool-wood",
+            "count": 4.0,
+            "facing": "south",
+            "id": "stool-plain",
+            "kind": "seat",
+            "name": "Wood stool"
+          },
+          {
+            "art_id": "plant-angular",
+            "count": 2.0,
+            "facing": "south",
+            "id": "plant-angular",
+            "kind": "decor",
+            "name": "Potted plant"
+          },
+          {
+            "art_id": "crate-wood",
+            "count": 2.0,
+            "facing": "south",
+            "id": "crate-wood",
+            "kind": "decor",
+            "name": "Wood crate"
+          },
+          {
+            "art_id": "barrel-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "barrel-wood",
+            "kind": "decor",
+            "name": "Wood barrel"
+          },
+          {
+            "art_id": "floor-cream",
+            "available": false,
+            "count": 0.0,
+            "id": "floor-cream",
+            "kind": "floor",
+            "name": "Cream floor"
+          },
+          {
+            "art_id": "chef-lena",
+            "assigned": true,
+            "count": 0,
+            "facing": "east",
+            "id": "chef",
+            "kind": "chef",
+            "name": "Chef",
+            "recipe_id": "salmon_nigiri"
+          }
+        ],
+        "mode": "live",
+        "objects": [
+          {
+            "active": false,
+            "art_id": "chef-lena",
+            "facing": "east",
+            "held_dish": null,
+            "id": "chef",
+            "inactive_reason": "no_belt",
+            "kind": "chef",
+            "loading_elapsed": 0.0,
+            "preparation": 0.0,
+            "preparation_seconds": 3.4,
+            "recipe_id": "salmon_nigiri",
+            "visual_elapsed": 4.05,
+            "visual_phase": "idle",
+            "x": 2,
+            "y": 6
+          },
+          {
+            "active": false,
+            "facing": "south",
+            "id": "seat",
+            "inactive_reason": "no_belt",
+            "kind": "seat",
+            "x": 3,
+            "y": 5
+          }
+        ],
+        "recipes": {
+          "cucumber_maki": {
+            "name": "Cucumber maki",
+            "preparation_seconds": 14.0,
+            "price": 10.0
+          },
+          "salmon_nigiri": {
+            "name": "Salmon nigiri",
+            "preparation_seconds": 3.4,
+            "price": 14.0
+          }
+        },
+        "stats": {
+          "arrivals": 1,
+          "sales": 0,
+          "served": 0
+        },
+        "version": 1
+      },
+      "trigger": {
+        "events": [
+          {
+            "customer_id": "customer-1",
+            "reason": "no_seat",
+            "type": "departed"
+          }
+        ]
+      }
+    },
+    {
+      "feedback": [
+        {
+          "body_clip": "walk",
+          "bubble": {},
+          "id": "customer-1"
+        }
+      ],
+      "name": "04-seat-opens-same-guest-enters",
+      "pixels": [
+        1280,
+        720
+      ],
+      "portrait": [
+        777.5,
+        720.0,
+        1280.0
+      ],
+      "snapshot": {
+        "camera": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "coins": 120,
+        "customers": [
+          {
+            "appearance": 1,
+            "entrance_wait_elapsed": 0.0,
+            "entrance_wait_total": 4.0,
+            "facing": "south",
+            "happy_duration": 2.2,
+            "happy_elapsed": 0.0,
+            "id": "customer-1",
+            "meal_dish": null,
+            "meal_progress": 0.0,
+            "navigation_mode": "goal",
+            "phase": "walking",
+            "preference_phase": "pending",
+            "preference_phase_elapsed": 0.7,
+            "preference_progress": 1.0,
+            "preference_remaining": 7.0,
+            "preference_total": 7.0,
+            "preferred_recipe_id": "salmon_nigiri",
+            "render_offset_x": -0.239999994635582,
+            "render_offset_y": 0.0,
+            "restless": false,
+            "seat_id": "seat",
+            "visual_elapsed": 0.7,
+            "visual_phase": "walk",
+            "waiting_elapsed": 0.0,
+            "wander_elapsed": 0.0,
+            "x": 3.0,
+            "y": 1.40000021457672,
+            "yielding": false
+          }
+        ],
+        "editor": {
+          "layer": "layout",
+          "page": 0,
+          "pages": {
+            "floor": 0,
+            "layout": 0,
+            "people": 0
+          },
+          "selected_id": "editor-object-1",
+          "tray_open": true
+        },
+        "elapsed": 1.45,
+        "entrance_open": true,
+        "floor": {
+          "columns": 7,
+          "entrance": {
+            "x": 3,
+            "y": 0
+          },
+          "rows": 7,
+          "viewport_columns": 7,
+          "world_columns": 21
+        },
+        "inventory": [
+          {
+            "art_id": "belt-straight-e",
+            "count": 5.0,
+            "facing": "east",
+            "id": "belt-tile",
+            "kind": "belt",
+            "name": "Conveyor"
+          },
+          {
+            "art_id": "stool-wood",
+            "count": 4.0,
+            "facing": "south",
+            "id": "stool-plain",
+            "kind": "seat",
+            "name": "Wood stool"
+          },
+          {
+            "art_id": "plant-angular",
+            "count": 2.0,
+            "facing": "south",
+            "id": "plant-angular",
+            "kind": "decor",
+            "name": "Potted plant"
+          },
+          {
+            "art_id": "crate-wood",
+            "count": 2.0,
+            "facing": "south",
+            "id": "crate-wood",
+            "kind": "decor",
+            "name": "Wood crate"
+          },
+          {
+            "art_id": "barrel-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "barrel-wood",
+            "kind": "decor",
+            "name": "Wood barrel"
+          },
+          {
+            "art_id": "floor-cream",
+            "available": false,
+            "count": 0.0,
+            "id": "floor-cream",
+            "kind": "floor",
+            "name": "Cream floor"
+          },
+          {
+            "art_id": "chef-lena",
+            "assigned": true,
+            "count": 0,
+            "facing": "east",
+            "id": "chef",
+            "kind": "chef",
+            "name": "Chef",
+            "recipe_id": "salmon_nigiri"
+          }
+        ],
+        "mode": "live",
+        "objects": [
+          {
+            "active": true,
+            "art_id": "chef-lena",
+            "facing": "east",
+            "held_dish": null,
+            "id": "chef",
+            "inactive_reason": "",
+            "kind": "chef",
+            "loading_elapsed": 0.0,
+            "preparation": 0.220588235294118,
+            "preparation_seconds": 3.4,
+            "recipe_id": "salmon_nigiri",
+            "visual_elapsed": 0.7,
+            "visual_phase": "work",
+            "x": 2,
+            "y": 6
+          },
+          {
+            "active": true,
+            "facing": "south",
+            "id": "seat",
+            "inactive_reason": "",
+            "kind": "seat",
+            "x": 3,
+            "y": 5
+          },
+          {
+            "dish": null,
+            "facing": "east",
+            "id": "editor-object-1",
+            "inventory_id": "belt-tile",
+            "kind": "belt",
+            "travel_progress": 0.0,
+            "x": 3,
+            "y": 6
+          }
+        ],
+        "recipes": {
+          "cucumber_maki": {
+            "name": "Cucumber maki",
+            "preparation_seconds": 14.0,
+            "price": 10.0
+          },
+          "salmon_nigiri": {
+            "name": "Salmon nigiri",
+            "preparation_seconds": 3.4,
+            "price": 14.0
+          }
+        },
+        "stats": {
+          "arrivals": 1,
+          "sales": 0,
+          "served": 0
+        },
+        "version": 1
+      },
+      "trigger": {
+        "command": {
+          "inventory_id": "belt-tile",
+          "type": "editor_place",
+          "x": 3,
+          "y": 6
+        },
+        "result": {
+          "id": "editor-object-1",
+          "ok": true
+        }
+      }
+    },
+    {
+      "feedback": [
+        {
+          "body_clip": "walk",
+          "bubble": {
+            "clip": "idle",
+            "object": "bubble-panic",
+            "seconds": 0.3,
+            "timer": -1.0
+          },
+          "id": "customer-1"
+        }
+      ],
+      "name": "05-trapped-guest-scared",
+      "pixels": [
+        1280,
+        720
+      ],
+      "portrait": [
+        777.5,
+        720.0,
+        1280.0
+      ],
+      "snapshot": {
+        "camera": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "coins": 120,
+        "customers": [
+          {
+            "appearance": 1,
+            "entrance_wait_elapsed": 0.0,
+            "entrance_wait_total": 4.0,
+            "facing": "east",
+            "happy_duration": 2.2,
+            "happy_elapsed": 0.0,
+            "id": "customer-1",
+            "meal_dish": null,
+            "meal_progress": 0.0,
+            "navigation_mode": "wander",
+            "phase": "walking",
+            "preference_phase": "pending",
+            "preference_phase_elapsed": 2.3,
+            "preference_progress": 1.0,
+            "preference_remaining": 7.0,
+            "preference_total": 7.0,
+            "preferred_recipe_id": "salmon_nigiri",
+            "render_offset_x": 0.0,
+            "render_offset_y": 0.239999994635582,
+            "restless": false,
+            "seat_id": "seat",
+            "visual_elapsed": 2.3,
+            "visual_phase": "walk",
+            "waiting_elapsed": 0.0,
+            "wander_elapsed": 1.3,
+            "x": 4.69000148773193,
+            "y": 2.0,
+            "yielding": false
+          }
+        ],
+        "editor": {
+          "layer": "layout",
+          "page": 0,
+          "pages": {
+            "floor": 0,
+            "layout": 0,
+            "people": 0
+          },
+          "selected_id": "editor-object-2",
+          "tray_open": true
+        },
+        "elapsed": 2.4,
+        "entrance_open": true,
+        "floor": {
+          "columns": 7,
+          "entrance": {
+            "x": 3,
+            "y": 0
+          },
+          "rows": 7,
+          "viewport_columns": 7,
+          "world_columns": 21
+        },
+        "inventory": [
+          {
+            "art_id": "belt-straight-e",
+            "count": 6.0,
+            "facing": "east",
+            "id": "belt-tile",
+            "kind": "belt",
+            "name": "Conveyor"
+          },
+          {
+            "art_id": "stool-wood",
+            "count": 4.0,
+            "facing": "south",
+            "id": "stool-plain",
+            "kind": "seat",
+            "name": "Wood stool"
+          },
+          {
+            "art_id": "plant-angular",
+            "count": 2.0,
+            "facing": "south",
+            "id": "plant-angular",
+            "kind": "decor",
+            "name": "Potted plant"
+          },
+          {
+            "art_id": "crate-wood",
+            "count": 0.0,
+            "facing": "south",
+            "id": "crate-wood",
+            "kind": "decor",
+            "name": "Wood crate"
+          },
+          {
+            "art_id": "barrel-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "barrel-wood",
+            "kind": "decor",
+            "name": "Wood barrel"
+          },
+          {
+            "art_id": "floor-cream",
+            "available": false,
+            "count": 0.0,
+            "id": "floor-cream",
+            "kind": "floor",
+            "name": "Cream floor"
+          },
+          {
+            "art_id": "chef-lena",
+            "assigned": true,
+            "count": 0,
+            "facing": "east",
+            "id": "chef",
+            "kind": "chef",
+            "name": "Chef",
+            "recipe_id": "salmon_nigiri"
+          }
+        ],
+        "mode": "live",
+        "objects": [
+          {
+            "active": true,
+            "art_id": "chef-lena",
+            "facing": "east",
+            "held_dish": null,
+            "id": "chef",
+            "inactive_reason": "",
+            "kind": "chef",
+            "loading_elapsed": 0.0,
+            "preparation": 0.705882352941177,
+            "preparation_seconds": 3.4,
+            "recipe_id": "salmon_nigiri",
+            "visual_elapsed": 2.4,
+            "visual_phase": "work",
+            "x": 2,
+            "y": 6
+          },
+          {
+            "active": false,
+            "facing": "south",
+            "id": "seat",
+            "inactive_reason": "no_access",
+            "kind": "seat",
+            "x": 3,
+            "y": 5
+          },
+          {
+            "dish": null,
+            "facing": "south",
+            "id": "belt",
+            "kind": "belt",
+            "travel_progress": 0.0,
+            "x": 3,
+            "y": 6
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-0-1",
+            "kind": "decor",
+            "x": 0,
+            "y": 1
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-1-1",
+            "kind": "decor",
+            "x": 1,
+            "y": 1
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-2-1",
+            "kind": "decor",
+            "x": 2,
+            "y": 1
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-4-1",
+            "kind": "decor",
+            "x": 4,
+            "y": 1
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-5-1",
+            "kind": "decor",
+            "x": 5,
+            "y": 1
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-6-1",
+            "kind": "decor",
+            "x": 6,
+            "y": 1
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-0-3",
+            "kind": "decor",
+            "x": 0,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-1-3",
+            "kind": "decor",
+            "x": 1,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-2-3",
+            "kind": "decor",
+            "x": 2,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-4-3",
+            "kind": "decor",
+            "x": 4,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-5-3",
+            "kind": "decor",
+            "x": 5,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-6-3",
+            "kind": "decor",
+            "x": 6,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "editor-object-1",
+            "inventory_id": "crate-wood",
+            "kind": "decor",
+            "x": 3,
+            "y": 1
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "editor-object-2",
+            "inventory_id": "crate-wood",
+            "kind": "decor",
+            "x": 3,
+            "y": 3
+          }
+        ],
+        "recipes": {
+          "cucumber_maki": {
+            "name": "Cucumber maki",
+            "preparation_seconds": 14.0,
+            "price": 10.0
+          },
+          "salmon_nigiri": {
+            "name": "Salmon nigiri",
+            "preparation_seconds": 3.4,
+            "price": 14.0
+          }
+        },
+        "stats": {
+          "arrivals": 1,
+          "sales": 0,
+          "served": 0
+        },
+        "version": 1
+      },
+      "trigger": {
+        "command": {
+          "inventory_id": "crate-wood",
+          "type": "editor_place",
+          "x": 3,
+          "y": 3
+        },
+        "result": {
+          "id": "editor-object-2",
+          "ok": true
+        }
+      }
+    },
+    {
+      "feedback": [
+        {
+          "body_clip": "walk",
+          "bubble": {
+            "clip": "idle",
+            "object": "bubble-panic",
+            "seconds": 3.3,
+            "timer": -1.0
+          },
+          "id": "customer-1"
+        }
+      ],
+      "name": "06-trapped-guest-still-wandering",
+      "pixels": [
+        1280,
+        720
+      ],
+      "portrait": [
+        777.5,
+        720.0,
+        1280.0
+      ],
+      "snapshot": {
+        "camera": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "coins": 120,
+        "customers": [
+          {
+            "appearance": 1,
+            "entrance_wait_elapsed": 0.0,
+            "entrance_wait_total": 4.0,
+            "facing": "west",
+            "happy_duration": 2.2,
+            "happy_elapsed": 0.0,
+            "id": "customer-1",
+            "meal_dish": null,
+            "meal_progress": 0.0,
+            "navigation_mode": "wander",
+            "phase": "walking",
+            "preference_phase": "pending",
+            "preference_phase_elapsed": 5.3,
+            "preference_progress": 1.0,
+            "preference_remaining": 7.0,
+            "preference_total": 7.0,
+            "preferred_recipe_id": "salmon_nigiri",
+            "render_offset_x": 0.0,
+            "render_offset_y": -0.239999994635582,
+            "restless": false,
+            "seat_id": "seat",
+            "visual_elapsed": 5.3,
+            "visual_phase": "walk",
+            "waiting_elapsed": 0.0,
+            "wander_elapsed": 4.3,
+            "x": 3.47999954223633,
+            "y": 2.0,
+            "yielding": false
+          }
+        ],
+        "editor": {
+          "layer": "layout",
+          "page": 0,
+          "pages": {
+            "floor": 0,
+            "layout": 0,
+            "people": 0
+          },
+          "selected_id": "editor-object-2",
+          "tray_open": true
+        },
+        "elapsed": 5.4,
+        "entrance_open": true,
+        "floor": {
+          "columns": 7,
+          "entrance": {
+            "x": 3,
+            "y": 0
+          },
+          "rows": 7,
+          "viewport_columns": 7,
+          "world_columns": 21
+        },
+        "inventory": [
+          {
+            "art_id": "belt-straight-e",
+            "count": 6.0,
+            "facing": "east",
+            "id": "belt-tile",
+            "kind": "belt",
+            "name": "Conveyor"
+          },
+          {
+            "art_id": "stool-wood",
+            "count": 4.0,
+            "facing": "south",
+            "id": "stool-plain",
+            "kind": "seat",
+            "name": "Wood stool"
+          },
+          {
+            "art_id": "plant-angular",
+            "count": 2.0,
+            "facing": "south",
+            "id": "plant-angular",
+            "kind": "decor",
+            "name": "Potted plant"
+          },
+          {
+            "art_id": "crate-wood",
+            "count": 0.0,
+            "facing": "south",
+            "id": "crate-wood",
+            "kind": "decor",
+            "name": "Wood crate"
+          },
+          {
+            "art_id": "barrel-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "barrel-wood",
+            "kind": "decor",
+            "name": "Wood barrel"
+          },
+          {
+            "art_id": "floor-cream",
+            "available": false,
+            "count": 0.0,
+            "id": "floor-cream",
+            "kind": "floor",
+            "name": "Cream floor"
+          },
+          {
+            "art_id": "chef-lena",
+            "assigned": true,
+            "count": 0,
+            "facing": "east",
+            "id": "chef",
+            "kind": "chef",
+            "name": "Chef",
+            "recipe_id": "salmon_nigiri"
+          }
+        ],
+        "mode": "live",
+        "objects": [
+          {
+            "active": true,
+            "art_id": "chef-lena",
+            "facing": "east",
+            "held_dish": null,
+            "id": "chef",
+            "inactive_reason": "",
+            "kind": "chef",
+            "loading_elapsed": 0.0,
+            "preparation": 0.294117647058824,
+            "preparation_seconds": 3.4,
+            "recipe_id": "salmon_nigiri",
+            "visual_elapsed": 1.0,
+            "visual_phase": "work",
+            "x": 2,
+            "y": 6
+          },
+          {
+            "active": false,
+            "facing": "south",
+            "id": "seat",
+            "inactive_reason": "no_access",
+            "kind": "seat",
+            "x": 3,
+            "y": 5
+          },
+          {
+            "dish": {
+              "id": "dish-1",
+              "recipe_id": "salmon_nigiri"
+            },
+            "facing": "south",
+            "id": "belt",
+            "kind": "belt",
+            "travel_progress": 0.0,
+            "x": 3,
+            "y": 6
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-0-1",
+            "kind": "decor",
+            "x": 0,
+            "y": 1
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-1-1",
+            "kind": "decor",
+            "x": 1,
+            "y": 1
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-2-1",
+            "kind": "decor",
+            "x": 2,
+            "y": 1
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-4-1",
+            "kind": "decor",
+            "x": 4,
+            "y": 1
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-5-1",
+            "kind": "decor",
+            "x": 5,
+            "y": 1
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-6-1",
+            "kind": "decor",
+            "x": 6,
+            "y": 1
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-0-3",
+            "kind": "decor",
+            "x": 0,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-1-3",
+            "kind": "decor",
+            "x": 1,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-2-3",
+            "kind": "decor",
+            "x": 2,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-4-3",
+            "kind": "decor",
+            "x": 4,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-5-3",
+            "kind": "decor",
+            "x": 5,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-6-3",
+            "kind": "decor",
+            "x": 6,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "editor-object-1",
+            "inventory_id": "crate-wood",
+            "kind": "decor",
+            "x": 3,
+            "y": 1
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "editor-object-2",
+            "inventory_id": "crate-wood",
+            "kind": "decor",
+            "x": 3,
+            "y": 3
+          }
+        ],
+        "recipes": {
+          "cucumber_maki": {
+            "name": "Cucumber maki",
+            "preparation_seconds": 14.0,
+            "price": 10.0
+          },
+          "salmon_nigiri": {
+            "name": "Salmon nigiri",
+            "preparation_seconds": 3.4,
+            "price": 14.0
+          }
+        },
+        "stats": {
+          "arrivals": 1,
+          "sales": 0,
+          "served": 0
+        },
+        "version": 1
+      },
+      "trigger": {
+        "same_guest": "customer-1"
+      }
+    },
+    {
+      "feedback": [
+        {
+          "body_clip": "walk",
+          "bubble": {},
+          "id": "customer-1"
+        }
+      ],
+      "name": "07-blocked-seat-open-exit",
+      "pixels": [
+        1280,
+        720
+      ],
+      "portrait": [
+        777.5,
+        720.0,
+        1280.0
+      ],
+      "snapshot": {
+        "camera": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "coins": 120,
+        "customers": [
+          {
+            "appearance": 1,
+            "entrance_wait_elapsed": 0.0,
+            "entrance_wait_total": 4.0,
+            "facing": "north",
+            "happy_duration": 2.2,
+            "happy_elapsed": 0.0,
+            "id": "customer-1",
+            "meal_dish": null,
+            "meal_progress": 0.0,
+            "navigation_mode": "goal",
+            "phase": "leaving",
+            "preference_phase": "pending",
+            "preference_phase_elapsed": 0.55,
+            "preference_progress": 1.0,
+            "preference_remaining": 7.0,
+            "preference_total": 7.0,
+            "preferred_recipe_id": "salmon_nigiri",
+            "render_offset_x": -0.139999985694885,
+            "render_offset_y": 0.0,
+            "restless": false,
+            "seat_id": "seat",
+            "visual_elapsed": 0.55,
+            "visual_phase": "walk",
+            "waiting_elapsed": 0.0,
+            "wander_elapsed": 0.0,
+            "x": 3.0,
+            "y": 0.900000095367432,
+            "yielding": false
+          }
+        ],
+        "editor": {
+          "layer": "layout",
+          "page": 0,
+          "pages": {
+            "floor": 0,
+            "layout": 0,
+            "people": 0
+          },
+          "selected_id": "editor-object-1",
+          "tray_open": true
+        },
+        "elapsed": 0.65,
+        "entrance_open": true,
+        "floor": {
+          "columns": 7,
+          "entrance": {
+            "x": 3,
+            "y": 0
+          },
+          "rows": 7,
+          "viewport_columns": 7,
+          "world_columns": 21
+        },
+        "inventory": [
+          {
+            "art_id": "belt-straight-e",
+            "count": 6.0,
+            "facing": "east",
+            "id": "belt-tile",
+            "kind": "belt",
+            "name": "Conveyor"
+          },
+          {
+            "art_id": "stool-wood",
+            "count": 4.0,
+            "facing": "south",
+            "id": "stool-plain",
+            "kind": "seat",
+            "name": "Wood stool"
+          },
+          {
+            "art_id": "plant-angular",
+            "count": 2.0,
+            "facing": "south",
+            "id": "plant-angular",
+            "kind": "decor",
+            "name": "Potted plant"
+          },
+          {
+            "art_id": "crate-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "crate-wood",
+            "kind": "decor",
+            "name": "Wood crate"
+          },
+          {
+            "art_id": "barrel-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "barrel-wood",
+            "kind": "decor",
+            "name": "Wood barrel"
+          },
+          {
+            "art_id": "floor-cream",
+            "available": false,
+            "count": 0.0,
+            "id": "floor-cream",
+            "kind": "floor",
+            "name": "Cream floor"
+          },
+          {
+            "art_id": "chef-lena",
+            "assigned": true,
+            "count": 0,
+            "facing": "east",
+            "id": "chef",
+            "kind": "chef",
+            "name": "Chef",
+            "recipe_id": "salmon_nigiri"
+          }
+        ],
+        "mode": "live",
+        "objects": [
+          {
+            "active": true,
+            "art_id": "chef-lena",
+            "facing": "east",
+            "held_dish": null,
+            "id": "chef",
+            "inactive_reason": "",
+            "kind": "chef",
+            "loading_elapsed": 0.0,
+            "preparation": 0.191176470588235,
+            "preparation_seconds": 3.4,
+            "recipe_id": "salmon_nigiri",
+            "visual_elapsed": 0.65,
+            "visual_phase": "work",
+            "x": 2,
+            "y": 6
+          },
+          {
+            "active": false,
+            "facing": "south",
+            "id": "seat",
+            "inactive_reason": "no_access",
+            "kind": "seat",
+            "x": 3,
+            "y": 5
+          },
+          {
+            "dish": null,
+            "facing": "south",
+            "id": "belt",
+            "kind": "belt",
+            "travel_progress": 0.0,
+            "x": 3,
+            "y": 6
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-0",
+            "kind": "decor",
+            "x": 0,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-1",
+            "kind": "decor",
+            "x": 1,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-2",
+            "kind": "decor",
+            "x": 2,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-4",
+            "kind": "decor",
+            "x": 4,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-5",
+            "kind": "decor",
+            "x": 5,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-6",
+            "kind": "decor",
+            "x": 6,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "editor-object-1",
+            "inventory_id": "crate-wood",
+            "kind": "decor",
+            "x": 3,
+            "y": 3
+          }
+        ],
+        "recipes": {
+          "cucumber_maki": {
+            "name": "Cucumber maki",
+            "preparation_seconds": 14.0,
+            "price": 10.0
+          },
+          "salmon_nigiri": {
+            "name": "Salmon nigiri",
+            "preparation_seconds": 3.4,
+            "price": 14.0
+          }
+        },
+        "stats": {
+          "arrivals": 1,
+          "sales": 0,
+          "served": 0
+        },
+        "version": 1
+      },
+      "trigger": {
+        "purpose": "An unreachable seat does not imply an unreachable entrance.",
+        "same_guest": "customer-1"
+      }
+    },
+    {
+      "feedback": [],
+      "name": "08-open-exit-guest-departed",
+      "pixels": [
+        1280,
+        720
+      ],
+      "portrait": [
+        777.5,
+        720.0,
+        1280.0
+      ],
+      "snapshot": {
+        "camera": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "coins": 120,
+        "customers": [],
+        "editor": {
+          "layer": "layout",
+          "page": 0,
+          "pages": {
+            "floor": 0,
+            "layout": 0,
+            "people": 0
+          },
+          "selected_id": "editor-object-1",
+          "tray_open": true
+        },
+        "elapsed": 2.65,
+        "entrance_open": true,
+        "floor": {
+          "columns": 7,
+          "entrance": {
+            "x": 3,
+            "y": 0
+          },
+          "rows": 7,
+          "viewport_columns": 7,
+          "world_columns": 21
+        },
+        "inventory": [
+          {
+            "art_id": "belt-straight-e",
+            "count": 6.0,
+            "facing": "east",
+            "id": "belt-tile",
+            "kind": "belt",
+            "name": "Conveyor"
+          },
+          {
+            "art_id": "stool-wood",
+            "count": 4.0,
+            "facing": "south",
+            "id": "stool-plain",
+            "kind": "seat",
+            "name": "Wood stool"
+          },
+          {
+            "art_id": "plant-angular",
+            "count": 2.0,
+            "facing": "south",
+            "id": "plant-angular",
+            "kind": "decor",
+            "name": "Potted plant"
+          },
+          {
+            "art_id": "crate-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "crate-wood",
+            "kind": "decor",
+            "name": "Wood crate"
+          },
+          {
+            "art_id": "barrel-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "barrel-wood",
+            "kind": "decor",
+            "name": "Wood barrel"
+          },
+          {
+            "art_id": "floor-cream",
+            "available": false,
+            "count": 0.0,
+            "id": "floor-cream",
+            "kind": "floor",
+            "name": "Cream floor"
+          },
+          {
+            "art_id": "chef-lena",
+            "assigned": true,
+            "count": 0,
+            "facing": "east",
+            "id": "chef",
+            "kind": "chef",
+            "name": "Chef",
+            "recipe_id": "salmon_nigiri"
+          }
+        ],
+        "mode": "live",
+        "objects": [
+          {
+            "active": true,
+            "art_id": "chef-lena",
+            "facing": "east",
+            "held_dish": null,
+            "id": "chef",
+            "inactive_reason": "",
+            "kind": "chef",
+            "loading_elapsed": 0.0,
+            "preparation": 0.779411764705882,
+            "preparation_seconds": 3.4,
+            "recipe_id": "salmon_nigiri",
+            "visual_elapsed": 2.65,
+            "visual_phase": "work",
+            "x": 2,
+            "y": 6
+          },
+          {
+            "active": false,
+            "facing": "south",
+            "id": "seat",
+            "inactive_reason": "no_access",
+            "kind": "seat",
+            "x": 3,
+            "y": 5
+          },
+          {
+            "dish": null,
+            "facing": "south",
+            "id": "belt",
+            "kind": "belt",
+            "travel_progress": 0.0,
+            "x": 3,
+            "y": 6
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-0",
+            "kind": "decor",
+            "x": 0,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-1",
+            "kind": "decor",
+            "x": 1,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-2",
+            "kind": "decor",
+            "x": 2,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-4",
+            "kind": "decor",
+            "x": 4,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-5",
+            "kind": "decor",
+            "x": 5,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "wall-6",
+            "kind": "decor",
+            "x": 6,
+            "y": 3
+          },
+          {
+            "art_id": "crate-wood",
+            "facing": "south",
+            "id": "editor-object-1",
+            "inventory_id": "crate-wood",
+            "kind": "decor",
+            "x": 3,
+            "y": 3
+          }
+        ],
+        "recipes": {
+          "cucumber_maki": {
+            "name": "Cucumber maki",
+            "preparation_seconds": 14.0,
+            "price": 10.0
+          },
+          "salmon_nigiri": {
+            "name": "Salmon nigiri",
+            "preparation_seconds": 3.4,
+            "price": 14.0
+          }
+        },
+        "stats": {
+          "arrivals": 1,
+          "sales": 0,
+          "served": 0
+        },
+        "version": 1
+      },
+      "trigger": {
+        "events": [
+          {
+            "customer_id": "customer-1",
+            "reason": "seat_unreachable",
+            "type": "departed"
+          }
+        ],
+        "same_guest": "customer-1"
+      }
+    },
+    {
+      "feedback": [
+        {
+          "body_clip": "walk",
+          "bubble": {},
+          "id": "customer-1"
+        }
+      ],
+      "name": "09-shared-reactions-gallery",
+      "pixels": [
+        1280,
+        720
+      ],
+      "portrait": [
+        777.5,
+        720.0,
+        1280.0
+      ],
+      "snapshot": {
+        "camera": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "coins": 120,
+        "customers": [
+          {
+            "appearance": 3,
+            "entrance_wait_elapsed": 0.0,
+            "entrance_wait_total": 4.0,
+            "facing": "east",
+            "happy_duration": 2.2,
+            "happy_elapsed": 0.0,
+            "id": "customer-1",
+            "meal_dish": null,
+            "meal_progress": 0.0,
+            "navigation_mode": "goal",
+            "phase": "walking",
+            "preference_phase": "pending",
+            "preference_phase_elapsed": 0.7,
+            "preference_progress": 1.0,
+            "preference_remaining": 7.0,
+            "preference_total": 7.0,
+            "preferred_recipe_id": "cucumber_maki",
+            "render_offset_x": 0.0,
+            "render_offset_y": 0.239999994635582,
+            "restless": false,
+            "seat_id": "seat-4",
+            "visual_elapsed": 0.7,
+            "visual_phase": "walk",
+            "waiting_elapsed": 0.0,
+            "wander_elapsed": 0.0,
+            "x": 4.75,
+            "y": 2.0,
+            "yielding": false
+          }
+        ],
+        "editor": {
+          "layer": "layout",
+          "page": 0,
+          "pages": {
+            "floor": 0,
+            "layout": 0,
+            "people": 0
+          },
+          "selected_id": "",
+          "tray_open": true
+        },
+        "elapsed": 1.5,
+        "entrance_open": true,
+        "floor": {
+          "columns": 7.0,
+          "entrance": {
+            "x": 3.0,
+            "y": 2.0
+          },
+          "rows": 13.0,
+          "viewport_columns": 7.0,
+          "world_columns": 21.0
+        },
+        "inventory": [
+          {
+            "art_id": "belt-straight-e",
+            "count": 6.0,
+            "facing": "east",
+            "id": "belt-tile",
+            "kind": "belt",
+            "name": "Conveyor"
+          },
+          {
+            "art_id": "stool-wood",
+            "count": 4.0,
+            "facing": "south",
+            "id": "stool-plain",
+            "kind": "seat",
+            "name": "Wood stool"
+          },
+          {
+            "art_id": "plant-angular",
+            "count": 2.0,
+            "facing": "south",
+            "id": "plant-angular",
+            "kind": "decor",
+            "name": "Potted plant"
+          },
+          {
+            "art_id": "crate-wood",
+            "count": 2.0,
+            "facing": "south",
+            "id": "crate-wood",
+            "kind": "decor",
+            "name": "Wood crate"
+          },
+          {
+            "art_id": "barrel-wood",
+            "count": 1.0,
+            "facing": "south",
+            "id": "barrel-wood",
+            "kind": "decor",
+            "name": "Wood barrel"
+          },
+          {
+            "art_id": "floor-cream",
+            "available": false,
+            "count": 0.0,
+            "id": "floor-cream",
+            "kind": "floor",
+            "name": "Cream floor"
+          },
+          {
+            "art_id": "chef-lena",
+            "assigned": true,
+            "count": 0,
+            "facing": "north",
+            "id": "chef-1",
+            "kind": "chef",
+            "name": "Lena",
+            "recipe_id": "salmon_nigiri"
+          },
+          {
+            "art_id": "chef-omar",
+            "assigned": true,
+            "count": 0,
+            "facing": "north",
+            "id": "chef-2",
+            "kind": "chef",
+            "name": "Omar",
+            "recipe_id": "cucumber_maki"
+          },
+          {
+            "art_id": "chef-lena",
+            "assigned": true,
+            "count": 0,
+            "facing": "south",
+            "id": "chef-disconnected",
+            "kind": "chef",
+            "name": "Mina",
+            "recipe_id": "salmon_nigiri"
+          }
+        ],
+        "mode": "live",
+        "objects": [
+          {
+            "active": true,
+            "art_id": "chef-lena",
+            "facing": "north",
+            "held_dish": null,
+            "id": "chef-1",
+            "inactive_reason": "",
+            "kind": "chef",
+            "loading_elapsed": 0.0,
+            "name": "Lena",
+            "preparation": 0.441176470588235,
+            "preparation_seconds": 3.4,
+            "recipe_id": "salmon_nigiri",
+            "visual_elapsed": 1.5,
+            "visual_phase": "work",
+            "x": 1.0,
+            "y": 7.0
+          },
+          {
+            "active": true,
+            "art_id": "chef-omar",
+            "facing": "north",
+            "held_dish": null,
+            "id": "chef-2",
+            "inactive_reason": "",
+            "kind": "chef",
+            "loading_elapsed": 0.0,
+            "name": "Omar",
+            "preparation": 0.107142857142857,
+            "preparation_seconds": 14.0,
+            "recipe_id": "cucumber_maki",
+            "visual_elapsed": 1.5,
+            "visual_phase": "work",
+            "x": 2.0,
+            "y": 10.0
+          },
+          {
+            "active": false,
+            "art_id": "chef-lena",
+            "facing": "south",
+            "held_dish": null,
+            "id": "chef-disconnected",
+            "inactive_reason": "no_belt",
+            "kind": "chef",
+            "loading_elapsed": 0.0,
+            "name": "Mina",
+            "preparation": 0.0,
+            "preparation_seconds": 3.4,
+            "recipe_id": "salmon_nigiri",
+            "visual_elapsed": 1.45,
+            "visual_phase": "idle",
+            "x": 6.0,
+            "y": 10.0
+          },
+          {
+            "dish": null,
+            "facing": "east",
+            "id": "belt-1",
+            "kind": "belt",
+            "travel_progress": 0.0,
+            "x": 1.0,
+            "y": 6.0
+          },
+          {
+            "dish": null,
+            "facing": "east",
+            "id": "belt-2",
+            "kind": "belt",
+            "travel_progress": 0.0,
+            "x": 2.0,
+            "y": 6.0
+          },
+          {
+            "dish": null,
+            "facing": "east",
+            "id": "belt-3",
+            "kind": "belt",
+            "travel_progress": 0.0,
+            "x": 3.0,
+            "y": 6.0
+          },
+          {
+            "dish": null,
+            "facing": "east",
+            "id": "belt-4",
+            "kind": "belt",
+            "travel_progress": 0.0,
+            "x": 4.0,
+            "y": 6.0
+          },
+          {
+            "dish": null,
+            "facing": "east",
+            "id": "belt-5",
+            "kind": "belt",
+            "travel_progress": 0.0,
+            "x": 2.0,
+            "y": 9.0
+          },
+          {
+            "dish": null,
+            "facing": "east",
+            "id": "belt-6",
+            "kind": "belt",
+            "travel_progress": 0.0,
+            "x": 3.0,
+            "y": 9.0
+          },
+          {
+            "dish": null,
+            "facing": "east",
+            "id": "belt-7",
+            "kind": "belt",
+            "travel_progress": 0.0,
+            "x": 4.0,
+            "y": 9.0
+          },
+          {
+            "dish": null,
+            "facing": "east",
+            "id": "belt-8",
+            "kind": "belt",
+            "travel_progress": 0.0,
+            "x": 5.0,
+            "y": 9.0
+          },
+          {
+            "active": true,
+            "facing": "south",
+            "id": "seat-1",
+            "inactive_reason": "",
+            "kind": "seat",
+            "x": 2.0,
+            "y": 5.0
+          },
+          {
+            "active": true,
+            "facing": "south",
+            "id": "seat-2",
+            "inactive_reason": "",
+            "kind": "seat",
+            "x": 4.0,
+            "y": 5.0
+          },
+          {
+            "active": true,
+            "facing": "south",
+            "id": "seat-3",
+            "inactive_reason": "",
+            "kind": "seat",
+            "x": 3.0,
+            "y": 8.0
+          },
+          {
+            "active": true,
+            "facing": "south",
+            "id": "seat-4",
+            "inactive_reason": "",
+            "kind": "seat",
+            "x": 5.0,
+            "y": 8.0
+          },
+          {
+            "active": false,
+            "facing": "north",
+            "id": "seat-5",
+            "inactive_reason": "no_belt",
+            "kind": "seat",
+            "x": 6.0,
+            "y": 6.0
+          }
+        ],
+        "recipes": {
+          "cucumber_maki": {
+            "name": "Cucumber maki",
+            "preparation_seconds": 14.0,
+            "price": 10.0
+          },
+          "salmon_nigiri": {
+            "name": "Salmon nigiri",
+            "preparation_seconds": 3.4,
+            "price": 14.0
+          }
+        },
+        "stats": {
+          "arrivals": 1,
+          "sales": 0,
+          "served": 0
+        },
+        "version": 1
+      },
+      "trigger": {
+        "purpose": "All seven customer reactions, inactive furniture and service samples in the real native mobile gallery."
+      }
+    }
+  ],
+  "source": "Actual production main.tscn and RestaurantView; public Session APIs only"
+}

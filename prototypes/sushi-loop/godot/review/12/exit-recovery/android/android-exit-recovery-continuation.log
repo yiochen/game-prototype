@@ -1,0 +1,16 @@
+PASS: 48 cold restore preserves all legacy gameplay/navigation/schema fields exactly except the two enumerated one-ULP JSON numeric roundtrips
+PASS: Idle Edit48 applies no exit fallback and keeps its complete decoded guest, phase, visit, pose, position and clocks exactly unchanged
+PASS: Live converts the old blocked-seat walker directly to goal departure with seat_unreachable, clears scared clock and keeps walking pose
+PASS: Exit fallback keeps the same guest, assigned seat history and complete meal/visit identity without rerolling or reseating
+PASS: The legacy blocked-seat guest reaches the available entrance and leaves instead of continuing to wander
+Waiting for an actual lower-room guest to finish its visit and need the blocked exit...
+PASS: An already-admitted lower-room guest with no entrance route keeps its real departure reason and scared wandering
+PASS: The true trapped guest continues moving on free floor with its original meal/visit and advancing scared clock
+PASS: Returning the real plant gate restores its owned stock and entrance access without changing the paused guest visit or coins
+PASS: The already-leaving guest resumes its original goal departure after gate opening and clears scared feedback
+PASS: The previously trapped leaving guest completes its original departure through the reopened entrance
+PASS: A v48 walking guest with an available seat route prioritizes that assigned seat despite a reachable entrance
+PASS: The same goal walker reaches its assigned seat without a seat_unreachable exit or visit reroll
+PASS: All review47/48 real-input exit and seat-priority cases leave both normal48 app saves untouched
+PASS: No app script error or Android crash occurs through legacy recovery, true wandering, restored departure or seat priority
+{"exit_assertions": 17, "combined_assertions": 27, "passed": true}

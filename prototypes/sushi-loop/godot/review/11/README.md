@@ -1,6 +1,6 @@
 # Issue 11 · customer visits
 
-Implements [#11](https://github.com/yiochen/game-prototype/issues/11) on the accepted #10 restaurant, based on merged `main` at `d30f3cbe8b5f590c162e719828d9e605ecd24150`. This slice remains open for user verification before the next ticket.
+Implements [#11](https://github.com/yiochen/game-prototype/issues/11) on the accepted #10 restaurant, based on merged `main` at `d30f3cbe8b5f590c162e719828d9e605ecd24150`. The user verified this slice and authorized merging [PR #35](https://github.com/yiochen/game-prototype/pull/35); issue #11 is closed. The evidence below records that completed release.
 
 ## Demonstration scene
 

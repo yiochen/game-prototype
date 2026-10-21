@@ -1,0 +1,12 @@
+# Issue 12 — entrance wait and trapped-guest feedback
+
+Recorded 2026-10-20 for the current restaurant-editor slice and PR #36. This refines [blocked-route wandering](../guest-wandering/contract.md). It distinguishes a new arrival at the entrance from a guest already inside; it does not add the full #14 customer-rescue ticket.
+
+- A new arrival with no free, reachable usable seat waits at the entrance for **four simulation seconds** with a **puzzled bubble**. Retry seating during the wait when a seat becomes free or reachable. If none becomes usable before the deadline, the arrival leaves. New arrivals never enter wandering mode.
+- Guests already trapped inside retain indefinite free-floor wandering, the existing walk animation, their destination and visit/meal state. Show a **scared bubble** while they wander; restore goal navigation automatically when the route is repaired.
+- Reuse the existing approved 2D `bubble-puzzled` and `bubble-panic` appear/idle/fade atlases with their registered scale and head attachment. No new ImageGen artwork or changes to the v8 editor control family are included.
+- Edit, backgrounding and cold reopen preserve the entrance wait deadline/progress, wandering progress and persisted feedback clocks. Paused time does not consume the four-second wait, advance emotional feedback or draw RNG. Available-seat recovery retains the same arrival identity rather than spawning or rerolling a replacement.
+- Preserve direct guest-overlap, busy-seat, entrance and occupied-cell guards. Seated guests stay seated with their meals and visits intact. Valid layout edits may still block routes, and already-trapped guests still wander indefinitely.
+- Legacy 0.4.6 saves gain only the agreed admission-version/default fields and neutral persisted feedback clock defaults, including `wander_elapsed = 0`. Migration preserves every legacy physical, economic, navigation, service, visit, meal, clock and RNG value. The exact field allowlist is recorded with the finalized core contract and actual upgrade comparison.
+
+The next signed review build is **0.4.7 / code 47**. Android package names, `SushiLoopTickets` save identity and the release signer remain unchanged. Preserve both normal save files byte for byte before first 0.4.7 launch and preserve all 0.4.6 evidence. Issue #12 and PR #36 remain open for user verification. No other art, UI layout, ticket or rescue action is included.

@@ -1,0 +1,90 @@
+{
+  "engine": "Godot 4.7.2.stable.official.ed1daf0bf",
+  "isolation": "Serialized cached disposable project, new unpredictable SushiLoopTicketsTest-* identity per process; real preview and user save untouched.",
+  "engine_suites": [
+    {
+      "script": "tests/guest_exit_recovery_tests.gd",
+      "checks": 68,
+      "passed": true,
+      "log": "guest_exit_recovery_tests-450x800.log"
+    },
+    {
+      "script": "tests/session_tests.gd",
+      "checks": 94,
+      "passed": true,
+      "log": "session_tests-450x800.log"
+    },
+    {
+      "script": "tests/editor_tests.gd",
+      "checks": 185,
+      "passed": true,
+      "log": "editor_tests-450x800.log"
+    },
+    {
+      "script": "tests/customer_visit_tests.gd",
+      "checks": 76,
+      "passed": true,
+      "log": "customer_visit_tests-450x800.log"
+    },
+    {
+      "script": "tests/guest_wandering_tests.gd",
+      "checks": 84,
+      "passed": true,
+      "log": "guest_wandering_tests-450x800.log"
+    },
+    {
+      "script": "tests/entrance_wait_tests.gd",
+      "checks": 78,
+      "passed": true,
+      "log": "entrance_wait_tests-450x800.log"
+    },
+    {
+      "script": "tests/demonstration_tests.gd",
+      "checks": 12,
+      "passed": true,
+      "log": "demonstration_tests-450x800.log"
+    },
+    {
+      "script": "tests/save_store_tests.gd",
+      "checks": 26,
+      "passed": true,
+      "log": "save_store_tests-450x800.log"
+    }
+  ],
+  "native_suites": [
+    {
+      "script": "tests/native_app_tests.gd",
+      "resolution": "320x720",
+      "checks": 234,
+      "passed": true,
+      "log": "native_app_tests-320x720-visible.log"
+    },
+    {
+      "script": "tests/native_app_tests.gd",
+      "resolution": "1280x720",
+      "checks": 234,
+      "passed": true,
+      "log": "native_app_tests-1280x720-visible.log"
+    }
+  ],
+  "total_engine_checks": 623,
+  "total_native_checks": 468,
+  "captures": {
+    "phone": "450x800",
+    "landscape": "1280x720",
+    "frames_per_resolution": 9,
+    "passed": true
+  },
+  "source_sha256": {
+    "scripts/session.gd": "a872f31ba9fce8ac46f1861f9d16e6ab4f64ac0476b6e9f30a892dec6ecbc1ba",
+    "tests/guest_exit_recovery_tests.gd": "33b7d4d02c9e1d93e639b19e092fb6e3ab692467dbcdb86c5dfbead6cde83bbb",
+    "tests/guest_wandering_tests.gd": "065a190fb3525eaa686e1958adc7a4b0b37eb12aa9b4ab367165b2d8d085cd33",
+    "tests/entrance_wait_tests.gd": "2f23c2a5b491b21d7ddf6faf3844fbdce9b6045c7a71be9011e6d4da4117e5ee",
+    "tests/capture_entrance_wait.gd": "10e9790d3fb98c6539b0997b850edfab9d2110c65e3a7b9cf33c5600d5850171"
+  },
+  "limits": [
+    "The existing arrival countdown permits only 1e-9 tolerance during deterministic continuation; exit events, guest state, route, reactions and RNG require exact comparison.",
+    "Restore comparisons use the actual decoded JSON input; raw pre-serialization doubles may roundtrip by one ULP.",
+    "Unchanged artwork/UI packaging boundary checks and the full previous Android control regression remain in the 0.4.7 evidence; this pass targets exit recovery and related session/native behavior."
+  ]
+}
