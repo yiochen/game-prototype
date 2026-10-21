@@ -1,0 +1,177 @@
+{
+  "asset": "slate-rock",
+  "round": 3,
+  "status": "candidate-ready-for-independent-review",
+  "pipeline": "native-3d",
+  "project": "source/round-03.blend",
+  "recipe": "source/round-03.py",
+  "validation": "candidates/round-03/validation.json",
+  "heroes": {
+    "N": "candidates/round-03/static-N.png",
+    "E": "candidates/round-03/static-E.png",
+    "S": "candidates/round-03/static-S.png",
+    "W": "candidates/round-03/static-W.png"
+  },
+  "rawFrames": [
+    {
+      "clip": "static",
+      "direction": "N",
+      "index": 0,
+      "nativeFrame": 1,
+      "path": "candidates/round-03/static-N.png",
+      "sha256": "59fc4b9e9f621efe358cfc39696a953868602c08235515743d059063db9cb09b"
+    },
+    {
+      "clip": "static",
+      "direction": "E",
+      "index": 0,
+      "nativeFrame": 1,
+      "path": "candidates/round-03/static-E.png",
+      "sha256": "39d0bc9044df2608962128f3774d5404a0d6e9d63ac2295d6cdfe2eac48b0269"
+    },
+    {
+      "clip": "static",
+      "direction": "S",
+      "index": 0,
+      "nativeFrame": 1,
+      "path": "candidates/round-03/static-S.png",
+      "sha256": "e41e99b8a5d0dc9b40e0141b452662253051f64f90aecd32f2c2f1586f080c4a"
+    },
+    {
+      "clip": "static",
+      "direction": "W",
+      "index": 0,
+      "nativeFrame": 1,
+      "path": "candidates/round-03/static-W.png",
+      "sha256": "3166f715856a507d933c560495220f26c7bfb56f0b8b8e2227e1c03c7925fa14"
+    }
+  ],
+  "previews": {
+    "four-view-sheet": "candidates/round-03/four-view-sheet.png",
+    "logical-four-view-sheet": "candidates/round-03/logical-four-view-sheet.png",
+    "repeated": "candidates/round-03/repeated.png",
+    "backgrounds": "candidates/round-03/backgrounds.png",
+    "registered-facing-comparison": "candidates/round-03/registered-facing-comparison.png"
+  },
+  "atlases": [
+    {
+      "clip": "static",
+      "sourceClipId": "static",
+      "direction": "N",
+      "path": "candidates/round-03/atlases/static-N.png",
+      "sha256": "59fc4b9e9f621efe358cfc39696a953868602c08235515743d059063db9cb09b",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        384,
+        704
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          704
+        ]
+      ]
+    },
+    {
+      "clip": "static",
+      "sourceClipId": "static",
+      "direction": "E",
+      "path": "candidates/round-03/atlases/static-E.png",
+      "sha256": "39d0bc9044df2608962128f3774d5404a0d6e9d63ac2295d6cdfe2eac48b0269",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        384,
+        704
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          704
+        ]
+      ]
+    },
+    {
+      "clip": "static",
+      "sourceClipId": "static",
+      "direction": "S",
+      "path": "candidates/round-03/atlases/static-S.png",
+      "sha256": "e41e99b8a5d0dc9b40e0141b452662253051f64f90aecd32f2c2f1586f080c4a",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        384,
+        704
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          704
+        ]
+      ]
+    },
+    {
+      "clip": "static",
+      "sourceClipId": "static",
+      "direction": "W",
+      "path": "candidates/round-03/atlases/static-W.png",
+      "sha256": "3166f715856a507d933c560495220f26c7bfb56f0b8b8e2227e1c03c7925fa14",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        384,
+        704
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          704
+        ]
+      ]
+    }
+  ],
+  "nativeRecords": {
+    "camera": "source/round-03-camera.json",
+    "assetRecord": "source/round-03-assetRecord.json",
+    "rig": "source/round-03-rig.json"
+  },
+  "nativeProject": {
+    "scene": "slate-rock warm soft native round 03",
+    "collection": "S33_PROP_slate-rock.001",
+    "root": "slate-rock__root.001",
+    "selfContained": true,
+    "externalResources": [],
+    "staticFacingsDegrees": {
+      "N": 180,
+      "E": 90,
+      "S": 0,
+      "W": -90
+    },
+    "frame": 1
+  },
+  "replay": {
+    "script": "source/replay-round-03.py",
+    "command": "/opt/homebrew/bin/blender -b source/round-03.blend --python source/replay-round-03.py -- /absolute/output-directory"
+  },
+  "evidence": {
+    "reopenedSource": "candidates/round-03/reopened-source.json",
+    "reopenedNativeN": "candidates/round-03/reopened-N.png",
+    "auditRecipe": "source/audit-round-03.py",
+    "packagingRecipe": "source/package-round-03.py",
+    "reopenedNativeFacings": {
+      "N": "candidates/round-03/reopened-N.png",
+      "E": "candidates/round-03/reopened-E.png",
+      "S": "candidates/round-03/reopened-S.png",
+      "W": "candidates/round-03/reopened-W.png"
+    }
+  }
+}

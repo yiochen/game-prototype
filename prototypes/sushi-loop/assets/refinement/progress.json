@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 6,
-  "published": 5,
-  "current": "Lantern approved and queued for publication; slate and sign approved; dock revision and backdrop work ongoing",
+  "completed": 7,
+  "published": 6,
+  "current": "Lantern published; slate approved for next preview update; sign, dock and backdrop work continue",
   "objects": [
     {
       "id": "plant-angular",
@@ -83,7 +83,7 @@
       "name": "Golden lantern",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 48,
       "editor": "catalog_lantern_editor_v1",
@@ -97,12 +97,14 @@
       "name": "Subdued slate rock",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "reviewing",
+      "status": "approved",
       "clips": 1,
       "frames": 4,
       "editor": "catalog_slate_editor_v1",
       "judge": "catalog_slate_judge_v1",
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "round": "round-03",
+      "packetSHA256": "56b92de0bf4cdade9ba0dce4da86beb5945cb09be7366ddb65fa74eae6c3a1e7"
     },
     {
       "id": "sign-blank",
@@ -188,9 +190,11 @@
       "name": "Wall middle",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "wall-inner-corner",

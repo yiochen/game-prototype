@@ -1,0 +1,170 @@
+{
+  "asset": "slate-rock",
+  "round": 2,
+  "status": "candidate-ready-for-independent-review",
+  "pipeline": "native-3d",
+  "project": "source/round-02.blend",
+  "recipe": "source/round-02.py",
+  "validation": "candidates/round-02/validation.json",
+  "heroes": {
+    "N": "candidates/round-02/static-N.png",
+    "E": "candidates/round-02/static-E.png",
+    "S": "candidates/round-02/static-S.png",
+    "W": "candidates/round-02/static-W.png"
+  },
+  "rawFrames": [
+    {
+      "clip": "static",
+      "direction": "N",
+      "index": 0,
+      "nativeFrame": 1,
+      "path": "candidates/round-02/static-N.png",
+      "sha256": "dbb9330e6790a916562e36f4ad7a11b1f29f273af4bfa9c6c3f7c2327c6950ca"
+    },
+    {
+      "clip": "static",
+      "direction": "E",
+      "index": 0,
+      "nativeFrame": 1,
+      "path": "candidates/round-02/static-E.png",
+      "sha256": "9142e2de6ea3dc8df03845f93bf3f33df20c7ae9a2a00a47a7e7dbddb38dd183"
+    },
+    {
+      "clip": "static",
+      "direction": "S",
+      "index": 0,
+      "nativeFrame": 1,
+      "path": "candidates/round-02/static-S.png",
+      "sha256": "96300f0478514a9deb3a8aa3971326a6093e1d9e4f24135f20a4e189e6a21255"
+    },
+    {
+      "clip": "static",
+      "direction": "W",
+      "index": 0,
+      "nativeFrame": 1,
+      "path": "candidates/round-02/static-W.png",
+      "sha256": "7a2b6a4bd5d512933b403b685a6947b8227315480dd95f547171d4329ef094e8"
+    }
+  ],
+  "previews": {
+    "four-view-sheet": "candidates/round-02/four-view-sheet.png",
+    "logical-four-view-sheet": "candidates/round-02/logical-four-view-sheet.png",
+    "repeated": "candidates/round-02/repeated.png",
+    "backgrounds": "candidates/round-02/backgrounds.png"
+  },
+  "atlases": [
+    {
+      "clip": "static",
+      "sourceClipId": "static",
+      "direction": "N",
+      "path": "candidates/round-02/atlases/static-N.png",
+      "sha256": "dbb9330e6790a916562e36f4ad7a11b1f29f273af4bfa9c6c3f7c2327c6950ca",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        384,
+        704
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          704
+        ]
+      ]
+    },
+    {
+      "clip": "static",
+      "sourceClipId": "static",
+      "direction": "E",
+      "path": "candidates/round-02/atlases/static-E.png",
+      "sha256": "9142e2de6ea3dc8df03845f93bf3f33df20c7ae9a2a00a47a7e7dbddb38dd183",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        384,
+        704
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          704
+        ]
+      ]
+    },
+    {
+      "clip": "static",
+      "sourceClipId": "static",
+      "direction": "S",
+      "path": "candidates/round-02/atlases/static-S.png",
+      "sha256": "96300f0478514a9deb3a8aa3971326a6093e1d9e4f24135f20a4e189e6a21255",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        384,
+        704
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          704
+        ]
+      ]
+    },
+    {
+      "clip": "static",
+      "sourceClipId": "static",
+      "direction": "W",
+      "path": "candidates/round-02/atlases/static-W.png",
+      "sha256": "7a2b6a4bd5d512933b403b685a6947b8227315480dd95f547171d4329ef094e8",
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        384,
+        704
+      ],
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          704
+        ]
+      ]
+    }
+  ],
+  "nativeRecords": {
+    "camera": "source/round-02-camera.json",
+    "assetRecord": "source/round-02-assetRecord.json",
+    "rig": "source/round-02-rig.json"
+  },
+  "nativeProject": {
+    "scene": "slate-rock warm soft native round 02",
+    "collection": "S33_PROP_slate-rock.001",
+    "root": "slate-rock__root.001",
+    "selfContained": true,
+    "externalResources": [],
+    "staticFacingsDegrees": {
+      "N": 0,
+      "E": -90,
+      "S": 180,
+      "W": 90
+    },
+    "frame": 1
+  },
+  "replay": {
+    "script": "source/replay-round-02.py",
+    "command": "/opt/homebrew/bin/blender -b source/round-02.blend --python source/replay-round-02.py -- /absolute/output-directory"
+  },
+  "evidence": {
+    "reopenedSource": "candidates/round-02/reopened-source.json",
+    "reopenedNativeN": "candidates/round-02/reopened-N.png",
+    "auditRecipe": "source/audit-round-02.py",
+    "packagingRecipe": "source/package-round-02.py"
+  }
+}

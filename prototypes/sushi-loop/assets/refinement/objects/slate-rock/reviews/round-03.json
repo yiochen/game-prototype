@@ -1,0 +1,139 @@
+{
+  "asset": "slate-rock",
+  "round": 3,
+  "verdict": "approve",
+  "candidatePacketSHA256": "56b92de0bf4cdade9ba0dce4da86beb5945cb09be7366ddb65fa74eae6c3a1e7",
+  "criteriaVersion": 1,
+  "inspectedFiles": [
+    "static-N.png",
+    "static-E.png",
+    "static-S.png",
+    "static-W.png",
+    "four-view-sheet.png",
+    "logical-four-view-sheet.png",
+    "repeated.png",
+    "backgrounds.png",
+    "registered-facing-comparison.png"
+  ],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 7,
+    "artifactFreeReadability": 8
+  },
+  "observations": [
+    "The round-02 facing blocker is resolved. Direct inspection of all four native PNGs and the original-versus-candidate comparison shows the same labeled direction retains the original asymmetrical crown slope and fine-groove placement. N/E/S/W now use 180/+90/0/-90 degrees, matching both native_actions.py and the publisher.",
+    "The original broad one-cell faceted slate mass remains recognizable, with an uneven crown and substantial lower faces. Soft edge response does not turn it into a rounded pebble or inflate its silhouette.",
+    "All four views retain the previously successful soft matte slate treatment. Lower faces and base are readable medium gray rather than the original crushed near-black band; the broad crown remains subtly blue-gray with quiet low-frequency mineral variation and restrained soft highlights.",
+    "At native and logical size, the fine shallow crown incision remains readable. The logical four-view sheet, repeated placement and light/gray/dark background previews show consistent visual weight with no material clipping, broken corners, halos, black patches, excessive grain, lateral lighting bias or directional ground shadows.",
+    "No new material visual defects were found in this corrected capture. The fixed target remains useful for diffuse soft illumination and tactile planar treatment, while its beige recoloring and altered geometry are appropriately not copied."
+  ],
+  "blockers": [],
+  "resolvedPreviousBlockers": [
+    {
+      "id": "registered-facing-convention",
+      "fromRound": 2,
+      "evidence": "All four native images match their original named facing; source rotation convention verified against both cited source files and independently measured original alpha-shape matches."
+    }
+  ],
+  "remainingDifferences": [
+    "The candidate uses subdued slate blue-gray rather than the target beige crown. This satisfies original-palette preservation.",
+    "Surface texture and facets are more restrained than the painterly target, which keeps the rock legible at logical game size.",
+    "The shallow straight fine fissure follows the original source character rather than the target deeper enlarged slot."
+  ],
+  "technicalEvidence": {
+    "integrity": {
+      "packetSHA256": "56b92de0bf4cdade9ba0dce4da86beb5945cb09be7366ddb65fa74eae6c3a1e7",
+      "helperVerification": "candidate_packet.py verify returned Artifact integrity verified.",
+      "candidateProjectSHA256": "71abf96894dd9e530f42b138ab6e218f8304330f94f3e4881afb2ff5b2f0489b",
+      "allPacketBoundFileHashesVerified": true,
+      "packetQualityCriteriaMatchFrozenBrief": true
+    },
+    "readEvidence": [
+      "validation.json",
+      "reopened-source.json",
+      "../../source/round-03.py capture angles",
+      "../../../../../production/source/blender/revisions/4fa9e22e555f8aad/native_actions.py:468",
+      "../../../../../production/source/blender/revisions/9eef6e9113da31e0/publish_captures.py:24"
+    ],
+    "sourceConvention": {
+      "anglesDegrees": {
+        "N": 180,
+        "E": 90,
+        "S": 0,
+        "W": -90
+      },
+      "nativeActionsCitationHashVerified": true,
+      "publisherCitationHashVerified": true,
+      "actualSubmittedFacingAgreement": true
+    },
+    "passed": [
+      "384x704 RGBA native frames; 192x352 logical frame, [96,248] logical root and sourceScale 2 preserved",
+      "Registered orthographic camera and pixel aspect retained within recorded floating-point tolerance",
+      "Native measured root approximately [192,496], unchanged one-cell XY envelope and 0.48 Z height",
+      "Four actual native root rotations with fixed camera/materials and corrected registered facing convention",
+      "Reopened source topology: manifold meshes, no zero-area faces, all used material indices bound",
+      "No external image/library dependencies; editable source project bound to packet",
+      "Centered overhead plus four equal cardinal fills; no ground receiver; real transparency and no frame clipping",
+      "Exact submitted render bytes are identical to corresponding delivery atlas bytes"
+    ],
+    "independentMeasurements": {
+      "N": {
+        "closestOriginalFacing": "N",
+        "sameFacingOriginalAlphaMAE8bit": 0.4962565104166667,
+        "reopenedMaximumAllPixelRGBADifference8bit": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "reopenedDecodedPixelsIdentical": true,
+        "reopenedPNGFileBytesIdentical": false,
+        "atlasBytesIdentical": true
+      },
+      "E": {
+        "closestOriginalFacing": "E",
+        "sameFacingOriginalAlphaMAE8bit": 0.5251834753787878,
+        "reopenedMaximumAllPixelRGBADifference8bit": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "reopenedDecodedPixelsIdentical": true,
+        "reopenedPNGFileBytesIdentical": false,
+        "atlasBytesIdentical": true
+      },
+      "S": {
+        "closestOriginalFacing": "S",
+        "sameFacingOriginalAlphaMAE8bit": 0.5338023792613636,
+        "reopenedMaximumAllPixelRGBADifference8bit": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "reopenedDecodedPixelsIdentical": true,
+        "reopenedPNGFileBytesIdentical": false,
+        "atlasBytesIdentical": true
+      },
+      "W": {
+        "closestOriginalFacing": "W",
+        "sameFacingOriginalAlphaMAE8bit": 0.5068914240056818,
+        "reopenedMaximumAllPixelRGBADifference8bit": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "reopenedDecodedPixelsIdentical": true,
+        "reopenedPNGFileBytesIdentical": false,
+        "atlasBytesIdentical": true
+      }
+    },
+    "reopenedReplayInterpretation": "The judge independently decoded and compared every reopened PNG with its submitted facing. All four have exactly equal decoded RGBA pixels (maximum difference 0), so alpha bounds also agree and no Metal tolerance is needed for this round. The PNG files themselves have different encoded bytes. The evidence field named byteIdentical is therefore interpreted as pixel-array equality, not PNG file-byte equality; the packet binds each distinct PNG hash correctly. This terminology issue does not weaken the independently verified pixel correspondence.",
+    "priorRoundReplayDisclosure": "Round-02 evidence remains unchanged: opaque interior max RGB 1/255, all-pixel RGBA maxima [15,16,17,3] at fringes, unchanged alpha bounds. Those are not claimed as round-03 values.",
+    "limits": "The judge inspected all four submitted images and every declared packet preview directly, read the measured native/reopened source records and independently checked source-convention hashes and replay pixels. The judge did not rerun Blender. Approval binds this exact packet/project/render set and grants no further production or publishing permission."
+  }
+}

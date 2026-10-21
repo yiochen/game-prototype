@@ -1,0 +1,170 @@
+{
+  "asset": "slate-rock",
+  "round": 2,
+  "verdict": "revise",
+  "candidatePacketSHA256": "9a734ef56126c9832aff0582037dde2fabc1b0bb9601de8a0478c18272cc91cd",
+  "criteriaVersion": 1,
+  "inspectedFiles": [
+    "static-N.png",
+    "static-E.png",
+    "static-S.png",
+    "static-W.png",
+    "four-view-sheet.png",
+    "logical-four-view-sheet.png",
+    "repeated.png",
+    "backgrounds.png"
+  ],
+  "scores": {
+    "shapeVolume": 7,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 7,
+    "artifactFreeReadability": 8
+  },
+  "observations": [
+    "All four submitted native frames and all four packet previews were inspected directly. At logical and native size, the rock now has readable medium-gray lower faces instead of the original near-black base. Broad matte crown lighting, gentle facet response and restrained cloudy surface variation visibly move toward soft cartoon art.",
+    "The dominant palette remains subdued blue-gray slate. It avoids the target beige crown and deep enlarged split. The broad uneven crown, clipped eight-sided ground envelope and fine shallow top line remain recognizable.",
+    "Native, logical, repeated and light/gray/dark background previews show clean isolated sprites with coherent scale and no material clipping, halos, directional ground shadows, black dead spots, blown highlights or broad noisy texture. Fine line and edge differences remain legible at the logical size.",
+    "The submitted facing labels are rotated 180 degrees from the registered original catalog. Candidate N shows the original S crown/groove orientation; candidate E shows original W; candidate S shows original N; candidate W shows original E. This is visible from the asymmetrical crown slope and groove location, and is confirmed by the native root-angle records.",
+    "A native rendering method and consistent camera/material/light treatment are evidenced; the label mismatch is not a failure of the four views being independently rendered, but it does violate preservation of their registered directions."
+  ],
+  "blockers": [
+    {
+      "rank": 1,
+      "id": "registered-facing-convention",
+      "location": "static-N.png, static-E.png, static-S.png, static-W.png and all labeled previews/capture records",
+      "effect": "Every direction depicts the opposite registered original facing. Asymmetrical crown/groove orientation changes when these sprites replace the same named catalog directions.",
+      "desiredVisibleOutcome": "For each named N/E/S/W facing, retain the same crown asymmetry and groove orientation as the original sprite of that name. The source catalog uses S=0 degrees, E=90 degrees, N=180 degrees, W=-90 degrees; updated evidence and preview labels must agree with that registered convention."
+    }
+  ],
+  "remainingDifferences": [
+    "The approved target remains a style reference: its stronger beige highlights, deeper carved slot and altered silhouette are intentionally not required.",
+    "The candidate is more restrained and regular in texture than the painted target. This is acceptable at logical game size and retains the original model character.",
+    "The fine straight fissure and simple large facets preserve the native source identity; more fractured detail is not required."
+  ],
+  "technicalEvidence": {
+    "integrity": {
+      "packetSHA256": "9a734ef56126c9832aff0582037dde2fabc1b0bb9601de8a0478c18272cc91cd",
+      "helperVerification": "candidate_packet.py verify returned Artifact integrity verified.",
+      "suppliedProjectSHA256": "9d9ed8b99b1a2fd951879bf79f22321689ae0e9d173bd99f5f6cff6fad439562",
+      "allPacketBoundFileHashesVerified": true
+    },
+    "readEvidence": [
+      "validation.json",
+      "reopened-source.json",
+      "../../source/round-02.py capture-angle records",
+      "../../../../../production/source/blender/revisions/9eef6e9113da31e0/publish_captures.py ANGLES",
+      "../../inputs/source-camera.json",
+      "../../inputs/catalog-object.json",
+      "../../inputs/source-assetRecord.json"
+    ],
+    "additionalVisualEvidence": [
+      "reopened-N.png",
+      "../../inputs/original.png",
+      "../../inputs/target.png",
+      "../../../../../production/sprites/slate-rock/static-N.png",
+      "../../../../../production/sprites/slate-rock/static-E.png",
+      "../../../../../production/sprites/slate-rock/static-S.png",
+      "../../../../../production/sprites/slate-rock/static-W.png"
+    ],
+    "passed": [
+      "Packet integrity and editable project/source linkage",
+      "384x704 RGBA frame dimensions and identical atlas bytes",
+      "Measured logical root [96,248] at sourceScale 2; native calibration root approximately [192,496]",
+      "Registered orthographic camera matrices within recorded floating-point tolerance",
+      "Unchanged one-cell XY and 0.48 Z geometry envelope",
+      "Actual independent native rotations; fixed camera/materials across views",
+      "Four equal cardinal fill lights plus centered overhead; no ground receiver",
+      "Reopened source reports manifold meshes, no zero-area faces, all used material indices bound, and no external image/library dependencies"
+    ],
+    "failed": [
+      "Registered facing convention: candidate angles N=0/E=-90/S=180/W=90 are opposite the original catalog S=0/E=90/N=180/W=-90."
+    ],
+    "independentImageMeasurements": {
+      "candidateAlphaBBoxes": {
+        "N": [
+          63,
+          294,
+          321,
+          624
+        ],
+        "E": [
+          63,
+          315,
+          321,
+          624
+        ],
+        "S": [
+          63,
+          319,
+          321,
+          624
+        ],
+        "W": [
+          63,
+          304,
+          321,
+          624
+        ]
+      },
+      "originalAlphaBBoxes": {
+        "N": [
+          61,
+          317,
+          323,
+          627
+        ],
+        "E": [
+          61,
+          302,
+          323,
+          627
+        ],
+        "S": [
+          61,
+          292,
+          323,
+          627
+        ],
+        "W": [
+          61,
+          312,
+          323,
+          627
+        ]
+      },
+      "candidateClosestOriginalByAlphaMAE": {
+        "N": {
+          "original": "S",
+          "MAE8bit": 0.53382
+        },
+        "E": {
+          "original": "W",
+          "MAE8bit": 0.50691
+        },
+        "S": {
+          "original": "N",
+          "MAE8bit": 0.49623
+        },
+        "W": {
+          "original": "E",
+          "MAE8bit": 0.52522
+        }
+      }
+    },
+    "reopenedMetalReplay": {
+      "judgeIndependentlyComparedSubmittedNAndReopenedN": true,
+      "byteIdentical": false,
+      "opaqueInteriorMaximumRGBDifference8bit": 1,
+      "maximumAllPixelRGBADifference8bit": [
+        15,
+        16,
+        17,
+        3
+      ],
+      "alphaBoundsUnchanged": true,
+      "interpretation": "The one-unit RGB tolerance applies to opaque interiors, not every fringe pixel. Larger differences occur at partial-alpha edges; recorded small replay variation does not replace the sealed submitted render bytes and is not a visual blocker."
+    },
+    "limits": "The judge read the measured native/reopened-source audit and directly inspected the recorded reopened N render; the judge did not rerun Blender. No approval is granted until the registered facing mismatch is corrected in a new hash-bound packet."
+  }
+}
