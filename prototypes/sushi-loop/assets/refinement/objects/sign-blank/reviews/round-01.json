@@ -1,0 +1,190 @@
+{
+  "asset": "sign-blank",
+  "round": "round-01",
+  "verdict": "approve",
+  "candidatePacketSHA256": "da5a2b2e3e9fba1fa34d7bb11f5feac6b249ccba5902db2f9ffbc8dd020c9da0",
+  "inspectedFiles": [
+    "static-S.png",
+    "four-view-sheet.png",
+    "repeated.png",
+    "backgrounds.png",
+    "comparison.png"
+  ],
+  "additionalInspectedFiles": [
+    "reopened-S.png",
+    "../../inputs/original.png",
+    "../../inputs/target.png",
+    "validation.json",
+    "reopened-validation.json",
+    "alpha-validation.json",
+    "camera.json",
+    "asset.json",
+    "rig.json",
+    "delivery.json",
+    "../../source/round-01.blend"
+  ],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 8,
+    "artifactFreeReadability": 9
+  },
+  "observations": [
+    {
+      "dimension": "shapeVolume",
+      "evidence": "The exact S frame and both same-registration comparison crops retain three stacked blank planks, four small navy fasteners and two posts. Soft edge rolloff and shallower face transitions visibly improve on the sharp faceted source. All three planks remain distinct at logical 192\u00d7352 use size."
+    },
+    {
+      "dimension": "color",
+      "evidence": "Honey-gold boards retain their orange/brown family; all four hardware marks remain navy. Both lower posts now read as warm brown across their length instead of the original near-black lower flats. Face centers remain calm and blank for runtime content."
+    },
+    {
+      "dimension": "lightingHighlights",
+      "evidence": "Broad soft upper-to-lower shading replaces the source hard light/dark bands. Left/right treatment is balanced, top highlights stay soft, and local seams remain shallow rather than black strips. No directional ground cast shadow is visible."
+    },
+    {
+      "dimension": "materialDetail",
+      "evidence": "The matte cartoon wood is suggested by warm tonal response and modest softness, with sufficiently restrained surface variation. The small navy fasteners stay separate from wood without oversized glossy highlights. No target grain imitation is needed at this scale."
+    },
+    {
+      "dimension": "artifactFreeReadability",
+      "evidence": "Inspected the raw native S frame, independently reopened S frame, single-S sheet, all light/gray/dark logical-size and enlarged background panels, comparison, and registered repeated/shared-plant-tile preview. No material clipping, black patch, broken corner, coplanar noise, detached fastener, colored halo or fringe is visible. Sign consistently draws at the front of each plant tile and leaves the plant center unobstructed."
+    }
+  ],
+  "blockers": [],
+  "remainingDifferences": [
+    "Three native planks are intentionally preserved; the imagegen target two-board construction is a documented prompt error.",
+    "Native fasteners remain smaller and less inflated than the target, preserving their source scale and role.",
+    "Wood grain and post-face variation are more restrained than the painted target; this keeps the small blank display face readable.",
+    "The lower posts remain comparatively straight and matte, with less sculpted highlight detail than the target. Their warm values and clean form meet the frozen criteria."
+  ],
+  "technicalEvidence": {
+    "packetIntegrity": {
+      "result": "pass",
+      "method": "candidate_packet.py verify --packet candidates/round-01/packet.json; all declared packet file hashes verified. Independently computed packet SHA-256 matches supplied packet.",
+      "packetSHA256": "da5a2b2e3e9fba1fa34d7bb11f5feac6b249ccba5902db2f9ffbc8dd020c9da0"
+    },
+    "nativeProject": {
+      "result": "pass",
+      "method": "Opened exact source/round-01.blend read-only in Blender 5.2.2 and queried evaluated geometry, scene, root, camera, lights and dependencies. Source .blend SHA-256 remained 3d9437bf7735f6ce0a4663136919660b860eba2517da89590796f8ee85e0d2b8 after inspection.",
+      "scene": "sign-blank native S",
+      "collection": "S33_PROP_sign-blank",
+      "meshCount": 9,
+      "meshIdentity": "3 planks + 4 fasteners + 2 posts; names match source",
+      "transformMaxDifference": 0.0,
+      "postAndPlankBoundsMaxDifference": 0.0,
+      "hardwareBoundsMaxDifference": 0.00028884410858154297,
+      "hardwareBoundsNote": "Sub-cell inward bevel rounding at nail vertical extrema only; unchanged transforms and overall asset bounds. No perceptible hardware size or placement drift."
+    },
+    "registration": {
+      "result": "pass",
+      "frame": [
+        384,
+        704
+      ],
+      "logicalFrame": [
+        192,
+        352
+      ],
+      "logicalRoot": [
+        96,
+        256
+      ],
+      "projectedNativeGroundRoot": [
+        192.0,
+        511.99997329711914
+      ],
+      "sourceScale": 2,
+      "cellSize": 128,
+      "camera": "Registered sign-blank orthographic",
+      "cameraMatrixMaxDifferenceFromOriginalRecord": 5.960464477539063e-08,
+      "orthoScale": 1.5,
+      "pixelAspect": [
+        1.2206555604934692,
+        1.0
+      ],
+      "rootLocation": [
+        0,
+        0,
+        0
+      ],
+      "rootRotation": [
+        0,
+        0,
+        0
+      ],
+      "rootScale": [
+        1,
+        1,
+        1
+      ],
+      "facing": "S with original native zero root rotation; no additional facings required"
+    },
+    "functionalContract": {
+      "result": "pass",
+      "footprint": [
+        1,
+        1
+      ],
+      "rootCell": [
+        0.5,
+        0.5
+      ],
+      "nominalCatalogHeight": 1.12,
+      "meshZEnvelope": [
+        0,
+        1.059999942779541
+      ],
+      "sockets": {
+        "sign_face": [
+          0,
+          -0.472,
+          0.77
+        ],
+        "display_face": [
+          0,
+          -0.472,
+          0.77
+        ]
+      },
+      "groundBandY": [
+        -0.5,
+        -0.27
+      ],
+      "allowCoOccupancy": true,
+      "renderPass": "foreground",
+      "clip": "one static S frame, 12 fps, non-looping",
+      "method": "Cross-checked frozen catalog contract, asset/rig/camera records, source root custom properties and functional validation; inspected registered same-tile plant/sign composition."
+    },
+    "lightingAndNativeClosure": {
+      "result": "pass",
+      "method": "Actual scene contains only the nine sign meshes and native lights/camera; transparent film, centered 120 W overhead, four equal 65 W cardinal fills, neutral .55-strength world; no ground receiver, linked libraries, images or image-texture nodes. Native validation reports manifold meshes, no zero-area faces and preserved UV layers; reopened validation agrees."
+    },
+    "pixelsAndReopen": {
+      "result": "pass",
+      "method": "Independently decoded RGBA PNGs with stdlib PNG scanline/filter reconstruction and compared authoritative and reopened frames.",
+      "nativeFrameDimensions": [
+        384,
+        704
+      ],
+      "alphaBBox": [
+        75,
+        398,
+        309,
+        613
+      ],
+      "outerBordersTransparent": true,
+      "alphaIdentical": true,
+      "reopenedMaximum8bitChannelDifference": 1,
+      "reopenedChangedChannelValues": 1,
+      "reopenedMeanAbsoluteChannelDifference": 9.247750946969697e-07,
+      "interpretation": "The reopened PNG has a different file hash but only one channel differs by one quantization value; native appearance and alpha are unchanged."
+    },
+    "limits": [
+      "Approval covers only this hash-bound round-01 candidate and the authoritative single player-facing S static view.",
+      "Declared previews are inspectable compositing surfaces for registration/shared-tile review; native model/render evidence comes from the supplied project and exact S export.",
+      "No new facings, gameplay access rules, production edits or publication permissions are established by this review."
+    ]
+  }
+}

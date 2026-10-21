@@ -10,7 +10,8 @@
   "target": {
     "image": "inputs/target.png",
     "provenance": "imagegen",
-    "prompt": "inputs/imagegen-prompt.txt"
+    "prompt": "inputs/imagegen-prompt.txt",
+    "interpretation": "Style reference only. The submitted imagegen prompt miscounted two boards; actual native THREE planks, four fasteners and two posts must be preserved."
   },
   "agentPrompts": {
     "judge": "prompts/judge.txt",
@@ -50,9 +51,139 @@
       "Actual independent geometry views and native animation; no raster card or per-view image fitting/recolor"
     ],
     "catalogContract": "inputs/catalog-object.json",
-    "pipeline": "native-3d"
+    "pipeline": "native-3d",
+    "judgeMeasuredRequirements": [
+      {
+        "id": "native-identity",
+        "required": "Retain three horizontal blank plank meshes, two posts, four navy fasteners, original proportions and hardware placement; no text, symbols, ornament, additional hardware or redesign."
+      },
+      {
+        "id": "native-envelope",
+        "required": "Keep native .90-wide plank panel, post placements and actual source geometry bounds; preserve nominal catalog height 1.12 as metadata and actual mesh z envelope 0..1.06 as separate facts. Target rounding must not inflate these bounds."
+      },
+      {
+        "id": "capture-registration",
+        "required": "Keep source-camera.json registered orthographic projection/world scale/pixel aspect, 384\u00d7704 source frame, 192\u00d7352 logical frame, logical root [96,256], sourceScale 2, cellSize 128, native ground root [0,0,0]; no raster substitution, camera fitting, image warp or view-dependent recolor."
+      },
+      {
+        "id": "placement-function",
+        "required": "Preserve 1\u00d71 footprint, rootCell [.5,.5], front band y [-.5,-.27], allowCoOccupancy, foreground render pass and both native sockets at [0,-.472,.77]. Sign must continue to share the plant tile without extra blocking/access behavior."
+      },
+      {
+        "id": "single-S-static",
+        "required": "Deliver one native S-facing static frame at 12 fps, loop false, original atlas layout; no extra facings required. Review any declared sheet/repeated previews for this same S-facing placement."
+      },
+      {
+        "id": "light-transparency",
+        "required": "Balanced overhead/ambient light without a preferred horizontal light direction; no directional ground cast shadow, painted ground patch, halo, bloom, outline or fringe. True transparent background."
+      },
+      {
+        "id": "editable-evidence",
+        "required": "Provide native editable Blender project and exact rendered bytes in immutable hash-bound packet, with technical proof of capture, bounds/root/sockets, native geometry and lighting. Missing evidence cannot pass."
+      }
+    ],
+    "nativeIdentity": {
+      "planks": 3,
+      "fasteners": 4,
+      "posts": 2,
+      "blankFace": true
+    }
   },
-  "qualityCriteria": {},
+  "qualityCriteria": {
+    "asset": "sign-blank",
+    "status": "proposed-for-coordinator-freeze",
+    "style": "warm softly lit cartoon; original gold/brown/navy palette",
+    "authorityNotes": [
+      "Use actual native THREE planks, four nails and two posts. Target two-board simplification is an acknowledged prompt error, not geometry authority.",
+      "Single player-facing S is the authoritative direction policy. Generic four-direction catalog notes and the preview name four-view-sheet do not create additional required rotations.",
+      "Geometry, registration and functional placement are immutable; native material/normal/light/edge treatment may improve while preserving the measured envelope."
+    ],
+    "hardConstraints": [
+      {
+        "id": "native-identity",
+        "required": "Retain three horizontal blank plank meshes, two posts, four navy fasteners, original proportions and hardware placement; no text, symbols, ornament, additional hardware or redesign."
+      },
+      {
+        "id": "native-envelope",
+        "required": "Keep native .90-wide plank panel, post placements and actual source geometry bounds; preserve nominal catalog height 1.12 as metadata and actual mesh z envelope 0..1.06 as separate facts. Target rounding must not inflate these bounds."
+      },
+      {
+        "id": "capture-registration",
+        "required": "Keep source-camera.json registered orthographic projection/world scale/pixel aspect, 384\u00d7704 source frame, 192\u00d7352 logical frame, logical root [96,256], sourceScale 2, cellSize 128, native ground root [0,0,0]; no raster substitution, camera fitting, image warp or view-dependent recolor."
+      },
+      {
+        "id": "placement-function",
+        "required": "Preserve 1\u00d71 footprint, rootCell [.5,.5], front band y [-.5,-.27], allowCoOccupancy, foreground render pass and both native sockets at [0,-.472,.77]. Sign must continue to share the plant tile without extra blocking/access behavior."
+      },
+      {
+        "id": "single-S-static",
+        "required": "Deliver one native S-facing static frame at 12 fps, loop false, original atlas layout; no extra facings required. Review any declared sheet/repeated previews for this same S-facing placement."
+      },
+      {
+        "id": "light-transparency",
+        "required": "Balanced overhead/ambient light without a preferred horizontal light direction; no directional ground cast shadow, painted ground patch, halo, bloom, outline or fringe. True transparent background."
+      },
+      {
+        "id": "editable-evidence",
+        "required": "Provide native editable Blender project and exact rendered bytes in immutable hash-bound packet, with technical proof of capture, bounds/root/sockets, native geometry and lighting. Missing evidence cannot pass."
+      }
+    ],
+    "visibleSuccessCriteria": {
+      "shapeVolume": [
+        "All three horizontal planks and their modest seams remain legible at 192\u00d7352 logical use size; board fronts read as broad solid surfaces with calm blank centers.",
+        "Modest manufactured rounding and soft highlight rolloff make plank edges and post caps less harsh while preserving silhouette, panel height/thickness, post proportions and front-face area.",
+        "Two posts and four small navy fasteners keep their original visual role; do not copy the target enlarged square fasteners or inflated bevels."
+      ],
+      "color": [
+        "Boards retain warm honey/golden orange, posts retain readable warm brown, and fasteners retain navy/dark blue.",
+        "The center of the board face stays clean enough for dynamic overlay content. Avoid orange clipping, pale washed-out edges, overly saturated glare, muddy brown bands or near-black lower post patches."
+      ],
+      "lightingHighlights": [
+        "Wide soft tonal transitions visibly replace abrupt source facet bands; bright rims stay restrained and form-following.",
+        "Both left/right sides receive comparable treatment. Lower posts show warm form without becoming flat black, and the panel remains readable without directional ground shading.",
+        "Seams and attachment contacts may have shallow local occlusion, but no heavy black strip or luminous seam interrupts the blank front."
+      ],
+      "materialDetail": [
+        "Material reads as softly finished cartoon wood from broad surface response; grain is optional and must remain low-contrast if used.",
+        "Fasteners stay distinct and dark with restrained soft highlights. Wood and hardware remain visibly different without glossy plastic glare.",
+        "Do not require the target painted grain, halo, exact texture pattern, or extra roundness."
+      ],
+      "artifactFreeReadability": [
+        "Native S render has clean corners/contours and transparent edges on light, neutral gray and dark backgrounds at use size and enlarged.",
+        "No clipping, stair-step seams beyond normal rasterization, black dead spots, overlapping/coplanar noise, sudden normal breaks, detached hardware, outlines or halos.",
+        "In same-tile/repeated previews, the sign remains at the front edge, leaves the central co-occupant space usable, and preserves the foreground relationship without changing its registered scale."
+      ]
+    },
+    "rankedOutcomes": [
+      {
+        "rank": 1,
+        "outcome": "Give all three planks broad, softly graduated honey-gold volume, with calm blank front faces and a readable narrow seam; soften the hard banded faceted appearance without changing the native panel envelope."
+      },
+      {
+        "rank": 2,
+        "outcome": "Recover warm brown form along both posts through balanced ambient/overhead lighting; remove black lower dead spots while preserving enough value contrast to separate posts, boards and navy fasteners."
+      },
+      {
+        "rank": 3,
+        "outcome": "Use modest manufactured edge softness and clean transparent contours; retain exact hardware identity/positions and registered shared-tile placement without halos, directional cast ground shadows or surface artifacts."
+      }
+    ],
+    "reviewProtocol": {
+      "requiredVisuals": [
+        "Exact native static-S render",
+        "Declared four-view-sheet and repeated previews, interpreted under single-S facing policy"
+      ],
+      "comparison": "Inspect original, fixed target and exact candidate at logical use size and enlarged, including light/gray/dark transparency backgrounds. No pixel identity or target texture matching is required.",
+      "requiredTechnicalEvidence": [
+        "Hash verification for packet, project, native render and previews",
+        "Per-asset registered camera and frame/pixel aspect",
+        "Native mesh object identity/count and transforms/bounds against original",
+        "Root, footprint, sockets and shared-tile foreground metadata",
+        "Lighting symmetry and absence of ground-shadow catcher/raster substitution"
+      ],
+      "verdictPolicy": "Approve only visible improvement toward frozen criteria with no material defects and passing capture/asset contract. Missing evidence yields needs_evidence. At most three ranked blockers per round."
+    }
+  },
   "delivery": {
     "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
     "requiredClips": [
@@ -70,5 +201,7 @@
       }
     ],
     "notes": "Write source/round-NN.blend or the actual native 2D source as appropriate; full native captures, original-layout atlases, previews, validation and delivery.json. Do not label 2D artwork as a Blender model."
-  }
+  },
+  "criteriaVersion": 1,
+  "criteriaSource": "reviews/criteria.json"
 }

@@ -1,0 +1,211 @@
+{
+  "asset": "sign-blank",
+  "stage": "independent-source-and-target-inspection",
+  "status": "criteria-proposed-no-candidate-reviewed",
+  "inspectedFiles": [
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/sign-blank/inputs/original.png",
+      "sha256": "11c096f2de503624a141730d5df697f8f126d8b8346db2881783e89af348581b",
+      "size": [
+        384,
+        704
+      ]
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/sign-blank/inputs/target.png",
+      "sha256": "4febd2f64dabb33a1dfe6cbf64b96cc0366091274371030158c9bf56c74de25b",
+      "size": [
+        926,
+        1698
+      ]
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/sign-blank/inputs/catalog-object.json",
+      "sha256": "b72137288aa236e8ef5f2b60b32089923ff4766891d7707808991b20c63fd0f9"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/sign-blank/inputs/source-camera.json",
+      "sha256": "817141d927acb7bcf667afe522f5b472c855e24b25f75e2dd2b6742c29a4e559"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/sign-blank/inputs/source-rig.json",
+      "sha256": "13f7dbf3df70a35ef5ef9de81dc112e88e1ddea28790a5ea2dd572ca74867e95"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/sign-blank/inputs/source-assetRecord.json",
+      "sha256": "a12fb9470763de31443e0be4b2b0bc2ceaa34fe9384d15708b447390601f87d2"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+      "inspection": "Opened read-only in Blender 5.2.2; queried the S33_PROP_sign-blank collection, mesh transforms/dimensions/materials and root custom properties."
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/sign-blank/brief.json"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/sign-blank/prompts/judge.txt"
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/production/source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+      "inspection": "Read _sign and _front_facing authoring functions; cross-checked actual blend rather than relying on the old script alone."
+    }
+  ],
+  "sourceObservations": [
+    "The native asset has THREE horizontal blank wooden plank meshes, four small navy fasteners, and two brown posts. The three meshes occupy one .90-wide stacked panel; all surfaces remain available for dynamic sign content.",
+    "The source uses golden orange boards with abrupt bright upper facets and darker horizontal lower bands. Posts become almost black in their lower stretches, weakening warm material readability.",
+    "The silhouette and two-post construction are clear. Existing narrow bevels retain a hard manufactured appearance, while the four tiny navy fasteners read as restrained hardware.",
+    "The source is a front-edge overlay that may share a plant tile. Its geometry occupies the front band and must not be enlarged toward the center of that tile."
+  ],
+  "targetObservations": [
+    "The target suggests broad honey-gold transitions, softly rounded highlight rolloff, warm readable brown posts, and dark blue fasteners with restrained brighter edges.",
+    "The target depicts only TWO broad boards, enlarged/inflated fasteners, stronger rounding, visible wood grain, and altered image padding. These are not authority to modify native board count, hardware dimensions, registered silhouette, camera, roots or scale.",
+    "Subtle material variation is useful only if the face stays calm and blank at intended size. Painted grain, halo/fringe pixels, extra rounding and padded target composition are optional or undesirable drift, not mandatory details."
+  ],
+  "contractResolution": {
+    "discrepancy": "Imagegen prompt and target incorrectly describe/show two boards; actual native source contains three.",
+    "coordinatorResolution": "Preserve the actual native THREE plank meshes, four nails and two posts. Target supplies warm material/light guidance only. Do not change target/prompt bytes.",
+    "authority": "Actual named collection and explicit coordinator correction supersede the prompt board-count error."
+  },
+  "nativeFacts": {
+    "collection": "S33_PROP_sign-blank",
+    "groundRootObject": "sign-blank__root",
+    "groundRoot": [
+      0,
+      0,
+      0
+    ],
+    "plankCenters": [
+      [
+        0,
+        -0.41,
+        0.64
+      ],
+      [
+        0,
+        -0.41,
+        0.77
+      ],
+      [
+        0,
+        -0.41,
+        0.9
+      ]
+    ],
+    "plankDimensions": [
+      0.9,
+      0.1,
+      0.125
+    ],
+    "postCenters": [
+      [
+        -0.29,
+        -0.345,
+        0.53
+      ],
+      [
+        0.29,
+        -0.345,
+        0.53
+      ]
+    ],
+    "postDimensions": [
+      0.1,
+      0.1,
+      1.06
+    ],
+    "fastenerCenters": [
+      [
+        -0.34,
+        -0.468,
+        0.66
+      ],
+      [
+        -0.34,
+        -0.468,
+        0.9
+      ],
+      [
+        0.34,
+        -0.468,
+        0.66
+      ],
+      [
+        0.34,
+        -0.468,
+        0.9
+      ]
+    ],
+    "nominalCatalogHeight": 1.12,
+    "measuredMeshZEnvelope": [
+      0,
+      1.06
+    ],
+    "sockets3D": {
+      "sign_face": [
+        0,
+        -0.472,
+        0.77
+      ],
+      "display_face": [
+        0,
+        -0.472,
+        0.77
+      ]
+    },
+    "footprint": [
+      1,
+      1
+    ],
+    "rootCell": [
+      0.5,
+      0.5
+    ],
+    "renderPass": "foreground",
+    "groundBandY": [
+      -0.5,
+      -0.27
+    ],
+    "capture": {
+      "frame": [
+        384,
+        704
+      ],
+      "logicalFrame": [
+        192,
+        352
+      ],
+      "logicalRoot": [
+        96,
+        256
+      ],
+      "sourceScale": 2,
+      "cellSize": 128,
+      "requiredDirections": [
+        "S"
+      ],
+      "staticFrames": 1,
+      "fps": 12,
+      "loop": false
+    },
+    "cameraEvidence": "inputs/source-camera.json supplies the per-asset registered orthographic camera/projection/pixel aspect. The blend library active scene camera is not a substitute for this asset capture contract."
+  },
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "outcome": "Give all three planks broad, softly graduated honey-gold volume, with calm blank front faces and a readable narrow seam; soften the hard banded faceted appearance without changing the native panel envelope."
+    },
+    {
+      "rank": 2,
+      "outcome": "Recover warm brown form along both posts through balanced ambient/overhead lighting; remove black lower dead spots while preserving enough value contrast to separate posts, boards and navy fasteners."
+    },
+    {
+      "rank": 3,
+      "outcome": "Use modest manufactured edge softness and clean transparent contours; retain exact hardware identity/positions and registered shared-tile placement without halos, directional cast ground shadows or surface artifacts."
+    }
+  ],
+  "evidenceLimits": [
+    "No edited candidate has been received or graded.",
+    "Exact candidate camera/bounds/material/light/asset validation must be provided in a hash-bound packet before any approval.",
+    "The fixed target is a single S-view aesthetic reference; it does not establish additional required facings."
+  ]
+}

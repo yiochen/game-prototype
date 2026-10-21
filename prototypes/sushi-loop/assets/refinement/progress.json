@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 7,
-  "published": 6,
-  "current": "Lantern published; slate approved for next preview update; sign, dock and backdrop work continue",
+  "completed": 8,
+  "published": 7,
+  "current": "Slate published; sign approved for next preview update; wall-middle fresh pair assessing creative target",
   "objects": [
     {
       "id": "plant-angular",
@@ -97,7 +97,7 @@
       "name": "Subdued slate rock",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 4,
       "editor": "catalog_slate_editor_v1",
@@ -111,12 +111,14 @@
       "name": "Blank shop sign",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "reviewing",
+      "status": "approved",
       "clips": 1,
       "frames": 1,
       "editor": "catalog_sign_editor_v1",
       "judge": "catalog_sign_judge_v1",
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "round": "round-01",
+      "packetSHA256": "da5a2b2e3e9fba1fa34d7bb11f5feac6b249ccba5902db2f9ffbc8dd020c9da0"
     },
     {
       "id": "dock-post-rope",
@@ -190,11 +192,13 @@
       "name": "Wall middle",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "assessing",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "editor": "catalog_wall_middle_editor_v1",
+      "judge": "catalog_wall_middle_judge_v1"
     },
     {
       "id": "wall-inner-corner",
