@@ -19,9 +19,11 @@ test('each promoted sprite is the exact independently approved candidate', () =>
     const round = object.refinement.round;
     const packetUrl = new URL(`candidates/${round}/packet.json`, root);
     const packet = read(packetUrl);
-    const review = read(new URL(`reviews/${round}.json`, root));
+    const reviewUrl = new URL(`reviews/${round}.json`, root);
+    const review = read(reviewUrl);
     assert.equal(sha(packetUrl), object.refinement.packetSHA256);
     assert.equal(review.candidatePacketSHA256, object.refinement.packetSHA256);
+    assert.equal(sha(reviewUrl), object.refinement.reviewSHA256);
     if (object.source.blend) assert.equal(object.captureFingerprint, object.refinement.packetSHA256);
     else assert.equal(object.captureFingerprint, undefined, `${object.id}: fabricated native capture field`);
     assert.equal(review.verdict, 'approve');

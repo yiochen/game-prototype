@@ -13,20 +13,28 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('asset')
     parser.add_argument('--round', required=True)
+    parser.add_argument('--brief', default='brief.json', help='Versioned brief filename in the object folder; never overwrite a sealed brief')
+    parser.add_argument('--delivery', default='delivery.json', help='Versioned delivery filename in the object folder')
     parser.add_argument('--preview', action='append', default=[], help='Explicit additional name=object-relative preview alias')
     args = parser.parse_args()
     folder = RUN / 'objects' / args.asset
-    delivery = json.loads((folder / 'delivery.json').read_text())
+    brief_path = (folder / args.brief).resolve()
+    assert brief_path.parent == folder.resolve() and brief_path.suffix == '.json', 'Brief must stay in the same object folder'
+    delivery_path = (folder / args.delivery).resolve()
+    assert delivery_path.parent == folder.resolve() and delivery_path.suffix == '.json', 'Delivery must stay in the same object folder'
+    delivery = json.loads(delivery_path.read_text())
     candidate = folder / 'candidates' / args.round
     assert not (folder / 'reviews' / f'{args.round}.json').exists(), 'Do not reseal a reviewed round'
+    assert not (candidate / 'packet.json').exists(), 'Do not overwrite any sealed round'
+    candidate.mkdir(parents=True, exist_ok=True)
     snapshot = candidate / 'delivery.snapshot.json'
     snapshot.write_text(json.dumps(delivery, indent=2) + '\n')
     project = folder / delivery.get('project', delivery.get('source', {}).get('blend', ''))
-    brief = json.loads((folder / 'brief.json').read_text())
+    brief = json.loads(brief_path.read_text())
     pipeline = brief.get('constraints', {}).get('pipeline')
     allowed_sources = ['.png', '.gd'] if pipeline == 'existing-2d' else ['.blend']
     assert project.is_file() and project.suffix in allowed_sources, 'Actual editable source required for declared pipeline'
-    command = ['python3', HELPER, 'create', '--brief', str(folder / 'brief.json'),
+    command = ['python3', HELPER, 'create', '--brief', str(brief_path),
                '--project', str(project), '--validation', str(folder / delivery['validation']),
                '--output', str(candidate / 'packet.json')]
     heroes = delivery.get('heroes', {d: f'candidates/{args.round}/{d}.png' for d in 'NESW'})
@@ -44,11 +52,15 @@ def main():
     for name, path in previews.items():
         command += ['--preview', f'{name}={folder / path}']
     resources = {}
-    brief = json.loads((folder / 'brief.json').read_text())
+    criteria = brief['qualityCriteria']
+    if criteria.get('criteriaFile') and criteria.get('criteriaFileSHA256'):
+        criteria_path = folder / criteria['criteriaFile']
+        assert hashlib.sha256(criteria_path.read_bytes()).hexdigest() == criteria['criteriaFileSHA256'], 'Frozen criteria file changed'
+        resources['frozenQualityCriteria'] = criteria_path
     # Frozen native contracts and supplemental runtime sources are part of the
     # review, even when their pixels are not catalog animation frames.
     for path in (folder / 'inputs').rglob('*'):
-        if path.is_file():
+        if path.is_file() and '__pycache__' not in path.parts:
             resources['input:' + path.relative_to(folder / 'inputs').as_posix()] = path
     for name, record in brief.get('runtimeVariants', {}).get('resources', {}).items():
         path = folder / record['path']
@@ -67,7 +79,7 @@ def main():
             resources[f'delivery:{kind}:{index}'] = path
     # Include every delivered file in the round, not just its representative hero.
     for path in candidate.rglob('*'):
-        if path.is_file() and path.name != 'packet.json':
+        if path.is_file() and path.name != 'packet.json' and '__pycache__' not in path.parts:
             resources['round:' + path.relative_to(candidate).as_posix()] = path
     for path in (folder / 'source').rglob('*'):
         if path.is_file() and path.suffix in ['.py', '.json', '.gd', '.gdshader', '.patch', '.blend', '.tscn', '.godot']:

@@ -103643,14 +103643,108 @@
         ],
         "notes": "The same generated 2D dish cutout is used on belts, in hands, at seats and inside preference bubbles. Placement uses registered support offsets; no 3D dish model is required."
       },
-      "productionStage": "ImageGen 2D artwork \u00b7 approved artwork/effect",
+      "productionStage": "Existing2D \u00b7 warm soft cartoon \u00b7 independent judge approved",
       "layer": 3,
       "source": {
         "pipeline": "imagegen-2d",
-        "modelScript": "source/2d/publish_2d.py",
+        "modelScript": "source/2d/refinement/dish-cucumber/source/round01/publish.py",
         "prompts": "source/2d/prompts.json",
-        "artwork": "source/2d/generated/dish-cucumber.png",
-        "sha256": "dd6d82508f72b2d9019f1619e5f1fe878a5ad22935ab8c86d7a79b4434f64776"
+        "artwork": "source/2d/refinement/dish-cucumber/source/round01/dish-cucumber.png",
+        "sha256": "b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930",
+        "recipe": "source/2d/refinement/dish-cucumber/source/round01/publish.py",
+        "refinedSource": "source/2d/refinement/dish-cucumber/source/round01/dish-cucumber.png",
+        "rawFrames": [
+          {
+            "image": "source/registered/dish-cucumber/static-S/source-captures/000.png",
+            "sha256": "d939cc89ac8791b2b3d192cac8ea51111469bbd6247110cf5f21a128851a60fa",
+            "clip": "static",
+            "direction": "S",
+            "index": 0
+          },
+          {
+            "image": "source/registered/dish-cucumber/static-N/source-captures/000.png",
+            "sha256": "d939cc89ac8791b2b3d192cac8ea51111469bbd6247110cf5f21a128851a60fa",
+            "clip": "static",
+            "direction": "N",
+            "index": 0
+          },
+          {
+            "image": "source/registered/dish-cucumber/static-E/source-captures/000.png",
+            "sha256": "d939cc89ac8791b2b3d192cac8ea51111469bbd6247110cf5f21a128851a60fa",
+            "clip": "static",
+            "direction": "E",
+            "index": 0
+          },
+          {
+            "image": "source/registered/dish-cucumber/static-W/source-captures/000.png",
+            "sha256": "d939cc89ac8791b2b3d192cac8ea51111469bbd6247110cf5f21a128851a60fa",
+            "clip": "static",
+            "direction": "W",
+            "index": 0
+          }
+        ],
+        "guides": [
+          "source/registered/dish-cucumber/static-S/guide.json",
+          "source/registered/dish-cucumber/static-N/guide.json",
+          "source/registered/dish-cucumber/static-E/guide.json",
+          "source/registered/dish-cucumber/static-W/guide.json"
+        ],
+        "refinement": {
+          "packet": "../refinement/objects/dish-cucumber/candidates/round02/packet.json",
+          "review": "../refinement/objects/dish-cucumber/reviews/round02.json",
+          "validation": "source/records/dish-cucumber/warm-refinement-validation.json"
+        },
+        "hashes": {
+          "source/2d/refinement/dish-cucumber/source/round01/dish-cucumber.png": "b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930",
+          "source/2d/refinement/dish-cucumber/source/round01/publish.py": "1fb0d9eabc62b53bc89db135e20a40328ccd2aa8e02b845cea7a843fdfbacc26",
+          "source/2d/refinement/dish-cucumber/source/round01/prepare_sources.py": "994152b84c4dcd97a454de238c4f050229023fc31d3f9f0f01388532c2d61294",
+          "source/2d/refinement/dish-cucumber/source/round01/provenance.json": "4bdf1d3b2ad0357b7b3afbdf85a69de3237263954d83d1d11daf52d31429a504",
+          "source/2d/refinement/dish-cucumber/source/round01/recipe.json": "586063e8b7748e37915300e29b7fca9f287c769f643f7f19016f8d75869b7b9d",
+          "source/2d/refinement/dish-cucumber/source/round01/verify.py": "e87ddad9693ec442c4c8029b46254e614b3e548b3a93873d495fe9e31c9aa8c9",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/context-library.json": "be93c827cdf9950d924b39f6ed7ffbdfd18a763ef4297a3d740ad2efac3465ba",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/original-registered.png": "3e6e91ca068eb28041b9033eddf3dd2b06a5af50081ac221e95d4f89de4cb857",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/warm-soft-reference.png": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/frozen-brief.json": "a367c788f880986db68de82ef333b10cf168c2d7d36c06c2510f90b961124d4d",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/original-catalog-object.json": "2ff43761eaf88ee144251f55129a6fa3466d9028311cda34ff7e52aa6c8623f9",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/original-backup.png": "dd6d82508f72b2d9019f1619e5f1fe878a5ad22935ab8c86d7a79b4434f64776",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/exact-imagegen-target-prompt.txt": "74b0138363af193f835098162e2c3669242e1b3e830cc46460c0885efe5a9495",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/fixed-target-raw.png": "e0fca773df48175a027b3acb3c1bccc109b03250774a21521ec37b2ff935abe2",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/original-artwork.png": "dd6d82508f72b2d9019f1619e5f1fe878a5ad22935ab8c86d7a79b4434f64776",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/context/bubble-preference-raw.png": "819ff9ee1b8cfb803b26be62621799522221473b759ffc3a753ac413dce0dfc3",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/context/author_meals.py": "aa12f662990d9dea67d42edbff38db724c6fbe96592c9092f67e0f6d5ce9abc1",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/context/character_composition.py": "caa790049c03ba7425be1ef44708cd6edd879fc397407be77af237facbb5f8a0",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/original-2d-pipeline/overrides.json": "1b30458b9bef953f4a9caa4c8402405a8f2172102a0407d5eaa4eeb93a652bb4",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/original-2d-pipeline/README.md": "308aad3461e316b6179a47675430402267dda2f8fbb9c8ebade3132020c55083",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/original-2d-pipeline/prompts.json": "59708872f7fa5c6a9f0d682b0357a260f6e24703e66dfb90ec3f307ced5e3549",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/original-2d-pipeline/publish_2d.py": "6ceb9f228540ee49a96be824bd9d7f0a2aebe5173df2ea1069dcf565c687936d",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/context/sprites/belt-straight-e/running-S.png": "5d6a7959eef35dff8661b93873c4cb0d3ebb5719cb1e88478d9c18b6a13853e7",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/context/sprites/stool-wood/static-S.png": "7d16f15b70adc2b720644a147488a2ff17864bc076e2cfb5b568d8fc40ebfeb9",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/context/sprites/customer-rosa/eat-W.png": "2190b9422058763924f52e02c448d073034f06385db6a18f843790ce05c10fca",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/context/sprites/customer-rosa/eat-S.png": "cd982f09000a590516cf1b35b833395667ab3d0db4e7e0dae51bd1a39f891e26",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/context/sprites/customer-rosa/eat-E.png": "eda5daa5dbf5781724515bf48a234a39449d0d0533074d9f345d74ad7c668e9c",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/context/sprites/customer-rosa/seated-wait-N.png": "7726be20348c60735ffbce6dec537bdaeea0ab2d954338d8a91345420f7a9a6e",
+          "source/2d/refinement/dish-cucumber/source/round01/resources/context/sprites/customer-rosa/eat-N.png": "e9c311d663c37ba26f5bcd237c1f2490d05860b9fbc43c8b47996ad24b06acd1",
+          "source/2d/refinement/dish-cucumber/inputs/imagegen-prompt.txt": "74b0138363af193f835098162e2c3669242e1b3e830cc46460c0885efe5a9495",
+          "source/2d/refinement/dish-cucumber/inputs/original.png": "3e6e91ca068eb28041b9033eddf3dd2b06a5af50081ac221e95d4f89de4cb857",
+          "source/2d/refinement/dish-cucumber/inputs/catalog-object.json": "2ff43761eaf88ee144251f55129a6fa3466d9028311cda34ff7e52aa6c8623f9",
+          "source/2d/refinement/dish-cucumber/inputs/target.png": "e0fca773df48175a027b3acb3c1bccc109b03250774a21521ec37b2ff935abe2",
+          "source/2d/refinement/dish-cucumber/inputs/original-2d-pipeline/overrides.json": "1b30458b9bef953f4a9caa4c8402405a8f2172102a0407d5eaa4eeb93a652bb4",
+          "source/2d/refinement/dish-cucumber/inputs/original-2d-pipeline/README.md": "308aad3461e316b6179a47675430402267dda2f8fbb9c8ebade3132020c55083",
+          "source/2d/refinement/dish-cucumber/inputs/original-2d-pipeline/prompts.json": "59708872f7fa5c6a9f0d682b0357a260f6e24703e66dfb90ec3f307ced5e3549",
+          "source/2d/refinement/dish-cucumber/inputs/original-2d-pipeline/publish_2d.py": "6ceb9f228540ee49a96be824bd9d7f0a2aebe5173df2ea1069dcf565c687936d",
+          "source/2d/refinement/dish-cucumber/brief.json": "a367c788f880986db68de82ef333b10cf168c2d7d36c06c2510f90b961124d4d",
+          "source/2d/refinement/dish-cucumber/reviews/criteria.json": "3c2919f38b95ec6bb3af3b52298379287a8530018ad77ff573123c1a3332718a",
+          "source/records/dish-cucumber/warm-refinement-validation.json": "10c9bb02259e82ce95a1b2e22150bfe2c7d28d0d5b8c19c50bbf9798a0f147f0",
+          "sprites/dish-cucumber/2d-static-S.png": "d939cc89ac8791b2b3d192cac8ea51111469bbd6247110cf5f21a128851a60fa",
+          "source/registered/dish-cucumber/static-S/source-captures/000.png": "d939cc89ac8791b2b3d192cac8ea51111469bbd6247110cf5f21a128851a60fa",
+          "source/registered/dish-cucumber/static-N/source-captures/000.png": "d939cc89ac8791b2b3d192cac8ea51111469bbd6247110cf5f21a128851a60fa",
+          "source/registered/dish-cucumber/static-E/source-captures/000.png": "d939cc89ac8791b2b3d192cac8ea51111469bbd6247110cf5f21a128851a60fa",
+          "source/registered/dish-cucumber/static-W/source-captures/000.png": "d939cc89ac8791b2b3d192cac8ea51111469bbd6247110cf5f21a128851a60fa",
+          "source/registered/dish-cucumber/static-S/guide.json": "008c66bf1140dac84566d6b8eb06e8fa65d5de47c5ff0aa77ae4b1dd9ac475c4",
+          "source/registered/dish-cucumber/static-N/guide.json": "008c66bf1140dac84566d6b8eb06e8fa65d5de47c5ff0aa77ae4b1dd9ac475c4",
+          "source/registered/dish-cucumber/static-E/guide.json": "008c66bf1140dac84566d6b8eb06e8fa65d5de47c5ff0aa77ae4b1dd9ac475c4",
+          "source/registered/dish-cucumber/static-W/guide.json": "008c66bf1140dac84566d6b8eb06e8fa65d5de47c5ff0aa77ae4b1dd9ac475c4"
+        }
       },
       "directionFootprints": {
         "N": [
@@ -103729,7 +103823,18 @@
       "artStyle": {
         "lowerShading": "painted into 2D artwork",
         "worldDirectionalLight": false,
-        "contrast": "painted source palette; no additional Blender/CSS grade"
+        "contrast": "painted source palette; no additional Blender/CSS grade",
+        "revision": "warm-soft-dish-cucumber-round02",
+        "style": "Warm softly lit cartoon",
+        "representation": "existing2D artwork with editable packing recipe"
+      },
+      "refinement": {
+        "status": "approved",
+        "round": "round02",
+        "packetSHA256": "255d202624fb38a991d4d61e797146dd9c4b7601aa09f6cc95dac2249262c72f",
+        "reviewSHA256": "a649ebe99484075ade796f38f0da76dba17f427b9ff277d202e72c8ebf43b854",
+        "editor": "catalog_dish_cucumber_editor_v1",
+        "judge": "catalog_dish_cucumber_judge_v1"
       }
     },
     {

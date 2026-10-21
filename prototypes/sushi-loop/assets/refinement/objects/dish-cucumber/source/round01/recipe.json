@@ -1,0 +1,28 @@
+{
+  "pipeline": "existing-imagegen-2d",
+  "project": "source/round01/dish-cucumber.png",
+  "provenance": "source/round01/provenance.json",
+  "preparationRecipe": "source/round01/prepare_sources.py",
+  "publisher": "source/round01/publish.py",
+  "process": [
+    "Retain immutable raw fixed target and exact prompt/reference/source provenance.",
+    "Lossless rectangle crop ONCE at full raw alpha>8 bounds169,876,804,1387; retain all interior RGBA.",
+    "Canonical635x511 PNG is actual editable raster artwork and downstream dependency.",
+    "Publisher does NO additional crop; uniform Lanczos resize to132x106.",
+    "Transparent384x640 fullframe centered by original Python round rule at192,496.",
+    "Four static facing exports share exactly identical camera-facing pixels;1x1 original atlases.",
+    "Previews composite only; no painting,warping,grading,background-removal or fabricated3D."
+  ],
+  "dependencies": {
+    "runtime": "Python3 with Pillow",
+    "images": "All under source/round01/resources, copied originals with full hashes in provenance.",
+    "downstreamCanonicalArtwork": "source/round01/dish-cucumber.png",
+    "affectedUses": [
+      "standalone cucumber atlas",
+      "preference bubble cucumber recipe clips via same source40logical food",
+      "all native customer captures containing packed cucumber texture",
+      "cucumber starter-meal customer runtime variants (Rosa,Ellis,Samir,June)"
+    ],
+    "pending": "Bubble composition and native heldsource/UV replacement/new immutable dependent rounds must be reviewed before final Godot cutover. Existing native screenshots remain old baked art and are marked so."
+  }
+}

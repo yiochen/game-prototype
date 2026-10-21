@@ -1,0 +1,79 @@
+{
+  "asset": "belt-straight-e",
+  "experiment": "editor-goods-supplement",
+  "round": 1,
+  "verdict": "approve",
+  "candidatePacketSHA256": "f310e87bc17278db11e3168b41ab737d769b006531fdba61f994ce66c4150852",
+  "candidateProjectSHA256": "2fa8a8978e518bc0dccde4d0bdd990cf8382d3c18859aa1892ee2c1d4a369b79",
+  "frozenCriteriaVersion": 1,
+  "frozenCriteriaSHA256": "e5a3ae181b02c9e1258eb546450ce985ee51d07855d4da5ed3141ef0343eb44b",
+  "inspectedFiles": [
+    "goods.png",
+    "previews/logical-backgrounds.png",
+    "previews/context-pair-540x960.png",
+    "previews/source-backgrounds.png",
+    "previews/native384-enlarged-x2.png",
+    "previews/context-pair-786x1398.png",
+    "previews/context-pair-1280x720.png",
+    "validation.json",
+    "approved-world-record.json",
+    "supplement-native-record.json",
+    "reopen-proof.json",
+    "saved-dependency-audit.json",
+    "consumer-binding.json",
+    "consumer/render-record.json",
+    "context-checks.json",
+    "scope-before.json",
+    "scope-after.json",
+    "scope-receipt.json",
+    "../../source/source.blend",
+    "../../source/recipe.json",
+    "../../source/consumer/bench.gd",
+    "../../source/consumer/scripts/editor_presentation.gd",
+    "../../source/consumer/scripts/ui_skin.gd",
+    "../../source/consumer/scripts/art_book.gd",
+    "../../source/consumer/scripts/typography.gd",
+    "../../source/consumer/assets/ui/editor-goods/atlas.png",
+    "../../source/consumer/assets/ui/editor-goods/manifest.json"
+  ],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 8,
+    "artifactFreeReadability": 9
+  },
+  "observations": [
+    "The exact goods camera reveals the real slatted deck top, coral rail depth, honey-wood legs and shaped feet as a coherent supported three-quarter object. It clearly reads as the approved conveyor rather than a flat world sprite. The original accepted goods image has noticeably darker legs and flatter rail faces.",
+    "The refined native rail shoulders and soft slate slat bands carry through without an added contrast or color grade. Beveled warm wood, restrained vertical grain and small brass joinery improve material readability. There are no blown highlights, near-black support dead spots, muddy overlaps or unintended missing surfaces.",
+    "The native 384 image and enlarged view are clean on cream, light, gray and dark backgrounds. The intentionally open functional rail ends match the locked approved geometry; they do not justify adding presentation-only caps. Native coverage is unmodified binary alpha, with ordinary current linear filtering supplying reduced-size edge coverage.",
+    "At full-canvas 66 and 96 pixel use, the cool deck stays distinct from the warm rails and supports. Small grain and fasteners simplify naturally without distracting sparkle or a fringe. The card-scale silhouette remains recognizable with comfortable margins.",
+    "The actual current cream-card consumer shows the candidate cleanly at 540x960 and 786x1398 portrait sizes and at 1280x720 landscape. Belt and 6 left remain legible, other goods and controls retain their exact appearance, and the icon does not intrude into the label/count area. The landscape icon is smaller, at a 49.5 pixel full-canvas destination, and remains readable.",
+    "The context proof is a disposable preview using the actual unmodified EditorPresentation, UISkin, ArtBook and Typography code/assets with a six-item fixture on a solid room placeholder. It proves the current card behavior and does not claim completed full-game world/art integration."
+  ],
+  "blockers": [],
+  "remainingDifferences": [
+    "The fixed ImageGen target is a single registered world-style view, not a three-quarter modeling blueprint. This supplemental view correctly retains the exact approved native construction and material treatment rather than adding its glossy gold terminal collars or changing proportions.",
+    "The native 384 capture has the approved deterministic surface coverage; the reduced previews use the actual current linear filter. No raster smoothing or per-background correction was added.",
+    "World placement and final combined goods-atlas cutover are not shown by the placeholder-room context and remain coordinator integration work."
+  ],
+  "technicalEvidence": {
+    "integrity": "All 129 unique packet-bound paths match their sealed hashes. Exact goods PNG SHA256 is 5786dc5fb01c2e64f074155499a7ccc725b9ab46f09234c40b5fc59168e648cb. No submitted file was modified.",
+    "independentSavedSourceAudit": "Judge opened the exact approved-world backup and exact supplement source independently in Blender 5.2.2 LTS. Actual objects, mesh vertices/faces, evaluated geometry, UVs, parent/world transforms, material assignments/node graphs, lights, world graph, compositor, render response and rest pose compare equal. The candidate has frame1, phase0, root S0 and intrinsic orientation +pi/2.",
+    "camera": "Actual saved camera is 384x384 with square pixels, zero shifts and ortho scale 1.6704699993133545. Maximum matrix difference from the original recorded 35/35 camera is 5.960464477539063e-08, projection difference zero and scale difference zero. This is floating transform precision, with no fitting or framing adjustment.",
+    "reproductionAndClosure": "Judge rendered the normal reopened saved source into the separate review namespace. Its entire RGBA pixel array exactly equals goods.png. The saved source contains no images or linked libraries. Exact approved CPU Cycles sample, BOX filter, Standard color response and compositor are retained; no historical 1.35 goods grade or additional grading is present.",
+    "consumer": "Copied EditorPresentation, UISkin, ArtBook and Typography hashes exactly match current production code. Bench uses full-canvas UISkin.fit_rect and current LINEAR filtering, without occupied-alpha cropping. Native384 and actual GPU 66/96 previews cover cream/light/gray/dark. The three card contexts have full-canvas destinations 66, 96.0666656494141 and 49.5 pixels.",
+    "independentContextPixels": "Judge independently decoded all three original/candidate context pairs. Pixels outside the E icon destination plus its one-pixel filtering margin are exactly equal in RGBA. Card/preview/destination rectangles, label, stock, badge visibility, inventory count and goods-manifest count are equal. The goods manifest is byte-exact with six entries.",
+    "independentAtlasAndFloor": "The copied candidate atlas contains the exact goods.png pixel array only inside the E 384x384 region; every pixel outside that region equals the current atlas. The floor-cream region is exact. Its accepted source render SHA256 remains 6ded9330f3106d1d4941ac84e94c3e54436f098d261f5f36436d7115af239177.",
+    "protectedScope": "Before/after protected maps are identical. Judge rehashed all 19,086 protected world-source/packet/review and current Godot/UI/font files against the receipt; none changed. Approved world source SHA256 remains 7a5ce40be2c25adff55b48ddd67370b1ad8598c040ee34768fc55bb48d9b5cf9 and its world packet/review remain immutable.",
+    "judgeInspectionNamespace": "supplements/editor-goods/reviews/round-01-inspection/",
+    "judgeEvidence": [
+      "reviews/round-01-inspection/packet-check.json",
+      "reviews/round-01-inspection/independent-native-audit.json",
+      "reviews/round-01-inspection/independent-reopened-goods.png",
+      "reviews/round-01-inspection/independent-pixel-scope-checks.json"
+    ],
+    "limits": "Current-card proof uses the actual current UI consumer on a room placeholder. The final root repack and full-game cutover remain pending; this review grants no production/Godot write or world-candidate change."
+  },
+  "approvalScope": "Only this same-object goods supplement, sealed packet f310e87bc17278db11e3168b41ab737d769b006531fdba61f994ce66c4150852 and source 2fa8a8978e518bc0dccde4d0bdd990cf8382d3c18859aa1892ee2c1d4a369b79. The earlier world approval remains separate."
+}

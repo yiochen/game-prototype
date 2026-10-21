@@ -1,0 +1,228 @@
+{
+  "asset": "dish-cucumber",
+  "round": "round01",
+  "candidatePacketSHA256": "fa4df8e1bc80c21cda4e7fd77d731ba6a0b91ecf7437bc08c9af7d2be3423571",
+  "verdict": "approve",
+  "blockers": [],
+  "approvalScope": "Approve only this sealed existing ImageGen 2D canonical source, editable deterministic publisher and standalone static frames/atlases. Serving and preference compositions are reviewed context evidence. This does not approve replacement native character held captures, all bubble animation variants, supplemental starter-meal captures or final Godot cutover.",
+  "representation": "Existing ImageGen raster with deterministic 2D packing. No Blender dish geometry, camera, normals or rig evidence claimed or required.",
+  "criteriaVersion": 1,
+  "frozenCriteriaFileSHA256": "3c2919f38b95ec6bb3af3b52298379287a8530018ad77ff573123c1a3332718a",
+  "frozenBriefSHA256": "a367c788f880986db68de82ef333b10cf168c2d7d36c06c2510f90b961124d4d",
+  "inspectedFiles": [
+    "raw/static-N-0000.png",
+    "raw/static-E-0000.png",
+    "raw/static-S-0000.png",
+    "raw/static-W-0000.png",
+    "atlases/2d-static-N.png",
+    "atlases/2d-static-E.png",
+    "atlases/2d-static-S.png",
+    "atlases/2d-static-W.png",
+    "previews/four-view-sheet.png",
+    "previews/repeated.png",
+    "previews/backgrounds-actual-widths.png",
+    "previews/full-native-light.png",
+    "previews/full-logical-light.png",
+    "previews/full-cell32-light.png",
+    "previews/full-native-gray.png",
+    "previews/full-logical-gray.png",
+    "previews/full-cell32-gray.png",
+    "previews/full-native-dark.png",
+    "previews/full-logical-dark.png",
+    "previews/full-cell32-dark.png",
+    "previews/canonical-source-backgrounds.png",
+    "previews/registered-frames-backgrounds.png",
+    "previews/preference-full-frame.png",
+    "previews/preference-actual40-context.png",
+    "previews/serving-full-original-offsets.png",
+    "previews/serving-belt-without-foreground.png",
+    "previews/serving-cell32-original-offsets.png",
+    "previews/serving-cell32-inspection-only.png",
+    "previews/serving-context.png",
+    "previews/held-existing-dependency.png",
+    "previews/original-candidate-actual-widths.png",
+    "../../brief.json",
+    "../../reviews/criteria.json",
+    "../../inputs/original.png",
+    "../../inputs/target.png",
+    "../../inputs/imagegen-prompt.txt",
+    "../../source/round01/dish-cucumber.png",
+    "../../source/round01/provenance.json",
+    "../../source/round01/recipe.json",
+    "../../source/round01/publish.py",
+    "../../source/round01/prepare_sources.py",
+    "../../source/round01/verify.py",
+    "../../source/round01/resources/original-artwork.png",
+    "../../source/round01/resources/fixed-target-raw.png",
+    "../../source/round01/resources/warm-soft-reference.png",
+    "../../source/round01/resources/original-catalog-object.json",
+    "../../source/round01/resources/original-2d-pipeline/publish_2d.py",
+    "../../source/round01/resources/context/character_composition.py",
+    "validation.json",
+    "reproduction.json",
+    "delivery.json",
+    "delivery.snapshot.json",
+    "packet.json"
+  ],
+  "inspectionCoverage": {
+    "rawFrames": 4,
+    "atlases": 4,
+    "previews": 23,
+    "allFramesAndAtlasesOpened": true,
+    "allRegisteredPreviewPathsOpened": true,
+    "backgrounds": [
+      "light",
+      "neutral gray",
+      "dark"
+    ],
+    "sizes": [
+      "unresized canonical source",
+      "396px enlarged dish",
+      "132px native dish",
+      "66px logical standalone dish",
+      "40px logical preference dish",
+      "48x80 full registered frame at32px cell scale, approximately16.5px food"
+    ],
+    "facingPolicy": "Identical camera-facing pixels for N/E/S/W, checked visually and by exact file/RGBA equality.",
+    "requiredAnimation": "Only one static nonlooping frame, frameOrder[0],12fps. No other standalone states required."
+  },
+  "criterionFindings": [
+    {
+      "id": "shape-and-serving-structure",
+      "result": "pass",
+      "evidence": [
+        "previews/canonical-source-backgrounds.png",
+        "previews/registered-frames-backgrounds.png",
+        "previews/serving-belt-without-foreground.png"
+      ],
+      "finding": "Both rolls have coherent rounded cylindrical walls, distinct upper rice rims and plausible contact on one shallow ivory plate. The continuous rim and broad front ceramic band improve construction and volume. The back-left/front-right arrangement and high oblique view remain clear."
+    },
+    {
+      "id": "recipe-identity-and-palette",
+      "result": "pass",
+      "evidence": [
+        "previews/backgrounds-actual-widths.png",
+        "previews/preference-actual40-context.png",
+        "previews/original-candidate-actual-widths.png"
+      ],
+      "finding": "Two warm rice rings, deep green nori and fresh green cucumber with darker peel remain distinct at66px and40px. The true32px cell preview retains a tiny two-center green/cream food cue rather than pretending to show a32px-wide dish. No unrelated food, garnish, prop, label or scene element was added."
+    },
+    {
+      "id": "warm-soft-light-and-materials",
+      "result": "pass",
+      "evidence": [
+        "previews/canonical-source-backgrounds.png",
+        "previews/backgrounds-actual-widths.png",
+        "previews/original-candidate-actual-widths.png"
+      ],
+      "finding": "Compared with the original, rounded rice highlights, brighter green cut faces and warm cream ceramic give a softer finish. Nori retains visible olive midtones and cylindrical volume without a broad black dead area; the rice stays warm and modeled. Plate reflections remain within the object, with no exterior glow or directional ground shadow."
+    },
+    {
+      "id": "purposeful-food-and-plate-detail",
+      "result": "pass",
+      "evidence": [
+        "previews/canonical-source-backgrounds.png",
+        "previews/registered-frames-backgrounds.png",
+        "previews/full-logical-light.png"
+      ],
+      "finding": "Rounded rice groups and simple cucumber faces give edible detail without noisy photographic grains. Dense nori facets are visible in the enlarged source but resolve into coherent dark green walls at intended size. The ceramic well, uninterrupted rim and soft edge reflections remain subordinate to the recipe."
+    },
+    {
+      "id": "small-size-and-context-readability",
+      "result": "pass-with-disclosed-dependent-scope",
+      "evidence": [
+        "previews/full-logical-light.png",
+        "previews/full-logical-gray.png",
+        "previews/full-logical-dark.png",
+        "previews/full-cell32-light.png",
+        "previews/full-cell32-gray.png",
+        "previews/full-cell32-dark.png",
+        "previews/preference-actual40-context.png",
+        "previews/serving-context.png",
+        "previews/serving-cell32-original-offsets.png",
+        "previews/serving-cell32-inspection-only.png",
+        "previews/held-existing-dependency.png"
+      ],
+      "finding": "Standalone and preference compositions keep readable food/plate separation. The serving scene preserves the actual original placement and visibly discloses its existing customer-head occlusion; the separately labeled foreground-omitted view shows the full plate on the belt. At actual32px cell scale the16.5px food remains a green/cream two-roll cue with an ivory base. Held panels are honestly labeled older baked art with candidate size swatches; new matching native held replacements remain pending under separate same-pair rounds."
+    },
+    {
+      "id": "transparency-and-visible-defects",
+      "result": "pass",
+      "evidence": [
+        "previews/canonical-source-backgrounds.png",
+        "previews/backgrounds-actual-widths.png",
+        "previews/registered-frames-backgrounds.png",
+        "raw/static-N-0000.png",
+        "raw/static-E-0000.png",
+        "raw/static-S-0000.png",
+        "raw/static-W-0000.png"
+      ],
+      "finding": "On light, gray and dark, required exports have clean integrated edges without a visible matte, exterior glow, detached fleck, cropped rim, hard seam or gap. The once-cropped canonical source preserves extremely faint alpha1-2 pixels, disclosed by the audit; the final registered frame contains one connected nonzero-alpha component and296 alpha1-8 edge pixels, with no detached final debris and zero border alpha."
+    },
+    {
+      "id": "registered-static-2d-contract",
+      "result": "pass",
+      "evidence": [
+        "raw/static-N-0000.png",
+        "raw/static-E-0000.png",
+        "raw/static-S-0000.png",
+        "raw/static-W-0000.png",
+        "atlases/2d-static-N.png",
+        "atlases/2d-static-E.png",
+        "atlases/2d-static-S.png",
+        "atlases/2d-static-W.png",
+        "validation.json",
+        "reproduction.json"
+      ],
+      "finding": "All four raw frames and four atlases are byte-identical384x640 PNGs with original full-frame atlas rects. Independent packing reproduced their RGBA exactly from the canonical source: uniform132x106 normalization, paste[126,443], center[192,496], logical192x320/root[96,248]/sourceScale2. Static frame count,12fps,nonlooping order[0] and camera-facing policy are preserved. The publisher reads the canonical source without recropping."
+    },
+    {
+      "id": "raster-provenance-and-downstream-alpha-contract",
+      "result": "pass-with-disclosed-dependent-scope",
+      "evidence": [
+        "../../source/round01/provenance.json",
+        "../../source/round01/recipe.json",
+        "../../source/round01/prepare_sources.py",
+        "../../source/round01/publish.py",
+        "../../source/round01/resources/context/character_composition.py",
+        "validation.json",
+        "delivery.json"
+      ],
+      "finding": "Full frozen target bytes, exact prompt, original source/backup and style/reference hashes are retained. Independent comparison confirms canonical635x511 RGBA equals exactly raw target crop[169,876,804,1387], with no interior change. The historical alpha>0 held-plane versus alpha>8 standalone policies, source hashes, changed aspect, bottom-origin UV rectangle and future canonical source are versioned. Pending native texture/UV recapture and bubble variants are explicitly disclosed without claiming runtime replacement or global cutover."
+    }
+  ],
+  "technicalEvidence": {
+    "independentChecks": "../../reviews/round01-independent-checks.json",
+    "independentChecksSHA256": "7d2c2b8732ad789c89c01890995440e0f5934f836c2ce3b7da58c89b2cddd3b6",
+    "packetFileRecordsVerified": 130,
+    "independentReproduction": "Executed supplied verifier/publisher only in a disposable copied object; compared all33 output files (four frames,four atlases,23previews,validation,delivery) byte-for-byte with sealed originals. All matched; all sealed files remained unchanged.",
+    "sourceSHA256": "b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930",
+    "rawTargetSHA256": "e0fca773df48175a027b3acb3c1bccc109b03250774a21521ec37b2ff935abe2",
+    "exportSHA256": "d939cc89ac8791b2b3d192cac8ea51111469bbd6247110cf5f21a128851a60fa",
+    "exportRGBASHA256": "0959b0965c174085743d8130f6103b08e6b7a1423699f1dbef5dd6bc3a82fe5b",
+    "frameAlphaGT0Bounds": [
+      126,
+      443,
+      258,
+      549
+    ],
+    "frameAlphaGT8Bounds": [
+      126,
+      443,
+      258,
+      549
+    ],
+    "nonzeroAlphaComponentCount": 1,
+    "nonzeroAlphaPixels": 10414,
+    "borderAlphaMax": 0,
+    "candidatePacketVerifyBeforeReview": "Passed artifact integrity verification.",
+    "candidatePacketVerifyWithReview": "Required final read-only check after writing this review; result reported to coordinator."
+  },
+  "nonBlockingDisclosures": [
+    "This approved standalone art has not yet replaced old packed native character textures. New same-character editor/judge rounds must version/repack the canonical texture/UV/aspect/lowest plate registration while preserving body, rig, pose, drivers, camera and actions.",
+    "The40px preference composition is context evidence at original idle index0, not approval of every downstream bubble appear/idle/fade clip or starter-meal runtime variant.",
+    "Original serving offsets include substantial preexisting customer foreground occlusion. It is shown explicitly and does not result from a new scale/root change.",
+    "At32px cell scale, rice-grain detail is naturally subpixel; the assessed outcome is the retained two-roll green/cream dish cue at approximately16.5px width."
+  ],
+  "summary": "Approve this exact standalone candidate. It visibly improves warmth, rounded edible materials and plate construction while preserving cucumber identity, transparent edges and the registered2D contract. No standalone blockers remain."
+}

@@ -103,7 +103,11 @@ def main():
                       sealed=dependency.resolve() in bound)
     if (recipe.parent / 'original-library.blend').exists():
         copy_file(recipe.parent / 'original-library.blend', native_base / 'source/original-library.blend', sealed=False)
-    copy_file(folder / 'brief.json', native_base / 'brief.json')
+    approved_brief = (packet_path.parent / packet['files']['brief']['path']).resolve()
+    copy_file(approved_brief, native_base / 'brief.json')
+    criteria_file = packet['qualityCriteria'].get('criteriaFile')
+    if criteria_file and (folder / criteria_file).resolve() in bound:
+        copy_file(folder / criteria_file, native_base / criteria_file)
     record_paths = delivery.get('nativeRecords')
     if not record_paths:
         metadata = read(folder / 'metadata-delivery.json')

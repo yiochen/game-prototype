@@ -1,0 +1,102 @@
+{
+  "asset": "dish-cucumber",
+  "version": 1,
+  "status": "proposed-awaiting-coordinator-freeze",
+  "representation": "existing-imagegen-2d",
+  "basis": "Independent visual inspection of this object source/snapshot, frozen target, selected warm soft reference, catalog contract and actual 2D publisher/held-plane consumer.",
+  "criteria": [
+    {
+      "id": "shape-and-serving-structure",
+      "priority": 1,
+      "success": "Two coherent nori-wrapped maki rolls sit convincingly on one small ivory round plate in the high oblique source view. Rounded roll walls/top rims, plausible food-to-plate contacts and a readable continuous ceramic rim give the dish deliberate volume. Useful improvements to proportions, forms, plate construction or edible details are welcome; exact old facets or rice counts are not constraints.",
+      "inspectAt": [
+        "264px enlarged crop",
+        "66px standalone width",
+        "40px bubble width",
+        "32px cell width"
+      ]
+    },
+    {
+      "id": "recipe-identity-and-palette",
+      "priority": 1,
+      "success": "Both rolls retain dark green nori outer walls, warm white rice rings and visibly pale/bright green cucumber centers with darker green peel. Cucumber maki remains recognizable at66px,40px and32px without introducing other food, garnish, chopsticks, labels or scene elements. The small warm ivory plate supports the food rather than becoming its dominant visual mass.",
+      "inspectAt": [
+        "66px standalone width",
+        "40px bubble width",
+        "32px cell width"
+      ]
+    },
+    {
+      "id": "warm-soft-light-and-materials",
+      "priority": 1,
+      "success": "Rice, cucumber, nori and ceramic separate through warm readable midtones, broad soft highlights and rounded shading. Dark nori retains deep green/olive form information rather than broad flat black dead zones; rice does not blow out into a featureless white ring; cucumber highlights describe juicy faces without losing green identity. No directional ground shadow, exterior glow, bloom or preferred world light direction is added.",
+      "inspectAt": [
+        "light gray and dark backgrounds",
+        "enlarged crop",
+        "66px standalone width"
+      ]
+    },
+    {
+      "id": "purposeful-food-and-plate-detail",
+      "priority": 2,
+      "success": "Rice reads as controlled rounded grain clusters, cucumber chunks have simple convincing cut faces/peel, and nori texture supports cylindrical form without becoming sharp noisy confetti. Ceramic has a coherent shallow well, rim and soft edge reflection. Detail belongs to edible construction and remains subordinate to the recipe at game size.",
+      "inspectAt": [
+        "264px enlarged crop",
+        "66px standalone width",
+        "40px bubble width"
+      ]
+    },
+    {
+      "id": "small-size-and-context-readability",
+      "priority": 1,
+      "success": "At66logical pixels wide on the serving surface,40logical pixels within a preference bubble and32pixels in a cell/context thumbnail, two rice-and-green centers and the nori/plate separation remain readable. Show actual declared standalone placement plus matching-art bubble/held representative context evidence; context-only compositions must be labeled if production recaptures are pending. No blocked plate edge, confusing scale jump, halo or lost cucumber identity is hidden by enlarged presentation.",
+      "inspectAt": [
+        "66px standalone/support placement",
+        "40px preference bubble context",
+        "32px cell/context thumbnail",
+        "representative held plane context"
+      ]
+    },
+    {
+      "id": "transparency-and-visible-defects",
+      "priority": 1,
+      "success": "On light, neutral gray and dark backgrounds at intended and enlarged sizes, the plate/food has a clean integrated exterior without detached flecks, rectangular matte, edge halo, accidental low-alpha debris, clipped rim/rice, hard seams or unintended gaps. Preserve soft antialiasing and interior RGBA. A frozen target\u2019s near-zero-alpha fringe is not an instruction to recreate exterior artifacts.",
+      "inspectAt": [
+        "raw alpha bounds alpha>0 and alpha>8",
+        "light gray and dark composites",
+        "all registered exports and atlas rects"
+      ]
+    },
+    {
+      "id": "registered-static-2d-contract",
+      "priority": 1,
+      "success": "Every required N/E/S/W context uses identical camera-facing pixels: one static nonlooping frame at12fps, frameOrder[0], complete384x640native frame,192x320logical frame, root[96,248],sourceScale2 and original[0,0,384,640]atlas rect. The one effective alpha>8 source crop is uniformly normalized to132native width and centered at[192,496]; no per-view fitting, extra crop, paint/warp or fabricated Blender dish/camera/rig evidence. Exact packed bytes must be reproducible from the declared raster/recipe.",
+      "inspectAt": [
+        "all four declared context entries",
+        "static frame and atlas",
+        "editable deterministic publisher and hash-bound validation"
+      ]
+    },
+    {
+      "id": "raster-provenance-and-downstream-alpha-contract",
+      "priority": 1,
+      "success": "Preserve the full raw ImageGen target/source and exact generation provenance. If a canonical source is created, bind its single crop rectangle and hash to the raw image and verify unchanged interior RGBA. Report both alpha>0 and alpha>8 bounds and version the effect on held-plane UV/aspect/lowest-plate registration. Packed bubble/held native captures may remain pending for this standalone review only with clear disclosure and matching context evidence; never claim global replacement or final Godot cutover from standalone approval.",
+      "inspectAt": [
+        "raw and canonical source hashes and crop proof",
+        "actual alpha-bound consumers",
+        "dependency/context records"
+      ]
+    }
+  ],
+  "approvalEvidence": [
+    "Exact immutable candidate packet hash with all candidate raster, editable publisher/recipe, provenance, validation and context-preview paths bound to it.",
+    "Every registered frame/atlas/context visual inspected at intended size and enlarged on light, gray and dark backgrounds, plus exact frame/root/width/facing/atlas reproduction checks.",
+    "Honest separation of standalone approval from pending bubble/held native dependent capture rounds and final integration."
+  ],
+  "nonCriteria": [
+    "No numeric score threshold substitutes for visible inspection.",
+    "No requirement to preserve old part/grain count or exact weak source facets.",
+    "No requirement for real Blender geometry or invented 3D metadata for this raster asset.",
+    "No requirement that all downstream runtime variants be globally cut over before standalone approval when the dependency scope is explicitly disclosed and evidenced."
+  ]
+}

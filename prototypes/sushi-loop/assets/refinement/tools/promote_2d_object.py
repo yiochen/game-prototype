@@ -58,7 +58,11 @@ def promote(args):
         for path in (folder / directory).rglob('*'):
             if path.is_file() and path.resolve() in bound:
                 copy_file(path, source_root / directory / path.relative_to(folder / directory))
-    copy_file(folder / 'brief.json', source_root / 'brief.json')
+    approved_brief = (root / packet['files']['brief']['path']).resolve()
+    copy_file(approved_brief, source_root / 'brief.json')
+    criteria_file = packet['qualityCriteria'].get('criteriaFile')
+    if criteria_file and (folder / criteria_file).resolve() in bound:
+        copy_file(folder / criteria_file, source_root / criteria_file)
     validation_dest = PRODUCTION / 'source/records' / args.asset / 'warm-refinement-validation.json'
     copy_file(folder / delivery['validation'], validation_dest)
     expected = {(clip['id'], direction) for clip in obj['clips'] for direction in clip['directions']}

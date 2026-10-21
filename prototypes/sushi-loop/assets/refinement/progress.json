@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 24,
-  "published": 23,
-  "current": "Twenty-three objects published; salmon approved and publishing24th; Ellis approved pending promotion; E inventory view independent review; cucumber native2D editing; Rowan independent inspection",
+  "completed": 25,
+  "published": 24,
+  "current": "Twenty-four objects published; cucumber round02 approved and publishing25th with closed source package; eel independent review; Rowan new model uses canonical salmon; crate inventory capture preparing review",
   "objects": [
     {
       "id": "plant-angular",
@@ -577,7 +577,7 @@
       "name": "Rowan McLeod",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "independent-editor-inspection",
+      "status": "native-editing",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -585,7 +585,7 @@
       "editor": "catalog_chef_rowan_editor_v1",
       "judge": "catalog_chef_rowan_judge_v1",
       "editorStatus": "running",
-      "judgeStatus": "criteria-v1-frozen"
+      "judgeStatus": "criteria-v2-food-frozen"
     },
     {
       "id": "chef-blackboard",
@@ -647,7 +647,7 @@
       "name": "Salmon Nigiri",
       "kind": "prop",
       "pipeline": "existing-2d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
@@ -656,27 +656,41 @@
       "editorStatus": "completed",
       "round": "round01",
       "packetSHA256": "e7a8682233052e676135edd19ba7c98b057e6d7075074a5eb344e0a3558f3ae6",
-      "judgeStatus": "completed"
+      "judgeStatus": "completed",
+      "deployCommit": "8aeb7b2c",
+      "deployURL": "https://deploy-preview-37--game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#object-dish-salmon"
     },
     {
       "id": "dish-cucumber",
       "name": "Cucumber Maki",
       "kind": "prop",
       "pipeline": "existing-2d",
-      "status": "prepared-existing-2d",
+      "status": "approved",
       "clips": 1,
       "frames": 4,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "round": "round02",
+      "editor": "catalog_dish_cucumber_editor_v1",
+      "judge": "catalog_dish_cucumber_judge_v1",
+      "packetSHA256": "255d202624fb38a991d4d61e797146dd9c4b7601aa09f6cc95dac2249262c72f",
+      "editorStatus": "completed",
+      "judgeStatus": "running"
     },
     {
       "id": "dish-eel",
       "name": "Eel Roll",
       "kind": "prop",
       "pipeline": "existing-2d",
-      "status": "prepared-existing-2d",
+      "status": "candidate-review",
       "clips": 1,
       "frames": 4,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "round": "round01",
+      "editor": "catalog_dish_eel_editor_v1",
+      "judge": "catalog_dish_eel_judge_v1",
+      "packetSHA256": "453ee8f9d04e9d0baca06d9ee44e675db56650bb0c198d767c421017ad5c4291",
+      "editorStatus": "completed",
+      "judgeStatus": "running"
     },
     {
       "id": "bubble-preference",
