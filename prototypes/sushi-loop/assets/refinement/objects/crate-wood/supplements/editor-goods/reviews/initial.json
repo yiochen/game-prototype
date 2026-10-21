@@ -1,0 +1,109 @@
+{
+  "asset": "crate-wood",
+  "experiment": "editor-goods-supplement",
+  "stage": "independent initial-only inspection; no candidate received or graded",
+  "inspectedInputs": {
+    "source": {
+      "path": "../../../../../production/source/blender/refinement/crate-wood/source/round-02.blend",
+      "sha256": "3950226374590a781e8582854f205fb7a3630abece10f6721774b8e986c9dbb5"
+    },
+    "backup": {
+      "path": "inputs/approved-world-model.blend",
+      "sha256": "3950226374590a781e8582854f205fb7a3630abece10f6721774b8e986c9dbb5"
+    },
+    "original": {
+      "path": "inputs/original.png",
+      "sha256": "63825070886e471734fe1b822bd20af2032d6dbf7890cd320a7585e39a674552"
+    },
+    "target": {
+      "path": "inputs/target.png",
+      "sha256": "2c57de8f66f13f5320e80d2b674566a3d61907d6b557e64a857165f8cf11e449"
+    },
+    "camera": {
+      "path": "inputs/camera-contract.json",
+      "sha256": "b8e9476549456cc4c915f76c89f11058724a8e9b2b122a945e4dd61c64b65399"
+    },
+    "acceptedUI": {
+      "path": "../../../../../ui/editor/v4/raw/b-indigo-ceramic.png",
+      "sha256": "8e77f369bcee02c1f49be0ce40c97152d210b963104c55dc3528121b3208af0c"
+    },
+    "catalog": {
+      "path": "../../../../../../design/art-directions/restaurant-item-catalog.png",
+      "sha256": "d213f970d37a2e83846d8ee54ec14e8e74e72c2a93fb1c13e00d0bf2143e73b2"
+    },
+    "concept": {
+      "path": "../../../../../../design/art-directions/restaurant-concept.png",
+      "sha256": "c3e178a36b604e59dc8dedbc7a48f2a9f13a5d7c45a990fee2b28c55e1941713"
+    }
+  },
+  "additionalInspectedFiles": [
+    "../../reviews/round-02.json",
+    "../../candidates/round-02/four-view-logical.png",
+    "godot/assets/ui/editor-goods/manifest.json",
+    "godot/assets/ui/editor-goods/atlas.png",
+    "godot/scripts/editor_presentation.gd",
+    "godot/scripts/ui_skin.gd",
+    "godot/review/12/noren-revision/native/720x1560/12-inventory-placed.png",
+    "godot/review/12/noren-revision/native/720x1560/13-inventory-next-page.png",
+    "godot/review/12/noren-revision/native/1280x720/13-inventory-next-page.png"
+  ],
+  "sourceInspection": {
+    "readOnlyBlenderAudit": "reviews/approved-source-inspection.json",
+    "exactSourceBackupMatch": true,
+    "rootS0Identity": true,
+    "meshCount": 8,
+    "materials": [
+      "Crate amber perimeter",
+      "Crate golden brace",
+      "Crate golden lid",
+      "Crate warm brown inset"
+    ],
+    "noExternalImagesOrLibraries": true,
+    "nativeSourceSavedOrRendered": false,
+    "cameraContractExactlyMatchesCurrentCrateManifest": true
+  },
+  "observations": [
+    "The old accepted goods snapshot is a genuine square three-quarter view: three lid boards, front diagonal brace, right side face and both continuous rails are visible. Its dark front/right panels and thin brace become subdued at full-canvas 66 px, especially on dark backgrounds.",
+    "The exact approved world source inspected read-only has eight native mesh parts, root identity at S0, five-segment soft bevels/weighted normals and the four approved warm wood material graphs. Source and backup are byte-identical to the previously approved round-02 project.",
+    "The approved world renders already establish softer rounded edges, golden boards and readable warm brown inset. This supplement must carry those same native responses into the UI camera, without another model/style pass.",
+    "The camera-contract JSON exactly equals the current crate entry in the Godot goods manifest, including world/projection matrices and ortho scale. The old goods image is framing/provenance evidence, not the geometry/material authority.",
+    "The real ItemPreview goods path fits the complete atlas region rather than occupied alpha pixels. The supplied 66/96 px checks must therefore scale the whole 384-square canvas. The current cream cards retain separate name and stock/count text below the preview.",
+    "Viewed accepted Indigo/ceramic UI, restaurant catalog and concept images. They support warm timber, soft light, cream surfaces and legible depth, but do not authorize changing the current card layout or inventing additional crate details.",
+    "The six goods IDs are belt-straight-e, stool-wood, plant-angular, crate-wood, barrel-wood and floor-cream. Current floor source bytes and the current atlas crop match exactly; recorded in reviews/current-consumer-baseline.json."
+  ],
+  "runtimeInspection": "reviews/original-runtime-inspection.png shows unchanged old full canvas at 66/96 px on sampled current cream [254,243,219], gray and dark backgrounds. This is an initial source diagnostic, not candidate/context approval.",
+  "priorities": [
+    "Transfer the exact approved warm rounded crate to the locked native three-quarter camera with lid/front/right depth and clean brace/corner contacts.",
+    "Retain warm readable brown panels and golden timber at full-canvas 66/96 px on the actual cream goods cards, while preserving the source material/light pipeline exactly once.",
+    "Provide hash-bound native parity, reopened-render and copied current phone/landscape consumer evidence; preserve floor and all production files."
+  ],
+  "limits": "No supplement candidate, saved goods blend, reopened render or new copied current consumer context has been inspected. Existing Godot screenshots establish baseline context only and do not prove final consumer parity. No approval is issued at this initial stage.",
+  "preservationBaseline": {
+    "sixGoodsIDs": [
+      "belt-straight-e",
+      "stool-wood",
+      "plant-angular",
+      "crate-wood",
+      "barrel-wood",
+      "floor-cream"
+    ],
+    "goodsManifestSHA256": "1a0eda26e231a47051fc7f0b0a5c925fe777b0245094fa5416a60f09fbe9411b",
+    "goodsAtlasSHA256": "505134aecc0e4cb5d29fa43c862e9c635482985fc4d50d94ab8d2fb50bff8d33",
+    "floorSourcePath": "prototypes/sushi-loop/assets/ui/editor/goods-v1/renders/floor-cream.png",
+    "floorSourceSHA256": "6ded9330f3106d1d4941ac84e94c3e54436f098d261f5f36436d7115af239177",
+    "floorAtlasRegion": [
+      788,
+      396,
+      384,
+      384
+    ],
+    "floorSourceAndAtlasCropPixelsEqual": true,
+    "floorRGBAPixelSHA256": "1cee44c04199f35fd17b2774d667dfa7ed95656ad2b8f88f16df628d2d8a1ce1",
+    "creamSampleFromExistingCard": [
+      254,
+      243,
+      219
+    ]
+  },
+  "status": "Ready for coordinator reconciliation and frozen brief.qualityCriteria."
+}

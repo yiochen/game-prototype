@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "assetId": "dish-eel",
+  "stage": "proposed-independent-visible-success-criteria",
+  "status": "proposed; coordinator freeze pending",
+  "fixedTargetSHA256": "e99cc33adc72bace561fba704962ce3f008064793811bc7f6a729388f25e35eb",
+  "sourceSHA256": "ae9daeb50efcfc29615ff9c8a9a949cd3e0026c7c6ad94f1a0ba544c512a5689",
+  "representation": "Existing2D raster and deterministic packing, with exact raster provenance. No fabricated3D metadata.",
+  "criteria": [
+    {
+      "id": "recipe-and-serving-identity",
+      "priority": 1,
+      "visibleSuccess": "One caramel-brown eel fillet over compact warm white rice, crossed by one continuous dark olive-green nori band, on one small ivory round ceramic serving plate. The fillet arch, rice mass, band and complete rim form a coherent appetizing serving. No garnish, chopsticks, added food, labels, scenery or ground shadow.",
+      "checkAt": [
+        "enlarged crop",
+        "66px standalone",
+        "40px bubble-food",
+        "CELL32 complete registered context"
+      ],
+      "failureExamples": [
+        "band resembles an empty black hole",
+        "eel becomes salmon-orange stripes or several separate toppings",
+        "plate becomes a second rice mass",
+        "food floats above plate"
+      ]
+    },
+    {
+      "id": "useful-form-and-plate-construction",
+      "priority": 1,
+      "visibleSuccess": "Preserve useful target design gains: a thick rounded eel arch with an understandable edge/underside, compact plump rice clusters supporting it, and a continuous smooth shallow ceramic dish with a deliberate rim/front thickness. Improve weak source construction when useful; exact old silhouette, decorative part count and tiny surface marks are not constraints.",
+      "checkAt": [
+        "enlarged crop",
+        "native132px-wide asset",
+        "66px standalone"
+      ],
+      "failureExamples": [
+        "thin brittle eel ends",
+        "melted or torn food contours",
+        "unmotivated extra layers",
+        "warped or broken elliptical rim",
+        "rice occupies or obscures all plate surface"
+      ]
+    },
+    {
+      "id": "warm-soft-light-and-controlled-materials",
+      "priority": 1,
+      "visibleSuccess": "Broad warm light makes the caramel, ivory and olive forms readable through smooth midtones. Eel glaze has a few coherent honey/caramel ribbons and bounded reflections; rice feels softly rounded; nori has a restrained olive material response; the ceramic rim carries a gentle continuous reflection. The image feels warmer and softer than the original, while retaining legible depth. No preferred horizontal world light or directional ground cast shadow.",
+      "checkAt": [
+        "enlarged light/gray/dark composites",
+        "66px standalone",
+        "40px food"
+      ],
+      "failureExamples": [
+        "dense white pinpoint glare dominates eel",
+        "photographic mottled speckle competes with form",
+        "cool patchwork plate shading dominates",
+        "gloss becomes bloom or halo",
+        "flat undifferentiated orange food"
+      ]
+    },
+    {
+      "id": "bounded-dark-regions-and-edible-detail",
+      "priority": 1,
+      "visibleSuccess": "The front/lower nori retains visible olive midtones and a coherent wrapped edge instead of a broad near-black dead area. Eel undersides, tail and contact seams may use deep brown locally when they explain thickness; they do not swallow the food shape. Rice reads as selected clustered grains at66px and40px, with detail subordinate to overall volume.",
+      "checkAt": [
+        "enlarged crop",
+        "native asset",
+        "66px standalone",
+        "40px food"
+      ],
+      "failureExamples": [
+        "lower nori is a featureless black rectangle",
+        "dark eel lip merges with band into one mass",
+        "sparkle or texture noise replaces rice structure",
+        "every seam is brightened away so layers merge"
+      ]
+    },
+    {
+      "id": "actual-small-size-readability",
+      "priority": 1,
+      "visibleSuccess": "At66px standalone and40px bubble-food width, the caramel top, pale rice, dark olive band and complete pale plate remain distinct. At CELL32, use the full registered48x80px frame: dish is about16.5px wide and food inside the preference balloon10px wide. These tiny contexts retain a compact caramel/pale/dark-band recipe grouping and plate/balloon separation; individual grains need not survive. Show true-size views and enlarged inspections, clearly labeled.",
+      "checkAt": [
+        "66px standalone",
+        "40px matching preference-food",
+        "CELL32 belt support placement",
+        "CELL32 matching blank-balloon composition"
+      ],
+      "failureExamples": [
+        "alpha-silhouette enlargement misrepresented as game size",
+        "candidate compared at a larger food scale than original",
+        "band disappears or consumes all top color",
+        "food merges with blank balloon or plate",
+        "old dish art silently used in a new-art context"
+      ]
+    },
+    {
+      "id": "clean-alpha-and-canonical-source",
+      "priority": 1,
+      "visibleSuccess": "On light, gray and dark backgrounds at true size and enlarged, contour is clean with no detached debris, white fringe, black fringe, external glow, or visible alpha box. Inspect both raw alpha>0 and alpha>8 bounds. An authorized once-only lossless rectangle crop may produce the canonical effective source, preserving original raw/provenance and every interior RGBA byte, with no threshold alpha deletion, painting, second crop or use-specific fit.",
+      "requiredEvidence": [
+        "raw and canonical SHA256",
+        "single source crop rectangle",
+        "interior RGBA equality proof",
+        "raw/canonical alpha>0 and>8 bboxes",
+        "native exports and reduced composite images"
+      ],
+      "failureExamples": [
+        "raw target outliers silently alter held-plane UV/aspect/anchor",
+        "Pillow repaint or threshold-removal described as packing",
+        "canonical source is cropped again by a consumer",
+        "checkerboard baked into source",
+        "invisible padded source used as purported food bounds"
+      ]
+    }
+  ],
+  "lockedTechnicalContract": {
+    "nativeCanvas": [
+      384,
+      640
+    ],
+    "logicalCanvas": [
+      192,
+      320
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "logicalCellSize": 128,
+    "packingCenterNative": [
+      192,
+      496
+    ],
+    "normalizedDishWidthNative": 132,
+    "crop": "Once alpha>8 rectangle in source coordinates; uniform resize only; no per-frame/facing fitting. If canonical crop is supplied, consumers must not crop it again.",
+    "projection": "screen-space-2d; original high-oblique camera-facing depiction",
+    "directions": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "facings": "All four required facings have identical RGBA pixels; shared atlas reference is valid.",
+    "staticClip": {
+      "id": "static",
+      "frames": 1,
+      "fps": 12,
+      "loop": false,
+      "frameOrder": [
+        0
+      ]
+    },
+    "atlas": {
+      "columns": 1,
+      "rows": 1,
+      "size": [
+        384,
+        640
+      ],
+      "rect": [
+        0,
+        0,
+        384,
+        640
+      ]
+    },
+    "registrationCheck": "Packing code must reproduce original exactly; candidate center/scale/frame derive from same deterministic recipe. Source aspect-dependent height is uniformly scaled, not stretched or manually fitted."
+  },
+  "candidateEvidenceRequired": [
+    "Immutable packet binding exact raw/canonical source, packing recipe, output frames/atlases and validation hashes. Preserve full target/raw generation provenance; call raster2D evidence what it is.",
+    "All registered static facing entries and pixel-equality evidence, plus four-view and repeated previews with same framing.",
+    "Actual candidate images on light/gray/dark, true66px/40px and actual CELL32 reductions. Use the corresponding new dish in illustrative bubble/belt contexts and label diagnostic composition versus published dependent assets.",
+    "Dependency inventory clearly marks old preference-bubble/held captures and supplemental runtime variants. Standalone review does not approve those pending dependencies. Matching new immutable dependency recapture rounds and their independent approvals are required before final Godot cutover."
+  ],
+  "evaluationPolicy": "Judge visible outcome against this fixed target, style and technical contract; useful changes from the original are welcome. Missing evidence means needs_evidence, not approval. No numeric score threshold replaces visual inspection. Proposed criteria become binding only after coordinator reconciliation/freeze."
+}
