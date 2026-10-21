@@ -22,7 +22,8 @@ def audit(folder, round_name, views=None):
         validation_path = folder / data['nativeValidation']
         data = json.loads(validation_path.read_text())
     measured = {view: [] for view in views}
-    records = data.get('renders', data.get('views', data.get('nativeCaptures', data.get('captureRecords', []))))
+    records = next((data[key] for key in ['renders', 'views', 'nativeCaptures',
+                    'captureRecords', 'nativeFrames', 'frames'] if data.get(key)), [])
     if not records and isinstance(data.get('renderManifest'), str):
         manifest_path = (validation_path.parent / data['renderManifest']).resolve()
         if not manifest_path.is_file():

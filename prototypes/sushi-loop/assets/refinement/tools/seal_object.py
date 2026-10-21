@@ -3,7 +3,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
-import subprocess
+import runpy
 
 RUN = Path(__file__).resolve().parents[1]
 HELPER = '/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py'
@@ -53,6 +53,13 @@ def main():
     for name, path in brief.get('technicalResources', {}).items():
         assert (folder / path).is_file(), f'Missing frozen technical resource: {path}'
         resources['technical:' + name] = folder / path
+    # A revision may reuse exact frames/evidence from an earlier immutable
+    # round. Those referenced bytes must be bound too, not just the new folder.
+    for kind in ['resources', 'rawFrames', 'atlases']:
+        for index, record in enumerate(delivery.get(kind, [])):
+            path = folder / (record['path'] if isinstance(record, dict) else record)
+            assert path.is_file(), f'Missing delivered {kind}: {path}'
+            resources[f'delivery:{kind}:{index}'] = path
     # Include every delivered file in the round, not just its representative hero.
     for path in candidate.rglob('*'):
         if path.is_file() and path.name != 'packet.json':
@@ -62,7 +69,18 @@ def main():
             resources['source:' + path.relative_to(folder / 'source').as_posix()] = path
     for name, path in resources.items():
         command += ['--resource', f'{name}={path}']
-    raise SystemExit(subprocess.run(command).returncode)
+    # Large animation/consumer packets exceed macOS ARG_MAX. Invoke the same
+    # helper in process; retain every resource and all its validation rules.
+    values = {flag: [] for flag in ['--render', '--preview', '--resource']}
+    scalar = {}
+    for flag, value in zip(command[3::2], command[4::2]):
+        if flag in values:
+            values[flag].append(value)
+        else:
+            scalar[flag.removeprefix('--')] = value
+    packet_args = argparse.Namespace(**scalar,
+        render=values['--render'], preview=values['--preview'], resource=values['--resource'])
+    runpy.run_path(HELPER)['create'](packet_args)
 
 
 if __name__ == '__main__':
