@@ -1,15 +1,21 @@
 {
+  "schemaVersion": 2,
   "projection": "character-orthographic",
   "frame": [
     192,
     320
+  ],
+  "nativeFrame": [
+    384,
+    640
   ],
   "anchor": [
     96,
     248
   ],
   "cellSize": 128,
-  "captureScale": 4,
+  "captureScale": 2,
+  "sourceScale": 2,
   "fps": 12,
   "axes": {
     "x": "X",
@@ -27,14 +33,14 @@
       ],
       [
         0.0,
-        0.5735762715339661,
-        -0.8191521763801575,
+        0.5735762119293213,
+        -0.8191522359848022,
         -8.191520690917969
       ],
       [
         0.0,
-        0.8191521763801575,
-        0.5735762715339661,
+        0.8191522359848022,
+        0.5735762119293213,
         5.735764503479004
       ],
       [
@@ -55,7 +61,7 @@
         0.0,
         0.800000011920929,
         0.0,
-        -0.5499984622001648
+        -0.5499976873397827
       ],
       [
         0.0,
@@ -70,53 +76,319 @@
         1.0
       ]
     ],
+    "orthoScale": 1.5,
+    "shift": [
+      0.0,
+      0.458331435918808
+    ],
     "pixelAspect": [
-      1.0,
-      1.0
+      1,
+      1
     ],
     "worldUnitsPerCell": 1,
     "elevationDegrees": 35
   },
   "calibration": {
     "root": [
-      384.0,
-      992.0
+      192.0,
+      496.00000381469727
     ],
     "unitX": [
-      512.0,
+      255.99998474121094,
       0.0
     ],
     "unitDepth": [
       0.0,
-      293.6710205078125
+      146.83550655841827
     ],
     "unitHeight": [
       0.0,
-      -419.40594482421875
-    ]
+      -209.7029685974121
+    ],
+    "units": "actual native scale2 pixels"
+  },
+  "source": {
+    "project": "source/round-01.blend",
+    "sha256": "73cf8d7c6c1b4ef4170020424bfa3eebaae47ca4aabd124cb7753d4b1c1d7248",
+    "scene": "Ama warm soft round01",
+    "collection": "S33_CHARACTER_chef_ama.002",
+    "root": "chef_ama__ground_root.002",
+    "armature": "chef_ama__armature.001",
+    "recipe": "source/recipe-round01.json",
+    "recipeSHA256": "838a15e628f13743b9902696b0b712afabdf971b56f944fd5a45120e6f23882c",
+    "capture": "candidates/round-01/native-frames.json",
+    "captureSHA256": "6e43b3dcb337eb27665c1f134c5ef35009c52e2b8c19a8f64f7ed5377931863a",
+    "nativeRepresentation": "chef and knife are native mesh/material/rig; held salmon remains separately identified original packed2D insert"
+  },
+  "originalRecord": {
+    "path": "inputs/source-camera.json",
+    "sha256": "e8a9bc00c4dca4cf153dc25d8674d37c5409314d293b593b5339eca32578c8c3",
+    "historicalCaptureScale": 4
   },
   "artStyle": {
-    "revision": "2026-10-19",
-    "environmentHeightRatio": 0.7,
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
-    "lightingRig": {
-      "treatment": "Faceted",
-      "overheadWatts": 140,
-      "overheadPosition": [
-        0,
-        0,
-        4.5
+    "revision": "warm-soft-native-round01",
+    "oneMaterialLightConfigurationForAllFrames": true,
+    "lightingSymmetry": 4,
+    "noDirectionalGroundShadow": true,
+    "renderer": {
+      "engine": "CYCLES",
+      "device": "GPU",
+      "samples": 72,
+      "denoise": true,
+      "adaptiveThreshold": 0.019999999552965164,
+      "filter": "BOX1",
+      "viewTransform": "Standard",
+      "look": "None",
+      "exposure": 0.0,
+      "symmetricLightPositions": [
+        [
+          0,
+          0,
+          4.5
+        ],
+        [
+          3,
+          0,
+          2
+        ],
+        [
+          -3,
+          0,
+          2
+        ],
+        [
+          0,
+          3,
+          2
+        ],
+        [
+          0,
+          -3,
+          2
+        ]
       ],
-      "overheadSize": 3.5,
-      "fillWattsEach": 100,
-      "fillSize": 4,
-      "fillRadius": 3,
-      "fillZ": 1.8,
-      "horizontalSymmetry": 4,
-      "worldStrength": 0
-    },
-    "lowerShading": "world-height ramp; camera view-tone bypassed"
+      "lights": [
+        {
+          "name": "Ama01 symmetric area 0",
+          "type": "AREA",
+          "energy": 135.0,
+          "size": 3.5,
+          "color": [
+            1.0,
+            0.9599999785423279,
+            0.8799999952316284
+          ],
+          "position": [
+            0.0,
+            0.0,
+            4.5
+          ],
+          "matrix": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0,
+              4.5
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        {
+          "name": "Ama01 symmetric area 1",
+          "type": "AREA",
+          "energy": 25.0,
+          "size": 4.0,
+          "color": [
+            1.0,
+            0.9599999785423279,
+            0.8799999952316284
+          ],
+          "position": [
+            3.0,
+            0.0,
+            2.0
+          ],
+          "matrix": [
+            [
+              -1.6292068494294654e-07,
+              -0.3713906407356262,
+              0.9284766912460327,
+              3.0
+            ],
+            [
+              1.0,
+              -7.19804518212186e-08,
+              1.46678758028429e-07,
+              0.0
+            ],
+            [
+              1.2357048717603902e-08,
+              0.9284766912460327,
+              0.3713906407356262,
+              2.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        {
+          "name": "Ama01 symmetric area 2",
+          "type": "AREA",
+          "energy": 25.0,
+          "size": 4.0,
+          "color": [
+            1.0,
+            0.9599999785423279,
+            0.8799999952316284
+          ],
+          "position": [
+            -3.0,
+            0.0,
+            2.0
+          ],
+          "matrix": [
+            [
+              -1.6292068494294654e-07,
+              0.3713906407356262,
+              -0.9284766912460327,
+              -3.0
+            ],
+            [
+              -1.0,
+              -7.19804518212186e-08,
+              1.46678758028429e-07,
+              0.0
+            ],
+            [
+              -1.2357048717603902e-08,
+              0.9284766912460327,
+              0.3713906407356262,
+              2.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        {
+          "name": "Ama01 symmetric area 3",
+          "type": "AREA",
+          "energy": 25.0,
+          "size": 4.0,
+          "color": [
+            1.0,
+            0.9599999785423279,
+            0.8799999952316284
+          ],
+          "position": [
+            0.0,
+            3.0,
+            2.0
+          ],
+          "matrix": [
+            [
+              -1.0,
+              1.862472061020526e-07,
+              -8.812857288376108e-08,
+              0.0
+            ],
+            [
+              -1.5099580252808664e-07,
+              -0.3713906407356262,
+              0.9284766912460327,
+              3.0
+            ],
+            [
+              1.4019606453530287e-07,
+              0.9284766912460327,
+              0.3713906407356262,
+              2.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        {
+          "name": "Ama01 symmetric area 4",
+          "type": "AREA",
+          "energy": 25.0,
+          "size": 4.0,
+          "color": [
+            1.0,
+            0.9599999785423279,
+            0.8799999952316284
+          ],
+          "position": [
+            0.0,
+            -3.0,
+            2.0
+          ],
+          "matrix": [
+            [
+              1.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.3713906407356262,
+              -0.9284766912460327,
+              -3.0
+            ],
+            [
+              0.0,
+              0.9284766912460327,
+              0.3713906407356262,
+              2.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        }
+      ],
+      "ambientWorld": {
+        "color": [
+          0.8199999928474426,
+          0.7699999809265137,
+          0.6700000166893005,
+          1.0
+        ],
+        "strength": 0.41999998688697815
+      },
+      "noGroundPlane": true
+    }
   }
 }

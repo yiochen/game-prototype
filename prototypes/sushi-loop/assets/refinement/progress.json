@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 17,
-  "published": 16,
-  "current": "Sixteen objects published; Lena approved and publishing; Ama independent review; Mateo initial review/native inspection; conveyor final runtime evidence",
+  "completed": 18,
+  "published": 17,
+  "current": "Seventeen objects published; Ama approved and publishing; Mateo native editing; Noor fresh initial judge/editor; conveyor final in-game evidence",
   "objects": [
     {
       "id": "plant-angular",
@@ -448,7 +448,7 @@
       "name": "Lena Brooks",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -482,7 +482,7 @@
       "name": "Ama Mensah",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "independent-review",
+      "status": "approved",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -490,14 +490,16 @@
       "agents": {
         "judge": "catalog_chef_ama_judge_v1",
         "editor": "catalog_chef_ama_editor_v1"
-      }
+      },
+      "round": "round-01",
+      "packetSHA256": "891cf7e691fd3601f81914f0bfba5e77f25e5f530d1f39c837220c333fbaae00"
     },
     {
       "id": "chef-mateo",
       "name": "Mateo Rivera",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "initial-review",
+      "status": "native-editing",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -512,11 +514,13 @@
       "name": "Noor Haddad",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "initial-review",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "editor": "catalog_chef_noor_editor_v1",
+      "judge": "catalog_chef_noor_judge_v1"
     },
     {
       "id": "chef-dalia",
