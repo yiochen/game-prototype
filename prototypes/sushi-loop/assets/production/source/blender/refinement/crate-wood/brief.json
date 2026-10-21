@@ -1,0 +1,110 @@
+{
+  "asset": "crate-wood",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. Real 3D render output, editable Blender sources. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks.",
+  "source": {
+    "project": "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "backup": "../../backups/b1765262bfa897ad-sushi-loop-world-library.blend",
+    "snapshot": "inputs/original.png",
+    "scene": "Inspect the named asset collection; do not use an unrelated active scene"
+  },
+  "target": {
+    "image": "inputs/target.png",
+    "provenance": "user-provided"
+  },
+  "agentPrompts": {
+    "judge": "prompts/judge.txt",
+    "editor": "prompts/editor.txt"
+  },
+  "capture": {
+    "frame": [
+      384,
+      704
+    ],
+    "views": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated"
+    ],
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "top-down-oblique-square-grid"
+  },
+  "constraints": {
+    "preserve": [
+      "Every logical frame/root/sourceScale and per-clip/direction override",
+      "Original footprint, height/proportions, sockets, ports, rigs and projection",
+      "Every registered clip, facing, frame count and fps/loop behavior",
+      "Lighting without preferred horizontal direction for rotatable world objects; no directional ground cast shadow",
+      "Actual independent geometry views and native animation; no raster card or per-view image fitting/recolor"
+    ],
+    "catalogContract": "inputs/catalog-object.json",
+    "pipeline": "native-3d"
+  },
+  "qualityCriteria": {
+    "asset": "crate-wood",
+    "status": "proposed",
+    "reference": "inputs/target.png",
+    "source": "inputs/original.png",
+    "styleInterpretation": "Warm golden-brown wooden crate with soft cartoon volume, rounded catches on plank/frame/brace edges, warm recessed panels, and readable restrained construction detail. Preserve the actual crate and its original amber/brown palette family.",
+    "immutableTechnicalConstraints": [
+      "Native editable 3D geometry and actual independent N/E/S/W rotations, using one fixed camera/capture/light contract; no image card, per-view fitting, repaint or recoloring.",
+      "384x704 transparent native frames representing 192x352 logical pixels, sourceScale 2, logical root [96,248], 1x1 footprint, authored height/proportions and root-relative bounds unchanged within declared validation tolerance.",
+      "One static frame for every N/E/S/W direction, static sourceClipId idle, fps 12, no loop; preserve catalog metadata and empty sockets/ports.",
+      "No preferred horizontal light direction for the rotatable asset and no directional ground cast shadow. Brief-specified four-view-sheet and repeated preview required, including readability at logical runtime scale.",
+      "Packet must bind source, every required native view, previews and validation bytes. Native evidence must establish registration/camera/root/bounds and geometry/light contract; imagery alone does not certify these."
+    ],
+    "aestheticCriteria": {
+      "shapeVolume": "Keep the compact square crate, separate lid planks, enclosing lower rim/inset panel and diagonal brace. Replace abrupt flat edge transitions with restrained soft bevel volume visible at 192x352 logical frame size; do not inflate silhouette or round it into a toy chest.",
+      "color": "Hold the amber/honey wood and darker warm brown recess relationship. Move the dry tan lid toward warm golden timber while retaining middle-tone variation and avoiding orange neon saturation or yellow-white clipping.",
+      "lightingHighlights": "Provide soft continuous face gradients and gentle broad edge catches around the upper planks, rim and brace; preserve darker contact seams without broad near-black bands. Illumination must work coherently in all four rotated views with no preferred left/right world light.",
+      "materialDetail": "Read as simplified finished timber with low-gloss warm edge response. Construction seams must separate planks and rim; grain and added ornaments are optional. Avoid plastic-like white specular, hard faceting, muddy seams or fused boards.",
+      "intendedSizeReadability": "At the logical runtime frame and repeated arrangement, lid planks, lower panel frame and diagonal brace remain immediately legible as a wooden crate; edge highlights should add volume without turning into busy outline stripes.",
+      "artifactFree": "All required views must avoid clipped silhouettes, black dead spots, overlap/coplanar seams, exposed bevel ends, abrupt normals, detached corners, halos, bright fringe pixels and ground cast-shadow residue."
+    },
+    "rankedDesiredOutcomes": [
+      "Give the lid planks, perimeter rim and diagonal brace rounded soft edge transitions and coherent three-dimensional gradients while preserving the registered silhouette.",
+      "Lift the lower front recess from the original dense dark brown into warm readable brown, retaining contact depth and clear separation from the brace/rim.",
+      "Achieve a warm golden wood palette and restrained highlight response that stay readable in every required orientation and repeated at runtime scale."
+    ],
+    "targetCaveats": [
+      "The target contains colored noisy fringe/halo outside the crate; do not reproduce it.",
+      "The target appears slightly expanded/rounded relative to the original. Use it for treatment and volume, not registration or footprint changes.",
+      "The target is a single view. Unseen directions must preserve native crate identity and equivalent finish, without inventing target-only structure."
+    ],
+    "approvalRule": "Approve only native packet-bound exports with perceptually material improvement toward the fixed target, all frozen criteria/hard constraints satisfied, required evidence present, and no material view-specific defects. Scores are comparative, not a numerical pass threshold."
+  },
+  "delivery": {
+    "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
+    "requiredClips": [
+      {
+        "id": "static",
+        "sourceClipId": "idle",
+        "name": "Static",
+        "frames": 1,
+        "fps": 12,
+        "static": true,
+        "loop": false,
+        "frameOrder": [
+          0
+        ]
+      }
+    ],
+    "notes": "Write source/round-NN.blend or the actual native 2D source as appropriate; full native captures, original-layout atlases, previews, validation and delivery.json. Do not label 2D artwork as a Blender model."
+  },
+  "criteriaVersion": 1,
+  "criteriaSource": "reviews/criteria.json"
+}

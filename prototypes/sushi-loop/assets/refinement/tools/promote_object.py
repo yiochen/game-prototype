@@ -77,6 +77,14 @@ def main():
     recipe_dest = native_base / 'source' / recipe.name
     copy_file(project, project_dest)
     copy_file(recipe, recipe_dest)
+    # Keep the native recipe's original relative inputs alongside its saved project.
+    # These are reproduction dependencies; approved render bytes remain packet-bound.
+    for dependency in (folder / 'inputs').iterdir():
+        if dependency.suffix in ['.blend', '.json']:
+            copy_file(dependency, native_base / 'inputs' / dependency.name, sealed=False)
+    if (recipe.parent / 'original-library.blend').exists():
+        copy_file(recipe.parent / 'original-library.blend', native_base / 'source/original-library.blend', sealed=False)
+    copy_file(folder / 'brief.json', native_base / 'brief.json')
     record_paths = delivery.get('nativeRecords')
     if not record_paths:
         metadata = read(folder / 'metadata-delivery.json')
