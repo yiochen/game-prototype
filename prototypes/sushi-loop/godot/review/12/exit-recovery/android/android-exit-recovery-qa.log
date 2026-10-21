@@ -1,0 +1,14 @@
+PASS: Real legacy47 walking/wander save matches its protected primary and backup before upgrade
+Serving...
+Performing Incremental Install
+Success
+Install command complete in 895 ms
+PASS: Installed review48 matches the exact signed release hash
+PASS: Review47→48 installation preserves both real legacy walking/wander save files byte for byte before launch
+Traceback (most recent call last):
+  File "/private/tmp/sushi12-exit-recovery/run_exit_recovery_qa.py", line 28, in <module>
+    check(old_payload==restored,'48 cold restore preserves the exact complete legacy walking/wander payload and schema while Edit remains paused')
+  File "/private/tmp/sushi12-exit-recovery/run_exit_recovery_qa.py", line 13, in check
+    assert value,label
+           ^^^^^
+AssertionError: 48 cold restore preserves the exact complete legacy walking/wander payload and schema while Edit remains paused
