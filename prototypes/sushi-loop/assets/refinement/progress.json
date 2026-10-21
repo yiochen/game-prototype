@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 14,
-  "published": 13,
-  "current": "Thirteen objects published; outer corner approved and publishing; wall end and conveyor in independent review; Lena native editing",
+  "completed": 15,
+  "published": 14,
+  "current": "Fourteen objects published; wall end approved and publishing; conveyor independent review; Lena native editing; Omar initial review",
   "objects": [
     {
       "id": "plant-angular",
@@ -243,13 +243,15 @@
       "name": "Wall end cap",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "assessed",
+      "status": "approved",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_wall_end_editor_v1",
-      "judge": "catalog_wall_end_judge_v1"
+      "judge": "catalog_wall_end_judge_v1",
+      "round": "round-01",
+      "packetSHA256": "b80bbc58ae992416a795aeb260c07ad2c1ab55fba60744f8febafb46a667681e"
     },
     {
       "id": "belt-straight-n",
@@ -455,11 +457,15 @@
       "name": "Omar Haddad",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "initial-review",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "agents": {
+        "judge": "catalog_chef_omar_judge_v1",
+        "editor": "catalog_chef_omar_editor_v1"
+      }
     },
     {
       "id": "chef-ama",
@@ -477,9 +483,11 @@
       "name": "Mateo Rivera",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 4,
-      "frames": 192
+      "frames": 192,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "chef-noor",
