@@ -757,17 +757,10 @@ func _foot_on_floor(position: Vector2, seat_id: String, objects: Array, floor_da
 			return object.kind == "seat" and object.id == seat_id
 	return true
 
-func _traffic_clear(position: Vector2, previous: Vector2, customer: Dictionary) -> bool:
-	if not _foot_on_floor(position, customer.seat_id, _state.objects, _configuration.floor):
-		return false
-	var space := _customer_number("personal_space")
-	for other in _state.customers:
-		if other.id == customer.id:
-			continue
-		var occupied := _render_position(other)
-		if position.distance_to(occupied) + 0.000000001 < space and position.distance_to(occupied) < previous.distance_to(occupied) - 0.000000001:
-			return false
-	return true
+func _walking_position_clear(position: Vector2, customer: Dictionary) -> bool:
+	# Guests can pass through each other. Only furniture and floor boundaries
+	# constrain walking, so another visitor can never deadlock a valid route.
+	return _foot_on_floor(position, customer.seat_id, _state.objects, _configuration.floor)
 
 func _initialize_navigation(customer: Dictionary, origin: Vector2) -> void:
 	customer.navigation_mode = "goal"
@@ -978,20 +971,19 @@ func _walk_with_traffic(customer: Dictionary, delta: float) -> bool:
 	var offset := Vector2(float(customer.render_offset_x), float(customer.render_offset_y)).move_toward(desired, delta * _navigation_speed(customer))
 	candidate.render_offset_x = offset.x
 	candidate.render_offset_y = offset.y
-	var previous := _render_position(customer)
-	if _traffic_clear(_render_position(candidate), previous, customer):
+	if _walking_position_clear(_render_position(candidate), customer):
 		for field in ["x", "y", "path_index", "facing", "render_offset_x", "render_offset_y"]:
 			customer[field] = candidate[field]
 		customer.yielding = false
 		return finished
-	# Yield in place, with a wider side step when two paths meet at a corner.
+	# Keep a passing offset off furniture when turning around a corner.
 	# Centerline path progress is retained, so a save can resume either state.
 	customer.yielding = true
 	for sign_value in [1.0, -1.0]:
 		var side: Vector2 = right * _customer_number("passing_offset") * 2.0 * sign_value
 		var retreat := Vector2(float(customer.render_offset_x), float(customer.render_offset_y)).move_toward(side, delta * _navigation_speed(customer))
 		var position := Vector2(float(customer.x), float(customer.y)) + retreat
-		if _traffic_clear(position, previous, customer):
+		if _walking_position_clear(position, customer):
 			customer.render_offset_x = retreat.x
 			customer.render_offset_y = retreat.y
 			break

@@ -27,7 +27,6 @@ func _initialize() -> void:
 	var no_inactive_arrivals := true
 	var no_duplicate_sales := true
 	var passed := false
-	var yielded := false
 	for step in range(3600):
 		for event in game.advance(0.05):
 			events_by_type[event.type] = int(events_by_type.get(event.type, 0)) + 1
@@ -39,11 +38,10 @@ func _initialize() -> void:
 				no_duplicate_sales = no_duplicate_sales and not sales_ids.has(event.dish_id)
 				sales_ids[event.dish_id] = true
 		for customer in game.snapshot().customers:
-			yielded = yielded or customer.yielding
 			passed = passed or absf(float(customer.render_offset_x)) + absf(float(customer.render_offset_y)) > 0.05
 	for kind in ["preference_matched", "preference_expired", "customer_restless", "visit_abandoned"]:
 		_expect(int(events_by_type.get(kind, 0)) > 0, "Normal timed play demonstrates " + kind)
-	_expect(passed and yielded, "The restaurant's ordinary pedestrian encounters exercise passing and yielding")
+	_expect(passed, "The restaurant's ordinary pedestrian movement retains its passing offsets")
 	_expect(sales_per_visit.values().any(func(count): return count > 1), "At least one visit naturally includes multiple completed dishes")
 	_expect(no_inactive_arrivals, "Arrivals choose useful seats rather than the disconnected demonstration seat")
 	_expect(no_duplicate_sales and game.snapshot().coins == correct_revenue, "Mixed-menu sales pay each fixed dish price once; abandonment adds no fine or turnover payout")

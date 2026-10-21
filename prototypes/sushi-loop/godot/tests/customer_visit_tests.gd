@@ -12,7 +12,8 @@ func _initialize() -> void:
 	_test_preference_expiry_and_later_dishes()
 	_test_fullness_and_recipe_timing()
 	_test_unfed_departure()
-	_test_crossings_and_saved_yield()
+	_test_guests_pass_through_each_other()
+	_test_crossings_and_saved_passing()
 	_test_default_service_stays_healthy()
 	_test_saved_visit_phases()
 	_test_default_save_continuation()
@@ -259,7 +260,78 @@ func _feet_are_clear(scene: Dictionary) -> bool:
 				return false
 	return true
 
-func _test_crossings_and_saved_yield() -> void:
+func _corner_traffic_save() -> Dictionary:
+	var objects: Array = [{"id": "chef", "kind": "chef", "x": 1, "y": 5, "facing": "north", "recipe_id": "salmon_nigiri"}]
+	for x in range(1, 6):
+		objects.append({"id": "b%s" % x, "kind": "belt", "x": x, "y": 4, "facing": "east"})
+	for x in [4, 5]:
+		objects.append({"id": "s%s" % x, "kind": "seat", "x": x, "y": 3, "facing": "south"})
+	objects.append({"id": "obstacle", "kind": "decor", "art_id": "crate-wood", "x": 5, "y": 1, "facing": "south"})
+	var game := Session.new_session(1, _base({"floor": {"entrance": {"x": 1, "y": 0}}, "objects": objects}))
+	game.advance(0.1)
+	var saved := _json_copy(game.save_data())
+	var turning: Dictionary = saved.state.customers[0].duplicate(true)
+	turning.seat_id = "s4"
+	turning.x = 4.0
+	turning.y = 0.125
+	turning.render_offset_x = 0.48
+	turning.facing = "south"
+	turning.path = [{"x": 2, "y": 0}, {"x": 3, "y": 0}, {"x": 4, "y": 0}, {"x": 4, "y": 1}, {"x": 4, "y": 2}, {"x": 4, "y": 3}]
+	turning.path_index = 3
+	turning.yielding = true
+	var crossing := turning.duplicate(true)
+	crossing.id = "customer-2"
+	crossing.seat_id = "s5"
+	crossing.x = 4.25
+	crossing.y = 0.0
+	crossing.render_offset_x = 0.0
+	crossing.render_offset_y = 0.48
+	crossing.facing = "east"
+	crossing.path = [{"x": 2, "y": 0}, {"x": 3, "y": 0}, {"x": 4, "y": 0}, {"x": 5, "y": 0}, {"x": 6, "y": 0}, {"x": 6, "y": 1}, {"x": 6, "y": 2}, {"x": 6, "y": 3}, {"x": 5, "y": 3}]
+	saved.state.customers = [turning, crossing]
+	saved.state.next_customer_id = 3
+	saved.state.stats.arrivals = 2
+	saved.state.entrance_open = false
+	return saved
+
+func _movement(customer: Dictionary) -> Dictionary:
+	var result := {}
+	for field in ["x", "y", "facing", "render_offset_x", "render_offset_y", "yielding"]:
+		result[field] = customer[field]
+	return result
+
+func _test_guests_pass_through_each_other() -> void:
+	# Two valid saved routes cross at a bend, with both guests already yielding.
+	# Each guest must make exactly the same progress as when walking alone.
+	var saved := _corner_traffic_save()
+	var game := Session.new_session(1)
+	var alone: Array = []
+	_check(game.restore(saved), "a saved pair stuck across each other's lanes remains loadable")
+	_check(_same(game.save_data(), saved), "loading an older yielding pair preserves its positions and visit clocks")
+	for customer in saved.state.customers:
+		var single := _json_copy(saved)
+		single.state.customers = [customer.duplicate(true)]
+		var peer := Session.new_session(1)
+		_check(peer.restore(single), "the independent walking comparison starts from the same saved guest")
+		alone.append(peer)
+	var independent := true
+	var crossed := false
+	for tick in range(8):
+		game.advance(0.05)
+		var customers: Array = game.snapshot().customers
+		for index in range(alone.size()):
+			alone[index].advance(0.05)
+			independent = independent and _same(_movement(customers[index]), _movement(alone[index].snapshot().customers[0]))
+		var a := Vector2(customers[0].x + customers[0].render_offset_x, customers[0].y + customers[0].render_offset_y)
+		var b := Vector2(customers[1].x + customers[1].render_offset_x, customers[1].y + customers[1].render_offset_y)
+		crossed = crossed or a.distance_to(b) < 0.4
+	_check(independent and crossed, "guests pass through each other at a corner without slowing either route")
+	_check(_feet_are_clear(game.snapshot()), "nonblocking guests still avoid furniture and floor boundaries")
+	_roundtrip(game, "guests crossing at a corner")
+	game.advance(20.0)
+	_check(game.snapshot().customers.is_empty() and game.snapshot().stats.sales == 2, "both formerly yielding guests finish their meals and leave normally")
+
+func _test_crossings_and_saved_passing() -> void:
 	var game := Session.new_session(23, _base({"service": {"first_arrival_seconds": 0.1, "arrival_seconds": 0.3, "walking_cells_per_second": 2.5, "eating_seconds": 0.45}, "customers": {"restless_seconds": 5.0, "leave_seconds": 10.0}, "objects": [
 		{"id": "chef", "kind": "chef", "x": 1, "y": 5, "facing": "north", "recipe_id": "salmon_nigiri"},
 		{"id": "b1", "kind": "belt", "x": 1, "y": 4, "facing": "east"},
@@ -270,38 +342,29 @@ func _test_crossings_and_saved_yield() -> void:
 		{"id": "s2", "kind": "seat", "x": 3, "y": 3, "facing": "south"},
 		{"id": "s3", "kind": "seat", "x": 4, "y": 3, "facing": "south"},
 	]}))
-	var no_overlap := true
 	var feet_clear := true
 	var departed := 0
-	var yielding_save: Dictionary = {}
-	var yielded_snapshot: Dictionary = {}
+	var passing_save: Dictionary = {}
+	var passing_snapshot: Dictionary = {}
 	for tick in range(1800):
 		var events: Array = game.advance(0.05)
 		departed += _events(events, "departed").size()
 		var scene: Dictionary = game.snapshot()
 		feet_clear = feet_clear and _feet_are_clear(scene)
-		for left in range(scene.customers.size()):
-			var a: Dictionary = scene.customers[left]
-			if a.yielding and yielding_save.is_empty():
-				yielding_save = _json_copy(game.save_data())
-				yielded_snapshot = scene
-			for right in range(left + 1, scene.customers.size()):
-				var b: Dictionary = scene.customers[right]
-				var pa := Vector2(a.x + a.render_offset_x, a.y + a.render_offset_y)
-				var pb := Vector2(b.x + b.render_offset_x, b.y + b.render_offset_y)
-				no_overlap = no_overlap and pa.distance_to(pb) >= 0.4 - 0.000001
-	_check(no_overlap, "ordinary simultaneous crossings and following keep customer footprints from overlapping")
-	_check(feet_clear, "passing and wider corner yields keep feet on valid floor or the visitor's own seat, away from other furniture")
-	_check(departed >= 12 and game.snapshot().stats.sales >= 12, "passing and yielding keep repeated service productive without permanent pedestrian deadlock")
-	_check(not yielding_save.is_empty(), "busy service exercises a real yielding state")
-	if not yielding_save.is_empty():
+		for customer in scene.customers:
+			if absf(float(customer.render_offset_x)) + absf(float(customer.render_offset_y)) > 0.05 and passing_save.is_empty():
+				passing_save = _json_copy(game.save_data())
+				passing_snapshot = scene
+	_check(feet_clear, "passing keeps feet on valid floor or the visitor's own seat, away from other furniture")
+	_check(departed >= 12 and game.snapshot().stats.sales >= 12, "nonblocking crossings keep repeated service productive")
+	_check(not passing_save.is_empty(), "busy service exercises a real passing offset")
+	if not passing_save.is_empty():
 		var first := Session.new_session(1)
 		var second := Session.new_session(2)
-		_check(first.restore(yielding_save) and second.restore(yielding_save) and _same(first.snapshot(), yielded_snapshot), "a yielding visitor reopens at the saved route and passing offset")
-		_check(_same(first.advance(20.0), second.advance(20.0)) and _same(first.snapshot(), second.snapshot()), "reopened yielding resolves with deterministic future sales and departures")
+		_check(first.restore(passing_save) and second.restore(passing_save) and _same(first.snapshot(), passing_snapshot), "a passing visitor reopens at the saved route and offset")
+		_check(_same(first.advance(20.0), second.advance(20.0)) and _same(first.snapshot(), second.snapshot()), "reopened passing continues with deterministic future sales and departures")
 
 func _test_default_service_stays_healthy() -> void:
-	var no_overlap := true
 	var feet_clear := true
 	var no_deadlock := true
 	for seed_value in range(1, 9):
@@ -311,16 +374,7 @@ func _test_default_service_stays_healthy() -> void:
 			departed += _events(game.advance(0.05), "departed").size()
 			var scene: Dictionary = game.snapshot()
 			feet_clear = feet_clear and _feet_are_clear(scene)
-			var customers: Array = scene.customers
-			for left in range(customers.size()):
-				for right in range(left + 1, customers.size()):
-					var a: Dictionary = customers[left]
-					var b: Dictionary = customers[right]
-					var pa := Vector2(a.x + a.render_offset_x, a.y + a.render_offset_y)
-					var pb := Vector2(b.x + b.render_offset_x, b.y + b.render_offset_y)
-					no_overlap = no_overlap and pa.distance_to(pb) >= 0.4 - 0.000001
 		no_deadlock = no_deadlock and departed >= 4 and game.snapshot().stats.sales >= 8
-	_check(no_overlap, "eight seeded current-demo runs preserve footprint separation through all ordinary encounters")
 	_check(feet_clear, "all eight demo runs keep passing offsets within usable floor cells")
 	_check(no_deadlock, "the actual two-menu demo keeps selling and releasing seats across eight seeded two-minute runs")
 

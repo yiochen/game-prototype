@@ -46,7 +46,7 @@ Use the reference layout with existing Sushi Loop controls only. The reference's
 ## Customers
 
 - Customers walk through empty floor cells to reachable seats. They consider nearby dishes and chef blackboards when choosing among free seats.
-- Customers pass or yield automatically; pedestrian collisions do not create permanent blockages.
+- Customers walk through each other without blocking or slowing one another. Furniture and floor boundaries still constrain their routes.
 - A customer's first-dish preference appears in a thought bubble with a circular countdown. Receiving that dish briefly transforms the bubble into a happy face and triggers a short happy customer animation, then the bubble fades away.
 - When the countdown expires, the customer accepts the next available dish at their facing tile.
 - This preference cycle runs once per visit. After the first plate, customers accept whatever arrives.
