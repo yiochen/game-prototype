@@ -1,0 +1,56 @@
+{
+  "round": 5,
+  "source": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+  "project": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/source/round-05.blend",
+  "method": "Native continuous open rectangular rails with rounded corner normals; original flat UV deck and native action with soft procedural slat shoulders; rebuilt beveled ladder frame, warm grain, shoes and attached pegs. No raster retouch. Native object-coordinate camera radiance on rectangular rails keeps an uninterrupted rounded light shoulder at open ends. Deck mixes65% native periodic emission with35% BSDF. Supports22% common emission lift. No external raster textures; Standard view; broad85W overhead,4x30W fills and uniform.32 world. Deterministic native camera-ray toon radiance for exact RGB/alpha compositing of flat source deck: one TABULATED_SOBOL sample, scrambling_distance0, BOX1, denoisingOFF. Shaders use original UV phase, rail-local x/z, per-mesh wood coordinates and horizontally symmetric normal-Z response. BSDF transport remains for noncamera rays. Leg fasteners placed below deck to be visible.",
+  "geometryContracts": {
+    "deck": {
+      "x": [
+        -0.35,
+        0.35
+      ],
+      "y": [
+        -0.5,
+        0.5
+      ],
+      "z": 0.64
+    },
+    "rails": {
+      "x": [
+        [
+          -0.48,
+          -0.35
+        ],
+        [
+          0.35,
+          0.48
+        ]
+      ],
+      "y": [
+        -0.5,
+        0.5
+      ],
+      "z": [
+        0.505,
+        0.695
+      ],
+      "openEnds": true
+    },
+    "authoredChildOrientation": 3.1415927410125732,
+    "shaderPhase": "-7*i/24",
+    "slatPeriods": 7
+  },
+  "render": {
+    "engine": "CYCLES",
+    "device": "GPU",
+    "samples": 1,
+    "denoising": false,
+    "filter": "BOX",
+    "filterWidth": 1,
+    "viewTransform": "Standard",
+    "look": "None",
+    "pattern": "TABULATED_SOBOL",
+    "scramblingDistance": 0
+  },
+  "modelingPolicyVersion": 2
+}

@@ -1,0 +1,70 @@
+{
+  "round": 9,
+  "project": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/source/round-09.blend",
+  "projectSHA256": "d210743fdff9c17e393d4d2ca59e61c9ea1d5819c2952c10ea40f29b21ff0328",
+  "nativeArt": "Exact immutable round08 project/render bytes; no geometry, UV, material, lighting, camera, registration, port, source phase/timing or sprite edit.",
+  "runtimeSolution": "Crop visible portrait into native256px/cell SubViewport; preserve complete existing painter pass; nearest belt atlas sampling only in native pass; remove common fractional grid origin and restore it in presentation; premultiplied2x reductions plus weighted area presentation selected from actual derivatives.",
+  "runtimeFiles": {
+    "native_pixel_compositor.gd": {
+      "candidate": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/source/runtime/native_pixel_compositor.gd",
+      "sha256": "806ab4dd093c52b4ad02b9b0259c87bc40d388e259098b470c5d439f0141a055",
+      "production": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/godot/scripts/native_pixel_compositor.gd",
+      "productionSHA256": "806ab4dd093c52b4ad02b9b0259c87bc40d388e259098b470c5d439f0141a055",
+      "equal": true
+    },
+    "native_world_layer.gd": {
+      "candidate": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/source/runtime/native_world_layer.gd",
+      "sha256": "ab6e110a3b3e97a2278538af875a471c6a9d333d19f74a1b584101bbe0bd7159",
+      "production": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/godot/scripts/native_world_layer.gd",
+      "productionSHA256": "ab6e110a3b3e97a2278538af875a471c6a9d333d19f74a1b584101bbe0bd7159",
+      "equal": true
+    },
+    "native_reduce2.gdshader": {
+      "candidate": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/source/runtime/native_reduce2.gdshader",
+      "sha256": "52841f5686a9463749f58512cb0c95ceb03ffee4091a0303b919d9d1b208ce54",
+      "production": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/godot/scripts/native_reduce2.gdshader",
+      "productionSHA256": "52841f5686a9463749f58512cb0c95ceb03ffee4091a0303b919d9d1b208ce54",
+      "equal": true
+    },
+    "native_present.gdshader": {
+      "candidate": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/source/runtime/native_present.gdshader",
+      "sha256": "3331d24c28d42378d7e0b619dff5fdc5b3cf2f29d199f664e9220c30e6df0cda",
+      "production": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/godot/scripts/native_present.gdshader",
+      "productionSHA256": "3331d24c28d42378d7e0b619dff5fdc5b3cf2f29d199f664e9220c30e6df0cda",
+      "equal": true
+    },
+    "restaurant_view.gd": {
+      "candidate": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/source/runtime/restaurant_view_native.gd",
+      "sha256": "616fe536f8b74c1378bea14f5185971916fed5a02938559c92c57021f45d37b8",
+      "production": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/godot/scripts/restaurant_view.gd",
+      "productionSHA256": "616fe536f8b74c1378bea14f5185971916fed5a02938559c92c57021f45d37b8",
+      "equal": true
+    }
+  },
+  "integrationPatch": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/source/runtime/integration.patch",
+  "reproduction": [
+    "Import consumer/project.godot with Godot --headless --editor --import --quit",
+    "Run consumer/project.godot --script res://bench.gd in an actual GL Compatibility renderer",
+    "Run integration_probe_round09.gd against the game resource project with BELT_RUNTIME_OUTPUT pointing to candidates/round-09/integration",
+    "Run package_round09.py to gather metrics/preview/delivery; coordinator creates sealed packet."
+  ],
+  "runtimeMemory": "Visible7-column room ~31.4MB explicit RGBA8 color buffers including4 reductions/guards; excludes existing atlases/driver overhead. No per-phase map cache or runtime readbacks.",
+  "prototypeScope": "Production helpers have been applied byte-for-byte by coordinator. Dedicated consumer fixtures use refined sprites; full room probes use the current production catalog. Coordinator adds full app/UI test and inspected scene captures separately.",
+  "sourceNativeRecipe": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/source/round-08-recipe.json",
+  "fixedEditorPixelMarkers": {
+    "revision": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/candidates/round-09/markers/revision.json",
+    "summary": {
+      "actualGPUComparisons": 24,
+      "allFixedPixelRoundTripsWithin1e6": true,
+      "groundNominalStrokeMaxErrorPx": 1.3078962979307107e-07,
+      "maxStrokeCentroidDifferencePx": 0.3817541849459758,
+      "maxHalfCoverageCoreWidthDifferencePx": 0,
+      "maxEffectiveStrokeCoverageDifferencePx": 0.3157894736842106,
+      "probeFailures": []
+    }
+  },
+  "runtimeShutdownAudit": {
+    "receipts": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/candidates/round-09/teardown/receipts.json",
+    "interpretation": "The exact capture_starter normal-app-to-fresh-gallery flow can emit an intermittent two-object exit warning with either renderer:1 of3 native landscape runs and1 of3 original-renderer landscape runs. The coordinator verbose actual-game run identifies AudioStreamPlaybackWAV and AudioStreamWAV, reference count1 each; no compositor object is named. Independent ownership probes destroy every tracked helper instance/resource and report zero orphan nodes. Four script resources retain constant IDs across cycles without accumulation. No demonstrated compositor resource-ownership defect was found. No speculative cleanup or audio code change was made; the warning is retained for review."
+  }
+}

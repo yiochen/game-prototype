@@ -60,7 +60,9 @@ def main():
     previous = obj.get('refinement')
     require(not previous or args.replace_approved, 'Object already promoted; explicit --replace-approved required')
     require(not previous or previous['round'] != args.round, 'Selected round already promoted')
-    require(delivery.get('asset', delivery.get('assetId')) == args.asset, 'Wrong delivery object')
+    require(packet.get('asset') == args.asset, 'Wrong approved packet object')
+    require(delivery.get('asset', delivery.get('assetId', packet['asset'])) == args.asset,
+            'Wrong delivery object')
     direction_audit = audit_directions(folder, args.round)
     # Every byte-bearing project, recipe, raw PNG and atlas must belong to the approved packet.
     bound = {(packet_path.parent / f['path']).resolve(): f['sha256']
@@ -155,8 +157,14 @@ def main():
             source_atlas = folder / a['path']
             if 'sha256' in a:
                 require(digest(source_atlas) == a['sha256'], 'Atlas differs from delivery')
+            rects = []
+            for index, rect in enumerate(a['rects']):
+                if isinstance(rect, dict):
+                    require(rect.get('index', index) == index, 'Atlas frame order drift')
+                    rect = [rect[key] for key in ['x', 'y', 'width', 'height']]
+                rects.append(rect)
             require(a['size'] == current['atlasSize'] and a['columns'] == current['columns']
-                    and a['rows'] == current['rows'] and a['rects'] == current['rects'], 'Atlas layout drift')
+                    and a['rows'] == current['rows'] and rects == current['rects'], 'Atlas layout drift')
             image = Image.open(source_atlas)
             require(image.mode == 'RGBA' and list(image.size) == current['atlasSize'], 'Atlas size/alpha drift')
             copy_file(source_atlas, PRODUCTION / current['image'])

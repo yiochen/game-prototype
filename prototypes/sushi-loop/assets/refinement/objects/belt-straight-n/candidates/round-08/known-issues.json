@@ -1,0 +1,75 @@
+{
+  "candidate": "round-08",
+  "status": "awaiting-independent-judge",
+  "rawJoinEvidence": {
+    "rawAlphaMax": 0.0,
+    "rawRGBMax": 19.0,
+    "rawJoinRGBMax": 1.0,
+    "rawJoinAlphaMax": 0.0,
+    "filteredJoinRGBMax": 44.92549019607844,
+    "filteredJoinAlphaMax": 64.0
+  },
+  "mip1GameScaleEvidence": {
+    "N": {
+      "joinAlphaMax": 64.5,
+      "joinRGBMax": 43.75882352941176
+    },
+    "E": {
+      "joinAlphaMax": 0.5,
+      "joinRGBMax": 0.5
+    },
+    "S": {
+      "joinAlphaMax": 64.5,
+      "joinRGBMax": 43.75882352941176
+    },
+    "W": {
+      "joinAlphaMax": 0.5,
+      "joinRGBMax": 0.5
+    }
+  },
+  "technicalConflict": {
+    "id": "independent-linear-mipmap-filtering",
+    "status": "unresolved",
+    "description": "At source-scale2 raw assembly, alltime join alpha is exact and RGB\u22641/255. Independently filtering each sprite before compositing at logical scale reintroduces N/S outer rail silhouette opacity/color overlap. Exact2x2 mip1 confirms this is not just Pillow wide-kernel behavior. Root/camera/ports and exact source profiles were preserved, no overhang or raster correction used. Runtime composite/filter handling requires coordinator review before game integration.",
+    "evidence": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/belt-straight-n/candidates/round-08/mip1-continuity-metrics.json"
+  },
+  "sourceSettings": "Explicit CPU Cycles,1 deterministic TABULATED_SOBOL sample,scrambling_distance0,BOX1,denoisingOFF,dither0. CPU chosen to make actual device explicit; output is deterministic native procedural toon shading.",
+  "closure": {
+    "N": {
+      "equal": true,
+      "firstSHA256": "b9ea028bc84a2e8b9566e150480ba4185d3fa049a0c88891ac5036cff231d88c",
+      "closureSHA256": "4f66b45214ea2fcb57ff99e55dad0f5e6674ea009615c273bfca5dd750bfdf04",
+      "uniqueFrameHashes": 24,
+      "uniquePixelFrameCount": 24,
+      "firstPixelSHA256": "e0ffde1b83447f91557108cb68db00866c3c4cfc7d71e4e86565c2062be1b32c",
+      "closurePixelSHA256": "e0ffde1b83447f91557108cb68db00866c3c4cfc7d71e4e86565c2062be1b32c"
+    },
+    "E": {
+      "equal": true,
+      "firstSHA256": "33150a9c0e639cca3c3403024c440b29f07f0d485b006c7ef2a930aaf42dd875",
+      "closureSHA256": "337ac4279a92de624e0c9ad609200b315a5dab8962b1c8e0286619b310498fc0",
+      "uniqueFrameHashes": 24,
+      "uniquePixelFrameCount": 24,
+      "firstPixelSHA256": "525ae4e87f50600bf390563ad0b92b77ace4f509be43c234d26588fe8c13ab62",
+      "closurePixelSHA256": "525ae4e87f50600bf390563ad0b92b77ace4f509be43c234d26588fe8c13ab62"
+    },
+    "S": {
+      "equal": true,
+      "firstSHA256": "fb6f16f886642589f01d9440fd5b4a9a14c67cd01736c98d0de3a3df2b6f4c81",
+      "closureSHA256": "779bd069177a36215d2540f49ec347649b57020c26146ddb77e6691a05e27f1c",
+      "uniqueFrameHashes": 24,
+      "uniquePixelFrameCount": 24,
+      "firstPixelSHA256": "740ed66da8d396c624b337bcf935904a7ef938004fe5f2eaacb18b0552d65dc9",
+      "closurePixelSHA256": "740ed66da8d396c624b337bcf935904a7ef938004fe5f2eaacb18b0552d65dc9"
+    },
+    "W": {
+      "equal": true,
+      "firstSHA256": "8dfb205c2119160fe3fd7a2ec7d1f716142599162faa553cec1f86a82058cf84",
+      "closureSHA256": "1f03e4ffeba966c9ff9fe50f44596cf76fc0b04493ffa186f45610c279e26aee",
+      "uniqueFrameHashes": 24,
+      "uniquePixelFrameCount": 24,
+      "firstPixelSHA256": "2312884b96d12ce615313a9c2240bbce4a33f304dbc2452893db3292965e8049",
+      "closurePixelSHA256": "2312884b96d12ce615313a9c2240bbce4a33f304dbc2452893db3292965e8049"
+    }
+  }
+}

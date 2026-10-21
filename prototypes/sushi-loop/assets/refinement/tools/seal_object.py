@@ -56,7 +56,9 @@ def main():
     # A revision may reuse exact frames/evidence from an earlier immutable
     # round. Those referenced bytes must be bound too, not just the new folder.
     for kind in ['resources', 'rawFrames', 'atlases']:
-        for index, record in enumerate(delivery.get(kind, [])):
+        records = delivery.get(kind, [])
+        entries = records.items() if isinstance(records, dict) else enumerate(records)
+        for index, record in entries:
             path = folder / (record['path'] if isinstance(record, dict) else record)
             assert path.is_file(), f'Missing delivered {kind}: {path}'
             resources[f'delivery:{kind}:{index}'] = path

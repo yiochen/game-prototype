@@ -1,0 +1,24 @@
+from PIL import Image,ImageSequence
+import json,pathlib,hashlib,numpy as np,math
+P=pathlib.Path(__file__).resolve().parents[1];O=P/'candidates/round-08';H=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest();D=json.load(open(P/'delivery.json'));V=json.load(open(O/'validation.json'));checks={}
+checks['rawFrameCount96']=len(D['rawFrames'])==96;checks['nativeRunCount100']=len(V['nativeRuns'])==100;checks['singleNativeWithClosureCount100']=len(V['frames'])==100;checks['sourceProjectHash']=H(D['project'])==V['projectSHA256'];checks['noExternalResources']=not V['dependencyClosure']['libraries'] and not V['dependencyClosure']['images'];checks['sourceProfileCornerDistancesAll0']=all(r['maxNearestCornerDistance']==0 for r in V['geometry']['sourceEndProfileComparisons'])
+rot={'N':180,'E':90,'S':0,'W':-90};checks['actualRotationsAndPhases']=all(abs(f['rootRotationDegrees']-rot[f['direction']])<1e-4 and abs(f['phase']+7*f['index']/24)<1e-5 for f in V['frames'])
+checks['allFramesNativeSizes']=all(Image.open(f['path']).size==(384,704) for f in V['frames']);checks['atlasesAllRGBABytesEqualRaw']=True;atlasChecks=[]
+for a in D['atlases']:
+ im=Image.open(a['path']).convert('RGBA');same=True
+ for r in a['rects']:
+  raw=Image.open(O/'frames'/f"running-{a['direction']}-{r['index']:02d}.png").convert('RGBA');same &=np.array_equal(np.asarray(im.crop((r['x'],r['y'],r['x']+r['width'],r['y']+r['height']))),np.asarray(raw))
+ atlasChecks.append({'direction':a['direction'],'size':list(im.size),'sha256':H(a['path']),'all24RGBABytesEqual':bool(same)});checks['atlasesAllRGBABytesEqualRaw'] &=bool(same)
+playbacks=[]
+for name,p in D['previews'].items():
+ if not any(name.startswith(s) for s in ['running-','native-vs-assembled-','game-filter-individual-first-']):continue
+ im=Image.open(p)
+ if not getattr(im,'is_animated',False):continue
+ durations=[frame.info.get('duration') for frame in ImageSequence.Iterator(im)];playbacks.append({'name':name,'path':p,'frames':len(durations),'totalDurationMS':sum(durations),'averageFPS':len(durations)*1000/sum(durations)})
+checks['actualPlaybacks12fps']=all(abs(x['averageFPS']-12)<1e-5 and x['frames']==48 for x in playbacks);checks['allClosuresPixelEqual']=all(x['equal'] for x in V['loopClosurePixels'].values());checks['allDirectionsHave24UniquePixelFrames']=all(x['uniquePixelFrameCount']==24 for x in V['loopClosurePixels'].values());checks['rawAlltimeJoinAlphaExact']=V['continuitySummary']['rawJoinAlphaMax']==0;checks['rawAlltimeJoinRGBWithin1']=V['continuitySummary']['rawJoinRGBMax']<=1;checks['gameLogicalMip1Continuity']=all(x['joinAlphaMax']<=1 and x['joinRGBMax']<=1 for x in V['mip1ContinuitySummary'].values())
+report={'checks':checks,'atlases':atlasChecks,'playbacks':playbacks,'scope':'Technical evidence only. Visual approval belongs to independent judge. gameLogicalMip1Continuity fails for N/S; all evidence retained.','knownIssues':str(O/'known-issues.json')};(O/'technical-checks.json').write_text(json.dumps(report,indent=2));V['technicalChecks']=str(O/'technical-checks.json');V['technicalCheckSummary']=checks;(O/'validation.json').write_text(json.dumps(V,indent=2))
+recipe=json.load(open(D['recipe']));recipe['reproductionPipeline']=[{'path':str(P/'source'/p),'sha256':H(P/'source'/p)} for p in ['capture_round08.py','pack_round08.py','record_family_round08.py','check_filtered_mip_round08.py','verify_handoff_round08.py']];recipe['actualDevice']='CPU';recipe['notes']='Final capture explicitly uses CPU,1 deterministic native sample. GPU scene setting in earlier prototypes was not used as device proof. No approved bytes have been changed.';(P/'source/round-08-recipe.json').write_text(json.dumps(recipe,indent=2))
+family=json.load(open(P/'source/family-settings.json'));family['recipe']['sha256']=H(D['recipe']);family['technicalChecks']=str(O/'technical-checks.json');(P/'source/family-settings.json').write_text(json.dumps(family,indent=2))
+D['resources']=sorted(set([str(p) for p in O.rglob('*') if p.is_file() and p.name not in ['delivery.json','editor-handoff-hashes.json']]+[str(p) for p in (P/'source').glob('*.py') if p.name in ['capture_round08.py','pack_round08.py','record_family_round08.py','check_filtered_mip_round08.py','verify_handoff_round08.py']]+[str(P/'source/family-settings.json'),str(P/'source/source-inspection.json')]))
+(P/'delivery.json').write_text(json.dumps(D,indent=2));(O/'delivery.json').write_text(json.dumps(D,indent=2))
+files=[pathlib.Path(D['project']),pathlib.Path(D['recipe']),P/'delivery.json',O/'delivery.json']+[pathlib.Path(p) for p in D['resources']];manifest={'asset':'belt-straight-n','round':8,'status':'candidate-awaiting-independent-judge','files':[{'path':str(p),'sha256':H(p),'size':p.stat().st_size} for p in sorted(set(files))]};(O/'editor-handoff-hashes.json').write_text(json.dumps(manifest,indent=2));print(json.dumps(checks,indent=2));print('HASH_BOUND_FILES',len(manifest['files']));print('HANDOFF',P/'delivery.json')
