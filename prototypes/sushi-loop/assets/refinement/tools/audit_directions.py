@@ -1,0 +1,66 @@
+"""Check measured native facing evidence against the original world publisher."""
+import argparse
+import json
+import math
+from pathlib import Path
+
+RUN = Path(__file__).resolve().parents[1]
+EXPECTED = {'N': math.pi, 'E': math.pi / 2, 'S': 0, 'W': -math.pi / 2}
+
+
+def angle(matrix):
+    return math.atan2(matrix[1][0], matrix[0][0])
+
+
+def audit(folder, round_name, views=None):
+    folder = Path(folder)
+    packet = json.loads((folder / 'candidates' / round_name / 'packet.json').read_text())
+    views = views or packet['capture']['views']
+    validation_path = (folder / 'candidates' / round_name / packet['files']['nativeValidation']['path']).resolve()
+    data = json.loads(validation_path.read_text())
+    if isinstance(data.get('nativeValidation'), str):
+        validation_path = folder / data['nativeValidation']
+        data = json.loads(validation_path.read_text())
+    measured = {view: [] for view in views}
+    records = data.get('renders', data.get('views', data.get('nativeCaptures', [])))
+    entries = records.items() if isinstance(records, dict) else [(record.get('direction'), record) for record in records]
+    for facing, record in entries:
+        if facing not in measured:
+            continue
+        if 'rootRotationZ' in record:
+            measured[facing].append(record['rootRotationZ'])
+        elif 'rootRotationDegrees' in record:
+            measured[facing].append(math.radians(record['rootRotationDegrees']))
+        elif 'rootMatrix' in record:
+            measured[facing].append(angle(record['rootMatrix']))
+    # Some native prop audits record world and local matrices for every part/pose.
+    for facing, frames in data.get('nativeGeometryMeasurements', {}).items():
+        if facing not in measured:
+            continue
+        for frame in frames:
+            root = frame.get(data.get('rootObject'))
+            if root and 'matrixWorld' in root:
+                measured[facing].append(angle(root['matrixWorld']))
+    if views == ['S'] and not measured['S']:
+        roots = [obj for obj in data.get('nativeCurrent', {}).get('objects', [])
+                 if obj.get('type') == 'EMPTY' and obj.get('parent') is None]
+        if len(roots) == 1:
+            measured['S'].append(angle(roots[0]['matrix']))
+    for facing, values in measured.items():
+        if not values:
+            raise ValueError(f'{folder.name}/{facing}: missing measured root rotation evidence')
+        for value in values:
+            error = math.atan2(math.sin(value - EXPECTED[facing]), math.cos(value - EXPECTED[facing]))
+            if abs(error) > 1e-4:
+                raise ValueError(f'{folder.name}/{facing}: native rotation {math.degrees(value):.6f}deg differs from publisher {math.degrees(EXPECTED[facing]):.0f}deg')
+    return {'asset': folder.name, 'round': round_name, 'status': 'passed',
+            'sourceConvention': 'native_actions.apply_clip: S0/E+90/N180/W-90 degrees',
+            'sampleCounts': {facing: len(values) for facing, values in measured.items()}}
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('asset')
+    parser.add_argument('--round', required=True)
+    args = parser.parse_args()
+    print(json.dumps(audit(RUN / 'objects' / args.asset, args.round)))

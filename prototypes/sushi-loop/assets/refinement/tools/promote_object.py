@@ -8,6 +8,7 @@ from pathlib import Path
 import shutil
 import subprocess
 from PIL import Image
+from audit_directions import audit as audit_directions
 
 RUN = Path(__file__).resolve().parents[1]
 PRODUCTION = RUN.parent / 'production'
@@ -42,6 +43,7 @@ def main():
     parser.add_argument('asset')
     parser.add_argument('--round', default='round-02')
     parser.add_argument('--apply', action='store_true')
+    parser.add_argument('--replace-approved', action='store_true')
     args = parser.parse_args()
     folder = RUN / 'objects' / args.asset
     round_folder = folder / 'candidates' / args.round
@@ -53,8 +55,11 @@ def main():
     library = read(PRODUCTION / 'library.json')
     original = next(o for o in library['objects'] if o['id'] == args.asset)
     obj = copy.deepcopy(original)
-    require(not obj.get('refinement'), 'Object already promoted; do not overwrite an approved version')
+    previous = obj.get('refinement')
+    require(not previous or args.replace_approved, 'Object already promoted; explicit --replace-approved required')
+    require(not previous or previous['round'] != args.round, 'Selected round already promoted')
     require(delivery.get('asset', delivery.get('assetId')) == args.asset, 'Wrong delivery object')
+    direction_audit = audit_directions(folder, args.round)
     # Every byte-bearing project, recipe, raw PNG and atlas must belong to the approved packet.
     bound = {(packet_path.parent / f['path']).resolve(): f['sha256']
              for f in [*packet['files'].values(), *packet['candidateRenders'].values(), *packet['previews'].values()]}
@@ -187,7 +192,12 @@ def main():
     if not args.apply:
         print(json.dumps({'asset': args.asset, 'copyCount': len(copies), 'guides': len(generated), 'frames': len(raw_frames), 'status': 'verified-dry-run'}))
         return
-    write(folder / 'final/original-catalog-object.json', original)
+    if previous:
+        history = folder / 'final/history' / previous['round']
+        write(history / 'catalog-object.json', original)
+        write(history / 'promotion.json', read(folder / 'final/promotion.json'))
+    else:
+        write(folder / 'final/original-catalog-object.json', original)
     for source_path, dest, sha in copies:
         dest.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source_path, dest)
@@ -201,6 +211,7 @@ def main():
     write(folder / 'final/promotion.json', {'asset': args.asset, 'round': args.round,
           'candidatePacketSHA256': digest(packet_path), 'reviewSHA256': digest(review_path),
           'files': tracked, 'status': 'exact-approved-bytes-promoted'})
+    write(folder / 'final/direction-audit.json', direction_audit)
     progress = read(RUN / 'progress.json')
     item = next(o for o in progress['objects'] if o['id'] == args.asset)
     item.update({'status': 'approved', 'round': args.round, 'packetSHA256': digest(packet_path)})

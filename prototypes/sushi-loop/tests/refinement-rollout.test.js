@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
 const production = new URL('../assets/production/', import.meta.url);
 const refinement = new URL('../assets/refinement/', import.meta.url);
@@ -46,6 +48,14 @@ test('native refinement preserves every original clip and registered root', () =
     assert.deepEqual(camera.anchor, object.root);
     assert.equal(camera.captureScale, object.sourceScale);
     assert.equal(object.registration.sourceCaptureScale, object.sourceScale);
+  }
+});
+
+test('native facing evidence follows the original publisher rotation convention', () => {
+  const script = fileURLToPath(new URL('../assets/refinement/tools/audit_directions.py', import.meta.url));
+  for (const object of promoted.filter(object => object.source.blend)) {
+    const result = JSON.parse(execFileSync('python3', [script, object.id, '--round', object.refinement.round], { encoding: 'utf8' }));
+    assert.equal(result.status, 'passed', object.id);
   }
 });
 

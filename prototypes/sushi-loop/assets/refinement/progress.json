@@ -5,8 +5,8 @@
   "status": "in-progress",
   "total": 115,
   "completed": 5,
-  "published": 3,
-  "current": "barrel-wood approved; stools judging; lantern-gold editing",
+  "published": 5,
+  "current": "blue stool facing correction approved; lantern, slate and sign await promotion",
   "objects": [
     {
       "id": "plant-angular",
@@ -55,7 +55,7 @@
       "name": "Backless honey-wood stool",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 4,
       "editor": "catalog_stool_wood_editor_v1",
@@ -75,15 +75,15 @@
       "editor": "catalog_stool_blue_editor_v1",
       "judge": "catalog_stool_blue_judge_v1",
       "target": "inputs/target.png",
-      "round": "round-02",
-      "packetSHA256": "b63140605d991a247b9860b099742f159e27e8e4d68d6cfc0b52e71882b81b99"
+      "round": "round-03",
+      "packetSHA256": "1b75a5c62ed81751b6d6a30fa35ea5b2e774963272139c353cf2ec27f4b4fe98"
     },
     {
       "id": "lantern-gold",
       "name": "Golden lantern",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "reviewing",
       "clips": 1,
       "frames": 48,
       "editor": "catalog_lantern_editor_v1",
@@ -95,7 +95,7 @@
       "name": "Subdued slate rock",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "reviewing",
       "clips": 1,
       "frames": 4,
       "editor": "catalog_slate_editor_v1",
@@ -107,9 +107,12 @@
       "name": "Blank shop sign",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "reviewing",
       "clips": 1,
-      "frames": 1
+      "frames": 1,
+      "editor": "catalog_sign_editor_v1",
+      "judge": "catalog_sign_judge_v1",
+      "target": "inputs/target.png"
     },
     {
       "id": "dock-post-rope",
