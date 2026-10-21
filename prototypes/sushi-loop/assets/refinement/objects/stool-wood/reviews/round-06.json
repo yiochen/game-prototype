@@ -1,0 +1,71 @@
+{
+  "round": "round-06",
+  "asset": "stool-wood",
+  "verdict": "approve",
+  "candidatePacketSHA256": "f99bd3f677f8a67282934301ab7f4579b3c4a020030f980fd61960cd397a3d10",
+  "inspectedFiles": [
+    "atlases/static-N.png",
+    "atlases/static-E.png",
+    "atlases/static-S.png",
+    "atlases/static-W.png",
+    "previews/background-light.png",
+    "previews/background-gray.png",
+    "previews/background-dark.png",
+    "previews/four-view-sheet.png",
+    "previews/logical-size.png",
+    "previews/repeated.png"
+  ],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 8,
+    "artifactFreeReadability": 9
+  },
+  "scoreNotes": {
+    "shapeVolume": "Square backless stool, three-board thin seat, splayed supports and stretcher remain clear. Rounded rim transitions and gentle face modeling now convey soft wood volume without changing the source proportions.",
+    "color": "Golden honey seat and brown supports retain their palette family. The board faces have visible warm midtones and broad lighter centers rather than the prior single bright yellow patch.",
+    "lightingHighlights": "Restrained wide tonal transitions remain visible at intended size and are coherent in N/E/S/W; there is no unilateral shiny stripe, burned outline or ground shadow.",
+    "materialDetail": "The shallow board separations now sit within soft neighboring tonal transitions and read as inset seams, with enough definition for logical-size use. Support joins remain distinct and surface variation stays quiet.",
+    "artifactFreeReadability": "Every facing is readable on light, gray and dark backgrounds, at native and logical size, and in repeated arrangement. No material pixel, alpha, clipping, overlap or structural defect was seen."
+  },
+  "observations": [
+    "All four actual 384x704 native PNGs and all six packet previews were inspected, including enlarged crops derived independently from the verified PNGs.",
+    "The round05 flat-seat blocker is resolved: broad warm golden gradients now model each board face, with lighter broad centers, darker restrained transitions approaching the seams and a softly shaded rim. This change remains visible in the 192x352 logical preview.",
+    "Two seams remain clean and legible while their softer surrounding transitions read as shallow separations rather than isolated hairlines across a flat fill. N/S horizontal board divisions and E/W vertical divisions are coherent rotations of the same stool.",
+    "Against the original source, the seat perimeter no longer consists of harsh stepped bands, while the brown supports retain significantly more readable warm volume. The combined result materially approaches the selected soft cartoon treatment.",
+    "The native four-view sheet and repeated preview show stable registration and scale. The stool remains visually contained in its original footprint and does not acquire the target enlarged padded silhouette.",
+    "Independent descriptive measurement of the S interior (x130:254, y315:445, excluding seam-adjacent rows) found R238:253, G175:193, B73:82. This supports the directly observed tonal range; approval rests on the visible result and frozen criteria, not a numeric threshold.",
+    "No new dead-black support patches, bright outer halo, detached pixels, clipped corners, muddy joins, unwanted ground shadow or preferred horizontal light direction were observed."
+  ],
+  "blockers": [],
+  "remainingDifferences": [
+    "The target has a more inflated, broader seat outline and shifted padding; this candidate correctly retains the registered source square dimensions and attachment height.",
+    "The target has stronger tiny grain, irregular painted highlight detail and more concentrated sheen. This simplified matte/satin treatment is accepted because the broad soft wood volume and intended-size readability now satisfy the frozen criteria.",
+    "Supports remain somewhat simpler and lighter than the target but retain warm continuous shading and clean stretcher joins. The target stray luminous edge pixels are correctly absent."
+  ],
+  "technicalEvidence": {
+    "integrity": {
+      "packetSHA256": "f99bd3f677f8a67282934301ab7f4579b3c4a020030f980fd61960cd397a3d10",
+      "expectedPacketSHA256": "f99bd3f677f8a67282934301ab7f4579b3c4a020030f980fd61960cd397a3d10",
+      "boundEntriesHashed": 68,
+      "hashMismatches": []
+    },
+    "evidenceRead": [
+      "validation.json",
+      "validation-native.json",
+      "validation-replay.json",
+      "delivery.json",
+      "records/asset.json",
+      "records/rig.json",
+      "../../source/replay-round-06.py"
+    ],
+    "nativeReplay": "Inspected the hash-bound saved-project reload/replay script and evidence. Independently decoded replay-S.png and atlases/static-S.png: RGBA bytes match exactly, decoded SHA256 b27730cd9915b3ba84a45504e4fefb49a94d21208de9dc9c34a74f934c458008. The PNG container difference is documented render text metadata. The replay binds source/round-06.blend SHA256 fc1e870d0675150bf4cb8a2fa78b0c17c3a060546e7b89a1618db97d11de22de and reports the saved project unchanged.",
+    "actualImages": "Every candidate PNG independently reads as 384x704 RGBA, alpha bounds (106,298,278,568), all four border alpha maxima 0. Bound raw captures and atlas image bytes match. Hash-bound alpha evidence reports one connected significant-alpha component per facing.",
+    "captureContract": "192x352 logical frame, logical root (96,248), sourceScale2, cellSize128 and one-cell footprint retained. Static idle is one frame, 12fps metadata, nonlooping, captured in all four native root rotations. Recorded root error 0.000011444 physical pixels and seat socket error 0.000014217 physical pixels are negligible numerical precision.",
+    "cameraAndSockets": "Hash-bound native records preserve orthographic source camera/projection and pixel aspect (1.22065556049,1); camera matrix max source delta5.96e-8. Native seat socket remains (0,0,0.655), occupant_ground (0,0,0), root translation/scale unchanged.",
+    "geometry": "Source XY bounds +/-0.3300000131 and original leg bottom z0.0321089365 preserved. Seat slab top z0.65 remains registered; source overall z0.654 included raised seam strips now replaced with shallow inset channels. All11 listed evaluated meshes report zero boundary/nonmanifold edges and zero degenerate faces; no dependency card is present in the recorded mesh list.",
+    "lightingAndResources": "Centered overhead and eight equal neutral ring fills plus neutral world have no preferred horizontal direction. No ground receiver meshes or cast ground shadow. No external image/library dependency, no image card, and scene rendering uses compositor bypass; required candidate source/resources are hash-bound.",
+    "limits": "Judge did not execute Blender again; approval uses verified saved-project replay evidence, independent exact decoded replay comparison, native metadata and actual reviewed render pixels. Approval is specific to this immutable packet and grants no additional publication or asset scope."
+  }
+}
