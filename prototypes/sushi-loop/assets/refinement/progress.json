@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 20,
-  "published": 19,
-  "current": "Nineteen objects published; conveyorN approved and publishing with runtimefix; Mateo round02 independentreview; Dalia nativefinalcaptures; E freshjudge initialreview and S/Wfamilybound",
+  "completed": 21,
+  "published": 20,
+  "current": "Twenty objects published; Mateo approved and publishing; Dalia approved pendingpromotion; E nativefamilyediting; Ellis freshjudge completingcriteria",
   "objects": [
     {
       "id": "plant-angular",
@@ -258,7 +258,7 @@
       "name": "Straight conveyor flowing N",
       "kind": "belt",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 96,
       "target": "inputs/target.png",
@@ -273,15 +273,15 @@
       "name": "Straight conveyor flowing E",
       "kind": "belt",
       "pipeline": "native-3d",
-      "status": "initial-review",
+      "status": "native-editing",
       "clips": 1,
       "frames": 96,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_belt_straight_e_editor_v1",
       "judge": "catalog_belt_straight_e_judge_v1",
-      "editorStatus": "not-started",
-      "judgeStatus": "initial-review"
+      "editorStatus": "running",
+      "judgeStatus": "initial-criteria-complete"
     },
     {
       "id": "belt-straight-s",
@@ -505,7 +505,7 @@
       "name": "Mateo Rivera",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "revising",
+      "status": "approved",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -513,7 +513,9 @@
       "agents": {
         "judge": "catalog_chef_mateo_judge_v1",
         "editor": "catalog_chef_mateo_editor_v1"
-      }
+      },
+      "round": "round02",
+      "packetSHA256": "b58d9ce37caa51af44401c5d21e28fd7bd08a672fb4ad6bab4dbc58c48672ad1"
     },
     {
       "id": "chef-noor",
@@ -535,7 +537,7 @@
       "name": "Dalia Farouk",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "native-editing",
+      "status": "approved-pending-promotion",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -548,11 +550,15 @@
       "name": "Ellis Morgan",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "initial-review",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "editor": "catalog_chef_ellis_editor_v1",
+      "judge": "catalog_chef_ellis_judge_v1",
+      "editorStatus": "not-started",
+      "judgeStatus": "initial-review"
     },
     {
       "id": "chef-rowan",

@@ -9,7 +9,7 @@
     248
   ],
   "cellSize": 128,
-  "captureScale": 4,
+  "captureScale": 2,
   "fps": 12,
   "axes": {
     "x": "X",
@@ -55,7 +55,7 @@
         0.0,
         0.800000011920929,
         0.0,
-        -0.5499984622001648
+        -0.5499976873397827
       ],
       [
         0.0,
@@ -79,44 +79,129 @@
   },
   "calibration": {
     "root": [
-      384.0,
-      992.0
+      192.0,
+      496.00000381469727
     ],
     "unitX": [
-      512.0,
+      255.99998474121094,
       0.0
     ],
     "unitDepth": [
       0.0,
-      293.6710205078125
+      146.83550655841827
     ],
     "unitHeight": [
       0.0,
-      -419.40594482421875
+      -209.7029685974121
     ]
   },
   "artStyle": {
-    "revision": "2026-10-19",
-    "environmentHeightRatio": 0.7,
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
-    "lightingRig": {
-      "treatment": "Faceted",
-      "overheadWatts": 140,
-      "overheadPosition": [
-        0,
-        0,
-        4.5
-      ],
-      "overheadSize": 3.5,
-      "fillWattsEach": 100,
-      "fillSize": 4,
-      "fillRadius": 3,
-      "fillZ": 1.8,
-      "horizontalSymmetry": 4,
-      "worldStrength": 0
+    "revision": "Mateo native warm soft round02: fitted cloth headband",
+    "lightingRig": [
+      {
+        "name": "Mateo overhead softbox",
+        "position": [
+          0,
+          0,
+          4.5
+        ],
+        "power": 150,
+        "size": 4,
+        "color": [
+          1.0,
+          0.9300000071525574,
+          0.8399999737739563
+        ]
+      },
+      {
+        "name": "Mateo symmetric fill 0",
+        "position": [
+          3.0,
+          0.0,
+          2.1
+        ],
+        "power": 75,
+        "size": 4,
+        "color": [
+          1.0,
+          0.9300000071525574,
+          0.8399999737739563
+        ]
+      },
+      {
+        "name": "Mateo symmetric fill 1",
+        "position": [
+          1.8369701987210297e-16,
+          3.0,
+          2.1
+        ],
+        "power": 75,
+        "size": 4,
+        "color": [
+          1.0,
+          0.9300000071525574,
+          0.8399999737739563
+        ]
+      },
+      {
+        "name": "Mateo symmetric fill 2",
+        "position": [
+          -3.0,
+          3.6739403974420594e-16,
+          2.1
+        ],
+        "power": 75,
+        "size": 4,
+        "color": [
+          1.0,
+          0.9300000071525574,
+          0.8399999737739563
+        ]
+      },
+      {
+        "name": "Mateo symmetric fill 3",
+        "position": [
+          -5.51091059616309e-16,
+          -3.0,
+          2.1
+        ],
+        "power": 75,
+        "size": 4,
+        "color": [
+          1.0,
+          0.9300000071525574,
+          0.8399999737739563
+        ]
+      }
+    ],
+    "worldStrength": 0.24,
+    "worldColor": [
+      0.72,
+      0.76,
+      0.82
+    ],
+    "horizontalSymmetry": 4,
+    "noGroundPlane": true,
+    "colorManagement": {
+      "view": "Standard",
+      "look": "None",
+      "exposure": 0
     },
-    "lowerShading": "world-height ramp; camera view-tone bypassed"
+    "engine": "CYCLES",
+    "samples": 32,
+    "denoise": true,
+    "device": "GPU",
+    "devices": [
+      {
+        "name": "Apple M4",
+        "type": "CPU",
+        "use": false
+      },
+      {
+        "name": "Apple M4 (GPU - 10 cores)",
+        "type": "METAL",
+        "use": true
+      }
+    ]
   }
 }
