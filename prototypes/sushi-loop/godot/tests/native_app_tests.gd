@@ -11,7 +11,7 @@ const REQUIRED_SPRITES := [
 	"customer-samir", "customer-june", "stool-wood", "dish-salmon", "dish-cucumber",
 	"bubble-preference", "bubble-happy",
 	"belt-straight-e", "belt-start-e", "belt-end-e", "floor-cream",
-	"plant-angular", "lantern-gold", "barrel-wood", "crate-wood", "entry-finished",
+	"plant-angular", "lantern-gold", "barrel-wood", "crate-wood", "backdrop-entrance", "backdrop-wall",
 ]
 var checks := 0
 var failures: Array[String] = []
@@ -42,6 +42,7 @@ func _run() -> void:
 	await _frames(4)
 	_expect(_same(stopped, app.session.snapshot()), "The opt-in controlled clock prevents frame-driven simulation in tests")
 	_test_geometry(app)
+	_test_camera_clearance(app)
 	_test_skin(app)
 	await _test_configured_camera(app)
 	await _test_touch_and_hud(app)
@@ -147,6 +148,8 @@ func _test_geometry(app) -> void:
 	var clip = app.world.get_parent()
 	_expect(clip is Control and clip.clip_contents and clip.get_global_rect().is_equal_approx(portrait), "The real parent clips adjoining restaurant floor to exactly the portrait rectangle")
 	_expect(portrait.size.x <= portrait.size.y * 9.0 / 16.0 + 0.01, "Wider windows preserve the supported portrait composition")
+	_expect(app.world.floor_origin.is_equal_approx(app.world.hud_area().position) and is_equal_approx(app.world.cell * float(app.session.snapshot().floor.viewport_columns), portrait.size.x), "Restaurant fills both phone sides below its camera-clearance sky")
+	_expect(app.world.sky_height >= 80.0 * portrait.size.x / 720.0 and app.coin_panel.position.y >= app.world.hud_area().position.y, "Generated night sky reserves a quiet top strip and all HUD content starts below it")
 	var base: Vector2 = app.world.cell_base(0, 0)
 	_expect(base.is_equal_approx(app.world.floor_origin + Vector2(0.5, 0.5) * app.world.cell), "Feet register at the actual center of the occupied square tile")
 	var horizontal: Vector2 = app.world.cell_base(1, 0) - base
@@ -189,13 +192,31 @@ func _test_geometry(app) -> void:
 	_expect(all_loaded, "Gameplay resolves all required finished chef, guest, food, belt and room sprites")
 	_expect(all_loaded and anchored, "Catalog sprites preserve the complete frame, uniform tile scale and registered foot/deck/plate root")
 
+func _test_camera_clearance(app) -> void:
+	var before: Dictionary = app.session.save_data()
+	var footer: Vector2 = app.edit.position
+	var physical := Transform2D(Vector2(0.5, 0), Vector2(0, 0.5), Vector2.ZERO)
+	var layout = load("res://scripts/screen_layout.gd")
+	_expect(is_equal_approx(layout.top_inset(Rect2(0, 40, 390, 804), [], physical, 844), 80.0), "Physical safe-area pixels convert to logical canvas units")
+	_expect(is_equal_approx(layout.top_inset(Rect2(0, 40, 390, 804), [Rect2(175, 16, 40, 36)], physical, 844), 104.0), "A hole-punch bottom beyond the reported safe area expands the clearance")
+	_expect(is_zero_approx(layout.top_inset(Rect2(0, 0, 390, 844), [Rect2(0, 0, 20, 844), Rect2(175, 800, 40, 44)], physical, 844)), "Side and bottom cutouts do not reserve the whole display as a top strip")
+	app._layout_for_safe_top(180.0)
+	var sky_bottom: float = app.world.hud_area().position.y
+	var clear: bool = sky_bottom >= 180.0 + 12.0 * app.editor_ui.unit
+	for control in [app.coin_panel, app.editing_panel, app.editor_ui.live, app.shop]:
+		clear = clear and control.get_global_rect().position.y >= sky_bottom
+	_expect(clear and app.world.sky_texture != null, "A large simulated camera clears Coins, Editing, Live and Shop over the generated sky")
+	_expect(not app._floor_drop(Vector2(app.world.portrait.get_center().x, sky_bottom * 0.5)) and app.world.object_at(Vector2(app.world.portrait.get_center().x, sky_bottom * 0.5)).is_empty(), "The quiet sky cannot select sprites or accept an editor drop")
+	_expect(app.edit.position.is_equal_approx(footer) and _same(before, app.session.save_data()), "Camera clearance preserves bottom controls and the exact saved restaurant")
+	app._layout()
+
 func _test_configured_camera(app) -> void:
 	var original: RefCounted = app.session
 	app.session = load("res://scripts/session.gd").new_session(41, {"floor": {"viewport_columns": 6, "rows": 30}})
 	app._refresh()
 	app._layout()
 	await _frames()
-	_expect(is_equal_approx(app.world.cell, (app.world.portrait.size.x - 48.0) / 6.0), "Configured visible column count determines the actual square cell pitch")
+	_expect(is_equal_approx(app.world.cell, app.world.portrait.size.x / 6.0), "Configured visible column count determines the actual square cell pitch")
 	var horizontal_limit := float(app.session.snapshot().floor.world_columns) - 6.0
 	app.session.command({"type": "set_camera", "x": horizontal_limit - 0.5, "y": 0.0})
 	app._refresh()
@@ -288,7 +309,7 @@ func _test_editor(app) -> void:
 	var camera_before_probe: Dictionary = app.session.save_data()
 	app._pan(Vector2(0, -app.world.cell * 100.0))
 	var final_row: Vector2 = app.world.cell_base(0.0, float(app.session.snapshot().floor.rows) - 1.0)
-	_expect(final_row.y + app.world.cell * 0.5 <= app.editor_ui.occlusion_top() + 0.01 and final_row.y - app.world.cell * 0.5 >= app.world.portrait.position.y + 145.0 * app.editor_ui.unit, "Editor vertical panning reveals the entire final floor row above the rail, including in tall windows with a centered floor")
+	_expect(final_row.y + app.world.cell * 0.5 <= app.editor_ui.occlusion_top() + 0.01 and final_row.y - app.world.cell * 0.5 >= app.world.hud_area().position.y + 145.0 * app.editor_ui.unit, "Editor vertical panning reveals the entire final floor row above the rail, including in tall windows")
 	_expect(app.session.restore(camera_before_probe), "The camera-boundary probe restores the same paused restaurant")
 	app._refresh()
 	var controls: Array = [app.editor_ui.live, app.editor_ui.previous, app.editor_ui.next, app.editor_ui.shop]
@@ -499,7 +520,7 @@ func _test_large_balance_capsule(app) -> void:
 	var currency: RefCounted = Session.new_session(41)
 	currency._state.coins = 9223372036854775807
 	app.session = currency
-	app._layout_hud(app.world.portrait, app.editor_ui.unit)
+	app._layout_hud(app.world.hud_area(), app.editor_ui.unit)
 	var defensive_caption: String = app.money.text
 	var defensive_description: String = app.money.accessibility_description
 	var defensive_bounds: Rect2 = app.money.get_global_rect()

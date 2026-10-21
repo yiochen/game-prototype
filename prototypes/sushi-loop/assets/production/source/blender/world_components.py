@@ -350,7 +350,7 @@ ASSET_IDS=[
 ]
 # Remaining stable entries delegate to distinct already-authored native props.
 PROP_ALIASES={
- 'entry-finished':'entrance','plant-angular':'potted_plant','barrel-wood':'barrel','crate-wood':'crate','lantern-gold':'lantern','sign-blank':'blank_sign',
+ 'plant-angular':'potted_plant','barrel-wood':'barrel','crate-wood':'crate','lantern-gold':'lantern','sign-blank':'blank_sign',
  'stool-wood':'stool_wood','stool-blue':'stool_blue','chef-blackboard':'chef_blackboard','garbage-sofa':'garbage_sofa','garbage-car':'garbage_car','garbage-shelving':'garbage_shelf',
  'column-broken':'ruin_column','decor-foreground-rock':'rubble','decor-foreground-coral':'coral_branch','decor-starfish':'starfish','decor-midground-coral':'coral_tubes','decor-kelp':'kelp_group','decor-ruin-fragment':'ruin_column',
 }

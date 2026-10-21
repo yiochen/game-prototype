@@ -347,8 +347,11 @@ func _test_legacy_save_migration() -> void:
 	var migrated := reopened.save_data()
 	var expected_configuration: Dictionary = legacy.configuration.duplicate(true)
 	expected_configuration.floor.viewport_columns = 7
+	expected_configuration.floor.backdrop_rows = 3
+	expected_configuration.floor.entrance = {"x":4,"y":3}
+	expected_configuration.content_version = 3
 	expected_configuration.customers = JSON.parse_string(FileAccess.get_file_as_string(Session.CONTENT_PATH)).customers
-	_check(_same(migrated.configuration, expected_configuration), "presentation width changes to seven and new visit tuning is added; the saved floor, layout, economics and instant transition rules stay intact")
+	_check(_same(migrated.configuration, expected_configuration), "seven-column scale and the reserved backdrop update the doorway; saved floor extent, furniture, economics and instant transition rules stay intact")
 	_check(_same(migrated.state.camera, legacy.state.camera) and _same(migrated.state.stats, legacy.state.stats) and migrated.state.coins == legacy.state.coins and migrated.state.elapsed == legacy.state.elapsed, "migration preserves camera, completed sales, coins and foreground time")
 	_check(migrated.random_state == legacy.random_state and migrated.remainder == legacy.remainder, "legacy migration preserves the seeded generator and fractional simulation clock")
 	var endpoint: Dictionary = migrated.state.objects.filter(func(object): return object.id == "belt-4")[0]

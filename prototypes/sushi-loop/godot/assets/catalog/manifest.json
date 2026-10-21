@@ -6,11 +6,17 @@
     "finalAssets": "approved",
     "issue": 33,
     "approvedOn": "2026-10-19",
-    "scope": "Faceted native lighting, matte wood, muted-clay conveyor rails and full asset rollout"
+    "scope": "Faceted native lighting, matte wood, muted-clay conveyor rails and full asset rollout",
+    "backdrop": {
+      "approvedOn": "2026-10-20",
+      "source": "../restaurant-backdrop/uniform35",
+      "lighting": "uniform ambient",
+      "replaces": "entry-finished"
+    }
   },
   "source": {
     "library": "../assets/production/library.json",
-    "librarySha256": "9ee71ded8b241821c3c0e42d9452fcabe9ec41f350c4412b325a92fa7cf7cb75"
+    "librarySha256": "1fda086612350e35b579242fd8af84b4ad5edfc5ba0bde0e1d82f8ec2630f65e"
   },
   "policy": "Exact approved atlas bytes; whole authored frames; fixed logical roots; no pose fitting or sprite distortion.",
   "objects": {
@@ -218,94 +224,40 @@
         }
       }
     },
-    "entry-finished": {
-      "id": "entry-finished",
-      "name": "Finished entrance",
-      "kind": "prop",
+    "backdrop-entrance": {
+      "id": "backdrop-entrance",
+      "name": "Restaurant entrance backdrop",
+      "kind": "backdrop",
       "footprint": [
         4,
-        1
+        3
       ],
       "frameSize": [
         576,
-        896
+        448
       ],
       "root": [
-        288,
-        608
+        288.0,
+        416
       ],
-      "sourceScale": 2,
-      "projection": "top-down-oblique-square-grid",
-      "sockets": {
-        "N": {
-          "entry": [
-            5.486417660180142e-15,
-            -44.8
-          ]
-        },
-        "E": {
-          "entry": [
-            44.8,
-            2.743208830090071e-15
-          ]
-        },
-        "S": {
-          "entry": [
-            0.0,
-            44.8
-          ]
-        },
-        "W": {
-          "entry": [
-            -44.8,
-            2.743208830090071e-15
-          ]
-        }
-      },
+      "sourceScale": 3,
+      "projection": "character-orthographic",
       "rootCell": [
         2.0,
-        0.5
+        3
       ],
-      "directionRootCells": {
-        "N": [
-          2.0,
-          0.5
-        ],
-        "E": [
-          0.5,
-          2.0
-        ],
-        "S": [
-          2.0,
-          0.5
-        ],
-        "W": [
-          0.5,
-          2.0
-        ]
-      },
-      "directionFootprints": {
-        "N": [
-          4,
-          1
-        ],
-        "E": [
-          1,
-          4
-        ],
-        "S": [
-          4,
-          1
-        ],
-        "W": [
-          1,
-          4
-        ]
+      "facingPolicy": "single-player-facing",
+      "backdrop": {
+        "width": 4,
+        "height": 3,
+        "openingWidth": 2,
+        "baseboard": true,
+        "lighting": "uniform ambient"
       },
       "source": {
-        "captureFingerprint": "281a0e5c26e78391ae3a1809a8a5de448edbd6af8215f60e0e0bd37e537f6d5e",
-        "blend": "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
-        "assetRecord": "source/records/entry-finished/asset.json"
+        "captureFingerprint": null,
+        "blend": "source/backdrop/restaurant-backdrop-35.blend",
+        "assetRecord": "source/backdrop/backdrop-entrance.json"
       },
       "clips": {
         "static": {
@@ -314,27 +266,89 @@
           "fps": 12,
           "static": true,
           "loop": false,
-          "frameOrder": [
-            0
-          ],
           "directions": {
             "S": {
-              "image": "sprites/entry-finished/static-S.png",
+              "image": "sprites/backdrop-entrance/static-S.png",
               "columns": 1,
               "rows": 1,
               "atlasSize": [
-                1152,
-                1792
+                1728,
+                1344
               ],
               "rects": [
                 [
                   0,
                   0,
-                  1152,
-                  1792
+                  1728,
+                  1344
                 ]
               ],
-              "sha256": "80df6cdf5644da4cd0ccdc3c04eb8c045cb21d3790bf47d0e702db1e0004c003"
+              "sha256": "aa1c9c4b3a3a9c4e048aee47951157ec214f31dd5b88872287b19fe135f02e71"
+            }
+          }
+        }
+      }
+    },
+    "backdrop-wall": {
+      "id": "backdrop-wall",
+      "name": "Blank wood wall backdrop",
+      "kind": "backdrop",
+      "footprint": [
+        1,
+        3
+      ],
+      "frameSize": [
+        192,
+        448
+      ],
+      "root": [
+        96.0,
+        416
+      ],
+      "sourceScale": 3,
+      "projection": "character-orthographic",
+      "rootCell": [
+        0.5,
+        3
+      ],
+      "facingPolicy": "single-player-facing",
+      "backdrop": {
+        "width": 1,
+        "height": 3,
+        "openingWidth": 0,
+        "baseboard": true,
+        "lighting": "uniform ambient"
+      },
+      "source": {
+        "captureFingerprint": null,
+        "blend": "source/backdrop/restaurant-backdrop-35.blend",
+        "assetRecord": "source/backdrop/backdrop-wall.json"
+      },
+      "clips": {
+        "static": {
+          "id": "static",
+          "frames": 1,
+          "fps": 12,
+          "static": true,
+          "loop": false,
+          "directions": {
+            "S": {
+              "image": "sprites/backdrop-wall/static-S.png",
+              "columns": 1,
+              "rows": 1,
+              "atlasSize": [
+                576,
+                1344
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  576,
+                  1344
+                ]
+              ],
+              "sha256": "162cef65560c2a3c3ea712ab5466d051431f0d2bc0e31066df11efa085ade688"
             }
           }
         }

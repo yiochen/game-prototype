@@ -1,0 +1,85 @@
+{
+  "tool": "Native Blender 5.2.2 LTS EEVEE + Godot 4.7.2 Compatibility lighting proof",
+  "intent": "Plain bright backdrop, flat angular shingles, no built-in wall windows or extra wall posts; independent runtime lantern lighting. Wireframe review only.",
+  "imagegenReskin": false,
+  "model": {
+    "path": "source/restaurant-backdrop-35.blend",
+    "sha256": "50dd4d4e33f5710747adb8bf3c8bcaa4a90b0d0cf366de7e513463896ab7a591"
+  },
+  "references": [
+    {
+      "path": "../original-concept-reference.jpg",
+      "sha256": "23b20f290e84d167c40aec91e60fd2e541444941e8421a314f45897a29445ca6"
+    },
+    {
+      "path": "../blender35/source/restaurant-backdrop-35.blend",
+      "sha256": "61db5fd3ea32331eb305e3c68e6b0bee924b97fd03813546d8da51b280d25887"
+    },
+    {
+      "path": "../../production/source/records/chef-lena/camera.json",
+      "sha256": "e8a9bc00c4dca4cf153dc25d8674d37c5409314d293b593b5339eca32578c8c3"
+    }
+  ],
+  "sharedNativeRecipes": [
+    {
+      "path": "../../production/source/blender/prop_builders.py",
+      "sha256": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a"
+    },
+    {
+      "path": "../../production/source/blender/catalog_style.py",
+      "sha256": "ca784f2f23914bd0669eaf261073539698d9dee94c14d0604ebbb7db17f7a888"
+    },
+    {
+      "path": "../../production/source/blender/catalog_faceted.py",
+      "sha256": "fe2b5666ebea964e223b2c5a259d5f9f9fc690e12c851a0189b9a99fb151dfd3"
+    }
+  ],
+  "generatedWith": [
+    {
+      "path": "source/build_backdrop.py",
+      "sha256": "27ce08bcf18e2d3ac30f159813c1cb6687c4b30e1fda42ff238abacfdbbd3910"
+    },
+    {
+      "path": "source/render_backdrop.py",
+      "sha256": "c8433b50431b323cda571cc4ecb2b622d9276e724cd831b33c3c0df060f5f024"
+    },
+    {
+      "path": "source/audit_backdrop.py",
+      "sha256": "669a05c42bfef4c6c9d003a3f271236ab3459720fdd894c59a626f42e6ce0772"
+    },
+    {
+      "path": "source/lighting_probe.gd",
+      "sha256": "43ef425b324557a53f764facbfeddf73524314e2e1f6aa1b46c47bad4cd3c80b"
+    },
+    {
+      "path": "source/test_lighting.py",
+      "sha256": "e6009e3ab4fc197ded67ea8545d0b72ea39eea33f7fbc8d12d99d056c590a5b8"
+    }
+  ],
+  "audit": {
+    "path": "geometry-audit.json",
+    "sha256": "c74b64a355b50cbf3d9adbd4aa31c2a26a86651f59b96f10136970b34db18e01"
+  },
+  "captures": {
+    "path": "render-receipt.json",
+    "sha256": "c537cecd78b5e3bcbf30987ec4d28f31f5dca08a96163e80579fb70984a262c7"
+  },
+  "lightingProof": [
+    {
+      "path": "lighting-proof/lighting-check.json",
+      "sha256": "9c5cae5c71a8961d0940b0e95eeb6a5531a52342d321d02d9fe7cdbabe27c9dc"
+    },
+    {
+      "path": "lighting-proof/ambient.png",
+      "sha256": "4cefb282831ba556b3f36e1022d422c6199cab4aa66f239f4ff118d6204d40b1"
+    },
+    {
+      "path": "lighting-proof/lanterns.png",
+      "sha256": "1d373a981b55a52860ee46cacd08357cf50fef748d21634c801da8b06e981f98"
+    },
+    {
+      "path": "lighting-proof/left-dim.png",
+      "sha256": "8bd1704af91884519e8fc011ba6dcf5e9e96f5699fa72bceadc748486055a859"
+    }
+  ]
+}

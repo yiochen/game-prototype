@@ -25,6 +25,28 @@ for (const [width, height] of [[320, 740], [844, 390], [1440, 1000]]) {
       await expect(svg.locator(':scope > g[data-placement]')).toHaveCount(scene.placements.length);
       await expect(stage.locator('.object-export-pending')).toHaveCount(0);
       if (scene.id === 'restaurant') {
+        const backdrop = svg.locator('[data-restaurant-backdrop]');
+        await expect(backdrop).toHaveAttribute('data-reserved-rows', '3');
+        await expect(backdrop).toHaveAttribute('data-backdrop-renderer', 'uniform35');
+        await expect(backdrop).toHaveAttribute('data-wall-decorations', 'none');
+        await expect(backdrop.locator('[data-backdrop-asset="wall-window"]')).toHaveCount(0);
+        const source = await backdrop.locator('[data-backdrop-piece="gate"] image').getAttribute('href');
+        await stage.getByRole('combobox', { name: 'Backdrop artwork', exact: true }).selectOption('imagegen');
+        await expect(backdrop).toHaveAttribute('data-backdrop-renderer', 'imagegen');
+        expect(await backdrop.locator('[data-backdrop-piece="gate"]').getAttribute('href')).not.toBe(source);
+        await stage.getByRole('combobox', { name: 'Backdrop artwork', exact: true }).selectOption('uniform35');
+        await expect(backdrop).toHaveAttribute('data-backdrop-renderer', 'uniform35');
+        const gate = backdrop.locator('[data-backdrop-piece="gate"]');
+        for (const [attribute, value] of Object.entries({ x: '384', y: '0', width: '512', height: '384' })) await expect(gate).toHaveAttribute(attribute, value);
+        await expect(backdrop.locator('image')).toHaveCount(4);
+        await expect(stage.locator('.backdrop-asset-card')).toHaveCount(2);
+        const lighting = stage.locator('.backdrop-lighting-proof figure');
+        await expect(lighting).toHaveAttribute('data-lighting-state', 'ambient');
+        for (const [label, state] of [['Even ambient', 'ambient'], ['Left lantern dimmed', 'left-dim'], ['Lanterns on', 'lanterns']]) {
+          await stage.getByRole('button', { name: label, exact: true }).click();
+          await expect(lighting).toHaveAttribute('data-lighting-state', state);
+          await lighting.locator('img').evaluate(image => image.decode());
+        }
         const plates = svg.locator('[data-placement^="circulating-plate-"]');
         await expect(plates).toHaveCount(6);
         for (const plate of await plates.all()) await expect(plate).toHaveAttribute('data-support-offset', JSON.stringify(deck));

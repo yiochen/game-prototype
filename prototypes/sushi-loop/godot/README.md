@@ -11,6 +11,39 @@ godot --path prototypes/sushi-loop/godot -- --gallery
 
 The restaurant uses square cells, 3/4 front-and-top artwork with feet on tile centers, and a fixed transparent HUD. The runtime uses the approved issue #33 Faceted sprites: C125 characters, 70% environment projection, matte crate wood and muted-clay conveyor rails. Character actions retain their complete authored frames; the connected conveyor retains its 24-frame cycle. Smooth mipmapped sampling keeps the high-resolution sprites readable at phone size. Android stays in portrait orientation; tall phones fill their available height.
 
+## Approved restaurant backdrop
+
+The top three projected tile rows contain the uniformly lit wood backdrop.
+The twenty-one-column world uses three one-tile blank walls, the four-tile
+entrance at x=3, then blank walls from x=7 onward. The two-tile clear opening
+covers columns four and five. The full wall and gate include their roof and
+baseboard and retain the native 35° character camera with square pixels.
+
+`backdrop-entrance` and `backdrop-wall` are the same approved, complete 3× PNGs
+shown in the wireframe catalog. The old `entry-finished` exports and model are
+removed from the active catalog and current editable library. The backdrop is
+painted before ordinary depth-sorted sprites and follows both camera axes.
+The game uses even lighting without runtime lantern lights or baked cast shadows.
+
+The room fills the portrait phone scene to both side edges. An ImageGen night
+sky reserves the top 80 logical units at a 720-unit scene width for camera
+clearance. Android/iOS safe-area information and Android camera cutouts can
+enlarge it, with 12 logical units of extra clearance. Coins, Editing, Live and
+Shop start below the strip and may overlap the shingles. The sky stays fixed
+while the room pans, rejects scene input, and adds no saved rows or furniture.
+Bottom controls retain their position. Wider desktop windows retain the centered
+portrait composition. The complete sky output and exact prompt are preserved in
+`../assets/restaurant-backdrop/night-sky/`; the runtime PNG is an identical copy
+scaled and cropped uniformly.
+
+New sessions reserve rows 0–2 for the backdrop and admit guests at (4,3).
+Legacy shipped saves retain money, furniture, dishes, meal clocks and visits.
+Layouts that used the old top rows move down together and gain three floor rows;
+other furniture keeps its position. Existing guests crossing the retired doorway
+move to clear floor and replan, with no rewards or elapsed time replayed.
+
+Native phone/landscape captures and validation are in `review/33/backdrop/`.
+
 ## Validate and build
 
 From the repository root:
@@ -45,7 +78,7 @@ Build receipts record `build_variant`, the original runtime-file hashes, the sta
 
 `scripts/session.gd` is a public command, elapsed-time, snapshot and save/restore boundary. Its constructor loads `content/starter.json`, which owns starter layout, recipes and balance; the simulation rules use no wall clock or file persistence. `scripts/save_store.gd` writes a validated envelope atomically and recovers a valid backup. The application saves on important events, periodic intervals and Android lifecycle changes. Restoring replaces state without replaying rewards.
 
-`scripts/restaurant_view.gd` renders the public snapshot. `scripts/art_book.gd` supplies identical production textures and anchor math to gameplay and the native gallery. `assets/catalog/manifest.json` retains atlas regions, fixed roots, attachment sockets, animation cadence and approved source identities. The selected 180 atlases are exact byte copies from the 31 relevant objects in `../assets/production/`; full editable art sources remain there for iteration. Only this runtime subset ships on Android. The wordless app icon lives in `assets/ui/`.
+`scripts/restaurant_view.gd` renders the public snapshot. `scripts/art_book.gd` supplies identical production textures and anchor math to gameplay and the native gallery. `assets/catalog/manifest.json` retains atlas regions, fixed roots, attachment sockets, animation cadence and approved source identities. The selected 208 atlases are exact byte copies from the 34 relevant objects in `../assets/production/`; full editable art sources remain there for iteration. Only this runtime subset ships on Android. The wordless app icon lives in `assets/ui/`.
 
 `assets/recipe-variants/` adds 32 native atlases for the same four customers: empty-handed seated waiting and eating the starter's salmon recipe. Their 384 frames preserve the approved body geometry, actions, camera, lighting and registration; only the hand-attached food image and empty-state visibility differ. The approved base catalog stays unchanged. Editable derivative projects and authored capture evidence live in `../assets/production/source/variants/starter-meals/`, outside the Android runtime. `assets/chef-variants/` adds eight native Omar atlases for holding/loading cucumber maki (96 frames); its separate editable source and audit live in `../assets/production/source/variants/chef-cucumber/`. Both derivative families preserve the approved base body, animation, camera, lighting and fixed registration. `assets/feedback-variants/` provides four 12-frame 2D smiling-face feedback clips, edited with ImageGen from the approved happy bubble. Its generation/reference/output hashes and fixed registration are verified against `../assets/production/source/variants/customer-feedback/`.
 

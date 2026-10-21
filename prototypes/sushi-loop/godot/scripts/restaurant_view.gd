@@ -18,6 +18,9 @@ var art = ArtBook.new()
 var state: Dictionary = {}
 var portrait := Rect2()
 var floor_origin := Vector2.ZERO
+var safe_top := 0.0
+var sky_height := 0.0
+var sky_texture: Texture2D
 var cell := 76.0
 var show_gallery := false
 var time := 0.0
@@ -39,16 +42,31 @@ func _ready() -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	font = Typography.body()
 	heading = Typography.heading()
+	sky_texture = load("res://assets/ui/night-sky.png")
 	art.reload()
 
 func update_layout() -> void:
 	var width := minf(size.x, size.y * 9.0 / 16.0)
 	portrait = Rect2((size.x - width) * 0.5, 0, width, size.y)
 	var floor_data: Dictionary = state.get("floor", {})
-	cell = (width - 48.0) / float(floor_data.get("viewport_columns", floor_data.get("columns", 7)))
-	var floor_height := float(floor_data.get("rows", 13)) * cell
-	floor_origin = Vector2(portrait.position.x + 24.0, maxf(24.0, (size.y - floor_height) * 0.5))
+	cell = width / float(floor_data.get("viewport_columns", floor_data.get("columns", 7)))
+	# Full-width scenery begins below a quiet, fixed camera-clearance strip.
+	var unit := width / 720.0
+	sky_height = 0.0 if show_gallery else maxf(80.0 * unit, safe_top + 12.0 * unit)
+	floor_origin = portrait.position + Vector2(0, sky_height)
 	queue_redraw()
+
+func hud_area() -> Rect2:
+	return Rect2(portrait.position + Vector2(0, sky_height), portrait.size - Vector2(0, sky_height))
+
+func _sky() -> void:
+	if sky_height <= 0.0 or sky_texture == null: return
+	var target := Rect2(portrait.position, Vector2(portrait.size.x, sky_height))
+	# Crop the opaque generated sky uniformly; never flatten its stars/facets.
+	var dimensions := sky_texture.get_size()
+	var scale_value := maxf(target.size.x / dimensions.x, target.size.y / dimensions.y)
+	var source_size := target.size / scale_value
+	draw_texture_rect_region(sky_texture, target, Rect2((dimensions - source_size) * 0.5, source_size))
 
 func cell_base(x: float, y: float) -> Vector2:
 	var camera: Dictionary = state.get("camera", {"x": 0.0, "y": 0.0})
@@ -78,6 +96,7 @@ func _draw() -> void:
 		_gallery()
 	else:
 		_room()
+		_sky()
 	art.end_frame()
 
 func _room() -> void:
@@ -89,14 +108,16 @@ func _room() -> void:
 	var columns := int(state.floor.world_columns)
 	# One continuous authored floor extends into the adjoining restaurant. Tile
 	# borders are part of the approved native art, not a realistic floor texture.
-	for y in range(-6, rows + 6):
+	for y in range(int(state.floor.get("backdrop_rows", 3)), rows + 6):
 		for x in range(columns):
 			var base := cell_base(x, y)
 			if not portrait.intersects(Rect2(base - Vector2.ONE * cell * 0.5, Vector2.ONE * cell)):
 				continue
 			var tint := Color.WHITE if x < int(state.floor.columns) else Color("b2aaa0")
-			var identity := "floor-blue-wave" if y == 0 or y == rows - 1 else "floor-cream"
+			var identity := "floor-blue-wave" if y == rows - 1 else "floor-cream"
 			sprite(identity, base, "static", "S", 0.0, -1.0, tint)
+	for piece in backdrop_plan():
+		sprite(piece.key, piece.base)
 	_editor_ground()
 	_render_room_items()
 	_editor_ghost()
@@ -154,7 +175,7 @@ func sprite_hits() -> Array[Dictionary]:
 	return _hit_records.duplicate(true)
 
 func object_at(point: Vector2) -> Dictionary:
-	if show_gallery or not portrait.has_point(point) or not Rect2(Vector2.ZERO, size).has_point(point): return {}
+	if show_gallery or not hud_area().has_point(point) or not Rect2(Vector2.ZERO, size).has_point(point): return {}
 	_ensure_sprite_hits()
 	for index in range(_hit_records.size() - 1, -1, -1):
 		var item: Dictionary = _hit_records[index]
@@ -244,22 +265,29 @@ func _decor_plan() -> Array:
 	var rows := int(state.floor.rows)
 	var columns := int(state.floor.world_columns)
 	var result: Array = []
-	# The four-cell entrance retains its authored center and complete width.
-	result.append(_prop("entry-finished", float(state.floor.entrance.x), float(state.floor.entrance.y)))
-	for x in range(columns):
-		result.append(_prop("wall-middle", float(x), -0.5))
-	for y in range(1, rows - 1):
+	for y in range(3, rows - 1):
 		result.append(_prop("wall-middle", -0.5, float(y), "static", "E"))
-	result.append(_prop("plant-angular", 0.0, 0.0, "idle"))
 	result.append(_prop("barrel-wood", 0.0, float(rows) - 1.0))
 	result.append(_prop("plant-angular", float(columns) - 1.0, float(rows) - 1.0, "idle"))
 	for x in range(1, columns, 5):
-		result.append(_prop("lantern-gold", float(x), 0.0, "idle"))
 		result.append(_prop("crate-wood", float(x), float(rows) - 1.0))
 	# Adjoining space stays visibly present but unavailable in the starter. These
 	# are complete approved garbage assemblies, not repeated decoration patches.
 	for pile in [["garbage-sofa", 9.5, 5.5], ["garbage-shelving", 13.5, 8.5], ["garbage-car", 18.0, 5.5]]:
 		result.append(_prop(str(pile[0]), float(pile[1]), float(pile[2]), "idle"))
+	return result
+
+func backdrop_plan() -> Array:
+	# Backdrop coordinates are projected tile edges, independent of the guest's
+	# arrival cell. The registered baseline is exactly the bottom of row three.
+	var result: Array = []
+	if state.is_empty(): return result
+	var x := 0
+	while x < int(state.floor.world_columns):
+		var gate := x == 3
+		var width := 4 if gate else 1
+		result.append({"key": "backdrop-entrance" if gate else "backdrop-wall", "x": x, "width": width, "base": cell_base(float(x) + float(width) / 2.0 - 0.5, 2.5)})
+		x += width
 	return result
 
 func _has_belt(at: Vector2) -> bool:

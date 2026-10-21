@@ -305,6 +305,7 @@ def connected_module_scene(asset,byid,place,scene):
 def hydrate_registrations(manifest,target):
     """Read previously captured metadata; never copy or repack image assets."""
     for asset in manifest['objects']:
+        if asset.get('kind')=='backdrop':continue # Separate approved wall-plane registration.
         source=asset.get('source',{});record=source.get('assetRecord');camera=source.get('camera')
         if not record or not camera:continue
         record_path,camera_path=target/record,target/camera
@@ -322,6 +323,7 @@ def refresh_interactions(manifest,ids=None):
 def interaction_context(asset,byid):
     """Recorded visual fixtures only; does not introduce simulation or mechanics."""
     aid=asset['id'];family=asset.get('family');kind=asset['kind']
+    if kind=='backdrop':return asset.get('interactions',[])
     belt='belt-straight-e';dish='dish-salmon';stool='stool-wood';customer='customer-rosa';chef='chef-lena';sub='submarine-yellow';eel='creature-eel'
     def place(ident,x,y,direction='S',clip=None,**extra):
         value={'object':ident,'x':x,'y':y,'direction':direction}

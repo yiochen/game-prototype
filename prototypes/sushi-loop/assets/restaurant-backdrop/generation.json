@@ -1,0 +1,108 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-10-20",
+  "references": [
+    {
+      "path": "../production/sprites/entry-finished/static-S.png",
+      "sha256": "80df6cdf5644da4cd0ccdc3c04eb8c045cb21d3790bf47d0e702db1e0004c003"
+    },
+    {
+      "path": "original-concept-reference.jpg",
+      "sha256": "23b20f290e84d167c40aec91e60fd2e541444941e8421a314f45897a29445ca6"
+    }
+  ],
+  "entries": {
+    "gate-draft": {
+      "file": "raw/gate-draft.png",
+      "size": [
+        1448,
+        1086
+      ],
+      "sha256": "797916811267ad9c23de943bbbcbb2d44318fb3f25d72b09869d4bbc8fb6e282",
+      "prompt": "Use case: stylized-concept.\nAsset type: production RGBA restaurant backdrop sprite, Sushi Loop.\nInput images: Image 1 is the current exported 3D entrance sprite, reference only for blue roof/honey timber identity and square-grid camera. Image 2 is the user's original restaurant concept screenshot, the PRIMARY design reference.\nCreate ONE complete new image-generated restaurant entrance facade, exactly FOUR tiles outer width by THREE tiles projected screen height (4:3 aspect ratio), with a centered TWO tile clear inner opening. Render at 1536x1152 pixels, content touches all four bounds. The left and right one-tile-wide structural bays contain the posts and a warm glowing yellow lantern each. Center opening is exactly half the total width, its jambs at 25% and 75% of the canvas width. The entire gate silhouette fits a flat 4x3 rectangle, no roof wings beyond it.\nRecreate the concept's chunky honey-brown timber entrance, blue ceramic roof cap, broad wooden lintel, red three-panel noren curtain with a simple white fish pictogram, dark charcoal interior visible below the curtain, small horizontal stone/wood threshold. Lanterns rest on the side bays within the four tile width; no plants, rocks, crates, floor, props or people.\nCamera: straight-on player-facing backdrop in the game's parallel square top/front oblique projection. All front edges exactly screen-horizontal/vertical, no yaw, no perspective convergence, no diamond geometry. Show only a restrained top face along the roof/eave. THREE tiles is the COMPLETE projected screen-space height, including roof depth, NOT a physical height needing further projection. Bottom of posts and threshold align at canvas bottom.\nStyle: polished chunky faceted low-poly game art like the original concept. Broad matte polygonal surfaces, warm rich amber timber, cobalt/indigo roof, vermilion red noren, buttery gold lanterns. Darker lower surfaces, clear readable contrast, soft internal ambient occlusion and gentle even form shading. Sparse restrained grain, no photorealism, no heavy cartoon outlines. No directional cast shadow outside the art.\nFull gate finished edge-to-edge. Genuinely transparent background outside any silhouette notches. The dark doorway is intentionally opaque. No surrounding environment, no text, no measurements, grid, captions, border, watermark or UI. This is a reusable rectangular wall-plane sprite, not a scene screenshot or 3D model preview.",
+      "generated_path": "/Users/yiouchen/.codex/generated_images/01a15c25-c940-7ee3-96e2-46d901c07b69/exec-87b45585-fb58-4cdd-a152-54b6ab2adfb5.png",
+      "references": [
+        {
+          "path": "../production/sprites/entry-finished/static-S.png",
+          "sha256": "80df6cdf5644da4cd0ccdc3c04eb8c045cb21d3790bf47d0e702db1e0004c003"
+        },
+        {
+          "path": "original-concept-reference.jpg",
+          "sha256": "23b20f290e84d167c40aec91e60fd2e541444941e8421a314f45897a29445ca6"
+        }
+      ]
+    },
+    "gate": {
+      "file": "raw/gate.png",
+      "size": [
+        1448,
+        1086
+      ],
+      "sha256": "78c7d93a1eb6e089a2cbf8a959d18042444b5775226550b51a9d9759ea8f7c7e",
+      "prompt": "Use case: precise-object-edit.\nImage 1 is the edit target: preserve this entrance's exact design, rich faceted low-poly rendering, blue roof tile pattern, honey wood, two lanterns, red fish-symbol curtain and dark opening.\nCorrect ONLY the framing and proportions for a production game sprite. The gate facade itself must be 4:3, FOUR units wide and THREE units high, rather than the current short wide facade floating inside transparent margins. Extend the posts, side bays and opening vertically to fill a 4:3 silhouette. Render 1536x1152. Highest roof tile touches y=0; lowest threshold and both post feet touch y=1151. Outer blue eave touches x=0 and x=1535. No transparent margin around the overall bounding rectangle; transparency is allowed only in the small cutout notches beside the roof silhouette. Clean alpha: remove every detached speck and stray pixel.\nThe centered doorway inner opening is exactly 768px wide, with its jamb inner edges at x=384 and x=1152, two units inside the four-unit facade. Keep both lanterns in the side one-unit bays, fully within the outer footprint. Keep all front edges horizontal/vertical, parallel game projection, modest visible roof top face, no sideways perspective. Bottom threshold exactly horizontal.\nKeep the simple white fish pictogram, no text. Do not add anything, do not add floor, shadows outside the silhouette, people, plants, scenery, border, labels, guidelines or measurements. Actual RGBA transparency in silhouette notches.",
+      "generated_path": "/Users/yiouchen/.codex/generated_images/01a15c25-c940-7ee3-96e2-46d901c07b69/exec-0bcaf01e-c06b-49ea-9729-e66261e5bb71.png",
+      "references": [
+        {
+          "path": "raw/gate-draft.png",
+          "sha256": "797916811267ad9c23de943bbbcbb2d44318fb3f25d72b09869d4bbc8fb6e282"
+        }
+      ]
+    },
+    "wall-plain": {
+      "file": "raw/wall-plain.png",
+      "size": [
+        724,
+        2172
+      ],
+      "sha256": "3d5b4650dc482f3ffaa37256566d13077f7461b43b6d2caed2996d6ef8b0df8c",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE production modular restaurant BACKDROP WALL TILE, RGBA sprite.\nImage 1 is the matching gate asset, PRIMARY reference for exact roof, wood, proportions, palette and rendering.\nGenerate one single narrow wall module, exactly ONE tile wide by THREE projected tiles tall, canvas aspect ratio 1:3, preferably 512x1536. A whole uninterrupted wall-face rectangle fills the canvas edge-to-edge, no transparent padding. It tiles horizontally into a continuous straight wall on EITHER side of the supplied four-tile gate, sharing its vertical ground baseline and roof/eave levels. The module is solid wall, no doorway.\nFront-on parallel square-grid camera, zero yaw, horizontal/vertical edges. Match the reference's rich honey-brown timber, broad matte faceted low-poly surfaces, darker lower faces, cobalt blue ceramic roof with small visible top face. All height measurements are projected screen height.\nPixel-level relative heights to match reference: top of roof at 0%; heavy blue fascia at 7%-17%; blue lower tile ends at 27%; honey wooden horizontal lintel at 27%-35%; warm amber plaster/timber wall field from 35% to 90%; honey/umber low plinth along 90%-100%; baseline precisely bottom edge. Roof spans the full tile width without side bevels or overhang beyond the cell. Left and right edges must join another identical tile without gaps: continuous matching blue fascia, honey beam and bottom plinth at the same heights. No freestanding narrow tower silhouette and no exposed side face.\nPlain reusable wall field with quiet golden ochre plaster and one dark honey vertical timber division at the LEFT edge only. Crisp and readable, restrained detail. Same evening warmth/internal shading as gate, evenly lit with no cast shadow outside the wall. No lanterns, plants, rocks, crates, windows, characters, floor, words, symbols, grid, measurements, title, labels, watermark or UI. Do not include the gate. ONE wall module only, not a contact sheet.",
+      "generated_path": "/Users/yiouchen/.codex/generated_images/01a15c25-c940-7ee3-96e2-46d901c07b69/exec-af9d715e-ad61-4925-92e1-df5961eb8047.png",
+      "references": [
+        {
+          "path": "raw/gate.png",
+          "sha256": "78c7d93a1eb6e089a2cbf8a959d18042444b5775226550b51a9d9759ea8f7c7e"
+        }
+      ]
+    },
+    "wall-window": {
+      "file": "raw/wall-window.png",
+      "size": [
+        724,
+        2172
+      ],
+      "sha256": "30db27eab375c72e07c7c9f7e2bfa18c42c910de861610e24c9a51344bf8363c",
+      "prompt": "Use case: precise-object-edit.\nAsset type: ONE alternate restaurant BACKDROP WALL TILE.\nImage 1 is the edit target: a one-tile-wide three-tile-tall modular honey wood wall with cobalt roof. Image 2 is the matching four-tile-wide gate.\nCreate a coordinated window-wall variant of image 1, keeping its exact narrow 1:3 canvas, edge-to-edge rectangle, baseline, roof and eave height, blue tile cap, honey timber outline and bottom plinth. Preserve the same left/right edge colors and horizontal bands so this variant tiles directly beside the plain tile. Keep the image's rendering and palette, no style drift, no new transparent padding.\nChange only the middle wall field to a small inset dark umber wooden lattice window, with four broad simple vertical slats and a horizontal crossbar, occupying the central half of the wall height, with the amber wall still clearly visible around it. Window is closed decorative architecture, no passage, no added lanterns. Warm dark shadow through the lattice; no visible interior scene.\nSame broad matte faceted low-poly game render, darker lower surfaces, no lateral perspective, no floor, no cast shadow outside the wall, no people or plants. No fish symbol on this wall, no text, labels, grid, measurements, borders, UI or watermark. True alpha only in small roof silhouette notches; keep the wall rectangle opaque and clean with no detached colored specks.",
+      "generated_path": "/Users/yiouchen/.codex/generated_images/01a15c25-c940-7ee3-96e2-46d901c07b69/exec-4d99b70d-6e6d-42af-bdda-38c429c11dc7.png",
+      "references": [
+        {
+          "path": "raw/wall-plain.png",
+          "sha256": "3d5b4650dc482f3ffaa37256566d13077f7461b43b6d2caed2996d6ef8b0df8c"
+        },
+        {
+          "path": "raw/gate.png",
+          "sha256": "78c7d93a1eb6e089a2cbf8a959d18042444b5775226550b51a9d9759ea8f7c7e"
+        }
+      ]
+    }
+  },
+  "geometry": {
+    "gate_outer_tiles": [
+      4,
+      3
+    ],
+    "gate_inner_width_tiles": 2,
+    "wall_tiles": [
+      1,
+      3
+    ],
+    "reserved_rows": [
+      0,
+      1,
+      2
+    ],
+    "first_floor_row": 3,
+    "projection": "front-facing parallel backdrop; dimensions are projected screen units",
+    "source_pixels": "Full generated PNGs, no crop or pixel edits. Runtime uses the same bytes."
+  },
+  "scope": "Wireframe restaurant scene study only. Godot scripts, content and assets are unchanged pending visual review."
+}

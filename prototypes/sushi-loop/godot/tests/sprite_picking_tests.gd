@@ -24,7 +24,6 @@ func _run() -> void:
 	root.add_child(world)
 	world.size = Vector2(720, 1280)
 	world.state = Session.new_session(41).snapshot()
-	world.state.floor.entrance = {"x": 50, "y": 0}
 	world.state.customers = []
 	world.state.mode = "edit"
 	world.update_layout()
@@ -218,8 +217,8 @@ func _test_painter_order_and_blockers(world) -> void:
 	probes.guest_blocker = str(opaque)
 	# A deliberately hidden owned seat at the fixed border is a renderer fixture,
 	# never persisted as a legal edit; room props must block it just like guests.
-	seat.x = 0
-	seat.y = 1
+	seat.x = -0.5
+	seat.y = 3
 	_fixture(world, [seat])
 	back = _record(world, "back-seat", "stool-wood")
 	var room_point := Vector2(INF, INF)

@@ -7,6 +7,7 @@ const Audio = preload("res://scripts/audio.gd")
 const Typography = preload("res://scripts/typography.gd")
 const EditorPresentation = preload("res://scripts/editor_presentation.gd")
 const UISkin = preload("res://scripts/ui_skin.gd")
+const ScreenLayout = preload("res://scripts/screen_layout.gd")
 const INK := Color("233d58")
 const CREAM := Color("fff3db")
 var session: Session
@@ -249,7 +250,7 @@ func _style_native_button(button: Button, unit: float, held = null) -> void:
 	UISkin.layout_caption(caption, Rect2(left + fitted_icon.x + 10 * unit, face.position.y, text_width, face.size.y), font_size)
 
 func _layout_hud(area: Rect2, unit: float) -> void:
-	var top: float = 124 * unit if show_gallery else 32 * unit
+	var top: float = area.position.y + (124 * unit if show_gallery else 32 * unit)
 	coin_panel.position = Vector2(area.position.x + 24 * unit, top)
 	skin.apply_panel(coin_panel, "coin-panel", unit)
 	coin_panel.size = Vector2(240, 100) * unit
@@ -300,20 +301,29 @@ func _place_native_button(button: Button, bounds: Rect2, unit: float, font_size:
 	button.size = bounds.size
 	_style_native_button(button, unit)
 
+func _display_safe_top() -> float:
+	if OS.get_name() not in ["Android", "iOS"]: return 0.0
+	return ScreenLayout.top_inset(Rect2(DisplayServer.get_display_safe_area()), DisplayServer.get_display_cutouts(), get_viewport_transform(), float(get_window().size.y))
+
 func _layout() -> void:
+	_layout_for_safe_top(_display_safe_top())
+
+func _layout_for_safe_top(top_inset: float) -> void:
 	if world == null:
 		return
 	world.size = size
+	world.safe_top = top_inset
 	world.update_layout()
-	var area: Rect2 = world.portrait
+	var scene_area: Rect2 = world.portrait
 	# Keep world coordinates identical to the root's input coordinates while the
 	# containing control clips adjoining floor in a wide native window.
-	world_clip.position = area.position
-	world_clip.size = area.size
-	world.position = -area.position
+	world_clip.position = scene_area.position
+	world_clip.size = scene_area.size
+	world.position = -scene_area.position
+	var area: Rect2 = world.hud_area()
 	var unit: float = area.size.x / 720.0
 	_layout_hud(area, unit)
-	_place_native_button(shop, Rect2(Vector2(area.position.x + (440 * unit if show_gallery else 34 * unit), 112 * unit if show_gallery else 145 * unit), Vector2(224, 108) * unit), unit, 34, 48)
+	_place_native_button(shop, Rect2(Vector2(area.position.x + (440 * unit if show_gallery else 34 * unit), area.position.y + (112 * unit if show_gallery else 145 * unit)), Vector2(224, 108) * unit), unit, 34, 48)
 	_place_native_button(edit, Rect2(Vector2(area.position.x + 34 * unit, area.end.y - 156 * unit), Vector2(206, 110) * unit), unit, 34, 48)
 	_place_native_button(staff, Rect2(Vector2(area.position.x + 266 * unit, area.end.y - 156 * unit), Vector2(214, 110) * unit), unit, 34, 48)
 	for i in range(gallery_buttons.size()):
@@ -324,7 +334,7 @@ func _layout() -> void:
 	editor_ui.set_state(session.snapshot(), area)
 	if recovery != null:
 		recovery.add_theme_stylebox_override("panel", skin.style("container-modal", unit))
-		recovery.position = Vector2(area.position.x + 34 * unit, area.size.y * 0.28)
+		recovery.position = area.position + Vector2(34 * unit, area.size.y * 0.28)
 		recovery.size = Vector2(652, 680) * unit
 		recovery_title.position = Vector2(32, 32) * unit
 		recovery_title.size = Vector2(588, 120) * unit
@@ -375,7 +385,7 @@ func _refresh() -> void:
 	if money.get_meta("full_balance", "") != coins_text:
 		money.text = coins_text
 		money.accessibility_description = "%s coins" % coins_text
-		_layout_hud(world.portrait, world.portrait.size.x / 720.0)
+		_layout_hud(world.hud_area(), world.portrait.size.x / 720.0)
 	var editing: bool = world.state.get("mode", "live") == "edit"
 	editing_cue.visible = editing and not show_gallery
 	editing_panel.visible = editing_cue.visible
@@ -384,7 +394,7 @@ func _refresh() -> void:
 	edit.visible = not show_gallery and not editing
 	staff.visible = not show_gallery and not editing
 	editor_ui.reduced_motion = world.reduced_motion
-	editor_ui.set_state(world.state, world.portrait)
+	editor_ui.set_state(world.state, world.hud_area())
 	var selected_id: String = str(world.state.get("editor", {}).get("selected_id", ""))
 	if selected_id != previous_selection:
 		previous_selection = selected_id
@@ -499,7 +509,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if session == null or show_gallery or save_blocked or pointer != -1: return
 	if not event is InputEventScreenTouch or not event.pressed: return
 	var local: Vector2 = get_global_transform_with_canvas().affine_inverse() * event.position
-	if not world.portrait.has_point(local): return
+	if not world.hud_area().has_point(local): return
 	pointer = event.index
 	pointer_start = local
 	previous_pointer = local
@@ -575,7 +585,7 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func _floor_drop(at: Vector2) -> bool:
-	if not world.portrait.has_point(at) or at.y <= world.portrait.position.y + 145 * editor_ui.unit:
+	if not world.hud_area().has_point(at) or at.y <= world.hud_area().position.y + 145 * editor_ui.unit:
 		return false
 	if editor_ui.inspection.visible or (recovery != null and recovery.is_visible_in_tree()):
 		return false
@@ -616,8 +626,7 @@ func _pan(change: Vector2) -> void:
 	var visible_bottom := world.portrait.end.y - 24.0
 	if scene.get("mode", "live") == "edit":
 		visible_bottom = editor_ui.occlusion_top()
-	# Tall windows center the floor below the HUD. Include that real origin so
-	# the final tile can reach the rail rather than remaining hidden behind it.
+	# Include the rendered floor origin so the final tile can reach the rail.
 	var floor_bottom := world.floor_origin.y + float(floor_data.rows) * world.cell
 	var vertical_limit := maxf(0.0, (floor_bottom - visible_bottom) / world.cell)
 	var y := clampf(float(camera.y) - change.y / world.cell, 0.0, vertical_limit)
@@ -652,6 +661,7 @@ func _notification(what: int) -> void:
 	elif what == NOTIFICATION_APPLICATION_RESUMED:
 		backgrounded = false
 		skip_resume_frame = true
+		if is_instance_valid(world): _layout()
 	elif what in [NOTIFICATION_WM_CLOSE_REQUEST, NOTIFICATION_WM_GO_BACK_REQUEST]:
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and editor_ui != null and editor_ui.inspection.visible:
 			editor_ui.close_inspection()

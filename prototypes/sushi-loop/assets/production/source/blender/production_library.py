@@ -141,6 +141,7 @@ def add_upgraded_variant(a):
 def build(aid):
     retired={'restaurant-border-garden-a','restaurant-border-garden-b','restaurant-corner-garden-a','restaurant-corner-garden-b','underwater-reef-garden-a','underwater-reef-garden-b','underwater-coral-garden-a','underwater-coral-garden-b'}
     flat={'dish-salmon','dish-cucumber','dish-eel','bubble-preference','bubble-happy','bubble-puzzled','bubble-panic','decor-bubbles','attack-swirl','attack-lateral-current','eel-warning-strip','eel-lightning-symbol','eel-discharge'}
+    if aid=='entry-finished':raise ValueError('Retired entrance model; use the approved backdrop source')
     if aid in retired:raise ValueError('Retired large garden bundle: '+aid)
     if aid in flat:raise ValueError('Use the 2D pipeline for '+aid+'; source/2d/publish_2d.py')
     if 'P' not in globals():load()
@@ -200,7 +201,6 @@ def build(aid):
                 o.location.z=.06+((i*.29+t*1.5)%1.5);o.location.x+=.025*math.sin(t*math.tau+i)
         b.motion['rise']=rise;a=b.finish({'rise':{'frames':12,'fps':12,'loop':True}});projection='square-top-front-oblique'
     else:raise ValueError('No production builder for '+aid)
-    if aid=='entry-finished':a=G.upgrade_entry(a)
     if aid in ['chef-blackboard','bubble-preference','salvage-metal']:a=V.augment(a,aid,F,P)
     if aid in B.BILLBOARD_IDS:a=B.augment(a)
     if aid in ['garbage-sofa','garbage-car','garbage-shelving']:

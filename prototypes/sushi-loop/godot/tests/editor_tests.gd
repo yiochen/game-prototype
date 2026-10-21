@@ -104,7 +104,7 @@ func _moves_rotation_and_stock() -> void:
 	_check(game.command({"type": "editor_rotate", "id": "seat-5"}).ok and _object(game.snapshot(), "seat-5").facing == "east", "local rotation advances the selected object's facing")
 	_check(game.command({"type": "editor_rotate", "id": "seat-5", "clockwise": false}).ok and _object(game.snapshot(), "seat-5").facing == "north", "counterclockwise rotation uses the same public command")
 	_reject_unchanged(game, {"type": "editor_move", "id": "seat-5", "x": 2, "y": 6}, "occupied")
-	_reject_unchanged(game, {"type": "editor_move", "id": "seat-5", "x": 3, "y": 2}, "entrance")
+	_reject_unchanged(game, {"type": "editor_move", "id": "seat-5", "x": 4, "y": 3}, "entrance")
 	_reject_unchanged(game, {"type": "editor_move", "id": "seat-5", "x": 7, "y": 11}, "invalid_position")
 	_check(game.command({"type": "editor_remove", "id": "seat-5"}).ok and _object(game.snapshot(), "seat-5").is_empty() and _stock(game.snapshot(), "stool-plain").count == 5 and game.snapshot().editor.selected_id.is_empty(), "removing owned furniture returns exactly one item to inventory and clears its selection")
 	var placed := game.command({"type": "editor_place", "inventory_id": "stool-plain", "x": 5, "y": 11, "facing": "south"})
@@ -182,7 +182,7 @@ func _customer_protection() -> void:
 		var current: Dictionary = walking.snapshot().customers[0]
 		if _object(walking.snapshot(), current.seat_id).x == point.x and _object(walking.snapshot(), current.seat_id).y == point.y:
 			continue
-		if Vector2(point.x, point.y).distance_to(Vector2(current.x, current.y)) > 1.0:
+		if Vector2(point.x, point.y).distance_to(Vector2(current.x, current.y)) > 0.75:
 			var result := walking.command({"type": "editor_place", "inventory_id": "crate-wood", "x": point.x, "y": point.y})
 			_check(result.ok, "furniture may occupy the guest's former future route; navigation can reroute or wander")
 			blocked_a_future_cell = result.ok

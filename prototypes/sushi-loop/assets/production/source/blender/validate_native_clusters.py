@@ -164,7 +164,7 @@ def _entry_clearance(meshes,origin):
 
 def validate_native_clusters(runtime,native,report_path=None,include_entry=True,tolerance=.005):
     if getattr(runtime,'job_status',{}).get('state')=='rendering':raise RuntimeError('Wait for live MCP capture before temporary native evaluation')
-    ids=list(CLUSTERS)+(['entry-finished'] if include_entry else [])
+    ids=list(CLUSTERS)
     missing=[aid for aid in ids if aid not in runtime.assets]
     if missing:raise ValueError('Native models are not registered yet: '+', '.join(missing))
     output=Path(report_path) if report_path else BASE/'export/validation/native-clusters.json'

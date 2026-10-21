@@ -13,7 +13,8 @@ DIRECTIONS = ['N', 'E', 'S', 'W']
 SELECTION = {
     'floor-cream': (['static'], ['S']),
     'floor-blue-wave': (['static'], ['S']),
-    'entry-finished': (['static'], ['S']),
+    'backdrop-entrance': (['static'], ['S']),
+    'backdrop-wall': (['static'], ['S']),
     'wall-middle': (['static'], ['S', 'E']),
     'wall-inner-corner': (['static'], ['S']),
     'wall-outer-corner': (['static'], ['S']),
@@ -88,7 +89,7 @@ def make_manifest(source: Path, selection: dict | None = None) -> tuple[dict, se
         if identity not in objects:
             raise ValueError(f"Approved catalog object is missing: {identity}")
         original = objects[identity]
-        entry = {key: deepcopy(original[key]) for key in ["id", "name", "kind", "footprint", "frameSize", "root", "sourceScale", "projection", "sockets", "ports", "rootCell", "directionRootCells", "directionFootprints", "facingPolicy"] if key in original}
+        entry = {key: deepcopy(original[key]) for key in ["id", "name", "kind", "footprint", "frameSize", "root", "sourceScale", "projection", "sockets", "ports", "rootCell", "directionRootCells", "directionFootprints", "facingPolicy", "backdrop"] if key in original}
         entry["source"] = {"captureFingerprint": original.get("captureFingerprint"), "blend": original.get("source", {}).get("blend"), "assetRecord": original.get("source", {}).get("assetRecord")}
         entry["clips"] = {}
         for clip in original["clips"]:

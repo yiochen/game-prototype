@@ -235,3 +235,30 @@ for (const [width, height] of [[390, 844], [844, 390]]) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width + 1);
   });
 }
+
+for (const [width, height] of [[320,740],[844,390]]) test(`approved wall and gate replace the retired entrance in the catalog at ${width}px`, async ({page}, testInfo) => {
+  await page.setViewportSize({width,height});
+  await page.emulateMedia({reducedMotion:'reduce'});
+  const errors=[];page.on('pageerror',error=>errors.push(error.message));
+  await page.goto(`${url}#object-library`);
+  const stage=page.locator('#prototype-stage');
+  await expect(stage.locator('a[href="#object-entry-finished"]')).toHaveCount(0);
+  for (const id of ['backdrop-wall','backdrop-entrance']) {
+    await stage.getByRole('searchbox',{name:'Find an object'}).fill(id);
+    await stage.locator(`a[href="#object-${id}"]`).click();
+    await expect(stage).toHaveAttribute('data-story',`object-${id}`);
+    await expect(stage.getByRole('heading',{name:objects.find(o=>o.id===id).name,exact:true})).toBeVisible();
+    await expect(stage).toContainText('uniform');
+    await expect(stage.locator('.object-export-pending')).toHaveCount(0);
+    await expect(stage.getByRole('combobox',{name:'Repeated facing'}).locator('option')).toHaveCount(1);
+    const frames=stage.locator('[data-sprite-source]');
+    await expect(frames.first()).toHaveAttribute('data-sprite-source',`sprites/${id}/static-S.png`);
+    await frames.locator('image').evaluateAll(async nodes=>Promise.all([...new Set(nodes.map(n=>n.getAttribute('href')))].map(src=>new Promise((resolve,reject)=>{const image=new Image();image.onload=resolve;image.onerror=reject;image.src=src;}))));
+    await stage.locator('.object-review-section').first().screenshot({path:testInfo.outputPath(`${id}-${width}.png`)});
+    const source=await stage.getByRole('link',{name:'Download .blend ↓',exact:true}).getAttribute('href');
+    expect((await page.request.get(source)).ok()).toBe(true);
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(width+1);
+    await stage.getByRole('link',{name:'← Object library',exact:true}).click();
+  }
+  expect(errors).toEqual([]);
+});

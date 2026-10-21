@@ -2,8 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { restaurantShowcase } from '../wireframe/restaurant-showcase-data.js';
+import { backdropLayout } from '../wireframe/restaurant-backdrop-layout.js';
 import { underwaterShowcase } from '../wireframe/underwater-showcase-data.js';
 import { groundRoot, placementAtTime, footprintFor, sceneBounds } from '../wireframe/sprite-layout.js';
 
@@ -123,27 +125,23 @@ test('seven-column cameras preserve native hero scale, the back entrance and con
     // about 1.5 world tiles high, or 17.55% of this seven-column camera.
     assert.ok(Math.abs(rise[1]) / width >= .175, `${chef.id}: the native character must remain a readable hero at this camera width`);
   }
-  const entrance = restaurantShowcase.placements.find(p => p.id === 'restaurant-entrance');
-  const object = objects.get(entrance.object), record = native(object), root = groundRoot(entrance, object);
-  assert.deepEqual(footprintFor(object, entrance.direction), [4, 1]);
-  assert.ok(Math.abs(root[0] - (left + width / 2)) < .001, 'The four-tile entrance is centered on the portrait room');
-  assert.ok(root[0] - 2 * 128 >= left && root[0] + 2 * 128 <= left + width, 'The entrance retains all four tiles inside the camera');
-  assert.ok(inside(root.map((value, axis) => value + project([0, 0, record.height], entrance.direction, object)[axis])), 'The entrance roof remains inside the upper camera edge');
-  const beltRoots = restaurantShowcase.placements.filter(p => objects.get(p.object).kind === 'belt').map(p => groundRoot(p, objects.get(p.object)));
-  assert.ok(root[1] < Math.min(...beltRoots.map(point => point[1])), 'The entrance anchors the back of the room');
-  const opening = record.supportLayout.openCenterCells;
-  assert.equal(opening.length, 2);
-  assert.deepEqual(opening.map(([x]) => x).sort(), [1, 2], 'The two center cells stay open between the outer supports');
-  assert.ok(record.supportLayout.supportCells.every(([x, y]) => !opening.some(cell => cell[0] === x && cell[1] === y)));
+  const { gate, opening } = backdropLayout(7);
+  assert.deepEqual([gate.width, gate.height], [4, 3]);
+  assert.equal(gate.x, 3);
+  assert.equal(opening.x, 4);
+  assert.equal(opening.width, 2);
+  assert.equal(opening.x + opening.width / 2, gate.x + gate.width / 2);
+  assert.ok(restaurantShowcase.placements.every(p => p.y >= 3), 'All scene objects stay out of the reserved top three rows');
+  assert.ok(!restaurantShowcase.placements.some(p => p.object === 'entry-finished'), 'The composed scene uses the backdrop entrance');
 
   const walls = restaurantShowcase.placements.filter(p => p.object.startsWith('wall-'));
   const graph = topology(walls);
-  assert.equal(walls.length, 32);
+  assert.equal(walls.length, 24);
   assert.equal(graph.joins, walls.length - 2, 'Two uninterrupted room-wall runs preserve every native seam');
   assert.equal(graph.open.length, 4);
   for (const port of graph.open) {
     const ring = port.rings.flat();
-    assert.ok(ring.length && (ring.every(point => point[1] < top) || ring.every(point => point[1] > top + height)), `${port.key}: unfinished native wall cross-section must remain wholly outside the authored camera`);
+    assert.ok(ring.length && (port.placement.y === 3 || ring.every(point => point[1] > top + height)), `${port.key}: side walls must meet the backdrop or continue below the camera`);
   }
 });
 
@@ -229,4 +227,79 @@ for (const [actorId, attachmentId] of [
     assert.ok(distance(at(actor, object, before), at(actor, object, after)) <= speed * epsilon * 2 + 1e-6, `${actorId}: half-cell jump at a rectangular footprint turn`);
     if (i < lengths.length) traversed += lengths[i];
   }
+});
+
+
+test('Blender backdrop uses measured native 35-degree geometry and the character camera convention', () => {
+  const root = new URL('../assets/restaurant-backdrop/blender35/', import.meta.url);
+  const audit = JSON.parse(readFileSync(new URL('geometry-audit.json', root)));
+  const camera = JSON.parse(readFileSync(new URL('camera.json', root)));
+  assert.equal(audit.cameraType, 'ORTHO');
+  assert.equal(audit.cameraElevation, 35);
+  assert.deepEqual(audit.pixelAspect, [1, 1]);
+  assert.ok(Math.abs(audit.clearInnerWidth - 2) < .00001);
+  assert.ok(Math.abs(audit.assets.gate.worldWidth - 4) < .00001);
+  for (const asset of ['gate', 'wall-plain', 'wall-window']) {
+    const capture = camera.assets[asset];
+    assert.ok(Math.abs(audit.assets[asset].projectedHeight - 3) < .015);
+    assert.ok(Math.abs(capture.calibration.unitX[0] / capture.captureScale - 128) < .001);
+    assert.ok(Math.abs(capture.calibration.unitHeight[1] / capture.captureScale + Math.cos(35 * Math.PI / 180) * 128) < .001);
+    assert.equal(capture.contentRect[2] / capture.captureScale, capture.widthTiles * 128);
+    assert.equal(capture.contentRect[3] / capture.captureScale, 3 * 128);
+  }
+});
+
+test('plain backdrop has flat roof tiles, uniform plaster and independently adjustable Godot lights', () => {
+  const root = new URL('../assets/restaurant-backdrop/flat35/', import.meta.url);
+  const audit = JSON.parse(readFileSync(new URL('geometry-audit.json', root)));
+  const camera = JSON.parse(readFileSync(new URL('camera.json', root)));
+  const lights = JSON.parse(readFileSync(new URL('lighting-proof/lighting-check.json', root)));
+  const sha256 = path => createHash('sha256').update(readFileSync(new URL(path, root))).digest('hex');
+  assert.equal(audit.nativeSourceSha256, sha256('source/restaurant-backdrop-35.blend'));
+  assert.equal(audit.buildRecipeSha256, sha256('source/build_backdrop.py'));
+  assert.equal(audit.cameraType, 'ORTHO');
+  assert.ok(Math.abs(audit.measuredElevation - 35) < .001);
+  assert.deepEqual(audit.pixelAspect, [1, 1]);
+  assert.equal(audit.clearInnerWidth, 2);
+  assert.equal(audit.assets.gate.worldWidth, 4);
+  for (const asset of ['gate', 'wall-plain']) {
+    assert.ok(Math.abs(audit.assets[asset].projectedHeight - 3) < .01);
+    assert.equal(audit.assets[asset].transparentGutters, true);
+    assert.equal(camera.assets[asset].contentRect[2] / camera.assets[asset].captureScale, camera.assets[asset].widthTiles * 128);
+  }
+  assert.deepEqual(audit.plainWallAudit.decorationObjects, []);
+  assert.ok(audit.plainWallAudit.roofTileVertexCounts.length > 0);
+  assert.ok(audit.plainWallAudit.roofTileVertexCounts.every(count => count === 8));
+  assert.equal(audit.plainWallAudit.maximumHeightColorDifference, 0);
+  assert.ok(backdropLayout(7).walls.every(wall => wall.asset === 'wall-plain'));
+  assert.equal(lights.spriteSourceSha256, sha256('renders/assembled.png'));
+  assert.equal(lights.renderer, 'gl_compatibility');
+  assert.equal(lights.ambientUniform, true);
+  assert.deepEqual(lights.checks, { leftDimmingIndependent: true, lightBrightensSprite: true, rightUnaffected: true });
+});
+
+test('wood backdrop restores the original honey color and a continuous baseboard under even light', () => {
+  const root = new URL('../assets/restaurant-backdrop/uniform35/', import.meta.url);
+  const audit = JSON.parse(readFileSync(new URL('geometry-audit.json', root)));
+  const lights = JSON.parse(readFileSync(new URL('lighting-proof/lighting-check.json', root)));
+  const sha256 = path => createHash('sha256').update(readFileSync(new URL(path, root))).digest('hex');
+  assert.equal(audit.nativeSourceSha256, sha256('source/restaurant-backdrop-35.blend'));
+  assert.equal(audit.buildRecipeSha256, sha256('source/build_backdrop.py'));
+  assert.equal(audit.clearInnerWidth, 2);
+  assert.equal(audit.assets.gate.worldWidth, 4);
+  assert.ok(Math.abs(audit.measuredElevation - 35) < .001);
+  for (const asset of Object.values(audit.assets)) {
+    assert.ok(Math.abs(asset.projectedHeight - 3) < .01);
+    assert.equal(asset.transparentGutters, true);
+  }
+  assert.deepEqual(audit.woodWallAudit.decorationObjects, []);
+  assert.equal(audit.woodWallAudit.wallColor, 'C6A267');
+  assert.equal(audit.woodWallAudit.maximumHeightColorDifference, 0);
+  assert.equal(audit.woodWallAudit.baseboardObjects.length, 2);
+  assert.ok(audit.woodWallAudit.roofTileVertexCounts.every(count => count === 8));
+  assert.equal(lights.spriteSourceSha256, sha256('renders/assembled.png'));
+  assert.equal(lights.ambientUniform, true);
+  assert.deepEqual(lights.states[0].energies, [0, 0]);
+  assert.deepEqual(lights.states[1].energies, [.12, .12]);
+  assert.ok(Object.values(lights.checks).every(Boolean));
 });

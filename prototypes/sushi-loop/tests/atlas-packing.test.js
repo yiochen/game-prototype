@@ -54,6 +54,6 @@ for aid in index['assetIds']:
   count+=1
 print(json.dumps({'assets':len(index['assetIds']),'clips':count}))
 `, publisher, source], { encoding: 'utf8' }));
-  assert.equal(results.assets, 104);
+  assert.equal(results.assets, 103);
   assert.ok(results.clips > 100);
 });

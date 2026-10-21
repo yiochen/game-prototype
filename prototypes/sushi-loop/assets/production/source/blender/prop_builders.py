@@ -245,19 +245,6 @@ def _roof(b,cx,cy,z,width,depth,prefix='roof',color='blue'):
     b.beam(prefix+'_ridge',(cx-width*.55,cy,z+.40),(cx+width*.55,cy,z+.40),.16,'blue_dark')
 
 
-def build_entrance(b):
-    b.footprint=(3,1);b.height=2.18
-    for x in (-1.,1.):
-        b.box('pillar_'+str(x),(x,0,.83),(.19,.25,1.66),'wood',.025)
-        b.box('foot_'+str(x),(x,0,.10),(.30,.35,.20),'wood_dark',.02)
-        b.box('cap_'+str(x),(x,0,1.68),(.32,.38,.12),'wood_light',.02)
-    b.box('lintel',(0,0,1.65),(2.35,.20,.20),'wood_dark',.02)
-    _roof(b,0,0,1.78,2.65,1.0)
-    # Open-center noren side curtains. They do not block the entrance's center tile.
-    for x in (-.62,.62):b.box('noren_'+str(x),(x,-.015,1.35),(.45,.045,.42),'red',.01)
-    b.socket('entry',(0,-.35,0));b.notes.append('Open center. Outer pillars are support, no invisible door or access mechanic.')
-    return b.finish()
-
 
 def _rubbish(b,extent=(1,1),count=10,seed=4):
     rng=random.Random(seed);pieces=[]
@@ -660,7 +647,7 @@ def build_portal(b):
 
 
 ASSET_IDS=[
- 'stool_wood','stool_blue','chef_blackboard','potted_plant','barrel','crate','lantern','blank_sign','entrance',
+ 'stool_wood','stool_blue','chef_blackboard','potted_plant','barrel','crate','lantern','blank_sign',
  'garbage_sofa','garbage_car','garbage_shelf','dock_uncovered','dock_covered','submarine_base','submarine_upgraded',
  'hull_panel','harpoon_mount','collector_inlet','rock_wall_end','rock_wall_middle','rock_wall_corner','rock_wall_half',
  'rock_shelf','reef_rock','ruin_column','rubble','boulder','wreck_beam','wreck_corner','kelp_single','kelp_group',
@@ -682,7 +669,6 @@ def create_asset(asset_id):
     if asset_id=='crate':return build_crate(b)
     if asset_id=='lantern':return build_lantern(b)
     if asset_id=='blank_sign':return build_sign(b)
-    if asset_id=='entrance':return build_entrance(b)
     if asset_id=='garbage_sofa':return build_sofa(b)
     if asset_id=='garbage_car':return build_car(b)
     if asset_id=='garbage_shelf':return build_shelf(b)

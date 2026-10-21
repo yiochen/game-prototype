@@ -1,0 +1,92 @@
+{
+	"ambientUniform": true,
+	"checks": {
+		"leftDimmingIndependent": true,
+		"lightBrightensSprite": true,
+		"rightUnaffected": true
+	},
+	"method": "PointLight2D + Sprite2D + CanvasModulate; no normal map, bloom or post-process",
+	"probePositions": {
+		"left": [
+			190,
+			334
+		],
+		"right": [
+			929,
+			334
+		]
+	},
+	"renderer": "gl_compatibility",
+	"spriteSourceSha256": "8ebb1adea4a7237d92e2ccdbe9ffaa5e45be6da11622ab87b0e4be29ad28ab26",
+	"states": [
+		{
+			"energies": [
+				0.0,
+				0.0
+			],
+			"id": "ambient",
+			"pixels": [
+				1120,
+				480
+			],
+			"probeColors": {
+				"left": [
+					0.776470601558685,
+					0.635294139385223,
+					0.403921574354172
+				],
+				"right": [
+					0.776470601558685,
+					0.635294139385223,
+					0.403921574354172
+				]
+			}
+		},
+		{
+			"energies": [
+				0.12,
+				0.12
+			],
+			"id": "lanterns",
+			"pixels": [
+				1120,
+				480
+			],
+			"probeColors": {
+				"left": [
+					0.807843148708344,
+					0.65490198135376,
+					0.407843142747879
+				],
+				"right": [
+					0.807843148708344,
+					0.65490198135376,
+					0.407843142747879
+				]
+			}
+		},
+		{
+			"energies": [
+				0.02,
+				0.12
+			],
+			"id": "left-dim",
+			"pixels": [
+				1120,
+				480
+			],
+			"probeColors": {
+				"left": [
+					0.7843137383461,
+					0.639215707778931,
+					0.403921574354172
+				],
+				"right": [
+					0.807843148708344,
+					0.65490198135376,
+					0.407843142747879
+				]
+			}
+		}
+	]
+}

@@ -4,6 +4,7 @@ import { libraryObjects, finalAssetsApproved, productionArtStatus } from './obje
 import { restaurantShowcase } from './restaurant-showcase-data.js';
 import { underwaterShowcase } from './underwater-showcase-data.js';
 import './world-showcase.css';
+import { BackdropAssetReview } from './restaurant-backdrop.jsx';
 
 const showcases = { restaurant: restaurantShowcase, underwater: underwaterShowcase };
 const conceptReferences = {
@@ -32,6 +33,7 @@ export function WorldShowcase({ sceneId = 'restaurant' }) {
   const [zoom, setZoom] = useState(1);
   const [overlays, setOverlays] = useState(false);
   const [grid, setGrid] = useState(false);
+  const [backdropRenderer, setBackdropRenderer] = useState('uniform35');
   const duration = Number(showcase.duration) > 0 ? Number(showcase.duration) : 24;
   const frames = Math.max(1, Math.round(duration * 12));
   const { frame, playing, toggle, scrub } = usePlayback(frames);
@@ -52,12 +54,13 @@ export function WorldShowcase({ sceneId = 'restaurant' }) {
         <button type="button" onClick={toggle} aria-label={playing ? 'Pause scene animations' : 'Play scene animations'} aria-pressed={playing}><span aria-hidden="true">{playing ? 'Ⅱ' : '▶'}</span>{playing ? 'Pause' : 'Play'}</button>
         <label className="world-timeline"><span><span>Scene time</span><span>{clock(frame)} / {clock(frames)}</span></span><input type="range" aria-label="Scene animation frame" aria-valuetext={`${(frame / 12).toFixed(2)} seconds of ${duration} seconds`} min="0" max={frames - 1} step="1" value={frame} onChange={event => scrub(event.target.value)}/></label>
       </div>
-      <div className="world-view-controls"><label>Zoom<select aria-label="Scene zoom" value={zoom} onChange={event => setZoom(Number(event.target.value))}><option value="1">Fit</option><option value="2">2×</option><option value="4">4×</option></select></label><div className="world-overlay-toggles"><label><input type="checkbox" checked={grid} onChange={event => setGrid(event.target.checked)}/> Tile grid</label><label><input type="checkbox" checked={overlays} onChange={event => setOverlays(event.target.checked)}/> Roots &amp; ports</label></div></div>
+      <div className="world-view-controls">{showcase.id === 'restaurant' && <label className="world-backdrop-picker">Backdrop<select aria-label="Backdrop artwork" value={backdropRenderer} onChange={event => setBackdropRenderer(event.target.value)}><option value="uniform35">Wood wall · even light</option><option value="flat35">Earlier plaster wall</option><option value="blender35">Earlier Blender</option><option value="imagegen">ImageGen</option></select></label>}<label>Zoom<select aria-label="Scene zoom" value={zoom} onChange={event => setZoom(Number(event.target.value))}><option value="1">Fit</option><option value="2">2×</option><option value="4">4×</option></select></label><div className="world-overlay-toggles"><label><input type="checkbox" checked={grid} onChange={event => setGrid(event.target.checked)}/> Tile grid</label><label><input type="checkbox" checked={overlays} onChange={event => setOverlays(event.target.checked)}/> Roots &amp; ports</label></div></div>
     </div>
     <figure className="world-showcase-figure">
-      <SpriteScene sceneId={showcase.id || sceneId} placements={showcase.placements} gridSize={showcase.gridSize} cameraBounds={showcase.cameraBounds} floorId={showcase.floorId} background={showcase.background} animateFloor={showcase.id === 'underwater'} showGrid={grid} overlays={overlays} zoom={zoom} seconds={frame / 12} label={`${showcase.title}: complete composed scene`}/>
+      <SpriteScene backdropRenderer={backdropRenderer} sceneId={showcase.id || sceneId} placements={showcase.placements} gridSize={showcase.gridSize} cameraBounds={showcase.cameraBounds} floorId={showcase.floorId} background={showcase.background} animateFloor={showcase.id === 'underwater'} showGrid={grid} overlays={overlays} zoom={zoom} seconds={frame / 12} label={`${showcase.title}: complete composed scene`}/>
       <figcaption><span>{zoom === 1 ? 'Complete scene' : `${zoom}× detail · pan horizontally`}</span><span>Fit · 2× · 4×</span></figcaption>
     </figure>
+    {showcase.id === 'restaurant' && <BackdropAssetReview renderer={backdropRenderer}/>}
     <section className="world-concept-reference" aria-labelledby={`world-concept-${sceneId}`}>
       <div className="world-section-heading"><div><span className="world-section-eyebrow">ART DIRECTION</span><h3 id={`world-concept-${sceneId}`}>Original concept art</h3></div><a href={concept.src} target="_blank" rel="noopener noreferrer">Open full-size <span aria-hidden="true">↗</span></a></div>
       <figure>

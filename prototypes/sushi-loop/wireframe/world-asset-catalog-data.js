@@ -12,8 +12,8 @@ export const worldAssetFamilies = [
   {
     "id": "W02",
     "name": "Perimeter & entrances",
-    "items": "Finished entry, wall middles/corners/end caps, plants, barrels, crates, lanterns, blank sign, subdued rocks, dock posts/rope",
-    "states": "Outer perimeter only; entrance open; lantern ambient loop; no new access mechanic",
+    "items": "Four-by-three-tile entrance backdrop, one-by-three-tile blank wood wall, wall middles/corners/end caps, plants, barrels, crates, lanterns, blank sign, subdued rocks, dock posts/rope",
+    "states": "Three blank wall tiles, four-tile entrance, then blank walls; top three rows reserved; two-tile opening; uniform lighting",
     "panels": [
       5
     ]

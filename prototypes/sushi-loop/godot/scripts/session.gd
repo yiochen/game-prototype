@@ -35,6 +35,10 @@ static func new_session(seed_value: int = 1, configuration: Dictionary = {}) -> 
 		push_error("The restaurant starter content could not be read.")
 		return null
 	session._configuration = session._merge_configuration(defaults, configuration)
+	# Custom simulation fixtures can define their own small floor. A backdrop
+	# is reserved only when that floor explicitly opts into the room contract.
+	if configuration.has("floor") and not configuration.floor.has("backdrop_rows"):
+		session._configuration.floor.backdrop_rows = 0
 	if not session._valid_configuration(session._configuration):
 		push_error("The restaurant starter configuration is invalid.")
 		return null
@@ -234,7 +238,69 @@ func restore(data: Dictionary) -> bool:
 	_remainder = float(data.remainder)
 	_random.state = int(data.random_state)
 	_rebuild_access()
+	_upgrade_restaurant_backdrop()
 	return true
+
+func _upgrade_restaurant_backdrop() -> void:
+	# Older shipped saves retain their economy, visits and edited furniture.
+	# Custom simulation layouts are not restaurant-content migrations.
+	var floor_data: Dictionary = _configuration.floor
+	if floor_data.has("backdrop_rows") or int(_configuration.get("content_version", 0)) > 2 or int(floor_data.columns) < 7 or int(floor_data.rows) < 13 or int(floor_data.world_columns) < 21:
+		return
+	var entrance := Vector2i(4, 3)
+	var offset := 0
+	for objects in [_configuration.objects, _state.objects]:
+		for object in objects:
+			if int(object.y) < 3 or _point(object) == entrance: offset = 3
+	# A layout using the old top rows moves as a whole, preserving every belt
+	# connection and occupied seat. Add rows rather than discarding any cells.
+	if offset > 0:
+		floor_data.rows = int(floor_data.rows) + offset
+		for objects in [_configuration.objects, _state.objects]:
+			for object in objects: object.y = int(object.y) + offset
+	for stock in _state.inventory:
+		if stock.get("stored_object") is Dictionary:
+			stock.stored_object.y = maxi(3, int(stock.stored_object.y) + offset)
+	floor_data.backdrop_rows = 3
+	floor_data.entrance = {"x": entrance.x, "y": entrance.y}
+	_configuration.content_version = 3
+	for customer in _state.customers:
+		customer.y = float(customer.y) + offset
+		if customer.phase == "entrance_wait":
+			customer.x = float(entrance.x)
+			customer.y = float(entrance.y)
+	# Rebuild routes during migration without turning a blocked visit into a
+	# departure before the first Live step (the released 0.4.8 contract).
+	var saved_mode: String = _state.mode
+	_state.mode = "edit"
+	for customer in _state.customers:
+		var waiting_overlap: bool = customer.phase != "entrance_wait" and _state.customers.any(func(other): return other.phase == "entrance_wait" and Vector2(float(customer.x),float(customer.y)).distance_to(Vector2(float(other.x),float(other.y))) < _customer_number("personal_space"))
+		if customer.phase != "entrance_wait" and (float(customer.y) < 3.0 or waiting_overlap):
+			# A visitor already crossing the retired doorway starts at the nearest
+			# free floor cell. No arrival, meal, payment or visit clock is replayed.
+			var nearest := Vector2(entrance)
+			var distance := INF
+			for y in range(3, int(floor_data.rows)):
+				for x in range(int(floor_data.columns)):
+					var point := Vector2(x, y)
+					if not _object_at(Vector2i(point)).is_empty(): continue
+					if _state.customers.any(func(other): return other.id != customer.id and point.distance_to(Vector2(float(other.x), float(other.y))) < 0.75): continue
+					var candidate := point.distance_squared_to(Vector2(float(customer.x), float(customer.y)))
+					if candidate < distance:
+						distance = candidate
+						nearest = point
+			customer.x = nearest.x
+			customer.y = nearest.y
+		customer.render_offset_x = 0.0
+		customer.render_offset_y = 0.0
+		if customer.phase in ["walking", "leaving"]:
+			var wander_elapsed: float = customer.wander_elapsed
+			_replan_navigation(customer)
+			if customer.navigation_mode == "wander": customer.wander_elapsed = wander_elapsed
+		else:
+			_clear_seated_route(customer)
+	_state.mode = saved_mode
+	_rebuild_access()
 
 func _normalize_restored_numbers() -> void:
 	# JSON represents integers and floats with the same number type. Normalize
@@ -1012,7 +1078,7 @@ func _point(value: Dictionary) -> Vector2i:
 	return Vector2i(int(value.x), int(value.y))
 
 func _inside(cell: Vector2i, floor_data: Dictionary) -> bool:
-	return cell.x >= 0 and cell.y >= 0 and cell.x < int(floor_data.columns) and cell.y < int(floor_data.rows)
+	return cell.x >= 0 and cell.y >= int(floor_data.get("backdrop_rows", 0)) and cell.x < int(floor_data.columns) and cell.y < int(floor_data.rows)
 
 func _merge_configuration(base: Dictionary, override_values: Dictionary) -> Dictionary:
 	var result := base.duplicate(true)
@@ -1040,6 +1106,8 @@ func _valid_configuration(config: Dictionary) -> bool:
 	for field in ["columns", "rows", "world_columns"]:
 		if not _nonnegative_integer(config.floor.get(field)) or float(config.floor[field]) < 1.0:
 			return false
+	if config.floor.has("backdrop_rows") and (not _nonnegative_integer(config.floor.backdrop_rows) or int(config.floor.backdrop_rows) >= int(config.floor.rows)):
+		return false
 	if not _valid_point(config.floor.get("entrance"), config.floor):
 		return false
 	for field in ["step_seconds", "belt_seconds_per_cell", "arrival_seconds", "walking_cells_per_second", "eating_seconds"]:

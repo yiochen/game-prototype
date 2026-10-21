@@ -19,7 +19,7 @@ func _run() -> void:
 	root.add_child(world)
 	world.update_layout()
 	var art = world.art
-	_expect(art.objects.size() == 33 and art.cell_size == 128.0, "The starter loads the approved 33-object subset at one 128px logical pitch")
+	_expect(art.objects.size() == 34 and art.cell_size == 128.0, "The starter loads the approved 34-object subset at one 128px logical pitch")
 	var verified_atlases := 0
 	var verified_frames := 0
 	for identity in art.objects:
@@ -60,7 +60,7 @@ func _run() -> void:
 				_expect(after.frame == (count - 1 if action.get("loop", true) == false else 0), "%s/%s honors the authored one-shot or loop boundary" % [identity, clip])
 				verified_atlases += 1
 				art.end_frame()
-	_expect(verified_atlases == 251 and verified_frames == 2859, "The audit exercises every selected atlas and directional frame")
+	_expect(verified_atlases == 252 and verified_frames == 2860, "The audit exercises every selected atlas and directional frame")
 	_expect(art.objects["coin-pop"].clips.pop.frames == 12 and art.objects["coin-pop"].clips.pop.loop == false, "Local sale feedback uses the approved twelve-frame native coin-pop one-shot")
 	_expect(world.customer_clip({"phase": "waiting", "visual_phase": "seated-wait", "meal_dish": null}) == "seated-wait-empty", "Waiting customers have no meal sprite before consumption")
 	_expect(world.customer_clip({"phase": "eating", "visual_phase": "eat", "meal_dish": {"recipe_id": "salmon_nigiri"}}) == "eat-salmon", "The actual consumed salmon dish chooses the native salmon eating clip")
@@ -68,7 +68,7 @@ func _run() -> void:
 	_test_visit_presentation(world)
 	_test_connections(world)
 	_test_rotatable_catalog(art)
-	_expect(art.objects["entry-finished"].footprint == [4.0, 1.0], "The entrance preserves the approved four-tile footprint")
+	_expect(art.objects["backdrop-entrance"].footprint == [4.0, 3.0], "The entrance preserves the approved four-by-three-tile backdrop plane")
 	_expect(art.objects["chef-blackboard"].facingPolicy == "single-player-facing" and art.objects["chef-blackboard"].clips.idle.directions.keys() == ["S"], "The blank front-band board has only its player-facing direction")
 	_expect(world.texture_filter == CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS, "The shared renderer requests smooth mipmapped sampling at phone scale")
 	art.begin_frame()

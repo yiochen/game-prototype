@@ -383,7 +383,15 @@ func _test_issue10_save_upgrade() -> void:
 		for key in observed.customers[index].keys():
 			if not previous.has(key):
 				observed.customers[index].erase(key)
-	_check(_same(observed, fixture.snapshot), "upgrading preserves the old floor, camera, coins, physical positions, dishes and every in-flight action clock")
+	var expected: Dictionary = fixture.snapshot.duplicate(true)
+	expected.floor.backdrop_rows = 3
+	expected.floor.entrance = {"x": 4, "y": 3}
+	for index in range(expected.customers.size()):
+		if float(expected.customers[index].y) < 3:
+			_check(float(observed.customers[index].y) >= 3, "A visitor crossing the retired doorway moves onto clear floor below the new backdrop")
+			expected.customers[index].x = observed.customers[index].x
+			expected.customers[index].y = observed.customers[index].y
+	_check(_same(observed, expected), "backdrop migration preserves the old floor extent, camera, coins, furniture, dishes and every in-flight action clock")
 	_check(game.save_data().random_state == fixture.save_data.random_state, "upgrade does not reroll old visitors or advance the random generator")
 	game.command({"type": "set_entrance_open", "open": false})
 	var events: Array = game.advance(60.0)

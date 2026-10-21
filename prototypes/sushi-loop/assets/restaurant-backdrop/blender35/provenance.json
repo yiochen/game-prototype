@@ -1,0 +1,61 @@
+{
+  "tool": "Blender MCP + native Blender 5.2.2 LTS EEVEE",
+  "intent": "Build the gate and matching walls in Blender; use the same 35 degree camera as characters. Wireframe comparison only.",
+  "imagegenReskin": false,
+  "model": {
+    "file": "source/restaurant-backdrop-35.blend",
+    "sha256": "61db5fd3ea32331eb305e3c68e6b0bee924b97fd03813546d8da51b280d25887"
+  },
+  "references": [
+    {
+      "path": "../raw/gate.png",
+      "sha256": "78c7d93a1eb6e089a2cbf8a959d18042444b5775226550b51a9d9759ea8f7c7e"
+    },
+    {
+      "path": "../raw/wall-plain.png",
+      "sha256": "3d5b4650dc482f3ffaa37256566d13077f7461b43b6d2caed2996d6ef8b0df8c"
+    },
+    {
+      "path": "../raw/wall-window.png",
+      "sha256": "30db27eab375c72e07c7c9f7e2bfa18c42c910de861610e24c9a51344bf8363c"
+    },
+    {
+      "path": "../original-concept-reference.jpg",
+      "sha256": "23b20f290e84d167c40aec91e60fd2e541444941e8421a314f45897a29445ca6"
+    },
+    {
+      "path": "../../production/source/records/chef-lena/camera.json",
+      "sha256": "e8a9bc00c4dca4cf153dc25d8674d37c5409314d293b593b5339eca32578c8c3"
+    }
+  ],
+  "sharedNativeRecipes": [
+    {
+      "path": "../../production/source/blender/prop_builders.py",
+      "sha256": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a"
+    },
+    {
+      "path": "../../production/source/blender/catalog_style.py",
+      "sha256": "ca784f2f23914bd0669eaf261073539698d9dee94c14d0604ebbb7db17f7a888"
+    },
+    {
+      "path": "../../production/source/blender/catalog_faceted.py",
+      "sha256": "fe2b5666ebea964e223b2c5a259d5f9f9fc690e12c851a0189b9a99fb151dfd3"
+    }
+  ],
+  "generatedWith": [
+    {
+      "path": "source/audit_backdrop.py",
+      "sha256": "5e24eb16a6224c91f8d546a8685fc8adb9af5665620d4fb49378862a42a9eda6"
+    },
+    {
+      "path": "source/build_backdrop.py",
+      "sha256": "32387042d074347433ce40d53f74beae847b88be463ccc3296e0cec1c34342f9"
+    },
+    {
+      "path": "source/render_backdrop.py",
+      "sha256": "e37f553d0b02fe25b449edd9749ed6f76785d694f8124eeb861f6e17bb31c19b"
+    }
+  ],
+  "audit": "geometry-audit.json",
+  "captures": "render-receipt.json"
+}

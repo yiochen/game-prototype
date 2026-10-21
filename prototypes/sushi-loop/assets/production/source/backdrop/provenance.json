@@ -1,0 +1,77 @@
+{
+  "tool": "Blender MCP + native Blender 5.2.2 LTS EEVEE + isolated Godot Compatibility capture",
+  "intent": "Restore original honey-wood wall color and a continuous wooden baseboard, with uniform ambient lighting and no harsh baked shadows. Wireframe only.",
+  "model": {
+    "path": "source/restaurant-backdrop-35.blend",
+    "sha256": "927a8a59e8d0f1e92669812214a8c4cdabc566905c7f33b09869c8f54335fe05"
+  },
+  "imagegenReskin": false,
+  "references": [
+    {
+      "path": "../original-concept-reference.jpg",
+      "sha256": "23b20f290e84d167c40aec91e60fd2e541444941e8421a314f45897a29445ca6"
+    },
+    {
+      "path": "../flat35/source/restaurant-backdrop-35.blend",
+      "sha256": "50dd4d4e33f5710747adb8bf3c8bcaa4a90b0d0cf366de7e513463896ab7a591"
+    },
+    {
+      "path": "../blender35/source/build_backdrop.py",
+      "sha256": "32387042d074347433ce40d53f74beae847b88be463ccc3296e0cec1c34342f9"
+    },
+    {
+      "path": "../../production/source/records/chef-lena/camera.json",
+      "sha256": "e8a9bc00c4dca4cf153dc25d8674d37c5409314d293b593b5339eca32578c8c3"
+    }
+  ],
+  "generatedWith": [
+    {
+      "path": "source/build_backdrop.py",
+      "sha256": "a36fdb5d96f78379bbae73374227c51680ff28d949f93b6764d76af68aa905ce"
+    },
+    {
+      "path": "source/render_backdrop.py",
+      "sha256": "83d5d657a5353bd89dd4b50ad684e68f0d296f8520c9be814a8f0c8a985ae39b"
+    },
+    {
+      "path": "source/audit_backdrop.py",
+      "sha256": "771ae0f0ec6a5c12620f55611ed0b5990d86115834f0d7295e145bed2ceafc9a"
+    },
+    {
+      "path": "source/lighting_probe.gd",
+      "sha256": "72208c7e08cb7d7b0b04c8351289f5a9725a75e65dcde79445c1025781e76366"
+    },
+    {
+      "path": "source/test_lighting.py",
+      "sha256": "e6009e3ab4fc197ded67ea8545d0b72ea39eea33f7fbc8d12d99d056c590a5b8"
+    }
+  ],
+  "audits": [
+    {
+      "path": "geometry-audit.json",
+      "sha256": "d0d8ddaf62dab0f54b380a99303c2fbc32fa23d5f90662f1cf6a35050577224f"
+    },
+    {
+      "path": "render-receipt.json",
+      "sha256": "f5ecedbb76b73ea4107252a5a4a749a6284d7671e6d94bc7f283f7fcbf2d4b0d"
+    },
+    {
+      "path": "lighting-proof/lighting-check.json",
+      "sha256": "f792dda9c2a56ec5b1662b4f795c92a5ffee6e76f095106440c5458ae942343c"
+    }
+  ],
+  "lightingCaptures": [
+    {
+      "path": "lighting-proof/ambient.png",
+      "sha256": "306ee3742d9986af8616055baeb09c7cf2721560825e358e326a1ce030b9e575"
+    },
+    {
+      "path": "lighting-proof/lanterns.png",
+      "sha256": "b38fcac3044bc1a163c4e1442272445a4ac03d638dfc224550851f2dd0ad0e4f"
+    },
+    {
+      "path": "lighting-proof/left-dim.png",
+      "sha256": "6d09407c5277518753709b7bc2e5f40c596d6fa922418b878a3ae32c4b305dd8"
+    }
+  ]
+}

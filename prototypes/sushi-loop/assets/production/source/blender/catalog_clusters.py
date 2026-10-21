@@ -1,4 +1,4 @@
-"""Native, reusable dense garden clusters and a modeled four-tile entrance.
+"""Native, reusable dense garden clusters.
 
 Root alone executes this module through Blender MCP. No rendering, publishing,
 camera fitting, external I/O or user-scene deletion occurs here. Geometry comes
@@ -384,83 +384,6 @@ def create_asset(asset_id):
         'All component objects and mesh datablocks were independently authored by the existing native builders.',
     ])
     pose('static', 0.)
-    return asset
-
-
-def _wide_entry(P):
-    builder = P.Builder('entry-finished-four-tile-native')
-    builder.footprint, builder.height = (4, 1), 2.30
-    for x in (-1.5, 1.5):
-        builder.box('pillar_' + str(x), (x, 0, .83), (.19, .25, 1.66), 'wood', .025)
-        builder.box('foot_' + str(x), (x, 0, .10), (.30, .35, .20), 'wood_dark', .02)
-        builder.box('cap_' + str(x), (x, 0, 1.68), (.32, .38, .12), 'wood_light', .02)
-    builder.box('lintel', (0, 0, 1.65), (3.35, .20, .20), 'wood_dark', .02)
-    # Rebuild the roof and add the required ceramic bars at its original pitch;
-    # no scale is applied to the previous roof or its texture/sprite.
-    P._roof(builder, 0, 0, 1.78, 3.50, 1.0)
-    for x in (-1.40, -1.14, 1.14, 1.40):
-        builder.box('noren_' + str(x), (x, -.015, 1.35), (.24, .045, .42), 'red', .01)
-    builder.socket('entry', (0, -.35, 0))
-    return builder.finish({'static': {'frames': 1, 'fps': 12, 'loop': False, 'static': True}})
-
-
-def upgrade_entry(asset):
-    """Widen entry-finished to four modeled tiles, preserving its ground root/IDs.
-
-    Old geometry is retained as hidden editable source in the same collection;
-    native action rebaking must follow. Existing clip identifiers remain intact.
-    New modeled columns, roof bars and curtains form the four-tile assembly.
-    """
-    import bpy
-    if asset.get('four_tile_native_entry'):
-        return asset
-    P, _ = _builders()
-    base_pose, base_clips = asset['pose'], list(asset['clips'])
-    old_visuals = [obj for obj in asset['root'].children_recursive
-                   if obj.type in ('MESH', 'CURVE', 'SURFACE', 'FONT')]
-    wide = _merge(asset, _wide_entry(P), 'four_tile_entry')
-    def pose(clip, t):
-        base_pose(clip, t)
-        wide['pose']('static', 0.)
-        wide['root'].location = (0., 0., 0.)
-        wide['root'].rotation_euler = (0., 0., 0.)
-        wide['root'].scale = (1., 1., 1.)
-        for obj in old_visuals:
-            obj.hide_render = True
-            obj.hide_viewport = True
-        bpy.context.view_layer.update()
-    asset['pose'] = pose
-    asset['reset'] = lambda: pose(base_clips[0], 0.)
-    asset['footprint'], asset['height'] = [4, 1], 2.30
-    asset['sockets'] = dict(asset.get('sockets', {}), entry=[0., -.35, 0.])
-    asset['four_tile_native_entry'] = {
-        'nativeRoot': wide['root'].name, 'footprint': [4, 1],
-        'pillarCenters': [[-1.5, 0., 0.], [1.5, 0., 0.]],
-        'openCenterX': [-1., 1.], 'retainedClipIds': base_clips,
-        'roofDepthOverhangAllowance': .12,
-        'nativeRoofObjects': [obj.name for name, obj in wide['parts'].items()
-                              if name.startswith('roof')],
-        'nativeSupportObjects': [obj.name for name, obj in wide['parts'].items()
-                                 if name.startswith(('pillar_', 'foot_', 'cap_'))],
-        'hiddenPriorGeometry': [obj.name for obj in old_visuals],
-        'source': 'catalog_clusters.py',
-    }
-    asset['composition_context'] = dict(asset.get('composition_context', {}),
-                                       fourTileEntry=asset['four_tile_native_entry'])
-    asset['supportLayout'] = {
-        'kind': 'four-tile-entry', 'footprintCells': [4, 1],
-        'pillarCenters': [[-1.5, 0., 0.], [1.5, 0., 0.]],
-        'openCenterCells': [[1, 0], [2, 0]],
-        'supportCells': [[0, 0], [3, 0]], 'groundRoot': [0., 0., 0.],
-    }
-    root = asset['root']
-    root['footprint_cells'], root['visual_height'] = json.dumps([4, 1]), 2.30
-    root['sockets'] = json.dumps(asset['sockets'])
-    root['support_cells'] = json.dumps([[0, 0], [3, 0]])
-    root['composition_context'] = json.dumps(asset['composition_context'])
-    root['support_layout'] = json.dumps(asset['supportLayout'])
-    root['four_tile_native_entry'] = json.dumps(asset['four_tile_native_entry'])
-    pose(base_clips[0], 0.)
     return asset
 
 
