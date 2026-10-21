@@ -1,0 +1,118 @@
+{
+  "asset": "bubble-puzzled",
+  "representation": "existing-imagegen-2d",
+  "project": "source/round01/bubble-puzzled.png",
+  "publisher": "source/round01/publish.py",
+  "preparationRecipe": "source/round01/prepare_sources.py",
+  "capture": {
+    "frame": [
+      384,
+      640
+    ],
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "columns": 6,
+    "rows": 2,
+    "atlasSize": [
+      2304,
+      1280
+    ]
+  },
+  "crop": {
+    "raw": "source/round01/resources/target.png",
+    "rawSHA256": "282eaf3996edc8a0028190719cbf6de9fc8044a8c9cd4917f8fefd6c4316b7c0",
+    "rawSize": [
+      972,
+      1619
+    ],
+    "thresholdForBoundsOnly": 8,
+    "box": [
+      174,
+      633,
+      798,
+      1194
+    ],
+    "canonical": "source/round01/bubble-puzzled.png",
+    "canonicalSize": [
+      624,
+      561
+    ],
+    "canonicalSHA256": "6616629971cfec1c755c9f43ab9ac9f4ff7b3fd3e7f6809c904159420025fb39",
+    "cropRGBAEqualRawRectangle": true,
+    "alphaInsideRectangleUnchanged": true,
+    "rawAlpha0Bounds": [
+      0,
+      87,
+      948,
+      1595
+    ],
+    "rawAlpha1Bounds": [
+      172,
+      631,
+      800,
+      1194
+    ],
+    "omittedOutsideRectangle": {
+      "nonzeroPixels": 378,
+      "maxAlpha": 7,
+      "alphaHistogram": {
+        "1": 183,
+        "2": 50,
+        "3": 43,
+        "4": 69,
+        "5": 27,
+        "6": 4,
+        "7": 2
+      },
+      "totalAlphaWeight": 861
+    },
+    "interpretation": "Exact raw target retained. Original publisher uses alpha>8 only to choose a once-only crop rectangle. Faint alpha1 outliers outside rectangle are omitted by this authorized original pipeline crop. A requirement to preserve all nonzero raw alpha in the packed cutout conflicts with this crop/82logical visible-width contract and requires coordinator resolution, never a waiver by editor."
+  },
+  "normalizedPhysical": [
+    164,
+    147
+  ],
+  "animation": {
+    "phase": "index/12*tau",
+    "center": "[96,248-52-3*sin(phase)]",
+    "appearScale": ".5+.5*sin((index+1)/12*pi/2)",
+    "appearOpacity": "(index+1)/12",
+    "fadeOpacity": "1-index/12",
+    "idle": "full size and opacity; 12frames repeating 6poses; loop true",
+    "rounding": "Original Python round; Pillow LANCZOS"
+  },
+  "aliases": "S,N,E,W equal original S atlas/rects; current native ArtBook requested-facing else S fallback unchanged.",
+  "context": {
+    "harness": "candidates/round01/native-context/project.godot",
+    "methods": [
+      "sprite",
+      "_customer_at",
+      "_feedback_at",
+      "customer_pose_offset",
+      "customer_feedback",
+      "ArtBook.frame_data",
+      "ArtBook.registered_rect"
+    ],
+    "currentAttachment": [
+      0,
+      -172
+    ],
+    "poseOffsetCell": [
+      0.06,
+      -0.02
+    ],
+    "phase": "entrance_wait, stand customer",
+    "runtime": "4seconds: appear<1s, fade>=3s, idle otherwise; reduced_motion idle frame0",
+    "legacy": "Separate -90logical catalog seated-wait/stool example, never used to adjust candidate registration"
+  },
+  "prohibitedOperationsApplied": []
+}

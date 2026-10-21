@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "asset": "column-broken",
+  "status": "proposed-for-coordinator-freeze",
+  "style": "Warm, softly lit cartoon; native editable 3D design improvements are authorized.",
+  "immutableTechnicalConstraints": {
+    "capture": {
+      "logicalFrame": [
+        192,
+        320
+      ],
+      "logicalRoot": [
+        96,
+        248
+      ],
+      "cellSize": 128,
+      "nativeCaptureScale": 4,
+      "nativeResolution": [
+        768,
+        1280
+      ],
+      "publishedSourceScale": 2,
+      "publishedResolution": [
+        384,
+        640
+      ],
+      "camera": "Preserve source-camera.json world/projection matrices and square pixels; use one fixed camera for N/E/S/W. Preserve logical floor root.",
+      "projection": "35-degree orthographic with canonical square-footing Y warp after facing rotation, transition .42. No alpha fitting, per-view framing, recoloring or regrading.",
+      "root": "Canonical native ground root identity at (0,0,0); turn the native model using S0/E+pi/2/Npi/W-pi/2 around its root."
+    },
+    "geometry": {
+      "physicalXYEnvelope": {
+        "min": [
+          -0.5,
+          -0.5
+        ],
+        "max": [
+          0.5,
+          0.5
+        ]
+      },
+      "groundContactZ": 0,
+      "maximumFunctionalHeight": 1.88,
+      "measuredOriginalHeightForRecordOnly": 1.7990000247955322,
+      "footprint": [
+        1,
+        1
+      ],
+      "sockets": {},
+      "ports": {},
+      "meaning": "Retain 1x1 ground contact/occupancy and maximum envelope, allowing improved crown, shaft/base proportions, geometry, crafted detail and moss. Original part count, exact source silhouette and source height are not locks."
+    },
+    "animation": {
+      "clip": "static",
+      "frames": 1,
+      "fps": 12,
+      "static": true,
+      "loop": false,
+      "views": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ]
+    },
+    "lighting": "No preferred horizontal world light direction, no directional ground shadow, no scene-wide restaurant-floor tuning. A symmetric native light or material response may differ from target one-sided lighting.",
+    "nativeDelivery": "Exact native .blend plus portable dependency-closed replay of all four native RGBA outputs. No painted target billboard, image-warp substitute or per-view surface trick."
+  },
+  "aestheticSuccessCriteria": [
+    {
+      "id": "shapeVolume",
+      "priority": 1,
+      "desiredOutcome": "Read immediately as a weathered broken pale-stone column rooted on a substantial square stone foot. Pillar and base have coherent thickness and soft broad facet/bevel transitions; broken crown, fractures and moss feel integrated and purposeful. Reward improved silhouette/construction/proportions inside the functional envelope, including rebuilding source weak geometry.",
+      "doNotRequire": "Exact target crack pattern, chip count, moss count, old ten parts or an exact pixel match to ImageGen."
+    },
+    {
+      "id": "color",
+      "priority": 2,
+      "desiredOutcome": "Warm ivory/cream pale stone remains dominant and separates clearly from lime/olive moss. Subtle cream-gray surface variation gives crafted weathered stone without cyan cast, neon-looking luminous green, random dirty noise or a generic gray wash."
+    },
+    {
+      "id": "lightingHighlights",
+      "priority": 2,
+      "desiredOutcome": "Broad soft light and gentle highlight transitions describe stone and moss volume in all four real facings. Faces retain color and readable curvature without large washed-out white patches, harsh bands, black dead spots or a preferred horizontal highlight direction."
+    },
+    {
+      "id": "materialDetail",
+      "priority": 3,
+      "desiredOutcome": "Cartoon stone edges and fractures read as solid thickness with restrained chips or weathering; moss is an organic volume following crown/crevices rather than isolated bright cubes. Details remain subordinate to the large volumes and do not require microtexture, photorealism or high gloss."
+    },
+    {
+      "id": "artifactFreeReadability",
+      "priority": 1,
+      "desiredOutcome": "At logical 192x320 and 128px cell scale every required facing remains a clear pale column with readable broken crown and moss masses, with clean alpha edges, sound grounding and no visible clipping, halos, pinholes, black seams, coplanar flicker, muddy merged forms, floating chips/growth or unwanted directional shadow."
+    }
+  ],
+  "requiredReviewEvidence": {
+    "hashBinding": "Immutable packet binds .blend, all inspected native render files/atlases/previews, native technical validation, dependency closure and portable replay. Judge checks exact bytes. Missing evidence means needs_evidence.",
+    "nativeViews": [
+      "static-N",
+      "static-E",
+      "static-S",
+      "static-W"
+    ],
+    "sizesAndBackgrounds": "Inspect all four at logical size and enlarged; light, neutral gray and dark backgrounds expose alpha/material defects. Contact sheets may contain each exact verified native frame without hidden per-view fitting or grading.",
+    "contactAndScale": "Proportionate four-facing sheet plus repeated/nearby column footprint contact and related scale preview. Source has no sockets/ports: evaluate grounding, occupancy, occlusion and functional spacing rather than invented modular joins.",
+    "actualConsumer": "Browser dev4178 #object-column-broken SpriteScene with shared native-world-raster path, hash-bound candidate URLs, all four facings and repeated/interaction context. Inspect phone/landscape/desktop readable framing as applicable; no unused Godot bench or shipping claim.",
+    "technical": "Validate root matrices, physical bounds, source camera matrices, resolution/pixel aspect, facing rotation followed by footing transform, no raster model substitutes, no links or packed resource gaps, no clipping and relocated exact native RGBA replay across all four views."
+  },
+  "approvalRule": "Approve only sealed candidate exact bytes visibly improve toward these frozen outcomes, satisfy source-derived functional capture contract, and have no material defects in every required view. Useful authorized shape differences are welcome. No automatic numeric threshold; at most three ranked blockers."
+}

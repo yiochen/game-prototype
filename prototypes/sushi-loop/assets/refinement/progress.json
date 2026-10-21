@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 35,
-  "published": 34,
-  "current": "34 objects live; rock-wall35 approved/promoted/tested, publishing next. Puzzled and stool inventorygoods independent review; fresh column judge defining criteria.",
+  "completed": 36,
+  "published": 35,
+  "current": "35 live. Puzzled36 approved/promoted/tested, publishing next; column native editor and panic native2D editor; original Lena judge defines held-food-only criteria. All five inventorygoods native views approved, final combined atlas/game cutover pending.",
   "objects": [
     {
       "id": "plant-angular",
@@ -790,7 +790,7 @@
       "name": "Puzzled bubble",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "reviewing",
+      "status": "approved",
       "clips": 3,
       "frames": 144,
       "target": "inputs/target.png",
@@ -798,18 +798,21 @@
       "editor": "catalog_bubble_puzzled_editor_v1",
       "judge": "catalog_bubble_puzzled_judge_v1",
       "round": "round01",
-      "packetSHA256": "d96db03e5f2ae6251ab785592f3ad711fd7f1069f5ed688011f9dc3bd0f1d528"
+      "packetSHA256": "d96db03e5f2ae6251ab785592f3ad711fd7f1069f5ed688011f9dc3bd0f1d528",
+      "reviewSHA256": "afadbf48bab0818579b5010bb094ef95974d1054f41c01b6c2bf54160cd1d3b1"
     },
     {
       "id": "bubble-panic",
       "name": "Panic bubble",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "prepared",
+      "status": "criteria-frozen",
       "clips": 3,
       "frames": 144,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "editor": "catalog_bubble_panic_editor_v1",
+      "judge": "catalog_bubble_panic_judge_v1"
     },
     {
       "id": "coin-pop",
@@ -910,7 +913,7 @@
       "name": "Cobalt canyon rock wall middle",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
@@ -918,34 +921,41 @@
       "judge": "catalog_rock_wall_middle_judge_v1",
       "round": "round-04",
       "packetSHA256": "27b739c320f276e639b27094008d8d9bd5e1512833d94720dc651c97a2cf4107",
-      "reviewSHA256": "d34aba9aea36a203c2be32747cdd91f3b8a3378e7ed80fd2544d728117213131"
+      "reviewSHA256": "d34aba9aea36a203c2be32747cdd91f3b8a3378e7ed80fd2544d728117213131",
+      "publishedCommit": "417a049e18ab3deb1eaa12f40d3e22b8255ef91c"
     },
     {
       "id": "rock-wall-edge",
       "name": "Cobalt canyon rock wall edge",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "rock-wall-corner",
       "name": "Cobalt canyon rock wall corner",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "rock-wall-end",
       "name": "Cobalt canyon rock wall end",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "rock-shelf-middle",
@@ -1063,9 +1073,11 @@
       "name": "Half-width rock barrier",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "boulder-underwater",

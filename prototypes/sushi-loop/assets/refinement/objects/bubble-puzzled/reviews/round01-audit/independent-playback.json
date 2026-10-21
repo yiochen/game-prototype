@@ -1,0 +1,93 @@
+{
+  "reviewerRole": "fresh independent visual judge",
+  "surface": "http://127.0.0.1:4178/prototypes/sushi-loop/assets/refinement/objects/bubble-puzzled/candidates/round01/previews/index.html",
+  "browser": "Chrome extension through CUA; IAB unavailable",
+  "candidatePacketSHA256": "d96db03e5f2ae6251ab785592f3ad711fd7f1069f5ed688011f9dc3bd0f1d528",
+  "independentObservation": true,
+  "nativeRuntime": {
+    "observedDurationMs": 4302,
+    "sampledNativeTimesSeconds": [
+      1.333,
+      2.0,
+      2.667,
+      3.417,
+      0.083,
+      0.833,
+      1.5
+    ],
+    "scalesCellPixels": [
+      128,
+      80,
+      50
+    ],
+    "poseOffsetCell": [
+      0.06,
+      -0.02
+    ],
+    "attachmentLogical": [
+      0,
+      -172
+    ],
+    "finding": "Actual native APNG advances through full entrance-wait cycle: appearance, stable bob, fade and demonstration restart; readable symbol, consistent customer attachment, no clipping or visible flicker. Isolated current-renderer harness, not a full game capture."
+  },
+  "appear": {
+    "observedDurationMs": 1250,
+    "statusSequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "inspectedScreenshotFrames": [
+      0,
+      6,
+      11
+    ],
+    "onceHoldConfirmed": true,
+    "finding": "Grows and gains opacity using source motion, then holds full frame11."
+  },
+  "idle": {
+    "observedDurationMs": 4302,
+    "loopBoundaryObserved": [
+      "10",
+      "11",
+      "0",
+      "1"
+    ],
+    "all12FrameStatusesObserved": true,
+    "finding": "Repeated gentle vertical bob stays registered; no symbol sliding or new size pumping."
+  },
+  "fade": {
+    "observedDurationMs": 1250,
+    "statusSequence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "inspectedScreenshotFrames": [
+      1,
+      6,
+      11
+    ],
+    "onceHoldConfirmed": true,
+    "finding": "Opacity decreases coherently and holds intentional faint1/12opacity endpoint."
+  },
+  "notes": "Screenshots were emitted by CUA for these independent observations. No source/target/candidate bytes were changed. Standalone APNG carriers loop for review; actual once/loop selection is checked in the manifest, correct HTML canvas playback and current Godot clip selection."
+}

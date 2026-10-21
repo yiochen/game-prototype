@@ -1,0 +1,240 @@
+{
+  "asset": "bubble-puzzled",
+  "role": "independent native2D editor",
+  "inspectionOrder": "Only selected brief source/target/capture/constraints/modelingPolicy/familyContext fields and editor prompt have been read; no judge criteria, reviews or sibling implementation read yet.",
+  "observations": [
+    "Original raw artwork and registered snapshot show a plum question mark inside a warm cream balloon with short curved tail. The original mark is broad, dark, visibly layered, and readable on the registered frame.",
+    "Fixed raw target preserves the same question identity and cream/plum family, with more rounded and softly shaded inflated symbol, brighter concentrated highlights, and an amber-brown rim. Target occupies a smaller region of its raw canvas so original publisher crop and width normalization must be explicit.",
+    "Approved heart/smile context uses rounded cream rim, smooth warm interior, dark warm contour and bright upper left highlight. Their top-right yellow accents belong to those emotions; puzzled target has none.",
+    "A single native2D cutout can use original publisher sine bob / appearance uniform scale / fade opacity and identical camera-facing direction aliases; no 3D scene exists.",
+    "Raw target contains faint alpha at wide bounds; threshold >8 is the original publisher policy and must be measured versus all nonzero support without deleting raw bytes."
+  ],
+  "measurements": [
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/bubble-puzzled/inputs/original.png",
+      "size": [
+        384,
+        640
+      ],
+      "boundsByAlphaGreaterThan": {
+        "0": [
+          110,
+          318,
+          274,
+          465
+        ],
+        "1": [
+          110,
+          318,
+          274,
+          465
+        ],
+        "8": [
+          110,
+          318,
+          274,
+          465
+        ],
+        "16": [
+          110,
+          318,
+          274,
+          465
+        ],
+        "128": [
+          110,
+          318,
+          274,
+          465
+        ],
+        "254": [
+          111,
+          319,
+          273,
+          464
+        ]
+      }
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/bubble-puzzled/inputs/target.png",
+      "size": [
+        972,
+        1619
+      ],
+      "boundsByAlphaGreaterThan": {
+        "0": [
+          0,
+          87,
+          948,
+          1595
+        ],
+        "1": [
+          172,
+          631,
+          800,
+          1194
+        ],
+        "8": [
+          174,
+          633,
+          798,
+          1194
+        ],
+        "16": [
+          174,
+          633,
+          798,
+          1194
+        ],
+        "128": [
+          175,
+          634,
+          797,
+          1193
+        ],
+        "254": [
+          178,
+          635,
+          796,
+          1192
+        ]
+      }
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/production/source/2d/generated/bubble-puzzled.png",
+      "size": [
+        1330,
+        1182
+      ],
+      "boundsByAlphaGreaterThan": {
+        "0": [
+          74,
+          2,
+          1312,
+          1182
+        ],
+        "1": [
+          74,
+          62,
+          1257,
+          1124
+        ],
+        "8": [
+          76,
+          64,
+          1255,
+          1122
+        ],
+        "16": [
+          76,
+          64,
+          1255,
+          1122
+        ],
+        "128": [
+          77,
+          65,
+          1254,
+          1121
+        ],
+        "254": [
+          80,
+          65,
+          1251,
+          1120
+        ]
+      }
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/bubble-puzzled/inputs/approved-feedback-family-heart.png",
+      "size": [
+        384,
+        640
+      ],
+      "boundsByAlphaGreaterThan": {
+        "0": [
+          110,
+          314,
+          274,
+          471
+        ],
+        "1": [
+          110,
+          314,
+          274,
+          471
+        ],
+        "8": [
+          110,
+          314,
+          274,
+          471
+        ],
+        "16": [
+          110,
+          314,
+          274,
+          471
+        ],
+        "128": [
+          110,
+          314,
+          274,
+          471
+        ],
+        "254": [
+          111,
+          315,
+          273,
+          470
+        ]
+      }
+    },
+    {
+      "path": "prototypes/sushi-loop/assets/refinement/objects/bubble-puzzled/inputs/approved-feedback-family-smile.png",
+      "size": [
+        384,
+        640
+      ],
+      "boundsByAlphaGreaterThan": {
+        "0": [
+          110,
+          314,
+          274,
+          471
+        ],
+        "1": [
+          110,
+          314,
+          274,
+          471
+        ],
+        "8": [
+          110,
+          314,
+          274,
+          471
+        ],
+        "16": [
+          110,
+          314,
+          274,
+          471
+        ],
+        "128": [
+          110,
+          314,
+          274,
+          471
+        ],
+        "254": [
+          111,
+          315,
+          273,
+          470
+        ]
+      }
+    }
+  ],
+  "implementationIntent": "Retain exact raw target; apply declared once-only original publisher alpha>8 bounds crop, fixed width82 logical normalization, then exact original registered animation and atlas math. Independently expose faint-alpha support versus effective bounds. No new paint, warp, per-view or per-frame fit."
+}

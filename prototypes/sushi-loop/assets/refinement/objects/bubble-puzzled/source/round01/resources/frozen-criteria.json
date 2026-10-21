@@ -1,0 +1,215 @@
+{
+  "schemaVersion": 1,
+  "asset": "bubble-puzzled",
+  "status": "proposal-awaiting-coordinator-reconciliation",
+  "authorRole": "fresh independent visual judge",
+  "scope": "Existing authored 2D raster feedback asset. No Blender project or 3D reconstruction is asserted or required for this exception. No approval is issued by this proposal.",
+  "fixedReferences": {
+    "original": {
+      "path": "inputs/original.png",
+      "sha256": "bf444e0f345d8f916491adf17dbc48a4699c7108792613cbdaeedbaafeef3ed4"
+    },
+    "target": {
+      "path": "inputs/target.png",
+      "sha256": "282eaf3996edc8a0028190719cbf6de9fc8044a8c9cd4917f8fefd6c4316b7c0"
+    },
+    "familyContext": [
+      {
+        "path": "inputs/approved-feedback-family-heart.png",
+        "sha256": "f7d434231536ee41c0a8d59617d051ac8af244065418aff4b6d87a29cb8a8a39"
+      },
+      {
+        "path": "inputs/approved-feedback-family-smile.png",
+        "sha256": "6448d564f806b2303658bc1e4476f38ec0dbb169e2e36044c6c620239bfd6fdf"
+      }
+    ]
+  },
+  "visibleOutcomes": [
+    {
+      "id": "form-volume",
+      "priority": 1,
+      "outcome": "A puffy cream speech balloon with a coherent rounded rim and a clear lower tail. Soft face-to-edge volume and gentle occlusion make the balloon feel dimensional. Curves and tail join stay deliberate and smooth; useful form improvements are welcome without copying weak old curves.",
+      "evaluation": "Compare original, fixed target and native candidate at a common registered frame and 82 logical pixel full-size artwork width, then enlarged. The target supplies finish and design direction; its raw canvas does not establish registration."
+    },
+    {
+      "id": "emotion-identity",
+      "priority": 1,
+      "outcome": "One instantly recognizable plum-purple question mark with a separate round dot, clean hook opening and breathing room inside the ivory balloon. It reads as puzzled/confused admission-wait feedback without added emotion-changing ornaments.",
+      "evaluation": "The hook and dot remain separated and readable at 82 logical pixel full-size width and in the actual game context. A 32 pixel wide stress view checks that the silhouette and punctuation survive reduction; it is not a replacement gameplay scale."
+    },
+    {
+      "id": "palette-family",
+      "priority": 1,
+      "outcome": "Preserve the cream/ivory balloon, warm brown rim and plum symbol palette. Warm midtones and restrained peach/amber edge reflection harmonize with the supplied approved heart/smile family while retaining this object's own emotion and fixed target.",
+      "evaluation": "Inspect beside the supplied family frames at the same full registered frame/root and 82 logical width. Family images are context only, not inputs to this object's prior ImageGen generation."
+    },
+    {
+      "id": "soft-light-material",
+      "priority": 2,
+      "outcome": "Broad soft cream gradients, restrained highlights and gentle shading give the face, rim, hook and dot rounded volume. No harsh black contour, muddy flattened area or overbright specular patch competes with the symbol.",
+      "evaluation": "Inspect light/gray/dark backgrounds at game size and enlarged. Camera-facing painted highlights may follow the fixed target; do not invent a symmetric-light requirement or directional world-light metadata. No external bloom, halo, directional ground shadow or scene background."
+    },
+    {
+      "id": "purposeful-detail",
+      "priority": 2,
+      "outcome": "Small highlights and rim accents support the balloon and glossy symbol forms without noisy sparkles, unnecessary texture, accidental marks or decoration that changes the role.",
+      "evaluation": "Inspect both enlarged construction and small-size clarity. Do not reward extra detail merely for quantity."
+    },
+    {
+      "id": "clean-alpha-no-deadspots",
+      "priority": 1,
+      "outcome": "Clean real transparency, intact connected balloon/tail, readable interior punctuation and no detached debris, clipping, rectangular background, fringe, holes, broken rim, visual dead spots or distracting seams throughout the required clips.",
+      "evaluation": "Inspect all36 unique registered clip frames on light, gray and dark; preserve intentional low opacity in appearance/fade. The final fade frame intentionally retains 1/12 opacity. Inspect alpha>0 as well as visible bounds; do not certify appearance from a hash or bounds alone."
+    },
+    {
+      "id": "motion-and-context",
+      "priority": 1,
+      "outcome": "Stable camera-facing artwork remains legible and coherently attached to its customer during source appearance, idle bob and fade. No frame-specific fit, symbol sliding, size pumping beyond source appearance scaling, alias rotation, drift or abrupt new motion.",
+      "evaluation": "Watch all3 clips at12fps including idle loop boundary and the real entrance-wait use flow. Inspect representative current Godot context with the exact imported candidate, including customer pose offset, plus a clearly labeled separate legacy catalog -90 example when delivered. Missing playable evidence is not a pass."
+    }
+  ],
+  "hardConstraints": {
+    "pipeline": "Existing imagegen-2d raster plus deterministic native2D publisher; honest source/provenance. Retain raw original and fixed target bytes. Ordinary once-only alpha-bounds crop, uniform same-asset normalization, original fixed-canvas packing and original animation are authorized. No Python painting/warping/repair, per-frame/facing fit or fabricated Blender evidence.",
+    "registration": {
+      "projection": "screen-space-2d",
+      "logicalFrame": [
+        192,
+        320
+      ],
+      "captureFrame": [
+        384,
+        640
+      ],
+      "logicalRoot": [
+        96,
+        248
+      ],
+      "sourceScale": 2,
+      "cellSize": 128,
+      "nominalFullSizeArtworkWidthLogical": 82,
+      "atlasLayout": {
+        "columns": 6,
+        "rows": 2,
+        "size": [
+          2304,
+          1280
+        ],
+        "frameRects": "Original row-major 384x640 rects, frameOrder0..11"
+      },
+      "footprint": [
+        1,
+        1
+      ],
+      "rootCell": [
+        0.5,
+        0.5
+      ],
+      "poseFitting": false
+    },
+    "directionPolicy": {
+      "catalogRequiredAliases": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "policy": "camera-facing",
+      "expected": "Four equal alias entries to the same S atlas for each clip; no rotated/repainted variant. Current Godot catalog intentionally stores only S and falls back to S; this consumer reduction is not evidence of four distinct facings."
+    },
+    "clips": [
+      {
+        "id": "appear",
+        "frames": 12,
+        "fps": 12,
+        "loop": false,
+        "static": false,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "idle",
+        "frames": 12,
+        "fps": 12,
+        "loop": true,
+        "static": false,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "fade",
+        "frames": 12,
+        "fps": 12,
+        "loop": false,
+        "static": false,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      }
+    ],
+    "originalAnimation": "For indexi0..11, phase=i/12*2pi; center=[rootX,rootY-52-3*sin(phase)]. Full artwork width82logical. Appear uniform scale=.5+.5*sin((i+1)/12*pi/2), opacity=(i+1)/12; idle full-size/full-opacity; fade opacity=1-i/12. Preserve original raster rounding and full-frame packing. Original distinct RGBA counts12/6/12; declared minimum6 each.",
+    "currentRuntime": {
+      "script": "prototypes/sushi-loop/godot/scripts/restaurant_view.gd",
+      "attachmentLogical": [
+        0,
+        -172
+      ],
+      "formula": "bubble_base = customer ground base + customer_pose_offset(customer,pitch) + Vector2(0,-172)*pitch/128; sprite uses S and registered root/frame. Artwork center has its additional authored -52logical bob offset inside the frame.",
+      "poseOffset": "[render_offset_x,render_offset_y]*pitch, plus existing transient satisfied-state hop when applicable. Bubble and customer use the same function. No new behavior or offset alteration is authorized.",
+      "puzzledUse": "phase entrance_wait; first second appear, intermediate idle, final second fade; reduced_motion uses idle frame0."
+    },
+    "legacyCatalogContext": {
+      "source": "inputs/catalog-object.json interactions[0]",
+      "customer": "customer-rosa seated-wait plus stool-wood",
+      "attachmentLogical": [
+        0,
+        -90
+      ],
+      "distinction": "Historical catalog example. This is not the current Godot -172 attachment or the standing entrance-wait pose. Label it separately; do not adjust candidate registration to compensate for it."
+    },
+    "scope": "This object only. No gameplay, source runtime attachment, customer pose, sibling asset or excluded floor changes."
+  },
+  "submissionEvidence": [
+    "An immutable hash-bound packet binding exact raw target, frozen criteria/brief, native raster source, actual deterministic publisher, dependency closure, metadata, three atlases, all36 registered frame images and any previews. No editor self-rating is a substitute for independent review.",
+    "Portable replay from a relocated object/source folder or other clean output location, using only declared relative resources and declared standard runtime dependencies; regenerate all36 frames/atlases and compare exact hashes or RGBA bytes plus metadata. Bind replay inputs/results. Do not depend on original repo checkout paths or unstated temporary files.",
+    "Complete-frame contact sheets with original root/scale; game-size and enlarged comparisons against original, fixed target and supplied family; all36 frames visible on light/gray/dark backgrounds. Four direction aliases can be verified once per clip without duplicating identical image evidence.",
+    "Playable12fps evidence for appear/idle/fade with correct once/loop behavior, plus endpoint/idle-loop inspection. Prefer a compact portable HTML/GIF/video backed by exact candidate frames rather than dozens of redundant previews. Playback must be actually inspected before approval.",
+    "Current Godot renderer context showing the exact candidate over an admission-wait customer, preserving -172logical attachment, pose offset and imported full-frame/root. Include one nonzero customer pose-offset case or equivalent captured renderer evidence; distinguish any legacy -90 catalog illustration. Runtime evidence may use a declared isolated test consumer and must not change game behavior.",
+    "Technical validation of true alpha, crop/normalization policy, frame/root/sourceScale, atlas rects, aliases, frame order/count/fps/loop and minimum unique frames. State target alpha outlier handling explicitly and retain raw fixed target bytes. Final source/render bytes must match the approved packet."
+  ],
+  "approvalPolicy": "No approval until coordinator freezes reconciled criteria and a sealed candidate is independently inspected with required visual, portable replay and motion/context evidence. Missing evidence yields needs_evidence, not approval."
+}
