@@ -1,0 +1,262 @@
+{
+  "id": "decor-ruin-fragment",
+  "name": "Ruin fragment",
+  "family": "W12",
+  "status": "ready",
+  "kind": "prop",
+  "footprint": [
+    1,
+    1
+  ],
+  "projection": "height-dependent-35-square-footing",
+  "frameSize": [
+    192,
+    480
+  ],
+  "root": [
+    96,
+    384
+  ],
+  "sourceScale": 2,
+  "clips": [
+    {
+      "id": "static",
+      "sourceClipId": "static",
+      "name": "Static",
+      "frames": 1,
+      "fps": 12,
+      "static": true,
+      "loop": false,
+      "frameOrder": [
+        0
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/decor-ruin-fragment/static-N.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            960
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              960
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/decor-ruin-fragment/static-E.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            960
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              960
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/decor-ruin-fragment/static-S.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            960
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              960
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/decor-ruin-fragment/static-W.png",
+          "columns": 1,
+          "rows": 1,
+          "atlasSize": [
+            384,
+            960
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              960
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "name": "Layered scenery beside the submarine and creature",
+      "gridSize": [
+        6,
+        4
+      ],
+      "placements": [
+        {
+          "object": "decor-ruin-fragment",
+          "x": 0,
+          "y": 1,
+          "direction": "S"
+        },
+        {
+          "object": "submarine-yellow",
+          "x": 2,
+          "y": 0,
+          "direction": "N",
+          "clip": "travel"
+        },
+        {
+          "object": "creature-eel",
+          "x": 4,
+          "y": 1,
+          "direction": "N",
+          "clip": "swim"
+        }
+      ]
+    }
+  ],
+  "requirements": {
+    "directions": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "states": [
+      "static"
+    ],
+    "variants": [
+      "default"
+    ],
+    "animated": false,
+    "fps": 12,
+    "minimumUniqueFrames": 1,
+    "targetLoopFrames": 1,
+    "interactionObjectIds": [
+      "submarine-yellow",
+      "creature-eel"
+    ],
+    "notes": "Distinct visibility/depth metadata; low contrast behind actors and warning silhouettes. Ambient parameters have frozen reduced-motion state."
+  },
+  "layer": 2,
+  "blocking": false,
+  "height": 2.18,
+  "productionStage": "Native Blender \u00b7 approved Faceted lighting and materials",
+  "directionFootprints": {
+    "N": [
+      1,
+      1
+    ],
+    "E": [
+      1,
+      1
+    ],
+    "S": [
+      1,
+      1
+    ],
+    "W": [
+      1,
+      1
+    ]
+  },
+  "directionRootCells": {
+    "N": [
+      0.5,
+      0.5
+    ],
+    "E": [
+      0.5,
+      0.5
+    ],
+    "S": [
+      0.5,
+      0.5
+    ],
+    "W": [
+      0.5,
+      0.5
+    ]
+  },
+  "rootCell": [
+    0.5,
+    0.5
+  ],
+  "occupiedCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "supportCells": [],
+  "overheadCells": [],
+  "registration": {
+    "method": "authored-3d-projection",
+    "groundAnchorAlignment": "center",
+    "completeFrame": [
+      192,
+      480
+    ],
+    "anchor": [
+      96,
+      384
+    ],
+    "cellSize": 128,
+    "poseFitting": false,
+    "sourceCaptureScale": 4
+  },
+  "sockets3D": {},
+  "sockets": {
+    "N": {},
+    "E": {},
+    "S": {},
+    "W": {}
+  },
+  "socketSpace": "root-relative logical pixels projected from declared native attachment points",
+  "validation": {
+    "rigEvidence": "exported; native and complete capture audits passed"
+  },
+  "captureFingerprint": "c2fb5078981aa7c6f08770131f3812184bcd5657801daa3b5bb25ca911a16e77",
+  "portProfiles": {},
+  "artStyle": {
+    "revision": "faceted-approved-2026-10-19",
+    "contrast": 1.35,
+    "contrastSpace": "sRGB",
+    "environmentHeightRatio": 0.7,
+    "lowerTone": "native world-height material ramp",
+    "worldLighting": true,
+    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
+    "roughness": 0.85,
+    "specularIORLevel": 0.03,
+    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
+    "beltRailColor": "#966B60",
+    "floorAlbedoCalibration": 0.42
+  },
+  "conceptReference": "reef-face",
+  "source": {
+    "blend": "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "modelScript": "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py",
+    "camera": "source/records/decor-ruin-fragment/camera.json",
+    "guide": "source/registered/decor-ruin-fragment/static-N/guide.json",
+    "assetRecord": "source/records/decor-ruin-fragment/asset.json",
+    "rig": "source/records/decor-ruin-fragment/rig.json"
+  }
+}

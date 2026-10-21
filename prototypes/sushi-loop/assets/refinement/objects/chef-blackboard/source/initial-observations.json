@@ -1,0 +1,14 @@
+{
+  "role": "Independent native editor initial inspection",
+  "basis": ["inputs/original.png", "inputs/target.png", "inputs/source-camera.json", "inputs/source-assetRecord.json", "inputs/source-rig.json", "source-native-inspection.json"],
+  "sourceObservations": [
+    "The native library contains a discrete chef-blackboard collection, a ground-root Empty and ten mesh parts. All board parts are parented to the root; original native actions are retained in data and registered by the root's native_action_record.",
+    "The original sprite is a small player-facing rectangular blank dark blue board. The yellow-gold top rail is flat and very bright; the lower feet are dark. There are only shallow bevels and no visible joinery or fasteners.",
+    "The board is physically thin and lives in a front strip of the chef cell. The source snapshot is not centered on its silhouette: much of the registered canvas is deliberately transparent.",
+    "The scene's currently active camera/render configuration is unrelated to the registered asset export. The board's source-camera.json is the authoritative registered capture matrix, pixel aspect and dimensions; those must be restored without fitting.",
+    "The target makes the board read as a crafted toy prop: thick softened honey wood rails, rounded cap blocks and feet, restrained curved grain and four brass pegs. The recessed blank blue-slate panel is important and must remain unmarked.",
+    "The useful native reconstruction is larger real edge radii, a coherent rounded wood structure and subdued grain plus pegs, with broad gentle highlights. Target sparkle/edge artifacts should not become geometry or baked pixels. The source front band, display socket and native animation actions remain locked."
+  ],
+  "inspectionOrderNote": "Original and fixed target pixels and native source data inspected before opening reviews/criteria.json. The complete brief had been read as instructed and contains a frozen criteria summary; no judge critique/proposal file read before these observations.",
+  "implementationIntent": "Reconstruct only nonfunctional wood modeling and shading while retaining original part ownership/action bindings, registered capture and blank display alignment. Native procedural materials and geometry; no painted image substitute."
+}

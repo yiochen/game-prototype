@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "asset": "bubble-happy",
+  "status": "proposed-awaiting-coordinator-freeze",
+  "independence": "Derived only from original source/snapshot, fixed targets, actual original publishers/manifests/frames and declared use. No editor proposal or sibling aesthetic critique read.",
+  "fixedTargets": {
+    "heart": {
+      "path": "inputs/target.png",
+      "sha256": "63f9892bf5dc6ec294a0b02d0251f715bb48749b7a8f84a73acdf6780aeaad65"
+    },
+    "smile": {
+      "path": "inputs/runtime-variants/smile/target.png",
+      "sha256": "7d5e7ea10bf0641a350f3a033b1297cab99bff337a264c90735b41ece0d55f9f"
+    }
+  },
+  "visibleOutcomes": [
+    {
+      "id": "rounded-cream-construction",
+      "outcome": "Both balloons read as one softly rounded cream body with a coherent warm rim, joined lower tail and smooth continuous silhouette. Fuller target construction is visible without pinches, disconnected tail or heavy black dead borders."
+    },
+    {
+      "id": "warm-soft-volume",
+      "outcome": "Broad gentle highlights, warm cream midtones and restrained lower/edge reflections create puffy cartoon volume. Bright marks stay contained in the artwork; no harsh cast shadow, outer bloom or glowing fringe. Do not add directional lighting to the camera-facing aliases."
+    },
+    {
+      "id": "heart-identity",
+      "outcome": "Main sprite clearly reads as a red/pink heart with two lobes, central notch and lower point inside the cream speech balloon; the small gold excitement ticks remain separate and purposeful. Interior breathing room keeps the heart clear at game size."
+    },
+    {
+      "id": "smile-identity",
+      "outcome": "Runtime smile remains a joyful golden-yellow round face with two curved closed happy eyes, two rosy cheeks and a broad open smiling mouth. Eye, cheek and mouth shapes remain separated at intended game size; no heart substitution or ambiguous emotion."
+    },
+    {
+      "id": "coherent-family",
+      "outcome": "Heart and smile share compatible warm ivory/gold/brown material, soft highlight language, rounded balloon/tail treatment and excitement ticks while preserving their distinct red/pink versus golden symbol palettes. Useful proportion changes are acceptable."
+    },
+    {
+      "id": "readability-context",
+      "outcome": "At82logicalwidth normalization and representative actual above-customer game scales (including roughly32px occupied width where used), emotion and tail remain legible on light/gray/dark and over representative customer/stool scenes. Customer, balloon and ticks do not merge into clutter or occlude essential feedback."
+    },
+    {
+      "id": "alpha-cleanliness",
+      "outcome": "Transparent surrounds remain actual alpha. No baked background, rectangular matte, detached stray debris, colored fringe, clipped edge/tick/tail, resampling seams or per-frame shape damage. Inspect enlarged and intended-size composites; authorized excitement ticks are not debris."
+    },
+    {
+      "id": "animation-continuity",
+      "outcome": "Each original appear/idle/fade/transition sequence retains its smooth opacity, bob and pulse behavior, stable body/symbol relationship and original loop policy. No jitter, per-frame fitting, changing material grade, new dead interval or motion artifact."
+    }
+  ],
+  "hardContract": {
+    "pipeline": "existing2D native raster and deterministic publisher only; honest sprite assembly evidence is sufficient. No fabricated Blender/project/rig/camera evidence.",
+    "sourceOperations": "One alpha>8rectangle crop per complete raw source and one uniform82logicalwidth resize, followed by original2D animation/packing. No artistic Python paint/warp/erasure, per-frame/facing fit or per-frame/facing regrade. Preserve raw targets, original raw sources and generation prompts/provenance.",
+    "registration": {
+      "frame": [
+        384,
+        640
+      ],
+      "logicalFrame": [
+        192,
+        320
+      ],
+      "logicalRoot": [
+        96,
+        248
+      ],
+      "sourceScale": 2,
+      "fps": 12,
+      "projection": "screen-space-2d",
+      "atlas": [
+        2304,
+        1280
+      ],
+      "layout": {
+        "columns": 6,
+        "rows": 2,
+        "rectangles": "row-major12rects, each384x640"
+      }
+    },
+    "main": {
+      "clips": [
+        "appear",
+        "idle",
+        "fade",
+        "happy-transition"
+      ],
+      "framesPerClip": 12,
+      "cameraFacingAliases": [
+        "S",
+        "N",
+        "E",
+        "W"
+      ],
+      "slots": 192,
+      "actualSFrames": 48,
+      "loopOnly": "idle",
+      "frameOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "aliasPolicy": "All four directions preserve exact S image/rect metadata; no invented directional art."
+    },
+    "smileRuntime": {
+      "clips": [
+        "happy-smile-appear",
+        "happy-smile-idle",
+        "happy-smile-fade",
+        "happy-smile-transition"
+      ],
+      "actualFacing": "S",
+      "framesPerClip": 12,
+      "actualFrames": 48,
+      "loopOnly": "happy-smile-idle",
+      "registrationPolicy": "Separate runtime manifest retaining existing camera-facing fallback; do not add these to the main catalog contract.",
+      "frameOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "animation": {
+      "phase": "index/12*2pi",
+      "centerLogical": "[96,248-52-3*sin(phase)]",
+      "appear": "scale=.5+.5*sin((index+1)/12*pi/2); opacity=(index+1)/12",
+      "fade": "opacity=1-index/12",
+      "transition": "scale=1+.12*sin(phase)",
+      "idle": "scale=1; opacity=1; original3px bob",
+      "packing": "Original round-to-pixel placement and Pillow LANCZOS size behavior on fixed complete canvas."
+    }
+  },
+  "requiredCandidateEvidence": {
+    "binding": "Immutable packet SHA binds exact source recipe, full raw sources/targets/provenance, resources/dependency closure, final atlases, manifest registrations, previews and validation. A manifest assertion alone does not prove replay or appearance.",
+    "replay": "Run source recipe from its declared closed resource set; replayed exported pixels/bytes must match exact submitted atlases and manifest bindings. Document tools/versions/command without giant raw dumps.",
+    "coverage": "Account for all192main slots and48actual smile runtime frames/aliases/registrations. Inspect every unique actual frame and atlas, compact complete contact sheets and12fpsplayback, with light/gray/dark intended-size and enlarged views plus representative actual above-customer assembly contexts.",
+    "scope": "Approval applies only to exact packet bytes; missing relevant evidence yields needs_evidence, visible blockers yield revise. No numeric score threshold."
+  },
+  "reviewOwnership": "Judge writes reviews/ only. Coordinator freezes criteria into brief before candidate review; editor chooses methods and cannot grade itself."
+}

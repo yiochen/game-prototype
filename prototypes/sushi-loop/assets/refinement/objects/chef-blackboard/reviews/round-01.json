@@ -1,0 +1,217 @@
+{
+  "round": 1,
+  "asset": "chef-blackboard",
+  "verdict": "approve",
+  "candidatePacketSHA256": "4cb38c7679b23620efae1f675fd1ea5c68a6c7a91d287283eed27abbf991c0f4",
+  "frozenCriteriaSHA256": "1f30907c0d8eaaf9e875bcf0f371ed46793c192297c8e8e3360626a9cbb03e2a",
+  "candidateProjectSHA256": "f98ad04344d7eeecc66837820ff377efe77a7fed78fc98b986e8047dcd306c53",
+  "inspectedFiles": [
+    "hero-S.png",
+    "four-view-sheet.png",
+    "idle-enlarged.png",
+    "idle-logical.png",
+    "selected-S.png",
+    "selected-S-detail.png",
+    "selected-S.webp",
+    "recipe-change-S.png",
+    "recipe-change-S-detail.png",
+    "recipe-change-S.webp",
+    "transparency-backgrounds.png",
+    "source-candidate-logical.png",
+    "repeated.png",
+    "chef-cooccupancy.png",
+    "blank-display-and-runtime-overlay.png",
+    "raw/idle-S/000.png",
+    "raw/recipe-change-S/000.png",
+    "raw/recipe-change-S/001.png",
+    "raw/recipe-change-S/002.png",
+    "raw/recipe-change-S/003.png",
+    "raw/recipe-change-S/004.png",
+    "raw/recipe-change-S/005.png",
+    "raw/recipe-change-S/006.png",
+    "raw/recipe-change-S/007.png",
+    "raw/recipe-change-S/008.png",
+    "raw/recipe-change-S/009.png",
+    "raw/recipe-change-S/010.png",
+    "raw/recipe-change-S/011.png",
+    "raw/selected-S/000.png",
+    "raw/selected-S/001.png",
+    "raw/selected-S/002.png",
+    "raw/selected-S/003.png",
+    "raw/selected-S/004.png",
+    "raw/selected-S/005.png",
+    "raw/selected-S/006.png",
+    "raw/selected-S/007.png",
+    "raw/selected-S/008.png",
+    "raw/selected-S/009.png",
+    "raw/selected-S/010.png",
+    "raw/selected-S/011.png",
+    "frames/idle-S-000.png",
+    "frames/recipe-change-S-000.png",
+    "frames/recipe-change-S-001.png",
+    "frames/recipe-change-S-002.png",
+    "frames/recipe-change-S-003.png",
+    "frames/recipe-change-S-004.png",
+    "frames/recipe-change-S-005.png",
+    "frames/recipe-change-S-006.png",
+    "frames/recipe-change-S-007.png",
+    "frames/recipe-change-S-008.png",
+    "frames/recipe-change-S-009.png",
+    "frames/recipe-change-S-010.png",
+    "frames/recipe-change-S-011.png",
+    "frames/selected-S-000.png",
+    "frames/selected-S-001.png",
+    "frames/selected-S-002.png",
+    "frames/selected-S-003.png",
+    "frames/selected-S-004.png",
+    "frames/selected-S-005.png",
+    "frames/selected-S-006.png",
+    "frames/selected-S-007.png",
+    "frames/selected-S-008.png",
+    "frames/selected-S-009.png",
+    "frames/selected-S-010.png",
+    "frames/selected-S-011.png",
+    "atlases/idle-S.png",
+    "atlases/recipe-change-S.png",
+    "atlases/selected-S.png"
+  ],
+  "inspectionMethod": {
+    "direct": "Original, fixed target, hero S, all 12 static PNG previews and both animated WebP previews were inspected. Browser playback displayed both at192x352, selected looping and recipe-change replayed once. Light/gray/dark transparency, enlarged idle, logical comparison, repeated roots, blank/dish overlay and chef cooccupancy were inspected.",
+    "allFrames": "All25 native S frames were inspected through independently generated reviews/round-01-native-contact.png, using one fixed native-space crop and uniform1/2 reduction. Every native frame was independently verified to downsample exactly to its final frame; every final atlas cell matches its corresponding frame. Supplied selected/recipe-change logical/detail sheets also show all24 state frames.",
+    "previewTiming": "Both WebPs decode to12 frames with83/83/84ms repeated timing, totaling1000ms. Selected loop0 is infinite; recipe-change loop1 plays once. Every visible decoded WebP RGBA pixel matches the corresponding logical-size frame; RGB under fully transparent pixels is intentionally irrelevant."
+  },
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 8,
+    "artifactFreeReadability": 9
+  },
+  "observations": [
+    "Rounded native rail edges and top caps, subtle brass joint accents and restrained wood variation make the frame feel more crafted than the original slab construction. The improvements remain legible at logical game scale.",
+    "The former very bright yellow top band is now a softly shaded honey-orange volume. Lower feet retain warm midtones and readable rounded edges; no material black dead spot, blown strip or inconsistent horizontal light bias is visible.",
+    "The quiet dark blue-slate inset remains blank in all25 native and published frames. The separately composited actual dish sprite sits comfortably at the unchanged display socket with clear space on all sides. Its size/placement rule matches Godot restaurant_view.gd::_board_at (pitch*.28).",
+    "Selected and recipe-change retain their subtle original motion. Rails, pegs and supports stay coherent without flicker, clipping, detached details, noisy material swimming or a visible closure jump. Light/gray/dark backgrounds show clean transparency and no ground shadow or halo.",
+    "Repeated instances retain their registered one-cell pitch. The chef context keeps the board foreground at the exact shared root, with readable chef head and front-band placement."
+  ],
+  "blockers": [],
+  "remainingDifferences": [
+    "The candidate uses quieter native grain and smaller, less glossy joint accents than the painted target. This restraint is accepted at intended scale.",
+    "The target has more exaggerated golden glints and more bulbous rail treatment. The candidate has visibly softened, useful native construction without copying those painted exaggerations or alpha artifacts."
+  ],
+  "technicalEvidence": {
+    "hashBinding": {
+      "packetSHA256": "4cb38c7679b23620efae1f675fd1ea5c68a6c7a91d287283eed27abbf991c0f4",
+      "all186BoundEntriesMatch": true,
+      "criteriaUnchanged": true
+    },
+    "nativeSource": {
+      "independentInspection": "Opened exact156KiB .blend headlessly. Scene has16 asset meshes with native bevel/normal construction, procedural materials, actual socket Empties and5 area lights; no image resources, linked libraries or font dependencies. Centered overhead and four equal70W cardinal fills provide neutral horizontal illumination.",
+      "independentReplay": "Re-rendered native idle from saved source using hash-bound capture script into reviews/round-01-probe. Decoded768x1408 RGBA matches candidate native idle exactly (37b9fae4bdc17c5f0a95b132fe4cf0c3e6484401df89273e19ac873d74ce2302).",
+      "allPoseMeasurement": "Independently executed measure-only capture for all25 poses into reviews/round-01-measurement. Root, camera, projection, bounds, face, sockets and bindings match packet native records exactly.",
+      "closedReplay": "Reviewed bound25-frame relocated closed-replay report; recomputed all25 native RGBA hashes and matched both native/replay hashes recorded there. Independent idle replay supplements that report."
+    },
+    "registration": {
+      "requiredViews": [
+        "S"
+      ],
+      "nativeFrame": [
+        768,
+        1408
+      ],
+      "nativeCaptureScale": 4,
+      "publishedFrame": [
+        384,
+        704
+      ],
+      "publishedScale": 2,
+      "logicalFrame": [
+        192,
+        352
+      ],
+      "logicalRoot": [
+        96,
+        248
+      ],
+      "pixelAspect": [
+        1.2206555604934692,
+        1.0
+      ],
+      "cameraWorldMaxDelta": 5.960464477539063e-08,
+      "projectionMaxDelta": 2.9802322387695312e-08,
+      "root": "Identity throughout all25 poses",
+      "uniformProcessing": "All25 frames are exact whole-frame1/2 LANCZOS from native output; original atlas layout/rects/frame order verified. No per-pose fitting."
+    },
+    "functionalEnvelope": {
+      "footprint": [
+        1,
+        1
+      ],
+      "declaredHeight": 1.0,
+      "restBounds": [
+        [
+          -0.4000000059604645,
+          -0.49799999594688416,
+          0.0
+        ],
+        [
+          0.4000000059604645,
+          -0.27000001072883606,
+          0.9900000095367432
+        ]
+      ],
+      "animatedUnion": [
+        [
+          -0.4000000059604645,
+          -0.49799999594688416,
+          -0.00897669792175293
+        ],
+        [
+          0.4000000059604645,
+          -0.27000001072883606,
+          0.9989767074584961
+        ]
+      ],
+      "inheritedGroundBob": "Recipe-change original action dips by0.0089767; original ground extrema and face matrices are preserved exactly. This is authored motion, not a new contact defect.",
+      "sockets3D": {
+        "recipe_face": [
+          0,
+          -0.434,
+          0.61
+        ],
+        "display_face": [
+          0,
+          -0.434,
+          0.61
+        ]
+      },
+      "face": "Actual native front plane y=-0.42750001; socket is0.00649998 outward and remains inside the unchanged0.62x0.57 face throughout all25 poses. Separate display/recipe Empty positions match both metadata and native root-relative coordinates."
+    },
+    "animation": {
+      "idleFrames": 1,
+      "selectedFrames": 12,
+      "recipeChangeFrames": 12,
+      "fps": 12,
+      "uniquePublishedFrames": {
+        "selected": 7,
+        "recipe-change": 11
+      },
+      "nativeActionIntegrity": "Independently extracted30 chef-blackboard actions from exact original-library.blend; they equal bound original-actions resource. Candidate native capture independently confirms its same30 action curves and slots.",
+      "selectedLoopClosure": "Native frame1=frame13 bounds/face exactly; duplicate closure excluded. Recipe-change nonloop behavior retained."
+    },
+    "evidenceFiles": [
+      "reviews/round-01-native-contact.png",
+      "reviews/round-01-pixel-checks.json",
+      "reviews/round-01-probe/native-validation.json",
+      "reviews/round-01-measurement/native-validation.json",
+      "reviews/round-01-scene-inspect.json",
+      "reviews/round-01-original-action-check.json"
+    ],
+    "limits": [
+      "This approval is asset/candidate specific. The dish/chef context is an independently checked sprite composition using the actual runtime placement rule; this is not a claim of a newly integrated Godot build or published preview.",
+      "All25 native poses were independently remeasured; one representative native render was independently replayed. The bound closed-replay report supplies the full25-frame relocated replay evidence.",
+      "Single-player-facing S is the actual contract; the generic four-view preview repeats S and creates no unseen-view requirement."
+    ]
+  },
+  "scope": "Approve exact packet bytes only. No production edit, integration or publication was performed by the judge."
+}
