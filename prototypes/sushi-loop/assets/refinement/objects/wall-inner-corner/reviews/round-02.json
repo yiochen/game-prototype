@@ -1,0 +1,165 @@
+{
+  "round": "round-02",
+  "verdict": "approve",
+  "candidatePacketSHA256": "433e77d3ec0ae897a18bf0d1b16bca69768cd2081d25ff77d7bc3b1cdc765574",
+  "inspectedFiles": [
+    "raw/static-N-0000.png",
+    "raw/static-E-0000.png",
+    "raw/static-S-0000.png",
+    "raw/static-W-0000.png",
+    "previews/four-view-sheet.png",
+    "previews/four-view-logical-backgrounds.png",
+    "previews/four-view-enlarged-pixels.png",
+    "sprite-joins/static-N-both-ports.png",
+    "native-joins/static-N-both-ports.png",
+    "previews/join-N-logical-backgrounds.png",
+    "previews/join-N-enlarged-pixels.png",
+    "previews/join-N-port-W-enlarged.png",
+    "previews/join-N-port-N-enlarged.png",
+    "sprite-joins/static-E-both-ports.png",
+    "native-joins/static-E-both-ports.png",
+    "previews/join-E-logical-backgrounds.png",
+    "previews/join-E-enlarged-pixels.png",
+    "previews/join-E-port-W-enlarged.png",
+    "previews/join-E-port-N-enlarged.png",
+    "sprite-joins/static-S-both-ports.png",
+    "native-joins/static-S-both-ports.png",
+    "previews/join-S-logical-backgrounds.png",
+    "previews/join-S-enlarged-pixels.png",
+    "previews/join-S-port-W-enlarged.png",
+    "previews/join-S-port-N-enlarged.png",
+    "sprite-joins/static-W-both-ports.png",
+    "native-joins/static-W-both-ports.png",
+    "previews/join-W-logical-backgrounds.png",
+    "previews/join-W-enlarged-pixels.png",
+    "previews/join-W-port-W-enlarged.png",
+    "previews/join-W-port-N-enlarged.png",
+    "previews/repeated.png"
+  ],
+  "inspectionMethod": {
+    "individualRenders": "Directly inspected all four saved RGBA raw frames. Inspected full native, logical-size and enlarged four-view sheets on light, gray, dark and alpha backgrounds.",
+    "assemblies": "Inspected all four logical and enlarged native-versus-independent assembly sheets and all eight port-specific enlarged RGB/alpha sheets. Verified their panels pixel-for-pixel against the bound native and independent source assembly images; those assembly images are therefore inspected through verified sheets. Also inspected repeated.png directly.",
+    "sourceAndReferences": "Compared with the independently inspected original.png, fixed target.png and style-only family-concept.png. Read frozen brief, immutable delivery.snapshot.json, validation, family technical settings, native records and assembly records. Reopened the bound original and candidate .blend files in a separate background Blender process for independent measurements without saving changes."
+  },
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 8,
+    "artifactFreeReadability": 9
+  },
+  "scoreBasis": {
+    "shapeVolume": "The cap has legible crowned/rounded depth and a coherent outer turn; broad timber face relief and rounded bands improve the source while retaining the sharp required concave boundary.",
+    "color": "Warmer amber timber and softer clear blue improve the source palette. All wood bands remain readable and match the straight wall.",
+    "lightingHighlights": "Soft broad blue highlights describe the cap without target-like white glare; wood avoids the source lower dark dead area. Mirrored facing pairs receive consistent light.",
+    "materialDetail": "Broad, restrained wavy wood detail and band relief remain visible at logical size. Materials are distinct without fine noisy grain.",
+    "artifactFreeReadability": "Clean logical silhouettes and material boundaries in all views and assemblies. No material black patch, gap, doubled join edge, clipping or alpha fringe found."
+  },
+  "observations": [
+    "The individual S and W views retain the recognizable L-shaped blue cap above amber horizontal timber. Its corner edge roll, blue side depth and three broad readable wood areas are visibly more volumetric and crafted than the original flat cap and dark rectangular wood bands.",
+    "N and E show the same construction coherently from the opposing sides. The concave opening remains legible, with no black pinching, intersecting-box artifact or unexpected obstruction.",
+    "The large blue area is calmer and more matte than the fixed target, but broad soft highlights and warm wood provide the chosen cartoon treatment at the 192x352 logical frame. No target canvas drift or intense white rim has been copied.",
+    "All four native corner-to-straight assemblies show continuous cap width, timber band heights and palette across W and N joins. Independent sprite assemblies preserve that continuity at logical size and in enlarged port inspection.",
+    "RGB and alpha inspection of both ports in every facing shows no material transparent gap, doubled rim, exposed internal cut cap, vertical step or abrupt family color seam. Minor native-versus-independent surface-light differences at enlargement do not become a visible join defect at game size.",
+    "The independent sprite assemblies were reproduced exactly from the bound corner and approved straight RGBA frames using only declared integer translations and depth order. All four atlases are byte-identical to the inspected raw frames."
+  ],
+  "blockers": [],
+  "remainingDifferences": [
+    "The native result uses softer, less glossy blue shading than the target and does not reproduce its bright white perimeter glints or diagonal painted crease.",
+    "Wood detail is broad procedural grain and modest native relief rather than the target illustrated knots and more strongly pillowed boards. It remains useful and readable at game size.",
+    "The required inside boundary is sharper than the target interior edge treatment so the original clearance and modular cross-sections remain intact."
+  ],
+  "technicalEvidence": {
+    "packetAndMap": {
+      "allBoundFileHashesMatch": true,
+      "allCandidateAndPreviewHashesMatch": true,
+      "deliverySnapshotAssociationsMatchPacket": true,
+      "boundProjectSHA256": "f12bf7fc995c456cd2b642fb2e7263463256519278c16b9515030c0cf38eebdd",
+      "boundFamilyProjectSHA256": "13a7d057b1e0650582b60f4404ca1bb9b316774feb467c781730c7e43a25f723",
+      "boundFamilySettingsSHA256": "690f0ee33c4ff18f02f4352fd91f326f0c42610e335c16a802222c4f216357ef",
+      "approvedFamilyAuthority": "Coordinator supplied wall-middle round06 as the approved technical family; reviewed its hash-bound technical settings and dependency only, without reading that object aesthetic review or editor proposal."
+    },
+    "independentNativeChecks": {
+      "report": "reviews/round-02-native-inspection.json",
+      "script": "reviews/round-02-native-inspection.py",
+      "sourceAndCandidateReopenedWithoutSaving": true,
+      "savedCandidateBytesUnchanged": true,
+      "bounds": [
+        [
+          -0.5,
+          0.18000000715255737
+        ],
+        [
+          -0.18000000715255737,
+          0.5
+        ],
+        [
+          0.07000000029802322,
+          1.0180000066757202
+        ]
+      ],
+      "functionalHeightLimit": 1.02,
+      "noVerticesInLockedConcaveClearance": true,
+      "sourceConnectionProfileSegmentsPreserved": "All original W/N profile vertices remain present, and all added cross-section sampling vertices lie on the original profile segments; maximum geometric error 1.12e-16 world units. Additional collinear subdivisions are not a profile change.",
+      "cameraMaximumMatrixErrorToApprovedFamily": 0.0,
+      "nativeFrame": [
+        384,
+        704
+      ],
+      "nativeRoot": [
+        192.0,
+        511.99997329711914
+      ],
+      "pixelAspect": [
+        1.2206555604934692,
+        1.0
+      ],
+      "fiveLightsExactlyMatchApprovedFamily": true,
+      "onlySelectedNativeAssetCameraLights": true,
+      "noZeroAreaFaces": true,
+      "selfContainedNoExternalImagesOrLibraries": true,
+      "trueFourFacingEvidence": "Bound native validation records root rotations N180/E90/S0/W-90 with constant camera. Inspected render recipe rotates the same native root and whole assembly; no per-view material changes. Saved source contains native swept band meshes plus intentional family cut closures, with no raster image dependency.",
+      "familyMaterialsAndCuts": "Uses the approved family material/capture/connection contract; longitudinal wood mapping follows the L, and the N cut uses the same symmetric common blue radiance field in its transverse axis. Family cut treatment remains native procedural shading on actual cut planes."
+    },
+    "independentImageChecks": {
+      "report": "reviews/round-02-image-inspection.json",
+      "verifiedContactSheets": 19,
+      "allContactPanelsPixelMatchSources": true,
+      "independentAssembliesReconstructedExactly": {
+        "N": true,
+        "E": true,
+        "S": true,
+        "W": true
+      },
+      "atlasesByteEqualInspectedRaw": {
+        "N": true,
+        "E": true,
+        "S": true,
+        "W": true
+      },
+      "allSinglesRGBA384x704AndNoBorderAlpha": true,
+      "nativeAndIndependentAlphaDifferences": "Bound image audit records only 7-16 pixels per assembled view with alpha difference over8/255, maximum18-20/255. Direct alpha panels show no visible gap; these minor antialias differences are accepted."
+    },
+    "inspectedTechnicalResources": [
+      "brief.json",
+      "inputs/family-settings.json",
+      "inputs/source-camera.json",
+      "inputs/catalog-object.json",
+      "candidates/round-02/packet.json",
+      "candidates/round-02/delivery.snapshot.json",
+      "candidates/round-02/validation.json",
+      "candidates/round-02/family-settings.json",
+      "candidates/round-02/reopened-native-audit.json",
+      "candidates/round-02/native-camera.json",
+      "candidates/round-02/native-assetRecord.json",
+      "candidates/round-02/native-rig.json",
+      "candidates/round-02/sprite-assembly-records.json",
+      "candidates/round-02/image-audit.json",
+      "source/round-02.blend",
+      "source/round-02.py",
+      "source/audit_round02.py",
+      "source/package_round02.py"
+    ],
+    "limits": "No independent re-render was performed. Approval binds the inspected immutable saved renders and source packet. The fixed aesthetic target supplies one facing only; other facings were judged for coherent native form, family continuity and defects rather than invented target views. No permission to publish or alter unrelated assets is implied. Native camera/asset records retain legacy source artStyle descriptive fields; actual warm rendering was checked against the bound family settings and reopened source. Use the approved family evidence as the authoritative warm style metadata when promoting."
+  }
+}

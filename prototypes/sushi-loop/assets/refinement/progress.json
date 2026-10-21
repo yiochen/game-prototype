@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 12,
-  "published": 11,
-  "current": "Eleven objects published; wall-middle approved for next preview; corners and conveyor native editing",
+  "completed": 13,
+  "published": 12,
+  "current": "Twelve objects published; inner corner in independent review; outer corner and conveyor native editing",
   "objects": [
     {
       "id": "plant-angular",
@@ -198,7 +198,7 @@
       "name": "Wall middle",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
@@ -213,13 +213,15 @@
       "name": "Wall inner corner",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "approved",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_wall_inner_editor_v1",
-      "judge": "catalog_wall_inner_judge_v1"
+      "judge": "catalog_wall_inner_judge_v1",
+      "round": "round-02",
+      "packetSHA256": "433e77d3ec0ae897a18bf0d1b16bca69768cd2081d25ff77d7bc3b1cdc765574"
     },
     {
       "id": "wall-outer-corner",
@@ -458,9 +460,11 @@
       "name": "Ama Mensah",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 4,
-      "frames": 192
+      "frames": 192,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2
     },
     {
       "id": "chef-mateo",
