@@ -62,19 +62,38 @@ func run() -> void:
 	await capture("04-seat-opens-same-guest-enters", {"command": {"type": "editor_place", "inventory_id": "belt-tile", "x": 3, "y": 6}, "result": addition})
 	var trapped := configuration()
 	trapped.objects.append({"id": "belt", "kind": "belt", "x": 3, "y": 6, "facing": "south"})
-	for x in range(7):
-		if x != 3: trapped.objects.append({"id": "wall-%s" % x, "kind": "decor", "art_id": "crate-wood", "x": x, "y": 3, "facing": "south"})
+	for y in [1, 3]:
+		for x in range(7):
+			if x != 3: trapped.objects.append({"id": "wall-%s-%s" % [x, y], "kind": "decor", "art_id": "crate-wood", "x": x, "y": y, "facing": "south"})
 	app.session = Session.new_session(41, trapped)
-	app.advance_time(0.6)
+	app.advance_time(1.1)
 	app.session.command({"type": "set_mode", "mode": "edit"})
+	var exit_blockage: Dictionary = app.session.command({"type": "editor_place", "inventory_id": "crate-wood", "x": 3, "y": 1})
 	var blockage: Dictionary = app.session.command({"type": "editor_place", "inventory_id": "crate-wood", "x": 3, "y": 3})
 	app.session.command({"type": "set_mode", "mode": "live"})
 	app.advance_time(1.3)
 	var scared: Dictionary = app.session.snapshot().customers[0]
-	if not blockage.ok or scared.navigation_mode != "wander" or app.world.customer_feedback(scared).get("object") != "bubble-panic": failures.append("Expected a genuine trapped guest with the production scared reaction.")
+	if not exit_blockage.ok or not blockage.ok or scared.navigation_mode != "wander" or app.world.customer_feedback(scared).get("object") != "bubble-panic": failures.append("Expected a genuine trapped guest with the production scared reaction.")
 	await capture("05-trapped-guest-scared", {"command": {"type": "editor_place", "inventory_id": "crate-wood", "x": 3, "y": 3}, "result": blockage})
 	app.advance_time(3.0)
 	await capture("06-trapped-guest-still-wandering", {"same_guest": scared.id})
+	var open_exit := configuration()
+	open_exit.objects.append({"id": "belt", "kind": "belt", "x": 3, "y": 6, "facing": "south"})
+	for x in range(7):
+		if x != 3: open_exit.objects.append({"id": "wall-%s" % x, "kind": "decor", "art_id": "crate-wood", "x": x, "y": 3, "facing": "south"})
+	app.session = Session.new_session(41, open_exit)
+	app.advance_time(0.625)
+	var escaping_id: String = app.session.snapshot().customers[0].id
+	app.session.command({"type": "set_mode", "mode": "edit"})
+	var seat_blockage: Dictionary = app.session.command({"type": "editor_place", "inventory_id": "crate-wood", "x": 3, "y": 3})
+	app.session.command({"type": "set_mode", "mode": "live"})
+	app.advance_time(0.05)
+	var escaping: Dictionary = app.session.snapshot().customers[0]
+	if not seat_blockage.ok or escaping.id != escaping_id or escaping.phase != "leaving" or escaping.navigation_mode != "goal" or not app.world.customer_feedback(escaping).is_empty(): failures.append("A guest with a blocked seat and an open exit must leave without scared feedback.")
+	await capture("07-blocked-seat-open-exit", {"same_guest": escaping_id, "purpose": "An unreachable seat does not imply an unreachable entrance."})
+	var exit_events: Array = app.advance_time(2.0)
+	if not app.session.snapshot().customers.is_empty() or not exit_events.any(func(event): return event.type == "departed" and event.reason == "seat_unreachable"): failures.append("The same guest must depart through the entrance without a meal or sale.")
+	await capture("08-open-exit-guest-departed", {"same_guest": escaping_id, "events": exit_events})
 	app.queue_free()
 	await frames()
 	app = APP.instantiate()
@@ -83,7 +102,7 @@ func run() -> void:
 	root.add_child(app)
 	await frames()
 	app.advance_time(1.5)
-	await capture("07-shared-reactions-gallery", {"purpose": "All seven customer reactions, inactive furniture and service samples in the real native mobile gallery."})
+	await capture("09-shared-reactions-gallery", {"purpose": "All seven customer reactions, inactive furniture and service samples in the real native mobile gallery."})
 	var file := FileAccess.open(destination.path_join("manifest.json"), FileAccess.WRITE)
 	file.store_string(JSON.stringify({"screens": screens, "fixture": config, "source": "Actual production main.tscn and RestaurantView; public Session APIs only", "failures": failures}, "  ") + "\n")
 	for failure in failures: printerr("FAIL: " + failure)
@@ -91,7 +110,7 @@ func run() -> void:
 	app.queue_free()
 	await frames()
 	await create_timer(0.1).timeout
-	quit(0 if screens.size() == 7 and failures.is_empty() else 1)
+	quit(0 if screens.size() == 9 and failures.is_empty() else 1)
 
 func frames() -> void:
 	for index in range(3): await process_frame

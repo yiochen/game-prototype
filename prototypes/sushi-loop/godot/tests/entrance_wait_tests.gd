@@ -53,6 +53,13 @@ func _unreachable() -> Dictionary:
 		config.objects.append({"id": "wall-%s" % x, "kind": "decor", "art_id": "crate-wood", "x": x, "y": 3, "facing": "south"})
 	return config
 
+func _trapped_configuration() -> Dictionary:
+	var config := _configuration()
+	for y in [1, 3]:
+		for x in range(7):
+			if x != 3: config.objects.append({"id": "wall-%s-%s" % [x, y], "kind": "decor", "art_id": "crate-wood", "x": x, "y": y, "facing": "south"})
+	return config
+
 func _customer(game: GameSession, identity := "") -> Dictionary:
 	for guest in game.snapshot().customers:
 		if identity.is_empty() or guest.id == identity: return guest
@@ -257,13 +264,11 @@ func _test_legacy_46_continuation() -> void:
 	_check(not restored.restore(corrupt) and _same(baseline, restored.save_data()), "legacy admission migration still validates the original walking route before accepting it")
 
 func _test_existing_trapped_guests() -> void:
-	var config := _configuration()
-	for x in range(7):
-		if x != 3: config.objects.append({"id": "wall-%s" % x, "kind": "decor", "art_id": "crate-wood", "x": x, "y": 3, "facing": "south"})
-	var game := Session.new_session(129, config)
-	game.advance(0.4)
+	var game := Session.new_session(129, _trapped_configuration())
+	game.advance(0.6)
 	var identity := str(_customer(game).get("id", ""))
 	game.command({"type": "set_mode", "mode": "edit"})
+	_check(game.command({"type": "editor_place", "inventory_id": "crate-wood", "x": 3, "y": 1}).ok, "the trapped admission fixture closes the entrance behind an inside guest")
 	var blockage := game.command({"type": "editor_place", "inventory_id": "crate-wood", "x": 3, "y": 3})
 	_check(blockage.ok and _customer(game, identity).navigation_mode == "wander", "an already-admitted guest behind a new furnishing blockage still enters the established wander policy")
 	game.command({"type": "set_mode", "mode": "live"})
@@ -287,12 +292,10 @@ func _test_production_feedback() -> void:
 	_check(puzzled.get("object") == "bubble-puzzled" and view.customer_clip(_customer(door)) == "stand", "the real feedback renderer selects approved puzzled 2D art and a standing pose for a doorstep visitor")
 	var frame: Dictionary = view.art.frame_data(str(puzzled.get("object", "")), str(puzzled.get("clip", "")), "S", float(puzzled.get("seconds", 0)))
 	_check(not frame.is_empty() and int(frame.get("frames", 0)) >= 6, "the production puzzled bubble resolves to a real multi-frame shipping atlas")
-	var trapped_config := _configuration()
-	for x in range(7):
-		if x != 3: trapped_config.objects.append({"id": "wall-%s" % x, "kind": "decor", "art_id": "crate-wood", "x": x, "y": 3, "facing": "south"})
-	var trapped := Session.new_session(141, trapped_config)
-	trapped.advance(0.4)
+	var trapped := Session.new_session(141, _trapped_configuration())
+	trapped.advance(0.6)
 	trapped.command({"type": "set_mode", "mode": "edit"})
+	_check(trapped.command({"type": "editor_place", "inventory_id": "crate-wood", "x": 3, "y": 1}).ok, "the scared feedback fixture closes the entrance behind the guest")
 	var result := trapped.command({"type": "editor_place", "inventory_id": "crate-wood", "x": 3, "y": 3})
 	trapped.command({"type": "set_mode", "mode": "live"})
 	trapped.advance(0.375)

@@ -794,6 +794,29 @@ func _try_goal_route(customer: Dictionary) -> bool:
 	customer.navigation_retry_elapsed = 0.0
 	return true
 
+func _try_reachable_exit(customer: Dictionary) -> bool:
+	# A blocked seat does not trap a visitor who can still reach the door.
+	# Decide only in Live: furniture edits may change routes while every visit
+	# phase, animation and clock remains frozen for the player's review.
+	if customer.phase != "walking" or _state.mode != "live":
+		return false
+	var route := _route_from_position(customer, _point(_configuration.floor.entrance))
+	if route.is_empty():
+		return false
+	# A newly reopened seat still takes priority over abandoning the visit.
+	if _try_goal_route(customer):
+		return true
+	customer.phase = "leaving"
+	customer.departure_reason = "seat_unreachable"
+	customer.yielding = false
+	# The visitor is already on their feet, possibly between tile centers.
+	# Playing stand-up here would invent a seated pose and invalidate the save.
+	_apply_navigation_route(customer, route)
+	customer.navigation_mode = "goal"
+	customer.wander_elapsed = 0.0
+	customer.navigation_retry_elapsed = 0.0
+	return true
+
 func _choose_wander_route(customer: Dictionary) -> void:
 	var position := Vector2(float(customer.x), float(customer.y))
 	var reachable := {}
@@ -849,6 +872,8 @@ func _replan_navigation(customer: Dictionary) -> void:
 	var was_wandering: bool = customer.navigation_mode == "wander"
 	if _try_goal_route(customer):
 		return
+	if _try_reachable_exit(customer):
+		return
 	customer.navigation_mode = "wander"
 	if not was_wandering:
 		customer.wander_elapsed = 0.0
@@ -856,6 +881,11 @@ func _replan_navigation(customer: Dictionary) -> void:
 	_choose_wander_route(customer)
 
 func _step_navigation(customer: Dictionary, delta: float) -> bool:
+	# Check an escape before taking even one more wandering step. This also
+	# repairs a saved older visit on its first Live step without mutating it
+	# during restore or waiting for the normal seat-retry interval.
+	if customer.navigation_mode == "wander":
+		_try_reachable_exit(customer)
 	if customer.navigation_mode == "wander":
 		customer.navigation_retry_elapsed = _clock_advance(float(customer.navigation_retry_elapsed), delta)
 		if float(customer.navigation_retry_elapsed) + 0.000000001 >= _customer_number("wander_retry_seconds"):
@@ -1336,7 +1366,7 @@ func _valid_visit(customer: Dictionary, config: Dictionary) -> bool:
 		return false
 	if not customer.get("preference_phase") in ["pending", "active", "satisfied", "expired", "complete"]:
 		return false
-	if not customer.get("departure_reason") in ["", "satisfied", "unfed"]:
+	if not customer.get("departure_reason") in ["", "satisfied", "unfed", "seat_unreachable"]:
 		return false
 	if (customer.phase == "leaving") != (customer.departure_reason != ""):
 		return false

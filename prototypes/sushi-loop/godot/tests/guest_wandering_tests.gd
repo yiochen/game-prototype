@@ -47,6 +47,12 @@ func _configuration(alternate := false, preparation := 0.25) -> Dictionary:
 		"objects": objects,
 	}
 
+func _pocket_configuration() -> Dictionary:
+	var config := _configuration()
+	for x in range(7):
+		if x != 3: config.objects.append({"id": "entry-wall-%s" % x, "kind": "decor", "art_id": "crate-wood", "x": x, "y": 1, "facing": "south"})
+	return config
+
 func _first(game: GameSession) -> Dictionary:
 	var guests: Array = game.snapshot().customers
 	return guests[0] if not guests.is_empty() else {}
@@ -135,9 +141,11 @@ func _test_alternative_route() -> void:
 	_check(clear and saw_alternate and game.snapshot().stats.sales == 1, "the real guest walks the free alternate door, sits, eats and pays once")
 
 func _test_blocked_walking_continuation() -> void:
-	var game := Session.new_session(41, _configuration())
-	game.advance(0.625)
+	var game := Session.new_session(41, _pocket_configuration())
+	game.advance(1.125)
 	_edit(game)
+	var entry_barrier := game.command({"type": "editor_place", "inventory_id": "crate-wood", "x": 3, "y": 1})
+	_check(entry_barrier.ok, "a guest already between two doorways can lose access to the entrance")
 	var blocked_id := _seal(game)
 	var identity: String = _first(game).id
 	_live(game)
@@ -154,7 +162,7 @@ func _test_blocked_walking_continuation() -> void:
 		var actual: Array = game.advance(0.05)
 		var expected: Array = peer.advance(0.05)
 		clear = clear and _feet_clear(game.snapshot())
-		stayed = stayed and _same(actual, expected) and _same(game.save_data(), peer.save_data())
+		stayed = stayed and _same(actual, expected) and _same_continuation(game.save_data(), peer.save_data())
 		events.append_array(actual)
 		var guest := _first(game)
 		if guest.is_empty():
@@ -173,6 +181,7 @@ func _test_blocked_walking_continuation() -> void:
 	var before := _guest_save(game)
 	_check(game.command({"type": "editor_remove", "id": blocked_id}).ok, "the player can reopen the doorway after arbitrarily long wandering")
 	_check(_first(game).navigation_mode == "goal" and _same(_visit_fields(before), _visit_fields(_guest_save(game))), "unblocking restores the same guest's intended seat without resetting their visit or position")
+	_check(game.command({"type": "editor_remove", "id": entry_barrier.get("id", "")}).ok, "the entrance behind the resumed guest can also be reopened")
 	_live(game)
 	_check(_wait(game, func(session): return session.snapshot().customers.is_empty(), 20.0) and game.snapshot().stats.sales == 1 and game.snapshot().coins == 134, "the formerly trapped guest resumes, eats, pays exactly once and leaves after the door opens")
 
@@ -224,9 +233,10 @@ func _test_legacy_navigation() -> void:
 	_check(not reopened.restore(corrupt) and _same(before, reopened.save_data()), "legacy migration validates the old route before adding navigation fields")
 
 func _test_invalid_navigation_saves() -> void:
-	var game := Session.new_session(41, _configuration())
-	game.advance(0.6)
+	var game := Session.new_session(41, _pocket_configuration())
+	game.advance(1.1)
 	_edit(game)
+	_check(game.command({"type": "editor_place", "inventory_id": "crate-wood", "x": 3, "y": 1}).ok, "invalid-navigation fixture closes the entrance behind the guest")
 	_seal(game)
 	_live(game)
 	game.advance(0.35)
