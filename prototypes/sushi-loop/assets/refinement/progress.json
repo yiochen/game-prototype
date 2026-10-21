@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 16,
+  "completed": 17,
   "published": 16,
-  "current": "Sixteen objects published; Lena revising profile smile; Ama native editing; conveyor actual-runtime shutdown check",
+  "current": "Sixteen objects published; Lena approved and publishing; Ama independent review; Mateo initial review/native inspection; conveyor final runtime evidence",
   "objects": [
     {
       "id": "plant-angular",
@@ -448,7 +448,7 @@
       "name": "Lena Brooks",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "revising",
+      "status": "approved",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -456,7 +456,9 @@
       "agents": {
         "judge": "catalog_chef_lena_judge_v1",
         "editor": "catalog_chef_lena_editor_v1"
-      }
+      },
+      "round": "round-02",
+      "packetSHA256": "f595362815e9ac8a91630dc769c05d21a8df30bdfcc7eddbcdc9db75844a1160"
     },
     {
       "id": "chef-omar",
@@ -480,7 +482,7 @@
       "name": "Ama Mensah",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "native-editing",
+      "status": "independent-review",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -495,11 +497,15 @@
       "name": "Mateo Rivera",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "initial-review",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "agents": {
+        "judge": "catalog_chef_mateo_judge_v1",
+        "editor": "catalog_chef_mateo_editor_v1"
+      }
     },
     {
       "id": "chef-noor",

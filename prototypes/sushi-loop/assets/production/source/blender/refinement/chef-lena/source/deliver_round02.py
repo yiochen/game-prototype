@@ -1,0 +1,26 @@
+from pathlib import Path
+import json,hashlib
+P=Path(__file__).parent;O=P.parent;C=O/'candidates/round-02';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();v=json.loads((C/'validation.json').read_text())
+def read(p):return json.loads(p.read_text())
+def paths(x):
+ if isinstance(x,str):return x.replace('round-01','round-02').replace('round01','round02')
+ if isinstance(x,list):return [paths(y) for y in x]
+ if isinstance(x,dict):return {k:paths(y) for k,y in x.items()}
+ return x
+D=paths(read(O/'candidates/round-01/delivery.snapshot.json'));raw=read(C/'native-frames.json');pre=read(C/'preview-manifest.json');atlases=read(C/'atlas-manifest.json');contract=read(O/'inputs/catalog-object.json');mapping={(c['id'],d):a for c in contract['clips'] for d,a in c['directions'].items()}
+for a in atlases:
+ orig=mapping[a['clip'],a['direction']];a['size']=orig['atlasSize'];a['rects']=orig['rects'];assert a['size']==a['atlasSize'] and a['columns']==orig['columns'] and a['rows']==orig['rows']
+source_sha=sha(P/'round-02.blend');assert source_sha==v['sourceSHA256'] and v['ok'];D.update(round=2,status='candidate-awaiting-independent-review',project='source/round-02.blend',recipe='source/recipe-round02.json',validation='candidates/round-02/validation.json')
+D['source']={'path':'source/round-02.blend','sha256':source_sha,'format':'editable native Blender5.2.2 ordinary mainfile','activeScene':'Lena warm soft round02','recipe':'source/recipe-round02.json','buildScript':'source/build_round02.py','renderScript':'source/render_round02.py','rawBackup':{'path':'source/original-library.blend','sha256':sha(P/'original-library.blend')},'previousRoundInput':{'path':'source/round-01.blend','sha256':sha(P/'round-01.blend')}}
+D['heroes']={d:'candidates/round-02/frames/idle-'+d+'/000.png' for d in ['N','E','S','W']};D['frames']=[{k:r[k] for k in ['clip','direction','index','path','sha256']} for r in raw];D['rawFrames']=D['frames'];D['atlases']=atlases;D['previews']=[{'id':'four-view-sheet','path':'candidates/round-02/four-view-sheet.png'},{'id':'repeated','path':'candidates/round-02/repeated.png'}]+[{'id':x['id'],'path':x['path'],'fps':12,'loop':x['loop']} for x in pre['videos']]+[{'id':n,'path':'candidates/round-02/'+n+'.png'} for n in ['profile-smile-comparison','profile-all-actions-light','profile-all-actions-gray','profile-all-actions-dark']]
+D['nativeRecords']={k:'candidates/round-02/records/'+k+'.json' for k in ['camera','assetRecord','rig']};D['nativeRecordHashes']={k:sha(O/p) for k,p in D['nativeRecords'].items()};D['nativeRecordScope']='Actual final round02 saved scene camera and refined mesh/material/25bone rig provenance; exact original frame/root/sockets/footprint/height/action behavior retained; captureScale2/native384x640.'
+D['validationRecord']={'path':D['validation'],'sha256':sha(O/D['validation']),'technicalPass':v['ok'],'visualVerdict':'pending independent judge'};D['revision']={'previousReview':'reviews/round-01.json','previousPacketSHA256':read(C/'previous-round-integrity.json')['previousPacketSHA256'],'blocker':'detached-profile-smile','onlyArtChange':'Native thin mouth ribbon conforms to actual rounded head skin, partly embedded and weighted to unchanged head bone','allOtherNativeConstructionMaterialsLightsCameraActionsUnchanged':True,'deltaEvidence':'candidates/round-02/revision-delta.json','previousRoundIntegrity':'candidates/round-02/previous-round-integrity.json'}
+D['nativeDesignChanges']=['Only smile: replace floating tubular stroke with native head-surface-conforming embedded ribbon. Other round01 construction remains unchanged.'];D['sourceConsistentLimits']=['Original native load ends holding; gameplay ownership transfer follows. No new beltLoad trajectory authored.','Natural north-body occlusion of held dish retained.','Fresh Metal rerenders preserve exact alpha; maximumone8bitRGB step in11,11,10,12 pixels of245760 per representative frame. Delivered native PNGs unmodified.'];D['editorInspection']='candidates/round-02/editor-inspection.json';D['reviewRule']='Coordinator seals exactbytes. Same independent judge alone approves/revises; no self approval.'
+resources=[];sources=[p for p in P.iterdir() if p.is_file() and p.suffix in ['.py','.json','.blend'] and ('round02' in p.name or 'round-02' in p.name or p.name in ['original-library.blend','round-01.blend'])];sources.append(P/'dependencies/dish-salmon.png')
+for p in sorted(set(sources)):
+ resources.append({'name':str(p.relative_to(O)).replace('/','__'),'path':str(p.relative_to(O)),'sha256':sha(p),'bytes':p.stat().st_size})
+for p in sorted(C.rglob('*')):
+ if p.is_file() and p.name not in ['packet.json','delivery.snapshot.json','resource-manifest.json'] and p.suffix!='.log':resources.append({'name':str(p.relative_to(O)).replace('/','__'),'path':str(p.relative_to(O)),'sha256':sha(p),'bytes':p.stat().st_size})
+(C/'resource-manifest.json').write_text(json.dumps(resources,indent=2)+'\n');D['resources']=resources;D['resourceManifest']='candidates/round-02/resource-manifest.json';assert len(D['rawFrames'])==192 and len(D['atlases'])==16
+for record in D['nativeRecords'].values():assert read(O/record)['sourceCaptureScale']==2
+(O/'delivery.json').write_text(json.dumps(D,indent=2)+'\n');print('ROUND02 READY',source_sha,len(D['rawFrames']),len(D['atlases']),len(resources),v['ok'])
