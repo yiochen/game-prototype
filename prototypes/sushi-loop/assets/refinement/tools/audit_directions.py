@@ -23,6 +23,16 @@ def audit(folder, round_name, views=None):
         data = json.loads(validation_path.read_text())
     measured = {view: [] for view in views}
     records = data.get('renders', data.get('views', data.get('nativeCaptures', data.get('captureRecords', []))))
+    if not records and isinstance(data.get('renderManifest'), str):
+        manifest_path = (validation_path.parent / data['renderManifest']).resolve()
+        if not manifest_path.is_file():
+            manifest_path = (folder / data['renderManifest']).resolve()
+        bound = {(folder / 'candidates' / round_name / item['path']).resolve()
+                 for item in packet['files'].values()}
+        if manifest_path not in bound:
+            raise ValueError(f'{folder.name}: native render manifest is not packet-bound')
+        manifest = json.loads(manifest_path.read_text())
+        records = manifest if isinstance(manifest, list) else manifest.get('renders', manifest.get('frames', []))
     entries = records.items() if isinstance(records, dict) else [(record.get('direction'), record) for record in records]
     for facing, record in entries:
         if facing not in measured:

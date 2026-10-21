@@ -85,14 +85,17 @@ def main():
     recipe_dest = native_base / 'source' / recipe.name
     copy_file(project, project_dest)
     copy_file(recipe, recipe_dest)
-    for script in (folder / 'source').glob('*.py'):
-        if script.resolve() in bound and script.resolve() != recipe.resolve():
-            copy_file(script, native_base / 'source' / script.name)
+    for dependency in (folder / 'source').rglob('*'):
+        if dependency.suffix not in ['.py', '.json', '.gd', '.gdshader', '.patch', '.tscn', '.godot']:
+            continue
+        if dependency.resolve() in bound and dependency.resolve() != recipe.resolve():
+            copy_file(dependency, native_base / 'source' / dependency.relative_to(folder / 'source'))
     # Keep the native recipe's original relative inputs alongside its saved project.
     # These are reproduction dependencies; approved render bytes remain packet-bound.
-    for dependency in (folder / 'inputs').iterdir():
-        if dependency.suffix in ['.blend', '.json']:
-            copy_file(dependency, native_base / 'inputs' / dependency.name, sealed=False)
+    for dependency in (folder / 'inputs').rglob('*'):
+        if dependency.suffix in ['.blend', '.json', '.py', '.gd', '.gdshader', '.tscn', '.godot']:
+            copy_file(dependency, native_base / 'inputs' / dependency.relative_to(folder / 'inputs'),
+                      sealed=dependency.resolve() in bound)
     if (recipe.parent / 'original-library.blend').exists():
         copy_file(recipe.parent / 'original-library.blend', native_base / 'source/original-library.blend', sealed=False)
     copy_file(folder / 'brief.json', native_base / 'brief.json')

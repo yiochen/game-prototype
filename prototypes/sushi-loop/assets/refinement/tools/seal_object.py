@@ -1,5 +1,6 @@
 """Seal one delivered object round, including raw frames, atlases and native recipes."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import subprocess
@@ -41,6 +42,14 @@ def main():
         command += ['--preview', f'{name}={folder / path}']
     resources = {}
     brief = json.loads((folder / 'brief.json').read_text())
+    # Frozen native contracts and supplemental runtime sources are part of the
+    # review, even when their pixels are not catalog animation frames.
+    for path in (folder / 'inputs').rglob('*'):
+        if path.is_file():
+            resources['input:' + path.relative_to(folder / 'inputs').as_posix()] = path
+    for name, record in brief.get('runtimeVariants', {}).get('resources', {}).items():
+        path = folder / record['path']
+        assert hashlib.sha256(path.read_bytes()).hexdigest() == record['sha256'], f'Changed runtime variant input: {name}'
     for name, path in brief.get('technicalResources', {}).items():
         assert (folder / path).is_file(), f'Missing frozen technical resource: {path}'
         resources['technical:' + name] = folder / path
@@ -48,9 +57,9 @@ def main():
     for path in candidate.rglob('*'):
         if path.is_file() and path.name != 'packet.json':
             resources['round:' + path.relative_to(candidate).as_posix()] = path
-    for path in (folder / 'source').glob('*'):
-        if path.is_file() and path.suffix in ['.py', '.json', '.gd', '.blend']:
-            resources['source:' + path.name] = path
+    for path in (folder / 'source').rglob('*'):
+        if path.is_file() and path.suffix in ['.py', '.json', '.gd', '.gdshader', '.patch', '.blend', '.tscn', '.godot']:
+            resources['source:' + path.relative_to(folder / 'source').as_posix()] = path
     for name, path in resources.items():
         command += ['--resource', f'{name}={path}']
     raise SystemExit(subprocess.run(command).returncode)

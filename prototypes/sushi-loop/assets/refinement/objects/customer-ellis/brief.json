@@ -1,0 +1,544 @@
+{
+  "asset": "customer-ellis",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. Real 3D render output, editable Blender sources. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks. Follow-on design exploration: improve the modeling itself, including forms, proportions, structure, crafted details and decorations. Original part counts and awkward geometry are not constraints. The editor may rebuild native geometry to achieve the better design; the judge should reward useful improvements. Preserve the locked registration, gameplay contact/clearance, animation and modular continuity contract. See modeling-policy.json version2.",
+  "source": {
+    "project": "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "backup": "../../backups/b1765262bfa897ad-sushi-loop-world-library.blend",
+    "projectSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "backupSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "snapshot": "inputs/original.png",
+    "scene": "Inspect the named asset collection; do not use an unrelated active scene"
+  },
+  "target": {
+    "image": "inputs/target.png",
+    "sha256": "2359667e955627467e6a6749e795d68f46402a6c07b4866644e2d362af201edc",
+    "provenance": "imagegen-builtin",
+    "references": [
+      {
+        "role": "native-edit-source",
+        "path": "inputs/original.png",
+        "sha256": "98e317476d058ca5ed510844314e0369383de1463b2ee6918c7e5fc9f6679a5d"
+      },
+      {
+        "role": "style-only",
+        "path": "../../style/warm-soft-reference.png",
+        "sha256": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15"
+      },
+      {
+        "role": "family-style-only",
+        "path": "inputs/family-concept.png",
+        "sha256": "f234a68dee5734e479d68eb0e914c48de059629333c498603528f47adc4f82a1"
+      }
+    ],
+    "interpretation": "Reward useful native modeling and decoration inspired by the target. Do not reject a change solely because it differs from the source. Reject target drift only when it harms the chosen style, readability, role or locked technical contract. Original part counts and weak shapes are not automatically constraints.",
+    "prompt": "inputs/imagegen-prompt.txt"
+  },
+  "agentPrompts": {
+    "judge": "prompts/judge.txt",
+    "editor": "prompts/editor.txt"
+  },
+  "capture": {
+    "frame": [
+      384,
+      640
+    ],
+    "views": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated",
+      "stand-N",
+      "stand-E",
+      "stand-S",
+      "stand-W",
+      "walk-N",
+      "walk-E",
+      "walk-S",
+      "walk-W",
+      "seated-wait-N",
+      "seated-wait-E",
+      "seated-wait-S",
+      "seated-wait-W",
+      "eat-N",
+      "eat-E",
+      "eat-S",
+      "eat-W",
+      "sit-down-N",
+      "sit-down-E",
+      "sit-down-S",
+      "sit-down-W",
+      "stand-up-N",
+      "stand-up-E",
+      "stand-up-S",
+      "stand-up-W",
+      "happy-N",
+      "happy-E",
+      "happy-S",
+      "happy-W",
+      "restless-N",
+      "restless-E",
+      "restless-S",
+      "restless-W",
+      "puzzled-N",
+      "puzzled-E",
+      "puzzled-S",
+      "puzzled-W",
+      "panic-N",
+      "panic-E",
+      "panic-S",
+      "panic-W",
+      "eat-salmon-N",
+      "eat-salmon-E",
+      "eat-salmon-S",
+      "eat-salmon-W",
+      "seated-wait-empty-N",
+      "seated-wait-empty-E",
+      "seated-wait-empty-S",
+      "seated-wait-empty-W"
+    ],
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "character-orthographic"
+  },
+  "constraints": {
+    "preserve": [
+      "Registered camera/projection, logical frame, root, source scale and atlas layout",
+      "Game role, recognizable identity, occupied grid scale and palette family",
+      "Declared footprint, functional height/clearance envelope, contacts, attachments, ports and rig behavior",
+      "Every required facing, animation state, frame count, timing and loop behavior",
+      "Modular join planes, end profiles and family continuity",
+      "The three excluded restaurant floor designs"
+    ],
+    "catalogContract": "inputs/catalog-object.json",
+    "pipeline": "native-3d",
+    "designFreedom": [
+      "Improve forms, proportions, silhouette and structural construction",
+      "Add purposeful decorations and crafted detail",
+      "Replace awkward modeling and change nonfunctional topology or part counts",
+      "Rebuild native geometry, normals, materials and light to realize the better design"
+    ],
+    "characterIdentity": {
+      "keep": "Lightgolden skin,blueblackshorthair,roundblackglasses,blueshirt,navytrousers,darkshoes",
+      "freedom": "Improve nativehair/headwear/face/garments/proportions/structure/purposefuldetails withinoriginalfunctionalheight/clearance/camera/root/rig/contacts. Sourcepartcounts/weakshapes are notconstraints. Targetframing/halos/identity drift have noauthority."
+    },
+    "animationEvidence": [
+      "All10original states\u00d712frames\u00d74facings=480catalogframes with all40original-layout atlases and40actual12fpsclips.",
+      "Supplemental eat-salmon/seated-wait-empty\u00d712\u00d74=96additionalnativeframes and8clips from originalruntimevariant project, refinedsameactorgeometry/materials underthesamepair.",
+      "Total576frames/48clips: preserve rig/rest topology, foot/hand/seat/mouth/dish/food contacts, timing/nonloopbehavior, sourcecardinalS0/E+90/N180/W-90. Source35degreecamera/native384x640/root96,248/scale2.",
+      "Verify everyframe via native measurements/sheets and actualtemporal playback,light/gray/dark backgrounds,sitting/stool/eating contexts. Do not leaveoldstyle overlays active."
+    ]
+  },
+  "qualityCriteria": {},
+  "delivery": {
+    "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
+    "requiredClips": [
+      {
+        "id": "stand",
+        "sourceClipId": "stand",
+        "name": "Stand",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "walk",
+        "sourceClipId": "walk",
+        "name": "Walk",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "seated-wait",
+        "sourceClipId": "seated_wait",
+        "name": "Seated Wait",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "eat",
+        "sourceClipId": "eat",
+        "name": "Eat",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "sit-down",
+        "sourceClipId": "sit_down",
+        "name": "Sit Down",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": false,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "stand-up",
+        "sourceClipId": "stand_up",
+        "name": "Stand Up",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": false,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "happy",
+        "sourceClipId": "happy",
+        "name": "Happy",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": false,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "restless",
+        "sourceClipId": "restless",
+        "name": "Restless",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "puzzled",
+        "sourceClipId": "puzzled",
+        "name": "Puzzled",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "id": "panic",
+        "sourceClipId": "panic",
+        "name": "Panic",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      }
+    ],
+    "notes": "Write source/round-NN.blend or the actual native 2D source as appropriate; full native captures, original-layout atlases, previews, validation and delivery.json. Do not label 2D artwork as a Blender model."
+  },
+  "modelingPolicy": {
+    "version": 2,
+    "scope": "Follow-on objects; preserve already sealed candidates and reviews",
+    "direction": "ImageGen is a design exploration, with native editor reconstruction, rather than a literal repaint of the original model.",
+    "allowed": [
+      "Improve forms, proportions, silhouette and structural construction",
+      "Add purposeful decorations and crafted detail",
+      "Replace awkward modeling and change nonfunctional topology or part counts",
+      "Rebuild native geometry, normals, materials and light to realize the better design"
+    ],
+    "locked": [
+      "Registered camera/projection, logical frame, root, source scale and atlas layout",
+      "Game role, recognizable identity, occupied grid scale and palette family",
+      "Declared footprint, functional height/clearance envelope, contacts, attachments, ports and rig behavior",
+      "Every required facing, animation state, frame count, timing and loop behavior",
+      "Modular join planes, end profiles and family continuity",
+      "The three excluded restaurant floor designs"
+    ],
+    "judging": "Reward useful native modeling and decoration inspired by the target. Do not reject a change solely because it differs from the source. Reject target drift only when it harms the chosen style, readability, role or locked technical contract. Original part counts and weak shapes are not automatically constraints."
+  },
+  "runtimeVariants": {
+    "project": {
+      "path": "inputs/runtime-variants/starter-meals-project.blend",
+      "sha256": "0c67e49c0382acebc57c22aebf2626c5922c3fe993bfaf45b64009855d77e4c5"
+    },
+    "originalManifest": "inputs/runtime-variants/original-runtime-manifest.json",
+    "objectContract": "inputs/runtime-variants/original-object.json",
+    "resources": {
+      "starter-meals.blend": {
+        "path": "inputs/runtime-variants/starter-meals.blend",
+        "sha256": "60f6b6eb57b334946a9fefff69193556ec5cff912f68cde8ca458f6ed5989ee0"
+      },
+      "authorship.json": {
+        "path": "inputs/runtime-variants/authorship.json",
+        "sha256": "2c5402f2d865b4ecda75053e523702f94ec1226ce1e371ee0edf92f73a6fa419"
+      },
+      "author_meals.py": {
+        "path": "inputs/runtime-variants/author_meals.py",
+        "sha256": "aa12f662990d9dea67d42edbff38db724c6fbe96592c9092f67e0f6d5ce9abc1"
+      },
+      "pack_meals.py": {
+        "path": "inputs/runtime-variants/pack_meals.py",
+        "sha256": "b83d83523146b486b7605d494ba6ea54f306439a91406dd87c8076eab5cb6144"
+      },
+      "publication.json": {
+        "path": "inputs/runtime-variants/publication.json",
+        "sha256": "a3e68a5413ae30fab59708bb7a72ac07a8e7c273d2377724e5a9e6bd32717bab"
+      },
+      "native-audit.json": {
+        "path": "inputs/runtime-variants/native-audit.json",
+        "sha256": "c30de02419dc353f82d8c0b494f03eb4fb0896f1cd54a33e698e684eae85be92"
+      },
+      "audit_native_meals.py": {
+        "path": "inputs/runtime-variants/audit_native_meals.py",
+        "sha256": "25ee907046d2705e0a9b7fc55b56b7dbb3a029d0422e81a4305fa0444063a53d"
+      },
+      "starter-meals-project.blend": {
+        "path": "inputs/runtime-variants/starter-meals-project.blend",
+        "sha256": "0c67e49c0382acebc57c22aebf2626c5922c3fe993bfaf45b64009855d77e4c5"
+      },
+      "finalize_meals.py": {
+        "path": "inputs/runtime-variants/finalize_meals.py",
+        "sha256": "8dbca0b9c2a6e571e83cf681328d5f0fd7ad1c22a0beeadb261c5855f91f38fc"
+      },
+      "finalized-project.json": {
+        "path": "inputs/runtime-variants/finalized-project.json",
+        "sha256": "7a1b008e0e8244063fb77f1210296543cb485802a52854c4b2379ccde0b3c9d4"
+      },
+      "export/source/customer-ellis/asset.json": {
+        "path": "inputs/runtime-variants/export/source/customer-ellis/asset.json",
+        "sha256": "cdc0d5276b459896db8bffd3c861608e2ea36c9051570a095659ed7de10a6338"
+      },
+      "export/source/customer-ellis/rig.json": {
+        "path": "inputs/runtime-variants/export/source/customer-ellis/rig.json",
+        "sha256": "20ca403b902cad6c2b52015b04690b910e86e72639ee8ebe670e148391ec07c4"
+      },
+      "export/source/customer-june/asset.json": {
+        "path": "inputs/runtime-variants/export/source/customer-june/asset.json",
+        "sha256": "65296fd48d76142b3351401c44391bc63d50729ecef6be63cc29778ede82cc90"
+      },
+      "export/source/customer-june/rig.json": {
+        "path": "inputs/runtime-variants/export/source/customer-june/rig.json",
+        "sha256": "d14716ce02d8e653613bccfd33de11a7a307ba733a4895f53f9859f94d6b9f36"
+      },
+      "export/source/customer-rosa/asset.json": {
+        "path": "inputs/runtime-variants/export/source/customer-rosa/asset.json",
+        "sha256": "af7a9164c8c8cfd35d951db0b4a16a6a013ee50289cf25d30c1e6babe15d4137"
+      },
+      "export/source/customer-rosa/rig.json": {
+        "path": "inputs/runtime-variants/export/source/customer-rosa/rig.json",
+        "sha256": "1e5d935943b4f77aa1220ab43defc26729af6fe40518e446c4b1fc25c2aa2479"
+      },
+      "export/source/customer-samir/asset.json": {
+        "path": "inputs/runtime-variants/export/source/customer-samir/asset.json",
+        "sha256": "12c7620d91feba9e8af76a81da406e3f291c3e0a9fe25fa075aa92e33b7704d8"
+      },
+      "export/source/customer-samir/rig.json": {
+        "path": "inputs/runtime-variants/export/source/customer-samir/rig.json",
+        "sha256": "4953e55d815ae0024280e953c75975890f010c1945667d16e7cb4359de6d3d8a"
+      },
+      "export/source/native-actions/library-actions.json": {
+        "path": "inputs/runtime-variants/export/source/native-actions/library-actions.json",
+        "sha256": "978fd2845d1388a055d00f4dae763e01ff5aecbcc470bd03fae91c0887b5d3ad"
+      },
+      "export/capture-workers/camera/starter-meals-a/customer-ellis.json": {
+        "path": "inputs/runtime-variants/export/capture-workers/camera/starter-meals-a/customer-ellis.json",
+        "sha256": "49ac0ac3d11f776f89c49fee162be1f88e9d6dda8963207a355d09f5e1049bae"
+      },
+      "export/capture-workers/camera/starter-meals-a/customer-rosa.json": {
+        "path": "inputs/runtime-variants/export/capture-workers/camera/starter-meals-a/customer-rosa.json",
+        "sha256": "889dfa356bd97f0cfd3ee384a359b6efb5ea27b0868a3462518da2e0a0bb6f7c"
+      },
+      "export/capture-workers/camera/starter-meals-b/customer-june.json": {
+        "path": "inputs/runtime-variants/export/capture-workers/camera/starter-meals-b/customer-june.json",
+        "sha256": "0f77f3644997983ecf6039d3a5f18c58bc4ec59d48a89c97ad0a9f9f5154d492"
+      },
+      "export/capture-workers/camera/starter-meals-b/customer-samir.json": {
+        "path": "inputs/runtime-variants/export/capture-workers/camera/starter-meals-b/customer-samir.json",
+        "sha256": "b14e3ca152a07b8d63da94ff0f0db80a4210e5c54e77d87e53b3cf4b8c91ea7b"
+      },
+      "export/capture-workers/starter-meals-a.status.json": {
+        "path": "inputs/runtime-variants/export/capture-workers/starter-meals-a.status.json",
+        "sha256": "02444495afc4898a568fa0149347e700e6fd71700bc49d5c11fff6e9f404a96c"
+      },
+      "export/capture-workers/starter-meals-b.status.json": {
+        "path": "inputs/runtime-variants/export/capture-workers/starter-meals-b.status.json",
+        "sha256": "7a4f2cfe0fa45eb842876fab39fd3828f30a01fd7d62343b6781bd3e58df533f"
+      },
+      "external/assets/production/source/blender/capture_runtime.py": {
+        "path": "inputs/runtime-variants/external/assets/production/source/blender/capture_runtime.py",
+        "sha256": "9e6aa6ffa2238a82183387cfe43437b019e48bc1a86b361d0b0f944b7046b229"
+      },
+      "external/assets/production/source/blender/capture_worker.py": {
+        "path": "inputs/runtime-variants/external/assets/production/source/blender/capture_worker.py",
+        "sha256": "e7b530bb29fbdc868a67e8a1c3137f9f885830d47b11a3952ffe0ea4e8547ba2"
+      },
+      "external/assets/production/source/blender/native_actions.py": {
+        "path": "inputs/runtime-variants/external/assets/production/source/blender/native_actions.py",
+        "sha256": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f"
+      },
+      "external/assets/production/source/blender/catalog_style.py": {
+        "path": "inputs/runtime-variants/external/assets/production/source/blender/catalog_style.py",
+        "sha256": "ca784f2f23914bd0669eaf261073539698d9dee94c14d0604ebbb7db17f7a888"
+      },
+      "external/assets/production/source/blender/catalog_faceted.py": {
+        "path": "inputs/runtime-variants/external/assets/production/source/blender/catalog_faceted.py",
+        "sha256": "fe2b5666ebea964e223b2c5a259d5f9f9fc690e12c851a0189b9a99fb151dfd3"
+      },
+      "external/assets/production/source/blender/concept_decoration_geometry.py": {
+        "path": "inputs/runtime-variants/external/assets/production/source/blender/concept_decoration_geometry.py",
+        "sha256": "f00a7b868684ee16989de63e701e8d4496ecbfc14b04fab29e6a605c3d58c178"
+      },
+      "external/assets/production/source/2d/generated/dish-salmon.png": {
+        "path": "inputs/runtime-variants/external/assets/production/source/2d/generated/dish-salmon.png",
+        "sha256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe"
+      }
+    },
+    "requiredClips": [
+      "eat-salmon",
+      "seated-wait-empty"
+    ],
+    "delivery": "Refine native576frames total:480catalog+96supplemental. Supplemental outputs in delivery.runtimeVariants/resources/previews; do not addextra catalogatlases. Preserve original runtimevariant registration/action/timing/foodcontacts. Root integrates exactapprovedruntimebytes atfinalstage."
+  }
+}
