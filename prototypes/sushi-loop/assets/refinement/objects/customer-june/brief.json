@@ -139,7 +139,8 @@
       "Supplemental eat-salmon/seated-wait-empty\u00d712\u00d74=96additionalnativeframes and8clips from originalruntimevariant project, refinedsameactorgeometry/materials underthesamepair.",
       "Total576frames/48clips: preserve rig/rest topology, foot/hand/seat/mouth/dish/food contacts, timing/nonloopbehavior, sourcecardinalS0/E+90/N180/W-90. Source35degreecamera/native384x640/root96,248/scale2.",
       "Verify everyframe via native measurements/sheets and actualtemporal playback,light/gray/dark backgrounds,sitting/stool/eating contexts. Do not leaveoldstyle overlays active."
-    ]
+    ],
+    "foodDisplayDepth": "Preserve exact canonical food bytes/fullUV/aspect/.35worldcell width and original food-root/palm/platebottom projected anchors, all action/visibility paths and camera-facing yaw cancellation. For natural body/food occlusion, allow one constant display-depth scalar per food composition in0..0.6worldcells, identical across all states/frames/facings. It must move only along the exact registered orthographic camera ray, preserve every projected quad corner/platebottom position/size, and be proved across all original samples. Keep source baseline0.6 in provenance. No per-view hiding/regrade/fitting/body contact shifts; keep empty meal variants empty. This2D display ordering is excluded from physical nativebody bounds."
   },
   "qualityCriteria": {},
   "delivery": {
@@ -540,5 +541,46 @@
       "seated-wait-empty"
     ],
     "delivery": "Refine native576frames total:480catalog+96supplemental. Supplemental outputs in delivery.runtimeVariants/resources/previews; do not addextra catalogatlases. Preserve original runtimevariant registration/action/timing/foodcontacts. Root integrates exactapprovedruntimebytes atfinalstage."
+  },
+  "foodDependencies": {
+    "dish-salmon": {
+      "asset": "dish-salmon",
+      "representation": "exact approved canonical packed2D raster texture; not modeled3D food",
+      "artwork": "../../../production/source/2d/refinement/dish-salmon/source/round01/dish-salmon.png",
+      "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+      "packet": "../dish-salmon/candidates/round01/packet.json",
+      "packetSHA256": "e7a8682233052e676135edd19ba7c98b057e6d7075074a5eb344e0a3558f3ae6",
+      "review": "../dish-salmon/reviews/round01.json",
+      "reviewSHA256": "c19b7c702158dec570e3181289b7606a87e966e3a33ecb2f0b5ada4bc5c68c67",
+      "policy": "Preserve exact canonical food bytes/fullUV/aspect/.35worldcell width and original food-root/palm/platebottom projected anchors, all action/visibility paths and camera-facing yaw cancellation. For natural body/food occlusion, allow one constant display-depth scalar per food composition in0..0.6worldcells, identical across all states/frames/facings. It must move only along the exact registered orthographic camera ray, preserve every projected quad corner/platebottom position/size, and be proved across all original samples. Keep source baseline0.6 in provenance. No per-view hiding/regrade/fitting/body contact shifts; keep empty meal variants empty. This2D display ordering is excluded from physical nativebody bounds."
+    },
+    "dish-cucumber": {
+      "asset": "dish-cucumber",
+      "representation": "exact approved canonical packed2D raster texture; not modeled3D food",
+      "artwork": "../../../production/source/2d/refinement/dish-cucumber/source/round01/dish-cucumber.png",
+      "sha256": "b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930",
+      "packet": "../dish-cucumber/candidates/round02/packet.json",
+      "packetSHA256": "255d202624fb38a991d4d61e797146dd9c4b7601aa09f6cc95dac2249262c72f",
+      "review": "../dish-cucumber/reviews/round02.json",
+      "reviewSHA256": "a649ebe99484075ade796f38f0da76dba17f427b9ff277d202e72c8ebf43b854",
+      "policy": "Preserve exact canonical food bytes/fullUV/aspect/.35worldcell width and original food-root/palm/platebottom projected anchors, all action/visibility paths and camera-facing yaw cancellation. For natural body/food occlusion, allow one constant display-depth scalar per food composition in0..0.6worldcells, identical across all states/frames/facings. It must move only along the exact registered orthographic camera ray, preserve every projected quad corner/platebottom position/size, and be proved across all original samples. Keep source baseline0.6 in provenance. No per-view hiding/regrade/fitting/body contact shifts; keep empty meal variants empty. This2D display ordering is excluded from physical nativebody bounds."
+    }
+  },
+  "foodMapping": {
+    "defaultCatalogFood": "dish-cucumber",
+    "defaultSourceOwner": "held_dish-cucumber",
+    "runtimeVariants": {
+      "eat-salmon": "dish-salmon",
+      "seated-wait-empty": null
+    },
+    "inspectionRequirement": "Confirm original source-rig owners, packed payload, actual visibility and paths independently before editing. Do not mistakenly substitute salmon for all catalog meals."
+  },
+  "technicalResources": {
+    "dish-salmon:canonicalArt": "../../../production/source/2d/refinement/dish-salmon/source/round01/dish-salmon.png",
+    "dish-salmon:packet": "../dish-salmon/candidates/round01/packet.json",
+    "dish-salmon:review": "../dish-salmon/reviews/round01.json",
+    "dish-cucumber:canonicalArt": "../../../production/source/2d/refinement/dish-cucumber/source/round01/dish-cucumber.png",
+    "dish-cucumber:packet": "../dish-cucumber/candidates/round02/packet.json",
+    "dish-cucumber:review": "../dish-cucumber/reviews/round02.json"
   }
 }

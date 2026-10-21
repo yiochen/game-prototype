@@ -275,9 +275,10 @@
   "heldPolicy": [
     "Use the exact named canonical approved2D artwork source, never raw uncropped target when that changes bounds.",
     "New immutable same-character source/captures and same judge review, retaining approvedbody/rig/actions/camera/registration/socket path.",
-    "Fixed source UV/alpha rectangle is explicitly versioned for new canonical artwork; preserve0.35worldcell displaywidth, bottom plate anchor, yawcancellation and camera-ray depth bias. Never posefit.",
+    "Fixed source UV/alpha rectangle is explicitly versioned for new canonical artwork; preserve0.35worldcell displaywidth, bottom plate anchor, yawcancellation and a declared global orthographic-ray display-depth value. Never posefit.",
     "Do not relabel packed2Dfood as3D geometry or include its depthbias in physical bodybounds.",
-    "Preserve runtime supplemental clips and original framecounts/fps/loops; no stale oldstyle overlays at cutover."
+    "Preserve runtime supplemental clips and original framecounts/fps/loops; no stale oldstyle overlays at cutover.",
+    "Preserve exact canonical food bytes/fullUV/aspect/.35worldcell width and original food-root/palm/platebottom projected anchors, all action/visibility paths and camera-facing yaw cancellation. For natural body/food occlusion, allow one constant display-depth scalar per food composition in0..0.6worldcells, identical across all states/frames/facings. It must move only along the exact registered orthographic camera ray, preserve every projected quad corner/platebottom position/size, and be proved across all original samples. Keep source baseline0.6 in provenance. No per-view hiding/regrade/fitting/body contact shifts; keep empty meal variants empty. This2D display ordering is excluded from physical nativebody bounds."
   ],
   "preferenceBubble": {
     "object": "bubble-preference",

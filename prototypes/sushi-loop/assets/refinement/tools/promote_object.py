@@ -84,27 +84,34 @@ def main():
         generated[Path(dest)] = value
 
     project = folder / delivery.get('project', delivery.get('source', {}).get('blend', ''))
-    recipe = folder / delivery.get('recipe', delivery.get('source', {}).get('reproductionScript', ''))
+    recipe = folder / delivery.get('recipeScript', delivery.get('recipe', delivery.get('source', {}).get('reproductionScript', '')))
     native_base = PRODUCTION / 'source/blender/refinement' / args.asset
-    project_dest = native_base / 'source' / project.name
-    recipe_dest = native_base / 'source' / recipe.name
+    source_root = (folder / 'source').resolve()
+    require(project.resolve().is_relative_to(source_root), 'Candidate project must belong to object source')
+    require(recipe.resolve().is_relative_to(source_root), 'Native recipe must belong to object source')
+    project_dest = native_base / 'source' / project.resolve().relative_to(source_root)
+    recipe_dest = native_base / 'source' / recipe.resolve().relative_to(source_root)
     copy_file(project, project_dest)
     copy_file(recipe, recipe_dest)
     for dependency in (folder / 'source').rglob('*'):
-        if dependency.suffix not in ['.py', '.json', '.gd', '.gdshader', '.patch', '.tscn', '.godot']:
+        if not dependency.is_file() or '__pycache__' in dependency.parts:
             continue
-        if dependency.resolve() in bound and dependency.resolve() != recipe.resolve():
+        if dependency.resolve() in bound and dependency.resolve() not in [recipe.resolve(), project.resolve()]:
             copy_file(dependency, native_base / 'source' / dependency.relative_to(folder / 'source'))
     # Keep the native recipe's original relative inputs alongside its saved project.
     # These are reproduction dependencies; approved render bytes remain packet-bound.
     for dependency in (folder / 'inputs').rglob('*'):
-        if dependency.suffix in ['.blend', '.json', '.py', '.gd', '.gdshader', '.tscn', '.godot']:
+        if dependency.is_file() and dependency.resolve() in bound and '__pycache__' not in dependency.parts:
             copy_file(dependency, native_base / 'inputs' / dependency.relative_to(folder / 'inputs'),
-                      sealed=dependency.resolve() in bound)
+                      sealed=True)
     if (recipe.parent / 'original-library.blend').exists():
         copy_file(recipe.parent / 'original-library.blend', native_base / 'source/original-library.blend', sealed=False)
     approved_brief = (packet_path.parent / packet['files']['brief']['path']).resolve()
     copy_file(approved_brief, native_base / 'brief.json')
+    if approved_brief.name != 'brief.json':
+        # Native capture scripts may intentionally name their frozen versioned
+        # brief. Keep that exact filename as well as the catalog's stable alias.
+        copy_file(approved_brief, native_base / approved_brief.name)
     criteria_file = packet['qualityCriteria'].get('criteriaFile')
     if criteria_file and (folder / criteria_file).resolve() in bound:
         copy_file(folder / criteria_file, native_base / criteria_file)

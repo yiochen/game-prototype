@@ -1,0 +1,287 @@
+{
+  "lights": [
+    {
+      "name": "Centered broad key",
+      "type": "AREA",
+      "energy": 85.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "shape": "DISK",
+      "size": 5.0,
+      "matrixWorld": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          4.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Equal cardinal fill",
+      "type": "AREA",
+      "energy": 30.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "shape": "DISK",
+      "size": 4.0,
+      "matrixWorld": [
+        [
+          -1.6292068494294654e-07,
+          -0.5913636088371277,
+          0.8064050674438477,
+          3.0
+        ],
+        [
+          1.0,
+          -6.602822821832888e-08,
+          1.5361261773705337e-07,
+          0.0
+        ],
+        [
+          -3.759540945225126e-08,
+          0.8064050674438477,
+          0.5913636088371277,
+          2.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Equal cardinal fill.001",
+      "type": "AREA",
+      "energy": 30.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "shape": "DISK",
+      "size": 4.0,
+      "matrixWorld": [
+        [
+          -1.6292068494294654e-07,
+          0.5913636088371277,
+          -0.8064050674438477,
+          -3.0
+        ],
+        [
+          -1.0,
+          -6.602822821832888e-08,
+          1.5361261773705337e-07,
+          0.0
+        ],
+        [
+          3.759540945225126e-08,
+          0.8064050674438477,
+          0.5913636088371277,
+          2.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Equal cardinal fill.002",
+      "type": "AREA",
+      "energy": 30.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "shape": "DISK",
+      "size": 4.0,
+      "matrixWorld": [
+        [
+          -1.0,
+          1.8748431784842978e-07,
+          -4.9757119313653675e-08,
+          0.0
+        ],
+        [
+          -1.5099580252808664e-07,
+          -0.5913636088371277,
+          0.8064050078392029,
+          3.0
+        ],
+        [
+          1.2176374752925767e-07,
+          0.8064050078392029,
+          0.5913636088371277,
+          2.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Equal cardinal fill.003",
+      "type": "AREA",
+      "energy": 30.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "shape": "DISK",
+      "size": 4.0,
+      "matrixWorld": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.5913634896278381,
+          -0.8064051270484924,
+          -3.0
+        ],
+        [
+          0.0,
+          0.8064051270484924,
+          0.5913634896278381,
+          2.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "world": {
+    "name": "WarmSoft_symmetrical_world",
+    "nodes": {
+      "nodes": [
+        {
+          "name": "Background",
+          "type": "ShaderNodeBackground",
+          "label": "",
+          "properties": {},
+          "inputs": [
+            {
+              "index": 0,
+              "name": "Color",
+              "identifier": "Color",
+              "defaultValue": [
+                0.800000011920929,
+                0.8600000143051147,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 1,
+              "name": "Strength",
+              "identifier": "Strength",
+              "defaultValue": 0.3199999928474426
+            },
+            {
+              "index": 2,
+              "name": "Weight",
+              "identifier": "Weight",
+              "defaultValue": 0.0
+            }
+          ],
+          "outputs": [
+            {
+              "index": 0,
+              "name": "Background",
+              "identifier": "Background"
+            }
+          ]
+        },
+        {
+          "name": "World Output",
+          "type": "ShaderNodeOutputWorld",
+          "label": "",
+          "properties": {},
+          "inputs": [
+            {
+              "index": 0,
+              "name": "Surface",
+              "identifier": "Surface"
+            },
+            {
+              "index": 1,
+              "name": "Volume",
+              "identifier": "Volume"
+            }
+          ],
+          "outputs": []
+        }
+      ],
+      "links": [
+        {
+          "fromNode": "Background",
+          "fromSocketIndex": 0,
+          "fromSocket": "Background",
+          "toNode": "World Output",
+          "toSocketIndex": 0,
+          "toSocket": "Surface"
+        }
+      ]
+    }
+  },
+  "actualRender": {
+    "engine": "CYCLES",
+    "device": "CPU",
+    "samples": 1,
+    "samplingPattern": "TABULATED_SOBOL",
+    "scramblingDistance": 0.0,
+    "filter": "BOX",
+    "filterWidth": 1.0,
+    "ditherIntensity": 0.0,
+    "denoising": false,
+    "viewTransform": "Standard",
+    "look": "None",
+    "exposure": 0.0
+  },
+  "allShaderTexCoordObjectsNone": true,
+  "noGeometryAnimationOwners": true,
+  "exactFrozenLights": true,
+  "exactFrozenWorld": true,
+  "exactFrozenRenderFields": true
+}

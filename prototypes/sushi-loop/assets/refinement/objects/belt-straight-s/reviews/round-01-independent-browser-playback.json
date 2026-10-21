@@ -1,0 +1,55 @@
+{
+  "surface": "packet-bound previews/review.html, opened through Chrome for independent review. It displays actual saved Godot GPU output pairs, not a browser approximation of Godot.",
+  "requestedFPS": 12,
+  "cases": [
+    {
+      "pattern": "SSS",
+      "pitch": 128,
+      "background": "gray",
+      "context": 0,
+      "counter": 96
+    },
+    {
+      "pattern": "SNS",
+      "pitch": 55,
+      "background": "dark",
+      "context": 1,
+      "counter": 192
+    },
+    {
+      "pattern": "NSN",
+      "pitch": 32,
+      "background": "game-floor-cream",
+      "context": 1,
+      "counter": 288
+    },
+    {
+      "pattern": "SES",
+      "pitch": 128,
+      "background": "light",
+      "context": 1,
+      "counter": 384
+    },
+    {
+      "pattern": "ESE",
+      "pitch": 55,
+      "background": "gray",
+      "context": 1,
+      "counter": 480
+    }
+  ],
+  "eachCase": "Four actual facings, both current independent and native-connected reference canvases; counter gained96 keys per case (four directions times24 frame indices). Full-page views inspected, along with selected actual-size/enlarged native/Godot images.",
+  "closureScrub": {
+    "pattern": "ESE",
+    "pitch": 55,
+    "background": "gray",
+    "context": 1,
+    "indices": [
+      24,
+      0
+    ],
+    "counterAfterClosure": 484,
+    "visibleResult": "No visible jump; all four closure views painted, and loop start confirmed by the rendered DOM index."
+  },
+  "limit": "The page enlarges55px outputs2x and32px outputs4x with nearest interpolation for diagnostic inspection; actual-size32/55 pixels were independently inspected in bound worst-case complete-image pairs. Browser playback is an inspection surface for saved actual GPU captures; reviewer did not rerun the full Godot benchmark."
+}
