@@ -1,0 +1,54 @@
+{
+  "asset": "barrel-wood",
+  "round": 4,
+  "verdict": "approve",
+  "candidatePacketSHA256": "47519ef74269266d7644d4d6c47d7e67dc3a1de221e1aec612deb184d39e1e89",
+  "criteriaVersion": 1,
+  "inspectedFiles": [
+    "N.png",
+    "E.png",
+    "S.png",
+    "W.png",
+    "previews/four-view-sheet.png",
+    "previews/repeated.png",
+    "previews/background-readability.png"
+  ],
+  "additionalInspectedFiles": ["previews/hoop-detail-qa.png"],
+  "comparisonFiles": ["../../inputs/original.png", "../../inputs/target.png", "../round-03/N.png"],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 8,
+    "materialDetail": 8,
+    "artifactFreeReadability": 9
+  },
+  "observations": [
+    "The original closed honey-wood barrel remains immediately recognizable: compact bulging staves, original planked lid organization, shoulder and two dark navy hoops. Actual E/W rotations naturally turn the lid plank divisions relative to N/S without requiring an unseen target facing.",
+    "Compared with the original, the lid retains warm honey color rather than nearly uniform lemon-yellow glare, and the lower staves stay warm and readable instead of becoming a muddy dark region. No new fine-grain noise or decorative features were introduced.",
+    "Round03 lid blocker is resolved. In the native images, the planks now have gently rounded upper/end edges and softly shaded seam margins. A restrained broad warm variation and shallow convex plank volume replace the earlier uniform cutout reading; these cues remain perceptible in the logical-size four-view and repeated previews.",
+    "Round03 hoop blocker is resolved. Both bands show a restrained lighter upper/rounded portion against a darker navy body. At logical size this reads as controlled band volume while preserving a quiet matte-to-satin character; it does not depend on a bright glossy accent.",
+    "Useful broad body faceting remains, but the colored lid, soft plank/seam depth and rounded band transition now provide visible improvement toward the frozen warm, softly lit cartoon criteria. There is no need to erase the original barrel's facets to match a smoothed photographic surface.",
+    "All four native images and the three declared previews remain clean on light, gray and dark backgrounds. No material black void, broken corner, exposed seam, clipping, bright alpha halo, muddy merged region or directional ground shadow is visible. The enlarged hoop QA image also shows continuous rounded band surfaces.",
+    "The repeated preview is consistent in scale, warmth and native facing continuation. Its individual silhouettes and wood/band separation remain readable, without a repeated defect or excess detail overwhelming the prop."
+  ],
+  "blockers": [],
+  "resolvedPriorBlockers": [
+    {"round": 3, "rank": 1, "resolution": "Soft native plank crown/end treatment, shaded seam margins and restrained broad honey variation are visible in native and logical-size views."},
+    {"round": 3, "rank": 2, "resolution": "Upper and lower hoops now have a visible rounded cross-band light transition with dark navy bodies at logical size."}
+  ],
+  "remainingDifferences": [
+    "The candidate keeps stronger broad body faceting and a more restrained overall contrast than the reskinned target; useful faceting and native palette continuity are allowed by the frozen criteria.",
+    "Fine wood grain, stronger blue glossy accents and the target's bright edge fringe are intentionally absent and are not needed for the intended display size.",
+    "The target's canvas/padding, internal placement and silhouette drift are not copied; native capture, dimensions and barrel construction take precedence."
+  ],
+  "technicalEvidence": {
+    "packetIntegrity": "candidate_packet.py verify --packet candidates/round-04/packet.json returned Artifact integrity verified. Independently computed packet SHA-256 is 47519ef74269266d7644d4d6c47d7e67dc3a1de221e1aec612deb184d39e1e89, exactly the supplied packet.",
+    "evidenceRead": ["validation.json", "records/camera.json", "../../source/audit-round-04.py", "../../../../../production/source/records/barrel-wood/camera.json"],
+    "nativeEvidence": "The hash-bound reopened-source audit records Blender 5.2.2 LTS scene Barrel Warm Soft Round 04, the registered camera, CYCLES rendering, 384 x 704 native frame, registered pixel aspect [1.2206555604934692, 1], 12 fps, frame range [1, 1], no armature/actions required for this static asset and no external dependency. Its project SHA-256 matches packet candidateProject 7415ed8fe80f1c7e6237e262cffef13c797973143cd51a2749e720a57974d4a1.",
+    "cameraRegistration": "Compared production and candidate camera records: logical frame [192, 352], root [96, 248], projection, cell size, fps and axes agree. World/projection matrices agree within floating-point rounding (maximum differences approximately 0.00000006 and 0.00000051 respectively). Original sourceScale 4 calibration reduces by half to the brief-required sourceScale 2 while preserving logical registration. Validation records the same native root pixel [192, 496] for all actual N/E/S/W root rotations.",
+    "geometryAndContract": "Validation checks all pass: frame/root/scale metadata, actual native rotations, unclipped alpha, closed evaluated meshes, no external dependencies and source-envelope preservation. It records one-cell footprint, unchanged source z limits/catalog height, original names and static/non-loop one-frame 12 fps metadata, no sockets/ports, zero evaluated boundary/non-manifold edges and no negative scales. Bounds differ only inward by about 0.00077 x and 0.00245 y, with no z change.",
+    "lightingAndAlpha": "The bound evidence records a centered broad overhead light plus four equal cardinal fills, no ground shadow receiver, transparent renders and zero nontransparent border pixels. Direct inspection of every required view on multiple backgrounds agrees with clean alpha and direction-neutral light treatment.",
+    "deliveryBytes": "Each static atlas is byte-identical to its corresponding inspected native N/E/S/W PNG. The packet binds the exact editable project, native renders, atlases, previews, source/audit resources and validation.",
+    "limits": "The judge inspected the supplied hash-bound reopened-source and native validation evidence and actual pixels; no project edits or rerender were performed by the judge. Approval applies only to the exact bytes bound by this round04 packet and does not grant unrelated production or publishing permissions."
+  }
+}

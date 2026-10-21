@@ -3,6 +3,7 @@ import argparse
 import copy
 import hashlib
 import json
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -77,6 +78,9 @@ def main():
     recipe_dest = native_base / 'source' / recipe.name
     copy_file(project, project_dest)
     copy_file(recipe, recipe_dest)
+    for script in (folder / 'source').glob('*.py'):
+        if script.resolve() in bound and script.resolve() != recipe.resolve():
+            copy_file(script, native_base / 'source' / script.name)
     # Keep the native recipe's original relative inputs alongside its saved project.
     # These are reproduction dependencies; approved render bytes remain packet-bound.
     for dependency in (folder / 'inputs').iterdir():
@@ -108,6 +112,15 @@ def main():
     atlas_map = {(a['clip'], a['direction']): a for a in atlases}
     expected = {(c['id'], d) for c in obj['clips'] for d in c['directions']}
     require(set(atlas_map) == expected, 'Delivery does not cover every original clip/facing')
+    delivered_raw = {}
+    for record in delivery.get('rawFrames', []):
+        if isinstance(record, dict):
+            delivered_raw[(record['clip'], record['direction'], record['index'])] = folder / record['path']
+        else:
+            for clip_id, direction in expected:
+                match = re.search(r'(?:^|/)' + re.escape(f'{clip_id}-{direction}') + r'(?:/|-)(\d+)\.png$', record)
+                if match:
+                    delivered_raw[(clip_id, direction, int(match[1]))] = folder / record
     guides, raw_frames = [], []
     for clip in obj['clips']:
         for direction, current in clip['directions'].items():
@@ -122,7 +135,7 @@ def main():
             captures = []
             for index, rect in enumerate(current['rects']):
                 clip_dir = f'{clip["id"]}-{direction}'
-                raw = round_folder / 'raw' / clip_dir / f'{index:03}.png'
+                raw = delivered_raw.get((clip['id'], direction, index), round_folder / 'raw' / clip_dir / f'{index:03}.png')
                 if not raw.exists():
                     require(clip['frames'] == 1, 'Animated raw capture missing')
                     raw = folder / delivery.get('heroes', {}).get(direction, f'candidates/{args.round}/{direction}.png')

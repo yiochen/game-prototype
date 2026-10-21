@@ -1,0 +1,92 @@
+{
+  "asset": "lantern-gold",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. Real 3D render output, editable Blender sources. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks.",
+  "source": {
+    "project": "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "backup": "../../backups/b1765262bfa897ad-sushi-loop-world-library.blend",
+    "snapshot": "inputs/original.png",
+    "scene": "Inspect the named asset collection; do not use an unrelated active scene"
+  },
+  "target": {
+    "image": "inputs/target.png",
+    "provenance": "imagegen",
+    "prompt": "inputs/imagegen-prompt.txt"
+  },
+  "agentPrompts": {
+    "judge": "prompts/judge.txt",
+    "editor": "prompts/editor.txt"
+  },
+  "capture": {
+    "frame": [
+      384,
+      768
+    ],
+    "views": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated",
+      "idle-N",
+      "idle-E",
+      "idle-S",
+      "idle-W"
+    ],
+    "logicalFrame": [
+      192,
+      384
+    ],
+    "logicalRoot": [
+      96,
+      288
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "top-down-oblique-square-grid"
+  },
+  "constraints": {
+    "preserve": [
+      "Every logical frame/root/sourceScale and per-clip/direction override",
+      "Original footprint, height/proportions, sockets, ports, rigs and projection",
+      "Every registered clip, facing, frame count and fps/loop behavior",
+      "Lighting without preferred horizontal direction for rotatable world objects; no directional ground cast shadow",
+      "Actual independent geometry views and native animation; no raster card or per-view image fitting/recolor"
+    ],
+    "catalogContract": "inputs/catalog-object.json",
+    "pipeline": "native-3d"
+  },
+  "qualityCriteria": {},
+  "delivery": {
+    "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
+    "requiredClips": [
+      {
+        "id": "idle",
+        "sourceClipId": "idle",
+        "name": "Idle",
+        "frames": 12,
+        "fps": 12,
+        "static": false,
+        "loop": true,
+        "frameOrder": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      }
+    ],
+    "notes": "Write source/round-NN.blend or the actual native 2D source as appropriate; full native captures, original-layout atlases, previews, validation and delivery.json. Do not label 2D artwork as a Blender model."
+  }
+}

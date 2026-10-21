@@ -1,0 +1,36 @@
+{
+  "asset": "barrel-wood",
+  "round": 3,
+  "commands": [
+    {
+      "executable": "/opt/homebrew/bin/blender",
+      "arguments": [
+        "--background",
+        "--python",
+        "source/round-03.py"
+      ]
+    },
+    {
+      "executable": "/opt/homebrew/bin/blender",
+      "arguments": [
+        "--background",
+        "source/round-03.blend",
+        "--python",
+        "source/audit-round-03.py"
+      ]
+    },
+    {
+      "executable": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "arguments": [
+        "source/package-round-03.py"
+      ]
+    }
+  ],
+  "workingDirectory": "object root",
+  "scripts": [
+    "source/round-03.py",
+    "source/audit-round-03.py",
+    "source/package-round-03.py"
+  ],
+  "notes": "First script rebuilds actual editable 3D source and four native captures from frozen original source. Second independently reopens and audits saved project. Third copies exact atlas bytes and makes QA-only composites."
+}

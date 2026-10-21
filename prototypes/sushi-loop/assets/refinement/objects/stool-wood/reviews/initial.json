@@ -1,0 +1,55 @@
+{
+  "asset": "stool-wood",
+  "role": "fresh independent visual judge",
+  "status": "criteria-proposed; no candidate reviewed",
+  "inspectedFiles": [
+    "inputs/original.png",
+    "inputs/target.png",
+    "inputs/catalog-object.json",
+    "inputs/source-camera.json",
+    "inputs/source-assetRecord.json",
+    "inputs/source-rig.json",
+    "brief.json",
+    "prompts/judge.txt"
+  ],
+  "inputSHA256": {
+    "inputs/original.png": "3642fbbe699b7dcb9153392be23c9a6daab3a045220aa844f59385e804f4cf2f",
+    "inputs/target.png": "f3225fe279ba910b4fec3ee543ee85d1c9386aba5170585dff7479bd33b6aa13",
+    "inputs/catalog-object.json": "52c889f8e60e001b107a67e7920f29367342b32c40f07b0e89f0df637df272b6",
+    "inputs/source-camera.json": "f12aa69e49e6787365a25b221280301d3d41e204d9973526d540d1b02bce4181",
+    "inputs/source-assetRecord.json": "eeebd1efd1fefd6144051b124e97e2bd89ba6277921513e6c4b1e6e53614c9f9",
+    "inputs/source-rig.json": "6a33197aa4f9a9e5dd31b812b6414e41cf9eb2a85599e34090f8368a094af9b6"
+  },
+  "sourceObservations": [
+    "The native snapshot is a backless golden honey-wood stool: square seat with clipped corners, three broad seat boards separated by two lines, brown splayed supports, and a horizontal lower stretcher.",
+    "The seat is bright flat yellow with narrow orange perimeter facets and little visible surface variation; the brown legs are considerably darker, with hard polygon transitions and near-black lower/inset regions.",
+    "The one-cell seat identity, board layout, splay and leg/stretcher separation are already readable. The main opportunity is softer material modeling and more readable lower support volume, without enlarging the seat or raising its socket."
+  ],
+  "targetObservations": [
+    "The selected reskin retains the warm yellow/orange seat and brown base, but broad soft highlights and gently shaded edge bands give a rounded, substantial cartoon wood impression.",
+    "The three boards remain distinct with softly inset warm brown-orange seams. The legs and stretcher gain orange-brown midtones, smoother volume and more readable edge transitions.",
+    "The reskin rounds and widens the seat perimeter and changes padding/registration. Those silhouette shifts are not authority over source proportions, sockets, camera or bounds.",
+    "Scattered bright edge pixels, warm outline glow and isolated colored speckles around the target are image-generation artifacts; they are not desired model or alpha features."
+  ],
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "outcome": "Replace the uniformly bright seat face and abrupt thin facets with broad restrained honey-gold shading and softened bevel transitions, preserving the original thin square three-board seat."
+    },
+    {
+      "rank": 2,
+      "outcome": "Make brown legs, underside and stretcher read as continuous warm wooden volumes with distinguishable support edges; avoid near-black dead spots and muddy joins."
+    },
+    {
+      "rank": 3,
+      "outcome": "Keep soft inset board seams and subtle wood character readable at logical sprite size, without sharp glowing yellow outlines, noisy grain or enlarged silhouette."
+    }
+  ],
+  "technicalEvidence": {
+    "catalogContract": "One-cell footprint, height 0.64, native static idle capture, N/E/S/W, 1 frame each, 12 fps metadata, nonlooping.",
+    "capture": "384x704 physical PNGs; 192x352 logical frame; root (96,248); sourceScale 2. Native camera metadata includes orthographic matrix, non-square pixel aspect and registered square-grid projection; preserve declared contract rather than estimating it from image bounds.",
+    "attachments": "Seat (0,0,0.655) and occupant_ground (0,0,0) in native space; projected seat offset approximately (0,-58.688024) logical pixels in all facings.",
+    "lighting": "Required horizontal-neutral illumination and no directional ground cast shadow; the source records equal cardinal fills but exact source lamp strengths are not aesthetic requirements.",
+    "limits": "Only source/target pixels and provided native metadata inspected. No candidate, native project audit or unseen source render is claimed approved."
+  }
+}

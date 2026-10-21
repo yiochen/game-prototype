@@ -1,0 +1,43 @@
+{
+  "asset": "stool-blue",
+  "reviewStage": "independent-initial",
+  "verdict": "criteria-proposed",
+  "inspectedFiles": [
+    "inputs/original.png",
+    "inputs/target.png",
+    "inputs/catalog-object.json",
+    "inputs/source-rig.json",
+    "inputs/source-camera.json",
+    "inputs/source-assetRecord.json",
+    "brief.json",
+    "prompts/judge.txt"
+  ],
+  "referenceHashes": {
+    "inputs/original.png": "a2c12904d5918144e3fccd60d494a9a31ee2585d876affe7c49f6d983bfdfa34",
+    "inputs/target.png": "08038c8fcb657421c27d5f40f092f5a4ffecf5832a393704888d639b8f8c4372"
+  },
+  "observations": [
+    "Original reads as a square blue upholstered seat over a wooden stool: a large flat cyan seat plane, stacked sharp blue border bands, dark reddish brown splayed legs, and a lighter crossbar. Identity and construction are legible, but the cushion looks planar and mechanically beveled and the lower wood is very dark.",
+    "Target uses broad gentle gradients across a rounded blue cushion, blue sidewalls, soft edge catches, warm honey-colored wooden legs and crossbar, and restrained surface texture. Cushion and wood remain distinct materials without hard black outline.",
+    "The target has enlarged proportions/canvas placement, more inflated cushion contour, and visible colored fringe around parts of the silhouette. These are not technical or aesthetic requirements. Its single view does not establish the stool construction in unseen facings.",
+    "The source contract requires native independent four-facing static captures. Seat socket [0,0,0.685], ground socket [0,0,0], footprint [1,1], logical frame [192,352], root [96,248], sourceScale 2 and registered oblique camera must remain unchanged. Appearance-only refinement must preserve the actual stool construction and usable seat height."
+  ],
+  "rankedDesiredOutcomes": [
+    {
+      "rank": 1,
+      "outcome": "The large cushion reads as softly padded blue volume at catalog scale, using continuous gentle shading and rounded edge transitions while preserving the authored envelope and seat attachment."
+    },
+    {
+      "rank": 2,
+      "outcome": "Wooden legs and supports read as warm honey wood with clear construction and readable lower faces; remove the original almost-black lower-leg dead areas without flattening contact depth."
+    },
+    {
+      "rank": 3,
+      "outcome": "Unify all four native facings with broad soft highlights, restrained material variation and clean alpha; no directional horizontal light preference, cast ground shadow, harsh stripes, halo, seams or merged joints."
+    }
+  ],
+  "reviewLimits": [
+    "Only the original and target supplied snapshots have been visually inspected. No candidate is reviewed or approved. Native all-view evidence remains required.",
+    "No exact shape, root or camera measurements are inferred from the target pixels."
+  ]
+}
