@@ -1,0 +1,140 @@
+{
+  "asset": "chef-omar",
+  "stage": "independent-source-target-calibration",
+  "candidateGraded": false,
+  "independence": {
+    "freshJudge": true,
+    "editorProposalsRead": false,
+    "otherObjectAestheticVerdictsRead": false,
+    "ownership": "reviews/ only"
+  },
+  "inspectedImages": [
+    {
+      "path": "inputs/original.png",
+      "sha256": "423814c72dd295f94986423b8b92886f89276402789a9a090f9abd70bd9131e6",
+      "inspection": "actually viewed"
+    },
+    {
+      "path": "inputs/target.png",
+      "sha256": "5d7409737b42aa4d8facb934ace229ae3abee74f7bacfab6df26ac778cb8203d",
+      "inspection": "actually viewed"
+    },
+    {
+      "path": "inputs/family-concept.png",
+      "sha256": "f234a68dee5734e479d68eb0e914c48de059629333c498603528f47adc4f82a1",
+      "inspection": "actually viewed"
+    },
+    {
+      "path": "../../style/warm-soft-reference.png",
+      "sha256": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15",
+      "inspection": "actually viewed"
+    },
+    {
+      "path": "reviews/source-native-four-view.png",
+      "sha256": "6cae72cb8d4165121c2a6e46202e715c45b59b52c63184c6d624650a3e3def91",
+      "inspection": "actually viewed"
+    },
+    {
+      "path": "reviews/source-catalog-overview.png",
+      "sha256": "a33d87555a7f823668934259b8019988503058f050fbf4b29c334a35b6c7cdc7",
+      "inspection": "actually viewed"
+    },
+    {
+      "path": "reviews/source-runtime-variants-overview.png",
+      "sha256": "6ff67b85ec2873ac1b51337da2c04617e883f6d2228d5c6f30ce87cdcf047000",
+      "inspection": "actually viewed"
+    },
+    {
+      "path": "reviews/source-target-intended-size.png",
+      "sha256": "0c3e590fdaa71a40f171aae0dcf213d90e0d5e97ebc4c9ae7f994b118f234261",
+      "inspection": "actually viewed"
+    }
+  ],
+  "sourceEvidence": {
+    "blend": "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "blendSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "collection": "S33_CHARACTER_chef_omar.001",
+    "objectCount": 66,
+    "method": "Opened source .blend read-only in Blender 5.2.2; isolated actual Omar collection; applied all 192 native catalog action/facing frames; rendered idle frame00 in every facing using the registered 35-degree camera at scale2. No blend save.",
+    "audit": "reviews/source-native-inspection.json",
+    "script": "reviews/inspect_source.py",
+    "cameraWorldMatrixMaxDifferenceFromRecorded": 0.0,
+    "cameraProjectionMatrixMaxDifferenceFromRecorded": 0.0,
+    "visualCoverage": "4 native idle recaptures plus original runtime frame05 in every catalog and supplemental clip/facing, via hash-listed overview crops. This is representative baseline inspection, not visual review of all baseline animation frames.",
+    "overviewManifest": "reviews/source-overview-manifest.json",
+    "sourceRig": "inputs/source-rig.json",
+    "sourceCamera": "inputs/source-camera.json"
+  },
+  "sourceObservations": [
+    "Omar is already recognizable through the amber/tan head and ears, cropped blue-black fringe, two-lobed dark moustache, ivory toque/coat, teal bib/apron/necktie, short dark shoe ends and large-head proportions.",
+    "The native source toque reads as a tall stepped stack with broad almost-white flat zones; internal crown and band shaping are difficult to perceive. Source torso and cuffs have conspicuous angular planes, the apron is a flat stack of rectangular panels, and dark hair has some merged dark areas.",
+    "Native source S is the front, N is back, E and W are side profiles. A single frontal target cannot establish unseen back/side styling, so these views must be judged for coherent design and clear form rather than imagined reference details.",
+    "Serving views rely on evaluated hands, knife/work attachments and camera-facing salmon/cucumber food cutouts. Their existing visibility and transfer behavior are part of the locked action contract, independent of allowed body-model improvements."
+  ],
+  "targetUsefulImprovements": [
+    "Broad rounded toque lobes and soft recessed fold transitions give the hat a crafted fabric volume; a curved lower band separates hat from fringe.",
+    "Rounded fringe clumps, ears, cheeks/nose and twin moustache lobes give the head a friendly toy-like form while retaining identity.",
+    "Layered collar, tie knot/tails, rolled cuffs, subtle buttons, dimensional apron bib/pocket/waist and restrained hem seams make the compact clothing construction easier to read.",
+    "Warm ivory, rich teal and amber skin are separated by soft broad light, with controlled highlights and readable dark blue-black hair and shoes."
+  ],
+  "targetLimits": [
+    "The generated target is 971x1619 and occupies a substantially larger share of its canvas than the registered 384x640 source. Its apparent size, more frontal presentation and additional exposed shoes are not proof of compliant framing, camera, height or feet registration.",
+    "The generated target has bright jagged edge/halo pixels and warm rim emphasis. Do not copy those artifacts or introduce a preferred horizontal light direction.",
+    "Target sheen and stitching are subordinate to intended-size silhouette and garment readability. Exact lobe, pocket, button and mesh part counts are not constraints."
+  ],
+  "technicalContract": {
+    "nativeFrame": [
+      384,
+      640
+    ],
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "elevationDegrees": 35,
+    "height": 1.5999999642372131,
+    "footprint": [
+      1,
+      1
+    ],
+    "nativeRootScale": 1.25,
+    "nativeRootRotationsDegrees": {
+      "S": 0,
+      "E": 90,
+      "N": 180,
+      "W": -90
+    },
+    "catalogFrames": 192,
+    "supplementalFrames": 96,
+    "requiredTotalNativeFrames": 288,
+    "catalogClips": [
+      "idle",
+      "work",
+      "hold",
+      "load"
+    ],
+    "supplementalClips": [
+      "hold-cucumber",
+      "load-cucumber"
+    ],
+    "framesPerClipFacing": 12,
+    "fps": 12,
+    "loops": [
+      "idle",
+      "work",
+      "hold",
+      "hold-cucumber"
+    ],
+    "nonLoops": [
+      "load",
+      "load-cucumber"
+    ],
+    "requiredFullPacketCoverage": true
+  },
+  "reviewStatus": "Proposed visible criteria ready for coordinator reconciliation and freeze; no candidate exists or is graded."
+}
