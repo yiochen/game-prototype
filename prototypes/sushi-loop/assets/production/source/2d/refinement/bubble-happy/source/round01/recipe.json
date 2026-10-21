@@ -1,0 +1,97 @@
+{
+  "asset": "bubble-happy",
+  "pipeline": "existing-imagegen-2d",
+  "project": "source/round01/bubble-happy-heart.png",
+  "runtimeVariantProject": "source/round01/bubble-happy-smile.png",
+  "publisher": "source/round01/publish.py",
+  "preparationRecipe": "source/round01/prepare_sources.py",
+  "capture": {
+    "frame": [
+      384,
+      640
+    ],
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "root": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "fps": 12,
+    "atlasSize": [
+      2304,
+      1280
+    ],
+    "columns": 6,
+    "rows": 2
+  },
+  "crop": {
+    "heart": {
+      "raw": "source/round01/resources/fixed-heart-target-raw.png",
+      "rawSHA256": "63f9892bf5dc6ec294a0b02d0251f715bb48749b7a8f84a73acdf6780aeaad65",
+      "rawSize": [
+        971,
+        1620
+      ],
+      "box": [
+        204,
+        547,
+        818,
+        1133
+      ],
+      "cropCount": 1,
+      "canonical": "source/round01/bubble-happy-heart.png",
+      "canonicalSHA256": "4f7809a1ad37ed9f15776430bf8db63b2afc36cb76e96830b31bda43e2e8a21e",
+      "canonicalSize": [
+        614,
+        586
+      ],
+      "pixelIdentity": true,
+      "interiorRGBAUnchanged": true,
+      "publisherRecrops": false
+    },
+    "smile": {
+      "raw": "source/round01/resources/smile/target.png",
+      "rawSHA256": "7d5e7ea10bf0641a350f3a033b1297cab99bff337a264c90735b41ece0d55f9f",
+      "rawSize": [
+        971,
+        1619
+      ],
+      "box": [
+        133,
+        490,
+        893,
+        1216
+      ],
+      "cropCount": 1,
+      "canonical": "source/round01/bubble-happy-smile.png",
+      "canonicalSHA256": "452c9bb1ac59d6ea655eb4891300ba0d98f58bd4152b47d55b3cb0db61fc9978",
+      "canonicalSize": [
+        760,
+        726
+      ],
+      "pixelIdentity": true,
+      "interiorRGBAUnchanged": true,
+      "publisherRecrops": false
+    }
+  },
+  "animation": {
+    "phase": "index/12*math.tau",
+    "center": "[96*2,(248-52-3*sin(phase))*2]",
+    "appear": "scale=.5+.5*sin((index+1)/12*pi/2);opacity=(index+1)/12",
+    "fade": "opacity=1-index/12",
+    "transition": "scale=1+.12*sin(phase)",
+    "idle": "scale=1;opacity=1",
+    "placement": "Original Pythonround and PillowLANCZOS; one common82logicalwidth per artwork before animation.",
+    "loops": [
+      "idle",
+      "happy-smile-idle"
+    ]
+  },
+  "aliases": "Main S/N/E/W reuse same S frames and atlas metadata; runtime smile only S with existing ArtBook fallback.",
+  "previews": "Honest2D sprite assemblies from existing Godot customer/stool art, current172logical head attachment and actual happy jump. Historical90logical catalog attachment is separately named. APNG retains all fullRGBAframes including repeated poses; delay is exact1/12second per frame. Preview replay loops for inspection; manifest loop policy remains original.",
+  "prohibitedOperationsApplied": []
+}

@@ -73,6 +73,14 @@ def main():
         add(supplement, sha(supplement))
         add(supplement.parent / saved['image'], saved['imageSHA256'])
         add(supplement.parent / saved['editableSource'], saved['editableSourceSHA256'])
+    runtime_variant = folder / 'final/runtime-variant-approval.json'
+    if runtime_variant.exists():
+        saved = json.loads(runtime_variant.read_text())
+        assert saved['candidatePacketSHA256'] == sha(base / 'packet.json'), 'Runtime variant packet changed'
+        assert saved['reviewSHA256'] == sha(review), 'Runtime variant approval changed'
+        add(runtime_variant, sha(runtime_variant))
+        for path, digest in saved['files'].items():
+            add(runtime_variant.parent / path, digest)
     index = subprocess.check_output(['git', 'ls-files', '--stage', '-z'], cwd=ROOT).decode()
     indexed = {entry.split('\t', 1)[1]: entry.split('\t', 1)[0].split()[1]
                for entry in index.split('\0') if entry}
