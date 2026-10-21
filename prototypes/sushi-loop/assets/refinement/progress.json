@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 28,
-  "published": 27,
-  "current": "Twenty-seven objects live; Ellis approved and publishing28th; Rowan depth-only round02 preparing review; plant native inventory capture; W conveyor fresh independent judge",
+  "completed": 29,
+  "published": 28,
+  "current": "Twenty-eight live; W29 approved and checked, publishing; Rowan round03 native evidence; blackboard native replay; happy fresh judge initial criteria.",
   "objects": [
     {
       "id": "plant-angular",
@@ -310,7 +310,7 @@
       "name": "Straight conveyor flowing W",
       "kind": "belt",
       "pipeline": "native-3d",
-      "status": "native-editing",
+      "status": "approved",
       "clips": 1,
       "frames": 96,
       "target": "inputs/target.png",
@@ -318,7 +318,10 @@
       "editor": "catalog_belt_straight_w_editor_v1",
       "judge": "catalog_belt_straight_w_judge_v1",
       "editorStatus": "running",
-      "judgeStatus": "criteria-frozen"
+      "judgeStatus": "criteria-frozen",
+      "round": "round-01",
+      "packetSHA256": "696e3d4ca144d8fb7945aa04f5694b6d71dc908b63ab9a2472993dceba62f99b",
+      "reviewSHA256": "3e57d33bd310455f16a2e7ee3947daac4ac366d3987c06c699be90a02c77133e"
     },
     {
       "id": "belt-corner-n-e",
@@ -603,7 +606,7 @@
       "name": "Ellis Morgan",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -613,14 +616,15 @@
       "editorStatus": "completed",
       "judgeStatus": "completed",
       "round": "round-05",
-      "packetSHA256": "abec422e883650f05bfe1dba21ad4e59e323d492e1d0a58ba1e13a70e8f25453"
+      "packetSHA256": "abec422e883650f05bfe1dba21ad4e59e323d492e1d0a58ba1e13a70e8f25453",
+      "publishedCommit": "79a0dfced7c2d485577e86347b7906ee92fe67a3"
     },
     {
       "id": "chef-rowan",
       "name": "Rowan McLeod",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "depth-occlusion-revision",
+      "status": "native-occlusion-policy-revision",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -637,11 +641,13 @@
       "name": "Integrated chef blackboard",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "native-editing",
       "clips": 3,
       "frames": 25,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "editor": "catalog_chef_blackboard_editor_v1",
+      "judge": "catalog_chef_blackboard_judge_v1"
     },
     {
       "id": "customer-rosa",
@@ -744,20 +750,23 @@
       "name": "Dish preference bubble",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 9,
-      "frames": 432
+      "frames": 432,
+      "target": "inputs/target.png"
     },
     {
       "id": "bubble-happy",
       "name": "Happy bubble",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "prepared-primary-runtime-supplement-pending",
+      "status": "criteria-in-progress",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "editor": "catalog_bubble_happy_editor_v1",
+      "judge": "catalog_bubble_happy_judge_v1"
     },
     {
       "id": "bubble-puzzled",
@@ -786,9 +795,10 @@
       "name": "World coin icon",
       "kind": "effect",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 48
+      "frames": 48,
+      "target": "inputs/target.png"
     },
     {
       "id": "garbage-sofa",
@@ -858,9 +868,10 @@
       "name": "Dock weather tarp",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 2,
-      "frames": 96
+      "frames": 96,
+      "target": "inputs/target.png"
     },
     {
       "id": "floor-underwater",
@@ -1035,18 +1046,20 @@
       "name": "Underwater faceted boulder",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png"
     },
     {
       "id": "column-broken",
       "name": "Broken pale column",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "queued",
+      "status": "prepared",
       "clips": 1,
-      "frames": 4
+      "frames": 4,
+      "target": "inputs/target.png"
     },
     {
       "id": "decor-foreground-rock",

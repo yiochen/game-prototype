@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "asset": "belt-straight-w",
+  "stage": "independent-source-and-target-inspection",
+  "status": "initial-observations-only-no-candidate-approval",
+  "independence": {
+    "editorProposalsRead": false,
+    "otherJudgesAestheticConclusionsRead": false,
+    "scope": "Read the experiment brief, judge prompt, exact original and frozen target, approved native family visual/technical inputs and actual original Blender data. No editor proposal, sibling review or candidate aesthetic verdict was used.",
+    "ownership": "reviews/ only; source opened in a separate headless Blender process and changed in memory only for visibility, publisher-facing and rig evaluation. Original project bytes were not saved or replaced."
+  },
+  "references": {
+    "original": {"path": "inputs/original.png", "sha256": "d0852717cd16b0129c5629144332e25e215566a87831eaa9eb5f1fdd24f8da41"},
+    "target": {"path": "inputs/target.png", "sha256": "45ad77740662c0380cc04395d9036d88662f0ba47aee8af11e4afb100483492c"},
+    "familySettings": {"path": "inputs/family-settings.json", "sha256": "599d7a731dcf8f22305f3d7b8a67a1fa45743535ed34937620dd9a834377ba15"},
+    "familyApprovalReceipt": "inputs/family-approval.json",
+    "familyNativeVisual": "inputs/approved-family-native-S.png",
+    "nativeInspection": "reviews/source-inspection/native-source-inspection.json",
+    "nativeInspectionRecipe": "reviews/source-inspection/inspect_native_source.py",
+    "originalAtlasIndex": "reviews/source-inspection/original-frame-index.json"
+  },
+  "inspectedImages": [
+    "inputs/original.png",
+    "inputs/target.png",
+    "inputs/approved-family-native-S.png",
+    "reviews/source-inspection/source-target-family-detail.png",
+    "reviews/source-inspection/original-use-sizes.png",
+    "reviews/source-inspection/original-N-all24.png",
+    "reviews/source-inspection/original-E-all24.png",
+    "reviews/source-inspection/original-S-all24.png",
+    "reviews/source-inspection/original-W-all24.png"
+  ],
+  "sourceObservations": [
+    "The source snapshot is the horizontal presentation: coral rails run across the top and bottom, with slate-blue slat lines running vertically between the open left and right ends. Four-view original sheets confirm that N/S are horizontal presentations and E/W are vertical presentations.",
+    "The source has a clear simple conveyor identity and legible seven-period cadence, but rails read as flat rectangular color bands with abrupt top/front changes. Deck slats have narrow dark seams without the target's broader rounded shoulders.",
+    "The exposed legs are nearly black brown at normal logical size, so the support construction collapses into dark blocks. At cell32 the rail/deck palette remains recognizable, but the small dark feet convey little crafted form.",
+    "No ornamental part count is sacred. Better native support proportions, interior construction and useful fastener detail are welcome if the one-cell envelope, contact height, endpoints and family continuity remain correct."
+  ],
+  "targetObservations": [
+    "The target retains the correct horizontal conveyor identity, top/bottom coral rails and vertical slate-blue slat boundaries. Broad coral highlights and darker lower faces communicate rounded volume; the blue deck has readable midtones and softened slat shoulders.",
+    "Honey-colored wood, restrained grain, darker foot pieces and small brass details give the support a purposeful crafted character. These are useful outcomes to reconstruct natively within the envelope, without requiring the exact target geometry or decoration placement.",
+    "The target's large brass collars wrap the ends of the top and bottom rails. They conflict with the flush modular end-profile contract and must not be copied onto the open joins. A target feature has no authority to enlarge or close a connector.",
+    "The target is larger than the native export and has its own padding and internal placement. It establishes aesthetic direction only; neither its canvas nor alpha silhouette proves registration, contact, height or seamless connections.",
+    "The approved N family native reference establishes the actual continuous coral/slate/honey palette, soft material response, native cut profiles, repeat and phase. W should belong visibly to that family rather than exaggerating the ImageGen target's gold collars or glare."
+  ],
+  "sourceComparativeScores": {
+    "shapeVolume": 4,
+    "color": 4,
+    "lightingHighlights": 3,
+    "materialDetail": 2,
+    "artifactFreeReadability": 6,
+    "meaning": "Descriptive baseline against this chosen warm soft cartoon direction; not a numerical approval threshold and not a verdict on an unseen candidate."
+  },
+  "independentlyMeasuredNativeFacts": {
+    "projectSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "scene": "S33 Native Asset Library Export",
+    "collection": "S33_FB_belt-straight-w.001",
+    "root": "belt-straight-w__root.001",
+    "orientationObject": "belt-straight-w__orientation.001",
+    "authoredOrientationRadians": -1.5707963705062866,
+    "publisherRotationsDegrees": {"S": 0, "E": 90, "N": 180, "W": -90},
+    "boundsAtPublisherS": [[-0.5, -0.48000001907348633, 0.0], [0.5, 0.48000001907348633, 0.6950000524520874]],
+    "deckAtPublisherS": {"x": [-0.5, 0.5], "y": [-0.35, 0.35], "z": 0.64},
+    "railsAtPublisherS": {"x": [-0.5, 0.5], "positiveY": [0.35, 0.48], "negativeY": [-0.48, -0.35], "z": [0.505, 0.695]},
+    "railLocalCrossSection": {"localX": [-0.065, 0.065], "localZ": [-0.095, 0.095], "railCenterZ": 0.6},
+    "deckSocket": [0, 0, 0.64],
+    "flowUV": [[0, 0], [0, 1], [1, 1], [1, 0]],
+    "uvInterpretation": "Actual Flow UV.x is incoming0 to outgoing1. At publisher S, UV.x0 is world(+0.5,0,.64) and UV.x1 is world(-0.5,0,.64). Shader graph computes FRACT(7*UV.x+phase). UV.y crosses the deck.",
+    "visibleFlowByPublisherFacing": {"N": "left to right", "E": "top to bottom", "S": "right to left", "W": "bottom to top"},
+    "logicalPortsByFacing": {
+      "N": {"incoming": [-64, -57.344], "outgoing": [64, -57.344]},
+      "E": {"incoming": [0, -121.344], "outgoing": [0, 6.656]},
+      "S": {"incoming": [64, -57.344], "outgoing": [-64, -57.344]},
+      "W": {"incoming": [0, 6.656], "outgoing": [0, -121.344]}
+    },
+    "action": {
+      "ownerMaterial": "S33_belt-straight-w_moving_deck.001",
+      "ownerNodeTree": "Shader Nodetree",
+      "action": "S33_NATIVE__belt-straight-w__running__Shader_Nodetree.001",
+      "slot": "NTShader Nodetree",
+      "path": "nodes[\"Value\"].outputs[0].default_value",
+      "phase": "-7*i/24 for i0..24",
+      "keys": 25,
+      "interpolation": "LINEAR",
+      "firstFrameValue": 0,
+      "lastUniqueFrameValue": -6.708333492279053,
+      "closureFrame25Value": -7,
+      "assignmentNote": "Library stores the correct action but leaves it unassigned on load. The inspection explicitly assigns the rig-record material owner and slot in memory, then evaluates all25 phases. Flat unassigned load state is not the delivered animation contract."
+    },
+    "camera": {
+      "authority": "inputs/source-camera.json; not the unrelated active35degree library camera",
+      "elevationDegrees": 55.00797980144134,
+      "pixelAspect": [1.2206555604934692, 1],
+      "sourceFrame": [384, 704],
+      "logicalFrame": [192, 352],
+      "sourceScale": 2,
+      "logicalRoot": [96, 248],
+      "measuredSourceRoot": [192, 496.00017738342285],
+      "measuredSourceUnitX": [255.99998474121094, 0],
+      "measuredSourceUnitDepth": [0, 255.99996042251587],
+      "measuredSourceUnitHeight": [0, -179.20005989074707]
+    },
+    "visibility": "All collection, layer and object hide/exclude flags were cleared in headless memory; depsgraph updated before bounds, local/world vertices, UV endpoints and profiles were measured.",
+    "resources": "Original library has no linked Blender libraries and two packed dish PNGs unrelated to this conveyor's procedural materials. Candidate resource dependency closure still requires its own audit."
+  },
+  "rankedDesiredOutcomes": [
+    {"rank": 1, "outcome": "Clearly rounded coral rail and blue-slat volume, with broad restrained highlights and clean, continuous family shading in every orientation and frame."},
+    {"rank": 2, "outcome": "Warm readable honey supports and purposeful interior crafted detail that survives intended sizes without becoming dark blocks or clutter."},
+    {"rank": 3, "outcome": "Unbroken animated modular construction across native and independently assembled repeated and compatible mixed routes, including the actual filtered Godot presentation."}
+  ],
+  "limits": [
+    "This is the initial source/target review and proposed bar only. No candidate was inspected or approved.",
+    "The supplied original.png was verified RGBA-identical to actual production running-N atlas frame00. Four original frame sheets cover all96 unique exported frames; closure was verified through native action evaluation, not through an original closure PNG that was not supplied.",
+    "The use-size source sheet is a documented uniform Pillow downsample for baseline inspection. It is not a substitute for actual Godot consumer evidence required for a candidate.",
+    "The family receipt and native project/recipe/consumer file hashes were checked. Other judges' aesthetic conclusions were not read."
+  ]
+}

@@ -68,7 +68,12 @@
       "happy-transition-S",
       "happy-transition-N",
       "happy-transition-E",
-      "happy-transition-W"
+      "happy-transition-W",
+      "happy-smile-appear-S",
+      "happy-smile-idle-S",
+      "happy-smile-fade-S",
+      "happy-smile-transition-S",
+      "heart-smile-actual-customer-context"
     ],
     "logicalFrame": [
       192,
@@ -223,14 +228,94 @@
     "judging": "Reward useful native modeling and decoration inspired by the target. Do not reject a change solely because it differs from the source. Reject target drift only when it harms the chosen style, readability, role or locked technical contract. Original part counts and weak shapes are not automatically constraints."
   },
   "runtimeVariants": {
-    "preparationStatus": "pending-smile-target-and-inputs-before-fresh-pair",
+    "preparationStatus": "ready-for-fresh-independent-pair",
     "requiredClips": [
       "happy-smile-appear",
       "happy-smile-idle",
       "happy-smile-fade",
       "happy-smile-transition"
     ],
-    "resources": {},
-    "delivery": "Same objectpair must deliver original smile runtimevariant too; do not start primaryonly editing before supplementary source/target/manifest are bound."
+    "resources": {
+      "originalManifest": {
+        "path": "inputs/runtime-variants/smile/original-manifest.json",
+        "sha256": "ca824ccff1a1b8212adcbf5ebf94ea0dc6805d8c0b86f264cd520d6d6b92371d"
+      },
+      "original-source:bubble-happy-smile.png": {
+        "path": "inputs/runtime-variants/smile/original-source/bubble-happy-smile.png",
+        "sha256": "c916acf28679a48537f1626cc75f42fb30850775c26a2494efdf801eae982510"
+      },
+      "original-source:imagegen.json": {
+        "path": "inputs/runtime-variants/smile/original-source/imagegen.json",
+        "sha256": "c1c3079b48e301fec75fe653936fdefe565bdf73a12fb7938c864ad2e710ba69"
+      },
+      "original-source:pack_feedback.py": {
+        "path": "inputs/runtime-variants/smile/original-source/pack_feedback.py",
+        "sha256": "7912eadf12043a6acf5e3b6ea51959810bc6dd9ca0a5bcdb601a367e7440de96"
+      },
+      "original-source:publication.json": {
+        "path": "inputs/runtime-variants/smile/original-source/publication.json",
+        "sha256": "436e12c4c9ed9ba1fca30b258ab09460f9c2504f406da4028e512d0dee8f1018"
+      },
+      "original-atlas:happy-smile-appear:S": {
+        "path": "inputs/runtime-variants/smile/original-atlases/happy-smile-appear-S.png",
+        "sha256": "0254371fe89e6ff14e05d4eca786efbe76f37a499fc6f3cf2d4b1e3f6ad6ee5e"
+      },
+      "original-atlas:happy-smile-idle:S": {
+        "path": "inputs/runtime-variants/smile/original-atlases/happy-smile-idle-S.png",
+        "sha256": "519f107b4225f864ad7aaf546be148b52f6c98713fc9fb00bd5e444631cfe34d"
+      },
+      "original-atlas:happy-smile-fade:S": {
+        "path": "inputs/runtime-variants/smile/original-atlases/happy-smile-fade-S.png",
+        "sha256": "6aa12ecb13530ef010b2a50621587b86b083e936e5c719dc36080644815afd6f"
+      },
+      "original-atlas:happy-smile-transition:S": {
+        "path": "inputs/runtime-variants/smile/original-atlases/happy-smile-transition-S.png",
+        "sha256": "445ca98ddb2debca16a64aba3e27c3c80dbf81491dc06553a6841f34d8044a39"
+      },
+      "smile:original.png": {
+        "path": "inputs/runtime-variants/smile/original.png",
+        "sha256": "1f8183ed6fb98b19753a7c388522ca147b3f7792e1555e039f0d86e307dc4105"
+      },
+      "smile:target.png": {
+        "path": "inputs/runtime-variants/smile/target.png",
+        "sha256": "7d5e7ea10bf0641a350f3a033b1297cab99bff337a264c90735b41ece0d55f9f"
+      },
+      "smile:imagegen-prompt.txt": {
+        "path": "inputs/runtime-variants/smile/imagegen-prompt.txt",
+        "sha256": "0c5d8d568fe2bf087e4149f62eb5398e4c4f73dfce1448a193783fd0c3f33824"
+      },
+      "smile:generation.json": {
+        "path": "inputs/runtime-variants/smile/generation.json",
+        "sha256": "85f23786d78b72f74db08f0b8500e27377eb64e62a03c96ce79ebdd3c01c773f"
+      },
+      "smile:heart-family-reference": {
+        "path": "inputs/runtime-variants/smile/heart-family-reference.png",
+        "sha256": "63f9892bf5dc6ec294a0b02d0251f715bb48749b7a8f84a73acdf6780aeaad65"
+      }
+    },
+    "delivery": "Same fresh happy pair refines both main heart192slots and existing smile48runtimeframes. Keep runtimeVariants separate from main catalog clips/atlases, bind outputs/resources/previews/manifest in same packet. Exact original size/root/timing/loop/pulse/bob/appearance/fade retained; final Godot integrates same approved bytes.",
+    "manifest": "inputs/runtime-variants/smile/original-manifest.json",
+    "target": "inputs/runtime-variants/smile/target.png",
+    "targetSHA256": "7d5e7ea10bf0641a350f3a033b1297cab99bff337a264c90735b41ece0d55f9f",
+    "originalRegisteredSnapshot": "inputs/runtime-variants/smile/original.png",
+    "capture": {
+      "actualFrames": 48,
+      "facing": "S",
+      "facingPolicy": "existing camera-facing fallback; no invented fourview variant atlas requirement",
+      "frame": [
+        384,
+        640
+      ],
+      "logicalFrame": [
+        192,
+        320
+      ],
+      "root": [
+        96,
+        248
+      ],
+      "sourceScale": 2,
+      "fps": 12
+    }
   }
 }

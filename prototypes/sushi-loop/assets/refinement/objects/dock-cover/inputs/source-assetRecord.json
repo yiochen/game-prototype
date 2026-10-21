@@ -1,0 +1,83 @@
+{
+  "id": "dock-cover",
+  "projection": "top-down-oblique-square-grid",
+  "frame": [
+    736,
+    704
+  ],
+  "anchor": [
+    368,
+    480
+  ],
+  "scale": 4,
+  "clips": {
+    "covered": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "uncover": {
+      "frames": 12,
+      "fps": 12,
+      "loop": false
+    }
+  },
+  "footprint": [
+    3,
+    3
+  ],
+  "height": 1.87,
+  "sockets": {
+    "dock_floor": [
+      0,
+      0,
+      0
+    ]
+  },
+  "ports": [],
+  "nonblocking": true,
+  "depth_layer": "overhead",
+  "composition_context": {
+    "role": "dock-overhead-weather-tarp",
+    "layoutCells": [
+      3,
+      3
+    ],
+    "compositionOffset": [
+      0,
+      0,
+      0.23
+    ],
+    "workshopRoot": [
+      0.78,
+      0.35,
+      0.23
+    ],
+    "submarineRoot": [
+      -0.7,
+      -0.42,
+      0.23
+    ],
+    "explanation": "Patchwork weather tarp covering the docked submarine and workshop; folds to the back when the dock is uncovered."
+  },
+  "artStyle": {
+    "revision": "faceted-approved-2026-10-19",
+    "contrast": 1.35,
+    "contrastSpace": "sRGB",
+    "environmentHeightRatio": 0.7,
+    "lowerTone": "native world-height material ramp",
+    "worldLighting": true,
+    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
+    "roughness": 0.85,
+    "specularIORLevel": 0.03,
+    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
+    "beltRailColor": "#966B60",
+    "floorAlbedoCalibration": 0.42
+  },
+  "directions": [
+    "N",
+    "E",
+    "S",
+    "W"
+  ]
+}
