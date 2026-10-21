@@ -57,7 +57,7 @@ func _guest_save(game: GameSession) -> Dictionary:
 
 func _visit_fields(customer: Dictionary) -> Dictionary:
 	var result := customer.duplicate(true)
-	for key in ["path", "path_index", "path_origin", "navigation_mode", "navigation_retry_elapsed", "wander_cursor"]: result.erase(key)
+	for key in ["path", "path_index", "path_origin", "navigation_mode", "navigation_retry_elapsed", "wander_cursor", "wander_elapsed"]: result.erase(key)
 	return result
 
 func _edit(game: GameSession) -> void:

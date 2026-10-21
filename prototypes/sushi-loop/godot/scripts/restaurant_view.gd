@@ -353,7 +353,7 @@ func _customer_at(customer: Dictionary, base: Vector2, pitch: float) -> void:
 
 func customer_clip(customer: Dictionary) -> String:
 	var phase := str(customer.get("phase", "waiting"))
-	var fallback := "eat" if phase == "eating" else "seated-wait" if phase == "waiting" else "walk"
+	var fallback := "stand" if phase == "entrance_wait" else "eat" if phase == "eating" else "seated-wait" if phase == "waiting" else "walk"
 	var clip := str(customer.get("visual_phase", fallback))
 	if customer.get("restless", false) and phase == "waiting" and clip in ["seated-wait", "seated-wait-empty", "restless"]:
 		return "restless"
@@ -364,6 +364,16 @@ func customer_clip(customer: Dictionary) -> String:
 	return clip
 
 func customer_feedback(customer: Dictionary) -> Dictionary:
+	if customer.get("phase") == "entrance_wait":
+		if reduced_motion: return {"object": "bubble-puzzled", "clip": "idle", "seconds": 0.0, "timer": -1.0}
+		var waited := maxf(0.0, float(customer.get("entrance_wait_elapsed", 0.0)))
+		var duration := maxf(1.0, float(customer.get("entrance_wait_total", 4.0)))
+		var fading := waited >= duration - 1.0
+		return {"object": "bubble-puzzled", "clip": "fade" if fading else "appear" if waited < 1.0 else "idle", "seconds": waited - (duration - 1.0) if fading else waited if waited < 1.0 else waited - 1.0, "timer": -1.0}
+	if customer.get("navigation_mode") == "wander" and customer.get("phase") in ["walking", "leaving"]:
+		if reduced_motion: return {"object": "bubble-panic", "clip": "idle", "seconds": 0.0, "timer": -1.0}
+		var scared := maxf(0.0, float(customer.get("wander_elapsed", 0.0)))
+		return {"object": "bubble-panic", "clip": "appear" if scared < 1.0 else "idle", "seconds": scared if scared < 1.0 else scared - 1.0, "timer": -1.0}
 	var phase := str(customer.get("preference_phase", "pending"))
 	var prefix := "cucumber-" if customer.get("preferred_recipe_id") == "cucumber_maki" else ""
 	var age := maxf(0.0, float(customer.get("preference_phase_elapsed", float(customer.get("preference_total", 0)) - float(customer.get("preference_remaining", 0)))))
@@ -399,12 +409,14 @@ func _feedback_at(customer: Dictionary, base: Vector2, pitch: float) -> void:
 func gallery_customers() -> Array:
 	var base := {"id": "review-guest", "appearance": 0, "phase": "waiting", "visual_phase": "seated-wait", "visual_elapsed": time, "facing": "south", "meal_dish": null, "preference_phase": "pending", "preferred_recipe_id": "salmon_nigiri", "preference_total": 8.0, "preference_remaining": 8.0, "preference_progress": 1.0, "preference_phase_elapsed": 0.0, "restless": false}
 	var result: Array = []
-	for index in range(5):
+	for index in range(7):
 		result.append(base.duplicate(true))
 	result[1].merge({"preference_phase": "active", "preferred_recipe_id": "cucumber_maki", "preference_phase_elapsed": 2.0 + fmod(time, 6.0), "preference_progress": 0.75 - fmod(time, 6.0) / 8.0}, true)
 	result[2].merge({"phase": "eating", "visual_phase": "eat", "meal_dish": {"recipe_id": "salmon_nigiri"}, "preference_phase": "satisfied", "happy_elapsed": fmod(time, 2.2), "happy_duration": 2.2}, true)
 	result[3].merge({"preference_phase": "expired", "preference_phase_elapsed": fmod(time, 3.0)}, true)
 	result[4].merge({"preference_phase": "expired", "preference_phase_elapsed": 5.0, "restless": true}, true)
+	result[5].merge({"phase": "entrance_wait", "visual_phase": "stand", "seat_id": "", "entrance_wait_elapsed": fmod(time, 4.0), "entrance_wait_total": 4.0}, true)
+	result[6].merge({"phase": "walking", "visual_phase": "walk", "navigation_mode": "wander", "wander_elapsed": time}, true)
 	return result
 
 func _gallery() -> void:
@@ -415,17 +427,17 @@ func _gallery() -> void:
 	var panel := Rect2(left, 240 * unit, portrait.size.x - 72 * unit, minf(940 * unit, portrait.size.y - 475 * unit))
 	draw_style_box(_paper_style(), panel)
 	var row_unit := panel.size.y / 940.0
-	var pitch := minf(112 * unit, 106 * row_unit)
-	caption("One guest, five moments", panel.position + Vector2(24 * unit, 30 * row_unit), int(27 * unit), INK, true)
+	var pitch := minf(92 * unit, 92 * row_unit)
+	caption("One guest, seven moments", panel.position + Vector2(24 * unit, 30 * row_unit), int(27 * unit), INK, true)
 	var guests := gallery_customers()
-	var labels := ["Waiting", "Preference", "Happy", "Expired", "Restless", "Inactive"]
-	for index in range(6):
+	var labels := ["Waiting", "Preference", "Happy", "Expired", "Restless", "Entrance wait", "Trapped", "Inactive"]
+	for index in range(8):
 		var column := index % 3
-		var row := 0 if index < 3 else 1
-		var base := panel.position + Vector2((112 + column * 212) * unit, (300 + row * 325) * row_unit)
-		if index < 5:
+		var row := index / 3
+		var base := panel.position + Vector2((112 + column * 212) * unit, (260 + row * 280) * row_unit)
+		if index < 7:
 			_gallery_tile(base, pitch)
-			_seat_at({"facing": "south", "active": true}, base, pitch)
+			if index < 5: _seat_at({"facing": "south", "active": true}, base, pitch)
 			_customer_at(guests[index], base, pitch)
 			_feedback_at(guests[index], base, pitch)
 		else:
@@ -437,18 +449,19 @@ func _gallery() -> void:
 			_chef_at(chef, chef_base, pitch)
 			_board_at(chef, chef_base, pitch)
 			_seat_at({"facing": "south", "active": false}, seat_base, pitch)
-		caption(labels[index], panel.position + Vector2((57 + column * 212) * unit, (380 + row * 325) * row_unit), int(25 * unit))
-	caption("Connected service", panel.position + Vector2(24 * unit, 740 * row_unit), int(27 * unit), INK, true)
-	var start := panel.position + Vector2(108 * unit, 860 * row_unit)
+		caption(labels[index], panel.position + Vector2((57 + column * 212) * unit, (330 + row * 280) * row_unit), int(25 * unit))
+	var service_pitch := pitch * 0.4
+	var start := panel.position + Vector2(468 * unit, 820 * row_unit)
 	for index in range(4):
-		var base := start + Vector2(float(index) * pitch, 0)
-		_gallery_tile(base, pitch)
+		var base := start + Vector2(float(index) * service_pitch, 0)
+		_gallery_tile(base, service_pitch)
 		var identity: String = ["belt-start-e", "belt-straight-e", "belt-straight-e", "belt-end-e"][index]
-		sprite(identity, base, "running", "S", 0.0 if reduced_motion else time, pitch)
+		sprite(identity, base, "running", "S", 0.0 if reduced_motion else time, service_pitch)
 	for index in range(2):
 		var progress := fmod((0.0 if reduced_motion else time * 0.7) + float(index) * 1.5, 3.0)
-		var at: Vector2 = start + Vector2(progress * pitch, 0) + art.socket("belt-straight-e", "deck") * pitch / art.cell_size
-		sprite("dish-salmon" if index == 0 else "dish-cucumber", at, "static", "S", 0.0, pitch)
+		var at: Vector2 = start + Vector2(progress * service_pitch, 0) + art.socket("belt-straight-e", "deck") * service_pitch / art.cell_size
+		sprite("dish-salmon" if index == 0 else "dish-cucumber", at, "static", "S", 0.0, service_pitch)
+	caption("Service", panel.position + Vector2(481 * unit, 890 * row_unit), int(25 * unit))
 
 func _gallery_tile(base: Vector2, pitch: float) -> void:
 	sprite("floor-cream", base, "static", "S", 0.0, pitch)

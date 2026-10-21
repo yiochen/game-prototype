@@ -166,7 +166,7 @@ func _test_seat_choice_and_directed_menus() -> void:
 	]})
 	var blocked := Session.new_session(3, inaccessible)
 	blocked.advance(5.0)
-	_check(_object(blocked.snapshot(), "seat").inactive_reason == "no_access" and blocked.snapshot().customers.is_empty(), "a supplied seat surrounded by furniture remains inactive and never attracts an unreachable visitor")
+	_check(_object(blocked.snapshot(), "seat").inactive_reason == "no_access" and blocked.snapshot().customers.all(func(customer): return customer.phase == "entrance_wait" and customer.seat_id == ""), "a supplied seat surrounded by furniture remains inactive; any unadmitted visitor stays at the entrance instead of walking to it")
 
 func _test_matching_first_dish() -> void:
 	var game := Session.new_session(6, _base())

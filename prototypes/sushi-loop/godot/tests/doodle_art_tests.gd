@@ -19,7 +19,7 @@ func _run() -> void:
 	root.add_child(world)
 	world.update_layout()
 	var art = world.art
-	_expect(art.objects.size() == 31 and art.cell_size == 128.0, "The starter loads the approved 31-object subset at one 128px logical pitch")
+	_expect(art.objects.size() == 33 and art.cell_size == 128.0, "The starter loads the approved 33-object subset at one 128px logical pitch")
 	var verified_atlases := 0
 	var verified_frames := 0
 	for identity in art.objects:
@@ -60,7 +60,7 @@ func _run() -> void:
 				_expect(after.frame == (count - 1 if action.get("loop", true) == false else 0), "%s/%s honors the authored one-shot or loop boundary" % [identity, clip])
 				verified_atlases += 1
 				art.end_frame()
-	_expect(verified_atlases == 245 and verified_frames == 2787, "The audit exercises every selected atlas and directional frame")
+	_expect(verified_atlases == 251 and verified_frames == 2859, "The audit exercises every selected atlas and directional frame")
 	_expect(art.objects["coin-pop"].clips.pop.frames == 12 and art.objects["coin-pop"].clips.pop.loop == false, "Local sale feedback uses the approved twelve-frame native coin-pop one-shot")
 	_expect(world.customer_clip({"phase": "waiting", "visual_phase": "seated-wait", "meal_dish": null}) == "seated-wait-empty", "Waiting customers have no meal sprite before consumption")
 	_expect(world.customer_clip({"phase": "eating", "visual_phase": "eat", "meal_dish": {"recipe_id": "salmon_nigiri"}}) == "eat-salmon", "The actual consumed salmon dish chooses the native salmon eating clip")
@@ -122,7 +122,20 @@ func _test_visit_presentation(world) -> void:
 	happy.happy_elapsed = 0.3
 	_expect(world.customer_pose_offset(happy, 128).is_zero_approx(), "Reduced motion removes the brief bounce while preserving visit state")
 	world.reduced_motion = false
-	_expect(world.gallery_customers().size() == 5 and world.gallery_customers()[4].restless, "The shared native gallery covers waiting, preference, happy, expired and restless moments")
+	_expect(world.gallery_customers().size() == 7 and world.gallery_customers()[4].restless and world.gallery_customers()[5].phase == "entrance_wait" and world.gallery_customers()[6].navigation_mode == "wander", "The shared native gallery covers the original five visit moments plus puzzled admission and scared trapped guests")
+	var doorstep := {"phase": "entrance_wait", "entrance_wait_elapsed": 0.4, "entrance_wait_total": 4.0}
+	_expect(world.customer_clip(doorstep) == "stand" and world.customer_feedback(doorstep).object == "bubble-puzzled" and world.customer_feedback(doorstep).clip == "appear", "A new refused visitor stands with the approved puzzled bubble opening above their head")
+	doorstep.entrance_wait_elapsed = 1.4
+	_expect(world.customer_feedback(doorstep).clip == "idle" and is_equal_approx(float(world.customer_feedback(doorstep).seconds), 0.4), "A still-waiting visitor loops puzzled feedback from the saved entrance clock")
+	doorstep.entrance_wait_elapsed = 3.4
+	_expect(world.customer_feedback(doorstep).clip == "fade" and is_equal_approx(float(world.customer_feedback(doorstep).seconds), 0.4), "The puzzled balloon fades during the final second before a no-seat departure")
+	var trapped := {"phase": "leaving", "navigation_mode": "wander", "wander_elapsed": 0.3, "preference_phase": "satisfied", "happy_elapsed": 0.3, "happy_duration": 2.2}
+	_expect(world.customer_feedback(trapped).object == "bubble-panic" and world.customer_feedback(trapped).clip == "appear", "A trapped departing visitor shows scared feedback even when a recent meal would otherwise show happiness")
+	trapped.wander_elapsed = 2.4
+	_expect(world.customer_feedback(trapped).clip == "idle" and is_equal_approx(float(world.customer_feedback(trapped).seconds), 1.4), "A long-trapped visitor loops scared feedback without restarting its appearance")
+	world.reduced_motion = true
+	_expect(world.customer_feedback(doorstep).clip == "idle" and float(world.customer_feedback(doorstep).seconds) == 0.0 and world.customer_feedback(trapped).clip == "idle" and float(world.customer_feedback(trapped).seconds) == 0.0, "Reduced motion retains visible puzzled and scared symbols without opening, fading or animated pulses")
+	world.reduced_motion = false
 
 func _test_connections(world) -> void:
 	var original: Dictionary = world.state

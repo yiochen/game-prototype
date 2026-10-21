@@ -33,6 +33,8 @@ SELECTION = {
     'coin-pop': (['pop'], ['S']),
     'bubble-preference': (['appear', 'idle', 'fade', 'cucumber-appear', 'cucumber-idle', 'cucumber-fade'], ['S']),
     'bubble-happy': (['happy-transition', 'idle', 'fade'], ['S']),
+    'bubble-puzzled': (['appear', 'idle', 'fade'], ['S']),
+    'bubble-panic': (['appear', 'idle', 'fade'], ['S']),
     **{identity: (['stand', 'walk', 'seated-wait', 'eat', 'sit-down', 'stand-up', 'restless'], DIRECTIONS)
        for identity in ['customer-rosa', 'customer-ellis', 'customer-samir', 'customer-june']},
     **{identity: (['static'], ['S']) for identity in ['dish-salmon', 'dish-cucumber', 'dish-eel']},
