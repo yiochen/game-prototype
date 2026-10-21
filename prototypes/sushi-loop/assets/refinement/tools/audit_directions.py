@@ -25,6 +25,8 @@ def audit(folder, round_name, views=None):
     measured = {view: [] for view in views}
     records = next((data[key] for key in ['renders', 'views', 'nativeCaptures',
                     'captureRecords', 'nativeFrames', 'frames', 'audit_directions'] if data.get(key)), [])
+    if isinstance(records, dict) and isinstance(records.get('views'), dict):
+        records = records['views']
     manifest_reference = next((data[key] for key in ['renderManifest', 'nativeRecords']
                                if isinstance(data.get(key), str)), None)
     if not records and manifest_reference:
