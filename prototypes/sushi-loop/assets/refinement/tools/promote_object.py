@@ -107,6 +107,16 @@ def main():
         if dependency.is_file() and dependency.resolve() in bound and '__pycache__' not in dependency.parts:
             copy_file(dependency, native_base / 'inputs' / dependency.relative_to(folder / 'inputs'),
                       sealed=True)
+    # Evidence-only metadata rounds can replay an older approved art round and
+    # compare against its published frames. Preserve those exact packet-bound
+    # reference paths beside the portable recipe, without copying review media.
+    if delivery.get('metadataOnly'):
+        for record in delivery.get('rawFrames', []):
+            if isinstance(record, dict):
+                reference = (folder / record['path']).resolve()
+                require(reference.is_relative_to((folder / 'candidates').resolve()),
+                        'Metadata replay reference must be an approved candidate frame')
+                copy_file(reference, native_base / reference.relative_to(folder))
     if (recipe.parent / 'original-library.blend').exists():
         copy_file(recipe.parent / 'original-library.blend', native_base / 'source/original-library.blend', sealed=False)
     approved_brief = (packet_path.parent / packet['files']['brief']['path']).resolve()
