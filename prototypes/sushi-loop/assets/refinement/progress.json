@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 21,
-  "published": 20,
-  "current": "Twenty objects published; Mateo approved and publishing; Dalia approved pendingpromotion; E nativefamilyediting; Ellis freshjudge completingcriteria",
+  "completed": 22,
+  "published": 21,
+  "current": "Twenty-one objects published; Dalia approved and publishing; eastbound conveyor candidate sealing; Ellis native editing; Rowan initial criteria",
   "objects": [
     {
       "id": "plant-angular",
@@ -505,7 +505,7 @@
       "name": "Mateo Rivera",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -515,7 +515,9 @@
         "editor": "catalog_chef_mateo_editor_v1"
       },
       "round": "round02",
-      "packetSHA256": "b58d9ce37caa51af44401c5d21e28fd7bd08a672fb4ad6bab4dbc58c48672ad1"
+      "packetSHA256": "b58d9ce37caa51af44401c5d21e28fd7bd08a672fb4ad6bab4dbc58c48672ad1",
+      "deployCommit": "13baa6e3",
+      "deployURL": "https://deploy-preview-37--game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#object-chef-mateo"
     },
     {
       "id": "chef-noor",
@@ -537,27 +539,29 @@
       "name": "Dalia Farouk",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "approved-pending-promotion",
+      "status": "approved",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_chef_dalia_editor_v1",
-      "judge": "catalog_chef_dalia_judge_v1"
+      "judge": "catalog_chef_dalia_judge_v1",
+      "round": "round-01",
+      "packetSHA256": "e45e73cc576f8dd21a6e8d557ec665c772693e286b6262cc25616f72dbb044df"
     },
     {
       "id": "chef-ellis",
       "name": "Ellis Morgan",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "initial-review",
+      "status": "native-editing",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_chef_ellis_editor_v1",
       "judge": "catalog_chef_ellis_judge_v1",
-      "editorStatus": "not-started",
+      "editorStatus": "running",
       "judgeStatus": "initial-review"
     },
     {
@@ -565,11 +569,14 @@
       "name": "Rowan McLeod",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "initial-review",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "editor": "catalog_chef_rowan_editor_v1",
+      "judge": "catalog_chef_rowan_judge_v1",
+      "editorStatus": "not-started"
     },
     {
       "id": "chef-blackboard",

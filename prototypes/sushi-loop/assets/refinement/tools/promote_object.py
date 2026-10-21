@@ -163,7 +163,8 @@ def main():
                     require(rect.get('index', index) == index, 'Atlas frame order drift')
                     rect = [rect[key] for key in ['x', 'y', 'width', 'height']]
                 rects.append(rect)
-            require(a['size'] == current['atlasSize'] and a['columns'] == current['columns']
+            atlas_size = a.get('size', a.get('atlasSize'))
+            require(atlas_size == current['atlasSize'] and a['columns'] == current['columns']
                     and a['rows'] == current['rows'] and rects == current['rects'], 'Atlas layout drift')
             image = Image.open(source_atlas)
             require(image.mode == 'RGBA' and list(image.size) == current['atlasSize'], 'Atlas size/alpha drift')

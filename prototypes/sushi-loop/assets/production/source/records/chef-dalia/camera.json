@@ -9,7 +9,7 @@
     248
   ],
   "cellSize": 128,
-  "captureScale": 4,
+  "captureScale": 2,
   "fps": 12,
   "axes": {
     "x": "X",
@@ -27,14 +27,14 @@
       ],
       [
         0.0,
-        0.5735762715339661,
-        -0.8191521763801575,
+        0.5735762119293213,
+        -0.8191522359848022,
         -8.191520690917969
       ],
       [
         0.0,
-        0.8191521763801575,
-        0.5735762715339661,
+        0.8191522359848022,
+        0.5735762119293213,
         5.735764503479004
       ],
       [
@@ -55,7 +55,7 @@
         0.0,
         0.800000011920929,
         0.0,
-        -0.5499984622001648
+        -0.5499976873397827
       ],
       [
         0.0,
@@ -79,44 +79,64 @@
   },
   "calibration": {
     "root": [
-      384.0,
-      992.0
+      192.0,
+      496.00000381469727
     ],
     "unitX": [
-      512.0,
+      255.99998474121094,
       0.0
     ],
     "unitDepth": [
       0.0,
-      293.6710205078125
+      146.83550655841827
     ],
     "unitHeight": [
       0.0,
-      -419.40594482421875
+      -209.7029685974121
     ]
   },
   "artStyle": {
-    "revision": "2026-10-19",
-    "environmentHeightRatio": 0.7,
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
-    "lightingRig": {
-      "treatment": "Faceted",
-      "overheadWatts": 140,
-      "overheadPosition": [
-        0,
-        0,
-        4.5
+    "revision": "warm-soft-native-round01",
+    "lighting": "Symmetric overhead plus four equal cardinal fills",
+    "renderer": {
+      "engine": "CYCLES",
+      "device": "GPU",
+      "samples": 64,
+      "denoise": true,
+      "adaptiveThreshold": 0.019999999552965164,
+      "filter": "BOX1",
+      "viewTransform": "AgX",
+      "look": "AgX - Medium High Contrast",
+      "exposure": 0.30000001192092896,
+      "symmetricLightPositions": [
+        [
+          0,
+          0,
+          4.5
+        ],
+        [
+          3,
+          0,
+          2
+        ],
+        [
+          -3,
+          0,
+          2
+        ],
+        [
+          0,
+          3,
+          2
+        ],
+        [
+          0,
+          -3,
+          2
+        ]
       ],
-      "overheadSize": 3.5,
-      "fillWattsEach": 100,
-      "fillSize": 4,
-      "fillRadius": 3,
-      "fillZ": 1.8,
-      "horizontalSymmetry": 4,
-      "worldStrength": 0
-    },
-    "lowerShading": "world-height ramp; camera view-tone bypassed"
-  }
+      "noGroundPlane": true
+    }
+  },
+  "sourceScale": 2
 }

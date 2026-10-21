@@ -1,0 +1,117 @@
+{
+  "object": "chef_dalia__ground_root.001__held_dish-salmon__image_plane",
+  "vertices": [
+    [
+      -0.14000000059604645,
+      0.0,
+      0.0
+    ],
+    [
+      0.14000000059604645,
+      0.0,
+      0.0
+    ],
+    [
+      0.14000000059604645,
+      0.25091788172721863,
+      0.0
+    ],
+    [
+      -0.14000000059604645,
+      0.25091788172721863,
+      0.0
+    ]
+  ],
+  "faces": [
+    [
+      0,
+      1,
+      2,
+      3
+    ]
+  ],
+  "uv": [
+    [
+      0.0,
+      0.04465709626674652
+    ],
+    [
+      0.9904305934906006,
+      0.04465709626674652
+    ],
+    [
+      0.9904305934906006,
+      0.9322168827056885
+    ],
+    [
+      0.0,
+      0.9322168827056885
+    ]
+  ],
+  "packedImageSHA256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe",
+  "drivers": [
+    {
+      "owner": "chef_dalia__ground_root.001__held_dish-salmon__image_plane",
+      "path": "rotation_euler",
+      "index": 2,
+      "expression": "-facing",
+      "variables": [
+        {
+          "name": "facing",
+          "type": "SINGLE_PROP",
+          "targets": [
+            {
+              "id": "chef_dalia__ground_root.001",
+              "dataPath": "rotation_euler[2]",
+              "bone": "",
+              "transformType": "LOC_X",
+              "transformSpace": "WORLD_SPACE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "owner": "chef_dalia__ground_root.001__held_dish-salmon__image_plane",
+      "path": "location",
+      "index": 0,
+      "expression": "-sin(facing)*0.39319298125871605",
+      "variables": [
+        {
+          "name": "facing",
+          "type": "SINGLE_PROP",
+          "targets": [
+            {
+              "id": "chef_dalia__ground_root.001",
+              "dataPath": "rotation_euler[2]",
+              "bone": "",
+              "transformType": "LOC_X",
+              "transformSpace": "WORLD_SPACE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "owner": "chef_dalia__ground_root.001__held_dish-salmon__image_plane",
+      "path": "location",
+      "index": 1,
+      "expression": "-cos(facing)*0.39319298125871605",
+      "variables": [
+        {
+          "name": "facing",
+          "type": "SINGLE_PROP",
+          "targets": [
+            {
+              "id": "chef_dalia__ground_root.001",
+              "dataPath": "rotation_euler[2]",
+              "bone": "",
+              "transformType": "LOC_X",
+              "transformSpace": "WORLD_SPACE"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
