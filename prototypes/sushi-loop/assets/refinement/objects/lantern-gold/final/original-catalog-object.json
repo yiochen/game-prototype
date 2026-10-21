@@ -1,0 +1,964 @@
+{
+  "id": "lantern-gold",
+  "name": "Golden lantern",
+  "family": "W02",
+  "status": "ready",
+  "kind": "prop",
+  "footprint": [
+    1,
+    1
+  ],
+  "projection": "top-down-oblique-square-grid",
+  "frameSize": [
+    192,
+    384
+  ],
+  "root": [
+    96,
+    288
+  ],
+  "sourceScale": 2,
+  "clips": [
+    {
+      "id": "idle",
+      "sourceClipId": "idle",
+      "name": "Idle",
+      "frames": 12,
+      "fps": 12,
+      "static": false,
+      "loop": true,
+      "frameOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/lantern-gold/idle-N.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1536
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              768
+            ],
+            [
+              384,
+              0,
+              384,
+              768
+            ],
+            [
+              768,
+              0,
+              384,
+              768
+            ],
+            [
+              1152,
+              0,
+              384,
+              768
+            ],
+            [
+              1536,
+              0,
+              384,
+              768
+            ],
+            [
+              1920,
+              0,
+              384,
+              768
+            ],
+            [
+              0,
+              768,
+              384,
+              768
+            ],
+            [
+              384,
+              768,
+              384,
+              768
+            ],
+            [
+              768,
+              768,
+              384,
+              768
+            ],
+            [
+              1152,
+              768,
+              384,
+              768
+            ],
+            [
+              1536,
+              768,
+              384,
+              768
+            ],
+            [
+              1920,
+              768,
+              384,
+              768
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/lantern-gold/idle-E.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1536
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              768
+            ],
+            [
+              384,
+              0,
+              384,
+              768
+            ],
+            [
+              768,
+              0,
+              384,
+              768
+            ],
+            [
+              1152,
+              0,
+              384,
+              768
+            ],
+            [
+              1536,
+              0,
+              384,
+              768
+            ],
+            [
+              1920,
+              0,
+              384,
+              768
+            ],
+            [
+              0,
+              768,
+              384,
+              768
+            ],
+            [
+              384,
+              768,
+              384,
+              768
+            ],
+            [
+              768,
+              768,
+              384,
+              768
+            ],
+            [
+              1152,
+              768,
+              384,
+              768
+            ],
+            [
+              1536,
+              768,
+              384,
+              768
+            ],
+            [
+              1920,
+              768,
+              384,
+              768
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/lantern-gold/idle-S.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1536
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              768
+            ],
+            [
+              384,
+              0,
+              384,
+              768
+            ],
+            [
+              768,
+              0,
+              384,
+              768
+            ],
+            [
+              1152,
+              0,
+              384,
+              768
+            ],
+            [
+              1536,
+              0,
+              384,
+              768
+            ],
+            [
+              1920,
+              0,
+              384,
+              768
+            ],
+            [
+              0,
+              768,
+              384,
+              768
+            ],
+            [
+              384,
+              768,
+              384,
+              768
+            ],
+            [
+              768,
+              768,
+              384,
+              768
+            ],
+            [
+              1152,
+              768,
+              384,
+              768
+            ],
+            [
+              1536,
+              768,
+              384,
+              768
+            ],
+            [
+              1920,
+              768,
+              384,
+              768
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/lantern-gold/idle-W.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1536
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              768
+            ],
+            [
+              384,
+              0,
+              384,
+              768
+            ],
+            [
+              768,
+              0,
+              384,
+              768
+            ],
+            [
+              1152,
+              0,
+              384,
+              768
+            ],
+            [
+              1536,
+              0,
+              384,
+              768
+            ],
+            [
+              1920,
+              0,
+              384,
+              768
+            ],
+            [
+              0,
+              768,
+              384,
+              768
+            ],
+            [
+              384,
+              768,
+              384,
+              768
+            ],
+            [
+              768,
+              768,
+              384,
+              768
+            ],
+            [
+              1152,
+              768,
+              384,
+              768
+            ],
+            [
+              1536,
+              768,
+              384,
+              768
+            ],
+            [
+              1920,
+              768,
+              384,
+              768
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "name": "Shared restaurant scale",
+      "gridSize": [
+        5,
+        4
+      ],
+      "placements": [
+        {
+          "object": "lantern-gold",
+          "x": 1,
+          "y": 1,
+          "direction": "S"
+        },
+        {
+          "object": "chef-lena",
+          "x": 3,
+          "y": 1,
+          "direction": "S",
+          "clip": "idle"
+        }
+      ]
+    }
+  ],
+  "requirements": {
+    "directions": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "states": [
+      "idle"
+    ],
+    "variants": [
+      "default"
+    ],
+    "animated": true,
+    "fps": 12,
+    "minimumUniqueFrames": 6,
+    "targetLoopFrames": 12,
+    "interactionObjectIds": [
+      "floor-cream",
+      "chef-lena"
+    ],
+    "notes": "Perimeter dressing; no new blocking/access rules. Rotate actual model for four views, even symmetric pieces."
+  },
+  "height": 1.34,
+  "productionStage": "Native Blender \u00b7 approved Faceted lighting and materials",
+  "layer": 2,
+  "directionFootprints": {
+    "N": [
+      1,
+      1
+    ],
+    "E": [
+      1,
+      1
+    ],
+    "S": [
+      1,
+      1
+    ],
+    "W": [
+      1,
+      1
+    ]
+  },
+  "directionRootCells": {
+    "N": [
+      0.5,
+      0.5
+    ],
+    "E": [
+      0.5,
+      0.5
+    ],
+    "S": [
+      0.5,
+      0.5
+    ],
+    "W": [
+      0.5,
+      0.5
+    ]
+  },
+  "rootCell": [
+    0.5,
+    0.5
+  ],
+  "occupiedCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "supportCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "overheadCells": [],
+  "registration": {
+    "method": "authored-3d-projection",
+    "groundAnchorAlignment": "center",
+    "completeFrame": [
+      192,
+      384
+    ],
+    "anchor": [
+      96,
+      288
+    ],
+    "cellSize": 128,
+    "poseFitting": false,
+    "sourceCaptureScale": 4
+  },
+  "sockets3D": {},
+  "sockets": {
+    "N": {},
+    "E": {},
+    "S": {},
+    "W": {}
+  },
+  "socketSpace": "root-relative logical pixels projected from declared native attachment points",
+  "validation": {
+    "rigEvidence": "exported; native and complete capture audits passed"
+  },
+  "source": {
+    "blend": "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "modelScript": "source/blender/revisions/46d7e4eeabce858f/prop_builders.py",
+    "camera": "source/records/lantern-gold/camera.json",
+    "guide": "source/registered/lantern-gold/idle-N/guide.json",
+    "guides": [
+      "source/registered/lantern-gold/idle-N/guide.json",
+      "source/registered/lantern-gold/idle-E/guide.json",
+      "source/registered/lantern-gold/idle-S/guide.json",
+      "source/registered/lantern-gold/idle-W/guide.json"
+    ],
+    "assetRecord": "source/records/lantern-gold/asset.json",
+    "rawFrames": [
+      {
+        "image": "source/registered/lantern-gold/idle-N/source-captures/000.png",
+        "sha256": "190cce3c9ac5d6e4e4f5103e1acb1282e52f0bf5a9943ae17449bbd40546beb2",
+        "clip": "idle",
+        "direction": "N",
+        "index": 0
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-N/source-captures/001.png",
+        "sha256": "6110f5c14a347b8f4ac480fc1db02a28a929788f9372079f806f785102dad099",
+        "clip": "idle",
+        "direction": "N",
+        "index": 1
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-N/source-captures/002.png",
+        "sha256": "160e265dd046eb5dffeab54b50f174623e422c182d49fc1c904c51fe390e163c",
+        "clip": "idle",
+        "direction": "N",
+        "index": 2
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-N/source-captures/003.png",
+        "sha256": "09e9c863b883b45596adcff024475f8add82d6f95f555373890a7b38f693b841",
+        "clip": "idle",
+        "direction": "N",
+        "index": 3
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-N/source-captures/004.png",
+        "sha256": "64a884597ad532d9755c8ff3d6e4c5e52be32169742f6cc4babf109e446b7976",
+        "clip": "idle",
+        "direction": "N",
+        "index": 4
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-N/source-captures/005.png",
+        "sha256": "8a39b02bdcd6207cfb03488fc9bac441f76676735aa9f4b911ab704a86a8f7ae",
+        "clip": "idle",
+        "direction": "N",
+        "index": 5
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-N/source-captures/006.png",
+        "sha256": "182a02c4555475e685b13a6b76527d9533e87c8d0b2fdfcee75dd8e42eb91e1b",
+        "clip": "idle",
+        "direction": "N",
+        "index": 6
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-N/source-captures/007.png",
+        "sha256": "a2bea7e712f2ea4499742916534401f635292e304802afd4e1f19facb50ba901",
+        "clip": "idle",
+        "direction": "N",
+        "index": 7
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-N/source-captures/008.png",
+        "sha256": "64cb08e86da6f7ffa3b5a44c896209c2c58ad8ba01c2cfd0933c9542ecb3d297",
+        "clip": "idle",
+        "direction": "N",
+        "index": 8
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-N/source-captures/009.png",
+        "sha256": "a4999f43afa8241a7355ca5c15ff034df58d20514dd8d310e0d00117b9811e9b",
+        "clip": "idle",
+        "direction": "N",
+        "index": 9
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-N/source-captures/010.png",
+        "sha256": "79ddf060ee678cc7cf08851c088102ef07945954123609002430ba50b2a72878",
+        "clip": "idle",
+        "direction": "N",
+        "index": 10
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-N/source-captures/011.png",
+        "sha256": "dfe6229fd59900074a3661c4014af7ed2cd09166473bbfaab957ce2ccf818ad7",
+        "clip": "idle",
+        "direction": "N",
+        "index": 11
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-E/source-captures/000.png",
+        "sha256": "fde06e2de6f62a58c1e2e8e26704977fb4f95ef1b9f299a0a606261a9732f540",
+        "clip": "idle",
+        "direction": "E",
+        "index": 0
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-E/source-captures/001.png",
+        "sha256": "3408255b4bd28a5d652c7092b738b4cde4ae7254de84569741ef5cf03f4ce06f",
+        "clip": "idle",
+        "direction": "E",
+        "index": 1
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-E/source-captures/002.png",
+        "sha256": "830040e2e6599cb7bf3fec91c24c982ec8564511d3b221bd8485e4ee54fdc5a5",
+        "clip": "idle",
+        "direction": "E",
+        "index": 2
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-E/source-captures/003.png",
+        "sha256": "f76706881f715b119275fce461d8953c70655b098a6dac1b0b821ed9acf43ee2",
+        "clip": "idle",
+        "direction": "E",
+        "index": 3
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-E/source-captures/004.png",
+        "sha256": "f0b257f1e3ef066f175cf8e1ae390deab9a661f615e632ba468525ce65f4ca61",
+        "clip": "idle",
+        "direction": "E",
+        "index": 4
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-E/source-captures/005.png",
+        "sha256": "ffdc686e9707da492f03f3b7e0479979edb07c7e081fd0697fbe64ab5e4b1b46",
+        "clip": "idle",
+        "direction": "E",
+        "index": 5
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-E/source-captures/006.png",
+        "sha256": "c8077dd6dd3479bf31496ea21dc7d5169bdc2996d3bd886238bfc4d7ea653f3e",
+        "clip": "idle",
+        "direction": "E",
+        "index": 6
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-E/source-captures/007.png",
+        "sha256": "fa572a6647f9c825782d212c6eb0e5df7e59484b74c6774679c798bac5368d7b",
+        "clip": "idle",
+        "direction": "E",
+        "index": 7
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-E/source-captures/008.png",
+        "sha256": "51719a93442e95a3d5c8716045c84da199cbb95c558132ba9aa520c9ba915ae7",
+        "clip": "idle",
+        "direction": "E",
+        "index": 8
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-E/source-captures/009.png",
+        "sha256": "d78410d01278b93ab29258d771994722d63d1e6d94b57277e49f9beda28cd306",
+        "clip": "idle",
+        "direction": "E",
+        "index": 9
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-E/source-captures/010.png",
+        "sha256": "6b107689a24a188cf0f7e239784b17d79dc5acc3c09fbe22333a360cff678919",
+        "clip": "idle",
+        "direction": "E",
+        "index": 10
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-E/source-captures/011.png",
+        "sha256": "4514184626b605123129ea0d252cf0fa07b87b09273cf861b125a05db6fdd751",
+        "clip": "idle",
+        "direction": "E",
+        "index": 11
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-S/source-captures/000.png",
+        "sha256": "540afb1b978ca67747a478a4a2c9beaedb61a972bfd0d14544fb6eee344a7017",
+        "clip": "idle",
+        "direction": "S",
+        "index": 0
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-S/source-captures/001.png",
+        "sha256": "5b32a99464d266962fa3da54774b946c4dc9a4063710586dde0bc8e93a75669d",
+        "clip": "idle",
+        "direction": "S",
+        "index": 1
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-S/source-captures/002.png",
+        "sha256": "49942ebf964b9f6d7dadcd84fdcd8bcb201cc37ad6f58ed1dd9e177163faa533",
+        "clip": "idle",
+        "direction": "S",
+        "index": 2
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-S/source-captures/003.png",
+        "sha256": "bcd4939dbd81a4f222c775b75f5609140bd7f42e915e527c434d82db47205555",
+        "clip": "idle",
+        "direction": "S",
+        "index": 3
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-S/source-captures/004.png",
+        "sha256": "5bed8fca49b89ea1ca8cc11b0704144e2cc9a7808536b401caebd71d7d37cb16",
+        "clip": "idle",
+        "direction": "S",
+        "index": 4
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-S/source-captures/005.png",
+        "sha256": "452fd4ea3887e92cef8c9c8fd2b79f83dd40f5ee0a5c7f30ed8b3839375e96e5",
+        "clip": "idle",
+        "direction": "S",
+        "index": 5
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-S/source-captures/006.png",
+        "sha256": "538fecb99c95f5fa9bcaecf1382d97d8ef86864dc1410763d310f73d65d62ec9",
+        "clip": "idle",
+        "direction": "S",
+        "index": 6
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-S/source-captures/007.png",
+        "sha256": "96c0bc48b5e570d4c1a585ed032853be980f294d2e4b5e4c4a5aa353ad904d4d",
+        "clip": "idle",
+        "direction": "S",
+        "index": 7
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-S/source-captures/008.png",
+        "sha256": "e54e60654567b527631adb514fdf33873ca9d8f33f9c4a96c6b833e877454c7f",
+        "clip": "idle",
+        "direction": "S",
+        "index": 8
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-S/source-captures/009.png",
+        "sha256": "a08975659fc9d75b58eab23ab7cdb5908396e71db54cdc610483018c703b3a5f",
+        "clip": "idle",
+        "direction": "S",
+        "index": 9
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-S/source-captures/010.png",
+        "sha256": "3585d926347845458d0a91e9d7e3034e5657b681e7e68ad01ddbe44c9abaddce",
+        "clip": "idle",
+        "direction": "S",
+        "index": 10
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-S/source-captures/011.png",
+        "sha256": "bca6729a2eaa52fb6a0232d8dde7284202443b1c8dfd26f21fd8114012b2ce64",
+        "clip": "idle",
+        "direction": "S",
+        "index": 11
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-W/source-captures/000.png",
+        "sha256": "b28156c053313efa6836582d1d8bd1721cea1e6aaccec7dd23b7fc35c959d14e",
+        "clip": "idle",
+        "direction": "W",
+        "index": 0
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-W/source-captures/001.png",
+        "sha256": "a665d6f630394ed837e1320bf8de851f2864e9d73d6ca52fb50e8bbfbbfa94f6",
+        "clip": "idle",
+        "direction": "W",
+        "index": 1
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-W/source-captures/002.png",
+        "sha256": "6671d9cca1faaca71d17654b85ffbe69295df4421edbfa4b44c0bb0e9bfd4222",
+        "clip": "idle",
+        "direction": "W",
+        "index": 2
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-W/source-captures/003.png",
+        "sha256": "8331f8e6236450adab974093b9908d2d0cc6d0bfb3836d8ac2de136bf3b6a68c",
+        "clip": "idle",
+        "direction": "W",
+        "index": 3
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-W/source-captures/004.png",
+        "sha256": "79f23b48270418f0b6ebf48578ea88808677b4309ac845f02f0fff9ec3ef3bb2",
+        "clip": "idle",
+        "direction": "W",
+        "index": 4
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-W/source-captures/005.png",
+        "sha256": "ac5ecd45efd0fdfeca05e550b11bce36f9ba85952bbfd633ee738226608954da",
+        "clip": "idle",
+        "direction": "W",
+        "index": 5
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-W/source-captures/006.png",
+        "sha256": "56a386026055a31b2e2b2f245ff3ae628726a9511dd2fbcff110b5dd2a7f1624",
+        "clip": "idle",
+        "direction": "W",
+        "index": 6
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-W/source-captures/007.png",
+        "sha256": "119bd6df931e1dbc3461e4f70c42d715d1d20a2451b7db8e8207e811b8a2e9ba",
+        "clip": "idle",
+        "direction": "W",
+        "index": 7
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-W/source-captures/008.png",
+        "sha256": "f1a75bf3981fb45f2e03a290b5502f5369fbb6f9173c214d0ad429a269aad8e0",
+        "clip": "idle",
+        "direction": "W",
+        "index": 8
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-W/source-captures/009.png",
+        "sha256": "e7be9550804709c7bb6f76e3a82cb935ab66ba7bcf1a48af9ee40c7b07c155c5",
+        "clip": "idle",
+        "direction": "W",
+        "index": 9
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-W/source-captures/010.png",
+        "sha256": "92bf11eb6b9257c1a928ee01bc202bdcce961c1a997a54c9b497711dc31000dd",
+        "clip": "idle",
+        "direction": "W",
+        "index": 10
+      },
+      {
+        "image": "source/registered/lantern-gold/idle-W/source-captures/011.png",
+        "sha256": "f1988dd184a40c11a818b3a42b887fc6ac032d8b9929e8f26cb0d76ea88b2dd5",
+        "clip": "idle",
+        "direction": "W",
+        "index": 11
+      }
+    ],
+    "nativeScripts": {
+      "apply_faceted_rollout.py": "source/blender/revisions/cb3861e1716061cc/apply_faceted_rollout.py",
+      "build_art_rollout.py": "source/blender/revisions/ead453f336cb44ad/build_art_rollout.py",
+      "capture_runtime.py": "source/blender/revisions/9e6aa6ffa2238a82/capture_runtime.py",
+      "capture_worker.py": "source/blender/revisions/e7b530bb29fbdc86/capture_worker.py",
+      "catalog_art_revision.py": "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+      "catalog_belt_flow.py": "source/blender/revisions/0e7a979f8a0897e2/catalog_belt_flow.py",
+      "catalog_billboards.py": "source/blender/revisions/3b8e0898192741d4/catalog_billboards.py",
+      "catalog_character_revision.py": "source/blender/revisions/babdd36f0bb79345/catalog_character_revision.py",
+      "catalog_clusters.py": "source/blender/revisions/020f94b990987f6c/catalog_clusters.py",
+      "catalog_concept_decor.py": "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py",
+      "catalog_corner_supports.py": "source/blender/revisions/5215531d424a8d75/catalog_corner_supports.py",
+      "catalog_faceted.py": "source/blender/revisions/fe2b5666ebea964e/catalog_faceted.py",
+      "catalog_style.py": "source/blender/revisions/ca784f2f23914bd0/catalog_style.py",
+      "catalog_variants.py": "source/blender/revisions/329ec9b2013c990a/catalog_variants.py",
+      "character_builders.py": "source/blender/revisions/5451da64c233cba1/character_builders.py",
+      "character_composition.py": "source/blender/revisions/caa790049c03ba74/character_composition.py",
+      "concept_decoration_geometry.py": "source/blender/revisions/f00a7b868684ee16/concept_decoration_geometry.py",
+      "creature_fx_builders.py": "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py",
+      "finalize_project.py": "source/blender/revisions/12ae7f05f2e3320f/finalize_project.py",
+      "food_belt_builders.py": "source/blender/revisions/dc3eed619cd64458/food_belt_builders.py",
+      "native_actions.py": "source/blender/revisions/d88e53edef8e7c73/native_actions.py",
+      "preflight_captures.py": "source/blender/revisions/9958888944016044/preflight_captures.py",
+      "production_library-before-state-coverage.py": "source/blender/revisions/9e9fbb9bf6e1f557/production_library-before-state-coverage.py",
+      "production_library.py": "source/blender/revisions/3b0cedd0135be38e/production_library.py",
+      "prop_builders.py": "source/blender/revisions/46d7e4eeabce858f/prop_builders.py",
+      "publish-clusters-as-ready.py": "source/blender/revisions/f0f0d6b49877c597/publish-clusters-as-ready.py",
+      "publish-held-props-as-ready.py": "source/blender/revisions/ed44640debecedec/publish-held-props-as-ready.py",
+      "publish_captures.py": "source/blender/revisions/ecc8fc53525649b3/publish_captures.py",
+      "recapture_library.py": "source/blender/revisions/3f324c8093180b18/recapture_library.py",
+      "repair_revision_links.py": "source/blender/revisions/ecfb4233536e2129/repair_revision_links.py",
+      "seed_cluster_catalog.py": "source/blender/revisions/a1f3b5c5b737b246/seed_cluster_catalog.py",
+      "source-audit.py": "source/blender/revisions/1a3528a59e203e47/source-audit.py",
+      "stage_native_iteration.py": "source/blender/revisions/07904ec941eabaeb/stage_native_iteration.py",
+      "validate_art_revision.py": "source/blender/revisions/75dc2bcc7bc02cb4/validate_art_revision.py",
+      "validate_connected_fixtures.py": "source/blender/revisions/bbbdf3647400cf44/validate_connected_fixtures.py",
+      "validate_native_belt_flow.py": "source/blender/revisions/c90d969248984174/validate_native_belt_flow.py",
+      "validate_native_character_gait.py": "source/blender/revisions/b4550625eae11704/validate_native_character_gait.py",
+      "validate_native_chef_utensils.py": "source/blender/revisions/58f8980c80afdd65/validate_native_chef_utensils.py",
+      "validate_native_clusters.py": "source/blender/revisions/0fa93bd02ed8e374/validate_native_clusters.py",
+      "validate_native_held_food.py": "source/blender/revisions/50caff770d25565b/validate_native_held_food.py",
+      "world_components.py": "source/blender/revisions/0d156c24ebd2a314/world_components.py"
+    },
+    "hashes": {
+      "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "source/blender/revisions/cb3861e1716061cc/apply_faceted_rollout.py": "cb3861e1716061cc11305971d00e81c514045b88b4058e5c65f309e3dba14713",
+      "source/blender/revisions/ead453f336cb44ad/build_art_rollout.py": "ead453f336cb44adfe271f1578de2d414edc4dfd64b768460c091ebf7fa1c678",
+      "source/blender/revisions/9e6aa6ffa2238a82/capture_runtime.py": "9e6aa6ffa2238a82183387cfe43437b019e48bc1a86b361d0b0f944b7046b229",
+      "source/blender/revisions/e7b530bb29fbdc86/capture_worker.py": "e7b530bb29fbdc868a67e8a1c3137f9f885830d47b11a3952ffe0ea4e8547ba2",
+      "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py": "46912884e4d80c820cbe62d05bd85ff4e75f4ee18037e8c6241c535718c492a7",
+      "source/blender/revisions/0e7a979f8a0897e2/catalog_belt_flow.py": "0e7a979f8a0897e2a98a063d2a568fb0be8a751f72b76f9584f6949f77140fd5",
+      "source/blender/revisions/3b8e0898192741d4/catalog_billboards.py": "3b8e0898192741d43a331b57ab87ce716adf60fdecc952497bcecefb4cacb5d4",
+      "source/blender/revisions/babdd36f0bb79345/catalog_character_revision.py": "babdd36f0bb7934567a889c643bc92b3bea7ba3d7e51135bbfc608a090e3a105",
+      "source/blender/revisions/020f94b990987f6c/catalog_clusters.py": "020f94b990987f6c4d664b5447525c6d69d66198dfd3fab8159cd9c28642ca1c",
+      "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py": "6bc09f2a9c6896f4ff951618960d0b994507c0a47b224456f829e8d13a453c6c",
+      "source/blender/revisions/5215531d424a8d75/catalog_corner_supports.py": "5215531d424a8d7560cb19ca5bf05f3218f5671c346a79dc0585644462bd4b91",
+      "source/blender/revisions/fe2b5666ebea964e/catalog_faceted.py": "fe2b5666ebea964e223b2c5a259d5f9f9fc690e12c851a0189b9a99fb151dfd3",
+      "source/blender/revisions/ca784f2f23914bd0/catalog_style.py": "ca784f2f23914bd0669eaf261073539698d9dee94c14d0604ebbb7db17f7a888",
+      "source/blender/revisions/329ec9b2013c990a/catalog_variants.py": "329ec9b2013c990aeb45233a6e2783b0f9402aa97108f15a32ecb8a64a9d1cff",
+      "source/blender/revisions/5451da64c233cba1/character_builders.py": "5451da64c233cba11920e2eaeb88889e34ac931443b51fdfb34c6f40ea8c0ed7",
+      "source/blender/revisions/caa790049c03ba74/character_composition.py": "caa790049c03ba7425be1ef44708cd6edd879fc397407be77af237facbb5f8a0",
+      "source/blender/revisions/f00a7b868684ee16/concept_decoration_geometry.py": "f00a7b868684ee16989de63e701e8d4496ecbfc14b04fab29e6a605c3d58c178",
+      "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py": "e8da19957cf01828137326c3459cb77e76ba563029ae7b057c8306d663fa9d5b",
+      "source/blender/revisions/12ae7f05f2e3320f/finalize_project.py": "12ae7f05f2e3320f313215a54a7cd51c49e41005c223e864b7df4dedcbe406ed",
+      "source/blender/revisions/dc3eed619cd64458/food_belt_builders.py": "dc3eed619cd644588da74996b99013a24ecf8ce541056d847f3a049fb54a1d95",
+      "source/blender/revisions/d88e53edef8e7c73/native_actions.py": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f",
+      "source/blender/revisions/9958888944016044/preflight_captures.py": "9958888944016044d5f12d14af97dffa88853c09b67f1f19bbeaa1945c7beebc",
+      "source/blender/revisions/9e9fbb9bf6e1f557/production_library-before-state-coverage.py": "9e9fbb9bf6e1f5573ee5c0602980863934746ca82a1ad5fc6332c1ab72babbbe",
+      "source/blender/revisions/3b0cedd0135be38e/production_library.py": "3b0cedd0135be38edaa2be2ecaad6d5b394185ab9060e3ce10080894b95c1616",
+      "source/blender/revisions/46d7e4eeabce858f/prop_builders.py": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a",
+      "source/blender/revisions/f0f0d6b49877c597/publish-clusters-as-ready.py": "f0f0d6b49877c5973404b47f0eccf5772dec35ac743b4508b7cfe269d882e790",
+      "source/blender/revisions/ed44640debecedec/publish-held-props-as-ready.py": "ed44640debecedec2b510f9c723e402f02020eba82fe81cdf0317c6d88c26c18",
+      "source/blender/revisions/ecc8fc53525649b3/publish_captures.py": "ecc8fc53525649b3970cd4ccbd5c95ee2a9d256347c268572fb4f181b0fcc2e9",
+      "source/blender/revisions/3f324c8093180b18/recapture_library.py": "3f324c8093180b18eb6c442cffe82f1fb973687e86c863c8a8499d75821e1f83",
+      "source/blender/revisions/ecfb4233536e2129/repair_revision_links.py": "ecfb4233536e212926b41ec6d5e0f6f3a2d055656ca221b452c35138ed4ee803",
+      "source/blender/revisions/a1f3b5c5b737b246/seed_cluster_catalog.py": "a1f3b5c5b737b246ef8ff14442ff36ca075dc69e96dd0009a08d5d8ae66dd116",
+      "source/blender/revisions/1a3528a59e203e47/source-audit.py": "1a3528a59e203e47a86c0be996dfc8599919159e596d482a924abee1fbd723ea",
+      "source/blender/revisions/07904ec941eabaeb/stage_native_iteration.py": "07904ec941eabaeb81536459129d1048955da55558035af9d2fc5b6776787493",
+      "source/blender/revisions/75dc2bcc7bc02cb4/validate_art_revision.py": "75dc2bcc7bc02cb4befe11ffc3007c834312c75105be3f276b18e3279fd30f4d",
+      "source/blender/revisions/bbbdf3647400cf44/validate_connected_fixtures.py": "bbbdf3647400cf44653900b4b71df4060200c5919ece393e99729c6db42b9a04",
+      "source/blender/revisions/c90d969248984174/validate_native_belt_flow.py": "c90d969248984174f14dcdf583ee3dad6dd04816ee9266b371ad67ae52fccf1a",
+      "source/blender/revisions/b4550625eae11704/validate_native_character_gait.py": "b4550625eae11704b03b19580663cf3637333cf6fe65adb5faa03d22c20da3c8",
+      "source/blender/revisions/58f8980c80afdd65/validate_native_chef_utensils.py": "58f8980c80afdd651e04fc07a83b4ee297fab78dc513cc59c2ca07e23391b8df",
+      "source/blender/revisions/0fa93bd02ed8e374/validate_native_clusters.py": "0fa93bd02ed8e3743d5f3ef437087099b76f02e4b7da83fecfffb7288601fb1e",
+      "source/blender/revisions/50caff770d25565b/validate_native_held_food.py": "50caff770d25565b6a808f11b0447f48ee652ddbef45a3ae2cf8e3f713088d33",
+      "source/blender/revisions/0d156c24ebd2a314/world_components.py": "0d156c24ebd2a31422e75286417e108d22575cf75f7e6ec87cf173aebefd1c91"
+    },
+    "rig": "source/records/lantern-gold/rig.json"
+  },
+  "captureFingerprint": "3e96b1f543d3fa450e2fa661da847a19f7c78b930f655fe787e062e742074aee",
+  "portProfiles": {},
+  "artStyle": {
+    "revision": "faceted-approved-2026-10-19",
+    "contrast": 1.35,
+    "contrastSpace": "sRGB",
+    "environmentHeightRatio": 0.7,
+    "lowerTone": "native world-height material ramp",
+    "worldLighting": true,
+    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
+    "roughness": 0.85,
+    "specularIORLevel": 0.03,
+    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
+    "beltRailColor": "#966B60",
+    "floorAlbedoCalibration": 0.42
+  }
+}

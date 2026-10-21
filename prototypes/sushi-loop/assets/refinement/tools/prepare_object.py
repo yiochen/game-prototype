@@ -54,6 +54,14 @@ def main():
         'qualityCriteria':{},
         'delivery':{'scope':'Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.','requiredClips':[{k:v for k,v in c.items()if k!='directions'}for c in original['clips']],'notes':'Write source/round-NN.blend or the actual native 2D source as appropriate; full native captures, original-layout atlases, previews, validation and delivery.json. Do not label 2D artwork as a Blender model.'}
     }
+    policy_path=RUN/'style/modeling-policy.json'
+    if policy_path.exists():
+        policy=json.loads(policy_path.read_text())
+        brief['modelingPolicy']=policy
+        brief['constraints']['preserve']=policy['locked']
+        brief['constraints']['designFreedom']=policy['allowed']
+        brief['target']['interpretation']=policy['judging']
+        shutil.copy2(RUN/'prompts/imagegen-target.txt',folder/'prompts/imagegen-target.txt')
     (folder/'brief.json').write_text(json.dumps(brief,indent=2)+'\n')
     print(f'Prepared {args.asset}: {len(views)} hero views, {len(previews)} previews; original project backup verified.')
 

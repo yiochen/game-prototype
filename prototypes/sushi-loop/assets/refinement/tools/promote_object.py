@@ -161,10 +161,10 @@ def main():
                      'captureScale': obj['sourceScale'], 'sourceCaptureScale': obj['sourceScale'],
                      'gutter': 0, 'columns': current['columns'], 'rows': current['rows'],
                      'cells': [{'index': i, 'rect': rect} for i, rect in enumerate(current['rects'])],
-                     'groundAnchorAlignment': 'center', 'projection': obj['projection'],
+                     'groundAnchorAlignment': obj.get('registration', {}).get('groundAnchorAlignment', 'front-contact' if obj.get('registration', {}).get('method') == 'authored-backdrop-plane' else 'center'), 'projection': obj['projection'],
                      'camera': camera['camera'], 'occupiedCells': obj.get('occupiedCells', []),
                      'elevationPx': clip.get('elevationPx', obj.get('elevationPx', 0)),
-                     'sourceCaptures': captures, 'processing': 'Exact native scale2 RGBA frames; lossless atlas placement only'}
+                     'sourceCaptures': captures, 'processing': f'Exact native scale{obj["sourceScale"]} RGBA frames; lossless atlas placement only'}
             generate(guide_path, guide)
             guides.append(relative(guide_path))
 

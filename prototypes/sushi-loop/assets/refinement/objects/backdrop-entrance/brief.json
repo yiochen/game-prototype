@@ -1,0 +1,183 @@
+{
+  "asset": "backdrop-entrance",
+  "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. Real 3D render output, editable Blender sources. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks.",
+  "source": {
+    "project": "../../../production/source/backdrop/restaurant-backdrop-35.blend",
+    "backup": "../../backups/927a8a59e8d0f1e9-restaurant-backdrop-35.blend",
+    "snapshot": "inputs/original.png",
+    "scene": "Inspect the named asset collection; do not use an unrelated active scene"
+  },
+  "target": {
+    "image": "inputs/target.png",
+    "provenance": "imagegen",
+    "prompt": "inputs/imagegen-prompt.txt"
+  },
+  "agentPrompts": {
+    "judge": "prompts/judge.txt",
+    "editor": "prompts/editor.txt"
+  },
+  "capture": {
+    "frame": [
+      1728,
+      1344
+    ],
+    "views": [
+      "S"
+    ],
+    "previews": [
+      "four-view-sheet",
+      "repeated"
+    ],
+    "logicalFrame": [
+      576,
+      448
+    ],
+    "logicalRoot": [
+      288.0,
+      416
+    ],
+    "sourceScale": 3,
+    "cellSize": 128,
+    "fps": 12,
+    "projection": "character-orthographic"
+  },
+  "constraints": {
+    "preserve": [
+      "Every logical frame/root/sourceScale and per-clip/direction override",
+      "Original footprint, height/proportions, sockets, ports, rigs and projection",
+      "Every registered clip, facing, frame count and fps/loop behavior",
+      "Lighting without preferred horizontal direction for rotatable world objects; no directional ground cast shadow",
+      "Actual independent geometry views and native animation; no raster card or per-view image fitting/recolor"
+    ],
+    "catalogContract": "inputs/catalog-object.json",
+    "pipeline": "native-3d",
+    "family": "Restaurant entrance and repeatable wall must share matching native materials/light/camera settings and protected join profiles. No horizontal global shading gradient across modules. Floor tiles remain unchanged.",
+    "captureCaveat": "This backdrop uses its original 35-degree character-orthographic camera, square pixels and sourceScale3. Do not impose square-grid55 camera/scale2.",
+    "judgeMeasuredRequirements": [
+      {
+        "id": "C1-capture",
+        "requirement": "Static S only. Preserve original 35-degree character-orthographic camera/matrix convention, square pixels, native 1728x1344, logical 576x448, root [288,416], sourceScale 3, 128px cell pitch, registration and transparent gutters. Preserve 4x3 projected envelope, 2-tile clear opening, original depth/roof proportions and threshold socket. No 55-degree/world-scale2 substitution, camera fit, image warp or recolor per view.",
+        "evidence": "Native camera, render, world-to-pixel calibration, bounds/root/socket and original-layout atlas validation."
+      },
+      {
+        "id": "C2-identity-counts",
+        "requirement": "Retain original blue flat-slab pitched roof with angular ridge/continuous fascia, 3 red noren panels/6 loops, cream fish body-tail-eye emblem on middle panel, 2 gold lanterns with 3 bands and dark fittings each, paired ochre wall fields/wood jambs/feet/joinery, dark doorway and existing threshold. Native baseline is 114 meshes + 2 curves + 1 root; 64 roof slabs (16 columns x2 rows x2 slopes). Refinement may change topology but may not delete/add semantic architecture or substitute rounded barrel roof tiles.",
+        "evidence": "Named-part native audit and actual S pixels; source architecture is authoritative when imagegen drifts."
+      },
+      {
+        "id": "C3-modular-continuity",
+        "requirement": "Preserve entrance outer join planes x=\u00b12 and wall module edges x=\u00b10.5, with source roof/wall/baseboard cross sections and slab cadence. Both facade objects must share compatible native material, lighting and camera settings. No global horizontal shading gradient, edge bevel gaps, doubled roof/baseboard strips, exposed caps or alternating value bands at joins.",
+        "evidence": "Labeled native joined facade plus independently assembled exported-sprite preview using registered roots and tile pitch; inspect both entrance boundaries and repeated wall-to-wall joins. Include original wall context or explicitly label a proposed matching wall as context-only pending its own fresh-pair approval."
+      },
+      {
+        "id": "C4-scope-and-native-output",
+        "requirement": "Actual editable 3D scene render, with complete packed or hash-bound dependencies; no target card/paintover or raster fitting. Preserve blank wall fields. No added windows, signs, props, floor tiles or floor-tile edits. No directional ground cast shadow or preferred horizontal lighting direction. Do not add local wall illumination that creates a nonrepeatable entrance-to-wall boundary.",
+        "evidence": "Native source/resources, material/light audit and render provenance; floor assets remain outside this change."
+      }
+    ]
+  },
+  "qualityCriteria": {
+    "asset": "backdrop-entrance",
+    "status": "proposed",
+    "styleIntent": "Warm, softly lit cartoon refinement of the actual native entrance. Preserve original palette family and architecture, with controlled soft volume and sparse material detail.",
+    "approvalRule": "Require visible improvement from the original toward the fixed target treatment, clean intended-size readability, all hard capture/architecture constraints and complete hash-bound native/join evidence. Scores compare outcomes; no numeric pass threshold.",
+    "hardConstraints": [
+      {
+        "id": "C1-capture",
+        "requirement": "Static S only. Preserve original 35-degree character-orthographic camera/matrix convention, square pixels, native 1728x1344, logical 576x448, root [288,416], sourceScale 3, 128px cell pitch, registration and transparent gutters. Preserve 4x3 projected envelope, 2-tile clear opening, original depth/roof proportions and threshold socket. No 55-degree/world-scale2 substitution, camera fit, image warp or recolor per view.",
+        "evidence": "Native camera, render, world-to-pixel calibration, bounds/root/socket and original-layout atlas validation."
+      },
+      {
+        "id": "C2-identity-counts",
+        "requirement": "Retain original blue flat-slab pitched roof with angular ridge/continuous fascia, 3 red noren panels/6 loops, cream fish body-tail-eye emblem on middle panel, 2 gold lanterns with 3 bands and dark fittings each, paired ochre wall fields/wood jambs/feet/joinery, dark doorway and existing threshold. Native baseline is 114 meshes + 2 curves + 1 root; 64 roof slabs (16 columns x2 rows x2 slopes). Refinement may change topology but may not delete/add semantic architecture or substitute rounded barrel roof tiles.",
+        "evidence": "Named-part native audit and actual S pixels; source architecture is authoritative when imagegen drifts."
+      },
+      {
+        "id": "C3-modular-continuity",
+        "requirement": "Preserve entrance outer join planes x=\u00b12 and wall module edges x=\u00b10.5, with source roof/wall/baseboard cross sections and slab cadence. Both facade objects must share compatible native material, lighting and camera settings. No global horizontal shading gradient, edge bevel gaps, doubled roof/baseboard strips, exposed caps or alternating value bands at joins.",
+        "evidence": "Labeled native joined facade plus independently assembled exported-sprite preview using registered roots and tile pitch; inspect both entrance boundaries and repeated wall-to-wall joins. Include original wall context or explicitly label a proposed matching wall as context-only pending its own fresh-pair approval."
+      },
+      {
+        "id": "C4-scope-and-native-output",
+        "requirement": "Actual editable 3D scene render, with complete packed or hash-bound dependencies; no target card/paintover or raster fitting. Preserve blank wall fields. No added windows, signs, props, floor tiles or floor-tile edits. No directional ground cast shadow or preferred horizontal lighting direction. Do not add local wall illumination that creates a nonrepeatable entrance-to-wall boundary.",
+        "evidence": "Native source/resources, material/light audit and render provenance; floor assets remain outside this change."
+      }
+    ],
+    "visualCriteria": [
+      {
+        "id": "Q1-shape-volume",
+        "priority": 1,
+        "dimension": "shapeVolume",
+        "success": "Roof slabs, fascia, jambs, joinery, lantern bodies and cloth read as distinct softly modeled forms. Add small controlled edge transitions and broad local tonal variation without inflating the canopy, rounding off protected boundary planes or changing part placement/proportions. Preserve clean rectangular backdrop envelope and two-tile entrance opening.",
+        "inspectAt": "S at 576x448 and native detail; joined facade"
+      },
+      {
+        "id": "Q2-color",
+        "priority": 1,
+        "dimension": "color",
+        "success": "Retain a clearly blue canopy with darker blue fascia, honey/ochre walls and warm brown wood, red cloth, cream emblem, golden yellow lantern paper with brass bands and dark fittings. Warmth comes through light/material treatment without turning the roof cyan or purple, bleaching lantern centers, making wood orange-plastic, or muddying the red panels. Both sides remain balanced in brightness/color.",
+        "inspectAt": "Intended size on light and dark backgrounds, plus native"
+      },
+      {
+        "id": "Q3-soft-light",
+        "priority": 1,
+        "dimension": "lightingHighlights",
+        "success": "Use broad gentle highlights and restrained contact/shape shading to make the original flat blocks feel soft and tangible. Edge light stays subordinate to base color; no razor white/cyan tracing, blown spots, harsh black faceting, or shiny plastic glare. Lanterns retain readable golden paper body and narrow bands. Large wall fields remain even across horizontal joins; local shading cannot impose a preferred left/right light direction or repeated-module gradient.",
+        "inspectAt": "S native/intended size and repeated joins"
+      },
+      {
+        "id": "Q4-material-detail",
+        "priority": 2,
+        "dimension": "materialDetail",
+        "success": "Cloth gains a few soft folds or edge turns that retain three separate panels; fish outline and eye remain cream, continuous and readable. Roof slab separation, wood edges and lantern rings remain crisp enough to identify. Any grain/paper/threshold variation is broad, sparse and quiet at intended size. Blank wall areas remain blank and calm; no speckle, dense texture, busy ornament or copied imagegen mottling.",
+        "inspectAt": "576x448 first, native details second"
+      },
+      {
+        "id": "Q5-dark-regions-and-defects",
+        "priority": 1,
+        "dimension": "artifactFreeReadability",
+        "success": "The dark navy doorway stays an intentional coherent recessed opening; threshold stays a distinct muted brown-gray structural step. No unintended black smears, crushed patches on wood/cloth/lanterns, coplanar seams, split normals, glowing cracks, clipped emblem, merged cloth edges, disconnected bands/hangers, small exposed geometry, alpha fringe/noise or crop clipping. Intentional dark fittings, doorway and threshold seam are not defects merely for being dark.",
+        "inspectAt": "Every required S capture and join preview enlarged and intended-size on light/gray/dark backgrounds"
+      }
+    ],
+    "targetExceptions": [
+      "Do not copy target framing, padding, silhouette drift or smaller canvas.",
+      "Do not require target gloss, cyan highlights, painterly noise, halo or stray alpha pixels.",
+      "Do not require brightened doorway, decorated blank areas, ground shadow or horizontal/global wall light gradient.",
+      "Single S target does not authorize changes to source architecture/counts or invent unseen views."
+    ],
+    "requiredReviewEvidence": {
+      "renders": [
+        "Native static S at 1728x1344 with original registration",
+        "Original-layout static-S atlas"
+      ],
+      "previews": [
+        "S intended-size/background diagnostic sheet",
+        "Native connected facade with entrance and repeated walls",
+        "Independent assembly of exported entrance/wall sprites using exact roots and tile pitch, with sibling context status labeled"
+      ],
+      "technical": [
+        "Immutable candidate packet binding exact source, renders, previews, validation and dependencies",
+        "Native capture camera/frame/pixel aspect/root/socket/footprint/height/opening evidence",
+        "Protected join profile and shared material/light/camera evidence",
+        "No floor-tile mutation or directional ground-shadow evidence"
+      ]
+    }
+  },
+  "delivery": {
+    "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
+    "requiredClips": [
+      {
+        "id": "static",
+        "name": "Static",
+        "frames": 1,
+        "fps": 12,
+        "static": true,
+        "loop": false
+      }
+    ],
+    "notes": "Write source/round-NN.blend or the actual native 2D source as appropriate; full native captures, original-layout atlases, previews, validation and delivery.json. Do not label 2D artwork as a Blender model."
+  },
+  "criteriaVersion": 1,
+  "criteriaSource": "reviews/criteria.json"
+}
