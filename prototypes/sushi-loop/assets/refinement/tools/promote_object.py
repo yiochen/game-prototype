@@ -46,6 +46,9 @@ def main():
     parser.add_argument('--replace-approved', action='store_true')
     args = parser.parse_args()
     folder = RUN / 'objects' / args.asset
+    if read(folder / 'brief.json').get('constraints', {}).get('pipeline') == 'existing-2d':
+        from promote_2d_object import promote
+        return promote(args)
     round_folder = folder / 'candidates' / args.round
     packet_path = round_folder / 'packet.json'
     review_path = folder / 'reviews' / f'{args.round}.json'
@@ -157,13 +160,23 @@ def main():
             source_atlas = folder / a['path']
             if 'sha256' in a:
                 require(digest(source_atlas) == a['sha256'], 'Atlas differs from delivery')
+            declared_rects = a.get('rects')
+            if declared_rects is None:
+                require(all(type(a.get(key)) is int and a[key] > 0
+                            for key in ['frameWidth', 'frameHeight', 'frames', 'columns', 'rows']),
+                        'Atlas needs explicit rects or a complete regular-grid declaration')
+                require(a['frames'] == clip['frames'] and a['frames'] <= a['columns'] * a['rows'],
+                        'Declared atlas frame count differs')
+                declared_rects = [[index % a['columns'] * a['frameWidth'],
+                                   index // a['columns'] * a['frameHeight'],
+                                   a['frameWidth'], a['frameHeight']] for index in range(a['frames'])]
             rects = []
-            for index, rect in enumerate(a['rects']):
+            for index, rect in enumerate(declared_rects):
                 if isinstance(rect, dict):
                     require(rect.get('index', index) == index, 'Atlas frame order drift')
                     rect = [rect[key] for key in ['x', 'y', 'width', 'height']]
                 rects.append(rect)
-            atlas_size = a.get('size', a.get('atlasSize'))
+            atlas_size = a.get('size', a.get('atlasSize', [a.get('width'), a.get('height')]))
             require(atlas_size == current['atlasSize'] and a['columns'] == current['columns']
                     and a['rows'] == current['rows'] and rects == current['rects'], 'Atlas layout drift')
             image = Image.open(source_atlas)

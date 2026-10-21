@@ -33,7 +33,12 @@ test('each promoted sprite is the exact independently approved candidate', () =>
     for (const clip of object.clips) for (const entry of Object.values(clip.directions)) {
       assert.ok(approvedHashes.has(sha(new URL(entry.image, production))), `${object.id}/${clip.id}: production pixels differ from approved packet`);
     }
-    assert.equal(sha(new URL(object.source.blend, production)), packet.files.candidateProject.sha256);
+    const editableSource = object.source.refinedSource ?? object.source.blend;
+    assert.equal(sha(new URL(editableSource, production)), packet.files.candidateProject.sha256);
+    if (object.source.refinedSource) {
+      assert.ok(['imagegen-2d', 'procedural-2d'].includes(object.source.pipeline));
+      assert.equal(object.source.blend, undefined, `${object.id}: fabricated Blender source`);
+    }
   }
 });
 
@@ -42,6 +47,13 @@ test('native refinement preserves every original clip and registered root', () =
     const original = read(new URL(`objects/${object.id}/final/original-catalog-object.json`, refinement));
     for (const key of ['clips', 'frameSize', 'root', 'sourceScale', 'footprint', 'height', 'projection', 'sockets', 'ports']) {
       assert.deepEqual(object[key], original[key], `${object.id}: changed ${key}`);
+    }
+    assert.equal(object.registration.sourceCaptureScale, object.sourceScale);
+    if (!object.source.blend) {
+      assert.equal(object.registration.method, 'fixed-frame-2d');
+      assert.deepEqual(object.registration.anchor, object.root);
+      assert.deepEqual(object.registration.completeFrame, object.frameSize);
+      continue;
     }
     const camera = read(new URL(object.source.camera, production));
     assert.deepEqual(camera.frame, object.frameSize);

@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 22,
-  "published": 21,
-  "current": "Twenty-one objects published; Dalia approved and publishing; eastbound conveyor candidate sealing; Ellis native editing; Rowan initial criteria",
+  "completed": 23,
+  "published": 22,
+  "current": "Twenty-two objects published; eastbound conveyor approved and publishing (23rd); Ellis native editing; salmon2D candidate preparation; Rowan criteria frozen",
   "objects": [
     {
       "id": "plant-angular",
@@ -273,15 +273,17 @@
       "name": "Straight conveyor flowing E",
       "kind": "belt",
       "pipeline": "native-3d",
-      "status": "native-editing",
+      "status": "approved",
       "clips": 1,
       "frames": 96,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_belt_straight_e_editor_v1",
       "judge": "catalog_belt_straight_e_judge_v1",
-      "editorStatus": "running",
-      "judgeStatus": "initial-criteria-complete"
+      "editorStatus": "completed",
+      "judgeStatus": "running",
+      "round": "round-01",
+      "packetSHA256": "5b06b818a62bcfd2532cb8a4b87c5e5207485f985f8515869ede140edee803d6"
     },
     {
       "id": "belt-straight-s",
@@ -539,7 +541,7 @@
       "name": "Dalia Farouk",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -547,7 +549,9 @@
       "editor": "catalog_chef_dalia_editor_v1",
       "judge": "catalog_chef_dalia_judge_v1",
       "round": "round-01",
-      "packetSHA256": "e45e73cc576f8dd21a6e8d557ec665c772693e286b6262cc25616f72dbb044df"
+      "packetSHA256": "e45e73cc576f8dd21a6e8d557ec665c772693e286b6262cc25616f72dbb044df",
+      "deployCommit": "9cd31725",
+      "deployURL": "https://deploy-preview-37--game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#object-chef-dalia"
     },
     {
       "id": "chef-ellis",
@@ -638,10 +642,13 @@
       "name": "Salmon Nigiri",
       "kind": "prop",
       "pipeline": "existing-2d",
-      "status": "prepared-existing-2d",
+      "status": "initial-review",
       "clips": 1,
       "frames": 4,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "editor": "catalog_dish_salmon_editor_v1",
+      "judge": "catalog_dish_salmon_judge_v1",
+      "editorStatus": "not-started"
     },
     {
       "id": "dish-cucumber",

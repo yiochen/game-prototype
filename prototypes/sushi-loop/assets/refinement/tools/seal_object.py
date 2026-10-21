@@ -22,7 +22,10 @@ def main():
     snapshot = candidate / 'delivery.snapshot.json'
     snapshot.write_text(json.dumps(delivery, indent=2) + '\n')
     project = folder / delivery.get('project', delivery.get('source', {}).get('blend', ''))
-    assert project.is_file() and project.suffix == '.blend', 'Native Blender project required'
+    brief = json.loads((folder / 'brief.json').read_text())
+    pipeline = brief.get('constraints', {}).get('pipeline')
+    allowed_sources = ['.png', '.gd'] if pipeline == 'existing-2d' else ['.blend']
+    assert project.is_file() and project.suffix in allowed_sources, 'Actual editable source required for declared pipeline'
     command = ['python3', HELPER, 'create', '--brief', str(folder / 'brief.json'),
                '--project', str(project), '--validation', str(folder / delivery['validation']),
                '--output', str(candidate / 'packet.json')]
