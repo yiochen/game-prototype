@@ -68,7 +68,8 @@ def main():
                     entries = [*manifest['bindings'].values(), *manifest['independentSupplementalEvidence'],
                                *manifest['originalIndependentAudit']]
                 else:
-                    assert manifest.get('packetSHA256') == receipt['candidatePacketSHA256'], 'Supplement manifest binds wrong packet'
+                    packet_bindings = {manifest[key] for key in ('packetSHA256', 'candidatePacketSHA256') if key in manifest}
+                    assert packet_bindings == {receipt['candidatePacketSHA256']}, 'Supplement manifest binds wrong packet'
                     assert isinstance(manifest.get('files'), list), 'Supplement manifest needs explicit path/hash records'
                     entries = manifest['files']
                 for entry in entries:

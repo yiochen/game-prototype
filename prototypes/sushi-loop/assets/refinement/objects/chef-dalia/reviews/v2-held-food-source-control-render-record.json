@@ -1,0 +1,59 @@
+{
+  "sourceSHA256": "6786550a8d05b9d4563c038cd4d3614ce7c189a5a1e40813e2f536ac67c2709c",
+  "clip": "hold",
+  "direction": "S",
+  "index": 0,
+  "purpose": "Two unchanged-source control renders only. No canonical replacement or candidate approval.",
+  "devices": [
+    {
+      "name": "Apple M4",
+      "type": "CPU",
+      "use": false
+    },
+    {
+      "name": "Apple M4 (GPU - 10 cores)",
+      "type": "METAL",
+      "use": true
+    }
+  ],
+  "engine": "CYCLES",
+  "samples": 64,
+  "seed": 0,
+  "useAnimatedSeed": false,
+  "viewTransform": "AgX",
+  "look": "AgX - Medium High Contrast",
+  "exposure": 0.30000001192092896,
+  "denoise": true,
+  "renderFiles": [
+    {
+      "path": "reviews/v2-held-food-evidence/unchanged-source-hold-S-000-control-1.png",
+      "sha256": "859330803095986407337e5de7126eff20633cdb625705644af3df82afa2483b"
+    },
+    {
+      "path": "reviews/v2-held-food-evidence/unchanged-source-hold-S-000-control-2.png",
+      "sha256": "e4bdc4403f35ad94736b83495050df63e82c83882fa315fe7a6fb3383f7b702d"
+    }
+  ],
+  "repeatDifference": {
+    "dimensions": [
+      384,
+      640
+    ],
+    "PNGBytesEqual": false,
+    "decodedRGBAEqual": false,
+    "differentPixels": 10,
+    "maxRGBAByteDifference": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+    ],
+    "meanAbsoluteRGBAByteDifference": [
+      1.220703125e-05,
+      8.138020833333333e-06,
+      2.0345052083333332e-05,
+      0.0
+    ],
+    "limitation": "One hold-S frame under the recorded same-session source settings. Does not establish blanket deterministic identity across rerenders, hardware, sessions, or new food radiance."
+  }
+}

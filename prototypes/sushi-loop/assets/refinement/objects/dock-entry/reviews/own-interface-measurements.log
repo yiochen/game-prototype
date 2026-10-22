@@ -1,0 +1,72 @@
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-entry/reviews/measure-own-interface.py:16: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  p=AS/f'production/sprites/{asset}/static-{f}.png';im=Image.open(p).convert('RGBA');pix=list(im.getdata());partial=[v for v in pix if 0<v[3]<255];rasters.append({'asset':asset,'facing':f,'path':str(p.relative_to(ROOT)),'sha256':h(p),'size':list(im.size),'alphaBounds':list(im.getbbox()),'partialAlphaCount':len(partial),'RGBNonzeroAtAlphaZero':sum(1 for v in pix if v[3]==0 and any(v[:3])),'partialAlphaStrongRedDiagnostic':sum(1 for rr,g,bb,a in partial if rr>220 and g<70 and bb<70),'partialAlphaStrongYellowDiagnostic':sum(1 for rr,g,bb,a in partial if rr>220 and g>180 and bb<80)})
+{
+  "bounds": {
+    "entry": [
+      [
+        -0.5099999904632568,
+        -0.4950000047683716,
+        -0.010000001639127731
+      ],
+      [
+        0.5099999904632568,
+        0.4950000047683716,
+        0.48250001668930054
+      ]
+    ],
+    "floor": [
+      [
+        -1.49399995803833,
+        -1.5,
+        0.0
+      ],
+      [
+        1.49399995803833,
+        1.5,
+        0.2280000001192093
+      ]
+    ]
+  },
+  "rasterIndicators": [
+    {
+      "asset": "dock-entry",
+      "facing": "N",
+      "path": "prototypes/sushi-loop/assets/production/sprites/dock-entry/static-N.png",
+      "sha256": "5bccd51ca015639d59268bed8df63755304785602bd8249f9a53072707cfaa4b",
+      "size": [
+        384,
+        704
+      ],
+      "alphaBounds": [
+        59,
+        353,
+        325,
+        601
+      ],
+      "partialAlphaCount": 3594,
+      "RGBNonzeroAtAlphaZero": 0,
+      "partialAlphaStrongRedDiagnostic": 238,
+      "partialAlphaStrongYellowDiagnostic": 330
+    },
+    {
+      "asset": "dock-floor",
+      "facing": "N",
+      "path": "prototypes/sushi-loop/assets/production/sprites/dock-floor/static-N.png",
+      "sha256": "3309390eaba13913ba9ac0a71421a7ce7f6c1b8bae4c7ab3fedc37c9b1c81d6c",
+      "size": [
+        896,
+        960
+      ],
+      "alphaBounds": [
+        63,
+        87,
+        833,
+        897
+      ],
+      "partialAlphaCount": 38823,
+      "RGBNonzeroAtAlphaZero": 0,
+      "partialAlphaStrongRedDiagnostic": 516,
+      "partialAlphaStrongYellowDiagnostic": 274
+    }
+  ]
+}

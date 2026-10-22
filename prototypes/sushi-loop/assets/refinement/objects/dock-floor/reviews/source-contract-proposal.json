@@ -1,0 +1,501 @@
+{
+  "asset": "dock-floor",
+  "status": "proposed-unfrozen; reconciliation required",
+  "evidenceManifest": {
+    "path": "raw-evidence-manifest.json",
+    "sha256": "ad545d4972c63d3da7cc69e7a0e9cd329219070283ca1dc2764af3a4507ed7ba"
+  },
+  "rawNativeEvidence": {
+    "path": "native-inspection.json",
+    "sha256": "daa8f5f436797b3e7ed85d4c7e25135ed971ef979023c333f29fc34080fb484c"
+  },
+  "measurementEvidence": {
+    "path": "contract-measurements.json",
+    "sha256": "e770d8673b20903db32a7e71d4c8942df2e4b8facfbec81b473512552ff5d3ac"
+  },
+  "nativeCaptures": {
+    "path": "native-capture-evidence.json",
+    "sha256": "93014b280107392507175ca700340938317b05934eec6b8c0db5de9bcde8dad7"
+  },
+  "independentPublishedAssembly": {
+    "path": "published-raster-evidence.json",
+    "sha256": "12d834babc3a9b481692941518758ba775d7e7935352fb3e4fe7276d2b88195b"
+  },
+  "nativeIdentity": {
+    "librarySHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "scene": "S33 Native Asset Library Export",
+    "collection": "S33_PROP_dock-floor.001",
+    "groundRoot": "dock-floor__root.001",
+    "rootTransform": "identity at S; rotate root aboutZ S0/E+pi/2/Npi/W-pi/2; no scale/recenter/fitting",
+    "pipeline": "native-3d; static1frame at12fps; no armature/actions/image texture nodes in dockmaterials; evaluated beveled meshes"
+  },
+  "capture": {
+    "logicalFrame": [
+      448,
+      480
+    ],
+    "logicalRoot": [
+      224,
+      256
+    ],
+    "nativeFrame": [
+      896,
+      960
+    ],
+    "sourceScale": 2,
+    "logicalCellSize": 128,
+    "worldUnitsPerCell": 1,
+    "axes": {
+      "x": "X",
+      "depth": "-Y",
+      "height": "Z"
+    },
+    "camera": {
+      "projection": "square-top/front oblique orthographic",
+      "elevationDegrees": 55.00797980144134,
+      "orthoScale": 3.5,
+      "pixelAspect": [
+        1.2206555604934692,
+        1.0
+      ],
+      "worldMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.8192318081855774,
+          -0.5734625458717346,
+          -5.734623432159424
+        ],
+        [
+          0.0,
+          0.5734625458717346,
+          0.8192318081855774,
+          8.1923189163208
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "logicalCalibration": {
+        "root": [
+          224,
+          256
+        ],
+        "unitX": [
+          128,
+          0
+        ],
+        "unitDepth": [
+          0,
+          128
+        ],
+        "unitHeight": [
+          0,
+          -89.6
+        ]
+      }
+    },
+    "historicalNote": "source asset/camera scale4/guide sourceCaptureScale4 describes historical4xcapture; published pack is2x. Missing four declared source-capture files means those hashes are declarations only, not inspected rawframes. Native2x baseline here is independently reproduced, not claimed byte-identical."
+  },
+  "placement": {
+    "nominalFootprint": [
+      3,
+      3
+    ],
+    "rootCell": [
+      1.5,
+      1.5
+    ],
+    "occupiedCells": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "supportCells": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "nativeFloorBounds": [
+      [
+        -1.49399995803833,
+        -1.5,
+        0.0
+      ],
+      [
+        1.49399995803833,
+        1.5,
+        0.2280000001192093
+      ]
+    ],
+    "nominalEnvelope": {
+      "x": [
+        -1.5,
+        1.5
+      ],
+      "y": [
+        -1.5,
+        1.5
+      ],
+      "z": [
+        0,
+        0.25
+      ]
+    },
+    "observedSupport": {
+      "flatPlankTop": 0.22,
+      "endTopAtYPlusMinus1_5": 0.212,
+      "plankUnderside": 0.04,
+      "joistGround": 0,
+      "joistTop": 0.07,
+      "nailTop": 0.228,
+      "nominalHeightIsNotDeckTop": true,
+      "interPlankGap": 0.012,
+      "outerSideInset": 0.006,
+      "supportNote": "Catalog full3x3support is a logical occupancy contract. Native planks have through-gaps except joist crossings; holes/source partcount are not improvement locks."
+    }
+  },
+  "actualInterfaces": {
+    "dockEntry": {
+      "relativeRoot": [
+        0,
+        -1.5,
+        0
+      ],
+      "rotationRelativeToDeck": 0,
+      "transferPlane": {
+        "point": [
+          0,
+          -1.5,
+          0
+        ],
+        "tangent": [
+          1,
+          0,
+          0
+        ],
+        "outwardNormal": [
+          0,
+          -1,
+          0
+        ],
+        "entryTravelTowardDeck": [
+          0,
+          1,
+          0
+        ]
+      },
+      "entryWidth": 0.96,
+      "entryPostInnerX": [
+        -0.38,
+        0.38
+      ],
+      "clearWalkingWidth": 0.76,
+      "entrySocketLocal": [
+        0,
+        -0.5,
+        0
+      ],
+      "dockSocketLocal": [
+        0,
+        0.5,
+        0.23
+      ],
+      "dockSocketWorld": [
+        0,
+        -1,
+        0.23
+      ],
+      "reciprocalDockFloorSocket": null,
+      "portsOnEitherSourceObject": [],
+      "note": "Authored overlap, not a butt join. Socket inside platform is not a deck-edge endpoint. Source uppersteps intersect deck and need coordinator ruling; see initial issues."
+    },
+    "workshop": {
+      "relativeRoot": [
+        0.78,
+        0.35,
+        0.23
+      ],
+      "doorSocketWorld": [
+        0.66,
+        -0.21,
+        0.23
+      ],
+      "lowestVisibleWorldZ": 0.255,
+      "measuredGapToFlatDeck": 0.035,
+      "requirement": "retain root/right-of-submarine composition and open door/landing path; no new decoration/raised edge crossing it"
+    },
+    "submarine": {
+      "relativeRoot": [
+        -0.7,
+        -0.42,
+        0.23
+      ],
+      "dockReadySkidLowestWorldZ": 0.274999946,
+      "measuredGapToFlatDeck": 0.054999946,
+      "requirement": "retain docked placement and clear volume; unchanged published source uses different65degree camera, so do not force pixel parity"
+    },
+    "cover": {
+      "relativeRoot": [
+        0,
+        0,
+        0.23
+      ],
+      "sourceLocalDockFloorSocket": [
+        0,
+        0,
+        0
+      ],
+      "sourceLocalBounds": [
+        [
+          -1.499000072479248,
+          -1.309000015258789,
+          0.24000000953674316
+        ],
+        [
+          1.499000072479248,
+          1.309000015258789,
+          1.8445000648498535
+        ]
+      ],
+      "requirement": "shared3x3overheadweathercover remains a separate object; preserve footprint and its roots/clearance, no invented floor reciprocity"
+    },
+    "dockPostRope": {
+      "currentPublishedStatus": "separately approved warm round07",
+      "actualDeclaredConnection": "W/E dock-rope-v2 to other rope modules",
+      "floorInterface": "none declared; no floor reciprocal socket or exact perimeter layout exists",
+      "requirement": "do not change approved rope geometry or impose rope connectorprofile on floor"
+    },
+    "selfTiling": {
+      "declared": false,
+      "requirement": "No fabricated opposite-edge equality/seamless repetitions; actual outer platform boundaries can be designed within footprint."
+    }
+  },
+  "proposedTolerances": [
+    {
+      "quantity": "root transform, authored family relative roots, facing rotations, declared socketcoords",
+      "tolerance": "<=1e-5worldunit/radian; uniformscale1within1e-6",
+      "reason": "Registration coordinates are machine-defined;1e-5world projects0.00128logicalpx."
+    },
+    {
+      "quantity": "camera root and basis calibration",
+      "tolerance": "<=0.02logicalpx in root/unitX/unitDepth/unitHeight, matrices recorded and one shared rig",
+      "reason": "Well below0.5nativepixel at2x; catches accidental activecamera use without meaningless floatbit demands."
+    },
+    {
+      "quantity": "frame/atlas/order/sourceScale/fps/footprintcells",
+      "tolerance": "exact integers and exact declared order;1frame N/E/S/W",
+      "reason": "Consumer registration and packing contract."
+    },
+    {
+      "quantity": "nominal occupied envelope",
+      "tolerance": "within x/y\u00b11.5,z0..0.25 plus1e-5numericnoise; no new groundshadow/card",
+      "reason": "Gameplay3x3scale and overhead/landing constraints. Nonfunctional forms, grooves/edges and supports may rebuild within envelope."
+    },
+    {
+      "quantity": "flat walking top and accepted functional entry profile",
+      "tolerance": "proposed baselineflat0.22\u00b10.002world (0.1792logicalpxvertical); match accepted endprofile/contacttransfer to<=0.002world after coordinator ruling; no automatic lock on existing gaps",
+      "reason": "Subpixel contact tolerance meaningful at128pxcell while allowing authored surface detail. Source endbevel has0.008depth in y; preserve safe entrytransfer rather than every old vertex."
+    },
+    {
+      "quantity": "entry walkingclearance",
+      "tolerance": "retain continuous central width at least0.76world between existing posts, without additional deckdetail above accepted walkingheight+0.002in transfer strip; maintain same footprint/entryroot",
+      "reason": "Source posts define actual inner edge\u00b10.38. No ornamental rim/new fastener obstruction should narrow this passage."
+    },
+    {
+      "quantity": "native geometry/raster join coverage",
+      "tolerance": "accepted interface mask/tangent projected endpoints<=0.25logicalpx; no accidental continuous uncovered seam>=0.5logicalpx after common downsample, no compensating per-objectpixelshift; inspect alpha and RGB",
+      "reason": "Quarterlogicalpx is halfnativepixel at2x; filters can reveal subpixel tears. Source narrow gap and submergedstep mismatch are explicitly NOT certified passing and need frozen disposition."
+    },
+    {
+      "quantity": "lighting symmetry",
+      "tolerance": "same rig/allfacings; symmetric positions/energy/color where usingcardinal lights (energywithin0.5%, matchingcolor); alternative native/shader solution must demonstrate no preferred horizontaldirection",
+      "reason": "Outcome-focused; old roughness, albedocalibration, contrast1.35 and power values are not locks."
+    },
+    {
+      "quantity": "halo and deadspot acceptance",
+      "tolerance": "no disconnected opaque/visiblealpha coloredblob fartherthan1logicalpx from projected geometry; no visible sustained colorfringe/deadblackpatch at logical/phone sizes on light/gray/dark; diagnostics must isolate intentional darkmetal/grooves",
+      "reason": "Exact RGB equality is inappropriate for valid antialiasing/contactshadow. Visual judgment and localized premultipliedrgba/profile evidence remain necessary."
+    }
+  ],
+  "nativeReconstructionFreedom": [
+    "Rebuild planks/joists/fixing arrangement, change counts and topology, roundcorners and improve structural thickness within envelope.",
+    "Add subtle native/procedural or packed-texture grain, knots, endgrain and purposeful fastening without raising obstacles or adding spritepaint cards.",
+    "Improve hidden support/underside and close useless source throughgaps if useful; preserve logical support and frozen contacttransfer, not weak old geometry.",
+    "Round outer freeedges inside nominal3x3 envelope; do not infer a selftiling connector."
+  ],
+  "mustNotBeSilentlyFrozen": [
+    {
+      "id": "walking-height-vs-envelope",
+      "severity": "reconcile-before-freeze",
+      "evidence": "Native evaluated plank interior top0.219999999; beveled end at y=-1.5 top0.211999997; nails max0.228000000; joist floor0. Catalog nominalheight0.25.",
+      "effect": "The nominal height is not the deck surface. Locking all surfaces to0.25 would silently move the support interface.",
+      "proposal": "Preserve root/placement, treat0.25 as maximum envelope; freeze an explicit walking/contact profile around measured0.22, with independently permitted relief."
+    },
+    {
+      "id": "entry-overlap-and-visibility",
+      "severity": "real-baseline-defect",
+      "evidence": "Entry root(0,-1.5,0). Step2 spans world y[-1.495,-1.255] with flat top0.18 and is embedded in dock slab0.04..0.22. Step3 y[-1.245,-1.005] top0.225 sits0.005 above deck. Native depth-tested joins hide most of step2; independent published whole-sprite composition paints it over deck in N/E/S/W. Direct sheets inspected.",
+      "effect": "Source native and published joins are materially different; an unbroken seamless source join has not been established.",
+      "proposal": "Keep authored overlap and clearance. Do not require a new reciprocal socket, move entry to a butt joint or call existing baseline seamless. Coordinator must choose acceptance/repair boundary for the pre-existing submerged-step visibility discrepancy before editor construction."
+    },
+    {
+      "id": "entry-exterior-transfer",
+      "severity": "real-baseline-profile-defect",
+      "evidence": "Source external step1 top0.135 ends y=-1.505; dock begins y=-1.5. The5e-3world run gap is0.64logicalpx. Nominal flat-run rise to deck0.22 is0.085world, versus0.045 step increment. The beveled end values are in contract-measurements.json.",
+      "effect": "Authored overlap produces a narrow coverage discontinuity and a larger transfer rise than the stair recipe suggests.",
+      "proposal": "Declare baseline explicitly. Preserve global entry/dock roots, but allow a native contact-edge repair within dock envelope if coordinator freezes that repair; require both native and independent visible coverage evidence."
+    },
+    {
+      "id": "supported-neighbor-gaps",
+      "severity": "reconcile-scope",
+      "evidence": "Composition roots stay workshop(.78,.35,.23), submarine(-.70,-.42,.23). Hut lowest trim/door-frame localz0.025 gives world0.255, gap0.035 over0.22deck. Dock-ready submarine visible skids minworldz0.274999946, gap0.055. Deck receives source context shadows but this is not physical contact proof.",
+      "effect": "Strict zero-gap contact cannot be obtained solely by changing dock below nominalmax0.25 while retaining current neighbors/root placements.",
+      "proposal": "Retain authored placements and clear landing/support regions. Report these as pre-existing neighbor/source gaps; do not impose an impossible zero-gap criterion or edit adjacent assets implicitly. Coordinator must explicitly record accepted baseline or authorized later family repair."
+    },
+    {
+      "id": "generic-guide-vs-catalog",
+      "severity": "metadata-discrepancy",
+      "evidence": "Per-facing guide says occupiedCells[[0,0]] despite native/catalog3x3 and all9support cells. guide/camera/asset scale4 describes historical source1792x1920; published runtime/sourceScale2 is896x960. Four declared4x source-capture paths are absent. Snapshot bytes equal publishedS.",
+      "effect": "Generic guide cannot override the asset-specific3x3support/layout or prove present raw capture closure.",
+      "proposal": "Freeze448x480logical/root224,256/2xnative896x960,1cell128logicalpx; retain historical4x provenance as history only. Candidate must provide actual closed capture resources and exact metadata."
+    },
+    {
+      "id": "saved-active-camera",
+      "severity": "source-capture-trap",
+      "evidence": "Saved library active S33 Capture Camera.240 is character35degree, ortho1.5, aspect1,768x1280. Correct dock source camera is55.00798degree square-top/front, ortho3.5, aspect1.22065556, registered root224,256; reconstructed and measured independently.",
+      "effect": "Using active saved camera would rescale and distort dock.",
+      "proposal": "Require asset-specific registered camera/calibration; camera object name need not be locked."
+    },
+    {
+      "id": "alpha-edge-source-fringes",
+      "severity": "real-raster-defect-at-magnification",
+      "evidence": "Enlarged published entry detail visibly shows red/yellow low-alpha fringe. Dock sourceS has549red and284yellow low-alpha indicator pixels; current source has no RGB data at alpha0 but ringing remains in partialalpha. All-facing black/gray/light inspection performed.",
+      "effect": "Transparent RGB=0 alone does not certify clean filtering. At phone size these are subdued, but should not be copied into a new candidate.",
+      "proposal": "Require antialiased native alpha with clean light/gray/dark composites and consumer filtering/phase checks. No target/source halo should be reproduced."
+    },
+    {
+      "id": "mixed-neighbor-projection",
+      "severity": "declared-context-limitation",
+      "evidence": "Dock/entry/hut use square-topfront55.008degree environment camera; submarine published source declares characterorthographic65degree. Native joined context at dock camera and independent published composition therefore legitimately differ in submarine presentation.",
+      "effect": "Full-context pixel parity is neither expected nor proof of support.",
+      "proposal": "Freeze each neighboring published reference and root; use native context for geometry/contact and independently composed sprites for consumer appearance. Do not refit dock to match differently projected submarine pixels."
+    }
+  ],
+  "laterRequiredEvidence": "proposedcriteria.json::laterRequiredCoverage",
+  "approvalAtThisStage": false,
+  "minimumInterfaceCorrection": {
+    "problemStatement": "The source has two distinct issues: whole-sprite painter visibility exposes native submerged entry geometry, and a real 0.005-world exterior transfer run gap exists between step1 and the platform boundary. Fixing only RGB or alpha edge treatment does not fix either native interface.",
+    "lockedDuringCorrection": [
+      "Dock and entry ground roots and relative transform (0,-1.5,0).",
+      "Dock logical 3\u00d73 footprint, one world unit per cell, registered camera/root and sourceScale.",
+      "Broad deck walking surface near measured z0.22, source maximum dock height0.25, clear entry passage width0.76, stable hut/submarine/cover placement.",
+      "No painted pixel patches, target-plane cards, per-facing fitting, sprite nudges or changing neighbors without explicit coordinated scope."
+    ],
+    "options": [
+      {
+        "id": "A-minimal-connected-native-capture",
+        "description": "Keep the deck surface and entry design. Produce a connected-entry native visibility capture against the actual candidate deck as a real depth occluder, or remove only connected-variant entry geometry proven always buried. Preserve exposed caps/posts/tread surfaces and any genuinely visible slivers through deck grooves. Close the exterior 0.005-world transfer run gap by a small native entry-side contact extension to the deck plane.",
+        "floorOnlySufficient": false,
+        "coordinationRequired": "Dock-entry editable connected variant/capture and its catalog consumer selection; entry-side source contact repair. Standalone entry capture remains independently valid.",
+        "minimumNativeChange": "Small entry-side run closure; connected visibility derives from native geometry, not edited pixels. No floor walking height change is needed.",
+        "captureContract": "Same physical scene and one capture contract for all N/E/S/W. A native holdout/object-isolation render may separate visible entry contribution while keeping deck depth; bind this variant to candidate deck geometry hash. Do not remove an entire buried tread based only on a bounding box: source floor through-grooves make some slivers potentially visible.",
+        "remainingProfile": "The authored final rise from external flat step0.135 to deck0.22 is0.085. This may be retained as a declared stair transition if accepted; it is not a flat coplanar join and must be shown with human traversal/context.",
+        "acceptance": "No physical run gap; native and independent composition agree on which entry regions are visible. Clean projected RGB/alpha coverage under required filtering."
+      },
+      {
+        "id": "B-coordinated-structural-stair-landing",
+        "description": "Rebuild the local entry/deck landing as an actual stair channel or a corrected final stair rise so that exposed tread geometry and the supporting deck form one coherent native structure. For example, a localized deck recess could reveal the inboard0.18 tread, while the landing transitions to0.22 and native entry contacts meet exactly.",
+        "floorOnlySufficient": false,
+        "coordinationRequired": "Dock-floor local support profile and dock-entry step contact/source geometry; revised connected capture must be reviewed together.",
+        "contractChangeToFreeze": "Only the bounded central entry landing region may depart from the old flat deck profile, explicitly recorded with cross-sections; global roots, footprint, broad walking height, max0.25height and width0.76clearance remain fixed.",
+        "editorFreedom": "Editor chooses construction; this is a feasibility option, not a prescribed mesh recipe. Maintain stairs/landing use, avoid an unintended dip, protruding rim or unsupported tread.",
+        "acceptance": "Watertight or intentionally overlapping continuous native support through the whole transfer; a logical human reaches the deck without visual float/snag. Independent sprites must show that same accepted structural arrangement."
+      },
+      {
+        "id": "C-floor-only-notch-or-cosmetic-rebuild",
+        "description": "A floor-only recess below the source0.18 tread could expose it natively and reduce painter-order disagreement, but it changes the local walking profile and cannot fill the exterior gap while staying within floor y>=-1.5. Pure floor material/edge improvements leave the submerged-step discrepancy unchanged.",
+        "floorOnlySufficient": false,
+        "disposition": "Not a complete seamless-join solution. Do not label it passing merely because it resembles the old published composition.",
+        "possibleUse": "Only as an explicitly partial design study; not recommended for a final join-certified candidate."
+      }
+    ],
+    "recommendedMinimum": "Option A plus the native entry-side run closure is the smallest complete correction while retaining broad deck height and placements. It requires coordinated dock-entry work/capture authorization from the coordinator. If the user instead wants a redesigned staircase, freeze Option B\u2019s bounded local profile before editing.",
+    "preparationVerdict": "No current source/candidate join certification. Root must select and freeze a sufficient native/capture correction before fresh editor construction. This judge has proposed options only and changed no source."
+  },
+  "nativeOnlyFloorWorkCanCertifyCurrentFullJoin": false
+}

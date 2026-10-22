@@ -1,0 +1,64 @@
+{
+  "asset": "chef-dalia",
+  "stage": "same-object-canonical-held-food-preparation-v2",
+  "status": "independent-proposals-complete-unfrozen-no-candidate-approval",
+  "candidateReviewed": false,
+  "candidateApproved": false,
+  "scope": "Original Dalia judge resumed. New review files only; no Git, agents, original review/packet/brief/source/production edits, new body style work or target changes.",
+  "inspected": {
+    "dispatch": "../../preparation/chef-dalia-held-food-judge-dispatch.txt",
+    "originalRole": "prompts/judge.txt",
+    "priorApproval": "reviews/round-01.json",
+    "unfrozenBrief": {
+      "path": "brief-v2-held-food.json",
+      "sha256": "4bb6df5d41402675fae3a97f0f5fa2030cefc569df761b3c095500dbf128ee4b"
+    },
+    "approvedNativeSourceSHA256": "6786550a8d05b9d4563c038cd4d3614ce7c189a5a1e40813e2f536ac67c2709c",
+    "backupSHA256": "6786550a8d05b9d4563c038cd4d3614ce7c189a5a1e40813e2f536ac67c2709c",
+    "canonicalArtworkSHA256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+    "nativeFramesIndependentlyEvaluated": 192,
+    "sourceControlsRendered": 2,
+    "sourceBodyManifest": {
+      "bodyKnifeMeshes": 95,
+      "actions": 24,
+      "materialsIncludingFoodShader": 15
+    }
+  },
+  "findings": [
+    "Independent source audit confirms this own Dalia plane/source image/UV/shader/yaw and ray law. No other chef mapping was used.",
+    "The true source alpha 128 plate support is source pixel center(633.5,1050.5), local(0.002818039551,0.033252820127,0). The old UV quad bottom corresponds to faint image margins, so anchoring replacement at that quad bottom would visibly move the plate.",
+    "Exact canonical support is pixel center(367.5,503.5). A single constant local quad rebase(+0.002051965676,+0.032678264721,0), canonical full UV and local height 0.193433653354 preserve source semantic support at unchanged local width 0.280000001192/world width 0.350000001490.",
+    "All 192 source pose matrices support the same canonical mapping. Orthographic camera-ray depthD 0..0.6 preserves canonical corner projection to1.14e-13 native pixels in independent matrix checks. The source itself usesD 0.6, not an inferred borrowed law.",
+    "Visible source semantic support differs from real palm-mesh mean by about(+0.9018,-15.3593) native pixels. Evaluated hand bones, palm bounds, food-root action path, smile mesh and rest mouth metadata are separately recorded. Preserve this source relationship without inventing a new contact.",
+    "Source alpha 64/192 semantic support sensitivity is under 0.109 native px horizontally and0.073 vertically; canonical mapped sensitivity is under 0.123 native px. Alpha 1 source specks are not a valid physical plate anchor.",
+    "Unchanged-source same-frame repeat rendering on Metal/64 samples/seed 0 varied at 10 decoded pixels by 1 RGB level with unchanged alpha. Native preservation checks and source-repeat/food-radiance analysis must remain separate."
+  ],
+  "consistentMappingDerived": true,
+  "technicalConflict": null,
+  "coordinatorInterpretationAcknowledged": "Coordinator agrees source semantic support/width/root path are preserved, while a single full UV canonical aspect mapping establishes the new corner reference; the depth-scalar invariance test compares against that canonical reference, not old cropped-source top corners.",
+  "proposedCriteria": "reviews/criteria-v2-held-food.proposed.json",
+  "proposedNativeContract": "reviews/native-contract-v2-held-food.proposed.json",
+  "evidence": [
+    {
+      "path": "reviews/v2-held-food-source-audit.json",
+      "sha256": "50da0bd8745bc445591861f37688b73411404748a7f389aa38d1075d552d67ef"
+    },
+    {
+      "path": "reviews/v2-held-food-alpha-measurements.json",
+      "sha256": "6b30ab93e93c9c15b1ceb054d2e89827e77bc59f403f6fd50c89cc393a659118"
+    },
+    {
+      "path": "reviews/v2-held-food-projected-canonical-map.json",
+      "sha256": "93aa129286c0049b135bfd4e487319c72e9af84fe32cca0e22e2a820d8533705"
+    },
+    {
+      "path": "reviews/v2-held-food-native-preservation-baseline.json",
+      "sha256": "6a2ffbd15d155b302b29d486b1f076aeb796496cf76ed2150c2008420b502484"
+    },
+    {
+      "path": "reviews/v2-held-food-source-control-render-record.json",
+      "sha256": "0a3094198e3bebd357f3394a7bd55e0b12e79e747bd7eb2c746844145d7b87e6"
+    }
+  ],
+  "nextStep": "Coordinator freezes/reconciles the versioned visible/native criteria. Original editor then implements food-only native candidate, followed by independent sealed candidate review. No new candidate approval or integration decision has been made."
+}

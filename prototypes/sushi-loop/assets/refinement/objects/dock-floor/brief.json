@@ -77,9 +77,116 @@
       "Replace awkward modeling and change nonfunctional topology or part counts",
       "Rebuild native geometry, normals, materials and light to realize the better design"
     ],
-    "dockConnection": "Preserve source3x3footprint/maxheight0.25, decktop/walking/entry support profiles and all neighboring connection planes. Native and independent joined entry/dock contexts, no filtering RGB/alpha seam. Surface detail may improve freely inside envelope."
+    "dockConnection": "Frozen exterior-half native stair reconstruction with bounded floor transfer repair; inputs/shared-dock-entry-contract.json is authoritative. Original roots/camera/footprints/semantic markers remain; old submerged geometry and source part counts are not locks."
   },
-  "qualityCriteria": {},
+  "qualityCriteria": {
+    "status": "frozen",
+    "criteriaFile": "reviews/proposedcriteria.json",
+    "criteriaFileSHA256": "a446e06e1b73df1495d8db20965dcc4d19301d53b5a3ce4b0c8ecff7be49378e",
+    "judgeProposal": {
+      "asset": "dock-floor",
+      "status": "proposed; not frozen",
+      "evidenceManifest": {
+        "path": "raw-evidence-manifest.json",
+        "sha256": "ad545d4972c63d3da7cc69e7a0e9cd329219070283ca1dc2764af3a4507ed7ba"
+      },
+      "targetSHA256": "2a2450d166d5e5d08a6b19936bed5d7c2b400a34d381d93dbd4c5218205dba34",
+      "technicalContractProposal": "source-contract-proposal.json",
+      "aestheticCriteria": [
+        {
+          "rank": 1,
+          "dimension": "shapeVolume",
+          "observableSuccess": "A readable crafted timber deck with softened corners, convincing front/outer thickness and supporting structure. Useful native construction improvements are rewarded. Preserve occupied3x3scale and clear dock access; avoid lumpy over-rounded walking surfaces or structural detail that reads as trim clutter.",
+          "notLocked": [
+            "12planks",
+            "2joists",
+            "8nails",
+            "source blankness",
+            "old topology/bevel method",
+            "target exact silhouette or board spacing"
+          ]
+        },
+        {
+          "rank": 2,
+          "dimension": "color",
+          "observableSuccess": "Honey/golden top wood with restrained amber contrast and warm dark side/end grain; visibly richer than the source without becoming neon yellow, orange plastic or a bright striped warning pattern. Keep palette family and enough contrast against existing dock family/people."
+        },
+        {
+          "rank": 3,
+          "dimension": "lightingHighlights",
+          "observableSuccess": "Soft broad edge highlights explain board volume and separate front/side planes. One horizontally neutral lighting/material treatment works unchanged in N/E/S/W. No preferred left/right light, hard directional ground shadow, clipped highlight rim, black underside block or view-dependent grade/fitting."
+        },
+        {
+          "rank": 4,
+          "dimension": "materialDetail",
+          "observableSuccess": "Long grain, occasional subtle knots and readable fixing marks feel purposeful, differ across boards and remain low-contrast enough for a walking platform. At phone scale the wood should still read as crafted boards, not noisy scratch lines. Details must be native geometry/material/texture resources with editable source, not a target card."
+        },
+        {
+          "rank": 5,
+          "dimension": "artifactFreeReadability",
+          "observableSuccess": "At128logicalpx/cell and reduced phone presentations all4facings retain deck identity and coherent thickness. Intentional plank grooves are allowed; no accidental tears, coplanar flicker, protruding nail obstacles, black patches, exposed connector ends, holes at an accepted functional transfer, colored halo or filtering-dependent seam. Diagnose pre-existing neighbor issues separately."
+        }
+      ],
+      "reviewPolicy": {
+        "scores": "Comparative1..10 explanation only; no automatic numerical pass cutoff.",
+        "missingEvidence": "needs_evidence",
+        "approval": "Only exact hash-bound candidate bytes can later be approved after fixed contract and complete visual/technical coverage. This preparation makes no candidate/art approval."
+      },
+      "laterRequiredCoverage": [
+        {
+          "id": "native-facing-captures",
+          "required": "One native transparent896x960 static frame per N/E/S/W, logical448x480/root224,256/sourceScale2, fixed camera/light/grade and exact-layout1x1atlas per facing. Preserve static1frame12fps no animation invented."
+        },
+        {
+          "id": "camera-native-validation",
+          "required": "Actual scene camera matrix/projection/pixelaspect/root calibration, identity transform and all4facing rotations; evaluated meshbounds/footprint, top/entry cross-sections, contact clearance, mesh/material/visibility/alpha audits and no external target-card use. Bind measurements to candidateblend hash."
+        },
+        {
+          "id": "human-context",
+          "required": "All-facing registered people on broad deck and traversing entry transfer at frozen walking height, including approach/landing/door path. Use existing published human assets unchanged and identify their source cameras/root; no per-view fitting. Native simple contact probes may supplement, not replace visible human context."
+        },
+        {
+          "id": "real-family-joins",
+          "required": "Native depth-tested dock+actualentry joins N/E/S/W and independently assembled published candidateatlas+current frozen entry N/E/S/W at authored relative transform. Include enlarged entry transfer/detail crops. Measure gap/penetration and tangent/normal/profile correspondence; disclose source baseline submergedstep discrepancy separately. The accepted correction must eliminate native/painter visibility contradiction and real run gap; old source appearance is not a passing threshold."
+        },
+        {
+          "id": "context-family",
+          "required": "All-facing full dock contexts with frozen published hut/submarine/entry and cover covered/uncovered representative views at recorded roots. Native family geometry must be read from named immutable sources, with submarine dock-ready visibility/actions selected, not all hidden variant meshes. Current approved dock-post-rope can appear in an optional perimeter style context; its W/Eself-family ports are not dock-floor ports."
+        },
+        {
+          "id": "repetition",
+          "required": "All-facing repeated multi-platform presentation at declared3cell spacing plus isolated comparisons, intended-size and phone scale. This tests visual rhythm/edge artifacts; it does not invent a seamless self-tiling contract for dock-floor."
+        },
+        {
+          "id": "alpha-consumer-presentations",
+          "required": "Light#f2f0e6/gray#a7a7a7/dark#20242a at logical scale and representative phone reduction, both neutral and fractional pixel origins; actual catalog/native-pixel or Godot sampling behavior where integrated. Inspect premultiplied RGB/alpha together and projected join coverage. Diagnostic Pillow composites alone are not consumer-render parity proof."
+        },
+        {
+          "id": "resource-closure",
+          "required": "Closed editableblend plus exact recipe, actual renders/atlases/validation, packed-or-hash-bound texture/library dependencies and reproduciblecamera/light settings. A hash manifest by itself does not prove source native geometry or visual result. Candidate packet and later review bind all bytes."
+        }
+      ],
+      "coordinatorResolutionsRequiredBeforeEditor": [
+        "Select sufficient coordinated native entry/capture correction from interface-correction-options.json; floor-only cosmetic rebuild or notch cannot certify the current complete join.",
+        "Specify source walking/profile0.22 versus nominalheight0.25 explicitly.",
+        "State acceptance or authorized dock-only repair for native/published submerged-entry-step mismatch and5e-3world transfer gap; no silent change to neighboring source.",
+        "Record pre-existing hut/submarine elevation gaps as accepted baseline or explicitly scope family repair; a zero-gap demand is infeasible for dock-onlymax0.25.",
+        "Use current published references with exact hashes for context, distinguish them from hypothetical future warm family copies."
+      ]
+    },
+    "sourceContractFile": "reviews/source-contract-proposal.json",
+    "sourceContractSHA256": "0e9540c0ca0153b0d628eba008eb069806cb0d0855964edae29263a74c6e8211",
+    "coordinatorResolution": {
+      "sharedContractFile": "inputs/shared-dock-entry-contract.json",
+      "sharedContractSHA256": "11a26923b709b3d73f485d234dd8600fde59fd3b67699f2364cfdcc45563c0f5",
+      "capture": "Use this object own asset-specific measured55.0079798degree camera/frame/root/sourceScale2 and actual S0/E90/N180/W-90 rotations. Historical4x metadata is provenance; actual2x delivery must close. Never use unrelated active saved camera.",
+      "structuralScope": "Known submerged source stair arrangement and earlier connected-mask proposal are superseded by exterior-half native reconstruction. No mask, new adapter or gameplay change is authorized by this freeze.",
+      "contactLaw": "Exact common Y/Z planes and mutual profile tolerance1e-5world take precedence over any earlier broad\u00b1.002 wording. Broad decorative relief away from seam stays\u00b1.002.",
+      "pairedEvidence": "Each editor saves its own standalone candidate blend before companion import; exchange exact immutable project bytes via own inputs/paired-native/ copy. Joined capture loads companion in memory only, never rewrites either saved native project. Bind both native geometry hashes; do not create circular packet dependencies. No final packet/approval until actual paired all-facing evidence passes.",
+      "neighborScope": "Keep existing hut/submarine/cover roots and clearance. Pre-existing hut0.035/submarine0.055support gaps are explicitly assigned to their own later native family support repairs; this floor/entry review makes no zero-gap certification for those neighbors.",
+      "nativeAudit": "Native mesh counts/topology/blank source details are descriptive only; no card/paintover, camera fit, per-facing material grade or new gameplay. Inspect actual native source first, then criteria. Exact approved bytes only after original judge approves."
+    }
+  },
   "delivery": {
     "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
     "requiredClips": [
@@ -117,5 +224,55 @@
       "The three excluded restaurant floor designs"
     ],
     "judging": "Reward useful native modeling and decoration inspired by the target. Do not reject a change solely because it differs from the source. Reject target drift only when it harms the chosen style, readability, role or locked technical contract. Original part counts and weak shapes are not automatically constraints."
+  },
+  "technicalResources": {
+    "own-review:add-interface-options.py": "reviews/add-interface-options.py",
+    "own-review:assemble-baseline.py": "reviews/assemble-baseline.py",
+    "own-review:capture-baseline.py": "reviews/capture-baseline.py",
+    "own-review:contract-measurements.json": "reviews/contract-measurements.json",
+    "own-review:initial.json": "reviews/initial.json",
+    "own-review:inspect-native.py": "reviews/inspect-native.py",
+    "own-review:interface-correction-options.json": "reviews/interface-correction-options.json",
+    "own-review:measure-contract.py": "reviews/measure-contract.py",
+    "own-review:native-capture-evidence.json": "reviews/native-capture-evidence.json",
+    "own-review:native-capture.log": "reviews/native-capture.log",
+    "own-review:native-entry-join-E.png": "reviews/native-entry-join-E.png",
+    "own-review:native-entry-join-N.png": "reviews/native-entry-join-N.png",
+    "own-review:native-entry-join-S-detail.png": "reviews/native-entry-join-S-detail.png",
+    "own-review:native-entry-join-S.png": "reviews/native-entry-join-S.png",
+    "own-review:native-entry-join-W.png": "reviews/native-entry-join-W.png",
+    "own-review:native-floor-E.png": "reviews/native-floor-E.png",
+    "own-review:native-floor-N.png": "reviews/native-floor-N.png",
+    "own-review:native-floor-S.png": "reviews/native-floor-S.png",
+    "own-review:native-floor-W.png": "reviews/native-floor-W.png",
+    "own-review:native-full-context-S.png": "reviews/native-full-context-S.png",
+    "own-review:native-inspection.json": "reviews/native-inspection.json",
+    "own-review:native-inspection.log": "reviews/native-inspection.log",
+    "own-review:proposedcriteria.json": "reviews/proposedcriteria.json",
+    "own-review:published-entry-join-E.png": "reviews/published-entry-join-E.png",
+    "own-review:published-entry-join-N.png": "reviews/published-entry-join-N.png",
+    "own-review:published-entry-join-S-detail.png": "reviews/published-entry-join-S-detail.png",
+    "own-review:published-entry-join-S.png": "reviews/published-entry-join-S.png",
+    "own-review:published-entry-join-W.png": "reviews/published-entry-join-W.png",
+    "own-review:published-full-context-E.png": "reviews/published-full-context-E.png",
+    "own-review:published-full-context-N.png": "reviews/published-full-context-N.png",
+    "own-review:published-full-context-S.png": "reviews/published-full-context-S.png",
+    "own-review:published-full-context-W.png": "reviews/published-full-context-W.png",
+    "own-review:published-raster-evidence.json": "reviews/published-raster-evidence.json",
+    "own-review:published-raster.log": "reviews/published-raster.log",
+    "own-review:raw-evidence-manifest.json": "reviews/raw-evidence-manifest.json",
+    "own-review:source-context-backgrounds-logical.png": "reviews/source-context-backgrounds-logical.png",
+    "own-review:source-context-backgrounds-phone.png": "reviews/source-context-backgrounds-phone.png",
+    "own-review:source-contract-proposal.json": "reviews/source-contract-proposal.json",
+    "own-review:source-entry-joins-logical.png": "reviews/source-entry-joins-logical.png",
+    "own-review:source-facings-logical.png": "reviews/source-facings-logical.png",
+    "own-review:technical-reconciliation-01/analytic-evidence.json": "reviews/technical-reconciliation-01/analytic-evidence.json",
+    "own-review:technical-reconciliation-01/analyze-interface.py": "reviews/technical-reconciliation-01/analyze-interface.py",
+    "own-review:technical-reconciliation-01/evidence-manifest.json": "reviews/technical-reconciliation-01/evidence-manifest.json",
+    "own-review:technical-reconciliation-01/finalize-reconciliation.py": "reviews/technical-reconciliation-01/finalize-reconciliation.py",
+    "own-review:technical-reconciliation-01/shared-interface-contract.json": "reviews/technical-reconciliation-01/shared-interface-contract.json",
+    "own-review:write-proposals.py": "reviews/write-proposals.py",
+    "shared-interface": "inputs/shared-dock-entry-contract.json",
+    "paired-technical-reconciliation": "inputs/dock-floor-technical-reconciliation.json"
   }
 }

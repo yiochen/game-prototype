@@ -1,0 +1,11 @@
+00:00.247  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend"
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-entry/reviews/inspect-own-source.py:33: DeprecationWarning: 'Scene.use_nodes' is expected to be removed in Blender 6.0
+  r['render']={'size':[sc.render.resolution_x,sc.render.resolution_y],'percent':sc.render.resolution_percentage,'aspect':[sc.render.pixel_aspect_x,sc.render.pixel_aspect_y],'engine':sc.render.engine,'transparent':sc.render.film_transparent,'viewTransform':sc.view_settings.view_transform,'look':sc.view_settings.look,'compositor':sc.use_nodes}
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-entry/reviews/inspect-own-source.py:35: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  r['materials']=[{'name':m.name,'diffuseColor':list(m.diffuse_color),'useNodes':m.use_nodes,'nodes':[{'name':n.name,'type':n.type,'inputs':{i.name:plain(i.default_value) for i in n.inputs if hasattr(i,'default_value')}} for n in m.node_tree.nodes] if m.use_nodes else [],'links':[{'from':[l.from_node.name,l.from_socket.name],'to':[l.to_node.name,l.to_socket.name]} for l in m.node_tree.links] if m.use_nodes else []} for m in bpy.data.materials if m.name in mats]
+BlenderMCP addon registered
+OWN_SOURCE_AUDIT /Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-entry/reviews/own-native-inspection.json
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

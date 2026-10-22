@@ -1,0 +1,621 @@
+{
+  "asset": "chef-dalia",
+  "version": "v2-held-food-native-contract-proposal-1",
+  "status": "proposed-unfrozen-awaiting-coordinator",
+  "scope": "Canonical packed 2D salmon dependency only. Approved native body/knife/rig/rest/actions/materials/light/camera remain the basis. No new body style work, target changes, runtime variants, candidate approval or source edit in preparation.",
+  "source": {
+    "approvedBodySHA256": "6786550a8d05b9d4563c038cd4d3614ce7c189a5a1e40813e2f536ac67c2709c",
+    "approvedBodyProject": "../../../production/source/blender/refinement/chef-dalia/source/round-01.blend",
+    "byteIdenticalBackup": "../../backups/6786550a8d05b9d4-chef-dalia-round-01.blend",
+    "backupSHA256": "6786550a8d05b9d4563c038cd4d3614ce7c189a5a1e40813e2f536ac67c2709c",
+    "originalBodyApproval": {
+      "packetSHA256": "e45e73cc576f8dd21a6e8d557ec665c772693e286b6262cc25616f72dbb044df",
+      "reviewSHA256": "286130ca3c10c814b3522034f969912ef280c77a78a2a7ce17e72a94706fd3cc"
+    },
+    "preparedUnfrozenBrief": {
+      "path": "brief-v2-held-food.json",
+      "sha256": "4bb6df5d41402675fae3a97f0f5fa2030cefc569df761b3c095500dbf128ee4b"
+    }
+  },
+  "canonicalFood": {
+    "asset": "dish-salmon",
+    "representation": "Honest packed RGBA 2D billboard inside native 3D chef; knife/body stay native 3D.",
+    "path": "../../../production/source/2d/refinement/dish-salmon/source/round01/dish-salmon.png",
+    "SHA256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+    "size": [
+      731,
+      505
+    ],
+    "UV": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "policy": "Exact complete approved RGBA bytes, full UV 0..1 and full 731:505 aspect. No new crop, color grade, alpha processing, repaint, or substitute native food model. Retain source STRAIGHT alpha, sRGB interpretation, Linear interpolation, CLIP extension, FLAT projection and unchanged transparent/emission shader."
+  },
+  "actualSourceFoodLaw": {
+    "plane": "chef_dalia__ground_root.001__held_dish-salmon__image_plane",
+    "foodRoot": "chef_dalia__ground_root.001__held_dish-salmon",
+    "rootParent": "chef_dalia__ground_root.001",
+    "planeParent": "chef_dalia__ground_root.001__held_dish-salmon",
+    "rootScale": [
+      1.25,
+      1.25,
+      1.25
+    ],
+    "packedSourceSHA256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe",
+    "packedSourceSize": [
+      1254,
+      1254
+    ],
+    "UV": [
+      [
+        0.0,
+        0.04465709626674652
+      ],
+      [
+        0.9904305934906006,
+        0.04465709626674652
+      ],
+      [
+        0.9904305934906006,
+        0.9322168827056885
+      ],
+      [
+        0.0,
+        0.9322168827056885
+      ]
+    ],
+    "vertices": [
+      [
+        -0.14000000059604645,
+        0.0,
+        0.0
+      ],
+      [
+        0.14000000059604645,
+        0.0,
+        0.0
+      ],
+      [
+        0.14000000059604645,
+        0.25091788172721863,
+        0.0
+      ],
+      [
+        -0.14000000059604645,
+        0.25091788172721863,
+        0.0
+      ]
+    ],
+    "quadWidthLocal": 0.2800000011920929,
+    "quadWidthWorld": 0.3500000014901161,
+    "quadWidthNativePixels": 89.60000038146973,
+    "quadWidthLogicalPixels": 44.80000019073486,
+    "sourceAlpha1Caveat": "Legacy UV window includes alpha-1 specks/margin down to row 1197, while the visible plate lower edge at alpha>=128 is row 1050. Quad bottom and alpha-1 crop bottom are not the semantic plate support.",
+    "supportDefinition": "For alpha>=T, choose the lowest occupied top-origin row. Support X is the midpoint of the first/last occupied pixel centers on that row, even if the row contains gaps; Y is that row pixel center (row+0.5). This explicit pixel-center convention is shared by source and canonical measurements.",
+    "sourceSupportAlpha128": {
+      "alphaBBoxTopOriginExclusive": [
+        16,
+        237,
+        1238,
+        1051
+      ],
+      "lowestRowIndex": 1050,
+      "lowestRowOccupiedXInclusive": [
+        620,
+        646
+      ],
+      "lowestRowOccupiedPixelCount": 25,
+      "supportPixelCenter": [
+        633.5,
+        1050.5
+      ],
+      "supportUV": [
+        0.50518341307815,
+        0.16228070175438591
+      ]
+    },
+    "sourceSupportLocal": [
+      0.002818039551104906,
+      0.03325282012662127,
+      0
+    ],
+    "sourceSupportToActualPalmMeanNativeRange": [
+      [
+        0.9017364334445688,
+        0.9018225713629135
+      ],
+      [
+        -15.359307254117311,
+        -15.35920207997765
+      ]
+    ],
+    "sourceSupportInterpretation": "Semantic support is the measured plate artwork point transformed through the actual food plane. The actual food-root/hand control, two evaluated palm-mesh centroids, native hand bones, and rest mouth metadata are different things. Do not invent quad-center, mouth or physical symmetric two-hand contact. The source visible plate point lies about 0.4509 logical px right and 7.6796 logical px above actual palm mean; preserve this authored projected path.",
+    "sourcePhaseVisibility": {
+      "idle": "food plane render-hidden all 12 frames/all 4 facings",
+      "work": "food plane render-hidden all 12 frames/all 4 facings; native knife retains original work behavior",
+      "hold": "food plane render-visible all 12 frames/all 4 facings before natural native occlusion",
+      "load": "food plane render-visible all 12 frames/all 4 facings before natural native occlusion; source reach and return keeps dish attached"
+    },
+    "sourceFacingAndDepth": "Yaw driver remains-facing; plane X rotation 55 degrees makes billboard screen-parallel for the fixed35 degree camera. Source local X/Y offset drivers use amplitude 0.39319298125871605 and source local Z 0.27531668543815613, giving one 0.6-world-cell camera-ray display offset. No food-root drivers or per-frame/per-view placement fitting.",
+    "shader": {
+      "name": "chef-dalia approved chef_dalia__ground_root.001__held_dish-salmon__transparent_2D_material",
+      "nodes": [
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "outputs": {}
+        },
+        {
+          "name": "Image Texture",
+          "type": "ShaderNodeTexImage",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "outputs": {
+            "Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Alpha": 0.0
+          },
+          "interpolation": "Linear",
+          "extension": "CLIP",
+          "projection": "FLAT",
+          "image": "dish-salmon.png"
+        },
+        {
+          "name": "Emission",
+          "type": "ShaderNodeEmission",
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          },
+          "outputs": {}
+        },
+        {
+          "name": "Transparent BSDF",
+          "type": "ShaderNodeBsdfTransparent",
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Weight": 0.0
+          },
+          "outputs": {}
+        },
+        {
+          "name": "Mix Shader",
+          "type": "ShaderNodeMixShader",
+          "inputs": {
+            "Factor": 0.5
+          },
+          "outputs": {}
+        }
+      ],
+      "links": [
+        {
+          "fromNode": "Image Texture",
+          "fromSocket": "Color",
+          "toNode": "Emission",
+          "toSocket": "Color"
+        },
+        {
+          "fromNode": "Image Texture",
+          "fromSocket": "Alpha",
+          "toNode": "Mix Shader",
+          "toSocket": "Factor"
+        },
+        {
+          "fromNode": "Transparent BSDF",
+          "fromSocket": "BSDF",
+          "toNode": "Mix Shader",
+          "toSocket": "Shader"
+        },
+        {
+          "fromNode": "Emission",
+          "fromSocket": "Emission",
+          "toNode": "Mix Shader",
+          "toSocket": "Shader"
+        },
+        {
+          "fromNode": "Mix Shader",
+          "fromSocket": "Shader",
+          "toNode": "Material Output",
+          "toSocket": "Surface"
+        }
+      ],
+      "surfaceRenderMethod": "DITHERED",
+      "useTransparentShadow": false,
+      "diffuseColor": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ]
+    },
+    "nativeMouthAndHandCaveat": "Evaluated smile-mesh centroid, hand bones, palm-mesh supports and rest mouth metadata were independently recorded for all 192 frames in the source audit. Metadata sockets alone do not certify the visible plate contact."
+  },
+  "singleCanonicalMapping": {
+    "derivation": "Let source support S be obtained by affine inversion of source UV crop and alpha 128 support UV. Let W be unchanged source local width. Canonical H=W*505/731. With canonical alpha 128 UV(u_c,v_c), choose one constant vertex rebase delta=S-(-W/2+W*u_c,H*v_c,0). All four new quad vertices are the unshifted full-aspect quad plus this delta; UV is full0..1. This is one measured geometry mapping, not per-view fitting.",
+    "sourceSupportAlpha128PixelCenter": [
+      633.5,
+      1050.5
+    ],
+    "canonicalSupportAlpha128PixelCenter": [
+      367.5,
+      503.5
+    ],
+    "canonicalSupportAlpha128": {
+      "alphaBBoxTopOriginExclusive": [
+        1,
+        1,
+        730,
+        504
+      ],
+      "lowestRowIndex": 503,
+      "lowestRowOccupiedXInclusive": [
+        342,
+        392
+      ],
+      "lowestRowOccupiedPixelCount": 51,
+      "supportPixelCenter": [
+        367.5,
+        503.5
+      ],
+      "supportUV": [
+        0.5027359781121751,
+        0.002970297029702973
+      ]
+    },
+    "constantVertexRebaseLocal": [
+      0.002051965676434342,
+      0.03267826472061834,
+      0
+    ],
+    "verticesLocal": [
+      [
+        -0.1379480349196121,
+        0.03267826472061834,
+        0
+      ],
+      [
+        0.1420519662724808,
+        0.03267826472061834,
+        0
+      ],
+      [
+        0.1420519662724808,
+        0.22611191807493697,
+        0
+      ],
+      [
+        -0.1379480349196121,
+        0.22611191807493697,
+        0
+      ]
+    ],
+    "UV": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "widthLocal": 0.2800000011920929,
+    "heightLocal": 0.1934336533543186,
+    "widthWorld": 0.3500000014901161,
+    "heightWorld": 0.24179206669289827,
+    "fullQuadNativePixels": [
+      89.60000038146973,
+      61.898769073381956
+    ],
+    "fullQuadLogicalPixels": [
+      44.80000019073486,
+      30.949384536690978
+    ],
+    "occupiedWidthPolicy": {
+      "locked": "Source quad/display width0.35000000149 world cells is preserved. No alpha-bound refitting or per-view scaling.",
+      "sourceAlpha128OccupiedWidthWorld": 0.344363940528451,
+      "canonicalAlpha128OccupiedWidthWorld": 0.3490424091467779,
+      "acceptedConsequence": "Occupied alpha width changes naturally from the two exact artworks while full display width stays fixed; do not rescale canonical food to force old cropped alpha width."
+    },
+    "thresholdSensitivity": {
+      "source": {
+        "64": {
+          "pointLocal": [
+            0.0031562038134896053,
+            0.03325282012662127,
+            0
+          ],
+          "deltaToAlpha128NativePixels": [
+            0.10821256396310375,
+            -0.0
+          ]
+        },
+        "128": {
+          "pointLocal": [
+            0.002818039551104906,
+            0.03325282012662127,
+            0
+          ],
+          "deltaToAlpha128NativePixels": [
+            0.0,
+            -0.0
+          ]
+        },
+        "192": {
+          "pointLocal": [
+            0.002479875288720179,
+            0.03347826297297867,
+            0
+          ],
+          "deltaToAlpha128NativePixels": [
+            -0.10821256396311263,
+            -0.07214171083436804
+          ]
+        }
+      },
+      "canonical": {
+        "64": {
+          "pointLocal": [
+            0.0026265210824372442,
+            0.03286978318928598,
+            0
+          ],
+          "deltaToAlpha128NativePixels": [
+            -0.0612859099736518,
+            0.12257181994729249
+          ]
+        },
+        "128": {
+          "pointLocal": [
+            0.002818039551104906,
+            0.03325282012662127,
+            0
+          ],
+          "deltaToAlpha128NativePixels": [
+            0.0,
+            -0.0
+          ]
+        },
+        "192": {
+          "pointLocal": [
+            0.002435002613769638,
+            0.03325282012662127,
+            0
+          ],
+          "deltaToAlpha128NativePixels": [
+            -0.12257181994728583,
+            -0.0
+          ]
+        }
+      }
+    },
+    "sensitivityInterpretation": "Alpha 64/192 support variations are each below 0.123 native px /0.062 logical px after mapping. Alpha 128 is the frozen semantic point; no threshold switching to justify a candidate.",
+    "phaseMapping": {
+      "path": "reviews/v2-held-food-projected-canonical-map.json",
+      "sha256": "93aa129286c0049b135bfd4e487319c72e9af84fe32cca0e22e2a820d8533705"
+    },
+    "phaseCount": 192,
+    "visibleFoodFrameCount": 96,
+    "referenceDepthWorld": 0.6,
+    "oldCornerDifference": "New canonical aspect/full UV necessarily changes the old cropped-source quad top corners. Source semantic support and fixed display width are preserved. The allowed depth-scalar test compares corners against this single derived canonical mapping, not against the incompatible old rectangle."
+  },
+  "allowedOrthographicDisplayDepth": {
+    "sourceDepthWorld": 0.6,
+    "allowedDWorldCells": [
+      0,
+      0.6
+    ],
+    "numberOfScalars": 1,
+    "sameFor": "Every state, frame and actual facing of this composition.",
+    "defaultRecommendation": "Retain source D 0.6 unless a common permitted scalar demonstrably improves native display ordering. Choice is the editor implementation; it must be reported and reviewed.",
+    "cameraOutUnitVector": [
+      0.0,
+      -0.819152212798662,
+      0.5735761956942212
+    ],
+    "worldLaw": "P(D)=P_canonical_at_source D 0.6+(D-0.6)*cameraOut. Source food-root/action/palm paths remain unchanged.",
+    "localLaw": "root scale 1.25, elevation 35 degrees: x=-sin(facing)*(D*cos35/1.25); y=-cos(facing)*(D*cos35/1.25); z=D*sin35/1.25; keep yaw=-facing and plane rotation.x=55 degrees. Equivalently preserve the source mechanism with one depth amplitude.",
+    "requiredInvariants": [
+      "Every projected canonical quad corner matches the once-derived mapping for all 192 diagnostic poses.",
+      "The transformed alpha 128 semantic plate support projects to the original source support path.",
+      "Source root, food-root, palm, foot and native body/knife pose paths remain unchanged."
+    ],
+    "independentMatrixProof": {
+      "testedD": [
+        0,
+        0.2,
+        0.4,
+        0.6
+      ],
+      "all192CornerProjectionMaxDeltaNativePixels": 1.1368683772161603e-13,
+      "sourceDepthRebaseSemanticWorldResidual": 0.0
+    },
+    "forbidden": [
+      "A different depth, X/Y fit, scale, visibility gate, grade or camera for any direction/pose/frame.",
+      "Changing body, hands, food-root attachment, native choreography or action keys to make food fit.",
+      "Treating biased 2D display world bounds as physical one-cell body geometry."
+    ]
+  },
+  "strictApprovedNativePreservation": {
+    "baseline": {
+      "path": "reviews/v2-held-food-native-preservation-baseline.json",
+      "sha256": "6a2ffbd15d155b302b29d486b1f076aeb796496cf76ed2150c2008420b502484"
+    },
+    "bodyAndKnifeMeshCount": 95,
+    "actionCount": 24,
+    "materialCountIncludingFoodShader": 15,
+    "mustMatch": [
+      "All 95 physical body/knife native geometry/topology/UV/weights hashes; rig rest matrices/bone parents/deform settings; unchanged armature/object modifier behavior.",
+      "All 24 original cohort action curves, keys, interpolation, timing, action owners and driver structure except the one declared food ray amplitude. No extra runtime clips.",
+      "All source physical body/knife evaluated poses, foot/palm supports and food-root matrices for all 192 poses; source mesh counts and deformation remain stable.",
+      "Body materials, world/light setup, camera/projection/root/scale, AgX settings and registered capture values. Food shader nodes/defaults/links/alpha behavior remain source-identical except exact canonical image binding."
+    ],
+    "numericalTolerances": {
+      "unchangedNativeMeshWeightActionShaderData": "Exact serialized content/hash equality under supplied baseline script; compare semantic data rather than arbitrary .blend file hash after food replacement.",
+      "evaluatedTransformAndContactWorldMaxComponentDelta": 1e-06,
+      "canonicalCornerAndSupportNativePixelMaxDelta": 0.001,
+      "canonicalAspectRelativeTolerance": 1e-06,
+      "packedCanonicalRGBA": "Exact file and packed byte SHA256."
+    },
+    "sourceControls": {
+      "path": "reviews/v2-held-food-source-control-render-record.json",
+      "sha256": "0a3094198e3bebd357f3394a7bd55e0b12e79e747bd7eb2c746844145d7b87e6"
+    },
+    "sourceRepeatObservation": {
+      "dimensions": [
+        384,
+        640
+      ],
+      "PNGBytesEqual": false,
+      "decodedRGBAEqual": false,
+      "differentPixels": 10,
+      "maxRGBAByteDifference": [
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "meanAbsoluteRGBAByteDifference": [
+        1.220703125e-05,
+        8.138020833333333e-06,
+        2.0345052083333332e-05,
+        0.0
+      ],
+      "limitation": "One hold-S frame under the recorded same-session source settings. Does not establish blanket deterministic identity across rerenders, hardware, sessions, or new food radiance."
+    },
+    "radianceAndNoiseInterpretation": "Independent same-source hold-S0 repeats differ at 10 pixels by only1 RGB byte level with unchanged alpha. This one measured sample is not a blanket PNG-determinism guarantee or a universal noise tolerance. The exact new canonical emission/alpha content, and an allowed ray depth, can alter transported radiance or occlusion around food while every body shader/mesh/light remains unchanged. Separate observed source-repeat variation and food-driven radiance from native data changes using strict baseline comparison, masks/source controls and any necessary same-config food-disabled diagnostic. Native body/camera/material edits remain forbidden; unaccounted visible changes require investigation."
+  },
+  "captureAndDelivery": {
+    "logicalFrame": [
+      192,
+      320
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "sourceScale": 2,
+    "nativeFrame": [
+      384,
+      640
+    ],
+    "cellSize": 128,
+    "cameraElevationDegrees": 35,
+    "facings": {
+      "S": 0,
+      "E": 90,
+      "N": 180,
+      "W": -90
+    },
+    "runtimeStates": {
+      "idle": {
+        "frames": 12,
+        "fps": 12,
+        "loop": true
+      },
+      "work": {
+        "frames": 12,
+        "fps": 12,
+        "loop": true
+      },
+      "hold": {
+        "frames": 12,
+        "fps": 12,
+        "loop": true
+      },
+      "load": {
+        "frames": 12,
+        "fps": 12,
+        "loop": false
+      }
+    },
+    "framePolicy": "Preserve 12 indexed frames 0..11, including authored repeats.192 native whole-canvas frames,16 unchanged 6x2 atlases 2304x1280, no added variant clips or dropped motion.",
+    "requiredEvidence": [
+      "Reopened portable native source with exact packed canonical image and complete resource closure; no active old held-food shader binding or stale missing dependency.",
+      "Full source/native preservation comparison and all 192 frame camera/phase/root/food/palm/support/corner/visibility records with measured actual facing rotations.",
+      "All 192 native RGBA frames, exact16 original whole-canvas atlas layouts, all-frame intended/logical and enlarged light/gray/dark sheets.",
+      "Sixteen actual 12 fps playback clips with correct loop policy; source/candidate same-registration hold/load/work contexts and phone/logical-size use contexts.",
+      "Immutable hash-bound candidate packet including source, canonical dependency, validation, every required hero/frame/preview, delivery metadata and dependencies."
+    ]
+  },
+  "preparationConclusion": {
+    "consistentReplacementDerived": true,
+    "technicalConflict": null,
+    "candidateReviewed": false,
+    "candidateApproved": false,
+    "nextStep": "Coordinator reconciles/freezes this versioned contract and visible criteria; original editor then makes food-only candidate; original judge later reviews exact sealed bytes."
+  },
+  "evidence": [
+    {
+      "path": "reviews/v2-held-food-source-audit.json",
+      "sha256": "50da0bd8745bc445591861f37688b73411404748a7f389aa38d1075d552d67ef"
+    },
+    {
+      "path": "reviews/v2-held-food-alpha-measurements.json",
+      "sha256": "6b30ab93e93c9c15b1ceb054d2e89827e77bc59f403f6fd50c89cc393a659118"
+    },
+    {
+      "path": "reviews/v2-held-food-projected-canonical-map.json",
+      "sha256": "93aa129286c0049b135bfd4e487319c72e9af84fe32cca0e22e2a820d8533705"
+    },
+    {
+      "path": "reviews/v2-held-food-native-preservation-baseline.json",
+      "sha256": "6a2ffbd15d155b302b29d486b1f076aeb796496cf76ed2150c2008420b502484"
+    },
+    {
+      "path": "reviews/v2-held-food-source-control-render-record.json",
+      "sha256": "0a3094198e3bebd357f3394a7bd55e0b12e79e747bd7eb2c746844145d7b87e6"
+    }
+  ]
+}

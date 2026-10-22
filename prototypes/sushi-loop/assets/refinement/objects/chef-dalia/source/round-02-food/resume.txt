@@ -1,0 +1,19 @@
+Dalia food-only round-02: immutable source is source/round-02.blend.
+Source SHA256 0673c6918aa0f8974c7c0e5336719296d3f886f5915ade64e4a75c17290d7678.
+Frozen v3 brief SHA d500baed2708cdd42bf5830b8bf373dc9f589292d0c333d5e0e1f5341d005107.
+
+The corrected full capture is running in background Blender through render.py.
+Check render-final.log for NATIVE_COMPLETE True and candidates/round-02/native-validation.json ok=true.
+Actual phase/projection proof: mapping-preflight.json has all192 exact physical pose hashes, zero palm/bone/food-root changes, max canonical corner error0.0000370542nativepx and support0.0000376668nativepx.
+
+After the full capture completes successfully, run from the worktree root:
+/opt/homebrew/bin/blender -b --python prototypes/sushi-loop/assets/refinement/objects/chef-dalia/source/round-02-food/controls.py
+Then:
+/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/chef-dalia/source/round-02-food/package.py
+Use redirected logs controls-final.log and package-final.log in this source directory.
+
+Next original-editor closure: inspect actual native hold/load all facings, all-frame/phone/source-candidate/radiance control sheets and playback; verify control pixel-diagnostics without assuming universal PNG identity; check every declared delivery path/hash and no caches; record browser playback QA; update versioned delivery/resource closure if needed before coordinator sealing. No source art tweaks or self-approval.
+The package creates delivery-round-02.json only and leaves prior delivery.json and all prior sealed bytes untouched.
+Root later seals with --round round-02 --brief brief-v3-held-food-frozen.json --delivery delivery-round-02.json and original judge reviews the packet.
+
+Preserved failed attempts are under source/round-02-food/attempts and candidates/round-02/attempt-03-phase-evaluation. All new diagnostics are retained. The first failure was a missing pathlib import; the second was Python tuple/list presentation comparison with identical saved semantic JSON; the third was invalidating Blender's live collection.all_objects iterator while mutating visibility. The corrected common.py snapshots a stable owner list, records authored visibility, temporarily exposes/tag-evaluates hidden owners with visibility-only curves muted, then restores all curve mute/visibility states before each capture. No body/food driver/light/camera edit was used to fix evaluation.

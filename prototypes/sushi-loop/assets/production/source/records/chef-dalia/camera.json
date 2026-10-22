@@ -8,9 +8,10 @@
     96,
     248
   ],
-  "cellSize": 128,
   "captureScale": 2,
+  "sourceScale": 2,
   "fps": 12,
+  "cellSize": 128,
   "axes": {
     "x": "X",
     "depth": "-Y",
@@ -18,6 +19,7 @@
   },
   "camera": {
     "type": "orthographic",
+    "nativeBlenderType": "ORTHO",
     "worldMatrix": [
       [
         1.0,
@@ -71,8 +73,8 @@
       ]
     ],
     "pixelAspect": [
-      1.0,
-      1.0
+      1,
+      1
     ],
     "worldUnitsPerCell": 1,
     "elevationDegrees": 35
@@ -95,48 +97,24 @@
       -209.7029685974121
     ]
   },
-  "artStyle": {
-    "revision": "warm-soft-native-round01",
-    "lighting": "Symmetric overhead plus four equal cardinal fills",
-    "renderer": {
-      "engine": "CYCLES",
-      "device": "GPU",
-      "samples": 64,
-      "denoise": true,
-      "adaptiveThreshold": 0.019999999552965164,
-      "filter": "BOX1",
-      "viewTransform": "AgX",
-      "look": "AgX - Medium High Contrast",
-      "exposure": 0.30000001192092896,
-      "symmetricLightPositions": [
-        [
-          0,
-          0,
-          4.5
-        ],
-        [
-          3,
-          0,
-          2
-        ],
-        [
-          -3,
-          0,
-          2
-        ],
-        [
-          0,
-          3,
-          2
-        ],
-        [
-          0,
-          -3,
-          2
-        ]
-      ],
-      "noGroundPlane": true
-    }
+  "measuredNativePoints": {
+    "origin": [
+      192.0,
+      496.00000381469727
+    ],
+    "unitX": [
+      447.99998474121094,
+      496.00000381469727
+    ],
+    "unitDepth": [
+      192.0,
+      642.8355103731155
+    ],
+    "unitHeight": [
+      192.0,
+      286.29703521728516
+    ]
   },
-  "sourceScale": 2
+  "approvedBodyCameraPreserved": true,
+  "nativeValidation": "candidates/round-02/native-validation.json"
 }

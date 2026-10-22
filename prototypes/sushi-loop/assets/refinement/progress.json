@@ -5,8 +5,8 @@
   "status": "in-progress",
   "total": 102,
   "completed": 65,
-  "published": 64,
-  "current": "64 objects live of 102 active. Approved car publication 65 has passed checks; Dalia canonical food revision approved; shelving round 04 is in independent review. Dock-floor and dock-entry source audits are resolving their shared join. Thirteen 2D effects deferred; final existing Godot cutover pending.",
+  "published": 65,
+  "current": "65 distinct objects live of 102 active. Dalia canonical food revision passed publication checks; shelving round 04 independent review is finishing. Fresh dock-floor and dock-entry editors are constructing the frozen shared native interface. Thirteen 2D effects deferred; final existing Godot cutover pending.",
   "objects": [
     {
       "id": "plant-angular",
@@ -695,27 +695,22 @@
       "name": "Dalia Farouk",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "published",
+      "status": "approved",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_chef_dalia_editor_v1",
       "judge": "catalog_chef_dalia_judge_v1",
-      "round": "round-01",
-      "packetSHA256": "e45e73cc576f8dd21a6e8d557ec665c772693e286b6262cc25616f72dbb044df",
+      "round": "round-02",
+      "packetSHA256": "49e152fdc84f909755ed49b391d891f3539b4998f77394c4fc40e64e3ccf5c61",
       "deployCommit": "9cd31725",
       "deployURL": "https://deploy-preview-37--game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#object-chef-dalia",
-      "pendingCanonicalFood": {
-        "status": "reviewing",
-        "brief": "brief-v3-held-food-frozen.json",
-        "briefSHA256": "d500baed2708cdd42bf5830b8bf373dc9f589292d0c333d5e0e1f5341d005107",
-        "sameObjectPair": {
-          "editor": "catalog_chef_dalia_editor_v1",
-          "judge": "catalog_chef_dalia_judge_v1"
-        },
+      "canonicalFoodRevision": {
+        "food": "dish-salmon",
         "round": "round-02",
-        "packetSHA256": "49e152fdc84f909755ed49b391d891f3539b4998f77394c4fc40e64e3ccf5c61"
+        "packetSHA256": "49e152fdc84f909755ed49b391d891f3539b4998f77394c4fc40e64e3ccf5c61",
+        "reviewSHA256": "cf985c6a96bf75837d0dba5a8425037406d208f8f5c9eb5b0f9e6fe9b2959f4f"
       }
     },
     {
@@ -1013,7 +1008,7 @@
       "name": "Wrecked car",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 3,
       "frames": 100,
       "target": "inputs/target.png",
@@ -1041,24 +1036,26 @@
       "name": "Shared dock floor",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "reviewing-baseline",
+      "status": "editing",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
-      "baselineJudge": "catalog_dock_floor_judge_v1"
+      "editor": "catalog_dock_floor_editor_v1",
+      "judge": "catalog_dock_floor_judge_v1"
     },
     {
       "id": "dock-entry",
       "name": "Dock entry pieces",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "reviewing-baseline",
+      "status": "editing",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
-      "baselineJudge": "catalog_dock_entry_judge_v1"
+      "editor": "catalog_dock_entry_editor_v1",
+      "judge": "catalog_dock_entry_judge_v1"
     },
     {
       "id": "workshop-hut",
