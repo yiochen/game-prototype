@@ -1,0 +1,121 @@
+{
+  "scene": "Rock wall middle native refinement round 03",
+  "renderUseCompositing": true,
+  "compositingNodeGroup": null,
+  "worldNodes": [
+    {
+      "type": "BACKGROUND",
+      "strength": 0.0
+    },
+    {
+      "type": "OUTPUT_WORLD",
+      "strength": null
+    }
+  ],
+  "materials": [
+    {
+      "name": "Rock family soft cobalt native",
+      "nodes": [
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output",
+          "attribute": null
+        },
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "attribute": null
+        },
+        {
+          "type": "VERTEX_COLOR",
+          "name": "Color Attribute",
+          "attribute": "stone_albedo"
+        }
+      ],
+      "principled": [
+        {
+          "roughness": 0.8799999952316284,
+          "specularIORLevel": 0.11999999731779099,
+          "emissionStrength": 0.3799999952316284
+        }
+      ],
+      "links": [
+        {
+          "from": "VERTEX_COLOR.Color",
+          "to": "BSDF_PRINCIPLED.Base Color"
+        },
+        {
+          "from": "VERTEX_COLOR.Color",
+          "to": "BSDF_PRINCIPLED.Emission Color"
+        },
+        {
+          "from": "BSDF_PRINCIPLED.BSDF",
+          "to": "OUTPUT_MATERIAL.Surface"
+        }
+      ]
+    }
+  ],
+  "animations": [],
+  "sceneObjects": [
+    {
+      "name": "rock-family-overhead",
+      "type": "LIGHT",
+      "constraints": [],
+      "shapeKeys": null
+    },
+    {
+      "name": "rock-family-north",
+      "type": "LIGHT",
+      "constraints": [],
+      "shapeKeys": null
+    },
+    {
+      "name": "rock-family-east",
+      "type": "LIGHT",
+      "constraints": [],
+      "shapeKeys": null
+    },
+    {
+      "name": "rock-family-south",
+      "type": "LIGHT",
+      "constraints": [],
+      "shapeKeys": null
+    },
+    {
+      "name": "rock-family-west",
+      "type": "LIGHT",
+      "constraints": [],
+      "shapeKeys": null
+    },
+    {
+      "name": "Registered square top-front camera",
+      "type": "CAMERA",
+      "constraints": [],
+      "shapeKeys": null
+    },
+    {
+      "name": "rock-wall-middle__root",
+      "type": "EMPTY",
+      "constraints": [],
+      "shapeKeys": null
+    },
+    {
+      "name": "rock-wall-middle__continuous_carved_stone",
+      "type": "MESH",
+      "constraints": [],
+      "shapeKeys": null
+    },
+    {
+      "name": "rock-wall-middle__W_connector_stone",
+      "type": "MESH",
+      "constraints": [],
+      "shapeKeys": null
+    },
+    {
+      "name": "rock-wall-middle__E_connector_stone",
+      "type": "MESH",
+      "constraints": [],
+      "shapeKeys": null
+    }
+  ]
+}

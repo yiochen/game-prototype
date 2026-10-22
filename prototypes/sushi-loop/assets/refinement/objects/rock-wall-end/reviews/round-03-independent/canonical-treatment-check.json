@@ -1,0 +1,101 @@
+{
+  "lights": [
+    {
+      "name": "rock-family-overhead",
+      "typeExact": true,
+      "energyExact": true,
+      "shadowExact": true,
+      "angleExact": true,
+      "matrixExact": true
+    },
+    {
+      "name": "rock-family-north",
+      "typeExact": true,
+      "energyExact": true,
+      "shadowExact": true,
+      "angleExact": true,
+      "matrixExact": true
+    },
+    {
+      "name": "rock-family-east",
+      "typeExact": true,
+      "energyExact": true,
+      "shadowExact": true,
+      "angleExact": true,
+      "matrixExact": true
+    },
+    {
+      "name": "rock-family-south",
+      "typeExact": true,
+      "energyExact": true,
+      "shadowExact": true,
+      "angleExact": true,
+      "matrixExact": true
+    },
+    {
+      "name": "rock-family-west",
+      "typeExact": true,
+      "energyExact": true,
+      "shadowExact": true,
+      "angleExact": true,
+      "matrixExact": true
+    }
+  ],
+  "allLightFieldsExact": true,
+  "material": [
+    {
+      "name": "Rock family soft cobalt native \u2014 end",
+      "nodes": [
+        "OUTPUT_MATERIAL",
+        "BSDF_PRINCIPLED",
+        "VERTEX_COLOR"
+      ],
+      "roughness": 0.8799999952316284,
+      "specular": 0.11999999731779099,
+      "emission": 0.3799999952316284,
+      "links": [
+        [
+          "VERTEX_COLOR",
+          "Color",
+          "BSDF_PRINCIPLED",
+          "Base Color"
+        ],
+        [
+          "VERTEX_COLOR",
+          "Color",
+          "BSDF_PRINCIPLED",
+          "Emission Color"
+        ],
+        [
+          "BSDF_PRINCIPLED",
+          "BSDF",
+          "OUTPUT_MATERIAL",
+          "Surface"
+        ]
+      ]
+    }
+  ],
+  "consumerFrozenEquivalent": {
+    "sprite-layout.js": {
+      "candidateFrozenSHA256": "099de61830564dbe0de7e3b85ffbeefcc1b80555098ed499b889b50db6074c65",
+      "prepSHA256": "099de61830564dbe0de7e3b85ffbeefcc1b80555098ed499b889b50db6074c65",
+      "same": true
+    },
+    "world-sprite-raster.js": {
+      "candidateFrozenSHA256": "4ddc7495ade39f75adcce7d5400fc54326d588270b6fad9a5cca133f7df34bb0",
+      "prepSHA256": "4ddc7495ade39f75adcce7d5400fc54326d588270b6fad9a5cca133f7df34bb0",
+      "same": true
+    },
+    "object-review.jsx": {
+      "candidateFrozenSHA256": "470c19d4c2bbd22fe7cd272d5e59f84a6bbd482ad766333410ebcea62206f5cf",
+      "prepSHA256": "470c19d4c2bbd22fe7cd272d5e59f84a6bbd482ad766333410ebcea62206f5cf",
+      "same": true
+    },
+    "object-review.css": {
+      "candidateFrozenSHA256": "f4d67b3273e505a34da93897a6714f130b687fdfc0b205d1868830da9f4e6fe4",
+      "prepSHA256": "f4d67b3273e505a34da93897a6714f130b687fdfc0b205d1868830da9f4e6fe4",
+      "same": true
+    }
+  },
+  "worldStrength": 0.0
+}

@@ -1,0 +1,905 @@
+{
+  "purpose": "newly rendered diagnostic baseline from exact original source, original capture pipeline; not a candidate",
+  "sourceBlendSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+  "sourceCaptureRuntimeSHA256": "9e6aa6ffa2238a82183387cfe43437b019e48bc1a86b361d0b0f944b7046b229",
+  "collection": "S33_PROP_rock-wall-end.001",
+  "root": "rock-wall-end__root.001",
+  "rootMatrix": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "capture": {
+    "projection": "top-down-oblique-square-grid",
+    "frame": [
+      192,
+      352
+    ],
+    "anchor": [
+      96,
+      256
+    ],
+    "cellSize": 128,
+    "captureScale": 4,
+    "fps": 12,
+    "axes": {
+      "x": "X",
+      "depth": "-Y",
+      "height": "Z"
+    },
+    "camera": {
+      "type": "orthographic",
+      "worldMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.8192318081855774,
+          -0.5734625458717346,
+          -5.734623432159424
+        ],
+        [
+          0.0,
+          0.5734625458717346,
+          0.8192318081855774,
+          8.1923189163208
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "projectionMatrix": [
+        [
+          1.3333333730697632,
+          0.0,
+          0.0,
+          -0.0
+        ],
+        [
+          0.0,
+          0.8877494931221008,
+          0.0,
+          -0.454543799161911
+        ],
+        [
+          0.0,
+          0.0,
+          -0.0020001998636871576,
+          -1.0001999139785767
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "pixelAspect": [
+        1.2206555604934692,
+        1.0
+      ],
+      "worldUnitsPerCell": 1,
+      "elevationDegrees": 55.00797980144134
+    },
+    "calibration": {
+      "root": [
+        384.0,
+        1024.0
+      ],
+      "unitX": [
+        512.0,
+        0.0
+      ],
+      "unitDepth": [
+        0.0,
+        512.0
+      ],
+      "unitHeight": [
+        0.0,
+        -358.400146484375
+      ]
+    },
+    "artStyle": {
+      "revision": "2026-10-19",
+      "environmentHeightRatio": 0.7,
+      "contrast": 1.35,
+      "contrastSpace": "sRGB",
+      "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
+      "lightingRig": {
+        "treatment": "Faceted",
+        "overheadWatts": 140,
+        "overheadPosition": [
+          0,
+          0,
+          4.5
+        ],
+        "overheadSize": 3.5,
+        "fillWattsEach": 100,
+        "fillSize": 4,
+        "fillRadius": 3,
+        "fillZ": 1.8,
+        "horizontalSymmetry": 4,
+        "worldStrength": 0
+      },
+      "lowerShading": "world-height ramp; camera view-tone bypassed"
+    }
+  },
+  "meshes": [
+    {
+      "name": "rock-wall-end__full_width_continuous_crag",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 48,
+      "polygons": 42,
+      "evaluatedVertices": 48,
+      "evaluatedPolygons": 42,
+      "bounds": {
+        "min": [
+          -0.5,
+          -0.5,
+          0.0
+        ],
+        "max": [
+          0.5,
+          0.5,
+          1.1632190942764282
+        ]
+      },
+      "modifiers": [],
+      "uvLayers": [],
+      "smoothPolygons": 0,
+      "materials": [
+        {
+          "name": "rock-wall-end approved S33_rock",
+          "nodes": [
+            "BSDF_PRINCIPLED",
+            "OUTPUT_MATERIAL",
+            "EMISSION",
+            "NEW_GEOMETRY",
+            "SEPXYZ",
+            "MAP_RANGE",
+            "VALTORGB",
+            "MIX_RGB",
+            "VECT_MATH",
+            "MATH",
+            "MATH",
+            "MIX_RGB",
+            "BSDF_PRINCIPLED"
+          ]
+        },
+        {
+          "name": "rock-wall-end approved S33_rock_light",
+          "nodes": [
+            "BSDF_PRINCIPLED",
+            "OUTPUT_MATERIAL",
+            "EMISSION",
+            "NEW_GEOMETRY",
+            "SEPXYZ",
+            "MAP_RANGE",
+            "VALTORGB",
+            "MIX_RGB",
+            "VECT_MATH",
+            "MATH",
+            "MATH",
+            "MIX_RGB",
+            "BSDF_PRINCIPLED"
+          ]
+        },
+        {
+          "name": "rock-wall-end approved S33_rock_dark",
+          "nodes": [
+            "BSDF_PRINCIPLED",
+            "OUTPUT_MATERIAL",
+            "EMISSION",
+            "NEW_GEOMETRY",
+            "SEPXYZ",
+            "MAP_RANGE",
+            "VALTORGB",
+            "MIX_RGB",
+            "VECT_MATH",
+            "MATH",
+            "MATH",
+            "MIX_RGB",
+            "BSDF_PRINCIPLED"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rock-wall-end__broad_contact_shoulder",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 12,
+      "polygons": 10,
+      "evaluatedVertices": 12,
+      "evaluatedPolygons": 10,
+      "bounds": {
+        "min": [
+          -0.5,
+          -0.5,
+          0.0010000000474974513
+        ],
+        "max": [
+          0.5,
+          0.5,
+          0.20999999344348907
+        ]
+      },
+      "modifiers": [],
+      "uvLayers": [],
+      "smoothPolygons": 0,
+      "materials": [
+        {
+          "name": "rock-wall-end approved S33_rock_dark",
+          "nodes": [
+            "BSDF_PRINCIPLED",
+            "OUTPUT_MATERIAL",
+            "EMISSION",
+            "NEW_GEOMETRY",
+            "SEPXYZ",
+            "MAP_RANGE",
+            "VALTORGB",
+            "MIX_RGB",
+            "VECT_MATH",
+            "MATH",
+            "MATH",
+            "MIX_RGB",
+            "BSDF_PRINCIPLED"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rock-wall-end__broad_strata_facet_0",
+      "location": [
+        -0.20999999344348907,
+        -0.5049999952316284,
+        0.4000000059604645
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -0.20999999344348907
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.5049999952316284
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.4000000059604645
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 8,
+      "polygons": 6,
+      "evaluatedVertices": 24,
+      "evaluatedPolygons": 26,
+      "bounds": {
+        "min": [
+          -0.3499999940395355,
+          -0.5109999775886536,
+          0.26499998569488525
+        ],
+        "max": [
+          -0.06999999284744263,
+          -0.4989999830722809,
+          0.5350000262260437
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "name": "Hand-cut bevel",
+          "width": 0.00800000037997961,
+          "segments": 1
+        }
+      ],
+      "uvLayers": [
+        "UVMap"
+      ],
+      "smoothPolygons": 0,
+      "materials": [
+        {
+          "name": "rock-wall-end approved S33_rock_light",
+          "nodes": [
+            "BSDF_PRINCIPLED",
+            "OUTPUT_MATERIAL",
+            "EMISSION",
+            "NEW_GEOMETRY",
+            "SEPXYZ",
+            "MAP_RANGE",
+            "VALTORGB",
+            "MIX_RGB",
+            "VECT_MATH",
+            "MATH",
+            "MATH",
+            "MIX_RGB",
+            "BSDF_PRINCIPLED"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rock-wall-end__broad_strata_facet_1",
+      "location": [
+        0.18000000715255737,
+        -0.5049999952316284,
+        0.699999988079071
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.18000000715255737
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.5049999952316284
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.699999988079071
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 8,
+      "polygons": 6,
+      "evaluatedVertices": 24,
+      "evaluatedPolygons": 26,
+      "bounds": {
+        "min": [
+          0.05500000715255737,
+          -0.5109999775886536,
+          0.5499999523162842
+        ],
+        "max": [
+          0.3050000071525574,
+          -0.4989999830722809,
+          0.8500000238418579
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "name": "Hand-cut bevel",
+          "width": 0.00800000037997961,
+          "segments": 1
+        }
+      ],
+      "uvLayers": [
+        "UVMap"
+      ],
+      "smoothPolygons": 0,
+      "materials": [
+        {
+          "name": "rock-wall-end approved S33_rock_dark",
+          "nodes": [
+            "BSDF_PRINCIPLED",
+            "OUTPUT_MATERIAL",
+            "EMISSION",
+            "NEW_GEOMETRY",
+            "SEPXYZ",
+            "MAP_RANGE",
+            "VALTORGB",
+            "MIX_RGB",
+            "VECT_MATH",
+            "MATH",
+            "MATH",
+            "MIX_RGB",
+            "BSDF_PRINCIPLED"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rock-wall-end__broad_strata_facet_2",
+      "location": [
+        0.029999999329447746,
+        0.5049999952316284,
+        0.33000001311302185
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.029999999329447746
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.5049999952316284
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.33000001311302185
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 8,
+      "polygons": 6,
+      "evaluatedVertices": 24,
+      "evaluatedPolygons": 26,
+      "bounds": {
+        "min": [
+          -0.14499999582767487,
+          0.4989999830722809,
+          0.2200000137090683
+        ],
+        "max": [
+          0.20499999821186066,
+          0.5109999775886536,
+          0.4399999976158142
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "name": "Hand-cut bevel",
+          "width": 0.00800000037997961,
+          "segments": 1
+        }
+      ],
+      "uvLayers": [
+        "UVMap"
+      ],
+      "smoothPolygons": 0,
+      "materials": [
+        {
+          "name": "rock-wall-end approved S33_rock_light",
+          "nodes": [
+            "BSDF_PRINCIPLED",
+            "OUTPUT_MATERIAL",
+            "EMISSION",
+            "NEW_GEOMETRY",
+            "SEPXYZ",
+            "MAP_RANGE",
+            "VALTORGB",
+            "MIX_RGB",
+            "VECT_MATH",
+            "MATH",
+            "MATH",
+            "MIX_RGB",
+            "BSDF_PRINCIPLED"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "rock-wall-end__finished_end_strata",
+      "location": [
+        0.5049999952316284,
+        0.0,
+        0.4699999988079071
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.5049999952316284
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.4699999988079071
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 8,
+      "polygons": 6,
+      "evaluatedVertices": 24,
+      "evaluatedPolygons": 26,
+      "bounds": {
+        "min": [
+          0.4989999830722809,
+          -0.41499999165534973,
+          0.45249998569488525
+        ],
+        "max": [
+          0.5109999775886536,
+          0.41499999165534973,
+          0.48750001192092896
+        ]
+      },
+      "modifiers": [
+        {
+          "type": "BEVEL",
+          "name": "Hand-cut bevel",
+          "width": 0.003000000026077032,
+          "segments": 1
+        }
+      ],
+      "uvLayers": [
+        "UVMap"
+      ],
+      "smoothPolygons": 0,
+      "materials": [
+        {
+          "name": "rock-wall-end approved S33_rock_dark",
+          "nodes": [
+            "BSDF_PRINCIPLED",
+            "OUTPUT_MATERIAL",
+            "EMISSION",
+            "NEW_GEOMETRY",
+            "SEPXYZ",
+            "MAP_RANGE",
+            "VALTORGB",
+            "MIX_RGB",
+            "VECT_MATH",
+            "MATH",
+            "MATH",
+            "MIX_RGB",
+            "BSDF_PRINCIPLED"
+          ]
+        }
+      ]
+    }
+  ],
+  "aggregateBounds": {
+    "min": [
+      -0.5,
+      -0.5109999775886536,
+      0.0
+    ],
+    "max": [
+      0.5109999775886536,
+      0.5109999775886536,
+      1.1632190942764282
+    ]
+  },
+  "westCoreCutVertices": [
+    [
+      -0.5,
+      -0.5,
+      0.0
+    ],
+    [
+      -0.5,
+      0.5,
+      0.0
+    ],
+    [
+      -0.5,
+      0.5,
+      0.6700000166893005
+    ],
+    [
+      -0.5,
+      0.44999998807907104,
+      1.0399999618530273
+    ],
+    [
+      -0.5,
+      0.3100000023841858,
+      1.149999976158142
+    ],
+    [
+      -0.5,
+      -0.3100000023841858,
+      1.149999976158142
+    ],
+    [
+      -0.5,
+      -0.44999998807907104,
+      1.0399999618530273
+    ],
+    [
+      -0.5,
+      -0.5,
+      0.6700000166893005
+    ]
+  ],
+  "westCoreProfileYThenZSorted": [
+    [
+      -0.5,
+      0.0
+    ],
+    [
+      -0.5,
+      0.6700000166893005
+    ],
+    [
+      -0.44999998807907104,
+      1.0399999618530273
+    ],
+    [
+      -0.3100000023841858,
+      1.149999976158142
+    ],
+    [
+      0.3100000023841858,
+      1.149999976158142
+    ],
+    [
+      0.44999998807907104,
+      1.0399999618530273
+    ],
+    [
+      0.5,
+      0.0
+    ],
+    [
+      0.5,
+      0.6700000166893005
+    ]
+  ],
+  "declaredPorts": [
+    {
+      "direction": "W",
+      "position": [
+        -0.5,
+        0,
+        0
+      ],
+      "profile": "rock-wall-full-cell-v2",
+      "normal": [
+        -1,
+        0,
+        0
+      ]
+    }
+  ],
+  "timing": {
+    "frame": 1,
+    "static": true,
+    "frames": 1,
+    "fps": 12,
+    "loop": false
+  },
+  "resourceOwnership": {
+    "usedImages": [],
+    "libraries": [],
+    "note": "Two packed food image resources exist elsewhere in b176 library but own stone meshes use no image textures or linked libraries."
+  },
+  "views": {
+    "S": {
+      "rotationDegrees": 0,
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "file": "source-baseline/native-S.png"
+    },
+    "E": {
+      "rotationDegrees": 90,
+      "matrix": [
+        [
+          -4.371138828673793e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          -4.371138828673793e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "file": "source-baseline/native-E.png"
+    },
+    "N": {
+      "rotationDegrees": 180,
+      "matrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "file": "source-baseline/native-N.png"
+    },
+    "W": {
+      "rotationDegrees": -90,
+      "matrix": [
+        [
+          -4.371138828673793e-08,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -1.0,
+          -4.371138828673793e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "file": "source-baseline/native-W.png"
+    }
+  }
+}
