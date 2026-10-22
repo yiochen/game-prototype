@@ -13,20 +13,28 @@ const library = read(new URL('library.json', production));
 const progress = read(new URL('progress.json', refinement));
 const promoted = library.objects.filter(object => object.refinement?.status === 'approved');
 
-test('each promoted sprite is the exact independently approved candidate', () => {
+test('each promoted sprite is the exact accepted candidate with truthful review provenance', () => {
   for (const object of promoted) {
     const root = new URL(`objects/${object.id}/`, refinement);
     const round = object.refinement.round;
     const packetUrl = new URL(`candidates/${round}/packet.json`, root);
     const packet = read(packetUrl);
-    const reviewUrl = new URL(`reviews/${round}.json`, root);
+    const recipeReuse = object.refinement.approvalMethod === 'recipe-reuse';
+    const reviewUrl = new URL(`${recipeReuse ? 'validations' : 'reviews'}/${round}.json`, root);
     const review = read(reviewUrl);
     assert.equal(sha(packetUrl), object.refinement.packetSHA256);
     assert.equal(review.candidatePacketSHA256, object.refinement.packetSHA256);
-    assert.equal(sha(reviewUrl), object.refinement.reviewSHA256);
+    assert.equal(sha(reviewUrl), object.refinement[recipeReuse ? 'validationSHA256' : 'reviewSHA256']);
     if (object.source.blend) assert.equal(object.captureFingerprint, object.refinement.packetSHA256);
     else assert.equal(object.captureFingerprint, undefined, `${object.id}: fabricated native capture field`);
-    assert.equal(review.verdict, 'approve');
+    assert.equal(review.verdict, recipeReuse ? 'validated' : 'approve');
+    if (recipeReuse) {
+      assert.equal(review.independentReview, false);
+      assert.equal(object.refinement.judge, null);
+      const script = fileURLToPath(new URL('../assets/refinement/tools/acceptance_contract.py', import.meta.url));
+      const result = JSON.parse(execFileSync('python3', [script, object.id, '--round', round], {encoding: 'utf8'}));
+      assert.equal(result.method, 'recipe-reuse');
+    }
     assert.deepEqual(review.blockers, []);
     const files = [...Object.values(packet.files), ...Object.values(packet.candidateRenders), ...Object.values(packet.previews)];
     for (const file of files) assert.equal(sha(new URL(file.path, packetUrl)), file.sha256, `${object.id}: changed evidence ${file.path}`);
@@ -84,11 +92,16 @@ test('native facing evidence follows the original publisher rotation convention'
   }
 });
 
-test('each object receives separate editor and judge instances and progress counts actual promotions', () => {
+test('independent object pairs stay separate and conveyor recipe reuse follows user scope', () => {
   const assigned = progress.objects.filter(object => object.editor || object.judge);
   const ids = assigned.flatMap(object => [object.editor, object.judge]);
   assert.ok(ids.every(Boolean));
   assert.equal(new Set(ids).size, ids.length, 'Agent instance reused across objects or roles');
+  const policy = read(new URL('conveyor-recipe-policy.json', refinement));
+  for (const object of progress.objects.filter(object => object.workflow === 'recipe-reuse')) {
+    assert.ok(policy.scope.includes(object.id));
+    assert.equal(object.independentReviewRequired, false);
+  }
   assert.equal(progress.completed, promoted.length);
   assert.equal(progress.total, progress.objects.filter(object => object.status !== 'skipped').length);
 });

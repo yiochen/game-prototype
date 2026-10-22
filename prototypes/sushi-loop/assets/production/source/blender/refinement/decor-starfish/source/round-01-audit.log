@@ -1,0 +1,44 @@
+00:00.313  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-starfish/source/round-01.blend"
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-starfish/source/audit-round-01.py:25: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  nodeTypes=sorted(set(n.bl_idname for m in bpy.data.materials if m.use_nodes for n in m.node_tree.nodes));mats=[{'name':m.name,'nodes':sorted(set(n.type for n in m.node_tree.nodes)),'principled':{k:list(v.default_value) if hasattr(v.default_value,'__len__') and not isinstance(v.default_value,str) else v.default_value for n in m.node_tree.nodes if n.type=='BSDF_PRINCIPLED' for k,v in n.inputs.items() if k in ['Base Color','Roughness','Specular IOR Level','Coat Weight','Coat Roughness']}} for m in bpy.data.materials if m.use_nodes]
+BlenderMCP addon registered
+{
+  "bounds": {
+    "min": [
+      -0.36164355278015137,
+      -0.3799999952316284,
+      0.02500000037252903
+    ],
+    "max": [
+      0.36164355278015137,
+      0.30855709314346313,
+      0.16899999976158142
+    ],
+    "radialMax": 0.3799999952316284
+  },
+  "cameraDifference": {
+    "world": 5.960464477539063e-08,
+    "projection": 5.066394805908203e-07
+  },
+  "checks": {
+    "physicalXYWithinHalfCell": true,
+    "heightWithinEnvelope": true,
+    "occupiedRadiusPreserved": true,
+    "sourceCameraPreserved": true,
+    "sourceCalibrationPreserved": true,
+    "native4ResolutionAndAspect": true,
+    "noRasterSubstitute": true,
+    "closedNativeResources": true,
+    "fourNativeFacings": true,
+    "noArmatureOrAnimation": true,
+    "closedTopology": true
+  },
+  "topology": {
+    "nonManifoldEdges": 0,
+    "zeroAreaFaces": 0
+  }
+}
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

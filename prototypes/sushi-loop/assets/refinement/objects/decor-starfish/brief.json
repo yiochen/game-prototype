@@ -66,7 +66,8 @@
     "sourceScale": 2,
     "cellSize": 128,
     "fps": 12,
-    "projection": "top-down-oblique-square-grid"
+    "projection": "top-down-oblique-square-grid",
+    "cameraAuthority": "Object-specific input camera55.0079798degree/pixelAspect1.22065556, published2; unrelated active library35degree camera not used."
   },
   "constraints": {
     "preserve": [
@@ -84,9 +85,62 @@
       "Add purposeful decorations and crafted detail",
       "Replace awkward modeling and change nonfunctional topology or part counts",
       "Rebuild native geometry, normals, materials and light to realize the better design"
-    ]
+    ],
+    "heightEnvelopeResolution": "Nominal0.2 maximum, actual original0.07..0.17; native underside/rounded construction permitted in0..0.2 without changing declared footprint or role."
   },
-  "qualityCriteria": {},
+  "qualityCriteria": {
+    "version": 1,
+    "asset": "decor-starfish",
+    "status": "proposed-awaiting-coordinator-freeze",
+    "targetSHA256": "deb4a41dbaabb25eff26314624eebb96618e61b4ff788120829e30ffb18dbc07",
+    "judgingPolicy": "Judge visible outcomes with creative modeling freedom. Native reconstruction, improved proportions, construction and purposeful decoration are welcome. No fixed original topology, original part count, target pixel identity, prescribed modeling method or arbitrary score threshold.",
+    "rankedVisibleOutcomes": [
+      {
+        "rank": 1,
+        "id": "coherent-soft-star",
+        "outcome": "A recognizable five-armed orange underwater starfish with a unified softly rounded center and organic tapered arms. Corners and notches feel deliberately softened; thickness and broad plane transitions read as native volume rather than a flat angular cutout or intersecting separate wedges. All four facings keep a coherent design and readable separation between arms.",
+        "materiality": "The dominant improvement over the original flat fan; preserve low-scale decorative role and occupied grid scale."
+      },
+      {
+        "rank": 2,
+        "id": "warm-palette-and-readable-detail",
+        "outcome": "Retain orange/coral body and pale yellow/cream nodule palette family. Body midtones show gentle variation and broad form shading; nodules look deliberately seated on the surface and legible at intended size. Detail is purposeful and sparse enough that arm volumes remain clear, without noisy microtexture, accidental tiny chips, crowded central bumps or new face/eyes/props.",
+        "materiality": "Cream detail supports starfish identity, while the body remains the dominant shape. Exact count and source placement of old spots are not locked."
+      },
+      {
+        "rank": 3,
+        "id": "soft-balanced-finish",
+        "outcome": "Warm broad highlights and controlled edge reflections describe the curved orange material and cream detail without turning surfaces white or creating hard black creases. Every facing retains readable midtones and equivalent lighting quality. Horizontally balanced illumination and no directional ground cast shadow support rotatable use.",
+        "materiality": "Source faceted shader, power values and sharp original fan facets are not required. Target polish is directional guidance, not mandatory wet plastic or copied glare."
+      },
+      {
+        "rank": 4,
+        "id": "clean-pixels-and-use-size",
+        "outcome": "At192x352 logical frame and real phone catalog display scale, the star silhouette, rounded volume and cream accents remain distinct. No black patches, material dead spots, coplanar flicker, overlaps that merge arms/nodules, broken seams, clipping, detached pieces, bright alpha fringe, exterior halo/speckles, or unwanted shadow slabs on cream/gray/dark and actual catalog backgrounds.",
+        "materiality": "Inspect enlarged views to locate defects, but prioritize visible problems that affect the delivered asset and intended use."
+      }
+    ],
+    "immutableContract": {
+      "registeredProjection": "Use inputs/source-camera.json camera world/projection matrices and pixel aspect[1.2206555604934692,1],55.00797980144134degree orthographic elevation. Match logical basis x[128,0],depth[0,128],height[0,-89.6] and logical root[96,248]. The generic saved active35degree camera is not this object's contract.",
+      "frames": "One static frame per N/E/S/W,12fps metadata,nonlooping;192x352 logical frame,384x704 delivery frame,sourceScale2,one-cell128px logical grid,transparent RGBA. Native high-resolution capture scale4 is acceptable with documented uniform reduction to scale2. No per-facing fitting, warping, recoloring or alpha recentering.",
+      "world": "Ground root[0,0,0],1x1 cell footprint,rootCell[0.5,0.5],nonblocking underwater decoration. Preserve occupied scale with source radial extent0.38 as reference; proportion changes may improve design within its1x1 footprint without enlarging its catalog role.",
+      "heightResolution": "Nominal height0.2 is the maximum low-decoration envelope, not source physical thickness. Original actual z is0.07..0.17. Rounded native construction or an underside may occupy z0..0.2; do not lock the source's open fan or exact original zmin.",
+      "notApplicable": "Actual source has no rig, animation, sockets, ports or modular joins. No modular assembly or animation/fullgame matrix is required for this standalone static asset.",
+      "nativeSource": "Candidate is an editable3D collection with renderable native geometry/materials. Final renders must come from the submitted .blend, not painted target cards, postrender image warp or viewpoint-specific raster substitutions."
+    },
+    "proportionateEvidence": [
+      "Hash-bound candidate packet with edited .blend, exact recipe/settings, fourN/E/S/W transparent native PNGs and original-layout atlases, native validation and concise delivery metadata. Bind or pack external resources; show actual object/collection provenance and dependency closure.",
+      "Compact reopened-source audit: actual object-specific camera/projection/pixelaspect/calibration, root transforms and facing rotations, evaluated geometry bounds, static clip metadata, footprint, materials/light and absence of undeclared raster substitutes. Demonstrate the source nominal-versus-physical height interpretation explicitly.",
+      "Native replay from that exact closed source for all four static facings, using one capture contract; verify the replays correspond to submitted PNGs. A compact four-view sheet is enough for this static object.",
+      "Intended logical-size four-view comparison plus enlarged views on light cream,neutral gray and dark backgrounds. Inspect clean silhouette/alpha and material behavior without treating ImageGen registration as proof.",
+      "Real catalog phone-context capture at the asset's actual display scale, including the existing W12 decor family and its standalone preview. The declared submarine/eel layered scenery preview may serve as context if it already exists; no newly invented fullgame artifact matrix is needed."
+    ],
+    "approval": "Approve only an exact candidate packet whose actual native images visibly meet the ranked outcomes and hard contract, with no material defect/dead spot in any of the four required views. Missing evidence yields needs_evidence; observable defects yield revise. Scores are comparative observations, not pass thresholds.",
+    "scope": "Initial criteria only. No candidate exists or is approved by this document.",
+    "criteriaFile": "reviews/proposedcriteria.json",
+    "criteriaFileSHA256": "402cefa562a17c93c76d7a1c76b45f503750231967654c7f4789ef70de5bd069",
+    "freezeStatus": "frozen-by-coordinator-before-native-editor-submission"
+  },
   "delivery": {
     "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
     "requiredClips": [

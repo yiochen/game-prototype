@@ -1,0 +1,42 @@
+{
+  "render": {
+    "resolution": [
+      768,
+      1408
+    ],
+    "engine": "CYCLES",
+    "samples": 64,
+    "seed": 127,
+    "viewTransform": "Standard",
+    "look": "None",
+    "transparent": true
+  },
+  "publicationSampling": {
+    "method": "Pillow LANCZOS",
+    "nativeCaptureScale": 4,
+    "publishedSourceScale": 2,
+    "nativeResolution": [
+      768,
+      1408
+    ],
+    "publishedResolution": [
+      384,
+      704
+    ],
+    "uniformWholeCanvasScale": 0.5,
+    "alphaFitting": false,
+    "recolor": false
+  },
+  "build": "blender -b --python source/round-01-recipe.py",
+  "closedSceneReplay": {
+    "script": "source/replay-round-01.py",
+    "command": "blender -b source/round-01.blend --python source/replay-round-01.py -- /absolute/output-directory",
+    "verification": "candidates/round-01/portable-replay.json"
+  },
+  "buildInputs": [
+    "source/round-01-recipe.py",
+    "inputs/source-camera.json",
+    "source/replay-round-01.py"
+  ],
+  "sourceClosure": "saved blend has native geometry/materials/camera/light only; no external image/library dependencies"
+}

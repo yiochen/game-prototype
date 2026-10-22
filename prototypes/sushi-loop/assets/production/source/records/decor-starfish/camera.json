@@ -9,15 +9,12 @@
     248
   ],
   "cellSize": 128,
-  "captureScale": 4,
+  "captureScale": 2,
+  "nativeCaptureScale": 4,
   "fps": 12,
-  "axes": {
-    "x": "X",
-    "depth": "-Y",
-    "height": "Z"
-  },
   "camera": {
     "type": "orthographic",
+    "name": "Registered object-specific 55.00798 degree camera",
     "worldMatrix": [
       [
         1.0,
@@ -27,14 +24,14 @@
       ],
       [
         0.0,
-        0.8192318081855774,
+        0.8192317485809326,
         -0.5734625458717346,
         -5.734623432159424
       ],
       [
         0.0,
         0.5734625458717346,
-        0.8192318081855774,
+        0.8192317485809326,
         8.1923189163208
       ],
       [
@@ -55,7 +52,7 @@
         0.0,
         0.8877494931221008,
         0.0,
-        -0.4090892970561981
+        -0.40908879041671753
       ],
       [
         0.0,
@@ -75,49 +72,246 @@
       1.0
     ],
     "worldUnitsPerCell": 1,
-    "elevationDegrees": 55.00797980144134
+    "elevationDegrees": 55.00796262276186,
+    "orthoScale": 1.5,
+    "shift": [
+      0.0,
+      0.30721035599708557
+    ]
   },
   "calibration": {
     "root": [
-      384.0,
-      992.0000610351562
+      192.0,
+      496.0
     ],
     "unitX": [
-      512.0,
+      256.0,
       0.0
     ],
     "unitDepth": [
       0.0,
-      511.99993896484375
+      255.99993896484375
     ],
     "unitHeight": [
       0.0,
-      -358.400146484375
+      -179.20004272460938
     ]
   },
-  "artStyle": {
-    "revision": "2026-10-19",
-    "environmentHeightRatio": 0.7,
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
-    "lightingRig": {
-      "treatment": "Faceted",
-      "overheadWatts": 140,
-      "overheadPosition": [
-        0,
-        0,
-        4.5
-      ],
-      "overheadSize": 3.5,
-      "fillWattsEach": 100,
-      "fillSize": 4,
-      "fillRadius": 3,
-      "fillZ": 1.8,
-      "horizontalSymmetry": 4,
-      "worldStrength": 0
-    },
-    "lowerShading": "world-height ramp; camera view-tone bypassed"
+  "render": {
+    "resolution": [
+      384,
+      704
+    ],
+    "engine": "CYCLES",
+    "samples": 64,
+    "seed": 127,
+    "viewTransform": "Standard",
+    "look": "None",
+    "transparent": true
   },
-  "name": "square top/front oblique"
+  "views": {
+    "N": {
+      "clip": "static",
+      "sourceClipId": "idle",
+      "direction": "N",
+      "index": 0,
+      "nativeFrame": 1,
+      "rootMatrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "bounds": {
+        "min": [
+          -0.36164355278015137,
+          -0.3085571229457855,
+          0.02500000037252903
+        ],
+        "max": [
+          0.36164355278015137,
+          0.3799999952316284,
+          0.16899999976158142
+        ],
+        "radialMax": 0.38000000103029524
+      },
+      "path": "native-static-N.png"
+    },
+    "E": {
+      "clip": "static",
+      "sourceClipId": "idle",
+      "direction": "E",
+      "index": 0,
+      "nativeFrame": 1,
+      "rootMatrix": [
+        [
+          -4.371138828673793e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          -4.371138828673793e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "bounds": {
+        "min": [
+          -0.30855709314346313,
+          -0.36164355278015137,
+          0.02500000037252903
+        ],
+        "max": [
+          0.3799999952316284,
+          0.36164355278015137,
+          0.16899999976158142
+        ],
+        "radialMax": 0.3800000026760878
+      },
+      "path": "native-static-E.png"
+    },
+    "S": {
+      "clip": "static",
+      "sourceClipId": "idle",
+      "direction": "S",
+      "index": 0,
+      "nativeFrame": 1,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "bounds": {
+        "min": [
+          -0.36164355278015137,
+          -0.3799999952316284,
+          0.02500000037252903
+        ],
+        "max": [
+          0.36164355278015137,
+          0.30855709314346313,
+          0.16899999976158142
+        ],
+        "radialMax": 0.3799999952316284
+      },
+      "path": "native-static-S.png"
+    },
+    "W": {
+      "clip": "static",
+      "sourceClipId": "idle",
+      "direction": "W",
+      "index": 0,
+      "nativeFrame": 1,
+      "rootMatrix": [
+        [
+          -4.371138828673793e-08,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -1.0,
+          -4.371138828673793e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "bounds": {
+        "min": [
+          -0.3799999952316284,
+          -0.36164355278015137,
+          0.02500000037252903
+        ],
+        "max": [
+          0.30855709314346313,
+          0.36164355278015137,
+          0.16899999976158142
+        ],
+        "radialMax": 0.3800000026760878
+      },
+      "path": "native-static-W.png"
+    }
+  },
+  "reopenedSourceCameraMeasured": true,
+  "sourceScale": 2,
+  "nativeResolution": [
+    768,
+    1408
+  ],
+  "publishedResolution": [
+    384,
+    704
+  ],
+  "publicationSampling": {
+    "method": "Pillow LANCZOS",
+    "wholeCanvasScale": 0.5,
+    "fitOccupiedAlpha": false
+  }
 }

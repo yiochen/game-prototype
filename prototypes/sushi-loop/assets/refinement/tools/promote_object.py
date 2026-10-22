@@ -9,6 +9,7 @@ import shutil
 import subprocess
 from PIL import Image
 from audit_directions import audit as audit_directions
+from acceptance_contract import acceptance
 
 RUN = Path(__file__).resolve().parents[1]
 PRODUCTION = RUN.parent / 'production'
@@ -51,10 +52,12 @@ def main():
         return promote(args)
     round_folder = folder / 'candidates' / args.round
     packet_path = round_folder / 'packet.json'
-    review_path = folder / 'reviews' / f'{args.round}.json'
-    subprocess.run(['python3', str(PACKET_HELPER), 'verify', '--packet', str(packet_path),
-                    '--review', str(review_path)], check=True)
+    subprocess.run(['python3', str(PACKET_HELPER), 'verify', '--packet', str(packet_path)], check=True)
     packet = read(packet_path)
+    accepted = acceptance(folder, args.round, packet)
+    recipe_reuse = accepted['method'] == 'recipe-reuse'
+    acceptance_path = accepted['path']
+    acceptance_hash_key = 'validationSHA256' if recipe_reuse else 'reviewSHA256'
     delivery_file = packet['files'].get('candidateResource:round:delivery.snapshot.json')
     delivery = read(packet_path.parent / delivery_file['path']) if delivery_file else read(folder / 'delivery.json')
     library = read(PRODUCTION / 'library.json')
@@ -243,17 +246,21 @@ def main():
                    'rawFrames': raw_frames, 'guides': guides, 'guide': guides[0],
                    'nativeScripts': {recipe.name: relative(recipe_dest)},
                    'refinement': {'packet': f'../refinement/objects/{args.asset}/candidates/{args.round}/packet.json',
-                                  'review': f'../refinement/objects/{args.asset}/reviews/{args.round}.json',
+                                  ('recipeValidation' if recipe_reuse else 'review'): f'../refinement/objects/{args.asset}/{"validations" if recipe_reuse else "reviews"}/{args.round}.json',
                                   'validation': relative(validation_dest)}})
     obj['captureFingerprint'] = digest(packet_path)
     obj['registration']['sourceCaptureScale'] = obj['sourceScale']
     obj['artStyle'] = {'revision': f'warm-soft-{args.asset}-{args.round}',
                        'style': 'Warm softly lit cartoon', 'nativeEditable': True,
                        'lighting': read(folder / delivery['validation']).get('lighting', camera.get('artStyle', {}).get('lighting'))}
-    obj['productionStage'] = 'Native Blender · warm soft cartoon · independent judge approved'
+    obj['productionStage'] = ('Native Blender · warm soft cartoon · established conveyor recipe' if recipe_reuse
+                              else 'Native Blender · warm soft cartoon · independent judge approved')
     obj['refinement'] = {'status': 'approved', 'round': args.round, 'packetSHA256': digest(packet_path),
-                         'reviewSHA256': digest(review_path), 'editor': f'catalog_{args.asset.replace("-", "_")}_editor',
+                         acceptance_hash_key: digest(acceptance_path), 'editor': f'catalog_{args.asset.replace("-", "_")}_editor',
                          'judge': f'catalog_{args.asset.replace("-", "_")}_judge'}
+    if recipe_reuse:
+        obj['refinement'].update(approvalMethod='recipe-reuse', independentReview=False,
+                                 validationReceipt=f'../refinement/objects/{args.asset}/validations/{args.round}.json')
     # Existing capture layout, gameplay metadata and model attachment fields are deliberately inherited.
     require(obj['clips'] == original['clips'], 'Clip contract changed during promotion')
     if not args.apply:
@@ -276,15 +283,15 @@ def main():
     library['objects'] = [obj if o['id'] == args.asset else o for o in library['objects']]
     write(PRODUCTION / 'library.json', library)
     write(folder / 'final/promotion.json', {'asset': args.asset, 'round': args.round,
-          'candidatePacketSHA256': digest(packet_path), 'reviewSHA256': digest(review_path),
+          'candidatePacketSHA256': digest(packet_path), acceptance_hash_key: digest(acceptance_path),
           'files': tracked, 'status': 'exact-approved-bytes-promoted'})
     write(folder / 'final/direction-audit.json', direction_audit)
     progress = read(RUN / 'progress.json')
     item = next(o for o in progress['objects'] if o['id'] == args.asset)
     item.update({'status': 'approved', 'round': args.round, 'packetSHA256': digest(packet_path)})
     pair = item.get('agents', {})
-    obj['refinement'].update({'editor': item.get('editor') or pair.get('editor'),
-                              'judge': item.get('judge') or pair.get('judge')})
+    obj['refinement'].update({'editor': item.get('recipeEditor') if recipe_reuse else item.get('editor') or pair.get('editor'),
+                              'judge': None if recipe_reuse else item.get('judge') or pair.get('judge')})
     write(PRODUCTION / 'library.json', library)
     progress['completed'] = sum(o['status'] in ['approved', 'published'] for o in progress['objects'])
     write(RUN / 'progress.json', progress)

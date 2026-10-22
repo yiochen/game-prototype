@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+from acceptance_contract import acceptance
 
 RUN = Path(__file__).resolve().parents[1]
 ROOT = RUN.parents[3]
@@ -36,11 +37,11 @@ def main():
         assert path.is_file() and sha(path) == digest, f'Changed or missing evidence: {name}'
 
     add(base / 'packet.json', sha(base / 'packet.json'))
-    review = folder / 'reviews' / f'{args.round}.json'
-    verdict = json.loads(review.read_text())
-    assert verdict['verdict'] == 'approve' and verdict['blockers'] == [], 'Independent approval required'
-    assert verdict['candidatePacketSHA256'] == sha(base / 'packet.json'), 'Review binds a different candidate'
-    add(review, sha(review))
+    accepted = acceptance(folder, args.round, packet)
+    review = accepted['path']
+    verdict = accepted['receipt']
+    acceptance_hash_key = 'validationSHA256' if accepted['method'] == 'recipe-reuse' else 'reviewSHA256'
+    add(review, accepted['sha256'])
     for record in records:
         add(base / record['path'], record['sha256'])
     # Prior sealed rounds remain reproducible even when the current handoff
@@ -52,7 +53,8 @@ def main():
         add(old_path, sha(old_path))
         for record in [*old['files'].values(), *old['candidateRenders'].values(), *old['previews'].values()]:
             add(old_path.parent / record['path'], record['sha256'])
-        old_review = folder / 'reviews' / f'{old_path.parent.name}.json'
+        old_recipe = old.get('qualityCriteria', {}).get('method') == 'established-native-family-recipe'
+        old_review = folder / ('validations' if old_recipe else 'reviews') / f'{old_path.parent.name}.json'
         if old_review.exists():
             assert json.loads(old_review.read_text())['candidatePacketSHA256'] == sha(old_path), 'Prior review binding changed'
             add(old_review, sha(old_review))
@@ -61,7 +63,7 @@ def main():
         promoted = json.loads(promotion.read_text())
         assert promoted['round'] == args.round, 'Promotion and selected round differ'
         assert promoted['candidatePacketSHA256'] == sha(base / 'packet.json'), 'Promotion packet changed'
-        assert promoted['reviewSHA256'] == sha(review), 'Promotion approval changed'
+        assert promoted[acceptance_hash_key] == sha(review), 'Promotion approval changed'
         for path, digest in promoted['files'].items():
             add(PRODUCTION / path, digest)
         add(promotion, sha(promotion))

@@ -1,0 +1,161 @@
+{
+  "asset": "decor-starfish",
+  "stage": "independent-initial-inspection",
+  "candidateApproval": false,
+  "inspected": [
+    {
+      "path": "brief.json",
+      "sha256": "6202dd4e14439aac93d81789458383d6a763a7ae8319790993b68a3c788e848c"
+    },
+    {
+      "path": "inputs/original.png",
+      "sha256": "1a3ba6788fe4495dcfdf6b23cea6ecd2516e141723a7bfe33a449812b49e39e8"
+    },
+    {
+      "path": "inputs/target.png",
+      "sha256": "deb4a41dbaabb25eff26314624eebb96618e61b4ff788120829e30ffb18dbc07"
+    },
+    {
+      "path": "../../style/warm-soft-reference.png",
+      "sha256": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15"
+    },
+    {
+      "path": "inputs/source-camera.json",
+      "sha256": "f12aa69e49e6787365a25b221280301d3d41e204d9973526d540d1b02bce4181"
+    },
+    {
+      "path": "inputs/source-rig.json",
+      "sha256": "acd263b61a99e7abca017b66676518c0fc61a03211ff705b16f44ac47e1d2a54"
+    },
+    {
+      "path": "inputs/catalog-object.json",
+      "sha256": "eccc35353b812892d0d69e9dadfdf243bf7fef5e22cf2e1e6eaa980c5bfbd209"
+    },
+    {
+      "path": "reviews/source-inspection.json",
+      "sha256": "46befb77e64d3f496cf37897cf20289e97cc6d52652c5e2aae0b286b57feb9a7"
+    },
+    {
+      "path": "reviews/original-four-views-logical-backgrounds.png",
+      "sha256": "e9c97cfa810c5ce7c5e5fdbc8eb6fe3584ae2d05bc5a9a1b5e2412c1e889918f"
+    }
+  ],
+  "sourceProject": {
+    "path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "collection": "S33_PROP_starfish.001",
+    "root": "starfish__root.001",
+    "actualBounds": {
+      "min": [
+        -0.3614014685153961,
+        -0.3799999952316284,
+        0.07000000029802322
+      ],
+      "max": [
+        0.3614014685153961,
+        0.30742645263671875,
+        0.17000000178813934
+      ],
+      "size": [
+        0.7228029370307922,
+        0.6874264478683472,
+        0.10000000149011612
+      ]
+    },
+    "measurementMethod": "Opened original .blend in background Blender5.2.2. Enabled source collection for dependency evaluation without saving, then measured transformed mesh bounding corners. Saved dormant object matrices before evaluation are not reliable bounds."
+  },
+  "sourceVisual": [
+    "Five-point orange starfish, with ten small pale yellow surface spots. The original four native facings retain distinct orientation on the registered square grid.",
+    "The star body is a sharply pointed open triangular fan with one raised center, not a soft organic volume. At logical use size its orange reads nearly flat and its spots read as tiny angular chips.",
+    "The target usefully adds plump rounded arm contours, a raised coherent center and tapered arm ridges, warm orange/coral midtone separation and creamy rounded nodule detail. These are design outcomes, not a required vertex construction or spot count.",
+    "The target has some highly polished point highlights and outer bright edge traces. Native output should use controlled soft material reflections and clean alpha edges, without copying external halo, rim speckles or inflated target registration."
+  ],
+  "sourceTechnical": {
+    "meshCount": 11,
+    "bodyVertexCount": 11,
+    "bodyPolygonCount": 10,
+    "decorativeSpotCount": 10,
+    "physicalZ": [
+      0.07000000029802322,
+      0.17000000178813934
+    ],
+    "declaredHeight": 0.2,
+    "heightInterpretation": "Declared0.2 is a low decoration envelope. Actual source thickness is0.1 at z0.07..0.17. Do not scale the model to0.2 thickness or treat the old open fan/raised lower boundary as immutable. Native closure and rounded construction within z0..0.2 are allowed.",
+    "rootWorld": [
+      0,
+      0,
+      0
+    ],
+    "footprintCells": [
+      1,
+      1
+    ],
+    "rootCell": [
+      0.5,
+      0.5
+    ],
+    "clip": {
+      "id": "static",
+      "sourceClipId": "idle",
+      "frames": 1,
+      "fps": 12,
+      "loop": false,
+      "directions": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ]
+    },
+    "armatures": [],
+    "actions": [],
+    "sockets": {},
+    "portProfiles": {},
+    "noApplicableRequirements": [
+      "modular seam assembly",
+      "animation loops",
+      "rig deformation",
+      "attachment/socket mating",
+      "gameplay interaction mechanics"
+    ],
+    "cameraRecord": "inputs/source-camera.json; matching source/native-records/decor-starfish/camera.json and registered/static-N/guide.json",
+    "cameraElevationDegrees": 55.00797980144134,
+    "pixelAspect": [
+      1.2206555604934692,
+      1.0
+    ],
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "logicalCellPixels": 128,
+    "nativeRecordCaptureScale": 4,
+    "deliveryScale": 2,
+    "deliveryFrame": [
+      384,
+      704
+    ],
+    "logicalBasis": {
+      "x": [
+        128,
+        0
+      ],
+      "depth": [
+        0,
+        128
+      ],
+      "height": [
+        0,
+        -89.6
+      ]
+    },
+    "savedActiveSceneWarning": "The source library opens in a generic export scene with35degree camera,768x1280 and square pixels. That state does not match this object's production capture. Use the object-specific55.00798degree record and calibration; do not copy the unrelated active camera.",
+    "lighting": "Current source has140W broad centered overhead and four symmetric100W area fills; these old powers and old faceted shader recipe are not aesthetic locks. Balanced horizontal light and no directional ground shadow remain locked."
+  },
+  "technicalConflictAssessment": "No unresolved source/modeling conflict. Nominal height and dormant active camera require the explicit interpretations above before freeze. The fixed ImageGen target is style/design reference, not dimensional or registration proof.",
+  "next": "Coordinator freezes proposed criteria in brief.qualityCriteria before editor candidate work. This file approves no candidate."
+}
