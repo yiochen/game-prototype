@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 102,
-  "completed": 70,
-  "published": 69,
-  "current": "rock-wall-end",
+  "completed": 71,
+  "published": 70,
+  "current": "sub-hull-panels",
   "objects": [
     {
       "id": "plant-angular",
@@ -1154,25 +1154,27 @@
       "name": "Cobalt canyon rock wall corner",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "reviewing",
+      "status": "editing",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_rock_wall_corner_editor_v1",
       "judge": "catalog_rock_wall_corner_judge_v1",
-      "editorStatus": "completed-round-04",
-      "judgeStatus": "queued-round-04",
-      "round": "round-04",
+      "editorStatus": "running",
+      "judgeStatus": "revise",
+      "round": "round-05",
       "previousRejectedPacketSHA256": "7a55d21d1fc79d8e4ea0edac84cdd8093da8abc82e0211a54c4510e0794fb8ac",
-      "pendingPacketSHA256": "955d78e2c737f031fe836bd714e703e36eca4fba0ce956ad84b7b60fd2afc0e7"
+      "pendingPacketSHA256": "955d78e2c737f031fe836bd714e703e36eca4fba0ce956ad84b7b60fd2afc0e7",
+      "priorReviewedRound": "round-04",
+      "priorReviewSHA256": "4e1b000596a41035bbb3fcb820f2bc932b21a8500399bd0d8065e40475eb1097"
     },
     {
       "id": "rock-wall-end",
       "name": "Cobalt canyon rock wall end",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
@@ -1186,7 +1188,8 @@
       "round": "round-03-coverage-v2",
       "pendingPacketSHA256": "3c48770f7347aba5844de6e59176729365de9ede14439206f91effa83734464d",
       "reviewSHA256": "9cbdfedfdecd8385adf311106204575e2582afd0820a965e59cece8f6266f5ad",
-      "packetSHA256": "cf3bd562212d22eac5043ab9814f78ffc6cd63f968d5a3e8a42b19c243260d67"
+      "packetSHA256": "cf3bd562212d22eac5043ab9814f78ffc6cd63f968d5a3e8a42b19c243260d67",
+      "publishedCommit": "1c4a73c1bddafd23ae1ebdce70fc45dc7f66d71d"
     },
     {
       "id": "rock-shelf-middle",
@@ -1532,7 +1535,7 @@
       "name": "Submarine hull panels",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "reviewing",
+      "status": "approved",
       "clips": 2,
       "frames": 52,
       "target": "inputs/target.png",
@@ -1540,10 +1543,12 @@
       "editor": "catalog_sub_hull_panels_editor_v1",
       "judge": "catalog_sub_hull_panels_judge_v1",
       "editorStatus": "completed",
-      "judgeStatus": "running-round-01",
+      "judgeStatus": "approved",
       "briefSHA256": "bedbf67109f0c56c7477c5bf774b78726ac176a068a121547a916f32895048aa",
       "round": "round-01",
-      "pendingPacketSHA256": "f811ac32a84bc59ea572a773963a5df54015b5d2a45cc5297cfd8408f8120473"
+      "pendingPacketSHA256": "f811ac32a84bc59ea572a773963a5df54015b5d2a45cc5297cfd8408f8120473",
+      "packetSHA256": "f811ac32a84bc59ea572a773963a5df54015b5d2a45cc5297cfd8408f8120473",
+      "reviewSHA256": "a2d09d1dbc230bb9417d1e425346f42ad48c5689dc6fe5b2b288fecdc63d4803"
     },
     {
       "id": "sub-harpoon-mount",
@@ -1557,20 +1562,23 @@
       "baselineJudge": "catalog_sub_harpoon_mount_judge_v1",
       "editor": "catalog_sub_harpoon_mount_editor_v1",
       "editorStatus": "running",
-      "judgeStatus": "criteria-frozen"
+      "judgeStatus": "criteria-frozen",
+      "judge": "catalog_sub_harpoon_mount_judge_v1"
     },
     {
       "id": "sub-collector-inlet",
       "name": "Submarine collector inlet",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "criteria-frozen",
+      "status": "editing",
       "clips": 2,
       "frames": 52,
       "target": "inputs/target.png",
       "baselineJudge": "catalog_sub_collector_inlet_judge_v1",
-      "editorStatus": "queued",
-      "judgeStatus": "preparation-complete"
+      "editorStatus": "running",
+      "judgeStatus": "preparation-complete",
+      "editor": "catalog_sub_collector_inlet_editor_v1",
+      "judge": "catalog_sub_collector_inlet_judge_v1"
     },
     {
       "id": "salvage-metal",

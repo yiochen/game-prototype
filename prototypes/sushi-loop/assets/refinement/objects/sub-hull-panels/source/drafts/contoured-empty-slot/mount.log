@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/sub-hull-panels/source/round-01-recipe.py", line 241, in <module>
+    elif args.mode=='mount':mounted()
+                            ~~~~~~~^^
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/sub-hull-panels/source/round-01-recipe.py", line 189, in mounted
+    originalIdentity=json.loads((OUT/'neutral-resource-identity.json').read_text());bpy.ops.wm.open_mainfile(filepath=str(HERE/'resources/frozen-main-v1/project.blend'))
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Applications/Blender.app/Contents/Resources/5.2/python/lib/python3.13/pathlib/_local.py", line 546, in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Applications/Blender.app/Contents/Resources/5.2/python/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Applications/Blender.app/Contents/Resources/5.2/python/lib/python3.13/pathlib/_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/sub-hull-panels/candidates/round-01/neutral-resource-identity.json'
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

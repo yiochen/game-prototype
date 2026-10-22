@@ -1,0 +1,86 @@
+{
+  "assetId": "sub-hull-panels",
+  "fps": 12,
+  "source": "round-01-recipe.py",
+  "groundRootObject": "sub-hull-panels__root",
+  "motionObject": "sub-hull-panels__motion",
+  "collection": "SUB_HULL_PANELS__neutral",
+  "footprint": [
+    1,
+    1
+  ],
+  "projection": "square-top-front-oblique",
+  "sockets": {},
+  "armatures": [],
+  "clips": {
+    "idle": {
+      "frames": 1,
+      "fps": 12,
+      "loop": false,
+      "static": true,
+      "firstFrame": 1,
+      "lastUniqueFrame": 1,
+      "closingKeyFrame": null,
+      "actions": [
+        {
+          "ownerType": "Object",
+          "ownerName": "sub-hull-panels__motion",
+          "action": "PANELS__idle_neutral",
+          "slotIdentifier": "OBsub-hull-panels__motion"
+        }
+      ]
+    },
+    "active": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true,
+      "static": false,
+      "firstFrame": 1,
+      "lastUniqueFrame": 12,
+      "closingKeyFrame": 13,
+      "actions": [
+        {
+          "ownerType": "Object",
+          "ownerName": "sub-hull-panels__motion",
+          "action": "PANELS__active_ground_origin_pulse",
+          "slotIdentifier": "OBsub-hull-panels__motion"
+        }
+      ],
+      "law": "scale1+.015sin(theta), bob.008(1-cos(theta)), theta2pi(frame-1)/12; ground origin",
+      "nativeExactContinuousFunctionModifiers": true
+    }
+  },
+  "actionCount": 2,
+  "status": "native-actions-evaluated-pending-independent-visual-review",
+  "mainAdoption": "Exact idle geometry/resources only; discard standalone animation ownership in unsaved paired scene; no active-main mapping.",
+  "geometryOwners": [
+    "panel_L__seat_base",
+    "panel_L__rounded_armor",
+    "panel_L__inset_surround",
+    "panel_L__cream_inset",
+    "panel_L__fore_gold_collar",
+    "panel_L__fore_silver_cup",
+    "panel_L__fore_silver_dome",
+    "panel_L__aft_gold_collar",
+    "panel_L__aft_silver_cup",
+    "panel_L__aft_silver_dome",
+    "panel_R__seat_base",
+    "panel_R__rounded_armor",
+    "panel_R__inset_surround",
+    "panel_R__cream_inset",
+    "panel_R__fore_gold_collar",
+    "panel_R__fore_silver_cup",
+    "panel_R__fore_silver_dome",
+    "panel_R__aft_gold_collar",
+    "panel_R__aft_silver_cup",
+    "panel_R__aft_silver_dome"
+  ],
+  "shaderChannels": [],
+  "shapeKeys": [],
+  "externalResources": [],
+  "notes": [
+    "One native motion parent maintains every assembled piece through all phases.",
+    "Native function modifiers implement the explicitly repaired exact sinusoidal motion law.",
+    "Runtime atlas excludes closing frame13; exact native pixels match frame1."
+  ]
+}

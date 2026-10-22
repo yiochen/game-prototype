@@ -1,8 +1,17 @@
 {
   "assetId": "sub-hull-panels",
   "fps": 12,
-  "source": "native_actions.py",
-  "static": false,
+  "source": "round-01-recipe.py",
+  "groundRootObject": "sub-hull-panels__root",
+  "motionObject": "sub-hull-panels__motion",
+  "collection": "SUB_HULL_PANELS__neutral",
+  "footprint": [
+    1,
+    1
+  ],
+  "projection": "square-top-front-oblique",
+  "sockets": {},
+  "armatures": [],
   "clips": {
     "idle": {
       "frames": 1,
@@ -15,53 +24,11 @@
       "actions": [
         {
           "ownerType": "Object",
-          "ownerName": "hull_panel__plate.001",
-          "action": "S33_NATIVE__sub-hull-panels__idle__hull_panel__plate.001",
-          "slotIdentifier": "OBhull_panel__plate.001",
-          "keyframeCount": 6
-        },
-        {
-          "ownerType": "Object",
-          "ownerName": "hull_panel__ridge.001",
-          "action": "S33_NATIVE__sub-hull-panels__idle__hull_panel__ridge.001",
-          "slotIdentifier": "OBhull_panel__ridge.001",
-          "keyframeCount": 6
-        },
-        {
-          "ownerType": "Object",
-          "ownerName": "hull_panel__rivet_-0.22-0.001",
-          "action": "S33_NATIVE__sub-hull-panels__idle__hull_panel__rivet_-0.22-0.001",
-          "slotIdentifier": "OBhull_panel__rivet_-0.22-0.001",
-          "keyframeCount": 6
-        },
-        {
-          "ownerType": "Object",
-          "ownerName": "hull_panel__rivet_-0.220.001",
-          "action": "S33_NATIVE__sub-hull-panels__idle__hull_panel__rivet_-0.220.001",
-          "slotIdentifier": "OBhull_panel__rivet_-0.220.001",
-          "keyframeCount": 6
-        },
-        {
-          "ownerType": "Object",
-          "ownerName": "hull_panel__rivet_0.22-0.001",
-          "action": "S33_NATIVE__sub-hull-panels__idle__hull_panel__rivet_0.22-0.001",
-          "slotIdentifier": "OBhull_panel__rivet_0.22-0.001",
-          "keyframeCount": 6
-        },
-        {
-          "ownerType": "Object",
-          "ownerName": "hull_panel__rivet_0.220.001",
-          "action": "S33_NATIVE__sub-hull-panels__idle__hull_panel__rivet_0.220.001",
-          "slotIdentifier": "OBhull_panel__rivet_0.220.001",
-          "keyframeCount": 6
+          "ownerName": "sub-hull-panels__motion",
+          "action": "PANELS__idle_neutral",
+          "slotIdentifier": "OBsub-hull-panels__motion"
         }
-      ],
-      "controlsByFrame": [
-        {}
-      ],
-      "geometryOwners": [],
-      "shaderChannels": [],
-      "shaderLoopClosure": {}
+      ]
     },
     "active": {
       "frames": 12,
@@ -74,94 +41,46 @@
       "actions": [
         {
           "ownerType": "Object",
-          "ownerName": "hull_panel__plate.001",
-          "action": "S33_NATIVE__sub-hull-panels__active__hull_panel__plate.001",
-          "slotIdentifier": "OBhull_panel__plate.001",
-          "keyframeCount": 78
-        },
-        {
-          "ownerType": "Object",
-          "ownerName": "hull_panel__ridge.001",
-          "action": "S33_NATIVE__sub-hull-panels__active__hull_panel__ridge.001",
-          "slotIdentifier": "OBhull_panel__ridge.001",
-          "keyframeCount": 78
-        },
-        {
-          "ownerType": "Object",
-          "ownerName": "hull_panel__rivet_-0.22-0.001",
-          "action": "S33_NATIVE__sub-hull-panels__active__hull_panel__rivet_-0.22-0.001",
-          "slotIdentifier": "OBhull_panel__rivet_-0.22-0.001",
-          "keyframeCount": 78
-        },
-        {
-          "ownerType": "Object",
-          "ownerName": "hull_panel__rivet_-0.220.001",
-          "action": "S33_NATIVE__sub-hull-panels__active__hull_panel__rivet_-0.220.001",
-          "slotIdentifier": "OBhull_panel__rivet_-0.220.001",
-          "keyframeCount": 78
-        },
-        {
-          "ownerType": "Object",
-          "ownerName": "hull_panel__rivet_0.22-0.001",
-          "action": "S33_NATIVE__sub-hull-panels__active__hull_panel__rivet_0.22-0.001",
-          "slotIdentifier": "OBhull_panel__rivet_0.22-0.001",
-          "keyframeCount": 78
-        },
-        {
-          "ownerType": "Object",
-          "ownerName": "hull_panel__rivet_0.220.001",
-          "action": "S33_NATIVE__sub-hull-panels__active__hull_panel__rivet_0.220.001",
-          "slotIdentifier": "OBhull_panel__rivet_0.220.001",
-          "keyframeCount": 78
+          "ownerName": "sub-hull-panels__motion",
+          "action": "PANELS__active_ground_origin_pulse",
+          "slotIdentifier": "OBsub-hull-panels__motion"
         }
       ],
-      "controlsByFrame": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {}
-      ],
-      "geometryOwners": [],
-      "shaderChannels": [],
-      "shaderLoopClosure": {}
+      "law": "scale1+.015sin(theta), bob.008(1-cos(theta)), theta2pi(frame-1)/12; ground origin",
+      "nativeExactContinuousFunctionModifiers": true
     }
   },
-  "armatures": [],
-  "footprint": [
-    1,
-    1
+  "actionCount": 2,
+  "status": "native-actions-evaluated-pending-independent-visual-review",
+  "mainAdoption": "Exact idle geometry/resources only; discard standalone animation ownership in unsaved paired scene; no active-main mapping.",
+  "geometryOwners": [
+    "panel_L__seat_base",
+    "panel_L__rounded_armor",
+    "panel_L__inset_surround",
+    "panel_L__cream_inset",
+    "panel_L__fore_gold_collar",
+    "panel_L__fore_silver_cup",
+    "panel_L__fore_silver_dome",
+    "panel_L__aft_gold_collar",
+    "panel_L__aft_silver_cup",
+    "panel_L__aft_silver_dome",
+    "panel_R__seat_base",
+    "panel_R__rounded_armor",
+    "panel_R__inset_surround",
+    "panel_R__cream_inset",
+    "panel_R__fore_gold_collar",
+    "panel_R__fore_silver_cup",
+    "panel_R__fore_silver_dome",
+    "panel_R__aft_gold_collar",
+    "panel_R__aft_silver_cup",
+    "panel_R__aft_silver_dome"
   ],
-  "projection": "square-top-front-oblique",
-  "groundRootObject": "hull_panel__root.001",
-  "sockets": {},
+  "shaderChannels": [],
+  "shapeKeys": [],
+  "externalResources": [],
   "notes": [
-    "Native object, rig, visibility, shape and shader channels; no raster substitutes.",
-    "Runtime frames exclude the duplicate loop closure key.",
-    "Visual contact and deformation review remains separate from these structural records."
-  ],
-  "actionCount": 12,
-  "createdAtUnix": 1792392923.903349,
-  "status": "native-actions-baked-needs-visual-review",
-  "sourceFiles": {
-    "native_actions.py": "7f3514c8ce1ee37c951ded3b6669f2eb6613dfa69940858092c8476392ad51c5",
-    "character_builders.py": "f3109ec4a61266cba9a921786353e720b707e21de35095be97a6f8fe8a70738a",
-    "prop_builders.py": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a",
-    "world_components.py": "0d156c24ebd2a31422e75286417e108d22575cf75f7e6ec87cf173aebefd1c91",
-    "food_belt_builders.py": "dc3eed619cd644588da74996b99013a24ecf8ce541056d847f3a049fb54a1d95",
-    "creature_fx_builders.py": "e8da19957cf01828137326c3459cb77e76ba563029ae7b057c8306d663fa9d5b",
-    "character_composition.py": "049e6f615e91a71d74c9cc9b4f37adc079abd5c4ab648c97f981eebb9d672be4",
-    "production_library.py": "9d8665b8e512f9b1c649b423ed69478d6ba4a0f745df3cdfd70d044cd3ff4236",
-    "catalog_variants.py": "329ec9b2013c990aeb45233a6e2783b0f9402aa97108f15a32ecb8a64a9d1cff",
-    "catalog_corner_supports.py": "5215531d424a8d7560cb19ca5bf05f3218f5671c346a79dc0585644462bd4b91",
-    "catalog_belt_flow.py": "0e7a979f8a0897e2a98a063d2a568fb0be8a751f72b76f9584f6949f77140fd5",
-    "catalog_clusters.py": "020f94b990987f6c4d664b5447525c6d69d66198dfd3fab8159cd9c28642ca1c"
-  }
+    "One native motion parent maintains every assembled piece through all phases.",
+    "Native function modifiers implement the explicitly repaired exact sinusoidal motion law.",
+    "Runtime atlas excludes closing frame13; exact native pixels match frame1."
+  ]
 }

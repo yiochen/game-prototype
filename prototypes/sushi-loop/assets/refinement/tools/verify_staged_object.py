@@ -16,6 +16,16 @@ def sha(path):
         return hashlib.file_digest(stream, 'sha256').hexdigest()
 
 
+def resolve_supplemental_path(folder, relative_to, review_directory, path):
+    # A manifest can retain paths authored relative to its enclosing review,
+    # even when the manifest itself lives in a nested evidence directory.
+    locations = {(base / path).resolve()
+                 for base in (folder, relative_to, review_directory)}
+    existing = [resource for resource in locations if resource.is_file()]
+    assert len(existing) == 1, f'Missing or ambiguous supplemental evidence: {path}'
+    return existing[0]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('asset')
@@ -65,12 +75,9 @@ def main():
                 add(closure, sha(closure))
                 add(resource, record['sha256'])
                 return resource
-            # Historical reviews use either object- or review-relative paths.
-            locations = {(base / record['path']).resolve() for base in (folder, relative_to)}
-            existing = [resource for resource in locations if resource.is_file()]
-            assert len(existing) == 1, f'Missing or ambiguous supplemental evidence: {record["path"]}'
-            add(existing[0], record['sha256'])
-            return existing[0]
+            resource = resolve_supplemental_path(folder, relative_to, path.parent, record['path'])
+            add(resource, record['sha256'])
+            return resource
 
         for record in supplemental:
             resource = add_supplement(record, path.parent)
