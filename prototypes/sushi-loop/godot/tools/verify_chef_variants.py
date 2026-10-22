@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 import struct
+import zlib
 
 IDS = ['chef-omar']
 CLIPS = ['hold-cucumber', 'load-cucumber']
@@ -34,6 +35,9 @@ def _verify_chef_variants(project: Path, source_project: Path | None = None) -> 
     author = prototype / 'assets/production/source/variants/chef-cucumber'
     runtime = project / 'assets/chef-variants'
     manifest = read(runtime / 'manifest.json')
+    if 'refinement' in manifest:
+        from refined_actor_variants import verify_refined_actor_variants
+        return verify_refined_actor_variants(project, source_project, 'chef')
     publication = read(author / 'publication.json')
     authorship = read(author / 'authorship.json')
     native_audit = read(author / 'native-audit.json')
@@ -104,7 +108,7 @@ def verify_chef_variants(project: Path, source_project: Path | None = None) -> d
         return _verify_chef_variants(project, source_project)
     except ValueError:
         raise
-    except (OSError, KeyError, TypeError, AttributeError, IndexError, struct.error) as error:
+    except (OSError, KeyError, TypeError, AttributeError, IndexError, struct.error, zlib.error) as error:
         raise ValueError(f'Incomplete or invalid native chef variant contract: {error}') from error
 
 

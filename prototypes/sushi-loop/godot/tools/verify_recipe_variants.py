@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 import struct
+import zlib
 
 IDS = ['customer-rosa', 'customer-ellis', 'customer-samir', 'customer-june']
 CLIPS = ['eat-salmon', 'seated-wait-empty']
@@ -34,6 +35,9 @@ def _verify_recipe_variants(project: Path, source_project: Path | None = None) -
     author = prototype / 'assets/production/source/variants/starter-meals'
     runtime = project / 'assets/recipe-variants'
     manifest = read(runtime / 'manifest.json')
+    if 'refinement' in manifest:
+        from refined_actor_variants import verify_refined_actor_variants
+        return verify_refined_actor_variants(project, source_project, 'recipe')
     publication = read(author / 'publication.json')
     authorship = read(author / 'authorship.json')
     native_audit = read(author / 'native-audit.json')
@@ -104,7 +108,7 @@ def verify_recipe_variants(project: Path, source_project: Path | None = None) ->
         return _verify_recipe_variants(project, source_project)
     except ValueError:
         raise
-    except (OSError, KeyError, TypeError, AttributeError, IndexError, struct.error) as error:
+    except (OSError, KeyError, TypeError, AttributeError, IndexError, struct.error, zlib.error) as error:
         raise ValueError(f'Incomplete or invalid native meal variant contract: {error}') from error
 
 

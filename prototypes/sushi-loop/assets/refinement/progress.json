@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 39,
+  "completed": 40,
   "published": 39,
-  "current": "39 live. Omar canonical-food main/runtime approved, main promoted/tested and uploading; N\u2192E corner01 independently approved, queued after Omar deploy. Lena04 final independent review; fresh E\u2192N corner and starfish judges defining criteria.",
+  "current": "39 live with canonical Omar update. N\u2192E corner40 approved/promoting/testing. Lena04 approved next after40 deploy. Fresh E\u2192N corner and Ama judges defining criteria; starfish fresh editor tuning.",
   "objects": [
     {
       "id": "plant-angular",
@@ -329,25 +329,28 @@
       "name": "Corner entering N, exiting E",
       "kind": "belt",
       "pipeline": "native-3d",
-      "status": "independently-approved-awaiting-promotion",
+      "status": "approved",
       "clips": 1,
       "frames": 96,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "judge": "catalog_belt_corner_n_e_judge_v1",
-      "editor": "catalog_belt_corner_n_e_editor_v1"
+      "editor": "catalog_belt_corner_n_e_editor_v1",
+      "round": "round-01",
+      "packetSHA256": "a1d9437297cdf0784f9febd38f9e48118192bcfc74463752f468bb4997cf24d9"
     },
     {
       "id": "belt-corner-e-n",
       "name": "Corner entering E, exiting N",
       "kind": "belt",
       "pipeline": "native-3d",
-      "status": "judge-defining-criteria",
+      "status": "tuning",
       "clips": 1,
       "frames": 96,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
-      "judge": "catalog_belt_corner_e_n_judge_v1"
+      "judge": "catalog_belt_corner_e_n_judge_v1",
+      "editor": "catalog_belt_corner_e_n_editor_v1"
     },
     {
       "id": "belt-corner-n-w",
@@ -525,7 +528,7 @@
       "name": "Omar Haddad",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -1164,11 +1167,12 @@
       "name": "Starfish",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "judge-defining-criteria",
+      "status": "independent-review",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
-      "judge": "catalog_decor_starfish_judge_v1"
+      "judge": "catalog_decor_starfish_judge_v1",
+      "editor": "catalog_decor_starfish_editor_v1"
     },
     {
       "id": "decor-midground-coral",
