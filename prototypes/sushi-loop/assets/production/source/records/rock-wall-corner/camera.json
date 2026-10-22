@@ -8,14 +8,18 @@
     96,
     256
   ],
-  "cellSize": 128,
-  "captureScale": 4,
+  "captureScale": 2,
+  "publishedCaptureScale": 2,
+  "nativeCaptureScale": 4,
+  "nativeFrame": [
+    768,
+    1408
+  ],
+  "publishedFrame": [
+    384,
+    704
+  ],
   "fps": 12,
-  "axes": {
-    "x": "X",
-    "depth": "-Y",
-    "height": "Z"
-  },
   "camera": {
     "type": "orthographic",
     "worldMatrix": [
@@ -27,14 +31,14 @@
       ],
       [
         0.0,
-        0.8192318081855774,
+        0.8192317485809326,
         -0.5734625458717346,
         -5.734623432159424
       ],
       [
         0.0,
         0.5734625458717346,
-        0.8192318081855774,
+        0.8192317485809326,
         8.1923189163208
       ],
       [
@@ -44,7 +48,7 @@
         1.0
       ]
     ],
-    "projectionMatrix": [
+    "projectionMatrixAtNative4x": [
       [
         1.3333333730697632,
         0.0,
@@ -55,7 +59,7 @@
         0.0,
         0.8877494931221008,
         0.0,
-        -0.454543799161911
+        -0.4545433819293976
       ],
       [
         0.0,
@@ -70,54 +74,60 @@
         1.0
       ]
     ],
+    "orthoScale": 1.5,
+    "shift": [
+      0.0,
+      0.34134507179260254
+    ],
     "pixelAspect": [
       1.2206555604934692,
       1.0
-    ],
-    "worldUnitsPerCell": 1,
-    "elevationDegrees": 55.00797980144134
+    ]
   },
   "calibration": {
     "root": [
-      384.0,
-      1024.0
+      192.0,
+      512.0000152587891
     ],
     "unitX": [
-      512.0,
+      255.99998474121094,
       0.0
     ],
     "unitDepth": [
       0.0,
-      512.0
+      255.99995517730713
     ],
     "unitHeight": [
       0.0,
-      -358.400146484375
+      -179.20008087158203
     ]
   },
-  "artStyle": {
-    "revision": "2026-10-19",
-    "environmentHeightRatio": 0.7,
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
-    "lightingRig": {
-      "treatment": "Faceted",
-      "overheadWatts": 140,
-      "overheadPosition": [
-        0,
-        0,
-        4.5
+  "nativeMeasurement": {
+    "audit": "candidates/round-05/native-audit.json",
+    "savedSourceAudit": "candidates/round-05/saved-source-audit.json",
+    "nativeFrame": [
+      768,
+      1408
+    ],
+    "nativeCaptureScale": 4,
+    "calibration": {
+      "root": [
+        384.0,
+        1024.0000305175781
       ],
-      "overheadSize": 3.5,
-      "fillWattsEach": 100,
-      "fillSize": 4,
-      "fillRadius": 3,
-      "fillZ": 1.8,
-      "horizontalSymmetry": 4,
-      "worldStrength": 0
-    },
-    "lowerShading": "world-height ramp; camera view-tone bypassed"
+      "unitX": [
+        511.9999694824219,
+        0.0
+      ],
+      "unitDepth": [
+        0.0,
+        511.99991035461426
+      ],
+      "unitHeight": [
+        0.0,
+        -358.40016174316406
+      ]
+    }
   },
-  "name": "square top/front oblique"
+  "publication": "Exact whole native 768x1408 frame BOX-resized once to 384x704; current catalog captureScale2. Native measurement remains scale4 and is never fabricated as native2x."
 }

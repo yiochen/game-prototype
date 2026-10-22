@@ -1,0 +1,290 @@
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/rock-wall-corner/reviews/round-03-independent/verify-pixels.py:9: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  a=Image.open(P/f'published-native-joined-{d}.png').convert('RGBA');b=Image.open(P/f'independent-published-joined-{d}.png').convert('RGBA');diff=ImageChops.difference(a,b);h=[diff.getchannel(i).histogram() for i in range(4)];opaqueMissing=sum(1 for x,y in zip(a.getchannel('A').getdata(),b.getchannel('A').getdata()) if x==255 and y<250)
+PIXEL_VERIFICATION {
+  "standalone": {
+    "N": {
+      "nativeSize": [
+        768,
+        1408
+      ],
+      "publishedSize": [
+        384,
+        704
+      ],
+      "atlasSize": [
+        384,
+        704
+      ],
+      "wholeBOXMatches": true,
+      "atlasMatchesWholeFrame": true,
+      "independentNativePixelsEqual": true,
+      "nativeAlphaBounds": [
+        128,
+        420,
+        641,
+        1281
+      ],
+      "publishedAlphaBounds": [
+        64,
+        210,
+        321,
+        641
+      ]
+    },
+    "E": {
+      "nativeSize": [
+        768,
+        1408
+      ],
+      "publishedSize": [
+        384,
+        704
+      ],
+      "atlasSize": [
+        384,
+        704
+      ],
+      "wholeBOXMatches": true,
+      "atlasMatchesWholeFrame": true,
+      "independentNativePixelsEqual": true,
+      "nativeAlphaBounds": [
+        128,
+        420,
+        640,
+        1281
+      ],
+      "publishedAlphaBounds": [
+        64,
+        210,
+        320,
+        641
+      ]
+    },
+    "S": {
+      "nativeSize": [
+        768,
+        1408
+      ],
+      "publishedSize": [
+        384,
+        704
+      ],
+      "atlasSize": [
+        384,
+        704
+      ],
+      "wholeBOXMatches": true,
+      "atlasMatchesWholeFrame": true,
+      "independentNativePixelsEqual": true,
+      "nativeAlphaBounds": [
+        128,
+        355,
+        640,
+        1281
+      ],
+      "publishedAlphaBounds": [
+        64,
+        177,
+        320,
+        641
+      ]
+    },
+    "W": {
+      "nativeSize": [
+        768,
+        1408
+      ],
+      "publishedSize": [
+        384,
+        704
+      ],
+      "atlasSize": [
+        384,
+        704
+      ],
+      "wholeBOXMatches": true,
+      "atlasMatchesWholeFrame": true,
+      "independentNativePixelsEqual": true,
+      "nativeAlphaBounds": [
+        128,
+        355,
+        640,
+        1281
+      ],
+      "publishedAlphaBounds": [
+        64,
+        177,
+        320,
+        641
+      ]
+    }
+  },
+  "joins": {
+    "N": {
+      "size": [
+        896,
+        1216
+      ],
+      "maxRGBAResidual": [
+        127,
+        127,
+        128,
+        8
+      ],
+      "meanRGBAAbsoluteResidual": [
+        0.05577695459351504,
+        0.16092813821663535,
+        0.4172170538651316,
+        0.0017310121005639097
+      ],
+      "nativeOpaqueIndependentAlphaBelow250": 0,
+      "ownJoinedReplay": true
+    },
+    "E": {
+      "size": [
+        896,
+        1216
+      ],
+      "maxRGBAResidual": [
+        127,
+        191,
+        191,
+        8
+      ],
+      "meanRGBAAbsoluteResidual": [
+        0.0574703359962406,
+        0.16038570547462405,
+        0.41426625646146614,
+        0.0017980130991541354
+      ],
+      "nativeOpaqueIndependentAlphaBelow250": 0,
+      "ownJoinedReplay": true
+    },
+    "S": {
+      "size": [
+        896,
+        1216
+      ],
+      "maxRGBAResidual": [
+        127,
+        127,
+        128,
+        8
+      ],
+      "meanRGBAAbsoluteResidual": [
+        0.058872767857142856,
+        0.10853243949718046,
+        0.17486434592340225,
+        0.0015878318843984963
+      ],
+      "nativeOpaqueIndependentAlphaBelow250": 0,
+      "ownJoinedReplay": true
+    },
+    "W": {
+      "size": [
+        896,
+        1216
+      ],
+      "maxRGBAResidual": [
+        127,
+        127,
+        128,
+        8
+      ],
+      "meanRGBAAbsoluteResidual": [
+        0.058866343103853386,
+        0.10919877819548872,
+        0.17491849741541354,
+        0.0015740645559210527
+      ],
+      "nativeOpaqueIndependentAlphaBelow250": 0,
+      "ownJoinedReplay": true
+    }
+  },
+  "consumerReplay": {
+    "landscape-N-phase0.61-gray.png": {
+      "pixelEqual": true,
+      "size": [
+        116,
+        132
+      ]
+    },
+    "logical-N-phase0.61-gray.png": {
+      "pixelEqual": true,
+      "size": [
+        462,
+        525
+      ]
+    },
+    "phone-N-phase0.61-gray.png": {
+      "pixelEqual": true,
+      "size": [
+        116,
+        132
+      ]
+    },
+    "landscape-E-phase0.61-gray.png": {
+      "pixelEqual": true,
+      "size": [
+        116,
+        132
+      ]
+    },
+    "phone-E-phase0.61-gray.png": {
+      "pixelEqual": true,
+      "size": [
+        116,
+        132
+      ]
+    },
+    "logical-E-phase0.61-gray.png": {
+      "pixelEqual": true,
+      "size": [
+        461,
+        525
+      ]
+    },
+    "logical-S-phase0.61-gray.png": {
+      "pixelEqual": true,
+      "size": [
+        461,
+        619
+      ]
+    },
+    "phone-S-phase0.61-gray.png": {
+      "pixelEqual": true,
+      "size": [
+        116,
+        155
+      ]
+    },
+    "landscape-S-phase0.61-gray.png": {
+      "pixelEqual": true,
+      "size": [
+        116,
+        155
+      ]
+    },
+    "landscape-W-phase0.61-gray.png": {
+      "pixelEqual": true,
+      "size": [
+        116,
+        155
+      ]
+    },
+    "logical-W-phase0.61-gray.png": {
+      "pixelEqual": true,
+      "size": [
+        462,
+        619
+      ]
+    },
+    "phone-W-phase0.61-gray.png": {
+      "pixelEqual": true,
+      "size": [
+        116,
+        155
+      ]
+    }
+  }
+}

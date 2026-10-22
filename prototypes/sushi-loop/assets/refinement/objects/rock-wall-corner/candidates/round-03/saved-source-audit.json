@@ -1,0 +1,298 @@
+{
+  "kind": "Actual reopened standalone source measurements; no source changes",
+  "sourceSHA256": "3b6901891ae7043cdb9691e2a99d0d14397247deef1f8ce9c1e95a79ac5640b9",
+  "boundMin": [
+    -0.5,
+    -0.5,
+    0.0
+  ],
+  "boundMax": [
+    0.5,
+    0.5,
+    1.149999976158142
+  ],
+  "ports": {
+    "W": {
+      "plane": -0.5,
+      "actualOpenMeshBoundarySamples": 825,
+      "maxExposedBoundaryProfileDistance": 4.465872324285999e-08,
+      "crown": 1.149999976158142,
+      "supportTransverseRange": [
+        -0.5,
+        0.5
+      ]
+    },
+    "N": {
+      "plane": 0.5,
+      "actualOpenMeshBoundarySamples": 825,
+      "maxExposedBoundaryProfileDistance": 5.242545767595857e-08,
+      "crown": 1.149999976158142,
+      "supportTransverseRange": [
+        -0.5,
+        0.5
+      ]
+    }
+  },
+  "boundaryActualVsCanonical": {
+    "samples": 584,
+    "maxAlbedoLinearError": 2.8615886993321737e-08,
+    "maxNormalDelta": 0.0005561039825497102,
+    "maxNormalDeltaExcludingSingleSharedNWConicalPoint": 0.0005561039825497102,
+    "sharedNWPointTreatment": "Two native triangles carry split face-corner normals at the conical NW apex. Each edge limit is measured against its actual adjacent canonical port normal; no averaging across the two limiting port surfaces."
+  },
+  "material": {
+    "attribute": "stone_albedo",
+    "roughness": 0.8799999952316284,
+    "specular": 0.11999999731779099,
+    "emission": 0.3799999952316284,
+    "imageNodes": 0
+  },
+  "sourceObjects": [
+    {
+      "name": "rock-family-overhead",
+      "type": "LIGHT",
+      "parent": null
+    },
+    {
+      "name": "rock-family-north",
+      "type": "LIGHT",
+      "parent": null
+    },
+    {
+      "name": "rock-family-east",
+      "type": "LIGHT",
+      "parent": null
+    },
+    {
+      "name": "rock-family-south",
+      "type": "LIGHT",
+      "parent": null
+    },
+    {
+      "name": "rock-family-west",
+      "type": "LIGHT",
+      "parent": null
+    },
+    {
+      "name": "Registered square top-front camera",
+      "type": "CAMERA",
+      "parent": null
+    },
+    {
+      "name": "rock-wall-corner__root",
+      "type": "EMPTY",
+      "parent": null
+    },
+    {
+      "name": "rock-wall-corner__W_native_connector",
+      "type": "MESH",
+      "parent": "rock-wall-corner__root"
+    },
+    {
+      "name": "rock-wall-corner__N_native_connector",
+      "type": "MESH",
+      "parent": "rock-wall-corner__root"
+    },
+    {
+      "name": "rock-wall-corner__broad_worn_crown",
+      "type": "MESH",
+      "parent": "rock-wall-corner__root"
+    },
+    {
+      "name": "rock-wall-corner__S_carved_stone_courses",
+      "type": "MESH",
+      "parent": "rock-wall-corner__root"
+    },
+    {
+      "name": "rock-wall-corner__E_carved_stone_courses",
+      "type": "MESH",
+      "parent": "rock-wall-corner__root"
+    },
+    {
+      "name": "rock-wall-corner__full_ground_support",
+      "type": "MESH",
+      "parent": "rock-wall-corner__root"
+    }
+  ],
+  "noCompanionMiddleSaved": true,
+  "resources": {
+    "images": [],
+    "libraries": []
+  },
+  "frame": [
+    768,
+    1408
+  ],
+  "pixelAspect": [
+    1.2206555604934692,
+    1.0
+  ],
+  "fps": 12,
+  "frameRange": [
+    1,
+    1
+  ],
+  "staticActions": 0,
+  "engine": "CYCLES",
+  "samples": 48,
+  "filter": "BOX",
+  "filterSize": 1.5,
+  "denoise": false,
+  "seed": 0,
+  "rootMatrix": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "replayViews": {
+    "S": {
+      "direction": "S",
+      "rootRotationZ": 0.0,
+      "rootRotationDegrees": 0.0,
+      "actualRootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path": "candidates/round-03/replay/native-static-S.png"
+    },
+    "E": {
+      "direction": "E",
+      "rootRotationZ": 1.5707963705062866,
+      "rootRotationDegrees": 90.00000250447816,
+      "actualRootMatrix": [
+        [
+          -4.371138828673793e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          -4.371138828673793e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path": "candidates/round-03/replay/native-static-E.png"
+    },
+    "N": {
+      "direction": "N",
+      "rootRotationZ": 3.1415927410125732,
+      "rootRotationDegrees": 180.00000500895632,
+      "actualRootMatrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path": "candidates/round-03/replay/native-static-N.png"
+    },
+    "W": {
+      "direction": "W",
+      "rootRotationZ": -1.5707963705062866,
+      "rootRotationDegrees": -90.00000250447816,
+      "actualRootMatrix": [
+        [
+          -4.371138828673793e-08,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -1.0,
+          -4.371138828673793e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path": "candidates/round-03/replay/native-static-W.png"
+    }
+  }
+}

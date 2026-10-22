@@ -1,0 +1,115 @@
+{
+  "round": "round-03",
+  "asset": "rock-wall-corner",
+  "verdict": "revise",
+  "candidatePacketSHA256": "7a55d21d1fc79d8e4ea0edac84cdd8093da8abc82e0211a54c4510e0794fb8ac",
+  "reviewer": "Original independent visual/source judge; same judge as preparation-v1",
+  "reviewedAtUTC": "2026-10-22T11:00:08.250915+00:00",
+  "frozenBriefSHA256": "08a40bb9e70485263776b8006dbec59e7b28f3166f3113f9c170946256b289b4",
+  "frozenNativeContractSHA256": "ca67d1e07a787ba0bb2635cb660d0dea9bfb76288fea7ffef938e69f239cc723",
+  "inspectedFiles": [
+    "published-static-N.png",
+    "published-static-E.png",
+    "published-static-S.png",
+    "published-static-W.png",
+    "previews/consumer-all4-dark.png",
+    "previews/consumer-all4-gray.png",
+    "previews/consumer-all4-light.png",
+    "previews/independent-joins-all4-dark.png",
+    "previews/independent-joins-all4-gray.png",
+    "previews/independent-joins-all4-light.png",
+    "previews/join-crown-cross-sections.png",
+    "previews/lower-side-and-ground-alpha.png",
+    "previews/native-joins-all4-dark.png",
+    "previews/native-joins-all4-gray.png",
+    "previews/native-joins-all4-light.png",
+    "previews/standalone-all4-dark.png",
+    "previews/standalone-all4-gray.png",
+    "previews/standalone-all4-light.png"
+  ],
+  "additionalInspectedFiles": [
+    "native-static-N.png",
+    "native-static-E.png",
+    "native-static-S.png",
+    "native-static-W.png",
+    "consumer/logical-N-phase0-gray.png",
+    "consumer/logical-E-phase0-gray.png",
+    "consumer/logical-S-phase0-gray.png",
+    "consumer/logical-W-phase0-gray.png"
+  ],
+  "referenceInspections": [
+    "inputs/original.png",
+    "inputs/target.png",
+    "reviews/initial.json",
+    "reviews/proposedcriteria.json",
+    "inputs/root-native-contract.json",
+    "Approved-middle actual source, through reviews/round-03-independent/resources/canonical-middle.blend"
+  ],
+  "scores": {
+    "shapeVolume": 6,
+    "color": 8,
+    "lightingHighlights": 7,
+    "materialDetail": 6,
+    "artifactFreeReadability": 5,
+    "modularContinuity": 7
+  },
+  "observations": [
+    "The native design substantially improves the original blank mass: the right-angle turn reads clearly, carved stone courses exist in every facing, and lower faces retain cobalt information instead of the old near-black dead area.",
+    "Both authored ports keep the exact functional profile/crown and canonical boundary color/normal treatment within float and stored-normal quantization. Independently re-rendered native standalone and joined images match the submitted pixels in every direction; this is real native geometry, not a target card or a publication edit.",
+    "N/E show conspicuous square cyan patches behind the rounded crown. They survive the native and independently composed joined views at true logical128 cell pitch; they are part of the rendered volume, not a browser phase artifact.",
+    "S/W show a straight horizontal light/color break at about published y520 across the front of the corner, where the broad crown meets the lower carved courses. N/E have a related straight shoulder transition. These areas read as separate shell sections rather than softly worn stone masses.",
+    "The target asks for thick stone construction with softened edges and broad purposeful facets. Current long tapering grooves do provide detail, but the exposed square faces and abrupt interior construction transitions materially weaken that outcome.",
+    "Consumer logical/phone/landscape views retain a readable turn and blue stone pattern without alpha holes. The same square patches and horizontal band remain visible, especially at logical size. Light/gray/dark background checks do not remove them."
+  ],
+  "blockers": [
+    {
+      "rank": 1,
+      "dimension": [
+        "shapeVolume",
+        "materialDetail",
+        "artifactFreeReadability"
+      ],
+      "location": "N upper-left cyan rectangle, approximately published x64..155 y263..350; E mirrored upper-right. Also visible at the outer bend in both native and independent mixed-family joined N/E images. See round-03-independent/construction-defect-crops.png.",
+      "effect": "A flat square blue face protrudes visually behind the rounded stone crown, with an unnaturally straight exposed top edge. It reads as rectangular backing or an unfinished filler face rather than a substantial worn rock volume. This is materially visible at logical128 size.",
+      "desiredOutcome": "Make this part of the corner read as coherent solid worn stone, with purposeful form and softened exterior transitions. Eliminate the exposed rectangular sheet appearance while retaining the frozen W/N profile, crown and canonical join treatment."
+    },
+    {
+      "rank": 2,
+      "dimension": [
+        "lightingHighlights",
+        "materialDetail",
+        "artifactFreeReadability"
+      ],
+      "location": "S/W exterior at the crown-to-lower-face transition, around published y520 across x64..320; related straight shoulder edge in N/E. Present in native, independently joined and consumer images.",
+      "effect": "An abrupt straight shading/color boundary cuts through the carved stone pattern. Together with the stretched groove ends, it makes the upper and lower volumes look assembled as separate shells rather than one softly lit rock formation.",
+      "desiredOutcome": "Give the nonfunctional crown/exterior junction continuous native form, normals and material treatment so broad stone planes and their crevices flow around the turn without the straight horizontal belt. Preserve the exact functional endpoint treatment and single canonical capture recipe."
+    }
+  ],
+  "remainingDifferences": [
+    "Exact target pebble counts, individual crack positions and target cyan outline are not required. A corner-appropriate stone layout may differ substantially from the single front target.",
+    "The canonical family palette is more restrained than the target highlights; this is acceptable where it preserves family continuity and useful form readability.",
+    "The true declared joining profile and crown1.15 remain hard constraints; neither blocker requests fitting, overlap or endpoint-profile changes."
+  ],
+  "technicalEvidence": {
+    "packetVerification": "round-03-independent/packet-verification.json: all762 packet file entries resolve and hash-match across533 unique paths; all supplied render/preview hashes verified.",
+    "resourceClosure": "round-03-independent/resource-manifest.json stores exact used mutable model/code/skill inputs. Original preparation resources remain sealed and are reused through their existing hashes.",
+    "nativeReplay": "round-03-independent/replay-and-audit.py and native-independent-audit.json: actual saved source re-opened in background Blender5.2.2. All4 native decoded images equal sealed candidate pixels. Actual root identity, native768x1408/root384,1024, basisX512/depth512/height-358.40016, pixelAspect1.22065556 and orthographicScale1.5 verified.",
+    "nativeRender": "Cycles48 seed0 BOX storedfilter1.5, no denoising, Standard, no compositor, canonical native attribute shader roughness.88/specular.12/emission.38; five symmetric SUN lights with shadows disabled. No image/library/action dependencies. Actual bounds[-.5,-.5,0]..[.5,.5,1.149999976] satisfy frozen envelope; static frame1 only at12fps.",
+    "actualCanonicalPortMeasurement": {
+      "method": "Measured candidate boundary positions, actual stone_albedo values and stored face-corner normals directly against the corresponding actual canonical E ring / rotated W ring; editor intent tables were not the comparison authority.",
+      "samples": 584,
+      "maxOuterProfileDistance": 9.373626358095355e-08,
+      "maxNativeAlbedoLinearDelta": 5.960464477539063e-08,
+      "maxStoredLoopNormalVectorDelta": 0.0005561072726576569,
+      "assessment": "Small float/normal-quantization differences; no intentional gap, overlap or profile drift discovered."
+    },
+    "nativeJoins": "round-03-independent/native-joins-replay.py independently assembles the sealed corner and exact canonical middle at W[-1,0] and N[0,1], retains distinct caps, rotates whole assembly all4. All4 decoded native joined captures equal submitted native images. No welding, cap removal, camera fitting or overlap.",
+    "publication": "round-03-independent/pixel-verification.json proves whole-frame BOX4x->2x equality for all4 published images and exact single-cell atlas equality. Complete frame and transparent perimeter preserved.",
+    "consumer": "Current sprite-layout.js/world-sprite-raster.js/object-review.jsx equal frozen fixture bytes. 108 retained case records cover all4 facings, light/gray/dark, logical128/phone32/landscape32, phases0/.25/.61 and .9875 fractional scale. Independent review-local fixture replays12 fractional all4 logical/phone/landscape gray cases with pixel equality. Nearest is applied after canvas resize and ordinary final whole-canvas filtering remains auto.",
+    "visualSheetVerification": "36 submitted standalone/native-joined/independent-joined sheet cells independently reconstructed from actual frames at declared coordinates and checked pixel-equal; all14 unique submitted previews visually inspected, including three consumer background sheets and actual logical128 raw cases.",
+    "alphaAndResiduals": "All680 supplied lower-side/crown/ground cross-section pixel records independently match raw native/independent frames. No native alpha>=254 pixel falls below250 in the independent composition. Native-vs-independent RGB is not exactly equal: retained opaque maxima25/26/20/21 for N/E/S/W, with low-alpha maxima up191. Worst crops retained in opaque-residual-worst-crops.png; these residuals were inspected, not repaired or mislabeled as zero.",
+    "limits": "Technical contact/replay success does not certify the aesthetic construction defects. No source/target/brief/production/Git/live Blender writes or extra agents; only new own review evidence and this bound revise verdict."
+  },
+  "supplementalManifest": "round-03-independent/review-manifest.json",
+  "approval": false
+}

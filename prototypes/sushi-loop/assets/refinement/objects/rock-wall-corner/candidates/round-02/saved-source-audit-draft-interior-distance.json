@@ -1,0 +1,298 @@
+{
+  "kind": "Actual reopened standalone source measurements; no source changes",
+  "sourceSHA256": "98aa5515d039ccf6bd7d69417fd0091cac7ca3739ae9c20c06f372e2fc9bc4fb",
+  "boundMin": [
+    -0.5,
+    -0.5,
+    0.0
+  ],
+  "boundMax": [
+    0.5,
+    0.5,
+    1.149999976158142
+  ],
+  "ports": {
+    "W": {
+      "plane": -0.5,
+      "pointCount": 2435,
+      "maxProfileDistance": 0.5,
+      "crown": 1.149999976158142,
+      "supportTransverseRange": [
+        -0.5,
+        0.5
+      ]
+    },
+    "N": {
+      "plane": 0.5,
+      "pointCount": 2437,
+      "maxProfileDistance": 0.49999997814430586,
+      "crown": 1.149999976158142,
+      "supportTransverseRange": [
+        -0.5,
+        0.5
+      ]
+    }
+  },
+  "boundaryActualVsCanonical": {
+    "samples": 584,
+    "maxAlbedoLinearError": 2.8615886993321737e-08,
+    "maxNormalDelta": 1.4110111597087998,
+    "maxNormalDeltaExcludingSingleSharedNWConicalPoint": 0.0003745043692316955,
+    "sharedNWPointResidual": "The two perpendicular ports share one conical roof point at NW at z=.67. One common vertex cannot simultaneously carry two rotated normals; N analytic normal is stored there. All other exposed boundary samples use actual canonical native normals. Full raw residuals retained."
+  },
+  "material": {
+    "attribute": "stone_albedo",
+    "roughness": 0.8799999952316284,
+    "specular": 0.11999999731779099,
+    "emission": 0.3799999952316284,
+    "imageNodes": 0
+  },
+  "sourceObjects": [
+    {
+      "name": "rock-family-overhead",
+      "type": "LIGHT",
+      "parent": null
+    },
+    {
+      "name": "rock-family-north",
+      "type": "LIGHT",
+      "parent": null
+    },
+    {
+      "name": "rock-family-east",
+      "type": "LIGHT",
+      "parent": null
+    },
+    {
+      "name": "rock-family-south",
+      "type": "LIGHT",
+      "parent": null
+    },
+    {
+      "name": "rock-family-west",
+      "type": "LIGHT",
+      "parent": null
+    },
+    {
+      "name": "Registered square top-front camera",
+      "type": "CAMERA",
+      "parent": null
+    },
+    {
+      "name": "rock-wall-corner__root",
+      "type": "EMPTY",
+      "parent": null
+    },
+    {
+      "name": "rock-wall-corner__W_native_connector",
+      "type": "MESH",
+      "parent": "rock-wall-corner__root"
+    },
+    {
+      "name": "rock-wall-corner__N_native_connector",
+      "type": "MESH",
+      "parent": "rock-wall-corner__root"
+    },
+    {
+      "name": "rock-wall-corner__broad_worn_crown",
+      "type": "MESH",
+      "parent": "rock-wall-corner__root"
+    },
+    {
+      "name": "rock-wall-corner__S_carved_stone_courses",
+      "type": "MESH",
+      "parent": "rock-wall-corner__root"
+    },
+    {
+      "name": "rock-wall-corner__E_carved_stone_courses",
+      "type": "MESH",
+      "parent": "rock-wall-corner__root"
+    },
+    {
+      "name": "rock-wall-corner__full_ground_support",
+      "type": "MESH",
+      "parent": "rock-wall-corner__root"
+    }
+  ],
+  "noCompanionMiddleSaved": true,
+  "resources": {
+    "images": [],
+    "libraries": []
+  },
+  "frame": [
+    768,
+    1408
+  ],
+  "pixelAspect": [
+    1.2206555604934692,
+    1.0
+  ],
+  "fps": 12,
+  "frameRange": [
+    1,
+    1
+  ],
+  "staticActions": 0,
+  "engine": "CYCLES",
+  "samples": 48,
+  "filter": "BOX",
+  "filterSize": 1.5,
+  "denoise": false,
+  "seed": 0,
+  "rootMatrix": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "replayViews": {
+    "S": {
+      "direction": "S",
+      "rootRotationZ": 0.0,
+      "rootRotationDegrees": 0.0,
+      "actualRootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path": "candidates/round-02/replay/native-static-S.png"
+    },
+    "E": {
+      "direction": "E",
+      "rootRotationZ": 1.5707963705062866,
+      "rootRotationDegrees": 90.00000250447816,
+      "actualRootMatrix": [
+        [
+          -4.371138828673793e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          -4.371138828673793e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path": "candidates/round-02/replay/native-static-E.png"
+    },
+    "N": {
+      "direction": "N",
+      "rootRotationZ": 3.1415927410125732,
+      "rootRotationDegrees": 180.00000500895632,
+      "actualRootMatrix": [
+        [
+          -1.0,
+          8.742277657347586e-08,
+          0.0,
+          0.0
+        ],
+        [
+          -8.742277657347586e-08,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path": "candidates/round-02/replay/native-static-N.png"
+    },
+    "W": {
+      "direction": "W",
+      "rootRotationZ": -1.5707963705062866,
+      "rootRotationDegrees": -90.00000250447816,
+      "actualRootMatrix": [
+        [
+          -4.371138828673793e-08,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -1.0,
+          -4.371138828673793e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "path": "candidates/round-02/replay/native-static-W.png"
+    }
+  }
+}
