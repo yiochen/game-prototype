@@ -140,9 +140,114 @@
       "Total576frames/48clips: preserve rig/rest topology, foot/hand/seat/mouth/dish/food contacts, timing/nonloopbehavior, sourcecardinalS0/E+90/N180/W-90. Source35degreecamera/native384x640/root96,248/scale2.",
       "Verify everyframe via native measurements/sheets and actualtemporal playback,light/gray/dark backgrounds,sitting/stool/eating contexts. Do not leaveoldstyle overlays active."
     ],
-    "foodDisplayDepth": "Preserve exact canonical food bytes/fullUV/aspect/.35worldcell width and original food-root/palm/platebottom projected anchors, all action/visibility paths and camera-facing yaw cancellation. For natural body/food occlusion, allow one constant display-depth scalar per food composition in0..0.6worldcells, identical across all states/frames/facings. It must move only along the exact registered orthographic camera ray, preserve every projected quad corner/platebottom position/size, and be proved across all original samples. Keep source baseline0.6 in provenance. No per-view hiding/regrade/fitting/body contact shifts; keep empty meal variants empty. This2D display ordering is excluded from physical nativebody bounds."
+    "foodDisplayDepth": "Use exact canonical packed2D food bytes, fullUV and canonical aspect. Apply the one fixed source-specific map in reviews/proposed-food-mappings.json at alpha>=128, preserving source occupied plate width and actual bottom-rim support; sensitivity64/192 is evidence. The old padded .35 fullquad width is not the occupied width and is superseded by this semantic map. Preserve original food-root/palm/action/visibility and camera-facing yaw cancellation. Source display depth .6worldcells is provenance; one constant per composition in [0,.6] may move only along exact registered orthographic camera ray, identical across states/frames/facings, preserving all mapped projected quad corners and semantic support. No per-view/pose fitting, hiding or recoloring; empty meal remains empty. Exclude2D display card from physical bodybounds.",
+    "functionalGeometryEnvelope": {
+      "nominalNeutralBodyHeightWorld": 1.2746186554431915,
+      "groundFootprintCells": [
+        1,
+        1
+      ],
+      "xyWorldMaxAbs": 0.5,
+      "numericalToleranceWorld": 1e-05,
+      "perClipBodyZWorld": {
+        "stand": [
+          -1.932120907710555e-08,
+          1.2761056423187256
+        ],
+        "walk": [
+          -3.552145688701103e-08,
+          1.265060007572174
+        ],
+        "seated-wait": [
+          0.5041979625821114,
+          1.74697607755661
+        ],
+        "eat": [
+          0.5041979625821114,
+          1.7469775676727295
+        ],
+        "sit-down": [
+          1.1109793085495312e-08,
+          1.7468436062335968
+        ],
+        "stand-up": [
+          1.1109793085495312e-08,
+          1.7468436062335968
+        ],
+        "happy": [
+          1.1109793085495312e-08,
+          1.3342472910881042
+        ],
+        "restless": [
+          1.1109793085495312e-08,
+          1.2746185064315796
+        ],
+        "puzzled": [
+          5.261098223741101e-09,
+          1.2746185064315796
+        ],
+        "panic": [
+          -1.8310648552954945e-08,
+          1.2641417980194092
+        ],
+        "eat-salmon": [
+          0.5041979625821114,
+          1.7469775676727295
+        ],
+        "seated-wait-empty": [
+          0.5041979625821114,
+          1.74697607755661
+        ]
+      },
+      "transformAndSocketToleranceWorld": 1e-05,
+      "remodeledSupportSurfaceToleranceWorld": 0.005,
+      "interpretation": "Rig/rest/actions/contact trajectories fixed. Body shapes, proportions and topology free within the1cell footprint and actual per-clip dynamic clearance, not old coordinates or mesh counts. Seated/jumping maximum is not neutral standingheight. Do not fit camera or frames. Exclude camera-biased food from physical bounds. The proposed+.01per-frame ceiling is not adopted; use recorded clip envelope plus1e-5 numerical tolerance. Support surface tolerance .005 is for remodeled sole/palm/seat plausibility, not permission to move rig/contact sockets."
+    },
+    "nativeSourceContract": {
+      "path": "reviews/proposed-source-contract.json",
+      "sha256": "d066c501f7635a35d32298bf386493d4aed89f3314d3eedac24b21e7727161b8",
+      "binding": "Actual source scene/collection/camera/root/rest/actions/contacts/cardinal measurements bind the contract; body source mesh coordinates/oldshape counts are diagnostic baseline only. Dynamic clearance policy in constraints.functionalGeometryEnvelope supersedes proposal tolerances."
+    },
+    "runtimeCardinals": "All new main/runtime exports follow native S0/E90/N180/W-90; original Ellis labels independently agree. No gameplay routing changes."
   },
-  "qualityCriteria": {},
+  "qualityCriteria": {
+    "status": "frozen-before-editor-candidate",
+    "criteriaFile": "reviews/proposedcriteria.json",
+    "criteriaFileSHA256": "cb0a2b94953855ac0fb2876895bc86ad0fe0c540e3935a6b0753a2bcd97e229e",
+    "rankedOutcomes": [
+      {
+        "rank": 1,
+        "category": "shapeVolume",
+        "desiredOutcome": "A deliberately modeled chibi customer with a softly rounded head, coherent full blue-black hair, readable round spectacles, soft hands, constructed shirt and believable compact shoes. Replace the flat faceted cap, segmented fringe, box palms, token collar rectangles and thin foot bars with coherent native forms. Proportions, construction and topology may improve inside the functional envelope; existing part counts and body coordinates are not locked.",
+        "visibleEvidence": "Front silhouette and all four facings read as the same warm cartoon character; crown, fringe, side and back hair fit together without scalp wedges, floating lobes, doubled shells or a blank slab. Garments remain distinct from skin and trousers during every pose."
+      },
+      {
+        "rank": 2,
+        "category": "lightingHighlights",
+        "desiredOutcome": "Broad soft form shading that reveals cheek, hair, cloth and shoe volume. Warmth comes from palette and gentle light rather than a hard yellow side rim. Retain horizontal rotational symmetry for world sprites and no directional ground shadow.",
+        "visibleEvidence": "No one-facing highlight privilege, black lower-body bands, faceted lighting stripes, blown skin patches or dead navy areas. Required N/E/S/W frames remain comparably legible."
+      },
+      {
+        "rank": 3,
+        "category": "color",
+        "desiredOutcome": "Preserve the identity palette while moving toward the target warm golden skin, blue-black hair and bright blue shirt with readable navy lower garments. Keep skin natural and warm, highlights soft, blue apparel distinct from near-black hair and glasses.",
+        "visibleEvidence": "Face, pupils and round glasses remain readable at the logical 192x320 frame; shirt does not become neon cyan and skin does not become orange. Avoid muddy material merges."
+      },
+      {
+        "rank": 4,
+        "category": "materialDetail",
+        "desiredOutcome": "Hair, skin, cloth and shoes should feel softly finished but distinct. Useful native collar/placket/cuff/hem/sole or pocket construction should enrich the design where readable; precise target microtexture and exact decorative counts are optional.",
+        "visibleEvidence": "Rounded edges and purposeful detail survive normal game scale without stipple, glitter, noisy fine lines, glossy plastic glare or unrelated decorations. Hair lobes form a coherent style from side and back."
+      },
+      {
+        "rank": 5,
+        "category": "artifactFreeReadability",
+        "desiredOutcome": "The character and expression remain clear at use size, with stable limb and food contacts through all required animation frames and real temporal playback. The existing food remains explicitly exact packed 2D food.",
+        "visibleEvidence": "No clipped hands/glasses/cheeks, beard-like smile artifacts, scalp gaps, overlapping shells, texture swimming, sudden plate/body cuts, heel drift, seat penetration, missing torso/limb surfaces, fringe flicker, silhouettes outside the registered canvas or premultiplied edge halos on light/gray/dark backgrounds."
+      }
+    ],
+    "reconciliation": "Accept visible criteria and actual source contract. Native body modeling/structure/detail free within functional envelope. Supersede proposed numerical ceiling with explicit per-clip envelope; accept1e-5 transforms and.005 remodeled support surface tolerance. Semantic food mapping supersedes legacy nominal.35width text. Inspect all576frames/48realclips and allfacing use-size/context."
+  },
   "delivery": {
     "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
     "requiredClips": [
@@ -552,7 +657,7 @@
       "packetSHA256": "e7a8682233052e676135edd19ba7c98b057e6d7075074a5eb344e0a3558f3ae6",
       "review": "../dish-salmon/reviews/round01.json",
       "reviewSHA256": "c19b7c702158dec570e3181289b7606a87e966e3a33ecb2f0b5ada4bc5c68c67",
-      "policy": "Preserve exact canonical food bytes/fullUV/aspect/.35worldcell width and original food-root/palm/platebottom projected anchors, all action/visibility paths and camera-facing yaw cancellation. For natural body/food occlusion, allow one constant display-depth scalar per food composition in0..0.6worldcells, identical across all states/frames/facings. It must move only along the exact registered orthographic camera ray, preserve every projected quad corner/platebottom position/size, and be proved across all original samples. Keep source baseline0.6 in provenance. No per-view hiding/regrade/fitting/body contact shifts; keep empty meal variants empty. This2D display ordering is excluded from physical nativebody bounds."
+      "policy": "Use exact canonical packed2D food bytes, fullUV and canonical aspect. Apply the one fixed source-specific map in reviews/proposed-food-mappings.json at alpha>=128, preserving source occupied plate width and actual bottom-rim support; sensitivity64/192 is evidence. The old padded .35 fullquad width is not the occupied width and is superseded by this semantic map. Preserve original food-root/palm/action/visibility and camera-facing yaw cancellation. Source display depth .6worldcells is provenance; one constant per composition in [0,.6] may move only along exact registered orthographic camera ray, identical across states/frames/facings, preserving all mapped projected quad corners and semantic support. No per-view/pose fitting, hiding or recoloring; empty meal remains empty. Exclude2D display card from physical bodybounds."
     },
     "dish-cucumber": {
       "asset": "dish-cucumber",
@@ -563,7 +668,7 @@
       "packetSHA256": "255d202624fb38a991d4d61e797146dd9c4b7601aa09f6cc95dac2249262c72f",
       "review": "../dish-cucumber/reviews/round02.json",
       "reviewSHA256": "a649ebe99484075ade796f38f0da76dba17f427b9ff277d202e72c8ebf43b854",
-      "policy": "Preserve exact canonical food bytes/fullUV/aspect/.35worldcell width and original food-root/palm/platebottom projected anchors, all action/visibility paths and camera-facing yaw cancellation. For natural body/food occlusion, allow one constant display-depth scalar per food composition in0..0.6worldcells, identical across all states/frames/facings. It must move only along the exact registered orthographic camera ray, preserve every projected quad corner/platebottom position/size, and be proved across all original samples. Keep source baseline0.6 in provenance. No per-view hiding/regrade/fitting/body contact shifts; keep empty meal variants empty. This2D display ordering is excluded from physical nativebody bounds."
+      "policy": "Use exact canonical packed2D food bytes, fullUV and canonical aspect. Apply the one fixed source-specific map in reviews/proposed-food-mappings.json at alpha>=128, preserving source occupied plate width and actual bottom-rim support; sensitivity64/192 is evidence. The old padded .35 fullquad width is not the occupied width and is superseded by this semantic map. Preserve original food-root/palm/action/visibility and camera-facing yaw cancellation. Source display depth .6worldcells is provenance; one constant per composition in [0,.6] may move only along exact registered orthographic camera ray, identical across states/frames/facings, preserving all mapped projected quad corners and semantic support. No per-view/pose fitting, hiding or recoloring; empty meal remains empty. Exclude2D display card from physical bodybounds."
     }
   },
   "foodMapping": {
@@ -581,6 +686,12 @@
     "dish-salmon:review": "../dish-salmon/reviews/round01.json",
     "dish-cucumber:canonicalArt": "../../../production/source/2d/refinement/dish-cucumber/source/round01/dish-cucumber.png",
     "dish-cucumber:packet": "../dish-cucumber/candidates/round02/packet.json",
-    "dish-cucumber:review": "../dish-cucumber/reviews/round02.json"
+    "dish-cucumber:review": "../dish-cucumber/reviews/round02.json",
+    "native-source-contract": "reviews/proposed-source-contract.json",
+    "food-semantic-mapping": "reviews/proposed-food-mappings.json",
+    "main-contact-baselines": "reviews/main-contact-baselines.json",
+    "runtime-contact-baselines": "reviews/runtime-contact-baselines.json",
+    "main-native-baseline": "reviews/main-audit.json",
+    "runtime-native-baseline": "reviews/runtime-audit.json"
   }
 }

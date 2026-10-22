@@ -182,15 +182,19 @@
     {
       "object": "customer-ellis",
       "food": "dish-salmon",
-      "status": "pending-new-source-round-and-independent-review",
+      "status": "main-and-runtime-independently-approved-final-Godot-sync-pending",
       "sameObjectPair": {
-        "editor": null,
-        "judge": null
+        "editor": "catalog_customer_ellis_editor_v1",
+        "judge": "catalog_customer_ellis_judge_v1"
       },
       "runtimeExtraClips": [
         "eat-salmon"
       ],
-      "scope": "Supplemental runtime salmon meal"
+      "scope": "Supplemental runtime salmon meal",
+      "round": "round-03",
+      "packetSHA256": "1176169b3b759dbb5993e4003597aec0989e60a423b384b1b9744f894f01e396",
+      "reviewSHA256": "91f4362a309d07bf8823304983eeca9a85933aef9d39fe3e3e0e7512764beef8",
+      "runtimeApproval": "objects/customer-ellis/final/runtime-variant-approval.json"
     },
     {
       "object": "customer-ellis",
@@ -208,12 +212,16 @@
         "puzzled",
         "panic"
       ],
-      "status": "pending-new-source-round-and-independent-review",
+      "status": "main-and-runtime-independently-approved-final-Godot-sync-pending",
       "sameObjectPair": {
-        "editor": null,
-        "judge": null
+        "editor": "catalog_customer_ellis_editor_v1",
+        "judge": "catalog_customer_ellis_judge_v1"
       },
-      "basis": "Original source-rig action owners explicitly reference held_dish-cucumber; confirm actual packedimage hash/visibility in original scene before editing."
+      "basis": "Original source-rig action owners explicitly reference held_dish-cucumber; confirm actual packedimage hash/visibility in original scene before editing.",
+      "round": "round-03",
+      "packetSHA256": "1176169b3b759dbb5993e4003597aec0989e60a423b384b1b9744f894f01e396",
+      "reviewSHA256": "91f4362a309d07bf8823304983eeca9a85933aef9d39fe3e3e0e7512764beef8",
+      "runtimeApproval": "objects/customer-ellis/final/runtime-variant-approval.json"
     },
     {
       "object": "customer-samir",
@@ -422,7 +430,8 @@
     "approvals": {
       "customer-rosa": "objects/customer-rosa/final/runtime-variant-approval.json",
       "customer-samir": "objects/customer-samir/final/runtime-variant-approval.json",
-      "customer-june": "objects/customer-june/final/runtime-variant-approval.json"
+      "customer-june": "objects/customer-june/final/runtime-variant-approval.json",
+      "customer-ellis": "objects/customer-ellis/final/runtime-variant-approval.json"
     }
   },
   "feedbackVariants": {
@@ -467,7 +476,7 @@
     "goods": "../../godot/tools/refined_goods_contract.py",
     "feedback": "../../godot/tools/refined_feedback_contract.py",
     "tests": "../../godot/tools/test_refinement_imports.py",
-    "verification": "Eleven isolated integration tests pass approved goods/smile/Omar96 and every available customer96 bundle (Rosa/Samir/June currently), plus saved legacy fixtures; reject altered registration/cadence/freshness/approvals/images/extra atlases/floor/gutters and a simulated missing individual approval. Production four-customer registry retained; working game sprite payloads unchanged.",
+    "verification": "Twelve isolated integration tests pass approved goods/smile/Omar96, all four customer96 bundles individually and the complete four-customer32-atlas384-frame import, plus saved legacy fixtures. Altered registration/cadence/freshness/approvals/images/extra atlases/floor/gutters and simulated missing individual approval are rejected. Working game payloads unchanged.",
     "actorVariants": "../../godot/tools/refined_actor_variants.py",
     "actorSync": "../../godot/tools/sync_refined_actor_variants.py",
     "individualRuntimeFixtures": {
@@ -494,7 +503,22 @@
         "frames": 96,
         "evidence": "objects/customer-june/final/runtime-import-isolated-verification.json",
         "scope": "Temporary per-customer fixture only; mandatory production four-customer registry restored; working game payloads unchanged."
+      },
+      "customer-ellis": {
+        "status": "isolated-single-customer-import-verified",
+        "objects": 1,
+        "atlases": 8,
+        "frames": 96,
+        "evidence": "objects/customer-ellis/final/runtime-import-isolated-verification.json",
+        "scope": "Temporary individual and complete four-customer recipe fixtures pass; working game payloads unchanged."
       }
+    },
+    "completeCustomerRuntimeFixture": {
+      "status": "passed-in-disposable-project-final-cutover-pending",
+      "objects": 4,
+      "atlases": 32,
+      "frames": 384,
+      "evidence": "objects/customer-ellis/final/runtime-import-isolated-verification.json"
     }
   },
   "heldPolicyClarification": {

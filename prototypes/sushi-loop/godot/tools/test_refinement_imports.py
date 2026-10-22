@@ -178,6 +178,14 @@ class RefinementImports(unittest.TestCase):
                     self.assertEqual((result['objects'], result['atlases'], result['frames']), (1, 8, 96))
         self.assertEqual(refined_actor_variants.CONTRACTS['recipe'][0], identities)
 
+    def test_complete_approved_customer_recipe_import(self):
+        fixture = self.project / 'all-customer-recipes'
+        manifest = sync_actor(PROTOTYPE, 'recipe', fixture / 'assets/recipe-variants')
+        self.assertEqual(set(manifest['objects']), {
+            'customer-rosa', 'customer-ellis', 'customer-samir', 'customer-june'})
+        result = verify_recipe_variants(fixture, SOURCE)
+        self.assertEqual((result['objects'], result['atlases'], result['frames']), (4, 32, 384))
+
     def test_legacy_formats_remain_supported(self):
         snapshot = json.loads((LEGACY / 'snapshot.json').read_text())
         for relative, expected in snapshot['files'].items():

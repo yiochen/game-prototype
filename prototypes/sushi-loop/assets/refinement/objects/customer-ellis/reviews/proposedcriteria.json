@@ -1,0 +1,65 @@
+{
+  "asset": "customer-ellis",
+  "status": "proposed awaiting coordinator freeze",
+  "sourceContract": "proposed-source-contract.json",
+  "foodMapping": "proposed-food-mappings.json",
+  "style": "Warm softly lit cartoon, preserving Ellis light golden skin, blue-black short hair, round dark glasses, blue shirt, navy trousers and dark shoes.",
+  "ranking": [
+    {
+      "rank": 1,
+      "category": "shapeVolume",
+      "desiredOutcome": "A deliberately modeled chibi customer with a softly rounded head, coherent full blue-black hair, readable round spectacles, soft hands, constructed shirt and believable compact shoes. Replace the flat faceted cap, segmented fringe, box palms, token collar rectangles and thin foot bars with coherent native forms. Proportions, construction and topology may improve inside the functional envelope; existing part counts and body coordinates are not locked.",
+      "visibleEvidence": "Front silhouette and all four facings read as the same warm cartoon character; crown, fringe, side and back hair fit together without scalp wedges, floating lobes, doubled shells or a blank slab. Garments remain distinct from skin and trousers during every pose."
+    },
+    {
+      "rank": 2,
+      "category": "lightingHighlights",
+      "desiredOutcome": "Broad soft form shading that reveals cheek, hair, cloth and shoe volume. Warmth comes from palette and gentle light rather than a hard yellow side rim. Retain horizontal rotational symmetry for world sprites and no directional ground shadow.",
+      "visibleEvidence": "No one-facing highlight privilege, black lower-body bands, faceted lighting stripes, blown skin patches or dead navy areas. Required N/E/S/W frames remain comparably legible."
+    },
+    {
+      "rank": 3,
+      "category": "color",
+      "desiredOutcome": "Preserve the identity palette while moving toward the target warm golden skin, blue-black hair and bright blue shirt with readable navy lower garments. Keep skin natural and warm, highlights soft, blue apparel distinct from near-black hair and glasses.",
+      "visibleEvidence": "Face, pupils and round glasses remain readable at the logical 192x320 frame; shirt does not become neon cyan and skin does not become orange. Avoid muddy material merges."
+    },
+    {
+      "rank": 4,
+      "category": "materialDetail",
+      "desiredOutcome": "Hair, skin, cloth and shoes should feel softly finished but distinct. Useful native collar/placket/cuff/hem/sole or pocket construction should enrich the design where readable; precise target microtexture and exact decorative counts are optional.",
+      "visibleEvidence": "Rounded edges and purposeful detail survive normal game scale without stipple, glitter, noisy fine lines, glossy plastic glare or unrelated decorations. Hair lobes form a coherent style from side and back."
+    },
+    {
+      "rank": 5,
+      "category": "artifactFreeReadability",
+      "desiredOutcome": "The character and expression remain clear at use size, with stable limb and food contacts through all required animation frames and real temporal playback. The existing food remains explicitly exact packed 2D food.",
+      "visibleEvidence": "No clipped hands/glasses/cheeks, beard-like smile artifacts, scalp gaps, overlapping shells, texture swimming, sudden plate/body cuts, heel drift, seat penetration, missing torso/limb surfaces, fringe flicker, silhouettes outside the registered canvas or premultiplied edge halos on light/gray/dark backgrounds."
+    }
+  ],
+  "technicalRequirements": [
+    "Exact main source library and actual Ellis collection/camera; native editable .blend; source and target hashes retained. No target image used as actor mesh or face billboard.",
+    "384x640 native frames, logical192x320/root96,248, sourceScale2, cell128 logical, square pixel, 35 degree registered orthographic camera, fixed1.25 root uniform scale and world origin. Match actual saved camera matrix and shift in proposed-source-contract.json with a small numerical tolerance; never fit a view.",
+    "480 catalog native samples: original10clips x12frames x4directions, 40atlases,40actual12fpsclips. Supplemental96native samples: eat-salmon/seated-wait-empty x12x4,8atlases/clips; supplemental only, no extra catalog states.",
+    "Preserve native rig/rest topology and all original action owner paths, key values/timing/loop closure. Main source has25bones and60clip-owner actions; runtime variants use matching rest data and12clip-owner actions. Camera/cardinals are S0 E90 N180 W-90, independently verified against original Ellis atlas labels.",
+    "Evaluate all576native samples for root, actual dynamic body clearance and foot/hand/seat/mouth/food-root attachment paths. Body may change; original weak shapes are evidence, not locks. Do not apply the1.274618 standing height as an absolute ceiling to seated or happy frames.",
+    "Use proposed-food-mappings.json only after coordinator freeze: canonical bytes andfullUV/aspect, alpha>=128 occupied width and actual bottom rim support; one fixed map per food,64/192sensitivity included. Keep empty variant empty and retain all authored render-visibility/yaw/food-root action paths.",
+    "Source0.6world-cell depth offset confirmed from all576samples (max perpendicular residual<5.5e-8). One constant per-food scalar in0..0.6 may change along exact camera ray only; canonical mapped corners/support must remain projected invariant across allstates/frames/facings. Exclude2Ddisplay ordering quad from physical body envelope.",
+    "No approval from static single view: require native evidence for every frame plus registered contact sheets, light/gray/dark backgrounds, actual12fps playback for48clips and seated/stool/eating contexts. Bind immutable candidate packet and all resources."
+  ],
+  "toleranceProposal": {
+    "status": "Coordinator must freeze. These are proposed practical measurement thresholds, not user-requested topology locks.",
+    "unchangedTransformsAndSocketsWorldCells": 1e-05,
+    "remodeledSupportSurfaceWorldCells": 0.005,
+    "perSampleTopClearanceCeilingAddedWorldCells": 0.01,
+    "bodyFootprintWorldCells": [
+      1,
+      1
+    ]
+  },
+  "referenceLimits": [
+    "The fixed target provides front-facing style/design guidance, not registration evidence or unseen reference views.",
+    "Ignore target framing enlargement, its directional orange rim and texture microdetail where incompatible with symmetric native capture or intended-size clarity.",
+    "Purposeful native design improvements are valuable even where they differ from the old source."
+  ],
+  "approvalPolicy": "Frozen visible outcomes plus verified capture/animation/food/contact contract and no material defects. No numerical score alone grants approval."
+}

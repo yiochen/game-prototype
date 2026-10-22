@@ -1,0 +1,79 @@
+{
+  "independentJudgeLiveBrowser": {
+    "platform": "Desktop Chrome controlled through CUA, with a temporary phone viewport override; not a physical phone or IAB.",
+    "runs": [
+      {
+        "viewport": [
+          1200,
+          1099
+        ],
+        "states": 12,
+        "streams": 48,
+        "complete": true,
+        "allAtLeast12Decoded": true,
+        "allNonloopsEnded": true,
+        "maxDroppedFrames": 0
+      },
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "states": 12,
+        "streams": 48,
+        "complete": true,
+        "allAtLeast12Decoded": true,
+        "allNonloopsEnded": true,
+        "maxDroppedFrames": 0
+      }
+    ],
+    "observations": [
+      "Viewed the full 48-stream desktop playback and the all-state 390x844 run through the actual review UI; DOM playback evidence confirmed completion and decoded counts. Complete visual pose coverage is independently established through all 48 verified twelve-frame sheets.",
+      "At 390x844, live salmon eating with registered stool remains readable. Live empty waiting on dark backdrop shows clear side spectacle arms and organized back hair, without an alpha fringe or contact break.",
+      "Temporary viewport override reset after review."
+    ],
+    "rawEvidenceLocation": "CUA tool observations in this judge turn; these observations are recorded here, not claimed as saved raw browser logs or screenshots."
+  },
+  "packetBoundCoordinatorEvidence": {
+    "browser": "Desktop headless Chromium at desktop and phone viewport dimensions; not IAB, device validation or final Godot.",
+    "path": "candidates/round-03/browser-playback.json",
+    "sha256": "14746143835a63b4cbf196a4306e4da0730fca914ea1c70daff27aaad5dbb58f",
+    "summary": [
+      {
+        "viewport": [
+          1280,
+          720
+        ],
+        "states": 12,
+        "streams": 48,
+        "complete": true,
+        "allAtLeast12Decoded": true,
+        "allNonloopsEnded": true,
+        "maxDroppedFrames": 1,
+        "allDurationOneSecond": true,
+        "allPlaybackRateOne": true
+      },
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "states": 12,
+        "streams": 48,
+        "complete": true,
+        "allAtLeast12Decoded": true,
+        "allNonloopsEnded": true,
+        "maxDroppedFrames": 0,
+        "allDurationOneSecond": true,
+        "allPlaybackRateOne": true
+      }
+    ],
+    "actualScript": "candidates/round-03/root-browser-playback.mjs",
+    "actualScriptSHA256": "c7757c688e1cfb7fe34b210f7e92645b27f03b69cfbcb1e0097dfc0ca97d663e",
+    "screenshots": [
+      "candidates/round-03/browser-desktop.png",
+      "candidates/round-03/browser-phone-eat-salmon.png",
+      "candidates/round-03/browser-phone-empty-dark.png"
+    ]
+  }
+}

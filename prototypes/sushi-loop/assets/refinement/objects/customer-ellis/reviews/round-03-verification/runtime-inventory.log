@@ -1,0 +1,13 @@
+00:00.488  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/customer-ellis/source/round-03-runtime.blend"
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/customer-ellis/reviews/round-03-verification/inventory_candidate.py:15: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  try:out[p.identifier]=val(getattr(o,p.identifier))
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/customer-ellis/reviews/round-03-verification/inventory_candidate.py:21: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  materials={m.name:{'properties':props(m),'tree':tree(m.node_tree) if m.use_nodes else None} for m in mats}
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/customer-ellis/reviews/round-03-verification/inventory_candidate.py:30: DeprecationWarning: 'Scene.use_nodes' is expected to be removed in Blender 6.0
+  out={'source':bpy.data.filepath,'sha256':hashlib.sha256(Path(bpy.data.filepath).read_bytes()).hexdigest(),'mode':MODE,'body':body,'materials':materials,'lights':[{'type':o.data.type,'energy':o.data.energy,'color':list(o.data.color),'matrix':[list(r) for r in o.matrix_world],'size':o.data.size} for o in sc.objects if o.type=='LIGHT'],'render':props(sc.render),'view':props(sc.view_settings),'sceneUseNodes':sc.use_nodes,'compositor':tree(comp) if comp else None,'images':[{'name':im.name,'packedSHA256':hashlib.sha256(bytes(im.packed_file.data)).hexdigest() if im.packed_file else None} for im in bpy.data.images]}
+BlenderMCP addon registered
+INVENTORY_DONE runtime 42 {'plane': 'S10 meal customer_ellis__ground_root.001__held_dish-cucumber__image_plane', 'visible_shadow': False, 'surface_render_method': 'BLENDED', 'use_transparency_overlap': False, 'use_transparent_shadow': False}
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

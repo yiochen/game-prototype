@@ -9,7 +9,7 @@
     248
   ],
   "cellSize": 128,
-  "captureScale": 4,
+  "captureScale": 2,
   "fps": 12,
   "axes": {
     "x": "X",
@@ -70,6 +70,11 @@
         1.0
       ]
     ],
+    "orthoScale": 1.5,
+    "shift": [
+      0.0,
+      0.4583320617675781
+    ],
     "pixelAspect": [
       1.0,
       1.0
@@ -79,44 +84,46 @@
   },
   "calibration": {
     "root": [
-      384.0,
-      992.0
+      192.0,
+      496.00000381469727
     ],
     "unitX": [
-      512.0,
+      255.99998474121094,
       0.0
     ],
     "unitDepth": [
       0.0,
-      293.6710205078125
+      146.8355217576027
     ],
     "unitHeight": [
       0.0,
-      -419.40594482421875
+      -209.7029685974121
     ]
   },
+  "nativeProjectSHA256": "f08f4217a6efb72a07ca0b0fd748c80ded321bd2a38516c884e1891fbcd324b1",
   "artStyle": {
-    "revision": "2026-10-19",
-    "environmentHeightRatio": 0.7,
-    "contrast": 1.35,
+    "revision": "warm-soft-cartoon-ellis-round03",
+    "lighting": "170W4.2 overhead + four equal95W4 cardinal fills at radius3 Z2.2; world0; no ground",
+    "roughness": "role-specific.42-.75",
+    "worldLighting": true,
+    "nativeMaterialPalette": "golden skin; blue-black hair; blue shirt; navy trousers/shoes",
+    "compositor": true,
+    "contrast": 1.350000023841858,
+    "contrastOffset": -0.17499999701976776,
     "contrastSpace": "sRGB",
-    "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
-    "lightingRig": {
-      "treatment": "Faceted",
-      "overheadWatts": 140,
-      "overheadPosition": [
-        0,
-        0,
-        4.5
-      ],
-      "overheadSize": 3.5,
-      "fillWattsEach": 100,
-      "fillSize": 4,
-      "fillRadius": 3,
-      "fillZ": 1.8,
-      "horizontalSymmetry": 4,
-      "worldStrength": 0
+    "compositorRGBOperation": "clamp(gain * channel + offset), straight alpha; convert back to scene_linear; restore premultiplied alpha"
+  },
+  "nativeRevision": {
+    "inputSource": {
+      "path": "source/round-02.blend",
+      "sha256": "efd52778e1f3949465e474809f18496e1fa67bb667fc4082f0855830b1cfcca5",
+      "role": "native-evidence"
     },
-    "lowerShading": "world-height ramp; camera view-tone bypassed"
+    "change": "Hair mesh and exposed spectacle arm paths only; original source settings retained.",
+    "compositorEvidence": {
+      "path": "candidates/round-03/native-records/compositor-main.json",
+      "sha256": "92081f9094011bc593d4fafb73e181b0f7bbc8c7d9976619e57c50b79ad0785b",
+      "role": "native-evidence"
+    }
   }
 }

@@ -1,0 +1,131 @@
+{
+  "projection": "character-orthographic",
+  "frame": [
+    192,
+    320
+  ],
+  "anchor": [
+    96,
+    248
+  ],
+  "cellSize": 128,
+  "captureScale": 2,
+  "fps": 12,
+  "axes": {
+    "x": "X",
+    "depth": "-Y",
+    "height": "Z"
+  },
+  "camera": {
+    "type": "orthographic",
+    "worldMatrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5735762715339661,
+        -0.8191521763801575,
+        -8.191520690917969
+      ],
+      [
+        0.0,
+        0.8191521763801575,
+        0.5735762715339661,
+        5.735764503479004
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "projectionMatrix": [
+      [
+        1.3333333730697632,
+        0.0,
+        0.0,
+        -0.0
+      ],
+      [
+        0.0,
+        0.800000011920929,
+        0.0,
+        -0.5499984622001648
+      ],
+      [
+        0.0,
+        0.0,
+        -0.0020001998636871576,
+        -1.0001999139785767
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "orthoScale": 1.5,
+    "shift": [
+      0.0,
+      0.4583320617675781
+    ],
+    "pixelAspect": [
+      1.0,
+      1.0
+    ],
+    "worldUnitsPerCell": 1,
+    "elevationDegrees": 35
+  },
+  "calibration": {
+    "root": [
+      192.0,
+      496.00000381469727
+    ],
+    "unitX": [
+      255.99998474121094,
+      0.0
+    ],
+    "unitDepth": [
+      0.0,
+      146.8355217576027
+    ],
+    "unitHeight": [
+      0.0,
+      -209.7029685974121
+    ]
+  },
+  "nativeProjectSHA256": "efd52778e1f3949465e474809f18496e1fa67bb667fc4082f0855830b1cfcca5",
+  "artStyle": {
+    "revision": "warm-soft-cartoon-ellis-round02",
+    "lighting": "170W4.2 overhead + four equal95W4 cardinal fills at radius3 Z2.2; world0; no ground",
+    "roughness": "role-specific.42-.75",
+    "worldLighting": true,
+    "nativeMaterialPalette": "golden skin; blue-black hair; blue shirt; navy trousers/shoes",
+    "compositor": true,
+    "contrast": 1.350000023841858,
+    "contrastOffset": -0.17499999701976776,
+    "contrastSpace": "sRGB",
+    "compositorRGBOperation": "clamp(gain * channel + offset), straight alpha; convert back to scene_linear; restore premultiplied alpha"
+  },
+  "importMetadataAdapter": {
+    "version": 1,
+    "kind": "measured-style-metadata-correction-only",
+    "original": {
+      "path": "source/round-02-camera.json",
+      "sha256": "b082ee789e5e6a766ae850ea78ea05922c34152df62799d92eef1121424d07ec",
+      "role": "unchanged-original-native-record"
+    },
+    "nativeCompositorEvidence": {
+      "path": "candidates/round-02/import-adapter-v1/compositor-main.json",
+      "sha256": "6c6a86a3c74b9689a61357b118f7a47029e917f379631ab3c721edb1a39da0cc",
+      "role": "read-only-native-compositor-evidence"
+    },
+    "change": "Correct stale compositor=false to measured active=true, and expose the measured sRGB RGB gain/offset/clamp. All other art, source and capture values remain unchanged."
+  }
+}
