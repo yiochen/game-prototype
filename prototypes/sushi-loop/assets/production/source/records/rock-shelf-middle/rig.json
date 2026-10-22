@@ -1,7 +1,10 @@
 {
   "assetId": "rock-shelf-middle",
   "fps": 12,
-  "source": "native_actions.py",
+  "source": "source/build-round-03.py",
+  "sourceSHA256": "75fa34d65ca517e3489de6bcb943941d6703f696b05f482dc344ce298dae13d9",
+  "blend": "source/round-03.blend",
+  "blendSHA256": "3e6c7cbe865a918dbeec5faf1a48af540f6290e7afc41ef4c987162617199422",
   "static": true,
   "clips": {
     "static": {
@@ -16,9 +19,12 @@
       "controlsByFrame": [
         {}
       ],
-      "geometryOwners": [],
-      "shaderChannels": [],
-      "shaderLoopClosure": {}
+      "geometryOwners": [
+        "rock-shelf-middle__sculpted_core",
+        "rock-shelf-middle__embedded_stone_A",
+        "rock-shelf-middle__embedded_stone_B"
+      ],
+      "shaderChannels": []
     }
   },
   "armatures": [],
@@ -27,28 +33,132 @@
     1
   ],
   "projection": "square-top-front-oblique",
-  "groundRootObject": "rock-shelf-middle__root.001",
+  "groundRootObject": "rock-shelf-middle__root",
   "sockets": {},
-  "notes": [
-    "Native object, rig, visibility, shape and shader channels; no raster substitutes.",
-    "Runtime frames exclude the duplicate loop closure key.",
-    "Visual contact and deformation review remains separate from these structural records."
-  ],
   "actionCount": 0,
-  "createdAtUnix": 1792392790.681132,
-  "status": "native-actions-baked-needs-visual-review",
-  "sourceFiles": {
-    "native_actions.py": "7f3514c8ce1ee37c951ded3b6669f2eb6613dfa69940858092c8476392ad51c5",
-    "character_builders.py": "f3109ec4a61266cba9a921786353e720b707e21de35095be97a6f8fe8a70738a",
-    "prop_builders.py": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a",
-    "world_components.py": "0d156c24ebd2a31422e75286417e108d22575cf75f7e6ec87cf173aebefd1c91",
-    "food_belt_builders.py": "dc3eed619cd644588da74996b99013a24ecf8ce541056d847f3a049fb54a1d95",
-    "creature_fx_builders.py": "e8da19957cf01828137326c3459cb77e76ba563029ae7b057c8306d663fa9d5b",
-    "character_composition.py": "c9e2fd0b5f69340edc14621f739bca8dc16fe97a53f9fb9219ab197ef90570f7",
-    "production_library.py": "ed2b17e2e8bb9fe86a1af0646065041f6715bb55e90a226cb2526ff6b269af19",
-    "catalog_variants.py": "329ec9b2013c990aeb45233a6e2783b0f9402aa97108f15a32ecb8a64a9d1cff",
-    "catalog_corner_supports.py": "5215531d424a8d7560cb19ca5bf05f3218f5671c346a79dc0585644462bd4b91",
-    "catalog_belt_flow.py": "0e7a979f8a0897e2a98a063d2a568fb0be8a751f72b76f9584f6949f77140fd5",
-    "catalog_clusters.py": "020f94b990987f6c4d664b5447525c6d69d66198dfd3fab8159cd9c28642ca1c"
-  }
+  "actualStaticChecks": {
+    "nativeFrame": 1,
+    "frameStart": 1,
+    "frameEnd": 1,
+    "fps": 12,
+    "loop": false,
+    "armatures": [],
+    "objectActions": [],
+    "materialActions": [],
+    "shapeKeys": []
+  },
+  "materialAnimation": [
+    {
+      "name": "rock-shelf-middle canonical blue cyan stone v3",
+      "action": null,
+      "nodeAction": null
+    },
+    {
+      "name": "rock-shelf-middle canonical planar cut stone v3",
+      "action": null,
+      "nodeAction": null
+    },
+    {
+      "name": "rock-shelf-middle__embedded_stone_A private blue-lavender stone",
+      "action": null,
+      "nodeAction": null
+    },
+    {
+      "name": "rock-shelf-middle__embedded_stone_B private blue-lavender stone",
+      "action": null,
+      "nodeAction": null
+    }
+  ],
+  "lights": [
+    {
+      "name": "shelf broad centered overhead",
+      "type": "AREA",
+      "energy": 850.0,
+      "size": 15.0,
+      "useShadow": false,
+      "position": [
+        0.0,
+        0.0,
+        18.0
+      ],
+      "rotation": [
+        0.0,
+        -0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "shelf symmetric cardinal (15, 0)",
+      "type": "AREA",
+      "energy": 1850.0,
+      "size": 12.0,
+      "useShadow": false,
+      "position": [
+        15.0,
+        0.0,
+        6.0
+      ],
+      "rotation": [
+        1.2018368244171143,
+        -0.0,
+        1.5707963705062866
+      ]
+    },
+    {
+      "name": "shelf symmetric cardinal (0, 15)",
+      "type": "AREA",
+      "energy": 1850.0,
+      "size": 12.0,
+      "useShadow": false,
+      "position": [
+        0.0,
+        15.0,
+        6.0
+      ],
+      "rotation": [
+        1.2018368244171143,
+        -1.4083425980970787e-07,
+        -3.141592502593994
+      ]
+    },
+    {
+      "name": "shelf symmetric cardinal (-15, 0)",
+      "type": "AREA",
+      "energy": 1850.0,
+      "size": 12.0,
+      "useShadow": false,
+      "position": [
+        -15.0,
+        0.0,
+        6.0
+      ],
+      "rotation": [
+        1.2018368244171143,
+        -0.0,
+        -1.5707963705062866
+      ]
+    },
+    {
+      "name": "shelf symmetric cardinal (0, -15)",
+      "type": "AREA",
+      "energy": 1850.0,
+      "size": 12.0,
+      "useShadow": false,
+      "position": [
+        0.0,
+        -15.0,
+        6.0
+      ],
+      "rotation": [
+        1.2018368244171143,
+        -0.0,
+        0.0
+      ]
+    }
+  ],
+  "nativeCaptureScale": 4,
+  "publishedSourceScale": 2,
+  "actualDirectionLedger": "candidates/round-03/pose-ledger.json",
+  "actualDirectionLedgerSHA256": "214e5cb497e2c0609181ee5d070280cc5ab232bde9689022d6f81f60909348ed",
+  "status": "measured-native-static-awaiting-independent-review"
 }

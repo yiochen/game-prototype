@@ -1,0 +1,785 @@
+{
+  "asset": "rock-shelf-middle",
+  "version": 1,
+  "status": "PROPOSED; ROOT FREEZE PENDING",
+  "scope": "First canonical low-shelf middle only. No candidate construction/approval, follow-on family approval, Git, production mutation, live Blender or device work.",
+  "source": {
+    "projectSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "backupSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "frozenCopy": "resources/source/source.blend",
+    "collection": "S33_PROP_rock-shelf-middle.001",
+    "groundRoot": "rock-shelf-middle__root.001",
+    "actualRootMatrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "sourceBasis": {
+      "x": "X",
+      "depth": "-Y",
+      "height": "Z"
+    },
+    "evidence": "evidence/native-family-profile-evidence.json",
+    "evaluatedSurfaceCorrection": "Hidden source collections initially yielded stale child matrix_world. Authoritative family evidence enables actual viewport layer evaluation before dependency graph sampling. Source cracks actually z.443..449, not local \u00b1.003. Native renders were unaffected; all4 replay exactly matches historical atlas bytes."
+  },
+  "staticMotion": {
+    "clip": "static",
+    "frames": 1,
+    "frameOrder": [
+      0
+    ],
+    "nativeFrame": 1,
+    "fps": 12,
+    "static": true,
+    "loop": false,
+    "armatures": 0,
+    "actualObjectActions": [],
+    "actualMaterialOrNodeActions": [],
+    "shapeKeys": false,
+    "evidence": "actual object and material/node animation_data checked, matching source-rig.json native_actions static[]; no animation inferred from name"
+  },
+  "registration": {
+    "projection": "top-down-oblique-square-grid",
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "cellSize": 128,
+    "nativeCaptureScale": 4,
+    "nativeFrame": [
+      768,
+      1408
+    ],
+    "publishedSourceScale": 2,
+    "publishedFrame": [
+      384,
+      704
+    ],
+    "sourceFrameColumnsRows": [
+      1,
+      1
+    ],
+    "pixelAspect": [
+      1.2206555604934692,
+      1.0
+    ],
+    "elevationDegrees": 55.00797980144134,
+    "cameraType": "ORTHO",
+    "orthoScale": 1.5,
+    "sensorFit": "HORIZONTAL",
+    "cameraWorldMatrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8192318081855774,
+        -0.5734625458717346,
+        -5.734623432159424
+      ],
+      [
+        0.0,
+        0.5734625458717346,
+        0.8192318081855774,
+        8.1923189163208
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "calibrationLogical": {
+      "root": [
+        96,
+        248
+      ],
+      "unitX": [
+        128,
+        0
+      ],
+      "unitDepth": [
+        0,
+        128
+      ],
+      "unitHeight": [
+        0,
+        -89.6
+      ]
+    },
+    "cardinalRootRotationRadians": {
+      "S": 0,
+      "E": 1.5707963267948966,
+      "N": 3.141592653589793,
+      "W": -1.5707963267948966
+    },
+    "noPerFacingFit": true,
+    "cameraConflict": "Saved .blend presentation camera is35degrees,768x1280,pixelAspect1. It is incidental; registered source camera+actual source replay establish55.0079798 square-grid profile."
+  },
+  "functionalEnvelope": {
+    "footprint": [
+      1,
+      1
+    ],
+    "rootCell": [
+      0.5,
+      0.5
+    ],
+    "occupiedCells": [
+      [
+        0,
+        0
+      ]
+    ],
+    "supportCells": [
+      [
+        0,
+        0
+      ]
+    ],
+    "overheadCells": [],
+    "nonblocking": false,
+    "heightNominal": 0.45,
+    "nativeBounds": [
+      [
+        -0.5,
+        -0.45,
+        0
+      ],
+      [
+        0.5,
+        0.45,
+        0.4490000009536743
+      ]
+    ],
+    "coreMaximumZ": 0.4419825077056885,
+    "sockets": {},
+    "finiteGroundSupport": "Core base support is finite x[-.5,.5],y[-.45,.45],z0. No full1x1 opaque ground square is implied. The y\u00b1.05 non-port ground margin is intentional. Do not inherit tall-wall ground/full-cell assumptions.",
+    "proposedAllowedDesignEnvelope": [
+      [
+        -0.5,
+        -0.45,
+        0
+      ],
+      [
+        0.5,
+        0.45,
+        0.45
+      ]
+    ],
+    "note": "Only actual true W/E endpoints and functional/capture envelope are locked. Non-port interior/crown forms, proportions, structure, topology, normals and meaningful decoration can improve. Target pebbles must not exceed locked0.45 height."
+  },
+  "canonicalFinitePorts": {
+    "profileId": "rock-shelf-section-v1",
+    "ports": [
+      {
+        "name": "W",
+        "plane": {
+          "axis": "X",
+          "value": -0.5
+        },
+        "origin": [
+          -0.5,
+          0,
+          0
+        ],
+        "normal": [
+          -1,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "E",
+        "plane": {
+          "axis": "X",
+          "value": 0.5
+        },
+        "origin": [
+          0.5,
+          0,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ]
+      }
+    ],
+    "profileCoordinates": "(signed transverse localY, nativeZ), ordered around finite cross-section; x is only at true W/E cutplanes",
+    "profileYZ": [
+      [
+        -0.45,
+        0
+      ],
+      [
+        0.45,
+        0
+      ],
+      [
+        0.45,
+        0.28
+      ],
+      [
+        0.39,
+        0.43
+      ],
+      [
+        -0.39,
+        0.43
+      ],
+      [
+        -0.45,
+        0.28
+      ]
+    ],
+    "topWidth": 0.78,
+    "baseWidth": 0.9,
+    "topAtPortZ": 0.43,
+    "shoulderAtPortZ": 0.28,
+    "endCapSurface": "One six-vertex planar cap at each endpoint; opposite winding/normals outward. Internal touching caps must not become visible seams. No endcap rounding, overhang, geometry crossing x\u00b1.5, alpha gaps, extra overlap or exposed internal crown step.",
+    "endpointAdjacentNormalsByProfileEdge": [
+      [
+        0,
+        0,
+        -1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0.92847669,
+        0.37139067
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        -0.92847669,
+        0.37139067
+      ],
+      [
+        0,
+        -1,
+        0
+      ]
+    ],
+    "endpointAdjacentOriginalMaterialSlots": [
+      "rock_dark",
+      "rock",
+      "rock",
+      "rock_light",
+      "rock",
+      "rock_dark"
+    ],
+    "endpointCapOriginalMaterial": "rock",
+    "normalPolicy": "Original endpoints have identical adjacent flat normals at both ends. Canonical native rebuild may change interior normal/topology; exact true boundary and matching in/out adjacent rendered normals/material behavior must remain continuous. Root must freeze a meaningful endpoint resource contract, not just profile ID or AABB.",
+    "nonPorts": "The broad \u00b1Y exposed side faces/shoulders are not ports. Interior x-rings(-.35,-.1,.1,.35) and variation are not connection planes.",
+    "pitchWorldUnits": 1,
+    "pitchLogicalPixels": 128,
+    "handedness": "Same source orientation between W/E neighbors; no reflection. Middle S roots x\u00b11; N roots x\u22131; E roots logical y\u22131; W roots logical y\u00b11. Original corner W\u2192N profile rotates tangent+90\u00b0 with signed transverse direction -X at N. Current connection descriptor correctly uses same-facing S middles at(1,2),(2,2),(3,2).",
+    "neighborDiscoveryOnly": {
+      "edge": [
+        "W",
+        "E"
+      ],
+      "corner": [
+        "W",
+        "N"
+      ],
+      "end": [
+        "W"
+      ],
+      "evidence": "evidence/native-family-profile-evidence.json; actual evaluated cap/adjacent faces measured in original family. These objects are not reviewed/approved here."
+    }
+  },
+  "sourceMaterialLightBaseline": {
+    "ownership": "Shelf has private named materials used only by this middle collection: rock(1mesh),rock_light(1mesh),rock_dark(core+3cracks); no active image texture nodes or linked normal maps. Self-contained .blend contains unrelated packed dish images, not shelf resources.",
+    "linearAlbedoRGBA": {
+      "rock": [
+        0.03071344457566738,
+        0.10461648553609848,
+        0.26635560393333435,
+        1
+      ],
+      "rock_light": [
+        0.08865558356046677,
+        0.22696587443351746,
+        0.44520118832588196,
+        1
+      ],
+      "rock_dark": [
+        0.01599629409611225,
+        0.052860647439956665,
+        0.13013647496700287,
+        1
+      ]
+    },
+    "activeShader": "Principled BSDF.001, roughness.85,specularIORlevel.03,metallic0; old emission/view-tone nodes inactive",
+    "lowerRamp": {
+      "space": "native worldZ",
+      "range": [
+        0,
+        0.45
+      ],
+      "lowRGBA": [
+        0.21,
+        0.2184,
+        0.231,
+        1
+      ],
+      "highAtNormalizedZ": 0.9,
+      "highRGBA": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "interpolation": "LINEAR"
+    },
+    "lights": {
+      "overhead": {
+        "position": [
+          0,
+          0,
+          4.5
+        ],
+        "watts": 140,
+        "size": 3.5
+      },
+      "cardinalFills": {
+        "positions": [
+          [
+            3,
+            0,
+            1.8
+          ],
+          [
+            0,
+            3,
+            1.8
+          ],
+          [
+            -3,
+            0,
+            1.8
+          ],
+          [
+            0,
+            -3,
+            1.8
+          ]
+        ],
+        "wattsEach": 100,
+        "sizeEach": 4
+      },
+      "shape": "DISK",
+      "target": [
+        0,
+        0,
+        0.8
+      ],
+      "worldStrength": 0,
+      "noGroundReceiver": true
+    },
+    "colorManagement": {
+      "view": "Standard",
+      "look": "None",
+      "exposure": 0,
+      "gamma": 1,
+      "sRGBContrast": 1.35,
+      "alpha": "bypasses grade",
+      "dither": 0
+    },
+    "designFreedom": "These are measured source baselines, not a mandate to retain black lower ramp or matte weakness. Editor may improve native material/light/normal design under frozen symmetry and endpoints. Approved canonical shelf resources must then be reused at follow-on endpoints, each subject to fresh independent review. Do not transplant tall-wall crown/light proportions."
+  },
+  "historicalReplay": {
+    "sampling": "EEVEE32,render.filter_size1.5,native4x completeframe\u2192published2x LANCZOS",
+    "guides": "resources/historical/guide-{N,E,S,W}.json",
+    "packCode": "resources/packing/pack_captures.py + extract_registered_sheet.py",
+    "all4ExactByteMatch": true,
+    "comparison": "evidence/historical-replay-differences.json",
+    "visual": "evidence/historical-replay-all4.png",
+    "rawHistoricalCaveat": "Historical guides name source-captures/000.png SHA, but raw capture files are not present in production registered dirs. Fresh native replay produced exactly historical all4 published PNG bytes; native replay raws preserved separately."
+  },
+  "proposedNativeSamplingRepair": {
+    "rootApprovalRequired": "Root formal freeze pending; this preparation proposes technical reconciliation, not production edit or candidate approval.",
+    "changesOnly": [
+      "Set common EEVEE render.filter_size to0.5 for all required views and native strip",
+      "Replace historical whole4x\u21922x LANCZOS with uniform complete-canvas BOX"
+    ],
+    "preserve": [
+      "EEVEE32",
+      "native4x andpublished2x",
+      "all frame/root/projection/aspect/rotations",
+      "source geometry/material/light during study",
+      "common-nativecanvas nearest AFTER canvas resize",
+      "ordinary final wholecanvas browser filtering",
+      "exact pitch,no overlap/no pixel repair/no perview adjustment"
+    ],
+    "sourceStudy": "evidence/study-filter05-box/",
+    "sourceStudyScripts": [
+      "capture_source_study.py",
+      "sample_study.py",
+      "capture_consumer_study.cjs",
+      "consumer-study.html"
+    ],
+    "measurements": "evidence/seam-measurements.json",
+    "sourceAlphaUndercoverage": {
+      "N": {
+        "nativeOpaquePixels": 5184,
+        "assembledAlphaLess255Pixels": 2296,
+        "minAssembledAlphaOnNativeOpaque": 233,
+        "maxAlphaDeficit": 22,
+        "meanAlphaDeficit": 4.8815586419753085,
+        "maxStraightRGBDiff": [
+          5,
+          8,
+          8
+        ],
+        "meanStraightRGBDiff": [
+          1.5910493827160495,
+          2.782986111111111,
+          1.0509259259259258
+        ],
+        "maxCompositeRGBDiff": {
+          "light": [
+            22,
+            23,
+            20
+          ],
+          "gray": [
+            14,
+            14,
+            12
+          ],
+          "dark": [
+            8,
+            13,
+            18
+          ]
+        }
+      },
+      "E": {
+        "nativeOpaquePixels": 36586,
+        "assembledAlphaLess255Pixels": 0,
+        "minAssembledAlphaOnNativeOpaque": 255,
+        "maxAlphaDeficit": 0,
+        "meanAlphaDeficit": 0.0,
+        "maxStraightRGBDiff": [
+          18,
+          27,
+          32
+        ],
+        "meanStraightRGBDiff": [
+          1.4964193953971465,
+          2.2075110698081235,
+          0.7657300606789482
+        ],
+        "maxCompositeRGBDiff": {
+          "light": [
+            18,
+            27,
+            32
+          ],
+          "gray": [
+            18,
+            27,
+            32
+          ],
+          "dark": [
+            18,
+            27,
+            32
+          ]
+        }
+      },
+      "S": {
+        "nativeOpaquePixels": 5184,
+        "assembledAlphaLess255Pixels": 2296,
+        "minAssembledAlphaOnNativeOpaque": 233,
+        "maxAlphaDeficit": 22,
+        "meanAlphaDeficit": 4.8815586419753085,
+        "maxStraightRGBDiff": [
+          5,
+          8,
+          8
+        ],
+        "meanStraightRGBDiff": [
+          1.5285493827160495,
+          2.525655864197531,
+          0.9259259259259259
+        ],
+        "maxCompositeRGBDiff": {
+          "light": [
+            21,
+            23,
+            21
+          ],
+          "gray": [
+            13,
+            15,
+            13
+          ],
+          "dark": [
+            8,
+            13,
+            18
+          ]
+        }
+      },
+      "W": {
+        "nativeOpaquePixels": 36586,
+        "assembledAlphaLess255Pixels": 0,
+        "minAssembledAlphaOnNativeOpaque": 255,
+        "maxAlphaDeficit": 0,
+        "meanAlphaDeficit": 0.0,
+        "maxStraightRGBDiff": [
+          15,
+          22,
+          27
+        ],
+        "meanStraightRGBDiff": [
+          1.4985786913026842,
+          2.2157382605368174,
+          0.7787405018313016
+        ],
+        "maxCompositeRGBDiff": {
+          "light": [
+            15,
+            22,
+            27
+          ],
+          "gray": [
+            15,
+            22,
+            27
+          ],
+          "dark": [
+            15,
+            22,
+            27
+          ]
+        }
+      }
+    },
+    "studyAlphaUndercoverage": {
+      "N": {
+        "nativeOpaquePixels": 5256,
+        "assembledAlphaLess255Pixels": 0,
+        "minAssembledAlphaOnNativeOpaque": 255,
+        "maxAlphaDeficit": 0,
+        "meanAlphaDeficit": 0.0,
+        "maxStraightRGBDiff": [
+          4,
+          5,
+          6
+        ],
+        "meanStraightRGBDiff": [
+          1.3310502283105023,
+          2.2675038051750382,
+          0.9851598173515982
+        ],
+        "maxCompositeRGBDiff": {
+          "light": [
+            4,
+            5,
+            6
+          ],
+          "gray": [
+            4,
+            5,
+            6
+          ],
+          "dark": [
+            4,
+            5,
+            6
+          ]
+        }
+      },
+      "E": {
+        "nativeOpaquePixels": 37072,
+        "assembledAlphaLess255Pixels": 0,
+        "minAssembledAlphaOnNativeOpaque": 255,
+        "maxAlphaDeficit": 0,
+        "meanAlphaDeficit": 0.0,
+        "maxStraightRGBDiff": [
+          19,
+          29,
+          33
+        ],
+        "meanStraightRGBDiff": [
+          1.3768612429866207,
+          2.0641184721622787,
+          0.6159635304272767
+        ],
+        "maxCompositeRGBDiff": {
+          "light": [
+            19,
+            29,
+            33
+          ],
+          "gray": [
+            19,
+            29,
+            33
+          ],
+          "dark": [
+            19,
+            29,
+            33
+          ]
+        }
+      },
+      "S": {
+        "nativeOpaquePixels": 5256,
+        "assembledAlphaLess255Pixels": 0,
+        "minAssembledAlphaOnNativeOpaque": 255,
+        "maxAlphaDeficit": 0,
+        "meanAlphaDeficit": 0.0,
+        "maxStraightRGBDiff": [
+          4,
+          5,
+          6
+        ],
+        "meanStraightRGBDiff": [
+          1.2886225266362252,
+          2.1607686453576864,
+          0.8788051750380518
+        ],
+        "maxCompositeRGBDiff": {
+          "light": [
+            4,
+            5,
+            6
+          ],
+          "gray": [
+            4,
+            5,
+            6
+          ],
+          "dark": [
+            4,
+            5,
+            6
+          ]
+        }
+      },
+      "W": {
+        "nativeOpaquePixels": 37072,
+        "assembledAlphaLess255Pixels": 0,
+        "minAssembledAlphaOnNativeOpaque": 255,
+        "maxAlphaDeficit": 0,
+        "meanAlphaDeficit": 0.0,
+        "maxStraightRGBDiff": [
+          17,
+          24,
+          33
+        ],
+        "meanStraightRGBDiff": [
+          1.381905481225723,
+          2.0660336642209756,
+          0.63034095813552
+        ],
+        "maxCompositeRGBDiff": {
+          "light": [
+            17,
+            24,
+            33
+          ],
+          "gray": [
+            17,
+            24,
+            33
+          ],
+          "dark": [
+            17,
+            24,
+            33
+          ]
+        }
+      }
+    },
+    "finding": "Historical N/S have2296cutface pixels alpha<255 where connectednative opaque(min233,maxdeficit22); study has zero native-opaque undercoverage in all4, globally and locally. Original E/W sampled crown seam RGB dip~9\u201312 disappears; all sampled study cross-seam RGB vary0\u20131 withalpha255. Actual lightgraydark/all4 logical128 andphone32 and0/.25/.5/.75 logical CSSphase screenshots show the lines removed.",
+    "honestRGBResidual": "Finite original area lights make centered independent renders brighter/different from a3worldunit native strip, with local capregion maxRGB stillup to33 and mean~1\u20132. These are broad lighting/occlusion differences, not missing coverage. Do not claim fullimage RGB identity, or let aggregate metrics excuse visible candidate seams. The refined endpoint/material/light design must be reviewed itself."
+  },
+  "boundedConsumerEvidence": {
+    "methods": [
+      "sprite-layout.js spriteFrame,groundRoot,orderPlacements",
+      "world-sprite-raster.js worldRasterPlan,paintWorldRaster"
+    ],
+    "frozenResources": "resources/consumer/",
+    "unusedReactHooks": "local stub only; no hooks called. Pure actual consumer functions imported unchanged.",
+    "commonCanvas": "scale2,plan guard.5logicalpixel; native nearest composition; actual frame sourceScale2/root and onecell128pitch",
+    "viewport": "same fixed448x608logical extent withroot224,376 fornative andindependent; no fitting",
+    "backgrounds": {
+      "light": "#eef2ed",
+      "gray": "#909090",
+      "dark": "#172539"
+    },
+    "sizes": [
+      {
+        "cell": 128,
+        "phase": 0
+      },
+      {
+        "cell": 32,
+        "phase": 0.25
+      }
+    ],
+    "fractionalPhaseLogicalAll4": [
+      0,
+      0.25,
+      0.5,
+      0.75
+    ],
+    "phaseBackground": "gray",
+    "nativeSources": "source-{N,E,S,W}-4x.png andjoined-{N,E,S,W}-4x.png",
+    "realBrowser": "Chromium153.0.8010.12,DPR1,ordinary CSSwholecanvas filtering",
+    "evidenceOnly": "This is a static review harness around actual consumer methods, not a running Godot/device/fullgame acceptance. Native ground law was derived from real profile, not inferred from alpha/AABB."
+  },
+  "reconciliationForRoot": [
+    "Freeze exact low finite6point profile/W-E planes, envelope, true ground-support law and handedness.",
+    "Resolve saved35camera against registered55.0079798capture in favor of registered source evidence.",
+    "Explicitly replace defective historical LANCZOS/filter1.5 with measured common filter0.5/BOX recipe; preserve old source+study.",
+    "Freeze visible outcomes and canonical endpoint material/normal continuity while permitting improved interior/crown native design. Fresh editor constructs after freeze.",
+    "Follow-on edge/corner/end receive their own fresh editor/judge pairs and adopt approved canonical shelf resources; no approval inferred now."
+  ]
+}

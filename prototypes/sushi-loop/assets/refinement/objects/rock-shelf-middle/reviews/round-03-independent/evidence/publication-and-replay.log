@@ -1,0 +1,102 @@
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/rock-shelf-middle/reviews/round-03-independent/prepare_consumer.py:8: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  comparison[d]={'nativeMaxRGBA':[e[1] for e in diff.getextrema()],'nativeChangedPixels':sum(any(p) for p in diff.getdata()),'publishedMaxRGBA':[e[1] for e in pdiff.getextrema()],'publishedChangedPixels':sum(any(p) for p in pdiff.getdata()),'sealedBOXPublishesExactly':all(pair[1]==0 for pair in ImageChops.difference(sealed.resize((384,704),Image.Resampling.BOX),published).getextrema())}
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/rock-shelf-middle/reviews/round-03-independent/prepare_consumer.py:9: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  strip=Image.open(E/f'reopened-strip-{d}-4x.png').convert('RGBA');strip.resize((896,1216),Image.Resampling.BOX).save(E/f'joined-{d}-2x.png');sdiff=ImageChops.difference(strip,Image.open(C/f'native-strip-{d}-4x.png').convert('RGBA'));comparison[d]['stripNativeMaxRGBA']=[e[1] for e in sdiff.getextrema()];comparison[d]['stripChangedPixels']=sum(any(p) for p in sdiff.getdata())
+{
+  "N": {
+    "nativeMaxRGBA": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "nativeChangedPixels": 144,
+    "publishedMaxRGBA": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "publishedChangedPixels": 41,
+    "sealedBOXPublishesExactly": true,
+    "stripNativeMaxRGBA": [
+      9,
+      12,
+      13,
+      9
+    ],
+    "stripChangedPixels": 1036
+  },
+  "E": {
+    "nativeMaxRGBA": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "nativeChangedPixels": 96,
+    "publishedMaxRGBA": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "publishedChangedPixels": 22,
+    "sealedBOXPublishesExactly": true,
+    "stripNativeMaxRGBA": [
+      13,
+      19,
+      24,
+      0
+    ],
+    "stripChangedPixels": 776
+  },
+  "S": {
+    "nativeMaxRGBA": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "nativeChangedPixels": 162,
+    "publishedMaxRGBA": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "publishedChangedPixels": 42,
+    "sealedBOXPublishesExactly": true,
+    "stripNativeMaxRGBA": [
+      8,
+      9,
+      10,
+      0
+    ],
+    "stripChangedPixels": 1059
+  },
+  "W": {
+    "nativeMaxRGBA": [
+      2,
+      1,
+      1,
+      0
+    ],
+    "nativeChangedPixels": 124,
+    "publishedMaxRGBA": [
+      1,
+      1,
+      1,
+      0
+    ],
+    "publishedChangedPixels": 19,
+    "sealedBOXPublishesExactly": true,
+    "stripNativeMaxRGBA": [
+      10,
+      15,
+      19,
+      0
+    ],
+    "stripChangedPixels": 810
+  }
+}

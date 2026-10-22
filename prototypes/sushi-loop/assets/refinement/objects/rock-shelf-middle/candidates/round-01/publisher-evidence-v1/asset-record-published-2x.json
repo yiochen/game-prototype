@@ -1,0 +1,207 @@
+{
+  "id": "rock-shelf-middle",
+  "projection": "top-down-oblique-square-grid",
+  "frame": [
+    192,
+    352
+  ],
+  "anchor": [
+    96,
+    248
+  ],
+  "scale": 2,
+  "clips": {
+    "static": {
+      "frames": 1,
+      "fps": 12,
+      "loop": false,
+      "static": true
+    }
+  },
+  "footprint": [
+    1,
+    1
+  ],
+  "height": 0.45,
+  "sockets": {},
+  "ports": [
+    {
+      "direction": "W",
+      "position": [
+        -0.5,
+        0,
+        0
+      ],
+      "profile": "rock-shelf-section-v1",
+      "normal": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "direction": "E",
+      "position": [
+        0.5,
+        0,
+        0
+      ],
+      "profile": "rock-shelf-section-v1",
+      "normal": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "nonblocking": false,
+  "depth_layer": "world",
+  "composition_context": {},
+  "artStyle": {
+    "revision": "rock-shelf-middle-native-round-01",
+    "contrast": 1.35,
+    "contrastSpace": "sRGB",
+    "view": "Standard",
+    "look": "None",
+    "lighting": "Five private symmetric broad finitearea lights in exactsavedsource; see rig record.",
+    "actualLights": [
+      {
+        "name": "shelf broad centered overhead",
+        "type": "AREA",
+        "position": [
+          0.0,
+          0.0,
+          18.0
+        ],
+        "rotation": [
+          0.0,
+          -0.0,
+          0.0
+        ],
+        "energy": 1200.0,
+        "size": 15.0,
+        "shape": "DISK"
+      },
+      {
+        "name": "shelf symmetric cardinal (15, 0)",
+        "type": "AREA",
+        "position": [
+          15.0,
+          0.0,
+          9.0
+        ],
+        "rotation": [
+          1.040238380432129,
+          -3.125411041082771e-08,
+          1.5707961320877075
+        ],
+        "energy": 1250.0,
+        "size": 12.0,
+        "shape": "DISK"
+      },
+      {
+        "name": "shelf symmetric cardinal (0, 15)",
+        "type": "AREA",
+        "position": [
+          0.0,
+          15.0,
+          9.0
+        ],
+        "rotation": [
+          1.040238618850708,
+          -1.3023760914165905e-07,
+          -3.141592502593994
+        ],
+        "energy": 1250.0,
+        "size": 12.0,
+        "shape": "DISK"
+      },
+      {
+        "name": "shelf symmetric cardinal (-15, 0)",
+        "type": "AREA",
+        "position": [
+          -15.0,
+          0.0,
+          9.0
+        ],
+        "rotation": [
+          1.040238380432129,
+          3.125411041082771e-08,
+          -1.5707961320877075
+        ],
+        "energy": 1250.0,
+        "size": 12.0,
+        "shape": "DISK"
+      },
+      {
+        "name": "shelf symmetric cardinal (0, -15)",
+        "type": "AREA",
+        "position": [
+          0.0,
+          -15.0,
+          9.0
+        ],
+        "rotation": [
+          1.0402384996414185,
+          -0.0,
+          0.0
+        ],
+        "energy": 1250.0,
+        "size": 12.0,
+        "shape": "DISK"
+      }
+    ],
+    "materials": [
+      "rock-shelf-middle canonical blue cyan stone v1",
+      "rock-shelf-middle__embedded_chip private blue-lavender stone",
+      "rock-shelf-middle__embedded_stone_A private blue-lavender stone",
+      "rock-shelf-middle__embedded_stone_B private blue-lavender stone"
+    ]
+  },
+  "directions": [
+    "N",
+    "E",
+    "S",
+    "W"
+  ],
+  "captureScale": 2,
+  "nativeCaptureScale": 4,
+  "publishedSourceScale": 2,
+  "groundRootObject": "rock-shelf-middle__root",
+  "publication": {
+    "nativeFrame": [
+      768,
+      1408
+    ],
+    "publishedFrame": [
+      384,
+      704
+    ],
+    "logicalFrame": [
+      192,
+      352
+    ],
+    "logicalRoot": [
+      96,
+      248
+    ],
+    "nativeScale": 4,
+    "publishedScale": 2,
+    "wholeFrameReduction": "BOX",
+    "sourceProjectSHA256": "da1b8a61f51d4dad60132e9627650ba1b2563e8f6887a6e27b0bb155926669af",
+    "nativeBounds": [
+      [
+        -0.5,
+        -0.44999998807907104,
+        0.0
+      ],
+      [
+        0.5,
+        0.44999998807907104,
+        0.44577616453170776
+      ]
+    ],
+    "heightNominal": 0.45,
+    "metadataMeaning": "Scale2 describes delivered/published source frames. Actual renders are scale4; finite game/capture/port contracts remain frozen."
+  }
+}
