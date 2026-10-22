@@ -42,7 +42,7 @@ def audit(folder, round_name, views=None):
         data = json.loads(validation_path.read_text())
     measured = {view: [] for view in views}
     records = next((data[key] for key in ['renders', 'views', 'nativeCaptures',
-                    'captureRecords', 'nativeFrames', 'frames', 'audit_directions', 'renderViews'] if data.get(key)), [])
+                    'captureRecords', 'nativeFrames', 'frames', 'audit_directions', 'renderViews', 'facings'] if data.get(key)), [])
     if isinstance(records, dict) and isinstance(records.get('views'), dict):
         records = records['views']
     manifest_reference = next((data[key] for key in ['renderManifest', 'nativeRecords']

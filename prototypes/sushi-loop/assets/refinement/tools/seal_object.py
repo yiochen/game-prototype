@@ -55,9 +55,10 @@ def main():
         command += ['--preview', f'{name}={folder / path}']
     resources = {}
     criteria = brief['qualityCriteria']
-    if criteria.get('criteriaFile') and criteria.get('criteriaFileSHA256'):
+    criteria_sha = criteria.get('criteriaFileSHA256', criteria.get('criteriaSHA256'))
+    if criteria.get('criteriaFile') and criteria_sha:
         criteria_path = folder / criteria['criteriaFile']
-        assert hashlib.sha256(criteria_path.read_bytes()).hexdigest() == criteria['criteriaFileSHA256'], 'Frozen criteria file changed'
+        assert hashlib.sha256(criteria_path.read_bytes()).hexdigest() == criteria_sha, 'Frozen criteria file changed'
         resources['frozenQualityCriteria'] = criteria_path
     # Frozen native contracts and supplemental runtime sources are part of the
     # review, even when their pixels are not catalog animation frames.

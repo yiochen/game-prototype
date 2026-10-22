@@ -69,6 +69,8 @@ def main():
     parser.add_argument('--previous-commit', required=True)
     parser.add_argument('--previous-object', required=True)
     parser.add_argument('--start', choices=QUEUE, default=QUEUE[0])
+    parser.add_argument('--support-file', action='append', default=[],
+                        help='Explicit coordinator tooling/documentation to include with the first object')
     args = parser.parse_args()
     deploy_success(args.previous_commit)
     mark_live(args.previous_object, args.previous_commit)
@@ -91,6 +93,8 @@ def main():
         if asset == QUEUE[0]:
             command(['git', 'add', str(Path(__file__)),
                      str(RUN / 'objects/belt-corner-e-n/source/batch')])
+        if asset == args.start and args.support_file:
+            command(['git', 'add', '--', *args.support_file])
         closure = command([PYTHON, str(TOOLS / 'verify_staged_object.py'), asset,
                            '--round', 'round-01', '--stage-missing'])
         command(['git', 'diff', '--cached', '--check', '--', '.',
@@ -98,7 +102,11 @@ def main():
         command(['git', 'commit', '-qm', f'Apply shared warm cartoon recipe to {asset}'])
         commit = command(['git', 'rev-parse', 'HEAD'])
         announce({'asset': asset, 'commit': commit, 'stage': 'pushing', 'closure': closure})
-        command(['git', 'push', 'origin', 'codex/warm-soft-catalog'], logroot / 'push.log')
+        # A prior optimized push tried to send >2GiB for an 8.8MB incremental
+        # change. These per-command switches produced the small expected pack;
+        # preserve history, hooks and LFS rather than rewriting approved assets.
+        command(['git', '-c', 'push.useBitmaps=false', '-c', 'pack.allowPackReuse=false',
+                 'push', 'origin', 'codex/warm-soft-catalog'], logroot / 'push.log')
         deploy_success(commit)
         mark_live(asset, commit)
     announce({'status': 'all-queued-conveyors-live',

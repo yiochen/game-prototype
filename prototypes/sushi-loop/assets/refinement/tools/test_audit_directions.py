@@ -53,6 +53,16 @@ class PoseLedgerAuditTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'missing measured root rotation'):
             audit(self.folder, 'round-02')
 
+    def test_reopened_static_audit_reads_actual_facing_matrices(self):
+        self.seal()
+        (self.round / 'validation.json').write_text(json.dumps({'facings': {
+            row['direction']: {'rootMatrix': [
+                [math.cos(row['rootRotationZ']), -math.sin(row['rootRotationZ']), 0, 0],
+                [math.sin(row['rootRotationZ']), math.cos(row['rootRotationZ']), 0, 0],
+                [0, 0, 1, 0], [0, 0, 0, 1]]} for row in self.records}}))
+        self.assertEqual(audit(self.folder, 'round-02')['sampleCounts'],
+                         {'N': 1, 'E': 1, 'S': 1, 'W': 1})
+
 
 if __name__ == '__main__':
     unittest.main()
