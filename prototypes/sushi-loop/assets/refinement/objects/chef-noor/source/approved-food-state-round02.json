@@ -1,0 +1,122 @@
+{
+  "image": {
+    "name": "dish-salmon.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alphaMode": "STRAIGHT",
+    "colorSpace": "sRGB",
+    "packedSHA256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe"
+  },
+  "quad": [
+    [
+      -0.14000000059604645,
+      0.0,
+      0.0
+    ],
+    [
+      0.14000000059604645,
+      0.0,
+      0.0
+    ],
+    [
+      0.14000000059604645,
+      0.25091788172721863,
+      0.0
+    ],
+    [
+      -0.14000000059604645,
+      0.25091788172721863,
+      0.0
+    ]
+  ],
+  "uv": [
+    [
+      0.0,
+      0.04465709626674652
+    ],
+    [
+      0.9904305934906006,
+      0.04465709626674652
+    ],
+    [
+      0.9904305934906006,
+      0.9322168827056885
+    ],
+    [
+      0.0,
+      0.9322168827056885
+    ]
+  ],
+  "faces": [
+    [
+      0,
+      1,
+      2,
+      3
+    ]
+  ],
+  "drivers": [
+    {
+      "path": "rotation_euler",
+      "index": 2,
+      "expression": "-facing",
+      "variables": [
+        {
+          "name": "facing",
+          "targets": [
+            {
+              "id": "chef_noor__ground_root.001",
+              "dataPath": "rotation_euler[2]",
+              "actualRoot": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "location",
+      "index": 0,
+      "expression": "-sin(facing)*0.39319298125871605",
+      "variables": [
+        {
+          "name": "facing",
+          "targets": [
+            {
+              "id": "chef_noor__ground_root.001",
+              "dataPath": "rotation_euler[2]",
+              "actualRoot": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "location",
+      "index": 1,
+      "expression": "-cos(facing)*0.39319298125871605",
+      "variables": [
+        {
+          "name": "facing",
+          "targets": [
+            {
+              "id": "chef_noor__ground_root.001",
+              "dataPath": "rotation_euler[2]",
+              "actualRoot": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "rootScale": [
+    1.25,
+    1.25,
+    1.25
+  ],
+  "planeRotationX": 0.9599310755729675,
+  "planeLocalZ": 0.27531668543815613,
+  "scene": "Noor warm soft round01",
+  "camera": "Noor01 registered35 camera"
+}

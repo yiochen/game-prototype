@@ -90,12 +90,15 @@
     {
       "object": "chef-noor",
       "food": "dish-salmon",
-      "status": "pending-new-source-round-and-independent-review",
+      "status": "main-catalog-approved-final-Godot-sync-pending",
       "sameObjectPair": {
         "editor": "catalog_chef_noor_editor_v1",
         "judge": "catalog_chef_noor_judge_v1"
       },
-      "runtimeExtraClips": []
+      "runtimeExtraClips": [],
+      "round": "round-02",
+      "packetSHA256": "1fd6c78167a41a27aa7f4aeb79acc3729c3887476af1755bb5007b5c5e7544c0",
+      "reviewSHA256": "a5af5462d69b7b463d95fdbbdcd7cc39119b80fa3679914717ceb69ebab1deef"
     },
     {
       "object": "chef-dalia",
@@ -446,9 +449,19 @@
     "goods": "../../godot/tools/refined_goods_contract.py",
     "feedback": "../../godot/tools/refined_feedback_contract.py",
     "tests": "../../godot/tools/test_refinement_imports.py",
-    "verification": "Ten isolated integration tests accept approved goods/smile/Omar96 and all legacy paths; reject altered registration, cadence, freshness, approvals, images, extra atlases, floor/gutters and missing individual customer approvals. Runtime sprite payloads unchanged.",
+    "verification": "Eleven isolated integration tests pass approved goods/smile/Omar96/Rosa96 and saved original legacy fixtures; reject altered registration/cadence/freshness/approvals/images/extra atlases/floor/gutters and an explicitly simulated missing individual customer approval. Production four-customer registry retained; working game sprite payloads unchanged.",
     "actorVariants": "../../godot/tools/refined_actor_variants.py",
-    "actorSync": "../../godot/tools/sync_refined_actor_variants.py"
+    "actorSync": "../../godot/tools/sync_refined_actor_variants.py",
+    "individualRuntimeFixtures": {
+      "customer-rosa": {
+        "status": "isolated-single-customer-import-verified",
+        "objects": 1,
+        "atlases": 8,
+        "frames": 96,
+        "evidence": "objects/customer-rosa/final/runtime-import-isolated-verification.json",
+        "scope": "Temporary narrowed single-customer registry only; full production four-customer approval gate restored and correctly refuses pending Ellis/Samir/June. Game sprite payloads unchanged."
+      }
+    }
   },
   "heldPolicyClarification": {
     "authority": "Each frozen versioned object brief governs its actual approved source and placement policy. Older generic constant-depth/baseline0.6 language is not authority for a different chef.",
@@ -456,5 +469,13 @@
     "approvedOmar": "Object-specific single C1 camera-ray depth law shared by both foods/all states; exact source/body locks and evidence in brief-v3-held-food-occlusion.json. Do not transplant the constant or law to other chefs.",
     "Ama": "Independent source inspection found visible plate edge differs from quad edge and native d0 is approximately0.3931929813; semantic anchoring/occlusion resolution still pending before editor scope is frozen.",
     "nativeRepeatability": "Calibrate actual same-scene repeatability and retain honest radiance diagnostics; neither outside-food pixel equality across different radiance nor universal GPU bitidentity is assumed. Exact native semantics and visible quality remain required."
+  },
+  "preCutoverGameSpriteSnapshot": {
+    "path": "backups/godot-before-warm-soft/snapshot.json",
+    "sha256": "60e68c6a686e510f53666855f91c03b3f148b366a5b0ff998e9214f7d22c4b85",
+    "files": 258,
+    "bytes": 144335444,
+    "status": "exact-original-game-payload-snapshot-saved-current-game-unchanged",
+    "purpose": "Preserve original catalog/goods/feedback/chef/recipe PNG+JSON bytes for restoration and continued legacy-format tests after the final swap."
   }
 }

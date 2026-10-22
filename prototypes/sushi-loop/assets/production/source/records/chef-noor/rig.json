@@ -3063,7 +3063,7 @@
   ],
   "actionCount": 24,
   "createdAtUnix": 1792393589.563385,
-  "status": "native refinement pending independent review",
+  "status": "canonical-food candidate pending independent review",
   "sourceFiles": {
     "native_actions.py": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f",
     "character_builders.py": "5451da64c233cba11920e2eaeb88889e34ac931443b51fdfb34c6f40ea8c0ed7",
@@ -3093,8 +3093,8 @@
     96,
     248
   ],
-  "sourceProject": "source/round-01.blend",
-  "sourceSHA256": "8225bd9a7269434a678691699ee7a0827469f39348ab37ce0df6afc23e8d113c",
+  "sourceProject": "source/round-02.blend",
+  "sourceSHA256": "8ed24395c81d6cbf7576f8f866180f91f4d8ae9c87ab7db0246f053b329ec563",
   "originalProjectSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
   "actualArmature": {
     "object": "chef_noor__armature.001",
@@ -4127,5 +4127,23 @@
       }
     ]
   },
-  "originalActionsPreserved": true
+  "originalActionsPreserved": true,
+  "nativeSource": {
+    "project": "source/round-02.blend",
+    "sha256": "8ed24395c81d6cbf7576f8f866180f91f4d8ae9c87ab7db0246f053b329ec563",
+    "approvedPhysicalSourceSHA256": "8225bd9a7269434a678691699ee7a0827469f39348ab37ce0df6afc23e8d113c",
+    "scene": "Noor warm soft round01",
+    "collection": "S33_CHARACTER_chef_noor.001",
+    "root": "chef_noor__ground_root.001",
+    "armature": "chef_noor__armature.001",
+    "recipe": "source/recipe-round02.json",
+    "capture": "candidates/round-02/candidate-phases.json"
+  },
+  "priorApprovedRecord": {
+    "path": "candidates/round-01/records/rig.json",
+    "sha256": "7e57202d7fe553b93ba3f5163f79de77536a7c32ae769fa9a479b1ede4a444ef"
+  },
+  "actionImplementation": "source/native_actions_round02.py",
+  "contactEvidence": "candidates/round-02/semantic-support-all96.json",
+  "physicalInvariance": "candidates/round-02/phase-parity.json"
 }

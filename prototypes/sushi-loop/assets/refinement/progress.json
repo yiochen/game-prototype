@@ -5,8 +5,8 @@
   "status": "in-progress",
   "total": 115,
   "completed": 59,
-  "published": 58,
-  "current": "58 objects live; Rosa round05 independently approved with all576frames and runtime receipt, publishing next. Fresh Ellis editor working; Samir judge measuring; Noor canonical-food update packaging. All conveyors live; final Godot cutover pending.",
+  "published": 59,
+  "current": "59 objects live; Noor canonical-food round02 approved and publishing. Samir complete native576 bundle receiving metadata compatibility adapter before review; Ellis corrected576 export packaging; fresh June judge auditing source. Final Godot cutover pending.",
   "objects": [
     {
       "id": "plant-angular",
@@ -679,15 +679,18 @@
       "name": "Noor Haddad",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "published",
+      "status": "approved",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_chef_noor_editor_v1",
       "judge": "catalog_chef_noor_judge_v1",
-      "round": "round-01",
-      "packetSHA256": "212fb4d7fc85d9d24aa35b529142f2e1d541959ef445bf574576e468b8802636"
+      "round": "round-02",
+      "packetSHA256": "1fd6c78167a41a27aa7f4aeb79acc3729c3887476af1755bb5007b5c5e7544c0",
+      "pendingRound": "round-02",
+      "pendingPacketSHA256": "1fd6c78167a41a27aa7f4aeb79acc3729c3887476af1755bb5007b5c5e7544c0",
+      "pendingUpdateStatus": "approved-publishing"
     },
     {
       "id": "chef-dalia",
@@ -765,7 +768,7 @@
       "name": "Rosa",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 10,
       "frames": 480,
       "target": "inputs/target.png",
@@ -773,7 +776,9 @@
       "editor": "catalog_customer_rosa_editor_v1",
       "judge": "catalog_customer_rosa_judge_v1",
       "round": "round-05",
-      "packetSHA256": "f3794c7d5c092de08d8b4b05ba6c670a322049410c88cced64492da27b688f7f"
+      "packetSHA256": "f3794c7d5c092de08d8b4b05ba6c670a322049410c88cced64492da27b688f7f",
+      "publishedCommit": "874ecc3e6320f5517c81277075e803084627510a",
+      "deployURL": "https://deploy-preview-37--game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#object-customer-rosa"
     },
     {
       "id": "customer-ellis",
@@ -793,18 +798,20 @@
       "name": "Samir",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "editing",
       "clips": 10,
       "frames": 480,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "editor": "catalog_customer_samir_editor_v1",
+      "judge": "catalog_customer_samir_judge_v1"
     },
     {
       "id": "customer-june",
       "name": "June",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "reviewing-baseline",
       "clips": 10,
       "frames": 480,
       "target": "inputs/target.png",

@@ -8,7 +8,9 @@ from pathlib import Path
 import shutil
 import tempfile
 import unittest
+from unittest.mock import patch
 
+import refined_actor_variants
 from pack_refined_goods import pack
 from sync_refined_feedback import sync
 from sync_refined_actor_variants import sync as sync_actor
@@ -19,6 +21,7 @@ from verify_feedback_variants import verify_feedback_variants
 
 PROTOTYPE = Path(__file__).resolve().parents[2]
 SOURCE = PROTOTYPE / 'godot'
+LEGACY = PROTOTYPE / 'assets/refinement/backups/godot-before-warm-soft'
 
 
 class RefinementImports(unittest.TestCase):
@@ -144,20 +147,47 @@ class RefinementImports(unittest.TestCase):
             extra.unlink()
 
     def test_recipe_cutover_rejects_missing_individual_approvals(self):
-        # Existing customer art cannot enter the refined path until its own
-        # independent approval and exact native bundle are available.
-        with self.assertRaises((OSError, ValueError)):
-            sync_actor(PROTOTYPE, 'recipe', self.project / 'assets/recipe-variants')
+        # Keep exercising a missing individual approval after all real actors
+        # are approved, without deleting or changing an immutable receipt.
+        receipt = PROTOTYPE / 'assets/refinement/objects/customer-rosa/final/runtime-variant-approval.json'
+        original_read = refined_actor_variants.read
+
+        def missing_approval(path):
+            if Path(path).resolve() == receipt.resolve():
+                raise ValueError('Missing individual customer approval: customer-rosa')
+            return original_read(path)
+
+        with patch.object(refined_actor_variants, 'read', side_effect=missing_approval):
+            with self.assertRaisesRegex(ValueError, 'Missing individual customer approval'):
+                sync_actor(PROTOTYPE, 'recipe', self.project / 'assets/recipe-variants')
+
+    def test_approved_rosa_bundle_in_temporary_single_customer_fixture(self):
+        # This isolates the first approved customer bundle; production retains
+        # the mandatory four-customer registry and its missing-approval gate.
+        identities, clips, food = refined_actor_variants.CONTRACTS['recipe']
+        fixture = self.project / 'single-customer-fixture'
+        with patch.dict(refined_actor_variants.CONTRACTS,
+                        {'recipe': (['customer-rosa'], clips, food)}):
+            sync_actor(PROTOTYPE, 'recipe', fixture / 'assets/recipe-variants')
+            result = verify_recipe_variants(fixture, SOURCE)
+            self.assertEqual((result['objects'], result['atlases'], result['frames']), (1, 8, 96))
+        self.assertEqual(refined_actor_variants.CONTRACTS['recipe'][0], identities)
 
     def test_legacy_formats_remain_supported(self):
-        self.assertEqual(verify_editor_goods(SOURCE, SOURCE)['sprites'], 6)
-        # Catalog rollout intentionally leaves the current runtime overlay on
-        # its previous library. Refresh only that field in a temporary fixture
-        # to exercise the original legacy source/pixel checks without cutover.
+        snapshot = json.loads((LEGACY / 'snapshot.json').read_text())
+        for relative, expected in snapshot['files'].items():
+            self.assertEqual(hashlib.sha256((LEGACY / relative).read_bytes()).hexdigest(), expected)
+        with tempfile.TemporaryDirectory(prefix='sushi-legacy-goods-') as directory:
+            project = Path(directory)
+            shutil.copytree(LEGACY / 'assets/ui/editor-goods', project / 'assets/ui/editor-goods')
+            self.assertEqual(verify_editor_goods(project, SOURCE)['sprites'], 6)
+        # Keep original legacy source/pixel checks after the game is updated.
+        # Refresh only library freshness in a disposable copy of the saved
+        # original payload; the immutable baseline itself stays unchanged.
         with tempfile.TemporaryDirectory(prefix='sushi-legacy-feedback-') as directory:
             project = Path(directory)
             runtime = project / 'assets/feedback-variants'
-            shutil.copytree(SOURCE / 'assets/feedback-variants', runtime)
+            shutil.copytree(LEGACY / 'assets/feedback-variants', runtime)
             metadata = runtime / 'manifest.json'
             manifest = json.loads(metadata.read_text())
             manifest['baseLibrarySha256'] = hashlib.sha256(
@@ -169,7 +199,7 @@ class RefinementImports(unittest.TestCase):
             with tempfile.TemporaryDirectory(prefix=f'sushi-legacy-{kind}-') as directory:
                 project = Path(directory)
                 runtime = project / f'assets/{kind}-variants'
-                shutil.copytree(SOURCE / f'assets/{kind}-variants', runtime)
+                shutil.copytree(LEGACY / f'assets/{kind}-variants', runtime)
                 metadata = runtime / 'manifest.json'
                 manifest = json.loads(metadata.read_text())
                 manifest['baseLibrarySha256'] = hashlib.sha256(

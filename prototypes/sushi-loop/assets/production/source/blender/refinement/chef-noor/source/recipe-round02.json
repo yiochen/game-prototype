@@ -1,0 +1,269 @@
+{
+  "asset": "chef-noor",
+  "round": "round-02",
+  "scope": "exact canonical food binding plus one fixed semantic quad/fullUV only",
+  "brief": "brief-v3-held-food-semantic-contact.json",
+  "briefSHA256": "17a1d8894c36dd8b8beaaf892662c5a9acac4b9012f9e6574da3d46c0b9af98e",
+  "criteriaSHA256": "7c2fa530df93c9d259675d9bb30ce119bdf3bfbb9c69736051e3d1841729a74e",
+  "approvedSource": "source/round-01.blend",
+  "approvedSourceSHA256": "8225bd9a7269434a678691699ee7a0827469f39348ab37ce0df6afc23e8d113c",
+  "project": "source/round-02.blend",
+  "projectSHA256": "8ed24395c81d6cbf7576f8f866180f91f4d8ae9c87ab7db0246f053b329ec563",
+  "scene": "Noor warm soft round01",
+  "collection": "S33_CHARACTER_chef_noor.001",
+  "root": "chef_noor__ground_root.001",
+  "armature": "chef_noor__armature.001",
+  "plane": "chef_noor__ground_root.001__held_dish-salmon__image_plane",
+  "allowedChanges": [
+    "Exact packed canonical731x505RGBA binding",
+    "Single frozen mesh-local semantic quad/fullUV"
+  ],
+  "semanticFoodMapping": {
+    "uvLoops": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "worldQuadSize": [
+      0.34530869756693783,
+      0.23855115221792558
+    ],
+    "localQuadSize": [
+      0.27624695805355026,
+      0.19084092177434048
+    ],
+    "localQuadCenterX": 0.002062233920315452,
+    "localQuadBottomY": 0.03276219588804786,
+    "localVertices": [
+      [
+        -0.13606124510645967,
+        0.03276219588804786,
+        0
+      ],
+      [
+        0.1401857129470906,
+        0.03276219588804786,
+        0
+      ],
+      [
+        0.1401857129470906,
+        0.22360311766238833,
+        0
+      ],
+      [
+        -0.13606124510645967,
+        0.22360311766238833,
+        0
+      ]
+    ],
+    "planeObjectTransform": "Unchanged source object transform, action assignment and drivers; constant mesh-local vertex mapping only. Do not move keyed foodRoot or alter ray/yaw drivers.",
+    "preserves": "Exact robust visible occupied width plus plate-bottom support midpoint in projected camera basis; canonical fullRGBA/aspect preserved.",
+    "expectedCanonicalOccupiedHeightLogicalPixels": 30.41361858296816,
+    "sourceOccupiedHeightLogicalPixels": 29.361676309587605,
+    "expectedCanonicalSupportCenterHorizontalShiftLogicalPixels": 0.11353165432709983
+  },
+  "actualNativeQuad": [
+    [
+      -0.13606125116348267,
+      0.03276219591498375,
+      0.0
+    ],
+    [
+      0.14018571376800537,
+      0.03276219591498375,
+      0.0
+    ],
+    [
+      0.14018571376800537,
+      0.22360311448574066,
+      0.0
+    ],
+    [
+      -0.13606125116348267,
+      0.22360311448574066,
+      0.0
+    ]
+  ],
+  "actualUV": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      1.0,
+      0.0
+    ],
+    [
+      1.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0
+    ]
+  ],
+  "food": {
+    "path": "source/dependencies-round02/dish-salmon.png",
+    "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+    "packedSHA256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+    "size": [
+      731,
+      505
+    ],
+    "alphaMode": "STRAIGHT",
+    "colorSpace": "sRGB",
+    "interpolation": "Linear",
+    "extension": "CLIP"
+  },
+  "sourceFood": {
+    "image": {
+      "name": "dish-salmon.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alphaMode": "STRAIGHT",
+      "colorSpace": "sRGB",
+      "packedSHA256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe"
+    },
+    "quad": [
+      [
+        -0.14000000059604645,
+        0.0,
+        0.0
+      ],
+      [
+        0.14000000059604645,
+        0.0,
+        0.0
+      ],
+      [
+        0.14000000059604645,
+        0.25091788172721863,
+        0.0
+      ],
+      [
+        -0.14000000059604645,
+        0.25091788172721863,
+        0.0
+      ]
+    ],
+    "uv": [
+      [
+        0.0,
+        0.04465709626674652
+      ],
+      [
+        0.9904305934906006,
+        0.04465709626674652
+      ],
+      [
+        0.9904305934906006,
+        0.9322168827056885
+      ],
+      [
+        0.0,
+        0.9322168827056885
+      ]
+    ],
+    "faces": [
+      [
+        0,
+        1,
+        2,
+        3
+      ]
+    ],
+    "drivers": [
+      {
+        "path": "rotation_euler",
+        "index": 2,
+        "expression": "-facing",
+        "variables": [
+          {
+            "name": "facing",
+            "targets": [
+              {
+                "id": "chef_noor__ground_root.001",
+                "dataPath": "rotation_euler[2]",
+                "actualRoot": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "location",
+        "index": 0,
+        "expression": "-sin(facing)*0.39319298125871605",
+        "variables": [
+          {
+            "name": "facing",
+            "targets": [
+              {
+                "id": "chef_noor__ground_root.001",
+                "dataPath": "rotation_euler[2]",
+                "actualRoot": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "location",
+        "index": 1,
+        "expression": "-cos(facing)*0.39319298125871605",
+        "variables": [
+          {
+            "name": "facing",
+            "targets": [
+              {
+                "id": "chef_noor__ground_root.001",
+                "dataPath": "rotation_euler[2]",
+                "actualRoot": true
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "rootScale": [
+      1.25,
+      1.25,
+      1.25
+    ],
+    "planeRotationX": 0.9599310755729675,
+    "planeLocalZ": 0.27531668543815613,
+    "scene": "Noor warm soft round01",
+    "camera": "Noor01 registered35 camera"
+  },
+  "renderer": {
+    "engine": "CYCLES",
+    "device": "GPU",
+    "samples": 64,
+    "denoise": true,
+    "filter": "BOX1",
+    "viewTransform": "AgX",
+    "look": "AgX - Medium High Contrast",
+    "exposure": 0.3499999940395355
+  },
+  "notes": [
+    "No physical body/headwear/knife/rig/actions/material/light/camera changes.",
+    "Own actual localXYZ/yaw/ray drivers and visibility retained; no foreign placement law.",
+    "Original custom properties remain historical provenance; this sidecar records the current canonical dependency.",
+    "Noor has no supplemental runtime food variants. Food remains separate2D on original native holder."
+  ]
+}

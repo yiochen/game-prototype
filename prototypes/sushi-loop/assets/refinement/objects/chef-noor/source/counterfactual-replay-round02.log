@@ -1,0 +1,26 @@
+00:00.257  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-noor/source/round-02.blend"
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-noor/source/capture_round02.py:28: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  x=getattr(v,k)
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-noor/source/capture_round02.py:41: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  return {'rna':rna(m),'nodes':[{'name':n.name,'rna':rna(n),'inputs':{s.identifier:plain(s.default_value) for s in n.inputs if hasattr(s,'default_value')},'outputs':{s.identifier:plain(s.default_value) for s in n.outputs if hasattr(s,'default_value')}} for n in m.node_tree.nodes] if m.use_nodes else [],'links':[(l.from_node.name,l.from_socket.identifier,l.to_node.name,l.to_socket.identifier) for l in m.node_tree.links] if m.use_nodes else []}
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-noor/source/capture_round02.py:28: DeprecationWarning: 'AreaLight.use_nodes' is expected to be removed in Blender 6.0
+  x=getattr(v,k)
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-noor/source/capture_round02.py:28: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  x=getattr(v,k)
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-noor/source/capture_round02.py:41: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  return {'rna':rna(m),'nodes':[{'name':n.name,'rna':rna(n),'inputs':{s.identifier:plain(s.default_value) for s in n.inputs if hasattr(s,'default_value')},'outputs':{s.identifier:plain(s.default_value) for s in n.outputs if hasattr(s,'default_value')}} for n in m.node_tree.nodes] if m.use_nodes else [],'links':[(l.from_node.name,l.from_socket.identifier,l.to_node.name,l.to_socket.identifier) for l in m.node_tree.links] if m.use_nodes else []}
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-noor/source/capture_round02.py:28: DeprecationWarning: 'Scene.use_nodes' is expected to be removed in Blender 6.0
+  x=getattr(v,k)
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-noor/source/capture_round02.py", line 67, in <module>
+    local=semantic_local();shared=static();imrec=image_record();sharedpath=C/(role+'-shared.json');(sharedpath if not opt.controls_only else C/(role+'-control-shared.json')).write_text(json.dumps({'projectSHA256':sha(sourcefile),'role':role,'shared':shared,'food':imrec,'semanticLocal':local},sort_keys=True,separators=(',',':'),default=str))
+                                                 ~~~~~~~~~~~~^^
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-noor/source/capture_round02.py", line 58, in image_record
+    return {'name':im.name,'size':list(im.size),'path':im.filepath,'packedSHA256':hashlib.sha256(im.packed_file.data).hexdigest(),'alphaMode':im.alpha_mode,'colorSpace':im.colorspace_settings.name,'interpolation':node.interpolation,'extension':node.extension,'quad':[list(v.co) for v in plane.data.vertices],'faces':[list(p.vertices) for p in plane.data.polygons],'uv':[list(v.uv) for v in plane.data.uv_layers.active.data],'rayFlags':{k:getattr(plane,k) for k in ['visible_camera','visible_diffuse','visible_glossy','visible_transmission','visible_volume_scatter','visible_shadow']}}
+                                                                                                 ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'data'
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

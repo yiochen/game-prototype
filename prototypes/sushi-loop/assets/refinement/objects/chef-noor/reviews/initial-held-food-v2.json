@@ -1,0 +1,348 @@
+{
+  "asset": "chef-noor",
+  "stage": "held-food-v2 independent preparation only",
+  "status": "proposed-criteria-awaiting-coordinator-freeze-before-editor-changes",
+  "candidateVerdict": null,
+  "scope": "Dependency-only canonical salmon closure. Approved Noor body/knife/model/rig/actions/material/light/camera aesthetic approval remains unchanged; no body/style re-review or edits authorized by this preparation.",
+  "independence": "Measured exact approved Noor source and exact canonical artwork directly. No editor proposal or foreign chef mapping used.",
+  "inspectedFiles": [
+    "brief-v2-held-food.json",
+    "../../../production/source/blender/refinement/chef-noor/source/round-01.blend",
+    "../../backups/8225bd9a7269434a-chef-noor-round-01.blend",
+    "../../../production/source/2d/refinement/dish-salmon/source/round01/dish-salmon.png",
+    "candidates/round-01/packet.json",
+    "reviews/round-01.json",
+    "reviews/held-food-v2-source-packed.png",
+    "reviews/held-food-v2-source-measurements.json",
+    "reviews/held-food-v2-visible-mapping.json",
+    "reviews/held-food-v2-alpha-support-inspection.png"
+  ],
+  "sourceHashes": {
+    "approvedBody": "8225bd9a7269434a678691699ee7a0827469f39348ab37ce0df6afc23e8d113c",
+    "oldPackedFood": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe",
+    "canonicalSalmon": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4"
+  },
+  "sourceFood": {
+    "imageSize": [
+      1254,
+      1254
+    ],
+    "alphaMode": "STRAIGHT",
+    "colorSpace": "sRGB",
+    "plane": "chef_noor__ground_root.001__held_dish-salmon__image_plane",
+    "actualUvLoops": [
+      [
+        0.0,
+        0.04465709626674652
+      ],
+      [
+        0.9904305934906006,
+        0.04465709626674652
+      ],
+      [
+        0.9904305934906006,
+        0.9322168827056885
+      ],
+      [
+        0.0,
+        0.9322168827056885
+      ]
+    ],
+    "uvCropTopOriginApprox": [
+      0.0,
+      85.00002908706665,
+      1241.9999642372131,
+      1198.0000012814999
+    ],
+    "sourceLocalVertices": [
+      [
+        -0.14000000059604645,
+        0.0,
+        0.0
+      ],
+      [
+        0.14000000059604645,
+        0.0,
+        0.0
+      ],
+      [
+        0.14000000059604645,
+        0.25091788172721863,
+        0.0
+      ],
+      [
+        -0.14000000059604645,
+        0.25091788172721863,
+        0.0
+      ]
+    ],
+    "rootScale": 1.25,
+    "worldQuadSize": [
+      0.3500000014901161,
+      0.3136473521590233
+    ],
+    "semanticReference": "alpha>=128/255, with64/192 sensitivity. This thresholds measurement only; no source/canonical alpha editing or crop.",
+    "semanticSupportTopOrigin": [
+      16,
+      237,
+      1238,
+      1051
+    ],
+    "semanticSupportWidthPixels": 1222,
+    "semanticPlateBottomPointPixels": [
+      633.5,
+      1051
+    ],
+    "occupiedWidthWorld": 0.344363940528451,
+    "occupiedWidthLogicalPixels": 44.078584387641726,
+    "semanticPlateBottomOffsetFromGeometricBottomLogicalPixels": [
+      0.45088632817678587,
+      5.302415792550814
+    ],
+    "paddingCaveat": "Alpha>0 spans[0,85,1242,1198] and includes faint low-alpha padding. Nominal.35world quad width and bottom corners are provenance, not the semantic visible plate contract. Copying those corners to the tightly trimmed canonical image would change apparent scale/contact."
+  },
+  "canonicalFood": {
+    "size": [
+      731,
+      505
+    ],
+    "exactSHA256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+    "fullUvRectangle": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "semanticSupportAlpha128": [
+      1,
+      1,
+      730,
+      504
+    ],
+    "semanticSupportWidthPixels": 729,
+    "semanticPlateBottomPointPixels": [
+      367.5,
+      504
+    ],
+    "allowedReconstruction": "Exact fullRGBA, fullUV and canonical aspect through one global mesh-local quad mapping. No crop, grade, repaint or per-frame/per-view fit."
+  },
+  "sourceNativeBehavior": {
+    "allOriginalSamplesInspected": 192,
+    "visibility": {
+      "idle": [
+        true
+      ],
+      "work": [
+        true
+      ],
+      "hold": [
+        false
+      ],
+      "load": [
+        false
+      ]
+    },
+    "rigAndActions": "Original exact armature/foodRoot/foodPlane/utensil/knife action cohorts,12frames per state at12fps; idle/work/hold loop, load nonloop out-and-back ending held. Keep keyed foodRoot and every original contact/pose unchanged.",
+    "drivers": [
+      {
+        "dataPath": "rotation_euler",
+        "arrayIndex": 2,
+        "expression": "-facing",
+        "valid": true,
+        "variables": [
+          {
+            "name": "facing",
+            "type": "SINGLE_PROP",
+            "targets": [
+              {
+                "idName": "chef_noor__ground_root.001",
+                "isActualRoot": true,
+                "dataPath": "rotation_euler[2]"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dataPath": "location",
+        "arrayIndex": 0,
+        "expression": "-sin(facing)*0.39319298125871605",
+        "valid": true,
+        "variables": [
+          {
+            "name": "facing",
+            "type": "SINGLE_PROP",
+            "targets": [
+              {
+                "idName": "chef_noor__ground_root.001",
+                "isActualRoot": true,
+                "dataPath": "rotation_euler[2]"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "dataPath": "location",
+        "arrayIndex": 1,
+        "expression": "-cos(facing)*0.39319298125871605",
+        "valid": true,
+        "variables": [
+          {
+            "name": "facing",
+            "type": "SINGLE_PROP",
+            "targets": [
+              {
+                "idName": "chef_noor__ground_root.001",
+                "isActualRoot": true,
+                "dataPath": "rotation_euler[2]"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "depthLaw": "Noor own valid drivers target chef_noor__ground_root.001: plane yaw=-facing; localX=-sin(facing)*0.39319298125871605; localY=-cos(facing)*same; localZ0.27531668543815613. With rootScale1.25 and planeXrotation55degrees this yields a constant0.6world camera-ray depth bias. Preserve verbatim.",
+    "hiddenStateCaveat": "Idle/work foodPlane is hide_render=true. Its evaluated matrix is identity/stale and its driver values can retain the last active state. Do not impose active source placement on that dormant excluded geometry. Preserve action/visibility/driver semantics and inspect actual live hold/load geometry.",
+    "emission": "Original food material connects exact sRGB image color to Strength1 emission and image alpha to transparent/emission mix, Linear/CLIP sampling. Food plane is visible to camera,diffuse,glossy and shadow rays. Preserve the graph and ray visibility.",
+    "bodyRgbCaveat": "Changing exact foodRGBA/aspect changes emissive radiance, so hold/load bodyRGB equality cannot be inferred from unchanged body/material/light/camera. Preserve structural body state and use a same-input original-plane/source-texture render control to isolate body changes if needed. No body regrade or ray-lighting change is authorized."
+  },
+  "proposedGlobalMapping": {
+    "uvLoops": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "worldQuadSize": [
+      0.34530869756693783,
+      0.23855115221792558
+    ],
+    "localQuadSize": [
+      0.27624695805355026,
+      0.19084092177434048
+    ],
+    "localQuadCenterX": 0.002062233920315452,
+    "localQuadBottomY": 0.03276219588804786,
+    "localVertices": [
+      [
+        -0.13606124510645967,
+        0.03276219588804786,
+        0
+      ],
+      [
+        0.1401857129470906,
+        0.03276219588804786,
+        0
+      ],
+      [
+        0.1401857129470906,
+        0.22360311766238833,
+        0
+      ],
+      [
+        -0.13606124510645967,
+        0.22360311766238833,
+        0
+      ]
+    ],
+    "planeObjectTransform": "Unchanged source object transform, action assignment and drivers; constant mesh-local vertex mapping only. Do not move keyed foodRoot or alter ray/yaw drivers.",
+    "preserves": "Exact robust visible occupied width plus plate-bottom support midpoint in projected camera basis; canonical fullRGBA/aspect preserved.",
+    "expectedCanonicalOccupiedHeightLogicalPixels": 30.41361858296816,
+    "sourceOccupiedHeightLogicalPixels": 29.361676309587605,
+    "expectedCanonicalSupportCenterHorizontalShiftLogicalPixels": 0.11353165432709983
+  },
+  "mappingSensitivity": [
+    {
+      "alphaAtLeast": 64,
+      "sourceBounds": [
+        16,
+        237,
+        1238,
+        1051
+      ],
+      "canonicalBounds": [
+        0,
+        1,
+        730,
+        505
+      ],
+      "sourceBottomMidpointX": 635.0,
+      "canonicalBottomMidpointX": 367.0,
+      "sourceOccupiedWidthLogicalPx": 44.078584387641726,
+      "canonicalOccupiedWidthLogicalPx": 44.139048838104884,
+      "widthDeltaLogicalPx": 0.06046445046315796,
+      "bottomPointDeltaLogicalPxCameraBasis": [
+        -0.08433850721313685,
+        -0.06046445046315707
+      ]
+    },
+    {
+      "alphaAtLeast": 128,
+      "sourceBounds": [
+        16,
+        237,
+        1238,
+        1051
+      ],
+      "canonicalBounds": [
+        1,
+        1,
+        730,
+        504
+      ],
+      "sourceBottomMidpointX": 633.5,
+      "canonicalBottomMidpointX": 367.5,
+      "sourceOccupiedWidthLogicalPx": 44.078584387641726,
+      "canonicalOccupiedWidthLogicalPx": 44.078584387641726,
+      "widthDeltaLogicalPx": 0.0,
+      "bottomPointDeltaLogicalPxCameraBasis": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "alphaAtLeast": 192,
+      "sourceBounds": [
+        16,
+        238,
+        1238,
+        1050
+      ],
+      "canonicalBounds": [
+        1,
+        2,
+        729,
+        504
+      ],
+      "sourceBottomMidpointX": 632.0,
+      "canonicalBottomMidpointX": 366.5,
+      "sourceOccupiedWidthLogicalPx": 44.078584387641726,
+      "canonicalOccupiedWidthLogicalPx": 44.01811993717857,
+      "widthDeltaLogicalPx": -0.06046445046315796,
+      "bottomPointDeltaLogicalPxCameraBasis": [
+        -0.006358168481597093,
+        -0.0360708554171838
+      ]
+    }
+  ],
+  "feasibility": "One source-specific global quad/UV map preserves alpha128 occupied width and semantic plate-bottom support midpoint exactly while retaining all source object transforms, ray/yaw laws and actions. Canonical visible height becomes30.4136logicalpx versus source29.3617, a1.052px increase dictated by canonical aspect; this is not a new contact trajectory.",
+  "topVisibleFoodOutcomes": [
+    "Exact canonical salmon/rice/plate remains complete, correctly proportioned and recognizable at native and phone size.",
+    "Visible plate occupied width and semantic bottom support point stay registered to Noor\u2019s authored palm motion using one global map.",
+    "All live hold/load views preserve credible support and source-consistent occlusion, clean alpha and stable motion; native body/knife remain the approved artwork."
+  ],
+  "pending": "Coordinator must reconcile/freeze versioned qualityCriteria before the original editor changes the food dependency. No candidate has been graded or approved."
+}
