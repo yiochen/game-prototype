@@ -1,0 +1,7 @@
+{
+  "initialReadOnlyCheck": "failed at expected historical review SHA comparison before modifying any historical file",
+  "cause": "A known round03 review hash was mistyped in the newly cloned round05 verifier; missing e6 characters.",
+  "correctActualRound03ReviewSHA256": "7178adbfc84dfc666b6e6cb1c83f56fc4bb25d10c78a4b55e5c0c3fc3d9f4b0d",
+  "resolution": "Restored exact previously sealed expected identities from the immutable round04 verifier, appended actual sealed04 packet/review binding, and reran the whole check. No source/review/packet/history input was rewritten.",
+  "log": "candidates/round-05/diagnostics/initial-integrity-check.log"
+}

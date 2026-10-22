@@ -1,0 +1,110 @@
+{
+  "candidatePacketSHA256": "b88a53552fef711cc6649b6ce1eb4fb7eac131290a70427a673f36ff7fe5493d",
+  "atlases": [
+    {
+      "path": "candidates/round-04/atlases/static-N.png",
+      "sha256": "6fe15e0262e6736b24d81dd53d9402a5e6c9bff2358d6aa76829dde39914a7df",
+      "direction": "N",
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          704
+        ]
+      ],
+      "originalAtlasLayoutUnchanged": true,
+      "exactHeroPixels": true
+    },
+    {
+      "path": "candidates/round-04/atlases/static-E.png",
+      "sha256": "c9364e84a784fbb21ee4f62b2baefe082bba5fbba0de610a937bc8260b90d264",
+      "direction": "E",
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          704
+        ]
+      ],
+      "originalAtlasLayoutUnchanged": true,
+      "exactHeroPixels": true
+    },
+    {
+      "path": "candidates/round-04/atlases/static-S.png",
+      "sha256": "2812f970bcaff4fcd0f2044bb34c4a4d86ecf486f4e923f603fa29e7f6162379",
+      "direction": "S",
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          704
+        ]
+      ],
+      "originalAtlasLayoutUnchanged": true,
+      "exactHeroPixels": true
+    },
+    {
+      "path": "candidates/round-04/atlases/static-W.png",
+      "sha256": "05966665588ebbdc40e088ef8c13806e5e3a9039973ce18453dedf9ef2808ab5",
+      "direction": "W",
+      "rects": [
+        [
+          0,
+          0,
+          384,
+          704
+        ]
+      ],
+      "originalAtlasLayoutUnchanged": true,
+      "exactHeroPixels": true
+    }
+  ],
+  "publishedMetadataMatchesFrozenCatalog": true,
+  "helpers": [
+    {
+      "name": "sprite-layout.js",
+      "frozenSHA256": "099de61830564dbe0de7e3b85ffbeefcc1b80555098ed499b889b50db6074c65",
+      "currentSHA256": "099de61830564dbe0de7e3b85ffbeefcc1b80555098ed499b889b50db6074c65"
+    },
+    {
+      "name": "world-sprite-raster.js",
+      "frozenSHA256": "570a0d0d788ab65252724da1f0ff7d82a086eab1875ba37ed032dac34acf9545",
+      "currentSHA256": "570a0d0d788ab65252724da1f0ff7d82a086eab1875ba37ed032dac34acf9545"
+    }
+  ],
+  "unchangedGates": [
+    {
+      "gate": "integrity",
+      "sourceSHA256": "ab4d4e874aca990e373babb4b5c9650fc5f431b621bac92ecbfaf63a0469e45f",
+      "command": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py",
+        "verify",
+        "--packet",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/rock-half-width/candidates/round-04/packet.json"
+      ],
+      "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "exitCode": 0,
+      "stdout": "Artifact integrity verified.\n",
+      "stderr": ""
+    },
+    {
+      "gate": "directions",
+      "sourceSHA256": "c4637a73b3f74406d2a1af884e5c2fb90511c24b18b0e9a909403ff70be1c7fb",
+      "command": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/audit_directions.py",
+        "rock-half-width",
+        "--round",
+        "round-04"
+      ],
+      "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "exitCode": 0,
+      "stdout": "{\"asset\": \"rock-half-width\", \"round\": \"round-04\", \"status\": \"passed\", \"sourceConvention\": \"native_actions.apply_clip: S0/E+90/N180/W-90 degrees\", \"sampleCounts\": {\"N\": 2, \"E\": 2, \"S\": 3, \"W\": 2}}\n",
+      "stderr": ""
+    }
+  ]
+}

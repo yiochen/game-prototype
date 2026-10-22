@@ -1,0 +1,35 @@
+<!doctype html><meta charset="utf-8"><title>Native rock-half-width round04 consumer evidence</title>
+<script type="importmap">{"imports":{"react":"/react-stub.js"}}</script>
+<style>*{box-sizing:border-box}body{margin:10px;background:#dce3e2;color:#243341;font:12px system-ui}h1{font-size:15px;margin:0 0 8px}p{margin:4px 0 10px}.panels{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start}.panel{flex:none}.label{height:28px;line-height:14px}.stage{position:relative;overflow:hidden}canvas{position:absolute;display:block;image-rendering:auto}</style>
+<h1>Round04 / current native-canvas consumer</h1><p id="info"></p><div id="panels" class="panels"></div>
+<script type="module">
+import {spriteFrame,clipFor,groundRoot,orderPlacements} from '/source/round-01-resources/sprite-layout.js';
+import {worldRasterPlan,paintWorldRaster} from '/source/round-01-resources/world-sprite-raster.js';
+const object=await fetch('/inputs/catalog-object.json').then(r=>r.json());
+const c=JSON.parse(new URL(location.href).searchParams.get('case'));document.querySelector('#info').textContent=`${c.id}: cell${c.cellCSS}, root phase${c.rootPhase}, pan${c.pan}, DPR${devicePixelRatio}. 3 true-pitch modules; light/gray/dark grounds.`;
+const records=[],D=['N','E','S','W'],grounds=[['light','#efefe5'],['gray','#7a8994'],['dark','#131b2c']];
+const canonicalBounds=[-224,-384,448,640];
+function places(d,parallel=false){
+ const a={S:0,E:Math.PI/2,N:Math.PI,W:-Math.PI/2}[d];
+ const result=[];
+ for(const row of (parallel?[0,1]:[0]))for(const dx of [-1,0,1]){
+  const wx=Math.cos(a)*dx+Math.sin(a)*row,wy=Math.sin(a)*dx-Math.cos(a)*row;
+  result.push({object:object.id,x:wx-.5,y:-wy-.5,direction:d,offset:c.rootPhase});
+ }
+ return result;
+}
+async function draw(d,bgName,bg,parallel=false){
+ const placements=places(d,parallel),ordered=orderPlacements(placements,[object]);
+ const bounds=[canonicalBounds[0]+c.pan[0],canonicalBounds[1]+c.pan[1],canonicalBounds[2],canonicalBounds[3]];
+ const sprites=ordered.map(p=>{const f=spriteFrame(object,clipFor(object,'static'),d,0),r=groundRoot(p,object,128);return {x:r[0]-f.root[0],y:r[1]-f.root[1],width:f.frameSize[0],height:f.frameSize[1],rect:f.rect,url:`/candidates/round-04/atlases/static-${d}.png`,placement:p}});
+ const loaded=await Promise.all(sprites.map(s=>new Promise((resolve,reject)=>{const im=new Image;im.onload=()=>resolve(im);im.onerror=reject;im.src=s.url})));
+ const plan=worldRasterPlan(sprites,bounds),panel=document.createElement('div');panel.className='panel';
+ const label=document.createElement('div');label.className='label';label.textContent=`${parallel?'Parallel .66 gap':d+' repeat'} / ${bgName}`;panel.append(label);
+ const stage=document.createElement('div');stage.className='stage';stage.style.width=`${bounds[2]*c.cellCSS/128}px`;stage.style.height=`${bounds[3]*c.cellCSS/128}px`;stage.style.background=bg;panel.append(stage);
+ const canvas=document.createElement('canvas');paintWorldRaster(canvas,plan,loaded);stage.append(canvas);canvas.style.width=`${plan.width/plan.scale*c.cellCSS/128}px`;canvas.style.height=`${plan.height/plan.scale*c.cellCSS/128}px`;canvas.style.left=`${(plan.x-bounds[0])*c.cellCSS/128}px`;canvas.style.top=`${(plan.y-bounds[1])*c.cellCSS/128}px`;document.querySelector('#panels').append(panel);
+ records.push({direction:d,background:bgName,kind:parallel?'parallel':'repeat',bounds,placements,ordered,sprites,plan,data:canvas.toDataURL('image/png'),css:{width:canvas.style.width,height:canvas.style.height,left:canvas.style.left,top:canvas.style.top,stageWidth:stage.style.width,stageHeight:stage.style.height,imageRendering:getComputedStyle(canvas).imageRendering},nativeSmoothing:canvas.getContext('2d').imageSmoothingEnabled});
+}
+for(const d of D)for(const [name,bg]of grounds)await draw(d,name,bg);
+await draw('S','gray','#7a8994',true);
+window.roundStudy={ready:true,case:c,records,scope:'Exact unchanged current consumers with independent full-frame captures; CSS screenshots and native canvas bytes retained separately. This fixture is not full application or Godot proof.'};
+</script>

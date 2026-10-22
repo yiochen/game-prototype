@@ -1,0 +1,29 @@
+import bpy,json,math
+from pathlib import Path
+from mathutils import Vector
+from bpy_extras.object_utils import world_to_camera_view
+B=Path(__file__).resolve().parents[2];root=bpy.data.objects['rock-half-width__root.001'];body=bpy.data.objects['rock-half-width__relief_core'];m=body.data
+section=json.loads((B/'resources/root-native-contract.json').read_text())['nativeContract']['functionalInterfaces']['finiteSectionYZ'];edges=list(zip(section,section[1:]+section[:1]))
+def distance(p,a,b):
+ p,a,b=Vector(p),Vector(a),Vector(b);v=b-a;t=max(0,min(1,(p-a).dot(v)/v.length_squared));return (p-(a+t*v)).length
+collars=[v for v in m.vertices if abs(v.co.x)>=.42-1e-6];residual=max(min(distance([v.co.y,v.co.z],a,b) for a,b in edges) for v in collars)
+planes={}
+for x in [-.5,-.46,-.42,.42,.46,.5]:planes[str(x)]=sorted({(round(v.co.y,7),round(v.co.z,7)) for v in m.vertices if abs(v.co.x-x)<1e-6})
+attrs=m.attributes['collar_weight'];allOne=all(abs(attrs.data[v.index].value-1)<1e-7 for v in collars)
+ids=[];seen=set()
+def add(x):
+ if x and x.as_pointer() not in seen:seen.add(x.as_pointer());ids.append(x)
+for x in bpy.data.objects:add(x);add(x.data)
+for x in bpy.data.materials:add(x);add(x.node_tree)
+for x in bpy.data.node_groups:add(x)
+for x in bpy.data.worlds:add(x);add(x.node_tree)
+for x in bpy.data.scenes:add(x)
+records=[]
+for x in ids:
+ if hasattr(x,'animation_data'):
+  a=x.animation_data;records.append({'name':x.name,'type':type(x).__name__,'action':a.action.name if a and a.action else None,'drivers':[{'path':f.data_path,'index':f.array_index,'expression':f.driver.expression} for f in a.drivers] if a else [],'NLA':[t.name for t in a.nla_tracks] if a else []})
+result={'pathBase':'object root','source':'reviews/round-04-independent/resources/candidate.blend','actualFullCollars':{'vertexCount':len(collars),'allActualWeightsOne':allOne,'maxBoundaryDistanceFromFrozenSixPointSection':residual,'sectionYZSetsByActualX':planes,'allSixActualRingSetsMatch':all(v==planes['-0.5'] for v in planes.values()),'method':'Actual mesh coordinates at all six authored collar ring planes, full vertex-distance check to finite frozen section, actual POINT weights. Linear polygon faces preserve the source extrusion within the full.08 collars; no profile inferred from name.'},'temporalChannels':records,'noActualActionsDriversNLA':all(not r['action'] and not r['drivers'] and not r['NLA'] for r in records),'staticFrames':[bpy.context.scene.frame_start,bpy.context.scene.frame_end],'fps':bpy.context.scene.render.fps,'opacity':'Actual active material is an opaque emission surface; no transparent shader, mask or removed cap. Actual saved graph and matching field measured separately in independent-native-inspection.json.'}
+sc=bpy.context.scene;q=world_to_camera_view(sc,sc.camera,Vector((0,0,0)));result['actualCaptureAndPrivateScene']={'groundRootNative':[q.x*sc.render.resolution_x,(1-q.y)*sc.render.resolution_y],'objects':[{'name':o.name,'type':o.type,'parent':o.parent.name if o.parent else None,'matrixWorld':[list(r) for r in o.matrix_world]} for o in bpy.data.objects],'lights':[{'name':o.name,'type':o.data.type,'energy':o.data.energy,'size':o.data.size} for o in bpy.data.objects if o.type=='LIGHT'],'worldNodes':[{'type':n.bl_idname,'inputs':{a.name:list(a.default_value) if hasattr(a.default_value,'__len__') else a.default_value for a in n.inputs if hasattr(a,'default_value')}} for n in sc.world.node_tree.nodes],'engine':sc.render.engine,'transparent':sc.render.film_transparent,'viewTransform':sc.view_settings.view_transform,'look':sc.view_settings.look,'exposure':sc.view_settings.exposure,'gamma':sc.view_settings.gamma,'resolutionPercentage':sc.render.resolution_percentage,'renderDither':sc.render.dither_intensity}
+tree=body.data.materials[0].node_tree;coords=tree.nodes['Native coordinate'];uses=[{'output':l.from_socket.name,'toNode':l.to_node.name,'toInput':l.to_socket.name} for l in tree.links if l.from_node==coords];assert set(v['output'] for v in uses)=={'Y','Z'}
+result['actualCollarPositionDependency']={'linkedCoordinateOutputs':uses,'noLinkedLocalX':True,'fullWeightSelection':'All actual collar vertices/caps weights1. Coherent albedo and geometry-to-collar normal mix select the same linked Y/Z-only analytic branch; native stone color/mesh normal are ignored on full collars. The actual shared graph has no local-X-linked position term in these branches, so longitudinal variation is identically zero independent of finite sampling.','capAndSideMaterialIndex':sorted({poly.material_index for poly in m.polygons}),'materialCount':len(m.materials)}
+(B/'evidence/collar-temporal-audit.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'fullCollarVertexCount':len(collars),'maxProfileDistance':residual,'sixRingSetsMatch':result['actualFullCollars']['allSixActualRingSetsMatch'],'allWeightsOne':allOne,'actualTemporalIDs':len(records),'noActionsDriversNLA':result['noActualActionsDriversNLA']}))

@@ -1,0 +1,18 @@
+from pathlib import Path
+import json,hashlib,shutil
+obj=Path(__file__).resolve().parents[4];base=obj/'reviews/round-04-independent';res=base/'resources';repo=obj.parents[5]
+files={'prior-review-round-03.json':obj/'reviews/round-03.json','previous-candidate.blend':obj/'reviews/round-02-independent/resources/candidate.blend','prior-review-round-02.json':obj/'reviews/round-02.json','editor-technical/compare-round04.py':obj/'source/compare-round04.py','editor-technical/audit-field-round04.py':obj/'source/audit-field-round04.py','candidate.blend':obj/'source/round-04.blend','packet.json':obj/'candidates/round-04/packet.json','brief.json':obj/'brief.json','root-native-contract.json':obj/'inputs/root-native-contract.json','root-preparation-reconciliation-v1.json':obj/'inputs/root-preparation-reconciliation-v1.json','catalog-object.json':obj/'inputs/catalog-object.json','original.png':obj/'inputs/original.png','target.png':obj/'inputs/target.png','warm-soft-reference.png':obj/'../../style/warm-soft-reference.png','proposedcriteria.json':obj/'reviews/proposedcriteria.json','source-contract-proposal.json':obj/'reviews/source-contract-proposal.json','judge.txt':obj/'prompts/judge.txt','consumer/sprite-layout.js':obj/'source/round-01-resources/sprite-layout.js','consumer/world-sprite-raster.js':obj/'source/round-01-resources/world-sprite-raster.js','editor-technical/reproduce-round04.py':obj/'source/reproduce-round04.py','editor-technical/publish-round04.py':obj/'source/publish-round04.py','editor-technical/analyze-round04.py':obj/'source/analyze-round04.py','editor-technical/finalize-round04.py':obj/'source/finalize-round04.py','editor-technical/replay-round04.py':obj/'source/replay-round04.py','editor-technical/consumer-round04.html':obj/'source/consumer-round04.html','editor-technical/capture-consumer-round04.mjs':obj/'source/capture-consumer-round04.mjs','instructions/AGENTS-root.md':repo/'AGENTS.md','instructions/AGENTS-game.md':repo/'prototypes/sushi-loop/AGENTS.md','instructions/refine-3d-model-SKILL.md':Path('/Users/yiouchen/.codex/skills/refine-3d-model/SKILL.md')}
+for n in ['validation.json','native-validation.json','native-field-proof.json','publication.json','comparison-analysis.json','alpha-residual-analysis.json','native-camera.json','published-camera.json','rig.json','assetRecord.json','consumer/record.json']:files['candidate-records/'+n]=obj/'candidates/round-04'/n
+for n in ['REVIEW-COVERAGE.txt','HEADLESS-BROWSER-CONFIGS.txt','PUBLISHER-HANDOFF.txt','rock-half-width/judge-round-04-dispatch.txt']:files['instructions/'+Path(n).name]=obj.parents[1]/'preparation'/n
+records=[]
+for n,p in files.items():
+ d=res/n;d.parent.mkdir(parents=True,exist_ok=True)
+ if d.exists():assert d.read_bytes()==p.read_bytes()
+ else:shutil.copy2(p,d)
+ records.append({'path':str(d.relative_to(obj)),'sha256':hashlib.sha256(d.read_bytes()).hexdigest(),'originalPath':str(p.resolve())})
+# Verify packet file records against their own exact record-path base.
+p=obj/'candidates/round-04/packet.json';packet=json.loads(p.read_text());checks=[]
+for group in ['files','candidateRenders','previews']:
+ for name,r in packet[group].items():
+  q=(p.parent/r['path']).resolve();h=hashlib.sha256(q.read_bytes()).hexdigest();assert h==r['sha256'],(group,name);checks.append({'group':group,'name':name,'path':r['path'],'sha256':h})
+(base/'evidence/input-and-packet-verification.json').write_text(json.dumps({'candidatePacketSHA256':hashlib.sha256(p.read_bytes()).hexdigest(),'frozen':records,'verifiedPacketRecords':checks},indent=2)+'\n');print(len(records),'frozen;',len(checks),'packet records verified')
