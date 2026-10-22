@@ -1,0 +1,60 @@
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-ruin-fragment/source/round-02/package.py:25: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  a=Image.open(p).getchannel('A');bb=a.getbbox();alphas[d+'-'+label]={'bounds':list(bb),'canvas':list(a.size),'borderTransparent':a.crop((0,0,a.width,1)).getbbox() is None and a.crop((0,a.height-1,a.width,a.height)).getbbox() is None and a.crop((0,0,1,a.height)).getbbox() is None and a.crop((a.width-1,0,a.width,a.height)).getbbox() is None,'partialAlphaPixels':sum(1 for v in a.getdata() if 0<v<255)}
+{
+  "checks": {
+    "nativeRootCalibration": true,
+    "heightWithin2_18": true,
+    "undeformedFootprintWithinCell": true,
+    "groundAtZero": true,
+    "projectedSilhouetteUnder3Cells": true,
+    "noClipping": true,
+    "noExternalImageOrLibraryDependencies": true,
+    "staticNoActionsOrArmatures": true,
+    "exactReplay": false
+  },
+  "project": "source/round-02/project.blend",
+  "delivery": "candidates/round-02/delivery.json",
+  "measuredBounds": {
+    "min": [
+      -0.5,
+      -0.5,
+      0.0
+    ],
+    "max": [
+      0.5,
+      0.5,
+      2.180000066757202
+    ],
+    "dimensions": [
+      1.0,
+      1.0,
+      2.180000066757202
+    ]
+  },
+  "replay": [
+    {
+      "direction": "N",
+      "originalSHA256": "5398118058d9c089631e34b6c840ab89355668be44af3c3c42918605ffb6e6cc",
+      "replaySHA256": "c7f01357fb9550ac364ebe268c90a6923e391a7ac5ecf653350b5bcdf2eeefb1",
+      "bytesIdentical": false
+    },
+    {
+      "direction": "E",
+      "originalSHA256": "51a794078dc5fa8f71a02c67380e4f981a8c6fa3a3f3f340e298eed217877f7b",
+      "replaySHA256": "908d3faf7fe5c141a76db96c7a3270c45fcce3500d9eb4b9a2fb37bb77b1fce5",
+      "bytesIdentical": false
+    },
+    {
+      "direction": "S",
+      "originalSHA256": "1f84cdcc3397478beead12e081fc2e255880aade18f6d4863dff5bc2ccc8573f",
+      "replaySHA256": "0b331b2c4e095b91182344203f5441ecbd74b81f3008d54db631dd6b60e943ad",
+      "bytesIdentical": false
+    },
+    {
+      "direction": "W",
+      "originalSHA256": "9125fdbce77ea3c88cb8fe47d93f514f2f57ed8e372f38fc0cb17983ada6a833",
+      "replaySHA256": "95e5057e02c65fd366d499a5fea810abfa49758debbd9f978bb0f8adf29eb41d",
+      "bytesIdentical": false
+    }
+  ]
+}

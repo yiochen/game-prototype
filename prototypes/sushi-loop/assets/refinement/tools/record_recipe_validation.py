@@ -72,6 +72,11 @@ def record(asset, inspection_note, notes, supplements):
             and max(consumer['joinMaxRGBA'][:3]) <= 1 and consumer['joinMaxRGBA'][3] == 0
             and consumer['joinAlphaDifferentPixels'] == 0 and consumer['joinRGBOver1Pixels'] == 0,
             'Actual per-asset consumer check failed')
+    godot = technical.get('actualCurrentGodot')
+    if godot:
+        require(godot['cases'] >= 1 and max(godot['maximumJoinRGBA'][:3]) <= 1
+                and godot['maximumJoinRGBA'][3] == 0 and godot['joinAlphaDifferentPixels'] == 0
+                and godot['joinRGBOver1Pixels'] == 0, 'Own cap-class Godot check failed')
     extras = {}
     for relative in supplements:
         path = inside(RUN, folder / relative)
