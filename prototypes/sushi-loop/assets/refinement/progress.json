@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 102,
-  "completed": 95,
-  "published": 94,
-  "current": "decor-background-wreck",
+  "completed": 96,
+  "published": 95,
+  "current": "salvage-metal",
   "objects": [
     {
       "id": "plant-angular",
@@ -1650,7 +1650,7 @@
       "name": "Quiet background wreck",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
@@ -1661,7 +1661,10 @@
       "editor": "catalog_decor_background_wreck_editor_v1",
       "briefSHA256": "0d70f621d013e2ca2b99c392f1dd4f86bffe778dba5f9d3b2c556dfd722ecb2d",
       "round": "round-02",
-      "packetSHA256": "778463b2f5fc0c9f47375b66e0524ec164d7c1b0abbc4237643b94d55fd43f2f"
+      "packetSHA256": "778463b2f5fc0c9f47375b66e0524ec164d7c1b0abbc4237643b94d55fd43f2f",
+      "commit": "8ba5c4ac38fb5d7e85339a8b9ed1583dad4f2d84",
+      "deployId": "6ada98f2d2fe39a14846ec74",
+      "previewVerified": true
     },
     {
       "id": "decor-background-fish",
@@ -1806,17 +1809,20 @@
       "name": "Metal fragment",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "reviewing",
+      "status": "approved",
       "clips": 9,
       "frames": 432,
       "target": "inputs/target.png",
-      "judgeStatus": "reviewing-round01",
+      "judgeStatus": "approved-round01",
       "editorStatus": "immutable-round01-handoff",
       "stage": "native-salvage-round01",
       "editor": "catalog_salvage_metal_editor_v1",
       "judge": "catalog_salvage_metal_judge_v1",
       "briefSHA256": "937f00cdcde660c6ce0764cfade2973b3476637c269a9e47acedb60cdb47510b",
-      "candidatePacketSHA256": "9c1d9337a2a6cf9bfc23c5d642bcbf1c66c6ddb78f953ffabfce7c008d89bd94"
+      "candidatePacketSHA256": "9c1d9337a2a6cf9bfc23c5d642bcbf1c66c6ddb78f953ffabfce7c008d89bd94",
+      "reviewSHA256": "01c79a86e4f7fa283d6d71a3e4cc0384ac3c1f3b4fec0f95bf8188e89b6e78fa",
+      "round": "round-01",
+      "packetSHA256": "9c1d9337a2a6cf9bfc23c5d642bcbf1c66c6ddb78f953ffabfce7c008d89bd94"
     },
     {
       "id": "route-current",
@@ -1857,10 +1863,12 @@
       "name": "Portal rim",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "preparing",
       "clips": 1,
       "frames": 48,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "preparationJudge": "catalog_portal_rim_judge_v1",
+      "judgeStatus": "initial-source-preparation"
     },
     {
       "id": "portal-entry",
@@ -1903,12 +1911,16 @@
       "name": "Current generic fish example",
       "kind": "actor",
       "pipeline": "native-3d",
-      "status": "preparing",
+      "status": "editing",
       "clips": 11,
       "frames": 528,
       "target": "inputs/target.png",
-      "preparationJudge": "catalog_creature_fish_judge_v1",
-      "judgeStatus": "initial-source-preparation"
+      "judgeStatus": "prepared-awaiting-candidate",
+      "editor": "catalog_creature_fish_editor_v1",
+      "judge": "catalog_creature_fish_judge_v1",
+      "editorStatus": "starting-construction",
+      "stage": "native-fish-round01",
+      "briefSHA256": "5279940f2703e7c92458c80cd813fe326d4e225313e93980219bb9a3ca230498"
     },
     {
       "id": "harpoon-projectile",

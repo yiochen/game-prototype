@@ -1,0 +1,92 @@
+{
+  "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+  "environment": {
+    "os": "macOS-26.6.2-arm64-arm-64bit",
+    "blender": "/opt/homebrew/bin/blender",
+    "blenderVersion": "5.2.2 LTS d13f752e3b9c",
+    "pillowPython": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "browserTool": "worktree @playwright/test1.63.0",
+    "viteVersion": "7.3.6",
+    "bytecode": "PYTHONDONTWRITEBYTECODE=1; sys.dont_write_bytecode=True"
+  },
+  "commands": [
+    {
+      "argv": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/preparation-v1/resources/native/original.blend",
+        "--python",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/preparation-v1/inspect_native.py"
+      ],
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "stdoutAndStderr": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/preparation-v1/native-capture.log"
+    },
+    {
+      "argv": [
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/node_modules/.bin/vite",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/preparation-v1",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "5198",
+        "--strictPort"
+      ],
+      "stdoutAndStderr": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/preparation-v1/consumer-server.log"
+    },
+    {
+      "argv": [
+        "node",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/preparation-v1/capture-consumer.mjs"
+      ],
+      "stdoutAndStderr": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/preparation-v1/consumer-capture.log"
+    },
+    {
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/preparation-v1/derive_evidence.py"
+      ],
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "stdoutAndStderr": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/preparation-v1/derive-evidence.log"
+    },
+    {
+      "argv": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/preparation-v1/resources/native/original.blend",
+        "--python",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/preparation-v1/inspect_contacts.py"
+      ],
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "stdoutAndStderr": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/preparation-v1/native-contacts.log"
+    },
+    {
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/preparation-v1/compare_browser_modes.py"
+      ],
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "stdoutAndStderr": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/preparation-v1/compare-browser.log"
+    },
+    {
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/preparation-v1/write_preparation.py"
+      ],
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "stdoutAndStderr": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/preparation-v1/write-preparation.log"
+    }
+  ],
+  "commandExpansion": "All paths above are fully expanded exact executed targets; cwd is the task worktree. This JSON normalizes shell redirect presentation into argv/stdoutAndStderr records.",
+  "nonSubstantiveFailure": "First ad-hoc browser comparison ran systempython3, which has noPIL and exited before producing comparison output. Corrected comparison uses bundled PillowPython, script and log retained.",
+  "sourceWrites": "No .blend save, candidate, production, Git, live Blender, device, external message or extraagent. Vite used repository default configuration; only dependency optimization cache may be refreshed by tooling, no source or runtime helper edits."
+}

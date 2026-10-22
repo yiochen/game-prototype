@@ -1,0 +1,29 @@
+{
+  "pathBase": "object-root",
+  "runtimeRequirements": {
+    "blender": "/opt/homebrew/bin/blender 5.2.2 LTS",
+    "python": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "node": "Node24.19.0",
+    "playwright": "1.63.0 actual loaded module subset frozen",
+    "browsers": "Chromium153.0.8010.12 full channel and bundled headless-shell; executables/launch args/hashes in consumer/browser-evidence.json",
+    "ffmpeg": "/opt/homebrew/bin/ffmpeg; exact version/hash/command in family-playback/manifest.json"
+  },
+  "commands": [
+    "blender --background --factory-startup --python source/round01_native.py  # author only in a fresh output clone; refuses existing round-01.blend",
+    "blender --background source/round-01.blend --python source/capture_round01.py",
+    "python source/publish_round01.py",
+    "python source/finish_phase_evidence_round01.py",
+    "node source/serve-consumer-round01.mjs  # private portable exact-module fixture on5192",
+    "node source/witness-compositor-round01-v3.mjs",
+    "node source/witness-native-video-round01.mjs"
+  ],
+  "nativeSourceDependencies": [
+    "source/round01_native.py",
+    "source/capture_round01.py"
+  ],
+  "pythonModuleClosure": "candidates/round-01/python-module-closure.json",
+  "browserModuleClosure": "candidates/round-01/consumer/toolchain-and-closure.json",
+  "noExternalNativeImagesOrLinkedLibraries": true,
+  "frameSampling": "Whole native768x1408 -> published384x704 LANCZOS; original6x2 atlases; whole-canvas consumer filtering.",
+  "sourceCollectionModeling": "Private independent semantic roots; action/visibility replay in round01_native.activate; no use of the live Blender session."
+}

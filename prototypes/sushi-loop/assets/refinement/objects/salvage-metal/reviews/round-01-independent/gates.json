@@ -1,0 +1,71 @@
+{
+  "candidatePacketSHA256": "9c1d9337a2a6cf9bfc23c5d642bcbf1c66c6ddb78f953ffabfce7c008d89bd94",
+  "reviewSHA256": "01c79a86e4f7fa283d6d71a3e4cc0384ac3c1f3b4fec0f95bf8188e89b6e78fa",
+  "reports": [
+    {
+      "name": "packet",
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py",
+        "verify",
+        "--packet",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/candidates/round-01/packet.json",
+        "--review",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/salvage-metal/reviews/round-01.json"
+      ],
+      "helper": "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py",
+      "helperSHA256": "ab4d4e874aca990e373babb4b5c9650fc5f431b621bac92ecbfaf63a0469e45f",
+      "returnCode": 0,
+      "stdout": {
+        "path": "reviews/round-01-independent/gate-packet.stdout.txt",
+        "sha256": "a38e215d75d8366c001ee208de6d877061d72eb84f195185e2968b92aca37062"
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent/gate-packet.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "directions",
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/audit_directions.py",
+        "salvage-metal",
+        "--round",
+        "round-01"
+      ],
+      "helper": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/audit_directions.py",
+      "helperSHA256": "c4637a73b3f74406d2a1af884e5c2fb90511c24b18b0e9a909403ff70be1c7fb",
+      "returnCode": 0,
+      "stdout": {
+        "path": "reviews/round-01-independent/gate-directions.stdout.txt",
+        "sha256": "a71db2f8003cd9f34503c05f463ab4170eac75251a9bf3d835e4d90e6abd59c9"
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent/gate-directions.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "acceptance",
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py",
+        "salvage-metal",
+        "--round",
+        "round-01"
+      ],
+      "helper": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py",
+      "helperSHA256": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d",
+      "returnCode": 0,
+      "stdout": {
+        "path": "reviews/round-01-independent/gate-acceptance.stdout.txt",
+        "sha256": "364e28cf8fd091b5187244daad4e46aa2e477755db4853b70cea7972d896fab9"
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent/gate-acceptance.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Salvage metal native round01 consumer</title>
+<style>body{margin:0;background:#e9e6df;color:#1d2d38;font:12px system-ui}header{padding:10px;position:sticky;top:0;background:#e9e6df;z-index:2}button{font:inherit;margin-right:8px}#grid{display:grid;gap:2px;width:max-content;padding:4px}.card{position:relative;overflow:hidden}.label{position:absolute;top:2px;left:4px;font-size:10px;z-index:1;background:#e9e6dfdd;color:#1d2d38;padding:1px 3px}.viewport{position:relative}canvas{position:absolute;image-rendering:auto}#clock{font-variant-numeric:tabular-nums}</style></head>
+<body><header><button id="play">Play synchronized native family</button><button id="logical">Logical</button><button id="phone">Phone .45</button><span id="clock">0</span></header><main id="grid"></main>
+<script type="module">
+import {spriteFrame,groundRoot,orderPlacements} from './round-01-resources/consumer/sprite-layout.js';
+import {worldRasterPlan,paintWorldRaster} from './round-01-resources/consumer/world-sprite-raster.js';
+const object=await (await fetch('../candidates/round-01/consumer-object.json')).json();
+const dirs=['N','E','S','W'],clips=object.clips,grid=document.querySelector('#grid'),cards=[],images=new Map(),trace=[];
+const colors=['#f8f6f0','#888e92','#172736'];
+for(const c of clips)for(const d of dirs){const url=new URL(c.directions[d].image,location.href).href;if(!images.has(url)){const im=new Image();im.src=url;images.set(url,im)}}
+await Promise.all([...images.values()].map(im=>im.decode()));
+for(let i=0;i<clips.length;i++)for(let j=0;j<4;j++){
+const clip=clips[i],direction=dirs[j],card=document.createElement('section');card.className='card';card.style.background=colors[(i+j)%3];
+const label=document.createElement('span');label.className='label';label.textContent=clip.id+' '+direction;card.append(label);
+const viewport=document.createElement('div');viewport.className='viewport';const canvas=document.createElement('canvas');viewport.append(canvas);card.append(viewport);grid.append(card);
+cards.push({clip,direction,card,viewport,canvas});}
+let scale=.45,seconds=0,playing=false,start=0,lastPhase=-1,runTrace=[];
+function layout(value){scale=value;grid.style.gridTemplateColumns=`repeat(${scale===1?4:(innerWidth<500?4:9)},${192*scale}px)`;for(const c of cards){c.card.style.width=192*scale+'px';c.card.style.height=352*scale+'px';c.viewport.style.width=192*scale+'px';c.viewport.style.height=352*scale+'px'}draw(seconds)}
+function draw(t){seconds=t;const records=[];
+for(const c of cards){const placement={id:c.clip.id+'-'+c.direction,object:object.id,x:0,y:0,direction:c.direction,clip:c.clip.id};const ordered=orderPlacements([placement],[object]);const p=ordered[0];const f=spriteFrame(object,c.clip,c.direction,t);const root=groundRoot(p,object,128);const url=new URL(f.image,location.href).href;
+const sprite={x:root[0]-f.root[0],y:root[1]-f.root[1],width:f.frameSize[0],height:f.frameSize[1],rect:f.rect,url};const bounds=[sprite.x,sprite.y,192,352];const plan=worldRasterPlan([sprite],bounds);paintWorldRaster(c.canvas,plan,[images.get(url)]);
+c.canvas.style.left=(plan.x-bounds[0])*scale+'px';c.canvas.style.top=(plan.y-bounds[1])*scale+'px';c.canvas.style.width=plan.width/plan.scale*scale+'px';c.canvas.style.height=plan.height/plan.scale*scale+'px';records.push({clip:c.clip.id,direction:c.direction,phase:f.frame,rect:f.rect,groundRoot:root,plan:{x:plan.x,y:plan.y,width:plan.width,height:plan.height,scale:plan.scale},order:ordered.map(p=>p.id),canvasNearestAfterResize:c.canvas.getContext('2d').imageSmoothingEnabled===false});}
+document.querySelector('#clock').textContent=t.toFixed(3)+'s';window.lastDraw={seconds:t,scale,records};return records;}
+function raf(now){if(!playing)return;const t=(now-start)/1000;const phase=Math.floor(t*12);if(phase!==lastPhase){draw(t);lastPhase=phase;}runTrace.push({now,elapsed:t,phase:phase%12,collectPhase:Math.min(11,phase),paintedSeconds:seconds});if(t<3.2)requestAnimationFrame(raf);else{playing=false;window.completedRuns.push(runTrace);}}
+window.completedRuns=[];window.fixture={setTime:t=>{playing=false;return draw(t)},setScale:s=>layout(s),play:()=>{runTrace=[];lastPhase=-1;start=performance.now();playing=true;requestAnimationFrame(raf)},ready:true,objects:object,helpers:['099de61830564dbe0de7e3b85ffbeefcc1b80555098ed499b889b50db6074c65','570a0d0d788ab65252724da1f0ff7d82a086eab1875ba37ed032dac34acf9545']};
+document.querySelector('#play').onclick=window.fixture.play;document.querySelector('#logical').onclick=()=>layout(1);document.querySelector('#phone').onclick=()=>layout(.45);layout(.45);
+</script></body></html>
