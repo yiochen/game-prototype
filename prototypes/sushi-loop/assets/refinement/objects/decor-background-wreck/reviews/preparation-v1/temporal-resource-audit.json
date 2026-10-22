@@ -1,0 +1,314 @@
+{
+  "asset": "decor-background-wreck",
+  "sceneAnimation": {
+    "hasAnimationData": false,
+    "action": null,
+    "nla": [],
+    "drivers": []
+  },
+  "worldAnimation": {
+    "hasAnimationData": false,
+    "action": null,
+    "nla": [],
+    "drivers": []
+  },
+  "cameraObjectAnimation": {
+    "hasAnimationData": false,
+    "action": null,
+    "nla": [],
+    "drivers": []
+  },
+  "cameraDataAnimation": {
+    "hasAnimationData": false,
+    "action": null,
+    "nla": [],
+    "drivers": []
+  },
+  "objects": [
+    {
+      "name": "decor-background-wreck__root.001",
+      "animation": {
+        "hasAnimationData": false,
+        "action": null,
+        "nla": [],
+        "drivers": []
+      },
+      "constraints": []
+    },
+    {
+      "name": "decor-background-wreck__distant_hull.001",
+      "animation": {
+        "hasAnimationData": false,
+        "action": null,
+        "nla": [],
+        "drivers": []
+      },
+      "constraints": []
+    },
+    {
+      "name": "decor-background-wreck__mast.001",
+      "animation": {
+        "hasAnimationData": false,
+        "action": null,
+        "nla": [],
+        "drivers": []
+      },
+      "constraints": []
+    },
+    {
+      "name": "decor-background-wreck__crossbar.001",
+      "animation": {
+        "hasAnimationData": false,
+        "action": null,
+        "nla": [],
+        "drivers": []
+      },
+      "constraints": []
+    },
+    {
+      "name": "decor-background-wreck__cabin.001",
+      "animation": {
+        "hasAnimationData": false,
+        "action": null,
+        "nla": [],
+        "drivers": []
+      },
+      "constraints": []
+    }
+  ],
+  "materials": [
+    {
+      "name": "decor-background-wreck approved S33_356E91",
+      "animation": {
+        "hasAnimationData": false,
+        "action": null,
+        "nla": [],
+        "drivers": []
+      },
+      "linked": false
+    },
+    {
+      "name": "decor-background-wreck approved S33_326684",
+      "animation": {
+        "hasAnimationData": false,
+        "action": null,
+        "nla": [],
+        "drivers": []
+      },
+      "linked": false
+    },
+    {
+      "name": "decor-background-wreck approved S33_3D7A9B",
+      "animation": {
+        "hasAnimationData": false,
+        "action": null,
+        "nla": [],
+        "drivers": []
+      },
+      "linked": false
+    }
+  ],
+  "nodeTrees": [
+    {
+      "name": "Shader Nodetree",
+      "role": "owned material decor-background-wreck approved S33_356E91",
+      "animation": {
+        "hasAnimationData": false,
+        "action": null,
+        "nla": [],
+        "drivers": []
+      },
+      "nodeTypes": [
+        "BSDF_PRINCIPLED",
+        "OUTPUT_MATERIAL",
+        "EMISSION",
+        "NEW_GEOMETRY",
+        "SEPXYZ",
+        "MAP_RANGE",
+        "VALTORGB",
+        "MIX_RGB",
+        "VECT_MATH",
+        "MATH",
+        "MATH",
+        "MIX_RGB",
+        "BSDF_PRINCIPLED"
+      ],
+      "images": []
+    },
+    {
+      "name": "World Nodetree",
+      "role": "scene world",
+      "animation": {
+        "hasAnimationData": false,
+        "action": null,
+        "nla": [],
+        "drivers": []
+      },
+      "nodeTypes": [
+        "BACKGROUND",
+        "OUTPUT_WORLD"
+      ],
+      "images": []
+    },
+    {
+      "name": "S33 approved sRGB contrast 135 S33 Native Asset Library Export.003",
+      "role": "scene compositor",
+      "animation": {
+        "hasAnimationData": false,
+        "action": null,
+        "nla": [],
+        "drivers": []
+      },
+      "nodeTypes": [
+        "R_LAYERS",
+        "PREMULKEY",
+        "CONVERT_COLORSPACE",
+        "SEPARATE_COLOR",
+        "COMBINE_COLOR",
+        "MATH",
+        "MATH",
+        "MATH",
+        "CONVERT_COLORSPACE",
+        "PREMULKEY",
+        "GROUP_OUTPUT"
+      ],
+      "images": []
+    }
+  ],
+  "meshes": [
+    {
+      "object": "decor-background-wreck__distant_hull.001",
+      "meshData": "decor-background-wreck__distant_hull.001",
+      "dataUsers": 1,
+      "animation": {
+        "hasAnimationData": false,
+        "action": null,
+        "nla": [],
+        "drivers": []
+      },
+      "uvLayers": [],
+      "shapeKeys": null,
+      "boundaries": 0,
+      "nonManifoldEdges": 0,
+      "faceCount": 7,
+      "vertexCount": 10,
+      "materialOwnership": [
+        {
+          "material": "decor-background-wreck approved S33_356E91",
+          "objectUsers": [
+            "decor-background-wreck__distant_hull.001"
+          ]
+        }
+      ],
+      "activeModifiers": []
+    },
+    {
+      "object": "decor-background-wreck__mast.001",
+      "meshData": "Cube.2606",
+      "dataUsers": 1,
+      "animation": {
+        "hasAnimationData": false,
+        "action": null,
+        "nla": [],
+        "drivers": []
+      },
+      "uvLayers": [
+        "UVMap"
+      ],
+      "shapeKeys": null,
+      "boundaries": 0,
+      "nonManifoldEdges": 0,
+      "faceCount": 6,
+      "vertexCount": 8,
+      "materialOwnership": [
+        {
+          "material": "decor-background-wreck approved S33_326684",
+          "objectUsers": [
+            "decor-background-wreck__crossbar.001",
+            "decor-background-wreck__mast.001"
+          ]
+        }
+      ],
+      "activeModifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "type": "BEVEL",
+          "nodeGroup": null
+        }
+      ]
+    },
+    {
+      "object": "decor-background-wreck__crossbar.001",
+      "meshData": "Cube.2607",
+      "dataUsers": 1,
+      "animation": {
+        "hasAnimationData": false,
+        "action": null,
+        "nla": [],
+        "drivers": []
+      },
+      "uvLayers": [
+        "UVMap"
+      ],
+      "shapeKeys": null,
+      "boundaries": 0,
+      "nonManifoldEdges": 0,
+      "faceCount": 6,
+      "vertexCount": 8,
+      "materialOwnership": [
+        {
+          "material": "decor-background-wreck approved S33_326684",
+          "objectUsers": [
+            "decor-background-wreck__crossbar.001",
+            "decor-background-wreck__mast.001"
+          ]
+        }
+      ],
+      "activeModifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "type": "BEVEL",
+          "nodeGroup": null
+        }
+      ]
+    },
+    {
+      "object": "decor-background-wreck__cabin.001",
+      "meshData": "Cube.2608",
+      "dataUsers": 1,
+      "animation": {
+        "hasAnimationData": false,
+        "action": null,
+        "nla": [],
+        "drivers": []
+      },
+      "uvLayers": [
+        "UVMap"
+      ],
+      "shapeKeys": null,
+      "boundaries": 0,
+      "nonManifoldEdges": 0,
+      "faceCount": 6,
+      "vertexCount": 8,
+      "materialOwnership": [
+        {
+          "material": "decor-background-wreck approved S33_3D7A9B",
+          "objectUsers": [
+            "decor-background-wreck__cabin.001"
+          ]
+        }
+      ],
+      "activeModifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "type": "BEVEL",
+          "nodeGroup": null
+        }
+      ]
+    }
+  ],
+  "ownedArmatures": [],
+  "externalLibraries": [],
+  "ownedImageDependencyCount": 0,
+  "limits": "Unrelated packed dish images remain in untouched library backup, but are not reachable from this object. No new source saved."
+}

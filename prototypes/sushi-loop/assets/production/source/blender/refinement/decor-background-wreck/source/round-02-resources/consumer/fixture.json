@@ -1,0 +1,1933 @@
+{
+  "objects": [
+    {
+      "id": "decor-background-wreck",
+      "name": "Quiet background wreck",
+      "family": "W12",
+      "kind": "prop",
+      "layer": 1,
+      "blocking": false,
+      "frameSize": [
+        192,
+        352
+      ],
+      "root": [
+        96,
+        248
+      ],
+      "sourceScale": 2,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.75,
+      "directionFootprints": {
+        "N": [
+          1,
+          1
+        ],
+        "E": [
+          1,
+          1
+        ],
+        "S": [
+          1,
+          1
+        ],
+        "W": [
+          1,
+          1
+        ]
+      },
+      "directionRootCells": {
+        "N": [
+          0.5,
+          0.5
+        ],
+        "E": [
+          0.5,
+          0.5
+        ],
+        "S": [
+          0.5,
+          0.5
+        ],
+        "W": [
+          0.5,
+          0.5
+        ]
+      },
+      "rootCell": [
+        0.5,
+        0.5
+      ],
+      "occupiedCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "supportCells": [],
+      "overheadCells": [],
+      "registration": {
+        "method": "authored-3d-projection",
+        "groundAnchorAlignment": "center",
+        "completeFrame": [
+          192,
+          352
+        ],
+        "anchor": [
+          96,
+          248
+        ],
+        "cellSize": 128,
+        "poseFitting": false,
+        "sourceCaptureScale": 4
+      },
+      "requirements": {
+        "directions": [
+          "N",
+          "E",
+          "S",
+          "W"
+        ],
+        "states": [
+          "static"
+        ],
+        "variants": [
+          "default"
+        ],
+        "animated": false,
+        "fps": 12,
+        "minimumUniqueFrames": 1,
+        "targetLoopFrames": 1,
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "creature-eel"
+        ],
+        "notes": "Distinct visibility/depth metadata; low contrast behind actors and warning silhouettes. Ambient parameters have frozen reduced-motion state."
+      },
+      "interactions": [
+        {
+          "name": "Layered scenery beside the submarine and creature",
+          "gridSize": [
+            6,
+            4
+          ],
+          "placements": [
+            {
+              "object": "decor-background-wreck",
+              "x": 0,
+              "y": 1,
+              "direction": "S"
+            },
+            {
+              "object": "submarine-yellow",
+              "x": 2,
+              "y": 0,
+              "direction": "N",
+              "clip": "travel"
+            },
+            {
+              "object": "creature-eel",
+              "x": 4,
+              "y": 1,
+              "direction": "N",
+              "clip": "swim"
+            }
+          ]
+        }
+      ],
+      "sockets": {
+        "N": {},
+        "E": {},
+        "S": {},
+        "W": {}
+      },
+      "portProfiles": {},
+      "clips": [
+        {
+          "id": "static",
+          "sourceClipId": "static",
+          "name": "Static",
+          "frames": 1,
+          "fps": 12,
+          "static": true,
+          "loop": false,
+          "frameOrder": [
+            0
+          ],
+          "directions": {
+            "N": {
+              "image": "sprites/decor-background-wreck/static-N.png",
+              "columns": 1,
+              "rows": 1,
+              "atlasSize": [
+                384,
+                704
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  704
+                ]
+              ]
+            },
+            "E": {
+              "image": "sprites/decor-background-wreck/static-E.png",
+              "columns": 1,
+              "rows": 1,
+              "atlasSize": [
+                384,
+                704
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  704
+                ]
+              ]
+            },
+            "S": {
+              "image": "sprites/decor-background-wreck/static-S.png",
+              "columns": 1,
+              "rows": 1,
+              "atlasSize": [
+                384,
+                704
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  704
+                ]
+              ]
+            },
+            "W": {
+              "image": "sprites/decor-background-wreck/static-W.png",
+              "columns": 1,
+              "rows": 1,
+              "atlasSize": [
+                384,
+                704
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  384,
+                  704
+                ]
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "submarine-yellow",
+      "name": "Yellow submarine",
+      "family": "W13",
+      "kind": "actor",
+      "layer": 2,
+      "frameSize": [
+        320,
+        384
+      ],
+      "root": [
+        160,
+        288
+      ],
+      "sourceScale": 2,
+      "footprint": [
+        1,
+        2
+      ],
+      "height": 1.02,
+      "directionFootprints": {
+        "N": [
+          1,
+          2
+        ],
+        "E": [
+          2,
+          1
+        ],
+        "S": [
+          1,
+          2
+        ],
+        "W": [
+          2,
+          1
+        ]
+      },
+      "directionRootCells": {
+        "N": [
+          0.5,
+          1.0
+        ],
+        "E": [
+          1.0,
+          0.5
+        ],
+        "S": [
+          0.5,
+          1.0
+        ],
+        "W": [
+          1.0,
+          0.5
+        ]
+      },
+      "rootCell": [
+        0.5,
+        1.0
+      ],
+      "occupiedCells": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "supportCells": [],
+      "overheadCells": [],
+      "registration": {
+        "method": "authored-3d-projection",
+        "groundAnchorAlignment": "center",
+        "completeFrame": [
+          320,
+          384
+        ],
+        "anchor": [
+          160,
+          288
+        ],
+        "cellSize": 128,
+        "poseFitting": false,
+        "sourceCaptureScale": 2
+      },
+      "requirements": {
+        "directions": [
+          "N",
+          "E",
+          "S",
+          "W"
+        ],
+        "states": [
+          "idle",
+          "travel",
+          "impact",
+          "protection",
+          "dock-charging",
+          "dock-ready"
+        ],
+        "variants": [
+          "baseline",
+          "upgraded"
+        ],
+        "animated": true,
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "targetLoopFrames": 12,
+        "interactionObjectIds": [
+          "workshop-hut",
+          "creature-eel",
+          "salvage-metal"
+        ],
+        "notes": "Explicit rounded-prop art camera exception; same dock/dive identity and fixed root/bounds. Main dive pose points up; ready headlight restrained. No new stats/knockback/inertia.",
+        "sockets": [
+          "harpoon",
+          "collector",
+          "cable",
+          "headlight"
+        ]
+      },
+      "interactions": [
+        {
+          "name": "Submarine equipment and creature scale",
+          "gridSize": [
+            5,
+            4
+          ],
+          "placements": [
+            {
+              "object": "submarine-yellow",
+              "x": 0,
+              "y": 1,
+              "direction": "S"
+            },
+            {
+              "object": "creature-eel",
+              "x": 3,
+              "y": 1,
+              "direction": "S",
+              "clip": "swim"
+            }
+          ]
+        },
+        {
+          "name": "Baseline and upgraded native assemblies at the same scale",
+          "gridSize": [
+            5,
+            4
+          ],
+          "placements": [
+            {
+              "object": "submarine-yellow",
+              "x": 1,
+              "y": 1,
+              "direction": "S",
+              "clip": "idle"
+            },
+            {
+              "object": "submarine-yellow",
+              "x": 3,
+              "y": 1,
+              "direction": "S",
+              "clip": "upgraded-idle"
+            }
+          ]
+        }
+      ],
+      "sockets": {
+        "N": {
+          "sub_harpoon": [
+            -30.71999999999999,
+            -66.4181675720215
+          ],
+          "sub_collector": [
+            8.308003885415645e-15,
+            -72.8439094543457
+          ]
+        },
+        "E": {
+          "sub_harpoon": [
+            51.2,
+            -47.856981048583975
+          ],
+          "sub_collector": [
+            67.84,
+            -11.35997909545898
+          ]
+        },
+        "S": {
+          "sub_harpoon": [
+            30.72,
+            26.38776504516602
+          ],
+          "sub_collector": [
+            0.0,
+            50.12395126342774
+          ]
+        },
+        "W": {
+          "sub_harpoon": [
+            -51.2,
+            7.826578521728518
+          ],
+          "sub_collector": [
+            -67.84,
+            -11.35997909545898
+          ]
+        }
+      },
+      "portProfiles": {},
+      "clips": [
+        {
+          "id": "travel",
+          "sourceClipId": "travel",
+          "name": "Travel",
+          "frames": 12,
+          "fps": 12,
+          "static": false,
+          "loop": true,
+          "frameOrder": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "directions": {
+            "N": {
+              "image": "sprites/submarine-yellow/travel-N.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                3840,
+                1536
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  640,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  1280,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  1920,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  2560,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  3200,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  0,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  640,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  1280,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  1920,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  2560,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  3200,
+                  768,
+                  640,
+                  768
+                ]
+              ]
+            },
+            "E": {
+              "image": "sprites/submarine-yellow/travel-E.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                3840,
+                1536
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  640,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  1280,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  1920,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  2560,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  3200,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  0,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  640,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  1280,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  1920,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  2560,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  3200,
+                  768,
+                  640,
+                  768
+                ]
+              ]
+            },
+            "S": {
+              "image": "sprites/submarine-yellow/travel-S.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                3840,
+                1536
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  640,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  1280,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  1920,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  2560,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  3200,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  0,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  640,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  1280,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  1920,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  2560,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  3200,
+                  768,
+                  640,
+                  768
+                ]
+              ]
+            },
+            "W": {
+              "image": "sprites/submarine-yellow/travel-W.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                3840,
+                1536
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  640,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  1280,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  1920,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  2560,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  3200,
+                  0,
+                  640,
+                  768
+                ],
+                [
+                  0,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  640,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  1280,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  1920,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  2560,
+                  768,
+                  640,
+                  768
+                ],
+                [
+                  3200,
+                  768,
+                  640,
+                  768
+                ]
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "creature-eel",
+      "name": "Eel",
+      "family": "W15",
+      "kind": "actor",
+      "layer": 2,
+      "frameSize": [
+        448,
+        512
+      ],
+      "root": [
+        224,
+        352
+      ],
+      "sourceScale": 2,
+      "footprint": [
+        1,
+        2
+      ],
+      "height": 0.9,
+      "directionFootprints": {
+        "N": [
+          1,
+          2
+        ],
+        "E": [
+          2,
+          1
+        ],
+        "S": [
+          1,
+          2
+        ],
+        "W": [
+          2,
+          1
+        ]
+      },
+      "directionRootCells": {
+        "N": [
+          0.5,
+          1.0
+        ],
+        "E": [
+          1.0,
+          0.5
+        ],
+        "S": [
+          0.5,
+          1.0
+        ],
+        "W": [
+          1.0,
+          0.5
+        ]
+      },
+      "rootCell": [
+        0.5,
+        1.0
+      ],
+      "occupiedCells": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "supportCells": [],
+      "overheadCells": [],
+      "registration": {
+        "method": "authored-3d-projection",
+        "groundAnchorAlignment": "center",
+        "completeFrame": [
+          448,
+          512
+        ],
+        "anchor": [
+          224,
+          352
+        ],
+        "cellSize": 128,
+        "poseFitting": false,
+        "sourceCaptureScale": 4
+      },
+      "requirements": {
+        "directions": [
+          "N",
+          "E",
+          "S",
+          "W"
+        ],
+        "states": [
+          "swim",
+          "aim",
+          "restless",
+          "hook",
+          "pursuit",
+          "caught",
+          "escape",
+          "weave",
+          "dash",
+          "pause"
+        ],
+        "variants": [
+          "default"
+        ],
+        "animated": true,
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "targetLoopFrames": 12,
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "harpoon-projectile",
+          "harpoon-cable",
+          "eel-warning-strip"
+        ],
+        "notes": "Only approved eel and generic fish, no invented species. Poses keep stable hit silhouette; small world catch clip only, not full-screen cinematic.",
+        "sockets": [
+          "hook",
+          "cable"
+        ]
+      },
+      "interactions": [
+        {
+          "name": "Creature, submarine and separate cable scale",
+          "gridSize": [
+            5,
+            5
+          ],
+          "placements": [
+            {
+              "object": "submarine-yellow",
+              "x": 0,
+              "y": 0,
+              "direction": "S",
+              "clip": "travel"
+            },
+            {
+              "object": "creature-eel",
+              "x": 2,
+              "y": 0,
+              "direction": "S",
+              "clip": "pursuit"
+            },
+            {
+              "object": "harpoon-cable",
+              "x": 1,
+              "y": 2,
+              "direction": "E",
+              "clip": "taut"
+            }
+          ],
+          "note": "Presentation comparison. Cable endpoints and hook sockets remain visible through attachment overlays; no capture logic runs."
+        }
+      ],
+      "sockets": {
+        "N": {
+          "hook": [
+            2.5080766446537793e-15,
+            -70.46366455078126
+          ],
+          "cable": [
+            2.5080766446537793e-15,
+            -70.46366455078126
+          ],
+          "nose": [
+            9.405287417451672e-15,
+            -90.18530029296875
+          ]
+        },
+        "E": {
+          "hook": [
+            20.48,
+            -58.716823730468754
+          ],
+          "cable": [
+            20.48,
+            -58.716823730468754
+          ],
+          "nose": [
+            76.8,
+            -46.13464721679688
+          ]
+        },
+        "S": {
+          "hook": [
+            0.0,
+            -46.969982910156254
+          ],
+          "cable": [
+            0.0,
+            -46.969982910156254
+          ],
+          "nose": [
+            0.0,
+            -2.083994140625002
+          ]
+        },
+        "W": {
+          "hook": [
+            -20.48,
+            -58.716823730468754
+          ],
+          "cable": [
+            -20.48,
+            -58.716823730468754
+          ],
+          "nose": [
+            -76.8,
+            -46.13464721679688
+          ]
+        }
+      },
+      "portProfiles": {},
+      "clips": [
+        {
+          "id": "swim",
+          "sourceClipId": "swim",
+          "name": "Swim",
+          "frames": 12,
+          "fps": 12,
+          "static": false,
+          "loop": true,
+          "frameOrder": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "directions": {
+            "N": {
+              "image": "sprites/creature-eel/swim-N.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                5376,
+                2048
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  896,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  1792,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  2688,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  3584,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  4480,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  0,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  896,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  1792,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  2688,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  3584,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  4480,
+                  1024,
+                  896,
+                  1024
+                ]
+              ]
+            },
+            "E": {
+              "image": "sprites/creature-eel/swim-E.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                5376,
+                2048
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  896,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  1792,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  2688,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  3584,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  4480,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  0,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  896,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  1792,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  2688,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  3584,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  4480,
+                  1024,
+                  896,
+                  1024
+                ]
+              ]
+            },
+            "S": {
+              "image": "sprites/creature-eel/swim-S.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                5376,
+                2048
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  896,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  1792,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  2688,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  3584,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  4480,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  0,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  896,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  1792,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  2688,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  3584,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  4480,
+                  1024,
+                  896,
+                  1024
+                ]
+              ]
+            },
+            "W": {
+              "image": "sprites/creature-eel/swim-W.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                5376,
+                2048
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  896,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  1792,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  2688,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  3584,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  4480,
+                  0,
+                  896,
+                  1024
+                ],
+                [
+                  0,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  896,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  1792,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  2688,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  3584,
+                  1024,
+                  896,
+                  1024
+                ],
+                [
+                  4480,
+                  1024,
+                  896,
+                  1024
+                ]
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "floor-underwater",
+      "name": "Turquoise underwater floor",
+      "family": "W11",
+      "kind": "floor",
+      "layer": 0,
+      "frameSize": [
+        128,
+        128
+      ],
+      "root": [
+        64,
+        64
+      ],
+      "sourceScale": 2,
+      "footprint": [
+        1,
+        1
+      ],
+      "height": 0.004,
+      "directionFootprints": {
+        "N": [
+          1,
+          1
+        ],
+        "E": [
+          1,
+          1
+        ],
+        "S": [
+          1,
+          1
+        ],
+        "W": [
+          1,
+          1
+        ]
+      },
+      "directionRootCells": {
+        "N": [
+          0.5,
+          0.5
+        ],
+        "E": [
+          0.5,
+          0.5
+        ],
+        "S": [
+          0.5,
+          0.5
+        ],
+        "W": [
+          0.5,
+          0.5
+        ]
+      },
+      "rootCell": [
+        0.5,
+        0.5
+      ],
+      "occupiedCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "supportCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "overheadCells": [],
+      "registration": {
+        "method": "authored-3d-projection",
+        "groundAnchorAlignment": "center",
+        "completeFrame": [
+          128,
+          128
+        ],
+        "anchor": [
+          64,
+          64
+        ],
+        "cellSize": 128,
+        "poseFitting": false,
+        "sourceCaptureScale": 2
+      },
+      "requirements": {
+        "directions": [
+          "N",
+          "E",
+          "S",
+          "W"
+        ],
+        "states": [
+          "scroll"
+        ],
+        "variants": [
+          "default"
+        ],
+        "animated": true,
+        "fps": 12,
+        "minimumUniqueFrames": 6,
+        "targetLoopFrames": 12,
+        "interactionObjectIds": [
+          "submarine-yellow",
+          "rock-wall-middle"
+        ],
+        "notes": "Static reduced-motion fallback; world-space repeating water phase, no visible seams."
+      },
+      "interactions": [
+        {
+          "name": "Connected 3 \u00d7 3 floor patch",
+          "gridSize": [
+            3,
+            3
+          ],
+          "placements": [
+            {
+              "object": "floor-underwater",
+              "x": 0,
+              "y": 0,
+              "direction": "S"
+            },
+            {
+              "object": "floor-underwater",
+              "x": 1,
+              "y": 0,
+              "direction": "S"
+            },
+            {
+              "object": "floor-underwater",
+              "x": 2,
+              "y": 0,
+              "direction": "S"
+            },
+            {
+              "object": "floor-underwater",
+              "x": 0,
+              "y": 1,
+              "direction": "S"
+            },
+            {
+              "object": "floor-underwater",
+              "x": 1,
+              "y": 1,
+              "direction": "S"
+            },
+            {
+              "object": "floor-underwater",
+              "x": 2,
+              "y": 1,
+              "direction": "S"
+            },
+            {
+              "object": "floor-underwater",
+              "x": 0,
+              "y": 2,
+              "direction": "S"
+            },
+            {
+              "object": "floor-underwater",
+              "x": 1,
+              "y": 2,
+              "direction": "S"
+            },
+            {
+              "object": "floor-underwater",
+              "x": 2,
+              "y": 2,
+              "direction": "S"
+            }
+          ],
+          "note": "Complete authored floor edges touch at one shared tile pitch; no gap or silhouette fitting is applied.",
+          "connectionReview": {
+            "kind": "floor-patch",
+            "object": "floor-underwater"
+          }
+        }
+      ],
+      "sockets": {
+        "N": {},
+        "E": {},
+        "S": {},
+        "W": {}
+      },
+      "portProfiles": {},
+      "clips": [
+        {
+          "id": "scroll",
+          "sourceClipId": "scroll",
+          "name": "Scroll",
+          "frames": 12,
+          "fps": 12,
+          "static": false,
+          "loop": true,
+          "frameOrder": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "directions": {
+            "N": {
+              "image": "sprites/floor-underwater/scroll-N.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                1536,
+                512
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  256,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  512,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  768,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  1024,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  1280,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  0,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  256,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  512,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  768,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  1024,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  1280,
+                  256,
+                  256,
+                  256
+                ]
+              ]
+            },
+            "E": {
+              "image": "sprites/floor-underwater/scroll-E.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                1536,
+                512
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  256,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  512,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  768,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  1024,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  1280,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  0,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  256,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  512,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  768,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  1024,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  1280,
+                  256,
+                  256,
+                  256
+                ]
+              ]
+            },
+            "S": {
+              "image": "sprites/floor-underwater/scroll-S.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                1536,
+                512
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  256,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  512,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  768,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  1024,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  1280,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  0,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  256,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  512,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  768,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  1024,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  1280,
+                  256,
+                  256,
+                  256
+                ]
+              ]
+            },
+            "W": {
+              "image": "sprites/floor-underwater/scroll-W.png",
+              "columns": 6,
+              "rows": 2,
+              "atlasSize": [
+                1536,
+                512
+              ],
+              "rects": [
+                [
+                  0,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  256,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  512,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  768,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  1024,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  1280,
+                  0,
+                  256,
+                  256
+                ],
+                [
+                  0,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  256,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  512,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  768,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  1024,
+                  256,
+                  256,
+                  256
+                ],
+                [
+                  1280,
+                  256,
+                  256,
+                  256
+                ]
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "source": "exact current production metadata bounded to required context clips; companion roles only, no other object review consulted"
+}

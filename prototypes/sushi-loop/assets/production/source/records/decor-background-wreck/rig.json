@@ -1,54 +1,387 @@
 {
-  "assetId": "decor-background-wreck",
-  "fps": 12,
-  "source": "native_actions.py",
-  "static": true,
-  "clips": {
-    "static": {
+  "asset": "decor-background-wreck",
+  "rootObject": "decor-background-wreck__root.001",
+  "armatures": [],
+  "actions": [],
+  "drivers": [],
+  "nla": [],
+  "shapeKeys": [],
+  "clips": [
+    {
+      "id": "static",
       "frames": 1,
       "fps": 12,
-      "loop": false,
       "static": true,
-      "firstFrame": 1,
-      "lastUniqueFrame": 1,
-      "closingKeyFrame": null,
-      "actions": [],
-      "controlsByFrame": [
-        {}
-      ],
-      "geometryOwners": [],
-      "shaderChannels": [],
-      "shaderLoopClosure": {}
+      "loop": false,
+      "frameOrder": [
+        0
+      ]
     }
-  },
-  "armatures": [],
-  "footprint": [
-    1,
-    1
   ],
-  "projection": "square-top-front-oblique",
-  "groundRootObject": "decor-background-wreck__root.001",
-  "sockets": {},
-  "notes": [
-    "Native object, rig, visibility, shape and shader channels; no raster substitutes.",
-    "Runtime frames exclude the duplicate loop closure key.",
-    "Visual contact and deformation review remains separate from these structural records."
-  ],
-  "actionCount": 0,
-  "createdAtUnix": 1792392888.801451,
-  "status": "native-actions-baked-needs-visual-review",
-  "sourceFiles": {
-    "native_actions.py": "7f3514c8ce1ee37c951ded3b6669f2eb6613dfa69940858092c8476392ad51c5",
-    "character_builders.py": "f3109ec4a61266cba9a921786353e720b707e21de35095be97a6f8fe8a70738a",
-    "prop_builders.py": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a",
-    "world_components.py": "0d156c24ebd2a31422e75286417e108d22575cf75f7e6ec87cf173aebefd1c91",
-    "food_belt_builders.py": "dc3eed619cd644588da74996b99013a24ecf8ce541056d847f3a049fb54a1d95",
-    "creature_fx_builders.py": "e8da19957cf01828137326c3459cb77e76ba563029ae7b057c8306d663fa9d5b",
-    "character_composition.py": "26d2bcfea0db0f594c2788868a9139daf020f0e349e08755ddf082c2a1141cd2",
-    "production_library.py": "9d8665b8e512f9b1c649b423ed69478d6ba4a0f745df3cdfd70d044cd3ff4236",
-    "catalog_variants.py": "329ec9b2013c990aeb45233a6e2783b0f9402aa97108f15a32ecb8a64a9d1cff",
-    "catalog_corner_supports.py": "5215531d424a8d7560cb19ca5bf05f3218f5671c346a79dc0585644462bd4b91",
-    "catalog_belt_flow.py": "0e7a979f8a0897e2a98a063d2a568fb0be8a751f72b76f9584f6949f77140fd5",
-    "catalog_clusters.py": "020f94b990987f6c4d664b5447525c6d69d66198dfd3fab8159cd9c28642ca1c"
-  }
+  "staticHolds": [
+    {
+      "frame": 1,
+      "seconds": 0.0,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshGeometrySHA256": {
+        "decor-background-wreck__hull_inner_structure": "f6a86163576e93f4420791ecea4ffb47f13957ecad59d999cc2cd2c631c98e86",
+        "decor-background-wreck__lower_keel_course": "bbd6eedb48c566ebc22c0f73833151e40d22224f864f6893793cd3da6e9d0fe0",
+        "decor-background-wreck__middle_port_stub": "c0d0cae06be013ead82c058aabdcfd9fa83bd4bafe48dd2d4fc8a758fa2fe0c6",
+        "decor-background-wreck__middle_main_plank": "3ccde9a0bb4630125d39974c05c34baa6b74266ebdf223af9c8cf2d474be47d6",
+        "decor-background-wreck__upper_port_plank": "3a7cbcedd7f0f266a0e4afa88a40632096792afce8ec7beebf2863f6329c7143",
+        "decor-background-wreck__upper_main_plank": "b3d89bd62c9e842dffd168f2818eb1885381a0ac8266bd7ce3f27764f4b61bfc",
+        "decor-background-wreck__upper_bow_plank": "df71ff55ba52078d72aa4aa84340877e238b850a7dd61ff289c11a1329fd36db",
+        "decor-background-wreck__middle_broken_timber": "2501b37ccf30db8ed875b962981bf8d8da467d8667a96d37c44441c0c14ec870",
+        "decor-background-wreck__upper_broken_timber": "9b9ff8184cc253e1af7753d230b085653df9ce546443898257b8aa38f25e417b",
+        "decor-background-wreck__mast": "9c6ddd713f00076332c9ea990775139957b05b44504406aeb1bf2010d062c5bd",
+        "decor-background-wreck__crossbar": "5e1daf079591b7d39d7281baa27aa7497fca6f2549c43024093ca11ec2e29e27",
+        "decor-background-wreck__cabin_inner": "0568b1f05445e48b24612b18dbacd558462048b4700a291a8193279320046c35",
+        "decor-background-wreck__cabin_stave_left": "55b095cbb2dd4dc16f612ac4f3f911233c3d005a981674de02ff1a7e9a05f43f",
+        "decor-background-wreck__cabin_stave_center": "e9cc88ee6c861a206fb6b2502fafdf6c57bb5cfc8d7e035cbe895e0d3afc200a",
+        "decor-background-wreck__cabin_stave_right": "3d727c8e2a8c28ad557581046924dd48cd3b47a2a54a6f7dfbff15d0a2c4d475",
+        "decor-background-wreck__cabin_front_cap_board": "bd402428a0c079dfcb9727ddc0881b770e623e8d76500821727afcb4db18778f",
+        "decor-background-wreck__cabin_rear_cap_board": "12a9581470de9b956694fe0de48a8dab385dc48e6303a1429aeba7dec89a8fe1",
+        "decor-background-wreck__cabin_worn_cap_tip": "8191324debe034cc116d13c382a1d96b162076947601a128130c1927d4152582",
+        "decor-background-wreck__rope_wrap_0": "3d6b1f88c110900bedcb3315dc687009e746b4aeaa3f9b1ccec851c4833e6c71",
+        "decor-background-wreck__rope_wrap_1": "17e52d7ff6b12cb4b045248c9ef167609b26156a94daa0ea1edf5bb55c35cfae",
+        "decor-background-wreck__crossbar_end_grain": "cdc084e030afb222e8eeb123ff2092ae090ff6a14816bc2fde0b476cb80754da"
+      },
+      "bounds": [
+        [
+          -0.48869210481643677,
+          0.4882921576499939
+        ],
+        [
+          -0.0949999988079071,
+          0.0949999988079071
+        ],
+        [
+          0.07507308572530746,
+          0.7391428351402283
+        ]
+      ],
+      "visibleOwnObjects": [
+        "decor-background-wreck__cabin_front_cap_board",
+        "decor-background-wreck__cabin_inner",
+        "decor-background-wreck__cabin_rear_cap_board",
+        "decor-background-wreck__cabin_stave_center",
+        "decor-background-wreck__cabin_stave_left",
+        "decor-background-wreck__cabin_stave_right",
+        "decor-background-wreck__cabin_worn_cap_tip",
+        "decor-background-wreck__crossbar",
+        "decor-background-wreck__crossbar_end_grain",
+        "decor-background-wreck__hull_inner_structure",
+        "decor-background-wreck__lower_keel_course",
+        "decor-background-wreck__mast",
+        "decor-background-wreck__middle_broken_timber",
+        "decor-background-wreck__middle_main_plank",
+        "decor-background-wreck__middle_port_stub",
+        "decor-background-wreck__root.001",
+        "decor-background-wreck__rope_wrap_0",
+        "decor-background-wreck__rope_wrap_1",
+        "decor-background-wreck__upper_bow_plank",
+        "decor-background-wreck__upper_broken_timber",
+        "decor-background-wreck__upper_main_plank",
+        "decor-background-wreck__upper_port_plank"
+      ]
+    },
+    {
+      "frame": 2,
+      "seconds": 0.08333333333333333,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshGeometrySHA256": {
+        "decor-background-wreck__hull_inner_structure": "f6a86163576e93f4420791ecea4ffb47f13957ecad59d999cc2cd2c631c98e86",
+        "decor-background-wreck__lower_keel_course": "bbd6eedb48c566ebc22c0f73833151e40d22224f864f6893793cd3da6e9d0fe0",
+        "decor-background-wreck__middle_port_stub": "c0d0cae06be013ead82c058aabdcfd9fa83bd4bafe48dd2d4fc8a758fa2fe0c6",
+        "decor-background-wreck__middle_main_plank": "3ccde9a0bb4630125d39974c05c34baa6b74266ebdf223af9c8cf2d474be47d6",
+        "decor-background-wreck__upper_port_plank": "3a7cbcedd7f0f266a0e4afa88a40632096792afce8ec7beebf2863f6329c7143",
+        "decor-background-wreck__upper_main_plank": "b3d89bd62c9e842dffd168f2818eb1885381a0ac8266bd7ce3f27764f4b61bfc",
+        "decor-background-wreck__upper_bow_plank": "df71ff55ba52078d72aa4aa84340877e238b850a7dd61ff289c11a1329fd36db",
+        "decor-background-wreck__middle_broken_timber": "2501b37ccf30db8ed875b962981bf8d8da467d8667a96d37c44441c0c14ec870",
+        "decor-background-wreck__upper_broken_timber": "9b9ff8184cc253e1af7753d230b085653df9ce546443898257b8aa38f25e417b",
+        "decor-background-wreck__mast": "9c6ddd713f00076332c9ea990775139957b05b44504406aeb1bf2010d062c5bd",
+        "decor-background-wreck__crossbar": "5e1daf079591b7d39d7281baa27aa7497fca6f2549c43024093ca11ec2e29e27",
+        "decor-background-wreck__cabin_inner": "0568b1f05445e48b24612b18dbacd558462048b4700a291a8193279320046c35",
+        "decor-background-wreck__cabin_stave_left": "55b095cbb2dd4dc16f612ac4f3f911233c3d005a981674de02ff1a7e9a05f43f",
+        "decor-background-wreck__cabin_stave_center": "e9cc88ee6c861a206fb6b2502fafdf6c57bb5cfc8d7e035cbe895e0d3afc200a",
+        "decor-background-wreck__cabin_stave_right": "3d727c8e2a8c28ad557581046924dd48cd3b47a2a54a6f7dfbff15d0a2c4d475",
+        "decor-background-wreck__cabin_front_cap_board": "bd402428a0c079dfcb9727ddc0881b770e623e8d76500821727afcb4db18778f",
+        "decor-background-wreck__cabin_rear_cap_board": "12a9581470de9b956694fe0de48a8dab385dc48e6303a1429aeba7dec89a8fe1",
+        "decor-background-wreck__cabin_worn_cap_tip": "8191324debe034cc116d13c382a1d96b162076947601a128130c1927d4152582",
+        "decor-background-wreck__rope_wrap_0": "3d6b1f88c110900bedcb3315dc687009e746b4aeaa3f9b1ccec851c4833e6c71",
+        "decor-background-wreck__rope_wrap_1": "17e52d7ff6b12cb4b045248c9ef167609b26156a94daa0ea1edf5bb55c35cfae",
+        "decor-background-wreck__crossbar_end_grain": "cdc084e030afb222e8eeb123ff2092ae090ff6a14816bc2fde0b476cb80754da"
+      },
+      "bounds": [
+        [
+          -0.48869210481643677,
+          0.4882921576499939
+        ],
+        [
+          -0.0949999988079071,
+          0.0949999988079071
+        ],
+        [
+          0.07507308572530746,
+          0.7391428351402283
+        ]
+      ],
+      "visibleOwnObjects": [
+        "decor-background-wreck__cabin_front_cap_board",
+        "decor-background-wreck__cabin_inner",
+        "decor-background-wreck__cabin_rear_cap_board",
+        "decor-background-wreck__cabin_stave_center",
+        "decor-background-wreck__cabin_stave_left",
+        "decor-background-wreck__cabin_stave_right",
+        "decor-background-wreck__cabin_worn_cap_tip",
+        "decor-background-wreck__crossbar",
+        "decor-background-wreck__crossbar_end_grain",
+        "decor-background-wreck__hull_inner_structure",
+        "decor-background-wreck__lower_keel_course",
+        "decor-background-wreck__mast",
+        "decor-background-wreck__middle_broken_timber",
+        "decor-background-wreck__middle_main_plank",
+        "decor-background-wreck__middle_port_stub",
+        "decor-background-wreck__root.001",
+        "decor-background-wreck__rope_wrap_0",
+        "decor-background-wreck__rope_wrap_1",
+        "decor-background-wreck__upper_bow_plank",
+        "decor-background-wreck__upper_broken_timber",
+        "decor-background-wreck__upper_main_plank",
+        "decor-background-wreck__upper_port_plank"
+      ]
+    },
+    {
+      "frame": 12,
+      "seconds": 0.9166666666666666,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshGeometrySHA256": {
+        "decor-background-wreck__hull_inner_structure": "f6a86163576e93f4420791ecea4ffb47f13957ecad59d999cc2cd2c631c98e86",
+        "decor-background-wreck__lower_keel_course": "bbd6eedb48c566ebc22c0f73833151e40d22224f864f6893793cd3da6e9d0fe0",
+        "decor-background-wreck__middle_port_stub": "c0d0cae06be013ead82c058aabdcfd9fa83bd4bafe48dd2d4fc8a758fa2fe0c6",
+        "decor-background-wreck__middle_main_plank": "3ccde9a0bb4630125d39974c05c34baa6b74266ebdf223af9c8cf2d474be47d6",
+        "decor-background-wreck__upper_port_plank": "3a7cbcedd7f0f266a0e4afa88a40632096792afce8ec7beebf2863f6329c7143",
+        "decor-background-wreck__upper_main_plank": "b3d89bd62c9e842dffd168f2818eb1885381a0ac8266bd7ce3f27764f4b61bfc",
+        "decor-background-wreck__upper_bow_plank": "df71ff55ba52078d72aa4aa84340877e238b850a7dd61ff289c11a1329fd36db",
+        "decor-background-wreck__middle_broken_timber": "2501b37ccf30db8ed875b962981bf8d8da467d8667a96d37c44441c0c14ec870",
+        "decor-background-wreck__upper_broken_timber": "9b9ff8184cc253e1af7753d230b085653df9ce546443898257b8aa38f25e417b",
+        "decor-background-wreck__mast": "9c6ddd713f00076332c9ea990775139957b05b44504406aeb1bf2010d062c5bd",
+        "decor-background-wreck__crossbar": "5e1daf079591b7d39d7281baa27aa7497fca6f2549c43024093ca11ec2e29e27",
+        "decor-background-wreck__cabin_inner": "0568b1f05445e48b24612b18dbacd558462048b4700a291a8193279320046c35",
+        "decor-background-wreck__cabin_stave_left": "55b095cbb2dd4dc16f612ac4f3f911233c3d005a981674de02ff1a7e9a05f43f",
+        "decor-background-wreck__cabin_stave_center": "e9cc88ee6c861a206fb6b2502fafdf6c57bb5cfc8d7e035cbe895e0d3afc200a",
+        "decor-background-wreck__cabin_stave_right": "3d727c8e2a8c28ad557581046924dd48cd3b47a2a54a6f7dfbff15d0a2c4d475",
+        "decor-background-wreck__cabin_front_cap_board": "bd402428a0c079dfcb9727ddc0881b770e623e8d76500821727afcb4db18778f",
+        "decor-background-wreck__cabin_rear_cap_board": "12a9581470de9b956694fe0de48a8dab385dc48e6303a1429aeba7dec89a8fe1",
+        "decor-background-wreck__cabin_worn_cap_tip": "8191324debe034cc116d13c382a1d96b162076947601a128130c1927d4152582",
+        "decor-background-wreck__rope_wrap_0": "3d6b1f88c110900bedcb3315dc687009e746b4aeaa3f9b1ccec851c4833e6c71",
+        "decor-background-wreck__rope_wrap_1": "17e52d7ff6b12cb4b045248c9ef167609b26156a94daa0ea1edf5bb55c35cfae",
+        "decor-background-wreck__crossbar_end_grain": "cdc084e030afb222e8eeb123ff2092ae090ff6a14816bc2fde0b476cb80754da"
+      },
+      "bounds": [
+        [
+          -0.48869210481643677,
+          0.4882921576499939
+        ],
+        [
+          -0.0949999988079071,
+          0.0949999988079071
+        ],
+        [
+          0.07507308572530746,
+          0.7391428351402283
+        ]
+      ],
+      "visibleOwnObjects": [
+        "decor-background-wreck__cabin_front_cap_board",
+        "decor-background-wreck__cabin_inner",
+        "decor-background-wreck__cabin_rear_cap_board",
+        "decor-background-wreck__cabin_stave_center",
+        "decor-background-wreck__cabin_stave_left",
+        "decor-background-wreck__cabin_stave_right",
+        "decor-background-wreck__cabin_worn_cap_tip",
+        "decor-background-wreck__crossbar",
+        "decor-background-wreck__crossbar_end_grain",
+        "decor-background-wreck__hull_inner_structure",
+        "decor-background-wreck__lower_keel_course",
+        "decor-background-wreck__mast",
+        "decor-background-wreck__middle_broken_timber",
+        "decor-background-wreck__middle_main_plank",
+        "decor-background-wreck__middle_port_stub",
+        "decor-background-wreck__root.001",
+        "decor-background-wreck__rope_wrap_0",
+        "decor-background-wreck__rope_wrap_1",
+        "decor-background-wreck__upper_bow_plank",
+        "decor-background-wreck__upper_broken_timber",
+        "decor-background-wreck__upper_main_plank",
+        "decor-background-wreck__upper_port_plank"
+      ]
+    },
+    {
+      "frame": 25,
+      "seconds": 2.0,
+      "rootMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "meshGeometrySHA256": {
+        "decor-background-wreck__hull_inner_structure": "f6a86163576e93f4420791ecea4ffb47f13957ecad59d999cc2cd2c631c98e86",
+        "decor-background-wreck__lower_keel_course": "bbd6eedb48c566ebc22c0f73833151e40d22224f864f6893793cd3da6e9d0fe0",
+        "decor-background-wreck__middle_port_stub": "c0d0cae06be013ead82c058aabdcfd9fa83bd4bafe48dd2d4fc8a758fa2fe0c6",
+        "decor-background-wreck__middle_main_plank": "3ccde9a0bb4630125d39974c05c34baa6b74266ebdf223af9c8cf2d474be47d6",
+        "decor-background-wreck__upper_port_plank": "3a7cbcedd7f0f266a0e4afa88a40632096792afce8ec7beebf2863f6329c7143",
+        "decor-background-wreck__upper_main_plank": "b3d89bd62c9e842dffd168f2818eb1885381a0ac8266bd7ce3f27764f4b61bfc",
+        "decor-background-wreck__upper_bow_plank": "df71ff55ba52078d72aa4aa84340877e238b850a7dd61ff289c11a1329fd36db",
+        "decor-background-wreck__middle_broken_timber": "2501b37ccf30db8ed875b962981bf8d8da467d8667a96d37c44441c0c14ec870",
+        "decor-background-wreck__upper_broken_timber": "9b9ff8184cc253e1af7753d230b085653df9ce546443898257b8aa38f25e417b",
+        "decor-background-wreck__mast": "9c6ddd713f00076332c9ea990775139957b05b44504406aeb1bf2010d062c5bd",
+        "decor-background-wreck__crossbar": "5e1daf079591b7d39d7281baa27aa7497fca6f2549c43024093ca11ec2e29e27",
+        "decor-background-wreck__cabin_inner": "0568b1f05445e48b24612b18dbacd558462048b4700a291a8193279320046c35",
+        "decor-background-wreck__cabin_stave_left": "55b095cbb2dd4dc16f612ac4f3f911233c3d005a981674de02ff1a7e9a05f43f",
+        "decor-background-wreck__cabin_stave_center": "e9cc88ee6c861a206fb6b2502fafdf6c57bb5cfc8d7e035cbe895e0d3afc200a",
+        "decor-background-wreck__cabin_stave_right": "3d727c8e2a8c28ad557581046924dd48cd3b47a2a54a6f7dfbff15d0a2c4d475",
+        "decor-background-wreck__cabin_front_cap_board": "bd402428a0c079dfcb9727ddc0881b770e623e8d76500821727afcb4db18778f",
+        "decor-background-wreck__cabin_rear_cap_board": "12a9581470de9b956694fe0de48a8dab385dc48e6303a1429aeba7dec89a8fe1",
+        "decor-background-wreck__cabin_worn_cap_tip": "8191324debe034cc116d13c382a1d96b162076947601a128130c1927d4152582",
+        "decor-background-wreck__rope_wrap_0": "3d6b1f88c110900bedcb3315dc687009e746b4aeaa3f9b1ccec851c4833e6c71",
+        "decor-background-wreck__rope_wrap_1": "17e52d7ff6b12cb4b045248c9ef167609b26156a94daa0ea1edf5bb55c35cfae",
+        "decor-background-wreck__crossbar_end_grain": "cdc084e030afb222e8eeb123ff2092ae090ff6a14816bc2fde0b476cb80754da"
+      },
+      "bounds": [
+        [
+          -0.48869210481643677,
+          0.4882921576499939
+        ],
+        [
+          -0.0949999988079071,
+          0.0949999988079071
+        ],
+        [
+          0.07507308572530746,
+          0.7391428351402283
+        ]
+      ],
+      "visibleOwnObjects": [
+        "decor-background-wreck__cabin_front_cap_board",
+        "decor-background-wreck__cabin_inner",
+        "decor-background-wreck__cabin_rear_cap_board",
+        "decor-background-wreck__cabin_stave_center",
+        "decor-background-wreck__cabin_stave_left",
+        "decor-background-wreck__cabin_stave_right",
+        "decor-background-wreck__cabin_worn_cap_tip",
+        "decor-background-wreck__crossbar",
+        "decor-background-wreck__crossbar_end_grain",
+        "decor-background-wreck__hull_inner_structure",
+        "decor-background-wreck__lower_keel_course",
+        "decor-background-wreck__mast",
+        "decor-background-wreck__middle_broken_timber",
+        "decor-background-wreck__middle_main_plank",
+        "decor-background-wreck__middle_port_stub",
+        "decor-background-wreck__root.001",
+        "decor-background-wreck__rope_wrap_0",
+        "decor-background-wreck__rope_wrap_1",
+        "decor-background-wreck__upper_bow_plank",
+        "decor-background-wreck__upper_broken_timber",
+        "decor-background-wreck__upper_main_plank",
+        "decor-background-wreck__upper_port_plank"
+      ]
+    }
+  ]
 }

@@ -1,0 +1,11 @@
+"""Bounded clean saved-source settings/resource/dependency audit; no saves."""
+import bpy,json,hashlib,sys
+from pathlib import Path
+P=Path(__file__).resolve().parent;B=P.parent;O=B/'candidates/round-01';s=bpy.context.scene
+def value(x):
+ if isinstance(x,str):return x
+ try:return list(x)
+ except TypeError:return x
+def selected(owner,keys):return {k:value(getattr(owner,k)) for k in keys if hasattr(owner,k)}
+data={'asset':'decor-background-wreck','sourceProject':'source/round-01.blend','sourceSHA256':hashlib.sha256(Path(bpy.data.filepath).read_bytes()).hexdigest(),'blenderVersion':bpy.app.version_string,'blenderBinary':bpy.app.binary_path,'render':selected(s.render,['engine','filter_size','resolution_x','resolution_y','resolution_percentage','pixel_aspect_x','pixel_aspect_y','film_transparent','fps','fps_base','use_motion_blur']),'cycles':selected(s.cycles,['samples','seed','use_denoising','pixel_filter_type','filter_width','use_animated_seed']),'color':selected(s.view_settings,['view_transform','look','exposure','gamma']),'world':{'name':s.world.name,'nodes':[{'type':n.bl_idname,'inputs':{x.name:value(x.default_value) for x in n.inputs if hasattr(x,'default_value')}} for n in s.world.node_tree.nodes]},'materials':[{'name':m.name,'users':m.users,'nodes':[{'type':n.bl_idname,'name':n.name} for n in m.node_tree.nodes],'links':[{'from':x.from_node.name+'.'+x.from_socket.name,'to':x.to_node.name+'.'+x.to_socket.name} for x in m.node_tree.links]} for m in bpy.data.materials],'libraries':list(bpy.data.libraries.keys()),'fileImages':[{'name':im.name,'source':im.source,'filepath':im.filepath,'packed':bool(im.packed_file)} for im in bpy.data.images],'objects':[{'name':o.name,'type':o.type,'parent':o.parent.name if o.parent else None,'hideRender':o.hide_render,'constraints':len(o.constraints)} for o in s.objects],'pythonVersion':sys.version,'imports':['bpy','bmesh','mathutils','bpy_extras.object_utils','Python standard library'],'noMutableProjectHelperImports':True,'savedSourceFrame':s.frame_current,'savedRootRotation':list(bpy.data.objects['decor-background-wreck__root.001'].rotation_euler),'noProjectSave':True}
+(O/'source-settings-audit-v2.json').write_text(json.dumps(data,indent=2)+'\n');print(json.dumps({'render':data['render'],'cycles':data['cycles'],'fileImages':data['fileImages'],'libraries':data['libraries']}))

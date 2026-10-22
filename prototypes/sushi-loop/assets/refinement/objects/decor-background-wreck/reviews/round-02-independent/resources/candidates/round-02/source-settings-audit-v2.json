@@ -1,0 +1,454 @@
+{
+  "asset": "decor-background-wreck",
+  "sourceProject": "source/round-02.blend",
+  "sourceSHA256": "abb77ba5ff32e0d38f70796950a3b433c48f6a953ffb08167d8735f0daa27e21",
+  "blenderVersion": "5.2.2 LTS",
+  "blenderBinary": "/Applications/Blender.app/Contents/MacOS/Blender",
+  "render": {
+    "engine": "CYCLES",
+    "filter_size": 1.5,
+    "resolution_x": 768,
+    "resolution_y": 1408,
+    "resolution_percentage": 100,
+    "pixel_aspect_x": 1.2206555604934692,
+    "pixel_aspect_y": 1.0,
+    "film_transparent": true,
+    "fps": 12,
+    "fps_base": 1.0,
+    "use_motion_blur": false
+  },
+  "cycles": {
+    "samples": 48,
+    "seed": 17,
+    "use_denoising": true,
+    "pixel_filter_type": "BLACKMAN_HARRIS",
+    "filter_width": 1.5,
+    "use_animated_seed": false
+  },
+  "color": {
+    "view_transform": "Standard",
+    "look": "None",
+    "exposure": 0.0,
+    "gamma": 1.0
+  },
+  "world": {
+    "name": "Quiet neutral ambient",
+    "nodes": [
+      {
+        "type": "ShaderNodeBackground",
+        "inputs": {
+          "Color": [
+            0.699999988079071,
+            0.75,
+            0.800000011920929,
+            1.0
+          ],
+          "Strength": 0.44999998807907104,
+          "Weight": 0.0
+        }
+      },
+      {
+        "type": "ShaderNodeOutputWorld",
+        "inputs": {}
+      }
+    ]
+  },
+  "materials": [
+    {
+      "name": "Cabin blue timber",
+      "users": 1,
+      "nodes": [
+        {
+          "type": "ShaderNodeBsdfPrincipled",
+          "name": "Principled BSDF"
+        },
+        {
+          "type": "ShaderNodeOutputMaterial",
+          "name": "Material Output"
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF.BSDF",
+          "to": "Material Output.Surface"
+        }
+      ]
+    },
+    {
+      "name": "Dark weathered blue timber",
+      "users": 3,
+      "nodes": [
+        {
+          "type": "ShaderNodeBsdfPrincipled",
+          "name": "Principled BSDF"
+        },
+        {
+          "type": "ShaderNodeOutputMaterial",
+          "name": "Material Output"
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF.BSDF",
+          "to": "Material Output.Surface"
+        }
+      ]
+    },
+    {
+      "name": "Faded weathered blue timber",
+      "users": 4,
+      "nodes": [
+        {
+          "type": "ShaderNodeBsdfPrincipled",
+          "name": "Principled BSDF"
+        },
+        {
+          "type": "ShaderNodeOutputMaterial",
+          "name": "Material Output"
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF.BSDF",
+          "to": "Material Output.Surface"
+        }
+      ]
+    },
+    {
+      "name": "Lower worn blue timber",
+      "users": 1,
+      "nodes": [
+        {
+          "type": "ShaderNodeBsdfPrincipled",
+          "name": "Principled BSDF"
+        },
+        {
+          "type": "ShaderNodeOutputMaterial",
+          "name": "Material Output"
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF.BSDF",
+          "to": "Material Output.Surface"
+        }
+      ]
+    },
+    {
+      "name": "Muted aged rope",
+      "users": 2,
+      "nodes": [
+        {
+          "type": "ShaderNodeBsdfPrincipled",
+          "name": "Principled BSDF"
+        },
+        {
+          "type": "ShaderNodeOutputMaterial",
+          "name": "Material Output"
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF.BSDF",
+          "to": "Material Output.Surface"
+        }
+      ]
+    },
+    {
+      "name": "Muted exposed timber",
+      "users": 4,
+      "nodes": [
+        {
+          "type": "ShaderNodeBsdfPrincipled",
+          "name": "Principled BSDF"
+        },
+        {
+          "type": "ShaderNodeOutputMaterial",
+          "name": "Material Output"
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF.BSDF",
+          "to": "Material Output.Surface"
+        }
+      ]
+    },
+    {
+      "name": "Quiet blue timber",
+      "users": 2,
+      "nodes": [
+        {
+          "type": "ShaderNodeBsdfPrincipled",
+          "name": "Principled BSDF"
+        },
+        {
+          "type": "ShaderNodeOutputMaterial",
+          "name": "Material Output"
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF.BSDF",
+          "to": "Material Output.Surface"
+        }
+      ]
+    },
+    {
+      "name": "Recessed blue structural timber",
+      "users": 1,
+      "nodes": [
+        {
+          "type": "ShaderNodeBsdfPrincipled",
+          "name": "Principled BSDF"
+        },
+        {
+          "type": "ShaderNodeOutputMaterial",
+          "name": "Material Output"
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF.BSDF",
+          "to": "Material Output.Surface"
+        }
+      ]
+    },
+    {
+      "name": "Upper faded blue timber",
+      "users": 3,
+      "nodes": [
+        {
+          "type": "ShaderNodeBsdfPrincipled",
+          "name": "Principled BSDF"
+        },
+        {
+          "type": "ShaderNodeOutputMaterial",
+          "name": "Material Output"
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF.BSDF",
+          "to": "Material Output.Surface"
+        }
+      ]
+    }
+  ],
+  "libraries": [],
+  "fileImages": [],
+  "objects": [
+    {
+      "name": "Broad overhead",
+      "type": "LIGHT",
+      "parent": null,
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "Symmetric broad fill 0",
+      "type": "LIGHT",
+      "parent": null,
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "Symmetric broad fill 1",
+      "type": "LIGHT",
+      "parent": null,
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "Symmetric broad fill 2",
+      "type": "LIGHT",
+      "parent": null,
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "Symmetric broad fill 3",
+      "type": "LIGHT",
+      "parent": null,
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "Registered own orthographic camera",
+      "type": "CAMERA",
+      "parent": null,
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__root.001",
+      "type": "EMPTY",
+      "parent": null,
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__hull_inner_structure",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__lower_keel_course",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__middle_port_stub",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__middle_main_plank",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__upper_port_plank",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__upper_main_plank",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__upper_bow_plank",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__middle_broken_timber",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__upper_broken_timber",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__mast",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__crossbar",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__cabin_inner",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__cabin_stave_left",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__cabin_stave_center",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__cabin_stave_right",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__cabin_front_cap_board",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__cabin_rear_cap_board",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__cabin_worn_cap_tip",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__rope_wrap_0",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__rope_wrap_1",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__crossbar_end_grain",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    }
+  ],
+  "pythonVersion": "3.13.13 (main, Apr 25 2025, 12:39:20) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "imports": [
+    "bpy",
+    "bmesh",
+    "mathutils",
+    "bpy_extras.object_utils",
+    "Python standard library"
+  ],
+  "noMutableProjectHelperImports": true,
+  "savedSourceFrame": 1,
+  "savedRootRotation": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "noProjectSave": true
+}

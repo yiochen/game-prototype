@@ -53,6 +53,7 @@
     ],
     "previews": [
       "four-view-sheet",
+      "phone",
       "repeated"
     ],
     "logicalFrame": [
@@ -66,7 +67,17 @@
     "sourceScale": 2,
     "cellSize": 128,
     "fps": 12,
-    "projection": "top-down-oblique-square-grid"
+    "projection": "top-down-oblique-square-grid",
+    "nativeFrame": [
+      768,
+      1408
+    ],
+    "nativeCaptureScale": 4,
+    "publishedFrame": [
+      384,
+      704
+    ],
+    "publication": "Uniform complete native4x canvas to published2x LANCZOS; no crop or fitting."
   },
   "constraints": {
     "preserve": [
@@ -84,9 +95,325 @@
       "Add purposeful decorations and crafted detail",
       "Replace awkward modeling and change nonfunctional topology or part counts",
       "Rebuild native geometry, normals, materials and light to realize the better design"
-    ]
+    ],
+    "nativeContract": "inputs/root-native-contract.json"
   },
-  "qualityCriteria": {},
+  "qualityCriteria": {
+    "status": "root-frozen-before-construction",
+    "definitionOfGood": "A coherent softly finished elongated blue distant wreck, with useful native volume/detail and quiet readable actor hierarchy in all4 views.",
+    "priorityOutcomes": [
+      {
+        "rank": 1,
+        "dimension": "shapeVolume",
+        "desired": "A small recognizable wreck with a long worn hull, physically coherent mast/crossbar and small cabin. Replace abrupt slabs with soft crafted volumes and selected broken/plank structure. Preserve a restrained, elongated distant silhouette; make E/W native views coherent rather than paper thin.",
+        "freedom": "Native remodeling, small silhouette changes, purposeful details and topology/part-count changes are encouraged. Exact original surface support shape/count are not locks."
+      },
+      {
+        "rank": 2,
+        "dimension": "colorMaterialSeparation",
+        "desired": "Blue timber remains dominant and quiet enough behind submarine/creature silhouettes. A small muted warm exposed-wood or moss accent may clarify construction. Large white barnacle spots, bright golden rim light, saturated foliage and foreground contrast must not take over. Materials should separate without dark outlines or tiny high-contrast scratches."
+      },
+      {
+        "rank": 3,
+        "dimension": "lightHighlights",
+        "desired": "Broad soft highlights reveal rounded timber and cabin volume in every facing. Horizontal light treatment is symmetric, with no preferred side, rim glow, cast ground shadow, blown edge bands or black lower dead spots."
+      },
+      {
+        "dimension": "materialDetail",
+        "desired": "Coarse meaningful plank/wear/rope/accretion grouping can evoke the fixed target. Details must be readable and purposeful at registered scale; target microdetail, exact barnacle counts and seaweed strips are not required."
+      },
+      {
+        "dimension": "useSize",
+        "desired": "At logical128px/cell, phone32px/cell and fractional47.3px/cell the mast/crossbar/hull grouping remains readable. E/W may naturally be narrower, but should show a deliberately made coherent end profile. At phone size the prop remains subordinate to submarine-yellow and creature-eel."
+      },
+      {
+        "dimension": "artifactFree",
+        "desired": "All4 native facings have clean alpha edges, coherent joins between owned parts, no floating mast/cabin, no z-fighting, coplanar flicker, intersecting highlight seams, clipped frames, per-view treatment, target fringe speckles or texture swimming. Natural broken edges are intentional native forms, not render defects."
+      },
+      {
+        "dimension": "repeatContext",
+        "desired": "Nine copies show adequate one-cell spacing and consistent quiet appearance; this standalone prop requires no fabricated seam/port continuity. Declared6x4 actor context shows background hierarchy and no warning/actor silhouette confusion."
+      },
+      {
+        "dimension": "temporal",
+        "desired": "One true static frame at12fps; hold at0,1/12,11/12 and2seconds remains unchanged. No invented ambient sway or shader animation."
+      }
+    ],
+    "hardConstraints": [
+      "Quiet background wreck: standalone nonblocking layer1 elongated blue hull/mast/crossbar/cabin silhouette. Actual S33_PROP_decor-background-wreck.001/root decor-background-wreck__root.001/root0/unit scale/proper S0 E+90 N180 W-90. Preserve identity, palette, one-cell placement and coherent owned assembly. Native forms/proportions/construction/details/counts/topology/UV/normal/material methods may improve freely within clarified budget; exact source4meshes/slabs/intersection depths are not locks.",
+      "Adopt proposed REST native remodeling envelope X[-.5,.5],Y[-.1,.1],Z[.04,.75], tolerance1e-6 and proper rotations/all4. This is a new preconstruction design budget allowing depth.20 versus old.12, not a claim about source truth. Keep recognizable elongated hull; coherent E/W end volume may improve without mimicking frontal target in allviews. Raw/evaluated bounds and bevel trim are baseline evidence, not tighter hull/perpart locks. Ground root is registration only: actual source lowestZ.07 and no mesh intersectsZ0. Do not invent ground plane/feet/foundation/fullsquare opacity/support sockets/ports/modular continuity/collision expansion. Lower.04 budget permits integrated native wear, not forced support.",
+      "Own registered55.0079798 ORTHO/ortho1.5/pixelAspect1.22065556 camera and measured actual matrices/root/world scale, not unrelated saved35 startup camera. Logical192352/root96248/cell128/native4x7681408/root384992/published2x384704/root192496. Uniform whole authored native canvas LANCZOS reduction, original one-frame atlas rect[0,0,384,704]; no crop/subject fit/warp/perview nudge/recolor/alphaRGB repair. Native and published capture scales are distinct. Record one consistent actual filter/color/render recipe across all4; no other family filter/rig recipe imported.",
+      "Exactly one actual static frame1/NESW/12fps/nonloop/frameOrder[0]. Effective own object/data/material/shader/world/compositor/capture ownership has no active temporal channels. Preserve true static hold0,1/12,11/12,2seconds with bounded source channel/frame probes; no invented sway/action/closure workload. No target image card/paint-over, linked unrelated visible scene assets, or source-original edits. Keep every used native dependency packed or exact portable private closure.",
+      "Freeze original three ranked visible outcomes and all additional outcomes: coherent soft worn elongated wreck, blue quiet actor hierarchy, broad soft symmetric native highlights, purposeful coarse readable detail, all4/use-size artifact-free owned joins/static holds. Muted warm wood/moss accent is optional; no mandatory golden target glare/whitebarnacle counts/foliage or exact target silhouette. One broad symmetric horizontal light recipe acrossall4/no preferred key or directional groundcast. Native geometry/normals/bevel/shader/light choices remain editor-owned. No clipped edge bands/black dead spots/float detached mast/cabin/zfight/accidental cracks/halos/clipping.",
+      "All4 native/published exactframes, full-frame fourview sheet, all4 neutral light/gray/dark128/32/fractional47.3 use, repeated3x3 density study with no modular seam claim. Adopt exact15 prepared consumer configs x2 documented Chromium153 modes, preserving root(.37,.61)/pan(.23,.47), current099/570 helper and frozen companion image/atlas/rect/root/order/version/executable/DPR/error provenance. Add only two bounded final actual viewport contexts320720 and1280720 per mode; no redundant whole Cartesian matrix at each viewport. Native commoncanvas nearest AFTER resize then ordinary wholecanvasCSS filtering; preserve actual source/native/CSS residuals honestly. Fixture reproduces exact SpriteScene methods, not full productionUI/Godot/device execution.",
+      "Every declared hero/preview independently inspected by original judge at complete resolution, with lossless tiles or explicit identical-hash aliases where needed; reduced sheets/hashes/source equality alone never certify quality. Required brief preview names four-view-sheet/phone/repeated should be exact aliases to declared actual media, not new art. Unchanged integrity/direction/acceptance gates. Minimal actual-used private closure/allfiles<100MB/no runtime application trees/frozen pycache. Originals/backup/target/preparation/initial/frozen criteria/brief immutable. Editor source/candidates only; judge reviews only. No sharedhelper/Git/index/production/deploy/liveBlender/device changes or extraagents."
+    ],
+    "criteriaFile": "reviews/proposedcriteria.json",
+    "criteriaFileSHA256": "b2da1303a13c000f5d95e08295e6530d8973e7214283bf8d2f802b688c827698",
+    "nativeContract": "inputs/root-native-contract.json",
+    "nativeContractSHA256": "b6dcd70d8ec52564f9d84f6c9b3dfdca7244af9ea7192ec6b3bf36495227bb5f",
+    "preparationManifestSHA256": "c1271bbd42143fcd571c29493551c0da0966f30b1c6474fe601d3bc59b497181",
+    "requiredEvidence": {
+      "asset": "decor-background-wreck",
+      "scope": "Static isolated atmospheric wreck, no native ground/modular or animation law invented.",
+      "requiredFrames": [
+        "static/N/0",
+        "static/E/0",
+        "static/S/0",
+        "static/W/0"
+      ],
+      "preparedConsumerCasesPerMode": [
+        {
+          "kind": "facings",
+          "cell": 128,
+          "background": "#eef2ed",
+          "phase": [
+            0,
+            0
+          ],
+          "seconds": 0,
+          "pan": [
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "facings",
+          "cell": 128,
+          "background": "#808080",
+          "phase": [
+            0,
+            0
+          ],
+          "seconds": 0,
+          "pan": [
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "facings",
+          "cell": 128,
+          "background": "#102433",
+          "phase": [
+            0,
+            0
+          ],
+          "seconds": 0,
+          "pan": [
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "facings",
+          "cell": 32,
+          "background": "#eef2ed",
+          "phase": [
+            0,
+            0
+          ],
+          "seconds": 0,
+          "pan": [
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "facings",
+          "cell": 32,
+          "background": "#808080",
+          "phase": [
+            0,
+            0
+          ],
+          "seconds": 0,
+          "pan": [
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "facings",
+          "cell": 32,
+          "background": "#102433",
+          "phase": [
+            0,
+            0
+          ],
+          "seconds": 0,
+          "pan": [
+            0,
+            0
+          ]
+        },
+        {
+          "kind": "facings",
+          "cell": 47.3,
+          "background": "#eef2ed",
+          "phase": [
+            0.37,
+            0.61
+          ],
+          "seconds": 0,
+          "pan": [
+            0.23,
+            0.47
+          ]
+        },
+        {
+          "kind": "facings",
+          "cell": 47.3,
+          "background": "#808080",
+          "phase": [
+            0.37,
+            0.61
+          ],
+          "seconds": 0,
+          "pan": [
+            0.23,
+            0.47
+          ]
+        },
+        {
+          "kind": "facings",
+          "cell": 47.3,
+          "background": "#102433",
+          "phase": [
+            0.37,
+            0.61
+          ],
+          "seconds": 0,
+          "pan": [
+            0.23,
+            0.47
+          ]
+        },
+        {
+          "kind": "repeat",
+          "cell": 32,
+          "background": "#102433",
+          "phase": [
+            0.37,
+            0.61
+          ],
+          "seconds": 0,
+          "pan": [
+            0.23,
+            0.47
+          ]
+        },
+        {
+          "kind": "context",
+          "cell": 32,
+          "background": "#102433",
+          "phase": [
+            0.37,
+            0.61
+          ],
+          "seconds": 0,
+          "pan": [
+            0.23,
+            0.47
+          ]
+        },
+        {
+          "kind": "context",
+          "cell": 32,
+          "background": "#102433",
+          "phase": [
+            0.37,
+            0.61
+          ],
+          "seconds": 0.5,
+          "pan": [
+            0.23,
+            0.47
+          ]
+        },
+        {
+          "kind": "context",
+          "cell": 32,
+          "background": "#102433",
+          "phase": [
+            0.37,
+            0.61
+          ],
+          "seconds": 1,
+          "pan": [
+            0.23,
+            0.47
+          ]
+        },
+        {
+          "kind": "context",
+          "cell": 32,
+          "background": "#102433",
+          "phase": [
+            0.37,
+            0.61
+          ],
+          "seconds": 2,
+          "pan": [
+            0.23,
+            0.47
+          ]
+        },
+        {
+          "kind": "context",
+          "cell": 128,
+          "background": "#102433",
+          "phase": [
+            0,
+            0
+          ],
+          "seconds": 0,
+          "pan": [
+            0,
+            0
+          ]
+        }
+      ],
+      "preparedHostViewport": [
+        1400,
+        1000
+      ],
+      "dpr": 1,
+      "browserModes": [
+        {
+          "headless": true,
+          "channel": "chromium"
+        },
+        {
+          "headless": true
+        }
+      ],
+      "finalContextViewports": [
+        [
+          320,
+          720
+        ],
+        [
+          1280,
+          720
+        ]
+      ],
+      "staticHoldSeconds": [
+        0,
+        0.08333333333333333,
+        0.9166666666666666,
+        2
+      ],
+      "requiredEvidence": [
+        "Inspect exact candidate native4x all4, published2x atlas/frame, native recapture and actual measured matrices/source hashes",
+        "Inspect logical128cell,phone32cell,fractional47.3 all4 onlight/gray/dark; repeated3x3 and declared6x4 submarine/eel context in both headless modes",
+        "Use actual phone320x720 and landscape1280x720 review views for final context/layout; preserve exact renderer helper version and record viewport,DPR,errors",
+        "Static own hold0,1/12,11/12,2s with complete object/data/shader channel evidence; no animated motion workload or modular connection law invented",
+        "Candidate packet declares compact complete visual sets and every exact record path is directly inspected/mapped by original judge; preserve REVIEW-COVERAGE and PUBLISHER-HANDOFF without weakening validators"
+      ],
+      "coverage": "Direct exact media coverage with original judge and acyclic manifests. Include supported actual nativeValidation views/captureRecords; rich geometry ledger separately bound if incompatible. nativeGeometryMeasurements is facing -> list of frame dictionaries when used."
+    }
+  },
   "delivery": {
     "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
     "requiredClips": [
@@ -124,5 +451,146 @@
       "The three excluded restaurant floor designs"
     ],
     "judging": "Reward useful native modeling and decoration inspired by the target. Do not reject a change solely because it differs from the source. Reject target drift only when it harms the chosen style, readability, role or locked technical contract. Original part counts and weak shapes are not automatically constraints."
+  },
+  "technicalResources": {
+    "rootNativeContract": "inputs/root-native-contract.json",
+    "preparationReconciliation": "inputs/root-preparation-reconciliation-v1.json",
+    "nativePreparationManifest": "reviews/preparation-v1/manifest.json",
+    "freshEditorInitial": "source/initial-observations.json",
+    "prepared:reviews/initial.json": "reviews/initial.json",
+    "prepared:reviews/preparation-v1/audit_initial.py": "reviews/preparation-v1/audit_initial.py",
+    "prepared:reviews/preparation-v1/audit_temporal_resources.py": "reviews/preparation-v1/audit_temporal_resources.py",
+    "prepared:reviews/preparation-v1/browser-mode-comparison.json": "reviews/preparation-v1/browser-mode-comparison.json",
+    "prepared:reviews/preparation-v1/bundle-dependencies.json": "reviews/preparation-v1/bundle-dependencies.json",
+    "prepared:reviews/preparation-v1/capture_consumer.mjs": "reviews/preparation-v1/capture_consumer.mjs",
+    "prepared:reviews/preparation-v1/capture_source.py": "reviews/preparation-v1/capture_source.py",
+    "prepared:reviews/preparation-v1/capture_source_v2.py": "reviews/preparation-v1/capture_source_v2.py",
+    "prepared:reviews/preparation-v1/consumer/full-chromium/00-facings.png": "reviews/preparation-v1/consumer/full-chromium/00-facings.png",
+    "prepared:reviews/preparation-v1/consumer/full-chromium/01-facings.png": "reviews/preparation-v1/consumer/full-chromium/01-facings.png",
+    "prepared:reviews/preparation-v1/consumer/full-chromium/02-facings.png": "reviews/preparation-v1/consumer/full-chromium/02-facings.png",
+    "prepared:reviews/preparation-v1/consumer/full-chromium/03-facings.png": "reviews/preparation-v1/consumer/full-chromium/03-facings.png",
+    "prepared:reviews/preparation-v1/consumer/full-chromium/04-facings.png": "reviews/preparation-v1/consumer/full-chromium/04-facings.png",
+    "prepared:reviews/preparation-v1/consumer/full-chromium/05-facings.png": "reviews/preparation-v1/consumer/full-chromium/05-facings.png",
+    "prepared:reviews/preparation-v1/consumer/full-chromium/06-facings.png": "reviews/preparation-v1/consumer/full-chromium/06-facings.png",
+    "prepared:reviews/preparation-v1/consumer/full-chromium/07-facings.png": "reviews/preparation-v1/consumer/full-chromium/07-facings.png",
+    "prepared:reviews/preparation-v1/consumer/full-chromium/08-facings.png": "reviews/preparation-v1/consumer/full-chromium/08-facings.png",
+    "prepared:reviews/preparation-v1/consumer/full-chromium/09-repeat.png": "reviews/preparation-v1/consumer/full-chromium/09-repeat.png",
+    "prepared:reviews/preparation-v1/consumer/full-chromium/10-context.png": "reviews/preparation-v1/consumer/full-chromium/10-context.png",
+    "prepared:reviews/preparation-v1/consumer/full-chromium/11-context.png": "reviews/preparation-v1/consumer/full-chromium/11-context.png",
+    "prepared:reviews/preparation-v1/consumer/full-chromium/12-context.png": "reviews/preparation-v1/consumer/full-chromium/12-context.png",
+    "prepared:reviews/preparation-v1/consumer/full-chromium/13-context.png": "reviews/preparation-v1/consumer/full-chromium/13-context.png",
+    "prepared:reviews/preparation-v1/consumer/full-chromium/14-context.png": "reviews/preparation-v1/consumer/full-chromium/14-context.png",
+    "prepared:reviews/preparation-v1/consumer/headless-shell/00-facings.png": "reviews/preparation-v1/consumer/headless-shell/00-facings.png",
+    "prepared:reviews/preparation-v1/consumer/headless-shell/01-facings.png": "reviews/preparation-v1/consumer/headless-shell/01-facings.png",
+    "prepared:reviews/preparation-v1/consumer/headless-shell/02-facings.png": "reviews/preparation-v1/consumer/headless-shell/02-facings.png",
+    "prepared:reviews/preparation-v1/consumer/headless-shell/03-facings.png": "reviews/preparation-v1/consumer/headless-shell/03-facings.png",
+    "prepared:reviews/preparation-v1/consumer/headless-shell/04-facings.png": "reviews/preparation-v1/consumer/headless-shell/04-facings.png",
+    "prepared:reviews/preparation-v1/consumer/headless-shell/05-facings.png": "reviews/preparation-v1/consumer/headless-shell/05-facings.png",
+    "prepared:reviews/preparation-v1/consumer/headless-shell/06-facings.png": "reviews/preparation-v1/consumer/headless-shell/06-facings.png",
+    "prepared:reviews/preparation-v1/consumer/headless-shell/07-facings.png": "reviews/preparation-v1/consumer/headless-shell/07-facings.png",
+    "prepared:reviews/preparation-v1/consumer/headless-shell/08-facings.png": "reviews/preparation-v1/consumer/headless-shell/08-facings.png",
+    "prepared:reviews/preparation-v1/consumer/headless-shell/09-repeat.png": "reviews/preparation-v1/consumer/headless-shell/09-repeat.png",
+    "prepared:reviews/preparation-v1/consumer/headless-shell/10-context.png": "reviews/preparation-v1/consumer/headless-shell/10-context.png",
+    "prepared:reviews/preparation-v1/consumer/headless-shell/11-context.png": "reviews/preparation-v1/consumer/headless-shell/11-context.png",
+    "prepared:reviews/preparation-v1/consumer/headless-shell/12-context.png": "reviews/preparation-v1/consumer/headless-shell/12-context.png",
+    "prepared:reviews/preparation-v1/consumer/headless-shell/13-context.png": "reviews/preparation-v1/consumer/headless-shell/13-context.png",
+    "prepared:reviews/preparation-v1/consumer/headless-shell/14-context.png": "reviews/preparation-v1/consumer/headless-shell/14-context.png",
+    "prepared:reviews/preparation-v1/consumer-capture.log": "reviews/preparation-v1/consumer-capture.log",
+    "prepared:reviews/preparation-v1/consumer-full-chromium-sheet.jpg": "reviews/preparation-v1/consumer-full-chromium-sheet.jpg",
+    "prepared:reviews/preparation-v1/consumer-headless-shell-sheet.jpg": "reviews/preparation-v1/consumer-headless-shell-sheet.jpg",
+    "prepared:reviews/preparation-v1/consumer-ledger.json": "reviews/preparation-v1/consumer-ledger.json",
+    "prepared:reviews/preparation-v1/environment.json": "reviews/preparation-v1/environment.json",
+    "prepared:reviews/preparation-v1/freeze_resources.py": "reviews/preparation-v1/freeze_resources.py",
+    "prepared:reviews/preparation-v1/native/E.png": "reviews/preparation-v1/native/E.png",
+    "prepared:reviews/preparation-v1/native/N.png": "reviews/preparation-v1/native/N.png",
+    "prepared:reviews/preparation-v1/native/S.png": "reviews/preparation-v1/native/S.png",
+    "prepared:reviews/preparation-v1/native/W.png": "reviews/preparation-v1/native/W.png",
+    "prepared:reviews/preparation-v1/native-capture-ledger-v2.json": "reviews/preparation-v1/native-capture-ledger-v2.json",
+    "prepared:reviews/preparation-v1/native-capture-v2.log": "reviews/preparation-v1/native-capture-v2.log",
+    "prepared:reviews/preparation-v1/native-capture.log": "reviews/preparation-v1/native-capture.log",
+    "prepared:reviews/preparation-v1/native-initial-audit.json": "reviews/preparation-v1/native-initial-audit.json",
+    "prepared:reviews/preparation-v1/native-source-comparison.png": "reviews/preparation-v1/native-source-comparison.png",
+    "prepared:reviews/preparation-v1/native-v2/E.png": "reviews/preparation-v1/native-v2/E.png",
+    "prepared:reviews/preparation-v1/native-v2/N.png": "reviews/preparation-v1/native-v2/N.png",
+    "prepared:reviews/preparation-v1/native-v2/S.png": "reviews/preparation-v1/native-v2/S.png",
+    "prepared:reviews/preparation-v1/native-v2/W.png": "reviews/preparation-v1/native-v2/W.png",
+    "prepared:reviews/preparation-v1/prepare_consumer.py": "reviews/preparation-v1/prepare_consumer.py",
+    "prepared:reviews/preparation-v1/published-replay/E-gray.png": "reviews/preparation-v1/published-replay/E-gray.png",
+    "prepared:reviews/preparation-v1/published-replay/E.png": "reviews/preparation-v1/published-replay/E.png",
+    "prepared:reviews/preparation-v1/published-replay/N-gray.png": "reviews/preparation-v1/published-replay/N-gray.png",
+    "prepared:reviews/preparation-v1/published-replay/N.png": "reviews/preparation-v1/published-replay/N.png",
+    "prepared:reviews/preparation-v1/published-replay/S-gray.png": "reviews/preparation-v1/published-replay/S-gray.png",
+    "prepared:reviews/preparation-v1/published-replay/S.png": "reviews/preparation-v1/published-replay/S.png",
+    "prepared:reviews/preparation-v1/published-replay/W-gray.png": "reviews/preparation-v1/published-replay/W-gray.png",
+    "prepared:reviews/preparation-v1/published-replay/W.png": "reviews/preparation-v1/published-replay/W.png",
+    "prepared:reviews/preparation-v1/resources/consumer/consumer-entry.js": "reviews/preparation-v1/resources/consumer/consumer-entry.js",
+    "prepared:reviews/preparation-v1/resources/consumer/dependencies/react/cjs/react.development.js": "reviews/preparation-v1/resources/consumer/dependencies/react/cjs/react.development.js",
+    "prepared:reviews/preparation-v1/resources/consumer/dependencies/react/index.js": "reviews/preparation-v1/resources/consumer/dependencies/react/index.js",
+    "prepared:reviews/preparation-v1/resources/consumer/dependencies/react/package.json": "reviews/preparation-v1/resources/consumer/dependencies/react/package.json",
+    "prepared:reviews/preparation-v1/resources/consumer/fixture.json": "reviews/preparation-v1/resources/consumer/fixture.json",
+    "prepared:reviews/preparation-v1/resources/consumer/object-review-data.js": "reviews/preparation-v1/resources/consumer/object-review-data.js",
+    "prepared:reviews/preparation-v1/resources/consumer/object-review.css": "reviews/preparation-v1/resources/consumer/object-review.css",
+    "prepared:reviews/preparation-v1/resources/consumer/object-review.jsx": "reviews/preparation-v1/resources/consumer/object-review.jsx",
+    "prepared:reviews/preparation-v1/resources/consumer/package-lock.json": "reviews/preparation-v1/resources/consumer/package-lock.json",
+    "prepared:reviews/preparation-v1/resources/consumer/package.json": "reviews/preparation-v1/resources/consumer/package.json",
+    "prepared:reviews/preparation-v1/resources/consumer/playwright.config.js": "reviews/preparation-v1/resources/consumer/playwright.config.js",
+    "prepared:reviews/preparation-v1/resources/consumer/sprite-layout.js": "reviews/preparation-v1/resources/consumer/sprite-layout.js",
+    "prepared:reviews/preparation-v1/resources/consumer/sprites/creature-eel/swim-N.png": "reviews/preparation-v1/resources/consumer/sprites/creature-eel/swim-N.png",
+    "prepared:reviews/preparation-v1/resources/consumer/sprites/decor-background-wreck/static-E.png": "reviews/preparation-v1/resources/consumer/sprites/decor-background-wreck/static-E.png",
+    "prepared:reviews/preparation-v1/resources/consumer/sprites/decor-background-wreck/static-N.png": "reviews/preparation-v1/resources/consumer/sprites/decor-background-wreck/static-N.png",
+    "prepared:reviews/preparation-v1/resources/consumer/sprites/decor-background-wreck/static-S.png": "reviews/preparation-v1/resources/consumer/sprites/decor-background-wreck/static-S.png",
+    "prepared:reviews/preparation-v1/resources/consumer/sprites/decor-background-wreck/static-W.png": "reviews/preparation-v1/resources/consumer/sprites/decor-background-wreck/static-W.png",
+    "prepared:reviews/preparation-v1/resources/consumer/sprites/floor-underwater/scroll-S.png": "reviews/preparation-v1/resources/consumer/sprites/floor-underwater/scroll-S.png",
+    "prepared:reviews/preparation-v1/resources/consumer/sprites/submarine-yellow/travel-N.png": "reviews/preparation-v1/resources/consumer/sprites/submarine-yellow/travel-N.png",
+    "prepared:reviews/preparation-v1/resources/consumer/study-bundle.js": "reviews/preparation-v1/resources/consumer/study-bundle.js",
+    "prepared:reviews/preparation-v1/resources/consumer/study.html": "reviews/preparation-v1/resources/consumer/study.html",
+    "prepared:reviews/preparation-v1/resources/consumer/world-sprite-raster.js": "reviews/preparation-v1/resources/consumer/world-sprite-raster.js",
+    "prepared:reviews/preparation-v1/resources/helpers/audit_initial.py": "reviews/preparation-v1/resources/helpers/audit_initial.py",
+    "prepared:reviews/preparation-v1/resources/helpers/audit_temporal_resources.py": "reviews/preparation-v1/resources/helpers/audit_temporal_resources.py",
+    "prepared:reviews/preparation-v1/resources/helpers/capture_consumer.mjs": "reviews/preparation-v1/resources/helpers/capture_consumer.mjs",
+    "prepared:reviews/preparation-v1/resources/helpers/capture_source.py": "reviews/preparation-v1/resources/helpers/capture_source.py",
+    "prepared:reviews/preparation-v1/resources/helpers/capture_source_v2.py": "reviews/preparation-v1/resources/helpers/capture_source_v2.py",
+    "prepared:reviews/preparation-v1/resources/helpers/freeze_resources.py": "reviews/preparation-v1/resources/helpers/freeze_resources.py",
+    "prepared:reviews/preparation-v1/resources/helpers/prepare_consumer.py": "reviews/preparation-v1/resources/helpers/prepare_consumer.py",
+    "prepared:reviews/preparation-v1/resources/helpers/seal_preparation.py": "reviews/preparation-v1/resources/helpers/seal_preparation.py",
+    "prepared:reviews/preparation-v1/resources/helpers/source_pixel_study.py": "reviews/preparation-v1/resources/helpers/source_pixel_study.py",
+    "prepared:reviews/preparation-v1/resources/helpers/write_proposals.py": "reviews/preparation-v1/resources/helpers/write_proposals.py",
+    "prepared:reviews/preparation-v1/resources/historical/capture_runtime.py": "reviews/preparation-v1/resources/historical/capture_runtime.py",
+    "prepared:reviews/preparation-v1/resources/historical/catalog_faceted.py": "reviews/preparation-v1/resources/historical/catalog_faceted.py",
+    "prepared:reviews/preparation-v1/resources/historical/catalog_style.py": "reviews/preparation-v1/resources/historical/catalog_style.py",
+    "prepared:reviews/preparation-v1/resources/historical/publish_captures.py": "reviews/preparation-v1/resources/historical/publish_captures.py",
+    "prepared:reviews/preparation-v1/resources/historical/world_components.py": "reviews/preparation-v1/resources/historical/world_components.py",
+    "prepared:reviews/preparation-v1/resources/inputs/catalog-object.json": "reviews/preparation-v1/resources/inputs/catalog-object.json",
+    "prepared:reviews/preparation-v1/resources/inputs/generation.json": "reviews/preparation-v1/resources/inputs/generation.json",
+    "prepared:reviews/preparation-v1/resources/inputs/imagegen-prompt.txt": "reviews/preparation-v1/resources/inputs/imagegen-prompt.txt",
+    "prepared:reviews/preparation-v1/resources/inputs/original.png": "reviews/preparation-v1/resources/inputs/original.png",
+    "prepared:reviews/preparation-v1/resources/inputs/source-assetRecord.json": "reviews/preparation-v1/resources/inputs/source-assetRecord.json",
+    "prepared:reviews/preparation-v1/resources/inputs/source-camera.json": "reviews/preparation-v1/resources/inputs/source-camera.json",
+    "prepared:reviews/preparation-v1/resources/inputs/source-rig.json": "reviews/preparation-v1/resources/inputs/source-rig.json",
+    "prepared:reviews/preparation-v1/resources/inputs/target.png": "reviews/preparation-v1/resources/inputs/target.png",
+    "prepared:reviews/preparation-v1/resources/inputs/warm-soft-reference.png": "reviews/preparation-v1/resources/inputs/warm-soft-reference.png",
+    "prepared:reviews/preparation-v1/resources/instructions/AGENTS.md": "reviews/preparation-v1/resources/instructions/AGENTS.md",
+    "prepared:reviews/preparation-v1/resources/instructions/HEADLESS-BROWSER-CONFIGS.txt": "reviews/preparation-v1/resources/instructions/HEADLESS-BROWSER-CONFIGS.txt",
+    "prepared:reviews/preparation-v1/resources/instructions/PUBLISHER-HANDOFF.txt": "reviews/preparation-v1/resources/instructions/PUBLISHER-HANDOFF.txt",
+    "prepared:reviews/preparation-v1/resources/instructions/REVIEW-COVERAGE.txt": "reviews/preparation-v1/resources/instructions/REVIEW-COVERAGE.txt",
+    "prepared:reviews/preparation-v1/resources/instructions/brief-before-root-freeze.json": "reviews/preparation-v1/resources/instructions/brief-before-root-freeze.json",
+    "prepared:reviews/preparation-v1/resources/instructions/decisions.md": "reviews/preparation-v1/resources/instructions/decisions.md",
+    "prepared:reviews/preparation-v1/resources/instructions/judge-initial-dispatch.txt": "reviews/preparation-v1/resources/instructions/judge-initial-dispatch.txt",
+    "prepared:reviews/preparation-v1/resources/instructions/judge.txt": "reviews/preparation-v1/resources/instructions/judge.txt",
+    "prepared:reviews/preparation-v1/resources/instructions/refine-3d-model-SKILL.md": "reviews/preparation-v1/resources/instructions/refine-3d-model-SKILL.md",
+    "prepared:reviews/preparation-v1/resources/instructions/root-AGENTS.md": "reviews/preparation-v1/resources/instructions/root-AGENTS.md",
+    "prepared:reviews/preparation-v1/resources/interface/acceptance_contract.py": "reviews/preparation-v1/resources/interface/acceptance_contract.py",
+    "prepared:reviews/preparation-v1/resources/interface/audit_directions.py": "reviews/preparation-v1/resources/interface/audit_directions.py",
+    "prepared:reviews/preparation-v1/resources/interface/promote_object.py": "reviews/preparation-v1/resources/interface/promote_object.py",
+    "prepared:reviews/preparation-v1/resources/interface/seal_object.py": "reviews/preparation-v1/resources/interface/seal_object.py",
+    "prepared:reviews/preparation-v1/resources/source/sushi-loop-world-library.blend": "reviews/preparation-v1/resources/source/sushi-loop-world-library.blend",
+    "prepared:reviews/preparation-v1/seal_preparation.py": "reviews/preparation-v1/seal_preparation.py",
+    "prepared:reviews/preparation-v1/source-pixel-comparison.json": "reviews/preparation-v1/source-pixel-comparison.json",
+    "prepared:reviews/preparation-v1/source_pixel_study.py": "reviews/preparation-v1/source_pixel_study.py",
+    "prepared:reviews/preparation-v1/temporal-resource-audit.json": "reviews/preparation-v1/temporal-resource-audit.json",
+    "prepared:reviews/preparation-v1/temporal-resource-audit.log": "reviews/preparation-v1/temporal-resource-audit.log",
+    "prepared:reviews/preparation-v1/write_proposals.py": "reviews/preparation-v1/write_proposals.py",
+    "prepared:reviews/proposedcriteria.json": "reviews/proposedcriteria.json",
+    "prepared:reviews/source-contract-proposal.json": "reviews/source-contract-proposal.json"
   }
 }

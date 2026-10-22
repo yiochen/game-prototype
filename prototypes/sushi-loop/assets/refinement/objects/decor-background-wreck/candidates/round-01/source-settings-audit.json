@@ -1,0 +1,361 @@
+{
+  "asset": "decor-background-wreck",
+  "sourceProject": "source/round-01.blend",
+  "sourceSHA256": "345d5daa06e12735f6344abc7f7a6c386236647d2163805579ad7c05cd9bcd65",
+  "blenderVersion": "5.2.2 LTS",
+  "blenderBinary": "/Applications/Blender.app/Contents/MacOS/Blender",
+  "render": {
+    "engine": [
+      "C",
+      "Y",
+      "C",
+      "L",
+      "E",
+      "S"
+    ],
+    "filter_size": 1.5,
+    "resolution_x": 768,
+    "resolution_y": 1408,
+    "resolution_percentage": 100,
+    "pixel_aspect_x": 1.2206555604934692,
+    "pixel_aspect_y": 1.0,
+    "film_transparent": true,
+    "fps": 12,
+    "fps_base": 1.0,
+    "use_motion_blur": false
+  },
+  "cycles": {
+    "samples": 48,
+    "seed": 17,
+    "use_denoising": true,
+    "pixel_filter_type": [
+      "B",
+      "L",
+      "A",
+      "C",
+      "K",
+      "M",
+      "A",
+      "N",
+      "_",
+      "H",
+      "A",
+      "R",
+      "R",
+      "I",
+      "S"
+    ],
+    "filter_width": 1.5,
+    "use_animated_seed": false
+  },
+  "color": {
+    "view_transform": [
+      "S",
+      "t",
+      "a",
+      "n",
+      "d",
+      "a",
+      "r",
+      "d"
+    ],
+    "look": [
+      "N",
+      "o",
+      "n",
+      "e"
+    ],
+    "exposure": 0.0,
+    "gamma": 1.0
+  },
+  "world": {
+    "name": "Quiet neutral ambient",
+    "nodes": [
+      {
+        "type": "ShaderNodeBackground",
+        "inputs": {
+          "Color": [
+            0.699999988079071,
+            0.75,
+            0.800000011920929,
+            1.0
+          ],
+          "Strength": 0.44999998807907104,
+          "Weight": 0.0
+        }
+      },
+      {
+        "type": "ShaderNodeOutputWorld",
+        "inputs": {}
+      }
+    ]
+  },
+  "materials": [
+    {
+      "name": "Cabin blue timber",
+      "users": 2,
+      "nodes": [
+        {
+          "type": "ShaderNodeBsdfPrincipled",
+          "name": "Principled BSDF"
+        },
+        {
+          "type": "ShaderNodeOutputMaterial",
+          "name": "Material Output"
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF.BSDF",
+          "to": "Material Output.Surface"
+        }
+      ]
+    },
+    {
+      "name": "Lower worn blue timber",
+      "users": 1,
+      "nodes": [
+        {
+          "type": "ShaderNodeBsdfPrincipled",
+          "name": "Principled BSDF"
+        },
+        {
+          "type": "ShaderNodeOutputMaterial",
+          "name": "Material Output"
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF.BSDF",
+          "to": "Material Output.Surface"
+        }
+      ]
+    },
+    {
+      "name": "Muted aged rope",
+      "users": 2,
+      "nodes": [
+        {
+          "type": "ShaderNodeBsdfPrincipled",
+          "name": "Principled BSDF"
+        },
+        {
+          "type": "ShaderNodeOutputMaterial",
+          "name": "Material Output"
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF.BSDF",
+          "to": "Material Output.Surface"
+        }
+      ]
+    },
+    {
+      "name": "Muted exposed timber",
+      "users": 1,
+      "nodes": [
+        {
+          "type": "ShaderNodeBsdfPrincipled",
+          "name": "Principled BSDF"
+        },
+        {
+          "type": "ShaderNodeOutputMaterial",
+          "name": "Material Output"
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF.BSDF",
+          "to": "Material Output.Surface"
+        }
+      ]
+    },
+    {
+      "name": "Quiet blue timber",
+      "users": 2,
+      "nodes": [
+        {
+          "type": "ShaderNodeBsdfPrincipled",
+          "name": "Principled BSDF"
+        },
+        {
+          "type": "ShaderNodeOutputMaterial",
+          "name": "Material Output"
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF.BSDF",
+          "to": "Material Output.Surface"
+        }
+      ]
+    },
+    {
+      "name": "Upper faded blue timber",
+      "users": 3,
+      "nodes": [
+        {
+          "type": "ShaderNodeBsdfPrincipled",
+          "name": "Principled BSDF"
+        },
+        {
+          "type": "ShaderNodeOutputMaterial",
+          "name": "Material Output"
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF.BSDF",
+          "to": "Material Output.Surface"
+        }
+      ]
+    }
+  ],
+  "libraries": [],
+  "fileImages": [],
+  "objects": [
+    {
+      "name": "Broad overhead",
+      "type": "LIGHT",
+      "parent": null,
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "Symmetric broad fill 0",
+      "type": "LIGHT",
+      "parent": null,
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "Symmetric broad fill 1",
+      "type": "LIGHT",
+      "parent": null,
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "Symmetric broad fill 2",
+      "type": "LIGHT",
+      "parent": null,
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "Symmetric broad fill 3",
+      "type": "LIGHT",
+      "parent": null,
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "Registered own orthographic camera",
+      "type": "CAMERA",
+      "parent": null,
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__root.001",
+      "type": "EMPTY",
+      "parent": null,
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__lower_hull_course",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__middle_hull_course",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__upper_hull_course",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__mast",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__crossbar",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__cabin_lower",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__cabin_upper",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__cabin_roof",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__rope_wrap_0",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__rope_wrap_1",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    },
+    {
+      "name": "decor-background-wreck__crossbar_end_grain",
+      "type": "MESH",
+      "parent": "decor-background-wreck__root.001",
+      "hideRender": false,
+      "constraints": 0
+    }
+  ],
+  "pythonVersion": "3.13.13 (main, Apr 25 2025, 12:39:20) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "imports": [
+    "bpy",
+    "bmesh",
+    "mathutils",
+    "bpy_extras.object_utils",
+    "Python standard library"
+  ],
+  "noMutableProjectHelperImports": true,
+  "savedSourceFrame": 1,
+  "savedRootRotation": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "noProjectSave": true
+}
