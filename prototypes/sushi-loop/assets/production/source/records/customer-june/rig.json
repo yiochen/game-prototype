@@ -6003,7 +6003,7 @@
   ],
   "actionCount": 60,
   "createdAtUnix": 1792393697.399657,
-  "status": "native-actions-baked-needs-visual-review",
+  "status": "native-refined-independent-visual-review-pending",
   "sourceFiles": {
     "native_actions.py": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f",
     "character_builders.py": "5451da64c233cba11920e2eaeb88889e34ac931443b51fdfb34c6f40ea8c0ed7",
@@ -6017,5 +6017,156 @@
     "catalog_corner_supports.py": "5215531d424a8d7560cb19ca5bf05f3218f5671c346a79dc0585644462bd4b91",
     "catalog_belt_flow.py": "0e7a979f8a0897e2a98a063d2a568fb0be8a751f72b76f9584f6949f77140fd5",
     "catalog_clusters.py": "020f94b990987f6c4d664b5447525c6d69d66198dfd3fab8159cd9c28642ca1c"
-  }
+  },
+  "captureScale": 2,
+  "nativeFrame": [
+    384,
+    640
+  ],
+  "canonicalFood": {
+    "asset": "dish-cucumber",
+    "representation": "2D ImageGen sprite, not modeled sushi",
+    "canonicalPackedSHA256": "b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930",
+    "expectedCanonicalSHA256": "b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930",
+    "imageSize": [
+      635,
+      511
+    ],
+    "vertices": [
+      [
+        -0.13302941620349884,
+        0.003430807963013649,
+        0.0
+      ],
+      [
+        0.1378399282693863,
+        0.003430807963013649,
+        0.0
+      ],
+      [
+        0.1378399282693863,
+        0.2214059680700302,
+        0.0
+      ],
+      [
+        -0.13302941620349884,
+        0.2214059680700302,
+        0.0
+      ]
+    ],
+    "selectedMapping": {
+      "threshold": 128,
+      "originalOccupiedWidthWorld": 0.33752025517835105,
+      "sourceWorldPerPixel": 0.00028363046653642944,
+      "canonicalWorldPerPixel": 0.0005332073541522134,
+      "canonicalFullQuadWorld": [
+        0.3385866698866555,
+        0.27246895797178106
+      ],
+      "canonicalOccupiedCenterFromLeftPixels": 317.5,
+      "preserveSourceSupportOffsetAboveFoodRoot": 0.004821717195721645,
+      "newFullQuadLeftWorld": -0.16628676453038324,
+      "sourceBottomRowSupportXWorld": 0.005672607183705575,
+      "canonicalBottomRowSupportXPixel": 322.5,
+      "newFullQuadBottomWorld": 0.004288509841569432,
+      "pointConvention": "pixel boundary edges: occupied x extent [xmin,xmax+1], support y at bottom edge ymax+1; pixel-center alternative documented separately",
+      "pixelCenterSupportDeltaWorld": 0.00012478844380789197,
+      "canonicalFullQuadNativeVertices": [
+        [
+          -0.1330294116243066,
+          0.0034308078732555453,
+          0
+        ],
+        [
+          0.1378399242850178,
+          0.0034308078732555453,
+          0
+        ],
+        [
+          0.1378399242850178,
+          0.22140597425068037,
+          0
+        ],
+        [
+          -0.1330294116243066,
+          0.22140597425068037,
+          0
+        ]
+      ]
+    },
+    "uvs": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0
+      ],
+      [
+        1.0,
+        1.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "depthWorld": 0.33,
+    "drivers": [
+      {
+        "path": "rotation_euler",
+        "index": 2,
+        "expression": "-facing",
+        "variables": [
+          {
+            "name": "facing",
+            "dataPath": "rotation_euler[2]",
+            "owner": "customer_june__ground_root.001"
+          }
+        ]
+      },
+      {
+        "path": "location",
+        "index": 0,
+        "expression": "-sin(facing)*0.21625613969229382",
+        "variables": [
+          {
+            "name": "facing",
+            "dataPath": "rotation_euler[2]",
+            "owner": "customer_june__ground_root.001"
+          }
+        ]
+      },
+      {
+        "path": "location",
+        "index": 1,
+        "expression": "-cos(facing)*0.21625613969229382",
+        "variables": [
+          {
+            "name": "facing",
+            "dataPath": "rotation_euler[2]",
+            "owner": "customer_june__ground_root.001"
+          }
+        ]
+      }
+    ],
+    "inheritedSourcePropertiesProvenance": {
+      "representation": "2D ImageGen sprite, not modeled sushi",
+      "source_image": "//canonical-cucumber.png",
+      "source_sha256": "b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930",
+      "world_width_cells": 0.3385866842844134,
+      "camera_ray_depth_bias_world_cells": 0.33,
+      "mapping_threshold": 128,
+      "mapping_convention": "pixel-boundary EDGE; bottommost occupied row support midpoint",
+      "current_full_quad_world_dimensions": [
+        0.3385866842844134,
+        0.2724689440593374
+      ],
+      "legacy_fixed_alpha_rectangle_provenance": "[0, 120, 1234, 1201]",
+      "legacy_nominal_world_width_provenance": 0.35
+    },
+    "currentInterpretation": "Full canonical UV0..1 uses selected map128 EDGE support convention. Inherited source fixed_alpha_rectangle/world_width_cells are unmodified provenance; current width/support comes from actual vertices and selectedMapping."
+  },
+  "refinementRecipe": "source/reproduce_round02.py"
 }

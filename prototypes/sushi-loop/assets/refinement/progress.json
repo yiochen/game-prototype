@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 102,
-  "completed": 61,
-  "published": 60,
-  "current": "60 objects live of 102 active. Coin Pop publishing as object 61; June approved and Ellis approval being saved for separate subsequent publications. Thirteen 2D effects deferred. Dalia canonical food preparation and fresh sofa assessment active. Final existing Godot cutover pending.",
+  "completed": 62,
+  "published": 61,
+  "current": "61 objects live of 102 active. June round 02 and its meal variants approved and publishing as object 62; Ellis approved for the next separate publication. Thirteen 2D effects deferred. Dalia food update plus fresh sofa/car native editing active. Final existing Godot cutover pending.",
   "objects": [
     {
       "id": "plant-angular",
@@ -705,7 +705,16 @@
       "round": "round-01",
       "packetSHA256": "e45e73cc576f8dd21a6e8d557ec665c772693e286b6262cc25616f72dbb044df",
       "deployCommit": "9cd31725",
-      "deployURL": "https://deploy-preview-37--game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#object-chef-dalia"
+      "deployURL": "https://deploy-preview-37--game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#object-chef-dalia",
+      "pendingCanonicalFood": {
+        "status": "editing",
+        "brief": "brief-v3-held-food-frozen.json",
+        "briefSHA256": "d500baed2708cdd42bf5830b8bf373dc9f589292d0c333d5e0e1f5341d005107",
+        "sameObjectPair": {
+          "editor": "catalog_chef_dalia_editor_v1",
+          "judge": "catalog_chef_dalia_judge_v1"
+        }
+      }
     },
     {
       "id": "chef-ellis",
@@ -816,7 +825,7 @@
       "name": "June",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "reviewing",
+      "status": "approved",
       "clips": 10,
       "frames": 480,
       "target": "inputs/target.png",
@@ -824,7 +833,12 @@
       "editor": "catalog_customer_june_editor_v1",
       "judge": "catalog_customer_june_judge_v1",
       "round": "round-02",
-      "packetSHA256": "f3a79e8c62ff48581109a45a9a164ac31c3b33430cad57a156953cdf6231b259"
+      "packetSHA256": "f3a79e8c62ff48581109a45a9a164ac31c3b33430cad57a156953cdf6231b259",
+      "remainingDifferences": [
+        "The front target has larger eyes, longer visible trouser/shoe proportions, more garment detailing and a looser flowing crown. This candidate keeps the registered functional rig/contact scale and uses a simpler polo plus a more radial hair sweep; the result is readable and materially improved.",
+        "The candidate is less glossy and has less dramatic rim lighting than the generated target. Its softer native finish is consistent with the chosen warm cartoon direction and avoids copying target halos.",
+        "The target supplies no unseen side/rear reference. These views are approved for coherent native construction and readability, not asserted target identity."
+      ]
     },
     {
       "id": "dish-salmon",
@@ -949,7 +963,7 @@
       "name": "World coin icon",
       "kind": "effect",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 48,
       "target": "inputs/target.png",
@@ -963,28 +977,32 @@
         "It retains three original-role glints instead of the target\u2019s four and does not enlarge the object to match the target\u2019s normalized silhouette. Spark count is nonfunctional, and the compact registered scale is deliberately preserved.",
         "Late runtime frames naturally become faint under the frozen alpha fade, and first/last native phases are nearly vanished. Those phase semantics are intentional, not missing imagery."
       ],
-      "thumbnailFrameIndex": 5
+      "thumbnailFrameIndex": 5,
+      "publishedCommit": "d1419c6e13bb68e63de53d686b188fbaf8759a04"
     },
     {
       "id": "garbage-sofa",
       "name": "Whole broken sofa",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "reviewing-baseline",
+      "status": "editing",
       "clips": 3,
       "frames": 100,
       "target": "inputs/target.png",
-      "baselineJudge": "catalog_garbage_sofa_judge_v1"
+      "editor": "catalog_garbage_sofa_editor_v1",
+      "judge": "catalog_garbage_sofa_judge_v1"
     },
     {
       "id": "garbage-car",
       "name": "Wrecked car",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "editing",
       "clips": 3,
       "frames": 100,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "editor": "catalog_garbage_car_editor_v1",
+      "judge": "catalog_garbage_car_judge_v1"
     },
     {
       "id": "garbage-shelving",

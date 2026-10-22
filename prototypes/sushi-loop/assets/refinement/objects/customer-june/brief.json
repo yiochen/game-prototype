@@ -140,9 +140,111 @@
       "Total576frames/48clips: preserve rig/rest topology, foot/hand/seat/mouth/dish/food contacts, timing/nonloopbehavior, sourcecardinalS0/E+90/N180/W-90. Source35degreecamera/native384x640/root96,248/scale2.",
       "Verify everyframe via native measurements/sheets and actualtemporal playback,light/gray/dark backgrounds,sitting/stool/eating contexts. Do not leaveoldstyle overlays active."
     ],
-    "foodDisplayDepth": "Preserve exact canonical food bytes/fullUV/aspect/.35worldcell width and original food-root/palm/platebottom projected anchors, all action/visibility paths and camera-facing yaw cancellation. For natural body/food occlusion, allow one constant display-depth scalar per food composition in0..0.6worldcells, identical across all states/frames/facings. It must move only along the exact registered orthographic camera ray, preserve every projected quad corner/platebottom position/size, and be proved across all original samples. Keep source baseline0.6 in provenance. No per-view hiding/regrade/fitting/body contact shifts; keep empty meal variants empty. This2D display ordering is excluded from physical nativebody bounds."
+    "foodDisplayDepth": "Exact canonical packed2D food bytes/fullUV/aspect. Freeze one own source-specific isotropic map per food at alpha>=128 from reviews/food-mapping-proposal.json isotropicFullUVMappingByThreshold[128], using its pixel-boundary EDGE convention and actual lowest-row support midpoint. Preserve actual occupied plate widths and bottom support, not padded nominal .35fullquad.64/192 are sensitivity only, pixel-center alternatives are provenance and not selected. Preserve original foodroot/palm/action/visibility/camera-facing yaw. Source .6worldcell displaydepth is provenance; allow one constant per food in[0,.6] along exact registered orthographic camera ray, identical every state/frame/facing and preserving all corrected projectedquad corners/support. No per-view/pose fitting/hiding/recoloring; empty meal stays empty. Exclude2Ddisplaycard from physicalbody bounds.",
+    "functionalGeometryEnvelope": {
+      "nominalNeutralBodyHeightWorld": 1.2746186554431915,
+      "groundFootprintCells": [
+        1,
+        1
+      ],
+      "xyWorldMaxAbs": 0.5,
+      "numericalToleranceWorld": 1e-05,
+      "perClipBodyZWorld": {
+        "stand": [
+          -1.932120952119476e-08,
+          1.2761056423187256
+        ],
+        "walk": [
+          -3.552145599883261e-08,
+          1.2650599479675293
+        ],
+        "seated-wait": [
+          0.5041979551315308,
+          1.7469761371612549
+        ],
+        "eat": [
+          0.5041979551315308,
+          1.7469775676727295
+        ],
+        "sit-down": [
+          1.1109793085495312e-08,
+          1.7468435764312744
+        ],
+        "stand-up": [
+          1.1109793085495312e-08,
+          1.7468435764312744
+        ],
+        "happy": [
+          1.1109793085495312e-08,
+          1.334247350692749
+        ],
+        "restless": [
+          1.1109793085495312e-08,
+          1.2746185064315796
+        ],
+        "puzzled": [
+          5.261098223741101e-09,
+          1.2746185064315796
+        ],
+        "panic": [
+          -1.8310648997044154e-08,
+          1.2641417980194092
+        ],
+        "eat-salmon": [
+          0.5041979551315308,
+          1.7469775676727295
+        ],
+        "seated-wait-empty": [
+          0.5041979551315308,
+          1.7469761371612549
+        ]
+      },
+      "transformAndSocketToleranceWorld": 1e-05,
+      "remodeledSupportSurfaceToleranceWorld": 0.005,
+      "interpretation": "Nativebody shapes/proportions/structure/topology/materials/purposefuldetails are free within onecell and actual per-clip dynamic clearance. Oldbody coordinates/silhouette/partcounts not locks; do not use neutral standingheight as seated cap. Preserve exact originalrig/rest/actions/functional trajectories; actualdeformed surface attachments must follow source-derived paths. Proposed+.005world capextension not adopted: use actual clip envelope+1e-5numerical tolerance. .005surface tolerance does not allow moving rig/socket paths. Sourceinterior mouth/palm points are not on-surface requirements; use declared actualsurface probes correctly. No fitting frames/camera."
+    },
+    "nativeSourceContract": {
+      "path": "reviews/source-contract-proposal.json",
+      "sha256": "0d6de670ae671f505a34026ac64261e29498dde7d1713c4b88b71958600ab425",
+      "binding": "Actual source/camera/root/rig/rest/actions/cardinal/contact data govern; envelope numeric resolution in constraints supersedes proposed+.005cap. Source geometry is diagnostic baseline only."
+    },
+    "runtimeCardinals": "Actual original June main/runtime labels agree with nativeS0/E90/N180/W-90. New exports preserve it; no gameplay routing change."
   },
-  "qualityCriteria": {},
+  "qualityCriteria": {
+    "status": "frozen-before-editor-candidate",
+    "criteriaFile": "reviews/proposedcriteria.json",
+    "criteriaFileSHA256": "27d71696f393521ddd4536692d96e2ab1e23f69f2fd1b3c473980fa4449f8dd7",
+    "rankedOutcomes": [
+      "Replace flat cap and blocky stacked hair with a coherent rounded pink bob and purposeful layered forms that read in all four facings.",
+      "Give June a soft friendly face and convincing shirt/hand/waist/leg construction within the fixed functional contact and animation paths.",
+      "Carry warm soft shading and clean silhouettes through all action frames, with natural canonical food/body/stool occlusion."
+    ],
+    "axes": {
+      "shapeVolume": [
+        "Readable pink bob with a coherent rounded crown, layered fringe and side/nape construction; eliminate the original flat neon cap and awkward disconnected lobe stacks where useful. Improve forms, proportions and construction while retaining June identity and the functional rig envelope.",
+        "Warm friendly face with clearly separated eyes, nose, cheeks and mouth at logical192x320. Rounded volumes should feel intentional in front, sides and rear; the single front target does not prescribe unseen sides.",
+        "Yellow shirt reads as a garment around the torso, arms and waist. Useful collar, sleeve/cuff, placket, hem and navy trouser/shoe construction may be remodeled or added when readable; exact target features and source part counts are not mandatory."
+      ],
+      "color": [
+        "Retain light golden skin, vivid pink bob/fringe, golden yellow shirt, navy trousers and dark shoes. Keep each family distinct in every facing; softer tonal variation may replace source neon clipping without muting identity.",
+        "Warm highlights and darker lower/underside tones should define form without broad featureless pink, yellow or black patches."
+      ],
+      "lightingHighlights": [
+        "Soft broad highlights and readable midtones give native volumes the warm cartoon character of the plant/style target. Avoid preferred horizontal world-light direction across rotations and avoid directional ground cast shadows.",
+        "Control bright hair and shirt highlights so layered forms remain visible; reject white glare, burned edges, baked halos, heavy occlusion dirt or a flat uniformly emissive finish."
+      ],
+      "materialDetail": [
+        "Hair, skin and cloth should feel rounded and crafted with restrained material differentiation. Purposeful native detailing is welcome; no texture noise, arbitrary decoration or fine seams that vanish into clutter at use size.",
+        "All remodeled forms remain editable native geometry/materials; held canonical food stays explicitly identified as exact packed2D artwork with fullUV and unchanged bytes."
+      ],
+      "artifactFreeReadability": [
+        "No hair/head/face gaps, coplanar seams, spikes, black overlap patches, disconnected cuffs/hands, floating feet, pelvis/stool penetration, food swimming or clips caused by remodeled geometry.",
+        "Inspect every576frame/48clip outcome at logical192x320, enlarged, on light/gray/dark backgrounds. Animated support surfaces and food/hand/mouth occlusion must read naturally in all facings, including eating and seated/stool contexts.",
+        "Native rear and side forms must be coherent throughout motion. Original source geometry is not a visual ceiling or a technical topology lock."
+      ]
+    },
+    "reconciliation": "Accept independent visible criteria and source-specific semanticfood mapping/pixelEDGE convention. Actualclip envelope+1e-5 numeric instead of proposed+.005 top extension; contact transforms1e-5/remodeledsurface.005. No original topology/weakshape/partcountlock. Every576nativeframe/48actual temporalclip/requiredcontext and actualdeformed contacts reviewed; sourceinteriorpoints notmisstated surfaceanchors."
+  },
   "delivery": {
     "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
     "requiredClips": [
@@ -552,7 +654,7 @@
       "packetSHA256": "e7a8682233052e676135edd19ba7c98b057e6d7075074a5eb344e0a3558f3ae6",
       "review": "../dish-salmon/reviews/round01.json",
       "reviewSHA256": "c19b7c702158dec570e3181289b7606a87e966e3a33ecb2f0b5ada4bc5c68c67",
-      "policy": "Preserve exact canonical food bytes/fullUV/aspect/.35worldcell width and original food-root/palm/platebottom projected anchors, all action/visibility paths and camera-facing yaw cancellation. For natural body/food occlusion, allow one constant display-depth scalar per food composition in0..0.6worldcells, identical across all states/frames/facings. It must move only along the exact registered orthographic camera ray, preserve every projected quad corner/platebottom position/size, and be proved across all original samples. Keep source baseline0.6 in provenance. No per-view hiding/regrade/fitting/body contact shifts; keep empty meal variants empty. This2D display ordering is excluded from physical nativebody bounds."
+      "policy": "Exact canonical packed2D food bytes/fullUV/aspect. Freeze one own source-specific isotropic map per food at alpha>=128 from reviews/food-mapping-proposal.json isotropicFullUVMappingByThreshold[128], using its pixel-boundary EDGE convention and actual lowest-row support midpoint. Preserve actual occupied plate widths and bottom support, not padded nominal .35fullquad.64/192 are sensitivity only, pixel-center alternatives are provenance and not selected. Preserve original foodroot/palm/action/visibility/camera-facing yaw. Source .6worldcell displaydepth is provenance; allow one constant per food in[0,.6] along exact registered orthographic camera ray, identical every state/frame/facing and preserving all corrected projectedquad corners/support. No per-view/pose fitting/hiding/recoloring; empty meal stays empty. Exclude2Ddisplaycard from physicalbody bounds."
     },
     "dish-cucumber": {
       "asset": "dish-cucumber",
@@ -563,7 +665,7 @@
       "packetSHA256": "255d202624fb38a991d4d61e797146dd9c4b7601aa09f6cc95dac2249262c72f",
       "review": "../dish-cucumber/reviews/round02.json",
       "reviewSHA256": "a649ebe99484075ade796f38f0da76dba17f427b9ff277d202e72c8ebf43b854",
-      "policy": "Preserve exact canonical food bytes/fullUV/aspect/.35worldcell width and original food-root/palm/platebottom projected anchors, all action/visibility paths and camera-facing yaw cancellation. For natural body/food occlusion, allow one constant display-depth scalar per food composition in0..0.6worldcells, identical across all states/frames/facings. It must move only along the exact registered orthographic camera ray, preserve every projected quad corner/platebottom position/size, and be proved across all original samples. Keep source baseline0.6 in provenance. No per-view hiding/regrade/fitting/body contact shifts; keep empty meal variants empty. This2D display ordering is excluded from physical nativebody bounds."
+      "policy": "Exact canonical packed2D food bytes/fullUV/aspect. Freeze one own source-specific isotropic map per food at alpha>=128 from reviews/food-mapping-proposal.json isotropicFullUVMappingByThreshold[128], using its pixel-boundary EDGE convention and actual lowest-row support midpoint. Preserve actual occupied plate widths and bottom support, not padded nominal .35fullquad.64/192 are sensitivity only, pixel-center alternatives are provenance and not selected. Preserve original foodroot/palm/action/visibility/camera-facing yaw. Source .6worldcell displaydepth is provenance; allow one constant per food in[0,.6] along exact registered orthographic camera ray, identical every state/frame/facing and preserving all corrected projectedquad corners/support. No per-view/pose fitting/hiding/recoloring; empty meal stays empty. Exclude2Ddisplaycard from physicalbody bounds."
     }
   },
   "foodMapping": {
@@ -581,6 +683,63 @@
     "dish-salmon:review": "../dish-salmon/reviews/round01.json",
     "dish-cucumber:canonicalArt": "../../../production/source/2d/refinement/dish-cucumber/source/round01/dish-cucumber.png",
     "dish-cucumber:packet": "../dish-cucumber/candidates/round02/packet.json",
-    "dish-cucumber:review": "../dish-cucumber/reviews/round02.json"
+    "dish-cucumber:review": "../dish-cucumber/reviews/round02.json",
+    "June-initial:analyze_food_and_atlases.py": "reviews/analyze_food_and_atlases.py",
+    "June-initial:analyze_native_baseline.py": "reviews/analyze_native_baseline.py",
+    "June-initial:audit_source_integrity.py": "reviews/audit_source_integrity.py",
+    "June-initial:baseline-evidence-manifest.json": "reviews/baseline-evidence-manifest.json",
+    "June-initial:criteria.json": "reviews/criteria.json",
+    "June-initial:food-analysis.log": "reviews/food-analysis.log",
+    "June-initial:food-dependency-byte-verification.json": "reviews/food-dependency-byte-verification.json",
+    "June-initial:food-mapping-proposal.json": "reviews/food-mapping-proposal.json",
+    "June-initial:food-projected-baselines-576.json": "reviews/food-projected-baselines-576.json",
+    "June-initial:initial.json": "reviews/initial.json",
+    "June-initial:inspect_scene.py": "reviews/inspect_scene.py",
+    "June-initial:main-actions-audit.log": "reviews/main-actions-audit.log",
+    "June-initial:main-inventory.json": "reviews/main-inventory.json",
+    "June-initial:main-measure.log": "reviews/main-measure.log",
+    "June-initial:main-native-action-baseline.json": "reviews/main-native-action-baseline.json",
+    "June-initial:main-packed-food.png": "reviews/main-packed-food.png",
+    "June-initial:main-rig-constraint-baseline.json": "reviews/main-rig-constraint-baseline.json",
+    "June-initial:main-samples.json": "reviews/main-samples.json",
+    "June-initial:main-source-static.json": "reviews/main-source-static.json",
+    "June-initial:main-summary.json": "reviews/main-summary.json",
+    "June-initial:main-surface-measure.log": "reviews/main-surface-measure.log",
+    "June-initial:measure_native.py": "reviews/measure_native.py",
+    "June-initial:measure_native_with_surface_probes.py": "reviews/measure_native_with_surface_probes.py",
+    "June-initial:native-baseline-analysis.json": "reviews/native-baseline-analysis.json",
+    "June-initial:native-cardinals-render.log": "reviews/native-cardinals-render.log",
+    "June-initial:native-stand-E.png": "reviews/native-stand-E.png",
+    "June-initial:native-stand-N.png": "reviews/native-stand-N.png",
+    "June-initial:native-stand-S.png": "reviews/native-stand-S.png",
+    "June-initial:native-stand-W.png": "reviews/native-stand-W.png",
+    "June-initial:original-atlas-measurements.json": "reviews/original-atlas-measurements.json",
+    "June-initial:original-eat-all48.png": "reviews/original-eat-all48.png",
+    "June-initial:original-eat-salmon-all48.png": "reviews/original-eat-salmon-all48.png",
+    "June-initial:original-happy-all48.png": "reviews/original-happy-all48.png",
+    "June-initial:original-native-cardinal-sheet.png": "reviews/original-native-cardinal-sheet.png",
+    "June-initial:original-panic-all48.png": "reviews/original-panic-all48.png",
+    "June-initial:original-puzzled-all48.png": "reviews/original-puzzled-all48.png",
+    "June-initial:original-restless-all48.png": "reviews/original-restless-all48.png",
+    "June-initial:original-seated-wait-all48.png": "reviews/original-seated-wait-all48.png",
+    "June-initial:original-seated-wait-empty-all48.png": "reviews/original-seated-wait-empty-all48.png",
+    "June-initial:original-sit-down-all48.png": "reviews/original-sit-down-all48.png",
+    "June-initial:original-stand-all48.png": "reviews/original-stand-all48.png",
+    "June-initial:original-stand-up-all48.png": "reviews/original-stand-up-all48.png",
+    "June-initial:original-walk-all48.png": "reviews/original-walk-all48.png",
+    "June-initial:proposedcriteria.json": "reviews/proposedcriteria.json",
+    "June-initial:render_native_cardinals.py": "reviews/render_native_cardinals.py",
+    "June-initial:runtime-actions-audit.log": "reviews/runtime-actions-audit.log",
+    "June-initial:runtime-inventory.json": "reviews/runtime-inventory.json",
+    "June-initial:runtime-measure.log": "reviews/runtime-measure.log",
+    "June-initial:runtime-native-action-baseline.json": "reviews/runtime-native-action-baseline.json",
+    "June-initial:runtime-packed-food.png": "reviews/runtime-packed-food.png",
+    "June-initial:runtime-rig-constraint-baseline.json": "reviews/runtime-rig-constraint-baseline.json",
+    "June-initial:runtime-samples.json": "reviews/runtime-samples.json",
+    "June-initial:runtime-source-static.json": "reviews/runtime-source-static.json",
+    "June-initial:runtime-summary.json": "reviews/runtime-summary.json",
+    "June-initial:runtime-surface-measure.log": "reviews/runtime-surface-measure.log",
+    "June-initial:source-contract-proposal.json": "reviews/source-contract-proposal.json",
+    "June-initial:write_initial_proposals.py": "reviews/write_initial_proposals.py"
   }
 }

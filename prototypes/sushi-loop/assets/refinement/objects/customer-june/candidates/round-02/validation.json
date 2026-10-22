@@ -1,0 +1,339 @@
+{
+  "asset": "customer-june",
+  "round": "round-02",
+  "status": "native-technical-validation-failed",
+  "independentVisualApproval": false,
+  "renderManifest": "candidate-phases.json",
+  "nativeRecords": {
+    "main": {
+      "camera": "candidates/round-02/main-camera.json",
+      "assetRecord": "candidates/round-02/main-asset.json",
+      "rig": "candidates/round-02/main-rig.json"
+    },
+    "runtime": {
+      "camera": "candidates/round-02/runtime-camera.json",
+      "assetRecord": "candidates/round-02/runtime-asset.json",
+      "rig": "candidates/round-02/runtime-rig.json"
+    }
+  },
+  "checks": [
+    {
+      "name": "576 actual native phases",
+      "passed": true,
+      "count": 576
+    },
+    {
+      "name": "All required complete raw frames",
+      "passed": true
+    },
+    {
+      "name": "All per-clip measured physical geometry envelopes",
+      "passed": true,
+      "violations": []
+    },
+    {
+      "name": "All evaluated bone/contact transform paths",
+      "passed": true,
+      "maxAbsMatrixElementError": 0.0,
+      "tolerance": 1e-05
+    },
+    {
+      "name": "Actual deformed modeled palm thumb seat and mouth surfaces",
+      "passed": true,
+      "maxDistanceBySurface": {
+        "palm_surface_L": 0.0018440610729157925,
+        "thumb_surface_L": 0.0018549173837527633,
+        "palm_surface_R": 0.001844001468271017,
+        "thumb_surface_R": 0.0018549173837527633,
+        "seat": 6.253225848240618e-08,
+        "mouthSmile": 0.0004717102274298668,
+        "mouthHead": 0.0012230395805090666
+      },
+      "toleranceWorld": 0.005,
+      "sourceInteriorPointsAreNotSurfaceAnchors": true
+    },
+    {
+      "name": "Actual deformed sole support paths",
+      "passed": true,
+      "measured": {
+        "L": {
+          "maxSupportZError": 2.9802322387695312e-08,
+          "maxSourceSoleCenterNearestDistance": 3.332000986233652e-08
+        },
+        "R": {
+          "maxSupportZError": 0.00019936077296733856,
+          "maxSourceSoleCenterNearestDistance": 5.960464477539063e-08
+        }
+      }
+    },
+    {
+      "name": "main actual rig rest/action/weights",
+      "passed": true,
+      "restExactlyEqual": true,
+      "actions": 60,
+      "allActionKeyHandleSlotHashesEqual": true,
+      "weightIssueCount": 0,
+      "functionalPartsHaveIntendedGroups": true
+    },
+    {
+      "name": "main registered actual capture",
+      "passed": true,
+      "actualNativeRoot": [
+        192.0,
+        496.00000381469727
+      ],
+      "actualCamera": "main-camera.json",
+      "actualNodesAndSettings": "main-native-audit.json"
+    },
+    {
+      "name": "main exact canonical packed food/fullUV/isotropic128EDGE",
+      "passed": true,
+      "food": "dish-cucumber",
+      "packedSHA256": "b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930",
+      "nativeVertexMaxError": 6.180650158338352e-09,
+      "fullUV": true,
+      "aspectError": 7.503403298692035e-08,
+      "threshold": 128,
+      "supportConvention": "pixel boundary EDGE bottommost occupied row midpoint",
+      "depthWorld": 0.33
+    },
+    {
+      "name": "runtime actual rig rest/action/weights",
+      "passed": true,
+      "restExactlyEqual": true,
+      "actions": 12,
+      "allActionKeyHandleSlotHashesEqual": true,
+      "weightIssueCount": 0,
+      "functionalPartsHaveIntendedGroups": true
+    },
+    {
+      "name": "runtime registered actual capture",
+      "passed": true,
+      "actualNativeRoot": [
+        192.0,
+        496.00000381469727
+      ],
+      "actualCamera": "runtime-camera.json",
+      "actualNodesAndSettings": "runtime-native-audit.json"
+    },
+    {
+      "name": "runtime exact canonical packed food/fullUV/isotropic128EDGE",
+      "passed": true,
+      "food": "dish-salmon",
+      "packedSHA256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+      "nativeVertexMaxError": 6.63630028707729e-09,
+      "fullUV": true,
+      "aspectError": 6.033928334758798e-08,
+      "threshold": 128,
+      "supportConvention": "pixel boundary EDGE bottommost occupied row midpoint",
+      "depthWorld": 0.33
+    },
+    {
+      "name": "Exact main/runtime body geometry material nodes normals smoothing and weights",
+      "passed": true,
+      "bodyMeshes": 61,
+      "differentParts": [],
+      "method": "Exact per-part content signature over actual vertices/edges/polygons/normals/groups/weights/UVs/material-node payloads/modifiers, independent of material name suffixes"
+    },
+    {
+      "name": "Exact main/runtime actual lighting/compositor/render settings",
+      "passed": true
+    },
+    {
+      "name": "All576 fixed canonical projected corners support foodroot yaw visibility paths",
+      "passed": true,
+      "samples": 576,
+      "maxCorrectedCornerPixelError": 7.83956548389142e-05,
+      "maxSupportPixelError": 7.791911184540368e-05,
+      "maxVisibleActualVsLawPixelError": 7.492169061151799e-05,
+      "maxFoodRootMatrixAbsError": 0.0,
+      "method": "Own alpha128 EDGE maps, one .33 scalar per food along registered35degree camera ray. Actual evaluated matrix checked when visible; hidden samples use the independently computed preserved driver law, never stale raw hidden matrices."
+    },
+    {
+      "name": "Empirical reopened-source repeat controls",
+      "passed": false,
+      "samples": 8,
+      "allPNGFileBytesIdentical": false,
+      "maxDecodedChannelError": 1,
+      "claimScope": "These eight repeated native captures on this Blender/runtime/settings only; PNG file-byte equality and decodedRGBA equality are separate measurements. No universal determinism claim."
+    },
+    {
+      "name": "Portable recipe independently reconstructs matching native controls",
+      "passed": false,
+      "samples": 8,
+      "recipe": "source/reproduce_round02_portable.py",
+      "allPNGFileBytesIdentical": false,
+      "maxDecodedChannelError": 1,
+      "scope": "Eight empirical hero controls from separate background Blender reconstructions using only the bundled source-folder dependencies; not a universal bit-exact guarantee."
+    },
+    {
+      "name": "No native frame clips the canvas edge",
+      "passed": true,
+      "samples": 576
+    },
+    {
+      "name": "Registered actor seat and approved stool socket correspondence",
+      "passed": true,
+      "maxLogicalPixelError": 1.8849728384395803e-05,
+      "samples": 192,
+      "actorAndStoolOffsets": [
+        0,
+        0
+      ],
+      "context": "Whole native actor/stool canvases composited at shared ground root; their independent registered capture profiles are retained."
+    }
+  ],
+  "actualPerClipBounds": {
+    "stand": {
+      "min": [
+        -0.4261879622936249,
+        -0.4261879622936249,
+        -2.0480401374811663e-08
+      ],
+      "max": [
+        0.4261879622936249,
+        0.4261879622936249,
+        1.262550950050354
+      ]
+    },
+    "walk": {
+      "min": [
+        -0.4261879622936249,
+        -0.4261879622936249,
+        -3.782617241654407e-08
+      ],
+      "max": [
+        0.4261879622936249,
+        0.4261879622936249,
+        1.2523634433746338
+      ]
+    },
+    "seated-wait": {
+      "min": [
+        -0.43423330783843994,
+        -0.43423330783843994,
+        0.5127835869789124
+      ],
+      "max": [
+        0.43423330783843994,
+        0.43423330783843994,
+        1.734717845916748
+      ]
+    },
+    "eat": {
+      "min": [
+        -0.43440312147140503,
+        -0.43440312147140503,
+        0.5127835869789124
+      ],
+      "max": [
+        0.43440312147140503,
+        0.43440312147140503,
+        1.7347006797790527
+      ]
+    },
+    "sit-down": {
+      "min": [
+        -0.4261656105518341,
+        -0.4261656105518341,
+        9.904033149155111e-09
+      ],
+      "max": [
+        0.4261656105518341,
+        0.4261656105518341,
+        1.7328275442123413
+      ]
+    },
+    "stand-up": {
+      "min": [
+        -0.4261656105518341,
+        -0.4261656105518341,
+        9.904033149155111e-09
+      ],
+      "max": [
+        0.4261656105518341,
+        0.4261656105518341,
+        1.7328275442123413
+      ]
+    },
+    "happy": {
+      "min": [
+        -0.45064303278923035,
+        -0.45064303278923035,
+        9.904033149155111e-09
+      ],
+      "max": [
+        0.45064303278923035,
+        0.45064303278923035,
+        1.3253198862075806
+      ]
+    },
+    "restless": {
+      "min": [
+        -0.4480400085449219,
+        -0.4480400085449219,
+        9.904033149155111e-09
+      ],
+      "max": [
+        0.4480400085449219,
+        0.4480400085449219,
+        1.2606024742126465
+      ]
+    },
+    "puzzled": {
+      "min": [
+        -0.47013863921165466,
+        -0.47013863921165466,
+        4.129847575029544e-09
+      ],
+      "max": [
+        0.47013866901397705,
+        0.47013863921165466,
+        1.2667185068130493
+      ]
+    },
+    "panic": {
+      "min": [
+        -0.4873298108577728,
+        -0.4873298108577728,
+        -2.0317340698738917e-08
+      ],
+      "max": [
+        0.4873298108577728,
+        0.4873298406600952,
+        1.2545034885406494
+      ]
+    },
+    "eat-salmon": {
+      "min": [
+        -0.43440312147140503,
+        -0.43440312147140503,
+        0.5127835869789124
+      ],
+      "max": [
+        0.43440312147140503,
+        0.43440312147140503,
+        1.7347006797790527
+      ]
+    },
+    "seated-wait-empty": {
+      "min": [
+        -0.43423330783843994,
+        -0.43423330783843994,
+        0.5127835869789124
+      ],
+      "max": [
+        0.43423330783843994,
+        0.43423330783843994,
+        1.734717845916748
+      ]
+    }
+  },
+  "foodProjectionProof": "food-projection-proof-576.json",
+  "repeatControls": "repeat-controls.json",
+  "limitations": [
+    "Technical validation does not decide aesthetic approval.",
+    "Frozen ImageGen target is front-only and larger-framed; no invented unseen reference views.",
+    "Phone-width/context evidence is an explicit sprite composition, not a claim of gameplay or Godot integration."
+  ]
+}

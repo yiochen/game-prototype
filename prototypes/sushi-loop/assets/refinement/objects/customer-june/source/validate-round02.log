@@ -1,0 +1,20 @@
+native-technical-validation-failed
+[
+  {
+    "name": "Empirical reopened-source repeat controls",
+    "passed": false,
+    "samples": 8,
+    "allPNGFileBytesIdentical": false,
+    "maxDecodedChannelError": 1,
+    "claimScope": "These eight repeated native captures on this Blender/runtime/settings only; PNG file-byte equality and decodedRGBA equality are separate measurements. No universal determinism claim."
+  },
+  {
+    "name": "Portable recipe independently reconstructs matching native controls",
+    "passed": false,
+    "samples": 8,
+    "recipe": "source/reproduce_round02_portable.py",
+    "allPNGFileBytesIdentical": false,
+    "maxDecodedChannelError": 1,
+    "scope": "Eight empirical hero controls from separate background Blender reconstructions using only the bundled source-folder dependencies; not a universal bit-exact guarantee."
+  }
+]

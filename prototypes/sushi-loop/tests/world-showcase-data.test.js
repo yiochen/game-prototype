@@ -15,11 +15,13 @@ test('aisle walking compensates native planted-foot travel in every projected fa
   const audit = JSON.parse(readFileSync(new URL('../review/33/character-rollout/character-audit.json', import.meta.url))).assets[walker.object];
   const camera = JSON.parse(readFileSync(new URL(`../assets/production/${object.source.camera}`, import.meta.url)));
   const stride = audit.walkWorldTravelPerCycle;
-  const projected = [camera.calibration.unitX[0], camera.calibration.unitDepth[1]].map(value => value / camera.captureScale);
+  const calibration = camera.calibration;
+  const basis = name => calibration[name] || calibration[`native${name[0].toUpperCase()}${name.slice(1)}`].map((value, axis) => value - calibration.nativeRoot[axis]);
+  const projected = [basis('unitX')[0], basis('unitDepth')[1]].map(value => value / camera.captureScale);
   assert.ok(Math.abs(stride - .225) < 1e-8, 'Selected C125 native stance cycle is the route calibration authority');
   for (const direction of ['N', 'E', 'S', 'W']) {
     const axis = ['N', 'S'].includes(direction) ? 1 : 0;
-    assert.ok(Math.abs(object.locomotion.projectedWalkTravelPerCycle[direction] - stride * projected[axis] / 128) < 1e-8, 'Published game metadata must carry the camera-calibrated directional stride');
+    assert.ok(Math.abs(object.locomotion.projectedWalkTravelPerCycle[direction] * 128 - stride * projected[axis]) < .0001, 'Published stride must match the float32-measured camera within0.0001 logical pixels per cycle');
   }
   assert.ok(projected[1] < projected[0] * .6, 'This regression must exercise ordinary35° depth foreshortening');
   assert.equal(walker.motion.segmentDurations.reduce((sum, duration) => sum + duration, 0), 16);

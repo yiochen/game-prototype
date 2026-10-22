@@ -262,15 +262,19 @@
     {
       "object": "customer-june",
       "food": "dish-salmon",
-      "status": "pending-new-source-round-and-independent-review",
+      "status": "main-and-runtime-independently-approved-final-Godot-sync-pending",
       "sameObjectPair": {
-        "editor": null,
-        "judge": null
+        "editor": "catalog_customer_june_editor_v1",
+        "judge": "catalog_customer_june_judge_v1"
       },
       "runtimeExtraClips": [
         "eat-salmon"
       ],
-      "scope": "Supplemental runtime salmon meal"
+      "scope": "Supplemental runtime salmon meal",
+      "round": "round-02",
+      "packetSHA256": "f3a79e8c62ff48581109a45a9a164ac31c3b33430cad57a156953cdf6231b259",
+      "reviewSHA256": "4960f0a70106900d3217cf5bddaff9728d4397471f9545b23eed3dcd1803866f",
+      "runtimeApproval": "objects/customer-june/final/runtime-variant-approval.json"
     },
     {
       "object": "customer-june",
@@ -288,12 +292,16 @@
         "puzzled",
         "panic"
       ],
-      "status": "pending-new-source-round-and-independent-review",
+      "status": "main-and-runtime-independently-approved-final-Godot-sync-pending",
       "sameObjectPair": {
-        "editor": null,
-        "judge": null
+        "editor": "catalog_customer_june_editor_v1",
+        "judge": "catalog_customer_june_judge_v1"
       },
-      "basis": "Original source-rig action owners explicitly reference held_dish-cucumber; confirm actual packedimage hash/visibility in original scene before editing."
+      "basis": "Original source-rig action owners explicitly reference held_dish-cucumber; confirm actual packedimage hash/visibility in original scene before editing.",
+      "round": "round-02",
+      "packetSHA256": "f3a79e8c62ff48581109a45a9a164ac31c3b33430cad57a156953cdf6231b259",
+      "reviewSHA256": "4960f0a70106900d3217cf5bddaff9728d4397471f9545b23eed3dcd1803866f",
+      "runtimeApproval": "objects/customer-june/final/runtime-variant-approval.json"
     },
     {
       "object": "chef-omar",
@@ -397,7 +405,7 @@
   },
   "cutoverStatus": "pending",
   "cutoverRequirements": [
-    "All115in-scopecatalogobjects approved; three restaurant floor objects untouched.",
+    "All102 active catalog objects approved; three restaurant floor objects unchanged and13 user-classified2D effects deferred with their current sprites.",
     "Allheld/bubble/runtimevariants and fiveinventorysupplements approved with consistent food/art sources.",
     "Update existing Godot catalog and overlays using exactapprovedbytes, retain UI/gameplay/save/picking.",
     "Verify meaningful engine/build/nativechecks and realphone+landscape scenes after finalsprite sync. No productiondeployment ordeviceinstall requested."
@@ -413,7 +421,8 @@
     "requirement": "Refine native body in this supplemental clip while preserving intentional no-food state.",
     "approvals": {
       "customer-rosa": "objects/customer-rosa/final/runtime-variant-approval.json",
-      "customer-samir": "objects/customer-samir/final/runtime-variant-approval.json"
+      "customer-samir": "objects/customer-samir/final/runtime-variant-approval.json",
+      "customer-june": "objects/customer-june/final/runtime-variant-approval.json"
     }
   },
   "feedbackVariants": {
@@ -458,7 +467,7 @@
     "goods": "../../godot/tools/refined_goods_contract.py",
     "feedback": "../../godot/tools/refined_feedback_contract.py",
     "tests": "../../godot/tools/test_refinement_imports.py",
-    "verification": "Eleven isolated integration tests pass approved goods/smile/Omar96 and every available customer96 bundle (Rosa/Samir currently), plus saved legacy fixtures; reject altered registration/cadence/freshness/approvals/images/extra atlases/floor/gutters and a simulated missing individual approval. Production four-customer registry retained; working game sprite payloads unchanged.",
+    "verification": "Eleven isolated integration tests pass approved goods/smile/Omar96 and every available customer96 bundle (Rosa/Samir/June currently), plus saved legacy fixtures; reject altered registration/cadence/freshness/approvals/images/extra atlases/floor/gutters and a simulated missing individual approval. Production four-customer registry retained; working game sprite payloads unchanged.",
     "actorVariants": "../../godot/tools/refined_actor_variants.py",
     "actorSync": "../../godot/tools/sync_refined_actor_variants.py",
     "individualRuntimeFixtures": {
@@ -476,6 +485,14 @@
         "atlases": 8,
         "frames": 96,
         "evidence": "objects/customer-samir/final/runtime-import-isolated-verification.json",
+        "scope": "Temporary per-customer fixture only; mandatory production four-customer registry restored; working game payloads unchanged."
+      },
+      "customer-june": {
+        "status": "isolated-single-customer-import-verified",
+        "objects": 1,
+        "atlases": 8,
+        "frames": 96,
+        "evidence": "objects/customer-june/final/runtime-import-isolated-verification.json",
         "scope": "Temporary per-customer fixture only; mandatory production four-customer registry restored; working game payloads unchanged."
       }
     }

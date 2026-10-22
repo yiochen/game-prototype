@@ -1,0 +1,106 @@
+{
+  "main": {
+    "allSamples": 480,
+    "maxVisibleCorrectedCornerPixelError": 0.00013626232640717717,
+    "foodRootTranslationMaxWorldError": 0,
+    "visibleCountsByClip": {
+      "stand": 0,
+      "walk": 0,
+      "seated_wait": 48,
+      "eat": 48,
+      "sit_down": 0,
+      "stand_up": 0,
+      "happy": 0,
+      "restless": 0,
+      "puzzled": 0,
+      "panic": 0
+    },
+    "actualDrivers": [
+      {
+        "path": "rotation_euler",
+        "index": 2,
+        "expression": "-facing",
+        "variables": [
+          {
+            "name": "facing",
+            "dataPath": "rotation_euler[2]",
+            "owner": "customer_june__ground_root.001"
+          }
+        ]
+      },
+      {
+        "path": "location",
+        "index": 0,
+        "expression": "-sin(facing)*0.21625613969229382",
+        "variables": [
+          {
+            "name": "facing",
+            "dataPath": "rotation_euler[2]",
+            "owner": "customer_june__ground_root.001"
+          }
+        ]
+      },
+      {
+        "path": "location",
+        "index": 1,
+        "expression": "-cos(facing)*0.21625613969229382",
+        "variables": [
+          {
+            "name": "facing",
+            "dataPath": "rotation_euler[2]",
+            "owner": "customer_june__ground_root.001"
+          }
+        ]
+      }
+    ],
+    "sourceFoodDepthProperty": 0.33
+  },
+  "runtime": {
+    "allSamples": 96,
+    "maxVisibleCorrectedCornerPixelError": 0.00012558426647046872,
+    "foodRootTranslationMaxWorldError": 0,
+    "visibleCountsByClip": {
+      "eat-salmon": 48,
+      "seated-wait-empty": 0
+    },
+    "actualDrivers": [
+      {
+        "path": "rotation_euler",
+        "index": 2,
+        "expression": "-facing",
+        "variables": [
+          {
+            "name": "facing",
+            "dataPath": "rotation_euler[2]",
+            "owner": "S10 meal customer_june__ground_root.001"
+          }
+        ]
+      },
+      {
+        "path": "location",
+        "index": 0,
+        "expression": "-sin(facing)*0.21625613969229382",
+        "variables": [
+          {
+            "name": "facing",
+            "dataPath": "rotation_euler[2]",
+            "owner": "S10 meal customer_june__ground_root.001"
+          }
+        ]
+      },
+      {
+        "path": "location",
+        "index": 1,
+        "expression": "-cos(facing)*0.21625613969229382",
+        "variables": [
+          {
+            "name": "facing",
+            "dataPath": "rotation_euler[2]",
+            "owner": "S10 meal customer_june__ground_root.001"
+          }
+        ]
+      }
+    ],
+    "sourceFoodDepthProperty": 0.33
+  }
+}
