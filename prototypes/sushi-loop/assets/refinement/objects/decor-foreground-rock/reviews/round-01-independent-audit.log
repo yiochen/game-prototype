@@ -1,0 +1,60 @@
+00:00.435  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-rock/source/round-01.blend"
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-rock/reviews/round-01-independent-audit.py:16: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  def appearance():return {'materials':{m.name:nodegraph(m.node_tree)for o in M for m in o.data.materials if m and m.use_nodes},'world':nodegraph(S.world.node_tree),'lights':[{'name':o.name,'type':o.data.type,'energy':o.data.energy,'color':list(o.data.color),'matrixWorld':[list(r)for r in o.matrix_world],'size':getattr(o.data,'size',None)}for o in S.objects if o.type=='LIGHT'],'camera':{'matrix':[list(r)for r in C.matrix_world],'type':C.data.type,'orthoScale':C.data.ortho_scale,'sensorFit':C.data.sensor_fit,'shift':[C.data.shift_x,C.data.shift_y],'pixelAspect':[S.render.pixel_aspect_x,S.render.pixel_aspect_y]}}
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-rock/reviews/round-01-independent-audit.py:24: DeprecationWarning: 'Scene.use_nodes' is expected to be removed in Blender 6.0
+  rec={'project':bpy.data.filepath,'projectSHA256':hashfile(Path(bpy.data.filepath)),'scene':S.name,'root':R.name,'rootProperties':{k:str(R[k])for k in R.keys()},'initialSavedRootMatrix':savedRoot,'rootLocalBounds':bounds(allpts),'meshes':meshrows,'camera':a['camera'],'cameraElevationDegrees':math.degrees(math.atan2(C.location.z,math.hypot(C.location.x,C.location.y))),'resolution':[S.render.resolution_x,S.render.resolution_y],'resolutionPercentage':S.render.resolution_percentage,'frameCurrent':S.frame_current,'fps':S.render.fps,'fpsBase':S.render.fps_base,'filmTransparent':S.render.film_transparent,'renderEngine':S.render.engine,'compositorEnabled':S.use_nodes,'sequencerEnabled':S.render.use_sequencer,'allObjectTypes':{o.name:o.type for o in S.objects},'worldAndMaterials':a,'externalLibraries':[l.filepath for l in bpy.data.libraries],'images':[{'name':i.name,'source':i.source,'filepath':i.filepath,'packed':bool(i.packed_file)}for i in bpy.data.images if i.type not in ['RENDER_RESULT','COMPOSITING']],'actions':list(bpy.data.actions.keys()),'armatures':list(bpy.data.armatures.keys()),'shapeKeys':list(bpy.data.shape_keys.keys()),'facings':{}}
+00:01.755  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-rock/reviews/round-01-native-replay/static-N.png'
+00:02.622  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-rock/reviews/round-01-native-replay/static-E.png'
+00:03.579  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-rock/reviews/round-01-native-replay/static-S.png'
+00:04.435  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-rock/reviews/round-01-native-replay/static-W.png'
+BlenderMCP addon registered
+{
+  "audit": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-rock/reviews/round-01-native-audit.json",
+  "sourceFileUnchanged": true,
+  "bounds": {
+    "min": [
+      -0.5,
+      -0.5,
+      0.0
+    ],
+    "max": [
+      0.5,
+      0.5,
+      1.0750000476837158
+    ]
+  },
+  "facings": {
+    "N": {
+      "rootDegrees": 180,
+      "appearanceCameraLightMaterialFingerprint": "dbc2952fb5039b459318d826eff14380d70a8fd3ac03e10c84c70ea54ae3c3e3",
+      "unchangedAppearanceCameraLightMaterial": true,
+      "render": "reviews/round-01-native-replay/static-N.png",
+      "renderSHA256": "78dd1058b13af8009a9c02fb873ce1e0750c10fc1192045a71d9c9e242d5998b"
+    },
+    "E": {
+      "rootDegrees": 90,
+      "appearanceCameraLightMaterialFingerprint": "dbc2952fb5039b459318d826eff14380d70a8fd3ac03e10c84c70ea54ae3c3e3",
+      "unchangedAppearanceCameraLightMaterial": true,
+      "render": "reviews/round-01-native-replay/static-E.png",
+      "renderSHA256": "ba4d3a9540cc631c88162c0f4617a8fa0ed79d700a593a78f5e4f8f525955985"
+    },
+    "S": {
+      "rootDegrees": 0,
+      "appearanceCameraLightMaterialFingerprint": "dbc2952fb5039b459318d826eff14380d70a8fd3ac03e10c84c70ea54ae3c3e3",
+      "unchangedAppearanceCameraLightMaterial": true,
+      "render": "reviews/round-01-native-replay/static-S.png",
+      "renderSHA256": "44388e758afcf188af6c790a68cf7842102313d8ae15cd9c74ca1bd10ff1f68d"
+    },
+    "W": {
+      "rootDegrees": -90,
+      "appearanceCameraLightMaterialFingerprint": "dbc2952fb5039b459318d826eff14380d70a8fd3ac03e10c84c70ea54ae3c3e3",
+      "unchangedAppearanceCameraLightMaterial": true,
+      "render": "reviews/round-01-native-replay/static-W.png",
+      "renderSHA256": "6e020923495cfe190d553df67a8e371be8fc1729f5c2154da7579e918832c23c"
+    }
+  }
+}
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit
