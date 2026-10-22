@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 102,
-  "completed": 64,
-  "published": 63,
-  "current": "63 objects live of 102 active. Sofa independently approved and publication64 being staged; car independently approved next. Dalia original-judge food review, fresh shelving editor and dock-floor source judge active. Thirteen 2D effects deferred; final existing Godot cutover pending.",
+  "completed": 65,
+  "published": 64,
+  "current": "64 objects live of 102 active. Approved car publication 65 has passed checks; Dalia canonical food revision approved; shelving round 04 is in independent review. Dock-floor and dock-entry source audits are resolving their shared join. Thirteen 2D effects deferred; final existing Godot cutover pending.",
   "objects": [
     {
       "id": "plant-angular",
@@ -993,7 +993,7 @@
       "name": "Whole broken sofa",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 3,
       "frames": 100,
       "target": "inputs/target.png",
@@ -1013,27 +1013,28 @@
       "name": "Wrecked car",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "reviewing",
+      "status": "approved",
       "clips": 3,
       "frames": 100,
       "target": "inputs/target.png",
       "editor": "catalog_garbage_car_editor_v1",
       "judge": "catalog_garbage_car_judge_v1",
       "round": "round-01",
-      "packetSHA256": "a819c85e160b3ada7c0473581880168a1fed5ab24dd1742b59d1fa5cedce3be4",
-      "pendingReviewSHA256": "14f4333bf0d46d660b39cb3bbab8d06cda202f48833cdcb6b0c0346da15edb54"
+      "packetSHA256": "a819c85e160b3ada7c0473581880168a1fed5ab24dd1742b59d1fa5cedce3be4"
     },
     {
       "id": "garbage-shelving",
       "name": "Collapsed shelving",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "reviewing",
       "clips": 3,
       "frames": 100,
       "target": "inputs/target.png",
       "judge": "catalog_garbage_shelving_judge_v1",
-      "editor": "catalog_garbage_shelving_editor_v1"
+      "editor": "catalog_garbage_shelving_editor_v1",
+      "round": "round-04",
+      "pendingPacketSHA256": "c47dd7bb6b0c8eca67437cf9bbbf0d81b2cd6f94cbbee3207f5b8877a51252da"
     },
     {
       "id": "dock-floor",
@@ -1045,18 +1046,19 @@
       "frames": 4,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
-      "judge": "catalog_dock_floor_judge_v1"
+      "baselineJudge": "catalog_dock_floor_judge_v1"
     },
     {
       "id": "dock-entry",
       "name": "Dock entry pieces",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "reviewing-baseline",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "baselineJudge": "catalog_dock_entry_judge_v1"
     },
     {
       "id": "workshop-hut",

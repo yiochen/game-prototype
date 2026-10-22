@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "asset": "garbage-car",
+  "stage": "independent-initial-source-and-target-review",
+  "candidateApprovalIssued": false,
+  "editorProposalsRead": false,
+  "scope": "Garbage-car native3D obstacle only; remains active in102-object scope. Separate thirteen2D-effect deferral does not defer this car.",
+  "fixedInputs": {
+    "project": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "projectSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "original": "inputs/original.png",
+    "originalSHA256": "cfd93f71958e49ec2f94eecaf84b35c14bc68208920d3ec8c773ae67331b06b9",
+    "target": "inputs/target.png",
+    "targetSHA256": "9917bab841cb0aa2836cc18ee3f60e51ae850a89e5a4df7dc94d684bef3e8c68",
+    "styleReference": "../../style/warm-soft-reference.png",
+    "styleReferenceSHA256": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15"
+  },
+  "inspection": {
+    "nativeBlenderVersion": "5.2.2 LTS",
+    "collection": "S33_PROP_garbage-car",
+    "root": "garbage-car__root",
+    "evaluatedNativeFrames": 100,
+    "renderedRegisteredIdleViews": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "publishedRasterPhasesInspected": 100,
+    "originalRasterSourceView": "S; input original equals published idle-S RGBA",
+    "noOriginalOrLiveSceneSaved": true,
+    "evidence": [
+      "source-inspection/native-source-audit.json",
+      "source-inspection/evaluated-native-frames.json",
+      "source-inspection/source-actions.json",
+      "source-inspection/raster-audit.json",
+      "source-inspection/blender-audit.log"
+    ],
+    "directlyInspectedImages": [
+      "inputs/original.png",
+      "inputs/target.png",
+      "../../style/warm-soft-reference.png",
+      "source-inspection/original-idle-four-view.png",
+      "source-inspection/original-highlighted-N-all.png",
+      "source-inspection/original-highlighted-E-all.png",
+      "source-inspection/original-highlighted-S-all.png",
+      "source-inspection/original-highlighted-W-all.png",
+      "source-inspection/original-clearance-N-all.png",
+      "source-inspection/original-clearance-E-all.png",
+      "source-inspection/original-clearance-S-all.png",
+      "source-inspection/original-clearance-W-all.png",
+      "source-inspection/native-source-idle-N.png",
+      "source-inspection/native-source-idle-E.png",
+      "source-inspection/native-source-idle-S.png",
+      "source-inspection/native-source-idle-W.png",
+      "source-inspection/original-target-registered-canvases.png",
+      "source-inspection/original-phone-four-view.png"
+    ],
+    "temporalLimit": "Native mechanisms and every discrete phase inspected; GIFs prepared at12fps. Actual real-time playback remains required for the later candidate review; a contact sheet does not certify timing."
+  },
+  "observations": [
+    {
+      "area": "shapeVolume",
+      "source": "Recognizable squat wrecked blue-gray car with four tires, broad chassis/body, roof, raised bent hood, four jagged side-window openings, bumper and loose rubbish. N/S read clearly as a car; E/W expose a long blank rectangular roof/hood/trunk chain. Broad planar slabs dominate; wheel arches, door segmentation and crafted body transitions are weak.",
+      "target": "Rounded roof and fenders, defined doors and lower trim, inset window rims and rims/tires yield a more deliberate toy-car construction. Useful native volume improvements should matter more than matching the original box part counts."
+    },
+    {
+      "area": "color",
+      "source": "Muted pale blue-gray body, dark cyan cabin, near-black charcoal tires, tiny dull brown rust/debris. The large monochrome panels and dark lower band feel cold and flat.",
+      "target": "Same blue family with warm tan/orange localized rust and warm gray metal. Warm contrast should stay selective; the wreck should not become an orange car."
+    },
+    {
+      "area": "lightingHighlights",
+      "source": "Faceted symmetric source rig leaves broad flat surfaces, grain at enlarged native resolution and very dark tires/undercarriage.",
+      "target": "Soft full-bodied panel gradients, warm edge glints and readable midtones communicate rounded metal. Preserve neutral horizontal treatment; do not reproduce an apparent one-sided imagegen rim or cast-shadow/halo."
+    },
+    {
+      "area": "materialDetail",
+      "source": "Windows are opaque jagged blue geometry around dark openings, not alpha holes. Sill rust is a tiny brown rectangle. Wheels have simple low-sided hub discs.",
+      "target": "Purposeful chipped paint/rust at seams and edges, bent panels, substantial window frames, tire shoulders and hub definition can express discarded condition without screen-space painted noise. Exact mirror/wiper/trim/rust count is optional."
+    },
+    {
+      "area": "readability",
+      "source": "At55px/cell the 3-cell car remains recognizable, but fine handles/rust disappear and tires merge into dark backgrounds. E/W read more as anonymous flat blocks.",
+      "target": "Stronger panel hierarchy and selective warm wear should survive at phone size while keeping the broken-glass identity and four-view coherence."
+    },
+    {
+      "area": "artifacts",
+      "source": "Small dark triangular gaps beside cabin/window rims and dark horizontal cavities read as seams; undercarriage and tires can become black dead areas. Car is intentionally damaged, so coherent dark openings are identity, not defects.",
+      "target": "No pinholes, coplanar flicker, construction seams, clipped loose pieces, disappearing material faces or bright alpha halos across required views and phases. Intentional cabin darkness must remain bounded by readable frames."
+    },
+    {
+      "area": "targetAuthority",
+      "source": "Registered original is1152x1664; target is1044x1507 and fills substantially more of its canvas, with faint stray alpha/color specks.",
+      "target": "Fixed reference is a design/style target only. Do not match its raster bounds by changing camera, world scale, root or frame. Do not copy its halo/noise or infer unseen E/W construction from one S image."
+    }
+  ],
+  "sourceSpecificUncertaintiesBeforeModeling": [
+    "Catalog source-camera/asset metadata retain captureScale4 while production catalog/guide deliver sourceScale2. Freeze native deliverable1152x1664 and logical576x832 from catalog/guide; carry originalscale4 as provenance only.",
+    "Saved active native scene camera is an unrelated35degree character camera with768x1280 frame; asset camera record is55.0079798degree square-grid with non-square pixel aspect. Reconstructed registered camera and calibration are in raw audit.",
+    "Declared nominal height1.32 is not actual idle mesh top1.265680; do not scale source geometry to1.32 or use target height as calibration.",
+    "Idle bumper extends0.005780 beyond nominal x=-1.5 footprint boundary, and four tire minima arez=-0.01. Preserve source-root contact interpretation with explicit tolerance; do not silently force an exact zero plane or refit body.",
+    "Declared support mask is all six cells; actual ground-reaching mesh is the four tire contact lines. Loose rubbish floats slightly above ground in source. Do not reinterpret six support cells as six mandatory physical feet.",
+    "Clearance source transient envelope is much larger than its idle gameplay footprint/nominal height and ends with visible10percent-scale fragments. Freeze these as transient animation semantics; separate clean-floor context follows consumer removal afterclip."
+  ],
+  "rankedDesiredOutcomes": [
+    "1. Build deliberate rounded car volumes and structural panel/wheel/window hierarchy while retaining wreck identity and registered gameplay scale.",
+    "2. Achieve soft warm cartoon lighting and material separation with readable tires/cabin; no black dead spots or directional lighting bias.",
+    "3. Add selective legible rust/chipped paint/bent construction and keep it stable through all highlighted/clearance phases at phone size."
+  ],
+  "notLocks": [
+    "56 source meshes",
+    "504 source base vertices",
+    "314 source base polygons",
+    "17 source materials",
+    "old weak slab construction",
+    "specific source rust rectangle or decorative part count"
+  ],
+  "nextStep": "Root reconciles/freezes technical and aesthetic criteria before a fresh editor is dispatched; no candidate verdict now."
+}

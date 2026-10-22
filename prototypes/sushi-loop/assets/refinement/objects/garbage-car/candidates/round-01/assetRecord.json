@@ -1,0 +1,64 @@
+{
+  "id": "garbage-car",
+  "projection": "top-down-oblique-square-grid",
+  "frame": [
+    576,
+    832
+  ],
+  "anchor": [
+    288,
+    544
+  ],
+  "scale": 2,
+  "clips": {
+    "idle": {
+      "frames": 1,
+      "fps": 12,
+      "loop": false,
+      "static": true
+    },
+    "highlighted": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true
+    },
+    "clearance": {
+      "frames": 12,
+      "fps": 12,
+      "loop": false
+    }
+  },
+  "footprint": [
+    3,
+    2
+  ],
+  "height": 1.32,
+  "sockets": {},
+  "artStyle": {
+    "revision": "warm-soft-native-round01",
+    "lighting": "overhead plus four identical cardinal soft fills and uniform world; no ground/shadow mesh"
+  },
+  "directions": [
+    "N",
+    "E",
+    "S",
+    "W"
+  ],
+  "variants": {
+    "normal": {
+      "clips": [
+        "idle"
+      ]
+    },
+    "highlighted": {
+      "clips": [
+        "highlighted"
+      ]
+    },
+    "clearance": {
+      "clips": [
+        "clearance"
+      ]
+    }
+  }
+}

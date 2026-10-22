@@ -38,7 +38,8 @@ def main():
 
     def add_review(path, receipt):
         add(path, sha(path))
-        supplemental = receipt.get('supplementalEvidence', {})
+        technical_manifest = receipt.get('technicalEvidence', {}).get('supplementalEvidenceManifest')
+        supplemental = receipt.get('supplementalEvidence', technical_manifest or {})
         assert isinstance(supplemental, (dict, list)), 'Unknown supplemental evidence format'
         manifest_descriptor = isinstance(supplemental, dict) and {'path', 'sha256'} <= supplemental.keys()
         if manifest_descriptor:
@@ -59,9 +60,18 @@ def main():
             resource = add_supplement(record, path.parent)
             if manifest_descriptor:
                 manifest = json.loads(resource.read_text())
-                assert manifest.get('packetSHA256') == receipt['candidatePacketSHA256'], 'Supplement manifest binds wrong packet'
-                assert isinstance(manifest.get('files'), list), 'Supplement manifest needs explicit path/hash records'
-                for entry in manifest['files']:
+                if technical_manifest and supplemental == [technical_manifest]:
+                    assert manifest.get('candidatePacketSHA256') == receipt['candidatePacketSHA256'], 'Supplement manifest binds wrong packet'
+                    assert isinstance(manifest.get('bindings'), dict), 'Technical supplement needs explicit input bindings'
+                    assert isinstance(manifest.get('independentSupplementalEvidence'), list), 'Technical supplement needs explicit output records'
+                    assert isinstance(manifest.get('originalIndependentAudit'), list), 'Technical supplement needs explicit source audit records'
+                    entries = [*manifest['bindings'].values(), *manifest['independentSupplementalEvidence'],
+                               *manifest['originalIndependentAudit']]
+                else:
+                    assert manifest.get('packetSHA256') == receipt['candidatePacketSHA256'], 'Supplement manifest binds wrong packet'
+                    assert isinstance(manifest.get('files'), list), 'Supplement manifest needs explicit path/hash records'
+                    entries = manifest['files']
+                for entry in entries:
                     add_supplement(entry, resource.parent)
 
     add(base / 'packet.json', sha(base / 'packet.json'))

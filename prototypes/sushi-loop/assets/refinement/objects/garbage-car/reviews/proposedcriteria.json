@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "asset": "garbage-car",
+  "status": "proposed-for-root-freeze",
+  "targetSHA256": "9917bab841cb0aa2836cc18ee3f60e51ae850a89e5a4df7dc94d684bef3e8c68",
+  "nativeModelingFreedom": "Rebuild shapes, proportions within gameplay envelope, construction, details, topology, materials and lights; retain identity, registration, support/clearance semantics, facings and animation timing.",
+  "rankedCriteria": [
+    {
+      "rank": 1,
+      "id": "purposeful-car-volume",
+      "dimension": "shapeVolume",
+      "outcome": "A single coherent discarded car assembly with substantial rounded body/fenders/roof, convincing wheels and purposeful broken-window/cabin construction; avoid a stack of flat rectangles.",
+      "evidence": "Four registered idle views enlarged and at128/55px per cell, target comparison and human-scale contexts. E/W must gain coherent structure too, not just the target-facing S.",
+      "failure": "Only bevel/color adjustments while major source slabs remain visually weak; decorative details hide structural defects; changed scale to imitate target."
+    },
+    {
+      "rank": 2,
+      "id": "warm-soft-readable-surfaces",
+      "dimension": "lightingHighlights",
+      "outcome": "Soft panel gradients, restrained warm highlights and readable dark forms. Similar surfaces keep comparable treatment through rotations without preferred horizontal key direction.",
+      "evidence": "Four facings on light/gray/dark backgrounds and repeated scene at logical/phone size.",
+      "failure": "Black dead tires/undercarriage, harsh normals, clipped white highlights, persistent directional ground shadow or a side of the model lit with a different palette."
+    },
+    {
+      "rank": 3,
+      "id": "wreck-material-story",
+      "dimension": "color/materialDetail",
+      "outcome": "Pale/muted blue-gray paint remains dominant; localized warm rust/chips, gray metal trim, charcoal rubber and jagged blue glass distinguish materials and explain damage. Details are crafted and sparse enough to read at use size.",
+      "evidence": "Target/native comparison plus all clips and four facings at use size.",
+      "failure": "Uniform glossy plastic, photo-noise rust, orange takeover, texture swimming or tiny random marks that add noise without readable construction."
+    },
+    {
+      "rank": 4,
+      "id": "stable-readable-animation",
+      "dimension": "artifactFreeReadability",
+      "outcome": "Highlighted breathes subtly with source phase/loop behavior; clearance visibly disassembles/spreads, lofts and shrinks according to original timing. Native new construction stays coherent at all phases without unintended intersections, culling, stretching or loose detached decorations in idle.",
+      "evidence": "All100 native phase PNGs, original-layout atlases, native action audit,12fps playback for all8 moving view/clip combinations, loop closure diagnostics and post-clearance floor reveal.",
+      "failure": "Substitute flashing tint/fade/wobble, silent all-transparent finalframe, missing poses, loop jump, clipped flight envelope or geometry/material defects hidden by single idle view."
+    },
+    {
+      "rank": 5,
+      "id": "clean-export-and-context",
+      "dimension": "artifactFreeReadability",
+      "outcome": "Transparent sprite edges are clean, contact reads naturally and complete car fits declared placement. Intentional cabin holes remain legible; no accidental seams, pinholes, coplanar flicker, deep black overlap scars, halos or baked floor/shadow.",
+      "evidence": "All facings and phases on3 backgrounds, registered floor/human/repeated and removal contexts with native/consumer calibration.",
+      "failure": "Target card/paint-over, frame fitting/cropping, undocumented native dependency, foreground part clipping or placement failure."
+    }
+  ],
+  "requiredReviewEvidence": [
+    "Hash-bound editable native .blend, recipe/settings and exact resource closure; fixed source/target hashes.",
+    "100 native1152x1664 PNGs: idle1+highlighted12+clearance12 for eachN/E/S/W;12 original-layout atlases (idle1x1; moving6x2).",
+    "All-frame verified contact sheets and four-view idle sheet; selected native zooms only supplement the complete set.",
+    "12fps actual temporal playback for highlighted(loop) and clearance(one-shot) in eachfacing; highlighted closing key13 is diagnostic, excluded from12 exportframes.",
+    "Unmodified full-frame scaling to logical576x832 and55px/cell phone previews; light#f5f2e9/gray#808080/dark#202028 backgrounds.",
+    "Registered human-scale catalog context; independent repeated-car placement; native or reproducible unchanged-floor reveal before/during/after one-shot removal.",
+    "Technical action/geometry/material/visibility/camera/root/support/allphase envelope audit and capture manifest bound to exactproject/renderbytes."
+  ],
+  "nonRequirements": [
+    "Pixel identity with target",
+    "Copy target halos, phantom alpha specks or apparent oversize",
+    "Invent unseen view details or new mechanics",
+    "Maintain source mesh/vertex/material counts",
+    "Add every optional mirror/wiper/trim item depicted by imagegen"
+  ],
+  "verdictPolicy": "Proposed criteria only. Later approval requires actual inspected native evidence, material visible improvement and frozen contract compliance; scores do not replace a verdict."
+}
