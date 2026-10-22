@@ -10,6 +10,7 @@ import subprocess
 from PIL import Image
 from audit_directions import audit as audit_directions
 from acceptance_contract import acceptance
+from native_camera_record import normalize_measured
 
 RUN = Path(__file__).resolve().parents[1]
 PRODUCTION = RUN.parent / 'production'
@@ -141,6 +142,17 @@ def main():
     records = {k: read(folder / v) for k, v in record_paths.items()}
     camera = records['camera']
     nested_camera = False
+    if 'captureScale' not in camera and 'nativeFrame' in camera:
+        summary = read(folder / delivery['validation'])
+        native_path = (folder / summary['nativeValidation']).resolve()
+        require(bound.get(native_path) == digest(native_path),
+                'Measured camera validation must be exact packet-bound evidence')
+        approved_record = folder / record_paths['camera']
+        camera = normalize_measured(camera, records['assetRecord'], obj, read(native_path))
+        camera.update(approvedRecordSHA256=digest(approved_record),
+                      approvedNativeValidationSHA256=digest(native_path))
+        copy_file(approved_record, native_base / 'inputs/approved-camera-record.json')
+        nested_camera = True
     if 'captureScale' not in camera and isinstance(camera.get('assets'), dict):
         matches = [(name, record) for name, record in camera['assets'].items()
                    if record.get('frame') == obj['frameSize'] and record.get('anchor') == obj['root']

@@ -1,0 +1,63 @@
+{
+  "asset": "customer-rosa",
+  "proposal": "proposedcriteria.json",
+  "sha256": "5b843ef45e66207b3bbcf4ad29d5e6275a042f6b1a5bfe0357bbef90ac8ef255",
+  "criteriaAlias": "criteria.json",
+  "criteriaAliasSHA256": "5b843ef45e66207b3bbcf4ad29d5e6275a042f6b1a5bfe0357bbef90ac8ef255",
+  "initialSHA256": "3442cc584f3e3566df4887fa692a2ac90424092ff8caf584a47bae3f23615234",
+  "rootReconciliations": [
+    {
+      "id": "food-semantic-registration",
+      "state": "accepted_in_principle_pending_exact_freeze",
+      "decision": "Root accepted semantic visible plate support/occupiedwidth rather than old padded all-corner identity. FullUV/canonicalaspect/bytes required. Proposed alpha128 fixed maps below;64/128/192 sensitivity saved. Old .35 nominalquad retained as provenance, distinct from actual occupiedwidth.",
+      "source": "Parent messages received2026-10-21 during initial inspection",
+      "mappingFile": "semantic-food-mapping.json",
+      "mappingSHA256": "d4e6bbdee297f4fe9842add841847cc8daffad850832a8d56a46680b34aab1f4",
+      "maps": [
+        {
+          "food": "dish-cucumber",
+          "alphaThreshold": 128,
+          "sourceNominalQuadWorld": [
+            0.35,
+            0.30660453808752025
+          ],
+          "sourceOccupiedWidthWorld": 0.33752025931928686,
+          "sourceSupportAboveOldQuadBottomWorld": 0.004821717990275526,
+          "proposedCanonicalFullUVQuadWorld": [
+            0.33858667404067483,
+            0.2724689613146218
+          ],
+          "proposedCanonicalQuadScreenXOffsetWorld": 0.002836304700162074,
+          "proposedCanonicalQuadBottomScreenUpOffsetWorld": 0.00428851062958155
+        },
+        {
+          "food": "dish-salmon",
+          "alphaThreshold": 128,
+          "sourceNominalQuadWorld": [
+            0.35,
+            0.31364734299516905
+          ],
+          "sourceOccupiedWidthWorld": 0.34436392914653785,
+          "sourceSupportAboveOldQuadBottomWorld": 0.041425120772946855,
+          "proposedCanonicalFullUVQuadWorld": [
+            0.34530868615379856,
+            0.23855114433333552
+          ],
+          "proposedCanonicalQuadScreenXOffsetWorld": 0.0016908212560386472,
+          "proposedCanonicalQuadBottomScreenUpOffsetWorld": 0.040952742269316486
+        }
+      ]
+    },
+    {
+      "id": "legacy-runtime-cardinal-labels",
+      "state": "root_reconciled",
+      "decision": "New outputs follow measured native/declared S0/E+90/N180/W-90, matching main body facings. Historical runtime atlases/manifest remain history. Root inspected Godot consumer and confirmed no compensating remap; this corrects export labels without gameplay routing change.",
+      "evidence": "Four fresh native runtime firstframe renders have Nback, Eright, Sfront, Wleft; old hash-matched runtime atlas labels are onecardinal rotated (Efront,Wback)."
+    },
+    {
+      "id": "functional-geometry-envelope",
+      "state": "root_quantitative_reconciliation_pending",
+      "decision": "Do not freeze old body mesh coordinates or impose historical runtime bodyGeometryUnchanged as new requirement. Use measured source rigs/contacts and perstate body envelope to freeze feasible bounds before editor submission."
+    }
+  ]
+}

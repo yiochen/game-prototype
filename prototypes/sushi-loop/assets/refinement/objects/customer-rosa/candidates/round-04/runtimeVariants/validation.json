@@ -1,0 +1,3750 @@
+{
+  "savedReopenedSource": "source/round-04-runtime.blend",
+  "projectSHA256": "71bfd6e6a633c2917a52541951f53e1a90dbc9e70ba1f74203b11d9bba0352b1",
+  "blender": "5.2.2 LTS",
+  "frozenBriefSHA256": "8aa72436b75855edcb65969145c71d3758c4eeb520ede8bf9de6347e11358893",
+  "sampleCount": 96,
+  "checks": {
+    "contactTrajectory": true,
+    "foodRootTrajectory": true,
+    "semanticQuadProjection": true,
+    "visibility": true,
+    "restSkeleton": true,
+    "actions": true,
+    "loopClosure": true,
+    "bodyEnvelope": true,
+    "foodBytes": true,
+    "fullUV": true,
+    "rootScale": true,
+    "registeredCamera": true,
+    "frameSize": true
+  },
+  "allChecksPassed": true,
+  "maximumErrors": {
+    "contactWorld": 0,
+    "foodRootWorld": 0,
+    "semanticFoodProjectionPx": 0.00026287319070661397
+  },
+  "camera": {
+    "matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5735762715339661,
+        -0.8191521763801575,
+        -8.191520690917969
+      ],
+      [
+        0.0,
+        0.8191521763801575,
+        0.5735762715339661,
+        5.735764503479004
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "orthoScale": 1.5,
+    "shift": [
+      0.0,
+      0.458331435918808
+    ],
+    "rootPx": [
+      192.0,
+      495.999755859375
+    ],
+    "nativeFrame": [
+      384,
+      640
+    ],
+    "fps": 12,
+    "cardinals": {
+      "S": 0,
+      "E": 90,
+      "N": 180,
+      "W": -90
+    }
+  },
+  "rig": {
+    "root": "S10 meal customer_rosa__ground_root.001",
+    "armature": "S10 meal customer_rosa__armature.001",
+    "scale": [
+      1.25,
+      1.25,
+      1.25
+    ],
+    "rest": [
+      {
+        "name": "ground",
+        "parent": null,
+        "head": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tail": [
+          0.0,
+          0.0,
+          0.1
+        ],
+        "deform": false
+      },
+      {
+        "name": "pelvis",
+        "parent": "ground",
+        "head": [
+          0.0,
+          0.0,
+          0.15000001
+        ],
+        "tail": [
+          0.0,
+          0.0,
+          0.205
+        ],
+        "deform": true
+      },
+      {
+        "name": "spine",
+        "parent": "pelvis",
+        "head": [
+          0.0,
+          0.0,
+          0.205
+        ],
+        "tail": [
+          0.0,
+          0.0,
+          0.38499999
+        ],
+        "deform": true
+      },
+      {
+        "name": "neck",
+        "parent": "spine",
+        "head": [
+          0.0,
+          0.005,
+          0.38499999
+        ],
+        "tail": [
+          0.0,
+          0.005,
+          0.43000001
+        ],
+        "deform": true
+      },
+      {
+        "name": "head",
+        "parent": "neck",
+        "head": [
+          0.0,
+          0.005,
+          0.43000001
+        ],
+        "tail": [
+          0.0,
+          0.005,
+          0.91000003
+        ],
+        "deform": true
+      },
+      {
+        "name": "upper_arm_L",
+        "parent": "spine",
+        "head": [
+          -0.198,
+          0.004,
+          0.352
+        ],
+        "tail": [
+          -0.24900001,
+          -0.002,
+          0.24699998
+        ],
+        "deform": true
+      },
+      {
+        "name": "forearm_L",
+        "parent": "upper_arm_L",
+        "head": [
+          -0.249,
+          -0.002,
+          0.24699999
+        ],
+        "tail": [
+          -0.26699999,
+          -0.023,
+          0.211
+        ],
+        "deform": true
+      },
+      {
+        "name": "hand_L",
+        "parent": "forearm_L",
+        "head": [
+          -0.26699999,
+          -0.023,
+          0.211
+        ],
+        "tail": [
+          -0.26699999,
+          -0.025,
+          0.125
+        ],
+        "deform": true
+      },
+      {
+        "name": "upper_arm_R",
+        "parent": "spine",
+        "head": [
+          0.198,
+          0.004,
+          0.352
+        ],
+        "tail": [
+          0.24900001,
+          -0.002,
+          0.24699998
+        ],
+        "deform": true
+      },
+      {
+        "name": "forearm_R",
+        "parent": "upper_arm_R",
+        "head": [
+          0.249,
+          -0.002,
+          0.24699999
+        ],
+        "tail": [
+          0.26699999,
+          -0.023,
+          0.211
+        ],
+        "deform": true
+      },
+      {
+        "name": "hand_R",
+        "parent": "forearm_R",
+        "head": [
+          0.26699999,
+          -0.023,
+          0.211
+        ],
+        "tail": [
+          0.26699999,
+          -0.025,
+          0.125
+        ],
+        "deform": true
+      },
+      {
+        "name": "thigh_L",
+        "parent": "pelvis",
+        "head": [
+          -0.115,
+          0.005,
+          0.15000001
+        ],
+        "tail": [
+          -0.115,
+          -0.013,
+          0.08500001
+        ],
+        "deform": true
+      },
+      {
+        "name": "shin_L",
+        "parent": "thigh_L",
+        "head": [
+          -0.115,
+          -0.013,
+          0.085
+        ],
+        "tail": [
+          -0.115,
+          0.0,
+          0.035
+        ],
+        "deform": true
+      },
+      {
+        "name": "foot_L",
+        "parent": "shin_L",
+        "head": [
+          -0.115,
+          0.0,
+          0.035
+        ],
+        "tail": [
+          -0.115,
+          -0.12,
+          0.035
+        ],
+        "deform": true
+      },
+      {
+        "name": "thigh_R",
+        "parent": "pelvis",
+        "head": [
+          0.115,
+          0.005,
+          0.15000001
+        ],
+        "tail": [
+          0.115,
+          -0.013,
+          0.08500001
+        ],
+        "deform": true
+      },
+      {
+        "name": "shin_R",
+        "parent": "thigh_R",
+        "head": [
+          0.115,
+          -0.013,
+          0.085
+        ],
+        "tail": [
+          0.115,
+          0.0,
+          0.035
+        ],
+        "deform": true
+      },
+      {
+        "name": "foot_R",
+        "parent": "shin_R",
+        "head": [
+          0.115,
+          0.0,
+          0.035
+        ],
+        "tail": [
+          0.115,
+          -0.12,
+          0.035
+        ],
+        "deform": true
+      },
+      {
+        "name": "foot_goal_L",
+        "parent": "ground",
+        "head": [
+          -0.115,
+          0.0,
+          0.035
+        ],
+        "tail": [
+          -0.115,
+          0.0,
+          0.11
+        ],
+        "deform": false
+      },
+      {
+        "name": "knee_pole_L",
+        "parent": "ground",
+        "head": [
+          -0.115,
+          -0.2,
+          0.085
+        ],
+        "tail": [
+          -0.115,
+          -0.2,
+          0.16
+        ],
+        "deform": false
+      },
+      {
+        "name": "hand_goal_L",
+        "parent": "ground",
+        "head": [
+          -0.26699999,
+          -0.023,
+          0.211
+        ],
+        "tail": [
+          -0.26699999,
+          -0.023,
+          0.31099999
+        ],
+        "deform": false
+      },
+      {
+        "name": "elbow_pole_L",
+        "parent": "ground",
+        "head": [
+          -0.47999999,
+          -0.06,
+          0.27000001
+        ],
+        "tail": [
+          -0.47999999,
+          -0.06,
+          0.34999999
+        ],
+        "deform": false
+      },
+      {
+        "name": "foot_goal_R",
+        "parent": "ground",
+        "head": [
+          0.115,
+          0.0,
+          0.035
+        ],
+        "tail": [
+          0.115,
+          0.0,
+          0.11
+        ],
+        "deform": false
+      },
+      {
+        "name": "knee_pole_R",
+        "parent": "ground",
+        "head": [
+          0.115,
+          -0.2,
+          0.085
+        ],
+        "tail": [
+          0.115,
+          -0.2,
+          0.16
+        ],
+        "deform": false
+      },
+      {
+        "name": "hand_goal_R",
+        "parent": "ground",
+        "head": [
+          0.26699999,
+          -0.023,
+          0.211
+        ],
+        "tail": [
+          0.26699999,
+          -0.023,
+          0.31099999
+        ],
+        "deform": false
+      },
+      {
+        "name": "elbow_pole_R",
+        "parent": "ground",
+        "head": [
+          0.47999999,
+          -0.06,
+          0.27000001
+        ],
+        "tail": [
+          0.47999999,
+          -0.06,
+          0.34999999
+        ],
+        "deform": false
+      }
+    ],
+    "actions": [
+      {
+        "clip": "eat-salmon",
+        "owner": "S10 meal customer_rosa__armature.001",
+        "action": "S10 meal S33_NATIVE__customer-rosa__eat__customer_rosa__armature.003",
+        "sha256": "5bea916fa0c89dc1facb8904575b3785186c3b0a031f9808cf6f86c0d293e7f4",
+        "sourceEqual": true
+      },
+      {
+        "clip": "eat-salmon",
+        "owner": "S10 meal customer_rosa__ground_root.001__held_dish-cucumber",
+        "action": "S10 meal S33_NATIVE__customer-rosa__eat__customer_rosa__ground_root.001__held_dish-cucumber.002",
+        "sha256": "c0b951d34aec022a53a90e5da6da11d87c95e3bbb015eb0792833ba8c4a4fe61",
+        "sourceEqual": true
+      },
+      {
+        "clip": "eat-salmon",
+        "owner": "S10 meal customer_rosa__ground_root.001__held_dish-cucumber__image_plane",
+        "action": "S10 meal S33_NATIVE__customer-rosa__eat__customer_rosa__ground_root.001__held_dish-cucumber__image_plane.002",
+        "sha256": "d471cf687e3d5510998000d36b092e7e6e4fe3f5b0340486ac47269fd9e9f3e7",
+        "sourceEqual": true
+      },
+      {
+        "clip": "eat-salmon",
+        "owner": "S10 meal customer_rosa__ground_root.001__utensil",
+        "action": "S10 meal S33_NATIVE__customer-rosa__eat__customer_rosa__ground_root.001__utensil.002",
+        "sha256": "af0588ee1d1d9466acd921de294a4c07d9ee6e2303e9384b9919b1f02bdab1d1",
+        "sourceEqual": true
+      },
+      {
+        "clip": "eat-salmon",
+        "owner": "S10 meal customer_rosa__ground_root.001__knife_handle",
+        "action": "S10 meal S33_NATIVE__customer-rosa__eat__customer_rosa__ground_root.001__knife_handle.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "eat-salmon",
+        "owner": "S10 meal customer_rosa__ground_root.001__knife_blade",
+        "action": "S10 meal S33_NATIVE__customer-rosa__eat__customer_rosa__ground_root.001__knife_blade.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "seated-wait-empty",
+        "owner": "S10 meal customer_rosa__armature.001",
+        "action": "S10 meal S33_NATIVE__customer-rosa__seated_wait__customer_rosa__armature.003",
+        "sha256": "e4cdbe21bdf053881092d67c98a4e559cd69456ebaa60a7ad44e7eba610aae2e",
+        "sourceEqual": true
+      },
+      {
+        "clip": "seated-wait-empty",
+        "owner": "S10 meal customer_rosa__ground_root.001__held_dish-cucumber",
+        "action": "S10 meal S33_NATIVE__customer-rosa__seated_wait__customer_rosa__ground_root.001__held_dish-cucumber.002",
+        "sha256": "f5bdb55662c1b11f122900ed6e890d5b541eb960cfaaf95a2663844d7f676545",
+        "sourceEqual": true
+      },
+      {
+        "clip": "seated-wait-empty",
+        "owner": "S10 meal customer_rosa__ground_root.001__held_dish-cucumber__image_plane",
+        "action": "S10 meal S33_NATIVE__customer-rosa__seated_wait__customer_rosa__ground_root.001__held_dish-cucumber__image_plane.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "seated-wait-empty",
+        "owner": "S10 meal customer_rosa__ground_root.001__utensil",
+        "action": "S10 meal S33_NATIVE__customer-rosa__seated_wait__customer_rosa__ground_root.001__utensil.002",
+        "sha256": "57b7fbe1805b45377c3aab028343d4376ab8b099a20ea4ac1bbd11bd387ed3d7",
+        "sourceEqual": true
+      },
+      {
+        "clip": "seated-wait-empty",
+        "owner": "S10 meal customer_rosa__ground_root.001__knife_handle",
+        "action": "S10 meal S33_NATIVE__customer-rosa__seated_wait__customer_rosa__ground_root.001__knife_handle.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      },
+      {
+        "clip": "seated-wait-empty",
+        "owner": "S10 meal customer_rosa__ground_root.001__knife_blade",
+        "action": "S10 meal S33_NATIVE__customer-rosa__seated_wait__customer_rosa__ground_root.001__knife_blade.002",
+        "sha256": "541761781496c64aedc0eb9fc83bdcaccb3f826e284a86854ceee15c0d36d8d2",
+        "sourceEqual": true
+      }
+    ],
+    "loopClosure": [
+      {
+        "clip": "eat-salmon",
+        "loop": true,
+        "endpoint": 13,
+        "maximumMatrixDifference": 0.0
+      },
+      {
+        "clip": "seated-wait-empty",
+        "loop": true,
+        "endpoint": 13,
+        "maximumMatrixDifference": 0.0
+      }
+    ]
+  },
+  "envelope": [
+    {
+      "clip": "eat-salmon",
+      "bounds": [
+        [
+          -0.4184402193517481,
+          -0.41844022341390336,
+          0.5127836018800735
+        ],
+        [
+          0.4184402112274374,
+          0.41844021528959274,
+          1.7348827421665192
+        ]
+      ],
+      "xyPassed": true,
+      "zPassed": true,
+      "sourceZEnvelope": [
+        0.50419796,
+        1.74697757
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "bounds": [
+        [
+          -0.42035031829493724,
+          -0.42035031595264843,
+          0.5127836018800735
+        ],
+        [
+          0.42035032297951497,
+          0.4203503206372261,
+          1.7348763346672058
+        ]
+      ],
+      "xyPassed": true,
+      "zPassed": true,
+      "sourceZEnvelope": [
+        0.50419796,
+        1.74697614
+      ]
+    }
+  ],
+  "food": {
+    "id": "dish-salmon",
+    "textures": [
+      {
+        "name": "Rosa refined runtime canonical dish-salmon",
+        "size": [
+          731,
+          505
+        ],
+        "packed": true,
+        "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4"
+      }
+    ],
+    "uv": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0
+      ],
+      [
+        1.0,
+        1.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "singleFixedMapping": {
+      "alphaThreshold": 128,
+      "sourceAlphaBounds": [
+        16,
+        237,
+        1238,
+        1051
+      ],
+      "canonicalAlphaBounds": [
+        1,
+        1,
+        730,
+        504
+      ],
+      "sourceOccupiedWorldWidth": 0.34436392914653785,
+      "canonicalOccupiedWorldWidthAtNominal035": 0.3490424076607387,
+      "sourceSupportAboveQuadBottomWorld": 0.041425120772946855,
+      "canonicalSupportAboveNominalQuadBottomWorld": 0.00047879616963064295,
+      "sourceAlphaBoundsCenterXWorld": 0.0016908212560386472,
+      "canonicalAlphaBoundsCenterXWorldAtNominal035": 0.0,
+      "proposedFullUVQuadWorld": [
+        0.34530868615379856,
+        0.23855114433333552
+      ],
+      "proposedFullUVBottomOffsetWorld": 0.040952742269316486,
+      "proposedFullUVCenterOffsetXWorld": 0.0016908212560386472,
+      "sourceSupportAboveBottomPx": 10.604830917874395,
+      "canonicalSupportAboveNominalBottomPx": 0.1225718194254446
+    },
+    "depthWorld": 0.6,
+    "depthChanged": false,
+    "representation": "Canonical 2D raster bound to original animated food root, full UV; native body is 3D"
+  },
+  "measurements": {
+    "path": "candidates/round-04/runtimeVariants/measurements.json.gz",
+    "sha256": "bc5adba3b5a4e22debb907cdef406682d78c2c944a2a93d73b3800aa33589ac4"
+  },
+  "hiddenFoodProjectionPolicy": "Visible semantic projection uses frozen source evaluated corners; hidden display-plane matrices are stale in source so hidden geometric mapping is proved from original local quad under the same current native transform. Original root/hand/actions/yaw cancellation remain locked.",
+  "physicalBoundsPolicy": "Visible native body excludes canonical camera-ray food display card and hidden utensils; body coordinates/topology freely refined inside functional envelope.",
+  "renders": [
+    {
+      "clip": "eat-salmon",
+      "direction": "N",
+      "frame": 0,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "N",
+      "frame": 1,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "N",
+      "frame": 2,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "N",
+      "frame": 3,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "N",
+      "frame": 4,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "N",
+      "frame": 5,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "N",
+      "frame": 6,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "N",
+      "frame": 7,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "N",
+      "frame": 8,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "N",
+      "frame": 9,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "N",
+      "frame": 10,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "N",
+      "frame": 11,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "E",
+      "frame": 0,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "E",
+      "frame": 1,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "E",
+      "frame": 2,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "E",
+      "frame": 3,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "E",
+      "frame": 4,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "E",
+      "frame": 5,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "E",
+      "frame": 6,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "E",
+      "frame": 7,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "E",
+      "frame": 8,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "E",
+      "frame": 9,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "E",
+      "frame": 10,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "E",
+      "frame": 11,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "S",
+      "frame": 0,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "S",
+      "frame": 1,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "S",
+      "frame": 2,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "S",
+      "frame": 3,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "S",
+      "frame": 4,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "S",
+      "frame": 5,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "S",
+      "frame": 6,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "S",
+      "frame": 7,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "S",
+      "frame": 8,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "S",
+      "frame": 9,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "S",
+      "frame": 10,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "S",
+      "frame": 11,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "W",
+      "frame": 0,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "W",
+      "frame": 1,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "W",
+      "frame": 2,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "W",
+      "frame": 3,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "W",
+      "frame": 4,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "W",
+      "frame": 5,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "W",
+      "frame": 6,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "W",
+      "frame": 7,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "W",
+      "frame": 8,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "W",
+      "frame": 9,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "W",
+      "frame": 10,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "eat-salmon",
+      "direction": "W",
+      "frame": 11,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "N",
+      "frame": 0,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "N",
+      "frame": 1,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "N",
+      "frame": 2,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "N",
+      "frame": 3,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "N",
+      "frame": 4,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "N",
+      "frame": 5,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "N",
+      "frame": 6,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "N",
+      "frame": 7,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "N",
+      "frame": 8,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "N",
+      "frame": 9,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "N",
+      "frame": 10,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "N",
+      "frame": 11,
+      "rootRotationZ": 3.1415927410125732,
+      "rootMatrix": [
+        [
+          -1.25,
+          1.092784742695585e-07,
+          0.0,
+          0.0
+        ],
+        [
+          -1.092784742695585e-07,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "E",
+      "frame": 0,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "E",
+      "frame": 1,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "E",
+      "frame": 2,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "E",
+      "frame": 3,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "E",
+      "frame": 4,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "E",
+      "frame": 5,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "E",
+      "frame": 6,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "E",
+      "frame": 7,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "E",
+      "frame": 8,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "E",
+      "frame": 9,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "E",
+      "frame": 10,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "E",
+      "frame": 11,
+      "rootRotationZ": 1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          -1.25,
+          0.0,
+          0.0
+        ],
+        [
+          1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "S",
+      "frame": 0,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "S",
+      "frame": 1,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "S",
+      "frame": 2,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "S",
+      "frame": 3,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "S",
+      "frame": 4,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "S",
+      "frame": 5,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "S",
+      "frame": 6,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "S",
+      "frame": 7,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "S",
+      "frame": 8,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "S",
+      "frame": 9,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "S",
+      "frame": 10,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "S",
+      "frame": 11,
+      "rootRotationZ": 0.0,
+      "rootMatrix": [
+        [
+          1.25,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "W",
+      "frame": 0,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "W",
+      "frame": 1,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "W",
+      "frame": 2,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "W",
+      "frame": 3,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "W",
+      "frame": 4,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "W",
+      "frame": 5,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "W",
+      "frame": 6,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "W",
+      "frame": 7,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "W",
+      "frame": 8,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "W",
+      "frame": 9,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "W",
+      "frame": 10,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "clip": "seated-wait-empty",
+      "direction": "W",
+      "frame": 11,
+      "rootRotationZ": -1.5707963705062866,
+      "rootMatrix": [
+        [
+          -5.463923713477925e-08,
+          1.25,
+          0.0,
+          0.0
+        ],
+        [
+          -1.25,
+          -5.463923713477925e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.25,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ]
+}

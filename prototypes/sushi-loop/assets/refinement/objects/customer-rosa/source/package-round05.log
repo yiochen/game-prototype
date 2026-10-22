@@ -1,0 +1,37 @@
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/customer-rosa/source/package_round05.py:82: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  a=Image.open(OUT/'repeatability-0.png').convert('RGBA');b=Image.open(OUT/'repeatability-1.png').convert('RGBA');diff=ImageChops.difference(a,b);hist=diff.histogram();mx=max(max(channel.getextrema()) for channel in diff.split());changed=sum(1 for p in diff.getdata() if any(p));repeatability={'sameSavedProject':sha(HERE/'round-05.blend'),'sameNativePose':'stand-S frame1','renders':[sha(OUT/f'repeatability-{i}.png') for i in range(2)],'maximumChannelDifference8bit':mx,'changedPixels':changed,'measuredPixelTolerance':mx,'note':'Empirical same-input repeat; no source body RGB equality requirement.'};write(OUT/'repeatability.json',repeatability)
+{
+  "asset": "customer-rosa",
+  "round": "round-05",
+  "nativeValidation": "candidates/round-05/validation.json",
+  "sourceValidations": [
+    "candidates/round-05/validation.json",
+    "candidates/round-05/runtimeVariants/validation.json"
+  ],
+  "allNativeChecksPassed": true,
+  "mainFrames": 480,
+  "mainAtlases": 40,
+  "mainClips": 40,
+  "runtimeFrames": 96,
+  "runtimeAtlases": 8,
+  "runtimeClips": 8,
+  "totalFrames": 576,
+  "totalClips": 48,
+  "atlasWholeFramePixelCopies": true,
+  "APNGexact12fpsFractionsVerified": true,
+  "identicalMainRuntimeNativeBody": true,
+  "repeatability": {
+    "sameSavedProject": "a6fe68fa07f3930c3d8e88ae6df992fefe447a9ef18935e322daf6f4bbc28253",
+    "sameNativePose": "stand-S frame1",
+    "renders": [
+      "c6a41a59e0b631ed7a02735e28216d01a8047b962538d1df1735af697edeff02",
+      "1b8cbf179c5052fbc3a7156c75413098ea37d47c60614f58d999475621cd2b55"
+    ],
+    "maximumChannelDifference8bit": 3,
+    "changedPixels": 1436,
+    "measuredPixelTolerance": 3,
+    "note": "Empirical same-input repeat; no source body RGB equality requirement."
+  },
+  "resourcesPacked": true,
+  "candidateStatus": "ready for independent review; browser evidence pending"
+}

@@ -135,15 +135,19 @@
     {
       "object": "customer-rosa",
       "food": "dish-salmon",
-      "status": "pending-new-source-round-and-independent-review",
+      "status": "main-and-runtime-independently-approved-final-Godot-sync-pending",
       "sameObjectPair": {
-        "editor": null,
-        "judge": null
+        "editor": "catalog_customer_rosa_editor_v1",
+        "judge": "catalog_customer_rosa_judge_v1"
       },
       "runtimeExtraClips": [
         "eat-salmon"
       ],
-      "scope": "Supplemental runtime salmon meal"
+      "scope": "Supplemental runtime salmon meal",
+      "round": "round-05",
+      "packetSHA256": "f3794c7d5c092de08d8b4b05ba6c670a322049410c88cced64492da27b688f7f",
+      "reviewSHA256": "be8a58f89ba3f8fa2312c247941a9084709cd4ef77f56da8bf6bb424409b4205",
+      "runtimeApproval": "objects/customer-rosa/final/runtime-variant-approval.json"
     },
     {
       "object": "customer-rosa",
@@ -161,12 +165,16 @@
         "puzzled",
         "panic"
       ],
-      "status": "pending-new-source-round-and-independent-review",
+      "status": "main-and-runtime-independently-approved-final-Godot-sync-pending",
       "sameObjectPair": {
-        "editor": null,
-        "judge": null
+        "editor": "catalog_customer_rosa_editor_v1",
+        "judge": "catalog_customer_rosa_judge_v1"
       },
-      "basis": "Original source-rig action owners explicitly reference held_dish-cucumber; confirm actual packedimage hash/visibility in original scene before editing."
+      "basis": "Original source-rig action owners explicitly reference held_dish-cucumber; confirm actual packedimage hash/visibility in original scene before editing.",
+      "round": "round-05",
+      "packetSHA256": "f3794c7d5c092de08d8b4b05ba6c670a322049410c88cced64492da27b688f7f",
+      "reviewSHA256": "be8a58f89ba3f8fa2312c247941a9084709cd4ef77f56da8bf6bb424409b4205",
+      "runtimeApproval": "objects/customer-rosa/final/runtime-variant-approval.json"
     },
     {
       "object": "customer-ellis",
@@ -391,7 +399,10 @@
       "customer-june"
     ],
     "clip": "seated-wait-empty",
-    "requirement": "Refine native body in this supplemental clip while preserving intentional no-food state."
+    "requirement": "Refine native body in this supplemental clip while preserving intentional no-food state.",
+    "approvals": {
+      "customer-rosa": "objects/customer-rosa/final/runtime-variant-approval.json"
+    }
   },
   "feedbackVariants": {
     "bubble-happy": {

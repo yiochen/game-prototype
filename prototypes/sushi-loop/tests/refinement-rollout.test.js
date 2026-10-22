@@ -77,9 +77,25 @@ test('native refinement preserves every original clip and registered root', () =
     if (camera.approvedRecordSHA256) {
       const recordUrl = new URL(`../inputs/approved-camera-record.json`, new URL(object.source.blend, production));
       assert.equal(sha(recordUrl), camera.approvedRecordSHA256);
-      const selected = read(recordUrl).assets[camera.selectedAsset];
-      for (const key of ['frame', 'anchor', 'captureScale', 'camera', 'registrationPoint', 'nativeObjectOrigin']) {
-        assert.deepEqual(camera[key], selected[key], `${object.id}: backdrop camera normalization changed ${key}`);
+      if (camera.nativeMeasurement) {
+        const measured = read(recordUrl);
+        assert.deepEqual(camera.nativeMeasurement, measured);
+        assert.deepEqual(measured.nativeFrame, object.frameSize.map(value => value * object.sourceScale));
+        assert.deepEqual(camera.calibration.root, measured.rootPx);
+        assert.deepEqual(camera.camera, {type: 'orthographic', worldMatrix: measured.matrix,
+          orthoScale: measured.orthoScale, shift: measured.shift});
+        const packetUrl = new URL(`objects/${object.id}/candidates/${object.refinement.round}/packet.json`, refinement);
+        const packet = read(packetUrl);
+        const audit = Object.values(packet.files).find(file => file.sha256 === camera.approvedNativeValidationSHA256);
+        assert.ok(audit, `${object.id}: measured camera validation is not approved`);
+        const native = read(new URL(audit.path, packetUrl));
+        assert.equal(native.allChecksPassed, true);
+        assert.deepEqual(native.camera, measured);
+      } else {
+        const selected = read(recordUrl).assets[camera.selectedAsset];
+        for (const key of ['frame', 'anchor', 'captureScale', 'camera', 'registrationPoint', 'nativeObjectOrigin']) {
+          assert.deepEqual(camera[key], selected[key], `${object.id}: backdrop camera normalization changed ${key}`);
+        }
       }
     }
   }

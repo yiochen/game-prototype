@@ -1,0 +1,60 @@
+import json,pathlib,hashlib
+O=pathlib.Path(__file__).resolve().parents[1];R=O/'reviews';P=O/'candidates/round-05';packet=json.loads((P/'packet.json').read_text())
+def sha(p):return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
+assert sha(P/'packet.json')=='f3794c7d5c092de08d8b4b05ba6c670a322049410c88cced64492da27b688f7f'
+assert sha(O/'brief.json')=='8aa72436b75855edcb65969145c71d3758c4eeb520ede8bf9de6347e11358893'
+coverage={}
+for name,v in packet['previews'].items():
+ p=v['path']
+ if p.endswith('.apng'):method='Direct exact APNG playback in Chrome on4178 for all4facings of this state; every decoded frame independently verified equal to new native frames/atlas regions; all12 phases additionally inspected in verified all48 contact sheet.'
+ elif name.startswith('all-frames-'):method='Inspected through its exact pixel-verified row in directly viewed all48 contact sheet. All12 tiles independently reconstructed from new native frames.'
+ elif name.startswith('all48-'):method='Directly inspected all48 native-frame contact sheet, with raw-frame/atlas/APNG/sheet pixel equality independently checked.'
+ elif p=='review.html':method='Direct candidate review UI operated on390x844 phone and844x390 landscape, including actual salmon playback and light/dark states; logical frame/3:5 canvas bounds checked.'
+ elif name=='before-after-fourviews':method='Direct full-size inspected comparison, registered round04 and round05 fourviews; also included in declared-preview montage.'
+ else:method='Directly inspected or inspected through round05-declared-preview-montage pages1..6 with exact path/hash map retained.'
+ coverage[name]={'path':p,'sha256':v['sha256'],'method':method}
+evidence=['round05-independent-native-comparison.json','round05-independent-semantic-projection.json','round05-independent-envelope.json','round05-independent-native-closure.json','round05-independent-main-runtime-body.json','round05-independent-frame-atlas-apng-check.json','round05-independent-repeatability.json','round05-independent-native-render-check.json','round05-independent-native-stand-S.png','round05-preview-montage-map.json','round05-final-byte-check.json','source-contract-round05-main.json','source-contract-round05-runtime.json','source-samples-round05-main.json.gz','source-samples-round05-runtime.json.gz']
+review={
+ 'round':'round-05','asset':'customer-rosa','verdict':'approve','candidatePacketSHA256':sha(P/'packet.json'),'frozenBriefSHA256':sha(O/'brief.json'),'frozenCriteriaSHA256':sha(R/'proposedcriteria.json'),
+ 'inspectedFiles':sorted(set([v['path'] for v in packet['candidateRenders'].values()]+[v['path'] for v in packet['previews'].values()])),
+ 'inspectedPreviewAliases':coverage,
+ 'inspectionCoverage':{'declaredPreviewAliases':120,'allDeclaredPreviewAliasesInspected':True,'heroes':4,'nativeFrames':576,'mainFrames':480,'runtimeFrames':96,'atlases':48,'actualTemporalAPNGs':48,'mainTemporalAPNGs':40,'runtimeTemporalAPNGs':8,'all12FramesPerAPNGVerifiedEqualNative':True,'mainContactSheetsDirectlyViewed':10,'runtimeContactSheetsDirectlyViewed':2,'newNativeSourcesReopenedAndSampledIndependently':2,'allPoseContactsCompared':576,'newIndependentNativeSpotCapture':'stand-S frame1','phoneViewport':[390,844],'landscapeViewport':[844,390],'browserPort':4178,'browser':'Chrome via CUA','temporaryViewportReset':True,'editorPersuasiveRationaleRead':False,'previousRound04AllByteBindingsReverified':True},
+ 'scores':{'shapeVolume':8,'color':6,'lightingHighlights':7,'materialDetail':7,'artifactFreeReadability':8},
+ 'observations':[
+  'Round05 visibly resolves the round04 hair-construction blocker. The isolated oval/front cushion is gone; broad curved crown sweeps continue into the fringe and side mass. E/W now have a coherent bob profile rather than a bolted-on vertical pill. N has a clean joined crown/nape silhouette without the separate top rim. No exposed tan wedges remain at the former joins.',
+  'The improvement is visible in registered before/after fourviews, new full-size heroes, all576 pose sheets and actual48-clip APNG playback. The joined hair flow stays coherent during walk bobbing, puzzled head tilts, happy gestures, seat transitions and eating. Approval is based on these visible outcomes, not a topology/manifold assertion alone.',
+  'Rosa retains chocolate bob/fringe, tan friendly face, coral polo, navy trousers and dark shoes. The previously credited softly rounded face/torso, cheeks/glints/smile, readable collar/placket/sleeve finish and separate shoes remain intact. Body modeling freedom was respected; no original body-coordinate or RGB freeze was imposed.',
+  'Warm broad symmetric light still gives readable form and material separation on light/gray/dark backgrounds without target halos, directional ground shadows, blown rims or material black patches. No geometry clipping, detached garment motion, texture swimming, new hard seam or material temporal defect was found at intended size or enlarged.',
+  'Cucumber remains visible only in original catalog seated-wait/eat and salmon only in supplemental eat-salmon. Supplemental empty wait remains empty. N food is naturally occluded by the actor; E/S/W remain readable without rear food leakage. The existing honest2D canonical billboard representation with retained .6 depth constants is acceptable.',
+  'Exact frozen alpha128 semantic food mappings preserve original visible plate support and occupiedwidth. Independent corrected-quad projection errors remain below .00028px; old padded quad edges and nominal .35 are correctly treated as provenance. Original food-root/hand paths, native visibility and yaw cancellation remain unchanged.',
+  'Both native sources independently pass all576 contact/action/rest/envelope checks. New main/runtime geometry, object transforms and vertex weights are identical for all31 body meshes, while the canonical food quad differs as declared. Correct native cardinals Nback/Eright/Sfront/Wleft agree across main/runtime images and source action evaluation.',
+  'All48 new APNGs decode to exactly the new576 raw native frames and original-layout atlas regions, with12 exact1/12second phases and correct once/loop behavior. Actual Chrome playback, nonloop endpoints, phone and landscape views were checked. All120 actual packet preview aliases are covered, including runtime aliases and before/after comparison.',
+  'An independent fresh Blender render from the exact round05 source at stand-S frame1 agrees with the sealed native frame within2/255, inside the candidate empirical same-input tolerance3/255. All1713 round05 packet bindings and all1711 prior round04 bindings remain valid after review.'
+ ],
+ 'blockers':[],
+ 'resolvedPreviousBlockers':[{'previousRound':'round-04','id':'hair-construction-still-cap-like','resolution':'Connected broad sweep/crown/fringe/side/nape flow now reads as a coherent bob in all four views and motion. Detached pill/rim silhouette and skin wedges eliminated. Visible comparison and allpose/temporal inspection establish the resolution.'}],
+ 'remainingDifferences':[
+  'The hair uses broad integrated swept forms rather than the fixed target’s larger individually separated fringe lobes. The new bob remains coherent, readable and recognizably Rosa; exact lock counts are not required.',
+  'The rear/nape is simpler and smoother than the front. It has a clean joined silhouette and useful volume with no material dead spot at intended size; the single-view target defines no unseen rear blueprint.',
+  'Lighting and materials are quieter and less glossy than ImageGen. The warm palette, broad soft highlights and readable garment/face/footwear separation satisfy the chosen style.',
+  'The polo and shoes remain simpler than the target, and fixed native proportions differ from ImageGen framing. Their construction reads clearly under the functional envelope.',
+  'Meals remain explicitly2D canonical food sprites. Original semantic support/occupiedwidth, action paths and retained .6 display ordering are accepted for this candidate.'
+ ],
+ 'technicalEvidence':{
+  'allRequiredTechnicalChecksPassed':True,'packetFileBindingsChecked':1589,'candidateHeroBindingsChecked':4,'previewBindingsChecked':120,'hashMismatches':[],
+  'nativeProjects':{'main':{'path':'../../source/round-05.blend','sha256':'a6fe68fa07f3930c3d8e88ae6df992fefe447a9ef18935e322daf6f4bbc28253'},'runtime':{'path':'../../source/round-05-runtime.blend','sha256':'8410bf57d04105384d51021a43d81b98d3775c88948079626e78943655dc3805'}},
+  'independentNativeAudit':'Reopened both exact edited sources and independently sampled every original main/supplemental action pose with the actual named Rosa collections/root/armatures and stored35degree camera. No capture fitting performed. Fixed original source backups and original576-pose archives reused by exact unchanged hashes.',
+  'rigActionsContacts':'25-bone rest topology and exact original action curve digests match in both sources. Independently compared all576 evaluated bone/foot-hand goals, ground/seat/mouth contacts and food-root paths: max world error0 at retained precision. Current main/runtime body mesh geometry/transforms/weights independently match across31 body meshes; this is pair consistency, not a constraint against authorized body refinement.',
+  'capture':'Stored35degree orthographic scale1.5,384x640 frame, square pixels, root192,495.999755859375 (logical96,248), root scale1.25 and12fps preserved. Actual main/runtime facing images and native cardinal evaluation agree. All visible-body bounds fit frozen XY±.5 and perclip dynamicZ with1e-5 tolerance; hidden utensil and honest2D camera-ray food quad excluded.',
+  'food':'Actual active packed images are canonical cucumber b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930 and salmon4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4. Full0..1 UV/aspect, exact frozen mappings, original action/visibility and yaw-cancellation drivers verified. Source-specific constants remain .6; no perview fit/regrade or body contact shift.',
+  'resourcesAndRepresentation':'Both native actor collections have34 meshes including31 body meshes, two hidden native knife meshes and one honest2D food quad. No linked libraries and only one active packed canonical image each; no target-image body billboard. Five symmetric area lights (one overhead/four equal cardinal fills) and warm world lighting retained.',
+  'atlasAnimation':'Independent checks decode all48 APNGs and prove each12 RGBA frames equals its raw native frame and6x2 atlas region; all48-frame contact-sheet rows/tiles also independently reconstructed. Exact1/12second fractions, loop/once counts and runtime96/8 separation pass.',
+  'repeatability':'Independently confirmed candidate same-input native repeats max3/255 over1436 changed pixels. Fresh judge native stand-S frame1 differs from sealed frame by max2/255 over1430 pixels, within that empirical tolerance. No universal bitidentity or old/new body RGB equality requirement used.',
+  'browser':'Direct exact native Chrome APNG playback of all48 clips on4178, including allnonloop endpoints and runtime meals/empty wait. Candidate review UI inspected at390x844 phone and844x390 landscape on light/dark backgrounds. Phone canvas bounds181x301.664 preserve3:5; viewport reset. All supplied stool/eating/background/context previews visually inspected.',
+  'independentEvidenceFiles':[{'path':f,'sha256':sha(R/f)} for f in evidence],
+  'limits':'Approval binds only the exact supplied packet/source/render bytes. A single-view target supplies no unseen-view blueprint. Approval grants no additional production/publishing authority; coordinator owns integration and publication.'
+ },
+ 'ownership':'Only reviews/ written. No source, candidate, target, brief, production or Git changes.',
+ 'approval':True
+}
+(R/'round-05.json').write_text(json.dumps(review,indent=2)+'\n');print(json.dumps({'verdict':review['verdict'],'review':str(R/'round-05.json'),'sha256':sha(R/'round-05.json'),'packetSHA256':review['candidatePacketSHA256'],'previewAliasesCovered':len(coverage),'blockers':0},indent=2))
