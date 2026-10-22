@@ -1,0 +1,73 @@
+{
+  "assetId": "sub-harpoon-mount",
+  "fps": 12,
+  "source": "source/round-02/project.blend",
+  "static": false,
+  "groundRootObject": "harpoon__root",
+  "projection": "square-top-front-oblique",
+  "footprint": [
+    1,
+    1
+  ],
+  "nominalHeight": 0.55,
+  "clips": {
+    "idle": {
+      "frames": 1,
+      "fps": 12,
+      "loop": false,
+      "static": true,
+      "firstFrame": 1,
+      "lastUniqueFrame": 1,
+      "closingKeyFrame": null,
+      "neutralActionSample": 1
+    },
+    "active": {
+      "frames": 12,
+      "fps": 12,
+      "loop": false,
+      "static": false,
+      "firstFrame": 1,
+      "lastUniqueFrame": 12,
+      "closingKeyFrame": null,
+      "action": "Harpoon exact source nonloop recoil 12 phases",
+      "owner": "harpoon__recoil_carriage",
+      "nativeCurve": "location.Y",
+      "interpolation": "LINEAR",
+      "activeDeltaLocalYBySourceFrame": [
+        0.0,
+        0.01513412594795227,
+        0.027847811579704285,
+        0.037283092737197876,
+        0.04293398559093475,
+        0.04466833174228668,
+        0.0427139550447464,
+        0.03761214017868042,
+        0.03014455735683441,
+        0.021241813898086548,
+        0.011883586645126343,
+        0.003000006079673767
+      ]
+    }
+  },
+  "nativeOwnership": {
+    "movingEmpty": "harpoon__recoil_carriage",
+    "movingMeshNames": [
+      "harpoon__barrel",
+      "harpoon__barrel_rear_collar",
+      "harpoon__barrel_top_inlay",
+      "harpoon__silver_muzzle",
+      "harpoon__bore_recess"
+    ],
+    "static": "All other native construction is rooted directly to harpoon__root.",
+    "sourceMapping": "Old barrel+muzzle coherent +Y offsets about redesigned neutral geometry, same exact12 source phases.",
+    "mainImport": "Only exact neutral local resources; no active-main mapping."
+  },
+  "armatures": [],
+  "sockets": {},
+  "evidence": {
+    "standalone": "candidates/round-02/standalone-audit.json",
+    "all52Replay": "candidates/round-02/decoded-replay-audit.json",
+    "mounted": "candidates/round-02/mounted-audit.json",
+    "nativeResourceIdentity": "candidates/round-02/canonical-neutral-identity.json"
+  }
+}
