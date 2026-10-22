@@ -2,12 +2,20 @@
   "asset": "chef-mateo",
   "style": "Refine every catalog object toward warm, softly lit cartoon art, consistent with the selected plant reference. Preserve identity, function and original palette family. Keep registered camera, dimensions, roots, sockets, ports, footprints and animation timing. No preferred horizontal light direction for rotatable world sprites; no directional ground shadows. Real 3D render output, editable Blender sources. The source 2D effects remain explicitly identified as 2D. Each object receives fresh independent editor/judge agents. Publish object-by-object to the same PR preview; integrate approved sprites into Godot after catalog review checks. Follow-on design exploration: improve the modeling itself, including forms, proportions, structure, crafted details and decorations. Original part counts and awkward geometry are not constraints. The editor may rebuild native geometry to achieve the better design; the judge should reward useful improvements. Preserve the locked registration, gameplay contact/clearance, animation and modular continuity contract. See modeling-policy.json version2.",
   "source": {
-    "project": "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
-    "backup": "../../backups/b1765262bfa897ad-sushi-loop-world-library.blend",
-    "projectSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
-    "backupSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "project": "../../../production/source/blender/refinement/chef-mateo/source/round02.blend",
+    "backup": "../../backups/3822fb7b734408a0-chef-mateo-round02.blend",
+    "projectSHA256": "3822fb7b734408a0e176d5546cfda3213754a620382c58a691717dee56c8df3e",
+    "backupSHA256": "3822fb7b734408a0e176d5546cfda3213754a620382c58a691717dee56c8df3e",
     "snapshot": "inputs/original.png",
-    "scene": "Inspect the named asset collection; do not use an unrelated active scene"
+    "scene": "Exact already-approved native body is immutable model basis; inspect actual named refined chef collection/root, not unrelated global scene",
+    "originalUnrefinedSource": {
+      "project": "../../../production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+      "backup": "../../backups/b1765262bfa897ad-sushi-loop-world-library.blend",
+      "projectSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "backupSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "snapshot": "inputs/original.png",
+      "scene": "Inspect the named asset collection; do not use an unrelated active scene"
+    }
   },
   "target": {
     "image": "inputs/target.png",
@@ -110,102 +118,156 @@
       "Full original four12-frame states and all4native facings:192frames, original layouts and timing.",
       "Use registered35degree camera/root/frame and S0/E+90/N180/W-90 with source child facing retained; audit evaluated foot/hand/dish/belt-load contacts and topology/rest stability.",
       "Include per-state/direction actual12fps playback and verified all-frame sheets, light/gray/dark readability and artifact checks."
-    ]
+    ],
+    "heldFoodSemanticMapping": {
+      "alphaThreshold": 128,
+      "coordinateConvention": "Continuous image pixel edges; top origin. Semantic support = [midpoint of threshold support left/right edges, bottom edge]. This is a point on the visible plate support, not the old alpha>0 padded quad corner.",
+      "sourceSupportPoint": [
+        627.0,
+        1051
+      ],
+      "canonicalSupportPoint": [
+        365.5,
+        504
+      ],
+      "occupiedWorldWidth": 0.34436392914653785,
+      "oldSourcePixelWorldSize": 0.00028180354267310785,
+      "canonicalPixelWorldSize": 0.0004723785036303674,
+      "sourceSupportRelativeToOldQuadBottomCenterCameraRightUp": [
+        0.0016908212560386472,
+        0.041425120772946855
+      ],
+      "canonicalSupportRelativeToNewQuadBottomCenterCameraRightUp": [
+        0.0,
+        0.0004723785036303674
+      ],
+      "oldSampledCropTopOriginPixelEdges": [
+        0,
+        85,
+        1242,
+        1198
+      ],
+      "canonicalFullSize": [
+        731,
+        505
+      ],
+      "historicalNominalWidthProvenanceOnly": 0.35,
+      "newFullQuadWorldSizeWhenVisible": [
+        0.34530868615379856,
+        0.23855114433333555
+      ],
+      "newQuadBottomCenterDeltaCameraRightUpWorld": [
+        0.0016908212560386472,
+        0.040952742269316486
+      ],
+      "exactProjectionRule": "Freeze the single source-specific global food mapping before editing. Then every candidate evaluated rest-quad corner must equal the unchanged source evaluated plane matrix applied to that fixed mapped quad, including hidden-state transforms. Full UV/aspect, semantic occupied width and visible support are checked before body occlusion. New corners need not equal old unmapped corners. No per-frame/per-facing placement, scale, depth, crop or color adjustments.",
+      "numericTolerance": "Use actual native floating-point evaluation, with semantic width/support expected within1e-5world or0.01native pixel; disclose the exact measured residual. Raster alpha/occlusion is reviewed separately at logical and enlarged sizes.",
+      "implementationFreedom": "Editor may realize the fixed mapping natively by equivalent rest geometry/transform construction that leaves source action/driver behavior intact. Example feasible coordinates and derivation are in reviews/held-food-v2-mapping-evidence.json."
+    }
   },
   "qualityCriteria": {
-    "asset": "chef-mateo",
-    "status": "proposed for coordinator freeze",
-    "version": 1,
-    "basis": "User warm softly lit cartoon direction, modelingPolicy version2, fixed target and independently inspected original native library. Outcome criteria only; the editor chooses native construction.",
-    "hardConstraints": [
-      {
-        "id": "registered_capture",
-        "outcome": "Retain recorded35-degree character orthographic camera/projection, logical192x320 frame/root[96,248], native384x640 frame at sourceScale2, square pixels and source world/grid calibration. No silhouette fitting, crop expansion, per-facing camera offsets, target-image warping or final painted replacement."
+    "status": "frozen",
+    "criteriaFile": "reviews/proposedcriteria-held-food-v2.json",
+    "criteriaFileSHA256": "1cc5468541adb3f7ea223a09febca87f3af290f77ff83f3ae47e1ea627a57ec4",
+    "judgeProposal": {
+      "asset": "chef-mateo",
+      "status": "proposed for coordinator freeze",
+      "version": "v2-held-food-canonical-source",
+      "scope": "Dependency-only replacement in exact approved round02 body. No new Mateo variants or body/headwear/design edits.",
+      "approvedBodySHA256": "3822fb7b734408a0e176d5546cfda3213754a620382c58a691717dee56c8df3e",
+      "canonicalFoodSHA256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+      "immutableNativeContract": [
+        "Preserve all approved nonfood body/headwear/knife geometry, vertex weights/UVs, rest rig, original action cohorts, parent transforms, source-root/facing convention, footprint/nominal+authored motion clearances, camera/projection/root/frame, material definitions, lights/world and render color management. The food texture binding and one fixed food rest-quad/UV mapping are the only authorized dependency changes.",
+        "Preserve all192 original samples: idle/work/hold/load x12 xN/E/S/W at12fps. Keep original6x2 atlas layouts2304x1280, per-frame384x640, logical192x320/root[96,248], captureScale2 and source S0/E+90/N180/W-90 with child facing retained; idle/work/hold loop, load nonlooping. No extra food variants for Mateo.",
+        "Use exact canonical731x505 RGBA bytes4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4 with full UV rectangle[0,0]..[1,1], correct aspect and original alpha/colors; no crop, artwork painting, grading, stretch, raster correction or invented3D sushi. Keep the source food material/shader/ray behavior except image binding, and disclose the held display as2D inside the native3D model.",
+        "Retain actual Mateo visible source law: existing source prop root/plane action cohort, yaw cancellation and0.6world camera-toward bias in hold/load. The source prop root follows evaluated palm midpoint+[0,0,0.0225]world. Preserve original hidden idle/work actions/visibility too; do not replace them with the visible-state law or import a different chef law."
+      ],
+      "frozenSemanticMappingProposal": {
+        "alphaThreshold": 128,
+        "coordinateConvention": "Continuous image pixel edges; top origin. Semantic support = [midpoint of threshold support left/right edges, bottom edge]. This is a point on the visible plate support, not the old alpha>0 padded quad corner.",
+        "sourceSupportPoint": [
+          627.0,
+          1051
+        ],
+        "canonicalSupportPoint": [
+          365.5,
+          504
+        ],
+        "occupiedWorldWidth": 0.34436392914653785,
+        "oldSourcePixelWorldSize": 0.00028180354267310785,
+        "canonicalPixelWorldSize": 0.0004723785036303674,
+        "sourceSupportRelativeToOldQuadBottomCenterCameraRightUp": [
+          0.0016908212560386472,
+          0.041425120772946855
+        ],
+        "canonicalSupportRelativeToNewQuadBottomCenterCameraRightUp": [
+          0.0,
+          0.0004723785036303674
+        ],
+        "oldSampledCropTopOriginPixelEdges": [
+          0,
+          85,
+          1242,
+          1198
+        ],
+        "canonicalFullSize": [
+          731,
+          505
+        ],
+        "historicalNominalWidthProvenanceOnly": 0.35,
+        "newFullQuadWorldSizeWhenVisible": [
+          0.34530868615379856,
+          0.23855114433333555
+        ],
+        "newQuadBottomCenterDeltaCameraRightUpWorld": [
+          0.0016908212560386472,
+          0.040952742269316486
+        ],
+        "exactProjectionRule": "Freeze the single source-specific global food mapping before editing. Then every candidate evaluated rest-quad corner must equal the unchanged source evaluated plane matrix applied to that fixed mapped quad, including hidden-state transforms. Full UV/aspect, semantic occupied width and visible support are checked before body occlusion. New corners need not equal old unmapped corners. No per-frame/per-facing placement, scale, depth, crop or color adjustments.",
+        "numericTolerance": "Use actual native floating-point evaluation, with semantic width/support expected within1e-5world or0.01native pixel; disclose the exact measured residual. Raster alpha/occlusion is reviewed separately at logical and enlarged sizes.",
+        "implementationFreedom": "Editor may realize the fixed mapping natively by equivalent rest geometry/transform construction that leaves source action/driver behavior intact. Example feasible coordinates and derivation are in reviews/held-food-v2-mapping-evidence.json."
       },
-      {
-        "id": "source_identity",
-        "outcome": "Mateo remains the compact native chef: tan/light-amber skin, dark warm-brown fringe, RED folded bandana/headband with side tie, ivory coat, BLUE apron, RED necktie and dark footwear. Better face/hair/garment proportions are welcome within the functional contract; target hue drift is not authoritative."
-      },
-      {
-        "id": "body_envelope",
-        "outcome": "Retain original one-cell occupied/support footprint, ground root, functional height1.3279640674591064 and source action clearance. Native form/proportion changes may use this body volume intelligently. Measure evaluated body geometry separately from functional props; retain original bob/pose behavior and original per-action envelope rather than fixing a static idle outline."
-      },
-      {
-        "id": "functional_reach_and_attachments",
-        "outcome": "Preserve actual evaluated foot/hand/utensil/dish/belt-load attachment behavior and gameplay interaction alignment for every source pose/facing. Original prop reach can extend outside the body cell as in source. Use evaluated source geometry/rig/actions and projected dish attachment as references; stale custom socket values and the deliberately depth-biased 2D food plane must not drive false physical-contact fixes."
-      },
-      {
-        "id": "animation_and_atlases",
-        "outcome": "Deliver exactly all192 native frames: idle/work/hold/load x12 x N/E/S/W, with S0/E+90/N180/W-90 root rotations and original child facing retained. Preserve original source actions, frame order,12fps timing, atlas dimensions/rects (6columns x2rows,2304x1280 for each state/facing), idle/work/hold loop closure and nonlooping load policy. No invented walk or station."
-      },
-      {
-        "id": "native_source_and_2d_disclosure",
-        "outcome": "Editable native Blender model and real native captures; pack/bind dependencies. Retain source dish-salmon as explicitly identified2D insert with original source image, composition, visibility and orientation behavior; do not invent modeled3D sushi or use a target-facing card for the character."
-      },
-      {
-        "id": "rotatable_lighting",
-        "outcome": "One consistent material/light setup for all rotations, with no preferred horizontal illumination direction, per-facing recoloring or directional ground cast shadow. Self-shading may describe form softly. Transparent background remains clean."
-      }
-    ],
-    "aestheticCriteria": [
-      {
-        "id": "shape_volume",
-        "dimension": "shapeVolume",
-        "success": "Front, both profiles and rear read as one crafted cartoon chef with rounded, intentional head/hair/body/limb volumes, purposeful proportions and a stable stance. Hair locks flow around the skull; headband wraps and has readable folded fabric/side tie. Coat, sleeves, cuffs, apron and necktie show believable layered construction and finished contours. Reward useful native restructuring; do not preserve weak source boxes, old part counts or target details for their own sake."
-      },
-      {
-        "id": "color_identity",
-        "dimension": "color",
-        "success": "Mateo retains the specified source palette family under soft warm light. Tan/light-amber face, brown hair, red cloth, ivory coat and blue apron stay clearly separated at logical192x320. Warmth does not bleach identity, turn blue to teal, merge reds/browns or make ivory dingy gray. Front/profile/rear colors remain consistent under rotation."
-      },
-      {
-        "id": "soft_light_volume",
-        "dimension": "lightingHighlights",
-        "success": "Broad soft gradients and restrained highlights explain cheeks, hair, hands, garment folds and apron edges; the face and eyes remain friendly/readable. Volume must improve visibly over source faceting without waxy glare, blown coat areas, flat emissive blocks or an overdark rear/underside. Match the target softness and warm family mood within the registered camera."
-      },
-      {
-        "id": "materials_and_details",
-        "dimension": "materialDetail",
-        "success": "Hair/skin/cloth/apron/footwear have a coherent stylized finish, with material changes and purposeful garment details readable without clutter. Strong hierarchy carries silhouette first, garment layers second and a few useful folds/pocket/fastening details third. Seams, buttons, straps or stitches may differ from target or be omitted when too small; no mandatory embellishment inventory or implementation prescription."
-      },
-      {
-        "id": "use_size_and_profiles",
-        "dimension": "artifactFreeReadability",
-        "success": "At logical192x320 on light/gray/dark backgrounds, Mateo, red headwear/tie, blue apron, face, hands and action prop are readable without zoom. The modeled profile/back have intentional finished surfaces and coherent attachments; the single frontal target does not establish unseen outlines. Changes should be legible at game scale and remain structurally clean when enlarged."
-      },
-      {
-        "id": "deadspot_free",
-        "dimension": "artifactFreeReadability",
-        "success": "No material black patches, muddy merged masses, jagged/open ends, coplanar flicker, exposed garment intersections, headband/hair/ear clipping, broken corners, harsh seams/normals, blown highlights, dirty transparency halos, stray pixels or unexplained cast shadow in any required frame/facing. Genuine source mechanics and intended self-occlusion are judged with their gameplay role in mind."
-      },
-      {
-        "id": "temporal_continuity",
-        "dimension": "artifactFreeReadability",
-        "success": "Every12fps state/facing playback remains smooth and source-consistent: stable face/hair/cloth structure, no collapsing wrists or sleeves, no changing topology/rest pops, no material/lighting shimmer, no attachment slip or sudden unwanted prop visibility, planted source feet and continuous original idle/work/hold loops. Load preserves its source nonlooping action and timing. Contacts must hold through all frames, not only selected stills."
-      }
-    ],
-    "requiredReviewEvidence": [
-      "Hash-bound candidate packet for the exact editable .blend, dependencies,192 native frames,16 original-layout atlases, technical validation and all declared previews. No editor self-rating is evidence.",
-      "Four-view sheet, intended-size/enlarged views with light/gray/dark alpha backgrounds, verified all-frame sheets containing all192 frames, and actual12fps playbacks for all16 clip/facing combinations.",
-      "Native validation restoring recorded camera/root/frame; measured per-frame/facing root rotations; evaluated body bounds separately from prop reach; foot/hand/knife/dish/belt-load attachment comparison against source; action timing/loop coverage; topology/rest stability; dependency/material/light audit.",
-      "Registered gameplay interaction preview with neighboring serving belt and completed dish/customer scale sufficient to assess retained scale/reach/contact without changing capture.",
-      "Review directly inspects packet-bound pixels and all playback evidence. Missing visual or native contract evidence yields needs_evidence; visible material defects yield revise; approval requires visible improvement and passing frozen constraints, with no arbitrary numeric threshold."
-    ],
-    "targetDifferencesAllowed": "No requirement to reproduce target framing, halo, noise, specific button/stitch count, exact source mesh count or unseen target geometry. Useful native design improvements are rewarded within locked identity/function/capture/animation constraints.",
-    "baselineEvidence": {
-      "nativeInspection": "reviews/source-native-inspection.json",
-      "sourceInspectionScript": "reviews/inspect_source.py",
-      "sourceViewSheet": "reviews/source-states-cardinal-sheet.png",
-      "sourceViewManifest": "reviews/source-sheet-manifest.json"
+      "visibleSuccessCriteria": [
+        {
+          "id": "canonical_food_identity",
+          "outcome": "At intended logical/phone size, the new display visibly reads as the exact approved canonical orange salmon nigiri, white rice and complete ivory plate. Preserve canonical aspect, highlights and alpha. No old cached food, trim, stretch, introduced halo, missing rim or extra shading/grade."
+        },
+        {
+          "id": "source_semantic_contact_scale",
+          "outcome": "The pre-occlusion occupied food width remains0.34436392914653785world (~44.0786logical pixels). The canonical semantic visible plate bottom maps onto the old visible plate support throughout all visible hold/load frames/facings. Preserve source offset relative to actual palms/prop root rather than forcing old padded quad corners or a stale socket. Food remains a useful held/served dish at original gameplay scale."
+        },
+        {
+          "id": "occlusion_and_orientation",
+          "outcome": "In S/E/N/W, the plate/food/body/hand overlaps remain coherent under Mateo\u2019s unchanged depth and yaw law; preserve intentional original rear/body occlusion. The different canonical silhouette may change exact food-pixel overlap, which must be examined rather than fitted per view. No new body penetration, disconnected-looking plate support, unexpected rear visibility, hand-hidden plate or frame clipping."
+        },
+        {
+          "id": "temporal_and_alpha_continuity",
+          "outcome": "All16 actual12fps playbacks and verified all192 native frames remain stable: source visibility unchanged, no jumps in semantic support/occupied scale, no food-plane rotation/crop shimmer, alpha halo/flicker or new pose/prop pop. Source idle/work remain food-hidden; hold/load retain their original timing and loop policies."
+        },
+        {
+          "id": "approved_body_preservation",
+          "outcome": "Approved chef body/headwear/knife forms, color identity, surface quality and action readability remain intact. Enforce immutable native data/settings. Do not claim exact unchanged bodyRGB from changed canonical food radiance alone: the source emissive food participates in noncamera rays. Any exact pixel-invariance claim needs an identical-input control under calibrated seed/samples/device/denoise/color settings; otherwise report and assess food-radiance changes honestly without a global regrade."
+        }
+      ],
+      "requiredEvidence": [
+        "Immutable hash-bound packet with new editable native source, exact canonical resource/packed-image hash and portable dependency closure; unchanged approved body/knife/rest/rig/action/material/light/camera fingerprints with only explicit food dependency exceptions. Preserve all prior approved bytes/evidence.",
+        "Source-specific derivation of old image/UV crop, alpha-threshold support, old actual quad and semantic width/bottom, canonical fullRGBA/aspect/support and one global mapping. Report post-mapping evaluated corners/semantic support/width/depth/yaw residuals for all192 samples; visibility and source action parity are checked separately for hidden states.",
+        "All192 real native frames,16 original-layout atlases with exact frame-cell verification,16 actual12fps clips and index, all-frame contact sheets, four-view enlarged and light/gray/dark previews, logical192x320 and phone review. Include visible contact/occlusion checks for hold/load in all four facings plus original serving context.",
+        "If bodyRGB equality is asserted or nonfood RGB differences require attribution, include a calibrated same-input control restoring the old packed image and old mapping in an unsaved isolated candidate, compared with approved source under identical render settings. Geometry/material/settings invariance is not the same claim as RGB invariance under changed emissive artwork.",
+        "Final visual judgment uses exact packet-bound native pixels/playbacks and these frozen outcomes. Missing evidence yields needs_evidence; material visible or contract defects yield revise. No new candidate verdict during this preparation stage."
+      ],
+      "remainingDifferencePolicy": "Allow canonical food silhouette/aspect changes and honest local radiance changes caused by the exact new source. Historical0.35 nominal width and old padded all-corner identity are not invariants; the fixed mapped semantic scale/support and source behavior are. No body art direction is reopened.",
+      "measurementEvidence": [
+        "reviews/held-food-v2-native-evidence.json",
+        "reviews/held-food-v2-mapping-evidence.json"
+      ],
+      "measurementScripts": [
+        "reviews/inspect_held_food_v2.py",
+        "reviews/measure_held_food_v2.py"
+      ],
+      "candidateVerdict": null
     },
-    "reviewScores": [
-      "shapeVolume",
-      "color",
-      "lightingHighlights",
-      "materialDetail",
-      "artifactFreeReadability"
-    ],
-    "candidateVerdict": null
+    "coordinatorResolution": "Accept exact proposed fixed alpha128 semantic occupiedwidth/support mapping and fullUV canonical aspect. Historical .35nominal/oldpadded corners are provenance only. Preserve actual Mateo visible .6 camera-toward law and hidden-state authored transforms/actions/visibility. Candidate corners equal source current evaluated plane matrix applied to globally mapped restquad. Approved physical body/settings unchanged; real radiance delta is assessed separately from calibrated repeatability. No foreign law or perview fitting."
   },
   "delivery": {
     "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
@@ -307,23 +369,56 @@
   },
   "modelingPolicy": {
     "version": 2,
-    "scope": "Follow-on objects; preserve already sealed candidates and reviews",
-    "direction": "ImageGen is a design exploration, with native editor reconstruction, rather than a literal repaint of the original model.",
+    "scope": "Food-dependency-only followup; prior approved body/knife/model/rig/actions/material/light/camera frozen",
     "allowed": [
-      "Improve forms, proportions, silhouette and structural construction",
-      "Add purposeful decorations and crafted detail",
-      "Replace awkward modeling and change nonfunctional topology or part counts",
-      "Rebuild native geometry, normals, materials and light to realize the better design"
+      "Replace packedfood source with exact approved canonicalRGBA",
+      "Adjust food displayheight/UV to preserve canonicalaspect at same existing worldwidth and palm bottom anchor",
+      "Write portable recipe/resourceclosure and registered native captures for every original frame"
     ],
     "locked": [
-      "Registered camera/projection, logical frame, root, source scale and atlas layout",
-      "Game role, recognizable identity, occupied grid scale and palette family",
-      "Declared footprint, functional height/clearance envelope, contacts, attachments, ports and rig behavior",
-      "Every required facing, animation state, frame count, timing and loop behavior",
-      "Modular join planes, end profiles and family continuity",
-      "The three excluded restaurant floor designs"
-    ],
-    "judging": "Reward useful native modeling and decoration inspired by the target. Do not reject a change solely because it differs from the source. Reject target drift only when it harms the chosen style, readability, role or locked technical contract. Original part counts and weak shapes are not automatically constraints."
+      "Approved physicalbody/knife geometry and evaluatedframeposes, rig, actions, camera/root/footprint/cliptiming",
+      "Food platebottom palm anchor, existing displaywidth, visibility and yaw cancellation; no per-frame/per-view fitting or regrade",
+      "All previous sealed evidence/briefs/reviews/sources unchanged"
+    ]
   },
-  "criteriaVersion": 1
+  "criteriaVersion": 1,
+  "briefVersion": "v2-held-food-canonical-source",
+  "revisionPurpose": "Use exact independently approved canonical food in held display while preserving this already-approved chef body/knife/rig/actions/camera/light and all technical registration. No new body/model/style edits.",
+  "approvedBody": {
+    "source": "../../../production/source/blender/refinement/chef-mateo/source/round02.blend",
+    "sha256": "3822fb7b734408a0e176d5546cfda3213754a620382c58a691717dee56c8df3e",
+    "packet": "candidates/round02/packet.json",
+    "packetSHA256": "b58d9ce37caa51af44401c5d21e28fd7bd08a672fb4ad6bab4dbc58c48672ad1",
+    "reviewSHA256": "8d8ad9c2eb6d7e0afb0d39ad16434e44cecb907b4ecb41ab24cdcbdfc93faf84"
+  },
+  "foodDependency": {
+    "asset": "dish-salmon",
+    "representation": "Existing packed2D camera-facing food display inside native3D rig; not modeled3D food",
+    "artwork": "../../../production/source/2d/refinement/dish-salmon/source/round01/dish-salmon.png",
+    "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+    "packet": "../dish-salmon/candidates/round01/packet.json",
+    "packetSHA256": "e7a8682233052e676135edd19ba7c98b057e6d7075074a5eb344e0a3558f3ae6",
+    "review": "../dish-salmon/reviews/round01.json",
+    "reviewSHA256": "c19b7c702158dec570e3181289b7606a87e966e3a33ecb2f0b5ada4bc5c68c67",
+    "canonicalSize": [
+      731,
+      505
+    ],
+    "canonicalAlphaRectangleTopOrigin": [
+      0,
+      0,
+      731,
+      505
+    ],
+    "policy": "Exact fullRGBA and UV rectangle0..1/aspect, no additional food crop/grade/painting; retain existing actual native displaywidth, original platebottom palm anchoring and source visibility/yaw/capture registration. Measure display source/UV/aspect change explicitly. Do not apply another chef camera-ray occlusion law blindly; identify actual source and report blockers before altering placement behavior."
+  },
+  "runtimeFoodVariantClips": [],
+  "technicalResources": {
+    "approvedCanonicalSalmon": "../../../production/source/2d/refinement/dish-salmon/source/round01/dish-salmon.png",
+    "approvedSalmonPacket": "../dish-salmon/candidates/round01/packet.json",
+    "approvedSalmonReview": "../dish-salmon/reviews/round01.json",
+    "approvedNativeBody": "../../backups/3822fb7b734408a0-chef-mateo-round02.blend",
+    "held-food-v2-native-evidence.json": "reviews/held-food-v2-native-evidence.json",
+    "held-food-v2-mapping-evidence.json": "reviews/held-food-v2-mapping-evidence.json"
+  }
 }

@@ -1,0 +1,218 @@
+{
+  "phase": "Proposed source-specific semantic mapping; no candidate edited or approved.",
+  "approvedBodySHA256": "3822fb7b734408a0e176d5546cfda3213754a620382c58a691717dee56c8df3e",
+  "oldImage": {
+    "path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-mateo/reviews/held-food-v2-old-packed-salmon.png",
+    "sha256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe",
+    "size": [
+      1254,
+      1254
+    ],
+    "supportByAlphaThreshold": {
+      "1": [
+        0,
+        85,
+        1242,
+        1198
+      ],
+      "16": [
+        15,
+        237,
+        1239,
+        1051
+      ],
+      "32": [
+        16,
+        237,
+        1238,
+        1051
+      ],
+      "64": [
+        16,
+        237,
+        1238,
+        1051
+      ],
+      "128": [
+        16,
+        237,
+        1238,
+        1051
+      ],
+      "192": [
+        16,
+        238,
+        1238,
+        1050
+      ],
+      "250": [
+        17,
+        239,
+        1237,
+        1049
+      ]
+    },
+    "sampledUvRectangle": [
+      0,
+      0.044657097288676235,
+      0.9904306220095693,
+      0.9322169059011164
+    ],
+    "sampledCropTopOriginPixelEdges": [
+      0,
+      85,
+      1242,
+      1198
+    ],
+    "historicalNominalWorldWidth": 0.35,
+    "visibleQuadWorldHeight": 0.31364734299516905
+  },
+  "canonicalImage": {
+    "path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/2d/refinement/dish-salmon/source/round01/dish-salmon.png",
+    "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+    "size": [
+      731,
+      505
+    ],
+    "supportByAlphaThreshold": {
+      "1": [
+        0,
+        0,
+        731,
+        505
+      ],
+      "16": [
+        0,
+        0,
+        730,
+        505
+      ],
+      "32": [
+        0,
+        1,
+        730,
+        505
+      ],
+      "64": [
+        0,
+        1,
+        730,
+        505
+      ],
+      "128": [
+        1,
+        1,
+        730,
+        504
+      ],
+      "192": [
+        1,
+        2,
+        729,
+        504
+      ],
+      "250": [
+        3,
+        2,
+        729,
+        503
+      ]
+    },
+    "requiredUV": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "requiredFullAspect": 1.4475247524752475
+  },
+  "semanticRule": {
+    "alphaThreshold": 128,
+    "coordinateConvention": "Continuous image pixel edges; top origin. Semantic support = [midpoint of threshold support left/right edges, bottom edge]. This is a point on the visible plate support, not the old alpha>0 padded quad corner.",
+    "sourceSupportPoint": [
+      627.0,
+      1051
+    ],
+    "canonicalSupportPoint": [
+      365.5,
+      504
+    ],
+    "occupiedWorldWidth": 0.34436392914653785,
+    "oldSourcePixelWorldSize": 0.00028180354267310785,
+    "canonicalPixelWorldSize": 0.0004723785036303674,
+    "sourceSupportRelativeToOldQuadBottomCenterCameraRightUp": [
+      0.0016908212560386472,
+      0.041425120772946855
+    ],
+    "canonicalSupportRelativeToNewQuadBottomCenterCameraRightUp": [
+      0.0,
+      0.0004723785036303674
+    ]
+  },
+  "proposedGlobalMapping": {
+    "fullQuadWorldWidthWhenVisible": 0.34530868615379856,
+    "fullQuadWorldHeightWhenVisible": 0.23855114433333555,
+    "fullQuadNativeScreenSizeWhenVisible": [
+      88.39902365537243,
+      61.0690929493339
+    ],
+    "fullQuadLogicalScreenSizeWhenVisible": [
+      44.199511827686216,
+      30.53454647466695
+    ],
+    "occupiedNativeScreenWidth": 88.15716586151369,
+    "occupiedLogicalScreenWidth": 44.078582930756845,
+    "quadBottomCenterDeltaCameraRightUp": [
+      0.0016908212560386472,
+      0.040952742269316486
+    ],
+    "oldSemanticSupportAbovePropRootNativePixels": 10.604830917874395,
+    "oldSemanticSupportRightOfPropRootNativePixels": 0.4328502415458937,
+    "worldCameraRight": [
+      1,
+      0,
+      0
+    ],
+    "worldCameraUp": [
+      0,
+      0.573576436351046,
+      0.8191520442889918
+    ],
+    "worldCameraToward": [
+      0,
+      -0.8191520442889918,
+      0.573576436351046
+    ],
+    "retainedVisibleCameraTowardDepthBias": 0.6,
+    "exampleRestCoordinatesInOriginalFoodPlaneBasis": [
+      [
+        -0.1367708174566885,
+        0.032762193815453186,
+        0
+      ],
+      [
+        0.13947613146635035,
+        0.032762193815453186,
+        0
+      ],
+      [
+        0.13947613146635035,
+        0.22360310928212163,
+        0
+      ],
+      [
+        -0.1367708174566885,
+        0.22360310928212163,
+        0
+      ]
+    ],
+    "scope": "One fixed mapping used for every frame/facing. Rest coordinate example is feasible native evidence, not a required modeling implementation. Preserve original food parent/plane action and driver behavior; source hidden idle/work plane actions differ from visible hold/load and remain authoritative."
+  },
+  "visibleNativeSamples": 96,
+  "visibleDepthBiasRange": [
+    0.5999999642372131,
+    0.6000000536441803
+  ],
+  "visibleMaximumOrthogonalBiasMagnitude": 2.1709207124014892e-07,
+  "hiddenStateCaution": "In the approved source, idle/work food is hidden and its quad width is0.28world, not the visible0.35world. Do not rewrite these baked source transforms to force the visible depth/width law in hidden states. Exact expected candidate corners are the unchanged source evaluated matrix applied to the single fixed mapped rest quad."
+}

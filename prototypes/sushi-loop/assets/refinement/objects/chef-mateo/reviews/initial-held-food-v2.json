@@ -1,0 +1,159 @@
+{
+  "asset": "chef-mateo",
+  "phase": "Independent held-food dependency preparation only; no candidate edits or verdict",
+  "brief": "brief-v2-held-food.json",
+  "briefQualityCriteriaUnfrozen": true,
+  "approvedBodySHA256": "3822fb7b734408a0e176d5546cfda3213754a620382c58a691717dee56c8df3e",
+  "canonicalSalmonSHA256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+  "inspectedEvidence": [
+    "brief-v2-held-food.json",
+    "source/round02.blend",
+    "inputs/source-rig.json",
+    "reviews/round02.json",
+    "reviews/held-food-v2-native-evidence.json",
+    "reviews/held-food-v2-old-packed-salmon.png",
+    "../../../production/source/2d/refinement/dish-salmon/source/round01/dish-salmon.png",
+    "reviews/held-food-v2-mapping-evidence.json"
+  ],
+  "sourceSpecificFindings": {
+    "approvedSource": "Opened exact approved3822fb7b\u20268df3e native scene and evaluated all192 original samples. Native camera remains35-degree orthographic,384x640/root[192,496], logical192x320/root[96,248], source root scale1.25.",
+    "sourceFood": "Actual old packed PNG is1254x1254 SHA5de74758\u2026feafe. Four-vertex food plane uses UV[0,56/1254]..[1242/1254,1169/1254], representing top-origin pixel-edge crop[0,85,1242,1198]. Visible hold/load quad is0.35world wide by0.31364735high. The old nominal0.35 value describes that padded cropped quad, not robust visible content.",
+    "sourceVisibleSupport": {
+      "alphaThreshold": 128,
+      "supportBoundsTopOrigin": [
+        16,
+        237,
+        1238,
+        1051
+      ],
+      "semanticPlateBottomSupportPoint": [
+        627,
+        1051
+      ],
+      "occupiedWidthPixels": 1222,
+      "occupiedWorldWidth": 0.34436392914653785,
+      "bottomPaddingInsideOldCropPixels": 147,
+      "supportOffsetCameraRightUpWorld": [
+        0.0016908212560386472,
+        0.041425120772946855
+      ],
+      "supportOffsetCameraRightUpNativePixels": [
+        0.4328502415458937,
+        10.604830917874395
+      ]
+    },
+    "canonicalSupport": {
+      "size": [
+        731,
+        505
+      ],
+      "fullUVRequired": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "alpha128SupportBounds": [
+        1,
+        1,
+        730,
+        504
+      ],
+      "semanticPlateBottomSupportPoint": [
+        365.5,
+        504
+      ],
+      "occupiedWidthPixels": 729,
+      "fullCanvasAspect": 1.4475247524752475,
+      "alphaSweepEvidence": "reviews/held-food-v2-mapping-evidence.json"
+    },
+    "actualVisibleMateoDepthLaw": {
+      "visibleSamples": 96,
+      "states": [
+        "hold",
+        "load"
+      ],
+      "cameraTowardBiasWorld": 0.6,
+      "measuredRange": [
+        0.5999999642372131,
+        0.6000000536441803
+      ],
+      "maximumOrthogonalResidual": 2.1709207124014892e-07,
+      "yawCancellation": "Actual plane rotation_euler[2] driver expression -facing; X/Y camera-bias driver expressions -sin(facing)*0.39319298125871605 and -cos(facing)*0.39319298125871605 with source scaling produce the0.6world camera-toward offset. Retain this actual Mateo law."
+    },
+    "palmRelation": "In all96 visible samples, the source food prop root is evaluated left/right palm midpoint plus approximately[0,0,0.0225]world, within floating-point tolerance. The old visible plate support additionally sits~10.605native pixels above that prop root because the old UV crop contains bottom padding. Preserve this source semantic relation, rather than inventing coincidence between the visible plate bottom and a stale/custom hand socket.",
+    "hiddenStates": "All48 idle and48 work food samples are hidden. Their old action-evaluated quad width is0.28world and transforms differ from visible hold/load; the0.6visible law must not be forced into these hidden source actions.",
+    "foodRadiance": "Original material uses texture RGB -> Emission strength1, texture alpha -> transparent/emission mix; image sRGB/STRAIGHT, Linear sampling, CLIP. Food is visible to camera/diffuse/glossy/transmission/shadow rays. Changed food can change nearby body radiance without any body/material/light edit; exact bodyRGB equality is not an uncalibrated invariant."
+  },
+  "proposedFixedGlobalMapping": {
+    "fullQuadWorldWidthWhenVisible": 0.34530868615379856,
+    "fullQuadWorldHeightWhenVisible": 0.23855114433333555,
+    "fullQuadNativeScreenSizeWhenVisible": [
+      88.39902365537243,
+      61.0690929493339
+    ],
+    "fullQuadLogicalScreenSizeWhenVisible": [
+      44.199511827686216,
+      30.53454647466695
+    ],
+    "occupiedNativeScreenWidth": 88.15716586151369,
+    "occupiedLogicalScreenWidth": 44.078582930756845,
+    "quadBottomCenterDeltaCameraRightUp": [
+      0.0016908212560386472,
+      0.040952742269316486
+    ],
+    "oldSemanticSupportAbovePropRootNativePixels": 10.604830917874395,
+    "oldSemanticSupportRightOfPropRootNativePixels": 0.4328502415458937,
+    "worldCameraRight": [
+      1,
+      0,
+      0
+    ],
+    "worldCameraUp": [
+      0,
+      0.573576436351046,
+      0.8191520442889918
+    ],
+    "worldCameraToward": [
+      0,
+      -0.8191520442889918,
+      0.573576436351046
+    ],
+    "retainedVisibleCameraTowardDepthBias": 0.6,
+    "exampleRestCoordinatesInOriginalFoodPlaneBasis": [
+      [
+        -0.1367708174566885,
+        0.032762193815453186,
+        0
+      ],
+      [
+        0.13947613146635035,
+        0.032762193815453186,
+        0
+      ],
+      [
+        0.13947613146635035,
+        0.22360310928212163,
+        0
+      ],
+      [
+        -0.1367708174566885,
+        0.22360310928212163,
+        0
+      ]
+    ],
+    "scope": "One fixed mapping used for every frame/facing. Rest coordinate example is feasible native evidence, not a required modeling implementation. Preserve original food parent/plane action and driver behavior; source hidden idle/work plane actions differ from visible hold/load and remain authoritative."
+  },
+  "briefReconciliationForFreeze": [
+    "Interpret preserved display width as the measured semantic occupied width0.34436392914653785world before body occlusion, rather than freezing the historical0.35 padded quad width. Derive new full-UV quad0.34530868615379856wide x0.23855114433333555high from the731x505 canonical aspect.",
+    "Anchor the canonical alpha>=128 semantic visible plate support point[365.5,504] to the mapped old support point[627,1051]. This places the new full-quad bottom center +0.001690821256camera-right and +0.040952742269camera-up world from the old full-quad bottom center.",
+    "Old quad corners/height/UV crop cannot remain numerically identical while obeying full canonicalUV/aspect and visible plate support. Freeze one global semantic mapping first; thereafter compare every evaluated candidate quad corner against unchanged source matrices applied to that fixed mapping. No per-frame/per-facing fit.",
+    "Historical0.35 nominal width and old crop remain provenance. Keep actual parent/action/driver/visibility/body/knife/material/light/camera state unchanged apart from exact image binding and the one fixed food mesh/UV mapping."
+  ],
+  "topVisibleCriteria": [
+    "Exact canonical salmon, rice and complete plate remain recognizable with clean alpha and correct aspect at phone/logical scale.",
+    "Preserve source semantic occupied width and visible plate support through all hold/load poses and four facings; retain source occlusion behavior and actual Mateo depth law.",
+    "Stable clean held-food motion without new halos, edge clipping, popping or hand/body occlusion regressions; approved chef body and knife remain visually sound."
+  ],
+  "limitations": "No replacement source, candidate capture or final approval has been produced. Mapping is independently calculated feasible evidence pending coordinator freeze. Alpha support is measured before body occlusion; final native pixels/playbacks must establish visible contacts and overlap."
+}
