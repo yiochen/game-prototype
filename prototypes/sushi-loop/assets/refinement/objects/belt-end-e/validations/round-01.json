@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "asset": "belt-end-e",
+  "method": "recipe-reuse",
+  "verdict": "validated",
+  "independentReview": false,
+  "authority": "Direct user instruction; coordinator technical validation after representative visual inspection.",
+  "candidatePacketSHA256": "87b114dd0fd951549a5e009c742b3926b785638b77a11f27c2a3a2e9b4f33742",
+  "blockers": [],
+  "policySHA256": "3f541c48a4cfc7f2e9d2537e5a631b1cf481c120888bb285a8854356b38df589",
+  "family": {
+    "straight": {
+      "asset": "belt-straight-n",
+      "packet": "objects/belt-straight-n/candidates/round-11/packet.json",
+      "packetSHA256": "2a29c9f7fc3de3c839536bff284340b84da32f406a3e91a5057cc7d577e6d799",
+      "review": "objects/belt-straight-n/reviews/round-11.json",
+      "reviewSHA256": "be1798df7c0fcc8e21419447c7423e5a04429b0b84d4309bfcb57567e2ccbeda"
+    },
+    "corner": {
+      "asset": "belt-corner-n-e",
+      "packet": "objects/belt-corner-n-e/candidates/round-01/packet.json",
+      "packetSHA256": "a1d9437297cdf0784f9febd38f9e48118192bcfc74463752f468bb4997cf24d9",
+      "review": "objects/belt-corner-n-e/reviews/round-01.json",
+      "reviewSHA256": "bfc2174429f64bb3e38f34b5ed8645bf1d722b1f7acabe65406d44b626788ee0"
+    }
+  },
+  "checks": {
+    "familyRecipeAndMaterials": true,
+    "intendedSizeInspection": true,
+    "nativeContinuity": true,
+    "nativeRegistration": true,
+    "originalClipsAndCadence": true,
+    "portsAndPhase": true,
+    "publishedPixelsAndResourceClosure": true
+  },
+  "evidence": {
+    "candidates/round-01/validation.json": "d069c30d29fefd1dc79775329daf959f5eff59073192b2bd72b9a3f5d1bd52ce",
+    "candidates/round-01/technical-checks.json": "78302467f654dc6687eea8cde542f4576c043863805125896ac1afc3c7101702",
+    "candidates/round-01/source-contract.json": "697262d04289ff005b31b0e76c5561d620550e1dc4f9c922be7f43025594fb44",
+    "candidates/round-01/native-continuity.json": "138ac87ac262972e9139ff6b76d3e04eb2a3342ca25dc54d6c83174828bdca55",
+    "candidates/round-01/recipe-equivalence.json": "e52e378491bc382af6e2fe36d355293cf31dc5b3ec76d1ab50b0c6a54b8911e1",
+    "candidates/round-01/consumer-metrics.json": "3fcf98d03214c0c3046eb2b2b0f79183cf98d2caf77e98647e3d0ad28a597c24"
+  },
+  "supplementalEvidence": {},
+  "inspectedFiles": [
+    "hero-N.png",
+    "hero-E.png",
+    "hero-S.png",
+    "hero-W.png",
+    "previews/four-view-sheet.png",
+    "consumer/phone-four-facings.png"
+  ],
+  "inspectionMethod": "Coordinator viewed every facing in actual native four-view sheet plus390x844 phone rendering; warm coral rails, slate deck, rounded wooden supports and closed cap are consistent with established family. Original open join and native frame coverage verified; no new artistic judge claimed.",
+  "closurePixelResiduals": {
+    "N": {
+      "maximumRGBA": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "RGBDifferenceBounds": null
+    },
+    "E": {
+      "maximumRGBA": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "RGBDifferenceBounds": null
+    },
+    "S": {
+      "maximumRGBA": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "RGBDifferenceBounds": null
+    },
+    "W": {
+      "maximumRGBA": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "RGBDifferenceBounds": null
+    }
+  },
+  "remainingDifferences": [
+    "Full-image comparison residuals away from functional joins remain recorded in technical-checks.json; no whole-image pixel identity claim. Shared motion/filter/Godot class coverage is explicitly reused from recipe-equivalence.json."
+  ],
+  "coverage": "Own complete native/phase/atlas and representative current consumer checks. Reused common family/filter/motion coverage is labeled in recipe-equivalence.json; no independent artistic judge is claimed."
+}
