@@ -1,0 +1,880 @@
+{
+  "salmon": {
+    "project": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/blender/refinement/chef-omar/source/round-01.blend",
+    "projectSHA256": "d852dba373213997528ea5ba79b4c1c8615097dc228137044535cbdbbebf912a",
+    "scene": "Omar warm soft round01",
+    "collection": "S33_CHARACTER_chef_omar.001",
+    "root": "chef_omar__ground_root.001",
+    "camera": "Omar01 registered35 camera",
+    "plane": "chef_omar__ground_root.001__held_dish-salmon__image_plane",
+    "parent": "chef_omar__ground_root.001__held_dish-salmon",
+    "parentType": "OBJECT",
+    "parentBone": "",
+    "vertices": [
+      [
+        -0.14000000059604645,
+        0.0,
+        0.0
+      ],
+      [
+        0.14000000059604645,
+        0.0,
+        0.0
+      ],
+      [
+        0.14000000059604645,
+        0.25091788172721863,
+        0.0
+      ],
+      [
+        -0.14000000059604645,
+        0.25091788172721863,
+        0.0
+      ]
+    ],
+    "uv": [
+      [
+        0.0,
+        0.04465709626674652
+      ],
+      [
+        0.9904305934906006,
+        0.04465709626674652
+      ],
+      [
+        0.9904305934906006,
+        0.9322168827056885
+      ],
+      [
+        0.0,
+        0.9322168827056885
+      ]
+    ],
+    "faces": [
+      [
+        0,
+        1,
+        2,
+        3
+      ]
+    ],
+    "planeLocation": [
+      0.39319297671318054,
+      0.0,
+      0.27531668543815613
+    ],
+    "planeRotationEuler": [
+      0.9599310755729675,
+      0.0,
+      1.5707963705062866
+    ],
+    "planeScale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "parentLocation": [
+      2.9802322387695312e-08,
+      -0.02643822878599167,
+      0.18300002813339233
+    ],
+    "parentRotationEuler": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rootScale": [
+      1.25,
+      1.25,
+      1.25
+    ],
+    "image": {
+      "name": "dish-salmon.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "packed": true,
+      "sha256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe"
+    },
+    "drivers": {
+      "chef_omar__ground_root.001__held_dish-salmon__image_plane": [
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "expression": "-facing",
+          "variables": [
+            {
+              "name": "facing",
+              "type": "SINGLE_PROP",
+              "targets": [
+                {
+                  "id": "chef_omar__ground_root.001",
+                  "path": "rotation_euler[2]"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": "location",
+          "index": 0,
+          "expression": "-sin(facing)*0.39319298125871605",
+          "variables": [
+            {
+              "name": "facing",
+              "type": "SINGLE_PROP",
+              "targets": [
+                {
+                  "id": "chef_omar__ground_root.001",
+                  "path": "rotation_euler[2]"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "expression": "-cos(facing)*0.39319298125871605",
+          "variables": [
+            {
+              "name": "facing",
+              "type": "SINGLE_PROP",
+              "targets": [
+                {
+                  "id": "chef_omar__ground_root.001",
+                  "path": "rotation_euler[2]"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "chef_omar__ground_root.001__held_dish-salmon": []
+    },
+    "clips": {
+      "idle": {
+        "frames": 12,
+        "fps": 12,
+        "loop": true,
+        "firstFrame": 1,
+        "lastUniqueFrame": 12,
+        "closingKeyFrame": 13
+      },
+      "work": {
+        "frames": 12,
+        "fps": 12,
+        "loop": true,
+        "firstFrame": 1,
+        "lastUniqueFrame": 12,
+        "closingKeyFrame": 13
+      },
+      "hold": {
+        "frames": 12,
+        "fps": 12,
+        "loop": true,
+        "firstFrame": 1,
+        "lastUniqueFrame": 12,
+        "closingKeyFrame": 13
+      },
+      "load": {
+        "frames": 12,
+        "fps": 12,
+        "loop": false,
+        "firstFrame": 1,
+        "lastUniqueFrame": 12,
+        "closingKeyFrame": null
+      }
+    },
+    "frames": [
+      {
+        "clip": "hold",
+        "index": 5,
+        "direction": "N",
+        "rootRotationDegrees": 180.00000500895632,
+        "worldWidth": 0.34999999276229304,
+        "worldHeight": 0.31364735142861877,
+        "planeBottomMidpointWorld": [
+          0.0386451855301857,
+          -0.3390694856643677,
+          0.6814722418785095
+        ],
+        "planeBottomPixel": [
+          201.8931655883789,
+          402.88068771362305
+        ],
+        "palmMidpointWorld": [
+          0.03864508867263794,
+          0.1524217575788498,
+          0.3148263096809387
+        ],
+        "palmMidpointPixel": [
+          201.8931427001953,
+          407.5990676879883
+        ],
+        "bottomMinusPalmPixel": [
+          2.288818359375e-05,
+          -4.718379974365234
+        ],
+        "dishParentOriginWorld": [
+          0.03864514082670212,
+          0.1524217575788498,
+          0.33732637763023376
+        ],
+        "planeMatrix": [
+          [
+            1.25,
+            0.0,
+            7.105427357601002e-15,
+            0.0386451855301857
+          ],
+          [
+            0.0,
+            0.7169705629348755,
+            -1.023940086364746,
+            -0.3390694856643677
+          ],
+          [
+            0.0,
+            1.023940086364746,
+            0.7169705629348755,
+            0.6814722418785095
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "visible": true,
+        "render": "reviews/held-food-v2/salmon-current-N.png",
+        "renderSHA256": "a0bef2bd680fe90217ed06912707883dc9640cd9f7933a9b51a5f04e310a0d6c"
+      },
+      {
+        "clip": "hold",
+        "index": 5,
+        "direction": "E",
+        "rootRotationDegrees": 90.00000250447816,
+        "worldWidth": 0.35000002469335195,
+        "worldHeight": 0.31364735142861877,
+        "planeBottomMidpointWorld": [
+          0.152421772480011,
+          -0.5301363468170166,
+          0.6814722418785095
+        ],
+        "planeBottomPixel": [
+          231.01998138427734,
+          430.9360885620117
+        ],
+        "palmMidpointWorld": [
+          0.1524217575788498,
+          -0.03864508867263794,
+          0.3148263096809387
+        ],
+        "palmMidpointPixel": [
+          231.01995849609375,
+          435.65446853637695
+        ],
+        "bottomMinusPalmPixel": [
+          2.288818359375e-05,
+          -4.718379974365234
+        ],
+        "dishParentOriginWorld": [
+          0.1524217575788498,
+          -0.038645148277282715,
+          0.33732637763023376
+        ],
+        "planeMatrix": [
+          [
+            1.25,
+            0.0,
+            3.552713678800501e-15,
+            0.152421772480011
+          ],
+          [
+            0.0,
+            0.7169705629348755,
+            -1.023940086364746,
+            -0.5301363468170166
+          ],
+          [
+            0.0,
+            1.023940086364746,
+            0.7169705629348755,
+            0.6814722418785095
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "visible": true,
+        "render": "reviews/held-food-v2/salmon-current-E.png",
+        "renderSHA256": "0ea098904babd0b88e3cb4eb331d98192934ea9653ce44bc30b7825c0c5bed5e"
+      },
+      {
+        "clip": "hold",
+        "index": 5,
+        "direction": "S",
+        "rootRotationDegrees": 0.0,
+        "worldWidth": 0.34999999276229304,
+        "worldHeight": 0.31364735142861877,
+        "planeBottomMidpointWorld": [
+          -0.03864515572786331,
+          -0.6439129710197449,
+          0.6814722418785095
+        ],
+        "planeBottomPixel": [
+          182.1068344116211,
+          447.6425361633301
+        ],
+        "palmMidpointWorld": [
+          -0.038645096123218536,
+          -0.1524217575788498,
+          0.3148263096809387
+        ],
+        "palmMidpointPixel": [
+          182.1068572998047,
+          452.3609161376953
+        ],
+        "bottomMinusPalmPixel": [
+          -2.288818359375e-05,
+          -4.718379974365234
+        ],
+        "dishParentOriginWorld": [
+          -0.03864515572786331,
+          -0.1524217575788498,
+          0.33732637763023376
+        ],
+        "planeMatrix": [
+          [
+            1.25,
+            0.0,
+            0.0,
+            -0.03864515572786331
+          ],
+          [
+            0.0,
+            0.7169705629348755,
+            -1.023940086364746,
+            -0.6439129710197449
+          ],
+          [
+            0.0,
+            1.023940086364746,
+            0.7169705629348755,
+            0.6814722418785095
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "visible": true,
+        "render": "reviews/held-food-v2/salmon-current-S.png",
+        "renderSHA256": "8cbb92abee124cabd5a2af085c4a601a7d9330645f4fac5cfdb68efcd9e3a47b"
+      },
+      {
+        "clip": "hold",
+        "index": 5,
+        "direction": "W",
+        "rootRotationDegrees": -90.00000250447816,
+        "worldWidth": 0.35000002469335195,
+        "worldHeight": 0.31364735142861877,
+        "planeBottomMidpointWorld": [
+          -0.152421772480011,
+          -0.45284605026245117,
+          0.6814722418785095
+        ],
+        "planeBottomPixel": [
+          152.98003005981445,
+          419.5871353149414
+        ],
+        "palmMidpointWorld": [
+          -0.1524217575788498,
+          0.038645096123218536,
+          0.3148263096809387
+        ],
+        "palmMidpointPixel": [
+          152.98003005981445,
+          424.30551528930664
+        ],
+        "bottomMinusPalmPixel": [
+          0.0,
+          -4.718379974365234
+        ],
+        "dishParentOriginWorld": [
+          -0.1524217575788498,
+          0.03864516317844391,
+          0.33732637763023376
+        ],
+        "planeMatrix": [
+          [
+            1.25,
+            0.0,
+            -3.552713678800501e-15,
+            -0.152421772480011
+          ],
+          [
+            0.0,
+            0.7169705629348755,
+            -1.023940086364746,
+            -0.45284605026245117
+          ],
+          [
+            0.0,
+            1.023940086364746,
+            0.7169705629348755,
+            0.6814722418785095
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "visible": true,
+        "render": "reviews/held-food-v2/salmon-current-W.png",
+        "renderSHA256": "4861d5613c4a552b522201de75851da7a9d60e8966d960aa1464ccab48d4323d"
+      }
+    ]
+  },
+  "cucumber": {
+    "project": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-omar/source/runtime-round-01.blend",
+    "projectSHA256": "87da0e18bcadfebc48307ecb47898e06e28cbd8c4c1c736c7fe0c0260034d6c0",
+    "scene": "Omar cucumber warm soft round01",
+    "collection": "S11 cucumber S33_CHARACTER_chef_omar.002",
+    "root": "S11 cucumber chef_omar__ground_root.001",
+    "camera": "S33 Capture Camera.261",
+    "plane": "S11 cucumber chef_omar__ground_root.001__held_dish-salmon__image_plane",
+    "parent": "S11 cucumber chef_omar__ground_root.001__held_dish-salmon",
+    "parentType": "OBJECT",
+    "parentBone": "",
+    "vertices": [
+      [
+        -0.14000000059604645,
+        0.0,
+        0.0
+      ],
+      [
+        0.14000000059604645,
+        0.0,
+        0.0
+      ],
+      [
+        0.14000000059604645,
+        0.24528363347053528,
+        0.0
+      ],
+      [
+        -0.14000000059604645,
+        0.24528363347053528,
+        0.0
+      ]
+    ],
+    "uv": [
+      [
+        0.0,
+        0.09569378197193146
+      ],
+      [
+        0.9840510487556458,
+        0.09569378197193146
+      ],
+      [
+        0.9840510487556458,
+        0.9577352404594421
+      ],
+      [
+        0.0,
+        0.9577352404594421
+      ]
+    ],
+    "faces": [
+      [
+        0,
+        1,
+        2,
+        3
+      ]
+    ],
+    "planeLocation": [
+      0.0,
+      -0.39319297671318054,
+      0.27531668543815613
+    ],
+    "planeRotationEuler": [
+      0.9599310755729675,
+      0.0,
+      0.0
+    ],
+    "planeScale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "parentLocation": [
+      -0.030684322118759155,
+      -0.12117238342761993,
+      0.2693265676498413
+    ],
+    "parentRotationEuler": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rootScale": [
+      1.25,
+      1.25,
+      1.25
+    ],
+    "image": {
+      "name": "S11 approved ImageGen cucumber",
+      "size": [
+        1254,
+        1254
+      ],
+      "packed": true,
+      "sha256": "dd6d82508f72b2d9019f1619e5f1fe878a5ad22935ab8c86d7a79b4434f64776"
+    },
+    "drivers": {
+      "S11 cucumber chef_omar__ground_root.001__held_dish-salmon__image_plane": [
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "expression": "-facing",
+          "variables": [
+            {
+              "name": "facing",
+              "type": "SINGLE_PROP",
+              "targets": [
+                {
+                  "id": "S11 cucumber chef_omar__ground_root.001",
+                  "path": "rotation_euler[2]"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": "location",
+          "index": 0,
+          "expression": "-sin(facing)*0.39319298125871605",
+          "variables": [
+            {
+              "name": "facing",
+              "type": "SINGLE_PROP",
+              "targets": [
+                {
+                  "id": "S11 cucumber chef_omar__ground_root.001",
+                  "path": "rotation_euler[2]"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "expression": "-cos(facing)*0.39319298125871605",
+          "variables": [
+            {
+              "name": "facing",
+              "type": "SINGLE_PROP",
+              "targets": [
+                {
+                  "id": "S11 cucumber chef_omar__ground_root.001",
+                  "path": "rotation_euler[2]"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "S11 cucumber chef_omar__ground_root.001__held_dish-salmon": []
+    },
+    "clips": {
+      "hold-cucumber": {
+        "frames": 12,
+        "fps": 12,
+        "loop": true,
+        "firstFrame": 1,
+        "lastUniqueFrame": 12,
+        "closingKeyFrame": 13
+      },
+      "load-cucumber": {
+        "frames": 12,
+        "fps": 12,
+        "loop": false,
+        "firstFrame": 1,
+        "lastUniqueFrame": 12,
+        "closingKeyFrame": null
+      }
+    },
+    "frames": [
+      {
+        "clip": "hold-cucumber",
+        "index": 5,
+        "direction": "N",
+        "rootRotationDegrees": 180.00000500895632,
+        "worldWidth": 0.34999999276229304,
+        "worldHeight": 0.3066045411862286,
+        "planeBottomMidpointWorld": [
+          0.0386451855301857,
+          -0.3390694856643677,
+          0.6814722418785095
+        ],
+        "planeBottomPixel": [
+          201.8931655883789,
+          402.8804588317871
+        ],
+        "palmMidpointWorld": [
+          0.03864508867263794,
+          0.1524217575788498,
+          0.3148263096809387
+        ],
+        "palmMidpointPixel": [
+          201.8931427001953,
+          407.598819732666
+        ],
+        "bottomMinusPalmPixel": [
+          2.288818359375e-05,
+          -4.718360900878906
+        ],
+        "dishParentOriginWorld": [
+          0.03864514082670212,
+          0.1524217575788498,
+          0.33732637763023376
+        ],
+        "planeMatrix": [
+          [
+            1.25,
+            0.0,
+            7.105427357601002e-15,
+            0.0386451855301857
+          ],
+          [
+            0.0,
+            0.7169705629348755,
+            -1.023940086364746,
+            -0.3390694856643677
+          ],
+          [
+            0.0,
+            1.023940086364746,
+            0.7169705629348755,
+            0.6814722418785095
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "visible": true,
+        "render": "reviews/held-food-v2/cucumber-current-N.png",
+        "renderSHA256": "f2f47e6758387d1d8676623612fac059d4b4558e5061a924ec5dc7d2646d12c9"
+      },
+      {
+        "clip": "hold-cucumber",
+        "index": 5,
+        "direction": "E",
+        "rootRotationDegrees": 90.00000250447816,
+        "worldWidth": 0.35000002469335195,
+        "worldHeight": 0.3066045411862286,
+        "planeBottomMidpointWorld": [
+          0.152421772480011,
+          -0.5301363468170166,
+          0.6814722418785095
+        ],
+        "planeBottomPixel": [
+          231.01998138427734,
+          430.9358596801758
+        ],
+        "palmMidpointWorld": [
+          0.1524217575788498,
+          -0.03864508867263794,
+          0.3148263096809387
+        ],
+        "palmMidpointPixel": [
+          231.01995849609375,
+          435.6542205810547
+        ],
+        "bottomMinusPalmPixel": [
+          2.288818359375e-05,
+          -4.718360900878906
+        ],
+        "dishParentOriginWorld": [
+          0.1524217575788498,
+          -0.038645148277282715,
+          0.33732637763023376
+        ],
+        "planeMatrix": [
+          [
+            1.25,
+            0.0,
+            3.552713678800501e-15,
+            0.152421772480011
+          ],
+          [
+            0.0,
+            0.7169705629348755,
+            -1.023940086364746,
+            -0.5301363468170166
+          ],
+          [
+            0.0,
+            1.023940086364746,
+            0.7169705629348755,
+            0.6814722418785095
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "visible": true,
+        "render": "reviews/held-food-v2/cucumber-current-E.png",
+        "renderSHA256": "da007ae6506f4a89e04f9af4d6cf50dbd16f51cb0cb9959118d431ca09f2ce07"
+      },
+      {
+        "clip": "hold-cucumber",
+        "index": 5,
+        "direction": "S",
+        "rootRotationDegrees": 0.0,
+        "worldWidth": 0.34999999276229304,
+        "worldHeight": 0.3066045411862286,
+        "planeBottomMidpointWorld": [
+          -0.03864515572786331,
+          -0.6439129710197449,
+          0.6814722418785095
+        ],
+        "planeBottomPixel": [
+          182.1068344116211,
+          447.64232635498047
+        ],
+        "palmMidpointWorld": [
+          -0.038645096123218536,
+          -0.1524217575788498,
+          0.3148263096809387
+        ],
+        "palmMidpointPixel": [
+          182.1068572998047,
+          452.36066818237305
+        ],
+        "bottomMinusPalmPixel": [
+          -2.288818359375e-05,
+          -4.718341827392578
+        ],
+        "dishParentOriginWorld": [
+          -0.03864515572786331,
+          -0.1524217575788498,
+          0.33732637763023376
+        ],
+        "planeMatrix": [
+          [
+            1.25,
+            0.0,
+            0.0,
+            -0.03864515572786331
+          ],
+          [
+            0.0,
+            0.7169705629348755,
+            -1.023940086364746,
+            -0.6439129710197449
+          ],
+          [
+            0.0,
+            1.023940086364746,
+            0.7169705629348755,
+            0.6814722418785095
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "visible": true,
+        "render": "reviews/held-food-v2/cucumber-current-S.png",
+        "renderSHA256": "829a72793a7886ef263a6e2d4f1793231c71ad110c07ddcbe1e00d830884a813"
+      },
+      {
+        "clip": "hold-cucumber",
+        "index": 5,
+        "direction": "W",
+        "rootRotationDegrees": -90.00000250447816,
+        "worldWidth": 0.35000002469335195,
+        "worldHeight": 0.3066045411862286,
+        "planeBottomMidpointWorld": [
+          -0.152421772480011,
+          -0.45284605026245117,
+          0.6814722418785095
+        ],
+        "planeBottomPixel": [
+          152.98003005981445,
+          419.58690643310547
+        ],
+        "palmMidpointWorld": [
+          -0.1524217575788498,
+          0.038645096123218536,
+          0.3148263096809387
+        ],
+        "palmMidpointPixel": [
+          152.98003005981445,
+          424.3052673339844
+        ],
+        "bottomMinusPalmPixel": [
+          0.0,
+          -4.718360900878906
+        ],
+        "dishParentOriginWorld": [
+          -0.1524217575788498,
+          0.03864516317844391,
+          0.33732637763023376
+        ],
+        "planeMatrix": [
+          [
+            1.25,
+            0.0,
+            -3.552713678800501e-15,
+            -0.152421772480011
+          ],
+          [
+            0.0,
+            0.7169705629348755,
+            -1.023940086364746,
+            -0.45284605026245117
+          ],
+          [
+            0.0,
+            1.023940086364746,
+            0.7169705629348755,
+            0.6814722418785095
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "visible": true,
+        "render": "reviews/held-food-v2/cucumber-current-W.png",
+        "renderSHA256": "e5773c13f044def6e5736523c63961534147f3712545da10db23e3e405fba0f8"
+      }
+    ]
+  }
+}

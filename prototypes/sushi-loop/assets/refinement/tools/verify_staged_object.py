@@ -79,8 +79,11 @@ def main():
         assert saved['candidatePacketSHA256'] == sha(base / 'packet.json'), 'Runtime variant packet changed'
         assert saved['reviewSHA256'] == sha(review), 'Runtime variant approval changed'
         add(runtime_variant, sha(runtime_variant))
+        file_base = saved.get('filesRelativeTo', 'receipt-directory')
+        assert file_base in ['receipt-directory', 'object'], 'Unknown runtime variant file base'
+        source_base = folder if file_base == 'object' else runtime_variant.parent
         for path, digest in saved['files'].items():
-            add(runtime_variant.parent / path, digest)
+            add(source_base / path, digest)
     index = subprocess.check_output(['git', 'ls-files', '--stage', '-z'], cwd=ROOT).decode()
     indexed = {entry.split('\t', 1)[1]: entry.split('\t', 1)[0].split()[1]
                for entry in index.split('\0') if entry}

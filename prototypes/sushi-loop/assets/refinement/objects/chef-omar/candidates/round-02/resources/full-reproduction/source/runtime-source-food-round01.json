@@ -1,0 +1,117 @@
+{
+  "object": "S11 cucumber chef_omar__ground_root.001__held_dish-salmon__image_plane",
+  "vertices": [
+    [
+      -0.14000000059604645,
+      0.0,
+      0.0
+    ],
+    [
+      0.14000000059604645,
+      0.0,
+      0.0
+    ],
+    [
+      0.14000000059604645,
+      0.24528363347053528,
+      0.0
+    ],
+    [
+      -0.14000000059604645,
+      0.24528363347053528,
+      0.0
+    ]
+  ],
+  "faces": [
+    [
+      0,
+      1,
+      2,
+      3
+    ]
+  ],
+  "uv": [
+    [
+      0.0,
+      0.09569378197193146
+    ],
+    [
+      0.9840510487556458,
+      0.09569378197193146
+    ],
+    [
+      0.9840510487556458,
+      0.9577352404594421
+    ],
+    [
+      0.0,
+      0.9577352404594421
+    ]
+  ],
+  "packedImageSHA256": "dd6d82508f72b2d9019f1619e5f1fe878a5ad22935ab8c86d7a79b4434f64776",
+  "drivers": [
+    {
+      "owner": "S11 cucumber chef_omar__ground_root.001__held_dish-salmon__image_plane",
+      "path": "rotation_euler",
+      "index": 2,
+      "expression": "-facing",
+      "variables": [
+        {
+          "name": "facing",
+          "type": "SINGLE_PROP",
+          "targets": [
+            {
+              "id": "S11 cucumber chef_omar__ground_root.001",
+              "dataPath": "rotation_euler[2]",
+              "bone": "",
+              "transformType": "LOC_X",
+              "transformSpace": "WORLD_SPACE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "owner": "S11 cucumber chef_omar__ground_root.001__held_dish-salmon__image_plane",
+      "path": "location",
+      "index": 0,
+      "expression": "-sin(facing)*0.39319298125871605",
+      "variables": [
+        {
+          "name": "facing",
+          "type": "SINGLE_PROP",
+          "targets": [
+            {
+              "id": "S11 cucumber chef_omar__ground_root.001",
+              "dataPath": "rotation_euler[2]",
+              "bone": "",
+              "transformType": "LOC_X",
+              "transformSpace": "WORLD_SPACE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "owner": "S11 cucumber chef_omar__ground_root.001__held_dish-salmon__image_plane",
+      "path": "location",
+      "index": 1,
+      "expression": "-cos(facing)*0.39319298125871605",
+      "variables": [
+        {
+          "name": "facing",
+          "type": "SINGLE_PROP",
+          "targets": [
+            {
+              "id": "S11 cucumber chef_omar__ground_root.001",
+              "dataPath": "rotation_euler[2]",
+              "bone": "",
+              "transformType": "LOC_X",
+              "transformSpace": "WORLD_SPACE"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

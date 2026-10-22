@@ -1,0 +1,1203 @@
+{
+  "coverage": "32 hold/load endpoint poses: both foods, all4facings, indices0/11. RGB maxima below are observed on these diagnostic poses, not asserted as a global bound across every frame. Geometry/control/registration audits cover all288 shipping frames.",
+  "method": "Direct exported native RGB comparisons on opaque body pixels outside the full union of all old/canonical/new food quads plus2px. Both sources use exact frozen renderer/camera/body/material/light settings. Canonical-v2 versus final isolates bias change with identical canonical image/aspect; approved-old-food versus final also includes image/aspect replacement.",
+  "interpretation": "Differences remain despite exact non-food semantic/numeric parity. Food-dependent transport, occlusion/path sampling and denoiser response can contribute; their causal shares were not isolated. These differences are not relabeled as one-step noise. No grading, color correction or renderer compensation was applied.",
+  "summary": {
+    "canonicalV2DepthToV3Depth": {
+      "maxRGBChannelDelta255": 15,
+      "maxCaseMeanAbsoluteRGBChannelDelta255": 0.29144343720841137,
+      "totalPixelsAnyRGBDifference": 146603
+    },
+    "approvedOldFoodToV3CanonicalFood": {
+      "maxRGBChannelDelta255": 15,
+      "maxCaseMeanAbsoluteRGBChannelDelta255": 0.29530892648265505,
+      "totalPixelsAnyRGBDifference": 422083
+    }
+  },
+  "cases": [
+    {
+      "food": "salmon",
+      "clip": "hold",
+      "direction": "N",
+      "index": 0,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/salmon/hold-N-000.png",
+        "sha256": "bff55ae4fd51a0f2ab0a1178e9bd69f0f9a91b56a0b7e86df41f6c68827a881e"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          155,
+          320
+        ],
+        [
+          249,
+          406
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 53845,
+        "maxRGBChannelDelta255": 15,
+        "meanAbsoluteRGBChannelDelta255": 0.2896090630513511,
+        "pixelsAnyRGBDifference": 23940,
+        "pixelsAnyDeltaGreater1": 2893,
+        "pixelsAnyDeltaGreater3": 375
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 53845,
+        "maxRGBChannelDelta255": 15,
+        "meanAbsoluteRGBChannelDelta255": 0.2931315194849413,
+        "pixelsAnyRGBDifference": 23984,
+        "pixelsAnyDeltaGreater1": 2996,
+        "pixelsAnyDeltaGreater3": 379
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "salmon",
+      "clip": "hold",
+      "direction": "N",
+      "index": 11,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/salmon/hold-N-011.png",
+        "sha256": "26c6db0ad4223513dd5ce2aa5bd6e4bd6e5c87fda510505f68f299d1c4cd1995"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          154,
+          321
+        ],
+        [
+          249,
+          406
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 53691,
+        "maxRGBChannelDelta255": 13,
+        "meanAbsoluteRGBChannelDelta255": 0.28156798470258826,
+        "pixelsAnyRGBDifference": 23720,
+        "pixelsAnyDeltaGreater1": 2775,
+        "pixelsAnyDeltaGreater3": 291
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 53691,
+        "maxRGBChannelDelta255": 13,
+        "meanAbsoluteRGBChannelDelta255": 0.28248682274496656,
+        "pixelsAnyRGBDifference": 23597,
+        "pixelsAnyDeltaGreater1": 2837,
+        "pixelsAnyDeltaGreater3": 307
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "salmon",
+      "clip": "hold",
+      "direction": "E",
+      "index": 0,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/salmon/hold-E-000.png",
+        "sha256": "79ba0e60f963feac4a4f69c599f26258859df5797fe38724548521582b1ca8d3"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          183,
+          348
+        ],
+        [
+          278,
+          434
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 50075,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 7.322349808620402e-05,
+        "pixelsAnyRGBDifference": 11,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 50075,
+        "maxRGBChannelDelta255": 9,
+        "meanAbsoluteRGBChannelDelta255": 0.15111333000499252,
+        "pixelsAnyRGBDifference": 11870,
+        "pixelsAnyDeltaGreater1": 1809,
+        "pixelsAnyDeltaGreater3": 93
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "salmon",
+      "clip": "hold",
+      "direction": "E",
+      "index": 11,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/salmon/hold-E-011.png",
+        "sha256": "fe6f81fe14b88ad21714ca8e290b0d1240f87a5bb4e6407812f2497e9b323532"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          183,
+          349
+        ],
+        [
+          278,
+          434
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 50305,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 5.963621906371136e-05,
+        "pixelsAnyRGBDifference": 9,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 50305,
+        "maxRGBChannelDelta255": 7,
+        "meanAbsoluteRGBChannelDelta255": 0.15478911970314416,
+        "pixelsAnyRGBDifference": 12134,
+        "pixelsAnyDeltaGreater1": 1836,
+        "pixelsAnyDeltaGreater3": 114
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "salmon",
+      "clip": "hold",
+      "direction": "S",
+      "index": 0,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/salmon/hold-S-000.png",
+        "sha256": "97be2da2e39c80cc921b8d5dec69e096d8a55b003a298ae40aa80522d5bea6ee"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          135,
+          365
+        ],
+        [
+          229,
+          450
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 57279,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 6.40141529472698e-05,
+        "pixelsAnyRGBDifference": 11,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 57279,
+        "maxRGBChannelDelta255": 15,
+        "meanAbsoluteRGBChannelDelta255": 0.29530892648265505,
+        "pixelsAnyRGBDifference": 17433,
+        "pixelsAnyDeltaGreater1": 4341,
+        "pixelsAnyDeltaGreater3": 1449
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "salmon",
+      "clip": "hold",
+      "direction": "S",
+      "index": 11,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/salmon/hold-S-011.png",
+        "sha256": "60b22a61f91f448337f68e5c1f590e5802e17c3d485aa38154c4a5d028f4d00d"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          135,
+          365
+        ],
+        [
+          230,
+          450
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 57382,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 4.0663158017032056e-05,
+        "pixelsAnyRGBDifference": 7,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 57382,
+        "maxRGBChannelDelta255": 12,
+        "meanAbsoluteRGBChannelDelta255": 0.29258303997769336,
+        "pixelsAnyRGBDifference": 17335,
+        "pixelsAnyDeltaGreater1": 4389,
+        "pixelsAnyDeltaGreater3": 1430
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "salmon",
+      "clip": "hold",
+      "direction": "W",
+      "index": 0,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/salmon/hold-W-000.png",
+        "sha256": "4c9773c3c4dc1492e99b90def39ef4dbdfec21b562e9f8037f2f0a59760ce313"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          106,
+          337
+        ],
+        [
+          201,
+          422
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 50167,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 4.651131886166869e-05,
+        "pixelsAnyRGBDifference": 7,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 50167,
+        "maxRGBChannelDelta255": 5,
+        "meanAbsoluteRGBChannelDelta255": 0.10245779097813304,
+        "pixelsAnyRGBDifference": 10322,
+        "pixelsAnyDeltaGreater1": 684,
+        "pixelsAnyDeltaGreater3": 14
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "salmon",
+      "clip": "hold",
+      "direction": "W",
+      "index": 11,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/salmon/hold-W-011.png",
+        "sha256": "4a0b118d0bff0a81540af3950965f585223331d6b3aa63f87c899bd4c1617c35"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          106,
+          337
+        ],
+        [
+          201,
+          423
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 50072,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 0.00016642701176971828,
+        "pixelsAnyRGBDifference": 25,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 50072,
+        "maxRGBChannelDelta255": 5,
+        "meanAbsoluteRGBChannelDelta255": 0.1060406348191937,
+        "pixelsAnyRGBDifference": 10255,
+        "pixelsAnyDeltaGreater1": 878,
+        "pixelsAnyDeltaGreater3": 28
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "salmon",
+      "clip": "load",
+      "direction": "N",
+      "index": 0,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/salmon/load-N-000.png",
+        "sha256": "cb6e5e5c9c44b868856744435c13ac089bf0dbf1da51eb057b4f3b0b0b55cf82"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          155,
+          321
+        ],
+        [
+          249,
+          406
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 53943,
+        "maxRGBChannelDelta255": 15,
+        "meanAbsoluteRGBChannelDelta255": 0.29143725784624513,
+        "pixelsAnyRGBDifference": 24066,
+        "pixelsAnyDeltaGreater1": 2971,
+        "pixelsAnyDeltaGreater3": 362
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 53943,
+        "maxRGBChannelDelta255": 15,
+        "meanAbsoluteRGBChannelDelta255": 0.29390900271274,
+        "pixelsAnyRGBDifference": 24061,
+        "pixelsAnyDeltaGreater1": 3061,
+        "pixelsAnyDeltaGreater3": 377
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "salmon",
+      "clip": "load",
+      "direction": "N",
+      "index": 11,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/salmon/load-N-011.png",
+        "sha256": "d5bed28f7104d050ecd0771e84d0056736501bc921989059bf4a8d2810c8c0b7"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          155,
+          321
+        ],
+        [
+          249,
+          406
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 53943,
+        "maxRGBChannelDelta255": 15,
+        "meanAbsoluteRGBChannelDelta255": 0.29144343720841137,
+        "pixelsAnyRGBDifference": 24066,
+        "pixelsAnyDeltaGreater1": 2971,
+        "pixelsAnyDeltaGreater3": 362
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 53943,
+        "maxRGBChannelDelta255": 15,
+        "meanAbsoluteRGBChannelDelta255": 0.2939460788857374,
+        "pixelsAnyRGBDifference": 24066,
+        "pixelsAnyDeltaGreater1": 3061,
+        "pixelsAnyDeltaGreater3": 377
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "salmon",
+      "clip": "load",
+      "direction": "E",
+      "index": 0,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/salmon/load-E-000.png",
+        "sha256": "311c75b1fe6613cc2d7ad9c089fd9c05bc5398221dca403fe6dca7f5523c4540"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          183,
+          349
+        ],
+        [
+          278,
+          434
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 50165,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 7.309212930662148e-05,
+        "pixelsAnyRGBDifference": 11,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 50165,
+        "maxRGBChannelDelta255": 8,
+        "meanAbsoluteRGBChannelDelta255": 0.15379248480015947,
+        "pixelsAnyRGBDifference": 12018,
+        "pixelsAnyDeltaGreater1": 1873,
+        "pixelsAnyDeltaGreater3": 95
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "salmon",
+      "clip": "load",
+      "direction": "E",
+      "index": 11,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/salmon/load-E-011.png",
+        "sha256": "a8d712d5af2527d2867bdd4be4f6db327d2f79c6c8f3e5230fe1f119a9d7d2e4"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          183,
+          349
+        ],
+        [
+          278,
+          434
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 50165,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 6.64473902787468e-05,
+        "pixelsAnyRGBDifference": 10,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 50165,
+        "maxRGBChannelDelta255": 8,
+        "meanAbsoluteRGBChannelDelta255": 0.15379912953918734,
+        "pixelsAnyRGBDifference": 12019,
+        "pixelsAnyDeltaGreater1": 1873,
+        "pixelsAnyDeltaGreater3": 95
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "salmon",
+      "clip": "load",
+      "direction": "S",
+      "index": 0,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/salmon/load-S-000.png",
+        "sha256": "de8250cc8188286158e06d806812ddc353a628e1f6e372f0e295c99ff894b6d0"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          135,
+          365
+        ],
+        [
+          229,
+          451
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 57193,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 5.828219071098444e-05,
+        "pixelsAnyRGBDifference": 10,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 57193,
+        "maxRGBChannelDelta255": 14,
+        "meanAbsoluteRGBChannelDelta255": 0.28948764126145976,
+        "pixelsAnyRGBDifference": 17251,
+        "pixelsAnyDeltaGreater1": 4313,
+        "pixelsAnyDeltaGreater3": 1386
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "salmon",
+      "clip": "load",
+      "direction": "S",
+      "index": 11,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/salmon/load-S-011.png",
+        "sha256": "970510ba28c6debc9301eacdd876fad9c79a1e1f41b467a51b9e99c9f7afd30e"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          135,
+          365
+        ],
+        [
+          229,
+          451
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 57193,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 5.2453971639886e-05,
+        "pixelsAnyRGBDifference": 9,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 57193,
+        "maxRGBChannelDelta255": 14,
+        "meanAbsoluteRGBChannelDelta255": 0.28949346948053084,
+        "pixelsAnyRGBDifference": 17250,
+        "pixelsAnyDeltaGreater1": 4313,
+        "pixelsAnyDeltaGreater3": 1386
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "salmon",
+      "clip": "load",
+      "direction": "W",
+      "index": 0,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/salmon/load-W-000.png",
+        "sha256": "256a6d156500b73b04e33d611370feae7bbdf20713258a7f32499a4986f48017"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          106,
+          338
+        ],
+        [
+          201,
+          423
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 50189,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 3.320780781977458e-05,
+        "pixelsAnyRGBDifference": 5,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 50189,
+        "maxRGBChannelDelta255": 5,
+        "meanAbsoluteRGBChannelDelta255": 0.10808477289180232,
+        "pixelsAnyRGBDifference": 10398,
+        "pixelsAnyDeltaGreater1": 887,
+        "pixelsAnyDeltaGreater3": 24
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "salmon",
+      "clip": "load",
+      "direction": "W",
+      "index": 11,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/salmon/load-W-011.png",
+        "sha256": "37a78eacd81fd5621b99bb8227fbcecf7a8201a7a56005b8e3a587219077684a"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          106,
+          338
+        ],
+        [
+          201,
+          423
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 50189,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 4.6490930947684417e-05,
+        "pixelsAnyRGBDifference": 7,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 50189,
+        "maxRGBChannelDelta255": 5,
+        "meanAbsoluteRGBChannelDelta255": 0.10809805601493024,
+        "pixelsAnyRGBDifference": 10399,
+        "pixelsAnyDeltaGreater1": 887,
+        "pixelsAnyDeltaGreater3": 24
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "cucumber",
+      "clip": "hold-cucumber",
+      "direction": "N",
+      "index": 0,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/cucumber/hold-cucumber-N-000.png",
+        "sha256": "4ae5fa160356e66dff09598d60554479acb4c8f6a3fc765cd5331a7b6ab6b830"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          155,
+          322
+        ],
+        [
+          249,
+          406
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 54035,
+        "maxRGBChannelDelta255": 7,
+        "meanAbsoluteRGBChannelDelta255": 0.11983590882452731,
+        "pixelsAnyRGBDifference": 12677,
+        "pixelsAnyDeltaGreater1": 736,
+        "pixelsAnyDeltaGreater3": 108
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 54035,
+        "maxRGBChannelDelta255": 7,
+        "meanAbsoluteRGBChannelDelta255": 0.11754109990438297,
+        "pixelsAnyRGBDifference": 12360,
+        "pixelsAnyDeltaGreater1": 733,
+        "pixelsAnyDeltaGreater3": 104
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "cucumber",
+      "clip": "hold-cucumber",
+      "direction": "N",
+      "index": 11,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/cucumber/hold-cucumber-N-011.png",
+        "sha256": "7d79bf1fc52509168aada8402308867eded4e162efe9850cd5aaf7fc977e144a"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          154,
+          323
+        ],
+        [
+          249,
+          406
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 53883,
+        "maxRGBChannelDelta255": 9,
+        "meanAbsoluteRGBChannelDelta255": 0.10996046990702077,
+        "pixelsAnyRGBDifference": 12074,
+        "pixelsAnyDeltaGreater1": 653,
+        "pixelsAnyDeltaGreater3": 55
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 53883,
+        "maxRGBChannelDelta255": 9,
+        "meanAbsoluteRGBChannelDelta255": 0.10885931864719238,
+        "pixelsAnyRGBDifference": 11945,
+        "pixelsAnyDeltaGreater1": 659,
+        "pixelsAnyDeltaGreater3": 53
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "cucumber",
+      "clip": "hold-cucumber",
+      "direction": "E",
+      "index": 0,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/cucumber/hold-cucumber-E-000.png",
+        "sha256": "fd64d949fd161ad8dbd059c091e529d717cfb4f461b20c4ca6aa23282f44fd42"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          183,
+          350
+        ],
+        [
+          278,
+          434
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 50255,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 0.00023878221072530097,
+        "pixelsAnyRGBDifference": 36,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 50255,
+        "maxRGBChannelDelta255": 6,
+        "meanAbsoluteRGBChannelDelta255": 0.07387656286273339,
+        "pixelsAnyRGBDifference": 8225,
+        "pixelsAnyDeltaGreater1": 401,
+        "pixelsAnyDeltaGreater3": 12
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "cucumber",
+      "clip": "hold-cucumber",
+      "direction": "E",
+      "index": 11,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/cucumber/hold-cucumber-E-011.png",
+        "sha256": "040152f54f0e9cf5006b0d0613f14403462f1d3a92c92c076b01a8dcc3834a6d"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          183,
+          350
+        ],
+        [
+          278,
+          434
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 50395,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 0.00019181797135959256,
+        "pixelsAnyRGBDifference": 29,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 50395,
+        "maxRGBChannelDelta255": 6,
+        "meanAbsoluteRGBChannelDelta255": 0.07482885206865761,
+        "pixelsAnyRGBDifference": 8340,
+        "pixelsAnyDeltaGreater1": 404,
+        "pixelsAnyDeltaGreater3": 17
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "cucumber",
+      "clip": "hold-cucumber",
+      "direction": "S",
+      "index": 0,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/cucumber/hold-cucumber-S-000.png",
+        "sha256": "72f44e87b947040c23141f73e1381a4156030f1a1a4edb0fd5fa479dcc86da9a"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          135,
+          367
+        ],
+        [
+          229,
+          450
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 57469,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 5.220205676103639e-05,
+        "pixelsAnyRGBDifference": 9,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 57469,
+        "maxRGBChannelDelta255": 7,
+        "meanAbsoluteRGBChannelDelta255": 0.1466471778988092,
+        "pixelsAnyRGBDifference": 14408,
+        "pixelsAnyDeltaGreater1": 2005,
+        "pixelsAnyDeltaGreater3": 60
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "cucumber",
+      "clip": "hold-cucumber",
+      "direction": "S",
+      "index": 11,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/cucumber/hold-cucumber-S-011.png",
+        "sha256": "29c0983dd3d9e5fc2697412e6a84c14d2efac420270096735a8229ddbe06a022"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          135,
+          367
+        ],
+        [
+          230,
+          450
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 57575,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 5.789549862498191e-05,
+        "pixelsAnyRGBDifference": 10,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 57575,
+        "maxRGBChannelDelta255": 10,
+        "meanAbsoluteRGBChannelDelta255": 0.15064987697206542,
+        "pixelsAnyRGBDifference": 14844,
+        "pixelsAnyDeltaGreater1": 2009,
+        "pixelsAnyDeltaGreater3": 75
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "cucumber",
+      "clip": "hold-cucumber",
+      "direction": "W",
+      "index": 0,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/cucumber/hold-cucumber-W-000.png",
+        "sha256": "f062f7f7f0b9f5464c6776940214aaf1eff5d2773b488cc7e3f5aeb56bcf192e"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          106,
+          339
+        ],
+        [
+          201,
+          422
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 50359,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 3.9714847395698885e-05,
+        "pixelsAnyRGBDifference": 6,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 50359,
+        "maxRGBChannelDelta255": 6,
+        "meanAbsoluteRGBChannelDelta255": 0.05350251858323901,
+        "pixelsAnyRGBDifference": 6538,
+        "pixelsAnyDeltaGreater1": 187,
+        "pixelsAnyDeltaGreater3": 2
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "cucumber",
+      "clip": "hold-cucumber",
+      "direction": "W",
+      "index": 11,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/cucumber/hold-cucumber-W-011.png",
+        "sha256": "d5a460faa190700bdabebec805a1c28a9c860cb4c28293b920094e6f84cb1cc3"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          106,
+          339
+        ],
+        [
+          201,
+          423
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 50264,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 0.0001458963340230251,
+        "pixelsAnyRGBDifference": 22,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 50264,
+        "maxRGBChannelDelta255": 4,
+        "meanAbsoluteRGBChannelDelta255": 0.05609714043185315,
+        "pixelsAnyRGBDifference": 6736,
+        "pixelsAnyDeltaGreater1": 225,
+        "pixelsAnyDeltaGreater3": 3
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "cucumber",
+      "clip": "load-cucumber",
+      "direction": "N",
+      "index": 0,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/cucumber/load-cucumber-N-000.png",
+        "sha256": "ffa65d3d8f16c0a1fa114e08aff762e383ee0017cf28b2ad8285b824a1f84197"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          155,
+          323
+        ],
+        [
+          249,
+          406
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 54133,
+        "maxRGBChannelDelta255": 7,
+        "meanAbsoluteRGBChannelDelta255": 0.12242070456098868,
+        "pixelsAnyRGBDifference": 12886,
+        "pixelsAnyDeltaGreater1": 787,
+        "pixelsAnyDeltaGreater3": 113
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 54133,
+        "maxRGBChannelDelta255": 7,
+        "meanAbsoluteRGBChannelDelta255": 0.11995147753372866,
+        "pixelsAnyRGBDifference": 12585,
+        "pixelsAnyDeltaGreater1": 783,
+        "pixelsAnyDeltaGreater3": 113
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "cucumber",
+      "clip": "load-cucumber",
+      "direction": "N",
+      "index": 11,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/cucumber/load-cucumber-N-011.png",
+        "sha256": "b46204b248abfb752fe27aa2c79433051c6ec1b5235cc487cef98c7ba6b9ddd6"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          155,
+          323
+        ],
+        [
+          249,
+          406
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 54133,
+        "maxRGBChannelDelta255": 7,
+        "meanAbsoluteRGBChannelDelta255": 0.12239607386744993,
+        "pixelsAnyRGBDifference": 12881,
+        "pixelsAnyDeltaGreater1": 788,
+        "pixelsAnyDeltaGreater3": 113
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 54133,
+        "maxRGBChannelDelta255": 7,
+        "meanAbsoluteRGBChannelDelta255": 0.11995147753372866,
+        "pixelsAnyRGBDifference": 12584,
+        "pixelsAnyDeltaGreater1": 784,
+        "pixelsAnyDeltaGreater3": 113
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "cucumber",
+      "clip": "load-cucumber",
+      "direction": "E",
+      "index": 0,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/cucumber/load-cucumber-E-000.png",
+        "sha256": "a790a513d75c8b157ccbdd610ee8998a302fe6e5947251604f61a2b4995c5830"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          183,
+          351
+        ],
+        [
+          278,
+          434
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 50345,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 5.958883702453074e-05,
+        "pixelsAnyRGBDifference": 9,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 50345,
+        "maxRGBChannelDelta255": 7,
+        "meanAbsoluteRGBChannelDelta255": 0.07667759128678783,
+        "pixelsAnyRGBDifference": 8505,
+        "pixelsAnyDeltaGreater1": 416,
+        "pixelsAnyDeltaGreater3": 15
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "cucumber",
+      "clip": "load-cucumber",
+      "direction": "E",
+      "index": 11,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/cucumber/load-cucumber-E-011.png",
+        "sha256": "f0424160e3b39c989a446cb8c6ccd4a6df45506e845d85bc68c55afcc955933c"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          183,
+          351
+        ],
+        [
+          278,
+          434
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 50345,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 9.269374648260337e-05,
+        "pixelsAnyRGBDifference": 14,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 50345,
+        "maxRGBChannelDelta255": 7,
+        "meanAbsoluteRGBChannelDelta255": 0.07668421226867944,
+        "pixelsAnyRGBDifference": 8506,
+        "pixelsAnyDeltaGreater1": 416,
+        "pixelsAnyDeltaGreater3": 15
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "cucumber",
+      "clip": "load-cucumber",
+      "direction": "S",
+      "index": 0,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/cucumber/load-cucumber-S-000.png",
+        "sha256": "c3e95d0a5a2dac3246a83101849134a59f36ab7e19bdaa014dcc983b64d7732c"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          135,
+          367
+        ],
+        [
+          229,
+          451
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 57383,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 7.551597743814951e-05,
+        "pixelsAnyRGBDifference": 13,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 57383,
+        "maxRGBChannelDelta255": 7,
+        "meanAbsoluteRGBChannelDelta255": 0.14691342964524917,
+        "pixelsAnyRGBDifference": 14375,
+        "pixelsAnyDeltaGreater1": 1953,
+        "pixelsAnyDeltaGreater3": 64
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "cucumber",
+      "clip": "load-cucumber",
+      "direction": "S",
+      "index": 11,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/cucumber/load-cucumber-S-011.png",
+        "sha256": "aa748502aa75dab2f8d85daf45f2aac86d66e799ed4c9cecccc5abfd2719edac"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          135,
+          367
+        ],
+        [
+          229,
+          451
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 57383,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 6.97070560967534e-05,
+        "pixelsAnyRGBDifference": 12,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 57383,
+        "maxRGBChannelDelta255": 7,
+        "meanAbsoluteRGBChannelDelta255": 0.14691342964524917,
+        "pixelsAnyRGBDifference": 14377,
+        "pixelsAnyDeltaGreater1": 1953,
+        "pixelsAnyDeltaGreater3": 64
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "cucumber",
+      "clip": "load-cucumber",
+      "direction": "W",
+      "index": 0,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/cucumber/load-cucumber-W-000.png",
+        "sha256": "6a71e0cf5b2480b9d18ee51109a155d9b506921f6ea60dc3a9c1c64cd9969697"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          106,
+          339
+        ],
+        [
+          201,
+          423
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 50285,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 2.651552815617646e-05,
+        "pixelsAnyRGBDifference": 4,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 50285,
+        "maxRGBChannelDelta255": 6,
+        "meanAbsoluteRGBChannelDelta255": 0.05468827682211395,
+        "pixelsAnyRGBDifference": 6683,
+        "pixelsAnyDeltaGreater1": 179,
+        "pixelsAnyDeltaGreater3": 4
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    },
+    {
+      "food": "cucumber",
+      "clip": "load-cucumber",
+      "direction": "W",
+      "index": 11,
+      "approvedOldPixels": {
+        "path": "candidates/round-02/resources/approved-old-food-frames/cucumber/load-cucumber-W-011.png",
+        "sha256": "c2f3d9cb243b87dd01188245737afff816eeb30c84bd3bae1f248b6add987eb3"
+      },
+      "excludedFoodQuadUnionBoundsNativePx": [
+        [
+          106,
+          339
+        ],
+        [
+          201,
+          423
+        ]
+      ],
+      "canonicalV2DepthToV3Depth": {
+        "pixels": 50285,
+        "maxRGBChannelDelta255": 1,
+        "meanAbsoluteRGBChannelDelta255": 4.6402174273308804e-05,
+        "pixelsAnyRGBDifference": 7,
+        "pixelsAnyDeltaGreater1": 0,
+        "pixelsAnyDeltaGreater3": 0
+      },
+      "approvedOldFoodToV3CanonicalFood": {
+        "pixels": 50285,
+        "maxRGBChannelDelta255": 6,
+        "meanAbsoluteRGBChannelDelta255": 0.05466839017599682,
+        "pixelsAnyRGBDifference": 6680,
+        "pixelsAnyDeltaGreater1": 179,
+        "pixelsAnyDeltaGreater3": 4
+      },
+      "frozenBodyGeometryMaterialsLightsRenderer": true
+    }
+  ]
+}

@@ -1,0 +1,2249 @@
+{
+  "ok": true,
+  "law": "d(f)=d0-(d0-dMin)*max(0,-f)^2",
+  "dMinWorld": 0.4,
+  "d0World": 0.5999999971247001,
+  "semanticForwardSource": "Actual root has no parent, XYZ rotation0/0/yaw and uniform1.25scale; dot(rotated(0,-1,0),camera horizontal(0,-1,0))=cos(rootYaw). No action/head tilt or discrete facing switch.",
+  "analyticC1": "For cos(theta)>=0 depth=d0; for cos(theta)<0 depth=d0-A*cos(theta)^2. Depth and first derivative both match at +/-90deg. Only XYZ mappings are exact polynomial0+1*x; original yaw mapping remains.",
+  "nativePrecisionToleranceWorld": 1e-06,
+  "maxLegacyIntermediateOffRayResidualWorld": 0.00012439502312492476,
+  "maxNewIntermediatePerpendicularResidualWorld": 1.7943374184954607e-07,
+  "maxNewDepthLawErrorWorld": 5.663643387610051e-08,
+  "oldMappings": [
+    {
+      "axis": 2,
+      "path": "rotation_euler",
+      "mapping": {
+        "path": "rotation_euler",
+        "index": 2,
+        "extrapolation": "LINEAR",
+        "mute": false,
+        "keys": [
+          {
+            "co": [
+              0.0,
+              0.0
+            ],
+            "interpolation": "BEZIER",
+            "left": [
+              -0.3333333432674408,
+              -0.3333333432674408
+            ],
+            "right": [
+              0.3333333432674408,
+              0.3333333432674408
+            ],
+            "leftType": "AUTO_CLAMPED",
+            "rightType": "AUTO_CLAMPED",
+            "easing": "AUTO",
+            "amplitude": 0.800000011920929,
+            "back": 1.7015800476074219,
+            "period": 4.099999904632568
+          },
+          {
+            "co": [
+              1.0,
+              1.0
+            ],
+            "interpolation": "BEZIER",
+            "left": [
+              0.6666666269302368,
+              0.6666666269302368
+            ],
+            "right": [
+              1.3333333730697632,
+              1.3333333730697632
+            ],
+            "leftType": "AUTO_CLAMPED",
+            "rightType": "AUTO_CLAMPED",
+            "easing": "AUTO",
+            "amplitude": 0.800000011920929,
+            "back": 1.7015800476074219,
+            "period": 4.099999904632568
+          }
+        ],
+        "modifiers": []
+      },
+      "expression": "-facing",
+      "nearZero": [
+        {
+          "input": -0.001,
+          "output": -0.0010000000474974513
+        },
+        {
+          "input": -0.0002,
+          "output": -0.00019999999494757503
+        },
+        {
+          "input": -0.0001,
+          "output": -9.999999747378752e-05
+        },
+        {
+          "input": -7e-05,
+          "output": -7.000000186963007e-05
+        },
+        {
+          "input": -1e-05,
+          "output": -9.999999747378752e-06
+        },
+        {
+          "input": 0,
+          "output": 0.0
+        },
+        {
+          "input": 1e-05,
+          "output": 0.0
+        },
+        {
+          "input": 7e-05,
+          "output": 0.0
+        },
+        {
+          "input": 0.0001,
+          "output": 0.0
+        },
+        {
+          "input": 0.0002,
+          "output": 0.00019999999494757503
+        },
+        {
+          "input": 0.001,
+          "output": 0.0010000000474974513
+        }
+      ]
+    },
+    {
+      "axis": 0,
+      "path": "location",
+      "mapping": {
+        "path": "location",
+        "index": 0,
+        "extrapolation": "LINEAR",
+        "mute": false,
+        "keys": [
+          {
+            "co": [
+              0.0,
+              0.0
+            ],
+            "interpolation": "BEZIER",
+            "left": [
+              -0.3333333432674408,
+              -0.3333333432674408
+            ],
+            "right": [
+              0.3333333432674408,
+              0.3333333432674408
+            ],
+            "leftType": "AUTO_CLAMPED",
+            "rightType": "AUTO_CLAMPED",
+            "easing": "AUTO",
+            "amplitude": 0.800000011920929,
+            "back": 1.7015800476074219,
+            "period": 4.099999904632568
+          },
+          {
+            "co": [
+              1.0,
+              1.0
+            ],
+            "interpolation": "BEZIER",
+            "left": [
+              0.6666666269302368,
+              0.6666666269302368
+            ],
+            "right": [
+              1.3333333730697632,
+              1.3333333730697632
+            ],
+            "leftType": "AUTO_CLAMPED",
+            "rightType": "AUTO_CLAMPED",
+            "easing": "AUTO",
+            "amplitude": 0.800000011920929,
+            "back": 1.7015800476074219,
+            "period": 4.099999904632568
+          }
+        ],
+        "modifiers": []
+      },
+      "expression": "-sin(facing)*0.39319298125871605",
+      "nearZero": [
+        {
+          "input": -0.001,
+          "output": -0.0010000000474974513
+        },
+        {
+          "input": -0.0002,
+          "output": -0.00019999999494757503
+        },
+        {
+          "input": -0.0001,
+          "output": -9.999999747378752e-05
+        },
+        {
+          "input": -7e-05,
+          "output": -7.000000186963007e-05
+        },
+        {
+          "input": -1e-05,
+          "output": -9.999999747378752e-06
+        },
+        {
+          "input": 0,
+          "output": 0.0
+        },
+        {
+          "input": 1e-05,
+          "output": 0.0
+        },
+        {
+          "input": 7e-05,
+          "output": 0.0
+        },
+        {
+          "input": 0.0001,
+          "output": 0.0
+        },
+        {
+          "input": 0.0002,
+          "output": 0.00019999999494757503
+        },
+        {
+          "input": 0.001,
+          "output": 0.0010000000474974513
+        }
+      ]
+    },
+    {
+      "axis": 1,
+      "path": "location",
+      "mapping": {
+        "path": "location",
+        "index": 1,
+        "extrapolation": "LINEAR",
+        "mute": false,
+        "keys": [
+          {
+            "co": [
+              0.0,
+              0.0
+            ],
+            "interpolation": "BEZIER",
+            "left": [
+              -0.3333333432674408,
+              -0.3333333432674408
+            ],
+            "right": [
+              0.3333333432674408,
+              0.3333333432674408
+            ],
+            "leftType": "AUTO_CLAMPED",
+            "rightType": "AUTO_CLAMPED",
+            "easing": "AUTO",
+            "amplitude": 0.800000011920929,
+            "back": 1.7015800476074219,
+            "period": 4.099999904632568
+          },
+          {
+            "co": [
+              1.0,
+              1.0
+            ],
+            "interpolation": "BEZIER",
+            "left": [
+              0.6666666269302368,
+              0.6666666269302368
+            ],
+            "right": [
+              1.3333333730697632,
+              1.3333333730697632
+            ],
+            "leftType": "AUTO_CLAMPED",
+            "rightType": "AUTO_CLAMPED",
+            "easing": "AUTO",
+            "amplitude": 0.800000011920929,
+            "back": 1.7015800476074219,
+            "period": 4.099999904632568
+          }
+        ],
+        "modifiers": []
+      },
+      "expression": "-cos(facing)*0.39319298125871605",
+      "nearZero": [
+        {
+          "input": -0.001,
+          "output": -0.0010000000474974513
+        },
+        {
+          "input": -0.0002,
+          "output": -0.00019999999494757503
+        },
+        {
+          "input": -0.0001,
+          "output": -9.999999747378752e-05
+        },
+        {
+          "input": -7e-05,
+          "output": -7.000000186963007e-05
+        },
+        {
+          "input": -1e-05,
+          "output": -9.999999747378752e-06
+        },
+        {
+          "input": 0,
+          "output": 0.0
+        },
+        {
+          "input": 1e-05,
+          "output": 0.0
+        },
+        {
+          "input": 7e-05,
+          "output": 0.0
+        },
+        {
+          "input": 0.0001,
+          "output": 0.0
+        },
+        {
+          "input": 0.0002,
+          "output": 0.00019999999494757503
+        },
+        {
+          "input": 0.001,
+          "output": 0.0010000000474974513
+        }
+      ]
+    }
+  ],
+  "newMappings": [
+    {
+      "axis": 2,
+      "path": "rotation_euler",
+      "mapping": {
+        "path": "rotation_euler",
+        "index": 2,
+        "extrapolation": "LINEAR",
+        "mute": false,
+        "keys": [
+          {
+            "co": [
+              0.0,
+              0.0
+            ],
+            "interpolation": "BEZIER",
+            "left": [
+              -0.3333333432674408,
+              -0.3333333432674408
+            ],
+            "right": [
+              0.3333333432674408,
+              0.3333333432674408
+            ],
+            "leftType": "AUTO_CLAMPED",
+            "rightType": "AUTO_CLAMPED",
+            "easing": "AUTO",
+            "amplitude": 0.800000011920929,
+            "back": 1.7015800476074219,
+            "period": 4.099999904632568
+          },
+          {
+            "co": [
+              1.0,
+              1.0
+            ],
+            "interpolation": "BEZIER",
+            "left": [
+              0.6666666269302368,
+              0.6666666269302368
+            ],
+            "right": [
+              1.3333333730697632,
+              1.3333333730697632
+            ],
+            "leftType": "AUTO_CLAMPED",
+            "rightType": "AUTO_CLAMPED",
+            "easing": "AUTO",
+            "amplitude": 0.800000011920929,
+            "back": 1.7015800476074219,
+            "period": 4.099999904632568
+          }
+        ],
+        "modifiers": []
+      },
+      "expression": "-facing",
+      "nearZero": [
+        {
+          "input": -0.001,
+          "output": -0.0010000000474974513
+        },
+        {
+          "input": -0.0002,
+          "output": -0.00019999999494757503
+        },
+        {
+          "input": -0.0001,
+          "output": -9.999999747378752e-05
+        },
+        {
+          "input": -7e-05,
+          "output": -7.000000186963007e-05
+        },
+        {
+          "input": -1e-05,
+          "output": -9.999999747378752e-06
+        },
+        {
+          "input": 0,
+          "output": 0.0
+        },
+        {
+          "input": 1e-05,
+          "output": 0.0
+        },
+        {
+          "input": 7e-05,
+          "output": 0.0
+        },
+        {
+          "input": 0.0001,
+          "output": 0.0
+        },
+        {
+          "input": 0.0002,
+          "output": 0.00019999999494757503
+        },
+        {
+          "input": 0.001,
+          "output": 0.0010000000474974513
+        }
+      ]
+    },
+    {
+      "axis": 0,
+      "path": "location",
+      "mapping": {
+        "path": "location",
+        "index": 0,
+        "extrapolation": "LINEAR",
+        "mute": false,
+        "keys": [],
+        "modifiers": [
+          {
+            "name": "Generator",
+            "show_expanded": true,
+            "mute": false,
+            "active": true,
+            "use_restricted_range": false,
+            "frame_start": 0.0,
+            "frame_end": 0.0,
+            "blend_in": 0.0,
+            "blend_out": 0.0,
+            "use_influence": false,
+            "influence": 1.0,
+            "use_additive": false,
+            "mode": "POLYNOMIAL",
+            "poly_order": 1,
+            "coefficients": [
+              0.0,
+              1.0
+            ]
+          }
+        ]
+      },
+      "expression": "-sin(facing)*0.39319298125871605*(1-(1-0.40000000000000002/0.59999999712470009)*max(0,-cos(facing))**2)",
+      "nearZero": [
+        {
+          "input": -0.001,
+          "output": -0.0010000000474974513
+        },
+        {
+          "input": -0.0002,
+          "output": -0.00019999999494757503
+        },
+        {
+          "input": -0.0001,
+          "output": -9.999999747378752e-05
+        },
+        {
+          "input": -7e-05,
+          "output": -7.000000186963007e-05
+        },
+        {
+          "input": -1e-05,
+          "output": -9.999999747378752e-06
+        },
+        {
+          "input": 0,
+          "output": 0.0
+        },
+        {
+          "input": 1e-05,
+          "output": 9.999999747378752e-06
+        },
+        {
+          "input": 7e-05,
+          "output": 7.000000186963007e-05
+        },
+        {
+          "input": 0.0001,
+          "output": 9.999999747378752e-05
+        },
+        {
+          "input": 0.0002,
+          "output": 0.00019999999494757503
+        },
+        {
+          "input": 0.001,
+          "output": 0.0010000000474974513
+        }
+      ]
+    },
+    {
+      "axis": 1,
+      "path": "location",
+      "mapping": {
+        "path": "location",
+        "index": 1,
+        "extrapolation": "LINEAR",
+        "mute": false,
+        "keys": [],
+        "modifiers": [
+          {
+            "name": "Generator",
+            "show_expanded": true,
+            "mute": false,
+            "active": true,
+            "use_restricted_range": false,
+            "frame_start": 0.0,
+            "frame_end": 0.0,
+            "blend_in": 0.0,
+            "blend_out": 0.0,
+            "use_influence": false,
+            "influence": 1.0,
+            "use_additive": false,
+            "mode": "POLYNOMIAL",
+            "poly_order": 1,
+            "coefficients": [
+              0.0,
+              1.0
+            ]
+          }
+        ]
+      },
+      "expression": "-cos(facing)*0.39319298125871605*(1-(1-0.40000000000000002/0.59999999712470009)*max(0,-cos(facing))**2)",
+      "nearZero": [
+        {
+          "input": -0.001,
+          "output": -0.0010000000474974513
+        },
+        {
+          "input": -0.0002,
+          "output": -0.00019999999494757503
+        },
+        {
+          "input": -0.0001,
+          "output": -9.999999747378752e-05
+        },
+        {
+          "input": -7e-05,
+          "output": -7.000000186963007e-05
+        },
+        {
+          "input": -1e-05,
+          "output": -9.999999747378752e-06
+        },
+        {
+          "input": 0,
+          "output": 0.0
+        },
+        {
+          "input": 1e-05,
+          "output": 9.999999747378752e-06
+        },
+        {
+          "input": 7e-05,
+          "output": 7.000000186963007e-05
+        },
+        {
+          "input": 0.0001,
+          "output": 9.999999747378752e-05
+        },
+        {
+          "input": 0.0002,
+          "output": 0.00019999999494757503
+        },
+        {
+          "input": 0.001,
+          "output": 0.0010000000474974513
+        }
+      ]
+    },
+    {
+      "axis": 2,
+      "path": "location",
+      "mapping": {
+        "path": "location",
+        "index": 2,
+        "extrapolation": "LINEAR",
+        "mute": false,
+        "keys": [],
+        "modifiers": [
+          {
+            "name": "Generator",
+            "show_expanded": true,
+            "mute": false,
+            "active": true,
+            "use_restricted_range": false,
+            "frame_start": 0.0,
+            "frame_end": 0.0,
+            "blend_in": 0.0,
+            "blend_out": 0.0,
+            "use_influence": false,
+            "influence": 1.0,
+            "use_additive": false,
+            "mode": "POLYNOMIAL",
+            "poly_order": 1,
+            "coefficients": [
+              0.0,
+              1.0
+            ]
+          }
+        ]
+      },
+      "expression": "0.27531668543815613*(1-(1-0.40000000000000002/0.59999999712470009)*max(0,-cos(facing))**2)",
+      "nearZero": [
+        {
+          "input": -0.001,
+          "output": -0.0010000000474974513
+        },
+        {
+          "input": -0.0002,
+          "output": -0.00019999999494757503
+        },
+        {
+          "input": -0.0001,
+          "output": -9.999999747378752e-05
+        },
+        {
+          "input": -7e-05,
+          "output": -7.000000186963007e-05
+        },
+        {
+          "input": -1e-05,
+          "output": -9.999999747378752e-06
+        },
+        {
+          "input": 0,
+          "output": 0.0
+        },
+        {
+          "input": 1e-05,
+          "output": 9.999999747378752e-06
+        },
+        {
+          "input": 7e-05,
+          "output": 7.000000186963007e-05
+        },
+        {
+          "input": 0.0001,
+          "output": 9.999999747378752e-05
+        },
+        {
+          "input": 0.0002,
+          "output": 0.00019999999494757503
+        },
+        {
+          "input": 0.001,
+          "output": 0.0010000000474974513
+        }
+      ]
+    }
+  ],
+  "finiteDifferenceDerivatives": [
+    {
+      "boundaryDegrees": -90,
+      "halfStepDegrees": 0.1,
+      "measuredCentralDerivativeWorldPerRadian": 0.0001687376355293863,
+      "analyticCentralDerivativeWorldPerRadian": 0.00017454427917636036,
+      "analyticOneSidedLimitBoth": 0
+    },
+    {
+      "boundaryDegrees": -90,
+      "halfStepDegrees": 0.02,
+      "measuredCentralDerivativeWorldPerRadian": 4.371065877893849e-06,
+      "analyticCentralDerivativeWorldPerRadian": 3.491111546670662e-05,
+      "analyticOneSidedLimitBoth": 0
+    },
+    {
+      "boundaryDegrees": -90,
+      "halfStepDegrees": 0.001,
+      "measuredCentralDerivativeWorldPerRadian": -0.00043710658778938486,
+      "analyticCentralDerivativeWorldPerRadian": 1.7443243261737622e-06,
+      "analyticOneSidedLimitBoth": 0
+    },
+    {
+      "boundaryDegrees": 90,
+      "halfStepDegrees": 0.1,
+      "measuredCentralDerivativeWorldPerRadian": -0.0001687376355293863,
+      "analyticCentralDerivativeWorldPerRadian": -0.00017454427917636036,
+      "analyticOneSidedLimitBoth": 0
+    },
+    {
+      "boundaryDegrees": 90,
+      "halfStepDegrees": 0.02,
+      "measuredCentralDerivativeWorldPerRadian": -3.933959290104464e-05,
+      "analyticCentralDerivativeWorldPerRadian": -3.491111546670662e-05,
+      "analyticOneSidedLimitBoth": 0
+    },
+    {
+      "boundaryDegrees": 90,
+      "halfStepDegrees": 0.001,
+      "measuredCentralDerivativeWorldPerRadian": 0.00043710658778938486,
+      "analyticCentralDerivativeWorldPerRadian": -1.7443243261737622e-06,
+      "analyticOneSidedLimitBoth": 0
+    }
+  ],
+  "samples": [
+    {
+      "angleDegrees": -180,
+      "measuredRootDegrees": -180.00000500895632,
+      "semanticForwardDot": -0.9999999999999962,
+      "expectedBiasWorld": 0.4000000000000015,
+      "actualBiasWorld": 0.39999999678788534,
+      "actualMinusAnalyticDepthWorld": -3.2121161841480728e-09,
+      "actualPerpendicularResidualWorld": 1.1662003280593849e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 1.9073486328125e-05,
+      "legacySourceOffRayResidualWorld": 1.1181385718472859e-07,
+      "newXYZDriverOutputs": [
+        -2.291601575166169e-08,
+        0.26212865114212036,
+        0.18354445695877075
+      ],
+      "bottomWorld": [
+        0.03864516317844391,
+        -0.17523904144763947,
+        0.5667569637298584
+      ],
+      "bottomPixel": [
+        201.8931655883789,
+        402.8804588317871
+      ]
+    },
+    {
+      "angleDegrees": -165,
+      "measuredRootDegrees": -164.99999434625954,
+      "semanticForwardDot": -0.9659258007497356,
+      "expectedBiasWorld": 0.4133974692965877,
+      "actualBiasWorld": 0.4133974820084898,
+      "actualMinusAnalyticDepthWorld": 1.2711902086515181e-08,
+      "actualPerpendicularResidualWorld": 8.429369702178807e-08,
+      "quadMaxErrorVersusAnalyticNativePx": 1.9073486328125e-05,
+      "legacySourceOffRayResidualWorld": 1.4546856364299292e-07,
+      "newXYZDriverOutputs": [
+        0.07011625170707703,
+        0.2616773247718811,
+        0.18969203531742096
+      ],
+      "bottomWorld": [
+        -0.0021213144063949585,
+        -0.181405171751976,
+        0.5744414329528809
+      ],
+      "bottomPixel": [
+        191.4569435119629,
+        402.1744155883789
+      ]
+    },
+    {
+      "angleDegrees": -150,
+      "measuredRootDegrees": -149.99999734394112,
+      "semanticForwardDot": -0.8660253806059512,
+      "expectedBiasWorld": 0.4500000073104384,
+      "actualBiasWorld": 0.44999996860877545,
+      "actualMinusAnalyticDepthWorld": -3.870166292996302e-08,
+      "actualPerpendicularResidualWorld": 8.503133215392624e-08,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.4589723471891374e-07,
+      "newXYZDriverOutputs": [
+        0.1474473774433136,
+        0.2553863227367401,
+        0.2064875215291977
+      ],
+      "bottomWorld": [
+        -0.04274319112300873,
+        -0.21729470789432526,
+        0.5954357385635376
+      ],
+      "bottomPixel": [
+        181.05774307250977,
+        403.0417060852051
+      ]
+    },
+    {
+      "angleDegrees": -135,
+      "measuredRootDegrees": -135.00000034162267,
+      "semanticForwardDot": -0.7071067854026294,
+      "expectedBiasWorld": 0.499999997369862,
+      "actualBiasWorld": 0.5000000332179226,
+      "actualMinusAnalyticDepthWorld": 3.584806063106072e-08,
+      "actualPerpendicularResidualWorld": 1.4919776018337002e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 1.9073486328125e-05,
+      "legacySourceOffRayResidualWorld": 1.4565923987027647e-07,
+      "newXYZDriverOutputs": [
+        0.2316911816596985,
+        0.2316911816596985,
+        0.22943057119846344
+      ],
+      "bottomWorld": [
+        -0.08045221120119095,
+        -0.27447131276130676,
+        0.6241146326065063
+      ],
+      "bottomPixel": [
+        171.40422821044922,
+        405.42322158813477
+      ]
+    },
+    {
+      "angleDegrees": -120,
+      "measuredRootDegrees": -120.00000333930423,
+      "semanticForwardDot": -0.5000000504735648,
+      "expectedBiasWorld": 0.5499999877488118,
+      "actualBiasWorld": 0.5499999806261755,
+      "actualMinusAnalyticDepthWorld": -7.122636258571902e-09,
+      "actualPerpendicularResidualWorld": 1.3514129182113002e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.2871392631051806e-07,
+      "newXYZDriverOutputs": [
+        0.3121388256549835,
+        0.18021346628665924,
+        0.2523736357688904
+      ],
+      "bottomWorld": [
+        -0.11267851293087006,
+        -0.34085503220558167,
+        0.6527934074401855
+      ],
+      "bottomPixel": [
+        163.154296875,
+        409.15666580200195
+      ]
+    },
+    {
+      "angleDegrees": -105,
+      "measuredRootDegrees": -104.99999950679661,
+      "semanticForwardDot": -0.25881903678780893,
+      "expectedBiasWorld": 0.5866025385565549,
+      "actualBiasWorld": 0.5866025136205897,
+      "actualMinusAnalyticDepthWorld": -2.4935965181605013e-08,
+      "actualPerpendicularResidualWorld": 1.5910086411284374e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 5.7220458984375e-05,
+      "legacySourceOffRayResidualWorld": 1.4622977676684223e-07,
+      "newXYZDriverOutputs": [
+        0.37131476402282715,
+        0.09949348866939545,
+        0.2691691219806671
+      ],
+      "bottomWorld": [
+        -0.13722601532936096,
+        -0.4037386178970337,
+        0.6737877726554871
+      ],
+      "bottomPixel": [
+        156.8701400756836,
+        413.9876365661621
+      ]
+    },
+    {
+      "angleDegrees": -95,
+      "measuredRootDegrees": -95.00000150525098,
+      "semanticForwardDot": -0.08715576891927246,
+      "expectedBiasWorld": 0.5984807715353593,
+      "actualBiasWorld": 0.5984808087545845,
+      "actualMinusAnalyticDepthWorld": 3.7219225257345556e-08,
+      "actualPerpendicularResidualWorld": 1.5910086411284374e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 1.9073486328125e-05,
+      "legacySourceOffRayResidualWorld": 1.1255608429676582e-07,
+      "newXYZDriverOutputs": [
+        0.3907049596309662,
+        0.034182265400886536,
+        0.27461957931518555
+      ],
+      "bottomWorld": [
+        -0.1484736204147339,
+        -0.4384642243385315,
+        0.6806008815765381
+      ],
+      "bottomPixel": [
+        153.99074935913086,
+        417.6578712463379
+      ]
+    },
+    {
+      "angleDegrees": -90.1,
+      "measuredRootDegrees": -90.10000330411633,
+      "semanticForwardDot": -0.0017453860335191337,
+      "expectedBiasWorld": 0.5999993878502277,
+      "actualBiasWorld": 0.5999994220420504,
+      "actualMinusAnalyticDepthWorld": 3.419182270647525e-08,
+      "actualPerpendicularResidualWorld": 1.7124183378459817e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.284981076710401e-07,
+      "newXYZDriverOutputs": [
+        0.39319199323654175,
+        0.000686272862367332,
+        0.27531641721725464
+      ],
+      "bottomWorld": [
+        -0.15235407650470734,
+        -0.4525795876979828,
+        0.6814719438552856
+      ],
+      "bottomPixel": [
+        152.99735641479492,
+        419.54784393310547
+      ]
+    },
+    {
+      "angleDegrees": -90.02,
+      "measuredRootDegrees": -90.02000129836796,
+      "semanticForwardDot": -0.00034908850410453947,
+      "expectedBiasWorld": 0.5999999727521437,
+      "actualBiasWorld": 0.5999999744285569,
+      "actualMinusAnalyticDepthWorld": 1.6764132304558643e-09,
+      "actualPerpendicularResidualWorld": 1.5910086411284374e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.4622977676684223e-07,
+      "newXYZDriverOutputs": [
+        0.39319294691085815,
+        0.00013725915050599724,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.15240827202796936,
+        -0.45279282331466675,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        152.9834861755371,
+        419.57908630371094
+      ]
+    },
+    {
+      "angleDegrees": -90.015,
+      "measuredRootDegrees": -90.01500159989551,
+      "semanticForwardDot": -0.00026182730825198596,
+      "expectedBiasWorld": 0.5999999834139924,
+      "actualBiasWorld": 0.5999999683253976,
+      "actualMinusAnalyticDepthWorld": -1.5088594818024603e-08,
+      "actualPerpendicularResidualWorld": 1.6408201713521212e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.4622977676684223e-07,
+      "newXYZDriverOutputs": [
+        0.39319294691085815,
+        0.0001029486593324691,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.15241160988807678,
+        -0.45280611515045166,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        152.98262786865234,
+        419.5810317993164
+      ]
+    },
+    {
+      "angleDegrees": -90.0146,
+      "measuredRootDegrees": -90.01459861873448,
+      "semanticForwardDot": -0.00025479396040315225,
+      "expectedBiasWorld": 0.5999999841407079,
+      "actualBiasWorld": 0.5999999683253976,
+      "actualMinusAnalyticDepthWorld": -1.581531028360672e-08,
+      "actualPerpendicularResidualWorld": 1.6408201713521212e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.4622977676684223e-07,
+      "newXYZDriverOutputs": [
+        0.39319294691085815,
+        0.00010018319153459743,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.15241190791130066,
+        -0.4528071880340576,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        152.98254776000977,
+        419.58120346069336
+      ]
+    },
+    {
+      "angleDegrees": -90.0145,
+      "measuredRootDegrees": -90.01450299608611,
+      "semanticForwardDot": -0.0002531250304032607,
+      "expectedBiasWorld": 0.599999984310244,
+      "actualBiasWorld": 0.599999956119079,
+      "actualMinusAnalyticDepthWorld": -2.819116506902475e-08,
+      "actualPerpendicularResidualWorld": 1.739355553676002e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 0.00012439499973915724,
+      "newXYZDriverOutputs": [
+        0.39319294691085815,
+        9.952698019333184e-05,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.15241196751594543,
+        -0.4528074264526367,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        152.98253631591797,
+        419.581241607666
+      ]
+    },
+    {
+      "angleDegrees": -90.014,
+      "measuredRootDegrees": -90.01399756208752,
+      "semanticForwardDot": -0.0002443035432493748,
+      "expectedBiasWorld": 0.599999985187856,
+      "actualBiasWorld": 0.5999999530674993,
+      "actualMinusAnalyticDepthWorld": -3.212035670774327e-08,
+      "actualPerpendicularResidualWorld": 1.7666676195531153e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 0.00012007366681112438,
+      "newXYZDriverOutputs": [
+        0.39319294691085815,
+        9.605843661120161e-05,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.1524122953414917,
+        -0.45280876755714417,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        152.9824562072754,
+        419.5814323425293
+      ]
+    },
+    {
+      "angleDegrees": -90.01,
+      "measuredRootDegrees": -90.01000190142307,
+      "semanticForwardDot": -0.0001745661104057439,
+      "expectedBiasWorld": 0.5999999910300348,
+      "actualBiasWorld": 0.60000003546015,
+      "actualMinusAnalyticDepthWorld": 4.443011525356866e-08,
+      "actualPerpendicularResidualWorld": 1.0745380149674383e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 1.9073486328125e-05,
+      "legacySourceOffRayResidualWorld": 8.58009823755261e-05,
+      "newXYZDriverOutputs": [
+        0.39319297671318054,
+        6.863816815894097e-05,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.15241500735282898,
+        -0.45281949639320374,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        152.98175811767578,
+        419.58301544189453
+      ]
+    },
+    {
+      "angleDegrees": -90.001,
+      "measuredRootDegrees": -90.00099971209698,
+      "semanticForwardDot": -1.7448267663530595e-05,
+      "expectedBiasWorld": 0.5999999970638117,
+      "actualBiasWorld": 0.6000000232538314,
+      "actualMinusAnalyticDepthWorld": 2.6190019708494106e-08,
+      "actualPerpendicularResidualWorld": 1.1638178938488147e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 1.9073486328125e-05,
+      "legacySourceOffRayResidualWorld": 8.583793897287754e-06,
+      "newXYZDriverOutputs": [
+        0.39319297671318054,
+        6.860536359454272e-06,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.15242108702659607,
+        -0.45284342765808105,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        152.9802017211914,
+        419.5865249633789
+      ]
+    },
+    {
+      "angleDegrees": -90,
+      "measuredRootDegrees": -90.00000250447816,
+      "semanticForwardDot": -4.371139000186241e-08,
+      "expectedBiasWorld": 0.5999999971246998,
+      "actualBiasWorld": 0.5999999988411941,
+      "actualMinusAnalyticDepthWorld": 1.7164943910685793e-09,
+      "actualPerpendicularResidualWorld": 1.3738191809196602e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.4622977676684223e-07,
+      "newXYZDriverOutputs": [
+        0.39319297671318054,
+        1.7187010925567847e-08,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.1524217575788498,
+        -0.45284605026245117,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        152.98003005981445,
+        419.58690643310547
+      ]
+    },
+    {
+      "angleDegrees": -89.999,
+      "measuredRootDegrees": -89.99899846667017,
+      "semanticForwardDot": 1.7480054173072802e-05,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.6000000079959331,
+      "actualMinusAnalyticDepthWorld": 1.0871233024900562e-08,
+      "actualPerpendicularResidualWorld": 1.2910160013410045e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.284981076710401e-07,
+      "newXYZDriverOutputs": [
+        0.39319297671318054,
+        -6.873034635646036e-06,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.15242242813110352,
+        -0.45284873247146606,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        152.9798583984375,
+        419.58728790283203
+      ]
+    },
+    {
+      "angleDegrees": -89.99,
+      "measuredRootDegrees": -89.99000310753327,
+      "semanticForwardDot": 0.00017447868762707154,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.6000000324085704,
+      "actualMinusAnalyticDepthWorld": 3.528387026996427e-08,
+      "actualPerpendicularResidualWorld": 1.0956407464930968e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.1156535083660886e-07,
+      "newXYZDriverOutputs": [
+        0.39319297671318054,
+        -6.860379653517157e-05,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.1524284929037094,
+        -0.45287269353866577,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        152.97830200195312,
+        419.59081649780273
+      ]
+    },
+    {
+      "angleDegrees": -89.986,
+      "measuredRootDegrees": -89.98600061667965,
+      "semanticForwardDot": 0.00024433532975797314,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.5999999988411941,
+      "actualMinusAnalyticDepthWorld": 1.7164940580016719e-09,
+      "actualPerpendicularResidualWorld": 1.3738191809196602e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 1.9073486328125e-05,
+      "legacySourceOffRayResidualWorld": 1.4546856364299292e-07,
+      "newXYZDriverOutputs": [
+        0.39319297671318054,
+        -9.607093670638278e-05,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.1524311900138855,
+        -0.4528833031654358,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        152.9776153564453,
+        419.59238052368164
+      ]
+    },
+    {
+      "angleDegrees": -89.9855,
+      "measuredRootDegrees": -89.98550201287023,
+      "semanticForwardDot": 0.0002530376076260567,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.5999999866348755,
+      "actualMinusAnalyticDepthWorld": -1.0489824564530181e-08,
+      "actualPerpendicularResidualWorld": 1.4901161193847656e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.4546856364299292e-07,
+      "newXYZDriverOutputs": [
+        0.39319297671318054,
+        -9.949260856956244e-05,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.15243151783943176,
+        -0.45288461446762085,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        152.97753524780273,
+        419.5925712585449
+      ]
+    },
+    {
+      "angleDegrees": -89.9854,
+      "measuredRootDegrees": -89.98539956003268,
+      "semanticForwardDot": 0.0002548257469116674,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.5999999835832959,
+      "actualMinusAnalyticDepthWorld": -1.3541404220163145e-08,
+      "actualPerpendicularResidualWorld": 1.5200827839302395e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.4622977676684223e-07,
+      "newXYZDriverOutputs": [
+        0.39319297671318054,
+        -0.0001001956916297786,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.15243157744407654,
+        -0.45288488268852234,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        152.97751235961914,
+        419.5926094055176
+      ]
+    },
+    {
+      "angleDegrees": -89.985,
+      "measuredRootDegrees": -89.98500340906082,
+      "semanticForwardDot": 0.0002617398854749778,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.5999999744285569,
+      "actualMinusAnalyticDepthWorld": -2.2696143187062034e-08,
+      "actualPerpendicularResidualWorld": 1.5910086411284374e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.4622977676684223e-07,
+      "newXYZDriverOutputs": [
+        0.39319297671318054,
+        -0.0001029142877086997,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.15243187546730042,
+        -0.4528859257698059,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        152.97744369506836,
+        419.5927619934082
+      ]
+    },
+    {
+      "angleDegrees": -89.98,
+      "measuredRootDegrees": -89.9799968803992,
+      "semanticForwardDot": 0.0003491202906121496,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.5999999774801366,
+      "actualMinusAnalyticDepthWorld": -1.964456353142907e-08,
+      "actualPerpendicularResidualWorld": 1.5668377909670093e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 1.9073486328125e-05,
+      "legacySourceOffRayResidualWorld": 1.4622977676684223e-07,
+      "newXYZDriverOutputs": [
+        0.39319294691085815,
+        -0.0001372716506011784,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.15243521332740784,
+        -0.4528992474079132,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        152.9765853881836,
+        419.5947265625
+      ]
+    },
+    {
+      "angleDegrees": -89.9,
+      "measuredRootDegrees": -89.90000170484001,
+      "semanticForwardDot": 0.0017452986108722846,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.6000000110475128,
+      "actualMinusAnalyticDepthWorld": 1.3922812680533525e-08,
+      "actualPerpendicularResidualWorld": 1.2644054553268208e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.284981076710401e-07,
+      "newXYZDriverOutputs": [
+        0.3931923806667328,
+        -0.0006862391601316631,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.15248897671699524,
+        -0.4531121551990509,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        152.96281814575195,
+        419.62596893310547
+      ]
+    },
+    {
+      "angleDegrees": -85,
+      "measuredRootDegrees": -84.99999667351618,
+      "semanticForwardDot": 0.08715580058482462,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.6000000110475128,
+      "actualMinusAnalyticDepthWorld": 1.3922812680533525e-08,
+      "actualPerpendicularResidualWorld": 1.2731557704981462e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 1.9073486328125e-05,
+      "legacySourceOffRayResidualWorld": 1.2935922185898942e-07,
+      "newXYZDriverOutputs": [
+        0.3916967511177063,
+        -0.034269049763679504,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.15520989894866943,
+        -0.4662775695323944,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        152.26626205444336,
+        421.5591239929199
+      ]
+    },
+    {
+      "angleDegrees": -75,
+      "measuredRootDegrees": -74.99999867197056,
+      "semanticForwardDot": 0.25881906749121936,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.5999999805317162,
+      "actualMinusAnalyticDepthWorld": -1.6592983875796108e-08,
+      "actualPerpendicularResidualWorld": 1.543187735766767e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.4622977676684223e-07,
+      "newXYZDriverOutputs": [
+        0.37979525327682495,
+        -0.10176584124565125,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.1572301983833313,
+        -0.49361249804496765,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        151.7490692138672,
+        425.57287216186523
+      ]
+    },
+    {
+      "angleDegrees": -45,
+      "measuredRootDegrees": -45.00000125223908,
+      "semanticForwardDot": 0.7071067657322372,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.5999999866348755,
+      "actualMinusAnalyticDepthWorld": -1.0489824564530181e-08,
+      "actualPerpendicularResidualWorld": 1.519626234052415e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 5.7220458984375e-05,
+      "legacySourceOffRayResidualWorld": 1.4849000447186876e-07,
+      "newXYZDriverOutputs": [
+        0.2780294418334961,
+        -0.2780294120311737,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.1351046860218048,
+        -0.5719434022903442,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        157.4131965637207,
+        437.07462310791016
+      ]
+    },
+    {
+      "angleDegrees": 0,
+      "measuredRootDegrees": 0.0,
+      "semanticForwardDot": 1.0,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.5999999988411941,
+      "actualMinusAnalyticDepthWorld": 1.7164940580016719e-09,
+      "actualPerpendicularResidualWorld": 1.3758380198940178e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 1.9073486328125e-05,
+      "legacySourceOffRayResidualWorld": 1.4565923987027647e-07,
+      "newXYZDriverOutputs": [
+        0.0,
+        -0.39319297671318054,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        -0.03864516317844391,
+        -0.6439129710197449,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        182.1068344116211,
+        447.64232635498047
+      ]
+    },
+    {
+      "angleDegrees": 45,
+      "measuredRootDegrees": 45.00000125223908,
+      "semanticForwardDot": 0.7071067657322372,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.60000003546015,
+      "actualMinusAnalyticDepthWorld": 3.833544992559723e-08,
+      "actualPerpendicularResidualWorld": 1.1372817696983924e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.1762060316150852e-07,
+      "newXYZDriverOutputs": [
+        -0.2780294418334961,
+        -0.2780294120311737,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.08045216649770737,
+        -0.6265959739685059,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        212.5957489013672,
+        445.0995635986328
+      ]
+    },
+    {
+      "angleDegrees": 75,
+      "measuredRootDegrees": 74.99999867197056,
+      "semanticForwardDot": 0.25881906749121936,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.5999999744285569,
+      "actualMinusAnalyticDepthWorld": -2.2696143187062034e-08,
+      "actualPerpendicularResidualWorld": 1.5910086411284374e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 1.9073486328125e-05,
+      "legacySourceOffRayResidualWorld": 1.4622977676684223e-07,
+      "newXYZDriverOutputs": [
+        -0.37979525327682495,
+        -0.10176584124565125,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.13722598552703857,
+        -0.5682691931724548,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        227.1298599243164,
+        436.53512954711914
+      ]
+    },
+    {
+      "angleDegrees": 85,
+      "measuredRootDegrees": 84.99999667351618,
+      "semanticForwardDot": 0.08715580058482462,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.5999999927380348,
+      "actualMinusAnalyticDepthWorld": -4.386665253264255e-09,
+      "actualPerpendicularResidualWorld": 1.454295314546163e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 1.9073486328125e-05,
+      "legacySourceOffRayResidualWorld": 1.4622977676684223e-07,
+      "newXYZDriverOutputs": [
+        -0.3916967511177063,
+        -0.034269049763679504,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.1484736204147339,
+        -0.5432737469673157,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        230.00923919677734,
+        432.8649139404297
+      ]
+    },
+    {
+      "angleDegrees": 89.9,
+      "measuredRootDegrees": 89.90000170484001,
+      "semanticForwardDot": 0.0017452986108722846,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.6000000232538314,
+      "actualMinusAnalyticDepthWorld": 2.6129131303065378e-08,
+      "actualPerpendicularResidualWorld": 1.1638178938488147e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.1156535083660886e-07,
+      "newXYZDriverOutputs": [
+        -0.3931923806667328,
+        -0.0006862391601316631,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.15235409140586853,
+        -0.5304023623466492,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        231.00265502929688,
+        430.9749221801758
+      ]
+    },
+    {
+      "angleDegrees": 89.98,
+      "measuredRootDegrees": 89.9799968803992,
+      "semanticForwardDot": 0.0003491202906121496,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.5999999957896145,
+      "actualMinusAnalyticDepthWorld": -1.3350855976312914e-09,
+      "actualPerpendicularResidualWorld": 1.4102081381341592e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 1.9073486328125e-05,
+      "legacySourceOffRayResidualWorld": 1.4622977676684223e-07,
+      "newXYZDriverOutputs": [
+        -0.39319294691085815,
+        -0.0001372716506011784,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.15240827202796936,
+        -0.530189573764801,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        231.0165252685547,
+        430.9436798095703
+      ]
+    },
+    {
+      "angleDegrees": 89.985,
+      "measuredRootDegrees": 89.98500340906082,
+      "semanticForwardDot": 0.0002617398854749778,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.5999999683253976,
+      "actualMinusAnalyticDepthWorld": -2.879930249832796e-08,
+      "actualPerpendicularResidualWorld": 1.6408201713521212e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 5.7220458984375e-05,
+      "legacySourceOffRayResidualWorld": 1.631468360628208e-07,
+      "newXYZDriverOutputs": [
+        -0.39319297671318054,
+        -0.0001029142877086997,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.15241160988807678,
+        -0.5301762223243713,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        231.01737213134766,
+        430.9417152404785
+      ]
+    },
+    {
+      "angleDegrees": 89.9854,
+      "measuredRootDegrees": 89.98539956003268,
+      "semanticForwardDot": 0.0002548257469116674,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.6000000018927738,
+      "actualMinusAnalyticDepthWorld": 4.768073713634635e-09,
+      "actualPerpendicularResidualWorld": 1.3539777580936437e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 1.9073486328125e-05,
+      "legacySourceOffRayResidualWorld": 1.2935922185898942e-07,
+      "newXYZDriverOutputs": [
+        -0.39319297671318054,
+        -0.0001001956916297786,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.15241190791130066,
+        -0.5301752090454102,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        231.01744079589844,
+        430.9415817260742
+      ]
+    },
+    {
+      "angleDegrees": 89.9855,
+      "measuredRootDegrees": 89.98550201287023,
+      "semanticForwardDot": 0.0002530376076260567,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.5999999805317162,
+      "actualMinusAnalyticDepthWorld": -1.6592983875796108e-08,
+      "actualPerpendicularResidualWorld": 1.5359765386647212e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.4546856364299292e-07,
+      "newXYZDriverOutputs": [
+        -0.39319297671318054,
+        -9.949260856956244e-05,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.15241196751594543,
+        -0.5301749110221863,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        231.01746368408203,
+        430.94152450561523
+      ]
+    },
+    {
+      "angleDegrees": 89.986,
+      "measuredRootDegrees": 89.98600061667965,
+      "semanticForwardDot": 0.00024433532975797314,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.5999999927380348,
+      "actualMinusAnalyticDepthWorld": -4.386665253264255e-09,
+      "actualPerpendicularResidualWorld": 1.4466410755327046e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.4546856364299292e-07,
+      "newXYZDriverOutputs": [
+        -0.39319297671318054,
+        -9.607093670638278e-05,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.1524122953414917,
+        -0.5301735997200012,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        231.0175552368164,
+        430.94133377075195
+      ]
+    },
+    {
+      "angleDegrees": 89.99,
+      "measuredRootDegrees": 89.99000310753327,
+      "semanticForwardDot": 0.00017447868762707154,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.6000000202022517,
+      "actualMinusAnalyticDepthWorld": 2.3077551647432415e-08,
+      "actualPerpendicularResidualWorld": 1.1880113720224779e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 1.9073486328125e-05,
+      "legacySourceOffRayResidualWorld": 1.284981076710401e-07,
+      "newXYZDriverOutputs": [
+        -0.39319297671318054,
+        -6.860379653517157e-05,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.15241502225399017,
+        -0.5301629900932312,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        231.01824188232422,
+        430.9397888183594
+      ]
+    },
+    {
+      "angleDegrees": 89.999,
+      "measuredRootDegrees": 89.99899846667017,
+      "semanticForwardDot": 1.7480054173072802e-05,
+      "expectedBiasWorld": 0.5999999971247001,
+      "actualBiasWorld": 0.5999999957896145,
+      "actualMinusAnalyticDepthWorld": -1.3350855976312914e-09,
+      "actualPerpendicularResidualWorld": 1.402313278967046e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.4546856364299292e-07,
+      "newXYZDriverOutputs": [
+        -0.39319297671318054,
+        -6.873034635646036e-06,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.15242108702659607,
+        -0.5301390290260315,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        231.0197982788086,
+        430.9362602233887
+      ]
+    },
+    {
+      "angleDegrees": 90,
+      "measuredRootDegrees": 90.00000250447816,
+      "semanticForwardDot": -4.371139000186241e-08,
+      "expectedBiasWorld": 0.5999999971246998,
+      "actualBiasWorld": 0.5999999866348755,
+      "actualMinusAnalyticDepthWorld": -1.0489824231463274e-08,
+      "actualPerpendicularResidualWorld": 1.4901161193847656e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.4622977676684223e-07,
+      "newXYZDriverOutputs": [
+        -0.39319297671318054,
+        1.7187010925567847e-08,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.1524217575788498,
+        -0.5301363468170166,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        231.01995849609375,
+        430.9358596801758
+      ]
+    },
+    {
+      "angleDegrees": 90.001,
+      "measuredRootDegrees": 90.00099971209698,
+      "semanticForwardDot": -1.7448267663530595e-05,
+      "expectedBiasWorld": 0.5999999970638117,
+      "actualBiasWorld": 0.6000000110475128,
+      "actualMinusAnalyticDepthWorld": 1.3983701085962252e-08,
+      "actualPerpendicularResidualWorld": 1.2644054553268208e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 8.584030673715129e-06,
+      "newXYZDriverOutputs": [
+        -0.39319297671318054,
+        6.860536359454272e-06,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.15242242813110352,
+        -0.5301337242126465,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        231.0201416015625,
+        430.9354782104492
+      ]
+    },
+    {
+      "angleDegrees": 90.01,
+      "measuredRootDegrees": 90.01000190142307,
+      "semanticForwardDot": -0.0001745661104057439,
+      "expectedBiasWorld": 0.5999999910300348,
+      "actualBiasWorld": 0.6000000476664686,
+      "actualMinusAnalyticDepthWorld": 5.663643387610051e-08,
+      "actualPerpendicularResidualWorld": 9.996002811937585e-08,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 8.580100946926367e-05,
+      "newXYZDriverOutputs": [
+        -0.39319297671318054,
+        6.863816815894097e-05,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.1524285078048706,
+        -0.5301098227500916,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        231.02169799804688,
+        430.93196868896484
+      ]
+    },
+    {
+      "angleDegrees": 90.014,
+      "measuredRootDegrees": 90.01399756208752,
+      "semanticForwardDot": -0.0002443035432493748,
+      "expectedBiasWorld": 0.599999985187856,
+      "actualBiasWorld": 0.5999999713769772,
+      "actualMinusAnalyticDepthWorld": -1.381087877394549e-08,
+      "actualPerpendicularResidualWorld": 1.608790671951263e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 0.00012007366681112438,
+      "newXYZDriverOutputs": [
+        -0.39319294691085815,
+        9.605843661120161e-05,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.1524311900138855,
+        -0.530099093914032,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        231.0223846435547,
+        430.93040466308594
+      ]
+    },
+    {
+      "angleDegrees": 90.0145,
+      "measuredRootDegrees": 90.01450299608611,
+      "semanticForwardDot": -0.0002531250304032607,
+      "expectedBiasWorld": 0.599999984310244,
+      "actualBiasWorld": 0.5999999500159197,
+      "actualMinusAnalyticDepthWorld": -3.4294324380290675e-08,
+      "actualPerpendicularResidualWorld": 1.7943374184954607e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 0.00012439502312492476,
+      "newXYZDriverOutputs": [
+        -0.39319294691085815,
+        9.952698019333184e-05,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.15243151783943176,
+        -0.5300977230072021,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        231.02247619628906,
+        430.9301948547363
+      ]
+    },
+    {
+      "angleDegrees": 90.0146,
+      "measuredRootDegrees": 90.01459861873448,
+      "semanticForwardDot": -0.00025479396040315225,
+      "expectedBiasWorld": 0.5999999841407079,
+      "actualBiasWorld": 0.5999999622222383,
+      "actualMinusAnalyticDepthWorld": -2.1918469594872647e-08,
+      "actualPerpendicularResidualWorld": 1.6924465733171325e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.631468360628208e-07,
+      "newXYZDriverOutputs": [
+        -0.39319294691085815,
+        0.00010018319153459743,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.15243157744407654,
+        -0.530097484588623,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        231.02247619628906,
+        430.9301567077637
+      ]
+    },
+    {
+      "angleDegrees": 90.015,
+      "measuredRootDegrees": 90.01500159989551,
+      "semanticForwardDot": -0.00026182730825198596,
+      "expectedBiasWorld": 0.5999999834139924,
+      "actualBiasWorld": 0.5999999622222383,
+      "actualMinusAnalyticDepthWorld": -2.119175412929053e-08,
+      "actualPerpendicularResidualWorld": 1.6924465733171325e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.631468360628208e-07,
+      "newXYZDriverOutputs": [
+        -0.39319294691085815,
+        0.0001029486593324691,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.15243187546730042,
+        -0.5300964117050171,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        231.02256774902344,
+        430.93000411987305
+      ]
+    },
+    {
+      "angleDegrees": 90.02,
+      "measuredRootDegrees": 90.02000129836796,
+      "semanticForwardDot": -0.00034908850410453947,
+      "expectedBiasWorld": 0.5999999727521437,
+      "actualBiasWorld": 0.5999999683253976,
+      "actualMinusAnalyticDepthWorld": -4.426746080810062e-09,
+      "actualPerpendicularResidualWorld": 1.6408201713521212e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.631468360628208e-07,
+      "newXYZDriverOutputs": [
+        -0.39319294691085815,
+        0.00013725915050599724,
+        0.27531668543815613
+      ],
+      "bottomWorld": [
+        0.15243521332740784,
+        -0.5300831198692322,
+        0.6814722418785095
+      ],
+      "bottomPixel": [
+        231.0234146118164,
+        430.9280586242676
+      ]
+    },
+    {
+      "angleDegrees": 90.1,
+      "measuredRootDegrees": 90.10000330411633,
+      "semanticForwardDot": -0.0017453860335191337,
+      "expectedBiasWorld": 0.5999993878502277,
+      "actualBiasWorld": 0.599999434248369,
+      "actualMinusAnalyticDepthWorld": 4.63981413290071e-08,
+      "actualPerpendicularResidualWorld": 1.608790671951263e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.4546856364299292e-07,
+      "newXYZDriverOutputs": [
+        -0.39319199323654175,
+        0.000686272862367332,
+        0.27531641721725464
+      ],
+      "bottomWorld": [
+        0.15248899161815643,
+        -0.529869794845581,
+        0.6814719438552856
+      ],
+      "bottomPixel": [
+        231.03717041015625,
+        430.8967971801758
+      ]
+    },
+    {
+      "angleDegrees": 95,
+      "measuredRootDegrees": 95.00000150525098,
+      "semanticForwardDot": -0.08715576891927246,
+      "expectedBiasWorld": 0.5984807715353593,
+      "actualBiasWorld": 0.5984808163835337,
+      "actualMinusAnalyticDepthWorld": 4.4848174396427964e-08,
+      "actualPerpendicularResidualWorld": 1.531565566410997e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.1255608429676582e-07,
+      "newXYZDriverOutputs": [
+        -0.3907049596309662,
+        0.034182265400886536,
+        0.27461957931518555
+      ],
+      "bottomWorld": [
+        0.15520989894866943,
+        -0.5154604315757751,
+        0.6806008815765381
+      ],
+      "bottomPixel": [
+        231.73372650146484,
+        428.9636421203613
+      ]
+    },
+    {
+      "angleDegrees": 105,
+      "measuredRootDegrees": 104.99999950679661,
+      "semanticForwardDot": -0.25881903678780893,
+      "expectedBiasWorld": 0.5866025385565549,
+      "actualBiasWorld": 0.586602528878488,
+      "actualMinusAnalyticDepthWorld": -9.678066903440197e-09,
+      "actualPerpendicularResidualWorld": 1.4756100118412345e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 5.7220458984375e-05,
+      "legacySourceOffRayResidualWorld": 1.4622977676684223e-07,
+      "newXYZDriverOutputs": [
+        -0.37131476402282715,
+        0.09949348866939545,
+        0.2691691219806671
+      ],
+      "bottomWorld": [
+        0.1572302281856537,
+        -0.47839534282684326,
+        0.6737877726554871
+      ],
+      "bottomPixel": [
+        232.2509307861328,
+        424.949893951416
+      ]
+    },
+    {
+      "angleDegrees": 120,
+      "measuredRootDegrees": 120.00000333930423,
+      "semanticForwardDot": -0.5000000504735648,
+      "expectedBiasWorld": 0.5499999877488118,
+      "actualBiasWorld": 0.5499999775745958,
+      "actualMinusAnalyticDepthWorld": -1.0174215914204865e-08,
+      "actualPerpendicularResidualWorld": 1.3580714265673e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.2935922185898942e-07,
+      "newXYZDriverOutputs": [
+        -0.3121388256549835,
+        0.18021346628665924,
+        0.2523736357688904
+      ],
+      "bottomWorld": [
+        0.15132367610931396,
+        -0.4077903926372528,
+        0.6527934074401855
+      ],
+      "bottomPixel": [
+        230.7388687133789,
+        418.98515701293945
+      ]
+    },
+    {
+      "angleDegrees": 135,
+      "measuredRootDegrees": 135.00000034162267,
+      "semanticForwardDot": -0.7071067854026294,
+      "expectedBiasWorld": 0.499999997369862,
+      "actualBiasWorld": 0.5000000332179226,
+      "actualMinusAnalyticDepthWorld": 3.584806063106072e-08,
+      "actualPerpendicularResidualWorld": 1.4901161193847656e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.4546856364299292e-07,
+      "newXYZDriverOutputs": [
+        -0.2316911816596985,
+        0.2316911816596985,
+        0.22943057119846344
+      ],
+      "bottomWorld": [
+        0.1351047158241272,
+        -0.3291238248348236,
+        0.6241146326065063
+      ],
+      "bottomPixel": [
+        226.5868148803711,
+        413.4481430053711
+      ]
+    },
+    {
+      "angleDegrees": 150,
+      "measuredRootDegrees": 149.99999734394112,
+      "semanticForwardDot": -0.8660253806059512,
+      "expectedBiasWorld": 0.4500000073104384,
+      "actualBiasWorld": 0.44999997471193476,
+      "actualMinusAnalyticDepthWorld": -3.2598503618697094e-08,
+      "actualPerpendicularResidualWorld": 8.059035112255788e-08,
+      "quadMaxErrorVersusAnalyticNativePx": 1.9073486328125e-05,
+      "legacySourceOffRayResidualWorld": 1.2935922185898942e-07,
+      "newXYZDriverOutputs": [
+        -0.1474473774433136,
+        0.2553863227367401,
+        0.2064875215291977
+      ],
+      "bottomWorld": [
+        0.10967855155467987,
+        -0.25593987107276917,
+        0.5954357385635376
+      ],
+      "bottomPixel": [
+        220.0777130126953,
+        408.71618270874023
+      ]
+    },
+    {
+      "angleDegrees": 165,
+      "measuredRootDegrees": 164.99999434625954,
+      "semanticForwardDot": -0.9659258007497356,
+      "expectedBiasWorld": 0.4133974692965877,
+      "actualBiasWorld": 0.4133974820084898,
+      "actualMinusAnalyticDepthWorld": 1.2711902086515181e-08,
+      "actualPerpendicularResidualWorld": 8.462232866585662e-08,
+      "quadMaxErrorVersusAnalyticNativePx": 3.814697265625e-05,
+      "legacySourceOffRayResidualWorld": 1.4546856364299292e-07,
+      "newXYZDriverOutputs": [
+        -0.07011625170707703,
+        0.2616773247718811,
+        0.18969203531742096
+      ],
+      "bottomWorld": [
+        0.07677800953388214,
+        -0.20140938460826874,
+        0.5744414329528809
+      ],
+      "bottomPixel": [
+        211.65518188476562,
+        405.11173248291016
+      ]
+    },
+    {
+      "angleDegrees": 180,
+      "measuredRootDegrees": 180.00000500895632,
+      "semanticForwardDot": -0.9999999999999962,
+      "expectedBiasWorld": 0.4000000000000015,
+      "actualBiasWorld": 0.39999999678788534,
+      "actualMinusAnalyticDepthWorld": -3.2121161841480728e-09,
+      "actualPerpendicularResidualWorld": 1.1662003280593849e-07,
+      "quadMaxErrorVersusAnalyticNativePx": 1.9073486328125e-05,
+      "legacySourceOffRayResidualWorld": 1.231538627799683e-07,
+      "newXYZDriverOutputs": [
+        2.291601575166169e-08,
+        0.26212865114212036,
+        0.18354445695877075
+      ],
+      "bottomWorld": [
+        0.03864513337612152,
+        -0.17523904144763947,
+        0.5667569637298584
+      ],
+      "bottomPixel": [
+        201.8931427001953,
+        402.8804588317871
+      ]
+    }
+  ],
+  "turnFrames": [
+    {
+      "index": 0,
+      "angleDegrees": -180,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/000.png",
+      "sha256": "f923c70768d99221e939bb505015f948dac753463b2ce5b4003aa10e3862d291"
+    },
+    {
+      "index": 1,
+      "angleDegrees": -165,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/001.png",
+      "sha256": "77a78e1ef3ebe76dd2ae09e6f8891d71c48035b64c908ab9623950b77835bcba"
+    },
+    {
+      "index": 2,
+      "angleDegrees": -150,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/002.png",
+      "sha256": "107731106e3bf3978375c402a9b9f98b3f3cd793475b3dc2930b1b7cbddb663c"
+    },
+    {
+      "index": 3,
+      "angleDegrees": -135,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/003.png",
+      "sha256": "9331d2608c68e72cefbb9f505bca87b42d8d55aafbbb29968170bc2d2357049b"
+    },
+    {
+      "index": 4,
+      "angleDegrees": -120,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/004.png",
+      "sha256": "095bd76578e87107eb1e68f38dae69e8446549e5fde886d1d8776ed7df858740"
+    },
+    {
+      "index": 5,
+      "angleDegrees": -105,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/005.png",
+      "sha256": "e9c4bd70a17f70bc86bb945262f279aa0622df5bac6e2adc6ba85cfc202c8f49"
+    },
+    {
+      "index": 6,
+      "angleDegrees": -95,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/006.png",
+      "sha256": "7985a961ce9d77b9084bca76df756835a4290501e774d9151ad7aee5125ea056"
+    },
+    {
+      "index": 7,
+      "angleDegrees": -90.1,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/007.png",
+      "sha256": "7966a35e7ba090a92f09942c7855a831f7c96cbfcbfd30faafa34803c7b30112"
+    },
+    {
+      "index": 8,
+      "angleDegrees": -90,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/008.png",
+      "sha256": "da5337154d4ad9359171725d91f226ddc3d26c3196cbe009d91486c9ecdd1e0a"
+    },
+    {
+      "index": 9,
+      "angleDegrees": -89.9,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/009.png",
+      "sha256": "898be1550d62083ac1b008b6cce0a4ff570fff6ab04255c0b380b39a340705af"
+    },
+    {
+      "index": 10,
+      "angleDegrees": -85,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/010.png",
+      "sha256": "eb3b183132bf6b10dab71db3a58b9e0cb69390c48d3534cb672e6078e8b1324c"
+    },
+    {
+      "index": 11,
+      "angleDegrees": -75,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/011.png",
+      "sha256": "4b509e32f8e3ea2685c2f1401b5c085cbc1301bd65eec3517dc98e88f0aca2fd"
+    },
+    {
+      "index": 12,
+      "angleDegrees": -45,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/012.png",
+      "sha256": "6a253cc9b0e1c8940393860c389323141c98ea0921450b91876ba7734c96e815"
+    },
+    {
+      "index": 13,
+      "angleDegrees": 0,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/013.png",
+      "sha256": "3a9ef2c36dbca43e1135bcfe38bdef1194d7390e75c93235a60b667c374ffdc2"
+    },
+    {
+      "index": 14,
+      "angleDegrees": 45,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/014.png",
+      "sha256": "5359abb03730ec4228068508fc7690b581b491d3aa0fd2027d86e5e6ab334926"
+    },
+    {
+      "index": 15,
+      "angleDegrees": 75,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/015.png",
+      "sha256": "3e260c5328d90e516cbc5c21a58038e00433aa98e1ba4df4edba755e19bc6078"
+    },
+    {
+      "index": 16,
+      "angleDegrees": 85,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/016.png",
+      "sha256": "211af90fef1e415db140178ae3eac388a553c2656a48e32ecd2924ffd5457b42"
+    },
+    {
+      "index": 17,
+      "angleDegrees": 89.9,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/017.png",
+      "sha256": "f1fdbb63bc97cf42f036f0358c287f74e71209f59bfe64a5c2a90c3b05f63919"
+    },
+    {
+      "index": 18,
+      "angleDegrees": 90,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/018.png",
+      "sha256": "b737993beb93638e5a81ad0da794d6dc535699e0df50b56c0f0e12e5703ea3cd"
+    },
+    {
+      "index": 19,
+      "angleDegrees": 90.1,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/019.png",
+      "sha256": "111c04696f44ef065b7d92f29a521b971a8e895849dde4a35d07a4dcbea6c471"
+    },
+    {
+      "index": 20,
+      "angleDegrees": 95,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/020.png",
+      "sha256": "ec0c1fa8b781f182788ccbac9ffcead0524ef4921c2b5b941970f7ff11a4af27"
+    },
+    {
+      "index": 21,
+      "angleDegrees": 105,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/021.png",
+      "sha256": "fade165374d258cc55481f31b1d8cf3077a4696ee770fde1a98b3914ec957ed9"
+    },
+    {
+      "index": 22,
+      "angleDegrees": 120,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/022.png",
+      "sha256": "11173e2f92781365c8085af8b7e6cad4d4f209a0c1e6cedf0fbebc24992d6b18"
+    },
+    {
+      "index": 23,
+      "angleDegrees": 135,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/023.png",
+      "sha256": "10675ea36ac6a3dfdd9a31de7d4bbf5995020cb26266f2527ffb6aa1b0ffb225"
+    },
+    {
+      "index": 24,
+      "angleDegrees": 150,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/024.png",
+      "sha256": "2883d892e51b51eb4fceb295cf6f4b22ecd77803c25a9527161ed4bc5a4a44d9"
+    },
+    {
+      "index": 25,
+      "angleDegrees": 165,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/025.png",
+      "sha256": "eddb902a92981a005d485bf2831391b34aded46e250f29a5241a83affd0d8fa3"
+    },
+    {
+      "index": 26,
+      "angleDegrees": 180,
+      "path": "candidates/round-02/runtimeVariants/turn-frames/026.png",
+      "sha256": "98d7e78b92bc86ee5c31064ead8cf25c988e64b84218f5778b557d4260ce03b7"
+    }
+  ]
+}

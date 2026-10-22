@@ -1,0 +1,56 @@
+{
+  "asset": "chef-omar",
+  "round": "round-02",
+  "variant": "cucumber",
+  "basis": "round-02-resources/approved-runtime.blend",
+  "basisSHA256": "87da0e18bcadfebc48307ecb47898e06e28cbd8c4c1c736c7fe0c0260034d6c0",
+  "canonical": "round-02-resources/dish-cucumber.png",
+  "canonicalSHA256": "b334e9a8d8affac485ff5b5d160c04a338dc4baa9ede7fc2850748c70718e930",
+  "canonicalSize": [
+    635,
+    511
+  ],
+  "scene": "Omar cucumber warm soft round01",
+  "collection": "S11 cucumber S33_CHARACTER_chef_omar.002",
+  "root": "S11 cucumber chef_omar__ground_root.001",
+  "armature": "S11 cucumber chef_omar__armature.001",
+  "rig": "runtime-rig-round02.json",
+  "candidate": "runtime-round-02.blend",
+  "canonicalBaseline": "round-02-resources/canonical-v2-runtime.blend",
+  "candidateFolder": "../candidates/round-02/runtimeVariants",
+  "law": "d(f)=d0-(d0-dMin)*max(0,-f)^2",
+  "dMinWorld": 0.4,
+  "f": "cos(rootYaw), measured dot(normalized semantic ground-forward(0,-1,0),fixed camera horizontal(0,-1,0))",
+  "nativeCaptureScale": 2,
+  "nativeResolution": [
+    384,
+    640
+  ],
+  "publishedScale": 2,
+  "publishedResolution": [
+    384,
+    640
+  ],
+  "logicalFrame": [
+    192,
+    320
+  ],
+  "logicalRoot": [
+    96,
+    248
+  ],
+  "publicationSampling": "Identity whole-canvas copy; native and published scale both2. No sampling/crop/fit.",
+  "candidateSHA256": "6a26cdc069b95b5e2a4b8e2ddbc14e496b7f7a7c6b4dcd18373e1e1a742927ae",
+  "canonicalBaselineSHA256": "d3ff2fedb4ac90b247ef1e07da4dfb7910bd72c28e5c474223e5f3e7bdd78e01",
+  "measuredD0World": 0.5999999971247001,
+  "localXYCoefficient": 0.39319298125871605,
+  "originalLocalZ": 0.27531668543815613,
+  "canonicalLocalWidth": 0.2800000011920929,
+  "canonicalLocalHeight": 0.22532283560497554,
+  "driverExpressionsXYZ": [
+    "-sin(facing)*0.39319298125871605*(1-(1-0.40000000000000002/0.59999999712470009)*max(0,-cos(facing))**2)",
+    "-cos(facing)*0.39319298125871605*(1-(1-0.40000000000000002/0.59999999712470009)*max(0,-cos(facing))**2)",
+    "0.27531668543815613*(1-(1-0.40000000000000002/0.59999999712470009)*max(0,-cos(facing))**2)"
+  ],
+  "preservedYawExpression": "-facing"
+}
