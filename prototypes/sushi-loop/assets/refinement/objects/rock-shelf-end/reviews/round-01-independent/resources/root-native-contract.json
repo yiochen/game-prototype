@@ -1,0 +1,554 @@
+{
+  "asset": "rock-shelf-end",
+  "version": 1,
+  "status": "root-frozen-before-editor",
+  "sourceProposal": {
+    "path": "reviews/preparation-v1/proposed-native-contract.json",
+    "sha256": "c53edef3994f962655d7a6047467d560c8b319637e47f19c2412fd384ed27739"
+  },
+  "preparationManifest": {
+    "path": "reviews/preparation-v1/hash-manifest.json",
+    "sha256": "d560b022461567f812da51c3818a03b8f333e4e58714d4558d6789bc7269b677",
+    "rootVerifiedFiles": 64
+  },
+  "nativeContract": {
+    "asset": "rock-shelf-end",
+    "version": 1,
+    "status": "independent-proposal-awaiting-root-freeze",
+    "stage": "PREPARATION ONLY; no derivative candidate or approval",
+    "source": {
+      "project": "resources/native/original-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "collection": "S33_PROP_rock-shelf-end.001",
+      "root": {
+        "name": "rock-shelf-end__root.001",
+        "location": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "properties": {
+          "ports": "[{\"direction\": \"W\", \"position\": [-0.5, 0, 0], \"profile\": \"rock-shelf-section-v1\", \"normal\": [-1, 0, 0]}]",
+          "nonblocking": false,
+          "depth_layer": "world",
+          "support_cells": "[[0, 0]]",
+          "asset_id": "rock-shelf-end",
+          "family": "issue-33-world-props",
+          "footprint_cells": "[1, 1]",
+          "ground_root": "[0, 0, 0]",
+          "visual_height": 0.45,
+          "sockets": "{}",
+          "directions": "[\"N\", \"E\", \"S\", \"W\"]",
+          "animation_recipes": "{\"static\": {\"frames\": 1, \"fps\": 12, \"loop\": false, \"static\": true}}",
+          "axis_convention": "X=x; depth=-Y; height=Z",
+          "source": "prop_builders.py",
+          "notes": "[\"Continuous native loft. Endpoint profile is exact; intermediate facets/detail never alter the seam. Match only identical profile IDs.\"]",
+          "artStyle": "faceted-approved-2026-10-19",
+          "production_id": "rock-shelf-end",
+          "native_action_record": "{\"source\": \"native_actions.py\", \"assetId\": \"rock-shelf-end\", \"clips\": {\"static\": []}}"
+        }
+      },
+      "actualBoundsLocalS": [
+        [
+          -0.5,
+          -0.44999998807907104,
+          0.0
+        ],
+        [
+          0.35899999737739563,
+          0.44999998807907104,
+          0.4490000009536743
+        ]
+      ],
+      "actualNativeEvidence": "measurements/original-native.json",
+      "invalidFirstAudit": "measurements/initial-invalid-hidden-collection-measurement.json is retained only as invalid history; hidden/excluded collection yielded stale detail transforms before corrected explicit unhide/isolation. Do not use its bounds."
+    },
+    "modelingFreedom": "Improve native forms, proportions, construction and purposeful decoration within functional/capture/port/support constraints. Original three scratch bars, east strip, part counts and awkward slab geometry are not requirements. Frozen target is an aesthetic direction, not exact height/support/registration proof.",
+    "functionalEnvelope": {
+      "footprint": [
+        1,
+        1
+      ],
+      "occupiedCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "supportCells": [
+        [
+          0,
+          0
+        ]
+      ],
+      "rootCell": [
+        0.5,
+        0.5
+      ],
+      "heightMaximum": 0.45,
+      "nonblocking": false,
+      "sockets": {},
+      "finiteGround": {
+        "z": 0,
+        "polygonXY": [
+          [
+            -0.5,
+            -0.45
+          ],
+          [
+            0.34,
+            -0.45
+          ],
+          [
+            0.34,
+            0.45
+          ],
+          [
+            -0.5,
+            0.45
+          ]
+        ],
+        "exactSupportArea": 0.756,
+        "meaning": "The finite ground base ends at X=+.34; nominal cell occupancy does not imply opacity across full1x1. The \u00b1Y .05 margin and +X .16 core-end margin remain. No floor/fullcell/tallwall law applies."
+      },
+      "closedExposedEnd": {
+        "corePlaneX": 0.34,
+        "outwardNormal": [
+          1,
+          0,
+          0
+        ],
+        "profileYZ": [
+          [
+            -0.45,
+            0
+          ],
+          [
+            0.45,
+            0
+          ],
+          [
+            0.45,
+            0.28
+          ],
+          [
+            0.39,
+            0.43
+          ],
+          [
+            -0.39,
+            0.43
+          ],
+          [
+            -0.45,
+            0.28
+          ]
+        ],
+        "actualCapFaces": [
+          {
+            "vertices": [
+              18,
+              19,
+              20,
+              21,
+              22,
+              23
+            ],
+            "normal": [
+              0.9999999403953552,
+              0.0,
+              0.0
+            ],
+            "materialIndex": 0,
+            "smooth": false
+          }
+        ],
+        "role": "Closed east termination, not another connector. Non-port upper form can improve under height/finite envelope; preserve finished-end role and finite ground contact. Existing trim Xmax+.359 at Z.2375..2625 is nonfunctional dressing."
+      },
+      "proposedDesignEnvelope": [
+        [
+          -0.5,
+          -0.45,
+          0
+        ],
+        [
+          0.359,
+          0.45,
+          0.45
+        ]
+      ],
+      "reconciliation": "The proposed upper decoration Xmax .359 derives from actual source; ground remains Xmax .34. Root should freeze these independently so design freedom does not accidentally add a second full-cell reach."
+    },
+    "truePort": {
+      "name": "W",
+      "origin": [
+        -0.5,
+        0,
+        0
+      ],
+      "planeX": -0.5,
+      "outwardNormal": [
+        -1,
+        0,
+        0
+      ],
+      "profileId": "rock-shelf-section-v1",
+      "orderedYZ": [
+        [
+          -0.45,
+          0
+        ],
+        [
+          0.45,
+          0
+        ],
+        [
+          0.45,
+          0.28
+        ],
+        [
+          0.39,
+          0.43
+        ],
+        [
+          -0.39,
+          0.43
+        ],
+        [
+          -0.45,
+          0.28
+        ]
+      ],
+      "sourceActualCapFaces": [
+        {
+          "vertices": [
+            5,
+            4,
+            3,
+            2,
+            1,
+            0
+          ],
+          "normal": [
+            -0.9999999403953552,
+            0.0,
+            0.0
+          ],
+          "materialIndex": 0,
+          "smooth": false
+        }
+      ],
+      "pitchWorld": 1,
+      "pitchLogical": 128,
+      "handedness": "S is authored local orientation. Match middle E to end W with same orientation; rotate both natively for E/N/W. No reflection.",
+      "nonPorts": "Closed east cap X+.34 and exposed \u00b1Y sides/shoulders are not join planes. No N/E/S ports, no corner turn.",
+      "nativeEndpointPolicy": "Bind finite six-point cut, band geometry, actual adjacent custom normals, point albedo and active shader to approved canonical middle source. Exact profileID/AABB alone is insufficient. No geometry beyond W plane, endcap rounding at W, alpha/RGB repair, added overlap or per-view fitting."
+    },
+    "canonicalFamily": {
+      "asset": "rock-shelf-middle",
+      "project": "resources/canonical-middle/round-03.blend",
+      "projectSHA256": "3e6c7cbe865a918dbeec5faf1a48af540f6290e7afc41ef4c987162617199422",
+      "packet": "resources/canonical-middle/packet.json",
+      "packetSHA256": "33fe55a048751dee3457db79b05a7a070224ffb813ab532df8e90bea0fbd7682",
+      "nativeMeasurement": "measurements/canonical-middle-native.json",
+      "band": "W[-.5,-.44] and E[.44,.5], unchanged six-point section. Copy/preserve matching end native field, blend freely inside it.",
+      "customNormals": "Actual saved cap normals are \u00b1X; visible bands interpolate their custom normal field. At shoulders Z.28 they are approximately(0,\u00b11,.00006224); top edges Z.43 are approximately(0,\u00b1.34895775,.93713856), and base bottom corners use -Z on bottom faces. These replace old original flat adjacent-normal assumptions. Full per-corner field is in nativeMeasurement.",
+      "pointAlbedoRGBA": {
+        "baseZ0": [
+          0.1049999967,
+          0.2849999964,
+          0.5199999809,
+          1
+        ],
+        "shoulderZ.28": [
+          0.1212790683,
+          0.3826744258,
+          0.6111627817,
+          1
+        ],
+        "topZ.43": [
+          0.0799999982,
+          0.3899999857,
+          0.6299999952,
+          1
+        ]
+      },
+      "activeMaterial": "rock-shelf-middle canonical blue cyan stone v3: POINT rock_shelf_albedo -> Principled base/emission; roughness .47, specular IORlevel .24, coat .09/roughness .35, emission .11. Actual full graph retained. Planar cap uses native localY/Z2D Voronoi stone field and bump, graph retained; it must not become a visible internal seam.",
+      "fieldParity": {
+        "matchedVisibleBoundaryCorners": 12,
+        "maxComponentNormalDifference": 2.049933300440898e-06,
+        "maxAlbedoDifference": 0.0,
+        "interpretation": "Native saved custom-normal encoding differs by about 2.05e-6 between canonical opposite ends; preserve actual saved canonical field, allow only bounded float encoding tolerance (proposed 1e-5 component), and still require visible all4 join evidence. This is not a seam waiver."
+      },
+      "sourceRecipePolicy": "Saved approved .blend is normative; build-round-03.py is inspected but not executed. Its grade catalog_style.py is byte-identical to retained resources/capture/catalog_style.py. Historical source material/light baseline in middle root contract is distinct from approved round03 native field."
+    },
+    "capture": {
+      "logicalFrame": [
+        192,
+        352
+      ],
+      "logicalRoot": [
+        96,
+        248
+      ],
+      "cellSize": 128,
+      "nativeScale": 4,
+      "nativeFrame": [
+        768,
+        1408
+      ],
+      "publishedScale": 2,
+      "publishedFrame": [
+        384,
+        704
+      ],
+      "pixelAspect": [
+        1.2206555604934692,
+        1
+      ],
+      "elevationDegrees": 55.00797980144134,
+      "type": "ORTHO",
+      "orthoScale": 1.5,
+      "sensorFit": "HORIZONTAL",
+      "cameraWorldMatrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.8192318081855774,
+          -0.5734625458717346,
+          -5.734623432159424
+        ],
+        [
+          0.0,
+          0.5734625458717346,
+          0.8192318081855774,
+          8.1923189163208
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "calibrationLogical": {
+        "root": [
+          96,
+          248
+        ],
+        "unitX": [
+          128,
+          0
+        ],
+        "unitDepth": [
+          0,
+          128
+        ],
+        "unitHeight": [
+          0,
+          -89.6
+        ]
+      },
+      "cardinalAngles": {
+        "S": 0,
+        "E": 1.5707963267948966,
+        "N": 3.141592653589793,
+        "W": -1.5707963267948966
+      },
+      "registeredCameraEvidence": "measurements/replay-camera.json, exact all4 original replay, source-camera input and actual canonical .blend agree. Saved original35degree camera/aspect1/768x1280 is incidental.",
+      "recipe": "EEVEE32; common render.filter_size .5; native4x completeframe -> published2x wholeframe BOX. Fixed common settings across views and connected captures. No image processing besides uniform whole-frame resize and atlas packing.",
+      "rig": [
+        {
+          "name": "shelf broad centered overhead",
+          "type": "AREA",
+          "shape": "DISK",
+          "location": [
+            0.0,
+            0.0,
+            18.0
+          ],
+          "rotation": [
+            0.0,
+            -0.0,
+            0.0
+          ],
+          "energy": 850.0,
+          "size": 15.0,
+          "useShadow": false,
+          "color": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "shelf symmetric cardinal (15, 0)",
+          "type": "AREA",
+          "shape": "DISK",
+          "location": [
+            15.0,
+            0.0,
+            6.0
+          ],
+          "rotation": [
+            1.2018368244171143,
+            -0.0,
+            1.5707963705062866
+          ],
+          "energy": 1850.0,
+          "size": 12.0,
+          "useShadow": false,
+          "color": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "shelf symmetric cardinal (0, 15)",
+          "type": "AREA",
+          "shape": "DISK",
+          "location": [
+            0.0,
+            15.0,
+            6.0
+          ],
+          "rotation": [
+            1.2018368244171143,
+            -1.4083425980970787e-07,
+            -3.141592502593994
+          ],
+          "energy": 1850.0,
+          "size": 12.0,
+          "useShadow": false,
+          "color": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "shelf symmetric cardinal (-15, 0)",
+          "type": "AREA",
+          "shape": "DISK",
+          "location": [
+            -15.0,
+            0.0,
+            6.0
+          ],
+          "rotation": [
+            1.2018368244171143,
+            -0.0,
+            -1.5707963705062866
+          ],
+          "energy": 1850.0,
+          "size": 12.0,
+          "useShadow": false,
+          "color": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "shelf symmetric cardinal (0, -15)",
+          "type": "AREA",
+          "shape": "DISK",
+          "location": [
+            0.0,
+            -15.0,
+            6.0
+          ],
+          "rotation": [
+            1.2018368244171143,
+            -0.0,
+            0.0
+          ],
+          "energy": 1850.0,
+          "size": 12.0,
+          "useShadow": false,
+          "color": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      ],
+      "worldStrength": 0,
+      "groundReceiver": false,
+      "colorManagement": {
+        "view": "Standard",
+        "look": "None",
+        "exposure": 0,
+        "gamma": 1,
+        "sRGBContrast": 1.35,
+        "alpha": "bypasses grade",
+        "dither": 0
+      }
+    },
+    "staticMotion": {
+      "clip": "static",
+      "frames": 1,
+      "frameOrder": [
+        0
+      ],
+      "nativeFrame": 1,
+      "fps": 12,
+      "static": true,
+      "loop": false,
+      "armatures": 0,
+      "objectActions": [],
+      "materialNodeActions": [],
+      "shapeKeys": false,
+      "noAnimationRequired": true,
+      "evidence": "Actual original objects and materials/node animation data inspected, no actions/armatures/shape keys; matches own source-rig. Canonical likewise has no animation."
+    },
+    "boundedReplay": {
+      "knownOriginalRecipe": "Saved source native filter1.5/EEVEE32 plus original wholeframe LANCZOS4x->2x publisher.",
+      "renderedNativeViews": 4,
+      "rerenderedNativeViews": 0,
+      "comparison": "measurements/original-replay-comparison.json",
+      "all4RGBAExact": true,
+      "rendererResidual": "none observed: zero differing RGBA pixels in all four known atlases.",
+      "measurementOnlyCorrection": "Collection unhide correction reran native measurement, not original renders.",
+      "notCandidateEvidence": true
+    },
+    "consumer": {
+      "worldSpriteRaster": "resources/consumer/world-sprite-raster.js",
+      "worldSpriteRasterSHA256": "570a0d0d788ab65252724da1f0ff7d82a086eab1875ba37ed032dac34acf9545",
+      "spriteLayout": "resources/consumer/sprite-layout.js",
+      "spriteLayoutSHA256": "099de61830564dbe0de7e3b85ffbeefcc1b80555098ed499b889b50db6074c65",
+      "policy": "Use exact current worldRasterPlan/paintWorldRaster and registered spriteFrame/groundRoot/orderPlacements. Common native canvas nearest composition after canvas sizing; final wholecanvas browser filtering. No helper modification, tile overlap, alpha inflation, local RGB repair or runtime fix."
+    },
+    "candidateEvidencePlan": "evidence-plan.json",
+    "criteria": "../criteria.json",
+    "approval": "None. Root must reconcile/freeze proposed contract and criteria before fresh editor candidate work."
+  },
+  "reconciliation": {
+    "truePort": "Only W X=-.5, canonical six-point finite shelf section, pitch1; exact approved middle03 evaluated band geometry/normal/albedo/material field. Names/AABBs insufficient. Native saved opposite-end normal codec discrepancy2.05e-6 permits only1e-5 representation tolerance, never visible seam waiver.",
+    "ground": "Finite ground rectangle X[-.5,.34]/Y\u00b1.45/Z0/area.756 preserved. No fullsquare opaque floor or second E connector.",
+    "envelope": "Total X[-.5,.359]/Y\u00b1.45/Z0...45 with1e-5 float representation tolerance. X>.34 is elevated decorative allowance only, geometry there mustZ>=.02. Actual prior trim occupiesZ.2375...2625.",
+    "designFreedom": "Closed finished E role and finite ground remain, while exposed non-port upper end/crown/sides, topology/counts/decoration can improve within envelope. Source flat exposed end sixpointcap and scratch/strip shapes are measurements, not a second canonical join-profile lock.",
+    "sampling": "Actual55.0079798/aspect1.22065/logical192352/root96248/cell128/native4x7681408->wholeBOX2x384704/filter.5/static1/12fps/nonloop/all4/canonical5light rig.",
+    "evidence": "All4 canonical-middle/end actual native and independent current570consumer joins, disconnected closed-end visibility,128/32/lightgraydark/representative fractional phases. Broad finite-light/source-extent residuals separate, no visible seam/crack/line/band/opaqueinterioralpha-loss waiver."
+  },
+  "evidencePlan": {
+    "path": "reviews/preparation-v1/evidence-plan.json",
+    "sha256": "502dfbbb8307227cbab7402594e3df144fa17b0167c79d32763eb6e86c512675"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "candidatePacketSHA256": "78aa604f09c1247d378971577242f50ac432bf420fd1905ec4535219cb5c7baf",
+  "runtime": {
+    "python": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "pythonVersion": "3.12.14",
+    "pillow": "12.3.0",
+    "numpy": "2.3.5",
+    "node": "v22.18.0",
+    "blender": "/opt/homebrew/bin/blender 5.2.2 LTS",
+    "bytecodeWrites": false
+  },
+  "commands": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender --background resources/round-01.blend --python drivers/native_review.py",
+      "log": "logs/native-review.log",
+      "result": "4 native single views, 8 native family views, no source save"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender --background resources/round-01.blend --python drivers/source_controls.py",
+      "log": "logs/source-controls.log",
+      "result": "Actual linked-library, camera, frame/loop/static/compositor control audit"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m http.server 9146 --bind127.0.0.1 --directory OBJECT",
+      "log": "logs/http-server.log",
+      "result": "Task-owned server stopped after browser controls; exact PID62696 terminated"
+    },
+    {
+      "command": "node drivers/browser_control.mjs",
+      "log": "logs/browser-control.log",
+      "result": "Fresh full Chromium channel:chromium and default bundled shell; both153.0.8010.12, zero page errors"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 drivers/analyze_review.py",
+      "log": "logs/independent-analysis.log",
+      "result": "Exact bytes/raw comparisons, common registered crop mapping, actual CSS screenshots at128 and32/DPR1/2; final crop[16,128,432,608] covers entire family"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 drivers/projected_join_checks.py",
+      "log": "logs/projected-join-checks.log",
+      "result": "Finite projected E/W cut polygon region alpha/RGB checks"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 drivers/finalize_review.py",
+      "result": "Supplemental manifest first, immutable exact packet-bound review second"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py rock-shelf-end --round round-01",
+      "log": "logs/acceptance-contract.log",
+      "result": "Executed only after review is saved; excluded from its own supplemental dependency manifest to prevent cycle"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 drivers/postseal.py",
+      "result": "Postseal binds review + supplemental manifest + unchanged gate script/output acyclically"
+    }
+  ],
+  "executedClosure": "Native driver uses bpy/mathutils/bpy_extras/stdlib directly; no editor build/capture code executed. Actual self-contained candidate and normative middle .blend copied bytes. Browser driver imports installed @playwright/test and exact saved570/099 helper copies; only unused React hook imports are shimmed. No helper or candidate file changed. Read-only provided technical drivers/records saved as resources/provided-*."
+}

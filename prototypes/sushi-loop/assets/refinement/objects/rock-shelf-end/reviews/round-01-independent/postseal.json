@@ -1,0 +1,27 @@
+{
+  "asset": "rock-shelf-end",
+  "round": "round-01",
+  "verdict": "approve",
+  "candidatePacketSHA256": "78aa604f09c1247d378971577242f50ac432bf420fd1905ec4535219cb5c7baf",
+  "review": {
+    "path": "reviews/round-01.json",
+    "sha256": "f5b575c1eaf24878c905d97bc837115075d1bc62f07e361c0d44b20f43ceec12"
+  },
+  "supplementalManifest": {
+    "path": "reviews/round-01-independent/supplemental-manifest.json",
+    "sha256": "2fa096a624380977ec3505c7ae7e4aba2380ad98c1af363bae2f797cd1577c9b"
+  },
+  "gate": {
+    "path": "reviews/round-01-independent/logs/acceptance-contract.log",
+    "sha256": "95faf38b7650e585cec65036abcc509bb44cc712c8d285bd198b0d624f6aca85",
+    "unchangedValidatorSHA256": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d",
+    "result": {
+      "asset": "rock-shelf-end",
+      "method": "independent-review",
+      "sha256": "f5b575c1eaf24878c905d97bc837115075d1bc62f07e361c0d44b20f43ceec12"
+    }
+  },
+  "acyclicOrder": "supplemental inputs/artifacts -> manifest -> review -> gate result -> this postseal; manifest excludes review/gate/postseal",
+  "sourceSHA256": "8be2b29071b8b22294290309e64df12c1b6150ac3832d61096bd11301b0dbf8b",
+  "noFurtherPermission": "Asset/candidate-specific visual approval only; no family derivative, production, publish or Godot approval inferred."
+}

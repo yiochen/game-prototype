@@ -1,0 +1,12 @@
+{
+  "asset":"rock-shelf-end", "round":"round-01",
+  "scope":"Native editable candidate and review evidence only; no editor approval or production integration.",
+  "tools":{"blender":"/opt/homebrew/bin/blender","blenderVersion":"5.2.2 LTS d13f752e3b9c","python":"/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3","node":"/usr/local/bin/node","browser":"@playwright/test Chromium 153.0.8010.12"},
+  "reconstruction":["blender -b --python source/build-round-01.py","blender -b --python source/capture-round-01.py","blender -b --python source/validate-native.py","python source/publish-round-01.py","python -m http.server 9138 --bind 127.0.0.1 (object root)","node source/browser-check.mjs","python source/analyze-consumer.py fullChrome","python source/analyze-consumer.py shell","python source/finalize-evidence.py"],
+  "immutability":"Run only in an isolated copy before sealing; saved source is normative and can be opened independently without executing construction.",
+  "capture":{"singleLogical":[192,352],"singleRoot":[96,248],"familyLogical":[448,608],"familyRoot":[224,376],"nativeScale":4,"publishedScale":2,"reduction":"complete-frame BOX only","filter":0.5,"cell":128,"elevation":55.00797980144134,"aspectX":1.2206555604934692,"facings":{"S":0,"E":90,"N":180,"W":-90},"fps":12,"frames":1,"loop":false},
+  "modelChange":"Native finite end remap, seven-segment .085 bevel over 5 upper closed-end edges, two embedded accent stones. Actual saved canonical W cap/band packed corner normal bytes, point albedo and material graph retained.",
+  "frozenDependencies":{"canonical":"source/resources/canonical-middle03.blend","consumer":"source/resources/world-sprite-raster.js and sprite-layout.js; exact unchanged570a0d0d and099de618","assemblyPlan":"source/resources/evidence-plan.json"},
+  "pixelPolicy":"No crop/fitting/warping/recoloring or alphaRGB repair of native frames. Only fullframe BOX publication; review sheets use common diagnostic crops and are labeled. Native color grade is saved exact canonical scene compositor with alpha bypass.",
+  "browserEvidence":"Both headless channel:'chromium' fullChrome and default bundled headless shell; all4×3backgrounds×4root/panphases,128/32,DPR1 and phoneDPR2, portrait360×780/landscape844×390, thirteen-middle run plus two opposing ends. Actual native canvases and whole-page screenshots retained; cross-mode differences reported without assuming screenshot equivalence."
+}
