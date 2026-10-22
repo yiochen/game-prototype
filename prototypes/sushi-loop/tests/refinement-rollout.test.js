@@ -120,7 +120,7 @@ test('independent object pairs stay separate and conveyor recipe reuse follows u
     assert.equal(object.independentReviewRequired, false);
   }
   assert.equal(progress.completed, promoted.length);
-  assert.equal(progress.total, progress.objects.filter(object => object.status !== 'skipped').length);
+  assert.equal(progress.total, progress.objects.filter(object => !['skipped', 'deferred'].includes(object.status)).length);
 });
 
 test('restaurant floor tiles retain their original catalog contract and image bytes', () => {

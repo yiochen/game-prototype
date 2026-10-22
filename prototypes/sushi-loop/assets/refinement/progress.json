@@ -3,10 +3,10 @@
   "style": "Warm, softly lit cartoon with rounded readable volumes and restrained material highlights; preserve each asset identity and palette.",
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
-  "total": 115,
+  "total": 102,
   "completed": 60,
-  "published": 59,
-  "current": "59 objects live; Samir round01 approved and publishing as object60 with exact salmon/empty runtime receipt. Ellis independent review ongoing; fresh June editor modeling; fresh coin-pop judge source assessment. Final Godot cutover pending.",
+  "published": 60,
+  "current": "60 objects live of102 in current scope. Thirteen user-classified2D effects deferred with original sprites; no Blender refinement. June/Ellis/coin-pop independent reviews active or complete, awaiting individual publication. Final existing Godot cutover pending.",
   "objects": [
     {
       "id": "plant-angular",
@@ -791,14 +791,16 @@
       "editor": "catalog_customer_ellis_editor_v1",
       "judge": "catalog_customer_ellis_judge_v1",
       "pendingRound": "round-02",
-      "pendingPacketSHA256": "a802558c37401930f215f0940a23a1c5973c5550c91f3c1687b3bf3ae3614ff1"
+      "pendingPacketSHA256": "a802558c37401930f215f0940a23a1c5973c5550c91f3c1687b3bf3ae3614ff1",
+      "round": "round-03",
+      "packetSHA256": "1176169b3b759dbb5993e4003597aec0989e60a423b384b1b9744f894f01e396"
     },
     {
       "id": "customer-samir",
       "name": "Samir",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 10,
       "frames": 480,
       "target": "inputs/target.png",
@@ -806,20 +808,23 @@
       "editor": "catalog_customer_samir_editor_v1",
       "judge": "catalog_customer_samir_judge_v1",
       "round": "round-01",
-      "packetSHA256": "32de19b6f52a0730e9c6e65f209a031d06286621833a193d139ffa5d83d508f7"
+      "packetSHA256": "32de19b6f52a0730e9c6e65f209a031d06286621833a193d139ffa5d83d508f7",
+      "publishedCommit": "fd93f1eac909896e4626623de9461bd12a2d160c"
     },
     {
       "id": "customer-june",
       "name": "June",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "reviewing",
       "clips": 10,
       "frames": 480,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_customer_june_editor_v1",
-      "judge": "catalog_customer_june_judge_v1"
+      "judge": "catalog_customer_june_judge_v1",
+      "round": "round-02",
+      "packetSHA256": "f3a79e8c62ff48581109a45a9a164ac31c3b33430cad57a156953cdf6231b259"
     },
     {
       "id": "dish-salmon",
@@ -944,10 +949,14 @@
       "name": "World coin icon",
       "kind": "effect",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "reviewing",
       "clips": 1,
       "frames": 48,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "editor": "catalog_coin_pop_editor_v1",
+      "judge": "catalog_coin_pop_judge_v1",
+      "round": "round-01",
+      "packetSHA256": "539a740b721389d50d23efb885b04f5b8a57972a917d4860b79a73a09504faea"
     },
     {
       "id": "garbage-sofa",
@@ -1359,30 +1368,51 @@
       "name": "Background fish silhouette",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "deferred",
       "clips": 1,
       "frames": 48,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "annotation": "2D effect \u00b7 deferred",
+      "refinementPolicy": {
+        "classification": "2d-effect",
+        "status": "deferred",
+        "blenderRefinement": false,
+        "instruction": "2D effect. Refinement deferred at the user request; retain existing sprites. Do not dispatch Blender work. A future 2D pass requires a resumed scope."
+      }
     },
     {
       "id": "decor-bubbles",
       "name": "Ambient bubbles",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "prepared",
+      "status": "deferred",
       "clips": 1,
       "frames": 48,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "annotation": "2D effect \u00b7 deferred",
+      "refinementPolicy": {
+        "classification": "2d-effect",
+        "status": "deferred",
+        "blenderRefinement": false,
+        "instruction": "2D effect. Refinement deferred at the user request; retain existing sprites. Do not dispatch Blender work. A future 2D pass requires a resumed scope."
+      }
     },
     {
       "id": "decor-light-shafts",
       "name": "Underwater light shafts",
       "kind": "effect",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "deferred",
       "clips": 1,
       "frames": 48,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "annotation": "2D effect \u00b7 deferred",
+      "refinementPolicy": {
+        "classification": "2d-effect",
+        "status": "deferred",
+        "blenderRefinement": false,
+        "instruction": "2D effect. Refinement deferred at the user request; retain existing sprites. Do not dispatch Blender work. A future 2D pass requires a resumed scope."
+      }
     },
     {
       "id": "submarine-yellow",
@@ -1439,20 +1469,34 @@
       "name": "Lateral current cue",
       "kind": "effect",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "deferred",
       "clips": 1,
       "frames": 48,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "annotation": "2D effect \u00b7 deferred",
+      "refinementPolicy": {
+        "classification": "2d-effect",
+        "status": "deferred",
+        "blenderRefinement": false,
+        "instruction": "2D effect. Refinement deferred at the user request; retain existing sprites. Do not dispatch Blender work. A future 2D pass requires a resumed scope."
+      }
     },
     {
       "id": "boost-trail",
       "name": "Boost glow and trail",
       "kind": "effect",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "deferred",
       "clips": 1,
       "frames": 48,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "annotation": "2D effect \u00b7 deferred",
+      "refinementPolicy": {
+        "classification": "2d-effect",
+        "status": "deferred",
+        "blenderRefinement": false,
+        "instruction": "2D effect. Refinement deferred at the user request; retain existing sprites. Do not dispatch Blender work. A future 2D pass requires a resumed scope."
+      }
     },
     {
       "id": "portal-rim",
@@ -1509,30 +1553,51 @@
       "name": "Harpoon projectile",
       "kind": "effect",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "deferred",
       "clips": 3,
       "frames": 144,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "annotation": "2D effect \u00b7 deferred",
+      "refinementPolicy": {
+        "classification": "2d-effect",
+        "status": "deferred",
+        "blenderRefinement": false,
+        "instruction": "2D effect. Refinement deferred at the user request; retain existing sprites. Do not dispatch Blender work. A future 2D pass requires a resumed scope."
+      }
     },
     {
       "id": "harpoon-cable",
       "name": "Harpoon cable",
       "kind": "effect",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "deferred",
       "clips": 4,
       "frames": 192,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "annotation": "2D effect \u00b7 deferred",
+      "refinementPolicy": {
+        "classification": "2d-effect",
+        "status": "deferred",
+        "blenderRefinement": false,
+        "instruction": "2D effect. Refinement deferred at the user request; retain existing sprites. Do not dispatch Blender work. A future 2D pass requires a resumed scope."
+      }
     },
     {
       "id": "following-strip",
       "name": "Faint vertical following strip",
       "kind": "effect",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "deferred",
       "clips": 1,
       "frames": 48,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "annotation": "2D effect \u00b7 deferred",
+      "refinementPolicy": {
+        "classification": "2d-effect",
+        "status": "deferred",
+        "blenderRefinement": false,
+        "instruction": "2D effect. Refinement deferred at the user request; retain existing sprites. Do not dispatch Blender work. A future 2D pass requires a resumed scope."
+      }
     },
     {
       "id": "attack-reef-fragments",
@@ -1549,50 +1614,85 @@
       "name": "Attack swirl",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "prepared",
+      "status": "deferred",
       "clips": 3,
       "frames": 144,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "annotation": "2D effect \u00b7 deferred",
+      "refinementPolicy": {
+        "classification": "2d-effect",
+        "status": "deferred",
+        "blenderRefinement": false,
+        "instruction": "2D effect. Refinement deferred at the user request; retain existing sprites. Do not dispatch Blender work. A future 2D pass requires a resumed scope."
+      }
     },
     {
       "id": "attack-lateral-current",
       "name": "Lateral attack current",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "prepared",
+      "status": "deferred",
       "clips": 3,
       "frames": 144,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "annotation": "2D effect \u00b7 deferred",
+      "refinementPolicy": {
+        "classification": "2d-effect",
+        "status": "deferred",
+        "blenderRefinement": false,
+        "instruction": "2D effect. Refinement deferred at the user request; retain existing sprites. Do not dispatch Blender work. A future 2D pass requires a resumed scope."
+      }
     },
     {
       "id": "eel-warning-strip",
       "name": "Amber diagonal-hatched eel warning strip",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "prepared",
+      "status": "deferred",
       "clips": 3,
       "frames": 144,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "annotation": "2D effect \u00b7 deferred",
+      "refinementPolicy": {
+        "classification": "2d-effect",
+        "status": "deferred",
+        "blenderRefinement": false,
+        "instruction": "2D effect. Refinement deferred at the user request; retain existing sprites. Do not dispatch Blender work. A future 2D pass requires a resumed scope."
+      }
     },
     {
       "id": "eel-lightning-symbol",
       "name": "Eel lightning symbol",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "prepared",
+      "status": "deferred",
       "clips": 3,
       "frames": 144,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "annotation": "2D effect \u00b7 deferred",
+      "refinementPolicy": {
+        "classification": "2d-effect",
+        "status": "deferred",
+        "blenderRefinement": false,
+        "instruction": "2D effect. Refinement deferred at the user request; retain existing sprites. Do not dispatch Blender work. A future 2D pass requires a resumed scope."
+      }
     },
     {
       "id": "eel-discharge",
       "name": "Electrical discharge",
       "kind": "effect",
       "pipeline": "existing-2d",
-      "status": "prepared",
+      "status": "deferred",
       "clips": 3,
       "frames": 144,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "annotation": "2D effect \u00b7 deferred",
+      "refinementPolicy": {
+        "classification": "2d-effect",
+        "status": "deferred",
+        "blenderRefinement": false,
+        "instruction": "2D effect. Refinement deferred at the user request; retain existing sprites. Do not dispatch Blender work. A future 2D pass requires a resumed scope."
+      }
     }
   ],
   "catalogTotal": 118,
@@ -1600,5 +1700,7 @@
     "floor-cream",
     "floor-blue-wave",
     "floor-checker"
-  ]
+  ],
+  "deferred": 13,
+  "scopePolicy": "deferred-2d-effects.json"
 }
