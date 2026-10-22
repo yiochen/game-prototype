@@ -1,0 +1,186 @@
+{
+  "projectSHA256": "c66726f151d7348a73b4814074a2df986a71bd13f272b95b5634c695e0296f68",
+  "scene": "Ama warm soft round01",
+  "images": [
+    {
+      "name": "dish-salmon.png",
+      "path": "//dependencies-round02/dish-salmon.png",
+      "size": [
+        731,
+        505
+      ],
+      "packed": true,
+      "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+      "alphaMode": "STRAIGHT",
+      "colorSpace": "sRGB"
+    }
+  ],
+  "linkedLibraries": [],
+  "foodPlane": "chef_ama__ground_root.002__held_dish-salmon__image_plane",
+  "foodHolder": "chef_ama__ground_root.002__held_dish-salmon",
+  "foodRayFlags": {
+    "visible_camera": true,
+    "visible_diffuse": true,
+    "visible_glossy": true,
+    "visible_transmission": true,
+    "visible_volume_scatter": true,
+    "visible_shadow": true
+  },
+  "foodDrivers": [
+    {
+      "object": "chef_ama__ground_root.002__held_dish-salmon__image_plane",
+      "path": "rotation_euler",
+      "index": 2,
+      "expression": "-facing",
+      "variables": [
+        {
+          "name": "facing",
+          "targets": [
+            {
+              "id": "chef_ama__ground_root.002",
+              "path": "rotation_euler[2]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "object": "chef_ama__ground_root.002__held_dish-salmon__image_plane",
+      "path": "location",
+      "index": 0,
+      "expression": "-sin(facing)*0.39319298125871605",
+      "variables": [
+        {
+          "name": "facing",
+          "targets": [
+            {
+              "id": "chef_ama__ground_root.002",
+              "path": "rotation_euler[2]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "object": "chef_ama__ground_root.002__held_dish-salmon__image_plane",
+      "path": "location",
+      "index": 1,
+      "expression": "-cos(facing)*0.39319298125871605",
+      "variables": [
+        {
+          "name": "facing",
+          "targets": [
+            {
+              "id": "chef_ama__ground_root.002",
+              "path": "rotation_euler[2]"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "foodShader": [
+    {
+      "material": "chef-ama approved chef_ama__ground_root.002__held_dish-salmon__transparent_2D_material",
+      "nodes": [
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "image": "dish-salmon.png"
+        },
+        {
+          "name": "Emission",
+          "type": "EMISSION",
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          },
+          "image": null
+        },
+        {
+          "name": "Transparent BSDF",
+          "type": "BSDF_TRANSPARENT",
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Weight": 0.0
+          },
+          "image": null
+        },
+        {
+          "name": "Mix Shader",
+          "type": "MIX_SHADER",
+          "inputs": {
+            "Factor": 0.5
+          },
+          "image": null
+        }
+      ],
+      "links": [
+        [
+          "Image Texture",
+          "Color",
+          "Emission",
+          "Color"
+        ],
+        [
+          "Image Texture",
+          "Alpha",
+          "Mix Shader",
+          "Factor"
+        ],
+        [
+          "Transparent BSDF",
+          "BSDF",
+          "Mix Shader",
+          "Shader"
+        ],
+        [
+          "Emission",
+          "Emission",
+          "Mix Shader",
+          "Shader"
+        ],
+        [
+          "Mix Shader",
+          "Shader",
+          "Material Output",
+          "Surface"
+        ]
+      ]
+    }
+  ],
+  "materialInterpretation": "Original alpha/CLIP/Linear/STRAIGHT/sRGB and transparent/emission1 node topology preserved; shader/material inputs remain identical to approved source. Emission participates in secondary rays, so changed food may change physical body radiance.",
+  "source2DExplicit": true,
+  "ok": true
+}

@@ -108,17 +108,18 @@
     "units": "actual native scale2 pixels"
   },
   "source": {
-    "project": "source/round-01.blend",
-    "sha256": "73cf8d7c6c1b4ef4170020424bfa3eebaae47ca4aabd124cb7753d4b1c1d7248",
+    "project": "source/round-02.blend",
+    "sha256": "c66726f151d7348a73b4814074a2df986a71bd13f272b95b5634c695e0296f68",
+    "approvedPhysicalSourceSHA256": "73cf8d7c6c1b4ef4170020424bfa3eebaae47ca4aabd124cb7753d4b1c1d7248",
     "scene": "Ama warm soft round01",
     "collection": "S33_CHARACTER_chef_ama.002",
     "root": "chef_ama__ground_root.002",
     "armature": "chef_ama__armature.001",
-    "recipe": "source/recipe-round01.json",
-    "recipeSHA256": "838a15e628f13743b9902696b0b712afabdf971b56f944fd5a45120e6f23882c",
-    "capture": "candidates/round-01/native-frames.json",
-    "captureSHA256": "6e43b3dcb337eb27665c1f134c5ef35009c52e2b8c19a8f64f7ed5377931863a",
-    "nativeRepresentation": "chef and knife are native mesh/material/rig; held salmon remains separately identified original packed2D insert"
+    "recipe": "source/recipe-round02.json",
+    "recipeSHA256": "f186d62cec87043af738618bb90480a1aa4612bbcaf92c82fd29b667cd64871a",
+    "capture": "candidates/round-02/candidate-phases.json",
+    "captureSHA256": "7b53a08eaa85afa787ab7af4fd0b4b318998133f552275318ae1727fd75519c8",
+    "nativeRepresentation": "exact approved physical chef/knife/rig; canonical packed2D731x505 salmon on original native holder with one global semantic food quad/fullUV"
   },
   "originalRecord": {
     "path": "inputs/source-camera.json",
@@ -390,5 +391,21 @@
       },
       "noGroundPlane": true
     }
+  },
+  "frameAudit": {
+    "path": "candidates/round-02/candidate-phases.json",
+    "sha256": "7b53a08eaa85afa787ab7af4fd0b4b318998133f552275318ae1727fd75519c8",
+    "frames": 192,
+    "rootRotationsDegrees": {
+      "S": 0,
+      "E": 90,
+      "N": 180,
+      "W": -90
+    },
+    "oneSharedUnchangedCameraAndMaterials": true
+  },
+  "priorApprovedRecord": {
+    "path": "candidates/round-01/native-records/camera.json",
+    "sha256": "527a9dbe6e3b395115cdf532ae47ec0d7697eaac6155faef8ed672d3fb592470"
   }
 }

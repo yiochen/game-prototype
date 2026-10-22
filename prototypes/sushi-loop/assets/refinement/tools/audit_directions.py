@@ -59,6 +59,21 @@ def audit(folder, round_name, views=None):
             raise ValueError(f'{folder.name}: packet-bound native render manifest changed')
         manifest = json.loads(manifest_path.read_text())
         records = manifest if isinstance(manifest, list) else manifest.get('renders', manifest.get('frames', []))
+    if not records:
+        # Dependency revisions can store full evaluated poses separately from
+        # their summary validation. Read only the exact candidate phase ledger
+        # bound by this packet, never infer facings from filenames or the brief.
+        phase_ledgers = [(folder / 'candidates' / round_name / item['path'], item['sha256'])
+                         for item in packet['files'].values()
+                         if Path(item['path']).name == 'candidate-phases.json']
+        unique_ledgers = {path.resolve(): sha for path, sha in phase_ledgers}
+        if len(unique_ledgers) > 1:
+            raise ValueError(f'{folder.name}: ambiguous candidate phase ledgers')
+        if unique_ledgers:
+            phase_path, phase_sha = next(iter(unique_ledgers.items()))
+            if hashlib.sha256(phase_path.read_bytes()).hexdigest() != phase_sha:
+                raise ValueError(f'{folder.name}: packet-bound candidate phases changed')
+            records = json.loads(phase_path.read_text())
     entries = records.items() if isinstance(records, dict) else [(record.get('direction'), record) for record in records]
     for facing, record in entries:
         if facing not in measured and isinstance(facing, str) and isinstance(record.get('clip'), str):
