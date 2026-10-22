@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 import struct
+import zlib
 
 CLIPS = ['happy-smile-appear', 'happy-smile-idle', 'happy-smile-fade', 'happy-smile-transition']
 
@@ -78,7 +79,7 @@ def verify_feedback_variants(project: Path, source_project: Path | None = None) 
         return _verify_feedback_variants(project, source_project)
     except ValueError:
         raise
-    except (OSError, KeyError, TypeError, AttributeError, IndexError, struct.error) as error:
+    except (OSError, KeyError, TypeError, AttributeError, IndexError, struct.error, zlib.error) as error:
         raise ValueError(f'Incomplete or invalid smiling-face feedback contract: {error}') from error
 
 

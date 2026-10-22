@@ -10,7 +10,7 @@ import tempfile
 import unittest
 
 from pack_refined_goods import pack
-from refined_feedback_contract import approved_feedback
+from sync_refined_feedback import sync
 from verify_editor_goods import verify_editor_goods
 from verify_feedback_variants import verify_feedback_variants
 
@@ -26,13 +26,7 @@ class RefinementImports(unittest.TestCase):
         cls.goods = cls.project / 'assets/ui/editor-goods'
         pack(PROTOTYPE, cls.goods)
         cls.feedback = cls.project / 'assets/feedback-variants'
-        cls.feedback.mkdir(parents=True)
-        manifest, _, candidate = approved_feedback(PROTOTYPE)
-        (cls.feedback / 'manifest.json').write_text(json.dumps(manifest))
-        for clip, action in manifest['objects']['bubble-happy']['clips'].items():
-            dest = cls.feedback / action['directions']['S']['image']
-            dest.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(candidate / f'runtime-variants/smile/atlases/{clip}-S.png', dest)
+        sync(PROTOTYPE, cls.feedback)
 
     @classmethod
     def tearDownClass(cls):
