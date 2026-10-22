@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 44,
+  "completed": 45,
   "published": 44,
-  "current": "44 objects live. Ama canonical-food round02 approved and publishing. Conveyor recipe queue ready; fresh Rosa editor and foreground-rock judge active; original Mateo judge inspecting held-food followup.",
+  "current": "44 objects live. Remaining validated conveyor recipes publish individually; native character refinement and other fresh object pairs continue. Final Godot sync pending.",
   "objects": [
     {
       "id": "plant-angular",
@@ -378,14 +378,16 @@
       "name": "Corner entering W, exiting N",
       "kind": "belt",
       "pipeline": "native-3d",
-      "status": "prepared-family-bound",
+      "status": "approved",
       "clips": 1,
       "frames": 96,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "workflow": "recipe-reuse",
       "recipeEditor": "catalog_belt_corner_e_n_editor_v1",
-      "independentReviewRequired": false
+      "independentReviewRequired": false,
+      "round": "round-01",
+      "packetSHA256": "c6a0f7b97cd06281de51a22cd997a1952acfd1bcbd0b81f7032835fdfe44a465"
     },
     {
       "id": "belt-corner-s-e",
@@ -598,7 +600,7 @@
       "name": "Ama Mensah",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -610,7 +612,8 @@
       "round": "round-02",
       "packetSHA256": "2b5ead4aad701dd9b47f3467fdbe6fea0d1f04ebb202472a952b87875ca2000b",
       "editor": "catalog_chef_ama_editor_v1",
-      "judge": "catalog_chef_ama_judge_v1"
+      "judge": "catalog_chef_ama_judge_v1",
+      "publishedCommit": "ee43ea7a2b2dd3ca16065a4f35bc365670059942"
     },
     {
       "id": "chef-mateo",
