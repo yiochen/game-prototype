@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "goal": "Review the approved Sushi Loop editor rebuilt with HTML/CSS geometry and only wood-grain and wave image backgrounds before any Godot port.",
+  "delivery": {
+    "screens": [
+      "layout.phone",
+      "people.phone",
+      "floor.phone",
+      "out-of-stock.phone",
+      "shop.phone",
+      "live.phone"
+    ],
+    "devices": [
+      "phone",
+      "narrow",
+      "landscape",
+      "review-browser"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "connected-category-shell",
+      "kind": "screen-family",
+      "description": "A single continuous maple board meets the selected category without a seam, bottom outline, lip or long texture bridge. Inactive tabs remain detached with shallow depth. Category labels share an optical baseline; compact surfaces retain at least 44px input targets, symmetric padding and the translucent row gradient. The row backdrop and inactive-tab depth use dark brown shadows, without a pale yellow shadow wash; maple highlights remain on the faces.",
+      "screens": [
+        "layout.phone",
+        "people.phone",
+        "floor.phone"
+      ]
+    },
+    {
+      "id": "merchandise-and-quantities",
+      "kind": "screen-family",
+      "description": "The normal Layout strip shows four complete named goods with badge quantities 5/1/2/2 and a clipped fifth Barrel as a horizontal scroll cue. The scroll viewport is inset inside the board rim, so merchandise never paints over or beyond the panel edge. Every item remains reachable. Zero-stock keeps goods visible with zero badges and disabled placement. Object previews, badge scale and label weight follow the approved composition rather than filling the whole card.",
+      "screens": [
+        "layout.phone",
+        "out-of-stock.phone"
+      ]
+    },
+    {
+      "id": "alternate-collections",
+      "kind": "screen-family",
+      "description": "People shows three actual chef previews; Floor is a single disabled current swatch. Neither state adds unimplemented hiring or floor painting.",
+      "screens": [
+        "people.phone",
+        "floor.phone"
+      ]
+    },
+    {
+      "id": "separate-shop-action",
+      "kind": "flow",
+      "description": "Shop is a compact separate walnut action, never a tab, with the same 60-unit face height and vertical alignment as an unselected category such as Floor, and at least a 44px hit target. Its unavailable-feature view has one Back action returning to the same editor selection and scroll position.",
+      "screens": [
+        "layout.phone",
+        "shop.phone"
+      ]
+    },
+    {
+      "id": "safe-area-decoration",
+      "kind": "screen-family",
+      "description": "Continuous maple fills the screen bottom with a compact 42-unit decorative footer instead of the former 80-unit footer, expanding only when the real device bottom inset requires it. Carved waves remain inset within this shorter footer and fade at horizontal ends and toward the bottom; task content stays above it across all delivery viewports. Scale the complete repeating engraving uniformly into the footer rather than cropping away most of its rows.",
+      "screens": [
+        "layout.phone",
+        "people.phone",
+        "floor.phone",
+        "out-of-stock.phone"
+      ]
+    },
+    {
+      "id": "gesture-intent",
+      "kind": "flow",
+      "description": "Inventory action annotations specify sideways browsing, upward visual drag preview, tap selection, keyboard browsing and Escape cancellation. The long strip has a visible continuation cue, and unavailable entries cannot be picked up.",
+      "screens": [
+        "layout.phone",
+        "out-of-stock.phone",
+        "floor.phone"
+      ]
+    },
+    {
+      "id": "html-surface-geometry",
+      "kind": "screen-family",
+      "description": "All UI shapes, radii, borders, shadows, badges and glyphs are HTML/CSS/SVG. Only wood-grain.png and waves.png are used as UI image backgrounds; no pre-rendered board, tab, Shop, badge or HUD assets are used. Grain keeps uniform proportions and a shared phase across the board and selected cap.",
+      "screens": [
+        "layout.phone",
+        "people.phone",
+        "floor.phone"
+      ]
+    },
+    {
+      "id": "approved-design-fidelity",
+      "kind": "screen-family",
+      "description": "Match the approved v5 UI composition using native HTML/CSS surfaces, simple monochrome SVG glyphs, cream coin/Editing pills and a vermilion Live button. Retain the later compact heights, clipped inventory and fading footer. Native merchandise and restaurant illustrations stay separate from UI. The upper HUD contains live accessible DOM text and fits narrow phones.",
+      "screens": [
+        "layout.phone",
+        "people.phone",
+        "floor.phone",
+        "out-of-stock.phone",
+        "shop.phone"
+      ]
+    },
+    {
+      "id": "html-hud-and-mode",
+      "kind": "flow",
+      "description": "Coins, Editing and Live are HTML controls with SVG icons and CSS cream/vermilion surfaces. Coins show 7680 as accessible text. Live switches only the presentation to a read-only live preview with the dock hidden; Editing or Escape restores the same category and scroll position. No simulation or save mutation is claimed.",
+      "screens": [
+        "layout.phone",
+        "live.phone"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "created_at": "2026-10-22T05:08:00.936112+00:00",
+  "tool": "image_gen.imagegen",
+  "mode": "built-in",
+  "purpose": "user-requested continuous wood board with item quantity badges",
+  "prompt_file": "prompt.txt",
+  "prompt": "Use case: ui-mockup.\nAsset type: full portrait Sushi Loop mobile-game screenshot, targeted simplification of the bottom editor dock.\nInput image 1 is the EDIT TARGET. Preserve the entire restaurant gameplay area and upper HUD as shown. Redesign only the bottom wood inventory dock.\n\nPrimary request: make the entire dock ONE SIMPLE CONTINUOUS WOOD BOARD, and make item quantities BADGES. The current version is still too layered. Simplify substantially.\n\nThe board is a single smooth warm pale maple surface with subtle sparse horizontal grain, a modest outer corner radius, very thin visible thickness, and one soft shadow. The same uninterrupted flat wood face extends from the upper category row to beneath the item names. Remove ALL separate raised tab buttons, the selected dark rectangular tab block, the horizontal seam between categories and inventory, vertical item dividers/grooves, inset panels, perimeter frames, borders, layered plank edges, lower walnut lip and thick 3D pedestal. Do not merely recolor the existing buttons. No separate cards, slots or patches behind items. This should read as one clean wooden board with icons and labels directly on it.\n\nKeep tabs ABOVE the inventory: one flat row of simple monochrome icon-plus-label groups \"People\", \"Layout\", \"Floor\", \"Shop\", printed directly on the SAME wood surface, not enclosed in buttons. Layout is selected using only a short understated dark-brown underline beneath its label. Dark brown labels and icons, no cloth, no pills, no raised rectangles, no extra header panel.\n\nUnder this row, place the four existing generously sized low-poly previews directly on the board with subtle soft contact shadows: Belt conveyor, yellow Stool, green Plant in wooden planter, brown Crate. Keep the next Barrel partially clipped at the right to suggest horizontal scrolling. Use equal spacing and aligned names. Preserve actual colored item identities rather than making all objects monochrome wood.\n\nAmounts must now be compact circular quantity BADGES positioned consistently at the lower-right of each item preview, just ABOVE the item name. A badge is a small dark walnut/deep-brown filled circle with one crisp warm-ivory numeral, subtle edge highlight only, no glossy decoration. Exactly one badge per fully visible item: Belt \"5\", Stool \"1\", Plant \"2\", Crate \"2\". Badges must be clearly visible and never cover the main object silhouette or the label. Names beneath the objects remain \"Belt\", \"Stool\", \"Plant\", \"Crate\", in crisp dark-brown friendly rounded sans-serif. REMOVE all old \"5 left\", \"1 left\", \"2 left\" lines entirely. No word \"left\", no repeated quantity, no pill or rectangular badge. The clipped Barrel does not need text or a badge.\n\nKeep the board compact and visually light, using the removed stock-text line to reduce excess vertical bulk. Maintain comfortable padding and readable icons, names and badge numbers. Preserve the existing full portrait composition and room visibility. Do not add any features, symbols, titles, tutorials, arrows, pagination, carets, borders, decorative fasteners, watermarks, annotations, phone frame or comparison panels. Output one polished full-screen screenshot. The dominant impression of the bottom dock must be ONE continuous uncomplicated wood board.\n",
+  "references": [
+    {
+      "input_index": 1,
+      "role": "edit target",
+      "path": "/Users/yiouchen/dev/game-prototype/prototypes/sushi-loop/design/inventory-tray-concepts/v3-all-wood/full-screen.png",
+      "sha256": "400c320c856e174d66bd8b776057963b4f38e4167ee5015a1e4d224136b115b0",
+      "parent_provenance": "../v3-all-wood/generation.json"
+    }
+  ],
+  "output": {
+    "file": "full-screen.png",
+    "sha256": "9a44c6b511990eab53244720125c81140ebcaa4e367b4ad4ee7bf46f4d50104d",
+    "original_file": "/Users/yiouchen/.codex/generated_images/01a161e7-dcc5-7753-af71-484aa227ab3c/exec-d0f782b7-d1fd-4232-8f3c-48b222d33c15.png",
+    "original_generation_preserved": true
+  },
+  "visual_review": {
+    "continuous_wood_face": true,
+    "raised_tab_faces_and_dividers_removed": true,
+    "categories_above_inventory": true,
+    "layout_underlined": true,
+    "counts_in_circular_badges": [
+      5,
+      1,
+      2,
+      2
+    ],
+    "old_stock_lines_removed": true,
+    "four_complete_goods_and_clipped_barrel": true,
+    "notes": "Full-screen generative design concept, not a runtime atlas or pixel-exact gameplay composite."
+  },
+  "runtime_changes": false
+}

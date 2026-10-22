@@ -5,7 +5,7 @@ const Persistence = preload("res://scripts/save_store.gd")
 const RestaurantView = preload("res://scripts/restaurant_view.gd")
 const Audio = preload("res://scripts/audio.gd")
 const Typography = preload("res://scripts/typography.gd")
-const EditorPresentation = preload("res://scripts/editor_presentation.gd")
+const EditorPresentation = preload("res://scripts/wood_editor_presentation.gd")
 const UISkin = preload("res://scripts/ui_skin.gd")
 const ScreenLayout = preload("res://scripts/screen_layout.gd")
 const INK := Color("233d58")
@@ -469,22 +469,24 @@ func _arm_item(item: Dictionary) -> void:
 
 func _inventory_pointer(item: Dictionary, event: InputEvent) -> void:
 	if not event is InputEventScreenTouch or not event.pressed or pointer != -1: return
-	if item.kind != "chef" and not str(session.snapshot().editor.selected_id).is_empty():
-		_editor_command({"type": "editor_select", "id": null})
-		if save_blocked: return
-	# gui_input localizes touch positions to the inventory card. Capture the
-	# original screen press in _input before native Control dispatch instead.
-	var local: Vector2 = last_screen_press
+	# Defer arming, selection and placement until direction is owned.
 	pointer = event.index
-	pointer_start = local
-	previous_pointer = local
-	gesture_kind = "inventory"
+	pointer_start = last_screen_press
+	previous_pointer = pointer_start
+	gesture_kind = "inventory_pending"
 	gesture_started_in_tray = true
 	gesture_item = item.duplicate(true)
 	gesture_dragged = false
-	gesture_object = str(item.id) if item.get("assigned", false) else ""
-	armed_item = item.duplicate(true)
-	editor_ui.active_item = str(item.id)
+	gesture_object = str(item.get("id", "")) if item.get("assigned", false) else ""
+
+func _pickup_allowed() -> bool:
+	return not gesture_item.is_empty() and gesture_item.get("available",true) and (int(gesture_item.get("count",0))>0 or gesture_item.get("assigned",false))
+
+func _begin_inventory_pickup() -> void:
+	if not str(session.snapshot().editor.selected_id).is_empty():
+		_editor_command({"type":"editor_select","id":null})
+	armed_item = gesture_item.duplicate(true)
+	editor_ui.active_item = str(gesture_item.id)
 	_refresh()
 
 func _cell_at(position_value: Vector2) -> Vector2i:
@@ -547,17 +549,32 @@ func _input(event: InputEvent) -> void:
 		var local: Vector2 = inverse * event.position
 		var change := local - previous_pointer
 		previous_pointer = local
-		if not gesture_dragged and local.distance_to(pointer_start) >= 18.0:
-			gesture_dragged = true
-		if gesture_kind == "pan":
+		var displacement := local-pointer_start
+		var threshold := 10.0/maxf(0.001,get_viewport_transform().get_scale().x)
+		if gesture_kind == "inventory_pending" and displacement.length() >= threshold:
+			if absf(displacement.x)>absf(displacement.y)*1.3:
+				gesture_kind = "inventory_scroll"
+			elif displacement.y<0 and absf(displacement.y)>absf(displacement.x)*1.3:
+				gesture_kind = "inventory" if _pickup_allowed() else "inventory_cancel"
+				if gesture_kind == "inventory": _begin_inventory_pickup()
+			elif displacement.y>threshold:
+				gesture_kind = "inventory_cancel"
+		if not gesture_dragged and displacement.length() >= threshold: gesture_dragged = true
+		if gesture_kind == "inventory_scroll":
+			editor_ui.scroll_by(-change.x)
+		elif gesture_kind == "pan":
 			_pan(change)
-		elif gesture_dragged:
+		elif gesture_dragged and gesture_kind in ["inventory","object"]:
 			_update_preview(local)
 		get_viewport().set_input_as_handled()
 	elif event is InputEventScreenTouch and not event.pressed and event.index == pointer:
 		var local: Vector2 = inverse * event.position
 		if not event.canceled:
-			if gesture_kind == "pan" and not gesture_dragged and not tap_object.is_empty():
+			if gesture_kind == "inventory_scroll":
+				editor_ui.commit_scroll()
+			elif gesture_kind == "inventory_pending" and not gesture_dragged and _pickup_allowed():
+				_arm_item(gesture_item)
+			elif gesture_kind == "pan" and not gesture_dragged and not tap_object.is_empty():
 				_editor_command({"type": "editor_select", "id": tap_object})
 			elif gesture_kind == "object" and gesture_dragged:
 				if _floor_drop(local):

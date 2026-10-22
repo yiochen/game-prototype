@@ -1,0 +1,178 @@
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/phone/floor.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/narrow/floor.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/landscape/floor.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/review-browser/floor.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/phone/layout.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/narrow/layout.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/landscape/layout.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/review-browser/layout.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/phone/live.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/narrow/live.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/landscape/live.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/review-browser/live.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/phone/out-of-stock.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/narrow/out-of-stock.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/landscape/out-of-stock.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/review-browser/out-of-stock.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/phone/people.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/narrow/people.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/landscape/people.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/review-browser/people.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/phone/shop.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/narrow/shop.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/landscape/shop.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/review-browser/shop.phone.png
+wrote prototypes/sushi-loop/design/editor-dock-preview/.mocklens/screenshots/manifest.json
+MOCKLENS SANITY CHECK — PASS
+Coverage: FULL
+Config: mocklens.config.json
+Configured: 6 unique screens × 4 devices = 24 combinations
+Checked: 6 unique screens × 4 devices = 24 combinations
+Rules checked (9): document-overflow, element-overflow-left, element-overflow-right, clipped-text, broken-image, page-error, external-request, fixed-bottom-cover, fixed-overlay-cover
+Scope: Sanity check only: this does not judge composition, hierarchy, consistency, aesthetics, usability, or fidelity to the brief.
+
+floor.phone (phone 390×844)
+  source: screens/floor.phone.html
+  screenshot: .mocklens/screenshots/phone/floor.phone.png
+  ok — no findings
+
+floor.phone (narrow 320×720)
+  source: screens/floor.phone.html
+  screenshot: .mocklens/screenshots/narrow/floor.phone.png
+  ok — no findings
+
+floor.phone (landscape 1280×720)
+  source: screens/floor.phone.html
+  screenshot: .mocklens/screenshots/landscape/floor.phone.png
+  ok — no findings
+
+floor.phone (review-browser 984×1224)
+  source: screens/floor.phone.html
+  screenshot: .mocklens/screenshots/review-browser/floor.phone.png
+  ok — no findings
+
+layout.phone (phone 390×844)
+  source: screens/layout.phone.html
+  screenshot: .mocklens/screenshots/phone/layout.phone.png
+  SUPPRESSED element-overflow-right — This horizontal inventory viewport deliberately clips the fifth good as a scroll cue. All goods are reachable by scrolling, mouse wheel or keyboard focus.
+    element: div#inventory > div.inventory-row [x=8.7, y=705.3, w=433.3, h=115.9] text="5Belt1Stool2Plant2Crate2Barrel"
+    suggestion: Element extends 51.9px past the right edge of a 390px viewport — check fixed widths, vw units plus padding, or missing overflow clipping.
+
+layout.phone (narrow 320×720)
+  source: screens/layout.phone.html
+  screenshot: .mocklens/screenshots/narrow/layout.phone.png
+  SUPPRESSED element-overflow-right — This horizontal inventory viewport deliberately clips the fifth good as a scroll cue. All goods are reachable by scrolling, mouse wheel or keyboard focus.
+    element: div#inventory > div.inventory-row [x=7.1, y=606.2, w=355.5, h=95.1] text="5Belt1Stool2Plant2Crate2Barrel"
+    suggestion: Element extends 42.6px past the right edge of a 320px viewport — check fixed widths, vw units plus padding, or missing overflow clipping.
+
+layout.phone (landscape 1280×720)
+  source: screens/layout.phone.html
+  screenshot: .mocklens/screenshots/landscape/layout.phone.png
+  ok — no findings
+
+layout.phone (review-browser 984×1224)
+  source: screens/layout.phone.html
+  screenshot: .mocklens/screenshots/review-browser/layout.phone.png
+  ok — no findings
+
+live.phone (phone 390×844)
+  source: screens/live.phone.html
+  screenshot: .mocklens/screenshots/phone/live.phone.png
+  ok — no findings
+
+live.phone (narrow 320×720)
+  source: screens/live.phone.html
+  screenshot: .mocklens/screenshots/narrow/live.phone.png
+  ok — no findings
+
+live.phone (landscape 1280×720)
+  source: screens/live.phone.html
+  screenshot: .mocklens/screenshots/landscape/live.phone.png
+  ok — no findings
+
+live.phone (review-browser 984×1224)
+  source: screens/live.phone.html
+  screenshot: .mocklens/screenshots/review-browser/live.phone.png
+  ok — no findings
+
+out-of-stock.phone (phone 390×844)
+  source: screens/out-of-stock.phone.html
+  screenshot: .mocklens/screenshots/phone/out-of-stock.phone.png
+  SUPPRESSED element-overflow-right — This horizontal inventory viewport deliberately clips the fifth good as a scroll cue. All goods are reachable by scrolling, mouse wheel or keyboard focus.
+    element: div#inventory > div.inventory-row [x=8.7, y=705.3, w=433.3, h=115.9] text="0Belt0Stool0Plant0Crate0Barrel"
+    suggestion: Element extends 51.9px past the right edge of a 390px viewport — check fixed widths, vw units plus padding, or missing overflow clipping.
+
+out-of-stock.phone (narrow 320×720)
+  source: screens/out-of-stock.phone.html
+  screenshot: .mocklens/screenshots/narrow/out-of-stock.phone.png
+  SUPPRESSED element-overflow-right — This horizontal inventory viewport deliberately clips the fifth good as a scroll cue. All goods are reachable by scrolling, mouse wheel or keyboard focus.
+    element: div#inventory > div.inventory-row [x=7.1, y=606.2, w=355.5, h=95.1] text="0Belt0Stool0Plant0Crate0Barrel"
+    suggestion: Element extends 42.6px past the right edge of a 320px viewport — check fixed widths, vw units plus padding, or missing overflow clipping.
+
+out-of-stock.phone (landscape 1280×720)
+  source: screens/out-of-stock.phone.html
+  screenshot: .mocklens/screenshots/landscape/out-of-stock.phone.png
+  ok — no findings
+
+out-of-stock.phone (review-browser 984×1224)
+  source: screens/out-of-stock.phone.html
+  screenshot: .mocklens/screenshots/review-browser/out-of-stock.phone.png
+  ok — no findings
+
+people.phone (phone 390×844)
+  source: screens/people.phone.html
+  screenshot: .mocklens/screenshots/phone/people.phone.png
+  ok — no findings
+
+people.phone (narrow 320×720)
+  source: screens/people.phone.html
+  screenshot: .mocklens/screenshots/narrow/people.phone.png
+  ok — no findings
+
+people.phone (landscape 1280×720)
+  source: screens/people.phone.html
+  screenshot: .mocklens/screenshots/landscape/people.phone.png
+  ok — no findings
+
+people.phone (review-browser 984×1224)
+  source: screens/people.phone.html
+  screenshot: .mocklens/screenshots/review-browser/people.phone.png
+  ok — no findings
+
+shop.phone (phone 390×844)
+  source: screens/shop.phone.html
+  screenshot: .mocklens/screenshots/phone/shop.phone.png
+  ok — no findings
+
+shop.phone (narrow 320×720)
+  source: screens/shop.phone.html
+  screenshot: .mocklens/screenshots/narrow/shop.phone.png
+  ok — no findings
+
+shop.phone (landscape 1280×720)
+  source: screens/shop.phone.html
+  screenshot: .mocklens/screenshots/landscape/shop.phone.png
+  ok — no findings
+
+shop.phone (review-browser 984×1224)
+  source: screens/shop.phone.html
+  screenshot: .mocklens/screenshots/review-browser/shop.phone.png
+  ok — no findings
+
+SANITY CHECK PASS: 6 unique screens × 4 devices = 24 combinations; 0 errors, 0 warnings, 4 suppressed.
+Sanity check only: this does not judge composition, hierarchy, consistency, aesthetics, usability, or fidelity to the brief.
+
+Mocklens verifies proof presence and freshness; it does not judge the truth or quality of subjective UX claims.
+
+UX PROOF — PASS
+UX proof scope: FULL
+Current: 9; missing: 0; stale: 0; total: 9.
+
+VISUAL PROOF — PASS
+Delivery coverage: 6 screens × 4 devices = 24 visual targets (project: 6 × 4 = 24).
+Current: 24; missing: 0; stale: 0; total: 24.
+
+DELIVERY READINESS — PASS
+All required delivery screens and devices have current sanity, UX, and visual proof.
+
+report written to prototypes/sushi-loop/design/editor-dock-preview/.mocklens/report.json

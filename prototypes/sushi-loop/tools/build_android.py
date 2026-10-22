@@ -24,6 +24,7 @@ import verify_chef_variants as chef_contract
 import verify_feedback_variants as feedback_contract
 import verify_editor_ui as editor_ui_contract
 import verify_editor_goods as editor_goods_contract
+import verify_wood_ui as wood_ui_contract
 
 ROOT_FILES = ("project.godot", "main.tscn", "branding.json", "export_presets.cfg")
 RUNTIME_TREES = {
@@ -63,6 +64,7 @@ def runtime_sources(source: Path) -> dict[str, Path]:
     paths.append(source / "assets/chef-variants/manifest.json")
     paths.append(source / "assets/feedback-variants/manifest.json")
     paths.append(source / "assets/ui/editor/manifest.json")
+    paths.append(source / "assets/ui/wood-editor/manifest.json")
     paths.append(source / "assets/ui/editor-goods/manifest.json")
     for directory, suffixes in RUNTIME_TREES.items():
         paths.extend(path for path in (source / directory).rglob("*")
@@ -108,7 +110,13 @@ def validate_catalog(source: Path, files: dict[str, Path]) -> dict:
         f"assets/ui/editor-goods/{name}" for name in editor_goods["runtime_images"]}
     if {name for name in files if name.startswith("assets/ui/editor-goods/")} != expected_goods_files:
         raise ValueError("The staged editor goods payload differs from the verified Blender atlas and manifest.")
+    wood_ui = wood_ui_contract.verify_wood_ui(source)
+    expected_wood_files = {"assets/ui/wood-editor/manifest.json"} | {f"assets/ui/wood-editor/{name}" for name in wood_ui["runtime_images"]}
+    if {name for name in files if name.startswith("assets/ui/wood-editor/")} != expected_wood_files:
+        raise ValueError("The staged wood UI differs from the verified HTML export.")
     return {
+        "wood_ui": wood_ui,
+        "wood_ui_manifest_sha256": sha(source / "assets/ui/wood-editor/manifest.json"),
         "object_count": len(manifest["objects"]),
         "atlas_count": len(atlases),
         "atlas_source_bytes": sum(path.stat().st_size for path in atlases.values()),
@@ -139,6 +147,7 @@ def stage_runtime(source: Path, project: Path) -> tuple[dict[str, str], dict]:
         if hashes[relative] != sha(path):
             raise ValueError(f"Runtime source changed while staging: {relative}")
     catalog_contract.verify_catalog(source.parent / "assets/production", project / "assets/catalog")
+    wood_ui_contract.verify_wood_ui(project, source_project=source)
     recipe_contract.verify_recipe_variants(project, source_project=source)
     chef_contract.verify_chef_variants(project, source_project=source)
     feedback_contract.verify_feedback_variants(project, source_project=source)
@@ -310,6 +319,7 @@ def audit_apk(apk_path: Path, branding: dict, mode: str, build_tools: Path,
         if editor_goods_manifest_path not in names:
             raise ValueError("The verified Blender editor goods manifest is missing from the APK.")
         editor_goods_manifest_hash = hashlib.sha256(apk.read(editor_goods_manifest_path)).hexdigest()
+        wood_manifest_hash = hashlib.sha256(apk.read("assets/assets/ui/wood-editor/manifest.json")).hexdigest()
         needle = password.encode()
         for name in names:
             parts = set(Path(name).parts)
@@ -335,6 +345,7 @@ def audit_apk(apk_path: Path, branding: dict, mode: str, build_tools: Path,
         "chef_manifest_sha256": chef_manifest_hash,
         "feedback_manifest_sha256": feedback_manifest_hash,
         "editor_ui_manifest_sha256": editor_ui_manifest_hash,
+        "wood_ui_manifest_sha256": wood_manifest_hash,
         "editor_goods_manifest_sha256": editor_goods_manifest_hash,
         "archive_entries": len(names), "excluded_material_check": "passed",
     }
@@ -413,6 +424,8 @@ def main() -> int:
         raise ValueError("The APK ImageGen editor UI differs from the verified staged UI manifest.")
     if verification["editor_goods_manifest_sha256"] != catalog["editor_goods_manifest_sha256"]:
         raise ValueError("The APK Blender editor goods differ from the verified staged goods manifest.")
+    if verification["wood_ui_manifest_sha256"] != catalog["wood_ui_manifest_sha256"]:
+        raise ValueError("The APK wood UI differs from the verified HTML export.")
     digest = sha(output)
     metadata = branding | {
         "mode": args.mode, "engine": engine, "apk_sha256": digest, "bytes": output.stat().st_size,

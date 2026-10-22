@@ -1623,6 +1623,11 @@ func _valid_editor_state(state: Dictionary, config: Dictionary) -> bool:
 	var editor: Dictionary = state.editor
 	if not editor.get("layer") in EDITOR_LAYERS or not editor.get("tray_open") is bool or not editor.get("selected_id") is String or not editor.get("pages") is Dictionary:
 		return false
+	if editor.has("scrolls"):
+		if not editor.scrolls is Dictionary: return false
+		for layer in editor.scrolls:
+			var offset: Variant = editor.scrolls[layer]
+			if not layer in EDITOR_LAYERS or not (offset is float or offset is int) or not is_finite(float(offset)) or offset<0 or offset>100000: return false
 	if not _nonnegative_integer(editor.get("page")):
 		return false
 	var objects: Variant = state.get("objects")
@@ -1719,6 +1724,13 @@ func _editor_command(request: Dictionary) -> Dictionary:
 			_state.editor.page = int(request.page)
 			_state.editor.pages[_state.editor.layer] = int(request.page)
 			return {"ok": true}
+		"editor_scroll":
+			var offset: Variant = request.get("offset")
+			if not (offset is float or offset is int) or not is_finite(float(offset)) or offset<0 or offset>100000:
+				return _editor_fail("invalid_scroll")
+			if not _state.editor.has("scrolls"): _state.editor.scrolls = {}
+			_state.editor.scrolls[_state.editor.layer] = float(offset)
+			return {"ok":true}
 		"editor_select":
 			var identity: Variant = request.get("id")
 			if identity == null or identity == "":
