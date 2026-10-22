@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 102,
-  "completed": 67,
-  "published": 66,
-  "current": "dock-floor",
+  "completed": 68,
+  "published": 67,
+  "current": "dock-entry",
   "objects": [
     {
       "id": "plant-angular",
@@ -1037,7 +1037,7 @@
       "name": "Shared dock floor",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
@@ -1051,16 +1051,16 @@
       "previousRejectedPacketSHA256": "205ed0c5916ae2a063423879d771351b4a52999391671f4f6f483c402921378d",
       "brief": "brief-v4-human-reference.json",
       "sharedPlanSHA256": "394b3dfe2b59c81e263cd0a4a5afc213f6e2346c23063a524dc047057ec84293",
-      "pendingPacketSHA256": "411bb31bdb772f94f7db68e7ae9d704dd6f376f090396a0af2c8cc97c8a0e65c",
       "reviewSHA256": "4d38b4100dfdc6325c0e725716128c07586b445b1af1500a08dd1a55692c9149",
-      "packetSHA256": "411bb31bdb772f94f7db68e7ae9d704dd6f376f090396a0af2c8cc97c8a0e65c"
+      "packetSHA256": "411bb31bdb772f94f7db68e7ae9d704dd6f376f090396a0af2c8cc97c8a0e65c",
+      "deployCommit": "90289f66d5dc18f0bdde1b71ed5c159ce8911d92"
     },
     {
       "id": "dock-entry",
       "name": "Dock entry pieces",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "approved-awaiting-publication",
+      "status": "approved",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
@@ -1074,7 +1074,8 @@
       "brief": "brief-v4-human-reference.json",
       "previousRejectedPacketSHA256": "1e1eddc38ea103f5be030b49b870b0f48d8dcd22d304af083f51b243efdf65fc",
       "pendingPacketSHA256": "5e4a1c313176fc0e0474474a0fbc800b3ddd321d9c4076e71da39620a617ba70",
-      "reviewSHA256": "bdf10665eadeace11bea0889cdb09ec605ca37afdc4b64d4300d85e86d75e651"
+      "reviewSHA256": "bdf10665eadeace11bea0889cdb09ec605ca37afdc4b64d4300d85e86d75e651",
+      "packetSHA256": "5e4a1c313176fc0e0474474a0fbc800b3ddd321d9c4076e71da39620a617ba70"
     },
     {
       "id": "workshop-hut",
@@ -1152,27 +1153,34 @@
       "name": "Cobalt canyon rock wall corner",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "refining",
+      "status": "editing",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_rock_wall_corner_editor_v1",
       "judge": "catalog_rock_wall_corner_judge_v1",
-      "editorStatus": "running",
-      "judgeStatus": "preparation-complete"
+      "editorStatus": "running-round-04",
+      "judgeStatus": "round-03-revise",
+      "round": "round-03",
+      "previousRejectedPacketSHA256": "7a55d21d1fc79d8e4ea0edac84cdd8093da8abc82e0211a54c4510e0794fb8ac"
     },
     {
       "id": "rock-wall-end",
       "name": "Cobalt canyon rock wall end",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "reviewing-baseline",
+      "status": "editing",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
-      "baselineJudge": "catalog_rock_wall_end_judge_v1"
+      "baselineJudge": "catalog_rock_wall_end_judge_v1",
+      "editor": "catalog_rock_wall_end_editor_v1",
+      "judge": "catalog_rock_wall_end_judge_v1",
+      "editorStatus": "running",
+      "judgeStatus": "preparation-completed",
+      "briefSHA256": "3eca876bf4744fd9b3be88afe15228bcab882e1a9599ade89c6bb297b4711a79"
     },
     {
       "id": "rock-shelf-middle",
@@ -1498,29 +1506,31 @@
       "name": "Yellow submarine",
       "kind": "actor",
       "pipeline": "native-3d",
-      "status": "stage1-preflight",
+      "status": "canonical-components-pending",
       "clips": 12,
       "frames": 576,
       "target": "inputs/target.png",
       "editor": "catalog_submarine_yellow_editor_v1",
       "judge": "catalog_submarine_yellow_judge_v1",
       "editorStatus": "completed-stage1-v6",
-      "judgeStatus": "running-stage1-v6-preflight",
+      "judgeStatus": "completed-stage1-v6-preflight",
       "stage": "preliminary-body-and-canonical-mounts",
       "stage1SourceSHA256": "c8462a4072c8ce12f2afcc6907a02d705dcd7df6858f7d790bb2a1dcc5d7fb0e",
       "stage1SealSHA256": "1b344632a39f624d279e2cf4fde8ac371b2bc2ba39a1bf7f853ed4965132542b",
-      "stage1ReviewSHA256": "58ce8f83967aaa93df584a4362d3650a341d92f0afbf58a8d220665d668c5c81",
-      "revisionScope": "Porthole native glass depth/reflections at logical size; no root/camera/mount change requested."
+      "stage1ReviewSHA256": "0984cbdf582ff39bfd54c35e729838b97a459ff99dff685925408ea108b414bf",
+      "revisionScope": "Exact preliminary native body and mount law frozen after independent glass recheck. Three canonical components and full576-frame final review pending.",
+      "bodyAndInterfaceFreezeSHA256": "a46d8c7b808edcefef2e2f88a27679246e0f1b385c08d9f6141b1375f35c579d"
     },
     {
       "id": "sub-hull-panels",
       "name": "Submarine hull panels",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "reviewing-baseline",
       "clips": 2,
       "frames": 52,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "baselineJudge": "catalog_sub_hull_panels_judge_v1"
     },
     {
       "id": "sub-harpoon-mount",

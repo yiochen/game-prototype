@@ -1,0 +1,366 @@
+{
+  "asset": "dock-entry",
+  "method": "Independent actual evaluated native vertices/BVH downward-ray profiles, native depth-tested fixed-scale captures, exact published whole-frame independent composites in both painter orders, and actual orderPlacements invocation. No source/model edit or candidate.",
+  "rawGeometrySHA256": "9750546e64bc9bb89feab9c7bc8162b6c2a05c129ac31e5e30dbed5ab2f246ca",
+  "sourceBounds": {
+    "entry": [
+      [
+        -0.5099999904632568,
+        -0.4950000047683716,
+        -0.010000001639127731
+      ],
+      [
+        0.5099999904632568,
+        0.4950000047683716,
+        0.48250001668930054
+      ]
+    ],
+    "floor": [
+      [
+        -1.49399995803833,
+        -1.5,
+        0.0
+      ],
+      [
+        1.49399995803833,
+        1.5,
+        0.2280000001192093
+      ]
+    ]
+  },
+  "profileLaw": {
+    "treads": {
+      "centers": [
+        [
+          0,
+          -0.375,
+          0.04
+        ],
+        [
+          0,
+          -0.125,
+          0.08499999999999999
+        ],
+        [
+          0,
+          0.125,
+          0.13
+        ],
+        [
+          0,
+          0.375,
+          0.17500000000000002
+        ]
+      ],
+      "dimensions": [
+        0.96,
+        0.24,
+        0.1
+      ],
+      "bevelWidth": 0.012,
+      "bevelSegments": 1,
+      "flatTop": ".09 + .045*i away from .012 bevel band",
+      "flatTopYIntervals": [
+        [
+          -0.483,
+          -0.267
+        ],
+        [
+          -0.233,
+          -0.017
+        ],
+        [
+          0.017,
+          0.233
+        ],
+        [
+          0.267,
+          0.483
+        ]
+      ],
+      "runGapBetweenTreads": 0.01
+    },
+    "posts": {
+      "centers": [
+        [
+          -0.43,
+          0.28,
+          0.22
+        ],
+        [
+          0.43,
+          0.28,
+          0.22
+        ]
+      ],
+      "dimensions": [
+        0.1,
+        0.1,
+        0.44
+      ],
+      "innerX": [
+        -0.38,
+        0.38
+      ]
+    },
+    "caps": {
+      "centers": [
+        [
+          -0.43,
+          0.28,
+          0.455
+        ],
+        [
+          0.43,
+          0.28,
+          0.455
+        ]
+      ],
+      "dimensions": [
+        0.16,
+        0.16,
+        0.055
+      ],
+      "top": 0.4825,
+      "sourceOuterX": [
+        -0.51,
+        0.51
+      ]
+    },
+    "floor": {
+      "flatPlankTop": 0.22,
+      "plankBottom": 0.04,
+      "endY": -1.5,
+      "endBevelRun": 0.008,
+      "endTopAtPlane": 0.212,
+      "throughGapsWidth": 0.012,
+      "plankCentersX": [
+        -1.375,
+        -1.125,
+        -0.875,
+        -0.625,
+        -0.375,
+        -0.125,
+        0.125,
+        0.375,
+        0.625,
+        0.875,
+        1.125,
+        1.375
+      ],
+      "flatTopXInsetFromEachPlankEdge": 0.008
+    }
+  },
+  "verifiedFindings": [
+    {
+      "id": "authored-overlap",
+      "evidence": "Entry root is floor-local (0,-1.5,0); transfer is entry-local y=0, not semantic dock socket y=.5. Entry local step2 [.005,.245] lies inside deck and flat top .18 is .04 below deck .22. Entry step3 [.255,.495] has flat top .225, .005 above deck but bevel edges .213 are below deck top. Post bases at z0 are buried in inboard deck.",
+      "consequence": "Whole entry sprite cannot represent native connected depth visibility."
+    },
+    {
+      "id": "buried-not-always-invisible",
+      "evidence": "Raw BVH profiles include x0: floor has through-gap along X0, while entry step2 at local y.125 has top .18. At x.07 same tread top .18 is behind deck top .22. Native capture shows thin retained slivers and native post/tread occlusion.",
+      "consequence": "Do not delete whole step2 merely from a bounding box claim. The accepted proposal instead deliberately rebuilds the structure outside the deck."
+    },
+    {
+      "id": "actual-run-gap",
+      "evidence": "Source step1 maximum entry-local y=-.005; deck starts at entry-local y=0. No solid in run (-.005,0) at x.07; .005 world is .64 logical ground pixels. Flat step1 .135 to broad deck .22 is .085 rise; edge bevel lowers step1 edge to .123 and deck edge to .212.",
+      "consequence": "Genuine native run gap/contact-profile discontinuity; projected vertical faces can cover it in alpha, so alpha opacity alone cannot certify physical contact."
+    },
+    {
+      "id": "no-single-original-painter-order",
+      "evidence": "All-facing own comparison directly shows entry-over-floor exposes submerged treads; floor-over-entry hides native-visible capped posts/landing. Original catalog interaction is S; rotated physically registered all-facing check uses N floor-last and S/E/W entry-last from actual orderPlacements.",
+      "consequence": "Source baseline is not certified seamless. Current whole-sprite composition requires the coordinated exterior-half rebuild, or a separately validated connected capture solution."
+    },
+    {
+      "id": "RGB-alpha-fringes",
+      "evidence": "Published S detail has visibly red/yellow partial-alpha edge ringing on black/enlargement. Stored raster diagnostic counts bind actual bytes; these threshold counts are diagnostics, not style/approval metrics.",
+      "consequence": "Do not reproduce source or target fringes. Native and independent composite filtering/phase/background evidence required."
+    }
+  ],
+  "publishedRasters": [
+    {
+      "asset": "dock-entry",
+      "facing": "N",
+      "path": "prototypes/sushi-loop/assets/production/sprites/dock-entry/static-N.png",
+      "sha256": "5bccd51ca015639d59268bed8df63755304785602bd8249f9a53072707cfaa4b",
+      "size": [
+        384,
+        704
+      ],
+      "alphaBounds": [
+        59,
+        353,
+        325,
+        601
+      ],
+      "partialAlphaCount": 3594,
+      "RGBNonzeroAtAlphaZero": 0,
+      "partialAlphaStrongRedDiagnostic": 238,
+      "partialAlphaStrongYellowDiagnostic": 330
+    },
+    {
+      "asset": "dock-floor",
+      "facing": "N",
+      "path": "prototypes/sushi-loop/assets/production/sprites/dock-floor/static-N.png",
+      "sha256": "3309390eaba13913ba9ac0a71421a7ce7f6c1b8bae4c7ab3fedc37c9b1c81d6c",
+      "size": [
+        896,
+        960
+      ],
+      "alphaBounds": [
+        63,
+        87,
+        833,
+        897
+      ],
+      "partialAlphaCount": 38823,
+      "RGBNonzeroAtAlphaZero": 0,
+      "partialAlphaStrongRedDiagnostic": 516,
+      "partialAlphaStrongYellowDiagnostic": 274
+    },
+    {
+      "asset": "dock-entry",
+      "facing": "E",
+      "path": "prototypes/sushi-loop/assets/production/sprites/dock-entry/static-E.png",
+      "sha256": "37db97ed1bf4ea2be8dc9028ccfe026d3f3adba3e0016bb0cf7c22c245c0742b",
+      "size": [
+        384,
+        704
+      ],
+      "alphaBounds": [
+        63,
+        278,
+        321,
+        621
+      ],
+      "partialAlphaCount": 6402,
+      "RGBNonzeroAtAlphaZero": 0,
+      "partialAlphaStrongRedDiagnostic": 326,
+      "partialAlphaStrongYellowDiagnostic": 178
+    },
+    {
+      "asset": "dock-floor",
+      "facing": "E",
+      "path": "prototypes/sushi-loop/assets/production/sprites/dock-floor/static-E.png",
+      "sha256": "3b9f8f50d9c7581472f3f4f53f2796e49b862670d0cce73f56c665e3b14e8b96",
+      "size": [
+        896,
+        960
+      ],
+      "alphaBounds": [
+        61,
+        89,
+        835,
+        889
+      ],
+      "partialAlphaCount": 11705,
+      "RGBNonzeroAtAlphaZero": 0,
+      "partialAlphaStrongRedDiagnostic": 1072,
+      "partialAlphaStrongYellowDiagnostic": 454
+    },
+    {
+      "asset": "dock-entry",
+      "facing": "S",
+      "path": "prototypes/sushi-loop/assets/production/sprites/dock-entry/static-S.png",
+      "sha256": "a23549a119e9ab90b6dabeb37899f1115e85d853aefe7105785628f9c9b13d49",
+      "size": [
+        384,
+        704
+      ],
+      "alphaBounds": [
+        59,
+        316,
+        325,
+        625
+      ],
+      "partialAlphaCount": 4182,
+      "RGBNonzeroAtAlphaZero": 0,
+      "partialAlphaStrongRedDiagnostic": 346,
+      "partialAlphaStrongYellowDiagnostic": 264
+    },
+    {
+      "asset": "dock-floor",
+      "facing": "S",
+      "path": "prototypes/sushi-loop/assets/production/sprites/dock-floor/static-S.png",
+      "sha256": "356cffd576dfe567259d1d7e9a5b62009090aa74a9d340efa9e6f4fd017259f9",
+      "size": [
+        896,
+        960
+      ],
+      "alphaBounds": [
+        63,
+        87,
+        833,
+        897
+      ],
+      "partialAlphaCount": 38823,
+      "RGBNonzeroAtAlphaZero": 0,
+      "partialAlphaStrongRedDiagnostic": 514,
+      "partialAlphaStrongYellowDiagnostic": 273
+    },
+    {
+      "asset": "dock-entry",
+      "facing": "W",
+      "path": "prototypes/sushi-loop/assets/production/sprites/dock-entry/static-W.png",
+      "sha256": "d48b61b4baab27d2c9906cac385697e13399edf105c0ecb854191f78bc18aadd",
+      "size": [
+        384,
+        704
+      ],
+      "alphaBounds": [
+        63,
+        278,
+        321,
+        621
+      ],
+      "partialAlphaCount": 6405,
+      "RGBNonzeroAtAlphaZero": 0,
+      "partialAlphaStrongRedDiagnostic": 295,
+      "partialAlphaStrongYellowDiagnostic": 212
+    },
+    {
+      "asset": "dock-floor",
+      "facing": "W",
+      "path": "prototypes/sushi-loop/assets/production/sprites/dock-floor/static-W.png",
+      "sha256": "172f5bbfb281ec619093950788e1f6d9fdba0efe2e7bc826c6c81b5049feb965",
+      "size": [
+        896,
+        960
+      ],
+      "alphaBounds": [
+        61,
+        89,
+        835,
+        889
+      ],
+      "partialAlphaCount": 11705,
+      "RGBNonzeroAtAlphaZero": 0,
+      "partialAlphaStrongRedDiagnostic": 1030,
+      "partialAlphaStrongYellowDiagnostic": 464
+    }
+  ],
+  "sourceRigSemantics": {
+    "collectionVisibility": {
+      "name": "S33_PROP_dock-entry.001",
+      "hideRender": true,
+      "hideViewport": true
+    },
+    "layerVisibility": [
+      {
+        "viewLayer": "ViewLayer",
+        "exclude": true,
+        "hideViewport": false
+      }
+    ],
+    "materialImagesUsed": [],
+    "armatures": [],
+    "actions": "No owned action/driver/NLA channels in inspected objects",
+    "materials": "Three owned wood palette materials; active output uses faceted height-tone chain with roughness .85/specularIOR .03; legacy unused Principled node values are not the active shader contract."
+  },
+  "limitations": [
+    "Native baseline independently reproduced at2x with correct calibrated projection; not claimed byte-identical to historical4x/downsampled published assets.",
+    "Pillow composites are independent pixel-placement evidence, not browser screenshots. Later consumer browser filtering proof remains required.",
+    "No candidate, redesigned source, live Blender or production change; proposed geometry is unbuilt and not approved."
+  ]
+}

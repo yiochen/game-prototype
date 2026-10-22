@@ -1,0 +1,368 @@
+00:00.349  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-entry/source/round-05.blend"
+BlenderMCP addon registered
+{
+  "blender": "5.2.2 LTS",
+  "engine": "BLENDER_EEVEE",
+  "render": {
+    "filter_size": {
+      "value": 1.5,
+      "description": "Width over which the reconstruction filter combines samples",
+      "type": "FLOAT",
+      "hardMin": 0.0,
+      "hardMax": 500.0,
+      "enum": null
+    },
+    "anisotropic_filter": {
+      "value": "FILTER_2",
+      "description": "Quality of anisotropic filtering in materials",
+      "type": "ENUM",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": [
+        "FILTER_0",
+        "FILTER_2",
+        "FILTER_4",
+        "FILTER_8",
+        "FILTER_16"
+      ]
+    }
+  },
+  "eevee": {
+    "taa_samples": {
+      "value": 16,
+      "description": "Number of samples, unlimited if 0",
+      "type": "INT",
+      "hardMin": 0,
+      "hardMax": 2147483647,
+      "enum": null
+    },
+    "taa_render_samples": {
+      "value": 64,
+      "description": "Number of samples per pixel for rendering",
+      "type": "INT",
+      "hardMin": 1,
+      "hardMax": 2147483647,
+      "enum": null
+    },
+    "use_taa_reprojection": {
+      "value": true,
+      "description": "Denoise image using temporal reprojection (can leave some ghosting)",
+      "type": "BOOLEAN",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": null
+    },
+    "use_shadow_jitter_viewport": {
+      "value": false,
+      "description": "Enable jittered shadows on the viewport. (Jittered shadows are always enabled for final renders).",
+      "type": "BOOLEAN",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": null
+    },
+    "volumetric_samples": {
+      "value": 64,
+      "description": "Number of steps to compute volumetric effects. Higher step count increase VRAM usage and quality.",
+      "type": "INT",
+      "hardMin": 1,
+      "hardMax": 256,
+      "enum": null
+    },
+    "volumetric_sample_distribution": {
+      "value": 0.800000011920929,
+      "description": "Distribute more samples closer to the camera",
+      "type": "FLOAT",
+      "hardMin": 0.0,
+      "hardMax": 1.0,
+      "enum": null
+    },
+    "use_volumetric_shadows": {
+      "value": false,
+      "description": "Cast shadows from volumetric materials onto volumetric materials (Very expensive)",
+      "type": "BOOLEAN",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": null
+    },
+    "volumetric_shadow_samples": {
+      "value": 16,
+      "description": "Number of samples to compute volumetric shadowing",
+      "type": "INT",
+      "hardMin": 1,
+      "hardMax": 128,
+      "enum": null
+    },
+    "use_bokeh_jittered": {
+      "value": false,
+      "description": "Jitter camera position to create accurate blurring using render samples (only for final render)",
+      "type": "BOOLEAN",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": null
+    },
+    "use_shadows": {
+      "value": true,
+      "description": "Enable shadow casting from lights",
+      "type": "BOOLEAN",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": null
+    },
+    "shadow_pool_size": {
+      "value": "512",
+      "description": "Size of the shadow pool, a bigger pool size allows for more shadows in the scene but might not fit into GPU memory",
+      "type": "ENUM",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": [
+        "16",
+        "32",
+        "64",
+        "128",
+        "256",
+        "512",
+        "1024",
+        "1536",
+        "2048"
+      ]
+    },
+    "shadow_ray_count": {
+      "value": 1,
+      "description": "Amount of shadow ray to trace for each light",
+      "type": "INT",
+      "hardMin": 1,
+      "hardMax": 4,
+      "enum": null
+    },
+    "shadow_step_count": {
+      "value": 6,
+      "description": "Amount of shadow map sample per shadow ray",
+      "type": "INT",
+      "hardMin": 1,
+      "hardMax": 16,
+      "enum": null
+    },
+    "shadow_resolution_scale": {
+      "value": 1.0,
+      "description": "Resolution percentage of shadow maps",
+      "type": "FLOAT",
+      "hardMin": 0.0,
+      "hardMax": 1.0,
+      "enum": null
+    }
+  },
+  "cycles": {
+    "denoising_prefilter": {
+      "value": "ACCURATE",
+      "description": "Prefilter noisy guiding (albedo and normal) passes to improve denoising quality when using OpenImageDenoise",
+      "type": "ENUM",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": [
+        "NONE",
+        "FAST",
+        "ACCURATE"
+      ]
+    },
+    "preview_denoising_prefilter": {
+      "value": "FAST",
+      "description": "Prefilter noisy guiding (albedo and normal) passes to improve denoising quality when using OpenImageDenoise",
+      "type": "ENUM",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": [
+        "NONE",
+        "FAST",
+        "ACCURATE"
+      ]
+    },
+    "preview_denoising_start_sample": {
+      "value": 1,
+      "description": "Sample to start denoising the preview at",
+      "type": "INT",
+      "hardMin": 0,
+      "hardMax": 16777216,
+      "enum": null
+    },
+    "samples": {
+      "value": 48,
+      "description": "Number of samples to render for each pixel",
+      "type": "INT",
+      "hardMin": 1,
+      "hardMax": 16777216,
+      "enum": null
+    },
+    "preview_samples": {
+      "value": 1024,
+      "description": "Number of samples to render in the viewport, unlimited if 0",
+      "type": "INT",
+      "hardMin": 0,
+      "hardMax": 16777216,
+      "enum": null
+    },
+    "use_sample_subset": {
+      "value": false,
+      "description": "Render a subset of the specified max samples. Typically used for distributed rendering across multiple devices",
+      "type": "BOOLEAN",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": null
+    },
+    "sample_offset": {
+      "value": 0,
+      "description": "0-based index of sample to start rendering from",
+      "type": "INT",
+      "hardMin": 0,
+      "hardMax": 16777216,
+      "enum": null
+    },
+    "sample_subset_length": {
+      "value": 2048,
+      "description": "The number of samples to render in this subset",
+      "type": "INT",
+      "hardMin": 1,
+      "hardMax": 16777216,
+      "enum": null
+    },
+    "sampling_pattern": {
+      "value": "AUTOMATIC",
+      "description": "Random sampling pattern used by the integrator",
+      "type": "ENUM",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": []
+    },
+    "use_layer_samples": {
+      "value": "USE",
+      "description": "How to use per view layer sample settings",
+      "type": "ENUM",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": [
+        "USE",
+        "BOUNDED",
+        "IGNORE"
+      ]
+    },
+    "light_sampling_threshold": {
+      "value": 0.009999999776482582,
+      "description": "Probabilistically terminate light samples when the light contribution is below this threshold (more noise but faster rendering). Zero disables the test and never ignores lights",
+      "type": "FLOAT",
+      "hardMin": 0.0,
+      "hardMax": 1.0,
+      "enum": null
+    },
+    "use_adaptive_sampling": {
+      "value": true,
+      "description": "Automatically reduce the number of samples per pixel based on estimated noise level",
+      "type": "BOOLEAN",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": null
+    },
+    "adaptive_min_samples": {
+      "value": 0,
+      "description": "Minimum AA samples for adaptive sampling, to discover noisy features before stopping sampling. Zero for automatic setting based on noise threshold",
+      "type": "INT",
+      "hardMin": 0,
+      "hardMax": 4096,
+      "enum": null
+    },
+    "use_preview_adaptive_sampling": {
+      "value": true,
+      "description": "Automatically reduce the number of samples per pixel based on estimated noise level, for viewport renders",
+      "type": "BOOLEAN",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": null
+    },
+    "preview_adaptive_min_samples": {
+      "value": 0,
+      "description": "Minimum AA samples for adaptive sampling, to discover noisy features before stopping sampling. Zero for automatic setting based on noise threshold, for viewport renders",
+      "type": "INT",
+      "hardMin": 0,
+      "hardMax": 4096,
+      "enum": null
+    },
+    "direct_light_sampling_type": {
+      "value": "MULTIPLE_IMPORTANCE_SAMPLING",
+      "description": "The type of strategy used for sampling direct light contributions",
+      "type": "ENUM",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": [
+        "MULTIPLE_IMPORTANCE_SAMPLING",
+        "FORWARD_PATH_TRACING",
+        "NEXT_EVENT_ESTIMATION"
+      ]
+    },
+    "guiding_directional_sampling_type": {
+      "value": "RIS",
+      "description": "Type of the directional sampling used for guiding",
+      "type": "ENUM",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": [
+        "MIS",
+        "RIS",
+        "ROUGHNESS"
+      ]
+    },
+    "guiding_training_samples": {
+      "value": 128,
+      "description": "The maximum number of samples used for training path guiding. Higher samples lead to more accurate guiding, however may also unnecessarily slow down rendering once guiding is accurate enough. A value of 0 will continue training until the last sample",
+      "type": "INT",
+      "hardMin": 0,
+      "hardMax": 2147483647,
+      "enum": null
+    },
+    "pixel_filter_type": {
+      "value": "BLACKMAN_HARRIS",
+      "description": "Pixel filter type",
+      "type": "ENUM",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": [
+        "BOX",
+        "GAUSSIAN",
+        "BLACKMAN_HARRIS"
+      ]
+    },
+    "filter_width": {
+      "value": 1.5,
+      "description": "Pixel filter width",
+      "type": "FLOAT",
+      "hardMin": 0.009999999776482582,
+      "hardMax": 10.0,
+      "enum": null
+    },
+    "use_pixel_jitter": {
+      "value": false,
+      "description": "",
+      "type": "BOOLEAN",
+      "hardMin": null,
+      "hardMax": null,
+      "enum": null
+    },
+    "sample_clamp_direct": {
+      "value": 0.0,
+      "description": "If non-zero, the maximum value for a direct sample, higher values will be scaled down to avoid too much noise and slow convergence at the cost of accuracy",
+      "type": "FLOAT",
+      "hardMin": 0.0,
+      "hardMax": 100000000.0,
+      "enum": null
+    },
+    "sample_clamp_indirect": {
+      "value": 10.0,
+      "description": "If non-zero, the maximum value for an indirect sample, higher values will be scaled down to avoid too much noise and slow convergence at the cost of accuracy",
+      "type": "FLOAT",
+      "hardMin": 0.0,
+      "hardMax": 100000000.0,
+      "enum": null
+    }
+  }
+}
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit
