@@ -1,0 +1,80 @@
+{
+  "esbuild": "0.28.2",
+  "metafile": {
+    "inputs": {
+      "../../../../../../../../../../dev/game-prototype/node_modules/react/cjs/react.development.js": {
+        "bytes": 49165,
+        "imports": [],
+        "format": "cjs"
+      },
+      "../../../../../../../../../../dev/game-prototype/node_modules/react/index.js": {
+        "bytes": 186,
+        "imports": [
+          {
+            "path": "../../../../../../../../../../dev/game-prototype/node_modules/react/cjs/react.development.js",
+            "kind": "require-call",
+            "original": "./cjs/react.development.js"
+          }
+        ],
+        "format": "cjs"
+      },
+      "reviews/preparation-v1/resources/browser/world-sprite-raster.js": {
+        "bytes": 5706,
+        "imports": [
+          {
+            "path": "../../../../../../../../../../dev/game-prototype/node_modules/react/index.js",
+            "kind": "import-statement",
+            "original": "react"
+          }
+        ],
+        "format": "esm"
+      },
+      "reviews/preparation-v1/resources/browser/sprite-layout.js": {
+        "bytes": 12907,
+        "imports": [],
+        "format": "esm"
+      },
+      "reviews/preparation-v1/browser-entry.js": {
+        "bytes": 3666,
+        "imports": [
+          {
+            "path": "reviews/preparation-v1/resources/browser/world-sprite-raster.js",
+            "kind": "import-statement",
+            "original": "./resources/browser/world-sprite-raster.js"
+          },
+          {
+            "path": "reviews/preparation-v1/resources/browser/sprite-layout.js",
+            "kind": "import-statement",
+            "original": "./resources/browser/sprite-layout.js"
+          }
+        ],
+        "format": "esm"
+      }
+    },
+    "outputs": {
+      "reviews/preparation-v1/browser-bundle.js": {
+        "imports": [],
+        "exports": [],
+        "entryPoint": "reviews/preparation-v1/browser-entry.js",
+        "inputs": {
+          "../../../../../../../../../../dev/game-prototype/node_modules/react/cjs/react.development.js": {
+            "bytesInOutput": 46914
+          },
+          "../../../../../../../../../../dev/game-prototype/node_modules/react/index.js": {
+            "bytesInOutput": 276
+          },
+          "reviews/preparation-v1/resources/browser/world-sprite-raster.js": {
+            "bytesInOutput": 3431
+          },
+          "reviews/preparation-v1/resources/browser/sprite-layout.js": {
+            "bytesInOutput": 6623
+          },
+          "reviews/preparation-v1/browser-entry.js": {
+            "bytesInOutput": 3842
+          }
+        },
+        "bytes": 63133
+      }
+    }
+  }
+}

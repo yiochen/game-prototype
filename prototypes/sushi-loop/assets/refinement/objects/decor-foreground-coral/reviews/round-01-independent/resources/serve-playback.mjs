@@ -1,0 +1,4 @@
+import {createServer} from 'node:http';import {readFileSync,existsSync,statSync} from 'node:fs';import {resolve,extname} from 'node:path';import {fileURLToPath} from 'node:url';
+const R=fileURLToPath(new URL('.',import.meta.url)),O=resolve(R,'../../..');
+const types={'.html':'text/html','.js':'text/javascript','.json':'application/json','.png':'image/png','.webp':'image/webp'};
+const server=createServer((req,res)=>{const path=decodeURIComponent(new URL(req.url,'http://x').pathname);const p=path.startsWith('/asset/')?resolve(O,path.slice(7)):resolve(R,'.'+path);if(!(p.startsWith(O)||p.startsWith(R))||!existsSync(p)||!statSync(p).isFile()){res.writeHead(404);res.end('missing');return;}res.setHeader('Content-Type',types[extname(p)]||'application/octet-stream');res.end(readFileSync(p));});server.listen(0,'127.0.0.1',()=>console.log(JSON.stringify({port:server.address().port,root:R,asset:O,url:`http://127.0.0.1:${server.address().port}/playback.html`})));

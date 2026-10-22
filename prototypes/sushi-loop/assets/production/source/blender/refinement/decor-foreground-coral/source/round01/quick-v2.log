@@ -1,0 +1,18 @@
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-coral/source/round01/reproduce.py:113: DeprecationWarning: 'Scene.use_nodes' is expected to be removed in Blender 6.0
+  bpy.ops.wm.read_factory_settings(use_empty=True);sc=bpy.context.scene;sc.name='Coral warm soft native capture';sc.render.engine='CYCLES';sc.cycles.samples=32;sc.cycles.use_denoising=True;sc.cycles.device='CPU';sc.render.resolution_x=768;sc.render.resolution_y=1536;sc.render.resolution_percentage=100;sc.render.pixel_aspect_x=math.sqrt(1+.7*.7);sc.render.pixel_aspect_y=1;sc.render.fps=12;sc.frame_start=1;sc.frame_end=12;sc.render.film_transparent=True;sc.render.image_settings.file_format='PNG';sc.render.image_settings.color_mode='RGBA';sc.render.image_settings.color_depth='8';sc.render.image_settings.compression=60;sc.render.dither_intensity=0;sc.render.filter_size=1.5;sc.eevee.taa_render_samples=64;sc.view_settings.view_transform='Standard';sc.view_settings.look='None';sc.view_settings.exposure=0;sc.view_settings.gamma=1;sc.use_nodes=False
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-coral/source/round01/reproduce.py:114: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  world=bpy.data.worlds.new('Neutral soft ambient');world.use_nodes=True;world.node_tree.nodes['Background'].inputs['Color'].default_value=(1,1,1,1);world.node_tree.nodes['Background'].inputs['Strength'].default_value=.28;sc.world=world
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-coral/source/round01/reproduce.py:20: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m=bpy.data.materials.new(name);m.use_nodes=True;n=m.node_tree.nodes;n.clear();out=n.new('ShaderNodeOutputMaterial');p=n.new('ShaderNodeBsdfPrincipled');v=n.new('ShaderNodeVertexColor');v.layer_name='CoralColor';m.node_tree.links.new(v.outputs['Color'],p.inputs['Base Color']);p.inputs['Roughness'].default_value=rough;p.inputs['Specular IOR Level'].default_value=spec;p.inputs['Coat Weight'].default_value=coat;p.inputs['Coat Roughness'].default_value=.34;m.node_tree.links.new(p.outputs['BSDF'],out.inputs['Surface']);return m
+00:12.251  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-coral/candidates/round-01/native/static/N/000.png'
+00:22.854  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-coral/candidates/round-01/native/static/E/000.png'
+00:33.512  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-coral/candidates/round-01/native/static/S/000.png'
+00:42.577  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-coral/candidates/round-01/native/static/W/000.png'
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+Info: Saved as "round-01.blend"
+SAVED /Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-coral/source/round01/round-01.blend
+CAPTURED 4
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

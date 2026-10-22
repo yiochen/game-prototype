@@ -1,0 +1,18 @@
+00:00.322  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-coral/reviews/round-01-independent/resources/selected.blend"
+00:05.893  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-coral/reviews/round-01-independent/evidence/native-replay/static/N/000.png'
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-coral/reviews/round-01-independent/resources/inspect-and-replay.py", line 57, in <module>
+    apply(clip,d,f);ev=evalpts();pts=[p for v in ev.values() for p in v]
+    ~~~~~^^^^^^^^^^
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-coral/reviews/round-01-independent/resources/inspect-and-replay.py", line 25, in apply
+    for tar in rig['clips'][clip]['actions']:na._assign(na._resolve_owner(tar),bpy.data.actions[tar['action']],tar.get('slotIdentifier'))
+                                                        ~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/decor-foreground-coral/reviews/round-01-independent/resources/native_actions.py", line 449, in _resolve_owner
+    if owner is None:raise KeyError('Missing native action owner '+typ+':'+name)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'Missing native action owner Key:Central pink'
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit
