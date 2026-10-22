@@ -1,0 +1,37 @@
+{
+  "scope": "Preparation only; no source edits or approval",
+  "commands": [
+    {
+      "purpose": "Inspect actual original reef-edge collection before canonical source",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender --background prototypes/sushi-loop/assets/refinement/backups/b1765262bfa897ad-sushi-loop-world-library.blend --python prototypes/sushi-loop/assets/refinement/objects/reef-edge/reviews/preparation-v1/drivers/inspect-original.py",
+      "log": "evidence/inspect-original.log"
+    },
+    {
+      "purpose": "Freeze minimal used resources and tool versions before native replay",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 drivers/freeze-inputs.py",
+      "result": "FROZEN 28 inputs 9492177 bytes"
+    },
+    {
+      "purpose": "Evaluate own derivative/canonical native fields and bounded historical all4 source replay",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender --background --python drivers/audit-and-replay.py",
+      "log": "evidence/audit-and-replay.log"
+    },
+    {
+      "purpose": "Measure actual source corner/end rings to define correctly handed context fixtures",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender --background --python prototypes/sushi-loop/assets/refinement/objects/reef-edge/reviews/preparation-v1/drivers/measure-context-topology.py > prototypes/sushi-loop/assets/refinement/objects/reef-edge/reviews/preparation-v1/evidence/context-topology.log 2>&1",
+      "log": "evidence/context-topology.log"
+    },
+    {
+      "purpose": "Pack historical source baseline, compare exact S pixels, summarize actual native canonical fields and compose QA sheet",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/reef-edge/reviews/preparation-v1/drivers/summarize-evidence.py > prototypes/sushi-loop/assets/refinement/objects/reef-edge/reviews/preparation-v1/evidence/summarize.log 2>&1",
+      "log": "evidence/summarize.log"
+    },
+    {
+      "purpose": "Verify immutable sources, serialize findings and seal actual used minimal closure",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/reef-edge/reviews/preparation-v1/drivers/finalize-preparation.py",
+      "stdout": "seal.json content"
+    }
+  ],
+  "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+  "provenanceTiming": "Driver files were saved before their executions. The audit-and-replay command entry preceded its native execution; freeze-inputs/context-topology/summarize command ledger entries were transcribed from exact executed tool commands afterward. No claim that every ledger entry or post-run hash existed before execution."
+}

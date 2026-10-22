@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 102,
-  "completed": 83,
-  "published": 82,
-  "current": "rock-shelf-corner",
+  "completed": 84,
+  "published": 83,
+  "current": "reef-edge",
   "objects": [
     {
       "id": "plant-angular",
@@ -1262,7 +1262,7 @@
       "name": "Rock shelf corner",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
@@ -1327,7 +1327,7 @@
       "name": "Bright reef edge",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "approved",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
@@ -1354,25 +1354,33 @@
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "baselineJudge": "catalog_reef_corner_judge_v1",
-      "judgeStatus": "reviewing-round-01",
+      "judgeStatus": "approved",
       "editorStatus": "completed-round-01",
       "editor": "catalog_reef_corner_editor_v1",
       "judge": "catalog_reef_corner_judge_v1",
       "briefSHA256": "7e4c0d57f59dc924af6232326a44e3efd24dd38bdf7566602b8635cbbf82c7cc",
-      "stage": "canonical-mixed-reef-corner-round01"
+      "stage": "queued-approved-round-01",
+      "round": "round-01",
+      "packetSHA256": "969ab83edd7a8d615fe7284bb7c979a293a5bfde0a6d0b50abe62ac16068f599",
+      "reviewSHA256": "1c4bb1d47794344f7b60bae243ed3cae8f3d0058d1e4744c15d7ebc77716fef8"
     },
     {
       "id": "reef-end",
       "name": "Bright reef end",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "editing",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "baselineJudge": "catalog_reef_end_judge_v1",
-      "judgeStatus": "preparing"
+      "judgeStatus": "prepared-awaiting-candidate",
+      "editor": "catalog_reef_end_editor_v1",
+      "judge": "catalog_reef_end_judge_v1",
+      "editorStatus": "starting-construction",
+      "stage": "canonical-mixed-reef-end-round01",
+      "briefSHA256": "685740d1728f1e826dbf5565606e5829b964b6739d0ac599999e2a44c130090f"
     },
     {
       "id": "wreck-middle",
@@ -1427,7 +1435,9 @@
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "baselineJudge": "catalog_rock_half_width_judge_v1",
+      "judgeStatus": "preparing"
     },
     {
       "id": "boulder-underwater",
