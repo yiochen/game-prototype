@@ -38,6 +38,9 @@ export function paintWorldRaster(canvas, plan, loadedImages) {
   if (canvas.width !== plan.width) canvas.width = plan.width;
   if (canvas.height !== plan.height) canvas.height = plan.height;
   const context = canvas.getContext('2d');
+  // Compose on the shared native grid before filtering the complete scene.
+  // Filtering each fractional tile edge separately loses coverage at joins.
+  context.imageSmoothingEnabled = false;
   context.clearRect(0, 0, canvas.width, canvas.height);
   for (let index = 0; index < plan.sprites.length; index++) {
     const sprite = plan.sprites[index];

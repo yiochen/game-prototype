@@ -6,6 +6,66 @@ const source = readFileSync(new URL('../wireframe/world-sprite-raster.js', impor
 // The hook's React integration is covered by the composed-scene tests.
 const rasterFunctions = source.slice(source.indexOf('export function worldRasterPlan'), source.indexOf('export function useWorldSpriteRaster')).replaceAll('export function', 'function');
 
+test('fractional world placement preserves native coverage after canvas resize', async ({ page }) => {
+  await page.setContent('<body></body>');
+  await page.addScriptTag({ content: rasterFunctions });
+  const results = await page.evaluate(() => {
+    const tile = document.createElement('canvas');
+    tile.width = tile.height = 128;
+    const results = [];
+    for (const axis of ['x', 'y']) for (const phase of [0, 0.25, 0.5, 0.75]) {
+      const tileContext = tile.getContext('2d');
+      tileContext.clearRect(0, 0, 128, 128);
+      tileContext.fillStyle = '#c79551';
+      // Real registered sprites have transparent padding. The opaque regions
+      // touch while the complete source frames overlap by their padding.
+      tileContext.fillRect(axis === 'x' ? 1 : 0, axis === 'y' ? 1 : 0,
+        axis === 'x' ? 126 : 128, axis === 'y' ? 126 : 128);
+      const sprites = [0, 63, 126].map(offset => ({
+        rect: [0, 0, 128, 128], x: phase, y: phase, width: 64, height: 64,
+        [axis]: phase + offset,
+      }));
+      const plan = worldRasterPlan(sprites, [-16, -16, 240, 240]);
+      const canvas = document.createElement('canvas');
+      // Both dimension changes reset context state. Painting must restore it.
+      canvas.width = canvas.height = 1;
+      canvas.getContext('2d').imageSmoothingEnabled = true;
+      paintWorldRaster(canvas, plan, [tile, tile, tile]);
+      const whole = document.createElement('canvas');
+      whole.width = axis === 'x' ? 380 : 128;
+      whole.height = axis === 'y' ? 380 : 128;
+      whole.getContext('2d').fillStyle = '#c79551';
+      whole.getContext('2d').fillRect(axis === 'x' ? 1 : 0, axis === 'y' ? 1 : 0,
+        whole.width - (axis === 'x' ? 2 : 0), whole.height - (axis === 'y' ? 2 : 0));
+      const reference = document.createElement('canvas');
+      reference.width = canvas.width; reference.height = canvas.height;
+      const context = reference.getContext('2d');
+      context.imageSmoothingEnabled = false;
+      context.drawImage(whole, (phase - plan.x) * plan.scale, (phase - plan.y) * plan.scale);
+      const expected = context.getImageData(0, 0, reference.width, reference.height).data;
+      const actual = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
+      let differences = 0;
+      for (let i = 0; i < actual.length; i++) if (actual[i] !== expected[i]) differences++;
+      // Positive control: interpolating the individual fractional edges creates
+      // source-over undercoverage even though their authored positions touch.
+      context.clearRect(0, 0, reference.width, reference.height);
+      context.imageSmoothingEnabled = true;
+      for (const sprite of sprites) context.drawImage(tile, ...sprite.rect,
+        (sprite.x - plan.x) * plan.scale, (sprite.y - plan.y) * plan.scale, 128, 128);
+      const filtered = context.getImageData(0, 0, reference.width, reference.height).data;
+      let coverageLoss = 0;
+      for (let i = 3; i < filtered.length; i += 4) if (expected[i] === 255 && filtered[i] < 255) coverageLoss++;
+      results.push({ axis, phase, differences, coverageLoss, smoothing: canvas.getContext('2d').imageSmoothingEnabled });
+    }
+    return results;
+  });
+  for (const result of results) {
+    expect(result.differences, JSON.stringify(result)).toBe(0);
+    expect(result.smoothing).toBe(false);
+  }
+  expect(results.filter(result => result.coverageLoss > 0)).toHaveLength(4);
+});
+
 test('joined native tiles stay continuous through fractional scaling and camera phases', async ({ page }) => {
   await page.setViewportSize({ width: 900, height: 600 });
   await page.setContent('<svg xmlns="http://www.w3.org/2000/svg" style="display:block;background:#808080;overflow:hidden" viewBox="-32 -32 448 192"></svg>');

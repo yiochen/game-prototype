@@ -133,6 +133,22 @@
         "brief": "../objects/dock-floor/brief-v2-supported-ordering.json",
         "briefSHA256": "f248a97e9582a28bd92f876771d136ecb24d8d933bdcea7c5ded7b318e10c95e",
         "reason": "Actual on-deck actor fully occluded by platform; native geometry unchanged, corrected explicit supportedBy consumer ordering; final evidence recaptured."
+      },
+      "samplingRevision": {
+        "brief": "../objects/dock-floor/brief-v3-native-sampling.json",
+        "briefSHA256": "9e83266a8395f830a8833e000dc0b91047aef4821877062294da62da56a83c70",
+        "prompts": "dock-floor/native-sampling-revision-dispatch.txt",
+        "scope": "New persisted nativefilter.5 and actual commonnative-canvas nearest composition; old failed sources/deliveries retained; original pair reviews later."
+      },
+      "humanEvidenceRevision": {
+        "brief": "../objects/dock-floor/brief-v4-human-reference.json",
+        "briefSHA256": "3e6512c9edfb1d879e1356e9b92810c67c1e27255ec7327bf74499ab8479681c",
+        "sharedPlanSHA256": "394b3dfe2b59c81e263cd0a4a5afc213f6e2346c23063a524dc047057ec84293",
+        "scope": "Representative full-shoe/body route evidence corrected; approved native art bytes reused exactly, original pair reviews new packet.",
+        "prompts": {
+          "editor": "dock-floor/human-reference-round05-adoption.txt",
+          "judge": "dock-floor/judge-round-05-dispatch.txt"
+        }
       }
     },
     {
@@ -151,17 +167,84 @@
         "brief": "../objects/dock-entry/brief-v2-supported-ordering.json",
         "briefSHA256": "f7cc385c27b7eccc8b6bab727b0257c5b51c3c4949cd46f6e00614ff792b00ec",
         "reason": "Actual on-deck actor fully occluded by platform; native geometry unchanged, corrected explicit supportedBy consumer ordering; final evidence recaptured."
+      },
+      "samplingRevision": {
+        "brief": "../objects/dock-entry/brief-v3-native-sampling.json",
+        "briefSHA256": "62ab23c69c337f5f84a42349f40562cce3330413fdbce4d8928c2093730ee713",
+        "prompts": "dock-entry/native-sampling-revision-dispatch.txt",
+        "scope": "New persisted nativefilter.5 and actual commonnative-canvas nearest composition; old failed sources/deliveries retained; original pair reviews later."
+      },
+      "humanEvidenceRevision": {
+        "brief": "../objects/dock-entry/brief-v4-human-reference.json",
+        "briefSHA256": "b40734190a858a46947d6d7e8b7c47338acee0713830c8665268a8e65df4b590",
+        "sharedPlanSHA256": "394b3dfe2b59c81e263cd0a4a5afc213f6e2346c23063a524dc047057ec84293",
+        "scope": "Representative full-shoe/body route evidence corrected; approved native art bytes reused exactly, original pair reviews new packet.",
+        "prompts": {
+          "editor": "dock-entry/human-reference-round07-dispatch.txt",
+          "judge": "dock-entry/judge-round-07-dispatch.txt"
+        }
       }
     },
     {
       "asset": "workshop-hut",
       "brief": "../objects/workshop-hut/brief.json",
       "judge": "catalog_workshop_hut_judge_v1",
+      "editor": "catalog_workshop_hut_editor_v1",
+      "freshContext": true,
+      "workflow": "Independent source/target judge prep and technical reconciliation frozen before fresh editor construction; editor independently inspects source/target before criteria. Original pair for later review.",
+      "prompts": {
+        "judge": "workshop-hut/judge-dispatch.txt",
+        "editor": "workshop-hut/editor-dispatch.txt"
+      },
+      "briefSHA256": "3f2ae264d50a7be4a68cd006321acea75a4cfc9fa7feed4851d02624195542eb"
+    },
+    {
+      "asset": "dock-cover",
+      "brief": "../objects/dock-cover/brief.json",
+      "judge": "catalog_dock_cover_judge_v1",
       "editor": null,
       "freshContext": true,
-      "workflow": "Fresh independent source/target and actual native/support audit before coordinator freeze/editor.",
+      "workflow": "Fresh independent source/target and96phase native audit before root freeze/editor.",
       "prompts": {
-        "judge": "workshop-hut/judge-dispatch.txt"
+        "judge": "dock-cover/judge-dispatch.txt"
+      },
+      "briefSHA256": "2a43dcb185ca1dd6032b6317c68df0aef1b3182187520360d0680cbb8acffed9",
+      "status": "criteria-frozen-editor-not-yet-dispatched",
+      "hoverRevision": {
+        "brief": "../objects/dock-cover/brief-v2-docked-hover.json",
+        "briefSHA256": "013f9d4ab0c2bc5e20ec3002332c373340fc8b322fedbfb16ad5cf26dacda536",
+        "nativeContractSHA256": "4625f63d11e224b42ca7f3479a7741ab00b42dba37f7e26c24163ff324035db0",
+        "scope": "Submarine docked hover reconciliation before editor; cover own contacts/clearance/registration unchanged."
+      }
+    },
+    {
+      "asset": "submarine-yellow",
+      "brief": "../objects/submarine-yellow/brief.json",
+      "judge": "catalog_submarine_yellow_judge_v1",
+      "editor": "catalog_submarine_yellow_editor_v1",
+      "freshContext": true,
+      "workflow": "Independent actual source/target/variant/interface/component audit before root freeze/editor.",
+      "prompts": {
+        "judge": "submarine-yellow/judge-dispatch.txt",
+        "editor": "submarine-yellow/editor-stage1-dispatch.txt",
+        "judgeStage1": "submarine-yellow/judge-stage1-v5-preflight-dispatch.txt",
+        "editorStage1v6": "submarine-yellow/editor-stage1-v6-glass-dispatch.txt",
+        "judgeStage1v6": "submarine-yellow/judge-stage1-v6-preflight-dispatch.txt"
+      },
+      "briefSHA256": "a00e23446a46bee3e05d080ef406a105a05c8bc948d90ae6b978a7a0cb7b608d",
+      "status": "stage1-v6-original-judge-recheck"
+    },
+    {
+      "asset": "rock-wall-corner",
+      "brief": "../objects/rock-wall-corner/brief.json",
+      "briefSHA256": "08a40bb9e70485263776b8006dbec59e7b28f3166f3113f9c170946256b289b4",
+      "judge": "catalog_rock_wall_corner_judge_v1",
+      "editor": "catalog_rock_wall_corner_editor_v1",
+      "freshContext": true,
+      "workflow": "Independent source/target before canonical family context; actual native contract and independent criteria frozen before fresh editor construction. Original pair for revisions/review.",
+      "prompts": {
+        "judge": "rock-wall-corner/judge-dispatch.txt",
+        "editor": "rock-wall-corner/editor-dispatch.txt"
       }
     }
   ]

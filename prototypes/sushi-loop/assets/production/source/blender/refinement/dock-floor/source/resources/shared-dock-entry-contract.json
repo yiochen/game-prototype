@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "status": "coordinator-frozen-before-editor-construction",
+  "assets": [
+    "dock-floor",
+    "dock-entry"
+  ],
+  "style": "Warm softly lit cartoon; useful native structural improvement; no directional horizontal key or ground shadow. Each object retains its independently proposed visible criteria.",
+  "nativeInterface": {
+    "entryRelativeRoot": [
+      0,
+      -1.5,
+      0
+    ],
+    "rootAndScale": "All registered roots/canvases/facing rotations and world scale stay unchanged. One static frame per N/E/S/W at12fps. Dock3x3, entry1x1; no new clip/gameplay or Godot rollout.",
+    "contact": {
+      "entryLocal": {
+        "planeY": 0,
+        "topZ": 0.22,
+        "tangent": [
+          1,
+          0,
+          0
+        ],
+        "outwardFaceNormal": [
+          0,
+          1,
+          0
+        ]
+      },
+      "floorLocal": {
+        "planeY": -1.5,
+        "topZ": 0.22,
+        "tangent": [
+          1,
+          0,
+          0
+        ],
+        "outwardFaceNormal": [
+          0,
+          -1,
+          0
+        ]
+      },
+      "topNormal": [
+        0,
+        0,
+        1
+      ],
+      "travelTowardDeck": [
+        0,
+        1,
+        0
+      ],
+      "terminalWidthW": {
+        "minimum": 0.76,
+        "maximum": 0.96,
+        "centerX": 0
+      },
+      "nativeFaceClosure": "Terminal flight is a solid native structure ending atY0; its horizontal top and nonzero-thickness end face meet the floor edge, with no run gap or bevel dip in the centered clear corridor. Top/face correspondence is measured from evaluated surfaces, not inferred from AABBs or alpha opacity."
+    },
+    "entrySolidEnvelope": {
+      "localY": [
+        -0.5,
+        0
+      ],
+      "localXMaximum": [
+        -0.51,
+        0.51
+      ],
+      "localZ": [
+        0,
+        0.49
+      ],
+      "note": "Entry technical proposal correctly retains original cap maximum X\u00b1.51; it is not an instruction to expand. Visible posts/caps/side structure stay wholly exterior Y<=0. Empty semantic markers are exempt from the solid envelope."
+    },
+    "entryWalkingRole": "Usable centered flight rises monotonically over the exterior halfcell to terminalZ0.22 atY0. Tread count and native construction are editor-owned. The floor supplies the inboard halfcell. Posts/caps leave continuous centered clear width>=0.76, with no trim/fastener/relief obstacle across it.",
+    "floorBroadSurface": {
+      "topZ": 0.22,
+      "allowedReliefAbs": 0.002,
+      "maxHeight": 0.25,
+      "footprint": [
+        3,
+        3
+      ],
+      "preserve": "Broad support regions and roots/clear volume of existing workshop/submarine/cover. No notch, stair recess, global height change, root shift or footprint expansion."
+    },
+    "floorFunctionalRepairPermission": {
+      "maximumBounds": {
+        "x": [
+          -0.5,
+          0.5
+        ],
+        "y": [
+          -1.5,
+          -1.48
+        ]
+      },
+      "surfaceZ": 0.22,
+      "continuousSupportAcrossX": [
+        -0.48,
+        0.48
+      ],
+      "depth": 0.02,
+      "purpose": "Close native plank through-gaps at the contact and remove the old0.008 end-bevel run/dip only within this band. Terminate the new surface exactly at the shared plane; merge it into existing support without a lip, open sliver or coplanar duplicate. This is a maximum repair box, not a prescribed threshold beam/topology.",
+      "whySufficient": "Measured native bevel top0.212 atY-1.5 returns to0.22 byY-1.49. The0.02 inward band covers that bevel and allows a native transition. Its1.0world maximum width contains all declared terminal widths<=0.96 and preserves clear width>=0.76. No floor geometry must reach exterior toY-1.5."
+    },
+    "semanticMarkers": {
+      "entryLocalApproach": [
+        0,
+        -0.5,
+        0
+      ],
+      "entryLocalDock": [
+        0,
+        0.5,
+        0.23
+      ],
+      "meaning": "Retain exact semantic coordinates. The inboard dock marker is not the actual transfer plane or a physical0.23walking surface. Future human-contact evidence must use the actual0.22support profile; do not create a false0.01float by interpreting this marker as deck top."
+    },
+    "neighborScope": "Keep existing hut/submarine/cover roots and clearance. Pre-existing hut0.035/submarine0.055support gaps are explicitly assigned to their own later native family support repairs; this floor/entry review makes no zero-gap certification for those neighbors."
+  },
+  "tolerances": [
+    {
+      "quantity": "Root/facing/semantic socket values and shared boundary Y plane",
+      "absoluteTolerance": 1e-05,
+      "units": "world units/radians",
+      "reason": "Machine-defined registration; this is0.00128logical ground pixels."
+    },
+    {
+      "quantity": "Shared contact boundary top Z nominal0.22, and mutual entry/floor top-profile mismatch",
+      "absoluteTolerance": 1e-05,
+      "units": "world units",
+      "reason": "Use an exact common modeled boundary. Keep decorative broad-surface relief separate; the looser0.002allowance must not permit a mismatch/lip at the actual seam. This is0.000896logical vertical pixels."
+    },
+    {
+      "quantity": "Broad floor top/native walking-surface relief away from common seam",
+      "absoluteTolerance": 0.002,
+      "units": "world units from0.22",
+      "reason": "Retains the accepted broad support envelope with0.1792logical vertical pixels of modeling relief. Interface boundary is a stricter exception."
+    },
+    {
+      "quantity": "Entry terminal width W and floor closure width",
+      "law": "0.76<=W<=0.96; centered X0. Floor continuous contact support acrossX[-0.48,0.48]. Clear walking width>=0.76. Report actual evaluated W and endpoints; numerical boundary/width checks use1e-5world."
+    },
+    {
+      "quantity": "Floor functional repair bounds",
+      "law": "Only X[-0.50,0.50],Y[-1.50,-1.48]; no outward extension, notch or global-height change. Envelope numerical noise<=1e-5world."
+    },
+    {
+      "quantity": "Registered projection/calibration",
+      "law": "Exact logical/native frames, sourceScale and atlas layout. Root and basis calibration within0.02logicalpx; one camera/light/material recipe across facings, no subject fitting or individual nudges."
+    },
+    {
+      "quantity": "Consumer seam/visibility evidence",
+      "law": "All four native joins and independent actual-order sprite composites must show no sustained visible gap, black crack, hidden cap, ghost tread or alpha fringe at logical/phone sizes on light/gray/dark. Projected geometry-boundary discrepancy<=0.25logicalpx is diagnostic only; it does not excuse a visibly bad seam. No continuous accidental coverage seam>=0.5logicalpx. Physical no-gap check remains1e-5world and cannot be replaced by opacity."
+    }
+  ],
+  "requiredEvidence": [
+    "Hash-bound paired floor/entry native source geometries or exact evaluated shared profiles; both editors acknowledge this same plane,width,strip and tolerance contract before construction.",
+    "Evaluated native Y/Z contact cross-sections across the entire centered terminal width; prove continuous flight/support and no source gaps/slivers, matched normals/tangent and clear corridor. Verify entry solids allY<=0, posts/caps external, capZ<=0.49; floor broadtop/maxheight/footprint unchanged.",
+    "All4native standalone captures/exact atlases and all4native depth-tested joins. Independently compose actual candidate floor+entry atlases at unchanged roots with actual current consumer order, then inspect enlarged contact/post/underside crops.",
+    "Actual consumer/filtering/phase evidence at logical and phone scales/light-gray-dark backgrounds, including fixed registered human traversal/landing context; no masks or presentation tweaks hide defects.",
+    "Native geometry/visibility/material/resource closure and shared hashes. No camera-facing painted card or claim of candidacy/approval from this analytic review."
+  ],
+  "filteringPolicy": {
+    "analysis": "Independent touching alpha edges can produce a trough under source-over; with alpha a and1-a, combined alpha is1-a(1-a), as low as0.75. Exact matching solids therefore do not by themselves certify sprite seam coverage.",
+    "requiredProof": "Compare actual complete native joined renders against independently assembled exact candidate atlas bytes using current per-facing order, common world phase and ordinary catalog/native-pixel consumer sampling. Inspect quarter-logical-pixel phases and phone reduction, with RGB and alpha together on all three backgrounds. Include standalone source atlases so no assembly patch conceals bad captures.",
+    "failureDisposition": "If a visible seam/order conflict persists after correct native geometry/capture, stop for shared technical reconciliation. Do not silently add masks, per-facing fitting, pixel patches or alter the frozen exterior-only geometry. A later alternative would need explicit coordinator reconciliation."
+  },
+  "sourceAuditLimitations": "The original dock-floor published-entry-join-N diagnostic used a fixed entry-over-floor order, unlike current consumer N floor-over-entry. Retain it as a diagnostic, not a faithful current-N consumer render. The independently measured native submerged geometry remains valid. The new reconciliation uses actual per-facing consumer order from source.",
+  "supersedes": "Known submerged source stair arrangement and earlier connected-mask proposal are superseded by exterior-half native reconstruction. No mask, new adapter or gameplay change is authorized by this freeze.",
+  "pairedSourceExchange": "Each editor saves its own standalone candidate blend before companion import; exchange exact immutable project bytes via own inputs/paired-native/ copy. Joined capture loads companion in memory only, never rewrites either saved native project. Bind both native geometry hashes; do not create circular packet dependencies. No final packet/approval until actual paired all-facing evidence passes.",
+  "sharedBoundaryOverride": "Exact common Y/Z planes and mutual profile tolerance1e-5world take precedence over any earlier broad\u00b1.002 wording. Broad decorative relief away from seam stays\u00b1.002.",
+  "referenceFiles": {
+    "floorReconciliationSHA256": "152956b6d85428f63223049f9c37a236734a1aae0fea28431305ee1af2ab8d5d",
+    "entrySourceContractSHA256": "7d21d12f163556f8b17c25d210add603510f4d4570c5ec88166a0b80ed920cd4",
+    "floorSourceContractSHA256": "0e9540c0ca0153b0d628eba008eb069806cb0d0855964edae29263a74c6e8211"
+  }
+}

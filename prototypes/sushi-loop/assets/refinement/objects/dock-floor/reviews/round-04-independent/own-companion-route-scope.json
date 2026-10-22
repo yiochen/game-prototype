@@ -1,0 +1,108 @@
+{
+  "sourceEvidence": {
+    "path": "../../native-inspection.json",
+    "sha256": "daa8f5f436797b3e7ed85d4c7e25135ed971ef979023c333f29fc34080fb484c",
+    "nativeSourceSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6"
+  },
+  "frozenHutRoot": [
+    0.78,
+    0.35,
+    0.23
+  ],
+  "suppliedFinalActorRoot": [
+    0.78,
+    -0.18,
+    0.22
+  ],
+  "closedVisibleHutParts": [
+    {
+      "name": "workshop-hut__body.001",
+      "nativeLocalBounds": [
+        [
+          -0.4099999964237213,
+          -0.4300000071525574,
+          0.039999961853027344
+        ],
+        [
+          0.4099999964237213,
+          0.4300000071525574,
+          1.2400000095367432
+        ]
+      ],
+      "worldBoundsAtFrozenRoot": [
+        [
+          0.3700000035762787,
+          -0.0800000071525574,
+          0.2699999618530273
+        ],
+        [
+          1.1899999964237213,
+          0.7800000071525574,
+          1.4700000095367431
+        ]
+      ]
+    },
+    {
+      "name": "workshop-hut__door_frame.001",
+      "nativeLocalBounds": [
+        [
+          -0.33500000834465027,
+          -0.5299999713897705,
+          0.02499997615814209
+        ],
+        [
+          0.0950000062584877,
+          -0.429999977350235,
+          1.0149999856948853
+        ]
+      ],
+      "worldBoundsAtFrozenRoot": [
+        [
+          0.44499999165534976,
+          -0.17999997138977053,
+          0.25499997615814207
+        ],
+        [
+          0.8750000062584877,
+          -0.07999997735023501,
+          1.2449999856948852
+        ]
+      ]
+    },
+    {
+      "name": "workshop-hut__door.001",
+      "nativeLocalBounds": [
+        [
+          -0.2800000011920929,
+          -0.5575000047683716,
+          0.04499998688697815
+        ],
+        [
+          0.03999999910593033,
+          -0.5225000381469727,
+          0.9550000429153442
+        ]
+      ],
+      "worldBoundsAtFrozenRoot": [
+        [
+          0.49999999880790713,
+          -0.2075000047683716,
+          0.27499998688697813
+        ],
+        [
+          0.8199999991059304,
+          -0.17250003814697268,
+          1.1850000429153442
+        ]
+      ]
+    }
+  ],
+  "finding": "Final actor rootY=-0.18 lies within the closed door slab worldY\u2248[-0.2075,-0.1725], with body geometry extending beyond the root into the facade/body. The current final route does not establish an exterior closed-hut approach. No doorway traversal mechanic or companion geometry change is authorized.",
+  "narrowGapPoint": [
+    0,
+    0.12,
+    0.22
+  ],
+  "gapPointDisposition": "Not certified companion-body-clear; future coherent exterior path must test full current visible actor against actual visible sub/hut bodies, not only feet and post/cap widths.",
+  "requiredScope": "Correct the once-chosen world-space presentation path/support evidence. Preserve frozen floor/entry geometry, current actor source/scale and real consumer atlases; apply the same path/rotations in every view."
+}

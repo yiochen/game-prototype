@@ -1,0 +1,11 @@
+00:00.240  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-floor/source/resources/approved-human-v3/customer-rosa-approved.blend"
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/dock-floor/source/audit-approved-human-round04.py", line 12, in <module>
+    visible=[o for o in a if o['visibleRenderMesh']];bounds=[[min(o['bounds'][0][i] for o in visible) for i in range(3)],[max(o['bounds'][1][i] for o in visible) for i in range(3)]];feet=[o for o in visible if any(s in o['name'].lower() for s in ['foot','sole'])];records.append({'clip':'stand','frame':frame,'rootMatrix':[list(r) for r in root.matrix_world],'rootScale':list(root.scale),'visibleBounds':bounds,'visibleHeight':bounds[1][2]-bounds[0][2],'visibleFootMeshes':feet,'minVisibleFootZ':min(o['bounds'][0][2] for o in feet),'allMeshAudit':a})
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: min() iterable argument is empty
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit
