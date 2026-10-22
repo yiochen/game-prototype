@@ -1,0 +1,48 @@
+{
+  "asset": "wreck-middle",
+  "stage": "preparation-only-proposed-for-root-freeze",
+  "candidateApproval": false,
+  "samplingProposal": {
+    "nativeScale": 2,
+    "sourceFilterSize": 0.01,
+    "publication": "identity, unchanged full 384x704 PNG",
+    "logicalFrame": [192, 352],
+    "logicalRoot": [96, 248],
+    "cellSize": 128,
+    "allDirections": ["N", "E", "S", "W"],
+    "rationale": "Own unedited-source diagnostic: historical 1.5+LANCZOS repeats have interior alpha loss; direct narrow native2 removes those S samples and avoids separately averaging depth-facing cutface occlusion before composition.",
+    "limits": "Connected-native and actual consumer evidence are still pending for a redesigned candidate. Three partial-alpha outer rivet pixels per E/W are retained, not repaired or counted as interior holes."
+  },
+  "nativeEvidence": {
+    "singleCaptures": "One registered static capture in each facing, actual root/camera matrices and shader/native geometry fields measured while capturing.",
+    "independentRepeated": "Three independently captured modules, 1-world-cell spacing, per facing. S/N chain along projected X; E/W chain along projected depth. Use true handed W/E ports and correct painter order. No image overlap or registration offsets.",
+    "nativeReference": "One native 3-module assembly reference per facing at the same projected scale and light recipe; retain exact geometry, no subject fitting. Derive canvas extension/root from world spacing, with no per-view scale adjustment.",
+    "comparisons": "Save full raw finite-light RGB/alpha comparison separately from projected finite-port collar masks, local seam contrast and interior alpha defect masks. Show light/gray/dark at logical128 and phone32; enlarged sheets support but do not replace use-size inspection.",
+    "finiteValidation": "Compare evaluated mesh-plane ordered profiles, native winding/handedness and finite lowest support patch. Check candidate against the explicitly root-frozen measured finite envelope in authored coordinates for every facing. Verify actual active endpoint shader/normal fields across a finite collar."
+  },
+  "consumer": {
+    "helpers": [
+      {"pathBase": "worktree", "path": "prototypes/sushi-loop/wireframe/world-sprite-raster.js", "sha256": "570a0d0d788ab65252724da1f0ff7d82a086eab1875ba37ed032dac34acf9545"},
+      {"pathBase": "worktree", "path": "prototypes/sushi-loop/wireframe/sprite-layout.js", "sha256": "099de61830564dbe0de7e3b85ffbeefcc1b80555098ed499b889b50db6074c65"}
+    ],
+    "modes": [
+      {"name": "full-chromium", "launch": {"headless": true, "channel": "chromium"}},
+      {"name": "bundled-headless-shell", "launch": {"headless": true}}
+    ],
+    "fixture": "Use actual candidate atlas, spriteFrame/groundRoot/orderPlacements, worldRasterPlan/paintWorldRaster through the unchanged modules. Save one independent native canvas and the displayed CSS screenshot for each case/mode. Include all4 facings plus light #eeeeee, gray #808080 and dark #151923. Retain fixture input hashes and actual browser version/options.",
+    "cases": [
+      {"id": "logical128-integer", "cellCSS": 128, "cssScale": 1, "rootOffsetLogical": [0,0], "panLogical": [0,0], "viewport": [1440,900], "deviceScaleFactor": 1},
+      {"id": "logical128-fractional", "cellCSS": 98.944, "cssScale": 0.773, "rootOffsetLogical": [0.375,0.625], "panLogical": [0.213,-0.371], "viewport": [1440,900], "deviceScaleFactor": 1},
+      {"id": "phone32-integer", "cellCSS": 32, "cssScale": 0.25, "rootOffsetLogical": [0,0], "panLogical": [0,0], "viewport": [390,844], "deviceScaleFactor": 2},
+      {"id": "phone32-fractional", "cellCSS": 32, "cssScale": 0.25, "rootOffsetLogical": [0.375,0.625], "panLogical": [0.213,-0.371], "viewport": [390,844], "deviceScaleFactor": 2}
+    ],
+    "boundedCount": "8 browser case/mode captures total, each covering all declared facings/backgrounds; expand only for a concrete failure.",
+    "notExecutedDuringPreparation": true
+  },
+  "judgment": {
+    "coverage": "Fresh judge must inspect every exact packet candidateRenders/previews path; explicit hash-identical aliases may share a verified inspection. Missing native or consumer evidence is needs_evidence, never approval.",
+    "visibleBar": "No narrow local seam, exposed end, doubled rim, alpha puncture or material/normal discontinuity at logical128/phone32 in any facing or background. Retain broad finite-light/outer-precision residuals honestly; no numerical-only waiver.",
+    "futureGate": "Before future approval, run unchanged tools/acceptance_contract.py and audit_directions.py on the actual sealed candidate packet. This preparation is not a candidate packet and does not run an approval gate."
+  },
+  "remaining": ["Root reconciles and freezes criteria, finite envelope and fixed capture policy.", "Dispatch a separate fresh editor after that freeze.", "Build and review a candidate with real connected-native/consumer evidence."]
+}

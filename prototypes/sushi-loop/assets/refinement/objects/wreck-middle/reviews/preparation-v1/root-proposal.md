@@ -1,0 +1,48 @@
+# Wreck middle independent preparation proposal
+
+Preparation only. Original pixels, frozen target, plant style reference and evaluated source were inspected independently before other object reviews or editor rationale. `../initial.json` and `../criteria.json` record that first judgment. No candidate was built, approved or promoted. No live Blender, device, Git or production write was used.
+
+The target's useful improvement is a substantial crafted wreck: rounded/faceted blue hull pieces, dark slate hardware, readable pale bolts, shallow wear and restrained warm edge light. The original's boxes, part counts and blank faces are not the quality bar. Catalog naming says “Pale wreck middle”; the actual source/target palette is blue/cyan with slate and pale metal. Freeze that observed family, with softened highlights, rather than inventing a beige rock asset.
+
+## Exact source findings
+
+- The source is root plus 11 meshes in `S33_PROP_wreck-middle.001`, with no armature, actions, sockets or animation channels. Static frame 1, one unique frame, 12 fps, nonlooping. Counts are descriptive.
+- Root identity is `(0,0,0)`. One world unit is a grid cell; occupied/support metadata is `[[0,0]]`. Finite geometry bounds are `X[-.5,.5]`, `Y[-.2370000035,.2599999905]`, `Z[.0399999991,.7400000095]`. `.78` is nominal height. There is no geometry touching the ground plane `Z=0`.
+- The lowest finite support face is the lower rail bottom: `Z=.04`, `X[-.5,.5]`, `Y[-.18,.18]`, area `.36`. Preserve its finite support and the existing ground clearance. A full-floor patch would invent contact. No rock fullfloor law applies.
+- Both port planes are exactly `X=±.5`, with outward `W=-X` / `E=+X`. The true section has three disconnected rectangles. In authored +X extrusion order `(Y,Z)`: lower `[(-.18,.04),(.18,.04),(.18,.20),(-.18,.20)]`; upper `[(-.09,.60),(.09,.60),(.09,.74),(-.09,.74)]`; rear lip `[(.20,.16),(.26,.16),(.26,.35),(.20,.35)]`. Stored float values, all endpoint loops, incident faces and material slots are in `native-contract-measurements.json`.
+- W and E have the same ordered ring coordinates. Only cap winding/outward normals reverse. The asymmetric positive-Y rear lip must follow the true native frame under rotation; swapping the labels or mirroring the profile is wrong. E of one identically oriented module meets W of the translated next module.
+- Original side loop fields are flat, with bottom `-Z`, rear `+Y`, top `+Z`, front `-Y`. Hull top uses blue; other hull sides blue-dark. Rear-lip top uses metal; its other sides metal-dark. All active surfaces are matte Principled with roughness `.85`, specular `.03`, metallic `0`, IOR `1.45`, alpha `1`. Base albedo is multiplied by a world-Z ramp. The old view-tone emission branch is inactive. Geometry, complete native corner normals and sampled active albedo fields are retained, rather than guessed from catalog labels.
+
+## Proposed hard contract for root freeze
+
+Keep the exact finite profiles, authored handedness, root, support patch, empty `Z=0`, all-four facings and timing. For a useful finite outer envelope, freeze the measured source outer convex hull recorded as actual face planes in `source-inspection.json` / `native-contract-measurements.json`; evaluated candidate surface vertices must satisfy every plane within `1e-6`. Original source maximum hull violation from float arithmetic is `2.66e-8`. This is a conservative proposed outer boundary, requiring explicit root adoption; it is not an assertion that source empty voxels are occupied or a requirement to preserve weak interior forms. Its narrowing upper section and local hardware protrusion make it stronger than a bounds-only check.
+
+Interior construction and decoration may change meaningfully inside that envelope. Original per-part AABBs, component counts and sampled empty bays are source descriptions, not newly invented gameplay constraints. No explicit subcell collision/free-space contract exists in the supplied source records. Keep the recognizable hull/frame role and occupied cell. Do not use nominal `1×1×.78` as a grant to extrude new ground contact or fill the entire bounding cuboid.
+
+For each candidate, independently intersect its evaluated triangles with both port planes, compare finite ordered loops/areas and winding, and compare the complete lowest support face, not only bounding-box corners. Transform every required facing back into the root's authored coordinate system before checking the finite envelope and contact. Retain root matrices measured during capture.
+
+## Future compatible endpoint field method
+
+Freeze source **geometry**, then let the fresh editor establish a new coherent family endpoint shader and normal field. Old weak colors/normals are not immutable aesthetic constraints. At each of the three profiles, index the canonical transverse perimeter by authored side/arc coordinate `s` and height `Z`. Record explicit side-loop normals, native albedo/alpha/material fields and needed UV/tangent data over a finite collar, with the same translated field on W and E. Cap normals remain separate from visible side-loop normals, so endcap averaging cannot darken an internal join.
+
+A suitable collar is the source's existing terminal interval `[-.5,-.35]` / `[.35,.5]`, which contains only uninterrupted rail extrusions; root may freeze a smaller explicit finite collar before editing. Its field should have matching endpoint values and matching longitudinal derivatives; a field constant along the collar is an easy compatible choice. Keep grain/chip/decoration variation inside the interior, or use periodic/explicit canonical coordinates that prove equality at both ends. Per-object Generated coordinates or unrelated random seeds do not establish a shared endpoint.
+
+After an approved middle exists, export its exact canonical native fields as a hash-bound family resource. Derivatives transport them using each actual path endpoint tangent and transverse frame, including handedness; matching profile strings alone proves nothing. A future derivative still needs its own fresh editor/judge and true visible joins. This preparation grants no family approval.
+
+## Registered capture and sampling proposal
+
+Registered elevation is `55.00797980144134°`, pixel aspect `(1.2206555604934692,1)`, orthographic scale `1.5`, logical frame `(192,352)`, root `(96,248)`, cell `128`, and runtime source scale `2`. The saved `35°`, square-pixel, `192×320` presentation setup is incidental. Actual registered world/projection matrices and calibration were measured during each saved capture. Pose convention is `S0 / E+90 / N180 / W-90` degrees.
+
+One bounded historical replay used the unchanged native source at 4× with its original filter `1.5`, then uniform full-frame Pillow LANCZOS to 2×. All four resulting **PNG bytes** and decoded pixels match the original production atlases exactly. Historical raw PNGs are absent from this checkout, though their fingerprint hashes exist; raw byte/decoded equality is therefore not claimed. New raw captures, exact drivers and full comparison results are saved.
+
+The reproduced historical repeat has an actual local transparency defect: S interior joins at source2x columns 319–320 have alpha `233,235` while neighboring pixels should be opaque. Narrow native filter `.01` plus LANCZOS still yields `242,242`. Narrow `.01` plus full-frame BOX4→2 gives opaque S samples, but separately reducing depth-facing endcaps can retain subpixel occlusion mixtures.
+
+Propose **direct native 2× capture, filter `.01`, identity publication** for the fresh middle. The unedited-source probe uses that exact camera and full `384×704` frame: N/S have no partial-alpha pixels, and all sampled S interior joins remain `255`. E/W each have three alpha-98 pixels at outer rivet corners (`E x244..246,y328`; `W x137..139,y328`), retained honestly as outer precision residuals, not interior seam holes. Actual all-four independent repeats were inspected. This source diagnostic supports a fixed policy proposal, not a candidate pass. Connected native reference and consumer proof remain required. No pixel crop, fitting, per-view shift/recolor, warp, RGB/alpha repair, overlap, halo or helper change is permitted.
+
+## Bounded candidate evidence plan
+
+Build one native candidate with all-four measured single captures and one independent three-module chain per facing, using exact world spacing and ordinary painter order. Compare to one longer native assembly reference per facing, preserving original geometry/profile phase and camera scale. Save the complete raw RGB/alpha differences. Keep broad finite-light/off-center residuals and outside silhouette precision residuals in their own records. Inspect narrow masks around the true projected port surfaces and the finite opaque interior; compare local seam slope/contrast to neighboring collar fields. No mean/max number or broad-light explanation waives a visible local line or interior alpha defect.
+
+Use the unchanged consumer helpers with hashes in `evidence-plan.json`. Test four bounded cases in **both** actual headless modes: logical128 integer, logical128 fractional CSS/root/pan, phone32 integer, phone32 fractional root/pan. Put all4 facings and light/gray/dark variants in each review fixture; retain the native canvas and actual CSS screenshot separately. Record actual browser version, launch options, viewport, DPR, helper hashes and fixture/atlas hashes. Do not add another matrix unless a concrete failure requires it. Candidate visual evidence at use size and enlarged remains the judge's responsibility.
+
+Stop here for root reconciliation and immutable criteria/capture freeze before a separate fresh editor. No approval is issued.
