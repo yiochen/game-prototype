@@ -45,7 +45,12 @@
     ],
     "previews": [
       "four-view-sheet",
-      "repeated"
+      "repeated",
+      "native-family",
+      "consumer-family",
+      "base-contact",
+      "human-approach",
+      "consumer-quarter-phases"
     ],
     "logicalFrame": [
       192,
@@ -58,7 +63,13 @@
     "sourceScale": 2,
     "cellSize": 128,
     "fps": 12,
-    "projection": "top-down-oblique-square-grid"
+    "projection": "top-down-oblique-square-grid",
+    "nativeAntialias": {
+      "engine": "BLENDER_EEVEE",
+      "filterSize": 0.5,
+      "nativeScale": 2,
+      "persistedInNewSourceRequired": true
+    }
   },
   "constraints": {
     "preserve": [
@@ -76,9 +87,317 @@
       "Add purposeful decorations and crafted detail",
       "Replace awkward modeling and change nonfunctional topology or part counts",
       "Rebuild native geometry, normals, materials and light to realize the better design"
-    ]
+    ],
+    "nativeContract": {
+      "nativeRootCameraFootprintStillHard": {
+        "compositionRoot": [
+          0.78,
+          0.35,
+          0.23
+        ],
+        "standaloneRoot": {
+          "location": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "doorSocketLocal": [
+          -0.12,
+          -0.56,
+          0
+        ],
+        "doorSocketWorld": [
+          0.66,
+          -0.21,
+          0.23
+        ],
+        "footprint": [
+          1,
+          1
+        ],
+        "supportCells": [
+          [
+            0,
+            0
+          ]
+        ],
+        "nativeFrame": [
+          384,
+          896
+        ],
+        "logicalFrame": [
+          192,
+          448
+        ],
+        "logicalRoot": [
+          96,
+          352
+        ],
+        "sourceScale": 2,
+        "cellSize": 128,
+        "facingRadians": {
+          "N": 3.141592653589793,
+          "E": 1.5707963267948966,
+          "S": 0,
+          "W": -1.5707963267948966
+        },
+        "cameraAuthority": "Own asset-specific measured projection in native-source-evaluated.json and original source-contract-proposal.json. RootPx[192,704],unitX[256,0],unitDepthapproximately[0,256],unitHeightapproximately[0,-179.2]. Do not use unrelated saved active camera, alpha fitting, model/root warp or per-facing nudges.",
+        "maximumEnvelopeRootLocal": {
+          "x": [
+            -0.5830000042915344,
+            0.5830000042915344
+          ],
+          "y": [
+            -0.6099854111671448,
+            0.6099854111671448
+          ],
+          "z": [
+            -0.012,
+            1.81
+          ]
+        },
+        "modelingFreedom": "Maximum envelope and occupied scale are constraints, not old part counts, exact source extrema, awkward roof geometry or door proportions. Improve credible native body/roof/chimney construction and useful decorations within this envelope. One neutral horizontal soft-light recipe across all facings."
+      },
+      "boundedHutSupportAndThresholdRepair": {
+        "sourceFactRetained": "Actual source lowest supportworldZ0.255 is0.035above measured deckZ0.22. AtfixedrootZ0.23, proper nominal native contact islocalZ-0.01. No localZ>=0 rule is permissible for this repair.",
+        "maximumLocalRepairBox": {
+          "x": [
+            -0.4375,
+            0.4375
+          ],
+          "y": [
+            -0.56,
+            0.45
+          ],
+          "z": [
+            -0.012,
+            0.065
+          ]
+        },
+        "allowedRepair": "Rebuild/extend native low support, corner bottoms, connected base/sill and door threshold within the box, visibly connected to the body. No floor adapter, other-object edit, global root/model translation, camera change, hidden lowest vertex, atlas patch or contact-shadow trick.",
+        "contactNominal": {
+          "deckWorldZ": 0.22,
+          "rootWorldZ": 0.23,
+          "hutLocalContactZ": -0.01
+        },
+        "reliefException": "LocalcontactZ[-0.012,-0.008] only follows actual immutable paired floor broad relief0.22+/-0.002. It is not a general air-gap or sinking allowance. Pair actual evaluated contact profiles including relief/plank gaps/nails; fixed floor maxheight0.25 does not redefine broad supportZ.",
+        "sufficientNativeContactEvidence": "Exact candidate hut and floor hashes plus evaluated surfaces/sections across each intended finite-area contact, not just global minZ,AABB or opacity. Show stable distributed support:3noncollinear finite-area regions or2separated finite-width continuous rails, with support below the body and a naturally connected visible base. Report chosen areas, XY span and separation so isolated decorative points cannot masquerade as support. Exact topology and original rail count are editor-owned.",
+        "thresholdRole": "A native low threshold may have contact atworld0.22 and topwithinworld[0.22,0.23], preserving markerworld0.23. Keep the exterior approach unobstructed and join facade/base naturally; no new tall step or pretending the semantic marker is the deck top.",
+        "contactToleranceWorld": 1e-05,
+        "toleranceMeaning": "Actual selected structural contact surfaces match measured paired deck surfaces to1e-5world. Floating or penetration outside numerical tolerance requires repair, not explanation by broad-relief allowance. Small rounded edges can lift away from a contact patch; they must not create a whole floating skirt."
+      },
+      "closedDoorRoleAndClearanceReconciliation": {
+        "actualDeclaredRole": "Static closed workshop facade with semantic exterior door interaction/approach marker. No source opening, interior, open-door clip, actor pass-through action or hinge animation is declared. Preserve this actual role; do not invent an open-door gameplay mechanic or require an actor to walk through closed mesh.",
+        "sourceMeasurementsRetained": "Source door leafwidth0.32,height0.91 and outerframeheight0.99 are descriptive measurements. They are not dimensions to freeze. The registered human metadataheight1.5125 shows that the old decorative panel is not evidence of a human-passable aperture; it does not create a new aperture requirement.",
+        "nativeDesignFreedom": "Improve door size/proportion, frame, hinges/handle, plank construction and threshold as useful native design, retaining semantic socket, overall credible hut identity, fixed root/frame/footprint and envelope. A larger or differently built closed door can be an improvement without adding an interior or opening animation.",
+        "knownApproach": "Exterior direction is local-Y, centerlineX-0.12 through localY-0.56 socket. Proposed minimum clear source-facing foot/interaction corridor islocalX[-0.28,0.04],Y[-1.26,-0.56]. The low repair box stops atY-0.56. Do not add front decorations/supports into the exterior corridor. This corridor preserves source door-centered exterior access; its0.32width is not a claim that an entire human body passes through an aperture.",
+        "uncertainty": "The saved asset/socket data do not specify a runtime interaction radius, actual actor stopping point, interior navigation or doorway collision hull. Therefore no exact invented standing point or closed-mesh traversal should become a hard modeling lock. Preserve the marker and unobstructed exterior access, and report any remaining actor-scale mismatch honestly.",
+        "sufficientClearanceEvidence": "Show a registered unchanged-scale human standing/approaching outside the closed facade on actual deck support, with the chosen exterior stopping point and actor bounds recorded once in world space and rotated consistently across4facings. Inspect native visible meshes and projected consumer structure for sensible proportions, unobstructed approach, no new foot/base/trim snag and no accidental body/roof/chimney/submarine intersection at the demonstrated exterior positions. Report actual distances and standing/door scale; do not shrink or view-fit the actor. No interior, open-door animation or mesh traversal proof required.",
+        "scopeOfPass": "A future hut can pass its closed-door exterior role while explicitly having no pass-through gameplay claim. A source ambiguity alone is not a blocker requiring new gameplay. A real exterior clearance regression caused by added geometry remains a modeling defect."
+      },
+      "coverCollisionOwnership": {
+        "sourceFactRetained": "Original visible hut/cover meshes intersect26triangle pairs. Atworldchimneycenter[1.03,0.54], source cover surfaceZ1.827142835 is below source captop2.035. This is a genuine existing source canopy conflict.",
+        "currentHutScope": "Do not warp, flatten, lower or relocate a credible hut roof/chimney to accommodate the bad old canopy. Preserve own envelope, authored roots and roof/chimney identity while improving native construction. Existing source cover collision is disclosed and is assigned to future cover native family-clearance repair; it does not require current hut to solve cover geometry.",
+        "futureCoverContract": "Future cover reconstruction must use the exact immutable accepted hut candidate bytes and evaluated roof/chimney/attachment envelope hashes, alongside paired deck/submarine geometry. Prove native all4 covered/uncover clearance and intended visual cover behavior then. That future repair cannot silently move hut roots or change accepted hut bytes.",
+        "noFalseFamilyPass": "Current hut review may pass its own native structure/support/closed-door approach only after exact evidence. It must not claim old cover is collision-free or the whole family has seamless clearance. Old cover in a context is diagnostic and identified as such."
+      },
+      "otherSufficientEvidenceAndTolerances": {
+        "rootFacingMarkerTolerance": {
+          "absolute": 1e-05,
+          "units": "world/radians",
+          "meaning": "Numerical registration tolerance only."
+        },
+        "cameraBasisTolerance": {
+          "absolute": 0.02,
+          "units": "logical pixels",
+          "meaning": "Measured root/basis calibration; exact integerframe/root/sourceScale/atlas requirements unchanged."
+        },
+        "maximumEnvelopeTolerance": {
+          "absolute": 1e-05,
+          "units": "world",
+          "meaning": "Numerical upper-cap/bounds noise only, with explicit low-contact-band exception; no exact old topology/extent matching."
+        },
+        "requiredViews": "One exact native wholeframe perN/E/S/W staticat12fps; same camera/light/material recipe. Exact all4 paired native dock contexts and independently assembled corrected-consumer contexts, binding candidate hut/floor and declared companion bytes.",
+        "visibleBar": "Clean useful native support and readable roof/body/door/window structure at128logical,55.7143phone,31.3393landscapepx/cell with actual consumer filtering and common quarterlogical phases onlight/gray/dark. No sustained visible base separation/crack/fringe>=0.5logicalpx, clipping, black dead spot, unwanted directional ground shadow or unsupported-asset occlusion. Pixel threshold is diagnostic and does not replace exact native contact or human visual judgment.",
+        "resourcesAndReproduction": "Keep original dependency/source/target hashes immutable. Candidate remains native editable geometry/materials with packed/hash-bound dependencies, clean-background reproduction, exact inspected atlas bytes and no target cards/paintovers. Later paired floor bytes must be actual immutable candidate surfaces rather than original source samples or the addendum's geometry references alone."
+      },
+      "captureCamera": {
+        "nativeFrame": [
+          384,
+          896
+        ],
+        "logicalFrame": [
+          192,
+          448
+        ],
+        "logicalRoot": [
+          96,
+          352
+        ],
+        "sourceScale": 2,
+        "cellSize": 128,
+        "worldUnitsPerCell": 1,
+        "projection": "top-down-oblique-square-grid; X=x,depth=-Y,height=Z; height ratio0.7",
+        "camera": {
+          "type": "ORTHO",
+          "orthoScale": 1.5,
+          "matrix": [
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0.8192317485809326,
+              -0.5734625458717346,
+              -5.734623432159424
+            ],
+            [
+              0,
+              0.5734625458717346,
+              0.8192317485809326,
+              8.1923189163208
+            ],
+            [
+              0,
+              0,
+              0,
+              1
+            ]
+          ],
+          "pixelAspect": [
+            1.2206555604934692,
+            1
+          ],
+          "shift": [
+            0,
+            0.5461530089378357
+          ],
+          "rootPx": [
+            192,
+            704
+          ],
+          "unitXPx": [
+            256,
+            0
+          ],
+          "unitDepthPx": [
+            0,
+            255.99993896484375
+          ],
+          "unitHeightPx": [
+            0,
+            -179.2000732421875
+          ],
+          "authority": "Reconstructed and independently projected from asset-specific source-camera matrix; saved active character camera is unrelated. Shader/output camera values must be measured from candidate, not copied into validation."
+        },
+        "directionsRadians": {
+          "N": 3.141592653589793,
+          "E": 1.5707963267948966,
+          "S": 0,
+          "W": -1.5707963267948966
+        },
+        "clip": {
+          "id": "static",
+          "frames": 1,
+          "fps": 12,
+          "static": true,
+          "loop": false,
+          "frameOrder": [
+            0
+          ]
+        },
+        "atlas": "One native384x896 whole-frame RGBA8 PNG perN/E/S/W; columns1,rows1,rect[0,0,384,896]. No crop, pose fitting, warp, alpha-based registration, view nudges or per-view lights/materials.",
+        "sourceReproductionLimit": "Source published source-captures/000.png historical4x paths are not present in the inspected guide folder. Published2x bytes and fresh native2x diagnostic bytes differ at alpha edges by about2native pixels. Historical4x is provenance, not proof of available rawbytes. Preserve exact current published originals; future candidate uses a fully saved explicit native2x recipe or explicit whole-frame higher-resolution/downsample recipe with all raw bytes retained."
+      },
+      "technicalResolution": "reviews/technical-reconciliation-v1.json",
+      "consumerRule": "Use explicit supportedBy:dock-deck and current native-sampling revision; old source cover collision/order is diagnostic, repaired in cover scope. No false whole-family pass."
+    },
+    "pairedFloorBinding": "Temporary native geometry authority10d73696bd0bc14858db9cfa32f188181f07d5f936aabb06d0068f32a5612e6e atinputs/paired-native/dock-floor-round-03.blend. Floor editor changing only saved filter/captures next; rebind final exact new paired source before final handoff. Measure actual surfaces now; no source-original support substitution."
   },
-  "qualityCriteria": {},
+  "qualityCriteria": {
+    "schemaVersion": 1,
+    "asset": "workshop-hut",
+    "status": "coordinator-frozen-after-technical-reconciliation",
+    "stage": "preparation-only; no candidate approval",
+    "initialObservations": "initial.json",
+    "technicalProposal": "source-contract-proposal.json",
+    "styleTargetSHA256": "d308e6a875c00c237a5f4d3901c852e9f3ff40ae4e77b0f2b37eb8ccd2712585",
+    "scoring": "Comparative shapeVolume, color, lightingHighlights, materialDetail and artifactFreeReadability scores can support observations. No universal numerical pass mark; material visible defects or missing technical evidence block approval.",
+    "rankedVisibleCriteria": [
+      {
+        "rank": 1,
+        "category": "shapeVolume",
+        "outcome": "A convincingly constructed compact workshop: thick coherent pitched roof, rounded but disciplined eaves/ridge/chimney, warm timber body with purposeful corner and opening structure. Rebuild awkward strips, proportions, seams and hardware as useful native geometry. Roof, wall and door volumes should be clearer and more deliberate than the source in all four views.",
+        "targetCues": [
+          "Broad roof strip thickness and softened bevels",
+          "Substantial navy ridge and chimney collar/cap",
+          "Crafted corner posts, door frame and window surround"
+        ],
+        "bounds": "Maintain role, palette family, one-cell occupancy, fixed root/camera/semantic doorway and frozen contact/clearance envelope. Source mesh count and exact construction are not locks. Front target is not authority for unseen sides or registration."
+      },
+      {
+        "rank": 2,
+        "category": "lightingHighlights",
+        "outcome": "Warm soft form shading and bounded edge highlights explain roof, timber and trim without looking hard-edged, mirror-plastic or flat emissive. Use one horizontally neutral lighting/material treatment across N/E/S/W. Side/rear walls remain readable warm volumes rather than near-black slabs.",
+        "reject": [
+          "Preferred horizontal key direction",
+          "Per-facing recoloring or fitting",
+          "Directional ground shadow",
+          "Clipped white roof bands",
+          "Broad black dead spots under roof or on walls",
+          "Target-like cyan halo or red alpha flecks"
+        ]
+      },
+      {
+        "rank": 3,
+        "category": "color",
+        "outcome": "Keep the cyan/aqua and medium-blue roof, deeper navy structure, honey/orange timber, darker brown frame and golden window/hardware family. Separate roof strips by form and restrained hue/value variation. Timber should feel warm and legible against both cool roof and deck; avoid the source's extremely saturated flat cyan or muddy uniformly brown walls.",
+        "judgment": "Judge relative relationships and readable color regions rather than exact pixel matching to the target. The plant is a style-only reference, not a required green hue or copied glow."
+      },
+      {
+        "rank": 4,
+        "category": "materialDetail",
+        "outcome": "Add a small, purposeful set of crafted features such as visible board construction, beveled trim, readable hinges/handle, roof fasteners or window sill. Each should support a workshop identity and survive intended reduction. Wood, roof, metal hardware and warm glass should separate without excessive grain, tiny repeated rivets, random scratches or gratuitous decoration.",
+        "freedom": "The editor chooses details, topology, normals and shaders; target hardware or exact strip counts are not mandatory. Back/side construction must be coherent rather than copying the front onto every wall."
+      },
+      {
+        "rank": 5,
+        "category": "artifactFreeReadability",
+        "outcome": "At logical128px/cell, phone55.7143px/cell and landscape31.3393px/cell, roof/body/door/window retain a stable hierarchy and a recognizable workshop silhouette. Small hardware may simplify at landscape size, while door and window remain distinct. All4 exact whole frames and repeated copies should remain clean on light/gray/dark backgrounds with current filtering and common world phase.",
+        "reject": [
+          "Clipping, floating trim, coplanar flicker or intersections",
+          "Black holes or bright line breaks between intended connected forms",
+          "RGB/alpha fringe or bright perimeter halo",
+          "Rasters moved or cropped to mimic the target",
+          "Invented self-tiling requirement for this freestanding hut",
+          "Repeated-detail clutter that overwhelms the silhouette"
+        ]
+      }
+    ],
+    "technicalGatesSeparateFromTaste": [
+      "Actual native editable reconstruction and dependency closure; no target plane, paintover or camera-facing card.",
+      "All four registered atlas frames and exact camera/root/facing/scale audits bound to immutable candidate bytes.",
+      "Native base/threshold support repair at fixed root, proven against exact paired deck geometry and useful contacts; never freeze the source float.",
+      "Human/door/approach/cover clearance evidence with honest declaration of source limitations and resolved frozen door role.",
+      "All4 native contexts and independently assembled exact candidate sprite contexts with actual current sorting/filtering. Existing sort defect cannot be solved by distorting hut geometry or moving root.",
+      "Reproduction from a clean background Blender process with packed/hash-bound resources and no per-view presentation patches."
+    ],
+    "approvalDisposition": "No approval now. Missing paired candidate deck bytes, unresolved source consumer ordering or unresolved required doorway/cover clearance yields needs_evidence or coordinator reconciliation, not a family pass."
+  },
   "delivery": {
     "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
     "requiredClips": [
@@ -116,5 +435,52 @@
       "The three excluded restaurant floor designs"
     ],
     "judging": "Reward useful native modeling and decoration inspired by the target. Do not reject a change solely because it differs from the source. Reject target drift only when it harms the chosen style, readability, role or locked technical contract. Original part counts and weak shapes are not automatically constraints."
+  },
+  "technicalResources": {
+    "own-prep:audit-source-context.py": "reviews/audit-source-context.py",
+    "own-prep:preparation-summary.json": "reviews/preparation-summary.json",
+    "own-prep:proposedcriteria.json": "reviews/proposedcriteria.json",
+    "own-prep:native-source-evaluated.json": "reviews/native-source-evaluated.json",
+    "own-prep:source-context-consumer-sheet.png": "reviews/source-context-consumer-sheet.png",
+    "own-prep:final-hashes.json": "reviews/final-hashes.json",
+    "own-prep:initial-input-hashes.json": "reviews/initial-input-hashes.json",
+    "own-prep:source-context-capture.log": "reviews/source-context-capture.log",
+    "own-prep:source-consumer-evidence.json": "reviews/source-consumer-evidence.json",
+    "own-prep:source-native-four-view-logical.png": "reviews/source-native-four-view-logical.png",
+    "own-prep:source-contract-proposal.json": "reviews/source-contract-proposal.json",
+    "own-prep:technical-reconciliation-v1.json": "reviews/technical-reconciliation-v1.json",
+    "own-prep:capture-own-source.py": "reviews/capture-own-source.py",
+    "own-prep:evidence-manifest.json": "reviews/evidence-manifest.json",
+    "own-prep:native-source-context-v2.json": "reviews/native-source-context-v2.json",
+    "own-prep:source-consumer-readability.png": "reviews/source-consumer-readability.png",
+    "own-prep:source-published-four-view-logical.png": "reviews/source-published-four-view-logical.png",
+    "own-prep:source-context-capture-v2.log": "reviews/source-context-capture-v2.log",
+    "own-prep:audit-native-source.py": "reviews/audit-native-source.py",
+    "own-prep:native-source-context.json": "reviews/native-source-context.json",
+    "own-prep:native-source-inventory.json": "reviews/native-source-inventory.json",
+    "own-prep:technical-reconciliation-v1-seal.json": "reviews/technical-reconciliation-v1-seal.json",
+    "own-prep:native-source-inventory-v2.json": "reviews/native-source-inventory-v2.json",
+    "own-prep:source-native-capture.log": "reviews/source-native-capture.log",
+    "own-prep:capture-source-consumer.mjs": "reviews/capture-source-consumer.mjs",
+    "own-prep:initial.json": "reviews/initial.json",
+    "own-prep:source-context-native-sheet.png": "reviews/source-context-native-sheet.png",
+    "own-prep:source-context-consumer/N.png": "reviews/source-context-consumer/N.png",
+    "own-prep:source-context-consumer/W.png": "reviews/source-context-consumer/W.png",
+    "own-prep:source-context-consumer/S.png": "reviews/source-context-consumer/S.png",
+    "own-prep:source-context-consumer/E.png": "reviews/source-context-consumer/E.png",
+    "own-prep:source-native/N.png": "reviews/source-native/N.png",
+    "own-prep:source-native/W.png": "reviews/source-native/W.png",
+    "own-prep:source-native/S.png": "reviews/source-native/S.png",
+    "own-prep:source-native/E.png": "reviews/source-native/E.png",
+    "own-prep:source-context-native/N.png": "reviews/source-context-native/N.png",
+    "own-prep:source-context-native/W.png": "reviews/source-context-native/W.png",
+    "own-prep:source-context-native/S.png": "reviews/source-context-native/S.png",
+    "own-prep:source-context-native/E.png": "reviews/source-context-native/E.png",
+    "consumer:inputs/consumer-native-sampling-addendum.json": "inputs/consumer-native-sampling-addendum.json",
+    "consumer:inputs/consumer-native-sampling/world-sprite-raster.spec.js": "inputs/consumer-native-sampling/world-sprite-raster.spec.js",
+    "consumer:inputs/consumer-native-sampling/world-sprite-raster-before.js": "inputs/consumer-native-sampling/world-sprite-raster-before.js",
+    "consumer:inputs/consumer-native-sampling/world-sprite-raster.js": "inputs/consumer-native-sampling/world-sprite-raster.js",
+    "consumer:inputs/consumer-native-sampling/browser-regressions.log": "inputs/consumer-native-sampling/browser-regressions.log",
+    "temporary-paired-floor": "inputs/paired-native/dock-floor-round-03.blend"
   }
 }

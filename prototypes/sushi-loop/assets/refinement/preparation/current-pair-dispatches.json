@@ -254,13 +254,17 @@
       "asset": "sub-hull-panels",
       "brief": "../objects/sub-hull-panels/brief.json",
       "judge": "catalog_sub_hull_panels_judge_v1",
-      "editor": null,
+      "editor": "catalog_sub_hull_panels_editor_v1",
       "freshContext": true,
-      "status": "independent-preparation-before-freeze",
+      "status": "editor-constructing-after-freeze",
       "workflow": "Independent own source/target observations first; then technical frozen main-body fixture and own standalone contract audit. Root freeze before fresh editor.",
       "prompts": {
-        "judge": "sub-hull-panels/judge-dispatch.txt"
-      }
+        "judge": "sub-hull-panels/judge-dispatch.txt",
+        "editor": "sub-hull-panels/editor-dispatch.txt",
+        "motionReconciliation": "sub-hull-panels/active-motion-reconciliation.txt"
+      },
+      "briefSHA256": "bedbf67109f0c56c7477c5bf774b78726ac176a068a121547a916f32895048aa",
+      "nativeContractSHA256": "7ceeee947ec0d88f3d2eebef041a54cac59bf92f28f7eb25ee94958dc46a8c03"
     },
     {
       "asset": "rock-wall-end",
@@ -270,12 +274,13 @@
       "judge": "catalog_rock_wall_end_judge_v1",
       "editor": "catalog_rock_wall_end_editor_v1",
       "freshContext": true,
-      "status": "editor-constructing-after-freeze",
+      "status": "original-judge-reviewing-round-03",
       "workflow": "Fresh independent source/target observations before canonical family inspection. Measured native contract and outcomes frozen before fresh editor. Original pair for revisions and exact sealed final candidate review.",
       "prompts": {
         "judge": "rock-wall-end/judge-dispatch.txt",
         "editor": "rock-wall-end/editor-dispatch.txt",
-        "editorExecutableClarification": "rock-wall-end/editor-executable-clarification.txt"
+        "editorExecutableClarification": "rock-wall-end/editor-executable-clarification.txt",
+        "judgeRound03": "rock-wall-end/judge-round-03-dispatch.txt"
       }
     }
   ]

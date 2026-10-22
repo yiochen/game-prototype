@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "status": "coordinator-frozen-native-capture-and-consumer-revision",
+  "purpose": "Remove measured independent sprite-edge coverage loss without changing geometry, source pixels, authored roots or final scene filtering.",
+  "nativeCapture": {
+    "engine": "BLENDER_EEVEE",
+    "render.filter_size": 0.5,
+    "nativeScale": 2,
+    "sampling": "Keep actual source64render samples and other per-object camera/light/material settings unless the frozen own aesthetic construction changes them consistently. Persist filter_size in the NEW standalone saved blend; measure it after reopening.",
+    "law": "New round sources/captures required; old source hashes and old delivered render bytes remain immutable."
+  },
+  "consumer": {
+    "implementation": "inputs/consumer-native-sampling/world-sprite-raster.js",
+    "sha256": "4ddc7495ade39f75adcce7d5400fc54326d588270b6fad9a5cca133f7df34bb0",
+    "operation": "After any canvas sizing, set the common-native-canvas context.imageSmoothingEnabled=false before clear/drawImage. Keep analytical sprite positions and shared worldRasterPlan unchanged. Final whole-canvas SVG/CSS presentation retains ordinary filtering.",
+    "forbidden": [
+      "manual root/phase snapping",
+      "per-view nudges",
+      "alpha/RGB edits",
+      "pixel masks or seam patches",
+      "new geometry overlap to hide coverage"
+    ]
+  },
+  "scopedEvidence": {
+    "studyReportSHA256": "dca1e88cc1eddca3e3bbaeebbc6ef29f3bcde7dd144bfa7ba0ad6535036070a0",
+    "observation": "Nativefilter.5 alone retainsA191 at quarterphases. Combined nativefilter.5/intermediate-nearest experiment hasA255 and zeroalpha loss for8E/Wphase cases. This is limited technical evidence, not independent candidate approval.",
+    "browserRegression": "Two actual-browser tests pass: fractional padded sprite joins at allquarterphases including positivecontrol, and final continuous-scene scaling/camera phases. Test snapshot retained."
+  },
+  "requiredNewEvidence": "All4 actual native standalone/newsource captures; immutable exact paired sources exchanged; native contact/profile proof; independently assembled current actual production functions; logical/phone/landscape light-gray-dark quarterphases; required humans/family/native comparisons and original judges. Preserve all failed drafts.",
+  "inherited": "All geometry, root, semantic markers, quality criteria, shared dock contract and supportedBy metadata remain exactly as frozen. This adds a capture/sampling recipe, not a relaxed seam bar."
+}
