@@ -1,0 +1,50 @@
+"""Bound actual submitted native/consumer evidence. No approval or publication."""
+from pathlib import Path
+import hashlib,json,platform,os
+from PIL import Image,ImageChops,ImageStat
+SRC=Path(__file__).resolve().parent;OBJ=SRC.parent;OUT=OBJ/'candidates/round-02';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+def read(p):return json.loads(p.read_text())
+def write(p,d):p.write_text(json.dumps(d,indent=2)+'\n')
+v=read(OUT/'native-validation.json');p=read(OUT/'publication-proof.json');a=read(OUT/'saved-source-audit.json');b=read(OUT/'consumer-proof.json');records=read(SRC/'round-02-frame-records.json')
+recapture=[]
+for d in 'NESW':
+ x=Image.open(OUT/'native'/d/'003.png').convert('RGBA');y=Image.open(OUT/'recapture'/f'{d}-003.png').convert('RGBA');dif=ImageChops.difference(x,y)
+ recapture.append({'direction':d,'nativeOriginal':f'candidates/round-02/native/{d}/003.png','nativeRecapture':f'candidates/round-02/recapture/{d}-003.png','decodedEquals':all(c==(0,0)for c in dif.getextrema()),'maxChannelDifference':[c[1]for c in dif.getextrema()],'meanChannelDifference':ImageStat.Stat(dif).mean})
+consumerComparisons=[];aliasMaps=[]
+for width in [1200,390]:
+ for kind in ['hero','context','repeat']:
+  for suffix in ['', '-native']:
+   pa=OUT/'browser'/f'chromium-{width}-{kind}{suffix}.png';pb=OUT/'browser'/f'shell-{width}-{kind}{suffix}.png';x=Image.open(pa).convert('RGBA');y=Image.open(pb).convert('RGBA');di=ImageChops.difference(x,y)
+   consumerComparisons.append({'width':width,'kind':kind,'layer':'native-canvas'if suffix else'CSS whole-canvas screenshot','files':[str(pa.relative_to(OBJ)),str(pb.relative_to(OBJ))],'sameSize':x.size==y.size,'decodedEquals':all(c==(0,0)for c in di.getextrema()),'meanChannelDifference':ImageStat.Stat(di).mean,'maxChannelDifference':[c[1]for c in di.getextrema()]})
+for kind in ['hero','context','repeat']:
+ primary=OUT/'browser'/f'chromium-1200-{kind}-native.png'
+ for mode,width in [('chromium',390),('shell',1200),('shell',390)]:
+  other=OUT/'browser'/f'{mode}-{width}-{kind}-native.png';aliasMaps.append({'primary':str(primary.relative_to(OBJ)),'other':str(other.relative_to(OBJ)),'hashIdentical':sha(primary)==sha(other)})
+write(OUT/'replay-consumer-comparison.json',{'savedSourceReplay':recapture,'browserModeComparisons':consumerComparisons,'nativeCanvasHashAliasProof':aliasMaps,'meaning':'Identical aliases can share actual visual inspection when explicitly mapped. Native canvases and CSS screenshots are distinct evidence layers. Actual differences recorded without repair.'})
+checks=dict(p['checks']);checks.update({'savedSourceHeroRecaptureExact':all(x['decodedEquals']for x in recapture),'quarterPhaseFiniteSupport':all(t['supported']==t['total']for r in a['quarterPhaseFrames']for t in r['support']),'staticReefAcrossQuarterPhases':a['staticReefEvaluatedPoseHashesUnique']==1,'neutralColonyInsideCell':all(a['neutralBoundsRoot'][i][0]>=-.50001 and a['neutralBoundsRoot'][i][1]<=.50001 for i in [0,1]),'noCoralSurfaceOverlapAtQuarterPhases':not a['tubeSurfaceBVHOverlaps'],'staticAccentSupport':all(t['supported']==t['total']for t in a['staticAccentSupport']),'noHiddenAnimationOwners':len(a['actualAnimationDataScan'])==9 and all(x['kind']=='objects'and x['drivers']==0 and x['nlaTracks']==0 for x in a['actualAnimationDataScan']),'noShapesConstraintsLibraries':not a['actualShapeKeys']and not a['actualConstraints']and not a['actualLibraries'],'consumerBothModesAndSizes':len(b['captures'])==4 and set((x['mode'],x['viewport']['width'])for x in b['captures'])=={('chromium',1200),('chromium',390),('shell',1200),('shell',390)},'consumerNearestAfterResize':all(all(f['smoothing']is False for f in x['fixture'].values())for x in b['captures'])})
+# No aggregate aesthetic claim: these are only named measured structural checks.
+write(OUT/'validation.json',{'asset':'decor-midground-coral','round':'round-02','status':'native-and-consumer-evidence-for-independent-review','nativeValidation':'candidates/round-02/native-validation.json','projectSHA256':sha(SRC/'round-02.blend'),'checks':checks,'geometry':p['geometry'],'quarterPhaseSamples':len(a['quarterPhaseFrames']),'quarterPhaseContactPoints':sum(t['total']for r in a['quarterPhaseFrames']for t in r['support']),'nativeFrames':48,'separateClosureFrames':4,'publication':'whole-frame native4x LANCZOS to published2x; raw native retained','nativeAA':v['nativeSettings'],'evidence':{'native':'candidates/round-02/native-validation.json','publication':'candidates/round-02/publication-proof.json','savedSource':'candidates/round-02/saved-source-audit.json','consumer':'candidates/round-02/consumer-proof.json','comparisons':'candidates/round-02/replay-consumer-comparison.json'},'limits':['Structural checks do not establish visual approval. Same original independent judge must inspect exact sealed candidate and declared previews.','Fixed target is a design guide; unseen views are native design reconstruction. Original weak tube/rock counts and source shaders are not preserved as locks.','Preflight round-01 is retained with its disclosed small sprout support failure and camera matrix decomposition difference; round-02 corrects both. No prior candidate approval implied.']})
+if not all(checks.values()):raise RuntimeError('Technical checks failed: '+str([k for k,val in checks.items()if not val]))
+write(OUT/'runtime-provenance.json',{'blenderExecutable':'/opt/homebrew/bin/blender','blenderVersion':v['blenderVersion'],'pythonExecutableUsed':'/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3','pythonVersion':platform.python_version(),'pillowVersion':Image.__version__,'node':'v22.18.0','playwright':'1.63.0','launches':[{'mode':r['mode'],'version':r['version'],'options':r['launchOptions']}for r in b['captures']],'commands':['/opt/homebrew/bin/blender -b --python source/reproduce-round-02.py','PYTHONDONTWRITEBYTECODE=1 python3 source/process-round-02.py','/opt/homebrew/bin/blender -b source/round-02.blend --python source/audit-saved-round-02.py','node source/capture-consumer-round-02.mjs','PYTHONDONTWRITEBYTECODE=1 python3 source/finalize-round-02.py'],'pathBase':'object root','dependencies':'Only bundled Blender bpy/mathutils, Python Pillow, worktree @playwright/test, saved exact source-camera and consumer helpers/fixtures/actor atlases. No target texture/card, external image textures or app/runtime tree copies.'})
+previews={'four-view-sheet':'four-view-sheet.png','phone':'browser/chromium-390-context.png','repeated':'browser/chromium-1200-repeat.png','source-target-comparison':'source-target-comparison.png','native-enlarged-S':'native/S/003.png'}
+for d in 'NESW':previews['idle-'+d]=f'idle-{d}.gif';previews['phases-'+d]=f'phases-{d}.png'
+for mode in ['chromium','shell']:
+ for width in [1200,390]:
+  for kind in ['hero','context','repeat']:previews[f'consumer-{mode}-{width}-{kind}']=f'browser/{mode}-{width}-{kind}.png'
+for kind in ['hero','context','repeat']:previews['native-canvas-'+kind]=f'browser/chromium-1200-{kind}-native.png'
+previews={k:str((OUT/q).relative_to(OBJ))for k,q in previews.items()}
+# Resource closure includes all actual candidate bytes and used new source/dependency files.
+used=[SRC/'round-02.blend',SRC/'reproduce-round-02.py',SRC/'process-round-02.py',SRC/'audit-saved-round-02.py',SRC/'capture-consumer-round-02.mjs',SRC/'finalize-round-02.py',SRC/'contract-acknowledgment-v1.json',SRC/'initial-observations.json']
+used += [SRC/n for n in ['round-02-capture.log','process-round-02.log','audit-saved-round-02.log','consumer-round-02.log']]
+used += [x for x in (SRC/'resources').rglob('*')if x.is_file()]
+used += [x for x in OUT.rglob('*')if x.is_file()and x.name not in ('handoff-manifest.json',)]
+unique={str(x.relative_to(OBJ)):x for x in used}
+manifest={'asset':'decor-midground-coral','round':'round-02','pathBase':'object root','files':[{'path':k,'sha256':sha(x),'bytes':x.stat().st_size}for k,x in sorted(unique.items())],'limits':{'maximumFileBytes':max(x.stat().st_size for x in unique.values()),'totalBytes':sum(x.stat().st_size for x in unique.values()),'noFile100MB':all(x.stat().st_size<100_000_000 for x in unique.values())},'approval':'None; exact technical delivery awaiting coordinator seal and independent original judge.'}
+write(OUT/'handoff-manifest.json',manifest)
+delivery={'asset':'decor-midground-coral','round':'round-02','project':'source/round-02.blend','recipeScript':'source/reproduce-round-02.py','validation':'candidates/round-02/validation.json','nativeRecords':{'camera':'candidates/round-02/published-camera.json','assetRecord':'candidates/round-02/assetRecord.json','rig':'candidates/round-02/rig.json'},'heroes':{d:f'candidates/round-02/frames/idle/{d}/003.png'for d in 'NESW'},'previews':previews,**records,'resources':[{'path':k,'sha256':sha(x)}for k,x in sorted(unique.items())]+[{'path':'candidates/round-02/handoff-manifest.json','sha256':sha(OUT/'handoff-manifest.json')}],'notes':['No editor self-approval; coordinator seal and same original independent judge required.','All heroes use native frame4 (published index3). Full48 published/native frames and separate4 native13 closures bound.','Two required aliases phone/repeated refer to actual named consumer screenshots; same hash means same visible file. NativeCanvas aliases proven in comparison JSON.','Preflight round01 kept unchanged; finalround02 fixes finite sprout support and reconstructs the exact recorded native camera.']}
+write(OBJ/'delivery-round-02.json',delivery)
+# Freeze the exact submitted art/evidence. Root may still add its new packet/snapshot files.
+for x in unique.values():
+ if x.is_file():os.chmod(x,0o444)
+os.chmod(OUT/'handoff-manifest.json',0o444);os.chmod(OBJ/'delivery-round-02.json',0o444)
+print(json.dumps({'delivery':'delivery-round-02.json','deliverySHA256':sha(OBJ/'delivery-round-02.json'),'projectSHA256':sha(SRC/'round-02.blend'),'handoffManifestSHA256':sha(OUT/'handoff-manifest.json'),'checks':checks,'files':len(unique),'bytes':manifest['limits'],'previews':len(previews)},indent=2))

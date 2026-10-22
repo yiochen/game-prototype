@@ -9,7 +9,7 @@
     288
   ],
   "cellSize": 128,
-  "captureScale": 4,
+  "captureScale": 2,
   "fps": 12,
   "axes": {
     "x": "X",
@@ -72,52 +72,45 @@
     ],
     "pixelAspect": [
       1.2206555604934692,
-      1.0
+      1
     ],
     "worldUnitsPerCell": 1,
-    "elevationDegrees": 55.00797980144134
+    "elevationDegrees": 55.00797980144134,
+    "orthoScale": 1.5,
+    "shift": [
+      0.0,
+      0.4096146523952484
+    ]
   },
   "calibration": {
     "root": [
-      384.0,
-      1152.0
+      192.0,
+      576.0
     ],
     "unitX": [
-      512.0,
+      256.0,
       0.0
     ],
     "unitDepth": [
       0.0,
-      512.0
+      256.0
     ],
     "unitHeight": [
       0.0,
-      -358.400146484375
+      -179.2000732421875
     ]
   },
-  "artStyle": {
-    "revision": "2026-10-19",
-    "environmentHeightRatio": 0.7,
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
-    "lightingRig": {
-      "treatment": "Faceted",
-      "overheadWatts": 140,
-      "overheadPosition": [
-        0,
-        0,
-        4.5
-      ],
-      "overheadSize": 3.5,
-      "fillWattsEach": 100,
-      "fillSize": 4,
-      "fillRadius": 3,
-      "fillZ": 1.8,
-      "horizontalSymmetry": 4,
-      "worldStrength": 0
-    },
-    "lowerShading": "world-height ramp; camera view-tone bypassed"
-  },
-  "name": "square top/front oblique"
+  "publication": {
+    "nativeFrame": [
+      768,
+      1536
+    ],
+    "nativeCaptureScale": 4,
+    "publishedFrame": [
+      384,
+      768
+    ],
+    "method": "uniform whole-frame LANCZOS resize",
+    "nativeCameraRecord": "native-camera.json"
+  }
 }

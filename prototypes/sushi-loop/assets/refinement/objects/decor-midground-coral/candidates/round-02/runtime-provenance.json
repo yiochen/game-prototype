@@ -1,0 +1,50 @@
+{
+  "blenderExecutable": "/opt/homebrew/bin/blender",
+  "blenderVersion": "5.2.2 LTS",
+  "pythonExecutableUsed": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+  "pythonVersion": "3.12.14",
+  "pillowVersion": "12.3.0",
+  "node": "v22.18.0",
+  "playwright": "1.63.0",
+  "launches": [
+    {
+      "mode": "chromium",
+      "version": "153.0.8010.12",
+      "options": {
+        "headless": true,
+        "channel": "chromium"
+      }
+    },
+    {
+      "mode": "chromium",
+      "version": "153.0.8010.12",
+      "options": {
+        "headless": true,
+        "channel": "chromium"
+      }
+    },
+    {
+      "mode": "shell",
+      "version": "153.0.8010.12",
+      "options": {
+        "headless": true
+      }
+    },
+    {
+      "mode": "shell",
+      "version": "153.0.8010.12",
+      "options": {
+        "headless": true
+      }
+    }
+  ],
+  "commands": [
+    "/opt/homebrew/bin/blender -b --python source/reproduce-round-02.py",
+    "PYTHONDONTWRITEBYTECODE=1 python3 source/process-round-02.py",
+    "/opt/homebrew/bin/blender -b source/round-02.blend --python source/audit-saved-round-02.py",
+    "node source/capture-consumer-round-02.mjs",
+    "PYTHONDONTWRITEBYTECODE=1 python3 source/finalize-round-02.py"
+  ],
+  "pathBase": "object root",
+  "dependencies": "Only bundled Blender bpy/mathutils, Python Pillow, worktree @playwright/test, saved exact source-camera and consumer helpers/fixtures/actor atlases. No target texture/card, external image textures or app/runtime tree copies."
+}
