@@ -1,0 +1,128 @@
+{
+  "asset": "floor-underwater",
+  "version": "preparation-v1",
+  "status": "proposed-only; root freeze and fresh editor pending",
+  "independence": "Own source snapshot, fixed target, warm-soft reference and original collection inspected before any other object aesthetic criteria or editor rationale. No candidate inspected or approved.",
+  "reference": {
+    "path": "reviews/preparation-v1/resources/inputs/target.png",
+    "sha256": "e784e3c05141b39aca5a961485c652413003f3f3ae3d6cf9dcf03b0f2b3d4f8f",
+    "relativeTo": "object",
+    "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+    "role": "fixed aesthetic target, never registration/tiling/loop evidence"
+  },
+  "sourceObservation": {
+    "path": "reviews/initial.json",
+    "sha256": "8c89dc542083f6479ef1ee46a2f60d9a4ebf3ba0130f14c43d3e8ee9be899c73",
+    "relativeTo": "object",
+    "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater"
+  },
+  "definitionOfGood": [
+    {
+      "axis": "shapeVolume",
+      "outcome": "The floor stays flat and fully covers one registered cell. Its water has softly modeled optical depth from broad rounded caustic regions and gentle surface variation; no slab, rocks or raised silhouette is required. Improve the weak two-band construction when useful.",
+      "review": "Compare fixed target, original and native captures at256,128 and phone filtered size. Shape-volume score concerns water-surface depth/readability rather than adding physical height."
+    },
+    {
+      "axis": "color",
+      "outcome": "Preserve the turquoise/aqua palette family, separating a rich calm water field, softly lighter cyan regions and restrained pale warm-green highlights. The surface should remain water beneath scene objects, with no dark rectangular frame, muddy merged regions, harsh white knots or broad cyan clipping.",
+      "review": "Inspect light/gray/dark composites and floor with frozen submarine/rock context; do not recolor facings separately."
+    },
+    {
+      "axis": "lightingHighlights",
+      "outcome": "Broad soft reflections reveal connected flowing caustic structure, without a preferred horizontal light direction or ground-cast shadow. Bright intersections taper gently into the surface instead of becoming isolated white dots.",
+      "review": "All four native cardinal rotations under one shared lighting/material setup. The plant reference guides warmth and material clarity, not literal green/orange colors."
+    },
+    {
+      "axis": "materialDetail",
+      "outcome": "Purposeful, legible caustic branches and rounded interior gradients replace the broad empty field and flat dark ribbons. Fine variation may support the material but should not become grain, aliasing or clutter at logical/phone size.",
+      "review": "Reward native design improvements; do not lock old part count, UV absence, flat colors, borders, waveform topology or downward wave normals."
+    },
+    {
+      "axis": "modularContinuity",
+      "outcome": "A repeated3\u00d73 patch reads as one continuous underwater surface. Neither X/depth tile borders nor four-tile corners reveal dark grids, empty seams, mismatched pattern branches, raised rims, exposure changes or tile-local vignettes. Full opaque coverage must come from the native registered surface.",
+      "review": "Both unchanged-pitch native3\u00d73 assembly and independently assembled exported3\u00d73 sprites, all4 facings/all12 unique phases, logical and real phone filtering. A disconnected tile or target border cannot prove continuity."
+    },
+    {
+      "axis": "motionAndReadability",
+      "outcome": "A restrained calm one-second water loop remains visibly animated and periodic at12fps. Every shared edge stays connected through all12 phases and closure; no phase-locked tile drift, sparkle, popping or seam flicker appears under fractional pan/root sampling. No dead black patch, clipping, broken corner, exposed join or unwanted halo is accepted.",
+      "review": "Use side-by-side frame strips plus actual looping playback and fractional samples; compare wrap11\u21920 to ordinary steps. At least6 distinct visible frames are required by catalog; source has12. No new gameplay or deferred2D effects are added."
+    }
+  ],
+  "immutableFunctionalContract": "Use source-contract-proposal.json after root reconciliation. Aesthetic freedom cannot move camera, root, logical/source frame, pitch, footprint, base plane, functional clearance or clip timing.",
+  "reviewMatrix": {
+    "facings": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "nativePhases": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "closureKey": 13,
+    "sameFacingPatch": [
+      3,
+      3
+    ],
+    "backgrounds": [
+      "light #f5f5f0",
+      "gray #808080",
+      "dark #14181e"
+    ],
+    "displayScales": [
+      "512 native raw",
+      "256 exported frame",
+      "128 logical frame",
+      "real common-canvas phone filtering"
+    ],
+    "fractionalLogicalRootSamples": [
+      [
+        0,
+        0
+      ],
+      [
+        0.125,
+        0.375
+      ],
+      [
+        0.25,
+        0.5
+      ],
+      [
+        0.5,
+        0.25
+      ],
+      [
+        0.875,
+        0.625
+      ]
+    ],
+    "panSamples": "Swapped root sample axes, before actual worldRasterPlan flooring.",
+    "context": "Source/reference submarine-yellow idle and rock-wall-middle static, exact frozen registered atlases; context does not approve those objects.",
+    "mixedRotationNote": "Homogeneous3\u00d73 per required facing is established. Arbitrary mixed-facing pattern joins are not inferred from the source or invented as future gameplay."
+  },
+  "forbiddenWorkarounds": [
+    "No target image plane, raster repaint, image fitting, warp, pixel repair, alpha expansion, arbitrary tile overlap or edge nudge.",
+    "No per-facing recolor or different camera/frame/scale.",
+    "No added one-sided light/shadow or grid/vignette hiding discontinuities.",
+    "No regeneration of frozen ImageGen target.",
+    "No restaurant floor changes or13 deferred2D effect changes."
+  ],
+  "decisionRule": "Future independent review requires actual sealed native/export/consumer pixels plus technical proof. Missing evidence yields needs_evidence; no universal numeric pass threshold. This document is neither a freeze nor a candidate approval.",
+  "sourceBaselineIssuesRanked": [
+    "The native source4-border construction creates a dark grid through repeated patches. Replace its visible outcome with continuous water.",
+    "The broad unmodulated field and two solid ribbons provide little of the frozen target soft caustic volume and purposeful detail.",
+    "Inherited0.001-cell surface overhang and saved unrelated35-degree active camera need explicit technical reconciliation, not fidelity preservation."
+  ]
+}

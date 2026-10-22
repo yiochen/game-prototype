@@ -1,0 +1,586 @@
+{
+  "asset": "floor-underwater",
+  "stage": "bounded technical source preparation addendum; awaiting root freeze",
+  "candidateVerdict": null,
+  "priorPreparation": {
+    "manifest": {
+      "path": "reviews/preparation-v1/preparation-manifest.json",
+      "sha256": "c6e23d07e071107080d491457488e9a7965112c9a52a2b96b54c6d0345af6fa6",
+      "relativeTo": "object",
+      "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+      "bytes": 143626
+    },
+    "seal": {
+      "path": "reviews/preparation-v1/preparation-seal.json",
+      "sha256": "0ec9795c996077c403fa655197b80f72d628528245cb55e6b8b48b291c7d596d",
+      "relativeTo": "object",
+      "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+      "bytes": 2441
+    },
+    "immutability": "All282 previously sealed files rehashed unchanged. Prior criteria/source proposal are not silently edited."
+  },
+  "question": "Can exact nominal +/-0.5 source surfaces retain full opaque coverage with historical native filter1.5 and512-to256 LANCZOS, and what minimal common native repair is evidenced?",
+  "method": {
+    "source": "Original b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6; own finite base and native wave profiles normalized exactly to nominal registered cut planes.",
+    "geometry": "Base localX/Y are exactly +/-0.5, area1,Z0. Ribbons retain130vertices/64faces, winding, materials and actions; all source shape-key profiles use the actual measured source periodic law on exact nominalX grid. Border widths/heights unchanged. No new overlap.",
+    "floatingPointLimit": "Rotating exact local geometry introduces at most5.9604645e-8 numerical world-coordinate excess; local base/mesh bounds never exceed+/-0.5. This is float rotation precision, not an intentional overlap.",
+    "camera": "Same recorded55.0079798-degree camera, root, aspect, native512, palette/materials and symmetric lights in both variants. Camera records and all8 evaluated geometric sample records are byte-value equal across variants.",
+    "testedSetting": "Only common native scene.render.filter_size changes1.5\u21920.5; saved in each diagnostic source and independently reopened.",
+    "resampling": "Full512\u2192256 LANCZOS unchanged in both variants. Physical native3x3 captures1536 and uniformly reduces to768. No BOX test, fitting, warps, paint, alpha expansion or per-view treatment.",
+    "views": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "phases": [
+      0,
+      3
+    ],
+    "consumer": "Actual frozen sprite-layout and worldRasterPlan/paintWorldRaster, common scale2 nearest after resize, then ordinary final SVG wholecanvas filtering.",
+    "consumerMatrix": {
+      "assemblyKinds": [
+        "native physical3x3",
+        "independently captured registered3x3"
+      ],
+      "widths": [
+        435.2,
+        320
+      ],
+      "backgrounds": [
+        "#f5f5f0",
+        "#808080",
+        "#14181e"
+      ],
+      "fractionalRoots": [
+        [
+          0,
+          0
+        ],
+        [
+          0.125,
+          0.375
+        ],
+        [
+          0.25,
+          0.5
+        ],
+        [
+          0.5,
+          0.25
+        ],
+        [
+          0.875,
+          0.625
+        ]
+      ],
+      "pan": "Swapped root sample axes",
+      "casesPerVariant": 480
+    }
+  },
+  "measuredResults": {
+    "original-filter-1p5": {
+      "nativeFilter": 1.5,
+      "savedSource": {
+        "path": "reviews/exact-boundary-study-v1/original-filter-1p5/source-study.blend",
+        "sha256": "c4ece1935d548d38b92480e262486e7cd6fbfe2f8d41c06c478c46ac0a217072",
+        "relativeTo": "object",
+        "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+        "bytes": 8061265
+      },
+      "reopenAudit": {
+        "path": "reviews/exact-boundary-study-v1/original-filter-1p5/saved-source-reopen-audit.json",
+        "sha256": "1c3f3860a7151eb4239a223e22eefdfd1511895f595589e14d679d6f045acdd2",
+        "relativeTo": "object",
+        "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+        "bytes": 3585
+      },
+      "sourceCases": 8,
+      "rawMinimumAlpha": 251,
+      "rawNonOpaquePerCase": [
+        512
+      ],
+      "packedMinimumAlpha": 253,
+      "packedNonOpaquePerCase": [
+        256
+      ],
+      "rawDeficitBoxes": [
+        {
+          "direction": "N",
+          "phase": 0,
+          "box": [
+            511,
+            0,
+            512,
+            512
+          ]
+        },
+        {
+          "direction": "N",
+          "phase": 3,
+          "box": [
+            511,
+            0,
+            512,
+            512
+          ]
+        },
+        {
+          "direction": "E",
+          "phase": 0,
+          "box": [
+            511,
+            0,
+            512,
+            512
+          ]
+        },
+        {
+          "direction": "E",
+          "phase": 3,
+          "box": [
+            511,
+            0,
+            512,
+            512
+          ]
+        },
+        {
+          "direction": "S",
+          "phase": 0,
+          "box": [
+            511,
+            0,
+            512,
+            512
+          ]
+        },
+        {
+          "direction": "S",
+          "phase": 3,
+          "box": [
+            511,
+            0,
+            512,
+            512
+          ]
+        },
+        {
+          "direction": "W",
+          "phase": 0,
+          "box": [
+            511,
+            0,
+            512,
+            512
+          ]
+        },
+        {
+          "direction": "W",
+          "phase": 3,
+          "box": [
+            511,
+            0,
+            512,
+            512
+          ]
+        }
+      ],
+      "packedDeficitBoxes": [
+        {
+          "direction": "N",
+          "phase": 0,
+          "box": [
+            255,
+            0,
+            256,
+            256
+          ]
+        },
+        {
+          "direction": "N",
+          "phase": 3,
+          "box": [
+            255,
+            0,
+            256,
+            256
+          ]
+        },
+        {
+          "direction": "E",
+          "phase": 0,
+          "box": [
+            255,
+            0,
+            256,
+            256
+          ]
+        },
+        {
+          "direction": "E",
+          "phase": 3,
+          "box": [
+            255,
+            0,
+            256,
+            256
+          ]
+        },
+        {
+          "direction": "S",
+          "phase": 0,
+          "box": [
+            255,
+            0,
+            256,
+            256
+          ]
+        },
+        {
+          "direction": "S",
+          "phase": 3,
+          "box": [
+            255,
+            0,
+            256,
+            256
+          ]
+        },
+        {
+          "direction": "W",
+          "phase": 0,
+          "box": [
+            255,
+            0,
+            256,
+            256
+          ]
+        },
+        {
+          "direction": "W",
+          "phase": 3,
+          "box": [
+            255,
+            0,
+            256,
+            256
+          ]
+        }
+      ],
+      "independentPatchNonOpaquePerCase": [
+        2304
+      ],
+      "nativePatchNonOpaquePerCase": [
+        768
+      ],
+      "independentPatchDeficitColumns": [
+        "255",
+        "511",
+        "767"
+      ],
+      "nativePatchDeficitColumns": [
+        "767"
+      ],
+      "consumerCases": 480,
+      "consumerByKind": {
+        "native": {
+          "cases": 240,
+          "interiorCoverageFailures": 0,
+          "minimumInteriorAlpha": 255
+        },
+        "independent": {
+          "cases": 240,
+          "interiorCoverageFailures": 240,
+          "minimumInteriorAlpha": 253
+        }
+      },
+      "nativeReport": {
+        "path": "reviews/exact-boundary-study-v1/original-filter-1p5/native-report.json",
+        "sha256": "83bafa5cf1e6e8bdafcf67ff12d38c851a411db075e41a32d6c77b641ad2dffd",
+        "relativeTo": "object",
+        "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+        "bytes": 37432
+      },
+      "pixelReport": {
+        "path": "reviews/exact-boundary-study-v1/original-filter-1p5/pixel-report.json",
+        "sha256": "3993c07dc19f93dd7db6a1bcbbc27e30b0fdd7e84d88d159238369e6926a21f0",
+        "relativeTo": "object",
+        "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+        "bytes": 1109239
+      },
+      "consumerReport": {
+        "path": "reviews/exact-boundary-study-v1/original-filter-1p5/consumer-report.json",
+        "sha256": "0939bcf470114689ad2a357d3db1424ad4f1dab0c2da3b47378a4281c5ca5b21",
+        "relativeTo": "object",
+        "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+        "bytes": 3461234
+      }
+    },
+    "repair-filter-0p5": {
+      "nativeFilter": 0.5,
+      "savedSource": {
+        "path": "reviews/exact-boundary-study-v1/repair-filter-0p5/source-study.blend",
+        "sha256": "30a3a9fd63dc15d2b4595e9efcbbc233cee937b635bd51c072926b09aba33794",
+        "relativeTo": "object",
+        "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+        "bytes": 8061252
+      },
+      "reopenAudit": {
+        "path": "reviews/exact-boundary-study-v1/repair-filter-0p5/saved-source-reopen-audit.json",
+        "sha256": "88e8bb5bc4735c13d59f6833735afae2711b5b67ba4514fa5a0c1ceea4609412",
+        "relativeTo": "object",
+        "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+        "bytes": 3583
+      },
+      "sourceCases": 8,
+      "rawMinimumAlpha": 255,
+      "rawNonOpaquePerCase": [
+        0
+      ],
+      "packedMinimumAlpha": 255,
+      "packedNonOpaquePerCase": [
+        0
+      ],
+      "rawDeficitBoxes": [
+        {
+          "direction": "N",
+          "phase": 0,
+          "box": null
+        },
+        {
+          "direction": "N",
+          "phase": 3,
+          "box": null
+        },
+        {
+          "direction": "E",
+          "phase": 0,
+          "box": null
+        },
+        {
+          "direction": "E",
+          "phase": 3,
+          "box": null
+        },
+        {
+          "direction": "S",
+          "phase": 0,
+          "box": null
+        },
+        {
+          "direction": "S",
+          "phase": 3,
+          "box": null
+        },
+        {
+          "direction": "W",
+          "phase": 0,
+          "box": null
+        },
+        {
+          "direction": "W",
+          "phase": 3,
+          "box": null
+        }
+      ],
+      "packedDeficitBoxes": [
+        {
+          "direction": "N",
+          "phase": 0,
+          "box": null
+        },
+        {
+          "direction": "N",
+          "phase": 3,
+          "box": null
+        },
+        {
+          "direction": "E",
+          "phase": 0,
+          "box": null
+        },
+        {
+          "direction": "E",
+          "phase": 3,
+          "box": null
+        },
+        {
+          "direction": "S",
+          "phase": 0,
+          "box": null
+        },
+        {
+          "direction": "S",
+          "phase": 3,
+          "box": null
+        },
+        {
+          "direction": "W",
+          "phase": 0,
+          "box": null
+        },
+        {
+          "direction": "W",
+          "phase": 3,
+          "box": null
+        }
+      ],
+      "independentPatchNonOpaquePerCase": [
+        0
+      ],
+      "nativePatchNonOpaquePerCase": [
+        0
+      ],
+      "independentPatchDeficitColumns": [],
+      "nativePatchDeficitColumns": [],
+      "consumerCases": 480,
+      "consumerByKind": {
+        "native": {
+          "cases": 240,
+          "interiorCoverageFailures": 0,
+          "minimumInteriorAlpha": 255
+        },
+        "independent": {
+          "cases": 240,
+          "interiorCoverageFailures": 0,
+          "minimumInteriorAlpha": 255
+        }
+      },
+      "nativeReport": {
+        "path": "reviews/exact-boundary-study-v1/repair-filter-0p5/native-report.json",
+        "sha256": "91e1997c7f2ebacd38b61c5280310bbcae48745df964ce4ecd40e98c338752a7",
+        "relativeTo": "object",
+        "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+        "bytes": 37430
+      },
+      "pixelReport": {
+        "path": "reviews/exact-boundary-study-v1/repair-filter-0p5/pixel-report.json",
+        "sha256": "d6fc71b56bdaa702c2a53d8a845bea1697b724b650db6d4f038a6a896d7c2301",
+        "relativeTo": "object",
+        "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+        "bytes": 268904
+      },
+      "consumerReport": {
+        "path": "reviews/exact-boundary-study-v1/repair-filter-0p5/consumer-report.json",
+        "sha256": "51fade0e2dfcc489bcbbc0e6b234eef7239d25c1c4d32e58eb7ab163d748d0ee",
+        "relativeTo": "object",
+        "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+        "bytes": 873554
+      }
+    }
+  },
+  "localRGBBehavior": {
+    "evidence": {
+      "path": "reviews/exact-boundary-study-v1/rgb-comparison.json",
+      "sha256": "271963813d4e45cbea5b8f4f0d0c399784eab3acfb08b9b505d19248380649d3",
+      "relativeTo": "object",
+      "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+      "bytes": 11114
+    },
+    "representativeS0": "Right exported edge x255,y128 changes RGBA[0,115,140,253]\u2192[0,115,139,255]. Full-frame mean absolute RGB difference is[0,0.1394043,0.3986664]8-bit units; alpha mean difference0.0078125. Filter changes edge antialiasing, not a material/palette edit.",
+    "limits": "The small2/255 alpha leak is established by actual alpha data. Existing dark grout dominates the visually obvious grid and is retained unchanged in this technical study."
+  },
+  "visualObservations": [
+    "All4 phone comparison sheets directly inspected at original320px panel size, both phases and both assembly kinds/filters; representative native512 and logical light/gray comparisons also directly inspected.",
+    "The original dark grout grid remains clearly visible before and after the filter change. This study does not grant an exemption from the future continuous-water/no-seam aesthetic gate.",
+    "The narrow old-filter edge leak is subtle relative to that grout. No claim is made that its alpha difference alone is a dramatic phone-size seam.",
+    "The0.5 filter slightly sharpens source wave edges. Future caustic design still needs normal all-view/logical/phone visual QA for aliasing and flicker."
+  ],
+  "inspectedFiles": [
+    {
+      "path": "reviews/exact-boundary-study-v1/comparison/phone-N.png",
+      "sha256": "f79dc9b9d16f495ba8549f484133cc18b0fc2511235ff1a2345093ed507fb1fe",
+      "relativeTo": "object",
+      "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+      "bytes": 260302,
+      "role": "direct visual inspection or original-size verified contact sheet"
+    },
+    {
+      "path": "reviews/exact-boundary-study-v1/comparison/phone-E.png",
+      "sha256": "36f5cdedd97fe28cd94736accb0ebb39b26c5190d53af1abe655e42d0b043e5f",
+      "relativeTo": "object",
+      "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+      "bytes": 261899,
+      "role": "direct visual inspection or original-size verified contact sheet"
+    },
+    {
+      "path": "reviews/exact-boundary-study-v1/comparison/phone-S.png",
+      "sha256": "1034988a5f08fe411c169c86dee4767df75ee2503e0c0d66c794189adce4ee9f",
+      "relativeTo": "object",
+      "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+      "bytes": 260100,
+      "role": "direct visual inspection or original-size verified contact sheet"
+    },
+    {
+      "path": "reviews/exact-boundary-study-v1/comparison/phone-W.png",
+      "sha256": "6c0e4b03b6c961e5af01ae39d53fd66b2bfa33e0a9f200688c2f46d828972698",
+      "relativeTo": "object",
+      "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+      "bytes": 262487,
+      "role": "direct visual inspection or original-size verified contact sheet"
+    },
+    {
+      "path": "reviews/exact-boundary-study-v1/original-filter-1p5/raw-single/S-000.png",
+      "sha256": "9d9599535adf04794393fa5c26face050cb56bb03b2e01aaa2f2d80f43bce305",
+      "relativeTo": "object",
+      "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+      "bytes": 106922,
+      "role": "direct visual inspection or original-size verified contact sheet"
+    },
+    {
+      "path": "reviews/exact-boundary-study-v1/repair-filter-0p5/raw-single/S-000.png",
+      "sha256": "471d05011a28c0db7b2e95c0a089b8bdadf703ad5125c3cc2ba6e56c9b5d2c11",
+      "relativeTo": "object",
+      "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+      "bytes": 129465,
+      "role": "direct visual inspection or original-size verified contact sheet"
+    },
+    {
+      "path": "reviews/exact-boundary-study-v1/original-filter-1p5/consumer/logical-independent-E-3-bg0.png",
+      "sha256": "c855c0b8489d2f439362da07ed08c11689de9cce1c70611e9cae400c193e1e32",
+      "relativeTo": "object",
+      "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+      "bytes": 21029,
+      "role": "direct visual inspection or original-size verified contact sheet"
+    },
+    {
+      "path": "reviews/exact-boundary-study-v1/repair-filter-0p5/consumer/logical-independent-E-3-bg0.png",
+      "sha256": "566843936aa8aaa25a62471b90f6cde002e6fe6be01cd07450eea4ef4ee82e6c",
+      "relativeTo": "object",
+      "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+      "bytes": 24500,
+      "role": "direct visual inspection or original-size verified contact sheet"
+    },
+    {
+      "path": "reviews/exact-boundary-study-v1/original-filter-1p5/consumer/logical-native-S-3-bg1.png",
+      "sha256": "f982ae84f90c4093f2b16775dd35d76d53748ef7d9997ad9f56e67e4c5cd253f",
+      "relativeTo": "object",
+      "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+      "bytes": 81901,
+      "role": "direct visual inspection or original-size verified contact sheet"
+    },
+    {
+      "path": "reviews/exact-boundary-study-v1/repair-filter-0p5/consumer/logical-native-S-3-bg1.png",
+      "sha256": "f7e2e39ec3f6695af15223adde1090891ab3e02d63508a3bf514c9373081aca2",
+      "relativeTo": "object",
+      "pathBase": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/floor-underwater",
+      "bytes": 86414,
+      "role": "direct visual inspection or original-size verified contact sheet"
+    }
+  ],
+  "recommendation": {
+    "status": "proposed for root technical freeze; no candidate approval",
+    "nativeFilterSize": 0.5,
+    "scope": "One common scene setting persisted across every future facing/frame; exact nominal footprint remains.",
+    "retain": "Recorded camera/root/pitch/base/envelope, native512, full512\u2192256 LANCZOS, existing shared-canvas consumer.",
+    "notRecommended": [
+      "No return to oversized+/-0.501 geometry",
+      "No alpha/pixel repair or enlarged overlap",
+      "No BOX or family resampling change without new measured need"
+    ],
+    "evidenceLimit": "Coverage feasibility is established for unchanged-source representative phases0/3 in4facings. Future native aesthetic candidate must pass all4x12 phases, exact closure, native/independent3x3 and real consumer seam/coverage tests."
+  },
+  "executionNote": "An initial pixel read began while a native PNG was still being written and exited as truncated. All final metrics were rerun after full renderer completion; no truncated-image result is used. Failed original-filter captures and actual consumer evidence remain in this packet.",
+  "scope": "No aesthetic design candidate or approval,Git,production change,device,live Blender,extraagents or outside-own-review write. Stop here pending root freeze."
+}

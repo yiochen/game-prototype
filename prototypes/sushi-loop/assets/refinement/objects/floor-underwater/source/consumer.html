@@ -1,0 +1,26 @@
+<!doctype html><meta charset="utf-8"><title>Native underwater candidate consumer</title><style>html,body{margin:0;padding:0;background:#fff}svg{display:block}</style><div id="host"></div><script type="module">
+import {spriteFrame,groundRoot,repeatedPlacements,orderPlacements,sceneBounds} from './consumer-resources/sprite-layout.js';
+import {worldRasterPlan,paintWorldRaster} from './consumer-resources/world-raster-functions.js';
+const object=await(await fetch('../inputs/catalog-object.json')).json(),fixtures=await(await fetch('./consumer-resources/context/records.json')).json(),images={};
+for(const direction of 'NESW'){
+ const im=new Image();im.src='../candidates/round-01/atlases/scroll-'+direction+'.png';await im.decode();images[direction]=im;
+ for(let i=0;i<12;i++){const im=new Image();im.src='../candidates/round-01/published-native-patch/'+direction+'/'+String(i).padStart(3,'0')+'.png';await im.decode();images['native'+direction+i]=im;}
+}
+for(const x of fixtures){const im=new Image();im.src='./consumer-resources/context/'+x.clips[0].directions.S.image;await im.decode();images[x.id]=im;}
+const ns='http://www.w3.org/2000/svg';
+window.renderCase=async function({direction='S',phase=0,kind='independent',background='#f5f5f0',width=320,offset=[0,0],pan=[0,0],context=false,wait=true}){
+ const placements=repeatedPlacements(object,direction,'scroll').map(p=>({...p,offset})),objects=[object,...fixtures];
+ if(context)placements.push({object:'submarine-yellow',direction:'S',x:.25,y:1},{object:'rock-wall-middle',direction:'S',x:2,y:.5});
+ const bounds=sceneBounds(placements,objects,128,[3,3]);bounds[0]+=pan[0];bounds[1]+=pan[1];
+ const sprites=orderPlacements(placements,objects).filter(p=>kind==='independent'||p.object!==object.id).map(p=>{const item=objects.find(x=>x.id===p.object),frame=spriteFrame(item,item.clips[0],p.direction,phase/12),[x,y]=groundRoot(p,item);return{imageKey:item.id===object.id?direction:item.id,rect:frame.rect,x:x-frame.root[0],y:y-frame.root[1],width:frame.frameSize[0],height:frame.frameSize[1]};});
+ if(kind==='native')sprites.unshift({imageKey:'native'+direction+phase,rect:[0,0,768,768],x:offset[0],y:offset[1],width:384,height:384});
+ const plan=worldRasterPlan(sprites,bounds),svg=document.createElementNS(ns,'svg');svg.style.width=width+'px';svg.style.background=background;svg.setAttribute('viewBox',bounds.join(' '));svg.setAttribute('width',width);svg.setAttribute('height',width*bounds[3]/bounds[2]);
+ const foreign=document.createElementNS(ns,'foreignObject');foreign.setAttribute('x',plan.x);foreign.setAttribute('y',plan.y);foreign.setAttribute('width',plan.width/plan.scale);foreign.setAttribute('height',plan.height/plan.scale);
+ const canvas=document.createElement('canvas');canvas.style.cssText='display:block;width:100%;height:100%';foreign.append(canvas);svg.append(foreign);document.getElementById('host').replaceChildren(svg);
+ paintWorldRaster(canvas,plan,sprites.map(s=>images[s.imageKey]));if(wait){await new Promise(requestAnimationFrame);await new Promise(requestAnimationFrame);}
+ const ctx=canvas.getContext('2d'),left=Math.ceil((offset[0]-plan.x)*plan.scale)+1,top=Math.ceil((offset[1]-plan.y)*plan.scale)+1,sample=ctx.getImageData(left,top,766,766).data;let minAlpha=255,nonOpaque=0,rgbMin=[255,255,255],rgbMax=[0,0,0];
+ for(let i=0;i<sample.length;i+=4){minAlpha=Math.min(minAlpha,sample[i+3]);if(sample[i+3]!==255)nonOpaque++;for(let c=0;c<3;c++){rgbMin[c]=Math.min(rgbMin[c],sample[i+c]);rgbMax[c]=Math.max(rgbMax[c],sample[i+c]);}}
+ return{direction,phase,kind,background,width,offset,pan,context,bounds,plan:{x:plan.x,y:plan.y,width:plan.width,height:plan.height,scale:plan.scale},smoothingAfterResize:ctx.imageSmoothingEnabled,interiorAlpha:{minAlpha,nonOpaque,sampleSize:[766,766]},rgbMin,rgbMax,sprites};
+};
+window.playLoop=async function(direction='S',kind='independent',seconds=2){const start=performance.now(),transitions=[];let last=-1;await new Promise(done=>{function tick(now){const elapsed=(now-start)/1000,phase=Math.floor(elapsed*12)%12;if(phase!==last){last=phase;transitions.push({elapsed,phase});window.renderCase({direction,kind,phase,offset:[.25,.5],pan:[.5,.25],wait:false});}if(elapsed>=seconds)done();else requestAnimationFrame(tick);}requestAnimationFrame(tick);});return{direction,kind,fps:12,periodSeconds:1,transitions};};window.ready=true;
+</script>

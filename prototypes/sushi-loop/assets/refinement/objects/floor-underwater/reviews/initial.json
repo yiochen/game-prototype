@@ -1,0 +1,45 @@
+{
+  "asset": "floor-underwater",
+  "stage": "preparation-only; no candidate verdict",
+  "inspectionOrder": "Original snapshot, frozen target, warm-soft reference and own native collection inspected before other object criteria or editor rationale. No other object criteria read.",
+  "inspectedImages": [
+    "inputs/original.png",
+    "inputs/target.png",
+    "../../style/warm-soft-reference.png"
+  ],
+  "nativeCollectionEvidence": "preparation-v1/source-collection-first-inspection.json",
+  "observations": {
+    "original": [
+      "A full square turquoise field contains two low-contrast dark horizontal sinusoidal ribbons. The field is largely uniform; a narrow dark outline frames all four sides.",
+      "The square reads immediately as water by hue and waves, but the interior is visually flat. The frame makes each cell read as a separate panel."
+    ],
+    "target": [
+      "The frozen reference contains a continuous aqua/turquoise surface with large rounded caustic cells, pale yellow-green connected highlight ridges, softer translucent interior gradients and very fine surface variation.",
+      "The sense of depth comes from broad value and color gradients, not a raised slab or rocks. Highlights are gentle but locally bright at intersections; no dominant lateral cast shadow is needed.",
+      "The image is a single view and does not establish opposite-edge periodicity, native registration, animation closure or unseen rotations. Its border is not a technical template."
+    ],
+    "warmSoftReference": [
+      "The plant reference has clear color families, readable broad faces, rich but restrained value separation and warm softened highlights. For this flat floor, transfer material clarity and soft light rather than leaves, container geometry or its literal green/orange palette."
+    ],
+    "nativeCollection": [
+      "Own S33_FB_floor-underwater.001 collection has one identity-transform root, a full_square base mesh, two periodic_wave meshes and four separate tile_border meshes. All are flat surfaces with no UV layers.",
+      "Wave meshes have native shape key samples and baked geometry actions. A procedural material/UV scroll is not assumed from the clip name.",
+      "Saved active scene is an unrelated late library capture; its camera/frame differs from own source-camera record. Rendering must reconstruct the recorded object capture explicitly."
+    ]
+  },
+  "provisionalVisibleGoals": [
+    "Calm turquoise water with soft readable caustic structure and broad gentle gradients.",
+    "Purposeful details that remain legible after256\u2192128 logical downsampling and phone filtering; no dead interior, black patch or blown white knot.",
+    "A continuous underwater floor in independently assembled3\u00d73 patches without dark rectangular grids, alpha gaps, mismatched highlights or tile-locked flicker.",
+    "Soft light without a preferred horizontal direction, preserving the flat registered floor role and top plane."
+  ],
+  "notLockedByOriginal": [
+    "two-ribbon motif",
+    "four border meshes",
+    "part count",
+    "lack of UVs",
+    "weak or downward normals",
+    "old material construction"
+  ],
+  "limits": "Aesthetic observations only. Exact source, temporal and coverage constraints are to be measured next. No approval or editor direction has been issued."
+}

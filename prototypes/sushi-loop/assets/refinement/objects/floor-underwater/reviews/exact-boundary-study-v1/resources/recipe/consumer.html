@@ -1,0 +1,21 @@
+<!doctype html><meta charset="utf-8"><title>Exact boundary source study</title>
+<style>html,body{margin:0;padding:0;background:#fff}svg{display:block}</style><div id="host"></div>
+<script type="module">
+import {spriteFrame,groundRoot,repeatedPlacements,orderPlacements,sceneBounds} from './resources/sprite-layout.js';
+import {worldRasterPlan,paintWorldRaster} from './resources/world-raster-functions.js';
+const object=await (await fetch('./resources/inputs/catalog-object.json')).json(),cache={};
+const ns='http://www.w3.org/2000/svg';
+async function image(url){if(cache[url])return cache[url];const im=new Image();im.src=url;await im.decode();cache[url]=im;return im;}
+function summarize(canvas,box){const values=canvas.getContext('2d').getImageData(...box).data,deficits=[];let minAlpha=255;const histogram={};for(let i=3;i<values.length;i+=4){const a=values[i];minAlpha=Math.min(minAlpha,a);if(a<255){const x=(i-3)/4%box[2],y=Math.floor((i-3)/4/box[2]);deficits.push([x+box[0],y+box[1],a]);histogram[a]=(histogram[a]||0)+1;}}return {box,minAlpha,nonOpaque:deficits.length,histogram,firstDeficits:deficits.slice(0,16),lastDeficits:deficits.slice(-16)};}
+window.renderCase=async function({variant,direction='S',phase=0,kind='independent',background='#808080',width=320,offset=[0,0],pan=[0,0]}){
+ const placements=repeatedPlacements(object,direction,'scroll').map(p=>({...p,offset}));const bounds=sceneBounds(placements,[object],128,[3,3]);bounds[0]+=pan[0];bounds[1]+=pan[1];
+ const sprites=kind==='independent'?orderPlacements(placements,[object]).map(p=>{const frame=spriteFrame(object,object.clips[0],direction,phase/12),[x,y]=groundRoot(p,object);return {rect:frame.rect,x:x-frame.root[0],y:y-frame.root[1],width:frame.frameSize[0],height:frame.frameSize[1]};}):[{rect:[0,0,768,768],x:offset[0],y:offset[1],width:384,height:384}];
+ const url=kind==='independent'?`./${variant}/packed/study-scroll-${direction}.png`:`./${variant}/packed/native-patch-${direction}-${String(phase).padStart(3,'0')}.png`,im=await image(url),plan=worldRasterPlan(sprites,bounds);
+ const svg=document.createElementNS(ns,'svg');svg.style.width=width+'px';svg.style.background=background;svg.setAttribute('viewBox',bounds.join(' '));svg.setAttribute('width',width);svg.setAttribute('height',width*bounds[3]/bounds[2]);
+ const foreign=document.createElementNS(ns,'foreignObject');foreign.setAttribute('x',plan.x);foreign.setAttribute('y',plan.y);foreign.setAttribute('width',plan.width/plan.scale);foreign.setAttribute('height',plan.height/plan.scale);const canvas=document.createElement('canvas');canvas.style.cssText='display:block;width:100%;height:100%';foreign.append(canvas);svg.append(foreign);document.getElementById('host').replaceChildren(svg);paintWorldRaster(canvas,plan,sprites.map(()=>im));
+ await new Promise(requestAnimationFrame);await new Promise(requestAnimationFrame);
+ const left=Math.ceil((offset[0]-plan.x)*plan.scale),top=Math.ceil((offset[1]-plan.y)*plan.scale),inside=summarize(canvas,[left+2,top+2,764,764]),joins={};
+ for(const edge of [256,512]){joins['x'+edge]=summarize(canvas,[left+edge-2,top+2,4,764]);joins['y'+edge]=summarize(canvas,[left+2,top+edge-2,764,4]);}
+ return {variant,direction,phase,kind,background,width,offset,pan,bounds,plan:{x:plan.x,y:plan.y,width:plan.width,height:plan.height,scale:plan.scale},interior:inside,joins};
+};window.ready=true;
+</script>

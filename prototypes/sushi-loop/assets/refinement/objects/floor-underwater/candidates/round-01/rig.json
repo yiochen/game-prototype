@@ -1,0 +1,27 @@
+{
+  "asset": "floor-underwater",
+  "groundRootObject": "floor-underwater__root",
+  "collection": "Scene Collection",
+  "rootTransform": "identity ground origin; native facing rotation S0/E90/N180/W-90",
+  "clips": {
+    "scroll": {
+      "frames": 12,
+      "fps": 12,
+      "loop": true,
+      "nativeFirst": 1,
+      "nativeLastUnique": 12,
+      "closingFrame": 13
+    }
+  },
+  "animation": {
+    "owner": "Warm soft periodic aqua caustics node tree",
+    "channel": "Global one-second loop phase output.default_value",
+    "driver": "((frame - 1) % 12) / 12",
+    "spatialUV": "Exact local unit square(0,0)\u2192(1,1); smooth integer-period trigonometric torus; same phase in every duplicate tile"
+  },
+  "sockets": {},
+  "scene": "Floor Underwater Native Round01",
+  "floorCollections": [
+    "Scene Collection"
+  ]
+}

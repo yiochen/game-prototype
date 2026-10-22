@@ -1,0 +1,30 @@
+{
+  "brief": {
+    "path": "brief.json",
+    "sha256": "3fbe0de8986b1ab07a6a9064773b0fa59bbfcedf8d0e1cdb171422edcfd3bca6"
+  },
+  "contract": {
+    "path": "inputs/root-native-contract.json",
+    "sha256": "ceca86fd22114e1bb0f5406c353cf8be4969d22329d8a806d1e05331780ddcd3"
+  },
+  "acknowledged": "Exact frozen hashes match dispatch. Preserve fixed target/camera/root/finite\u00b10.5/baseZ0/ceiling.004/native4\u2192published2 wholeLANCZOS/filter.5/all4homogeneousfacings/12phase12fpsloop. Native geometry/material redesign replaces old four dark borders and two weak ribbons. Judge retains aesthetic authority.",
+  "nativeImplementation": {
+    "surface": "One exact upward quad, 4vertices,1face, area1 atZ0; exactUVunit square. No other visible geometry, texture image or external library.",
+    "material": "385 editable native shader nodes,15 toroidal seeds, trigonometric domainwarp, nearest/second-nearest caustic network, soft opticalvolume and restrained pale warm highlights; no physical raised floor silhouette.",
+    "lighting": "Optical emission field with no preferred horizontal light direction or cast shadow.",
+    "timing": "One native Value output driver ((frame-1)%12)/12; all animated inputs downstream are periodic sin/cos. Fractional frames1.5,7.5,12.5 evaluated natively.",
+    "capture": "Saved registered55.0079798degree camera, frame512, root256; common filter.5, Standard view/None, no contrast/compositor/pixel surgery; full frame reduction LANCZOS256 and exact6x2 packing."
+  },
+  "commands": [
+    "/opt/homebrew/bin/blender -b --python source/reproduce.py -- --mode build --out candidates/NEW-ROUND",
+    "/opt/homebrew/bin/blender -b --python source/reproduce.py -- --mode capture --out candidates/NEW-ROUND",
+    "/opt/homebrew/bin/blender -b --python source/reproduce.py -- --mode patch --out candidates/NEW-ROUND",
+    "/opt/homebrew/bin/blender -b --python source/reproduce.py -- --mode probe --out candidates/NEW-ROUND",
+    "/opt/homebrew/bin/blender -b --python source/capture_inbetweens.py",
+    "/opt/homebrew/bin/blender -b --python source/audit_saved_source.py",
+    "bundled python source/package_native.py",
+    "bundled python source/analyze_periodicity.py",
+    "bundled node source/consumer_capture.mjs"
+  ],
+  "reproductionLimit": "Default scripts name exact round01 source/candidate paths for portable reproducibility. Never run these capture/package commands in an already sealed candidate directory; make an isolated full object copy or update output constants for a new round without mutating prior bytes."
+}

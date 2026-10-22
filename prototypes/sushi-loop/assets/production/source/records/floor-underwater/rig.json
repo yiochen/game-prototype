@@ -1,87 +1,27 @@
 {
-  "assetId": "floor-underwater",
-  "fps": 12,
-  "source": "native_actions.py",
-  "static": false,
+  "asset": "floor-underwater",
+  "groundRootObject": "floor-underwater__root",
+  "collection": "Scene Collection",
+  "rootTransform": "identity ground origin; native facing rotation S0/E90/N180/W-90",
   "clips": {
     "scroll": {
       "frames": 12,
       "fps": 12,
       "loop": true,
-      "static": false,
-      "firstFrame": 1,
-      "lastUniqueFrame": 12,
-      "closingKeyFrame": 13,
-      "actions": [
-        {
-          "ownerType": "Key",
-          "ownerName": "Key.038",
-          "action": "S33_NATIVE__floor-underwater__scroll__floor-underwater__periodic_wave_0.001__geometry",
-          "slotIdentifier": "KEKey.038",
-          "keyframeCount": 169
-        },
-        {
-          "ownerType": "Key",
-          "ownerName": "Key.039",
-          "action": "S33_NATIVE__floor-underwater__scroll__floor-underwater__periodic_wave_1.001__geometry",
-          "slotIdentifier": "KEKey.039",
-          "keyframeCount": 169
-        }
-      ],
-      "controlsByFrame": [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {}
-      ],
-      "geometryOwners": [
-        "floor-underwater__periodic_wave_0.001",
-        "floor-underwater__periodic_wave_1.001"
-      ],
-      "shaderChannels": [],
-      "shaderLoopClosure": {}
+      "nativeFirst": 1,
+      "nativeLastUnique": 12,
+      "closingFrame": 13
     }
   },
-  "armatures": [],
-  "footprint": [
-    1,
-    1
-  ],
-  "projection": "square-top-front-oblique",
-  "groundRootObject": "floor-underwater__root.001",
+  "animation": {
+    "owner": "Warm soft periodic aqua caustics node tree",
+    "channel": "Global one-second loop phase output.default_value",
+    "driver": "((frame - 1) % 12) / 12",
+    "spatialUV": "Exact local unit square(0,0)\u2192(1,1); smooth integer-period trigonometric torus; same phase in every duplicate tile"
+  },
   "sockets": {},
-  "notes": [
-    "Native object, rig, visibility, shape and shader channels; no raster substitutes.",
-    "Runtime frames exclude the duplicate loop closure key.",
-    "Visual contact and deformation review remains separate from these structural records."
-  ],
-  "proceduralMeshBridges": [
-    "floor-underwater__periodic_wave_0.001",
-    "floor-underwater__periodic_wave_1.001"
-  ],
-  "actionCount": 2,
-  "createdAtUnix": 1792392789.244638,
-  "status": "native-actions-baked-needs-visual-review",
-  "sourceFiles": {
-    "native_actions.py": "7f3514c8ce1ee37c951ded3b6669f2eb6613dfa69940858092c8476392ad51c5",
-    "character_builders.py": "f3109ec4a61266cba9a921786353e720b707e21de35095be97a6f8fe8a70738a",
-    "prop_builders.py": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a",
-    "world_components.py": "0d156c24ebd2a31422e75286417e108d22575cf75f7e6ec87cf173aebefd1c91",
-    "food_belt_builders.py": "dc3eed619cd644588da74996b99013a24ecf8ce541056d847f3a049fb54a1d95",
-    "creature_fx_builders.py": "e8da19957cf01828137326c3459cb77e76ba563029ae7b057c8306d663fa9d5b",
-    "character_composition.py": "c9e2fd0b5f69340edc14621f739bca8dc16fe97a53f9fb9219ab197ef90570f7",
-    "production_library.py": "ed2b17e2e8bb9fe86a1af0646065041f6715bb55e90a226cb2526ff6b269af19",
-    "catalog_variants.py": "329ec9b2013c990aeb45233a6e2783b0f9402aa97108f15a32ecb8a64a9d1cff",
-    "catalog_corner_supports.py": "5215531d424a8d7560cb19ca5bf05f3218f5671c346a79dc0585644462bd4b91",
-    "catalog_belt_flow.py": "0e7a979f8a0897e2a98a063d2a568fb0be8a751f72b76f9584f6949f77140fd5",
-    "catalog_clusters.py": "020f94b990987f6c4d664b5447525c6d69d66198dfd3fab8159cd9c28642ca1c"
-  }
+  "scene": "Floor Underwater Native Round01",
+  "floorCollections": [
+    "Scene Collection"
+  ]
 }

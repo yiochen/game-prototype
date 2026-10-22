@@ -1,0 +1,94 @@
+{
+  "round": "round-01",
+  "verdict": "needs_evidence",
+  "candidatePacketSHA256": "e96c2e8e5cdc3c421aba5f87f80fa0c1c9d28b7b113b5b6ee900339a2cace717",
+  "allChecksPassed": false,
+  "inspectedFiles": [
+    "frames/scroll/N/000.png",
+    "frames/scroll/E/000.png",
+    "frames/scroll/S/000.png",
+    "frames/scroll/W/000.png",
+    "previews/four-view-sheet.png",
+    "previews/repeated-sheet.png",
+    "previews/meaningful-inbetweens.png",
+    "previews/context-sheet.png",
+    "previews/browser-backend-control.png",
+    "previews/scroll-N.apng",
+    "previews/repeated-N.apng",
+    "previews/published-all-phases-N.png",
+    "previews/native-all-phases-N.png",
+    "previews/independent-all-phases-N.png",
+    "previews/phone-all-phases-N.png",
+    "previews/logical-backgrounds-N.png",
+    "previews/scroll-E.apng",
+    "previews/repeated-E.apng",
+    "previews/published-all-phases-E.png",
+    "previews/native-all-phases-E.png",
+    "previews/independent-all-phases-E.png",
+    "previews/phone-all-phases-E.png",
+    "previews/logical-backgrounds-E.png",
+    "previews/scroll-S.apng",
+    "previews/repeated-S.apng",
+    "previews/published-all-phases-S.png",
+    "previews/native-all-phases-S.png",
+    "previews/independent-all-phases-S.png",
+    "previews/phone-all-phases-S.png",
+    "previews/logical-backgrounds-S.png",
+    "previews/scroll-W.apng",
+    "previews/repeated-W.apng",
+    "previews/published-all-phases-W.png",
+    "previews/native-all-phases-W.png",
+    "previews/independent-all-phases-W.png",
+    "previews/phone-all-phases-W.png",
+    "previews/logical-backgrounds-W.png"
+  ],
+  "scores": {
+    "shapeVolume": 8,
+    "color": 8,
+    "lightingHighlights": 7,
+    "materialDetail": 8,
+    "artifactFreeReadability": 6
+  },
+  "scoreNotes": {
+    "shapeVolume": "Optical water depth on the intentionally flat floor; physical slab volume is inapplicable. Broad aqua body gradients and soft darker regions improve the original flat bands.",
+    "artifactFreeReadability": "Native/export art is readable and has no additional identified native artifact blocker. Score includes the unresolved fractional runtime coverage defect; it is not an aesthetic pass threshold."
+  },
+  "observations": [
+    "The source dark tile frame and two uniform ribbons are replaced by a connected pale caustic network, rounded soft aqua regions and gently darker pockets. This visibly improves optical volume and purposeful surface detail while remaining recognizable calm turquoise water.",
+    "All4 facings retain coherent color/material separation and softly feathered highlights, with no preferred horizontal lighting direction, cast ground shadow, black dead spot, clipped corner or raised border apparent in native/export/assembly evidence.",
+    "At256 export,128 logical and phone playback sizes, ridges remain connected and scene objects remain readable. Candidate ridges are thinner and more uniform than the target; the soft surrounding halo/body variation provides sufficient water readability without requiring photographic texture identity.",
+    "All12 phases and closing-frame controls preserve native same-facing X/Y edge/corner continuity. The one-second motion is restrained and coherent in decoded frames and native APNG playback; no additional native wrap pop or tile-local shimmer was identified.",
+    "Actual finite geometry is one upward unit quad atZ0 with periodic unit UVs, identity root and no external images/libraries. The procedural native shader is not a painted target card.",
+    "All8 exact APNG files map pixel-identically to their sealed PNG frames, have12 distinct frames at83.333333ms each/1000ms total/infinite loop, and were sampled in full Chrome across the wrap.",
+    "Retained full-Chrome shared-canvas evidence has264/1476 interior coverage failures, all independent non-context cases;168 fail at alpha191 and96 at alpha128. Headless-shell1476/1476 passing does not establish production readiness or waive this defect."
+  ],
+  "blockers": [
+    {
+      "rank": 1,
+      "priority": 1,
+      "location": "candidates/round-01/fullchrome-control/consumer-report.json; e.g.N phase0 offset[.125,.375] minAlpha191 and N phase5 offset[.25,.5] minAlpha128",
+      "effect": "Fractional shared-canvas assembly loses interior opacity at tile borders despite fully opaque native/published tiles. This violates the frozen no-gap/no-visible-seam runtime contract.",
+      "desiredVisibleOutcome": "A new versioned packet must bind the actual corrected shared renderer and retain cross-backend proof that all required fractional root/pan/background/phase cases and playback have fully covered continuous borders without source pixel repair, overlap or per-tile nudge. The exact native art may be reused only with proven source/render identity.",
+      "ownership": "Runtime integration evidence; no native art remodel is requested."
+    }
+  ],
+  "remainingDifferences": [
+    "The target has broader, more varied reflected ribbons and stronger tapered bright intersections; the candidate uses a simpler, more uniform pale network with soft halos. Accepted as a readable native cartoon interpretation, not a reason to require pixel identity.",
+    "Fine target surface grain is largely omitted; this keeps logical/phone water clean. The one-cell motif can be recognized in repeated patches, but no native dark rectangular grid or disconnected join was found."
+  ],
+  "nativeArtBlockingIssues": [],
+  "technicalEvidence": {
+    "primaryBindings": "Exact packet SHA verified; all637 editor handoff files independently rehashed; every exact declared render/preview path inspected and mapped.",
+    "geometryAndCapture": "Exact finite upward+/-0.5 quad, baseZ0, identity root,512native, persisted filter_size.5, pixelAspect1.22065556,12fps; camera matrix max error against frozen record 0.0. Full512\u2192256 LANCZOS is retained.",
+    "nativeReplay": "All12 own saved-source raw replays (4facings\u00d7phases0/6/closure12) are RGBApixel-identical to sealed native images. No replay deviation was hidden.",
+    "opacityAndClosure": "All208 audited raw/published/native-patch/independent-patch images, including closure frames, are opaque. Frame0/closing12 are RGBAidentical for all4 image kinds in all4 facings.",
+    "shaderPeriodicity": "Actual native driver expression ((frame - 1) % 12) / 12. Actual graph independently evaluated across25 phases: max UV edge linearRGB residue1.71833e-6, corner3.78508e-8 from finite stored constants; manual phase0/1 residue1.51778e-7. Actual frame1/13 state resets phase0 and raster closure is exact. These numerical residues are not claimed bit-zero analytical equality.",
+    "consumerLimitation": "The present packet correctly has validation.allChecksPassed:false. A later renderer is outside this sealed identity and must be bound by a new packet. No approval or acceptance validator was weakened or patched.",
+    "limits": "This review covers this asset and exact packet only. It grants no family/main/production/integration approval. Full visible runtime seam acceptance remains pending the versioned packet."
+  },
+  "supplementalEvidence": {
+    "path": "reviews/round-01-inspection/manifest.json",
+    "sha256": "02d30dc9659d08443f7003b37b9d9544b7fb1c8a6e7f35e11e236d3aad350933"
+  },
+  "next": "Keep this verdict/evidence immutable. A new versioned packet may reuse exact native source/render bytes while binding corrected current-consumer evidence; original independent judge must review that packet before approval."
+}
