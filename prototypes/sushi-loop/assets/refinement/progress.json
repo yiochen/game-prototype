@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 102,
-  "completed": 82,
-  "published": 81,
-  "current": "rock-shelf-end",
+  "completed": 83,
+  "published": 82,
+  "current": "rock-shelf-corner",
   "objects": [
     {
       "id": "plant-angular",
@@ -1262,29 +1262,30 @@
       "name": "Rock shelf corner",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "approved",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "baselineJudge": "catalog_rock_shelf_corner_judge_v1",
-      "judgeStatus": "revise-round-01",
-      "editorStatus": "starting-round-02",
+      "judgeStatus": "approved",
+      "editorStatus": "completed-round-02",
       "editor": "catalog_rock_shelf_corner_editor_v1",
       "judge": "catalog_rock_shelf_corner_judge_v1",
       "briefSHA256": "7c04c79d1634b3be2799b39e32709f3fa5982cc9299e54ab209901212f30c51f",
-      "stage": "canonical-mixed-shelf-corner-round01",
-      "round": "round-01",
-      "packetSHA256": "5e2fd306c45d9e97cf18b40c70d0b7bc373cb018648fb736d28fc6d0e3d56d55",
+      "stage": "queued-approved-round-02",
+      "round": "round-02",
+      "packetSHA256": "84465cb7c4b2eb05e0460ac59608ffc9b9d215f94193180b0e79d52ccff9e8f0",
       "priorReviewedRound": "round-01",
-      "priorReviewSHA256": "754d3afa0c5917e1822963e6e303cf2b368cbd2a0218ebc5152d81d38faf4056"
+      "priorReviewSHA256": "754d3afa0c5917e1822963e6e303cf2b368cbd2a0218ebc5152d81d38faf4056",
+      "reviewSHA256": "54b6255d7fb26422ddfefe5498661c53efa0ef0c18185fc0825331233f9077e9"
     },
     {
       "id": "rock-shelf-end",
       "name": "Rock shelf end",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
@@ -1332,12 +1333,15 @@
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "baselineJudge": "catalog_reef_edge_judge_v1",
-      "judgeStatus": "prepared-awaiting-candidate",
-      "editorStatus": "starting",
+      "judgeStatus": "approved",
+      "editorStatus": "completed-round-01",
       "editor": "catalog_reef_edge_editor_v1",
       "judge": "catalog_reef_edge_judge_v1",
       "briefSHA256": "3b0374a932cf918f044804fbaaecb0e7b852d40b2135c734a4ae57ad78bc3d74",
-      "stage": "canonical-mixed-reef-edge-round01"
+      "stage": "queued-approved-round-01",
+      "round": "round-01",
+      "packetSHA256": "270d330ded27fa71bc0b1484698e5e75ef671ce5d45bde767d66af559a4ad453",
+      "reviewSHA256": "f6f73b6d63626c555be761094e8a6cb57311f7f6fc4eeb525e552a908a7fd0f7"
     },
     {
       "id": "reef-corner",
@@ -1350,8 +1354,8 @@
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "baselineJudge": "catalog_reef_corner_judge_v1",
-      "judgeStatus": "prepared-awaiting-candidate",
-      "editorStatus": "starting",
+      "judgeStatus": "reviewing-round-01",
+      "editorStatus": "completed-round-01",
       "editor": "catalog_reef_corner_editor_v1",
       "judge": "catalog_reef_corner_judge_v1",
       "briefSHA256": "7e4c0d57f59dc924af6232326a44e3efd24dd38bdf7566602b8635cbbf82c7cc",
@@ -1366,7 +1370,9 @@
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "baselineJudge": "catalog_reef_end_judge_v1",
+      "judgeStatus": "preparing"
     },
     {
       "id": "wreck-middle",
@@ -1376,7 +1382,9 @@
       "status": "prepared",
       "clips": 1,
       "frames": 4,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "baselineJudge": "catalog_wreck_middle_judge_v1",
+      "judgeStatus": "preparing"
     },
     {
       "id": "wreck-edge",

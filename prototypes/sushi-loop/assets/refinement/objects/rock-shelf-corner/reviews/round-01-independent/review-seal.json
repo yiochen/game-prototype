@@ -1,0 +1,30 @@
+{
+  "asset": "rock-shelf-corner",
+  "round": "round-01",
+  "verdict": "revise",
+  "candidatePacketSHA256": "5e2fd306c45d9e97cf18b40c70d0b7bc373cb018648fb736d28fc6d0e3d56d55",
+  "sourceSHA256": "3a7211e4e864a510fc58dcf1edb5433a24f04594773fc83fcaad37dec58739f7",
+  "review": {
+    "path": "reviews/round-01.json",
+    "sha256": "754d3afa0c5917e1822963e6e303cf2b368cbd2a0218ebc5152d81d38faf4056"
+  },
+  "supplementalManifest": {
+    "path": "reviews/round-01-independent/supplemental-manifest.json",
+    "sha256": "9329e00a8a4fc0ea1965cee1a1aa2cbe06363152d083a54b3ffe9383cdad5412"
+  },
+  "unchangedAcceptanceGate": {
+    "path": "reviews/round-01-independent/final-gate.json",
+    "sha256": "ded226044acea585ab9eed8fdc5839a62ec4d347e24ee6acf80186d3ca510369",
+    "accepted": false,
+    "expectedBlockedRevise": true
+  },
+  "acyclicOrder": [
+    "evidence files",
+    "supplemental-manifest",
+    "review",
+    "gate report",
+    "review seal"
+  ],
+  "fileCount": 716,
+  "scope": "Exact candidate blocked for one visible exterior-side issue. No family/production/Godot approval."
+}

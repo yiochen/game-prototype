@@ -1,0 +1,99 @@
+{
+  "pathBase": "object root",
+  "commands": [
+    {
+      "command": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "--factory-startup",
+        "--python",
+        "source/build-round-01.py",
+        "--",
+        "capture"
+      ],
+      "log": "candidates/round-01/build-capture.log"
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "--factory-startup",
+        "--python",
+        "source/capture-evidence.py"
+      ],
+      "log": "candidates/round-01/capture-evidence.log"
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "--factory-startup",
+        "--python",
+        "source/measure-collars.py"
+      ],
+      "log": "candidates/round-01/collar-fields.log"
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "--factory-startup",
+        "--python",
+        "source/classify-normal-precision.py"
+      ],
+      "log": "candidates/round-01/normal-precision.log"
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "--factory-startup",
+        "--python",
+        "source/capture-cap-fields.py"
+      ],
+      "log": "candidates/round-01/cap-fields.log"
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "--factory-startup",
+        "--python",
+        "source/capture-collar-shader-controls.py"
+      ],
+      "log": "candidates/round-01/collar-shader-controls.log"
+    },
+    {
+      "command": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "--factory-startup",
+        "--python",
+        "source/audit-final-source.py"
+      ],
+      "log": "candidates/round-01/source-audit.log"
+    },
+    {
+      "command": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "source/publish-evidence.py"
+      ],
+      "log": "candidates/round-01/publication.log"
+    },
+    {
+      "command": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "source/finish-evidence.py"
+      ],
+      "log": "candidates/round-01/finish.log"
+    },
+    {
+      "command": [
+        "node",
+        "source/capture-consumer.mjs"
+      ],
+      "log": "candidates/round-01/consumer.log"
+    }
+  ],
+  "note": "Final captured scene/recipes and exact versioned brief are bound. Blender scripts are checked for Python traceback because Blender can exit0 on a Python error. Reproduction must occur in an unsealed private copy."
+}

@@ -1,0 +1,23 @@
+{
+  "asset": "rock-shelf-corner",
+  "version": 2,
+  "status": "root-frozen-before-immutable-candidate",
+  "priorContract": {
+    "path": "inputs/root-native-contract.json",
+    "sha256": "9ca99951c257a97943af73a8fd2def71550860f987b0bc8c217985d137d77f0a"
+  },
+  "reason": "Clipping a canonical band triangle creates non-unit affine interpolated vectors. Storing each clipped vertex as a custom normal normalizes it before the next interpolation and can change the rendered field. Preserve the exact original affine interpolation, then normalize at shading, rather than impose one storage method.",
+  "normalContract": {
+    "required": "Actual post-interpolation normalized normal used by the native shader must equal the canonical middle rendered normal field through both .025 collars, with the correct W identity/N Rz90 and all4 root transforms. Preserve its true longitudinal variation.",
+    "allowedImplementation": "Native geometry/custom normals, packed normal transfer, or an equivalent native CORNER vector attribute/shader normal path. Literal packed custom-normal bytes and literal node-graph identity are not universal gates when the final evaluated rendered field is equivalent.",
+    "separateEvidence": "Record geometric custom-normal field and native encoding drift separately; do not report raw attribute vectors or geometric normals as the final shader normal. Retain clipping/re-encoding failures and unchanged canonical controls.",
+    "verification": "Bind actual source attribute values/triangles/interpolation and shader graph/transforms, sample rendered normal/albedo controls across both complete collars and all4 rotations, plus actual native and independent current-consumer join images. Mathematical field equivalence and visible continuity are both required.",
+    "notWaived": [
+      "Exact finite port/collar geometry and actual finite support/envelope",
+      "Canonical point albedo/material lighting behavior and cap bump/coordinate behavior",
+      "No local visible seam/crack/line/band/step/opaque-interior alpha loss",
+      "No RGB/alpha repair/overlap/per-view fit/runtime helper changes"
+    ]
+  },
+  "unchanged": "Fixed target, independent visible criteria, actual geometry/profile/finite ground/envelope, short collars, camera/registration/sampling/lights, animation and all4 visual evidence requirements remain unchanged. This reconciles an implementation-specific storage restriction; it grants no candidate approval or numerical-only seam waiver."
+}

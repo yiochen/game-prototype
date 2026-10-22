@@ -1,0 +1,24 @@
+import bpy,sys,json,math
+from pathlib import Path
+from mathutils import Vector
+sys.dont_write_bytecode=True
+BASE=Path(__file__).resolve().parent;OUT=BASE.parent/'candidates/round-01'
+bpy.ops.wm.open_mainfile(filepath=str(BASE/'dependencies/canonical-middle.blend'))
+o=bpy.data.objects['rock-shelf-middle__sculpted_core'];ref=o.data;old=[tuple(n.vector) for n in ref.corner_normals];control=ref.copy();control.name='unchanged canonical mesh re-encoded custom-normal control';co=bpy.data.objects.new('unchanged canonical normal encoding control',control);bpy.context.scene.collection.objects.link(co);co.hide_render=True
+before_geometry=[tuple(v.co) for v in control.vertices];before_polygons=[tuple(p.vertices) for p in control.polygons]
+control.normals_split_custom_set(old)
+ns={'Vector':Vector};text=(BASE/'measure-collars.py').read_text();a=text.index('def triangles(');b=text.index('profile=');code=text[a:b];code=code[:code.index("tris={'cornerW'")]+code[code.index('def eval_point('):];exec(code,ns)
+ts={p:ns['triangles'](control,0,*((-.5,-.43999) if p=='W' else (.43999,.5))) for p in ['W','N']}
+rows=json.loads((OUT/'collar-fields.json').read_text())['samples'];results=[]
+authored={c['loop']:Vector(c['shaderAttributeVector']) for f in json.loads((OUT/'authored-collar-normal-fields.json').read_text())['faces'] for c in f['corners']}
+# Separately evaluate the actual stored affine shader attribute before native
+# geometric-normal encoding, using the final source triangle interpolation.
+end_ts={p:ns['triangles'](ref,0,*((-.5,-.43999) if p=='W' else (.43999,.5))) for p in ['W','N']}
+for r in rows:
+ port=r['port'];kind='bottom' if r['edge']==0 else 'top' if r['edge']==3 else 'body';p=Vector(r['canonical']['position']);cc=ns['eval_point'](control,ts[port],p,kind);rn=Vector(r['canonical']['normal']);cn=Vector(cc['normal']);candidate=Vector(r['candidate']['normal']);candidate_native=candidate if port=='W' else Vector((candidate.y,-candidate.x,candidate.z));input_normal=sum((authored[loop]*weight for loop,weight in zip(r['candidate']['triangleLoops'],r['candidate']['weights'])),Vector()).normalized();input_native=input_normal if port=='W' else Vector((input_normal.y,-input_normal.x,input_normal.z));input_error=(input_native-rn).length
+ results.append({'port':port,'edge':r['edge'],'transverse':r['transverse'],'longitudinal':r['longitudinal'],'canonicalPosition':list(p),'canonicalNormal':list(rn),'unchangedReencodedControlNormal':list(cn),'candidateNativeNormal':list(candidate_native),'unchangedCanonicalReencodingError':(cn-rn).length,'candidateRenderedShaderError':r['normalError'],'candidateGeometricCustomNormalError':(Vector(r['candidate']['encodedGeometricNormal'])-(rn if port=='W' else Vector((-rn.y,rn.x,rn.z)))).length,'candidateVersusReencodedControlError':(candidate_native-cn).length,'authoredInputVersusOriginalTriangleFieldError':input_error,'authoredInputNativeNormal':list(input_native)})
+summary={}
+for port in ['W','N']:
+ rr=[r for r in results if r['port']==port];summary[port]={k:max(r[k] for r in rr) for k in ['unchangedCanonicalReencodingError','candidateRenderedShaderError','candidateGeometricCustomNormalError','candidateVersusReencodedControlError','authoredInputVersusOriginalTriangleFieldError']}
+res={'method':'Control is a byte-input canonical mesh.copy with unchanged positions, polygon/triangle topology, albedo and material slots; actual existing custom normals decoded then supplied once to normals_split_custom_set. Candidate is compared in canonical local coordinates. Full actual sampled fields retained.','controlGeometryUnchanged':before_geometry==[tuple(v.co) for v in control.vertices],'controlPolygonTopologyUnchanged':before_polygons==[tuple(p.vertices) for p in control.polygons],'summary':summary,'classification':['Native encoding/re-encoding precision exists in an unchanged canonical control as measured here. Candidate geometry uses a different turn-dependent encoding basis, so its encoded geometric drift is retained separately. The final shader uses preserved affine vectors normalized after interpolation, rather than that encoded geometric field.','The final collars clip actual canonical band triangles at .025 and retain their affine raw normal/albedo field, including longitudinal variation. Authored-input versus original-triangle field error is measured separately from native custom-normal storage. The prior constant-endpoint probe is retained under evidence/prior-field-probe and is superseded.','The earlier large loop-order mismatch was corrected before current captures. Current source fields have no swapped shoulder/top normals; actual per-point values, masks and renders remain review gates.','No exact full collar normal-parity claim, numerical-only waiver, or visual approval.'], 'samples':results}
+(OUT/'normal-precision-classification.json').write_text(json.dumps(res,indent=2)+'\n');print(summary)

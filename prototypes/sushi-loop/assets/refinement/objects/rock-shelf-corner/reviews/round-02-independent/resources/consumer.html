@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><script type="importmap">{"imports":{"react":"../dependencies/react-unused-stub.js"}}</script><style>html,body{margin:0;padding:0;overflow:hidden}#screen{position:absolute;left:0;top:0;overflow:hidden}canvas{position:absolute;image-rendering:auto;transform-origin:0 0}</style></head><body><div id="screen"><canvas></canvas></div><script type="module">
+import {spriteFrame,groundRoot,orderPlacements} from '../dependencies/sprite-layout.js';
+import {worldRasterPlan,paintWorldRaster} from '../dependencies/world-sprite-raster.js';
+const dirAngles={S:0,E:Math.PI/2,N:Math.PI,W:-Math.PI/2};const faces=['S','E','N','W'];
+const imageCache=new Map();async function image(url){if(!imageCache.has(url))imageCache.set(url,new Promise((resolve,reject)=>{const i=new Image();i.onload=()=>resolve(i);i.onerror=reject;i.src=url}));return imageCache.get(url)}
+window.renderCase=async cfg=>{
+ const scale=cfg.cellSize/128,base='../../candidates/round-02/',screen=document.querySelector('#screen'),canvas=document.querySelector('canvas');document.body.style.background=cfg.background;screen.style.background=cfg.background;screen.style.width=`${448*scale}px`;screen.style.height=`${608*scale}px`;
+ const object=(id,path,frame=[192,352],root=[96,248])=>({id,frameSize:frame,root,sourceScale:2,footprint:[1,1],rootCell:[.5,.5],clips:[{id:'static',frames:1,fps:12,loop:false,directions:Object.fromEntries(faces.map(d=>[d,{image:base+path(d),frameSize:frame,root,sourceScale:2,rects:[[0,0,frame[0]*2,frame[1]*2]]}]))}]});
+ const corner=object('corner',d=>`frames/static/${d}/000.png`),middle=object('middle',d=>`evidence/canonical/published-${d}.png`),combined=object('combined',d=>`evidence/family/published-${cfg.fixture}-${d}.png`,[448,608],[224,376]);const objects=[corner,middle,combined];
+ const center=[224/128-.5,376/128-.5];let placements;
+ if(cfg.reference)placements=[{id:'reference',object:'combined',x:center[0],y:center[1],direction:cfg.direction}];
+ else{
+  placements=[{id:'corner',object:'corner',x:center[0],y:center[1],direction:cfg.direction}];const a=dirAngles[cfg.direction],rot=(x,y)=>[Math.cos(a)*x-Math.sin(a)*y,Math.sin(a)*x+Math.cos(a)*y];const index=faces.indexOf(cfg.direction);
+  if(['L','W'].includes(cfg.fixture)){const p=rot(-1,0);placements.push({id:'west-middle',object:'middle',x:center[0]+p[0],y:center[1]-p[1],direction:cfg.direction})}
+  if(['L','N'].includes(cfg.fixture)){const p=rot(0,1);placements.push({id:'north-middle',object:'middle',x:center[0]+p[0],y:center[1]-p[1],direction:faces[(index+1)%4]})}
+ }
+ const ordered=orderPlacements(placements,objects),sprites=ordered.map(p=>{const o=objects.find(o=>o.id===p.object),f=spriteFrame(o,o.clips[0],p.direction,0),g=groundRoot(p,o,cfg.cellSize);return {id:p.id,object:p.object,direction:p.direction,url:f.image,rect:f.rect,x:g[0]-f.root[0]*scale+cfg.rootOffset[0],y:g[1]-f.root[1]*scale+cfg.rootOffset[1],width:f.frameSize[0]*scale,height:f.frameSize[1]*scale}});
+ const bounds=[cfg.pan[0],cfg.pan[1],448*scale,608*scale],plan=worldRasterPlan(sprites,bounds),loaded=await Promise.all(sprites.map(s=>image(s.url)));paintWorldRaster(canvas,plan,loaded);canvas.style.width=`${plan.width/plan.scale}px`;canvas.style.height=`${plan.height/plan.scale}px`;canvas.style.left=`${plan.x-cfg.pan[0]+cfg.cssTranslation[0]}px`;canvas.style.top=`${plan.y-cfg.pan[1]+cfg.cssTranslation[1]}px`;
+ await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));return {cfg,plan,drawOrder:ordered.map(p=>p.id),devicePixelRatio,finalCSSCanvas:{left:canvas.style.left,top:canvas.style.top,width:canvas.style.width,height:canvas.style.height},viewport:[448*scale,608*scale],sourceImages:sprites.map(s=>({url:s.url,rect:s.rect})),nativeCanvas:canvas.toDataURL('image/png')};
+};window.ready=true;
+</script></body></html>
