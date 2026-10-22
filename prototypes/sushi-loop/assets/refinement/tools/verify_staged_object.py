@@ -38,7 +38,10 @@ def main():
 
     def add_review(path, receipt):
         add(path, sha(path))
-        technical_manifest = receipt.get('technicalEvidence', {}).get('supplementalEvidenceManifest')
+        technical = receipt.get('technicalEvidence', {})
+        descriptors = [technical[key] for key in ('supplementalEvidenceManifest', 'independentEvidenceManifest') if technical.get(key)]
+        assert len(descriptors) <= 1, 'Ambiguous technical evidence manifests'
+        technical_manifest = descriptors[0] if descriptors else None
         supplemental = receipt.get('supplementalEvidence', technical_manifest or {})
         assert isinstance(supplemental, (dict, list)), 'Unknown supplemental evidence format'
         manifest_descriptor = isinstance(supplemental, dict) and {'path', 'sha256'} <= supplemental.keys()
@@ -49,6 +52,19 @@ def main():
 
         def add_supplement(record, relative_to):
             assert isinstance(record, dict) and {'path', 'sha256'} <= record.keys(), 'Incomplete supplemental evidence'
+            original = Path(record['path'])
+            if original.is_absolute() and not original.resolve().is_relative_to(ROOT):
+                # Preserve an exact portable copy of an external read-only input,
+                # retaining the original judge manifest and its source path.
+                closure = folder / 'final/external-evidence.json'
+                copies = json.loads(closure.read_text())['sources']
+                retained = copies[record['path']]
+                assert retained['sha256'] == record['sha256'], 'External evidence copy binds different bytes'
+                resource = (folder / retained['path']).resolve()
+                assert resource.is_relative_to(folder), 'External evidence copy escapes its object'
+                add(closure, sha(closure))
+                add(resource, record['sha256'])
+                return resource
             # Historical reviews use either object- or review-relative paths.
             locations = {(base / record['path']).resolve() for base in (folder, relative_to)}
             existing = [resource for resource in locations if resource.is_file()]
@@ -60,7 +76,14 @@ def main():
             resource = add_supplement(record, path.parent)
             if manifest_descriptor:
                 manifest = json.loads(resource.read_text())
-                if technical_manifest and supplemental == [technical_manifest]:
+                forms = [key for key in ('exactInputs', 'bindings', 'files') if key in manifest]
+                assert len(forms) == 1, 'Unknown or ambiguous supplemental manifest schema'
+                if forms == ['exactInputs']:
+                    assert manifest['candidatePacket']['sha256'] == receipt['candidatePacketSHA256'], 'Supplement manifest binds wrong packet'
+                    assert isinstance(manifest['exactInputs'], list) and isinstance(manifest.get('outputsAndHelpers'), list), 'Independent manifest needs explicit input/output records'
+                    entries = [manifest['candidatePacket'], manifest['frozenBrief'],
+                               *manifest['exactInputs'], *manifest['outputsAndHelpers']]
+                elif forms == ['bindings']:
                     assert manifest.get('candidatePacketSHA256') == receipt['candidatePacketSHA256'], 'Supplement manifest binds wrong packet'
                     assert isinstance(manifest.get('bindings'), dict), 'Technical supplement needs explicit input bindings'
                     assert isinstance(manifest.get('independentSupplementalEvidence'), list), 'Technical supplement needs explicit output records'

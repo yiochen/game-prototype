@@ -370,8 +370,9 @@ def interaction_context(asset,byid):
         def on_dock(ident,point):
             footprint=byid.get(ident,{}).get('footprint',[1,1])
             x,y,z=point
-            return place(ident,1.5+x-footprint[0]/2,1.5-y-footprint[1]/2,offset=[0,-89.6*z])
-        placements=[place('dock-floor',0,0),on_dock(sub,[-.70,-.42,.23]),on_dock('workshop-hut',[.78,.35,.23]),on_dock('dock-entry',[0,-1.5,0])]
+            support={'supportedBy':'dock-deck'} if ident in (sub,'workshop-hut') else {}
+            return place(ident,1.5+x-footprint[0]/2,1.5-y-footprint[1]/2,offset=[0,-89.6*z],**support)
+        placements=[place('dock-floor',0,0,id='dock-deck'),on_dock(sub,[-.70,-.42,.23]),on_dock('workshop-hut',[.78,.35,.23]),on_dock('dock-entry',[0,-1.5,0])]
         if aid=='dock-cover':placements.append(on_dock(aid,[0,0,.23]))
         value=scene('Connected dock entry, shared deck and hut',placements,(4,4),note='The ramp overlaps the dock at its authored native position. The submarine and hut retain the shared deck elevation; the hut stays to the submarine’s right.')
         value['connectionReview']={'kind':'dock-assembly','object':aid}

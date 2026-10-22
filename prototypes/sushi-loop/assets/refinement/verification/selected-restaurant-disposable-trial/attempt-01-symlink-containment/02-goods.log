@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/var/folders/vw/cqb64_6j1jz4f31r13r_7mf00000gn/T/sushi-approved-restaurant-trial-q46iwfeq/prototypes/sushi-loop/godot/tools/pack_refined_goods.py", line 34, in <module>
+    result = pack(Path(__file__).resolve().parents[2], args.output)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/folders/vw/cqb64_6j1jz4f31r13r_7mf00000gn/T/sushi-approved-restaurant-trial-q46iwfeq/prototypes/sushi-loop/godot/tools/pack_refined_goods.py", line 13, in pack
+    metadata, renders = approved_goods(prototype)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/var/folders/vw/cqb64_6j1jz4f31r13r_7mf00000gn/T/sushi-approved-restaurant-trial-q46iwfeq/prototypes/sushi-loop/godot/tools/refined_goods_contract.py", line 27, in approved_goods
+    require(sha(contained(prototype, root / records[key])) == records[key + '_sha256'],
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/var/folders/vw/cqb64_6j1jz4f31r13r_7mf00000gn/T/sushi-approved-restaurant-trial-q46iwfeq/prototypes/sushi-loop/godot/tools/refinement_contract.py", line 14, in contained
+    require(path.is_relative_to(root), 'Refinement artifact escapes the prototype')
+  File "/private/var/folders/vw/cqb64_6j1jz4f31r13r_7mf00000gn/T/sushi-approved-restaurant-trial-q46iwfeq/prototypes/sushi-loop/godot/tools/verify_editor_ui.py", line 48, in require
+    raise ValueError(message)
+ValueError: Refinement artifact escapes the prototype
