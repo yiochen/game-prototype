@@ -1,0 +1,264 @@
+{
+  "stage": "STAGE1 COMPLETE PRELIMINARY; NOT FINAL APPROVAL",
+  "asset": "submarine-yellow",
+  "source": {
+    "path": "source/stage1-v5/submarine-stage1.blend",
+    "sha256": "87647d3167633d4f3a7c4cd4bf5a4af4e221a6a944d57cd06400df8df9d1ea94",
+    "rawOrderedGeometrySHA256": "27114a0efa070a288716d2301b65f5851083d244ea97f44888c3681fa7a9ddd2",
+    "bodyOnlyRawOrderedGeometrySHA256": "c9421d15439b331d124b9e5f0a10049d1dbbf80601db2767e9d849bf2aeb98e3",
+    "materialSHA256": "099c978310e86151a85e15370454e358040ea880980a349bfb0453dda653fb38",
+    "canonicalSemanticGeometrySHA256": "25ea0487f1aeeeeaad994ec5294e1ffc8913028f62fbe64ac0a2ebcdce1543a7"
+  },
+  "frozenInputHashes": {
+    "brief.json": "a00e23446a46bee3e05d080ef406a105a05c8bc948d90ae6b978a7a0cb7b608d",
+    "root-native-contract.json": "6a369bb8406890499724827234e8efd83e242583c51c9917a1c97d67d19680fe",
+    "original.png": "4bcd16fb8a71abcfbfdf7106e7122c0fc1a1c9b644e321cb472c372af6c3a1d1",
+    "target.png": "398f8b181f6f445869504b32af2c2cb11517d6fa9ef92f0fbf0658044951f6d3",
+    "fixed-style-reference.png": "02e6a13e71b6aba78b85b99f70ac37117b2b6939461ed1bdb2cc3ec334ab4d15",
+    "original-library.blend": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "dock-floor-round-04.blend": "94b509984dc442547602f32feada987c5119e3b9031eb1bd65a6a07769880418",
+    "dock-entry-round-06.blend": "22bd2b05201567c22d9dabcf767a3daf0639342e5522c43900ff4b777f5f3b37",
+    "workshop-hut-round-01.blend": "1594c02e736a4c6c9ecbbb03d26c140aceb002d474a55eb19bea15808794403b"
+  },
+  "initialIndependentObservations": "source/initial-observations.json",
+  "portableRecipe": {
+    "build": "source/stage1-v5/build_stage1.py",
+    "savedActionCapture": "source/stage1-v5/capture_stage1.py",
+    "savedSourceAudit": "source/stage1-v5/audit_saved_source.py",
+    "settingsVerification": "source/stage1-v5/verify_saved_settings.py",
+    "previewLayout": "source/stage1-v5/make_previews.py",
+    "invocation": "/opt/homebrew/bin/blender -b --python source/stage1-v5/build_stage1.py -- --no-render ; then capture_stage1.py for12 representatives; no final576batch",
+    "resourceDirectory": "source/stage1-v5/resources",
+    "cleanBuildRawGeometryNormalsUVMaterialMountIdentity": true,
+    "replayCalibration": "same12-captureorder: at most2/255 channel differences in at most7 pixels per native canvas. Exact geometry/normals/UV/material/mount identity passes; raster byteidentity is not claimed. Exact primary saved .blend and selected capture bytes are authoritative.",
+    "replayEvidence": "candidates/stage1-v5/portable-rebuild-validation.json"
+  },
+  "registration": {
+    "actualReopenedSourceSettings": "candidates/stage1-v5/reopened-source-settings.json",
+    "logicalFrame": [
+      320,
+      384
+    ],
+    "nativeFrame": [
+      640,
+      768
+    ],
+    "logicalRoot": [
+      160,
+      288
+    ],
+    "sourceScale": 2,
+    "cellSize": 128,
+    "cameraElevation": 65,
+    "pixelAspect": [
+      1,
+      1
+    ],
+    "engine": "BLENDER_EEVEE",
+    "samples": 64,
+    "filterSize": 0.5,
+    "footprint": [
+      1,
+      2
+    ],
+    "nominalFunctionalHeight": 1.02,
+    "actualPhysicalHeightKeptDistinct": true
+  },
+  "nativeMotionEvidence": {
+    "runtimePhases": 576,
+    "halfPhases": 576,
+    "closures": 48,
+    "all12clips12frames12fpsPreserved": true,
+    "impactOneShotOther10Loop": true,
+    "nativeActions": "candidates/stage1-v5/saved-native-actions.json",
+    "phaseMatricesVisibilityBounds": "candidates/stage1-v5/saved-action-phases.json",
+    "envelopeViolations": [],
+    "maximumLoopClosureVertexDelta": 7.920075813483186e-08,
+    "statusSemantics": "Charging.8+.2sin scale; protection1+.25sin; ready steady1; coherent body fixture. Existing wholebody/skidbob, travel/impact and propeller cadence retained.",
+    "noNewMechanics": true
+  },
+  "physicalFamily": {
+    "sourceFacingDockRoot": [
+      -0.7,
+      -0.42,
+      0.23
+    ],
+    "actualFloorHoverMinMax": [
+      0.03700000047683716,
+      0.07300001382827759
+    ],
+    "hoverEvidence": "candidates/stage1-v5/saved-source-audit.json",
+    "method": "Actual full Floor04 evaluated BVH and bidirectional support rays from low underside vertices and top deck vertices including fixings; all dock states runtime/half/closure. Whole-family quarter rotations are rigid transformations of this measured native assembly.",
+    "minimumHutCanonicalSDisjointXGap": 0.32724998891353607,
+    "minimumHutFixedRootAllBodyFacingsDisjointXGap": 0.27299998700618744,
+    "allFacingsHutMethod": "Exact quarter-turn extrema from saved evaluated native phase bounds, body atfixed[-.70,-.42,.23], Hut01 fixedat[.78,.35,.23]. Conservative disjointXplanes prove clearance without shape approximations.",
+    "exactCompanionSources": {
+      "floor": {
+        "path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/submarine-yellow/source/stage1-v5/resources/dock-floor-round-04.blend",
+        "sha256": "94b509984dc442547602f32feada987c5119e3b9031eb1bd65a6a07769880418",
+        "root": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "collection": "WarmSoft_dock-floor"
+      },
+      "entry": {
+        "path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/submarine-yellow/source/stage1-v5/resources/dock-entry-round-06.blend",
+        "sha256": "22bd2b05201567c22d9dabcf767a3daf0639342e5522c43900ff4b777f5f3b37",
+        "root": [
+          0.0,
+          -1.5,
+          0.0
+        ],
+        "collection": "S33_PROP_dock-entry"
+      },
+      "hut": {
+        "path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/submarine-yellow/source/stage1-v5/resources/workshop-hut-round-01.blend",
+        "sha256": "1594c02e736a4c6c9ecbbb03d26c140aceb002d474a55eb19bea15808794403b",
+        "root": [
+          0.7799999713897705,
+          0.3499999940395355,
+          0.23000000417232513
+        ],
+        "collection": "WarmSoft_workshop-hut"
+      }
+    },
+    "contextCameraDisclosure": "Physical family renders main65degree at256pixels/Xworld with larger1280x1536canvas. Companions retain distinct original registered55degree standalone cameras. No image warp/fitting or standalone pixelidentity claim.",
+    "cover": "No cover geometry, publication or future approval claim."
+  },
+  "proposedInterfaces": {
+    "status": "AWAITING ORIGINAL JUDGE STAGE1 PREFLIGHT THEN ROOT FREEZE BEFORE CANONICAL COMPONENT CONSTRUCTION",
+    "proposal": "candidates/stage1-v5/proposed-mounts.json",
+    "proposalSHA256": "0453d2b60f1223de8eb79b8464d2922c3ed44c8c7a4e1603bd6e9ce4c7ecb5f6",
+    "clearances": "candidates/stage1-v5/mount-clearances.json",
+    "derivedNativeTips": "candidates/stage1-v5/derived-native-tips.json",
+    "physicalTransforms": {
+      "sub-hull-panels": [
+        [
+          0.5,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0.5,
+          0,
+          0.16
+        ],
+        [
+          0,
+          0,
+          0.5,
+          0.65
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "sub-harpoon-mount": [
+        [
+          0.35,
+          0,
+          0,
+          0.31
+        ],
+        [
+          0,
+          0.35,
+          0,
+          -0.24
+        ],
+        [
+          0,
+          0,
+          0.35,
+          0.5685
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "sub-collector-inlet": [
+        [
+          0.4,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0.4,
+          0,
+          -0.52
+        ],
+        [
+          0,
+          0,
+          0.4,
+          0.09
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ]
+    },
+    "reservationScope": "Neutral canonical component geometry adopted in main; standalone own idle/active contracts remain. No standalone active animation mapped into main. Fresh components must independently review actual native fit/intended-size readability within frozen allowed regions.",
+    "legacyKeysAndCoordinatesUnchanged": {
+      "sub_harpoon": [
+        0.24,
+        -0.4,
+        0.37
+      ],
+      "sub_collector": [
+        0,
+        -0.53,
+        0.21
+      ]
+    },
+    "clearanceSummary": {
+      "splitPanelToPeriscope": 0.03149999678134918,
+      "panelToGlass": 0.07988151162862778,
+      "gunToGlass": 0.03000001609325409,
+      "collectorToAllNoseBumperLights": 0.01299998164176941,
+      "otherEquipmentGaps": {
+        "sub-hull-panels__sub-harpoon-mount": 0.03299999237060547,
+        "sub-hull-panels__sub-collector-inlet": 0.429999977350235,
+        "sub-harpoon-mount__sub-collector-inlet": 0.31849998235702515
+      }
+    },
+    "standaloneProjection": "candidates/stage1-v5/component-projection-feasibility.json",
+    "standaloneProjectionDiagram": "candidates/stage1-v5/component-projection-feasibility.png",
+    "tradeoffs": "All unchanged standalone192x352/root96,248/55degree pixelaspect1.22065556/1x1nominal footprint/timing metadata distinguished from proposed mesh caps. Hull panels become a pair (localwidth1.04), harpoon narrowerbase/longerbarrel (reservationwidth.36 vsoldbase.50, localY1.24 vsold.93), collector fullerwidth/shallowerdepth. All4 reservation projections fit fixed frames; independent component judges assess actual art/readability. No old partcount/rivet geometry lock and no camera fit."
+  },
+  "previews": {
+    "logicalFourView": "candidates/stage1-v5/stage1-four-view-logical.png",
+    "nativeFamilyFourView": "candidates/stage1-v5/stage1-family-four-view.png",
+    "nativeCaptureManifest": "candidates/stage1-v5/representative-captures.json"
+  },
+  "captureScope": {
+    "primaryRepresentativeNativeImages": 12,
+    "full576NativeBatchRendered": false,
+    "final48AtlasesProduced": false,
+    "canonicalEquipmentApproved": false,
+    "finalApprovalClaimed": false
+  },
+  "remaining": [
+    "Original independent judge Stage1 preflight",
+    "Root freeze exact preliminary body/anchor/reservation bytes",
+    "3 separate fresh component editor/judge pairs",
+    "Original main editor resumes for exact approved neutral geometry/normals/UV/material adoption at frozen transforms, without reshaping/recolor/rebevel",
+    "Final576 native captures/48atlases/playback/native and exactsprite consumer contexts and original main judge approval"
+  ],
+  "stopAfterHandoff": true
+}

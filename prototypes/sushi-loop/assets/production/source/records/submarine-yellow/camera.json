@@ -8,14 +8,8 @@
     160,
     288
   ],
-  "cellSize": 128,
-  "captureScale": 4,
+  "captureScale": 2,
   "fps": 12,
-  "axes": {
-    "x": "X",
-    "depth": "-Y",
-    "height": "Z"
-  },
   "camera": {
     "type": "orthographic",
     "worldMatrix": [
@@ -28,12 +22,12 @@
       [
         0.0,
         0.9063078165054321,
-        -0.42261821031570435,
+        -0.42261818051338196,
         -4.226182460784912
       ],
       [
         0.0,
-        0.42261821031570435,
+        0.42261818051338196,
         0.9063078165054321,
         9.063077926635742
       ],
@@ -44,79 +38,70 @@
         1.0
       ]
     ],
-    "projectionMatrix": [
-      [
-        0.800000011920929,
-        0.0,
-        0.0,
-        -0.0
-      ],
-      [
-        0.0,
-        0.6666666865348816,
-        0.0,
-        -0.5000001788139343
-      ],
-      [
-        0.0,
-        0.0,
-        -0.0020001998636871576,
-        -1.0001999139785767
-      ],
-      [
-        0.0,
-        0.0,
-        0.0,
-        1.0
-      ]
-    ],
+    "projection": "character-orthographic",
     "pixelAspect": [
       1.0,
       1.0
     ],
-    "worldUnitsPerCell": 1,
+    "orthoScale": 3.0,
+    "shift": [
+      0.0,
+      0.25
+    ],
     "elevationDegrees": 65
   },
   "calibration": {
     "root": [
-      640.0,
-      1152.0
+      320.0,
+      575.9998168945312
+    ],
+    "measuredRoot": [
+      320.0,
+      575.9998168945312
     ],
     "unitX": [
-      512.0,
+      255.99998474121094,
       0.0
     ],
     "unitDepth": [
       0.0,
-      464.0296630859375
+      -232.0148162841797
     ],
     "unitHeight": [
       0.0,
-      -216.38055419921875
+      -108.19024658203125
+    ],
+    "cellSize": 128,
+    "nativeScale": 2
+  },
+  "nativeCapture": {
+    "outputFormat": "PNG",
+    "colorMode": "RGBA",
+    "colorDepth": "8",
+    "colorManagement": [
+      "Standard",
+      "None",
+      -0.3499999940395355,
+      1.0
+    ],
+    "cameraDataType": "ORTHO",
+    "frame": [
+      640,
+      768
+    ],
+    "root": [
+      320.0,
+      575.9998168945312
+    ],
+    "captureScale": 2,
+    "sourceSHA256": "8bf25d0939fe7833cca8914c1a1b780986aa2b8fb208eb07ef01cc0400c48e6d",
+    "engine": "BLENDER_EEVEE",
+    "samples": 64,
+    "filterSize": 0.5,
+    "pixelAspect": [
+      1,
+      1
     ]
   },
-  "artStyle": {
-    "revision": "2026-10-19",
-    "environmentHeightRatio": 0.7,
-    "contrast": 1.35,
-    "contrastSpace": "sRGB",
-    "lighting": "Faceted: centered 140 W key plus four symmetric 100 W fills",
-    "lightingRig": {
-      "treatment": "Faceted",
-      "overheadWatts": 140,
-      "overheadPosition": [
-        0,
-        0,
-        4.5
-      ],
-      "overheadSize": 3.5,
-      "fillWattsEach": 100,
-      "fillSize": 4,
-      "fillRadius": 3,
-      "fillZ": 1.8,
-      "horizontalSymmetry": 4,
-      "worldStrength": 0
-    },
-    "lowerShading": "world-height ramp; camera view-tone bypassed"
-  }
+  "publication": "Direct native2x wholeframe. No reduction, scale transplant or pixel fitting."
 }

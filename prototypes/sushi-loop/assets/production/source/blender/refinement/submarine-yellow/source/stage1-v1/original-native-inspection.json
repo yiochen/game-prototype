@@ -1,0 +1,2169 @@
+{
+  "source": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/submarine-yellow/reviews/preparation-v1/resources/original-library.blend",
+  "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+  "blender": "5.2.2 LTS",
+  "collections": [
+    {
+      "name": "S33_PROP_submarine_base.001",
+      "properties": {},
+      "objects": [
+        {
+          "name": "submarine_base__root.001",
+          "type": "EMPTY",
+          "location": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": null,
+          "vertices": 0,
+          "modifiers": [],
+          "materials": [],
+          "bounds": null,
+          "properties": {
+            "asset_id": "submarine_base",
+            "family": "issue-33-world-props",
+            "footprint_cells": "[1, 1]",
+            "ground_root": "[0, 0, 0]",
+            "visual_height": 1.02,
+            "sockets": "{\"sub_harpoon\": [0.24, -0.4, 0.37], \"sub_collector\": [0.0, -0.53, 0.21]}",
+            "directions": "[\"N\", \"E\", \"S\", \"W\"]",
+            "animation_recipes": "{\"idle\": {\"frames\": 12, \"fps\": 12, \"loop\": true}, \"travel\": {\"frames\": 12, \"fps\": 12, \"loop\": true}, \"impact\": {\"frames\": 12, \"fps\": 12, \"loop\": false}, \"protection\": {\"frames\": 12, \"fps\": 12, \"loop\": true}, \"dock-charging\": {\"frames\": 12, \"fps\": 12, \"loop\": true}, \"dock-ready\": {\"frames\": 12, \"fps\": 12, \"loop\": true}, \"upgraded-idle\": {\"frames\": 12, \"fps\": 12, \"loop\": true}, \"upgraded-travel\": {\"frames\": 12, \"fps\": 12, \"loop\": true}, \"upgraded-impact\": {\"frames\": 12, \"fps\": 12, \"loop\": false}, \"upgraded-protection\": {\"frames\": 12, \"fps\": 12, \"loop\": true}, \"upgraded-dock-charging\": {\"frames\": 12, \"fps\": 12, \"loop\": true}, \"upgraded-dock-ready\": {\"frames\": 12, \"fps\": 12, \"loop\": true}}",
+            "axis_convention": "X=x; depth=-Y; height=Z",
+            "source": "prop_builders.py",
+            "notes": "[\"Same recognizable yellow ship as the dock. Front toward -Y; rotated N for upward overhead travel. Equipment stays inside 1x1 footprint, separate attachment sockets.\"]",
+            "variants": "{\"baseline\": {\"clips\": [\"idle\", \"travel\", \"impact\", \"protection\", \"dock-charging\", \"dock-ready\"]}, \"upgraded\": {\"clips\": [\"upgraded-idle\", \"upgraded-travel\", \"upgraded-impact\", \"upgraded-protection\", \"upgraded-dock-charging\", \"upgraded-dock-ready\"]}}",
+            "artStyle": "faceted-approved-2026-10-19",
+            "production_id": "submarine-yellow",
+            "native_action_record": "{\"source\": \"native_actions.py\", \"assetId\": \"submarine-yellow\", \"clips\": {\"idle\": [\"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_hull.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_belly.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_base__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__idle__sub-charge-indicators__charge_lamp.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_hull.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_belly.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_armor_left.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_armor_right.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_harpoon_barrel.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_harpoon_rail.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_collector_intake.001\", \"S33_NATIVE__submarine-yellow__idle__submarine_upgraded__sub_collector_lip.001\"], \"travel\": [\"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_hull.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_belly.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_base__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__travel__sub-charge-indicators__charge_lamp.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_hull.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_belly.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_armor_left.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_armor_right.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_harpoon_barrel.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_harpoon_rail.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_collector_intake.001\", \"S33_NATIVE__submarine-yellow__travel__submarine_upgraded__sub_collector_lip.001\"], \"impact\": [\"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_hull.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_belly.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_base__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__impact__sub-charge-indicators__charge_lamp.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_hull.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_belly.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_armor_left.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_armor_right.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_harpoon_barrel.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_harpoon_rail.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_collector_intake.001\", \"S33_NATIVE__submarine-yellow__impact__submarine_upgraded__sub_collector_lip.001\"], \"protection\": [\"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_hull.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_belly.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_base__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__protection__sub-charge-indicators__charge_lamp.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_hull.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_belly.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_armor_left.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_armor_right.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_harpoon_barrel.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_harpoon_rail.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_collector_intake.001\", \"S33_NATIVE__submarine-yellow__protection__submarine_upgraded__sub_collector_lip.001\"], \"dock-charging\": [\"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_hull.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_belly.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_base__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__dock-charging__sub-charge-indicators__charge_lamp.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_hull.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_belly.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_armor_left.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_armor_right.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_harpoon_barrel.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_harpoon_rail.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_collector_intake.001\", \"S33_NATIVE__submarine-yellow__dock-charging__submarine_upgraded__sub_collector_lip.001\"], \"dock-ready\": [\"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_hull.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_belly.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_base__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__dock-ready__sub-charge-indicators__charge_lamp.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_hull.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_belly.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_armor_left.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_armor_right.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_harpoon_barrel.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_harpoon_rail.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_collector_intake.001\", \"S33_NATIVE__submarine-yellow__dock-ready__submarine_upgraded__sub_collector_lip.001\"], \"upgraded-idle\": [\"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_hull.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_belly.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_base__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__sub-charge-indicators__charge_lamp.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_hull.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_belly.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_armor_left.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_armor_right.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_harpoon_barrel.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_harpoon_rail.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_collector_intake.001\", \"S33_NATIVE__submarine-yellow__upgraded-idle__submarine_upgraded__sub_collector_lip.001\"], \"upgraded-travel\": [\"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_hull.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_belly.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_base__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__sub-charge-indicators__charge_lamp.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_hull.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_belly.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_armor_left.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_armor_right.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_harpoon_barrel.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_harpoon_rail.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_collector_intake.001\", \"S33_NATIVE__submarine-yellow__upgraded-travel__submarine_upgraded__sub_collector_lip.001\"], \"upgraded-impact\": [\"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_hull.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_belly.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_base__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__sub-charge-indicators__charge_lamp.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_hull.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_belly.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_armor_left.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_armor_right.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_harpoon_barrel.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_harpoon_rail.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_collector_intake.001\", \"S33_NATIVE__submarine-yellow__upgraded-impact__submarine_upgraded__sub_collector_lip.001\"], \"upgraded-protection\": [\"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_hull.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_belly.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_base__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__sub-charge-indicators__charge_lamp.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_hull.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_belly.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_armor_left.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_armor_right.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_harpoon_barrel.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_harpoon_rail.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_collector_intake.001\", \"S33_NATIVE__submarine-yellow__upgraded-protection__submarine_upgraded__sub_collector_lip.001\"], \"upgraded-dock-charging\": [\"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_hull.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_belly.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_base__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__sub-charge-indicators__charge_lamp.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_hull.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_belly.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_armor_left.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_armor_right.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_harpoon_barrel.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_harpoon_rail.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_collector_intake.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-charging__submarine_upgraded__sub_collector_lip.001\"], \"upgraded-dock-ready\": [\"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_hull.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_belly.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_base__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__sub-charge-indicators__charge_lamp.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_hull.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_belly.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_port_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_port_glass.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_glass_glint.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_nose_headlight_rim.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_nose_headlight_lens.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_side_thruster_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_thruster_lip_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_fin_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_skid_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_strut_-1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_side_thruster_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_thruster_lip_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_fin_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_skid_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_strut_1.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_periscope_stem.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_periscope_cap.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_tail_shaft.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_propeller.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_bolt_-0.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_bolt_0.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_armor_left.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_armor_right.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_harpoon_barrel.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_harpoon_rail.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_collector_intake.001\", \"S33_NATIVE__submarine-yellow__upgraded-dock-ready__submarine_upgraded__sub_collector_lip.001\"]}}"
+          }
+        },
+        {
+          "name": "submarine_base__sub_hull.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            0.0,
+            0.4000000059604645
+          ],
+          "scale": [
+            0.36000001430511475,
+            0.5,
+            0.33000001311302185
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 42,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_yellow"
+          ],
+          "bounds": [
+            [
+              -0.9510578513145447,
+              -0.9999999403953552,
+              -1.0
+            ],
+            [
+              0.9510578513145447,
+              0.9999999403953552,
+              1.0
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_belly.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            -0.029999999329447746,
+            0.27000001072883606
+          ],
+          "scale": [
+            0.33000001311302185,
+            0.44999998807907104,
+            0.18000000715255737
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 12,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.8944249749183655,
+              -0.8506399989128113,
+              -1.0
+            ],
+            [
+              0.8944249749183655,
+              0.8506399989128113,
+              1.0
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_port_rim.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            -0.25,
+            0.6600000262260437
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.6435011029243469,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 24,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_yellow_light"
+          ],
+          "bounds": [
+            [
+              -0.21799999475479126,
+              -0.21799999475479126,
+              -0.03750000149011612
+            ],
+            [
+              0.21799999475479126,
+              0.21799999475479126,
+              0.03750000149011612
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_port_glass.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            -0.2800000011920929,
+            0.699999988079071
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.6435011029243469,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 24,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_blue_light"
+          ],
+          "bounds": [
+            [
+              -0.17100000381469727,
+              -0.17100000381469727,
+              -0.017500000074505806
+            ],
+            [
+              0.17100000381469727,
+              0.17100000381469727,
+              0.017500000074505806
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_glass_glint.001",
+          "type": "MESH",
+          "location": [
+            -0.04699999839067459,
+            -0.30300000309944153,
+            0.7350000143051147
+          ],
+          "scale": [
+            0.04699999839067459,
+            0.05700000002980232,
+            0.012000000104308128
+          ],
+          "rotation": [
+            0.6435011029243469,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 12,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_cyan"
+          ],
+          "bounds": [
+            [
+              -0.8944249749183655,
+              -0.8506399989128113,
+              -1.0
+            ],
+            [
+              0.8944249749183655,
+              0.8506399989128113,
+              1.0
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_nose_headlight_rim.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            -0.48100000619888306,
+            0.3799999952316284
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.07999999821186066,
+              -0.07999999821186066,
+              -0.024000000208616257
+            ],
+            [
+              0.07999999821186066,
+              0.07999999821186066,
+              0.024000000208616257
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_nose_headlight_lens.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            -0.5099999904632568,
+            0.3799999952316284
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_yellow_light"
+          ],
+          "bounds": [
+            [
+              -0.05700000002980232,
+              -0.05700000002980232,
+              -0.009999999776482582
+            ],
+            [
+              0.05700000002980232,
+              0.05700000002980232,
+              0.009999999776482582
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_side_thruster_-1.001",
+          "type": "MESH",
+          "location": [
+            -0.38999998569488525,
+            0.03999999910593033,
+            0.3700000047683716
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_red"
+          ],
+          "bounds": [
+            [
+              -0.14000000059604645,
+              -0.14000000059604645,
+              -0.20000000298023224
+            ],
+            [
+              0.14000000059604645,
+              0.14000000059604645,
+              0.20000000298023224
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_thruster_lip_-1.001",
+          "type": "MESH",
+          "location": [
+            -0.38999998569488525,
+            -0.17000000178813934,
+            0.3700000047683716
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.15000000596046448,
+              -0.15000000596046448,
+              -0.02500000037252903
+            ],
+            [
+              0.15000000596046448,
+              0.15000000596046448,
+              0.02500000037252903
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_fin_-1.001",
+          "type": "MESH",
+          "location": [
+            -0.3700000047683716,
+            0.30000001192092896,
+            0.38999998569488525
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            -0.20000000298023224
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_yellow"
+          ],
+          "bounds": [
+            [
+              -0.11999999731779099,
+              -0.11999999731779099,
+              -0.032499998807907104
+            ],
+            [
+              0.11999999731779099,
+              0.11999999731779099,
+              0.032499998807907104
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_skid_-1.001",
+          "type": "MESH",
+          "location": [
+            -0.23000000417232513,
+            0.009999990463256836,
+            0.07999999821186066
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707964897155762,
+            1.5099578831723193e-07,
+            3.141592502593994
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.03500000014901161,
+              -0.03500000014901161,
+              -0.3100000023841858
+            ],
+            [
+              0.03500000014901161,
+              0.03500000014901161,
+              0.3100000023841858
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_strut_-1.001",
+          "type": "MESH",
+          "location": [
+            -0.22499999403953552,
+            -0.09000000357627869,
+            0.1599999964237213
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.1388547420501709,
+            9.428040215198052e-08,
+            2.6779448986053467
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_yellow"
+          ],
+          "bounds": [
+            [
+              -0.02500000037252903,
+              -0.02500000037252903,
+              -0.08077747374773026
+            ],
+            [
+              0.02500000037252903,
+              0.02500000037252903,
+              0.08077747374773026
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_side_thruster_1.001",
+          "type": "MESH",
+          "location": [
+            0.38999998569488525,
+            0.03999999910593033,
+            0.3700000047683716
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_red"
+          ],
+          "bounds": [
+            [
+              -0.14000000059604645,
+              -0.14000000059604645,
+              -0.20000000298023224
+            ],
+            [
+              0.14000000059604645,
+              0.14000000059604645,
+              0.20000000298023224
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_thruster_lip_1.001",
+          "type": "MESH",
+          "location": [
+            0.38999998569488525,
+            -0.17000000178813934,
+            0.3700000047683716
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.15000000596046448,
+              -0.15000000596046448,
+              -0.02500000037252903
+            ],
+            [
+              0.15000000596046448,
+              0.15000000596046448,
+              0.02500000037252903
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_fin_1.001",
+          "type": "MESH",
+          "location": [
+            0.3700000047683716,
+            0.30000001192092896,
+            0.38999998569488525
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.20000000298023224
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_yellow"
+          ],
+          "bounds": [
+            [
+              -0.11999999731779099,
+              -0.11999999731779099,
+              -0.032499998807907104
+            ],
+            [
+              0.11999999731779099,
+              0.11999999731779099,
+              0.032499998807907104
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_skid_1.001",
+          "type": "MESH",
+          "location": [
+            0.23000000417232513,
+            0.009999990463256836,
+            0.07999999821186066
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707964897155762,
+            1.5099578831723193e-07,
+            3.141592502593994
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.03500000014901161,
+              -0.03500000014901161,
+              -0.3100000023841858
+            ],
+            [
+              0.03500000014901161,
+              0.03500000014901161,
+              0.3100000023841858
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_strut_1.001",
+          "type": "MESH",
+          "location": [
+            0.22499999403953552,
+            -0.09000000357627869,
+            0.1599999964237213
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.1388547420501709,
+            -9.428040215198052e-08,
+            -2.6779448986053467
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_yellow"
+          ],
+          "bounds": [
+            [
+              -0.02500000037252903,
+              -0.02500000037252903,
+              -0.08077747374773026
+            ],
+            [
+              0.02500000037252903,
+              0.02500000037252903,
+              0.08077747374773026
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_periscope_stem.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            0.10000000149011612,
+            0.800000011920929
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.06499999761581421,
+              -0.06499999761581421,
+              -0.14000000059604645
+            ],
+            [
+              0.06499999761581421,
+              0.06499999761581421,
+              0.14000000059604645
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_periscope_cap.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            0.10000000149011612,
+            0.949999988079071
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_yellow_light"
+          ],
+          "bounds": [
+            [
+              -0.12999999523162842,
+              -0.12999999523162842,
+              -0.03750000149011612
+            ],
+            [
+              0.12999999523162842,
+              0.12999999523162842,
+              0.03750000149011612
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_tail_shaft.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            0.5299999713897705,
+            0.36000001430511475
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_metal_dark"
+          ],
+          "bounds": [
+            [
+              -0.04500000178813934,
+              -0.04500000178813934,
+              -0.09000000357627869
+            ],
+            [
+              0.04500000178813934,
+              0.04500000178813934,
+              0.09000000357627869
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_propeller.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            0.6399999856948853,
+            0.36000001430511475
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.1899999976158142,
+              -0.02250000089406967,
+              -0.032499998807907104
+            ],
+            [
+              0.1899999976158142,
+              0.02250000089406967,
+              0.032499998807907104
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_bolt_-0.001",
+          "type": "MESH",
+          "location": [
+            -0.1599999964237213,
+            -0.5019999742507935,
+            0.33000001311302185
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.026000000536441803,
+              -0.026000000536441803,
+              -0.009999999776482582
+            ],
+            [
+              0.026000000536441803,
+              0.026000000536441803,
+              0.009999999776482582
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_base__sub_bolt_0.001",
+          "type": "MESH",
+          "location": [
+            0.1599999964237213,
+            -0.5019999742507935,
+            0.33000001311302185
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.026000000536441803,
+              -0.026000000536441803,
+              -0.009999999776482582
+            ],
+            [
+              0.026000000536441803,
+              0.026000000536441803,
+              0.009999999776482582
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "sub-charge-indicators__root.001",
+          "type": "EMPTY",
+          "location": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 0,
+          "modifiers": [],
+          "materials": [],
+          "bounds": null,
+          "properties": {}
+        },
+        {
+          "name": "sub-charge-indicators__charge_lamp.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            0.10000000149011612,
+            1.0099999904632568
+          ],
+          "scale": [
+            0.06499999761581421,
+            0.06499999761581421,
+            0.04500000178813934
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "sub-charge-indicators__root.001",
+          "vertices": 12,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_cyan"
+          ],
+          "bounds": [
+            [
+              -0.8944249749183655,
+              -0.8506399989128113,
+              -1.0
+            ],
+            [
+              0.8944249749183655,
+              0.8506399989128113,
+              1.0
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__root.001",
+          "type": "EMPTY",
+          "location": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_base__root.001",
+          "vertices": 0,
+          "modifiers": [],
+          "materials": [],
+          "bounds": null,
+          "properties": {
+            "asset_id": "submarine_upgraded",
+            "family": "issue-33-world-props",
+            "footprint_cells": "[1, 1]",
+            "ground_root": "[0, 0, 0]",
+            "visual_height": 1.02,
+            "sockets": "{\"sub_harpoon\": [0.24, -0.4, 0.37], \"sub_collector\": [0.0, -0.53, 0.21]}",
+            "directions": "[\"N\", \"E\", \"S\", \"W\"]",
+            "animation_recipes": "{\"idle\": {\"frames\": 24, \"fps\": 12, \"loop\": true}, \"travel\": {\"frames\": 24, \"fps\": 12, \"loop\": true}, \"impact\": {\"frames\": 12, \"fps\": 12, \"loop\": false}, \"protected\": {\"frames\": 24, \"fps\": 12, \"loop\": true}}",
+            "axis_convention": "X=x; depth=-Y; height=Z",
+            "source": "prop_builders.py",
+            "notes": "[\"Same recognizable yellow ship as the dock. Front toward -Y; rotated N for upward overhead travel. Equipment stays inside 1x1 footprint, separate attachment sockets.\"]",
+            "variant": "upgraded"
+          }
+        },
+        {
+          "name": "submarine_upgraded__sub_hull.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            0.0,
+            0.4000000059604645
+          ],
+          "scale": [
+            0.36000001430511475,
+            0.5,
+            0.33000001311302185
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 42,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_yellow"
+          ],
+          "bounds": [
+            [
+              -0.9510578513145447,
+              -0.9999999403953552,
+              -1.0
+            ],
+            [
+              0.9510578513145447,
+              0.9999999403953552,
+              1.0
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_belly.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            -0.029999999329447746,
+            0.27000001072883606
+          ],
+          "scale": [
+            0.33000001311302185,
+            0.44999998807907104,
+            0.18000000715255737
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 12,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.8944249749183655,
+              -0.8506399989128113,
+              -1.0
+            ],
+            [
+              0.8944249749183655,
+              0.8506399989128113,
+              1.0
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_port_rim.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            -0.25,
+            0.6600000262260437
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.6435011029243469,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 24,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_yellow_light"
+          ],
+          "bounds": [
+            [
+              -0.21799999475479126,
+              -0.21799999475479126,
+              -0.03750000149011612
+            ],
+            [
+              0.21799999475479126,
+              0.21799999475479126,
+              0.03750000149011612
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_port_glass.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            -0.2800000011920929,
+            0.699999988079071
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.6435011029243469,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 24,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_blue_light"
+          ],
+          "bounds": [
+            [
+              -0.17100000381469727,
+              -0.17100000381469727,
+              -0.017500000074505806
+            ],
+            [
+              0.17100000381469727,
+              0.17100000381469727,
+              0.017500000074505806
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_glass_glint.001",
+          "type": "MESH",
+          "location": [
+            -0.04699999839067459,
+            -0.30300000309944153,
+            0.7350000143051147
+          ],
+          "scale": [
+            0.04699999839067459,
+            0.05700000002980232,
+            0.012000000104308128
+          ],
+          "rotation": [
+            0.6435011029243469,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 12,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_cyan"
+          ],
+          "bounds": [
+            [
+              -0.8944249749183655,
+              -0.8506399989128113,
+              -1.0
+            ],
+            [
+              0.8944249749183655,
+              0.8506399989128113,
+              1.0
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_nose_headlight_rim.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            -0.48100000619888306,
+            0.3799999952316284
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.07999999821186066,
+              -0.07999999821186066,
+              -0.024000000208616257
+            ],
+            [
+              0.07999999821186066,
+              0.07999999821186066,
+              0.024000000208616257
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_nose_headlight_lens.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            -0.5099999904632568,
+            0.3799999952316284
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_yellow_light"
+          ],
+          "bounds": [
+            [
+              -0.05700000002980232,
+              -0.05700000002980232,
+              -0.009999999776482582
+            ],
+            [
+              0.05700000002980232,
+              0.05700000002980232,
+              0.009999999776482582
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_side_thruster_-1.001",
+          "type": "MESH",
+          "location": [
+            -0.38999998569488525,
+            0.03999999910593033,
+            0.3700000047683716
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_red"
+          ],
+          "bounds": [
+            [
+              -0.14000000059604645,
+              -0.14000000059604645,
+              -0.20000000298023224
+            ],
+            [
+              0.14000000059604645,
+              0.14000000059604645,
+              0.20000000298023224
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_thruster_lip_-1.001",
+          "type": "MESH",
+          "location": [
+            -0.38999998569488525,
+            -0.17000000178813934,
+            0.3700000047683716
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.15000000596046448,
+              -0.15000000596046448,
+              -0.02500000037252903
+            ],
+            [
+              0.15000000596046448,
+              0.15000000596046448,
+              0.02500000037252903
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_fin_-1.001",
+          "type": "MESH",
+          "location": [
+            -0.3700000047683716,
+            0.30000001192092896,
+            0.38999998569488525
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            -0.20000000298023224
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_yellow"
+          ],
+          "bounds": [
+            [
+              -0.11999999731779099,
+              -0.11999999731779099,
+              -0.032499998807907104
+            ],
+            [
+              0.11999999731779099,
+              0.11999999731779099,
+              0.032499998807907104
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_skid_-1.001",
+          "type": "MESH",
+          "location": [
+            -0.23000000417232513,
+            0.009999990463256836,
+            0.07999999821186066
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707964897155762,
+            1.5099578831723193e-07,
+            3.141592502593994
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.03500000014901161,
+              -0.03500000014901161,
+              -0.3100000023841858
+            ],
+            [
+              0.03500000014901161,
+              0.03500000014901161,
+              0.3100000023841858
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_strut_-1.001",
+          "type": "MESH",
+          "location": [
+            -0.22499999403953552,
+            -0.09000000357627869,
+            0.1599999964237213
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.1388547420501709,
+            9.428040215198052e-08,
+            2.6779448986053467
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_yellow"
+          ],
+          "bounds": [
+            [
+              -0.02500000037252903,
+              -0.02500000037252903,
+              -0.08077747374773026
+            ],
+            [
+              0.02500000037252903,
+              0.02500000037252903,
+              0.08077747374773026
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_side_thruster_1.001",
+          "type": "MESH",
+          "location": [
+            0.38999998569488525,
+            0.03999999910593033,
+            0.3700000047683716
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_red"
+          ],
+          "bounds": [
+            [
+              -0.14000000059604645,
+              -0.14000000059604645,
+              -0.20000000298023224
+            ],
+            [
+              0.14000000059604645,
+              0.14000000059604645,
+              0.20000000298023224
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_thruster_lip_1.001",
+          "type": "MESH",
+          "location": [
+            0.38999998569488525,
+            -0.17000000178813934,
+            0.3700000047683716
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.15000000596046448,
+              -0.15000000596046448,
+              -0.02500000037252903
+            ],
+            [
+              0.15000000596046448,
+              0.15000000596046448,
+              0.02500000037252903
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_fin_1.001",
+          "type": "MESH",
+          "location": [
+            0.3700000047683716,
+            0.30000001192092896,
+            0.38999998569488525
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.20000000298023224
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_yellow"
+          ],
+          "bounds": [
+            [
+              -0.11999999731779099,
+              -0.11999999731779099,
+              -0.032499998807907104
+            ],
+            [
+              0.11999999731779099,
+              0.11999999731779099,
+              0.032499998807907104
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_skid_1.001",
+          "type": "MESH",
+          "location": [
+            0.23000000417232513,
+            0.009999990463256836,
+            0.07999999821186066
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707964897155762,
+            1.5099578831723193e-07,
+            3.141592502593994
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.03500000014901161,
+              -0.03500000014901161,
+              -0.3100000023841858
+            ],
+            [
+              0.03500000014901161,
+              0.03500000014901161,
+              0.3100000023841858
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_strut_1.001",
+          "type": "MESH",
+          "location": [
+            0.22499999403953552,
+            -0.09000000357627869,
+            0.1599999964237213
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.1388547420501709,
+            -9.428040215198052e-08,
+            -2.6779448986053467
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_yellow"
+          ],
+          "bounds": [
+            [
+              -0.02500000037252903,
+              -0.02500000037252903,
+              -0.08077747374773026
+            ],
+            [
+              0.02500000037252903,
+              0.02500000037252903,
+              0.08077747374773026
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_periscope_stem.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            0.10000000149011612,
+            0.800000011920929
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.06499999761581421,
+              -0.06499999761581421,
+              -0.14000000059604645
+            ],
+            [
+              0.06499999761581421,
+              0.06499999761581421,
+              0.14000000059604645
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_periscope_cap.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            0.10000000149011612,
+            0.949999988079071
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_yellow_light"
+          ],
+          "bounds": [
+            [
+              -0.12999999523162842,
+              -0.12999999523162842,
+              -0.03750000149011612
+            ],
+            [
+              0.12999999523162842,
+              0.12999999523162842,
+              0.03750000149011612
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_tail_shaft.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            0.5299999713897705,
+            0.36000001430511475
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_metal_dark"
+          ],
+          "bounds": [
+            [
+              -0.04500000178813934,
+              -0.04500000178813934,
+              -0.09000000357627869
+            ],
+            [
+              0.04500000178813934,
+              0.04500000178813934,
+              0.09000000357627869
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_propeller.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            0.6399999856948853,
+            0.36000001430511475
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.1899999976158142,
+              -0.02250000089406967,
+              -0.032499998807907104
+            ],
+            [
+              0.1899999976158142,
+              0.02250000089406967,
+              0.032499998807907104
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_bolt_-0.001",
+          "type": "MESH",
+          "location": [
+            -0.1599999964237213,
+            -0.5019999742507935,
+            0.33000001311302185
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.026000000536441803,
+              -0.026000000536441803,
+              -0.009999999776482582
+            ],
+            [
+              0.026000000536441803,
+              0.026000000536441803,
+              0.009999999776482582
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_bolt_0.001",
+          "type": "MESH",
+          "location": [
+            0.1599999964237213,
+            -0.5019999742507935,
+            0.33000001311302185
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_gold"
+          ],
+          "bounds": [
+            [
+              -0.026000000536441803,
+              -0.026000000536441803,
+              -0.009999999776482582
+            ],
+            [
+              0.026000000536441803,
+              0.026000000536441803,
+              0.009999999776482582
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_armor_left.001",
+          "type": "MESH",
+          "location": [
+            -0.20999999344348907,
+            -0.019999999552965164,
+            0.6700000166893005
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_yellow_light"
+          ],
+          "bounds": [
+            [
+              -0.09000000357627869,
+              -0.23499999940395355,
+              -0.03750000149011612
+            ],
+            [
+              0.09000000357627869,
+              0.23499999940395355,
+              0.03750000149011612
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_armor_right.001",
+          "type": "MESH",
+          "location": [
+            0.20999999344348907,
+            -0.019999999552965164,
+            0.6700000166893005
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_yellow_light"
+          ],
+          "bounds": [
+            [
+              -0.09000000357627869,
+              -0.23499999940395355,
+              -0.03750000149011612
+            ],
+            [
+              0.09000000357627869,
+              0.23499999940395355,
+              0.03750000149011612
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_harpoon_barrel.001",
+          "type": "MESH",
+          "location": [
+            0.28999999165534973,
+            -0.25,
+            0.6600000262260437
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            1.5707963705062866,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 16,
+          "modifiers": [],
+          "materials": [
+            "submarine-yellow approved S33_metal_dark"
+          ],
+          "bounds": [
+            [
+              -0.054999999701976776,
+              -0.054999999701976776,
+              -0.20000000298023224
+            ],
+            [
+              0.054999999701976776,
+              0.054999999701976776,
+              0.20000000298023224
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_harpoon_rail.001",
+          "type": "MESH",
+          "location": [
+            0.28999999165534973,
+            -0.07999999821186066,
+            0.6700000166893005
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_red"
+          ],
+          "bounds": [
+            [
+              -0.07000000029802322,
+              -0.14000000059604645,
+              -0.05000000074505806
+            ],
+            [
+              0.07000000029802322,
+              0.14000000059604645,
+              0.05000000074505806
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_collector_intake.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            -0.49000000953674316,
+            0.20999999344348907
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_metal_dark"
+          ],
+          "bounds": [
+            [
+              -0.14000000059604645,
+              -0.0949999988079071,
+              -0.07000000029802322
+            ],
+            [
+              0.14000000059604645,
+              0.0949999988079071,
+              0.07000000029802322
+            ]
+          ],
+          "properties": {}
+        },
+        {
+          "name": "submarine_upgraded__sub_collector_lip.001",
+          "type": "MESH",
+          "location": [
+            0.0,
+            -0.5899999737739563,
+            0.20999999344348907
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "rotation": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "parent": "submarine_upgraded__root.001",
+          "vertices": 8,
+          "modifiers": [
+            "BEVEL"
+          ],
+          "materials": [
+            "submarine-yellow approved S33_metal_light"
+          ],
+          "bounds": [
+            [
+              -0.1599999964237213,
+              -0.02250000089406967,
+              -0.09000000357627869
+            ],
+            [
+              0.1599999964237213,
+              0.02250000089406967,
+              0.09000000357627869
+            ]
+          ],
+          "properties": {}
+        }
+      ]
+    }
+  ]
+}
