@@ -1,0 +1,30 @@
+<!doctype html><meta charset="utf-8"><title>Reef corner exact consumer evidence</title>
+<style>html,body{margin:0;padding:0;overflow:hidden}#stage{position:relative;overflow:hidden}#world{position:absolute;left:0;top:0;transform-origin:0 0}canvas{position:absolute;image-rendering:auto}</style>
+<div id="stage"><div id="world"><canvas id="raster"></canvas></div></div>
+<script type="module">
+import {worldRasterPlan,paintWorldRaster} from './resources/world-sprite-raster.js';
+import {spriteFrame,groundRoot,orderPlacements} from './resources/sprite-layout.js';
+const angles={S:0,E:Math.PI/2,N:Math.PI,W:-Math.PI/2};
+const facings=['S','E','N','W'];
+const prefix='../candidates/round-01/';
+function object(id,canonical=false){return {id,kind:'terrain',layer:2,frameSize:[192,352],root:[96,248],sourceScale:2,rootCell:[.5,.5],footprint:[1,1],clips:[{id:'static',frames:1,fps:12,loop:false,static:true,directions:Object.fromEntries(facings.map(d=>[d,{image:prefix+(canonical?`canonical/static-${d}.png`:`frames/static/${d}/000.png`),columns:1,rows:1,atlasSize:[384,704],rects:[[0,0,384,704]]}]))}]};}
+const objects=[object('reef-corner'),object('reef-middle',true)];
+const cache=new Map();
+async function load(url){if(cache.has(url))return cache.get(url);let im=new Image();im.src=url;await im.decode();cache.set(url,im);return im;}
+window.capture=async ({direction,size,background,root,pan})=>{
+  const a=angles[direction],rotate=(x,y)=>[Math.cos(a)*x-Math.sin(a)*y,Math.sin(a)*x+Math.cos(a)*y];
+  const w=rotate(-1,0),n=rotate(0,1),orderedFacing=(angle)=>facings[(Math.round(angle/(Math.PI/2))+4)%4];
+  const placements=[{object:'reef-corner',x:2,y:2,direction},{object:'reef-middle',x:2+w[0],y:2-w[1],direction},{object:'reef-middle',x:2+n[0],y:2-n[1],direction:orderedFacing(a+Math.PI/2)}].map(p=>({...p,offset:[root,root]}));
+  const ordered=orderPlacements(placements,objects);
+  const sprites=ordered.map(p=>{const o=objects.find(o=>o.id===p.object),f=spriteFrame(o,o.clips[0],p.direction,0),r=groundRoot(p,o,128);return {url:f.image,rect:f.rect,x:r[0]-f.root[0],y:r[1]-f.root[1],width:f.frameSize[0],height:f.frameSize[1],placement:p};});
+  const plan=worldRasterPlan(sprites,[96,-56,448,608]),images=await Promise.all(sprites.map(s=>load(s.url)));
+  const canvas=document.getElementById('raster');paintWorldRaster(canvas,plan,images);
+  canvas.style.left=(plan.x-96)+'px';canvas.style.top=(plan.y+56)+'px';canvas.style.width=(plan.width/plan.scale)+'px';canvas.style.height=(plan.height/plan.scale)+'px';
+  const scale=size/128,stage=document.getElementById('stage'),world=document.getElementById('world');
+  stage.style.width=(448*scale)+'px';stage.style.height=(608*scale)+'px';stage.style.background=background;
+  world.style.transform=`translate(${pan*scale}px,${pan*scale}px) scale(${scale})`;
+  await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+  return {placements,ordered,sprites,plan,raw:canvas.toDataURL('image/png'),css:{world:world.style.transform,worldComputed:getComputedStyle(world).transform,canvasLeft:canvas.style.left,canvasTop:canvas.style.top,canvasWidth:canvas.style.width,canvasHeight:canvas.style.height,stageBounds:stage.getBoundingClientRect().toJSON()},dpr:devicePixelRatio};
+};
+window.ready=true;
+</script>
