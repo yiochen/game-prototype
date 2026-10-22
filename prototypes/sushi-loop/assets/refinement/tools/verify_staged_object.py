@@ -42,6 +42,8 @@ def main():
     verdict = accepted['receipt']
     acceptance_hash_key = 'validationSHA256' if accepted['method'] == 'recipe-reuse' else 'reviewSHA256'
     add(review, accepted['sha256'])
+    for name, digest in verdict.get('supplementalEvidence', {}).items():
+        add(folder / name, digest)
     for record in records:
         add(base / record['path'], record['sha256'])
     # Prior sealed rounds remain reproducible even when the current handoff

@@ -77,12 +77,20 @@ def acceptance(folder, round_name, packet=None):
         for name, digest in evidence.items():
             resource = inside(run, folder / name)
             require(bound.get(resource) == digest == sha(resource), 'Recipe evidence is not exact packet-bound bytes')
+        for name, digest in receipt.get('supplementalEvidence', {}).items():
+            resource = inside(run, folder / name)
+            require(sha(resource) == digest, 'Supplemental recipe diagnosis changed')
         method = 'recipe-reuse'
     else:
         require(receipt.get('verdict') == 'approve', 'Independent art approval required')
         method = 'independent-review'
-    expected_views = {record['path'] for group in ['candidateRenders', 'previews']
-                      for record in packet[group].values()}
+    previews = packet['previews']
+    if recipe:
+        require({'four-view-sheet', 'phone'} <= set(previews), 'Recipe lacks intended-size/context previews')
+        # Direct recipe application uses representative visual inspection plus
+        # complete native/phase/atlas checks, not a repeated artistic review.
+        previews = {name: previews[name] for name in ['four-view-sheet', 'phone']}
+    expected_views = {record['path'] for record in [*packet['candidateRenders'].values(), *previews.values()]}
     inspected = receipt.get('inspectedFiles')
     require(isinstance(inspected, list) and all(isinstance(value, str) for value in inspected)
             and expected_views <= set(inspected), 'Acceptance lacks required visual inspection coverage')

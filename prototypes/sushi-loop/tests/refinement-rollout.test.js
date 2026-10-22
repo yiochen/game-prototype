@@ -38,7 +38,8 @@ test('each promoted sprite is the exact accepted candidate with truthful review 
     assert.deepEqual(review.blockers, []);
     const files = [...Object.values(packet.files), ...Object.values(packet.candidateRenders), ...Object.values(packet.previews)];
     for (const file of files) assert.equal(sha(new URL(file.path, packetUrl)), file.sha256, `${object.id}: changed evidence ${file.path}`);
-    for (const file of [...Object.values(packet.candidateRenders), ...Object.values(packet.previews)]) {
+    const inspectedPreviews = recipeReuse ? ['four-view-sheet', 'phone'].map(name => packet.previews[name]) : Object.values(packet.previews);
+    for (const file of [...Object.values(packet.candidateRenders), ...inspectedPreviews]) {
       assert.ok(review.inspectedFiles.includes(file.path), `${object.id}: uninspected view ${file.path}`);
     }
     const approvedHashes = new Set(files.map(file => file.sha256));

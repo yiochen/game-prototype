@@ -37,14 +37,18 @@ class AcceptanceContract(unittest.TestCase):
                        'files': {'policy': {'path': '../../inputs/policy.json', 'sha256': sha(self.policy_path)},
                                  'audit': {'path': 'native.json', 'sha256': sha(self.evidence)}},
                        'candidateRenders': {'N': {'path': 'N.png', 'sha256': sha(self.base / 'N.png')}},
-                       'previews': {'sheet': {'path': 'sheet.png', 'sha256': sha(self.base / 'sheet.png')}}}
+                       'previews': {'four-view-sheet': {'path': 'sheet.png', 'sha256': sha(self.base / 'sheet.png')},
+                                    'phone': {'path': 'sheet.png', 'sha256': sha(self.base / 'sheet.png')}}}
         (self.base / 'packet.json').write_text(json.dumps(self.packet))
+        self.supplement = self.folder / 'supplement.json'
+        self.supplement.write_text('{"closureMaxRGB":1}')
         self.receipt = {'asset': self.folder.name, 'method': 'recipe-reuse', 'verdict': 'validated',
                         'independentReview': False, 'blockers': [],
                         'candidatePacketSHA256': sha(self.base / 'packet.json'),
                         'policySHA256': sha(self.policy_path), 'family': self.policy['family'],
                         'checks': {name: True for name in CHECKS},
                         'evidence': {'candidates/round-01/native.json': sha(self.evidence)},
+                        'supplementalEvidence': {'supplement.json': sha(self.supplement)},
                         'inspectedFiles': ['N.png', 'sheet.png']}
         self.receipt_path = self.folder / 'validations/round-01.json'
         self.receipt_path.parent.mkdir()
@@ -69,7 +73,7 @@ class AcceptanceContract(unittest.TestCase):
         self.save_receipt()
 
     def test_reject_changed_evidence_policy_and_lineage(self):
-        for path in (self.evidence, self.policy_path, self.run / 'family-review.json'):
+        for path in (self.evidence, self.policy_path, self.run / 'family-review.json', self.supplement):
             original = path.read_bytes()
             try:
                 path.write_bytes(original + b' ')
