@@ -1,0 +1,51 @@
+"""Stage-limited resource/technical handoff. No candidate verdict or final seal."""
+from pathlib import Path
+import json,hashlib,datetime
+from PIL import Image,ImageChops,ImageDraw
+import numpy as np
+H=Path(__file__).resolve().parent;O=H.parents[1];OUT=O/'candidates/preliminary-v2';D=O/'delivery/preliminary-v2';D.mkdir(parents=True,exist_ok=True)
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();read=lambda p:json.loads(Path(p).read_text());native=read(OUT/'native-phase-audit.json');family=read(OUT/'preliminary-family-audit.json');reopen=read(OUT/'saved-source-reopen-audit.json');raw=read(OUT/'raw-frame-records.json');atlases=read(OUT/'atlas-records.json');playback=read(OUT/'playback-records.json')
+rawchecks=[]
+for r in raw:
+ im=Image.open(O/r['path']).convert('RGBA');a=im.getchannel('A');border=max(a.crop(b).getextrema()[1]for b in [(0,0,1472,1),(0,1407,1472,1408),(0,0,1,1408),(1471,0,1472,1408)]);rawchecks.append({'path':r['path'],'sha256':sha(O/r['path']),'RGBA8':im.mode=='RGBA','borderAlphaMaximum':border,'decodedPixelSHA256':hashlib.sha256(im.tobytes()).hexdigest()})
+atlaschecks=[]
+for r in atlases:
+ im=Image.open(O/r['path']).convert('RGBA');ok=[]
+ for i,rect in enumerate(r['rects']):
+  x,y,w,h=rect;p=OUT/'frames'/f'{r["clip"]}-{r["direction"]}'/f'{i:03d}.png';ok.append(im.crop((x,y,x+w,y+h)).tobytes()==Image.open(p).convert('RGBA').tobytes())
+ unused=im.crop((2944,2816,7360,4224));atlaschecks.append({'path':r['path'],'rectBytesMatchRaw':all(ok),'threeUnusedSlotsRGBAExtrema':unused.getextrema()})
+replays=[]
+for r in reopen['cleanProcessReplay']:
+ a=np.asarray(Image.open(O/r['path']).convert('RGBA'),dtype=np.int16);b=np.asarray(Image.open(O/r['reference']).convert('RGBA'),dtype=np.int16);delta=np.abs(a-b);replays.append({**r,'decodedRGBAExactlyEqual':bool(np.array_equal(a,b)),'channelMaximumAbsoluteByteDifferences':delta.max(axis=(0,1)).tolist(),'changedRGBApixelCount':int(np.any(delta,axis=2).sum()),'note':'PNG byte identity also includes Blender Date/RenderTime metadata; any decoded byte difference is reported explicitly.'})
+# Preliminary same55-degree ordering diagnostic. It is not authored65/35-degree SpriteScene proof.
+order=[]
+for d in ['N','E','S','W']:
+ base=Image.open(OUT/'native-family'/f'family-without-cover-{d}.png').convert('RGBA');layer=Image.open(OUT/'native-family'/f'cover-composition-root-{d}.png').convert('RGBA');assembled=Image.alpha_composite(base,layer);actual=Image.open(OUT/'native-family'/f'uncover-{d}-12.png').convert('RGBA');aa=np.asarray(assembled,dtype=np.int16);bb=np.asarray(actual,dtype=np.int16);diff=np.abs(aa-bb);path=OUT/'preliminary-depth-diagnostic'/f'terminal-{d}-whole-overhead.png';path.parent.mkdir(exist_ok=True);assembled.save(path);changed=np.any(diff[:,:,:3]>12,axis=2)&(aa[:,:,3]>240)&(bb[:,:,3]>240);ys,xs=np.where(changed)
+ r={'direction':d,'kind':'Same55degree native terminal memory-render diagnostic only; no independent authored-projection atlas consumer proof.','assembled':str(path.relative_to(O)),'actualNative':str((OUT/'native-family'/f'uncover-{d}-12.png').relative_to(O)),'opaquePixelsWithRGBDifferenceAbove12':int(changed.sum()),'differenceBounds':[int(xs.min()),int(ys.min()),int(xs.max()+1),int(ys.max()+1)]if len(xs)else None,'maximumRGBAByteDifference':diff.max(axis=(0,1)).tolist(),'possibleContributors':['Native cross-object light/shadow differences between a joined scene and independent layer renders.','Actual 3D depth relationships may differ from whole overhead order; final exact consumer proof remains required.']};order.append(r)
+ # Side by side normal-frame comparisons retain whole canvas registration.
+ sheet=Image.new('RGB',(1472,744),(222,217,205));dr=ImageDraw.Draw(sheet)
+ for i,(im,title)in enumerate([(actual,'Actual native depth-tested / physical55deg'),(assembled,'Whole overhead / same55deg diagnostic')]):
+  q=im.resize((736,704),Image.Resampling.LANCZOS);sheet.paste(q,(i*736,30),q);dr.text((i*736+10,8),f'{d}: '+title,fill=(40,35,30))
+ sheet.save(path.parent/f'terminal-{d}-comparison.png')
+validation={'stage':'preliminary-v2 native construction handoff; not candidate approval','source':{'path':str((H/'cover.blend').relative_to(O)),'sha256':sha(H/'cover.blend')},'nativePhaseAudit':{'path':str((OUT/'native-phase-audit.json').relative_to(O)),'sha256':sha(OUT/'native-phase-audit.json')},'preliminaryFamilyAudit':{'path':str((OUT/'preliminary-family-audit.json').relative_to(O)),'sha256':sha(OUT/'preliminary-family-audit.json')},'nativeReopenAudit':{'path':str((OUT/'saved-source-reopen-audit.json').relative_to(O)),'sha256':sha(OUT/'saved-source-reopen-audit.json')},'actualEnvelope':native['maximumEvaluatedEnvelope'],'historicalHeight':1.87,'measuredMaximumHeight':native['maximumEvaluatedEnvelope'][1][2],'metadataReconciliationPending':True,'filterSizeAfterReopen':reopen['filter_size'],'rawFrames':rawchecks,'atlasChecks':atlaschecks,'nativeMotionEndpoints':native['closure'],'finiteSupports':[{'owner':r['support'],'contactArea':r['contactArea'],'soleArea':r['soleProjectedArea'],'contactFraction':r['finiteContactFraction'],'minimumSignedVerticalGap':r['minimumGapWorld'],'limitingFinitePolygon':r['limitingFinitePolygon']}for r in family['support']],'preliminaryClearance':{},'humanClearance':{},'cleanProcessDecodedReplay':replays,'sameProjectionPreliminaryOrderingDiagnostic':order,'pending':['Root candidate-specific truthful height metadata reconciliation (geometry/root/capture unchanged).','Exact final canonical main/component source adoption and all accepted dock modes, all4/all96 paired physical/contact/visibility proof.','Actual authored main65degree/Rosa35degree consumer SpriteScene contexts, overhead order/visibility and native-grid/quarterphase sampling at logical/phone/landscape sizes.','Original independent judge visual review and eventual final immutable candidate packet, with no self-approval.']}
+for aid in ['hut','sub']:
+ rows=[(r['companions'][aid]['minimumGapWorld'],r)for r in family['clearance']if r['companions'][aid]['minimumGapWorld']is not None];lim=min(rows,key=lambda x:x[0]);validation['preliminaryClearance'][aid]={'minimumFiniteProjectedGap':lim[0],'limitingPhase':{k:lim[1][k]for k in ['clip','frame','subMode','direction']},'maximumTriangleIntersectionPairs':max(r['companions'][aid]['actualBVHTriangleIntersectionPairs']for r in family['clearance']),'phaseModesMeasured':len(family['clearance']),'scope':'Source-facingS whole/half/closure/hold, exact accepted hut and frozen preliminary main. Final exact canonical family/all4 proof pending.'}
+rows=[r for r in family['human']if r['minimumGapWorld']is not None];lim=min(rows,key=lambda r:r['minimumGapWorld']);validation['humanClearance']={'minimumFiniteProjectedGap':lim['minimumGapWorld'],'limitingCase':lim['case'],'maximumTriangleIntersectionPairs':max(r['actualBVHTriangleIntersectionPairs']for r in family['human']),'measuredCases':len(family['human']),'scope':'Nine exact authored1.25 physical stances, covered/transition/terminal, source-facingS; exact case plan remains immutable. No continuous locomotion or authored35degree consumer proof.'}
+assert len(raw)==96 and len(atlases)==8 and all(x['borderAlphaMaximum']==0 for x in rawchecks)
+assert all(x['rectBytesMatchRaw']and x['threeUnusedSlotsRGBAExtrema']==((0,0),)*4 for x in atlaschecks)
+assert all(v['actualEvaluatedVertexHashesEqual']for v in native['closure'].values())
+assert all(r['minimumGapWorld']>=-1e-5 and r['contactArea']>.005 for r in family['support'])
+assert all(v['minimumFiniteProjectedGap']>=.02 and v['maximumTriangleIntersectionPairs']==0 for v in validation['preliminaryClearance'].values())
+assert validation['humanClearance']['minimumFiniteProjectedGap']>=.02 and validation['humanClearance']['maximumTriangleIntersectionPairs']==0
+(D/'validation.json').write_text(json.dumps(validation,indent=2)+'\n')
+# Source paths are object-relative. Frozen fixtures/resources are bound as exact bytes, including historical/failed drafts.
+resources=[]
+for start in [O/'source',O/'candidates',O/'inputs']:
+ for p in sorted(start.rglob('*')):
+  if p.is_file()and '__pycache__'not in p.parts and p.suffix!='.pyc':
+   assert p.stat().st_size<100000000,(p,p.stat().st_size);resources.append({'path':str(p.relative_to(O)),'sha256':sha(p),'bytes':p.stat().st_size})
+for f in ['brief-v2-docked-hover.json','prompts/editor.txt']:
+ p=O/f;resources.append({'path':f,'sha256':sha(p),'bytes':p.stat().st_size})
+resources.append({'path':str((D/'validation.json').relative_to(O)),'sha256':sha(D/'validation.json'),'bytes':(D/'validation.json').stat().st_size})
+handoff={'asset':'dock-cover','stage':'IMMUTABLE PRELIMINARY HANDOFF v2; dependency stop before final paired proof/sealing','createdUTC':datetime.datetime.now(datetime.timezone.utc).isoformat(),'project':str((H/'cover.blend').relative_to(O)),'projectSHA256':sha(H/'cover.blend'),'recipeScript':str((H/'build_cover.py').relative_to(O)),'validation':str((D/'validation.json').relative_to(O)),'nativeRecords':{k:str((H/f).relative_to(O))for k,f in [('camera','camera.json'),('assetRecord','assetRecord.json'),('rig','rig.json')]},'rawFrames':raw,'atlases':atlases,'previews':playback,'fixtureSourceHashes':family['fixtureSourceHashes'],'resources':resources,'historicalDraftsRetained':['source/preliminary-v1','candidates/preliminary-v1'],'originalInitialObservationSHA256':sha(O/'source/initial-observations.json'),'measuredMaximumHeight':validation['measuredMaximumHeight'],'dependenciesPending':validation['pending'],'selfApproval':False,'finalCandidateSealed':False,'finalFamilyApproval':False,'stopReason':'Exact accepted final canonical main/components remain pending. Same original editor resumes later with root versioned metadata reconciliation and exact accepted family inputs.'}
+(D/'handoff.json').write_text(json.dumps(handoff,indent=2)+'\n');print(json.dumps({'projectSHA256':sha(H/'cover.blend'),'validationSHA256':sha(D/'validation.json'),'handoffSHA256':sha(D/'handoff.json'),'resources':len(resources),'finiteSupportContactAreas':[r['contactArea']for r in family['support']],'preliminaryClearance':validation['preliminaryClearance'],'humanClearance':validation['humanClearance'],'depthDiagnostics':order},indent=2))

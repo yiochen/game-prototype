@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/catalog_metadata_override.py", line 120, in <module>
+    main()
+    ~~~~^^
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/catalog_metadata_override.py", line 113, in main
+    result = validate_override(folder, original, delivery, bound,
+                               packet['files']['candidateProject']['sha256'], review)
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/catalog_metadata_override.py", line 83, in validate_override
+    require(review.get('verdict') == 'approve' and review.get('blockers') == []
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            and review.get('independentReview') is True, 'Independent approval is missing')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/catalog_metadata_override.py", line 24, in require
+    raise ValueError(message)
+ValueError: Independent approval is missing

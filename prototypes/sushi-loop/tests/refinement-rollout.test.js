@@ -58,7 +58,18 @@ test('each promoted sprite is the exact accepted candidate with truthful review 
 test('native refinement preserves every original clip and registered root', () => {
   for (const object of promoted) {
     const original = read(new URL(`objects/${object.id}/final/original-catalog-object.json`, refinement));
+    let coverMetadata;
+    if (object.id === 'dock-cover' && object.refinement.catalogMetadataOverride) {
+      const script = new URL('../assets/refinement/tools/catalog_metadata_override.py', import.meta.url).pathname;
+      coverMetadata = JSON.parse(execFileSync('python3', [script, object.id, '--round', object.refinement.round], {encoding: 'utf8'}));
+      assert.deepEqual(object.refinement.catalogMetadataOverride, coverMetadata);
+      assert.equal(object.renderPass, coverMetadata.fields.renderPass);
+    }
     for (const key of ['clips', 'frameSize', 'root', 'sourceScale', 'footprint', 'height', 'projection', 'sockets', 'ports']) {
+      if (key === 'height' && coverMetadata) {
+        assert.equal(object.height, coverMetadata.fields.height);
+        continue;
+      }
       assert.deepEqual(object[key], original[key], `${object.id}: changed ${key}`);
     }
     if (!object.source.blend) {

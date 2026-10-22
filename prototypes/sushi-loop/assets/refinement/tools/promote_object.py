@@ -11,6 +11,7 @@ from PIL import Image
 from audit_directions import audit as audit_directions
 from acceptance_contract import acceptance
 from native_camera_record import normalize_measured
+from catalog_metadata_override import validate_override
 
 RUN = Path(__file__).resolve().parents[1]
 PRODUCTION = RUN.parent / 'production'
@@ -74,6 +75,10 @@ def main():
     # Every byte-bearing project, recipe, raw PNG and atlas must belong to the approved packet.
     bound = {(packet_path.parent / f['path']).resolve(): f['sha256']
              for f in [*packet['files'].values(), *packet['candidateRenders'].values(), *packet['previews'].values()]}
+    metadata_override = validate_override(folder, original, delivery, bound,
+                                          packet['files']['candidateProject']['sha256'], accepted['receipt'])
+    if metadata_override:
+        obj.update(metadata_override['fields'])
     copies, generated, tracked = [], {}, {}
 
     def copy_file(source, dest, sealed=True):
@@ -270,10 +275,13 @@ def main():
     obj['refinement'] = {'status': 'approved', 'round': args.round, 'packetSHA256': digest(packet_path),
                          acceptance_hash_key: digest(acceptance_path), 'editor': f'catalog_{args.asset.replace("-", "_")}_editor',
                          'judge': f'catalog_{args.asset.replace("-", "_")}_judge'}
+    if metadata_override:
+        obj['refinement']['catalogMetadataOverride'] = metadata_override
     if recipe_reuse:
         obj['refinement'].update(approvalMethod='recipe-reuse', independentReview=False,
                                  validationReceipt=f'../refinement/objects/{args.asset}/validations/{args.round}.json')
-    # Existing capture layout, gameplay metadata and model attachment fields are deliberately inherited.
+    # Registration, timing and attachments are inherited. The explicit cover-only
+    # height/pass reconciliation above needs its own sealed native evidence.
     require(obj['clips'] == original['clips'], 'Clip contract changed during promotion')
     if not args.apply:
         print(json.dumps({'asset': args.asset, 'copyCount': len(copies), 'guides': len(generated), 'frames': len(raw_frames), 'status': 'verified-dry-run'}))
