@@ -1,54 +1,394 @@
 {
-  "assetId": "wreck-edge",
-  "fps": 12,
-  "source": "native_actions.py",
-  "static": true,
-  "clips": {
-    "static": {
-      "frames": 1,
-      "fps": 12,
-      "loop": false,
-      "static": true,
-      "firstFrame": 1,
-      "lastUniqueFrame": 1,
-      "closingKeyFrame": null,
-      "actions": [],
-      "controlsByFrame": [
-        {}
-      ],
-      "geometryOwners": [],
-      "shaderChannels": [],
-      "shaderLoopClosure": {}
-    }
+  "asset": "wreck-edge",
+  "root": "wreck-edge__root",
+  "rootMatrix": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "rootProperties": {
+    "ports": "[{\"direction\": \"W\", \"position\": [-0.5, 0, 0], \"profile\": \"wreck-frame-section-v1\", \"normal\": [-1, 0, 0]}, {\"direction\": \"E\", \"position\": [0.5, 0, 0], \"profile\": \"wreck-frame-section-v1\", \"normal\": [1, 0, 0]}]",
+    "nonblocking": "False",
+    "depth_layer": "world",
+    "support_cells": "[[0, 0]]",
+    "asset_id": "wreck-edge",
+    "family": "issue-33-world-props",
+    "footprint_cells": "[1, 1]",
+    "ground_root": "[0, 0, 0]",
+    "visual_height": "0.78",
+    "sockets": "{}",
+    "directions": "[\"N\", \"E\", \"S\", \"W\"]",
+    "animation_recipes": "{\"static\": {\"frames\": 1, \"fps\": 12, \"loop\": false, \"static\": true}}",
+    "axis_convention": "X=x; depth=-Y; height=Z",
+    "source": "prop_builders.py",
+    "notes": "[\"Open old hull framing with continuous lower/top rails. No new barrier or gate mechanic.\"]",
+    "artStyle": "faceted-approved-2026-10-19",
+    "production_id": "wreck-edge",
+    "native_action_record": "{\"source\": \"native_actions.py\", \"assetId\": \"wreck-edge\", \"clips\": {\"static\": []}}",
+    "native_refinement": "warm-soft-round01-native-edge",
+    "locked_contact": "Exact approved middle02 full .08 side/cap normalized fields"
   },
-  "armatures": [],
-  "footprint": [
-    1,
-    1
-  ],
-  "projection": "square-top-front-oblique",
-  "groundRootObject": "wreck-edge__root.001",
+  "staticOwnership": {
+    "objectAnimations": [],
+    "materialAnimations": [],
+    "armatures": [],
+    "imageNodes": [],
+    "libraries": []
+  },
+  "nativeSourceSHA256": "a7f8357632d42d3f5113f7ee3b423634bdd834e0d3cbfb9a058ea513767a1498",
+  "directions": {
+    "N": 180,
+    "E": 90,
+    "S": 0,
+    "W": -90
+  },
   "sockets": {},
-  "notes": [
-    "Native object, rig, visibility, shape and shader channels; no raster substitutes.",
-    "Runtime frames exclude the duplicate loop closure key.",
-    "Visual contact and deformation review remains separate from these structural records."
+  "ports": [
+    {
+      "direction": "W",
+      "position": [
+        -0.5,
+        0,
+        0
+      ],
+      "profile": "wreck-frame-section-v1",
+      "normal": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "direction": "E",
+      "position": [
+        0.5,
+        0,
+        0
+      ],
+      "profile": "wreck-frame-section-v1",
+      "normal": [
+        1,
+        0,
+        0
+      ]
+    }
   ],
-  "actionCount": 0,
-  "createdAtUnix": 1792392793.098119,
-  "status": "native-actions-baked-needs-visual-review",
-  "sourceFiles": {
-    "native_actions.py": "7f3514c8ce1ee37c951ded3b6669f2eb6613dfa69940858092c8476392ad51c5",
-    "character_builders.py": "f3109ec4a61266cba9a921786353e720b707e21de35095be97a6f8fe8a70738a",
-    "prop_builders.py": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a",
-    "world_components.py": "0d156c24ebd2a31422e75286417e108d22575cf75f7e6ec87cf173aebefd1c91",
-    "food_belt_builders.py": "dc3eed619cd644588da74996b99013a24ecf8ce541056d847f3a049fb54a1d95",
-    "creature_fx_builders.py": "e8da19957cf01828137326c3459cb77e76ba563029ae7b057c8306d663fa9d5b",
-    "character_composition.py": "c9e2fd0b5f69340edc14621f739bca8dc16fe97a53f9fb9219ab197ef90570f7",
-    "production_library.py": "ed2b17e2e8bb9fe86a1af0646065041f6715bb55e90a226cb2526ff6b269af19",
-    "catalog_variants.py": "329ec9b2013c990aeb45233a6e2783b0f9402aa97108f15a32ecb8a64a9d1cff",
-    "catalog_corner_supports.py": "5215531d424a8d7560cb19ca5bf05f3218f5671c346a79dc0585644462bd4b91",
-    "catalog_belt_flow.py": "0e7a979f8a0897e2a98a063d2a568fb0be8a751f72b76f9584f6949f77140fd5",
-    "catalog_clusters.py": "020f94b990987f6c4d664b5447525c6d69d66198dfd3fab8159cd9c28642ca1c"
-  }
+  "lights": [
+    {
+      "name": "overhead",
+      "energy": 195.0,
+      "size": 8.0,
+      "shape": "DISK",
+      "shadow": false,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "matrix": [
+        [
+          -1.0,
+          -1.5099580252808664e-07,
+          0.0,
+          0.0
+        ],
+        [
+          1.5099580252808664e-07,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          5.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "cardinal0",
+      "energy": 114.0,
+      "size": 8.0,
+      "shape": "DISK",
+      "shadow": false,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "matrix": [
+        [
+          -4.371138828673793e-08,
+          -0.5547001957893372,
+          0.8320502638816833,
+          6.0
+        ],
+        [
+          1.0,
+          -5.734122510148154e-08,
+          1.430706841887286e-08,
+          0.0
+        ],
+        [
+          3.9774647575541167e-08,
+          0.8320502638816833,
+          0.5547001957893372,
+          4.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "cardinal1",
+      "energy": 114.0,
+      "size": 8.0,
+      "shape": "DISK",
+      "shadow": false,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "matrix": [
+        [
+          -1.0,
+          -1.882929296925795e-07,
+          5.594575824829917e-08,
+          3.6739402930577075e-16
+        ],
+        [
+          1.5099580252808664e-07,
+          -0.5547001361846924,
+          0.8320503234863281,
+          6.0
+        ],
+        [
+          -1.2563607754145778e-07,
+          0.8320503234863281,
+          0.5547001361846924,
+          4.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "cardinal2",
+      "energy": 114.0,
+      "size": 8.0,
+      "shape": "DISK",
+      "shadow": false,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "matrix": [
+        [
+          -4.371138828673793e-08,
+          0.5547001957893372,
+          -0.8320502638816833,
+          -6.0
+        ],
+        [
+          -1.0,
+          -5.734122510148154e-08,
+          1.430706841887286e-08,
+          7.347880586115415e-16
+        ],
+        [
+          -3.9774647575541167e-08,
+          0.8320502638816833,
+          0.5547001957893372,
+          4.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "cardinal3",
+      "energy": 114.0,
+      "size": 8.0,
+      "shape": "DISK",
+      "shadow": false,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "matrix": [
+        [
+          1.0,
+          1.0189677315293675e-16,
+          -1.5284516303812757e-16,
+          -1.1021821408568715e-15
+        ],
+        [
+          -1.8369702788777518e-16,
+          0.5547001957893372,
+          -0.8320503234863281,
+          -6.0
+        ],
+        [
+          1.2584500805764496e-24,
+          0.8320503234863281,
+          0.5547001957893372,
+          4.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "world": {
+    "nodes": [
+      {
+        "name": "Background",
+        "type": "ShaderNodeBackground",
+        "operation": null,
+        "attribute_name": null,
+        "attribute_type": null,
+        "vector_type": null,
+        "convert_from": null,
+        "convert_to": null,
+        "blend_type": null,
+        "clamp": null,
+        "inputs": [
+          {
+            "index": 0,
+            "name": "Color",
+            "value": [
+              0.7200000286102295,
+              0.800000011920929,
+              1.0,
+              1.0
+            ],
+            "linked": false
+          },
+          {
+            "index": 1,
+            "name": "Strength",
+            "value": 0.2800000011920929,
+            "linked": false
+          },
+          {
+            "index": 2,
+            "name": "Weight",
+            "value": 0.0,
+            "linked": false
+          }
+        ]
+      },
+      {
+        "name": "World Output",
+        "type": "ShaderNodeOutputWorld",
+        "operation": null,
+        "attribute_name": null,
+        "attribute_type": null,
+        "vector_type": null,
+        "convert_from": null,
+        "convert_to": null,
+        "blend_type": null,
+        "clamp": null,
+        "inputs": [
+          {
+            "index": 0,
+            "name": "Surface",
+            "value": null,
+            "linked": true
+          },
+          {
+            "index": 1,
+            "name": "Volume",
+            "value": null,
+            "linked": false
+          }
+        ]
+      }
+    ],
+    "links": [
+      {
+        "from": [
+          "Background",
+          "Background"
+        ],
+        "to": [
+          "World Output",
+          "Surface"
+        ]
+      }
+    ]
+  },
+  "render": {
+    "engine": "BLENDER_EEVEE",
+    "resolution": [
+      384,
+      704
+    ],
+    "filter": 0.009999999776482582,
+    "pixelAspect": [
+      1.2206555604934692,
+      1.0
+    ],
+    "fps": 12,
+    "frame": 1,
+    "frameRange": [
+      1,
+      1
+    ],
+    "transparent": true,
+    "viewTransform": "Standard",
+    "look": "None",
+    "exposure": 0.0,
+    "gamma": 1.0,
+    "dither": 0.0
+  },
+  "meshCount": 18,
+  "curveCount": 8
 }
