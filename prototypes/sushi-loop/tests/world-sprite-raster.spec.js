@@ -1,10 +1,71 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, chromium } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 
 const source = readFileSync(new URL('../wireframe/world-sprite-raster.js', import.meta.url), 'utf8');
 // Exercise the production planning and painting functions in a real browser.
 // The hook's React integration is covered by the composed-scene tests.
 const rasterFunctions = source.slice(source.indexOf('export function worldRasterPlan'), source.indexOf('export function useWorldSpriteRaster')).replaceAll('export function', 'function');
+
+for (const backend of ['full-chrome', 'headless-shell']) {
+  test(`fractional atlas joins and intervening actor order survive in ${backend}`, async () => {
+    const browser = await chromium.launch({ headless: true,
+      ...(backend === 'full-chrome' ? { executablePath: chromium.executablePath() } : {}) });
+    try {
+      const page = await browser.newPage();
+      await page.setContent('<body></body>');
+      await page.addScriptTag({ content: rasterFunctions });
+      const results = await page.evaluate(async () => {
+        const atlas = document.createElement('canvas');
+        atlas.width = 96; atlas.height = 32;
+        const ctx = atlas.getContext('2d');
+        for (const [column, color] of ['#e04320', '#38a9bd', '#baa246'].entries()) {
+          ctx.fillStyle = color; ctx.fillRect(column * 32, 0, 32, 32);
+          ctx.fillStyle = '#cbeef0'; ctx.fillRect(column * 32 + 3, 4, 19, 3);
+        }
+        const image = new Image(); image.src = atlas.toDataURL(); await image.decode();
+        const actor = document.createElement('canvas'); actor.width = actor.height = 32;
+        actor.getContext('2d').fillStyle = '#e0608080'; actor.getContext('2d').fillRect(2, 2, 28, 28);
+        const output = document.createElement('canvas'), results = [];
+        for (const [phase, offset] of [[0, 0], [.125, .375], [.25, .5], [.5, .25]].entries()) {
+          const rect = [(phase % 3) * 32, 0, 32, 32];
+          const tiles = Array.from({ length: 9 }, (_, i) => ({
+            rect, x: offset[0] + i % 3 * 16, y: offset[1] + Math.floor(i / 3) * 16, width: 16, height: 16,
+          }));
+          // A differently phased actor must split groups. A later tile-phased
+          // actor stays above it; collecting all equal phases would reorder it.
+          const actors = [
+            { rect: [0, 0, 32, 32], x: offset[0] + 12.125, y: offset[1] + 12.375, width: 16, height: 16 },
+            { rect: [0, 0, 32, 32], x: offset[0] + 16, y: offset[1] + 16, width: 16, height: 16 },
+          ];
+          const sprites = [...tiles, ...actors], plan = worldRasterPlan(sprites, [-8, -8, 64, 64]);
+          paintWorldRaster(output, plan, [...tiles.map(() => image), actor, image]);
+          const layer = document.createElement('canvas'); layer.width = layer.height = 96;
+          const lc = layer.getContext('2d'); lc.imageSmoothingEnabled = false;
+          for (let i = 0; i < 9; i++) lc.drawImage(image, ...rect, i % 3 * 32, Math.floor(i / 3) * 32, 32, 32);
+          const reference = document.createElement('canvas'); reference.width = plan.width; reference.height = plan.height;
+          const rc = reference.getContext('2d'); rc.imageSmoothingEnabled = false;
+          rc.drawImage(layer, (offset[0] - plan.x) * 2, (offset[1] - plan.y) * 2);
+          for (const [i, sprite] of actors.entries()) rc.drawImage(i ? image : actor, ...sprite.rect,
+            (sprite.x - plan.x) * 2, (sprite.y - plan.y) * 2, 32, 32);
+          const actual = output.getContext('2d').getImageData(0, 0, output.width, output.height).data;
+          const expected = rc.getImageData(0, 0, reference.width, reference.height).data;
+          let differences = 0;
+          for (let i = 0; i < actual.length; i++) if (actual[i] !== expected[i]) differences++;
+          const interior = output.getContext('2d').getImageData(Math.ceil((offset[0] - plan.x) * 2) + 1,
+            Math.ceil((offset[1] - plan.y) * 2) + 1, 93, 93).data;
+          let nonOpaque = 0;
+          for (let i = 3; i < interior.length; i += 4) if (interior[i] !== 255) nonOpaque++;
+          results.push({ offset, differences, nonOpaque });
+        }
+        return results;
+      });
+      for (const result of results) {
+        expect(result.differences, JSON.stringify(result)).toBe(0);
+        expect(result.nonOpaque, JSON.stringify(result)).toBe(0);
+      }
+    } finally { await browser.close(); }
+  });
+}
 
 test('fractional world placement preserves native coverage after canvas resize', async ({ page }) => {
   await page.setContent('<body></body>');
