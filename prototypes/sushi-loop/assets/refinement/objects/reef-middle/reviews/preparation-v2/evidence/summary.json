@@ -1,0 +1,72 @@
+{
+  "status": "source-only controls and bounded consumer proof; no adoption/art/seam approval",
+  "reports": [
+    {
+      "backend": "full-chrome",
+      "policy": "historical",
+      "cases": 64,
+      "interiorMinAlpha": 233,
+      "casesWithInteriorAlphaDeficit": 30,
+      "maxWholeFrameAlphaDelta": 206,
+      "maxLocalRGBDelta": 124,
+      "minMeanWholeFrameRGBDelta": 2.24004884004884,
+      "maxMeanWholeFrameRGBDelta": 4.664406328945619
+    },
+    {
+      "backend": "full-chrome",
+      "policy": "filter001-box",
+      "cases": 64,
+      "interiorMinAlpha": 255,
+      "casesWithInteriorAlphaDeficit": 0,
+      "maxWholeFrameAlphaDelta": 255,
+      "maxLocalRGBDelta": 140,
+      "minMeanWholeFrameRGBDelta": 2.2332260755571447,
+      "maxMeanWholeFrameRGBDelta": 4.987506645401382
+    },
+    {
+      "backend": "full-chrome",
+      "policy": "filter05-box",
+      "cases": 64,
+      "interiorMinAlpha": 255,
+      "casesWithInteriorAlphaDeficit": 0,
+      "maxWholeFrameAlphaDelta": 255,
+      "maxLocalRGBDelta": 132,
+      "minMeanWholeFrameRGBDelta": 2.24168752234537,
+      "maxMeanWholeFrameRGBDelta": 4.881578947368421
+    },
+    {
+      "backend": "headless-shell",
+      "policy": "historical",
+      "cases": 64,
+      "interiorMinAlpha": 233,
+      "casesWithInteriorAlphaDeficit": 30,
+      "maxWholeFrameAlphaDelta": 55,
+      "maxLocalRGBDelta": 33,
+      "minMeanWholeFrameRGBDelta": 2.238827838827839,
+      "maxMeanWholeFrameRGBDelta": 3.115466666666667
+    },
+    {
+      "backend": "headless-shell",
+      "policy": "filter001-box",
+      "cases": 64,
+      "interiorMinAlpha": 255,
+      "casesWithInteriorAlphaDeficit": 0,
+      "maxWholeFrameAlphaDelta": 64,
+      "maxLocalRGBDelta": 38,
+      "minMeanWholeFrameRGBDelta": 2.230485043498987,
+      "maxMeanWholeFrameRGBDelta": 3.104830142063002
+    },
+    {
+      "backend": "headless-shell",
+      "policy": "filter05-box",
+      "cases": 64,
+      "interiorMinAlpha": 255,
+      "casesWithInteriorAlphaDeficit": 0,
+      "maxWholeFrameAlphaDelta": 59,
+      "maxLocalRGBDelta": 38,
+      "minMeanWholeFrameRGBDelta": 2.2366821594565605,
+      "maxMeanWholeFrameRGBDelta": 3.1026217598655763
+    }
+  ],
+  "evidenceInterpretation": "BothBOX controls must retain E/W visible RGB cut-profile lines as unresolved native-authoring requirement. Corrected alpha samples exclude legitimate outer silhouette AA; wholeframe residuals remain raw."
+}

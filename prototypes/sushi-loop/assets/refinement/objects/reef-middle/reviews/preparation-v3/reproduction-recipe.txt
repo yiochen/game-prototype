@@ -1,0 +1,32 @@
+PATH BASE
+All repository-relative commands run from /Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype.
+
+EXACT HISTORIC DRIVERS (ALREADY SAVED BEFORE THEIR EXECUTION)
+reviews/preparation-v1/capture_consumer.cjs
+reviews/preparation-v1/capture_consumer_study.cjs
+reviews/preparation-v2/consumer_root_pan.cjs
+reviews/preparation-v2/consumer_direct2x.cjs
+These paths are relative to prototypes/sushi-loop/assets/refinement/objects/reef-middle.
+Full exact .cjs source includes the exact page.evaluate function literal passed to Playwright. It is the browser driver, despite host.html containing only a title. Copies, original hashes and manifest membership are explicitly bound in original-execution-index.json. Nothing was reconstructed from screenshots or results.
+
+HISTORIC EXECUTION
+node prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/preparation-v1/capture_consumer.cjs > prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/preparation-v1/consumer.log 2>&1
+node prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/preparation-v1/capture_consumer_study.cjs > prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/preparation-v1/study-consumer.log 2>&1
+node prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/preparation-v2/consumer_root_pan.cjs > prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/preparation-v2/consumer-root-pan.log 2>&1
+node prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/preparation-v2/consumer_direct2x.cjs > prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/preparation-v2/consumer-direct2x.log 2>&1
+Do not rerun these commands in sealed locations: they write their original destination paths.
+Original v1 uses chromium.launch({channel:'chrome',headless:true}); v2 uses that launch for full Chrome and chromium.launch({headless:true}) for bundled shell. Returned historic versions are full Chrome155.0.8059.85 and shell153.0.8010.12. Node was /usr/local/bin/node v22.18.0, hash89f912a473528ef70577bd0299a7c5742ff152f57f68097b5067952304eef34f. Exact package manifests and Python/Blender versions are inherited from v1/resources/toolchain. Original browser child argv and raw Playwright/CDP transport serialization were not recorded; do not mistake current regenerated launch flags for an original capture.
+
+SAFE REPRODUCTION OF THE HISTORIC DRIVERS
+The NEW wrapper below copies exact old driver bytes and minimal frozen inputs into a NEW mirror. It never writes old directories. It was syntax-checked; it has not been executed as an additional browser matrix in v3.
+node prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/preparation-v3/reproduce_original_matrices.cjs /absolute/path/to/a-new-reef-replay
+Browser/channel version may change with installed infrastructure. Compare returned browser versions to the historical records; do not claim a mismatched toolchain is byte-identical historical reproduction.
+
+NEW V3 CALIBRATION (COMPARISON ONLY)
+Executed command:
+DEBUG=pw:browser node prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/preparation-v3/equal_extents_calibration.cjs > prototypes/sushi-loop/assets/refinement/objects/reef-middle/reviews/preparation-v3/browser-launch.log 2>&1
+The new script refuses visible-pixel loss and requires exact integer restoration. It invokes the unchanged frozen570a0d0d consumer and frozen sprite registration/layout. It reads immutable v1/v2 captures; only v3 outputs are written. Three actual invocations target Playwright full Chrome153, bundled shell153, installed Chrome155. Exact new child executable paths and argv are in browser-launch.log; returned versions and Node invocation/hash are in evidence/toolchain.json and per-backend reports.
+Do not rerun in sealed v3. To repeat, copy v3 plus its inherited readonly v1/v2 layout into a fresh mirror and run there; input source pointers and frozen hashes are in the manifest.
+
+INTERPRETATION LIMIT
+Cropping transparent padding in this comparison changes texture extent and its integer offset, never visible source pixels or their ideal world positions. It is not an asset edit, new production framing, deployed sampler, art repair, seam approval, or waiver. Actual uncalibrated consumer cases remain saved alongside diagnostic cases. Direct native2x/.01 remains unadopted until root freezes. Native ordered port geometry, normals, albedo-field continuity and visible no-line/no-band/no-step criteria still apply.

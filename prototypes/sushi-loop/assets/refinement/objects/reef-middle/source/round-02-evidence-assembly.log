@@ -1,0 +1,51 @@
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/reef-middle/source/assemble-round-02-evidence.py:16: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  replay.append({'path':str(p.relative_to(OBJ)),'reopenedPath':str(q.relative_to(OBJ)),'submittedSHA256':sha(p),'reopenedSHA256':sha(q),'sameEncodedBytes':sha(p)==sha(q),'maxChannelDifference':[x[1] for x in ext],'differentDecodedPixels':sum(v!=(0,0,0,0) for v in diff.getdata())})
+{
+  "checks": {
+    "finiteOrderedPortsWithin1e-5": true,
+    "matchingActualAdjacentCornerNormalsWithin1e-6": true,
+    "matchingEndpointMaterialFields": true,
+    "finiteGroundAndOverallEnvelope": true,
+    "privateMeshes": true,
+    "noAnimation": true,
+    "noLinkedLibraries": true,
+    "noImageTexture": true,
+    "allNativePNGBytesPublishedUnchanged": true,
+    "reopenedAll4HeroDecodedPixelsExact": true
+  },
+  "nativeFieldNormalError": 0.0,
+  "profileError": 1.1920928966180355e-08,
+  "consumer": [
+    {
+      "backend": "full-chrome",
+      "browserVersion": "155.0.8059.85",
+      "cases": 64,
+      "actualConsumerMaxAlphaDelta": 255,
+      "actualConsumerMaxOpaqueRGBDelta": 194,
+      "diagnosticMaxAlphaDelta": 10,
+      "diagnosticMaxOpaqueRGBDelta": 41,
+      "localOpaquePortMinAlphaActual": 255,
+      "localOpaquePortMinAlphaDiagnostic": 255,
+      "localOpaquePortMaxRGBDeltaActual": 162,
+      "localOpaquePortMaxRGBDeltaDiagnostic": 21,
+      "diagnosticDiscardedVisiblePixels": 0,
+      "diagnosticIntegerRestorationDifferences": 0
+    },
+    {
+      "backend": "headless-shell",
+      "browserVersion": "153.0.8010.12",
+      "cases": 64,
+      "actualConsumerMaxAlphaDelta": 7,
+      "actualConsumerMaxOpaqueRGBDelta": 41,
+      "diagnosticMaxAlphaDelta": 7,
+      "diagnosticMaxOpaqueRGBDelta": 41,
+      "localOpaquePortMinAlphaActual": 255,
+      "localOpaquePortMinAlphaDiagnostic": 255,
+      "localOpaquePortMaxRGBDeltaActual": 20,
+      "localOpaquePortMaxRGBDeltaDiagnostic": 20,
+      "diagnosticDiscardedVisiblePixels": 0,
+      "diagnosticIntegerRestorationDifferences": 0
+    }
+  ],
+  "replayExact": false
+}

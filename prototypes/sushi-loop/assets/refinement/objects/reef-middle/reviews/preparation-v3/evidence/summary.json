@@ -1,0 +1,110 @@
+{
+  "status": "Comparison-only targeted precision calibration; no art/runtime/seam approval",
+  "reports": [
+    {
+      "backend": "full-chrome-153",
+      "browserVersion": "153.0.8010.12",
+      "policy": "historical",
+      "cases": 64,
+      "actualConsumer": {
+        "maxAlphaDelta": 206,
+        "maxOpaqueRGBDelta": 124
+      },
+      "comparisonOnlyEqualExtents": {
+        "maxAlphaDelta": 55,
+        "maxOpaqueRGBDelta": 37,
+        "minimumFinitePortInteriorAlpha": 233
+      },
+      "casesWhereTransparentPaddingOnlyChangesNativeSampling": 24
+    },
+    {
+      "backend": "full-chrome-153",
+      "browserVersion": "153.0.8010.12",
+      "policy": "direct2x-filter001",
+      "cases": 64,
+      "actualConsumer": {
+        "maxAlphaDelta": 255,
+        "maxOpaqueRGBDelta": 155
+      },
+      "comparisonOnlyEqualExtents": {
+        "maxAlphaDelta": 0,
+        "maxOpaqueRGBDelta": 43,
+        "minimumFinitePortInteriorAlpha": 255
+      },
+      "casesWhereTransparentPaddingOnlyChangesNativeSampling": 24
+    },
+    {
+      "backend": "shell-153",
+      "browserVersion": "153.0.8010.12",
+      "policy": "historical",
+      "cases": 64,
+      "actualConsumer": {
+        "maxAlphaDelta": 55,
+        "maxOpaqueRGBDelta": 37
+      },
+      "comparisonOnlyEqualExtents": {
+        "maxAlphaDelta": 55,
+        "maxOpaqueRGBDelta": 37,
+        "minimumFinitePortInteriorAlpha": 233
+      },
+      "casesWhereTransparentPaddingOnlyChangesNativeSampling": 0
+    },
+    {
+      "backend": "shell-153",
+      "browserVersion": "153.0.8010.12",
+      "policy": "direct2x-filter001",
+      "cases": 64,
+      "actualConsumer": {
+        "maxAlphaDelta": 0,
+        "maxOpaqueRGBDelta": 43
+      },
+      "comparisonOnlyEqualExtents": {
+        "maxAlphaDelta": 0,
+        "maxOpaqueRGBDelta": 43,
+        "minimumFinitePortInteriorAlpha": 255
+      },
+      "casesWhereTransparentPaddingOnlyChangesNativeSampling": 0
+    },
+    {
+      "backend": "full-chrome-155",
+      "browserVersion": "155.0.8059.85",
+      "policy": "historical",
+      "cases": 64,
+      "actualConsumer": {
+        "maxAlphaDelta": 206,
+        "maxOpaqueRGBDelta": 124
+      },
+      "comparisonOnlyEqualExtents": {
+        "maxAlphaDelta": 55,
+        "maxOpaqueRGBDelta": 37,
+        "minimumFinitePortInteriorAlpha": 233
+      },
+      "casesWhereTransparentPaddingOnlyChangesNativeSampling": 24
+    },
+    {
+      "backend": "full-chrome-155",
+      "browserVersion": "155.0.8059.85",
+      "policy": "direct2x-filter001",
+      "cases": 64,
+      "actualConsumer": {
+        "maxAlphaDelta": 255,
+        "maxOpaqueRGBDelta": 155
+      },
+      "comparisonOnlyEqualExtents": {
+        "maxAlphaDelta": 0,
+        "maxOpaqueRGBDelta": 43,
+        "minimumFinitePortInteriorAlpha": 255
+      },
+      "casesWhereTransparentPaddingOnlyChangesNativeSampling": 24
+    }
+  ],
+  "calibrationInvariant": "All24 control crops removed0visiblepixels and exact integer restoration changed0pixels; new texture extents match independent group extents derived from registered sprite rectangles, not alpha bounds.",
+  "interpretation": [
+    "Parent source-kind controls are consistent: PNG versus Canvas at same pixels/extent gives exact results.",
+    "Parent padding-only diagnostic is independently consistent with new all4 tests: fullChrome153/155 extent-dependent nearest ties account for a large component of earlier raw native-versus-independent residuals; shell is unaffected by equalizing extents.",
+    "Direct2x diagnostic equal extents gives exact whole-frame alpha equality in all64cases perbackend; historical alpha loss remains233 in actual finite-port interiors and global alpha delta55. Calibration does not hide that true source-capture seam deficit.",
+    "Original sealed opaqueRGB140 and alpha255 observations remain real actual-consumer results. New diagnostics refine their cause; they do not retract observations or change any prior record.",
+    "Remaining RGB differences are retained up to43 for direct2x and37 for historical, including native connected versus independent lighting/context variation. They are not declared universally harmless or a seam pass.",
+    "Direct2x/.01 remains unadopted. Current production570a0d0d, assets, logical roots/framing, stylecriteria and native normal/albedo/visible-line requirements are unchanged."
+  ]
+}

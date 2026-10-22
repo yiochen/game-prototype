@@ -1,0 +1,37 @@
+{
+  "records": [
+    {
+      "backend": "full-chrome",
+      "browserVersion": "155.0.8059.85",
+      "cases": 64,
+      "actualConsumerMaxAlphaDelta": 255,
+      "actualConsumerMaxOpaqueRGBDelta": 194,
+      "diagnosticMaxAlphaDelta": 10,
+      "diagnosticMaxOpaqueRGBDelta": 41,
+      "localOpaquePortMinAlphaActual": 255,
+      "localOpaquePortMinAlphaDiagnostic": 255,
+      "localOpaquePortMaxRGBDeltaActual": 162,
+      "localOpaquePortMaxRGBDeltaDiagnostic": 21,
+      "diagnosticDiscardedVisiblePixels": 0,
+      "diagnosticIntegerRestorationDifferences": 0
+    },
+    {
+      "backend": "headless-shell",
+      "browserVersion": "153.0.8010.12",
+      "cases": 64,
+      "actualConsumerMaxAlphaDelta": 7,
+      "actualConsumerMaxOpaqueRGBDelta": 41,
+      "diagnosticMaxAlphaDelta": 7,
+      "diagnosticMaxOpaqueRGBDelta": 41,
+      "localOpaquePortMinAlphaActual": 255,
+      "localOpaquePortMinAlphaDiagnostic": 255,
+      "localOpaquePortMaxRGBDeltaActual": 20,
+      "localOpaquePortMaxRGBDeltaDiagnostic": 20,
+      "diagnosticDiscardedVisiblePixels": 0,
+      "diagnosticIntegerRestorationDifferences": 0
+    }
+  ],
+  "scope": "128 actual cases:2backendsx4facingsx2intendedsizesx8root/pan pairs. Every raw actual/native/independent image and same-source equal-extents diagnostic is retained.",
+  "limitations": "Actual fullChrome retains source-extent nearest-tie residuals. Equal-extents removes only verified transparent padding and is comparison-only. It is never used for published frames or the production consumer. Residuals are reported without a blanket seam/alpha/RGB waiver; visible actual join quality is for the independent judge.",
+  "localMask": "Frozen finite-port rectangles from source study, each sample requires a native opaque3x3 neighborhood. Samples excluded at nonopaque silhouettes are reported in each case. Whole-frame residuals retain those samples."
+}
