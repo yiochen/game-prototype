@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "asset": "decor-kelp",
+  "round": "round-01",
+  "candidatePacketSHA256": "34a0e87cb60178f0b4b95656cd791f6949647fec8d14a952c6da0c298e4e4a81",
+  "review": {
+    "path": "reviews/round-01.json",
+    "sha256": "a2a78d448937ff162cdc692164074177f65ffa2191f0f0d0b03298fd253b248f"
+  },
+  "manifest": {
+    "path": "reviews/round-01-independent/manifest.json",
+    "sha256": "16c261a63b71293326502455c354022388c6707b8ed0f2503022af4a4dd6b68d"
+  },
+  "gates": [
+    {
+      "name": "integrity-and-review",
+      "cmd": "python3 /Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py verify --packet prototypes/sushi-loop/assets/refinement/objects/decor-kelp/candidates/round-01/packet.json --review prototypes/sushi-loop/assets/refinement/objects/decor-kelp/reviews/round-01.json",
+      "chunk_id": "fa20f0",
+      "wall_time_seconds": 0.088006833,
+      "exit_code": 0,
+      "original_token_count": 19,
+      "output": "Artifact integrity verified; exact independent approval binding verified.\n"
+    },
+    {
+      "name": "directions",
+      "cmd": "python3 prototypes/sushi-loop/assets/refinement/tools/audit_directions.py decor-kelp --round round-01",
+      "chunk_id": "f16399",
+      "wall_time_seconds": 0.000006916,
+      "exit_code": 0,
+      "original_token_count": 49,
+      "output": "{\"asset\": \"decor-kelp\", \"round\": \"round-01\", \"status\": \"passed\", \"sourceConvention\": \"native_actions.apply_clip: S0/E+90/N180/W-90 degrees\", \"sampleCounts\": {\"N\": 13, \"E\": 13, \"S\": 13, \"W\": 13}}\n"
+    },
+    {
+      "name": "acceptance",
+      "cmd": "python3 prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py decor-kelp --round round-01",
+      "chunk_id": "6af724",
+      "wall_time_seconds": 0.000006209,
+      "exit_code": 0,
+      "original_token_count": 34,
+      "output": "{\"asset\": \"decor-kelp\", \"method\": \"independent-review\", \"sha256\": \"a2a78d448937ff162cdc692164074177f65ffa2191f0f0d0b03298fd253b248f\"}\n"
+    }
+  ],
+  "acyclicOrder": "Evidence manifest -> independent review -> this gate receipt -> postseal; later receipts are not included in earlier hashes."
+}

@@ -1,0 +1,13 @@
+const fs=require('node:fs'),path=require('node:path');const {createRequire}=require('node:module');
+const ROOT=path.resolve(__dirname,'../../..'),OUT=path.resolve(__dirname,'../evidence/playback');fs.mkdirSync(OUT,{recursive:true});
+const requireFrozen=createRequire(path.join(ROOT,'reviews/preparation-v1/resources/node-modules-used/entry.cjs'));const{chromium}=requireFrozen('@playwright/test');
+(async()=>{const options={headless:true,channel:'chromium'};const browser=await chromium.launch(options);const page=await browser.newPage({viewport:{width:900,height:720},deviceScaleFactor:1});
+await page.setContent('<html><body style="margin:0;background:#263e43;display:flex"></body></html>');
+const input=Object.fromEntries(['N','E','S','W'].map(d=>[d,'data:image/png;base64,'+fs.readFileSync(path.join(ROOT,'candidates/round-01/idle-'+d+'.png')).toString('base64')]));
+const samples=await page.evaluate(async input=>{
+ const state={};for(const[d,url]of Object.entries(input)){const image=new Image();image.src=url;image.style.width='192px';image.style.height='480px';document.body.append(image);await image.decode();const canvas=document.createElement('canvas');canvas.width=384;canvas.height=960;state[d]={image,canvas,context:canvas.getContext('2d',{willReadFrequently:true}),last:null,samples:[]};}
+ const started=performance.now();await new Promise(resolve=>{const tick=now=>{for(const[d,s]of Object.entries(state)){s.context.clearRect(0,0,384,960);s.context.drawImage(s.image,0,0);const bytes=s.context.getImageData(0,0,384,960).data;let hash=2166136261;for(let i=0;i<bytes.length;i+=16)hash=Math.imul(hash^bytes[i],16777619)^bytes[i+3];if(hash!==s.last){s.samples.push({elapsed:now-started,signature:hash,png:s.canvas.toDataURL('image/png')});s.last=hash;}}if(now-started>=1650)resolve();else requestAnimationFrame(tick);};requestAnimationFrame(tick);});return Object.fromEntries(Object.entries(state).map(([d,s])=>[d,s.samples]));
+},input);
+await page.screenshot({path:path.join(OUT,'browser-playback-final.png')});
+for(const[d,records]of Object.entries(samples))for(let i=0;i<records.length;i++){const r=records[i];r.path=`${d}-${String(i).padStart(2,'0')}.png`;fs.writeFileSync(path.join(OUT,r.path),Buffer.from(r.png.split(',')[1],'base64'));delete r.png;}
+fs.writeFileSync(path.join(OUT,'actual-browser-playback.json'),JSON.stringify({method:'Actual four APNG HTMLImageElements in full Chromium. Sample actual animated image via drawImage on requestAnimationFrame for1.65s; save every distinct observed state per facing. No manually advanced sprite substitute.',launchOptions:options,version:browser.version(),viewport:{width:900,height:720},DPR:1,samples},null,2)+'\n');await browser.close();})().catch(e=>{console.error(e);process.exitCode=1});
