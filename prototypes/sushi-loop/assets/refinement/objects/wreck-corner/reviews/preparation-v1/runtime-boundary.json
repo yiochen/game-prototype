@@ -1,0 +1,23 @@
+{
+  "exactNativeExecutable": "/opt/homebrew/bin/blender",
+  "nativeVersion": "5.2.2 LTS buildd13f752e3b9c",
+  "pythonExecutable": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+  "nodeVersion": "v22.18.0",
+  "browserVersion": "153.0.8010.12",
+  "browserLaunches": [
+    {
+      "headless": true,
+      "channel": "chromium"
+    },
+    {
+      "headless": true
+    }
+  ],
+  "runtimePolicy": "Executables and installed Playwright/esbuild runtime are environment boundaries, not copied app/runtime trees. Exact small browserdependency source and bundled code are frozen. No pycache in resources. All native consumed sources and actual used inputs/helpers/instructions are local frozen resources.",
+  "retainedNonDependencies": [
+    "resources/historical/capture_runtime.py",
+    "resources/consumer/build-inputs/react/cjs/react.development.js"
+  ],
+  "retainedReason": "Two tiny prospective helper/dependency source files included in immutable pre-execution input seals are retained solely for that provenance; neither is required by actual captured execution (production bundle uses index+production).",
+  "noCandidate": true
+}

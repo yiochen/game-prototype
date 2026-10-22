@@ -1,0 +1,2922 @@
+{
+  "sourceSHA256": "d44748684c4e13a25bfd7e28fe5862232ccb8b0d11d530cd9702ea66f525d46c",
+  "materials": {
+    "Slate iron - canonical soft edge - explicit canonical normal": {
+      "nodes": [
+        {
+          "name": "Attribute",
+          "type": "ShaderNodeAttribute",
+          "inputs": {},
+          "attribute_name": "CanonicalNormal"
+        },
+        {
+          "name": "Geometry",
+          "type": "ShaderNodeNewGeometry",
+          "inputs": {}
+        },
+        {
+          "name": "Map Range",
+          "type": "ShaderNodeMapRange",
+          "inputs": {
+            "Value": 1.0,
+            "From Min": 0.03999999910593033,
+            "From Max": 0.7799999713897705,
+            "To Min": 0.6600000262260437,
+            "To Max": 1.0299999713897705,
+            "Steps": 4.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps_FLOAT3": [
+              4.0,
+              4.0,
+              4.0
+            ]
+          },
+          "clamp": true,
+          "data_type": "FLOAT"
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Mix (Legacy)",
+          "type": "ShaderNodeMixRGB",
+          "inputs": {
+            "Fac": 1.0,
+            "Color1": [
+              0.03433980792760849,
+              0.07618538290262222,
+              0.14126329123973846,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          },
+          "blend_type": "MULTIPLY",
+          "use_clamp": false
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.1599999964237213,
+            "Roughness": 0.5299999713897705,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.18000000715255737,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "distribution": "MULTI_GGX"
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "ShaderNodeSeparateXYZ",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Vector Math",
+          "type": "ShaderNodeVectorMath",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Vector_001": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Vector_002": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          },
+          "operation": "NORMALIZE"
+        },
+        {
+          "name": "Vector Transform",
+          "type": "ShaderNodeVectorTransform",
+          "inputs": {
+            "Vector": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          },
+          "vector_type": "NORMAL",
+          "convert_from": "OBJECT",
+          "convert_to": "WORLD"
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Attribute",
+            "Vector"
+          ],
+          "to": [
+            "Vector Transform",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Geometry",
+            "Position"
+          ],
+          "to": [
+            "Separate XYZ",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Map Range",
+            "Result"
+          ],
+          "to": [
+            "Mix (Legacy)",
+            "Color2"
+          ]
+        },
+        {
+          "from": [
+            "Mix (Legacy)",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Base Color"
+          ]
+        },
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "Z"
+          ],
+          "to": [
+            "Map Range",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Vector Math",
+            "Vector"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Normal"
+          ]
+        },
+        {
+          "from": [
+            "Vector Transform",
+            "Vector"
+          ],
+          "to": [
+            "Vector Math",
+            "Vector"
+          ]
+        }
+      ]
+    },
+    "Blue painted timber - canonical height albedo": {
+      "nodes": [
+        {
+          "name": "Geometry",
+          "type": "ShaderNodeNewGeometry",
+          "inputs": {}
+        },
+        {
+          "name": "Map Range",
+          "type": "ShaderNodeMapRange",
+          "inputs": {
+            "Value": 1.0,
+            "From Min": 0.03999999910593033,
+            "From Max": 0.7799999713897705,
+            "To Min": 0.6600000262260437,
+            "To Max": 1.0299999713897705,
+            "Steps": 4.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps_FLOAT3": [
+              4.0,
+              4.0,
+              4.0
+            ]
+          },
+          "clamp": true,
+          "data_type": "FLOAT"
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Mix (Legacy)",
+          "type": "ShaderNodeMixRGB",
+          "inputs": {
+            "Fac": 1.0,
+            "Color1": [
+              0.00802319310605526,
+              0.2746773064136505,
+              0.7529422044754028,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          },
+          "blend_type": "MULTIPLY",
+          "use_clamp": false
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.02500000037252903,
+            "Roughness": 0.6200000047683716,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.18000000715255737,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "distribution": "MULTI_GGX"
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "ShaderNodeSeparateXYZ",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Geometry",
+            "Position"
+          ],
+          "to": [
+            "Separate XYZ",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Map Range",
+            "Result"
+          ],
+          "to": [
+            "Mix (Legacy)",
+            "Color2"
+          ]
+        },
+        {
+          "from": [
+            "Mix (Legacy)",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Base Color"
+          ]
+        },
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "Z"
+          ],
+          "to": [
+            "Map Range",
+            "Value"
+          ]
+        }
+      ]
+    },
+    "Pale worn metal fasteners": {
+      "nodes": [
+        {
+          "name": "Geometry",
+          "type": "ShaderNodeNewGeometry",
+          "inputs": {}
+        },
+        {
+          "name": "Map Range",
+          "type": "ShaderNodeMapRange",
+          "inputs": {
+            "Value": 1.0,
+            "From Min": 0.03999999910593033,
+            "From Max": 0.7799999713897705,
+            "To Min": 0.6600000262260437,
+            "To Max": 1.0299999713897705,
+            "Steps": 4.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps_FLOAT3": [
+              4.0,
+              4.0,
+              4.0
+            ]
+          },
+          "clamp": true,
+          "data_type": "FLOAT"
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Mix (Legacy)",
+          "type": "ShaderNodeMixRGB",
+          "inputs": {
+            "Fac": 1.0,
+            "Color1": [
+              0.4677838087081909,
+              0.5711248517036438,
+              0.4910208582878113,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          },
+          "blend_type": "MULTIPLY",
+          "use_clamp": false
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.20000000298023224,
+            "Roughness": 0.49000000953674316,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.18000000715255737,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "distribution": "MULTI_GGX"
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "ShaderNodeSeparateXYZ",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Geometry",
+            "Position"
+          ],
+          "to": [
+            "Separate XYZ",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Map Range",
+            "Result"
+          ],
+          "to": [
+            "Mix (Legacy)",
+            "Color2"
+          ]
+        },
+        {
+          "from": [
+            "Mix (Legacy)",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Base Color"
+          ]
+        },
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "Z"
+          ],
+          "to": [
+            "Map Range",
+            "Value"
+          ]
+        }
+      ]
+    },
+    "Blue painted timber - canonical height albedo - explicit canonical normal": {
+      "nodes": [
+        {
+          "name": "Attribute",
+          "type": "ShaderNodeAttribute",
+          "inputs": {},
+          "attribute_name": "CanonicalNormal"
+        },
+        {
+          "name": "Geometry",
+          "type": "ShaderNodeNewGeometry",
+          "inputs": {}
+        },
+        {
+          "name": "Map Range",
+          "type": "ShaderNodeMapRange",
+          "inputs": {
+            "Value": 1.0,
+            "From Min": 0.03999999910593033,
+            "From Max": 0.7799999713897705,
+            "To Min": 0.6600000262260437,
+            "To Max": 1.0299999713897705,
+            "Steps": 4.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps_FLOAT3": [
+              4.0,
+              4.0,
+              4.0
+            ]
+          },
+          "clamp": true,
+          "data_type": "FLOAT"
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Mix (Legacy)",
+          "type": "ShaderNodeMixRGB",
+          "inputs": {
+            "Fac": 1.0,
+            "Color1": [
+              0.00802319310605526,
+              0.2746773064136505,
+              0.7529422044754028,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          },
+          "blend_type": "MULTIPLY",
+          "use_clamp": false
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.02500000037252903,
+            "Roughness": 0.6200000047683716,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.18000000715255737,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "distribution": "MULTI_GGX"
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "ShaderNodeSeparateXYZ",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Vector Math",
+          "type": "ShaderNodeVectorMath",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Vector_001": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Vector_002": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          },
+          "operation": "NORMALIZE"
+        },
+        {
+          "name": "Vector Transform",
+          "type": "ShaderNodeVectorTransform",
+          "inputs": {
+            "Vector": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          },
+          "vector_type": "NORMAL",
+          "convert_from": "OBJECT",
+          "convert_to": "WORLD"
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Attribute",
+            "Vector"
+          ],
+          "to": [
+            "Vector Transform",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Geometry",
+            "Position"
+          ],
+          "to": [
+            "Separate XYZ",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Map Range",
+            "Result"
+          ],
+          "to": [
+            "Mix (Legacy)",
+            "Color2"
+          ]
+        },
+        {
+          "from": [
+            "Mix (Legacy)",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Base Color"
+          ]
+        },
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "Z"
+          ],
+          "to": [
+            "Map Range",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Vector Math",
+            "Vector"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Normal"
+          ]
+        },
+        {
+          "from": [
+            "Vector Transform",
+            "Vector"
+          ],
+          "to": [
+            "Vector Math",
+            "Vector"
+          ]
+        }
+      ]
+    },
+    "Soft worn iron bevels": {
+      "nodes": [
+        {
+          "name": "Geometry",
+          "type": "ShaderNodeNewGeometry",
+          "inputs": {}
+        },
+        {
+          "name": "Map Range",
+          "type": "ShaderNodeMapRange",
+          "inputs": {
+            "Value": 1.0,
+            "From Min": 0.03999999910593033,
+            "From Max": 0.7799999713897705,
+            "To Min": 0.6600000262260437,
+            "To Max": 1.0299999713897705,
+            "Steps": 4.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps_FLOAT3": [
+              4.0,
+              4.0,
+              4.0
+            ]
+          },
+          "clamp": true,
+          "data_type": "FLOAT"
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Mix (Legacy)",
+          "type": "ShaderNodeMixRGB",
+          "inputs": {
+            "Fac": 1.0,
+            "Color1": [
+              0.16513219475746155,
+              0.2581828534603119,
+              0.3049873113632202,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          },
+          "blend_type": "MULTIPLY",
+          "use_clamp": false
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.10000000149011612,
+            "Roughness": 0.6200000047683716,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.18000000715255737,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "distribution": "MULTI_GGX"
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "ShaderNodeSeparateXYZ",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Geometry",
+            "Position"
+          ],
+          "to": [
+            "Separate XYZ",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Map Range",
+            "Result"
+          ],
+          "to": [
+            "Mix (Legacy)",
+            "Color2"
+          ]
+        },
+        {
+          "from": [
+            "Mix (Legacy)",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Base Color"
+          ]
+        },
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "Z"
+          ],
+          "to": [
+            "Map Range",
+            "Value"
+          ]
+        }
+      ]
+    },
+    "Restrained cream paint wear": {
+      "nodes": [
+        {
+          "name": "Geometry",
+          "type": "ShaderNodeNewGeometry",
+          "inputs": {}
+        },
+        {
+          "name": "Map Range",
+          "type": "ShaderNodeMapRange",
+          "inputs": {
+            "Value": 1.0,
+            "From Min": 0.03999999910593033,
+            "From Max": 0.7799999713897705,
+            "To Min": 0.6600000262260437,
+            "To Max": 1.0299999713897705,
+            "Steps": 4.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps_FLOAT3": [
+              4.0,
+              4.0,
+              4.0
+            ]
+          },
+          "clamp": true,
+          "data_type": "FLOAT"
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Mix (Legacy)",
+          "type": "ShaderNodeMixRGB",
+          "inputs": {
+            "Fac": 1.0,
+            "Color1": [
+              0.5583403706550598,
+              0.6172065734863281,
+              0.41788506507873535,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          },
+          "blend_type": "MULTIPLY",
+          "use_clamp": false
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.009999999776482582,
+            "Roughness": 0.7799999713897705,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.18000000715255737,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "distribution": "MULTI_GGX"
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "ShaderNodeSeparateXYZ",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Geometry",
+            "Position"
+          ],
+          "to": [
+            "Separate XYZ",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Map Range",
+            "Result"
+          ],
+          "to": [
+            "Mix (Legacy)",
+            "Color2"
+          ]
+        },
+        {
+          "from": [
+            "Mix (Legacy)",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Base Color"
+          ]
+        },
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "Z"
+          ],
+          "to": [
+            "Map Range",
+            "Value"
+          ]
+        }
+      ]
+    },
+    "Blue painted timber - lower layered hue": {
+      "nodes": [
+        {
+          "name": "Geometry",
+          "type": "ShaderNodeNewGeometry",
+          "inputs": {}
+        },
+        {
+          "name": "Map Range",
+          "type": "ShaderNodeMapRange",
+          "inputs": {
+            "Value": 1.0,
+            "From Min": 0.03999999910593033,
+            "From Max": 0.7799999713897705,
+            "To Min": 0.6600000262260437,
+            "To Max": 1.0299999713897705,
+            "Steps": 4.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps_FLOAT3": [
+              4.0,
+              4.0,
+              4.0
+            ]
+          },
+          "clamp": true,
+          "data_type": "FLOAT"
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Mix (Legacy)",
+          "type": "ShaderNodeMixRGB",
+          "inputs": {
+            "Fac": 1.0,
+            "Color1": [
+              0.006512090563774109,
+              0.18782077729701996,
+              0.5972017645835876,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          },
+          "blend_type": "MULTIPLY",
+          "use_clamp": false
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.019999999552965164,
+            "Roughness": 0.6800000071525574,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.18000000715255737,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "distribution": "MULTI_GGX"
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "ShaderNodeSeparateXYZ",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Geometry",
+            "Position"
+          ],
+          "to": [
+            "Separate XYZ",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Map Range",
+            "Result"
+          ],
+          "to": [
+            "Mix (Legacy)",
+            "Color2"
+          ]
+        },
+        {
+          "from": [
+            "Mix (Legacy)",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Base Color"
+          ]
+        },
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "Z"
+          ],
+          "to": [
+            "Map Range",
+            "Value"
+          ]
+        }
+      ]
+    },
+    "Shallow blue grain grooves": {
+      "nodes": [
+        {
+          "name": "Geometry",
+          "type": "ShaderNodeNewGeometry",
+          "inputs": {}
+        },
+        {
+          "name": "Map Range",
+          "type": "ShaderNodeMapRange",
+          "inputs": {
+            "Value": 1.0,
+            "From Min": 0.03999999910593033,
+            "From Max": 0.7799999713897705,
+            "To Min": 0.6600000262260437,
+            "To Max": 1.0299999713897705,
+            "Steps": 4.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps_FLOAT3": [
+              4.0,
+              4.0,
+              4.0
+            ]
+          },
+          "clamp": true,
+          "data_type": "FLOAT"
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Mix (Legacy)",
+          "type": "ShaderNodeMixRGB",
+          "inputs": {
+            "Fac": 1.0,
+            "Color1": [
+              0.009134058840572834,
+              0.12477181851863861,
+              0.35153260827064514,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          },
+          "blend_type": "MULTIPLY",
+          "use_clamp": false
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.8299999833106995,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.18000000715255737,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "distribution": "MULTI_GGX"
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "ShaderNodeSeparateXYZ",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Geometry",
+            "Position"
+          ],
+          "to": [
+            "Separate XYZ",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Map Range",
+            "Result"
+          ],
+          "to": [
+            "Mix (Legacy)",
+            "Color2"
+          ]
+        },
+        {
+          "from": [
+            "Mix (Legacy)",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Base Color"
+          ]
+        },
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "Z"
+          ],
+          "to": [
+            "Map Range",
+            "Value"
+          ]
+        }
+      ]
+    },
+    "Blue painted timber - lower layered hue - explicit canonical normal": {
+      "nodes": [
+        {
+          "name": "Attribute",
+          "type": "ShaderNodeAttribute",
+          "inputs": {},
+          "attribute_name": "CanonicalNormal"
+        },
+        {
+          "name": "Geometry",
+          "type": "ShaderNodeNewGeometry",
+          "inputs": {}
+        },
+        {
+          "name": "Map Range",
+          "type": "ShaderNodeMapRange",
+          "inputs": {
+            "Value": 1.0,
+            "From Min": 0.03999999910593033,
+            "From Max": 0.7799999713897705,
+            "To Min": 0.6600000262260437,
+            "To Max": 1.0299999713897705,
+            "Steps": 4.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps_FLOAT3": [
+              4.0,
+              4.0,
+              4.0
+            ]
+          },
+          "clamp": true,
+          "data_type": "FLOAT"
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Mix (Legacy)",
+          "type": "ShaderNodeMixRGB",
+          "inputs": {
+            "Fac": 1.0,
+            "Color1": [
+              0.006512090563774109,
+              0.18782077729701996,
+              0.5972017645835876,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          },
+          "blend_type": "MULTIPLY",
+          "use_clamp": false
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.019999999552965164,
+            "Roughness": 0.6800000071525574,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.18000000715255737,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "distribution": "MULTI_GGX"
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "ShaderNodeSeparateXYZ",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        },
+        {
+          "name": "Vector Math",
+          "type": "ShaderNodeVectorMath",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Vector_001": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Vector_002": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Scale": 1.0
+          },
+          "operation": "NORMALIZE"
+        },
+        {
+          "name": "Vector Transform",
+          "type": "ShaderNodeVectorTransform",
+          "inputs": {
+            "Vector": [
+              0.5,
+              0.5,
+              0.5
+            ]
+          },
+          "vector_type": "NORMAL",
+          "convert_from": "OBJECT",
+          "convert_to": "WORLD"
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Attribute",
+            "Vector"
+          ],
+          "to": [
+            "Vector Transform",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Geometry",
+            "Position"
+          ],
+          "to": [
+            "Separate XYZ",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Map Range",
+            "Result"
+          ],
+          "to": [
+            "Mix (Legacy)",
+            "Color2"
+          ]
+        },
+        {
+          "from": [
+            "Mix (Legacy)",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Base Color"
+          ]
+        },
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "Z"
+          ],
+          "to": [
+            "Map Range",
+            "Value"
+          ]
+        },
+        {
+          "from": [
+            "Vector Math",
+            "Vector"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Normal"
+          ]
+        },
+        {
+          "from": [
+            "Vector Transform",
+            "Vector"
+          ],
+          "to": [
+            "Vector Math",
+            "Vector"
+          ]
+        }
+      ]
+    },
+    "Slate iron - canonical soft edge": {
+      "nodes": [
+        {
+          "name": "Geometry",
+          "type": "ShaderNodeNewGeometry",
+          "inputs": {}
+        },
+        {
+          "name": "Map Range",
+          "type": "ShaderNodeMapRange",
+          "inputs": {
+            "Value": 1.0,
+            "From Min": 0.03999999910593033,
+            "From Max": 0.7799999713897705,
+            "To Min": 0.6600000262260437,
+            "To Max": 1.0299999713897705,
+            "Steps": 4.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To_Min_FLOAT3": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To_Max_FLOAT3": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps_FLOAT3": [
+              4.0,
+              4.0,
+              4.0
+            ]
+          },
+          "clamp": true,
+          "data_type": "FLOAT"
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          }
+        },
+        {
+          "name": "Mix (Legacy)",
+          "type": "ShaderNodeMixRGB",
+          "inputs": {
+            "Fac": 1.0,
+            "Color1": [
+              0.03433980792760849,
+              0.07618538290262222,
+              0.14126329123973846,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ]
+          },
+          "blend_type": "MULTIPLY",
+          "use_clamp": false
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "ShaderNodeBsdfPrincipled",
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Metallic": 0.1599999964237213,
+            "Roughness": 0.5299999713897705,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.18000000715255737,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.0,
+            "Coat Roughness": 0.029999999329447746,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "distribution": "MULTI_GGX"
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "ShaderNodeSeparateXYZ",
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "from": [
+            "Geometry",
+            "Position"
+          ],
+          "to": [
+            "Separate XYZ",
+            "Vector"
+          ]
+        },
+        {
+          "from": [
+            "Map Range",
+            "Result"
+          ],
+          "to": [
+            "Mix (Legacy)",
+            "Color2"
+          ]
+        },
+        {
+          "from": [
+            "Mix (Legacy)",
+            "Color"
+          ],
+          "to": [
+            "Principled BSDF",
+            "Base Color"
+          ]
+        },
+        {
+          "from": [
+            "Principled BSDF",
+            "BSDF"
+          ],
+          "to": [
+            "Material Output",
+            "Surface"
+          ]
+        },
+        {
+          "from": [
+            "Separate XYZ",
+            "Z"
+          ],
+          "to": [
+            "Map Range",
+            "Value"
+          ]
+        }
+      ]
+    }
+  },
+  "world": {
+    "nodes": [
+      {
+        "name": "Background",
+        "type": "ShaderNodeBackground",
+        "inputs": {
+          "Color": [
+            0.7200000286102295,
+            0.800000011920929,
+            1.0,
+            1.0
+          ],
+          "Strength": 0.2800000011920929,
+          "Weight": 0.0
+        }
+      },
+      {
+        "name": "World Output",
+        "type": "ShaderNodeOutputWorld",
+        "inputs": {}
+      }
+    ],
+    "links": [
+      {
+        "from": [
+          "Background",
+          "Background"
+        ],
+        "to": [
+          "World Output",
+          "Surface"
+        ]
+      }
+    ]
+  },
+  "compositor": null,
+  "lights": [
+    {
+      "name": "overhead",
+      "dataType": "AREA",
+      "energy": 195.0,
+      "size": 8.0,
+      "shape": "DISK",
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "useShadow": false,
+      "matrixWorld": [
+        [
+          -1.0,
+          -1.5099580252808664e-07,
+          0.0,
+          0.0
+        ],
+        [
+          1.5099580252808664e-07,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          5.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "nodes": {
+        "nodes": [
+          {
+            "name": "Emission",
+            "type": "ShaderNodeEmission",
+            "inputs": {
+              "Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "Strength": 1.0,
+              "Weight": 0.0
+            }
+          },
+          {
+            "name": "Light Output",
+            "type": "ShaderNodeOutputLight",
+            "inputs": {}
+          }
+        ],
+        "links": [
+          {
+            "from": [
+              "Emission",
+              "Emission"
+            ],
+            "to": [
+              "Light Output",
+              "Surface"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "cardinal0",
+      "dataType": "AREA",
+      "energy": 114.0,
+      "size": 8.0,
+      "shape": "DISK",
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "useShadow": false,
+      "matrixWorld": [
+        [
+          -4.371138828673793e-08,
+          -0.5547001957893372,
+          0.8320502638816833,
+          6.0
+        ],
+        [
+          1.0,
+          -5.734122510148154e-08,
+          1.430706841887286e-08,
+          0.0
+        ],
+        [
+          3.9774647575541167e-08,
+          0.8320502638816833,
+          0.5547001957893372,
+          4.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "nodes": {
+        "nodes": [
+          {
+            "name": "Emission",
+            "type": "ShaderNodeEmission",
+            "inputs": {
+              "Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "Strength": 1.0,
+              "Weight": 0.0
+            }
+          },
+          {
+            "name": "Light Output",
+            "type": "ShaderNodeOutputLight",
+            "inputs": {}
+          }
+        ],
+        "links": [
+          {
+            "from": [
+              "Emission",
+              "Emission"
+            ],
+            "to": [
+              "Light Output",
+              "Surface"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "cardinal1",
+      "dataType": "AREA",
+      "energy": 114.0,
+      "size": 8.0,
+      "shape": "DISK",
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "useShadow": false,
+      "matrixWorld": [
+        [
+          -1.0,
+          -1.882929296925795e-07,
+          5.594575824829917e-08,
+          3.6739402930577075e-16
+        ],
+        [
+          1.5099580252808664e-07,
+          -0.5547001361846924,
+          0.8320503234863281,
+          6.0
+        ],
+        [
+          -1.2563607754145778e-07,
+          0.8320503234863281,
+          0.5547001361846924,
+          4.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "nodes": {
+        "nodes": [
+          {
+            "name": "Emission",
+            "type": "ShaderNodeEmission",
+            "inputs": {
+              "Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "Strength": 1.0,
+              "Weight": 0.0
+            }
+          },
+          {
+            "name": "Light Output",
+            "type": "ShaderNodeOutputLight",
+            "inputs": {}
+          }
+        ],
+        "links": [
+          {
+            "from": [
+              "Emission",
+              "Emission"
+            ],
+            "to": [
+              "Light Output",
+              "Surface"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "cardinal2",
+      "dataType": "AREA",
+      "energy": 114.0,
+      "size": 8.0,
+      "shape": "DISK",
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "useShadow": false,
+      "matrixWorld": [
+        [
+          -4.371138828673793e-08,
+          0.5547001957893372,
+          -0.8320502638816833,
+          -6.0
+        ],
+        [
+          -1.0,
+          -5.734122510148154e-08,
+          1.430706841887286e-08,
+          7.347880586115415e-16
+        ],
+        [
+          -3.9774647575541167e-08,
+          0.8320502638816833,
+          0.5547001957893372,
+          4.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "nodes": {
+        "nodes": [
+          {
+            "name": "Emission",
+            "type": "ShaderNodeEmission",
+            "inputs": {
+              "Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "Strength": 1.0,
+              "Weight": 0.0
+            }
+          },
+          {
+            "name": "Light Output",
+            "type": "ShaderNodeOutputLight",
+            "inputs": {}
+          }
+        ],
+        "links": [
+          {
+            "from": [
+              "Emission",
+              "Emission"
+            ],
+            "to": [
+              "Light Output",
+              "Surface"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "cardinal3",
+      "dataType": "AREA",
+      "energy": 114.0,
+      "size": 8.0,
+      "shape": "DISK",
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "useShadow": false,
+      "matrixWorld": [
+        [
+          1.0,
+          1.0189677315293675e-16,
+          -1.5284516303812757e-16,
+          -1.1021821408568715e-15
+        ],
+        [
+          -1.8369702788777518e-16,
+          0.5547001957893372,
+          -0.8320503234863281,
+          -6.0
+        ],
+        [
+          1.2584500805764496e-24,
+          0.8320503234863281,
+          0.5547001957893372,
+          4.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "nodes": {
+        "nodes": [
+          {
+            "name": "Emission",
+            "type": "ShaderNodeEmission",
+            "inputs": {
+              "Color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "Strength": 1.0,
+              "Weight": 0.0
+            }
+          },
+          {
+            "name": "Light Output",
+            "type": "ShaderNodeOutputLight",
+            "inputs": {}
+          }
+        ],
+        "links": [
+          {
+            "from": [
+              "Emission",
+              "Emission"
+            ],
+            "to": [
+              "Light Output",
+              "Surface"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
