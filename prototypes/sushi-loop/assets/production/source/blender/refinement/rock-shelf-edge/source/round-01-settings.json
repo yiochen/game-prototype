@@ -1,0 +1,41 @@
+{
+  "asset": "rock-shelf-edge",
+  "round": "round-01",
+  "geometry": {
+    "crown": "Four fitted native stone cells; modified interior seeds; exact same taper to canonical endpoint band",
+    "ledge": "Rounded embedded UVmesh front ledge, measured minY-.50916809, only elevated overhang; no additional support"
+  },
+  "capture": {
+    "engine": "BLENDER_EEVEE",
+    "samples": 32,
+    "filterSize": 0.5,
+    "filmTransparent": true,
+    "view": "Standard",
+    "look": "None",
+    "exposure": 0.0,
+    "gamma": 1.0,
+    "grade": 1.35,
+    "dither": 0.0,
+    "pixelAspect": [
+      1.2206555604934692,
+      1.0
+    ]
+  },
+  "sourceSHA256": "83765bce799260ef1cc016d02d28861b6a6c79ec883a0731a0800fab4f410657",
+  "commands": [
+    "/opt/homebrew/bin/blender -b --python source/build-round-01.py -- capture",
+    "/opt/homebrew/bin/blender -b source/round-01.blend --python source/validate-native-round-01.py",
+    "/opt/homebrew/bin/blender -b inputs/approved-shelf-middle-v1/project.blend --python source/measure-canonical.py",
+    "/opt/homebrew/bin/blender -b source/round-01.blend --python source/replay-round-01.py",
+    "python3 source/publish-round-01.py",
+    "python3 -m http.server 8873 --directory .",
+    "node source/capture-consumer.mjs http://127.0.0.1:8873/source/consumer-round-01.html",
+    "python3 source/measure-seams-round-01.py",
+    "python3 source/derive-native-proof.py",
+    "python3 source/partition-residuals-round-01.py",
+    "python3 source/derive-delivery-round-01.py"
+  ],
+  "dependencies": "Background Blender5.2.2LTS, Python3.12 plus exact retained used Pillow module+MachO load closure, repo @playwright/test1.63.0 and its full Chromium and shell browsers. Native scene has no external textures/libraries.",
+  "measurementCaveat": "canonical-native-validation externalRecipe fields identify the derivative comparison code context; approved canonical embeddedRecipe is distinct original. The compared native scene input is exact frozen approved project hash.",
+  "residuals": "No opacity loss on actual nativeopaque regions in all4 strip; E/W projected cutfaceRGB maxima20/19 retained, not waived. N/S local max1. Broad and local residual images/traces are distinct from graph/normal equality. Savedsource replay has two singlepixel1LSB residuals in E/W, with unchanged source and exactwholeBOX publication."
+}

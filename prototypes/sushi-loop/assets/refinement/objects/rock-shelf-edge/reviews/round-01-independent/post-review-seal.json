@@ -1,0 +1,33 @@
+{
+  "asset": "rock-shelf-edge",
+  "round": "round-01",
+  "scope": "Candidate-specific independent approval only; no production/family/Godot approval",
+  "candidatePacketSHA256": "8ab76a23ece8a8c73b861915e0c64036d27f876ff4124bcba967d838df4f2c35",
+  "sourceProjectSHA256": "83765bce799260ef1cc016d02d28861b6a6c79ec883a0731a0800fab4f410657",
+  "review": {
+    "path": "reviews/round-01.json",
+    "sha256": "307f11ede2b27736c10845c6081e38fdc309682d69ee9c2b09032205ba47aa09"
+  },
+  "supplementalManifest": {
+    "path": "reviews/round-01-independent/supplemental-manifest.json",
+    "sha256": "a620c736de455d908e6b4976335e09095930e1c7453d2fbdc99603aa3d9e087e"
+  },
+  "finalGate": {
+    "path": "reviews/round-01-independent/final-gate.json",
+    "sha256": "b6049c97fd35f495893394a7cc8c75dbc56aba63e022b4a06b0f844d34abd91c",
+    "exitCode": 0,
+    "toolSHA256": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d"
+  },
+  "gateOutputs": [
+    {
+      "path": "reviews/round-01-independent/logs/final-gate.stdout.log",
+      "sha256": "29c838233ee6eb1b6d3bb20c048dbc64b05f6c754530c6f1e8fac7e17df39d7e"
+    },
+    {
+      "path": "reviews/round-01-independent/logs/final-gate.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "acyclicBinding": "Supplemental manifest sealed before review; review binds that one manifest. Gate binds final review. This separate post-review seal binds review, manifest and gate; no review or manifest edits occurred after gate.",
+  "postGateEdits": false
+}

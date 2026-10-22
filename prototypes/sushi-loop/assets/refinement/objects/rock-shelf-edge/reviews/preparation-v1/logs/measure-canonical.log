@@ -1,0 +1,108 @@
+00:00.377  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/resources/canonical/round-03.blend"
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/scripts/measure-native.py:29: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  if not m.use_nodes:return d
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/preparation-v1/scripts/measure-native.py:63: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  report['savedScene']={'frame':sc.frame_current,'fps':sc.render.fps,'range':[sc.frame_start,sc.frame_end],'camera':sc.camera.name if sc.camera else None,'cameraMatrix':[list(r) for r in sc.camera.matrix_world] if sc.camera else None,'render':{'frame':[sc.render.resolution_x,sc.render.resolution_y],'pixelAspect':[sc.render.pixel_aspect_x,sc.render.pixel_aspect_y],'filterSize':sc.render.filter_size,'samples':sc.eevee.taa_render_samples,'engine':sc.render.engine},'lights':[{'name':o.name,'position':list(o.location),'type':o.data.type,'energy':o.data.energy,'size':getattr(o.data,'size',None),'useShadow':o.data.use_shadow,'rotation':list(o.rotation_euler)} for o in sc.objects if o.type=='LIGHT'],'worldStrength':sc.world.node_tree.nodes.get('Background').inputs['Strength'].default_value if sc.world and sc.world.use_nodes else None}
+BlenderMCP addon registered
+{
+  "asset": "rock-shelf-middle",
+  "bounds": [
+    [
+      -0.5,
+      -0.44999998807907104,
+      0.0
+    ],
+    [
+      0.5,
+      0.44999998807907104,
+      0.4488849937915802
+    ]
+  ],
+  "groundBounds": [
+    [
+      -0.5,
+      -0.44999998807907104,
+      0.0
+    ],
+    [
+      0.5,
+      0.44999998807907104,
+      0.0
+    ]
+  ],
+  "objects": [
+    {
+      "name": "rock-shelf-middle__root",
+      "bounds": null,
+      "portFaces": {}
+    },
+    {
+      "name": "rock-shelf-middle__sculpted_core",
+      "bounds": [
+        [
+          -0.5,
+          -0.44999998807907104,
+          0.0
+        ],
+        [
+          0.5,
+          0.44999998807907104,
+          0.44699981808662415
+        ]
+      ],
+      "portFaces": {
+        "W": 7,
+        "E": 7
+      }
+    },
+    {
+      "name": "rock-shelf-middle__embedded_stone_A",
+      "bounds": [
+        [
+          -0.13499996066093445,
+          0.19200000166893005,
+          0.2775420844554901
+        ],
+        [
+          -0.025000009685754776,
+          0.2879999876022339,
+          0.34354206919670105
+        ]
+      ],
+      "portFaces": {}
+    },
+    {
+      "name": "rock-shelf-middle__embedded_stone_B",
+      "bounds": [
+        [
+          0.25300005078315735,
+          -0.09499998390674591,
+          0.3888849914073944
+        ],
+        [
+          0.34700000286102295,
+          -0.004999998956918716,
+          0.4488849937915802
+        ]
+      ],
+      "portFaces": {}
+    }
+  ],
+  "savedRender": {
+    "frame": [
+      768,
+      1408
+    ],
+    "pixelAspect": [
+      1.2206555604934692,
+      1.0
+    ],
+    "filterSize": 0.5,
+    "samples": 32,
+    "engine": "BLENDER_EEVEE"
+  }
+}
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

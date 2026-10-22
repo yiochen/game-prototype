@@ -1,0 +1,23 @@
+{
+  "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+  "scope": "Read-only candidate/source review; writes only new own reviews/round-01.json and reviews/round-01-independent/.",
+  "driverCommands": [
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/round-01-independent/scripts/preflight.py",
+    "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/round-01-independent/resources/source/candidate.blend --python prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/round-01-independent/scripts/native-independent.py",
+    "node prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/round-01-independent/scripts/browser-independent.mjs",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/round-01-independent/scripts/derive-evidence.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/round-01-independent/scripts/final-audit.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/round-01-independent/scripts/finalize-review.py",
+    "PYTHONDONTWRITEBYTECODE=1 /Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/rock-shelf-edge/reviews/round-01-independent/scripts/gate-and-post-seal.py"
+  ],
+  "logs": "Each pre-gate driver stdout/stderr is in logs/*.log. Final gate uses unchanged repository acceptance_contract.py rock-shelf-edge --round round-01 and records exact command, code hash, stdout, stderr and status independently.",
+  "notes": [
+    "Initial preflight canonical path assumed round-03.blend; actual approved bundle calls it project.blend. Initial failure retained, repaired by reading approved manifest; correct source SHA independently verified.",
+    "Browser initial replay was repeated once to retain actual native common-canvas PNG evidence, adding previously omitted outputs. Both original and final logs retained.",
+    "Derivation repeated once to add unmasked partial/external extent residual diagnostics. It did not rerun rendering or alter source/candidate media.",
+    "Own native output source4x and mixed3 all4 were rendered from exact reopened saved models. No external or embedded model construction recipe executed.",
+    "All24 unique declared media files directly viewed; 25 packet media records include one exact same-path/hash repeated alias. Own intended-size/cropped evidence supplements long previews without sprite fitting.",
+    "System executables/browsers are version/hash identified; exact actual used local helpers and loaded Pillow/Playwright modules retained. Native .blend resources are self-contained.",
+    "No Git, live Blender, production, Godot, runtime module, target, prior sealed review or candidate edits. No extra agents."
+  ]
+}

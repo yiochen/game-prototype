@@ -70,7 +70,17 @@
     "sourceScale": 2,
     "cellSize": 128,
     "fps": 12,
-    "projection": "top-down-oblique-square-grid"
+    "projection": "top-down-oblique-square-grid",
+    "nativeFrame": [
+      768,
+      1408
+    ],
+    "nativeCaptureScale": 4,
+    "publishedFrame": [
+      384,
+      704
+    ],
+    "publication": "Canonical nativefilter.5 plus complete-frame BOX4x-to2x."
   },
   "constraints": {
     "preserve": [
@@ -88,9 +98,59 @@
       "Add purposeful decorations and crafted detail",
       "Replace awkward modeling and change nonfunctional topology or part counts",
       "Rebuild native geometry, normals, materials and light to realize the better design"
-    ]
+    ],
+    "nativeContract": "inputs/root-native-contract.json"
   },
-  "qualityCriteria": {},
+  "qualityCriteria": {
+    "status": "root-frozen-before-editor",
+    "definitionOfGood": "Low blue/cyan stone shelf edge with coherent rounded native construction and soft light, useful restrained detail and visibly clean exact canonical-middle joins in all4facings/intended sizes.",
+    "priorityOutcomes": [
+      {
+        "id": "low-shelf-volume",
+        "outcome": "All four views read as a broad low shelf, with a rounded/chamfered upper shoulder and understandable layered rock mass. Improve major form readability over the planar source without violating the measured finite envelope."
+      },
+      {
+        "id": "coherent-blue-material",
+        "outcome": "Retain the blue/cyan family: lighter upper planes and deeper lower mass, with broad soft shading and controlled highlights. Avoid a flat neon plate, crushed black underband, metallic glare or target-painted halo."
+      },
+      {
+        "id": "purposeful-detail",
+        "outcome": "Interior slabs, clefts, strata or sparse pebbles add construction and depth without repetitive ruler lines, busy caustic noise or disconnected ornament. Details read as rock at logical 128 and do not turn into confetti at phone 32."
+      },
+      {
+        "id": "rotatable-consistency",
+        "outcome": "N/E/S/W maintain the same palette, form quality and material logic. Do not invent unseen target surfaces; ensure equivalent authored quality and no horizontal preferred light direction."
+      },
+      {
+        "id": "family-continuity",
+        "outcome": "Both actual ports meet the exact approved middle's native profile, material/albedo and normal field. In independently assembled all-four-direction views, joints do not show local bright/dark stripes, notches, raised lids, cracks, holes or exposed caps. A broad finite-light gradient must be reported separately, never used to waive a visible local seam."
+      },
+      {
+        "id": "clean-finite-silhouette",
+        "outcome": "No clipping, float, black cavities, z-fighting, cut-off decorations, alpha fringe, opaque floor, unintended ground shadow or sprite-rectangle halo on light/gray/dark backgrounds."
+      }
+    ],
+    "hardConstraints": [
+      "Actual straight W/E ports localX\u00b1.5/pitch1; finite ordered(Y,Z) section[(-.45,0),(.45,0),(.45,.28),(.39,.43),(-.39,.43),(-.45,.28)]. Exact finite ground support X\u00b1.5/Y\u00b1.45/Z0. No fullcell opaque floor or tallwall contract. Metadata cell1x1 unchanged.",
+      "Actual elevated source edge dressing extends Ymin-.509089589 while ground staysY\u00b1.45. Freeze native design envelope X\u00b1.5/Y[-.51,.45]/Z[0,.45]; geometry withY<-.45 must stayZ\u2265.02, matching existing elevated decorative allowance. Numeric float tolerance1e-5 only. No added ground support outside finitebase/port overhang/rounded cutplane gap. Original flake/count/topology are not locks.",
+      "Adopt exact approved middle round03 native endpoint material/albedo and evaluated normal field, plus common lighting/capture. Original edge source ramp/flat normal field is NOT compatible just because profile matches. Native interior/edge construction/decoration may improve inside envelope. Actual ordered native port sections/corner normals/albedo/materialgraphs and neighboring bands must match canonical middle under same-handed connections; names/AABBs alone do not certify it. No forced old component count or weak form preservation.",
+      "Registered55.0079798014degree orthographic/matrix/aspect1.22065556/logical192x352/root96,248/cell128. Native4x768x1408/root384,992; whole-frame BOX to published2x384x704/root192,496. Canonical nativefilter.5/EEVEE32 and exact broad symmetric light/material field. Saved35presentation camera incidental. All4 S0/E90/N180/W-90; no perviewfitting/recolor/warping/targetcard/alphaRGB repair/overlap.",
+      "Static1frame/nativeframe1/12fps/nonloop/no object/material/shape animation. Private actual resources/minimal bound portableclosure. No preferred horizontal key/directional groundshadow/bright fringe.",
+      "Current570a0d0d world-sprite-raster and099de618 sprite-layout unchanged. All4 native connected middle-edge-middle at exact authored pitch and independent actual captured assembly, lightgraydark/logical128/phone32/representative CSS/rootpan phases and both fullChrome+shell. Inspect actual visible local seams and native continuousfields; report broad finitearea-light or source-extent precision separately with raw evidence, no blanket seam waiver/runtime repair."
+    ],
+    "requiredEvidence": [
+      "All4 complete native4x and exact wholeBOX published2x, fouroriginal-layoutstaticatlases, savedsource/recipe/minimal dependencies and truthful nativecamera/asset/rig.",
+      "Actual native middle-edge-middle all4 plus independently assembled exact atlasconsumer, native128/phone32/lightgraydark/fractionalCSS/rootpan/fullChrome+shell. Local boundary RGB/alpha/nativeopaque masks plus honestly retained broad and outerprecision residuals.",
+      "Actual finite profile, ground support, elevated decorative geometry, envelope, static actions and exact matching canonical evaluated endpoint normal/albedo/material/light field.",
+      "All required view and every declared preview visually inspected under REVIEW-COVERAGE; first derivative candidate-specific original independent verdict, no family pass."
+    ],
+    "criteriaFile": "reviews/criteria.json",
+    "criteriaFileSHA256": "c1c17521304dae7f424acb783a1b64627c5630f2cb8a1127e94709271746a5de",
+    "nativeContract": "inputs/root-native-contract.json",
+    "nativeContractSHA256": "da2a0f73cbd5af158cd21dda9ad5428b92328268c6b0d11e7651a9ba37a88fa3",
+    "sourceProposalSHA256": "5b08d2f14880d5dc597ee659183f9455e14f5be4eba97a5bad9be7dedf3f4d4b",
+    "preparationManifestSHA256": "6d384f220fa8103d34bba3c2bed0590d54b695d9f181dd6495c5b12d91729f8b"
+  },
   "delivery": {
     "scope": "Refine this object only. Root coordinator promotes approved atlases, sources and metadata to production, publishes the PR preview, and finally updates Godot.",
     "requiredClips": [
