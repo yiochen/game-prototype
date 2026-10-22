@@ -40,15 +40,29 @@ def main():
         add(path, sha(path))
         supplemental = receipt.get('supplementalEvidence', {})
         assert isinstance(supplemental, (dict, list)), 'Unknown supplemental evidence format'
-        if isinstance(supplemental, dict):
+        manifest_descriptor = isinstance(supplemental, dict) and {'path', 'sha256'} <= supplemental.keys()
+        if manifest_descriptor:
+            supplemental = [supplemental]
+        elif isinstance(supplemental, dict):
             supplemental = [{'path': name, 'sha256': digest} for name, digest in supplemental.items()]
-        for record in supplemental:
+
+        def add_supplement(record, relative_to):
             assert isinstance(record, dict) and {'path', 'sha256'} <= record.keys(), 'Incomplete supplemental evidence'
             # Historical reviews use either object- or review-relative paths.
-            locations = {(base / record['path']).resolve() for base in (folder, path.parent)}
+            locations = {(base / record['path']).resolve() for base in (folder, relative_to)}
             existing = [resource for resource in locations if resource.is_file()]
             assert len(existing) == 1, f'Missing or ambiguous supplemental evidence: {record["path"]}'
             add(existing[0], record['sha256'])
+            return existing[0]
+
+        for record in supplemental:
+            resource = add_supplement(record, path.parent)
+            if manifest_descriptor:
+                manifest = json.loads(resource.read_text())
+                assert manifest.get('packetSHA256') == receipt['candidatePacketSHA256'], 'Supplement manifest binds wrong packet'
+                assert isinstance(manifest.get('files'), list), 'Supplement manifest needs explicit path/hash records'
+                for entry in manifest['files']:
+                    add_supplement(entry, resource.parent)
 
     add(base / 'packet.json', sha(base / 'packet.json'))
     accepted = acceptance(folder, args.round, packet)

@@ -103,6 +103,30 @@
         "editor": "garbage-car/editor-dispatch.txt",
         "judge": "garbage-car/judge-dispatch.txt"
       }
+    },
+    {
+      "asset": "garbage-shelving",
+      "brief": "../objects/garbage-shelving/brief.json",
+      "judge": "catalog_garbage_shelving_judge_v1",
+      "editor": "catalog_garbage_shelving_editor_v1",
+      "freshContext": true,
+      "workflow": "Fresh independent source/target audit and root reconciliation frozen before editor construction. Editor inspects source/target independently before criteria. Same pair for later reviews/revisions.",
+      "prompts": {
+        "judge": "garbage-shelving/judge-dispatch.txt",
+        "editor": "garbage-shelving/editor-dispatch.txt"
+      },
+      "briefSHA256": "88ba59077ca4d7b6a31fb71e63827208d29171c8b9367f43315e8cb522776bce"
+    },
+    {
+      "asset": "dock-floor",
+      "brief": "../objects/dock-floor/brief.json",
+      "judge": "catalog_dock_floor_judge_v1",
+      "editor": null,
+      "freshContext": true,
+      "workflow": "Fresh independent source/target and actual neighbor/interface audit underway; coordinator freeze precedes fresh editor construction.",
+      "prompts": {
+        "judge": "dock-floor/judge-dispatch.txt"
+      }
     }
   ]
 }

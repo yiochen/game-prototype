@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 102,
-  "completed": 63,
-  "published": 62,
-  "current": "62 objects live of102 active. Ellis round03 and all four customer meal bundles approved; publication63 in verification. Thirteen2D effects deferred. Sofa/car editing and Dalia canonical food update active. Existing Godot cutover pending.",
+  "completed": 64,
+  "published": 63,
+  "current": "63 objects live of 102 active. Sofa independently approved and publication64 being staged; car independently approved next. Dalia original-judge food review, fresh shelving editor and dock-floor source judge active. Thirteen 2D effects deferred; final existing Godot cutover pending.",
   "objects": [
     {
       "id": "plant-angular",
@@ -707,13 +707,15 @@
       "deployCommit": "9cd31725",
       "deployURL": "https://deploy-preview-37--game-prototypes-yiochen.netlify.app/prototypes/sushi-loop/?ntl-drawer-state=hidden#object-chef-dalia",
       "pendingCanonicalFood": {
-        "status": "editing",
+        "status": "reviewing",
         "brief": "brief-v3-held-food-frozen.json",
         "briefSHA256": "d500baed2708cdd42bf5830b8bf373dc9f589292d0c333d5e0e1f5341d005107",
         "sameObjectPair": {
           "editor": "catalog_chef_dalia_editor_v1",
           "judge": "catalog_chef_dalia_judge_v1"
-        }
+        },
+        "round": "round-02",
+        "packetSHA256": "49e152fdc84f909755ed49b391d891f3539b4998f77394c4fc40e64e3ccf5c61"
       }
     },
     {
@@ -792,7 +794,7 @@
       "name": "Ellis",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 10,
       "frames": 480,
       "target": "inputs/target.png",
@@ -806,7 +808,8 @@
         "Broad balanced lighting replaces the target\u2019s privileged orange side rim, as required for rotational world sprites.",
         "Fixed registered framing and native contact/clearance limits retain a more compact body presentation than the enlarged target. No target framing fit is applied.",
         "Meals remain exact canonical packed2D images with the original fixed camera-ray depth. They intentionally retain their existing graphic food appearance."
-      ]
+      ],
+      "publishedCommit": "60d4551d83d72bd5da234030b47b1b209e6850b1"
     },
     {
       "id": "customer-samir",
@@ -990,45 +993,59 @@
       "name": "Whole broken sofa",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "approved",
       "clips": 3,
       "frames": 100,
       "target": "inputs/target.png",
       "editor": "catalog_garbage_sofa_editor_v1",
-      "judge": "catalog_garbage_sofa_judge_v1"
+      "judge": "catalog_garbage_sofa_judge_v1",
+      "round": "round-02",
+      "packetSHA256": "e077c402c7930a8cc7a104ca9f050ec94ee73c78dabe2a61b47bcbebbdff1d32",
+      "remainingDifferences": [
+        "Cushions and arms are more regular and less deeply rumpled than the painted target; the target has more irregular compression, sharper cloth folds and more abundant torn/stuffed areas. The candidate still meets the frozen soft upholstered-volume and discarded-character outcomes.",
+        "The native design uses restrained low-contrast wear, cleaner piping and a narrow seat tear instead of reproducing the target stain/stitch count or its extra back/arm tears. Fine surface detail recedes more at phone size; the major worn cues remain readable.",
+        "Target framing, enlarged apparent scale, orange edge halo and incidental imagegen surface noise were not copied. Registered source projection and animation semantics take precedence.",
+        "Thin native trim/repair solids include some zero-area bevel corner faces and evaluated capped curve details report boundary loops. Main mesh solids have no nonmanifold edges, and no corresponding visible shipping artifact was found. Approval does not claim every evaluated detail is a single watertight mesh suitable for an unrelated3D export."
+      ]
     },
     {
       "id": "garbage-car",
       "name": "Wrecked car",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "reviewing",
       "clips": 3,
       "frames": 100,
       "target": "inputs/target.png",
       "editor": "catalog_garbage_car_editor_v1",
-      "judge": "catalog_garbage_car_judge_v1"
+      "judge": "catalog_garbage_car_judge_v1",
+      "round": "round-01",
+      "packetSHA256": "a819c85e160b3ada7c0473581880168a1fed5ab24dd1742b59d1fa5cedce3be4",
+      "pendingReviewSHA256": "14f4333bf0d46d660b39cb3bbab8d06cda202f48833cdcb6b0c0346da15edb54"
     },
     {
       "id": "garbage-shelving",
       "name": "Collapsed shelving",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "editing",
       "clips": 3,
       "frames": 100,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "judge": "catalog_garbage_shelving_judge_v1",
+      "editor": "catalog_garbage_shelving_editor_v1"
     },
     {
       "id": "dock-floor",
       "name": "Shared dock floor",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "reviewing-baseline",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "judge": "catalog_dock_floor_judge_v1"
     },
     {
       "id": "dock-entry",

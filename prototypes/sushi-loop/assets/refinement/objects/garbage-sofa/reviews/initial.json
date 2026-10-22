@@ -1,0 +1,126 @@
+{
+  "asset": "garbage-sofa",
+  "stage": "independent-source-and-target-preparation",
+  "candidateVerdict": null,
+  "candidateApprovalIssued": false,
+  "independence": {
+    "editorDispatched": false,
+    "editorProposalsRead": false,
+    "priorCoordinatorAestheticConclusionsUsed": false,
+    "ownership": "Only new files in this object reviews directory. No Git, live Blender access, source save, source edits or further agents."
+  },
+  "skill": "/Users/yiouchen/.codex/skills/refine-3d-model/SKILL.md",
+  "fixedTarget": {
+    "path": "inputs/target.png",
+    "sha256": "742f23c8d0607347ae3b88f59c33b93de6bc23fbeb7b1084c2da891b5c7861e5",
+    "size": [
+      1106,
+      1422
+    ],
+    "role": "Fixed design/style reference; its size, object coverage, root, halo and single facing do not certify native registration."
+  },
+  "inspectedFiles": [
+    "inputs/original.png",
+    "inputs/target.png",
+    "../../style/warm-soft-reference.png",
+    "brief.json",
+    "inputs/catalog-object.json",
+    "inputs/source-camera.json",
+    "inputs/source-assetRecord.json",
+    "inputs/source-rig.json",
+    "prompts/judge.txt",
+    "reviews/source-audit-raw.json",
+    "reviews/source-audit-summary.json",
+    "reviews/raster-audit-raw.json",
+    "reviews/original-idle-four-facing-logical.png",
+    "reviews/original-three-backgrounds.png",
+    "reviews/target-three-backgrounds.png",
+    "reviews/original-highlighted-S-all-phases-phone.png",
+    "reviews/original-highlighted-E-all-phases-phone.png",
+    "reviews/original-highlighted-N-all-phases-phone.png",
+    "reviews/original-highlighted-W-all-phases-phone.png",
+    "reviews/original-clearance-S-all-phases-phone.png",
+    "reviews/original-clearance-E-all-phases-phone.png",
+    "reviews/original-clearance-N-all-phases-phone.png",
+    "reviews/original-clearance-W-all-phases-phone.png"
+  ],
+  "nativeInspection": {
+    "blender": "5.2.2 LTS",
+    "source": {
+      "path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+      "sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "unchangedAfter": true
+    },
+    "scene": "S33 Native Asset Library Export",
+    "collection": "S33_PROP_garbage-sofa",
+    "actualRegisteredCamera": "reviews/source-audit-raw.json#/registeredCamera",
+    "evaluatedSamples": 100,
+    "additionalClosureFrame": 13,
+    "rawSourceAudit": "reviews/source-audit-raw.json",
+    "sourceRasterAudit": "reviews/raster-audit-raw.json",
+    "methods": "Read actual named collection and all 60 saved object action cohorts. Evaluate all four facings and 25 unique clip phases, measure transformed evaluated mesh vertices in ground-root space, inspect material graph outputs and dependency ownership. Separately inspect all 100 published original native phase rasters through verified atlas crops and compare actual original/target on three backgrounds."
+  },
+  "comparativeSourceScores": {
+    "shapeVolume": 4,
+    "color": 5,
+    "lightingHighlights": 4,
+    "materialDetail": 2,
+    "artifactFreeReadability": 5,
+    "meaning": "Descriptive baseline only; no numeric approval threshold."
+  },
+  "observations": [
+    {
+      "area": "shapeVolume",
+      "source": "Readable whole sofa silhouette, paired arms, three back and seat regions, four wood feet and separate rubbish. Broad planar bevelled slabs dominate; back cushions resemble hard blocks, seats are thin flat planks, and arm/back transitions have abrupt hard corners.",
+      "target": "Supple rounded upholstery, fuller cushion fronts, gentle sag, continuous arm contours and a visibly constructed wood base produce the most valuable improvement. Native geometry can meaningfully improve these without preserving the source vertex or part counts."
+    },
+    {
+      "area": "color",
+      "source": "Dusty rose/taupe upholstery, cream center seat, brown base/debris and a blue metal spring. Original subtle low saturation is coherent but dark lower faces lose warm separation.",
+      "target": "Warm rose/coral upholstery, cream replacement center and golden brown wood retain the original palette family. Preserve faded discarded furniture character instead of making it new, candy pink or highly glossy."
+    },
+    {
+      "area": "lightHighlights",
+      "source": "Neutral symmetric light with broad lighter upper facets and markedly dark lower blocks. Large underside bands and black-looking interior wedges can merge on dark background.",
+      "target": "Wide soft highlights on convex upholstery and warm readable shaded areas. Do not reproduce target orange edge contamination or infer a directional lighting mandate."
+    },
+    {
+      "area": "materialDetail",
+      "source": "The patch/stuffing cue appears as two nested flat squares and the exposed spring as a blue bar; damage reads more like attached symbols than a constructed tear. N facing is a broad blank flat rear.",
+      "target": "A restrained sewn patch, raised piping, folds, frayed tear edges, cream stuffing and intentional wear establish cloth and damage. Exact stitch count, exact back tear location and random stains are not mandatory; visible construction and scale are."
+    },
+    {
+      "area": "readability",
+      "source": "At logical448x576 and half-logical224x288 full-frame size, whole sofa identity remains clear but small patch/spring details carry little broken/clearable meaning. Side views are long hard slab stacks; rear is box-like.",
+      "target": "Major cushioning, arm/base separation and one or two purposeful damage cues should survive phone-size viewing. Fine texture must remain secondary to readable masses."
+    },
+    {
+      "area": "motion",
+      "source": "Highlighted is a very small per-part geometric scale pulse. Clearance is genuine piece separation, lift, signed yaw and shrink; the final frame still contains opaque small pieces. It is not a material opacity fade and has no visibility cutoff.",
+      "target": "The fixed target says nothing about motion; preserve original state timing and semantic phase while reconstructing target-inspired geometry."
+    }
+  ],
+  "sourceSpecificUncertainties": [
+    {
+      "issue": "Original support mask versus literal mesh contact",
+      "finding": "Catalog declares all four 2x2 support cells and no overhead cells. Four feet touch z=0, but three decorative loose pieces have bottom z about0.03015/0.04500/0.02075. Do not freeze those minor float gaps as required contact.",
+      "proposal": "Freeze the declared four-cell mask and four load-bearing foot roles; permit native correction of loose-piece floor seating inside the same mask."
+    },
+    {
+      "issue": "Static footprint versus removal animation envelope",
+      "finding": "Clearance transiently exceeds 2x2 and reaches z1.64309 despite nominal1.08. It returns to neither assembled bounds nor empty alpha in its last frame.",
+      "proposal": "Freeze separate idle/highlight and transient clearance envelopes; do not force all12 clearance phases inside idle2x2 or invent a final alpha fade."
+    },
+    {
+      "issue": "Remodelled semantic component ownership",
+      "finding": "Old action owners are20 meshes, including separate patch/stuffing/spring roles. Target-inspired construction may require multiple meshes per moving part or attached details.",
+      "proposal": "Require an explicit old-role-to-new-native-driver mapping, preserve source phase/trajectories for the functional roles, and allow geometry/part-count changes. Resolve any role consolidation before modeling rather than silently changing the motion."
+    },
+    {
+      "issue": "Temporal playback inspection",
+      "finding": "All100 static phase rasters and actual evaluated action channels were inspected. The local-file HTML player could not be opened: browser security rejects file URLs. No alternate browser, local proxy or workaround was attempted.",
+      "proposal": "Actual12fps playback through an allowed review surface remains required for later candidate approval; initial preparation is not a temporal-playback approval."
+    }
+  ],
+  "pending": "Coordinator reconciliation and criteria/technical freeze, then fresh editor dispatch and sealed native candidate review."
+}

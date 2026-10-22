@@ -1,0 +1,53 @@
+{
+  "policy": "All discarded sources, raw captures and logs are retained. No cache files are delivery resources.",
+  "drafts": [
+    {
+      "id": "draft-01",
+      "project": "source/draft-01.blend",
+      "recipe": "source/recipe-draft01.py",
+      "captures": "candidates/draft-01",
+      "reason": "Overbright cloth and unconformed seams; sixteen inspection captures retained."
+    },
+    {
+      "id": "draft-02",
+      "project": "source/draft-02.blend",
+      "recipe": "source/recipe-draft02.py",
+      "captures": "candidates/draft-02",
+      "reason": "Useful lower-energy lighting and real torn aperture; before panel convexity, wear and repair-surface refinement."
+    },
+    {
+      "id": "draft-03-failed",
+      "recipe": "source/recipe-draft03-failed.py",
+      "log": "source/draft-03.log",
+      "reason": "Material helper failed on a zero-variation cloth material before saving a project or rendering; exact failed script retained."
+    },
+    {
+      "id": "draft-04",
+      "project": "source/draft-04.blend",
+      "recipe": "source/recipe-draft04.py",
+      "captures": "candidates/draft-04",
+      "reason": "Expanded soft panel volume and native wear, before final repair conformance and stable carrier-coordinate procedural materials."
+    },
+    {
+      "id": "round-01-discarded-partial",
+      "project": "source/round-01.blend",
+      "recipe": "source/recipe-round01.py",
+      "captures": "candidates/round-01",
+      "log": "source/round-01.log",
+      "reason": "Stopped native export after noticing procedural wear coordinates should follow each semantic carrier during clearance. Partial native frames retained; this round is not the handoff."
+    },
+    {
+      "id": "source-audit-initial-failed",
+      "recipe": "source/audit-round02-initial-failed.py",
+      "log": "source/audit-round02.log",
+      "reason": "Audit assumed every boolean material slot was assigned. It was corrected to record the native default opaque inner-cut surface explicitly; no source art changed."
+    },
+    {
+      "id": "playback-initial-failed",
+      "path": "candidates/round-02/previews/temporal-player-initial-failed.html",
+      "reason": "First requestAnimationFrame timestamp can precede Promise completion start timestamp by a fraction of a frame, producing negative index. Clamp nonnegative elapsed in player; native art/source/atlas bytes unchanged."
+    }
+  ],
+  "submittedRound": "round-02",
+  "approval": "Independent judge only; editor makes no approval claim."
+}

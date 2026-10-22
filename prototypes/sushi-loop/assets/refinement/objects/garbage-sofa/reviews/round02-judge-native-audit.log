@@ -1,0 +1,10 @@
+00:00.273  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/garbage-sofa/source/round-02.blend"
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/garbage-sofa/reviews/round02-judge-audit-native.py:75: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  out['materials'].append({'name':m.name,'animated':bool(m.animation_data or(m.use_nodes and m.node_tree.animation_data)),'nodes':[{'name':n.name,'type':n.type,'inputs':{s.name:([float(v)for v in s.default_value]if hasattr(s.default_value,'__iter__')and not isinstance(s.default_value,str)else s.default_value)for s in n.inputs if hasattr(s,'default_value')and isinstance(s.default_value,(int,float,str,bool,Vector))},'image':n.image.name if n.type=='TEX_IMAGE'and n.image else None}for n in m.node_tree.nodes]if m.use_nodes else[],'links':[{'from':l.from_node.name+'.'+l.from_socket.name,'to':l.to_node.name+'.'+l.to_socket.name}for l in m.node_tree.links]if m.use_nodes else[]})
+00:09.095  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/garbage-sofa/reviews/round02-judge-witness-clearance-E-005.png'
+BlenderMCP addon registered
+JUDGE_NATIVE_COMPLETE {"actionsEqual": true, "driverErrors": {"idle": {"location": 0.0, "rotation_euler": 0.0, "scale": 0.0}, "highlighted": {"location": 0.0, "rotation_euler": 0.0, "scale": 5.960464477539063e-08}, "clearance": {"location": 5.960464477539063e-08, "rotation_euler": 5.960464477539063e-08, "scale": 2.9802322387695312e-08}}, "samples": 100, "fractionalSamples": 91, "bounds": {"min": [-0.987500011920929, -0.8600965738296509, -7.779176414146605e-09], "max": [0.987500011920929, 0.8620097041130066, 1.076444387435913]}, "sourceUnchanged": true}
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit
