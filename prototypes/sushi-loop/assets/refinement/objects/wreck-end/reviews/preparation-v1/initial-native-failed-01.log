@@ -1,0 +1,10 @@
+00:00.364  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/wreck-end/reviews/preparation-v1/resources/source/original.blend"
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/wreck-end/reviews/preparation-v1/resources/scripts/initial-native.py", line 32
+    res['materials']={m.name:{'diffuse':v(m.diffuse_color),'useNodes':m.use_nodes,'nodes':[{'name':n.name,'type':n.type,'inputs':{s.name:list(s.default_value) if hasattr(s.default_value,'__len__') else s.default_value for s in n.inputs if hasattr(s,'default_value') and s.type not in {'SHADER','CUSTOM'}} for n in m.node_tree.nodes] if m.use_nodes else []} for m in set(m for ob in col.all_objects if ob.type=='MESH' for m in ob.data.materials if m)}
+                                                                                                                                                                                                                                                                                                                                           ^
+SyntaxError: closing parenthesis ']' does not match opening parenthesis '{'
+BlenderMCP addon registered
+BlenderMCP addon unregistered
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

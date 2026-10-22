@@ -1,0 +1,2 @@
+import {build} from 'esbuild';import path from 'node:path';import fs from 'node:fs/promises';import {fileURLToPath} from 'node:url';
+const here=path.dirname(fileURLToPath(import.meta.url));const result=await build({entryPoints:[path.join(here,'fixture-v2.mjs')],bundle:true,format:'esm',outfile:path.join(here,'fixture-v2.bundle.js'),metafile:true,alias:{react:path.join(here,'build-inputs/react/index.js')}});await fs.writeFile(path.join(here,'build-v2-metafile.json'),JSON.stringify(result.metafile,null,2)+'\n');

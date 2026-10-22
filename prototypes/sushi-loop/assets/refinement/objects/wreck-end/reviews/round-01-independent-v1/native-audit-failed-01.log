@@ -1,0 +1,12 @@
+00:00.300  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/wreck-end/reviews/round-01-independent-v1/resources/candidate.blend"
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/wreck-end/reviews/round-01-independent-v1/resources/native-audit.py", line 61, in <module>
+    root.rotation_euler=(0,0,0);enable();own=audit(col,root)
+                                             ~~~~~^^^^^^^^^^
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/wreck-end/reviews/round-01-independent-v1/resources/native-audit.py", line 56, in audit
+    a['materials'][m.name]={'nodeTypes':[n.bl_idname for n in m.node_tree.nodes],'materialAnimation':bool(m.animation_data),'nodeAnimation':bool(m.node_tree.animation_data),'local':m.library is None,'activeFields':material_fields(m)}
+                                                              ^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'node_tree'
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

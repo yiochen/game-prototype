@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 102,
-  "completed": 91,
-  "published": 90,
-  "current": "wreck-corner",
+  "completed": 92,
+  "published": 91,
+  "current": "wreck-end",
   "objects": [
     {
       "id": "plant-angular",
@@ -1428,7 +1428,7 @@
       "name": "Pale wreck corner",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
@@ -1437,26 +1437,30 @@
       "judge": "catalog_wreck_corner_judge_v1",
       "editorStatus": "completed-evidence-round-02",
       "judgeStatus": "approved-round-02",
-      "stage": "release-checks-round02",
+      "stage": "published-round02",
       "briefSHA256": "ae576b24f98de165a9f30ee22a37360a3386dffa31ad5818961aa2083cd45a4f",
       "round": "round-02",
-      "packetSHA256": "f696c5e1b139f5393127f68d10fb3e2a3784b41fb474981b08cc36e8b93c0f4c"
+      "packetSHA256": "f696c5e1b139f5393127f68d10fb3e2a3784b41fb474981b08cc36e8b93c0f4c",
+      "commit": "e4f0436fef7f5f4f58230ded6ad6d478199cf3c3",
+      "netlifyDeployId": "6ada87cd7db15f632af0dcdf"
     },
     {
       "id": "wreck-end",
       "name": "Pale wreck end",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "approved",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
       "editor": "catalog_wreck_end_editor_v1",
       "judge": "catalog_wreck_end_judge_v1",
-      "editorStatus": "starting-construction",
-      "judgeStatus": "prepared-awaiting-candidate",
-      "stage": "native-wreck-end-round01",
-      "briefSHA256": "77ff9ee7efe96f231fc8637ebc99e7df9ff148339c9f19aa063774e0a47dc5f1"
+      "editorStatus": "completed-round-01",
+      "judgeStatus": "approved-round-01",
+      "stage": "release-checks-round01",
+      "briefSHA256": "77ff9ee7efe96f231fc8637ebc99e7df9ff148339c9f19aa063774e0a47dc5f1",
+      "round": "round-01",
+      "packetSHA256": "4ede4e7a674f282ad62137acc9a349df6bdebefbd131e6f2d1d90994ee90c1ad"
     },
     {
       "id": "rock-half-width",
@@ -1469,13 +1473,14 @@
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "baselineJudge": "catalog_rock_half_width_judge_v1",
-      "judgeStatus": "awaiting-round-05",
+      "judgeStatus": "reviewing-round-05",
       "editor": "catalog_rock_half_width_editor_v1",
       "judge": "catalog_rock_half_width_judge_v1",
-      "editorStatus": "editing-round-05",
+      "editorStatus": "completed-round-05",
       "stage": "native-rock-half-width-round05",
       "briefSHA256": "73f2cef927fc54ed4d97853b326b321928b33383c9ebb6802bee9ae513f96244",
-      "round": "round-03"
+      "round": "round-05",
+      "packetSHA256": "5226d4858879f87f0883cadab87959bc4269f21c6ed7aa2374cd590ef1bec24f"
     },
     {
       "id": "boulder-underwater",
@@ -1619,11 +1624,17 @@
       "name": "Quiet background rock",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "editing",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "editor": "catalog_decor_background_rock_editor_v1",
+      "judge": "catalog_decor_background_rock_judge_v1",
+      "editorStatus": "starting-construction",
+      "judgeStatus": "prepared-awaiting-candidate",
+      "stage": "native-background-rock-round01",
+      "briefSHA256": "2b845e5ac3055e3bb0b34dbd0e6fd1f5cb684da3da18c741137c20a8bc7d4607"
     },
     {
       "id": "decor-background-wreck",
@@ -1633,7 +1644,11 @@
       "status": "prepared",
       "clips": 1,
       "frames": 4,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "judge": "catalog_decor_background_wreck_judge_v1",
+      "judgeStatus": "preparing",
+      "editorStatus": "not-started",
+      "stage": "independent-native-preparation"
     },
     {
       "id": "decor-background-fish",
