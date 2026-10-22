@@ -1,0 +1,4219 @@
+{
+  "candidatePacketSHA256": "20f3fe4297877ecc50affda4574c2ade50482e7068bd9d457fbfb3e6ff2bc54c",
+  "fixtureSHA256": "a11d569dbfda70fcb1513f15d9a418ae6baec8ad4fa571bd5f792fa77e071be9",
+  "node": "v22.18.0",
+  "inputResources": [
+    {
+      "source": "source/round-01-resources/consumer/exact-used-raster-functions.js",
+      "path": "reviews/round-01-independent/resources/consumer/exact-used-raster-functions.js",
+      "sha256": "b6b68c67713a7ff9b8948090d7fbf63f1ba440e5e84e0a87a81a79fbfe8d2301"
+    },
+    {
+      "source": "source/round-01-resources/consumer/playwright-package.json",
+      "path": "reviews/round-01-independent/resources/consumer/playwright-package.json",
+      "sha256": "5587f932b8979b6889654b60e3c28aeb7ca0abbac00eec8c176c939a16149536"
+    },
+    {
+      "source": "source/round-01-resources/consumer/selected-library.json",
+      "path": "reviews/round-01-independent/resources/consumer/selected-library.json",
+      "sha256": "264f1e4d035faf844427e880d39471987daef0e8fd5be0ea29cc3bab065ac231"
+    },
+    {
+      "source": "source/round-01-resources/consumer/sprite-layout.js",
+      "path": "reviews/round-01-independent/resources/consumer/sprite-layout.js",
+      "sha256": "099de61830564dbe0de7e3b85ffbeefcc1b80555098ed499b889b50db6074c65"
+    },
+    {
+      "source": "source/round-01-resources/consumer/sprites/creature-eel/swim-N.png",
+      "path": "reviews/round-01-independent/resources/consumer/sprites/creature-eel/swim-N.png",
+      "sha256": "9bcaba1b5e2e8c2bb6440cfc4b31678f4878f3c4cdeafaebcc9780e4f9fdc41e"
+    },
+    {
+      "source": "source/round-01-resources/consumer/sprites/decor-background-rock/static-E.png",
+      "path": "reviews/round-01-independent/resources/consumer/sprites/decor-background-rock/static-E.png",
+      "sha256": "964cc07898742780b963a789059f6ad0eddb192db74a7178e62e29eaf92dd9fa"
+    },
+    {
+      "source": "source/round-01-resources/consumer/sprites/decor-background-rock/static-N.png",
+      "path": "reviews/round-01-independent/resources/consumer/sprites/decor-background-rock/static-N.png",
+      "sha256": "f8bae4085f109da4bf3d3507859d86b13f7eaf03cd550ea0f8d1f2dad2488919"
+    },
+    {
+      "source": "source/round-01-resources/consumer/sprites/decor-background-rock/static-S.png",
+      "path": "reviews/round-01-independent/resources/consumer/sprites/decor-background-rock/static-S.png",
+      "sha256": "7ee522aaf3b47d4bf776170fdc44e37da6157106f6fb92dbb6414ed0c597d72f"
+    },
+    {
+      "source": "source/round-01-resources/consumer/sprites/decor-background-rock/static-W.png",
+      "path": "reviews/round-01-independent/resources/consumer/sprites/decor-background-rock/static-W.png",
+      "sha256": "1235d55d6593cb9bc934df4650b8a11a5b8dfd279b1fb7c1cb9de5db71c3abd1"
+    },
+    {
+      "source": "source/round-01-resources/consumer/sprites/floor-underwater/scroll-S.png",
+      "path": "reviews/round-01-independent/resources/consumer/sprites/floor-underwater/scroll-S.png",
+      "sha256": "bbe1f72f4a4712c7311929d4e6b5cc4a9da91b980be008fcccb956378fb49277"
+    },
+    {
+      "source": "source/round-01-resources/consumer/sprites/submarine-yellow/travel-N.png",
+      "path": "reviews/round-01-independent/resources/consumer/sprites/submarine-yellow/travel-N.png",
+      "sha256": "4d05ac93ef7483b39e99d12d848ff6510484493e8e315f0bf0dbd5f4e7f94fa1"
+    },
+    {
+      "source": "source/round-01-resources/consumer/world-sprite-raster.js",
+      "path": "reviews/round-01-independent/resources/consumer/world-sprite-raster.js",
+      "sha256": "570a0d0d788ab65252724da1f0ff7d82a086eab1875ba37ed032dac34acf9545"
+    }
+  ],
+  "modes": [
+    {
+      "mode": "chromium",
+      "launch": {
+        "headless": true,
+        "channel": "chromium"
+      },
+      "browserVersion": "153.0.8010.12",
+      "cases": [
+        {
+          "config": {
+            "name": "four-logical-wide",
+            "kind": "four",
+            "width": 1128,
+            "height": 720
+          },
+          "bounds": [
+            -57.6,
+            -217.6,
+            1107.2,
+            499.2
+          ],
+          "plan": {
+            "x": -58.5,
+            "y": -218.5,
+            "width": 2218,
+            "height": 1002,
+            "scale": 2
+          },
+          "spriteRecords": [
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-E.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "E"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 480,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-W.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 736,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "W"
+            }
+          ],
+          "order": [
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock"
+          ],
+          "canvasSize": [
+            2218,
+            1002
+          ],
+          "cssCanvasRect": {
+            "x": -0.8996148109436035,
+            "y": 67.0831298828125,
+            "width": 1129.79931640625,
+            "height": 510.396240234375,
+            "top": 67.0831298828125,
+            "right": 1128.8997015953064,
+            "bottom": 577.4793701171875,
+            "left": -0.8996148109436035
+          },
+          "svgRect": {
+            "x": 0,
+            "y": 68,
+            "width": 1128,
+            "height": 508.5625,
+            "top": 68,
+            "right": 1128,
+            "bottom": 576.5625,
+            "left": 0
+          },
+          "dpr": 1,
+          "viewport": {
+            "width": 1128,
+            "height": 720
+          },
+          "errors": [],
+          "screenshot": "reviews/round-01-independent/consumer-replay/chromium-four-logical-wide.png",
+          "nativeCanvas": "reviews/round-01-independent/consumer-replay/chromium-four-logical-wide-native.png",
+          "nativeCanvasSHA256": "54e5f849250216139bc1fb4b66113781a322ff46dda943c72f2e87cdeb273d44",
+          "originalScreenshot": "candidates/round-01/consumer/chromium-four-logical-wide.png",
+          "originalNativeCanvas": "candidates/round-01/consumer/chromium-four-logical-wide-native.png",
+          "originalSpriteRecords": [
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-E.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "E"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 480,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-W.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 736,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "W"
+            }
+          ],
+          "originalOrder": [
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock"
+          ],
+          "originalPlan": {
+            "x": -58.5,
+            "y": -218.5,
+            "width": 2218,
+            "height": 1002,
+            "scale": 2
+          },
+          "originalBounds": [
+            -57.6,
+            -217.6,
+            1107.2,
+            499.2
+          ]
+        },
+        {
+          "config": {
+            "name": "four-phone320",
+            "kind": "four",
+            "width": 320,
+            "height": 720
+          },
+          "bounds": [
+            -57.6,
+            -217.6,
+            1107.2,
+            499.2
+          ],
+          "plan": {
+            "x": -58.5,
+            "y": -218.5,
+            "width": 2218,
+            "height": 1002,
+            "scale": 2
+          },
+          "spriteRecords": [
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-E.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "E"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 480,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-W.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 736,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "W"
+            }
+          ],
+          "order": [
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock"
+          ],
+          "canvasSize": [
+            2218,
+            1002
+          ],
+          "cssCanvasRect": {
+            "x": -0.2469627559185028,
+            "y": 95.73990631103516,
+            "width": 320.4939270019531,
+            "height": 144.78579711914062,
+            "top": 95.73990631103516,
+            "right": 320.2469642460346,
+            "bottom": 240.52570343017578,
+            "left": -0.2469627559185028
+          },
+          "svgRect": {
+            "x": 0,
+            "y": 96,
+            "width": 320,
+            "height": 144.265625,
+            "top": 96,
+            "right": 320,
+            "bottom": 240.265625,
+            "left": 0
+          },
+          "dpr": 1,
+          "viewport": {
+            "width": 320,
+            "height": 720
+          },
+          "errors": [],
+          "screenshot": "reviews/round-01-independent/consumer-replay/chromium-four-phone320.png",
+          "nativeCanvas": "reviews/round-01-independent/consumer-replay/chromium-four-phone320-native.png",
+          "nativeCanvasSHA256": "54e5f849250216139bc1fb4b66113781a322ff46dda943c72f2e87cdeb273d44",
+          "originalScreenshot": "candidates/round-01/consumer/chromium-four-phone320.png",
+          "originalNativeCanvas": "candidates/round-01/consumer/chromium-four-phone320-native.png",
+          "originalSpriteRecords": [
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-E.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "E"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 480,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-W.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 736,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "W"
+            }
+          ],
+          "originalOrder": [
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock"
+          ],
+          "originalPlan": {
+            "x": -58.5,
+            "y": -218.5,
+            "width": 2218,
+            "height": 1002,
+            "scale": 2
+          },
+          "originalBounds": [
+            -57.6,
+            -217.6,
+            1107.2,
+            499.2
+          ]
+        },
+        {
+          "config": {
+            "name": "repeat-S-phone320",
+            "kind": "repeat",
+            "facing": "S",
+            "width": 320,
+            "height": 720
+          },
+          "bounds": [
+            -57.6,
+            -217.6,
+            499.2,
+            659.2
+          ],
+          "plan": {
+            "x": -58.5,
+            "y": -218.5,
+            "width": 1002,
+            "height": 1322,
+            "scale": 2
+          },
+          "spriteRecords": [
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            }
+          ],
+          "order": [
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock"
+          ],
+          "canvasSize": [
+            1002,
+            1322
+          ],
+          "cssCanvasRect": {
+            "x": -0.5763159990310669,
+            "y": 95.42308044433594,
+            "width": 321.1526184082031,
+            "height": 423.71630859375,
+            "top": 95.42308044433594,
+            "right": 320.57630240917206,
+            "bottom": 519.1393890380859,
+            "left": -0.5763159990310669
+          },
+          "svgRect": {
+            "x": 0,
+            "y": 96,
+            "width": 320,
+            "height": 422.5625,
+            "top": 96,
+            "right": 320,
+            "bottom": 518.5625,
+            "left": 0
+          },
+          "dpr": 1,
+          "viewport": {
+            "width": 320,
+            "height": 720
+          },
+          "errors": [],
+          "screenshot": "reviews/round-01-independent/consumer-replay/chromium-repeat-S-phone320.png",
+          "nativeCanvas": "reviews/round-01-independent/consumer-replay/chromium-repeat-S-phone320-native.png",
+          "nativeCanvasSHA256": "271ae38b23414d0ff966893d36d45e51e19b9d6bb5ad20e1428c6b64f8e07f33",
+          "originalScreenshot": "candidates/round-01/consumer/chromium-repeat-S-phone320.png",
+          "originalNativeCanvas": "candidates/round-01/consumer/chromium-repeat-S-phone320-native.png",
+          "originalSpriteRecords": [
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            }
+          ],
+          "originalOrder": [
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock"
+          ],
+          "originalPlan": {
+            "x": -58.5,
+            "y": -218.5,
+            "width": 1002,
+            "height": 1322,
+            "scale": 2
+          },
+          "originalBounds": [
+            -57.6,
+            -217.6,
+            499.2,
+            659.2
+          ]
+        },
+        {
+          "config": {
+            "name": "repeat-N-landscape",
+            "kind": "repeat",
+            "facing": "N",
+            "width": 1280,
+            "height": 720
+          },
+          "bounds": [
+            -57.6,
+            -217.6,
+            499.2,
+            659.2
+          ],
+          "plan": {
+            "x": -58.5,
+            "y": -218.5,
+            "width": 1002,
+            "height": 1322,
+            "scale": 2
+          },
+          "spriteRecords": [
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            }
+          ],
+          "order": [
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock"
+          ],
+          "canvasSize": [
+            1002,
+            1322
+          ],
+          "cssCanvasRect": {
+            "x": -2.3052639961242676,
+            "y": 65.69232940673828,
+            "width": 1284.6104736328125,
+            "height": 1694.865234375,
+            "top": 65.69232940673828,
+            "right": 1282.3052096366882,
+            "bottom": 1760.5575637817383,
+            "left": -2.3052639961242676
+          },
+          "svgRect": {
+            "x": 0,
+            "y": 68,
+            "width": 1280,
+            "height": 1690.25,
+            "top": 68,
+            "right": 1280,
+            "bottom": 1758.25,
+            "left": 0
+          },
+          "dpr": 1,
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "errors": [],
+          "screenshot": "reviews/round-01-independent/consumer-replay/chromium-repeat-N-landscape.png",
+          "nativeCanvas": "reviews/round-01-independent/consumer-replay/chromium-repeat-N-landscape-native.png",
+          "nativeCanvasSHA256": "fe9b4febd10b9a19f202d565d7b8d6e3ced73399b0784e21cae8b42a0de3727d",
+          "originalScreenshot": "candidates/round-01/consumer/chromium-repeat-N-landscape.png",
+          "originalNativeCanvas": "candidates/round-01/consumer/chromium-repeat-N-landscape-native.png",
+          "originalSpriteRecords": [
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            }
+          ],
+          "originalOrder": [
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock"
+          ],
+          "originalPlan": {
+            "x": -58.5,
+            "y": -218.5,
+            "width": 1002,
+            "height": 1322,
+            "scale": 2
+          },
+          "originalBounds": [
+            -57.6,
+            -217.6,
+            499.2,
+            659.2
+          ]
+        },
+        {
+          "config": {
+            "name": "context-phone320",
+            "kind": "context",
+            "width": 320,
+            "height": 720
+          },
+          "bounds": [
+            -57.6,
+            -185.6,
+            883.2,
+            723.2
+          ],
+          "plan": {
+            "x": -58.5,
+            "y": -186.5,
+            "width": 1770,
+            "height": 1450,
+            "scale": 2
+          },
+          "spriteRecords": [
+            {
+              "image": "sprites/submarine-yellow/travel-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                640,
+                768
+              ],
+              "frameSize": [
+                320,
+                384
+              ],
+              "root": [
+                160,
+                288
+              ],
+              "x": 160,
+              "y": -160,
+              "width": 320,
+              "height": 384,
+              "object": "submarine-yellow",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/creature-eel/swim-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                896,
+                1024
+              ],
+              "frameSize": [
+                448,
+                512
+              ],
+              "root": [
+                224,
+                352
+              ],
+              "x": 352,
+              "y": -96,
+              "width": 448,
+              "height": 512,
+              "object": "creature-eel",
+              "direction": "N"
+            }
+          ],
+          "order": [
+            "submarine-yellow",
+            "decor-background-rock",
+            "creature-eel"
+          ],
+          "canvasSize": [
+            1770,
+            1450
+          ],
+          "cssCanvasRect": {
+            "x": -0.31791219115257263,
+            "y": 95.67393493652344,
+            "width": 320.63580322265625,
+            "height": 262.66778564453125,
+            "top": 95.67393493652344,
+            "right": 320.3178910315037,
+            "bottom": 358.3417205810547,
+            "left": -0.31791219115257263
+          },
+          "svgRect": {
+            "x": 0,
+            "y": 96,
+            "width": 320,
+            "height": 262.015625,
+            "top": 96,
+            "right": 320,
+            "bottom": 358.015625,
+            "left": 0
+          },
+          "dpr": 1,
+          "viewport": {
+            "width": 320,
+            "height": 720
+          },
+          "errors": [],
+          "screenshot": "reviews/round-01-independent/consumer-replay/chromium-context-phone320.png",
+          "nativeCanvas": "reviews/round-01-independent/consumer-replay/chromium-context-phone320-native.png",
+          "nativeCanvasSHA256": "9ed81e6aefefc7087e99142398233e7c93d8d7285e59fbdb90551111811ebc4d",
+          "originalScreenshot": "candidates/round-01/consumer/chromium-context-phone320.png",
+          "originalNativeCanvas": "candidates/round-01/consumer/chromium-context-phone320-native.png",
+          "originalSpriteRecords": [
+            {
+              "image": "sprites/submarine-yellow/travel-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                640,
+                768
+              ],
+              "frameSize": [
+                320,
+                384
+              ],
+              "root": [
+                160,
+                288
+              ],
+              "x": 160,
+              "y": -160,
+              "width": 320,
+              "height": 384,
+              "object": "submarine-yellow",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/creature-eel/swim-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                896,
+                1024
+              ],
+              "frameSize": [
+                448,
+                512
+              ],
+              "root": [
+                224,
+                352
+              ],
+              "x": 352,
+              "y": -96,
+              "width": 448,
+              "height": 512,
+              "object": "creature-eel",
+              "direction": "N"
+            }
+          ],
+          "originalOrder": [
+            "submarine-yellow",
+            "decor-background-rock",
+            "creature-eel"
+          ],
+          "originalPlan": {
+            "x": -58.5,
+            "y": -186.5,
+            "width": 1770,
+            "height": 1450,
+            "scale": 2
+          },
+          "originalBounds": [
+            -57.6,
+            -185.6,
+            883.2,
+            723.2
+          ]
+        },
+        {
+          "config": {
+            "name": "context-landscape-fractional",
+            "kind": "context",
+            "width": 1280,
+            "height": 720,
+            "pan": 0.1875
+          },
+          "bounds": [
+            -57.4125,
+            -185.4125,
+            883.2,
+            723.2
+          ],
+          "plan": {
+            "x": -58,
+            "y": -186,
+            "width": 1769,
+            "height": 1449,
+            "scale": 2
+          },
+          "spriteRecords": [
+            {
+              "image": "sprites/submarine-yellow/travel-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                640,
+                768
+              ],
+              "frameSize": [
+                320,
+                384
+              ],
+              "root": [
+                160,
+                288
+              ],
+              "x": 160,
+              "y": -160,
+              "width": 320,
+              "height": 384,
+              "object": "submarine-yellow",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/creature-eel/swim-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                896,
+                1024
+              ],
+              "frameSize": [
+                448,
+                512
+              ],
+              "root": [
+                224,
+                352
+              ],
+              "x": 352,
+              "y": -96,
+              "width": 448,
+              "height": 512,
+              "object": "creature-eel",
+              "direction": "N"
+            }
+          ],
+          "order": [
+            "submarine-yellow",
+            "decor-background-rock",
+            "creature-eel"
+          ],
+          "canvasSize": [
+            1769,
+            1449
+          ],
+          "cssCanvasRect": {
+            "x": -0.8474342226982117,
+            "y": 67.14856719970703,
+            "width": 1281.8759765625,
+            "height": 1049.993408203125,
+            "top": 67.14856719970703,
+            "right": 1281.0285423398018,
+            "bottom": 1117.141975402832,
+            "left": -0.8474342226982117
+          },
+          "svgRect": {
+            "x": 0,
+            "y": 68,
+            "width": 1280,
+            "height": 1048.109375,
+            "top": 68,
+            "right": 1280,
+            "bottom": 1116.109375,
+            "left": 0
+          },
+          "dpr": 1,
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "errors": [],
+          "screenshot": "reviews/round-01-independent/consumer-replay/chromium-context-landscape-fractional.png",
+          "nativeCanvas": "reviews/round-01-independent/consumer-replay/chromium-context-landscape-fractional-native.png",
+          "nativeCanvasSHA256": "57d191e8039fa00699ba76204bcc95ba5e13706a64cd92b80355fd394be195ba",
+          "originalScreenshot": "candidates/round-01/consumer/chromium-context-landscape-fractional.png",
+          "originalNativeCanvas": "candidates/round-01/consumer/chromium-context-landscape-fractional-native.png",
+          "originalSpriteRecords": [
+            {
+              "image": "sprites/submarine-yellow/travel-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                640,
+                768
+              ],
+              "frameSize": [
+                320,
+                384
+              ],
+              "root": [
+                160,
+                288
+              ],
+              "x": 160,
+              "y": -160,
+              "width": 320,
+              "height": 384,
+              "object": "submarine-yellow",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/creature-eel/swim-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                896,
+                1024
+              ],
+              "frameSize": [
+                448,
+                512
+              ],
+              "root": [
+                224,
+                352
+              ],
+              "x": 352,
+              "y": -96,
+              "width": 448,
+              "height": 512,
+              "object": "creature-eel",
+              "direction": "N"
+            }
+          ],
+          "originalOrder": [
+            "submarine-yellow",
+            "decor-background-rock",
+            "creature-eel"
+          ],
+          "originalPlan": {
+            "x": -58,
+            "y": -186,
+            "width": 1769,
+            "height": 1449,
+            "scale": 2
+          },
+          "originalBounds": [
+            -57.4125,
+            -185.4125,
+            883.2,
+            723.2
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "headless-shell",
+      "launch": {
+        "headless": true
+      },
+      "browserVersion": "153.0.8010.12",
+      "cases": [
+        {
+          "config": {
+            "name": "four-logical-wide",
+            "kind": "four",
+            "width": 1128,
+            "height": 720
+          },
+          "bounds": [
+            -57.6,
+            -217.6,
+            1107.2,
+            499.2
+          ],
+          "plan": {
+            "x": -58.5,
+            "y": -218.5,
+            "width": 2218,
+            "height": 1002,
+            "scale": 2
+          },
+          "spriteRecords": [
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-E.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "E"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 480,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-W.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 736,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "W"
+            }
+          ],
+          "order": [
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock"
+          ],
+          "canvasSize": [
+            2218,
+            1002
+          ],
+          "cssCanvasRect": {
+            "x": -0.8996148109436035,
+            "y": 67.0831298828125,
+            "width": 1129.79931640625,
+            "height": 510.396240234375,
+            "top": 67.0831298828125,
+            "right": 1128.8997015953064,
+            "bottom": 577.4793701171875,
+            "left": -0.8996148109436035
+          },
+          "svgRect": {
+            "x": 0,
+            "y": 68,
+            "width": 1128,
+            "height": 508.5625,
+            "top": 68,
+            "right": 1128,
+            "bottom": 576.5625,
+            "left": 0
+          },
+          "dpr": 1,
+          "viewport": {
+            "width": 1128,
+            "height": 720
+          },
+          "errors": [],
+          "screenshot": "reviews/round-01-independent/consumer-replay/headless-shell-four-logical-wide.png",
+          "nativeCanvas": "reviews/round-01-independent/consumer-replay/headless-shell-four-logical-wide-native.png",
+          "nativeCanvasSHA256": "54e5f849250216139bc1fb4b66113781a322ff46dda943c72f2e87cdeb273d44",
+          "originalScreenshot": "candidates/round-01/consumer/headless-shell-four-logical-wide.png",
+          "originalNativeCanvas": "candidates/round-01/consumer/headless-shell-four-logical-wide-native.png",
+          "originalSpriteRecords": [
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-E.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "E"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 480,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-W.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 736,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "W"
+            }
+          ],
+          "originalOrder": [
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock"
+          ],
+          "originalPlan": {
+            "x": -58.5,
+            "y": -218.5,
+            "width": 2218,
+            "height": 1002,
+            "scale": 2
+          },
+          "originalBounds": [
+            -57.6,
+            -217.6,
+            1107.2,
+            499.2
+          ]
+        },
+        {
+          "config": {
+            "name": "four-phone320",
+            "kind": "four",
+            "width": 320,
+            "height": 720
+          },
+          "bounds": [
+            -57.6,
+            -217.6,
+            1107.2,
+            499.2
+          ],
+          "plan": {
+            "x": -58.5,
+            "y": -218.5,
+            "width": 2218,
+            "height": 1002,
+            "scale": 2
+          },
+          "spriteRecords": [
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-E.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "E"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 480,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-W.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 736,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "W"
+            }
+          ],
+          "order": [
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock"
+          ],
+          "canvasSize": [
+            2218,
+            1002
+          ],
+          "cssCanvasRect": {
+            "x": -0.2469627559185028,
+            "y": 95.73990631103516,
+            "width": 320.4939270019531,
+            "height": 144.78579711914062,
+            "top": 95.73990631103516,
+            "right": 320.2469642460346,
+            "bottom": 240.52570343017578,
+            "left": -0.2469627559185028
+          },
+          "svgRect": {
+            "x": 0,
+            "y": 96,
+            "width": 320,
+            "height": 144.265625,
+            "top": 96,
+            "right": 320,
+            "bottom": 240.265625,
+            "left": 0
+          },
+          "dpr": 1,
+          "viewport": {
+            "width": 320,
+            "height": 720
+          },
+          "errors": [],
+          "screenshot": "reviews/round-01-independent/consumer-replay/headless-shell-four-phone320.png",
+          "nativeCanvas": "reviews/round-01-independent/consumer-replay/headless-shell-four-phone320-native.png",
+          "nativeCanvasSHA256": "54e5f849250216139bc1fb4b66113781a322ff46dda943c72f2e87cdeb273d44",
+          "originalScreenshot": "candidates/round-01/consumer/headless-shell-four-phone320.png",
+          "originalNativeCanvas": "candidates/round-01/consumer/headless-shell-four-phone320-native.png",
+          "originalSpriteRecords": [
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-E.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "E"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 480,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-W.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 736,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "W"
+            }
+          ],
+          "originalOrder": [
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock"
+          ],
+          "originalPlan": {
+            "x": -58.5,
+            "y": -218.5,
+            "width": 2218,
+            "height": 1002,
+            "scale": 2
+          },
+          "originalBounds": [
+            -57.6,
+            -217.6,
+            1107.2,
+            499.2
+          ]
+        },
+        {
+          "config": {
+            "name": "repeat-S-phone320",
+            "kind": "repeat",
+            "facing": "S",
+            "width": 320,
+            "height": 720
+          },
+          "bounds": [
+            -57.6,
+            -217.6,
+            499.2,
+            659.2
+          ],
+          "plan": {
+            "x": -58.5,
+            "y": -218.5,
+            "width": 1002,
+            "height": 1322,
+            "scale": 2
+          },
+          "spriteRecords": [
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            }
+          ],
+          "order": [
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock"
+          ],
+          "canvasSize": [
+            1002,
+            1322
+          ],
+          "cssCanvasRect": {
+            "x": -0.5763159990310669,
+            "y": 95.42308044433594,
+            "width": 321.1526184082031,
+            "height": 423.71630859375,
+            "top": 95.42308044433594,
+            "right": 320.57630240917206,
+            "bottom": 519.1393890380859,
+            "left": -0.5763159990310669
+          },
+          "svgRect": {
+            "x": 0,
+            "y": 96,
+            "width": 320,
+            "height": 422.5625,
+            "top": 96,
+            "right": 320,
+            "bottom": 518.5625,
+            "left": 0
+          },
+          "dpr": 1,
+          "viewport": {
+            "width": 320,
+            "height": 720
+          },
+          "errors": [],
+          "screenshot": "reviews/round-01-independent/consumer-replay/headless-shell-repeat-S-phone320.png",
+          "nativeCanvas": "reviews/round-01-independent/consumer-replay/headless-shell-repeat-S-phone320-native.png",
+          "nativeCanvasSHA256": "271ae38b23414d0ff966893d36d45e51e19b9d6bb5ad20e1428c6b64f8e07f33",
+          "originalScreenshot": "candidates/round-01/consumer/headless-shell-repeat-S-phone320.png",
+          "originalNativeCanvas": "candidates/round-01/consumer/headless-shell-repeat-S-phone320-native.png",
+          "originalSpriteRecords": [
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            }
+          ],
+          "originalOrder": [
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock"
+          ],
+          "originalPlan": {
+            "x": -58.5,
+            "y": -218.5,
+            "width": 1002,
+            "height": 1322,
+            "scale": 2
+          },
+          "originalBounds": [
+            -57.6,
+            -217.6,
+            499.2,
+            659.2
+          ]
+        },
+        {
+          "config": {
+            "name": "repeat-N-landscape",
+            "kind": "repeat",
+            "facing": "N",
+            "width": 1280,
+            "height": 720
+          },
+          "bounds": [
+            -57.6,
+            -217.6,
+            499.2,
+            659.2
+          ],
+          "plan": {
+            "x": -58.5,
+            "y": -218.5,
+            "width": 1002,
+            "height": 1322,
+            "scale": 2
+          },
+          "spriteRecords": [
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            }
+          ],
+          "order": [
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock"
+          ],
+          "canvasSize": [
+            1002,
+            1322
+          ],
+          "cssCanvasRect": {
+            "x": -2.3052639961242676,
+            "y": 65.69232940673828,
+            "width": 1284.6104736328125,
+            "height": 1694.865234375,
+            "top": 65.69232940673828,
+            "right": 1282.3052096366882,
+            "bottom": 1760.5575637817383,
+            "left": -2.3052639961242676
+          },
+          "svgRect": {
+            "x": 0,
+            "y": 68,
+            "width": 1280,
+            "height": 1690.25,
+            "top": 68,
+            "right": 1280,
+            "bottom": 1758.25,
+            "left": 0
+          },
+          "dpr": 1,
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "errors": [],
+          "screenshot": "reviews/round-01-independent/consumer-replay/headless-shell-repeat-N-landscape.png",
+          "nativeCanvas": "reviews/round-01-independent/consumer-replay/headless-shell-repeat-N-landscape-native.png",
+          "nativeCanvasSHA256": "fe9b4febd10b9a19f202d565d7b8d6e3ced73399b0784e21cae8b42a0de3727d",
+          "originalScreenshot": "candidates/round-01/consumer/headless-shell-repeat-N-landscape.png",
+          "originalNativeCanvas": "candidates/round-01/consumer/headless-shell-repeat-N-landscape-native.png",
+          "originalSpriteRecords": [
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -192,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 96,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": 224,
+              "y": 64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "N"
+            }
+          ],
+          "originalOrder": [
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock",
+            "decor-background-rock"
+          ],
+          "originalPlan": {
+            "x": -58.5,
+            "y": -218.5,
+            "width": 1002,
+            "height": 1322,
+            "scale": 2
+          },
+          "originalBounds": [
+            -57.6,
+            -217.6,
+            499.2,
+            659.2
+          ]
+        },
+        {
+          "config": {
+            "name": "context-phone320",
+            "kind": "context",
+            "width": 320,
+            "height": 720
+          },
+          "bounds": [
+            -57.6,
+            -185.6,
+            883.2,
+            723.2
+          ],
+          "plan": {
+            "x": -58.5,
+            "y": -186.5,
+            "width": 1770,
+            "height": 1450,
+            "scale": 2
+          },
+          "spriteRecords": [
+            {
+              "image": "sprites/submarine-yellow/travel-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                640,
+                768
+              ],
+              "frameSize": [
+                320,
+                384
+              ],
+              "root": [
+                160,
+                288
+              ],
+              "x": 160,
+              "y": -160,
+              "width": 320,
+              "height": 384,
+              "object": "submarine-yellow",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/creature-eel/swim-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                896,
+                1024
+              ],
+              "frameSize": [
+                448,
+                512
+              ],
+              "root": [
+                224,
+                352
+              ],
+              "x": 352,
+              "y": -96,
+              "width": 448,
+              "height": 512,
+              "object": "creature-eel",
+              "direction": "N"
+            }
+          ],
+          "order": [
+            "submarine-yellow",
+            "decor-background-rock",
+            "creature-eel"
+          ],
+          "canvasSize": [
+            1770,
+            1450
+          ],
+          "cssCanvasRect": {
+            "x": -0.31791219115257263,
+            "y": 95.67393493652344,
+            "width": 320.63580322265625,
+            "height": 262.66778564453125,
+            "top": 95.67393493652344,
+            "right": 320.3178910315037,
+            "bottom": 358.3417205810547,
+            "left": -0.31791219115257263
+          },
+          "svgRect": {
+            "x": 0,
+            "y": 96,
+            "width": 320,
+            "height": 262.015625,
+            "top": 96,
+            "right": 320,
+            "bottom": 358.015625,
+            "left": 0
+          },
+          "dpr": 1,
+          "viewport": {
+            "width": 320,
+            "height": 720
+          },
+          "errors": [],
+          "screenshot": "reviews/round-01-independent/consumer-replay/headless-shell-context-phone320.png",
+          "nativeCanvas": "reviews/round-01-independent/consumer-replay/headless-shell-context-phone320-native.png",
+          "nativeCanvasSHA256": "9ed81e6aefefc7087e99142398233e7c93d8d7285e59fbdb90551111811ebc4d",
+          "originalScreenshot": "candidates/round-01/consumer/headless-shell-context-phone320.png",
+          "originalNativeCanvas": "candidates/round-01/consumer/headless-shell-context-phone320-native.png",
+          "originalSpriteRecords": [
+            {
+              "image": "sprites/submarine-yellow/travel-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                640,
+                768
+              ],
+              "frameSize": [
+                320,
+                384
+              ],
+              "root": [
+                160,
+                288
+              ],
+              "x": 160,
+              "y": -160,
+              "width": 320,
+              "height": 384,
+              "object": "submarine-yellow",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/creature-eel/swim-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                896,
+                1024
+              ],
+              "frameSize": [
+                448,
+                512
+              ],
+              "root": [
+                224,
+                352
+              ],
+              "x": 352,
+              "y": -96,
+              "width": 448,
+              "height": 512,
+              "object": "creature-eel",
+              "direction": "N"
+            }
+          ],
+          "originalOrder": [
+            "submarine-yellow",
+            "decor-background-rock",
+            "creature-eel"
+          ],
+          "originalPlan": {
+            "x": -58.5,
+            "y": -186.5,
+            "width": 1770,
+            "height": 1450,
+            "scale": 2
+          },
+          "originalBounds": [
+            -57.6,
+            -185.6,
+            883.2,
+            723.2
+          ]
+        },
+        {
+          "config": {
+            "name": "context-landscape-fractional",
+            "kind": "context",
+            "width": 1280,
+            "height": 720,
+            "pan": 0.1875
+          },
+          "bounds": [
+            -57.4125,
+            -185.4125,
+            883.2,
+            723.2
+          ],
+          "plan": {
+            "x": -58,
+            "y": -186,
+            "width": 1769,
+            "height": 1449,
+            "scale": 2
+          },
+          "spriteRecords": [
+            {
+              "image": "sprites/submarine-yellow/travel-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                640,
+                768
+              ],
+              "frameSize": [
+                320,
+                384
+              ],
+              "root": [
+                160,
+                288
+              ],
+              "x": 160,
+              "y": -160,
+              "width": 320,
+              "height": 384,
+              "object": "submarine-yellow",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/creature-eel/swim-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                896,
+                1024
+              ],
+              "frameSize": [
+                448,
+                512
+              ],
+              "root": [
+                224,
+                352
+              ],
+              "x": 352,
+              "y": -96,
+              "width": 448,
+              "height": 512,
+              "object": "creature-eel",
+              "direction": "N"
+            }
+          ],
+          "order": [
+            "submarine-yellow",
+            "decor-background-rock",
+            "creature-eel"
+          ],
+          "canvasSize": [
+            1769,
+            1449
+          ],
+          "cssCanvasRect": {
+            "x": -0.8474342226982117,
+            "y": 67.14856719970703,
+            "width": 1281.8759765625,
+            "height": 1049.993408203125,
+            "top": 67.14856719970703,
+            "right": 1281.0285423398018,
+            "bottom": 1117.141975402832,
+            "left": -0.8474342226982117
+          },
+          "svgRect": {
+            "x": 0,
+            "y": 68,
+            "width": 1280,
+            "height": 1048.109375,
+            "top": 68,
+            "right": 1280,
+            "bottom": 1116.109375,
+            "left": 0
+          },
+          "dpr": 1,
+          "viewport": {
+            "width": 1280,
+            "height": 720
+          },
+          "errors": [],
+          "screenshot": "reviews/round-01-independent/consumer-replay/headless-shell-context-landscape-fractional.png",
+          "nativeCanvas": "reviews/round-01-independent/consumer-replay/headless-shell-context-landscape-fractional-native.png",
+          "nativeCanvasSHA256": "57d191e8039fa00699ba76204bcc95ba5e13706a64cd92b80355fd394be195ba",
+          "originalScreenshot": "candidates/round-01/consumer/headless-shell-context-landscape-fractional.png",
+          "originalNativeCanvas": "candidates/round-01/consumer/headless-shell-context-landscape-fractional-native.png",
+          "originalSpriteRecords": [
+            {
+              "image": "sprites/submarine-yellow/travel-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                640,
+                768
+              ],
+              "frameSize": [
+                320,
+                384
+              ],
+              "root": [
+                160,
+                288
+              ],
+              "x": 160,
+              "y": -160,
+              "width": 320,
+              "height": 384,
+              "object": "submarine-yellow",
+              "direction": "N"
+            },
+            {
+              "image": "sprites/decor-background-rock/static-S.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                384,
+                704
+              ],
+              "frameSize": [
+                192,
+                352
+              ],
+              "root": [
+                96,
+                256
+              ],
+              "x": -32,
+              "y": -64,
+              "width": 192,
+              "height": 352,
+              "object": "decor-background-rock",
+              "direction": "S"
+            },
+            {
+              "image": "sprites/creature-eel/swim-N.png",
+              "frame": 0,
+              "rect": [
+                0,
+                0,
+                896,
+                1024
+              ],
+              "frameSize": [
+                448,
+                512
+              ],
+              "root": [
+                224,
+                352
+              ],
+              "x": 352,
+              "y": -96,
+              "width": 448,
+              "height": 512,
+              "object": "creature-eel",
+              "direction": "N"
+            }
+          ],
+          "originalOrder": [
+            "submarine-yellow",
+            "decor-background-rock",
+            "creature-eel"
+          ],
+          "originalPlan": {
+            "x": -58,
+            "y": -186,
+            "width": 1769,
+            "height": 1449,
+            "scale": 2
+          },
+          "originalBounds": [
+            -57.4125,
+            -185.4125,
+            883.2,
+            723.2
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Independent replay of the same six frozen cases/mode from exact sealed HTML and exact helper/atlas input bytes. No new matrix/cases; not React/Godot/device execution."
+}

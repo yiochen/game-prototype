@@ -1,0 +1,31 @@
+{
+  "pathBase": "object root",
+  "blender": "/opt/homebrew/bin/blender5.2.2 LTS d13f752e3b9c",
+  "pythonForPublication": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+  "node": "node from current worktree environment; actual version in consumer/results.json",
+  "steps": [
+    "blender --background --factory-startup --python-exit-code 1 --python source/reproduce-round-01.py",
+    "bundled-python source/publish-and-studies-round-01.py",
+    "DEBUG=pw:browser node source/capture-consumer-round-01.mjs",
+    "blender --background --factory-startup --python source/reproduce-round-01.py -- --replay --output candidates/round-01/replay",
+    "blender --background --factory-startup --python source/support-audit-round-01.py",
+    "bundled-python source/complete-handoff-round-01.py"
+  ],
+  "externalNativeTexturesOrLibraries": [],
+  "sourceProject": {
+    "path": "source/round-01.blend",
+    "sha256": "f59fbb1aa5e6d45ea0dde0c916ab523d60bf63c748ccf650813072d4c46efd4d",
+    "bytes": 113613
+  },
+  "nativeCaptureStage": "Source savedS before rendering; per-facing actual rotations recorded. Clean saved-source replay compared decoded pixels for all4.",
+  "failedAttempts": [
+    {
+      "path": "source/attempts/round-01-attempt-01",
+      "reason": "Initial measurement logger encountered Boolean empty material slot; failed source/recipe/log retained. Corrected recipe removes emptyslots before saving. No failed attempt frames submitted."
+    }
+  ],
+  "toolNotes": [
+    "System python3 lacks Pillow. Publication/studies ran with bundled dependency Python; initial import failure produced no image output.",
+    "Headless Mac Chromium emits display-link errors in the launch log; all12 page captures report zero pageerrors. No desktop or live app accessed."
+  ]
+}

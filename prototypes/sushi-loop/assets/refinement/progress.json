@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 102,
-  "completed": 93,
-  "published": 92,
-  "current": "rock-half-width",
+  "completed": 94,
+  "published": 93,
+  "current": "decor-background-rock",
   "objects": [
     {
       "id": "plant-angular",
@@ -1469,7 +1469,7 @@
       "name": "Half-width rock barrier",
       "kind": "terrain",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
@@ -1479,10 +1479,12 @@
       "editor": "catalog_rock_half_width_editor_v1",
       "judge": "catalog_rock_half_width_judge_v1",
       "editorStatus": "completed-round-05",
-      "stage": "release-checks-round05",
+      "stage": "published-round05",
       "briefSHA256": "73f2cef927fc54ed4d97853b326b321928b33383c9ebb6802bee9ae513f96244",
       "round": "round-05",
-      "packetSHA256": "5226d4858879f87f0883cadab87959bc4269f21c6ed7aa2374cd590ef1bec24f"
+      "packetSHA256": "5226d4858879f87f0883cadab87959bc4269f21c6ed7aa2374cd590ef1bec24f",
+      "commit": "53ed61e41ddc49b93ff8d78d0bd141afa662b51c",
+      "netlifyDeployId": "6ada90c8b8f40773dad3ebd8"
     },
     {
       "id": "boulder-underwater",
@@ -1626,7 +1628,7 @@
       "name": "Quiet background rock",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "approved",
       "clips": 1,
       "frames": 4,
       "target": "inputs/target.png",
@@ -1634,8 +1636,8 @@
       "editor": "catalog_decor_background_rock_editor_v1",
       "judge": "catalog_decor_background_rock_judge_v1",
       "editorStatus": "completed-round-01",
-      "judgeStatus": "reviewing-round-01",
-      "stage": "native-background-rock-round01",
+      "judgeStatus": "approved-round-01",
+      "stage": "release-checks-round01",
       "briefSHA256": "2b845e5ac3055e3bb0b34dbd0e6fd1f5cb684da3da18c741137c20a8bc7d4607",
       "round": "round-01",
       "packetSHA256": "20f3fe4297877ecc50affda4574c2ade50482e7068bd9d457fbfb3e6ff2bc54c"
@@ -1650,11 +1652,13 @@
       "frames": 4,
       "target": "inputs/target.png",
       "judge": "catalog_decor_background_wreck_judge_v1",
-      "judgeStatus": "prepared-awaiting-candidate",
-      "editorStatus": "starting-construction",
-      "stage": "native-background-wreck-round01",
+      "judgeStatus": "revise-round-01",
+      "editorStatus": "revising-round-02",
+      "stage": "revising-round02",
       "editor": "catalog_decor_background_wreck_editor_v1",
-      "briefSHA256": "0d70f621d013e2ca2b99c392f1dd4f86bffe778dba5f9d3b2c556dfd722ecb2d"
+      "briefSHA256": "0d70f621d013e2ca2b99c392f1dd4f86bffe778dba5f9d3b2c556dfd722ecb2d",
+      "round": "round-01",
+      "packetSHA256": "f9524d3dffbb1bf59c29cfa9d634e2e438ed46f40731651e322a8081844a254c"
     },
     {
       "id": "decor-background-fish",
@@ -1799,14 +1803,16 @@
       "name": "Metal fragment",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "editing",
       "clips": 9,
       "frames": 432,
       "target": "inputs/target.png",
-      "judgeStatus": "preparing",
-      "editorStatus": "not-started",
-      "stage": "independent-native-preparation",
-      "preparationJudge": "catalog_salvage_metal_judge_v1"
+      "judgeStatus": "prepared-awaiting-candidate",
+      "editorStatus": "starting-construction",
+      "stage": "native-salvage-round01",
+      "editor": "catalog_salvage_metal_editor_v1",
+      "judge": "catalog_salvage_metal_judge_v1",
+      "briefSHA256": "937f00cdcde660c6ce0764cfade2973b3476637c269a9e47acedb60cdb47510b"
     },
     {
       "id": "route-current",
@@ -1880,7 +1886,12 @@
       "status": "prepared",
       "clips": 11,
       "frames": 528,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "judgeStatus": "prepared-awaiting-root-freeze",
+      "editorStatus": "independent-initial-inspection",
+      "stage": "independent-editor-initial-before-freeze",
+      "editor": "catalog_creature_eel_editor_v1",
+      "judge": "catalog_creature_eel_judge_v1"
     },
     {
       "id": "creature-fish",
