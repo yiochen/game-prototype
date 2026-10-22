@@ -1,16 +1,49 @@
 {
   "asset": "chef-lena",
-  "round": 2,
-  "status": "technical audit complete; independent visual verdict pending",
+  "round": 4,
+  "nativeArtRound": 3,
+  "evidenceOnly": true,
+  "status": "technical qualification complete; independent judge pending",
   "ok": true,
-  "blenderVersion": "5.2.2 LTS",
-  "source": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-lena/source/round-02.blend",
-  "sourceSHA256": "4f81f6e29a8b587ea03bf4a22e6ac4762585aea643bad7569c5a4506ea7a0073",
-  "renderCount": 192,
-  "renderManifest": "native-frames.json",
-  "clipCount": 16,
+  "source": "source/round-03.blend",
+  "sourceSHA256": "0bb3a656a5194329292663166623edc7fbc823d4d5b85ebffcbb0d094fc31dce",
+  "approvedBodySourceSHA256": "4f81f6e29a8b587ea03bf4a22e6ac4762585aea643bad7569c5a4506ea7a0073",
+  "frozenBrief": {
+    "path": "brief-v4-held-food-native-repeatability.json",
+    "sha256": "2060f5caad378986e4a1c01f1ba71803dbfda9c98ac73b0a8daa1d56723cd0d7"
+  },
+  "criteria": {
+    "path": "reviews/proposedcriteria-held-food-v4-alpha-repeatability.json",
+    "sha256": "55c37e8d27918dd35589ba8c37c30be7a0b7e90f1509ce8fd619ed2aaac03e10",
+    "version": "held-food-v4-exact-sample-repeatability-1"
+  },
+  "nativeCaptureScale": 2,
+  "sourceScale": 2,
+  "publishedSourceScale": 2,
+  "nativeFrame": [
+    384,
+    640
+  ],
+  "publishedFrame": [
+    384,
+    640
+  ],
+  "logicalFrame": [
+    192,
+    320
+  ],
+  "logicalRoot": [
+    96,
+    248
+  ],
+  "pixelAspect": [
+    1,
+    1
+  ],
   "fps": 12,
-  "nativeStateFrames": 12,
+  "renderCount": 192,
+  "clipCount": 16,
+  "atlasCount": 16,
   "camera": {
     "worldMatrix": [
       [
@@ -68,14 +101,274 @@
       -209.7029685974121
     ]
   },
+  "renderSettings": {
+    "engine": "CYCLES",
+    "device": "GPU",
+    "samples": 64,
+    "denoise": true,
+    "filter": "BOX1",
+    "viewTransform": "AgX",
+    "look": "AgX - Medium High Contrast",
+    "exposure": 0.3499999940395355
+  },
+  "renderManifest": "../../round-03/native-frames.json",
+  "renderManifestSHA256": "fe771bed646387130562b444443aebbe5e3ce5c54326c72bd19996d282e20d8b",
+  "actualRootMatrixAudit": {
+    "path": "candidates/round-03/native-frames.json",
+    "sha256": "fe771bed646387130562b444443aebbe5e3ce5c54326c72bd19996d282e20d8b",
+    "coverage": "All192 actual root/camera matrices; S0/E90/N180/W-90 native; one shared35degree square-pixel camera"
+  },
+  "contactManifest": "../../round-03/evaluated-contacts.json",
+  "nativeControlLedger": {
+    "path": "candidates/round-04/control-native-frames.json",
+    "sha256": "bf51578abb472a30f5ae217cd72b154c26cc6879b08f975fe39b93eddcd94ac2",
+    "frames": 192,
+    "actualRootCameraFoodMatrices": true,
+    "candidateBodyUsedToConstructControls": false,
+    "approved02OnlyPatch": true,
+    "physicalMeshFrameComparisons": 16320
+  },
+  "publicationSampling": "Identity: full native384x640 RGBA already published scale2, no fitting/resampling/regrade; lossless unmasked atlas paste only. Native and published records remain logical192x320/root96,248.",
+  "allAtlasFramesPixelExact": true,
+  "allVideosExact12fps12Frames": true,
+  "allShippingSourceFrameAtlasPlaybackBytesUnchanged": true,
+  "allPriorArtifactsUnchanged": true,
+  "reuseIntegrity": "reuse-integrity.json",
+  "previewManifest": "preview-manifest.json",
+  "atlasManifest": "../../round-03/atlas-manifest.json",
+  "strictV3Result": {
+    "originalLedger": "candidates/round-04/controlled-comparison.json",
+    "originalLedgerSHA256": "08a73bbf37e190021cef2c2fed0b6a486f777436125befdcf0b8f5cfbed9c067",
+    "originalLedgerBytesUnchanged": true,
+    "originalAll192Pass": false,
+    "recomputedAll192Pass": false,
+    "recomputedFailurePixels": 1,
+    "allRawAlphaDifferences": [
+      {
+        "key": [
+          "hold",
+          "W",
+          7
+        ],
+        "nativeXY": [
+          109,
+          388
+        ],
+        "controlOrReplayRGBA": [
+          139,
+          106,
+          32,
+          60
+        ],
+        "immutableShippingRGBA": [
+          139,
+          106,
+          32,
+          59
+        ],
+        "differenceRGBA": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "namedRuleEvaluated": true,
+        "finiteWholeRGBAMembership": true,
+        "nativeStateGuardSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7",
+        "qualified": true
+      }
+    ],
+    "meaning": "The original strictv3 exact-alpha test still fails1. Its false boolean and failed native control remain immutable."
+  },
+  "frozenV4Result": {
+    "nativeRepeatabilityRule": {
+      "id": "lena-hold-W7-native109-388-observed-repeatability",
+      "clip": "hold",
+      "facing": "W",
+      "index": 7,
+      "blenderFrame": 8,
+      "nativeFrameSize": [
+        384,
+        640
+      ],
+      "nativeXY": [
+        109,
+        388
+      ],
+      "channel": "A",
+      "immutableShippingRGBA": [
+        139,
+        106,
+        32,
+        59
+      ],
+      "immutableShippingPNG_SHA256": "ff64ade0f436972e73396636d5be87ffbe9beb138d65e5d6750be53ae5b20264",
+      "acceptedNativeControlAndReplayRGBAValues": [
+        [
+          139,
+          106,
+          32,
+          59
+        ],
+        [
+          139,
+          106,
+          32,
+          60
+        ]
+      ],
+      "nativeStateSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7",
+      "maximumObservedAlphaDifference": 1,
+      "meaning": "Compare this pixel explicitly to the two observed wholeRGBA values under exactly the recorded native phase/state. This is not a general\u00b11alpha tolerance. Shipping bytes themselves remain fixed; only a new native comparison/replay output may take either observed value.",
+      "guards": [
+        "Exact current source03 hash0bb3a656a5194329292663166623edc7fbc823d4d5b85ebffcbb0d094fc31dce and approved02 hash4f81f6e29a8b587ea03bf4a22e6ac4762585aea643bad7569c5a4506ea7a0073 remain bound.",
+        "CanonicalRGBA, fullUV/aspect, width/bottom/drivers, food shader/ray flags, all physical meshes/rig/poses/actions/material/world/light/camera/render settings remain exact. Retain all16320 native mesh-frame comparisons.",
+        "Same full-precision snapshot schema must recompute to the recorded hash, preserving float32 bytes and lossless hex scalars; no rounding or undisclosed exclusions beyond output filepath.",
+        "No exception for adjacent pixels, another state/facing/frame, anotherRGBA value, a changed seed/device/render configuration, or a changed native state. Any such delta fails pending separately authorized analysis."
+      ]
+    },
+    "nativeStateGuard": {
+      "currentNativeStateSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7",
+      "freshMeasurements": [
+        {
+          "path": "candidates/round-04/v4/native-guards/approved02-control.json",
+          "sha256": "b04652851bdf2b0041e00adcb6649b62cf77ac6c673599266e7b78da55992083",
+          "sourceSHA256": "4f81f6e29a8b587ea03bf4a22e6ac4762585aea643bad7569c5a4506ea7a0073",
+          "independentApproved02Patch": true
+        },
+        {
+          "path": "candidates/round-04/v4/native-guards/unchanged03.json",
+          "sha256": "62fe03be90442004a95085b2fbe2b38bda2935f58e7479f3e320683565bedc8f",
+          "sourceSHA256": "0bb3a656a5194329292663166623edc7fbc823d4d5b85ebffcbb0d094fc31dce",
+          "independentApproved02Patch": false
+        }
+      ],
+      "originalFrameStateMatchedFreshGuard": true,
+      "matchedFields": [
+        "evaluated food matrix/worldvertices/fullUV",
+        "top-only localvertices",
+        "root/camera matrices",
+        "drivers/ray flags",
+        "native frame/seed/device/samples/view/look/exposure/gamma"
+      ],
+      "boundSourceAndConstructionReconstructRemainingNativeSettingsExactly": true
+    },
+    "comparedFullFrames": 192,
+    "comparedPixels": 47185920,
+    "comparedRGBAChannelValues": 188743680,
+    "maximumRawRGBA": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "allFullFrameRGBWithinOne": true,
+    "allOtherAlphaExact": true,
+    "violations": [],
+    "violationCount": 0,
+    "all192Qualified": true,
+    "zeroViolationsAcrossControlsRepeatsGuardsReplays": true,
+    "everyRawDifferenceRetained": true,
+    "noMasksOrGeneralAlphaTolerance": true,
+    "shippingBytesReplacedOrRepaired": false
+  },
+  "dualQualification": {
+    "path": "qualification.json",
+    "sha256": "a9d89df9ff4d0985bb0c4593f1740b6fc9947e454434e98fc52526f238a338b0",
+    "strictV3StillFailsOne": true,
+    "v4ZeroViolations": true
+  },
+  "physicalBodyKnifeSemanticParity": {
+    "path": "candidates/round-03/semantic-parity.json",
+    "sha256": "4c1e64a70df3a8e81bdebcc5be8285794d784cb40bc12585141402164c71938f",
+    "physicalMeshes": 85,
+    "frames": 192,
+    "meshFrameComparisons": 16320,
+    "physicalExact": true,
+    "maximumAbsoluteDifferences": {
+      "local": 0.0,
+      "world": 0.0,
+      "normal": 0.0,
+      "worldNormal": 0.0,
+      "matrix": 0.0,
+      "pose": 0.0,
+      "bottomWorld": 0.0,
+      "bottomPixels": 0.0,
+      "rootMatrix": 0.0
+    }
+  },
+  "nativeControlPhysicalParity": {
+    "meshFrameComparisons": 16320,
+    "mismatches": [],
+    "allExact": true
+  },
+  "canonicalFood": {
+    "path": "candidates/round-04/resources/dish-salmon.png",
+    "sha256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+    "packedNativeSource": "source/round-03.blend",
+    "foodNativeRecords": "candidates/round-03/food-native-records.json",
+    "constructionProof": "candidates/round-04/control-construction.json",
+    "rawDelta": "candidates/round-03/food-delta-build.json",
+    "fullUV": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "size": [
+      731,
+      505
+    ],
+    "worldWidth": 0.3500000014901161,
+    "worldHeight": 0.24179207161068916,
+    "bottomWorldAndPixelExact": true,
+    "originalCameraRayOffset": 0.6,
+    "driverShaderRayStateUnchanged": true
+  },
+  "retainedOldInputRadiance": {
+    "path": "candidates/round-03/pixel-comparison.json",
+    "sha256": "d7bc9ac0b25a74b5861fb6f4687e0fa8ea1d12c1e33f78d62b4b4cf1f8ab32ce",
+    "worstPointLedger": "candidates/round-04/old-input-residual-ledger.json",
+    "worstKnownPoint": "candidates/round-04/worst-known-point.json",
+    "meaning": "Real old-food/current-food nonfood radiance differences remain quantified and visibly judged; not replay noise."
+  },
+  "nativeRepeatEvidence": {
+    "editor36": "candidates/round-04/alpha-causal-evidence.json",
+    "judge24": "reviews/alpha-repeatability-held-food-v3-assessment.json",
+    "all60SnapshotHashesRecomputed": true,
+    "newNativeGuardCount": 2,
+    "nativeStateSHA256": "184db5190bd9e851747fa2e642a6b8f14a826b5cbf8660cd5ba714ab6ab508b7"
+  },
+  "freshSourceReplays": {
+    "path": "candidates/round-04/replay-manifest.json",
+    "frames": 6,
+    "qualifiedIn": "qualification.json"
+  },
+  "nativeRecords": {
+    "camera": "candidates/round-04/v4/records/camera.json",
+    "assetRecord": "candidates/round-04/v4/records/assetRecord.json",
+    "rig": "candidates/round-04/v4/records/rig.json"
+  },
+  "technicalPassMeaning": "Separate raw strictv3=false remains. Frozenv4 checks the exact finite wholeRGBA/state guard at one sample and exact alpha everywhere else, full-frameRGB<=1 including zero-alpha RGB. No visual self-approval, masked pixel, general alpha tolerance, source save, render change or favorable-run replacement.",
   "restMatrixMaxDifference": 0.0,
   "boneMatrixMaxDifferenceToOriginal": 0.0,
-  "palmCentroidMaxDifferenceToOriginalWorld": 4.778873775403015e-07,
+  "palmCentroidMaxDifferenceToOriginalWorld": 0.0,
   "footBoundsMaxDifferenceToOriginalWorld": 0.0,
   "attachmentMatrixMaxDifferenceToOriginal": 0.0,
   "workKnifeToActualPalmMaxWorldError": 1.6323404237781945e-07,
   "contactToleranceWorld": 0.002,
-  "contactManifest": "evaluated-contacts.json",
   "topologyInvariantPerObject": {
     "chef_lena__tailored_tunic.002": [
       528,
@@ -702,43 +995,7 @@
       ]
     }
   },
-  "images": [
-    {
-      "name": "dish-salmon.png",
-      "path": "//dependencies/dish-salmon.png",
-      "packed": true,
-      "packedSHA256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe"
-    }
-  ],
   "linkedLibraries": [],
-  "renderSettings": {
-    "engine": "CYCLES",
-    "device": "GPU",
-    "samples": 64,
-    "denoise": true,
-    "filter": "BOX1",
-    "viewTransform": "AgX",
-    "look": "AgX - Medium High Contrast",
-    "exposure": 0.3499999940395355
-  },
-  "representation": {
-    "chef": "native3D",
-    "knife": "native3D",
-    "heldDish": "separate packed original2D with original action and cancellation/depth drivers"
-  },
-  "limits": [
-    "Natural source-consistent north body occlusion is retained; evaluated attachment matrices checked directly",
-    "No gameplay serving behavior authored or altered; exact original baked load action retained"
-  ],
-  "atlasCount": 16,
-  "allAtlasFramesPixelExact": true,
-  "alphaClippedFrames": [],
-  "videoCount": 16,
-  "allVideosExact12fps12Frames": true,
-  "backgroundSheets": 48,
-  "previewManifest": "preview-manifest.json",
-  "atlasManifest": "atlas-manifest.json",
-  "sourceConsistentBeltContext": "Source and candidate use original128px catalog pitch; original load action ends holding; gameplay then transfers ownership. No separate authoritative beltLoad transform exists.",
   "restNativeBodyBounds": [
     [
       -0.4071885943412781,
@@ -1425,10 +1682,6 @@
   "sceneObjectCount": 96,
   "chefObjectCount": 90,
   "boneCount": 25,
-  "sceneCollectionNames": [
-    "S33_CHARACTER_chef_lena.002"
-  ],
-  "sceneCamera": "Lena01 registered35 camera",
   "actualLights": [
     {
       "name": "Lena01 symmetric area 0",
@@ -1507,104 +1760,19 @@
     }
   ],
   "environmentStrength": 0.25,
-  "finalMainfileReproduction": {
-    "source": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/chef-lena/source/round-02.blend",
-    "sourceSHA256": "4f81f6e29a8b587ea03bf4a22e6ac4762585aea643bad7569c5a4506ea7a0073",
-    "operation": "Fresh reopening final saved round02 source and rendering native representative state/facing frames.",
-    "frames": [
-      {
-        "clip": "idle",
-        "direction": "S",
-        "index": 0,
-        "path": "candidates/round-02/reproduction/idle-S-0.png",
-        "sha256": "ab83458d6bc3dedb58aa61caad40c6ce1328a882f8c76b9eb7cfc586683cb05c",
-        "reference": "candidates/round-02/frames/idle-S/000.png",
-        "maxChannelDifference8bit": [
-          1,
-          1,
-          1,
-          0
-        ],
-        "changedPixels": 11,
-        "exactRGBAReproduction": false,
-        "alphaExact": true,
-        "withinReproductionTolerance": true
-      },
-      {
-        "clip": "work",
-        "direction": "E",
-        "index": 5,
-        "path": "candidates/round-02/reproduction/work-E-5.png",
-        "sha256": "d97179bfc6a95f75ee6220471834b0df8ca7f1927835d6677f634d64810c09dd",
-        "reference": "candidates/round-02/frames/work-E/005.png",
-        "maxChannelDifference8bit": [
-          1,
-          1,
-          1,
-          0
-        ],
-        "changedPixels": 11,
-        "exactRGBAReproduction": false,
-        "alphaExact": true,
-        "withinReproductionTolerance": true
-      },
-      {
-        "clip": "hold",
-        "direction": "W",
-        "index": 5,
-        "path": "candidates/round-02/reproduction/hold-W-5.png",
-        "sha256": "d62d2d108d2ff9313106fe949d6a977111fc5dc43345230c79e62f6e26df8761",
-        "reference": "candidates/round-02/frames/hold-W/005.png",
-        "maxChannelDifference8bit": [
-          1,
-          1,
-          1,
-          0
-        ],
-        "changedPixels": 10,
-        "exactRGBAReproduction": false,
-        "alphaExact": true,
-        "withinReproductionTolerance": true
-      },
-      {
-        "clip": "load",
-        "direction": "N",
-        "index": 11,
-        "path": "candidates/round-02/reproduction/load-N-11.png",
-        "sha256": "6a673342b27bfe3a56d1b2095b525d0b60b391b4f9658f0c932230295600928e",
-        "reference": "candidates/round-02/frames/load-N/011.png",
-        "maxChannelDifference8bit": [
-          1,
-          1,
-          1,
-          0
-        ],
-        "changedPixels": 12,
-        "exactRGBAReproduction": false,
-        "alphaExact": true,
-        "withinReproductionTolerance": true
-      }
-    ],
-    "allExactRGBAReproduction": false,
-    "allWithinReproductionTolerance": true,
-    "tolerance": {
-      "RGB8bitMaxDifference": 1,
-      "alphaMaxDifference": 0,
-      "reason": "Native Metal path tracing/denoising may round a small number of RGB channels by one8bit step across process runs. Native source is saved before every delivered capture; no exported pixels modified."
-    }
-  },
-  "revisionDelta": "revision-delta.json",
-  "previousRoundIntegrity": "previous-round-integrity.json",
-  "smileSurfaceValidation": "smile-surface-validation.json",
-  "profileAlphaAudit": "profile-alpha-audit.json",
-  "singleRequestedChange": "Only native smile geometry changed; all other object,material,light,camera,renderer and24action fingerprints are unchanged.",
-  "smileAttachmentPass": true,
-  "profileDiagnosticAfterAffectedFrames": 0,
-  "revisionOnlySmile": true,
   "evaluatedBoneDeterminantRange": [
-    1.9531223365736854,
-    1.9531262122817812
+    1.9531223773956299,
+    1.9531261920928955
   ],
   "allEvaluatedBoneMatricesPositiveDeterminant": true,
-  "hiddenDependencySampling": "Prop owners temporarily exposed only during native attachment matrix measurement; original hide_render/hide_viewport/hide_get restored before capture; exact visibility states recorded in evaluated-contacts.json."
+  "hiddenDependencySampling": "Food/utensil temporarily exposed for current evaluated matrices/geometry, exact render and viewport states restored before render.",
+  "representation": {
+    "chef": "native3D",
+    "knife": "native3D",
+    "heldDish": "separate packed exact approved canonical2D731x505 fullRGBA/fullUV, original native action/cancellation/.6world camera-ray drivers"
+  },
+  "limits": [
+    "Natural source-consistent north body occlusion is retained; evaluated attachment matrices checked directly",
+    "No gameplay serving behavior authored or altered; exact original baked load action retained"
+  ]
 }

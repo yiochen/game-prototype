@@ -65,7 +65,7 @@
     ]
   },
   "artStyle": {
-    "revision": "warm-soft-chef-lena-round-02",
+    "revision": "warm-soft-chef-lena-round-03-canonical-held-food",
     "style": "Warm softly lit cartoon",
     "nativeEditable": true,
     "lighting": "Warm soft: centered200W area plus four equal35W cardinal areas, warm ambient0.25; no ground plane",
@@ -341,15 +341,143 @@
     640
   ],
   "source": {
-    "path": "source/round-02.blend",
-    "sha256": "4f81f6e29a8b587ea03bf4a22e6ac4762585aea643bad7569c5a4506ea7a0073",
+    "path": "source/round-03.blend",
+    "sha256": "0bb3a656a5194329292663166623edc7fbc823d4d5b85ebffcbb0d094fc31dce",
     "scene": "Lena warm soft round02",
     "blenderVersion": "5.2.2 LTS",
-    "round": 2,
-    "nativeDataSHA256": "0eaea275d9088c86d32fda0444bba5d8d5eb99d2a3d73142c0467bcb0f52be7e",
-    "recordsGeneratedAtUTC": "2026-10-21T10:10:07.955810+00:00",
+    "round": 3,
+    "nativeDataSHA256": "c1de477e55ac0da50a6ac56b5cbbd2a973e2999fa912ee8a220f7eaf68ef273b",
+    "recordsGeneratedAtUTC": "2026-10-21T23:15:23.341926+00:00",
     "extraction": "Read final saved Blender datablocks and hash-bound evaluated192frame audit; source never saved or modified."
   },
+  "canonicalFood": {
+    "image": {
+      "name": "Lena canonical salmon round03",
+      "size": [
+        731,
+        505
+      ],
+      "packedSHA256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+      "externalSHA256": "4389d1e6607e6afbfb3cd03594afb4196394b14c5ee6ca6a92fb534cd3b9ebe4",
+      "blenderDecodedFloatRGBA_SHA256": "c59fdeb983c34b969b0685878c748dbbb8f119450f1db24e7a60d29c1e5372cf",
+      "alphaMode": "STRAIGHT",
+      "colorspace": "sRGB",
+      "filepath": "//../candidates/round-03/resources/dish-salmon.png"
+    },
+    "vertices": [
+      [
+        -0.14000000059604645,
+        0.0,
+        0.0
+      ],
+      [
+        0.14000000059604645,
+        0.0,
+        0.0
+      ],
+      [
+        0.14000000059604645,
+        0.19343365728855133,
+        0.0
+      ],
+      [
+        -0.14000000059604645,
+        0.19343365728855133,
+        0.0
+      ]
+    ],
+    "uv": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0
+      ],
+      [
+        1.0,
+        1.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "drivers": [
+      {
+        "path": "rotation_euler",
+        "index": 2,
+        "type": "SCRIPTED",
+        "expression": "-facing",
+        "variables": [
+          {
+            "name": "facing",
+            "type": "SINGLE_PROP",
+            "targets": [
+              {
+                "id": "chef_lena__ground_root.002",
+                "dataPath": "rotation_euler[2]",
+                "boneTarget": "",
+                "transformType": "LOC_X",
+                "transformSpace": "WORLD_SPACE"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "location",
+        "index": 0,
+        "type": "SCRIPTED",
+        "expression": "-sin(facing)*0.39319298125871605",
+        "variables": [
+          {
+            "name": "facing",
+            "type": "SINGLE_PROP",
+            "targets": [
+              {
+                "id": "chef_lena__ground_root.002",
+                "dataPath": "rotation_euler[2]",
+                "boneTarget": "",
+                "transformType": "LOC_X",
+                "transformSpace": "WORLD_SPACE"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "location",
+        "index": 1,
+        "type": "SCRIPTED",
+        "expression": "-cos(facing)*0.39319298125871605",
+        "variables": [
+          {
+            "name": "facing",
+            "type": "SINGLE_PROP",
+            "targets": [
+              {
+                "id": "chef_lena__ground_root.002",
+                "dataPath": "rotation_euler[2]",
+                "boneTarget": "",
+                "transformType": "LOC_X",
+                "transformSpace": "WORLD_SPACE"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "localWidth": 0.2800000011920929,
+    "worldWidth": 0.3500000014901161,
+    "worldHeight": 0.24179207161068916,
+    "cameraRayOffsetWorld": 0.6,
+    "localZOffset": 0.27531668543815613,
+    "foodShaderExcludingImageSame": true,
+    "driversSame": true
+  },
+  "approvedBodySourceSHA256": "4f81f6e29a8b587ea03bf4a22e6ac4762585aea643bad7569c5a4506ea7a0073",
   "originalRecord": {
     "path": "inputs/source-assetRecord.json",
     "sha256": "f578a67566dd4d2eb1f5c3b3d41c6992eda6623f8800d4b112a7583a29cca86c",
@@ -2442,7 +2570,7 @@
       {
         "object": "chef_lena__ground_root.002__held_dish-salmon__image_plane",
         "data": "chef_lena__ground_root.002__held_dish-salmon__image_geometry",
-        "representation": "separate-original2D-dish",
+        "representation": "separate-approved-canonical2D-dish",
         "parent": "chef_lena__ground_root.002__held_dish-salmon",
         "vertices": 4,
         "edges": 4,
@@ -2950,12 +3078,26 @@
   "representation": {
     "chef": "native3D",
     "knife": "native3D",
-    "heldDish": "separate packed original2D with original action and cancellation/depth drivers"
+    "heldDish": "separate packed exact approved canonical2D731x505 fullRGBA/fullUV, original native action/cancellation/.6world camera-ray drivers"
   },
   "validation": {
-    "path": "candidates/round-02/validation.json",
-    "sha256": "a818c6fee29c74a5403b7c38fdeeba28351c07aa3d139f45a4fe66a9fccbf8c7",
+    "path": "candidates/round-04/v4/validation.json",
+    "sha256": "4f14bf97608c33b6d9e96ecb40ff691a30aea0853a0e59e1c2724ccc5d8a9597",
     "technicalPass": true,
     "visualVerdict": "pending independent judge"
+  },
+  "evidenceRound": 4,
+  "nativeArtRound": 3,
+  "nativeCaptureScale": 2,
+  "nativeResolution": [
+    384,
+    640
+  ],
+  "publicationSampling": "Identity: full native384x640 RGBA already published scale2, no fitting/resampling/regrade; lossless unmasked atlas paste only. Native and published records remain logical192x320/root96,248.",
+  "frozenV4Verification": {
+    "path": "candidates/round-04/v4/qualification.json",
+    "sha256": "a9d89df9ff4d0985bb0c4593f1740b6fc9947e454434e98fc52526f238a338b0",
+    "v4Violations": 0,
+    "strictV3FailureRetained": 1
   }
 }

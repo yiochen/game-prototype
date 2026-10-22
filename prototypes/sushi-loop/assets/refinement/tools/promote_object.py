@@ -282,7 +282,9 @@ def main():
     progress = read(RUN / 'progress.json')
     item = next(o for o in progress['objects'] if o['id'] == args.asset)
     item.update({'status': 'approved', 'round': args.round, 'packetSHA256': digest(packet_path)})
-    obj['refinement'].update({'editor': item.get('editor'), 'judge': item.get('judge')})
+    pair = item.get('agents', {})
+    obj['refinement'].update({'editor': item.get('editor') or pair.get('editor'),
+                              'judge': item.get('judge') or pair.get('judge')})
     write(PRODUCTION / 'library.json', library)
     progress['completed'] = sum(o['status'] in ['approved', 'published'] for o in progress['objects'])
     write(RUN / 'progress.json', progress)

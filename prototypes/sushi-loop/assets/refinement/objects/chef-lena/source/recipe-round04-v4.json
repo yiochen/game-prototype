@@ -1,0 +1,39 @@
+{
+  "evidenceRound": 4,
+  "nativeArtRound": 3,
+  "project": "source/round-03.blend",
+  "projectSHA256": "0bb3a656a5194329292663166623edc7fbc823d4d5b85ebffcbb0d094fc31dce",
+  "approved02SHA256": "4f81f6e29a8b587ea03bf4a22e6ac4762585aea643bad7569c5a4506ea7a0073",
+  "brief": {
+    "path": "brief-v4-held-food-native-repeatability.json",
+    "sha256": "2060f5caad378986e4a1c01f1ba71803dbfda9c98ac73b0a8daa1d56723cd0d7"
+  },
+  "criteria": {
+    "path": "reviews/proposedcriteria-held-food-v4-alpha-repeatability.json",
+    "sha256": "55c37e8d27918dd35589ba8c37c30be7a0b7e90f1509ce8fd619ed2aaac03e10"
+  },
+  "qualificationScript": "source/qualify_round04_v4.py",
+  "guardMeasurementScript": "source/measure_guard_round04_v4.py",
+  "commandsFromObjectDirectoryInFreshOutputCopy": {
+    "measureApproved02State": "blender --factory-startup -b --disable-autoexec source/round-02.blend --python source/measure_guard_round04_v4.py -- approved02-control candidates/round-04/v4/native-guards",
+    "measureUnchanged03State": "blender --factory-startup -b --disable-autoexec source/round-03.blend --python source/measure_guard_round04_v4.py -- unchanged03 candidates/round-04/v4/native-guards",
+    "qualifyOriginal192AndRetainedRepeats": "python source/qualify_round04_v4.py",
+    "reproduceAll192IndependentControlsToNewFolder": "blender --factory-startup -b --disable-autoexec source/round-02.blend --python source/reproduce_native_round04_v4.py -- controls --output-dir candidates/round-04/fresh-controls",
+    "reproduceAll192ShippingFramesToNewFolder": "blender --factory-startup -b --disable-autoexec source/round-03.blend --python source/reproduce_native_round04_v4.py -- shipping --output-dir candidates/round-04/fresh-shipping --all",
+    "repeatNamedNativeState": "blender --factory-startup -b --disable-autoexec source/round-03.blend --python source/alpha_repeats_round04.py -- new-shipping-repeats minimal 6"
+  },
+  "runtime": {
+    "Blender": "5.2.2 LTS/Cycles GPU64samples/Metal, unchanged source settings",
+    "analysis": "Python3 with Pillow/NumPy, ffprobe for existing videos"
+  },
+  "outputPolicy": "Never overwrite sealed evidence. Use an artifact copy and new absent output directories; guard helper refuses to overwrite captures. Original failed192 control set and strictv3 ledger remain primary evidence. Fresh native outputs are never cherry-picked to replace failures.",
+  "sourceClosure": "Saved03 is fully packed and remains editable; control generator opens only approved02 and exact canonical PNG. All required native adapters/registries, source scenes, inputPNG, original shipping/control/comparison/repeat assets are explicit resources. Historical bake-source metadata is not a new build requirement.",
+  "publicationSampling": "Identity: full native384x640 RGBA already published scale2, no fitting/resampling/regrade; lossless unmasked atlas paste only. Native and published records remain logical192x320/root96,248.",
+  "dualResult": {
+    "strictV3Pass": false,
+    "strictV3FailurePixels": 1,
+    "frozenV4Violations": 0,
+    "noGeneralAlphaTolerance": true
+  },
+  "resourceManifest": "candidates/round-04/v4/resources.json"
+}
