@@ -7,7 +7,7 @@ import { useWorldSpriteRaster } from './world-sprite-raster.js';
 
 const objectsById = new Map(libraryObjects.map(object => [object.id, object]));
 const statuses = { ready: finalAssetsApproved ? 'Approved' : 'Ready to review', working: 'In production', queued: 'Queued' };
-const refinementLabels = { queued: 'Refinement queued', skipped: 'Original floor retained', deferred: '2D effect · deferred', 'reviewing-baseline': 'Defining visual criteria', editing: 'Editor working', reviewing: 'Judge reviewing', approved: 'Warm cartoon approved', published: 'Warm cartoon published' };
+const refinementLabels = { queued: 'Refinement queued', skipped: 'Original floor retained', deferred: '2D effect · deferred', 'reviewing-baseline': 'Defining visual criteria', editing: 'Editor working', reviewing: 'Judge reviewing', 'awaiting-family-dependencies': 'Waiting for paired assets', 'canonical-components-pending': 'Waiting for equipment approval', approved: 'Warm cartoon approved', published: 'Warm cartoon published' };
 const statusText = object => refinementProgress ? refinementLabels[refinementById.get(object.id)?.status] || 'Refinement queued' : statuses[object.status] || 'Queued';
 const statusClass = object => refinementById.get(object.id)?.status === 'deferred' ? 'deferred' : object.status || 'queued';
 const blendSourceUrl = path => {

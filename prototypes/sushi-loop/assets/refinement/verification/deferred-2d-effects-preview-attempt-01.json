@@ -1,0 +1,7 @@
+{
+  "status": "verification-harness-corrected",
+  "observation": "All26 deferred label/viewport cases passed before atlas fetch stage. Direct source-directory atlas URLs returned404 because Vite publishes content-named asset URLs.",
+  "productDefect": false,
+  "correction": "Resolve exact original atlas contents through current local Vite content-name output and verify remote SHA, plus independently verify actual displayed image href in every browser case.",
+  "retainedFailure": "AssertionError sprites/decor-background-fish/swim-E.png:404 !==200 at initial atlas request."
+}

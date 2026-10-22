@@ -1,0 +1,33 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Native collector candidate consumer</title>
+<script type="importmap">{"imports":{"react":"data:text/javascript,export const useLayoutEffect=()=>{};export const useRef=()=>{};export const useState=()=>{};"}}</script>
+<style>*{box-sizing:border-box}body{margin:0;background:#edf1f1;color:#233b45;font:13px system-ui}main{max-width:1120px;margin:auto;padding:12px}h1{font-size:18px;margin:0 0 8px}p{line-height:1.4;margin:6px 0}#status{font:12px ui-monospace,monospace}canvas{display:block;max-width:none;border:1px solid #a8bbbf}button{padding:8px;margin:4px 6px 4px 0}small{display:block;line-height:1.4}#controls{display:flex;flex-wrap:wrap}</style>
+<main><h1>Collector · native candidate 01</h1><p>One native assembled upgraded Sub; separate collector, equipment and eel sprites.</p><small>Static preliminary main: upgraded-dock-ready frame 1. Candidate collector is seated natively. Other equipment on the body and neighboring equipment/eel remain provisional context. Final main approval pending.</small><div id="controls"><button onclick="window.togglePlayback()">Play / pause 12 fps</button><button onclick="window.nextDirection()">Rotate all</button><button onclick="window.setIdle()">Idle / active</button></div><p id="status"></p><canvas id="display"></canvas><p id="detail"></p><small>Atlas cells preserve whole registered frames. Native canvas is resized first and composed with nearest sampling; ordinary browser filtering scales the complete canvas once. No standalone sprite overlays the assembled Sub.</small></main>
+<script type="module">
+import {spriteFrame,clipFor,groundRoot,orderPlacements,sceneBounds} from './15-sprite-layout.js';
+import {worldRasterPlan,paintWorldRaster} from './16-world-sprite-raster.js';
+const objects=(await(await fetch('./library.json')).json()).objects,cache=new Map(),display=document.querySelector('canvas'),ctx=display.getContext('2d');
+const placements=[{object:'submarine-candidate-assembled',x:1,y:0,clip:'upgraded-dock-ready'},{object:'sub-collector-inlet',x:0,y:2,clip:'active'},{object:'sub-hull-panels',x:3,y:0,clip:'idle'},{object:'sub-harpoon-mount',x:4,y:0,clip:'idle'},{object:'creature-eel',x:3,y:2,clip:'swim'}];
+async function img(url){if(cache.has(url))return cache.get(url);let im=new Image();im.src=url;await im.decode();cache.set(url,im);return im;}
+let state={direction:'S',frame:0,width:390,cell:47.3,bg:'light',pan:[.37,.63],idle:false};const colors={light:'#eef2f3',gray:'#9da9ae',dark:'#162833'};let playing=false,busy=false,epoch=0;
+window.show=async(options={})=>{
+ Object.assign(state,options);let {direction,frame,width,cell,bg,pan,idle}=state;
+ const wide=width>=768;const layout=wide?[{object:'submarine-candidate-assembled',x:0,y:0,clip:'upgraded-dock-ready'},{object:'sub-collector-inlet',x:1.6,y:.5,clip:'active'},{object:'sub-hull-panels',x:2.8,y:.5,clip:'idle'},{object:'sub-harpoon-mount',x:3.9,y:.5,clip:'idle'},{object:'creature-eel',x:5,y:.2,clip:'swim'}]:placements;
+ const ps=layout.map(p=>({...p,direction,x:p.x+pan[0]/128,y:p.y+pan[1]/128,clip:p.object==='sub-collector-inlet'?(idle?'idle':'active'):p.clip}));
+ const authoredBounds=sceneBounds(ps,objects,128,wide?[7,3]:[5,4]),bounds=wide?[-104,-160,1096,440]:authoredBounds,ordered=orderPlacements(ps,objects);
+ const sprites=ordered.map(p=>{let o=objects.find(o=>o.id===p.object),f=spriteFrame(o,clipFor(o,p.clip),direction,(frame+.25)/12),[x,y]=groundRoot(p,o,128);return {image:f.image,frame:f.frame,rect:f.rect,x:x-f.root[0],y:y-f.root[1],width:f.frameSize[0],height:f.frameSize[1],object:o.id,selectedClip:p.clip,ground:[x,y]};});
+ const plan=worldRasterPlan(sprites,bounds),ims=await Promise.all(sprites.map(s=>img(s.image))),native=document.createElement('canvas');paintWorldRaster(native,plan,ims);
+ // getContext again after helper dimension assignment, proving reset leaves nearest mode intact.
+ const nearestAfterResize=native.getContext('2d').imageSmoothingEnabled===false;
+ display.width=width-24;const sc=cell/128;display.height=Math.ceil(bounds[3]*sc+20);ctx.fillStyle=colors[bg];ctx.fillRect(0,0,display.width,display.height);const ox=(display.width-bounds[2]*sc)/2,oy=10;
+ ctx.strokeStyle=bg==='dark'?'#3b5662':'#b3c6c9';ctx.lineWidth=1;
+ for(let x=0;x<=5;x++){ctx.beginPath();ctx.moveTo(ox+(128*x-bounds[0])*sc,0);ctx.lineTo(ox+(128*x-bounds[0])*sc,display.height);ctx.stroke();}
+ for(let y=0;y<=4;y++){ctx.beginPath();ctx.moveTo(0,oy+(128*y-bounds[1])*sc);ctx.lineTo(display.width,oy+(128*y-bounds[1])*sc);ctx.stroke();}
+ ctx.imageSmoothingEnabled=true;ctx.drawImage(native,ox+(plan.x-bounds[0])*sc,oy+(plan.y-bounds[1])*sc,native.width/plan.scale*sc,native.height/plan.scale*sc);
+ document.querySelector('#status').textContent=`${direction} · ${idle?'neutral idle':`active ${frame+1}/12`} · 12 fps · cell ${cell}px · ${width}px viewport`;
+ document.querySelector('#detail').textContent=`Fractional world phase ${pan.join(', ')} logical px · ${bg} background · 55° standalone / 65° assembled cameras. Native composition first.`;
+ window.lastEvidence={...state,authoredBounds,viewportPolicy:wide?'fixed world viewport, one uniform128px/cell; complete atlas sprites drawn, transparent margins may extend beyond viewport':'complete sceneBounds at authored scale',bounds,canvas:[display.width,display.height],plan:{x:plan.x,y:plan.y,width:plan.width,height:plan.height,scale:plan.scale},nearestAfterResize,finalWholeCanvasSmoothing:ctx.imageSmoothingEnabled,sprites};return window.lastEvidence;
+};
+window.togglePlayback=()=>{playing=!playing;epoch=performance.now();};window.nextDirection=async()=>{playing=false;await window.show({direction:'NESW'[('NESW'.indexOf(state.direction)+1)%4]});};window.setIdle=async()=>{playing=false;await window.show({idle:!state.idle});};
+async function tick(t){if(playing&&!busy){busy=true;await window.show({frame:Math.floor((t-epoch)/1000*12)%12,idle:false});busy=false;}requestAnimationFrame(tick);}requestAnimationFrame(tick);
+await window.show();window.ready=true;
+</script>

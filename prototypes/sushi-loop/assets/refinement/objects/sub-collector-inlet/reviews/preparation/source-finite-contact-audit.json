@@ -1,0 +1,114 @@
+{
+  "authority": {
+    "normal": [
+      0.0,
+      -1.0,
+      0.0
+    ],
+    "bounds": [
+      [
+        -0.11699999123811722,
+        -0.45399999618530273,
+        0.1665000021457672
+      ],
+      [
+        0.11699999123811722,
+        -0.45399999618530273,
+        0.2574999928474426
+      ]
+    ],
+    "vertices": [
+      [
+        0.11699999123811722,
+        -0.45399999618530273,
+        0.1665000021457672
+      ],
+      [
+        0.11699999123811722,
+        -0.45399999618530273,
+        0.2574999928474426
+      ],
+      [
+        -0.11699999123811722,
+        -0.45399999618530273,
+        0.2574999928474426
+      ],
+      [
+        -0.11699999123811722,
+        -0.45399999618530273,
+        0.1665000021457672
+      ]
+    ],
+    "area": 0.02129399962723255
+  },
+  "planeMainY": -0.45399999618530273,
+  "method": "Intersect evaluated native mesh edges with actual finite seat front plane, then clip convex source section to the real native finite face. Actual geometry/plane sections, not AABB overlap.",
+  "records": [
+    {
+      "name": "collector_inlet__inlet_frame.001",
+      "finiteNativePlaneSectionXZ": [
+        [
+          -0.124000005,
+          0.107999995
+        ],
+        [
+          -0.108000003,
+          0.092
+        ],
+        [
+          0.108000003,
+          0.092
+        ],
+        [
+          0.124000005,
+          0.107999995
+        ],
+        [
+          0.124000005,
+          0.248000011
+        ],
+        [
+          0.108000003,
+          0.263999999
+        ],
+        [
+          -0.108000003,
+          0.263999999
+        ],
+        [
+          -0.124000005,
+          0.248000011
+        ]
+      ],
+      "intersectionWithActualSeatFaceXZ": [
+        [
+          0.11699999123811722,
+          0.1665000021457672
+        ],
+        [
+          0.11699999123811722,
+          0.2550000186368715
+        ],
+        [
+          0.11450001484006701,
+          0.2574999928474426
+        ],
+        [
+          -0.11450001484006701,
+          0.2574999928474426
+        ],
+        [
+          -0.11699999123811722,
+          0.2550000186368715
+        ],
+        [
+          -0.11699999123811722,
+          0.1665000021457672
+        ]
+      ],
+      "finiteIntersectionAreaWorld": 0.021287746353007383,
+      "qualifier": "Convex native inlet-frame section; hull is valid for original convex beveled box, not a generic candidate nonconvex contact method."
+    }
+  ],
+  "qualification": "Source preparation only. Original source has purposeful finite insertion but fails forward/top reservation. Candidate must provide its own finite surface/section proof, including any nonconvex/curved contact geometry."
+}

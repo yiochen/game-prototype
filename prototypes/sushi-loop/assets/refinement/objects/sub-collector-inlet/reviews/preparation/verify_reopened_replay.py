@@ -1,0 +1,5 @@
+import bpy,pathlib,json,math,importlib.util,hashlib
+O=pathlib.Path(__file__).resolve().parent;E=O.parent.parent;R=O/'resources';D=O/'reopened-source';D.mkdir(exist_ok=True);s=bpy.data.scenes['S33 Native Asset Library Export'];bpy.context.window.scene=s;rig=json.loads(next(R.glob('*-source-rig.json')).read_text());root=bpy.data.objects[rig['groundRootObject']];col=root.users_collection[0];spec=importlib.util.spec_from_file_location('saved_actions',next(R.glob('*-native_actions.py')));A=importlib.util.module_from_spec(spec);spec.loader.exec_module(A)
+for di in 'NESW':
+ A.apply_clip({'root':root,'collection':col},rig,'idle',1,di,s);s.render.filepath=str(D/f'idle-{di}.png');bpy.ops.render.render(write_still=True)
+(O/'reopened-source-record.json').write_text(json.dumps({'sourceSHA256':hashlib.sha256((R/'source-replay.blend').read_bytes()).hexdigest(),'scene':s.name,'camera':s.camera.name,'frame':[s.render.resolution_x,s.render.resolution_y],'pixelAspect':[s.render.pixel_aspect_x,s.render.pixel_aspect_y],'renders':[str((D/f'idle-{di}.png').relative_to(E)) for di in 'NESW']},indent=2)+'\n');print('REOPENED CAPTURE4')
