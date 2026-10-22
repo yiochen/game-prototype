@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 47,
-  "published": 46,
-  "current": "46 objects live. Remaining validated conveyor recipes publish individually; native character refinement and other fresh object pairs continue. Final Godot sync pending.",
+  "completed": 48,
+  "published": 47,
+  "current": "47 objects live. Remaining validated conveyor recipes publish individually; native character refinement and other fresh object pairs continue. Final Godot sync pending.",
   "objects": [
     {
       "id": "plant-angular",
@@ -412,6 +412,23 @@
       "name": "Corner entering E, exiting S",
       "kind": "belt",
       "pipeline": "native-3d",
+      "status": "published",
+      "clips": 1,
+      "frames": 96,
+      "target": "inputs/target.png",
+      "modelingPolicy": 2,
+      "workflow": "recipe-reuse",
+      "recipeEditor": "catalog_belt_corner_e_n_editor_v1",
+      "independentReviewRequired": false,
+      "round": "round-01",
+      "packetSHA256": "b61375fa87fec00ce3bbaf29e4306b2b216804e80a866260317d7537d95a7c11",
+      "publishedCommit": "4031f8759702f5ad49827b89a2303a10908fe931"
+    },
+    {
+      "id": "belt-corner-s-w",
+      "name": "Corner entering S, exiting W",
+      "kind": "belt",
+      "pipeline": "native-3d",
       "status": "approved",
       "clips": 1,
       "frames": 96,
@@ -421,21 +438,7 @@
       "recipeEditor": "catalog_belt_corner_e_n_editor_v1",
       "independentReviewRequired": false,
       "round": "round-01",
-      "packetSHA256": "b61375fa87fec00ce3bbaf29e4306b2b216804e80a866260317d7537d95a7c11"
-    },
-    {
-      "id": "belt-corner-s-w",
-      "name": "Corner entering S, exiting W",
-      "kind": "belt",
-      "pipeline": "native-3d",
-      "status": "prepared-family-bound",
-      "clips": 1,
-      "frames": 96,
-      "target": "inputs/target.png",
-      "modelingPolicy": 2,
-      "workflow": "recipe-reuse",
-      "recipeEditor": "catalog_belt_corner_e_n_editor_v1",
-      "independentReviewRequired": false
+      "packetSHA256": "ea53f3a0c7610346e8acf472024996511f5c045ba4234bfc78eb89e425e7a538"
     },
     {
       "id": "belt-corner-w-s",
@@ -1214,10 +1217,12 @@
       "name": "Foreground rock",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "editing",
       "clips": 1,
       "frames": 4,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "editor": "catalog_decor_foreground_rock_editor_v1",
+      "judge": "catalog_decor_foreground_rock_judge_v1"
     },
     {
       "id": "decor-foreground-coral",
