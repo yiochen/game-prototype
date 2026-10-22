@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 102,
-  "completed": 60,
+  "completed": 61,
   "published": 60,
-  "current": "60 objects live of102 in current scope. Thirteen user-classified2D effects deferred with original sprites; no Blender refinement. June/Ellis/coin-pop independent reviews active or complete, awaiting individual publication. Final existing Godot cutover pending.",
+  "current": "60 objects live of 102 active. Coin Pop publishing as object 61; June approved and Ellis approval being saved for separate subsequent publications. Thirteen 2D effects deferred. Dalia canonical food preparation and fresh sofa assessment active. Final existing Godot cutover pending.",
   "objects": [
     {
       "id": "plant-angular",
@@ -949,24 +949,32 @@
       "name": "World coin icon",
       "kind": "effect",
       "pipeline": "native-3d",
-      "status": "reviewing",
+      "status": "approved",
       "clips": 1,
       "frames": 48,
       "target": "inputs/target.png",
       "editor": "catalog_coin_pop_editor_v1",
       "judge": "catalog_coin_pop_judge_v1",
       "round": "round-01",
-      "packetSHA256": "539a740b721389d50d23efb885b04f5b8a57972a917d4860b79a73a09504faea"
+      "packetSHA256": "539a740b721389d50d23efb885b04f5b8a57972a917d4860b79a73a09504faea",
+      "remainingDifferences": [
+        "The candidate uses a smoothly rounded turned rim rather than the target\u2019s more angular/chamfered outer edge and sharper polished streaks; the softer treatment fits the chosen cartoon finish.",
+        "The native gold is more softly diffuse and less mirror-like than the ImageGen target. This preserves readable midtones and avoids copying its preferred-side glare.",
+        "It retains three original-role glints instead of the target\u2019s four and does not enlarge the object to match the target\u2019s normalized silhouette. Spark count is nonfunctional, and the compact registered scale is deliberately preserved.",
+        "Late runtime frames naturally become faint under the frozen alpha fade, and first/last native phases are nearly vanished. Those phase semantics are intentional, not missing imagery."
+      ],
+      "thumbnailFrameIndex": 5
     },
     {
       "id": "garbage-sofa",
       "name": "Whole broken sofa",
       "kind": "prop",
       "pipeline": "native-3d",
-      "status": "prepared",
+      "status": "reviewing-baseline",
       "clips": 3,
       "frames": 100,
-      "target": "inputs/target.png"
+      "target": "inputs/target.png",
+      "baselineJudge": "catalog_garbage_sofa_judge_v1"
     },
     {
       "id": "garbage-car",

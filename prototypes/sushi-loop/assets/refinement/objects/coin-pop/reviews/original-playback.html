@@ -1,0 +1,23 @@
+<!doctype html><meta charset="utf-8"><title>Coin Pop original temporal audit</title>
+<style>body{margin:20px;background:#292d33;color:#f4eee2;font:14px system-ui}button,input{margin:8px}canvas{display:block;border:1px solid #636974}#status{white-space:pre-wrap}p{max-width:960px}</style>
+<h1>Coin Pop original temporal audit</h1>
+<p>Actual atlas bytes. Four full registered canvases at 128 px/cell above; original customer/stool contexts at 64 px/cell below. The authored clip is a 12 fps, 12-frame non-looping one-shot. The review player repeats after a pause only for inspection. Context includes the existing 0.9 s runtime alpha fade.</p>
+<button id="play">Replay one-shot</button><label><input id="repeat" type="checkbox" checked>Review repeat after pause</label><label><input id="fade" type="checkbox">Apply runtime fade to top row</label><label>Scrub <input id="scrub" type="range" min="0" max="11" value="0"></label>
+<div id="status">Loading atlas bytes…</div><canvas id="canvas" width="960" height="720"></canvas>
+<script type="module">
+const prod='../../../../production/';
+const library=await fetch(prod+'library.json').then(r=>r.json());
+const byId=Object.fromEntries(library.objects.map(o=>[o.id,o]));
+const images=new Map();
+async function load(id,clip,d){const o=byId[id],c=o.clips.find(c=>c.id===clip),a=c.directions[d];const key=a.image;if(!images.has(key)){const im=new Image;im.src=prod+key;await im.decode();images.set(key,im)}return {o,c,a,im:images.get(key)}}
+const dirs=['N','E','S','W'];
+const coins=await Promise.all(dirs.map(d=>load('coin-pop','pop',d)));
+const chairs=await Promise.all(dirs.map(d=>load('stool-wood','static',d)));
+const guests=await Promise.all(dirs.map(d=>load('customer-rosa','seated-wait',d)));
+const cv=document.querySelector('canvas'),cx=cv.getContext('2d'),status=document.querySelector('#status'),scrub=document.querySelector('#scrub');
+let start=performance.now(),manual=false,seen=new Set,cycles=[],ledger=[];
+function sprite(source,index,x,y,scale=1,alpha=1){const {o,a,im}=source;const r=a.rects[Math.min(index,a.rects.length-1)];cx.save();cx.globalAlpha=alpha;cx.drawImage(im,...r,x-o.root[0]*scale,y-o.root[1]*scale,o.frameSize[0]*scale,o.frameSize[1]*scale);cx.restore()}
+function render(index,age){cx.clearRect(0,0,960,720);for(let j=0;j<4;j++){const x=j*240;cx.fillStyle=['#f1ebde','#727680','#181c22','#f1ebde'][j];cx.fillRect(x,0,240,390);cx.fillStyle=j===1||j===2?'white':'#353b43';cx.fillText(dirs[j]+' full frame — root cross',x+10,20);cx.strokeStyle='#2a85a3';cx.beginPath();cx.moveTo(x+115,280);cx.lineTo(x+125,280);cx.moveTo(x+120,275);cx.lineTo(x+120,285);cx.stroke();sprite(coins[j],index,x+120,280,1,document.querySelector('#fade').checked?Math.max(0,1-age/.9):1);cx.fillStyle='#d7cbb4';cx.fillRect(x,390,240,330);cx.fillStyle='#353b43';cx.fillText(dirs[j]+' customer context — 64 px/cell',x+8,415);sprite(chairs[j],0,x+120,650,.5);sprite(guests[j],0,x+120,650,.5);if(age<.9)sprite(coins[j],index,x+120,650,.5,Math.max(0,1-age/.9))}}
+document.querySelector('#play').onclick=()=>{manual=false;start=performance.now();seen=new Set;ledger=[]};scrub.oninput=()=>{manual=true;render(+scrub.value,+scrub.value/12);status.textContent='Manual index '+scrub.value};
+function tick(now){if(!manual){const age=(now-start)/1000,index=Math.min(11,Math.floor(age*12));if(age<1){seen.add(index);ledger.push({elapsed:age,index});scrub.value=index}render(index,age);status.textContent='Authored time '+Math.min(age,1).toFixed(3)+' s; frame '+index+'; observed indices '+[...seen].join(',')+'; completed review cycles '+cycles.length;if(age>=1&&seen.size===12&&(!cycles.length||cycles.at(-1).start!==start)){cycles.push({start,indices:[...seen],ledger:[...ledger]});window.coinPlaybackAudit={cycles,atlasUrls:coins.map(c=>c.im.src),clip:{frames:12,fps:12,loop:false},runtimeFade:{duration:.9},canvas:[960,720]}}if(age>2&&document.querySelector('#repeat').checked){start=now;seen=new Set;ledger=[]}}requestAnimationFrame(tick)}requestAnimationFrame(tick);
+</script>

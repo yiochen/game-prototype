@@ -107,12 +107,13 @@ function LibraryThumbnail({ object }) {
   const available = clip => DIRECTIONS.some(direction => imageUrl(clip.directions?.[direction]?.image));
   const clip = object.clips?.find(clip => clip.id === 'idle' && available(clip)) || object.clips?.find(available);
   const direction = ['S', 'N', 'E', 'W'].find(direction => imageUrl(clip?.directions?.[direction]?.image));
-  const frame = direction && spriteFrame(object, clip, direction, 0);
+  const thumbnailSeconds = (refinementById.get(object.id)?.thumbnailFrameIndex || 0) / (clip?.fps || 12);
+  const frame = direction && spriteFrame(object, clip, direction, thumbnailSeconds);
   const url = imageUrl(frame?.image);
   const footprint = footprintFor(object, direction);
   const rootCell = object.directionRootCells?.[direction] || object.rootCell || [footprint[0] / 2, footprint[1] / 2];
   const cell = spriteLibrary.cellSize || 128;
-  return <span ref={host} className="object-library-thumbnail" data-thumbnail-object={object.id} data-thumbnail-state={!url ? 'queued' : near ? 'mounted' : 'deferred'} aria-hidden="true">
+  return <span ref={host} className="object-library-thumbnail" data-thumbnail-object={object.id} data-thumbnail-frame={frame?.frame} data-thumbnail-state={!url ? 'queued' : near ? 'mounted' : 'deferred'} aria-hidden="true">
     {near && url ? <svg viewBox={`0 0 ${frame.frameSize[0]} ${frame.frameSize[1]}`} preserveAspectRatio="xMidYMid meet">
       <rect x={frame.root[0] - rootCell[0] * cell} y={frame.root[1] - rootCell[1] * cell} width={footprint[0] * cell} height={footprint[1] * cell} fill="#e9e8dc" stroke="#b3c2b3" strokeWidth="2"/>
       <svg width={frame.frameSize[0]} height={frame.frameSize[1]} viewBox={frame.rect.join(' ')} overflow="hidden" preserveAspectRatio="none" data-thumbnail-source={frame.image}><image href={url} width={frame.atlasSize[0]} height={frame.atlasSize[1]}/></svg>
