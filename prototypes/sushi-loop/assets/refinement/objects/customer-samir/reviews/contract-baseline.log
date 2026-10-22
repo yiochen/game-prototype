@@ -1,0 +1,306 @@
+{
+  "depth": {
+    "main": {
+      "foodRootPalmAttachmentOffsetWorldZ": 0.0225,
+      "maximumFoodRootPalmAttachmentErrorWorldCells": 9.862301969760166e-08,
+      "sourceRawAuditSHA256": "a1d438644c124d36e5432bba84e1e5d2039273ebaf32474c9101a403c67b337d",
+      "hiddenPlaneMeasurement": "Visibility recorded after native action evaluation; temporarily unhide render/viewport for depsgraph matrix evaluation, then restore before render. Hidden child matrices otherwise can remain stale.",
+      "towardCameraUnitRay": [
+        0,
+        -0.8191520442889918,
+        0.573576436351046
+      ],
+      "sourceDepthRangeCells": [
+        0.5999999606425244,
+        0.6000000450253853
+      ],
+      "maximumPerpendicularResidualCells": 5.49131374939943e-08,
+      "sourceVisibleOwner": "customer_samir__ground_root.001__held_dish-cucumber__image_plane",
+      "originalTextureSHA256": "dd6d82508f72b2d9019f1619e5f1fe878a5ad22935ab8c86d7a79b4434f64776",
+      "yawCancellation": [
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "expression": "-facing",
+          "variables": [
+            {
+              "name": "facing",
+              "type": "SINGLE_PROP",
+              "targets": [
+                {
+                  "id": "customer_samir__ground_root.001",
+                  "dataPath": "rotation_euler[2]",
+                  "transformType": "LOC_X",
+                  "space": "WORLD_SPACE"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": "location",
+          "index": 0,
+          "expression": "-sin(facing)*0.39319298125871605",
+          "variables": [
+            {
+              "name": "facing",
+              "type": "SINGLE_PROP",
+              "targets": [
+                {
+                  "id": "customer_samir__ground_root.001",
+                  "dataPath": "rotation_euler[2]",
+                  "transformType": "LOC_X",
+                  "space": "WORLD_SPACE"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "expression": "-cos(facing)*0.39319298125871605",
+          "variables": [
+            {
+              "name": "facing",
+              "type": "SINGLE_PROP",
+              "targets": [
+                {
+                  "id": "customer_samir__ground_root.001",
+                  "dataPath": "rotation_euler[2]",
+                  "transformType": "LOC_X",
+                  "space": "WORLD_SPACE"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "policyProposal": "One constant scalar per canonical food composition in [0,.6] cells along exact camera ray, fixed across every state/frame/facing including hidden samples. No lateral/vertical/projected anchor shifts. Baseline .6 retained in provenance. Geometry\u2192food/body occlusion may change; cannot force visible food on rear head. Measure all projected quad corners and mapped bottom-rim support against depth=.6 on same canonical mapping, tolerance .01 native pixel. Do not compare replacement full-UV quad corners to old cropped/padded quad corners as a mapping criterion."
+    },
+    "runtime": {
+      "foodRootPalmAttachmentOffsetWorldZ": 0.0225,
+      "maximumFoodRootPalmAttachmentErrorWorldCells": 9.862301969760166e-08,
+      "sourceRawAuditSHA256": "8cb84d48271917337a03927383ff112d4b654197302d654bc610ce7c61e500b6",
+      "hiddenPlaneMeasurement": "Visibility recorded after native action evaluation; temporarily unhide render/viewport for depsgraph matrix evaluation, then restore before render. Hidden child matrices otherwise can remain stale.",
+      "towardCameraUnitRay": [
+        0,
+        -0.8191520442889918,
+        0.573576436351046
+      ],
+      "sourceDepthRangeCells": [
+        0.5999999606425244,
+        0.6000000442062332
+      ],
+      "maximumPerpendicularResidualCells": 5.49131374939943e-08,
+      "sourceVisibleOwner": "S10 meal customer_samir__ground_root.001__held_dish-cucumber__image_plane",
+      "originalTextureSHA256": "5de7475813a133bb643fa9de09adbef104c7bd20a572514a297cba54846ceafe",
+      "yawCancellation": [
+        {
+          "path": "rotation_euler",
+          "index": 2,
+          "expression": "-facing",
+          "variables": [
+            {
+              "name": "facing",
+              "type": "SINGLE_PROP",
+              "targets": [
+                {
+                  "id": "S10 meal customer_samir__ground_root.001",
+                  "dataPath": "rotation_euler[2]",
+                  "transformType": "LOC_X",
+                  "space": "WORLD_SPACE"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": "location",
+          "index": 0,
+          "expression": "-sin(facing)*0.39319298125871605",
+          "variables": [
+            {
+              "name": "facing",
+              "type": "SINGLE_PROP",
+              "targets": [
+                {
+                  "id": "S10 meal customer_samir__ground_root.001",
+                  "dataPath": "rotation_euler[2]",
+                  "transformType": "LOC_X",
+                  "space": "WORLD_SPACE"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": "location",
+          "index": 1,
+          "expression": "-cos(facing)*0.39319298125871605",
+          "variables": [
+            {
+              "name": "facing",
+              "type": "SINGLE_PROP",
+              "targets": [
+                {
+                  "id": "S10 meal customer_samir__ground_root.001",
+                  "dataPath": "rotation_euler[2]",
+                  "transformType": "LOC_X",
+                  "space": "WORLD_SPACE"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "policyProposal": "One constant scalar per canonical food composition in [0,.6] cells along exact camera ray, fixed across every state/frame/facing including hidden samples. No lateral/vertical/projected anchor shifts. Baseline .6 retained in provenance. Geometry\u2192food/body occlusion may change; cannot force visible food on rear head. Measure all projected quad corners and mapped bottom-rim support against depth=.6 on same canonical mapping, tolerance .01 native pixel. Do not compare replacement full-UV quad corners to old cropped/padded quad corners as a mapping criterion."
+    }
+  },
+  "bounds": {
+    "stand": [
+      [
+        -0.403499126,
+        -0.403499126,
+        -1.9e-08
+      ],
+      [
+        0.403499126,
+        0.403499126,
+        1.398608804
+      ]
+    ],
+    "walk": [
+      [
+        -0.405923367,
+        -0.405923367,
+        -3.6e-08
+      ],
+      [
+        0.405923367,
+        0.405923367,
+        1.387981653
+      ]
+    ],
+    "seated_wait": [
+      [
+        -0.412211061,
+        -0.412211061,
+        0.504197955
+      ],
+      [
+        0.412211061,
+        0.412211061,
+        1.8700701
+      ]
+    ],
+    "eat": [
+      [
+        -0.411089212,
+        -0.411089212,
+        0.504197955
+      ],
+      [
+        0.411089212,
+        0.411089212,
+        1.870070934
+      ]
+    ],
+    "sit_down": [
+      [
+        -0.403490245,
+        -0.403490245,
+        1.1e-08
+      ],
+      [
+        0.403490245,
+        0.403490245,
+        1.869099855
+      ]
+    ],
+    "stand_up": [
+      [
+        -0.403490245,
+        -0.403490245,
+        1.1e-08
+      ],
+      [
+        0.403490245,
+        0.403490245,
+        1.869099855
+      ]
+    ],
+    "happy": [
+      [
+        -0.443021595,
+        -0.443021595,
+        1.1e-08
+      ],
+      [
+        0.443021595,
+        0.443021595,
+        1.457795024
+      ]
+    ],
+    "restless": [
+      [
+        -0.41734454,
+        -0.41734454,
+        1.1e-08
+      ],
+      [
+        0.41734454,
+        0.41734454,
+        1.396874785
+      ]
+    ],
+    "puzzled": [
+      [
+        -0.470439553,
+        -0.470439553,
+        5e-09
+      ],
+      [
+        0.470439583,
+        0.470439553,
+        1.396874785
+      ]
+    ],
+    "panic": [
+      [
+        -0.477185994,
+        -0.477185994,
+        -1.8e-08
+      ],
+      [
+        0.477185994,
+        0.477186024,
+        1.388239145
+      ]
+    ],
+    "eat-salmon": [
+      [
+        -0.411089212,
+        -0.411089212,
+        0.504197955
+      ],
+      [
+        0.411089212,
+        0.411089212,
+        1.870070934
+      ]
+    ],
+    "seated-wait-empty": [
+      [
+        -0.412211061,
+        -0.412211061,
+        0.504197955
+      ],
+      [
+        0.412211061,
+        0.412211061,
+        1.8700701
+      ]
+    ]
+  }
+}

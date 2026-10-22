@@ -161,16 +161,21 @@ class RefinementImports(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'Missing individual customer approval'):
                 sync_actor(PROTOTYPE, 'recipe', self.project / 'assets/recipe-variants')
 
-    def test_approved_rosa_bundle_in_temporary_single_customer_fixture(self):
-        # This isolates the first approved customer bundle; production retains
+    def test_approved_customer_bundles_in_temporary_single_customer_fixtures(self):
+        # Isolate each available approved customer bundle; production retains
         # the mandatory four-customer registry and its missing-approval gate.
         identities, clips, food = refined_actor_variants.CONTRACTS['recipe']
-        fixture = self.project / 'single-customer-fixture'
-        with patch.dict(refined_actor_variants.CONTRACTS,
-                        {'recipe': (['customer-rosa'], clips, food)}):
-            sync_actor(PROTOTYPE, 'recipe', fixture / 'assets/recipe-variants')
-            result = verify_recipe_variants(fixture, SOURCE)
-            self.assertEqual((result['objects'], result['atlases'], result['frames']), (1, 8, 96))
+        approved = [identity for identity in identities if
+                    (PROTOTYPE / f'assets/refinement/objects/{identity}/final/runtime-variant-approval.json').exists()]
+        self.assertIn('customer-rosa', approved)
+        for identity in approved:
+            with self.subTest(identity=identity):
+                fixture = self.project / f'single-customer-{identity}'
+                with patch.dict(refined_actor_variants.CONTRACTS,
+                                {'recipe': ([identity], clips, food)}):
+                    sync_actor(PROTOTYPE, 'recipe', fixture / 'assets/recipe-variants')
+                    result = verify_recipe_variants(fixture, SOURCE)
+                    self.assertEqual((result['objects'], result['atlases'], result['frames']), (1, 8, 96))
         self.assertEqual(refined_actor_variants.CONTRACTS['recipe'][0], identities)
 
     def test_legacy_formats_remain_supported(self):

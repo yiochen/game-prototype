@@ -4,9 +4,9 @@
   "branch": "codex/warm-soft-catalog",
   "status": "in-progress",
   "total": 115,
-  "completed": 59,
+  "completed": 60,
   "published": 59,
-  "current": "59 objects live; Noor canonical-food round02 approved and publishing. Samir complete native576 bundle receiving metadata compatibility adapter before review; Ellis corrected576 export packaging; fresh June judge auditing source. Final Godot cutover pending.",
+  "current": "59 objects live; Samir round01 approved and publishing as object60 with exact salmon/empty runtime receipt. Ellis independent review ongoing; fresh June editor modeling; fresh coin-pop judge source assessment. Final Godot cutover pending.",
   "objects": [
     {
       "id": "plant-angular",
@@ -679,7 +679,7 @@
       "name": "Noor Haddad",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "approved",
+      "status": "published",
       "clips": 4,
       "frames": 192,
       "target": "inputs/target.png",
@@ -688,9 +688,7 @@
       "judge": "catalog_chef_noor_judge_v1",
       "round": "round-02",
       "packetSHA256": "1fd6c78167a41a27aa7f4aeb79acc3729c3887476af1755bb5007b5c5e7544c0",
-      "pendingRound": "round-02",
-      "pendingPacketSHA256": "1fd6c78167a41a27aa7f4aeb79acc3729c3887476af1755bb5007b5c5e7544c0",
-      "pendingUpdateStatus": "approved-publishing"
+      "publishedCommit": "83d036bae53ac1867e7caf265aaae69ee33e1f0c"
     },
     {
       "id": "chef-dalia",
@@ -785,37 +783,43 @@
       "name": "Ellis",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "reviewing",
       "clips": 10,
       "frames": 480,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_customer_ellis_editor_v1",
-      "judge": "catalog_customer_ellis_judge_v1"
+      "judge": "catalog_customer_ellis_judge_v1",
+      "pendingRound": "round-02",
+      "pendingPacketSHA256": "a802558c37401930f215f0940a23a1c5973c5550c91f3c1687b3bf3ae3614ff1"
     },
     {
       "id": "customer-samir",
       "name": "Samir",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "editing",
+      "status": "approved",
       "clips": 10,
       "frames": 480,
       "target": "inputs/target.png",
       "modelingPolicy": 2,
       "editor": "catalog_customer_samir_editor_v1",
-      "judge": "catalog_customer_samir_judge_v1"
+      "judge": "catalog_customer_samir_judge_v1",
+      "round": "round-01",
+      "packetSHA256": "32de19b6f52a0730e9c6e65f209a031d06286621833a193d139ffa5d83d508f7"
     },
     {
       "id": "customer-june",
       "name": "June",
       "kind": "character",
       "pipeline": "native-3d",
-      "status": "reviewing-baseline",
+      "status": "editing",
       "clips": 10,
       "frames": 480,
       "target": "inputs/target.png",
-      "modelingPolicy": 2
+      "modelingPolicy": 2,
+      "editor": "catalog_customer_june_editor_v1",
+      "judge": "catalog_customer_june_judge_v1"
     },
     {
       "id": "dish-salmon",

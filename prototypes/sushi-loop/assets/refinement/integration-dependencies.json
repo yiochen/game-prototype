@@ -218,15 +218,19 @@
     {
       "object": "customer-samir",
       "food": "dish-salmon",
-      "status": "pending-new-source-round-and-independent-review",
+      "status": "main-and-runtime-independently-approved-final-Godot-sync-pending",
       "sameObjectPair": {
-        "editor": null,
-        "judge": null
+        "editor": "catalog_customer_samir_editor_v1",
+        "judge": "catalog_customer_samir_judge_v1"
       },
       "runtimeExtraClips": [
         "eat-salmon"
       ],
-      "scope": "Supplemental runtime salmon meal"
+      "scope": "Supplemental runtime salmon meal",
+      "round": "round-01",
+      "packetSHA256": "32de19b6f52a0730e9c6e65f209a031d06286621833a193d139ffa5d83d508f7",
+      "reviewSHA256": "c90c78c02dcd1bbaa27b9954ba2277c0ef69a8799e0b1e73da40126b9b591935",
+      "runtimeApproval": "objects/customer-samir/final/runtime-variant-approval.json"
     },
     {
       "object": "customer-samir",
@@ -244,12 +248,16 @@
         "puzzled",
         "panic"
       ],
-      "status": "pending-new-source-round-and-independent-review",
+      "status": "main-and-runtime-independently-approved-final-Godot-sync-pending",
       "sameObjectPair": {
-        "editor": null,
-        "judge": null
+        "editor": "catalog_customer_samir_editor_v1",
+        "judge": "catalog_customer_samir_judge_v1"
       },
-      "basis": "Original source-rig action owners explicitly reference held_dish-cucumber; confirm actual packedimage hash/visibility in original scene before editing."
+      "basis": "Original source-rig action owners explicitly reference held_dish-cucumber; confirm actual packedimage hash/visibility in original scene before editing.",
+      "round": "round-01",
+      "packetSHA256": "32de19b6f52a0730e9c6e65f209a031d06286621833a193d139ffa5d83d508f7",
+      "reviewSHA256": "c90c78c02dcd1bbaa27b9954ba2277c0ef69a8799e0b1e73da40126b9b591935",
+      "runtimeApproval": "objects/customer-samir/final/runtime-variant-approval.json"
     },
     {
       "object": "customer-june",
@@ -404,7 +412,8 @@
     "clip": "seated-wait-empty",
     "requirement": "Refine native body in this supplemental clip while preserving intentional no-food state.",
     "approvals": {
-      "customer-rosa": "objects/customer-rosa/final/runtime-variant-approval.json"
+      "customer-rosa": "objects/customer-rosa/final/runtime-variant-approval.json",
+      "customer-samir": "objects/customer-samir/final/runtime-variant-approval.json"
     }
   },
   "feedbackVariants": {
@@ -449,7 +458,7 @@
     "goods": "../../godot/tools/refined_goods_contract.py",
     "feedback": "../../godot/tools/refined_feedback_contract.py",
     "tests": "../../godot/tools/test_refinement_imports.py",
-    "verification": "Eleven isolated integration tests pass approved goods/smile/Omar96/Rosa96 and saved original legacy fixtures; reject altered registration/cadence/freshness/approvals/images/extra atlases/floor/gutters and an explicitly simulated missing individual customer approval. Production four-customer registry retained; working game sprite payloads unchanged.",
+    "verification": "Eleven isolated integration tests pass approved goods/smile/Omar96 and every available customer96 bundle (Rosa/Samir currently), plus saved legacy fixtures; reject altered registration/cadence/freshness/approvals/images/extra atlases/floor/gutters and a simulated missing individual approval. Production four-customer registry retained; working game sprite payloads unchanged.",
     "actorVariants": "../../godot/tools/refined_actor_variants.py",
     "actorSync": "../../godot/tools/sync_refined_actor_variants.py",
     "individualRuntimeFixtures": {
@@ -460,6 +469,14 @@
         "frames": 96,
         "evidence": "objects/customer-rosa/final/runtime-import-isolated-verification.json",
         "scope": "Temporary narrowed single-customer registry only; full production four-customer approval gate restored and correctly refuses pending Ellis/Samir/June. Game sprite payloads unchanged."
+      },
+      "customer-samir": {
+        "status": "isolated-single-customer-import-verified",
+        "objects": 1,
+        "atlases": 8,
+        "frames": 96,
+        "evidence": "objects/customer-samir/final/runtime-import-isolated-verification.json",
+        "scope": "Temporary per-customer fixture only; mandatory production four-customer registry restored; working game payloads unchanged."
       }
     }
   },
