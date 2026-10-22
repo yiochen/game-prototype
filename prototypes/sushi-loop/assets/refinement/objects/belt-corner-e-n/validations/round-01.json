@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "asset": "belt-corner-e-n",
+  "method": "recipe-reuse",
+  "verdict": "validated",
+  "independentReview": false,
+  "authority": "Direct user instruction; established native recipe and coordinator technical checks, no competing artistic review.",
+  "candidatePacketSHA256": "ac0f3258bb98bbd8cdbe0bb2e4f912c4b8d3c0f0437cc51a0b805f7a89c9fa19",
+  "blockers": [],
+  "policySHA256": "3f541c48a4cfc7f2e9d2537e5a631b1cf481c120888bb285a8854356b38df589",
+  "family": {
+    "straight": {
+      "asset": "belt-straight-n",
+      "packet": "objects/belt-straight-n/candidates/round-11/packet.json",
+      "packetSHA256": "2a29c9f7fc3de3c839536bff284340b84da32f406a3e91a5057cc7d577e6d799",
+      "review": "objects/belt-straight-n/reviews/round-11.json",
+      "reviewSHA256": "be1798df7c0fcc8e21419447c7423e5a04429b0b84d4309bfcb57567e2ccbeda"
+    },
+    "corner": {
+      "asset": "belt-corner-n-e",
+      "packet": "objects/belt-corner-n-e/candidates/round-01/packet.json",
+      "packetSHA256": "a1d9437297cdf0784f9febd38f9e48118192bcfc74463752f468bb4997cf24d9",
+      "review": "objects/belt-corner-n-e/reviews/round-01.json",
+      "reviewSHA256": "bfc2174429f64bb3e38f34b5ed8645bf1d722b1f7acabe65406d44b626788ee0"
+    }
+  },
+  "checks": {
+    "familyRecipeAndMaterials": true,
+    "intendedSizeInspection": true,
+    "nativeContinuity": true,
+    "nativeRegistration": true,
+    "originalClipsAndCadence": true,
+    "portsAndPhase": true,
+    "publishedPixelsAndResourceClosure": true
+  },
+  "evidence": {
+    "candidates/round-01/validation.json": "b20e35a9e82cbca8f18cc517a9896f133b1e774dd572f516bc4042a228a1b11c",
+    "candidates/round-01/technical-checks.json": "3de7f17ae3220921f7f305002ca7e3ca85704a52f70bdc9baa9266f67fbc238f",
+    "candidates/round-01/source-contract.json": "a4b4979986628e0738bc78f82d9e5e16c76fc3a706c10e76981621b8be2ed4e3",
+    "candidates/round-01/native-localized-proof.json": "39ec184fec134400c955079c4b522a523c6f5fadc1c2632b21ab9c9be37fe830",
+    "candidates/round-01/native-continuity.json": "491bc851bc664b8fc998bfc27bfc62b4cbabcdbe1c582f0a35f8a010ac1ac544",
+    "candidates/round-01/consumer-metrics.json": "ca0a532fe36fb6b55b8094d0dee89dc8c437a4b4e1a845736d53644763a50743",
+    "candidates/round-01/godot-consumer-metrics.json": "2b1cc5451b58deabca33e9f429b2b12686bf2eb641858cacccbb691034d79ed2",
+    "candidates/round-01/portable-replay.json": "2e23b32a6503bdec5a391fa3f57477eda904f583ae67f753a3a8c3fa28fe5417"
+  },
+  "inspectedFiles": [
+    "hero-N.png",
+    "hero-E.png",
+    "hero-S.png",
+    "hero-W.png",
+    "previews/four-view-sheet.png",
+    "consumer/study-repeated-960.png",
+    "previews/connected-running-N.webp",
+    "previews/connected-running-E.webp",
+    "previews/connected-running-S.webp",
+    "previews/connected-running-W.webp",
+    "previews/motion-inspection.html",
+    "consumer/phone-motion-S.png",
+    "previews/all-frames-N.png",
+    "previews/all-frames-E.png",
+    "previews/all-frames-S.png",
+    "previews/all-frames-W.png",
+    "previews/localized-foot-row-residual.png"
+  ],
+  "inspectionMethod": "Coordinator inspected all96 native phases through four labeled sheets, all96 connected phases through decoded WebP contact sheets, four-facing sheet, repeated actualconsumer, phone and localized residual crop, and motion HTML. Root verified all96 atlas cells,100 measured root/phase samples, packet integrity and exact recipe/port/replay report assertions. WebP48frames total4000ms per direction matches two12fps loops. Consumer numeric/motion reports were checked as packet-bound editor-run evidence, not falsely attributed as an independent new judge run.",
+  "remainingDifferences": [
+    "Native fullRGB residual max19 is restricted to a lower foot edge outside joins; actual joinRGB<=1 and alphaexact in all native/browser/Godot tested cases. Visually no connection stripe or material artifact.",
+    "Consumer implementation snapshot predates only the off-canvas provenance paragraph update; common world raster and native Godot compositor code are unchanged."
+  ],
+  "scope": "Exact current corner only; this receipt does not certify later recipe applications."
+}
