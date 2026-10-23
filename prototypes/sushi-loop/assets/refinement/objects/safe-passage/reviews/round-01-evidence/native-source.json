@@ -1,0 +1,4179 @@
+{
+  "sourceSHA256": "1efc24a21f1ade2accdcca93446f2c4d9743df4437ad2e927c1c239849003aa4",
+  "scene": "safe-passage warm-soft round-01",
+  "collection": "S33_PROP_safe-passage.001",
+  "root": "safe-passage__root",
+  "rootMetadata": {
+    "ports": "[]",
+    "nonblocking": true,
+    "depth_layer": "midground",
+    "support_cells": "[]",
+    "composition_context": "{\"role\": \"passage-flank\", \"minimumClearLaneCells\": 3, \"mirroredFlankRoot\": [3, 0, 0]}",
+    "asset_id": "safe-passage",
+    "family": "issue-33-world-props",
+    "footprint_cells": "[1, 1]",
+    "ground_root": "[0, 0, 0]",
+    "visual_height": 0.53,
+    "sockets": "{}",
+    "directions": "[\"N\", \"E\", \"S\", \"W\"]",
+    "animation_recipes": "{\"ambient\": {\"frames\": 12, \"fps\": 12, \"loop\": true}}",
+    "axis_convention": "X=x; depth=-Y; height=Z",
+    "source": "prop_builders.py",
+    "notes": "[\"Nonblocking flank scenery, not an arch/gate. Compose left/right flanks3cells apart; empty centerlane remains free. No collision, timer or access rule.\"]",
+    "artStyle": "safe-passage-warm-soft-round-01",
+    "production_id": "safe-passage",
+    "native_action_record": "{\"source\": \"build-round-01-v2.py\", \"assetId\": \"safe-passage\", \"clips\": {\"ambient\": [\"safe-passage__ambient__crown_center\", \"safe-passage__ambient__crown_leaf_0\", \"safe-passage__ambient__crown_leaf_1\", \"safe-passage__ambient__crown_leaf_2\", \"safe-passage__ambient__crown_leaf_3\", \"safe-passage__ambient__crown_leaf_4\", \"safe-passage__ambient__crown_leaf_5\", \"safe-passage__ambient__small_growth_0\", \"safe-passage__ambient__small_growth_1\", \"safe-passage__ambient__small_growth_2\"]}}",
+    "sourceRawSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "designBudgetCanonicalS": "{\"X\": [-0.5, 0.5], \"Y\": [-0.5, 0.5], \"Z\": [-0.05, 0.53]}"
+  },
+  "camera": {
+    "type": "ORTHO",
+    "matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.8192318081855774,
+        -0.5734625458717346,
+        -5.734623432159424
+      ],
+      [
+        0.0,
+        0.5734625458717346,
+        0.8192318081855774,
+        8.1923189163208
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "projectionMatrix": [
+      [
+        1.3333333730697632,
+        0.0,
+        0.0,
+        -0.0
+      ],
+      [
+        0.0,
+        0.8877494931221008,
+        0.0,
+        -0.4090892970561981
+      ],
+      [
+        0.0,
+        0.0,
+        -0.0020001998636871576,
+        -1.0001999139785767
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "orthoScale": 1.5,
+    "sensorFit": "HORIZONTAL",
+    "shift": [
+      0.0,
+      0.3072107136249542
+    ],
+    "nativeFrame": [
+      768,
+      1408
+    ],
+    "pixelAspect": [
+      1.2206555604934692,
+      1.0
+    ],
+    "rootPixel": [
+      384.0,
+      992.0000610351562
+    ],
+    "unitX": [
+      511.9999694824219,
+      0.0
+    ],
+    "unitDepth": [
+      0.0,
+      511.99991035461426
+    ],
+    "unitHeight": [
+      0.0,
+      -358.40016174316406
+    ]
+  },
+  "topology": [
+    {
+      "object": "safe-passage__crown_center",
+      "role": "attached_foliage",
+      "parent": "safe-passage__root",
+      "rawVertices": 92,
+      "rawFaces": 100,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 0.00015752622221685598,
+      "localDeterminant": 1.0,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Soft fleshy leaf curvature",
+          "type": "SUBSURF",
+          "render": true,
+          "viewport": true,
+          "levels": 1,
+          "renderLevels": 1,
+          "width": null
+        }
+      ]
+    },
+    {
+      "object": "safe-passage__crown_leaf_0",
+      "role": "attached_foliage",
+      "parent": "safe-passage__root",
+      "rawVertices": 92,
+      "rawFaces": 100,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 0.00014183563087408202,
+      "localDeterminant": 1.0,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Soft fleshy leaf curvature",
+          "type": "SUBSURF",
+          "render": true,
+          "viewport": true,
+          "levels": 1,
+          "renderLevels": 1,
+          "width": null
+        }
+      ]
+    },
+    {
+      "object": "safe-passage__crown_leaf_1",
+      "role": "attached_foliage",
+      "parent": "safe-passage__root",
+      "rawVertices": 92,
+      "rawFaces": 100,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 0.0001535431424096739,
+      "localDeterminant": 1.0000001192092896,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Soft fleshy leaf curvature",
+          "type": "SUBSURF",
+          "render": true,
+          "viewport": true,
+          "levels": 1,
+          "renderLevels": 1,
+          "width": null
+        }
+      ]
+    },
+    {
+      "object": "safe-passage__crown_leaf_2",
+      "role": "attached_foliage",
+      "parent": "safe-passage__root",
+      "rawVertices": 92,
+      "rawFaces": 100,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 0.00015563586032916126,
+      "localDeterminant": 0.9999999403953552,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Soft fleshy leaf curvature",
+          "type": "SUBSURF",
+          "render": true,
+          "viewport": true,
+          "levels": 1,
+          "renderLevels": 1,
+          "width": null
+        }
+      ]
+    },
+    {
+      "object": "safe-passage__crown_leaf_3",
+      "role": "attached_foliage",
+      "parent": "safe-passage__root",
+      "rawVertices": 92,
+      "rawFaces": 100,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 0.00012650204723130347,
+      "localDeterminant": 1.0,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Soft fleshy leaf curvature",
+          "type": "SUBSURF",
+          "render": true,
+          "viewport": true,
+          "levels": 1,
+          "renderLevels": 1,
+          "width": null
+        }
+      ]
+    },
+    {
+      "object": "safe-passage__crown_leaf_4",
+      "role": "attached_foliage",
+      "parent": "safe-passage__root",
+      "rawVertices": 92,
+      "rawFaces": 100,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 0.00014690384420576949,
+      "localDeterminant": 1.0,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Soft fleshy leaf curvature",
+          "type": "SUBSURF",
+          "render": true,
+          "viewport": true,
+          "levels": 1,
+          "renderLevels": 1,
+          "width": null
+        }
+      ]
+    },
+    {
+      "object": "safe-passage__crown_leaf_5",
+      "role": "attached_foliage",
+      "parent": "safe-passage__root",
+      "rawVertices": 92,
+      "rawFaces": 100,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 0.00012800099437520755,
+      "localDeterminant": 1.0,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Soft fleshy leaf curvature",
+          "type": "SUBSURF",
+          "render": true,
+          "viewport": true,
+          "levels": 1,
+          "renderLevels": 1,
+          "width": null
+        }
+      ]
+    },
+    {
+      "object": "safe-passage__lane_guide_0_body",
+      "role": "stable_lane_guide",
+      "parent": "safe-passage__root",
+      "rawVertices": 8,
+      "rawFaces": 6,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 0.0001043279973896741,
+      "localDeterminant": 1.0,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Native softened mineral edges",
+          "type": "BEVEL",
+          "render": true,
+          "viewport": true,
+          "levels": null,
+          "renderLevels": null,
+          "width": 0.007000000216066837
+        },
+        {
+          "name": "Broad plane normals",
+          "type": "WEIGHTED_NORMAL",
+          "render": true,
+          "viewport": true,
+          "levels": null,
+          "renderLevels": null,
+          "width": null
+        }
+      ]
+    },
+    {
+      "object": "safe-passage__lane_guide_0_inset",
+      "role": "stable_lane_guide",
+      "parent": "safe-passage__root",
+      "rawVertices": 8,
+      "rawFaces": 6,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 1.0908001180846285e-05,
+      "localDeterminant": 1.0,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Native softened mineral edges",
+          "type": "BEVEL",
+          "render": true,
+          "viewport": true,
+          "levels": null,
+          "renderLevels": null,
+          "width": 0.0020000000949949026
+        },
+        {
+          "name": "Broad plane normals",
+          "type": "WEIGHTED_NORMAL",
+          "render": true,
+          "viewport": true,
+          "levels": null,
+          "renderLevels": null,
+          "width": null
+        }
+      ]
+    },
+    {
+      "object": "safe-passage__lane_guide_1_body",
+      "role": "stable_lane_guide",
+      "parent": "safe-passage__root",
+      "rawVertices": 8,
+      "rawFaces": 6,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 0.0001043279973896741,
+      "localDeterminant": 1.0,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Native softened mineral edges",
+          "type": "BEVEL",
+          "render": true,
+          "viewport": true,
+          "levels": null,
+          "renderLevels": null,
+          "width": 0.007000000216066837
+        },
+        {
+          "name": "Broad plane normals",
+          "type": "WEIGHTED_NORMAL",
+          "render": true,
+          "viewport": true,
+          "levels": null,
+          "renderLevels": null,
+          "width": null
+        }
+      ]
+    },
+    {
+      "object": "safe-passage__lane_guide_1_inset",
+      "role": "stable_lane_guide",
+      "parent": "safe-passage__root",
+      "rawVertices": 8,
+      "rawFaces": 6,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 1.0908001180846285e-05,
+      "localDeterminant": 1.0,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Native softened mineral edges",
+          "type": "BEVEL",
+          "render": true,
+          "viewport": true,
+          "levels": null,
+          "renderLevels": null,
+          "width": 0.0020000000949949026
+        },
+        {
+          "name": "Broad plane normals",
+          "type": "WEIGHTED_NORMAL",
+          "render": true,
+          "viewport": true,
+          "levels": null,
+          "renderLevels": null,
+          "width": null
+        }
+      ]
+    },
+    {
+      "object": "safe-passage__lane_guide_2_body",
+      "role": "stable_lane_guide",
+      "parent": "safe-passage__root",
+      "rawVertices": 8,
+      "rawFaces": 6,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 0.0001043279973896741,
+      "localDeterminant": 1.0,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Native softened mineral edges",
+          "type": "BEVEL",
+          "render": true,
+          "viewport": true,
+          "levels": null,
+          "renderLevels": null,
+          "width": 0.007000000216066837
+        },
+        {
+          "name": "Broad plane normals",
+          "type": "WEIGHTED_NORMAL",
+          "render": true,
+          "viewport": true,
+          "levels": null,
+          "renderLevels": null,
+          "width": null
+        }
+      ]
+    },
+    {
+      "object": "safe-passage__lane_guide_2_inset",
+      "role": "stable_lane_guide",
+      "parent": "safe-passage__root",
+      "rawVertices": 8,
+      "rawFaces": 6,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 1.0908001180846285e-05,
+      "localDeterminant": 1.0,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Native softened mineral edges",
+          "type": "BEVEL",
+          "render": true,
+          "viewport": true,
+          "levels": null,
+          "renderLevels": null,
+          "width": 0.0020000000949949026
+        },
+        {
+          "name": "Broad plane normals",
+          "type": "WEIGHTED_NORMAL",
+          "render": true,
+          "viewport": true,
+          "levels": null,
+          "renderLevels": null,
+          "width": null
+        }
+      ]
+    },
+    {
+      "object": "safe-passage__main_blue_stone",
+      "role": "stable_stone",
+      "parent": "safe-passage__root",
+      "rawVertices": 12,
+      "rawFaces": 20,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 0.01670327206078247,
+      "localDeterminant": 1.0,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Native softened mineral edges",
+          "type": "BEVEL",
+          "render": true,
+          "viewport": true,
+          "levels": null,
+          "renderLevels": null,
+          "width": 0.014000000432133675
+        },
+        {
+          "name": "Broad plane normals",
+          "type": "WEIGHTED_NORMAL",
+          "render": true,
+          "viewport": true,
+          "levels": null,
+          "renderLevels": null,
+          "width": null
+        }
+      ]
+    },
+    {
+      "object": "safe-passage__small_blue_stone",
+      "role": "stable_stone",
+      "parent": "safe-passage__root",
+      "rawVertices": 12,
+      "rawFaces": 20,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 0.004540742742924069,
+      "localDeterminant": 1.0,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Native softened mineral edges",
+          "type": "BEVEL",
+          "render": true,
+          "viewport": true,
+          "levels": null,
+          "renderLevels": null,
+          "width": 0.009999999776482582
+        },
+        {
+          "name": "Broad plane normals",
+          "type": "WEIGHTED_NORMAL",
+          "render": true,
+          "viewport": true,
+          "levels": null,
+          "renderLevels": null,
+          "width": null
+        }
+      ]
+    },
+    {
+      "object": "safe-passage__small_growth_0",
+      "role": "attached_foliage",
+      "parent": "safe-passage__root",
+      "rawVertices": 92,
+      "rawFaces": 100,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 4.010241660923748e-05,
+      "localDeterminant": 1.0,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Soft fleshy leaf curvature",
+          "type": "SUBSURF",
+          "render": true,
+          "viewport": true,
+          "levels": 1,
+          "renderLevels": 1,
+          "width": null
+        }
+      ]
+    },
+    {
+      "object": "safe-passage__small_growth_1",
+      "role": "attached_foliage",
+      "parent": "safe-passage__root",
+      "rawVertices": 92,
+      "rawFaces": 100,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 4.8820333270844756e-05,
+      "localDeterminant": 1.0,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Soft fleshy leaf curvature",
+          "type": "SUBSURF",
+          "render": true,
+          "viewport": true,
+          "levels": 1,
+          "renderLevels": 1,
+          "width": null
+        }
+      ]
+    },
+    {
+      "object": "safe-passage__small_growth_2",
+      "role": "attached_foliage",
+      "parent": "safe-passage__root",
+      "rawVertices": 92,
+      "rawFaces": 100,
+      "edgesNotTwoFaces": 0,
+      "signedVolume": 4.010241660923748e-05,
+      "localDeterminant": 1.0,
+      "shapeKeys": false,
+      "modifiers": [
+        {
+          "name": "Soft fleshy leaf curvature",
+          "type": "SUBSURF",
+          "render": true,
+          "viewport": true,
+          "levels": 1,
+          "renderLevels": 1,
+          "width": null
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "owner": "safe-passage__crown_center",
+      "action": "safe-passage__ambient__crown_center",
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 0,
+          "keys": [
+            [
+              1.0,
+              0.0069534266367554665,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              0.023173009976744652,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              0.03318340331315994,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              0.03430233150720596,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              0.0262299757450819,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              0.011129320599138737,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              -0.0069534266367554665,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              -0.023173009976744652,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              -0.03318340331315994,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              -0.03430233150720596,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              -0.0262299757450819,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              -0.011129320599138737,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.0069534266367554665,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 1,
+          "keys": [
+            [
+              1.0,
+              0.024011630564928055,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              0.018360983580350876,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              0.007790524512529373,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              -0.0048673986457288265,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              -0.01622110605239868,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              -0.02322838269174099,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              -0.024011630564928055,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              -0.018360983580350876,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              -0.007790524512529373,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              0.0048673986457288265,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              0.01622110605239868,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.02322838269174099,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.024011630564928055,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 2,
+          "keys": [
+            [
+              1.0,
+              0.20000000298023224,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              0.20000000298023224,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              0.20000000298023224,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              0.20000000298023224,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              0.20000000298023224,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              0.20000000298023224,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              0.20000000298023224,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              0.20000000298023224,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              0.20000000298023224,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              0.20000000298023224,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              0.20000000298023224,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.20000000298023224,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.20000000298023224,
+              "BEZIER"
+            ]
+          ]
+        }
+      ],
+      "drivers": [],
+      "NLATracks": 0
+    },
+    {
+      "owner": "safe-passage__crown_leaf_0",
+      "action": "safe-passage__ambient__crown_leaf_0",
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 0,
+          "keys": [
+            [
+              1.0,
+              0.0,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              0.017500000074505806,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              0.030310889706015587,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              0.03500000014901161,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              0.030310889706015587,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              0.017500000074505806,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              4.286263818611965e-18,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              -0.017500000074505806,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              -0.030310889706015587,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              -0.03500000014901161,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              -0.030310889706015587,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              -0.017500000074505806,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.0,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 1,
+          "keys": [
+            [
+              1.0,
+              0.02449999935925007,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              0.021217621862888336,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              0.012249999679625034,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              1.5001923365141877e-18,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              -0.012249999679625034,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              -0.021217621862888336,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              -0.02449999935925007,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              -0.021217621862888336,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              -0.012249999679625034,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              -4.50057680274741e-18,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              0.012249999679625034,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.021217621862888336,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.02449999935925007,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 2,
+          "keys": [
+            [
+              1.0,
+              0.1599999964237213,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              0.1599999964237213,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              0.1599999964237213,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              0.1599999964237213,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              0.1599999964237213,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              0.1599999964237213,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              0.1599999964237213,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              0.1599999964237213,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              0.1599999964237213,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              0.1599999964237213,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              0.1599999964237213,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.1599999964237213,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.1599999964237213,
+              "BEZIER"
+            ]
+          ]
+        }
+      ],
+      "drivers": [],
+      "NLATracks": 0
+    },
+    {
+      "owner": "safe-passage__crown_leaf_1",
+      "action": "safe-passage__ambient__crown_leaf_1",
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 0,
+          "keys": [
+            [
+              1.0,
+              0.021734509617090225,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              0.03253951668739319,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              0.0346255861222744,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              0.027433758601546288,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              0.012891076505184174,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              -0.005105758085846901,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              -0.021734509617090225,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              -0.03253951668739319,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              -0.0346255861222744,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              -0.027433758601546288,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              -0.012891076505184174,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.005105758085846901,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.021734509617090225,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 1,
+          "keys": [
+            [
+              1.0,
+              0.019203631207346916,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              0.009023753926157951,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              -0.0035740307066589594,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              -0.015214156359434128,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              -0.022777661681175232,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              -0.02423791028559208,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              -0.019203631207346916,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              -0.009023753926157951,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              0.0035740307066589594,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              0.015214156359434128,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              0.022777661681175232,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.02423791028559208,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.019203631207346916,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 2,
+          "keys": [
+            [
+              1.0,
+              1.2071975469589233,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              1.2071975469589233,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              1.2071975469589233,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              1.2071975469589233,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              1.2071975469589233,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              1.2071975469589233,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              1.2071975469589233,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              1.2071975469589233,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              1.2071975469589233,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              1.2071975469589233,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              1.2071975469589233,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              1.2071975469589233,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              1.2071975469589233,
+              "BEZIER"
+            ]
+          ]
+        }
+      ],
+      "drivers": [],
+      "NLATracks": 0
+    },
+    {
+      "owner": "safe-passage__crown_leaf_2",
+      "action": "safe-passage__ambient__crown_leaf_2",
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 0,
+          "keys": [
+            [
+              1.0,
+              0.03407195955514908,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              0.03351035714149475,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              0.023969680070877075,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              0.00800634827464819,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              -0.010102278552949429,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              -0.025504007935523987,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              -0.03407195955514908,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              -0.03351035714149475,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              -0.023969680070877075,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              -0.00800634827464819,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              0.010102278552949429,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.025504007935523987,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.03407195955514908,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 1,
+          "keys": [
+            [
+              1.0,
+              0.005604443605989218,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              -0.007071594707667828,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              -0.01785280555486679,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              -0.023850372061133385,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              -0.023457249626517296,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              -0.016778776422142982,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              -0.005604443605989218,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              0.007071594707667828,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              0.01785280555486679,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              0.023850372061133385,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              0.023457249626517296,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.016778776422142982,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.005604443605989218,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 2,
+          "keys": [
+            [
+              1.0,
+              2.254395008087158,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              2.254395008087158,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              2.254395008087158,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              2.254395008087158,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              2.254395008087158,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              2.254395008087158,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              2.254395008087158,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              2.254395008087158,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              2.254395008087158,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              2.254395008087158,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              2.254395008087158,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              2.254395008087158,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              2.254395008087158,
+              "BEZIER"
+            ]
+          ]
+        }
+      ],
+      "drivers": [],
+      "NLATracks": 0
+    },
+    {
+      "owner": "safe-passage__crown_leaf_3",
+      "action": "safe-passage__ambient__crown_leaf_3",
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 0,
+          "keys": [
+            [
+              1.0,
+              0.03167816996574402,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              0.019992770627141,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              0.0029503232799470425,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              -0.014882659539580345,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              -0.02872784622013569,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              -0.034875430166721344,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              -0.03167816996574402,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              -0.019992770627141,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              -0.0029503232799470425,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              0.014882659539580345,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              0.02872784622013569,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.034875430166721344,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.03167816996574402,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 1,
+          "keys": [
+            [
+              1.0,
+              -0.010417861863970757,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              -0.020109493285417557,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              -0.02441280148923397,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              -0.022174719721078873,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              -0.01399493869394064,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              -0.002065226435661316,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              0.010417861863970757,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              0.020109493285417557,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              0.02441280148923397,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              0.022174719721078873,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              0.01399493869394064,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.002065226435661316,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              -0.010417861863970757,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 2,
+          "keys": [
+            [
+              1.0,
+              3.3015925884246826,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              3.3015925884246826,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              3.3015925884246826,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              3.3015925884246826,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              3.3015925884246826,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              3.3015925884246826,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              3.3015925884246826,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              3.3015925884246826,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              3.3015925884246826,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              3.3015925884246826,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              3.3015925884246826,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              3.3015925884246826,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              3.3015925884246826,
+              "BEZIER"
+            ]
+          ]
+        }
+      ],
+      "drivers": [],
+      "NLATracks": 0
+    },
+    {
+      "owner": "safe-passage__crown_leaf_4",
+      "action": "safe-passage__ambient__crown_leaf_4",
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 0,
+          "keys": [
+            [
+              1.0,
+              0.01558811217546463,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              -0.002168823964893818,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              -0.019344625994563103,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              -0.03133704885840416,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              -0.03493274003267288,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              -0.029168227687478065,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              -0.01558811217546463,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              0.002168823964893818,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              0.019344625994563103,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              0.03133704885840416,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              0.03493274003267288,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.029168227687478065,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.01558811217546463,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 1,
+          "keys": [
+            [
+              1.0,
+              -0.02193593606352806,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              -0.024452917277812958,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              -0.02041775919497013,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              -0.010911678895354271,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              0.0015181767521426082,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              0.013541238382458687,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              0.02193593606352806,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              0.024452917277812958,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              0.02041775919497013,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              0.010911678895354271,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              -0.0015181767521426082,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              -0.013541238382458687,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              -0.02193593606352806,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 2,
+          "keys": [
+            [
+              1.0,
+              4.348790168762207,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              4.348790168762207,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              4.348790168762207,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              4.348790168762207,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              4.348790168762207,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              4.348790168762207,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              4.348790168762207,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              4.348790168762207,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              4.348790168762207,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              4.348790168762207,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              4.348790168762207,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              4.348790168762207,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              4.348790168762207,
+              "BEZIER"
+            ]
+          ]
+        }
+      ],
+      "drivers": [],
+      "NLATracks": 0
+    },
+    {
+      "owner": "safe-passage__crown_leaf_5",
+      "action": "safe-passage__ambient__crown_leaf_5",
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 0,
+          "keys": [
+            [
+              1.0,
+              -0.007241568993777037,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              -0.02339271269738674,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              -0.033275797963142395,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              -0.0342426598072052,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              -0.02603422850370407,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              -0.010849947109818459,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              0.007241568993777037,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              0.02339271269738674,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              0.033275797963142395,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              0.0342426598072052,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              0.02603422850370407,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.010849947109818459,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              -0.007241568993777037,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 1,
+          "keys": [
+            [
+              1.0,
+              -0.02396986074745655,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              -0.01822395995259285,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              -0.007594962604343891,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              0.005069098435342312,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              0.016374899074435234,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              0.023293057456612587,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              0.02396986074745655,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              0.01822395995259285,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              0.007594962604343891,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              -0.005069098435342312,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              -0.016374899074435234,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              -0.023293057456612587,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              -0.02396986074745655,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 2,
+          "keys": [
+            [
+              1.0,
+              5.3959879875183105,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              5.3959879875183105,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              5.3959879875183105,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              5.3959879875183105,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              5.3959879875183105,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              5.3959879875183105,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              5.3959879875183105,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              5.3959879875183105,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              5.3959879875183105,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              5.3959879875183105,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              5.3959879875183105,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              5.3959879875183105,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              5.3959879875183105,
+              "BEZIER"
+            ]
+          ]
+        }
+      ],
+      "drivers": [],
+      "NLATracks": 0
+    },
+    {
+      "owner": "safe-passage__small_growth_0",
+      "action": "safe-passage__ambient__small_growth_0",
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 0,
+          "keys": [
+            [
+              1.0,
+              0.013298409059643745,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              0.03301183134317398,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              0.043879758566617966,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              0.04299014061689377,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              0.03058135136961937,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              0.009978311136364937,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              -0.013298409059643745,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              -0.03301183134317398,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              -0.043879758566617966,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              -0.04299014061689377,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              -0.03058135136961937,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              -0.009978311136364937,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.013298409059643745,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 1,
+          "keys": [
+            [
+              1.0,
+              0.030093099921941757,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              0.02140694484114647,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              0.0069848173297941685,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              -0.009308886714279652,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              -0.023108281195163727,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              -0.030715832486748695,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              -0.030093099921941757,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              -0.02140694484114647,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              -0.0069848173297941685,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              0.009308886714279652,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              0.023108281195163727,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.030715832486748695,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.030093099921941757,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 2,
+          "keys": [
+            [
+              1.0,
+              0.5,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              0.5,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              0.5,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              0.5,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              0.5,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              0.5,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              0.5,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              0.5,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              0.5,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              0.5,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              0.5,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.5,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.5,
+              "BEZIER"
+            ]
+          ]
+        }
+      ],
+      "drivers": [],
+      "NLATracks": 0
+    },
+    {
+      "owner": "safe-passage__small_growth_1",
+      "action": "safe-passage__ambient__small_growth_1",
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 0,
+          "keys": [
+            [
+              1.0,
+              0.04010432958602905,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              0.04493728280067444,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              0.037729326635599136,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              0.02041182480752468,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              -0.0023750062100589275,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              -0.024525456130504608,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              -0.04010432958602905,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              -0.04493728280067444,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              -0.037729326635599136,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              -0.02041182480752468,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              0.0023750062100589275,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.024525456130504608,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.04010432958602905,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 1,
+          "keys": [
+            [
+              1.0,
+              0.014288277365267277,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              -0.001662504393607378,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              -0.017167819663882256,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              -0.028073031455278397,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              -0.03145609796047211,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              -0.026410527527332306,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              -0.014288277365267277,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              0.001662504393607378,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              0.017167819663882256,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              0.028073031455278397,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              0.03145609796047211,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.026410527527332306,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.014288277365267277,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 2,
+          "keys": [
+            [
+              1.0,
+              2.594395160675049,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              2.594395160675049,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              2.594395160675049,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              2.594395160675049,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              2.594395160675049,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              2.594395160675049,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              2.594395160675049,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              2.594395160675049,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              2.594395160675049,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              2.594395160675049,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              2.594395160675049,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              2.594395160675049,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              2.594395160675049,
+              "BEZIER"
+            ]
+          ]
+        }
+      ],
+      "drivers": [],
+      "NLATracks": 0
+    },
+    {
+      "owner": "safe-passage__small_growth_2",
+      "action": "safe-passage__ambient__small_growth_2",
+      "frameRange": [
+        1.0,
+        13.0
+      ],
+      "curves": [
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 0,
+          "keys": [
+            [
+              1.0,
+              0.04258350282907486,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              0.029604380950331688,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              0.0086927879601717,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              -0.01454803068190813,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              -0.03389071673154831,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              -0.04415241256356239,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              -0.04258350282907486,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              -0.029604380950331688,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              -0.0086927879601717,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              0.01454803068190813,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              0.03389071673154831,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.04415241256356239,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              0.04258350282907486,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 1,
+          "keys": [
+            [
+              1.0,
+              -0.010183621197938919,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              -0.023723501712083817,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              -0.030906688421964645,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              -0.02980845235288143,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              -0.020723067224025726,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              -0.00608495157212019,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              0.010183621197938919,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              0.023723501712083817,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              0.030906688421964645,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              0.02980845235288143,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              0.020723067224025726,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              0.00608495157212019,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              -0.010183621197938919,
+              "BEZIER"
+            ]
+          ]
+        },
+        {
+          "dataPath": "rotation_euler",
+          "arrayIndex": 2,
+          "keys": [
+            [
+              1.0,
+              4.688790321350098,
+              "BEZIER"
+            ],
+            [
+              2.0,
+              4.688790321350098,
+              "BEZIER"
+            ],
+            [
+              3.0,
+              4.688790321350098,
+              "BEZIER"
+            ],
+            [
+              4.0,
+              4.688790321350098,
+              "BEZIER"
+            ],
+            [
+              5.0,
+              4.688790321350098,
+              "BEZIER"
+            ],
+            [
+              6.0,
+              4.688790321350098,
+              "BEZIER"
+            ],
+            [
+              7.0,
+              4.688790321350098,
+              "BEZIER"
+            ],
+            [
+              8.0,
+              4.688790321350098,
+              "BEZIER"
+            ],
+            [
+              9.0,
+              4.688790321350098,
+              "BEZIER"
+            ],
+            [
+              10.0,
+              4.688790321350098,
+              "BEZIER"
+            ],
+            [
+              11.0,
+              4.688790321350098,
+              "BEZIER"
+            ],
+            [
+              12.0,
+              4.688790321350098,
+              "BEZIER"
+            ],
+            [
+              13.0,
+              4.688790321350098,
+              "BEZIER"
+            ]
+          ]
+        }
+      ],
+      "drivers": [],
+      "NLATracks": 0
+    }
+  ],
+  "materials": [
+    {
+      "name": "Lane guide \u00b7 inset cyan face",
+      "nodes": [
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Base Color": [
+              0.021219009533524513,
+              0.5088813304901123,
+              0.6444796919822693,
+              1.0
+            ],
+            "Metallic": 0.0,
+            "Roughness": 0.4000000059604645,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.3199999928474426,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.10000000149011612,
+            "Coat Roughness": 0.3400000035762787,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "ramps": null,
+          "texture": null
+        }
+      ],
+      "links": [
+        [
+          "Principled BSDF",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ]
+      ]
+    },
+    {
+      "name": "Lane guide \u00b7 turquoise body",
+      "nodes": [
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Metallic": 0.0,
+            "Roughness": 0.33000001311302185,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.3799999952316284,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.15000000596046448,
+            "Coat Roughness": 0.3400000035762787,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Geometry",
+          "type": "NEW_GEOMETRY",
+          "inputs": {},
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "SEPXYZ",
+          "inputs": {},
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Color Ramp",
+          "type": "VALTORGB",
+          "inputs": {},
+          "ramps": [
+            [
+              0.0,
+              [
+                0.002428215928375721,
+                0.2015562504529953,
+                0.34191441535949707,
+                1.0
+              ]
+            ],
+            [
+              1.0,
+              [
+                0.022173885256052017,
+                0.68668532371521,
+                0.7758222222328186,
+                1.0
+              ]
+            ]
+          ],
+          "texture": null
+        },
+        {
+          "name": "Map Range",
+          "type": "MAP_RANGE",
+          "inputs": {
+            "From Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "ramps": null,
+          "texture": null
+        }
+      ],
+      "links": [
+        [
+          "Principled BSDF",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ],
+        [
+          "Geometry",
+          "Position",
+          "Separate XYZ",
+          "Vector"
+        ],
+        [
+          "Separate XYZ",
+          "Z",
+          "Map Range",
+          "Value"
+        ],
+        [
+          "Map Range",
+          "Result",
+          "Color Ramp",
+          "Factor"
+        ],
+        [
+          "Color Ramp",
+          "Color",
+          "Principled BSDF",
+          "Base Color"
+        ]
+      ]
+    },
+    {
+      "name": "Leaf green \u00b7 thick living volume",
+      "nodes": [
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Metallic": 0.0,
+            "Roughness": 0.4699999988079071,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.2800000011920929,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.07000000029802322,
+            "Coat Roughness": 0.3400000035762787,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Geometry",
+          "type": "NEW_GEOMETRY",
+          "inputs": {},
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "SEPXYZ",
+          "inputs": {},
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Color Ramp",
+          "type": "VALTORGB",
+          "inputs": {},
+          "ramps": [
+            [
+              0.0,
+              [
+                0.006995410192757845,
+                0.15592646598815918,
+                0.03189603239297867,
+                1.0
+              ]
+            ],
+            [
+              1.0,
+              [
+                0.34191441535949707,
+                0.7083757519721985,
+                0.016807375475764275,
+                1.0
+              ]
+            ]
+          ],
+          "texture": null
+        },
+        {
+          "name": "Map Range",
+          "type": "MAP_RANGE",
+          "inputs": {
+            "From Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "ramps": null,
+          "texture": null
+        }
+      ],
+      "links": [
+        [
+          "Principled BSDF",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ],
+        [
+          "Geometry",
+          "Position",
+          "Separate XYZ",
+          "Vector"
+        ],
+        [
+          "Separate XYZ",
+          "Z",
+          "Map Range",
+          "Value"
+        ],
+        [
+          "Map Range",
+          "Result",
+          "Color Ramp",
+          "Factor"
+        ],
+        [
+          "Color Ramp",
+          "Color",
+          "Principled BSDF",
+          "Base Color"
+        ]
+      ]
+    },
+    {
+      "name": "Leaf green \u00b7 young crown",
+      "nodes": [
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Metallic": 0.0,
+            "Roughness": 0.47999998927116394,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.2800000011920929,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.07000000029802322,
+            "Coat Roughness": 0.3400000035762787,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Geometry",
+          "type": "NEW_GEOMETRY",
+          "inputs": {},
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "SEPXYZ",
+          "inputs": {},
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Color Ramp",
+          "type": "VALTORGB",
+          "inputs": {},
+          "ramps": [
+            [
+              0.0,
+              [
+                0.016807375475764275,
+                0.22322796285152435,
+                0.0382043719291687,
+                1.0
+              ]
+            ],
+            [
+              1.0,
+              [
+                0.4969329833984375,
+                0.7991027235984802,
+                0.06301001459360123,
+                1.0
+              ]
+            ]
+          ],
+          "texture": null
+        },
+        {
+          "name": "Map Range",
+          "type": "MAP_RANGE",
+          "inputs": {
+            "From Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "ramps": null,
+          "texture": null
+        }
+      ],
+      "links": [
+        [
+          "Principled BSDF",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ],
+        [
+          "Geometry",
+          "Position",
+          "Separate XYZ",
+          "Vector"
+        ],
+        [
+          "Separate XYZ",
+          "Z",
+          "Map Range",
+          "Value"
+        ],
+        [
+          "Map Range",
+          "Result",
+          "Color Ramp",
+          "Factor"
+        ],
+        [
+          "Color Ramp",
+          "Color",
+          "Principled BSDF",
+          "Base Color"
+        ]
+      ]
+    },
+    {
+      "name": "Mineral blue \u00b7 broad height color",
+      "nodes": [
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Metallic": 0.0,
+            "Roughness": 0.47999998927116394,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.3199999928474426,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.10000000149011612,
+            "Coat Roughness": 0.3400000035762787,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Geometry",
+          "type": "NEW_GEOMETRY",
+          "inputs": {},
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "SEPXYZ",
+          "inputs": {},
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Color Ramp",
+          "type": "VALTORGB",
+          "inputs": {},
+          "ramps": [
+            [
+              0.0,
+              [
+                0.007499032188206911,
+                0.10702310502529144,
+                0.4969329833984375,
+                1.0
+              ]
+            ],
+            [
+              1.0,
+              [
+                0.08228270709514618,
+                0.5028864741325378,
+                0.8549926280975342,
+                1.0
+              ]
+            ]
+          ],
+          "texture": null
+        },
+        {
+          "name": "Map Range",
+          "type": "MAP_RANGE",
+          "inputs": {
+            "From Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "ramps": null,
+          "texture": null
+        }
+      ],
+      "links": [
+        [
+          "Principled BSDF",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ],
+        [
+          "Geometry",
+          "Position",
+          "Separate XYZ",
+          "Vector"
+        ],
+        [
+          "Separate XYZ",
+          "Z",
+          "Map Range",
+          "Value"
+        ],
+        [
+          "Map Range",
+          "Result",
+          "Color Ramp",
+          "Factor"
+        ],
+        [
+          "Color Ramp",
+          "Color",
+          "Principled BSDF",
+          "Base Color"
+        ]
+      ]
+    },
+    {
+      "name": "Mineral blue \u00b7 small stone",
+      "nodes": [
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "inputs": {
+            "Metallic": 0.0,
+            "Roughness": 0.5,
+            "IOR": 1.5,
+            "Alpha": 1.0,
+            "Thin Wall": false,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Subsurface Weight": 0.0,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Anisotropy": 0.0,
+            "Specular IOR Level": 0.30000001192092896,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Transmission Weight": 0.0,
+            "Coat Weight": 0.07999999821186066,
+            "Coat Roughness": 0.3400000035762787,
+            "Coat IOR": 1.5,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Sheen Weight": 0.0,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "Thin Film Thickness": 0.0,
+            "Thin Film IOR": 1.3300000429153442
+          },
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Geometry",
+          "type": "NEW_GEOMETRY",
+          "inputs": {},
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Separate XYZ",
+          "type": "SEPXYZ",
+          "inputs": {},
+          "ramps": null,
+          "texture": null
+        },
+        {
+          "name": "Color Ramp",
+          "type": "VALTORGB",
+          "inputs": {},
+          "ramps": [
+            [
+              0.0,
+              [
+                0.009134058840572834,
+                0.09305896610021591,
+                0.41788506507873535,
+                1.0
+              ]
+            ],
+            [
+              1.0,
+              [
+                0.05448027700185776,
+                0.38642942905426025,
+                0.7230551242828369,
+                1.0
+              ]
+            ]
+          ],
+          "texture": null
+        },
+        {
+          "name": "Map Range",
+          "type": "MAP_RANGE",
+          "inputs": {
+            "From Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "From Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "To Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Steps": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "ramps": null,
+          "texture": null
+        }
+      ],
+      "links": [
+        [
+          "Principled BSDF",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ],
+        [
+          "Geometry",
+          "Position",
+          "Separate XYZ",
+          "Vector"
+        ],
+        [
+          "Separate XYZ",
+          "Z",
+          "Map Range",
+          "Value"
+        ],
+        [
+          "Map Range",
+          "Result",
+          "Color Ramp",
+          "Factor"
+        ],
+        [
+          "Color Ramp",
+          "Color",
+          "Principled BSDF",
+          "Base Color"
+        ]
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "name": "Warm broad overhead",
+      "type": "AREA",
+      "energy": 150.0,
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          4.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "color": [
+        1.0,
+        0.9599999785423279,
+        0.8700000047683716
+      ],
+      "size": 4.5,
+      "shape": "DISK"
+    },
+    {
+      "name": "Equal cardinal fill 0",
+      "type": "AREA",
+      "energy": 45.0,
+      "matrix": [
+        [
+          -4.371138828673793e-08,
+          -0.5906637907028198,
+          0.8069177865982056,
+          2.5
+        ],
+        [
+          1.0,
+          -2.5818733817573047e-08,
+          3.527149772253324e-08,
+          0.0
+        ],
+        [
+          0.0,
+          0.8069177865982056,
+          0.5906637907028198,
+          2.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "color": [
+        0.8299999833106995,
+        0.9300000071525574,
+        1.0
+      ],
+      "size": 4.0,
+      "shape": "DISK"
+    },
+    {
+      "name": "Equal cardinal fill 1",
+      "type": "AREA",
+      "energy": 45.0,
+      "matrix": [
+        [
+          -1.0,
+          -1.8750357355656888e-07,
+          4.987401069911357e-08,
+          1.5308084995570108e-16
+        ],
+        [
+          1.5099580252808664e-07,
+          -0.5906637907028198,
+          0.8069177269935608,
+          2.5
+        ],
+        [
+          -1.218411824766008e-07,
+          0.8069177269935608,
+          0.5906637907028198,
+          2.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "color": [
+        0.8299999833106995,
+        0.9300000071525574,
+        1.0
+      ],
+      "size": 4.0,
+      "shape": "DISK"
+    },
+    {
+      "name": "Equal cardinal fill 2",
+      "type": "AREA",
+      "energy": 45.0,
+      "matrix": [
+        [
+          -4.371138828673793e-08,
+          0.5906637907028198,
+          -0.8069177865982056,
+          -2.5
+        ],
+        [
+          -1.0,
+          -2.5818733817573047e-08,
+          3.527149772253324e-08,
+          3.0616169991140216e-16
+        ],
+        [
+          0.0,
+          0.8069177865982056,
+          0.5906637907028198,
+          2.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "color": [
+        0.8299999833106995,
+        0.9300000071525574,
+        1.0
+      ],
+      "size": 4.0,
+      "shape": "DISK"
+    },
+    {
+      "name": "Equal cardinal fill 3",
+      "type": "AREA",
+      "energy": 45.0,
+      "matrix": [
+        [
+          1.0,
+          1.0850316692037726e-16,
+          -1.482283967242282e-16,
+          -4.592425233973236e-16
+        ],
+        [
+          -1.8369701465288538e-16,
+          0.5906637907028198,
+          -0.8069177865982056,
+          -2.5
+        ],
+        [
+          5.9168709411328296e-24,
+          0.8069177865982056,
+          0.5906637907028198,
+          2.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "color": [
+        0.8299999833106995,
+        0.9300000071525574,
+        1.0
+      ],
+      "size": 4.0,
+      "shape": "DISK"
+    }
+  ],
+  "world": {
+    "strength": 0.10000000149011612,
+    "color": [
+      0.6800000071525574,
+      0.7799999713897705,
+      1.0,
+      1.0
+    ]
+  },
+  "render": {
+    "engine": "BLENDER_EEVEE",
+    "transparent": true,
+    "fps": 12,
+    "dither": 0.0,
+    "viewTransform": "Standard",
+    "look": "None",
+    "exposure": 0.0,
+    "gamma": 1.0,
+    "compositor": null
+  },
+  "externalLibraries": []
+}

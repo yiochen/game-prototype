@@ -1,0 +1,90 @@
+{
+  "asset": "safe-passage",
+  "round": "round-01",
+  "status": "STOPPED: immutable editor handoff for ROOT seal and original independent judge; no approval",
+  "createdUTC": "2026-10-23T00:53:10.187234+00:00",
+  "project": {
+    "path": "source/round-01.blend",
+    "sha256": "1efc24a21f1ade2accdcca93446f2c4d9743df4437ad2e927c1c239849003aa4",
+    "bytes": 127779
+  },
+  "delivery": {
+    "path": "candidates/round-01/delivery.json",
+    "sha256": "a660db647f4fd3b069e285a1f9514c8dafb82b6d8739ee525895671c8fb8a29d",
+    "bytes": 97656
+  },
+  "resourceManifest": {
+    "path": "candidates/round-01/resource-manifest.json",
+    "sha256": "87a0a3dc1a7465413f21246768cba6620600730c7c5936b50702b0aea539cd35",
+    "bytes": 60897
+  },
+  "validation": {
+    "path": "candidates/round-01/validation.json",
+    "sha256": "c15cdd1055bc1ee04dd99513552b6a490d56bfffc8a4df059112e3eb9969df1f",
+    "bytes": 5307
+  },
+  "coverageMap": {
+    "path": "candidates/round-01/review-coverage-map.json",
+    "sha256": "e7a1201aa26db1d9685704a8c73f065e5d51831a4631e5d3257dbcbcc50852a1",
+    "bytes": 6623
+  },
+  "recipe": {
+    "path": "source/round-01-recipe.json",
+    "sha256": "4addf4a8683ebc5b3c1834ca46192a73fc36e6d92b2cea426ff7a73cef1988d9",
+    "bytes": 7713
+  },
+  "initialSHA256": "a234ebe7dad1adc1acc18b2299a346f3985f5f95aa4dc417f06a794d6d5a4dd3",
+  "acknowledgmentSHA256": "0be67d46da4081c648232345c847e5891177c9fc524d97b532901c78160537af",
+  "nativeCaptureSummary": {
+    "native4xFrames": 48,
+    "published2xFrames": 48,
+    "original6x2Atlases": 4,
+    "heroes": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "previewAliases": [
+      "four-view-sheet",
+      "phone",
+      "motion",
+      "ambient-N",
+      "ambient-E",
+      "ambient-S",
+      "ambient-W"
+    ],
+    "sourceSHA256": "1efc24a21f1ade2accdcca93446f2c4d9743df4437ad2e927c1c239849003aa4",
+    "allphaseNativeAuthorAndEvaluatedBudget": "candidates/round-01/native-checks.json",
+    "contactsAttachmentsTopologyAndClosing13": "candidates/round-01/native-validation.json + native-topology.json",
+    "noExtraCaptureStudy": "Native repeatability compares existing draft-v2 same-source four frame0 controls with actual full48 captures."
+  },
+  "consumerSummary": {
+    "actualModes": [
+      "Chromium153.0.8010.12 headless channel=chromium",
+      "Chromium153.0.8010.12 headless shell"
+    ],
+    "helpers": [
+      "099de61830564dbe0de7e3b85ffbeefcc1b80555098ed499b889b50db6074c65",
+      "570a0d0d788ab65252724da1f0ff7d82a086eab1875ba37ed032dac34acf9545"
+    ],
+    "cases": 12,
+    "playback": "142rAF samples each;2353.8ms/2355.9ms;two11->0wraps/no phase errors",
+    "errors": [],
+    "residuals": "Native same-source controls max3RGB few pixels/alphaexact; canvas vs source max5lowalphaRGB/alphaexact; modescanvasexact; phoneCSSedge max16. All retained, no repairs."
+  },
+  "scopeIntegrity": {
+    "allFrozenPreparationMembersReverified": 309,
+    "allOriginalInitialBriefCriteriaTargetBytesUnchanged": true,
+    "noPacketSealOrApproval": true,
+    "noReviewsWritten": true,
+    "noProductionGitDeviceLiveBlenderDeployExtraAgentsSharedHelperChanges": true,
+    "all13Marked2DEffectsExcluded": true,
+    "noGameplayEngineBuildChange": true
+  },
+  "ROOTNextSteps": [
+    "Copy candidates/round-01/delivery.json byte-for-byte to a versioned object-root delivery alias because seal_object.py requires an object-root delivery path.",
+    "Run existing sealer/gates without changing this art, then give exact packet and visible/technical evidence to the same original independent judge.",
+    "Keep any revise/needs_evidence verdict and return ranked visible blockers to the same editor; editor has not approved this candidate."
+  ]
+}

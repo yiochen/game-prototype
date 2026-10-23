@@ -1,0 +1,968 @@
+{
+  "id": "safe-passage",
+  "name": "Safe bonus passage scenery",
+  "family": "W14",
+  "status": "ready",
+  "kind": "prop",
+  "footprint": [
+    1,
+    1
+  ],
+  "projection": "top-down-oblique-square-grid",
+  "frameSize": [
+    192,
+    352
+  ],
+  "root": [
+    96,
+    248
+  ],
+  "sourceScale": 2,
+  "clips": [
+    {
+      "id": "ambient",
+      "sourceClipId": "ambient",
+      "name": "Ambient",
+      "frames": 12,
+      "fps": 12,
+      "static": false,
+      "loop": true,
+      "frameOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/safe-passage/ambient-N.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ],
+            [
+              384,
+              0,
+              384,
+              704
+            ],
+            [
+              768,
+              0,
+              384,
+              704
+            ],
+            [
+              1152,
+              0,
+              384,
+              704
+            ],
+            [
+              1536,
+              0,
+              384,
+              704
+            ],
+            [
+              1920,
+              0,
+              384,
+              704
+            ],
+            [
+              0,
+              704,
+              384,
+              704
+            ],
+            [
+              384,
+              704,
+              384,
+              704
+            ],
+            [
+              768,
+              704,
+              384,
+              704
+            ],
+            [
+              1152,
+              704,
+              384,
+              704
+            ],
+            [
+              1536,
+              704,
+              384,
+              704
+            ],
+            [
+              1920,
+              704,
+              384,
+              704
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/safe-passage/ambient-E.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ],
+            [
+              384,
+              0,
+              384,
+              704
+            ],
+            [
+              768,
+              0,
+              384,
+              704
+            ],
+            [
+              1152,
+              0,
+              384,
+              704
+            ],
+            [
+              1536,
+              0,
+              384,
+              704
+            ],
+            [
+              1920,
+              0,
+              384,
+              704
+            ],
+            [
+              0,
+              704,
+              384,
+              704
+            ],
+            [
+              384,
+              704,
+              384,
+              704
+            ],
+            [
+              768,
+              704,
+              384,
+              704
+            ],
+            [
+              1152,
+              704,
+              384,
+              704
+            ],
+            [
+              1536,
+              704,
+              384,
+              704
+            ],
+            [
+              1920,
+              704,
+              384,
+              704
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/safe-passage/ambient-S.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ],
+            [
+              384,
+              0,
+              384,
+              704
+            ],
+            [
+              768,
+              0,
+              384,
+              704
+            ],
+            [
+              1152,
+              0,
+              384,
+              704
+            ],
+            [
+              1536,
+              0,
+              384,
+              704
+            ],
+            [
+              1920,
+              0,
+              384,
+              704
+            ],
+            [
+              0,
+              704,
+              384,
+              704
+            ],
+            [
+              384,
+              704,
+              384,
+              704
+            ],
+            [
+              768,
+              704,
+              384,
+              704
+            ],
+            [
+              1152,
+              704,
+              384,
+              704
+            ],
+            [
+              1536,
+              704,
+              384,
+              704
+            ],
+            [
+              1920,
+              704,
+              384,
+              704
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/safe-passage/ambient-W.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ],
+            [
+              384,
+              0,
+              384,
+              704
+            ],
+            [
+              768,
+              0,
+              384,
+              704
+            ],
+            [
+              1152,
+              0,
+              384,
+              704
+            ],
+            [
+              1536,
+              0,
+              384,
+              704
+            ],
+            [
+              1920,
+              0,
+              384,
+              704
+            ],
+            [
+              0,
+              704,
+              384,
+              704
+            ],
+            [
+              384,
+              704,
+              384,
+              704
+            ],
+            [
+              768,
+              704,
+              384,
+              704
+            ],
+            [
+              1152,
+              704,
+              384,
+              704
+            ],
+            [
+              1536,
+              704,
+              384,
+              704
+            ],
+            [
+              1920,
+              704,
+              384,
+              704
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "name": "Route object beside the traveling submarine",
+      "gridSize": [
+        5,
+        4
+      ],
+      "placements": [
+        {
+          "object": "safe-passage",
+          "x": 0,
+          "y": 1,
+          "direction": "S"
+        },
+        {
+          "object": "submarine-yellow",
+          "x": 3,
+          "y": 0,
+          "direction": "N",
+          "clip": "travel"
+        }
+      ]
+    }
+  ],
+  "requirements": {
+    "directions": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "states": [
+      "ambient"
+    ],
+    "variants": [
+      "default"
+    ],
+    "animated": true,
+    "fps": 12,
+    "minimumUniqueFrames": 6,
+    "targetLoopFrames": 12,
+    "interactionObjectIds": [
+      "submarine-yellow",
+      "floor-underwater"
+    ],
+    "notes": "Presentation parameters only; safe-passage scene shows steerable ship and no hazards. No extra rewards/progression."
+  },
+  "height": 0.53,
+  "productionStage": "Native Blender \u00b7 approved Faceted lighting and materials",
+  "layer": 2,
+  "compositionContext": {
+    "role": "passage-flank",
+    "minimumClearLaneCells": 3,
+    "mirroredFlankRoot": [
+      3,
+      0,
+      0
+    ]
+  },
+  "directionFootprints": {
+    "N": [
+      1,
+      1
+    ],
+    "E": [
+      1,
+      1
+    ],
+    "S": [
+      1,
+      1
+    ],
+    "W": [
+      1,
+      1
+    ]
+  },
+  "directionRootCells": {
+    "N": [
+      0.5,
+      0.5
+    ],
+    "E": [
+      0.5,
+      0.5
+    ],
+    "S": [
+      0.5,
+      0.5
+    ],
+    "W": [
+      0.5,
+      0.5
+    ]
+  },
+  "rootCell": [
+    0.5,
+    0.5
+  ],
+  "occupiedCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "supportCells": [],
+  "overheadCells": [],
+  "registration": {
+    "method": "authored-3d-projection",
+    "groundAnchorAlignment": "center",
+    "completeFrame": [
+      192,
+      352
+    ],
+    "anchor": [
+      96,
+      248
+    ],
+    "cellSize": 128,
+    "poseFitting": false,
+    "sourceCaptureScale": 4
+  },
+  "sockets3D": {},
+  "sockets": {
+    "N": {},
+    "E": {},
+    "S": {},
+    "W": {}
+  },
+  "socketSpace": "root-relative logical pixels projected from declared native attachment points",
+  "validation": {
+    "rigEvidence": "exported; native and complete capture audits passed"
+  },
+  "source": {
+    "blend": "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "modelScript": "source/blender/revisions/0d156c24ebd2a314/world_components.py",
+    "camera": "source/records/safe-passage/camera.json",
+    "guide": "source/registered/safe-passage/ambient-N/guide.json",
+    "guides": [
+      "source/registered/safe-passage/ambient-N/guide.json",
+      "source/registered/safe-passage/ambient-E/guide.json",
+      "source/registered/safe-passage/ambient-S/guide.json",
+      "source/registered/safe-passage/ambient-W/guide.json"
+    ],
+    "assetRecord": "source/records/safe-passage/asset.json",
+    "rawFrames": [
+      {
+        "image": "source/registered/safe-passage/ambient-N/source-captures/000.png",
+        "sha256": "521be70c60e12e3b30b6f4cdc859219e8334b17c27d9646d49112ec8f5599edc",
+        "clip": "ambient",
+        "direction": "N",
+        "index": 0
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-N/source-captures/001.png",
+        "sha256": "12952a95088c366e99a7bce9aa1d1b43fef3ce657f333c6acfc2b48103a127ab",
+        "clip": "ambient",
+        "direction": "N",
+        "index": 1
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-N/source-captures/002.png",
+        "sha256": "42926c9e5f5e8309ea9c51a84a0e29a6d757c83db65e2f3c6fcff5fc4542bb43",
+        "clip": "ambient",
+        "direction": "N",
+        "index": 2
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-N/source-captures/003.png",
+        "sha256": "be98aa5043b401b9e5aba4392616c2026e24270acf4e4ec72329275e1990f7e7",
+        "clip": "ambient",
+        "direction": "N",
+        "index": 3
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-N/source-captures/004.png",
+        "sha256": "575f413234716a91e7e948bd81a97486af7c3e6440d68c2b795b7dc43db053b3",
+        "clip": "ambient",
+        "direction": "N",
+        "index": 4
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-N/source-captures/005.png",
+        "sha256": "e9f1ab8911c87ea173ef12e6f25ce82600abed5be2e2ab6c392ce4f4f0a06b38",
+        "clip": "ambient",
+        "direction": "N",
+        "index": 5
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-N/source-captures/006.png",
+        "sha256": "d5e71630908b37512f4f44c5912faa0e1b97b701149b06e68400302d8eba74e9",
+        "clip": "ambient",
+        "direction": "N",
+        "index": 6
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-N/source-captures/007.png",
+        "sha256": "998851d87efd3ed029bc465dd18df9bd60478fda8ae32e89a0b9bc5f48a4f63d",
+        "clip": "ambient",
+        "direction": "N",
+        "index": 7
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-N/source-captures/008.png",
+        "sha256": "c599e66761a53c7c8993657040df9fe1ebfc860bd51fd091561ccb0765cf404c",
+        "clip": "ambient",
+        "direction": "N",
+        "index": 8
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-N/source-captures/009.png",
+        "sha256": "8a1dd4007883953bc4b2f8424f34fafe2f243262fafe75e033c3387358f1ae10",
+        "clip": "ambient",
+        "direction": "N",
+        "index": 9
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-N/source-captures/010.png",
+        "sha256": "d417df68253d02e535abff3cddc64fd40713b0983be0da98b797cc5649f4c3f5",
+        "clip": "ambient",
+        "direction": "N",
+        "index": 10
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-N/source-captures/011.png",
+        "sha256": "7b041ba1ec613ea5bb025e1bd2c24164ec6744fced0ce166165538a8d4113334",
+        "clip": "ambient",
+        "direction": "N",
+        "index": 11
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-E/source-captures/000.png",
+        "sha256": "fa8fc74f5dda486bb9fac6a48de8858882cd295be95a266cc4a5d553185f828e",
+        "clip": "ambient",
+        "direction": "E",
+        "index": 0
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-E/source-captures/001.png",
+        "sha256": "6f64d2a1f291a5580eb5d3e0739805e63496685d3cb08516b30336a5a05ff627",
+        "clip": "ambient",
+        "direction": "E",
+        "index": 1
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-E/source-captures/002.png",
+        "sha256": "23537aec13d6c49f4773fe89e4268e2086917f37166e5f680b87b32bf7ae927e",
+        "clip": "ambient",
+        "direction": "E",
+        "index": 2
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-E/source-captures/003.png",
+        "sha256": "22c9b0c35a508edcccda6d2deb4274d9425d3b92f41a16c95cabb5546473b0ac",
+        "clip": "ambient",
+        "direction": "E",
+        "index": 3
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-E/source-captures/004.png",
+        "sha256": "a9881159b3c038d608452528c6c0155aef225b1df49960e3ff9440de6617f5b2",
+        "clip": "ambient",
+        "direction": "E",
+        "index": 4
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-E/source-captures/005.png",
+        "sha256": "f50d027358676f180c1c733957aa70d8b050883217425c66237d9414ed4509d4",
+        "clip": "ambient",
+        "direction": "E",
+        "index": 5
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-E/source-captures/006.png",
+        "sha256": "118403b830bd60785482570d412253cc3ca8bc2bfd956e30b3fa722c51803b6e",
+        "clip": "ambient",
+        "direction": "E",
+        "index": 6
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-E/source-captures/007.png",
+        "sha256": "16c7c773decbb775af18e7c3f66adb8c059a7facd505da414ef2e5048cd7db7a",
+        "clip": "ambient",
+        "direction": "E",
+        "index": 7
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-E/source-captures/008.png",
+        "sha256": "1cbc847e9d61b3882a82a99fec072a0a9cb04a7ce6caf47d566b581c8a5681c4",
+        "clip": "ambient",
+        "direction": "E",
+        "index": 8
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-E/source-captures/009.png",
+        "sha256": "f5e5f6113160d3374998989eee7118df244a0d98999692d65297416cab2d5697",
+        "clip": "ambient",
+        "direction": "E",
+        "index": 9
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-E/source-captures/010.png",
+        "sha256": "5ee9ad145dceef9ae8dd00a992d478f09a1a55d64daa69198a3a20ad347aa74f",
+        "clip": "ambient",
+        "direction": "E",
+        "index": 10
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-E/source-captures/011.png",
+        "sha256": "388e7c4190f291b781809a1bfe0d23a3dcb82ea63da76f2e25467ba3650b4366",
+        "clip": "ambient",
+        "direction": "E",
+        "index": 11
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-S/source-captures/000.png",
+        "sha256": "de881c1a9ad14886972fb75c1ed8a9aa4761656a627df4bcc2ae89860a5980a7",
+        "clip": "ambient",
+        "direction": "S",
+        "index": 0
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-S/source-captures/001.png",
+        "sha256": "a71daa47aee12fd8567ddf0ce273ad914cd1823bd7d952410b335d9ad0eb7671",
+        "clip": "ambient",
+        "direction": "S",
+        "index": 1
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-S/source-captures/002.png",
+        "sha256": "eace89239c0058b4817adfdc45dc241ef8d700d7c2076caadb11ec05a7ed5395",
+        "clip": "ambient",
+        "direction": "S",
+        "index": 2
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-S/source-captures/003.png",
+        "sha256": "717d9e310a48b79be9aaf5df2ceb06d3c7f6b276e30f8065a554a6bd7f9fe085",
+        "clip": "ambient",
+        "direction": "S",
+        "index": 3
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-S/source-captures/004.png",
+        "sha256": "ea4e67687ad0ce73372bd35c1cbb2f1398d6a06291fbe7e8c57e932c85007019",
+        "clip": "ambient",
+        "direction": "S",
+        "index": 4
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-S/source-captures/005.png",
+        "sha256": "ebdda8d360a8b283c0029ca1f1a5fecf2298d94daf0a9b65f77bde8d89d080bb",
+        "clip": "ambient",
+        "direction": "S",
+        "index": 5
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-S/source-captures/006.png",
+        "sha256": "7f9baa4fd4b85673ef4ce18bcccffec6b59bf2d8bc51967be72a62dd75879295",
+        "clip": "ambient",
+        "direction": "S",
+        "index": 6
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-S/source-captures/007.png",
+        "sha256": "c9acb4e6baf58a444502680a129e74afee9168244f613c3d45633542da320837",
+        "clip": "ambient",
+        "direction": "S",
+        "index": 7
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-S/source-captures/008.png",
+        "sha256": "a17da75187b3bbef79e5ef8c40d95d5df87b6a36881625c5dc115acea34d8fe1",
+        "clip": "ambient",
+        "direction": "S",
+        "index": 8
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-S/source-captures/009.png",
+        "sha256": "b8b2ef094b939e33f150572088dffae7a39e564760599b63341c16ddd7eeb090",
+        "clip": "ambient",
+        "direction": "S",
+        "index": 9
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-S/source-captures/010.png",
+        "sha256": "5d4dff02ed4b8be01aba86c19b4813f8fcf364bd8387fa850a8a102f141b4053",
+        "clip": "ambient",
+        "direction": "S",
+        "index": 10
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-S/source-captures/011.png",
+        "sha256": "9046bc7924e7727144bec4ca5b22c388cab8b10a50adac25bdece03e01a2db94",
+        "clip": "ambient",
+        "direction": "S",
+        "index": 11
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-W/source-captures/000.png",
+        "sha256": "f16498707b8d0fe643f0d3d913ce2a9837128de6482e9c02381dcbb794de80f6",
+        "clip": "ambient",
+        "direction": "W",
+        "index": 0
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-W/source-captures/001.png",
+        "sha256": "5758f100e42fb4d637325778bc7051d167368ba34c3c5ffe2fe9d6a7a1868be1",
+        "clip": "ambient",
+        "direction": "W",
+        "index": 1
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-W/source-captures/002.png",
+        "sha256": "bd9fe7f64a31ceda270ec5f78b6bb9ca7a9d4c382718686b24e0309d71026b03",
+        "clip": "ambient",
+        "direction": "W",
+        "index": 2
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-W/source-captures/003.png",
+        "sha256": "b17925a2878d273f643f3cdd80a4ab3dd0658416b54dfb078b3ecd4b02968f55",
+        "clip": "ambient",
+        "direction": "W",
+        "index": 3
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-W/source-captures/004.png",
+        "sha256": "5907910a1f9e43ccfe8997165537de3ad045c3e004776f257fb1c4039fde4353",
+        "clip": "ambient",
+        "direction": "W",
+        "index": 4
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-W/source-captures/005.png",
+        "sha256": "df972e96ceddb4e82996eaf92327b1f7b00f5175e9784d05d48794a73d1a376c",
+        "clip": "ambient",
+        "direction": "W",
+        "index": 5
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-W/source-captures/006.png",
+        "sha256": "4eff96bca12989f762094dc04a6069ca9666a41a4cf0d8c3a3ff79f78d090aa5",
+        "clip": "ambient",
+        "direction": "W",
+        "index": 6
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-W/source-captures/007.png",
+        "sha256": "8970f721b04f63665b1f35013546ca1bf369e5bad9dd08c86edac845cbd367b6",
+        "clip": "ambient",
+        "direction": "W",
+        "index": 7
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-W/source-captures/008.png",
+        "sha256": "dc27682d1a175e868eef46d7d273b1fed7bac992414238343399080172dd230d",
+        "clip": "ambient",
+        "direction": "W",
+        "index": 8
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-W/source-captures/009.png",
+        "sha256": "5721fb3f79a9c0b8f552b1ffb88e3fa3c4d12711f8ac0707c0833559924ad373",
+        "clip": "ambient",
+        "direction": "W",
+        "index": 9
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-W/source-captures/010.png",
+        "sha256": "d69c95fe549997312631bfb27f6fc1e567401344e56af37f408bffc63750b377",
+        "clip": "ambient",
+        "direction": "W",
+        "index": 10
+      },
+      {
+        "image": "source/registered/safe-passage/ambient-W/source-captures/011.png",
+        "sha256": "08dde33bb91e0c295a34733febb705fd2c2fe854bc32a26639cdbfe63682ba36",
+        "clip": "ambient",
+        "direction": "W",
+        "index": 11
+      }
+    ],
+    "nativeScripts": {
+      "apply_faceted_rollout.py": "source/blender/revisions/cb3861e1716061cc/apply_faceted_rollout.py",
+      "build_art_rollout.py": "source/blender/revisions/ead453f336cb44ad/build_art_rollout.py",
+      "capture_runtime.py": "source/blender/revisions/9e6aa6ffa2238a82/capture_runtime.py",
+      "capture_worker.py": "source/blender/revisions/e7b530bb29fbdc86/capture_worker.py",
+      "catalog_art_revision.py": "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py",
+      "catalog_belt_flow.py": "source/blender/revisions/0e7a979f8a0897e2/catalog_belt_flow.py",
+      "catalog_billboards.py": "source/blender/revisions/3b8e0898192741d4/catalog_billboards.py",
+      "catalog_character_revision.py": "source/blender/revisions/babdd36f0bb79345/catalog_character_revision.py",
+      "catalog_clusters.py": "source/blender/revisions/020f94b990987f6c/catalog_clusters.py",
+      "catalog_concept_decor.py": "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py",
+      "catalog_corner_supports.py": "source/blender/revisions/5215531d424a8d75/catalog_corner_supports.py",
+      "catalog_faceted.py": "source/blender/revisions/fe2b5666ebea964e/catalog_faceted.py",
+      "catalog_style.py": "source/blender/revisions/ca784f2f23914bd0/catalog_style.py",
+      "catalog_variants.py": "source/blender/revisions/329ec9b2013c990a/catalog_variants.py",
+      "character_builders.py": "source/blender/revisions/5451da64c233cba1/character_builders.py",
+      "character_composition.py": "source/blender/revisions/caa790049c03ba74/character_composition.py",
+      "concept_decoration_geometry.py": "source/blender/revisions/f00a7b868684ee16/concept_decoration_geometry.py",
+      "creature_fx_builders.py": "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py",
+      "finalize_project.py": "source/blender/revisions/12ae7f05f2e3320f/finalize_project.py",
+      "food_belt_builders.py": "source/blender/revisions/dc3eed619cd64458/food_belt_builders.py",
+      "native_actions.py": "source/blender/revisions/d88e53edef8e7c73/native_actions.py",
+      "preflight_captures.py": "source/blender/revisions/9958888944016044/preflight_captures.py",
+      "production_library-before-state-coverage.py": "source/blender/revisions/9e9fbb9bf6e1f557/production_library-before-state-coverage.py",
+      "production_library.py": "source/blender/revisions/3b0cedd0135be38e/production_library.py",
+      "prop_builders.py": "source/blender/revisions/46d7e4eeabce858f/prop_builders.py",
+      "publish-clusters-as-ready.py": "source/blender/revisions/f0f0d6b49877c597/publish-clusters-as-ready.py",
+      "publish-held-props-as-ready.py": "source/blender/revisions/ed44640debecedec/publish-held-props-as-ready.py",
+      "publish_captures.py": "source/blender/revisions/ecc8fc53525649b3/publish_captures.py",
+      "recapture_library.py": "source/blender/revisions/3f324c8093180b18/recapture_library.py",
+      "repair_revision_links.py": "source/blender/revisions/ecfb4233536e2129/repair_revision_links.py",
+      "seed_cluster_catalog.py": "source/blender/revisions/a1f3b5c5b737b246/seed_cluster_catalog.py",
+      "source-audit.py": "source/blender/revisions/1a3528a59e203e47/source-audit.py",
+      "stage_native_iteration.py": "source/blender/revisions/07904ec941eabaeb/stage_native_iteration.py",
+      "validate_art_revision.py": "source/blender/revisions/75dc2bcc7bc02cb4/validate_art_revision.py",
+      "validate_connected_fixtures.py": "source/blender/revisions/bbbdf3647400cf44/validate_connected_fixtures.py",
+      "validate_native_belt_flow.py": "source/blender/revisions/c90d969248984174/validate_native_belt_flow.py",
+      "validate_native_character_gait.py": "source/blender/revisions/b4550625eae11704/validate_native_character_gait.py",
+      "validate_native_chef_utensils.py": "source/blender/revisions/58f8980c80afdd65/validate_native_chef_utensils.py",
+      "validate_native_clusters.py": "source/blender/revisions/0fa93bd02ed8e374/validate_native_clusters.py",
+      "validate_native_held_food.py": "source/blender/revisions/50caff770d25565b/validate_native_held_food.py",
+      "world_components.py": "source/blender/revisions/0d156c24ebd2a314/world_components.py"
+    },
+    "hashes": {
+      "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+      "source/blender/revisions/cb3861e1716061cc/apply_faceted_rollout.py": "cb3861e1716061cc11305971d00e81c514045b88b4058e5c65f309e3dba14713",
+      "source/blender/revisions/ead453f336cb44ad/build_art_rollout.py": "ead453f336cb44adfe271f1578de2d414edc4dfd64b768460c091ebf7fa1c678",
+      "source/blender/revisions/9e6aa6ffa2238a82/capture_runtime.py": "9e6aa6ffa2238a82183387cfe43437b019e48bc1a86b361d0b0f944b7046b229",
+      "source/blender/revisions/e7b530bb29fbdc86/capture_worker.py": "e7b530bb29fbdc868a67e8a1c3137f9f885830d47b11a3952ffe0ea4e8547ba2",
+      "source/blender/revisions/46912884e4d80c82/catalog_art_revision.py": "46912884e4d80c820cbe62d05bd85ff4e75f4ee18037e8c6241c535718c492a7",
+      "source/blender/revisions/0e7a979f8a0897e2/catalog_belt_flow.py": "0e7a979f8a0897e2a98a063d2a568fb0be8a751f72b76f9584f6949f77140fd5",
+      "source/blender/revisions/3b8e0898192741d4/catalog_billboards.py": "3b8e0898192741d43a331b57ab87ce716adf60fdecc952497bcecefb4cacb5d4",
+      "source/blender/revisions/babdd36f0bb79345/catalog_character_revision.py": "babdd36f0bb7934567a889c643bc92b3bea7ba3d7e51135bbfc608a090e3a105",
+      "source/blender/revisions/020f94b990987f6c/catalog_clusters.py": "020f94b990987f6c4d664b5447525c6d69d66198dfd3fab8159cd9c28642ca1c",
+      "source/blender/revisions/6bc09f2a9c6896f4/catalog_concept_decor.py": "6bc09f2a9c6896f4ff951618960d0b994507c0a47b224456f829e8d13a453c6c",
+      "source/blender/revisions/5215531d424a8d75/catalog_corner_supports.py": "5215531d424a8d7560cb19ca5bf05f3218f5671c346a79dc0585644462bd4b91",
+      "source/blender/revisions/fe2b5666ebea964e/catalog_faceted.py": "fe2b5666ebea964e223b2c5a259d5f9f9fc690e12c851a0189b9a99fb151dfd3",
+      "source/blender/revisions/ca784f2f23914bd0/catalog_style.py": "ca784f2f23914bd0669eaf261073539698d9dee94c14d0604ebbb7db17f7a888",
+      "source/blender/revisions/329ec9b2013c990a/catalog_variants.py": "329ec9b2013c990aeb45233a6e2783b0f9402aa97108f15a32ecb8a64a9d1cff",
+      "source/blender/revisions/5451da64c233cba1/character_builders.py": "5451da64c233cba11920e2eaeb88889e34ac931443b51fdfb34c6f40ea8c0ed7",
+      "source/blender/revisions/caa790049c03ba74/character_composition.py": "caa790049c03ba7425be1ef44708cd6edd879fc397407be77af237facbb5f8a0",
+      "source/blender/revisions/f00a7b868684ee16/concept_decoration_geometry.py": "f00a7b868684ee16989de63e701e8d4496ecbfc14b04fab29e6a605c3d58c178",
+      "source/blender/revisions/e8da19957cf01828/creature_fx_builders.py": "e8da19957cf01828137326c3459cb77e76ba563029ae7b057c8306d663fa9d5b",
+      "source/blender/revisions/12ae7f05f2e3320f/finalize_project.py": "12ae7f05f2e3320f313215a54a7cd51c49e41005c223e864b7df4dedcbe406ed",
+      "source/blender/revisions/dc3eed619cd64458/food_belt_builders.py": "dc3eed619cd644588da74996b99013a24ecf8ce541056d847f3a049fb54a1d95",
+      "source/blender/revisions/d88e53edef8e7c73/native_actions.py": "d88e53edef8e7c73e3a0287513f31678ec4427ad4bf2c756a4db178558a1942f",
+      "source/blender/revisions/9958888944016044/preflight_captures.py": "9958888944016044d5f12d14af97dffa88853c09b67f1f19bbeaa1945c7beebc",
+      "source/blender/revisions/9e9fbb9bf6e1f557/production_library-before-state-coverage.py": "9e9fbb9bf6e1f5573ee5c0602980863934746ca82a1ad5fc6332c1ab72babbbe",
+      "source/blender/revisions/3b0cedd0135be38e/production_library.py": "3b0cedd0135be38edaa2be2ecaad6d5b394185ab9060e3ce10080894b95c1616",
+      "source/blender/revisions/46d7e4eeabce858f/prop_builders.py": "46d7e4eeabce858f19d2b78146a904576e2a933fad569fc8ae553ddffbe07e9a",
+      "source/blender/revisions/f0f0d6b49877c597/publish-clusters-as-ready.py": "f0f0d6b49877c5973404b47f0eccf5772dec35ac743b4508b7cfe269d882e790",
+      "source/blender/revisions/ed44640debecedec/publish-held-props-as-ready.py": "ed44640debecedec2b510f9c723e402f02020eba82fe81cdf0317c6d88c26c18",
+      "source/blender/revisions/ecc8fc53525649b3/publish_captures.py": "ecc8fc53525649b3970cd4ccbd5c95ee2a9d256347c268572fb4f181b0fcc2e9",
+      "source/blender/revisions/3f324c8093180b18/recapture_library.py": "3f324c8093180b18eb6c442cffe82f1fb973687e86c863c8a8499d75821e1f83",
+      "source/blender/revisions/ecfb4233536e2129/repair_revision_links.py": "ecfb4233536e212926b41ec6d5e0f6f3a2d055656ca221b452c35138ed4ee803",
+      "source/blender/revisions/a1f3b5c5b737b246/seed_cluster_catalog.py": "a1f3b5c5b737b246ef8ff14442ff36ca075dc69e96dd0009a08d5d8ae66dd116",
+      "source/blender/revisions/1a3528a59e203e47/source-audit.py": "1a3528a59e203e47a86c0be996dfc8599919159e596d482a924abee1fbd723ea",
+      "source/blender/revisions/07904ec941eabaeb/stage_native_iteration.py": "07904ec941eabaeb81536459129d1048955da55558035af9d2fc5b6776787493",
+      "source/blender/revisions/75dc2bcc7bc02cb4/validate_art_revision.py": "75dc2bcc7bc02cb4befe11ffc3007c834312c75105be3f276b18e3279fd30f4d",
+      "source/blender/revisions/bbbdf3647400cf44/validate_connected_fixtures.py": "bbbdf3647400cf44653900b4b71df4060200c5919ece393e99729c6db42b9a04",
+      "source/blender/revisions/c90d969248984174/validate_native_belt_flow.py": "c90d969248984174f14dcdf583ee3dad6dd04816ee9266b371ad67ae52fccf1a",
+      "source/blender/revisions/b4550625eae11704/validate_native_character_gait.py": "b4550625eae11704b03b19580663cf3637333cf6fe65adb5faa03d22c20da3c8",
+      "source/blender/revisions/58f8980c80afdd65/validate_native_chef_utensils.py": "58f8980c80afdd651e04fc07a83b4ee297fab78dc513cc59c2ca07e23391b8df",
+      "source/blender/revisions/0fa93bd02ed8e374/validate_native_clusters.py": "0fa93bd02ed8e3743d5f3ef437087099b76f02e4b7da83fecfffb7288601fb1e",
+      "source/blender/revisions/50caff770d25565b/validate_native_held_food.py": "50caff770d25565b6a808f11b0447f48ee652ddbef45a3ae2cf8e3f713088d33",
+      "source/blender/revisions/0d156c24ebd2a314/world_components.py": "0d156c24ebd2a31422e75286417e108d22575cf75f7e6ec87cf173aebefd1c91"
+    },
+    "rig": "source/records/safe-passage/rig.json"
+  },
+  "captureFingerprint": "758a72f54a1786a77965785398f50201fc116f3dc59969b869bd20c5912584cf",
+  "portProfiles": {},
+  "artStyle": {
+    "revision": "faceted-approved-2026-10-19",
+    "contrast": 1.35,
+    "contrastSpace": "sRGB",
+    "environmentHeightRatio": 0.7,
+    "lowerTone": "native world-height material ramp",
+    "worldLighting": true,
+    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
+    "roughness": 0.85,
+    "specularIORLevel": 0.03,
+    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
+    "beltRailColor": "#966B60",
+    "floorAlbedoCalibration": 0.42
+  }
+}

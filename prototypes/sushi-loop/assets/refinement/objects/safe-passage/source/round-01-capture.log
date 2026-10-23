@@ -1,0 +1,103 @@
+00:00.231  blend            | Read blend: "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/source/round-01.blend"
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/source/capture-round-01.py:99: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  write('native-scene-record.json',{'sourceProject':str(PROJECT.relative_to(BASE)),'sourceSHA256':PROJECTSHA,'scene':SC.name,'root':ROOT.name,'rootMetadata':{k:ROOT[k] for k in ROOT.keys()},'collection':COL.name,'objectOwnership':[{'name':o.name,'type':o.type,'parent':o.parent.name if o.parent else None,'collections':[c.name for c in o.users_collection],'modifiers':[{'name':m.name,'type':m.type,'width':getattr(m,'width',None),'segments':getattr(m,'segments',None),'levels':getattr(m,'levels',None),'renderLevels':getattr(m,'render_levels',None)} for m in o.modifiers]} for o in OBJECTS],'materials':materials,'actions':actions,'lights':[{'name':o.name,'matrixWorld':mat(o.matrix_world),'type':o.data.type,'energy':o.data.energy,'size':o.data.size,'shape':o.data.shape,'color':list(o.data.color)} for o in SC.objects if o.type=='LIGHT'],'world':{'color':list(SC.world.node_tree.nodes.get('Background').inputs['Color'].default_value),'strength':SC.world.node_tree.nodes.get('Background').inputs['Strength'].default_value},'render':{'engine':SC.render.engine,'resolution':[SC.render.resolution_x,SC.render.resolution_y],'pixelAspect':[SC.render.pixel_aspect_x,SC.render.pixel_aspect_y],'viewTransform':SC.view_settings.view_transform,'look':SC.view_settings.look,'exposure':SC.view_settings.exposure,'gamma':SC.view_settings.gamma,'dither':SC.render.dither_intensity,'filmTransparent':SC.render.film_transparent,'fps':SC.render.fps,'compositor':getattr(getattr(SC,'compositing_node_group',None),'name',None)},'externalResources':{'libraries':[l.filepath for l in bpy.data.libraries],'usedImageTextures':[n.image.filepath for m in bpy.data.materials if m.use_nodes for n in m.node_tree.nodes if n.type=='TEX_IMAGE' and n.image]}})
+00:00.837  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/N/000.png'
+CAPTURE N 0
+00:01.481  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/N/001.png'
+CAPTURE N 1
+00:02.183  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/N/002.png'
+CAPTURE N 2
+00:02.791  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/N/003.png'
+CAPTURE N 3
+00:03.520  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/N/004.png'
+CAPTURE N 4
+00:04.195  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/N/005.png'
+CAPTURE N 5
+00:04.880  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/N/006.png'
+CAPTURE N 6
+00:05.504  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/N/007.png'
+CAPTURE N 7
+00:06.139  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/N/008.png'
+CAPTURE N 8
+00:06.886  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/N/009.png'
+CAPTURE N 9
+00:07.489  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/N/010.png'
+CAPTURE N 10
+00:08.202  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/N/011.png'
+CAPTURE N 11
+00:08.934  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/E/000.png'
+CAPTURE E 0
+00:09.628  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/E/001.png'
+CAPTURE E 1
+00:10.365  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/E/002.png'
+CAPTURE E 2
+00:11.057  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/E/003.png'
+CAPTURE E 3
+00:11.774  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/E/004.png'
+CAPTURE E 4
+00:12.496  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/E/005.png'
+CAPTURE E 5
+00:13.213  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/E/006.png'
+CAPTURE E 6
+00:13.908  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/E/007.png'
+CAPTURE E 7
+00:14.682  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/E/008.png'
+CAPTURE E 8
+00:15.490  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/E/009.png'
+CAPTURE E 9
+00:16.301  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/E/010.png'
+CAPTURE E 10
+00:17.108  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/E/011.png'
+CAPTURE E 11
+00:17.750  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/S/000.png'
+CAPTURE S 0
+00:18.427  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/S/001.png'
+CAPTURE S 1
+00:19.128  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/S/002.png'
+CAPTURE S 2
+00:19.897  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/S/003.png'
+CAPTURE S 3
+00:20.477  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/S/004.png'
+CAPTURE S 4
+00:21.216  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/S/005.png'
+CAPTURE S 5
+00:21.815  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/S/006.png'
+CAPTURE S 6
+00:22.539  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/S/007.png'
+CAPTURE S 7
+00:23.142  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/S/008.png'
+CAPTURE S 8
+00:23.929  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/S/009.png'
+CAPTURE S 9
+00:24.512  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/S/010.png'
+CAPTURE S 10
+00:25.208  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/S/011.png'
+CAPTURE S 11
+00:25.852  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/W/000.png'
+CAPTURE W 0
+00:26.601  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/W/001.png'
+CAPTURE W 1
+00:27.388  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/W/002.png'
+CAPTURE W 2
+00:28.123  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/W/003.png'
+CAPTURE W 3
+00:28.812  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/W/004.png'
+CAPTURE W 4
+00:29.497  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/W/005.png'
+CAPTURE W 5
+00:30.303  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/W/006.png'
+CAPTURE W 6
+00:30.955  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/W/007.png'
+CAPTURE W 7
+00:31.697  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/W/008.png'
+CAPTURE W 8
+00:32.497  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/W/009.png'
+CAPTURE W 9
+00:33.310  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/W/010.png'
+CAPTURE W 10
+00:33.960  render           | Saved: '/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01/native/ambient/W/011.png'
+CAPTURE W 11
+CAPTURE_COMPLETE /Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/candidates/round-01
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+
+Blender quit

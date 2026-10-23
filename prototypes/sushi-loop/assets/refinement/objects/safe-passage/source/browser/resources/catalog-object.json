@@ -1,0 +1,537 @@
+{
+  "id": "safe-passage",
+  "name": "Safe bonus passage scenery",
+  "family": "W14",
+  "status": "ready",
+  "kind": "prop",
+  "footprint": [
+    1,
+    1
+  ],
+  "projection": "top-down-oblique-square-grid",
+  "frameSize": [
+    192,
+    352
+  ],
+  "root": [
+    96,
+    248
+  ],
+  "sourceScale": 2,
+  "clips": [
+    {
+      "id": "ambient",
+      "sourceClipId": "ambient",
+      "name": "Ambient",
+      "frames": 12,
+      "fps": 12,
+      "static": false,
+      "loop": true,
+      "frameOrder": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "directions": {
+        "N": {
+          "image": "sprites/safe-passage/ambient-N.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ],
+            [
+              384,
+              0,
+              384,
+              704
+            ],
+            [
+              768,
+              0,
+              384,
+              704
+            ],
+            [
+              1152,
+              0,
+              384,
+              704
+            ],
+            [
+              1536,
+              0,
+              384,
+              704
+            ],
+            [
+              1920,
+              0,
+              384,
+              704
+            ],
+            [
+              0,
+              704,
+              384,
+              704
+            ],
+            [
+              384,
+              704,
+              384,
+              704
+            ],
+            [
+              768,
+              704,
+              384,
+              704
+            ],
+            [
+              1152,
+              704,
+              384,
+              704
+            ],
+            [
+              1536,
+              704,
+              384,
+              704
+            ],
+            [
+              1920,
+              704,
+              384,
+              704
+            ]
+          ]
+        },
+        "E": {
+          "image": "sprites/safe-passage/ambient-E.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ],
+            [
+              384,
+              0,
+              384,
+              704
+            ],
+            [
+              768,
+              0,
+              384,
+              704
+            ],
+            [
+              1152,
+              0,
+              384,
+              704
+            ],
+            [
+              1536,
+              0,
+              384,
+              704
+            ],
+            [
+              1920,
+              0,
+              384,
+              704
+            ],
+            [
+              0,
+              704,
+              384,
+              704
+            ],
+            [
+              384,
+              704,
+              384,
+              704
+            ],
+            [
+              768,
+              704,
+              384,
+              704
+            ],
+            [
+              1152,
+              704,
+              384,
+              704
+            ],
+            [
+              1536,
+              704,
+              384,
+              704
+            ],
+            [
+              1920,
+              704,
+              384,
+              704
+            ]
+          ]
+        },
+        "S": {
+          "image": "sprites/safe-passage/ambient-S.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ],
+            [
+              384,
+              0,
+              384,
+              704
+            ],
+            [
+              768,
+              0,
+              384,
+              704
+            ],
+            [
+              1152,
+              0,
+              384,
+              704
+            ],
+            [
+              1536,
+              0,
+              384,
+              704
+            ],
+            [
+              1920,
+              0,
+              384,
+              704
+            ],
+            [
+              0,
+              704,
+              384,
+              704
+            ],
+            [
+              384,
+              704,
+              384,
+              704
+            ],
+            [
+              768,
+              704,
+              384,
+              704
+            ],
+            [
+              1152,
+              704,
+              384,
+              704
+            ],
+            [
+              1536,
+              704,
+              384,
+              704
+            ],
+            [
+              1920,
+              704,
+              384,
+              704
+            ]
+          ]
+        },
+        "W": {
+          "image": "sprites/safe-passage/ambient-W.png",
+          "columns": 6,
+          "rows": 2,
+          "atlasSize": [
+            2304,
+            1408
+          ],
+          "rects": [
+            [
+              0,
+              0,
+              384,
+              704
+            ],
+            [
+              384,
+              0,
+              384,
+              704
+            ],
+            [
+              768,
+              0,
+              384,
+              704
+            ],
+            [
+              1152,
+              0,
+              384,
+              704
+            ],
+            [
+              1536,
+              0,
+              384,
+              704
+            ],
+            [
+              1920,
+              0,
+              384,
+              704
+            ],
+            [
+              0,
+              704,
+              384,
+              704
+            ],
+            [
+              384,
+              704,
+              384,
+              704
+            ],
+            [
+              768,
+              704,
+              384,
+              704
+            ],
+            [
+              1152,
+              704,
+              384,
+              704
+            ],
+            [
+              1536,
+              704,
+              384,
+              704
+            ],
+            [
+              1920,
+              704,
+              384,
+              704
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "name": "Route object beside the traveling submarine",
+      "gridSize": [
+        5,
+        4
+      ],
+      "placements": [
+        {
+          "object": "safe-passage",
+          "x": 0,
+          "y": 1,
+          "direction": "S"
+        },
+        {
+          "object": "submarine-yellow",
+          "x": 3,
+          "y": 0,
+          "direction": "N",
+          "clip": "travel"
+        }
+      ]
+    }
+  ],
+  "requirements": {
+    "directions": [
+      "N",
+      "E",
+      "S",
+      "W"
+    ],
+    "states": [
+      "ambient"
+    ],
+    "variants": [
+      "default"
+    ],
+    "animated": true,
+    "fps": 12,
+    "minimumUniqueFrames": 6,
+    "targetLoopFrames": 12,
+    "interactionObjectIds": [
+      "submarine-yellow",
+      "floor-underwater"
+    ],
+    "notes": "Presentation parameters only; safe-passage scene shows steerable ship and no hazards. No extra rewards/progression."
+  },
+  "height": 0.53,
+  "productionStage": "Native Blender \u00b7 approved Faceted lighting and materials",
+  "layer": 2,
+  "compositionContext": {
+    "role": "passage-flank",
+    "minimumClearLaneCells": 3,
+    "mirroredFlankRoot": [
+      3,
+      0,
+      0
+    ]
+  },
+  "directionFootprints": {
+    "N": [
+      1,
+      1
+    ],
+    "E": [
+      1,
+      1
+    ],
+    "S": [
+      1,
+      1
+    ],
+    "W": [
+      1,
+      1
+    ]
+  },
+  "directionRootCells": {
+    "N": [
+      0.5,
+      0.5
+    ],
+    "E": [
+      0.5,
+      0.5
+    ],
+    "S": [
+      0.5,
+      0.5
+    ],
+    "W": [
+      0.5,
+      0.5
+    ]
+  },
+  "rootCell": [
+    0.5,
+    0.5
+  ],
+  "occupiedCells": [
+    [
+      0,
+      0
+    ]
+  ],
+  "supportCells": [],
+  "overheadCells": [],
+  "registration": {
+    "method": "authored-3d-projection",
+    "groundAnchorAlignment": "center",
+    "completeFrame": [
+      192,
+      352
+    ],
+    "anchor": [
+      96,
+      248
+    ],
+    "cellSize": 128,
+    "poseFitting": false,
+    "sourceCaptureScale": 4
+  },
+  "sockets3D": {},
+  "sockets": {
+    "N": {},
+    "E": {},
+    "S": {},
+    "W": {}
+  },
+  "socketSpace": "root-relative logical pixels projected from declared native attachment points",
+  "validation": {
+    "rigEvidence": "exported; native and complete capture audits passed"
+  },
+  "captureFingerprint": "758a72f54a1786a77965785398f50201fc116f3dc59969b869bd20c5912584cf",
+  "portProfiles": {},
+  "artStyle": {
+    "revision": "faceted-approved-2026-10-19",
+    "contrast": 1.35,
+    "contrastSpace": "sRGB",
+    "environmentHeightRatio": 0.7,
+    "lowerTone": "native world-height material ramp",
+    "worldLighting": true,
+    "lighting": "Faceted 140 W overhead plus four equal 100 W cardinal fills",
+    "roughness": 0.85,
+    "specularIORLevel": 0.03,
+    "woodRefinement": "crate only: linear albedo \u00d7 0.42, roughness 1, specular 0",
+    "beltRailColor": "#966B60",
+    "floorAlbedoCalibration": 0.42
+  },
+  "source": {
+    "blend": "source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+    "modelScript": "source/blender/revisions/0d156c24ebd2a314/world_components.py",
+    "camera": "source/records/safe-passage/camera.json",
+    "guide": "source/registered/safe-passage/ambient-N/guide.json",
+    "assetRecord": "source/records/safe-passage/asset.json",
+    "rig": "source/records/safe-passage/rig.json"
+  }
+}

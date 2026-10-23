@@ -1,0 +1,81 @@
+{
+  "workingDirectory": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+  "preparationRoot": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/reviews/preparation-v1",
+  "pathConvention": "Review scripts resolve own file location; shell invocation paths in transcript were repository-relative. Commands here use preparation-relative labels for readability, not claim to be exact shell history. Exact scripts and executed command logic retained.",
+  "commands": [
+    {
+      "purpose": "enabled source inspection and single bounded48-frame replay",
+      "argv": [
+        "PYTHONDONTWRITEBYTECODE=1",
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "resources/original-library.blend",
+        "--python",
+        "inspect-replay.py"
+      ],
+      "log": "replay.log"
+    },
+    {
+      "purpose": "whole-frame publish reduction, original-cell comparison and source sheets",
+      "argv": [
+        "PYTHONDONTWRITEBYTECODE=1",
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "process-evidence.py"
+      ]
+    },
+    {
+      "purpose": "fresh enabled finite-ground contact and actual action channel measurement, no rerender",
+      "argv": [
+        "PYTHONDONTWRITEBYTECODE=1",
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "resources/original-library.blend",
+        "--python",
+        "measure-contacts-actions.py"
+      ],
+      "log": "contacts-actions.log"
+    },
+    {
+      "purpose": "unchanged helper browser fixture server",
+      "argv": [
+        "node",
+        "node_modules/vite/bin/vite.js",
+        "--config",
+        "vite.config.mjs"
+      ],
+      "log": "browser-server.log"
+    },
+    {
+      "purpose": "both actual browser modes, screenshots,48canvas frames each and timed playback",
+      "argv": [
+        "node",
+        "capture-consumer.mjs"
+      ],
+      "log": "browser-capture.log"
+    },
+    {
+      "purpose": "actual canvas/screenshot comparisons and all-frame contact sheets",
+      "argv": [
+        "PYTHONDONTWRITEBYTECODE=1",
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "inspect-consumer-evidence.py"
+      ]
+    },
+    {
+      "purpose": "playback time-ordered filmstrip extraction, full browser frame",
+      "argv": [
+        "ffmpeg",
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-i",
+        "browser/MODE/video/ACTUAL.webm",
+        "-vf",
+        "fps=4,tile=4x3",
+        "-frames:v",
+        "1",
+        "sheets/actual-playback-MODE.png"
+      ]
+    }
+  ]
+}

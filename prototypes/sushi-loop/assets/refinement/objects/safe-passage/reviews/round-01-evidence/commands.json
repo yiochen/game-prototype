@@ -1,0 +1,118 @@
+{
+  "workingDirectory": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+  "reviewRoot": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/reviews/round-01-evidence",
+  "bytecodePolicy": "PYTHONDONTWRITEBYTECODE=1 for all executed saved Python tools and native scripts, sys.dont_write_bytecode=True in background Blender; no frozen source writes.",
+  "executed": [
+    {
+      "argv": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/reviews/round-01-evidence/resources/candidate.blend",
+        "--python",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/reviews/round-01-evidence/independent-native-replay.py"
+      ],
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "log": "reviews/round-01-evidence/native-replay.log",
+      "sourceUnchangedChecked": true
+    },
+    {
+      "argv": [
+        "node",
+        "node_modules/vite/bin/vite.js",
+        "--config",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/reviews/round-01-evidence/vite.config.mjs",
+        "--configLoader",
+        "runner"
+      ],
+      "log": "reviews/round-01-evidence/browser-server.log",
+      "serverStop": "SIGINT after all outputs; no active server at sealing"
+    },
+    {
+      "argv": [
+        "node",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/reviews/round-01-evidence/independent-consumer.mjs"
+      ],
+      "log": "reviews/round-01-evidence/browser-capture.log"
+    },
+    {
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/reviews/round-01-evidence/analyze-evidence.py"
+      ],
+      "log": "reviews/round-01-evidence/analyze-evidence.log"
+    },
+    {
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/reviews/round-01-evidence/analyze-consumer.py"
+      ],
+      "log": "reviews/round-01-evidence/analyze-consumer.log"
+    },
+    {
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/reviews/round-01-evidence/coverage-and-summary.py"
+      ],
+      "log": "reviews/round-01-evidence/coverage-and-summary.log"
+    },
+    {
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/reviews/round-01-evidence/measure-residuals-and-support.py"
+      ],
+      "log": "reviews/round-01-evidence/measure-residuals-and-support.log",
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1"
+      }
+    },
+    {
+      "argv": [
+        "node",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/safe-passage/reviews/round-01-evidence/browser-executables-v2.mjs"
+      ],
+      "environment": {
+        "DEBUG": "pw:browser"
+      },
+      "log": "reviews/round-01-evidence/browser-executables-v2.log"
+    }
+  ],
+  "additionalExecutedAnalysis": {
+    "videoProbe": [
+      "ffprobe",
+      "-v",
+      "error",
+      "-show_entries",
+      "format=duration:stream=width,height,r_frame_rate",
+      "-of",
+      "json",
+      "EXACT_PACKET_BOUND_VIDEO"
+    ],
+    "videoFilmstrip": [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-ss",
+      "START_SECOND",
+      "-i",
+      "EXACT_PACKET_BOUND_VIDEO",
+      "-vf",
+      "fps=12,tile=4x3",
+      "-frames:v",
+      "1",
+      "OWN_OUTPUT"
+    ],
+    "videoPartStartSeconds": [
+      0,
+      1,
+      2
+    ],
+    "remainingWholeVideo": "Directly viewed exact packet-bound playback-full-chromium.png and playback-full-shell.png, both42cell12fps fullbrowser filmstrips covering3.44s; last cell padding black is not video content.",
+    "compositedResidualAnalysis": "Actual inline Python/Pillow alpha_composite on #eeeeee/#777777/#121820; exact derived perframe values retained in native-recapture-composited-residuals.json. No delivered pixels changed.",
+    "finiteContactAreaAnalysis": "Actual inline monotone convex hull/shoelace on independently measured evaluated-mesh ground edge intersections; all96areas retained in finite-support-independent.json. No exact original area law imposed.",
+    "browserExecutableProbe": "Original CDPcommandline probe failed because--enable-automation absent; exact actual failure code/log retained. V2same-options browserDEBUGlaunchlogs truthfully establish fullChromium1243 and headless-shell1243 executable paths; both actual153.0.8010.12. No extra media."
+  },
+  "limitations": "Initial quick discovery with system Python lacked Pillow and was rerun using the supplied runtime; no model/media changes came from that failure. Exact raw artifacts, used saved scripts, actual logs and measured outputs are retained. System application/runtime trees intentionally remain external toolchain dependencies."
+}

@@ -1,0 +1,192 @@
+{
+  "asset": "safe-passage",
+  "round": "round-01",
+  "createdUTC": "2026-10-23T00:51:26.107432+00:00",
+  "scope": "Native construction and scoped technical evidence only, independent aesthetic verdict pending",
+  "actualSavedProject": {
+    "path": "source/round-01.blend",
+    "sha256": "1efc24a21f1ade2accdcca93446f2c4d9743df4437ad2e927c1c239849003aa4",
+    "bytes": 127779
+  },
+  "actualBuildScript": {
+    "path": "source/build-round-01-v2.py",
+    "sha256": "cad7c9562ad829e1416acb8bafb457b0f6899f8f38edf98902d38d98a99a64aa",
+    "bytes": 11597
+  },
+  "actualCaptureScript": {
+    "path": "source/capture-round-01.py",
+    "sha256": "2e72bac87f37401598d6ac187b97a9e821b592e51172d223bb38659674adc44b",
+    "bytes": 10272
+  },
+  "actualPublicationScript": {
+    "path": "source/publish-round-01.py",
+    "sha256": "5996aa1ef0164152089051fa2953d61c974a611c1887cf7778c4cb92880db636",
+    "bytes": 10873
+  },
+  "actualConsumerFixture": {
+    "path": "source/browser/consumer.html",
+    "sha256": "4dd9119016711843fc662775cbb92813d62d60e27a0244ea50ae7b015c19c71a",
+    "bytes": 3660
+  },
+  "actualConsumerCaptureScript": {
+    "path": "source/browser/capture-consumer.mjs",
+    "sha256": "e7c74946f12ce3a73bc22eb3d90ced59e2b18b55dfd8aa91f6c72b761b54f8f3",
+    "bytes": 3575
+  },
+  "actualConsumerAnalysisScript": {
+    "path": "source/inspect-consumer-round-01.py",
+    "sha256": "ebe5de08bff4d1b9808bce3f111f966a8d7c3497cbe55ae5f29406c2bd468043",
+    "bytes": 6887
+  },
+  "python": {
+    "executable": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "version": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "Pillow": "12.3.0",
+    "numpy": "2.3.5"
+  },
+  "Blender": {
+    "executable": "/opt/homebrew/bin/blender",
+    "version": "5.2.2 LTS",
+    "flags": [
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec"
+    ],
+    "nativeDither": 0
+  },
+  "commandsInOrder": [
+    {
+      "purpose": "Build initial private draft",
+      "argv": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "--factory-startup",
+        "--disable-autoexec",
+        "--python",
+        "source/build-round-01.py"
+      ],
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "log": "source/working-v1-build.log"
+    },
+    {
+      "purpose": "Initial draft inspect capture, preserved",
+      "argv": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "--disable-autoexec",
+        "source/working-v1.blend",
+        "--python",
+        "source/capture-draft-v1.py",
+        "--",
+        "--draft"
+      ],
+      "log": "source/draft-v1-capture.log",
+      "note": "Historical command used then-current capture-round-01.py, exact rendering script retained as capture-draft-v1.py. This initial capture did load user Blender addon preferences; later candidate/control captures use --factory-startup."
+    },
+    {
+      "purpose": "Native reduced-light construction",
+      "argv": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "--factory-startup",
+        "--disable-autoexec",
+        "--python",
+        "source/build-round-01-v2.py"
+      ],
+      "log": "source/working-v2-build.log"
+    },
+    {
+      "purpose": "Existing four-frame control capture",
+      "argv": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "--factory-startup",
+        "--disable-autoexec",
+        "source/working-v2.blend",
+        "--python",
+        "source/capture-round-01.py",
+        "--",
+        "--draft-v2"
+      ],
+      "log": "source/draft-v2-capture.log"
+    },
+    {
+      "purpose": "Make submitted editable source",
+      "operation": "byte-for-byte copy source/working-v2.blend -> source/round-01.blend",
+      "sameSHA256": "1efc24a21f1ade2accdcca93446f2c4d9743df4437ad2e927c1c239849003aa4"
+    },
+    {
+      "purpose": "Full submitted native capture and allphase measurements",
+      "argv": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "--factory-startup",
+        "--disable-autoexec",
+        "source/round-01.blend",
+        "--python",
+        "source/capture-round-01.py"
+      ],
+      "log": "source/round-01-capture.log"
+    },
+    {
+      "purpose": "Whole-canvas publish/original atlases/phase sheets/native checks",
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "source/publish-round-01.py"
+      ]
+    },
+    {
+      "purpose": "Scoped actual helper fixture server",
+      "repositoryCwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "argv": [
+        "node",
+        "node_modules/vite/bin/vite.js",
+        "--config",
+        "prototypes/sushi-loop/assets/refinement/objects/safe-passage/source/browser/vite.config.mjs"
+      ],
+      "log": "source/round-01-browser-server.log"
+    },
+    {
+      "purpose": "Both actual153 browser modes, twelve scoped screenshots and continuous2.35s playback",
+      "argv": [
+        "node",
+        "source/browser/capture-consumer.mjs"
+      ],
+      "log": "source/round-01-browser-capture.log"
+    },
+    {
+      "purpose": "Native-grid/CSS residuals and complete-source-video filmstrips",
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "source/inspect-consumer-round-01.py"
+      ]
+    },
+    {
+      "purpose": "Native topology probe, no extra render",
+      "argv": [
+        "/opt/homebrew/bin/blender",
+        "--background",
+        "--factory-startup",
+        "--disable-autoexec",
+        "source/round-01.blend",
+        "--python",
+        "source/measure-candidate-topology.py"
+      ],
+      "log": "source/round-01-topology.log"
+    }
+  ],
+  "workingDirectoryConvention": "Commands otherwise use paths relative to object experiment, with exact observed command logs retained. Use PYTHONDONTWRITEBYTECODE=1. Original terminal invocation paths were repository-relative.",
+  "reproduction": "The saved source can be recaptured directly with the capture script in an isolated copy/new round folder. Build/publication scripts refuse to overwrite existing evidence. To rebuild from original, materialize their minimal own files plus frozen raw library and acknowledgment in a fresh empty experiment directory; build-v2 produces working-v2.blend, then copy exact bytes to round-01.blend before capture.",
+  "provenance": "Authorized raw original was appended as a private own collection, keeping functional root metadata, then native geometry/materials/actions were rebuilt. Actual candidate actions are authored by build-round-01-v2.py. The old native replay adapter/historical baker is not claimed as candidate baking provenance. Their differing original hashes remain preserved in frozen preparation.",
+  "sourceIntegrity": {
+    "rawSHA256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+    "initial": "source/initial-observations.json",
+    "acknowledgment": "source/construction-acknowledgment-v1.json",
+    "failedInitialLocator": "source/initial-probe-diagnostic-v1.json",
+    "clarification": "../../preparation/safe-passage/editor-initial-scene-clarification-v1.txt"
+  },
+  "publication": "Native768x1408RGBA -> uniform fullcanvas384x704RGBA PillowLANCZOS -> original6x2atlas2304x1408; no final crop/fit/recolor/alpha repair. Native and published records remain separate.",
+  "frozenCapture": "Exact frozen55.0079798degree ORTHO1.5/HORIZONTAL/aspect1.2206555605:1 and measured shifts/matrices; logical192x352/root96,248; native4x/root384,992; published2x/root192,496. Proper S0/E90/N180/W-90, one shared native recipe."
+}
