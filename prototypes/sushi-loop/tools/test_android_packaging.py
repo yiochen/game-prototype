@@ -128,6 +128,15 @@ class RuntimeBoundaryTests(unittest.TestCase):
         # Exercise the actual coordinated B atlas, complete ImageGen sheets,
         # accepted composition and references; no UI verifier mocks hide drift.
         shutil.copytree(build.PROJECT / "assets/ui/editor", self.project / "assets/ui/editor")
+        shutil.copytree(build.PROJECT / "assets/ui/wood-editor", self.project / "assets/ui/wood-editor")
+        wood_source = build.PROJECT.parent / "assets/ui/editor/html-export-v1"
+        shutil.copytree(wood_source, self.root / "assets/ui/editor/html-export-v1")
+        wood_manifest = json.loads((wood_source / "manifest.json").read_text())
+        for relative in wood_manifest["source"]["files"]:
+            local = relative.removeprefix("prototypes/sushi-loop/")
+            fixture = self.root / local
+            fixture.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(build.PROJECT.parent / local, fixture)
         ui_source = Path(build.editor_ui_contract.SOURCE_RECORD).parent
         shutil.copytree(build.PROJECT.parent / ui_source, self.root / ui_source)
         # The current calibration reuses immutable v6 pixels and full-screen
@@ -178,6 +187,17 @@ class RuntimeBoundaryTests(unittest.TestCase):
         path.write_bytes(value if isinstance(value, bytes) else value.encode())
         return path
 
+    def test_wood_runtime_tampering_blocks_staging(self):
+        (self.project / "assets/ui/wood-editor/shop-normal.png").write_bytes(b"changed")
+        with self.assertRaisesRegex(ValueError, "pixels differ"):
+            build.validate_catalog(self.project, build.runtime_sources(self.project))
+
+    def test_wood_stale_css_blocks_staging(self):
+        css = self.root / "design/editor-dock-preview/shared.css"
+        css.write_text(css.read_text() + "/* changed */")
+        with self.assertRaisesRegex(ValueError, "fresh HTML export"):
+            build.validate_catalog(self.project, build.runtime_sources(self.project))
+
     def test_only_runtime_allowlist_is_staged_without_changing_pixels(self):
         for name in ("assets/production/old.png", "assets/provenance/source.png", "review/10/evidence.png",
                      "tests/fixture.json", "tools/script.gd", ".local/signing/release.json",
@@ -188,7 +208,7 @@ class RuntimeBoundaryTests(unittest.TestCase):
         self.assertEqual(catalog["atlas_count"], 1)
         self.assertEqual(selected["assets/audio/click.wav"], build.sha(audio))
         self.assertEqual((self.root / "staged/assets/catalog/sprites/test/static-S.png").read_bytes(), b"approved sprite bytes")
-        self.assertEqual(len(selected), 19)
+        self.assertEqual(len(selected), 48)
         self.assertEqual(catalog["editor_ui"]["images"], 1)
         source_record = json.loads((self.root / build.editor_ui_contract.SOURCE_RECORD).read_text())
         self.assertEqual(catalog["editor_ui"]["imagegen_sources"], len(source_record['generations']))
@@ -812,7 +832,8 @@ class ApkBoundaryTests(unittest.TestCase):
                                "assets/assets/chef-variants/manifest.json": b'{}',
                                "assets/assets/feedback-variants/manifest.json": b'{}',
                                "assets/assets/ui/editor-goods/manifest.json": b'{}',
-                               "assets/assets/ui/editor/manifest.json": b'{}', **(extra or {})}.items():
+                               "assets/assets/ui/editor/manifest.json": b'{}',
+                               "assets/assets/ui/wood-editor/manifest.json": b'{}', **(extra or {})}.items():
                 archive.writestr(name, data)
 
     def audit(self):

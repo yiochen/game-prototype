@@ -44,6 +44,14 @@ move to clear floor and replan, with no rewards or elapsed time replayed.
 
 Native phone/landscape captures and validation are in `review/33/backdrop/`.
 
+## Continuous maple editor dock
+
+The approved HTML dock now ships natively through `scripts/wood_editor_presentation.gd`, shared by gameplay and the editor gallery. The active category joins the board; inactive tabs and the independent walnut Shop stay detached. Shop and inactive faces share a 60-unit height. Current HTML-derived PNGs live in `assets/ui/wood-editor/`; `tools/verify_wood_ui.py` verifies their source hashes, dimensions, slice spans and registration before and after staging. The older atlas remains for inherited HUD, contextual controls, modal/recovery panels and historical provenance.
+
+All inventory entries share a horizontally clipped strip, with four complete Layout goods and a continuation hint. Native text and circular quantities reflect actual owned stock. Wheel and keyboard focus reach every entry. A tray touch begins pending: after 10 physical pixels, 1.3× horizontal dominance owns browsing, while clearly upward dominance owns pickup. Ownership stays fixed until release/cancellation. Scroll metadata persists per category without advancing service or changing placement; old paging saves still load. Existing tap selection, staff inspection, invalid-drop handling, Rotate/Return, collapse, Back, pause and save-retry behavior remain.
+
+The native dock retains a 42-unit decorative footer, expands for the physical bottom safe inset, and keeps 44px category hit targets on narrow phones. Its current capture/test entry is `tests/wood_editor_tests.gd`; `tests/capture_editor.gd` also captures the shared gallery. See [wood dock review](review/12/wood-dock/README.md) for the current Android receipt and screenshots.
+
 ## Validate and build
 
 From the repository root:

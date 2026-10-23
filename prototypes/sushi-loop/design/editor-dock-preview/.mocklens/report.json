@@ -1,0 +1,1116 @@
+{
+  "version": 3,
+  "tool": "mocklens",
+  "scope": {
+    "command": "check",
+    "coverage": "FULL",
+    "config": "mocklens.config.json",
+    "requested": {
+      "screens": [],
+      "devices": []
+    },
+    "configured": {
+      "uniqueScreens": 6,
+      "devices": 4,
+      "combinations": 24
+    },
+    "covered": {
+      "uniqueScreens": 6,
+      "devices": 4,
+      "combinations": 24
+    }
+  },
+  "screens": [
+    {
+      "name": "floor.phone",
+      "source": "screens/floor.phone.html",
+      "screenshot": ".mocklens/screenshots/phone/floor.phone.png",
+      "device": "phone",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "floor.phone",
+      "source": "screens/floor.phone.html",
+      "screenshot": ".mocklens/screenshots/narrow/floor.phone.png",
+      "device": "narrow",
+      "viewport": {
+        "width": 320,
+        "height": 720
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "floor.phone",
+      "source": "screens/floor.phone.html",
+      "screenshot": ".mocklens/screenshots/landscape/floor.phone.png",
+      "device": "landscape",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "floor.phone",
+      "source": "screens/floor.phone.html",
+      "screenshot": ".mocklens/screenshots/review-browser/floor.phone.png",
+      "device": "review-browser",
+      "viewport": {
+        "width": 984,
+        "height": 1224
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "layout.phone",
+      "source": "screens/layout.phone.html",
+      "screenshot": ".mocklens/screenshots/phone/layout.phone.png",
+      "device": "phone",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "ok": true,
+      "findings": [
+        {
+          "type": "element-overflow-right",
+          "severity": "error",
+          "suppressed": true,
+          "message": "extends 51.9px past the right edge of a 390px viewport (data-mocklens-ignore: \"This horizontal inventory viewport deliberately clips the fifth good as a scroll cue. All goods are reachable by scrolling, mouse wheel or keyboard focus.\")",
+          "suggestion": "Element extends 51.9px past the right edge of a 390px viewport — check fixed widths, vw units plus padding, or missing overflow clipping.",
+          "element": {
+            "selector": "div#inventory > div.inventory-row",
+            "tag": "div",
+            "id": "",
+            "classes": [
+              "inventory-row"
+            ],
+            "text": "5Belt1Stool2Plant2Crate2Barrel",
+            "rect": {
+              "x": 8.7,
+              "y": 705.3,
+              "width": 433.3,
+              "height": 115.9
+            }
+          }
+        }
+      ],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 1
+      }
+    },
+    {
+      "name": "layout.phone",
+      "source": "screens/layout.phone.html",
+      "screenshot": ".mocklens/screenshots/narrow/layout.phone.png",
+      "device": "narrow",
+      "viewport": {
+        "width": 320,
+        "height": 720
+      },
+      "ok": true,
+      "findings": [
+        {
+          "type": "element-overflow-right",
+          "severity": "error",
+          "suppressed": true,
+          "message": "extends 42.6px past the right edge of a 320px viewport (data-mocklens-ignore: \"This horizontal inventory viewport deliberately clips the fifth good as a scroll cue. All goods are reachable by scrolling, mouse wheel or keyboard focus.\")",
+          "suggestion": "Element extends 42.6px past the right edge of a 320px viewport — check fixed widths, vw units plus padding, or missing overflow clipping.",
+          "element": {
+            "selector": "div#inventory > div.inventory-row",
+            "tag": "div",
+            "id": "",
+            "classes": [
+              "inventory-row"
+            ],
+            "text": "5Belt1Stool2Plant2Crate2Barrel",
+            "rect": {
+              "x": 7.1,
+              "y": 606.2,
+              "width": 355.5,
+              "height": 95.1
+            }
+          }
+        }
+      ],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 1
+      }
+    },
+    {
+      "name": "layout.phone",
+      "source": "screens/layout.phone.html",
+      "screenshot": ".mocklens/screenshots/landscape/layout.phone.png",
+      "device": "landscape",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "layout.phone",
+      "source": "screens/layout.phone.html",
+      "screenshot": ".mocklens/screenshots/review-browser/layout.phone.png",
+      "device": "review-browser",
+      "viewport": {
+        "width": 984,
+        "height": 1224
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "live.phone",
+      "source": "screens/live.phone.html",
+      "screenshot": ".mocklens/screenshots/phone/live.phone.png",
+      "device": "phone",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "live.phone",
+      "source": "screens/live.phone.html",
+      "screenshot": ".mocklens/screenshots/narrow/live.phone.png",
+      "device": "narrow",
+      "viewport": {
+        "width": 320,
+        "height": 720
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "live.phone",
+      "source": "screens/live.phone.html",
+      "screenshot": ".mocklens/screenshots/landscape/live.phone.png",
+      "device": "landscape",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "live.phone",
+      "source": "screens/live.phone.html",
+      "screenshot": ".mocklens/screenshots/review-browser/live.phone.png",
+      "device": "review-browser",
+      "viewport": {
+        "width": 984,
+        "height": 1224
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "out-of-stock.phone",
+      "source": "screens/out-of-stock.phone.html",
+      "screenshot": ".mocklens/screenshots/phone/out-of-stock.phone.png",
+      "device": "phone",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "ok": true,
+      "findings": [
+        {
+          "type": "element-overflow-right",
+          "severity": "error",
+          "suppressed": true,
+          "message": "extends 51.9px past the right edge of a 390px viewport (data-mocklens-ignore: \"This horizontal inventory viewport deliberately clips the fifth good as a scroll cue. All goods are reachable by scrolling, mouse wheel or keyboard focus.\")",
+          "suggestion": "Element extends 51.9px past the right edge of a 390px viewport — check fixed widths, vw units plus padding, or missing overflow clipping.",
+          "element": {
+            "selector": "div#inventory > div.inventory-row",
+            "tag": "div",
+            "id": "",
+            "classes": [
+              "inventory-row"
+            ],
+            "text": "0Belt0Stool0Plant0Crate0Barrel",
+            "rect": {
+              "x": 8.7,
+              "y": 705.3,
+              "width": 433.3,
+              "height": 115.9
+            }
+          }
+        }
+      ],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 1
+      }
+    },
+    {
+      "name": "out-of-stock.phone",
+      "source": "screens/out-of-stock.phone.html",
+      "screenshot": ".mocklens/screenshots/narrow/out-of-stock.phone.png",
+      "device": "narrow",
+      "viewport": {
+        "width": 320,
+        "height": 720
+      },
+      "ok": true,
+      "findings": [
+        {
+          "type": "element-overflow-right",
+          "severity": "error",
+          "suppressed": true,
+          "message": "extends 42.6px past the right edge of a 320px viewport (data-mocklens-ignore: \"This horizontal inventory viewport deliberately clips the fifth good as a scroll cue. All goods are reachable by scrolling, mouse wheel or keyboard focus.\")",
+          "suggestion": "Element extends 42.6px past the right edge of a 320px viewport — check fixed widths, vw units plus padding, or missing overflow clipping.",
+          "element": {
+            "selector": "div#inventory > div.inventory-row",
+            "tag": "div",
+            "id": "",
+            "classes": [
+              "inventory-row"
+            ],
+            "text": "0Belt0Stool0Plant0Crate0Barrel",
+            "rect": {
+              "x": 7.1,
+              "y": 606.2,
+              "width": 355.5,
+              "height": 95.1
+            }
+          }
+        }
+      ],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 1
+      }
+    },
+    {
+      "name": "out-of-stock.phone",
+      "source": "screens/out-of-stock.phone.html",
+      "screenshot": ".mocklens/screenshots/landscape/out-of-stock.phone.png",
+      "device": "landscape",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "out-of-stock.phone",
+      "source": "screens/out-of-stock.phone.html",
+      "screenshot": ".mocklens/screenshots/review-browser/out-of-stock.phone.png",
+      "device": "review-browser",
+      "viewport": {
+        "width": 984,
+        "height": 1224
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "people.phone",
+      "source": "screens/people.phone.html",
+      "screenshot": ".mocklens/screenshots/phone/people.phone.png",
+      "device": "phone",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "people.phone",
+      "source": "screens/people.phone.html",
+      "screenshot": ".mocklens/screenshots/narrow/people.phone.png",
+      "device": "narrow",
+      "viewport": {
+        "width": 320,
+        "height": 720
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "people.phone",
+      "source": "screens/people.phone.html",
+      "screenshot": ".mocklens/screenshots/landscape/people.phone.png",
+      "device": "landscape",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "people.phone",
+      "source": "screens/people.phone.html",
+      "screenshot": ".mocklens/screenshots/review-browser/people.phone.png",
+      "device": "review-browser",
+      "viewport": {
+        "width": 984,
+        "height": 1224
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "shop.phone",
+      "source": "screens/shop.phone.html",
+      "screenshot": ".mocklens/screenshots/phone/shop.phone.png",
+      "device": "phone",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "shop.phone",
+      "source": "screens/shop.phone.html",
+      "screenshot": ".mocklens/screenshots/narrow/shop.phone.png",
+      "device": "narrow",
+      "viewport": {
+        "width": 320,
+        "height": 720
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "shop.phone",
+      "source": "screens/shop.phone.html",
+      "screenshot": ".mocklens/screenshots/landscape/shop.phone.png",
+      "device": "landscape",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    },
+    {
+      "name": "shop.phone",
+      "source": "screens/shop.phone.html",
+      "screenshot": ".mocklens/screenshots/review-browser/shop.phone.png",
+      "device": "review-browser",
+      "viewport": {
+        "width": 984,
+        "height": 1224
+      },
+      "ok": true,
+      "findings": [],
+      "counts": {
+        "error": 0,
+        "warning": 0,
+        "suppressed": 0
+      }
+    }
+  ],
+  "readiness": {
+    "evaluated": true,
+    "uxTrackingConfigured": true,
+    "proofScope": "FULL",
+    "coverage": {
+      "configured": {
+        "screens": 6,
+        "devices": 4,
+        "combinations": 24
+      },
+      "evaluated": {
+        "screens": 6,
+        "devices": 4,
+        "combinations": 24
+      }
+    },
+    "counts": {
+      "ux": {
+        "current": 9,
+        "missing": 0,
+        "stale": 0,
+        "total": 9
+      },
+      "visual": {
+        "current": 24,
+        "missing": 0,
+        "stale": 0,
+        "total": 24
+      }
+    },
+    "requirements": [
+      {
+        "id": "alternate-collections",
+        "kind": "screen-family",
+        "description": "People shows three actual chef previews; Floor is a single disabled current swatch. Neither state adds unimplemented hiring or floor painting.",
+        "status": "current",
+        "proof": "People retains three labeled native previews and statuses; Floor retains one disabled current swatch. All four viewport captures preserve their labels and spacing after the Shop-only surface change.",
+        "recordedHash": "c0290f3a8f3e7eef50b6e78f53d540633b41ae0accbe5c1092901086b4bca628",
+        "currentHash": "c0290f3a8f3e7eef50b6e78f53d540633b41ae0accbe5c1092901086b4bca628",
+        "targets": {
+          "screens": [
+            "floor.phone",
+            "people.phone"
+          ],
+          "devices": [
+            "landscape",
+            "narrow",
+            "phone",
+            "review-browser"
+          ]
+        },
+        "staleReasons": []
+      },
+      {
+        "id": "approved-design-fidelity",
+        "kind": "screen-family",
+        "description": "Match the approved v5 UI composition using native HTML/CSS surfaces, simple monochrome SVG glyphs, cream coin/Editing pills and a vermilion Live button. Retain the later compact heights, clipped inventory and fading footer. Native merchandise and restaurant illustrations stay separate from UI. The upper HUD contains live accessible DOM text and fits narrow phones.",
+        "status": "current",
+        "proof": "Compared the current 24 viewport/state captures to v5 plus accepted refinements: continuous maple, connected active tab, separated inactive tabs, compact independent walnut Shop, circular badges, clipping and fading waves. Shop now matches inactive faces at 60 logical units.",
+        "recordedHash": "cd7eb0acbf9fb830e4995e3441f1de16e83143cf3414d59da160abecc0f9ed26",
+        "currentHash": "cd7eb0acbf9fb830e4995e3441f1de16e83143cf3414d59da160abecc0f9ed26",
+        "targets": {
+          "screens": [
+            "floor.phone",
+            "layout.phone",
+            "out-of-stock.phone",
+            "people.phone",
+            "shop.phone"
+          ],
+          "devices": [
+            "landscape",
+            "narrow",
+            "phone",
+            "review-browser"
+          ]
+        },
+        "staleReasons": []
+      },
+      {
+        "id": "connected-category-shell",
+        "kind": "screen-family",
+        "description": "A single continuous maple board meets the selected category without a seam, bottom outline, lip or long texture bridge. Inactive tabs remain detached with shallow depth. Category labels share an optical baseline; compact surfaces retain at least 44px input targets, symmetric padding and the translucent row gradient. The row backdrop and inactive-tab depth use dark brown shadows, without a pale yellow shadow wash; maple highlights remain on the faces.",
+        "status": "current",
+        "proof": "Reviewed all category states at four viewports: selected caps still join the board seamlessly, detached tabs retain dark brown depth, and the translucent brown gradient remains. Shop now shares the inactive face height/baseline; browser measurement checks pass at all three layout sizes.",
+        "recordedHash": "efdf6db9e017e3ee12a24e1b1498e5e5fec7201d0886a262fdc887ebfb4675a6",
+        "currentHash": "efdf6db9e017e3ee12a24e1b1498e5e5fec7201d0886a262fdc887ebfb4675a6",
+        "targets": {
+          "screens": [
+            "floor.phone",
+            "layout.phone",
+            "people.phone"
+          ],
+          "devices": [
+            "landscape",
+            "narrow",
+            "phone",
+            "review-browser"
+          ]
+        },
+        "staleReasons": []
+      },
+      {
+        "id": "gesture-intent",
+        "kind": "flow",
+        "description": "Inventory action annotations specify sideways browsing, upward visual drag preview, tap selection, keyboard browsing and Escape cancellation. The long strip has a visible continuation cue, and unavailable entries cannot be picked up.",
+        "status": "current",
+        "proof": "All nine browser tests pass, including native touch scrolling, direction ownership, upward ghost, wheel and keyboard reachability, unavailable entries and cancellation. The action annotations still describe these supported paths.",
+        "recordedHash": "f66c556f3a43a7f3553a3578f56456b47401a17eea2f7aac487e355f74005a8a",
+        "currentHash": "f66c556f3a43a7f3553a3578f56456b47401a17eea2f7aac487e355f74005a8a",
+        "targets": {
+          "screens": [
+            "floor.phone",
+            "layout.phone",
+            "out-of-stock.phone"
+          ],
+          "devices": [
+            "landscape",
+            "narrow",
+            "phone",
+            "review-browser"
+          ]
+        },
+        "staleReasons": []
+      },
+      {
+        "id": "html-hud-and-mode",
+        "kind": "flow",
+        "description": "Coins, Editing and Live are HTML controls with SVG icons and CSS cream/vermilion surfaces. Coins show 7680 as accessible text. Live switches only the presentation to a read-only live preview with the dock hidden; Editing or Escape restores the same category and scroll position. No simulation or save mutation is claimed.",
+        "status": "current",
+        "proof": "Coins and mode controls remain dynamic DOM text and SVG. Live/Editing restore category and scroll in the passing browser suite. These fixture modes remain presentation-only; native gameplay is implemented separately.",
+        "recordedHash": "cc8622a037de5ca9aa29f0f0251a7f2088f5739e1afa29ffca7dce9e22fde69f",
+        "currentHash": "cc8622a037de5ca9aa29f0f0251a7f2088f5739e1afa29ffca7dce9e22fde69f",
+        "targets": {
+          "screens": [
+            "layout.phone",
+            "live.phone"
+          ],
+          "devices": [
+            "landscape",
+            "narrow",
+            "phone",
+            "review-browser"
+          ]
+        },
+        "staleReasons": []
+      },
+      {
+        "id": "html-surface-geometry",
+        "kind": "screen-family",
+        "description": "All UI shapes, radii, borders, shadows, badges and glyphs are HTML/CSS/SVG. Only wood-grain.png and waves.png are used as UI image backgrounds; no pre-rendered board, tab, Shop, badge or HUD assets are used. Grain keeps uniform proportions and a shared phase across the board and selected cap.",
+        "status": "current",
+        "proof": "Computed backgrounds still allow only grain and waves; board, caps, Shop, badges, HUD and monochrome glyphs remain CSS/SVG. The 2-unit Shop reduction uses CSS insets and is reflected in the regenerated PNG dimensions.",
+        "recordedHash": "32e3db6764b958a7587f25a39b8b0d9ec1c23515c2541e8af407d7aee75238fe",
+        "currentHash": "32e3db6764b958a7587f25a39b8b0d9ec1c23515c2541e8af407d7aee75238fe",
+        "targets": {
+          "screens": [
+            "floor.phone",
+            "layout.phone",
+            "people.phone"
+          ],
+          "devices": [
+            "landscape",
+            "narrow",
+            "phone",
+            "review-browser"
+          ]
+        },
+        "staleReasons": []
+      },
+      {
+        "id": "merchandise-and-quantities",
+        "kind": "screen-family",
+        "description": "The normal Layout strip shows four complete named goods with badge quantities 5/1/2/2 and a clipped fifth Barrel as a horizontal scroll cue. The scroll viewport is inset inside the board rim, so merchandise never paints over or beyond the panel edge. Every item remains reachable. Zero-stock keeps goods visible with zero badges and disabled placement. Object previews, badge scale and label weight follow the approved composition rather than filling the whole card.",
+        "status": "current",
+        "proof": "Reviewed Layout and zero-stock at all four devices. Four complete goods, 5/1/2/2 badge text and clipped Barrel remain. Inventory stays inset within the rim; nine interaction/layout checks pass with disabled stock and reachability.",
+        "recordedHash": "de62dca1486d8b8b4df9e5ab25a04d0c24e3de918f371b1493a0bad870448189",
+        "currentHash": "de62dca1486d8b8b4df9e5ab25a04d0c24e3de918f371b1493a0bad870448189",
+        "targets": {
+          "screens": [
+            "layout.phone",
+            "out-of-stock.phone"
+          ],
+          "devices": [
+            "landscape",
+            "narrow",
+            "phone",
+            "review-browser"
+          ]
+        },
+        "staleReasons": []
+      },
+      {
+        "id": "safe-area-decoration",
+        "kind": "screen-family",
+        "description": "Continuous maple fills the screen bottom with a compact 42-unit decorative footer instead of the former 80-unit footer, expanding only when the real device bottom inset requires it. Carved waves remain inset within this shorter footer and fade at horizontal ends and toward the bottom; task content stays above it across all delivery viewports. Scale the complete repeating engraving uniformly into the footer rather than cropping away most of its rows.",
+        "status": "current",
+        "proof": "All editing captures retain the short maple footer with full uniformly repeated waves faded down and at the ends; no engraving or goods cross the board edge. Four viewport dimensions reviewed.",
+        "recordedHash": "a91670e650ec605d2c5862de9b37de01e5118afc17617f7c2b0ef77de4dfe3af",
+        "currentHash": "a91670e650ec605d2c5862de9b37de01e5118afc17617f7c2b0ef77de4dfe3af",
+        "targets": {
+          "screens": [
+            "floor.phone",
+            "layout.phone",
+            "out-of-stock.phone",
+            "people.phone"
+          ],
+          "devices": [
+            "landscape",
+            "narrow",
+            "phone",
+            "review-browser"
+          ]
+        },
+        "staleReasons": []
+      },
+      {
+        "id": "separate-shop-action",
+        "kind": "flow",
+        "description": "Shop is a compact separate walnut action, never a tab, with the same 60-unit face height and vertical alignment as an unselected category such as Floor, and at least a 44px hit target. Its unavailable-feature view has one Back action returning to the same editor selection and scroll position.",
+        "status": "current",
+        "proof": "Shop is separate from the tablist and now matches Floor exactly in surface height and Y position, verified by browser bounds checks. Its walnut capsule remains distinct and its Back recovery preserves editor selection/scroll.",
+        "recordedHash": "ecfac38e7db7d0e07e2a259c8ab05f1f8281b45564821c72749d557bc0f9ec79",
+        "currentHash": "ecfac38e7db7d0e07e2a259c8ab05f1f8281b45564821c72749d557bc0f9ec79",
+        "targets": {
+          "screens": [
+            "layout.phone",
+            "shop.phone"
+          ],
+          "devices": [
+            "landscape",
+            "narrow",
+            "phone",
+            "review-browser"
+          ]
+        },
+        "staleReasons": []
+      }
+    ],
+    "visual": [
+      {
+        "screen": "floor.phone",
+        "device": "landscape",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "3f25415c9fe5dbbeb6c7feeeedd438891344476b3a31ee382cf3c2fb72d42203",
+        "currentHash": "3f25415c9fe5dbbeb6c7feeeedd438891344476b3a31ee382cf3c2fb72d42203",
+        "screenshot": {
+          "path": ".mocklens/screenshots/landscape/floor.phone.png",
+          "recordedHash": "8ee70c6883062c43d93b300f8a69faf58b79cc19d0791b8bbe11a0afacf9aa85",
+          "currentHash": "8ee70c6883062c43d93b300f8a69faf58b79cc19d0791b8bbe11a0afacf9aa85"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "floor.phone",
+        "device": "narrow",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "5881149137e5b0844aaff40b2daecacfd4d67fbd97301c21f5342c40dc7db69e",
+        "currentHash": "5881149137e5b0844aaff40b2daecacfd4d67fbd97301c21f5342c40dc7db69e",
+        "screenshot": {
+          "path": ".mocklens/screenshots/narrow/floor.phone.png",
+          "recordedHash": "d0ffb49c3b4ed6ac301ab2ab9dabc0180dae3175e7e99ced0ef73200b9b8a65d",
+          "currentHash": "d0ffb49c3b4ed6ac301ab2ab9dabc0180dae3175e7e99ced0ef73200b9b8a65d"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "floor.phone",
+        "device": "phone",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "ad9deb533386ea1d1636c6f3ef9b2930aa89eab0b416dce42bc8b7701a5378b0",
+        "currentHash": "ad9deb533386ea1d1636c6f3ef9b2930aa89eab0b416dce42bc8b7701a5378b0",
+        "screenshot": {
+          "path": ".mocklens/screenshots/phone/floor.phone.png",
+          "recordedHash": "cc6a48476a0fe3afd05c9227888080a9e2942fd4d4e6952c623a7cd4e64007f1",
+          "currentHash": "cc6a48476a0fe3afd05c9227888080a9e2942fd4d4e6952c623a7cd4e64007f1"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "floor.phone",
+        "device": "review-browser",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "75af7bc17973385e5e0fbd0490e32af72db6d27837c550ffc49f1bea9d1f179d",
+        "currentHash": "75af7bc17973385e5e0fbd0490e32af72db6d27837c550ffc49f1bea9d1f179d",
+        "screenshot": {
+          "path": ".mocklens/screenshots/review-browser/floor.phone.png",
+          "recordedHash": "5e10e05527424ac8ce7d6346d85bf3ab34465800f4a96e929526026efd93e600",
+          "currentHash": "5e10e05527424ac8ce7d6346d85bf3ab34465800f4a96e929526026efd93e600"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "layout.phone",
+        "device": "landscape",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "4531d49ff7af80bb757ac094eec6150a3b87cc7199c7f37136837119073725e7",
+        "currentHash": "4531d49ff7af80bb757ac094eec6150a3b87cc7199c7f37136837119073725e7",
+        "screenshot": {
+          "path": ".mocklens/screenshots/landscape/layout.phone.png",
+          "recordedHash": "d33de7bab3c21df87586fb893ce4bccca22da62eb0a2ef42398e4191bb579c89",
+          "currentHash": "d33de7bab3c21df87586fb893ce4bccca22da62eb0a2ef42398e4191bb579c89"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "layout.phone",
+        "device": "narrow",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "0ebcf9f34ce2a6b4428fb08791278729b31830a99864803c0f908d19381b0e94",
+        "currentHash": "0ebcf9f34ce2a6b4428fb08791278729b31830a99864803c0f908d19381b0e94",
+        "screenshot": {
+          "path": ".mocklens/screenshots/narrow/layout.phone.png",
+          "recordedHash": "1794910fa7fbab79bd13af535c213b29b364bdd72e710ec9a05ee458e56fa291",
+          "currentHash": "1794910fa7fbab79bd13af535c213b29b364bdd72e710ec9a05ee458e56fa291"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "layout.phone",
+        "device": "phone",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "78b7352d80c57f4c1f2e1163b300626afc2f4df00380175907234914d2679b0d",
+        "currentHash": "78b7352d80c57f4c1f2e1163b300626afc2f4df00380175907234914d2679b0d",
+        "screenshot": {
+          "path": ".mocklens/screenshots/phone/layout.phone.png",
+          "recordedHash": "20785539e1f3f5998b1975527662274a3a64cedd6ed2eec886e2a373912a3fea",
+          "currentHash": "20785539e1f3f5998b1975527662274a3a64cedd6ed2eec886e2a373912a3fea"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "layout.phone",
+        "device": "review-browser",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "6d8a43c8cc7d577335bd10c4978a74eef02bac1bf161e2a312d5f96ef2d31b82",
+        "currentHash": "6d8a43c8cc7d577335bd10c4978a74eef02bac1bf161e2a312d5f96ef2d31b82",
+        "screenshot": {
+          "path": ".mocklens/screenshots/review-browser/layout.phone.png",
+          "recordedHash": "31eba7f29ae15e4a87be8fe83e33bb5833eabd6b9537b42f8cb8d8e535a63b23",
+          "currentHash": "31eba7f29ae15e4a87be8fe83e33bb5833eabd6b9537b42f8cb8d8e535a63b23"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "live.phone",
+        "device": "landscape",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "5a012abcecc0a0821b1d38efcbac41305af1871571c6dbfaccfd5696032ee68e",
+        "currentHash": "5a012abcecc0a0821b1d38efcbac41305af1871571c6dbfaccfd5696032ee68e",
+        "screenshot": {
+          "path": ".mocklens/screenshots/landscape/live.phone.png",
+          "recordedHash": "3b31ecb816f94f049f903c4ff6ec2b7aaa4108da417699442d1a995b9ed14e2d",
+          "currentHash": "3b31ecb816f94f049f903c4ff6ec2b7aaa4108da417699442d1a995b9ed14e2d"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "live.phone",
+        "device": "narrow",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "d5a6002e71a85283dff9abfecc6d72a1ab6ffb47a707dd4706beba8429c273ca",
+        "currentHash": "d5a6002e71a85283dff9abfecc6d72a1ab6ffb47a707dd4706beba8429c273ca",
+        "screenshot": {
+          "path": ".mocklens/screenshots/narrow/live.phone.png",
+          "recordedHash": "a284a04c3371d564ccfbd1b692270daf4e0d6abd9e4814925f1c60d9e74cc714",
+          "currentHash": "a284a04c3371d564ccfbd1b692270daf4e0d6abd9e4814925f1c60d9e74cc714"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "live.phone",
+        "device": "phone",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "31b05e51534fe34749e98b97f19158f4b7d191f61bd19aadaa46cded2df97a13",
+        "currentHash": "31b05e51534fe34749e98b97f19158f4b7d191f61bd19aadaa46cded2df97a13",
+        "screenshot": {
+          "path": ".mocklens/screenshots/phone/live.phone.png",
+          "recordedHash": "0b0b1acac0d536dec42d246aeed948482084655c7f472ce014443d8f23d08852",
+          "currentHash": "0b0b1acac0d536dec42d246aeed948482084655c7f472ce014443d8f23d08852"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "live.phone",
+        "device": "review-browser",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "4f8ebe92106a29b63ea3dc63b772f33431caa89cde1c373acc0862109eb29413",
+        "currentHash": "4f8ebe92106a29b63ea3dc63b772f33431caa89cde1c373acc0862109eb29413",
+        "screenshot": {
+          "path": ".mocklens/screenshots/review-browser/live.phone.png",
+          "recordedHash": "0138e5520caf95c155a4f9cea7fabf52dde7dcda21071aa32a99463c8aa0c073",
+          "currentHash": "0138e5520caf95c155a4f9cea7fabf52dde7dcda21071aa32a99463c8aa0c073"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "out-of-stock.phone",
+        "device": "landscape",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "bf1569446fa111367e1b8e4d6ea93fb0c67c1ba6dbdc4e0c8ca0fea065169092",
+        "currentHash": "bf1569446fa111367e1b8e4d6ea93fb0c67c1ba6dbdc4e0c8ca0fea065169092",
+        "screenshot": {
+          "path": ".mocklens/screenshots/landscape/out-of-stock.phone.png",
+          "recordedHash": "19c58b11c9e7960dbf2f0eebee0c3a0f60d27f6a083b908154d94d1b6ba51af5",
+          "currentHash": "19c58b11c9e7960dbf2f0eebee0c3a0f60d27f6a083b908154d94d1b6ba51af5"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "out-of-stock.phone",
+        "device": "narrow",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "0a1d2ce4440eff74289883474213cd231b13530d4922cadfbad63b594da165c4",
+        "currentHash": "0a1d2ce4440eff74289883474213cd231b13530d4922cadfbad63b594da165c4",
+        "screenshot": {
+          "path": ".mocklens/screenshots/narrow/out-of-stock.phone.png",
+          "recordedHash": "7f750844ed66429f19fef09cebd92a7f3ef644d5b687ae1803840c0fe3de35e7",
+          "currentHash": "7f750844ed66429f19fef09cebd92a7f3ef644d5b687ae1803840c0fe3de35e7"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "out-of-stock.phone",
+        "device": "phone",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "fe52aa84cea5756907cfac86ecfecd299f9334c3d6657108eab3a296b7cc45ea",
+        "currentHash": "fe52aa84cea5756907cfac86ecfecd299f9334c3d6657108eab3a296b7cc45ea",
+        "screenshot": {
+          "path": ".mocklens/screenshots/phone/out-of-stock.phone.png",
+          "recordedHash": "75f20237689b1b6f693652997dae6e605140802446061fb1cc9f8a2b4ef11b89",
+          "currentHash": "75f20237689b1b6f693652997dae6e605140802446061fb1cc9f8a2b4ef11b89"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "out-of-stock.phone",
+        "device": "review-browser",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "4a18fa2f39b9047b558e49e238a3006f1fe062e51f03c339fe90d4fea7bd54eb",
+        "currentHash": "4a18fa2f39b9047b558e49e238a3006f1fe062e51f03c339fe90d4fea7bd54eb",
+        "screenshot": {
+          "path": ".mocklens/screenshots/review-browser/out-of-stock.phone.png",
+          "recordedHash": "d1b4e25a2c500b7d4cc66a8e01b55414ef905172b99a28cc71f6b96dc726e91f",
+          "currentHash": "d1b4e25a2c500b7d4cc66a8e01b55414ef905172b99a28cc71f6b96dc726e91f"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "people.phone",
+        "device": "landscape",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "298e88d62f5c183f39c94b05a83d7ee868b2d3a9703e5c6060161440d3d08ca4",
+        "currentHash": "298e88d62f5c183f39c94b05a83d7ee868b2d3a9703e5c6060161440d3d08ca4",
+        "screenshot": {
+          "path": ".mocklens/screenshots/landscape/people.phone.png",
+          "recordedHash": "bf80e2070d9987d82f962ec9c447b7298eb1e1443bbe7e294430387d23f8c095",
+          "currentHash": "bf80e2070d9987d82f962ec9c447b7298eb1e1443bbe7e294430387d23f8c095"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "people.phone",
+        "device": "narrow",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "61080709a8e7bd9c61c5dee94f6be951662fe8f2a97a31675a88125b7640ad06",
+        "currentHash": "61080709a8e7bd9c61c5dee94f6be951662fe8f2a97a31675a88125b7640ad06",
+        "screenshot": {
+          "path": ".mocklens/screenshots/narrow/people.phone.png",
+          "recordedHash": "ccc37c92b92d6887b77abb37b0642f55d4903ff44b7b2223e84ddd72497f9a5b",
+          "currentHash": "ccc37c92b92d6887b77abb37b0642f55d4903ff44b7b2223e84ddd72497f9a5b"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "people.phone",
+        "device": "phone",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "4d5485c8d9e0eebaa3f3040a808531dc2caedfbfd63fc7b26e53216799ca82f5",
+        "currentHash": "4d5485c8d9e0eebaa3f3040a808531dc2caedfbfd63fc7b26e53216799ca82f5",
+        "screenshot": {
+          "path": ".mocklens/screenshots/phone/people.phone.png",
+          "recordedHash": "c9bc91a7ff85fa894d40641ea59f83be7aa6d7812bd9d908095c0e25401a572d",
+          "currentHash": "c9bc91a7ff85fa894d40641ea59f83be7aa6d7812bd9d908095c0e25401a572d"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "people.phone",
+        "device": "review-browser",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "fe6d114c0ad4803c4546fd3f62f85c8c9ba6987c45c80c45c85ebb39af30f911",
+        "currentHash": "fe6d114c0ad4803c4546fd3f62f85c8c9ba6987c45c80c45c85ebb39af30f911",
+        "screenshot": {
+          "path": ".mocklens/screenshots/review-browser/people.phone.png",
+          "recordedHash": "3d44617c524ee2410dde5a3177f6f7e840da311006a995221b7b46cbf343509f",
+          "currentHash": "3d44617c524ee2410dde5a3177f6f7e840da311006a995221b7b46cbf343509f"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "shop.phone",
+        "device": "landscape",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "8840e1f9824422348e252abb6ae89a74dd8bcff4b71adf842b45e8313a5fd01c",
+        "currentHash": "8840e1f9824422348e252abb6ae89a74dd8bcff4b71adf842b45e8313a5fd01c",
+        "screenshot": {
+          "path": ".mocklens/screenshots/landscape/shop.phone.png",
+          "recordedHash": "11c1e07b0573ac5c51dad63fe17cdba374cb2b320ef587ef445259bf36953fd3",
+          "currentHash": "11c1e07b0573ac5c51dad63fe17cdba374cb2b320ef587ef445259bf36953fd3"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "shop.phone",
+        "device": "narrow",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "3f1ad68775f8d275004cdebf05b389d345044f42a4389d07c2f7e142d3a20e6c",
+        "currentHash": "3f1ad68775f8d275004cdebf05b389d345044f42a4389d07c2f7e142d3a20e6c",
+        "screenshot": {
+          "path": ".mocklens/screenshots/narrow/shop.phone.png",
+          "recordedHash": "245af2c3483160cbe9cdfd7b947eb73d357d2cf6bb59a282193a1c60f05df8e3",
+          "currentHash": "245af2c3483160cbe9cdfd7b947eb73d357d2cf6bb59a282193a1c60f05df8e3"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "shop.phone",
+        "device": "phone",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "8e5c4457b5e586dbefa39cdd17fccdd5660f11f29738fd8487aa0b77f784d5f3",
+        "currentHash": "8e5c4457b5e586dbefa39cdd17fccdd5660f11f29738fd8487aa0b77f784d5f3",
+        "screenshot": {
+          "path": ".mocklens/screenshots/phone/shop.phone.png",
+          "recordedHash": "f5fef570e9832ed82fabea7facf7697376079241d5098e8d97b20e377c6e78dd",
+          "currentHash": "f5fef570e9832ed82fabea7facf7697376079241d5098e8d97b20e377c6e78dd"
+        },
+        "staleReasons": []
+      },
+      {
+        "screen": "shop.phone",
+        "device": "review-browser",
+        "status": "current",
+        "proof": "Reviewed the current 24 captures in shop-height-review.png. The independent walnut Shop matches the inactive Floor face height and baseline while active caps, brown shadows, maple grain, quantities, inset scrolling, short waves and unchanged HUD remain coherent across all six states and four viewports.",
+        "recordedHash": "989c7d7786d5afaae96f9936b4fefbab85948a9de24452d830d89b6532e742ca",
+        "currentHash": "989c7d7786d5afaae96f9936b4fefbab85948a9de24452d830d89b6532e742ca",
+        "screenshot": {
+          "path": ".mocklens/screenshots/review-browser/shop.phone.png",
+          "recordedHash": "569833b1b4a77151665471a5dc559c778ee0cf20e23e432918a80b05414aa7f1",
+          "currentHash": "569833b1b4a77151665471a5dc559c778ee0cf20e23e432918a80b05414aa7f1"
+        },
+        "staleReasons": []
+      }
+    ],
+    "remainingProject": null,
+    "sanityOk": true,
+    "uxProofOk": true,
+    "visualProofOk": true,
+    "ready": true
+  },
+  "summary": {
+    "uniqueScreens": 6,
+    "devices": 4,
+    "combinations": 24,
+    "errors": 0,
+    "warnings": 0,
+    "suppressed": 4,
+    "ok": true
+  }
+}

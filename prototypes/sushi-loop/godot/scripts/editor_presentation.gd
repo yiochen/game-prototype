@@ -64,6 +64,7 @@ class ItemPreview extends Control:
 	static var goods_loaded := false
 	var art
 	var entry: Dictionary = {}
+	var trim_goods := false
 	func _load_goods() -> void:
 		if goods_loaded: return
 		goods_loaded = true
@@ -84,6 +85,10 @@ class ItemPreview extends Control:
 			var region: Array = goods[identity].get("region", [])
 			if region.size() == 4:
 				var source := Rect2(float(region[0]), float(region[1]), float(region[2]), float(region[3]))
+				if trim_goods:
+					var occupied: Array = goods[identity].alpha_bounds
+					source.position += Vector2(float(occupied[0]),float(occupied[1]))
+					source.size = Vector2(float(occupied[2])-float(occupied[0]),float(occupied[3])-float(occupied[1]))
 				draw_texture_rect_region(goods_texture, UISkin.fit_rect(source.size, Rect2(Vector2.ZERO, size)), source)
 				return
 		if art == null: return

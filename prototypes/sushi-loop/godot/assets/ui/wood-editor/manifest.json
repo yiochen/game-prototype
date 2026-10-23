@@ -1,0 +1,1476 @@
+{
+  "version": 1,
+  "logical_canvas": [
+    720,
+    1280
+  ],
+  "scales": [
+    2
+  ],
+  "transparent_gutter": 16,
+  "color_space": "sRGB",
+  "alpha": "RGBA, transparent gutters",
+  "dynamic_text_baked": false,
+  "source": {
+    "renderer": "Playwright Chromium",
+    "browser_version": "153.0.8010.12",
+    "files": {
+      "prototypes/sushi-loop/design/editor-dock-preview/shared.css": "e0d1f7ce8bc4b33beac907c99fc1f4cfae3c5625544c70ac649f30ae9e8160c7",
+      "prototypes/sushi-loop/design/editor-dock-preview/app.js": "57b3a1e57a5bbb5d7a88655214c060ea222275ada210bbdd3f127299007df4fa",
+      "prototypes/sushi-loop/design/editor-dock-preview/export-stage.html": "734dd01e4eafc4f2f4542212d2cc39a4e4d4d0905970736e1a908b9c9135fcce",
+      "prototypes/sushi-loop/design/editor-dock-preview/export-assets.mjs": "0bb809cb73a66ad23a9653f82b467c9ee7245fdf2f52d2dd69c699b0fb077fd7",
+      "prototypes/sushi-loop/design/editor-dock-preview/assets/wood-grain.png": "e6b2be38b066b4445797bf56bd6dee456293a8bedc6b670e0ef8497fde94a621",
+      "prototypes/sushi-loop/design/editor-dock-preview/assets/waves.png": "a17a7eac0169179dac729901698da7f3db68b29e3b942f2a0fa7798d5befa440"
+    }
+  },
+  "assets": {
+    "board": {
+      "kind": "board",
+      "logical_size": [
+        752,
+        323
+      ],
+      "face_rect": [
+        16,
+        16,
+        720,
+        291
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        720,
+        291
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "nine_patch_tile_center",
+      "variants": {
+        "2x": {
+          "path": "board.png",
+          "size": [
+            1504,
+            646
+          ],
+          "face_rect": [
+            32,
+            32,
+            1440,
+            582
+          ],
+          "sha256": "c98600dea0bc1568f3864ae2affd9f702b6660a3bedc57c3bc113c18c0603fde",
+          "nine_patch_margins_ltrb": [
+            72,
+            72,
+            72,
+            36
+          ]
+        }
+      }
+    },
+    "tab-normal": {
+      "kind": "tab",
+      "logical_size": [
+        240,
+        92
+      ],
+      "face_rect": [
+        16,
+        16,
+        208,
+        60
+      ],
+      "face_offset_in_control": [
+        0,
+        14
+      ],
+      "control_size": [
+        208,
+        78
+      ],
+      "draw_offset": [
+        -16,
+        -2
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        2,
+        16,
+        12
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "nine_patch_tile_center",
+      "variants": {
+        "2x": {
+          "path": "tab-normal.png",
+          "size": [
+            480,
+            184
+          ],
+          "face_rect": [
+            32,
+            32,
+            416,
+            120
+          ],
+          "sha256": "d957904cb645b74bae660d373f8ae7814ee953770a7e7a3f6c4aedfea83afd18",
+          "nine_patch_margins_ltrb": [
+            60,
+            60,
+            60,
+            72
+          ]
+        }
+      }
+    },
+    "tab-pressed": {
+      "kind": "tab",
+      "logical_size": [
+        240,
+        92
+      ],
+      "face_rect": [
+        16,
+        16,
+        208,
+        60
+      ],
+      "face_offset_in_control": [
+        0,
+        14
+      ],
+      "control_size": [
+        208,
+        78
+      ],
+      "draw_offset": [
+        -16,
+        -2
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        2,
+        16,
+        12
+      ],
+      "pressed_offset_baked": [
+        0,
+        2
+      ],
+      "resize": "nine_patch_tile_center",
+      "variants": {
+        "2x": {
+          "path": "tab-pressed.png",
+          "size": [
+            480,
+            184
+          ],
+          "face_rect": [
+            32,
+            32,
+            416,
+            120
+          ],
+          "sha256": "caa6ab1dbc00809157c9925d28828f927703a3235c2cc835f89f158dd5a116dc",
+          "nine_patch_margins_ltrb": [
+            60,
+            60,
+            60,
+            72
+          ]
+        }
+      }
+    },
+    "tab-selected": {
+      "kind": "tab",
+      "logical_size": [
+        240,
+        112
+      ],
+      "face_rect": [
+        16,
+        16,
+        208,
+        80
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        208,
+        78
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        18
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "nine_patch_tile_center",
+      "variants": {
+        "2x": {
+          "path": "tab-selected.png",
+          "size": [
+            480,
+            224
+          ],
+          "face_rect": [
+            32,
+            32,
+            416,
+            160
+          ],
+          "sha256": "3301ea8b7be87ecd4b84acc82e4564928a752da51ac3681cd29eb989af3fbc0f",
+          "nine_patch_margins_ltrb": [
+            80,
+            80,
+            80,
+            36
+          ]
+        }
+      }
+    },
+    "shop-normal": {
+      "kind": "shop",
+      "logical_size": [
+        180,
+        92
+      ],
+      "face_rect": [
+        16,
+        16,
+        148,
+        60
+      ],
+      "face_offset_in_control": [
+        0,
+        14
+      ],
+      "control_size": [
+        148,
+        78
+      ],
+      "draw_offset": [
+        -16,
+        -2
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        2,
+        16,
+        12
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "horizontal_only_tile_center",
+      "variants": {
+        "2x": {
+          "path": "shop-normal.png",
+          "size": [
+            360,
+            184
+          ],
+          "face_rect": [
+            32,
+            32,
+            296,
+            120
+          ],
+          "sha256": "70b572295faf687e4d51b09f36fd8ac796cc2cf13f12683223dc3ec36d8da616",
+          "nine_patch_margins_ltrb": [
+            100,
+            0,
+            100,
+            0
+          ]
+        }
+      }
+    },
+    "shop-pressed": {
+      "kind": "shop",
+      "logical_size": [
+        180,
+        92
+      ],
+      "face_rect": [
+        16,
+        16,
+        148,
+        60
+      ],
+      "face_offset_in_control": [
+        0,
+        14
+      ],
+      "control_size": [
+        148,
+        78
+      ],
+      "draw_offset": [
+        -16,
+        -2
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        2,
+        16,
+        12
+      ],
+      "pressed_offset_baked": [
+        0,
+        2
+      ],
+      "resize": "horizontal_only_tile_center",
+      "variants": {
+        "2x": {
+          "path": "shop-pressed.png",
+          "size": [
+            360,
+            184
+          ],
+          "face_rect": [
+            32,
+            32,
+            296,
+            120
+          ],
+          "sha256": "a4c75c65d946b46320e9a54d52d847a56b416bbd526e564e4c62cb1c40fda499",
+          "nine_patch_margins_ltrb": [
+            100,
+            0,
+            100,
+            0
+          ]
+        }
+      }
+    },
+    "hud-cream-normal": {
+      "kind": "hud",
+      "logical_size": [
+        240,
+        102
+      ],
+      "face_rect": [
+        16,
+        16,
+        208,
+        70
+      ],
+      "face_offset_in_control": [
+        0,
+        4
+      ],
+      "control_size": [
+        208,
+        78
+      ],
+      "draw_offset": [
+        -16,
+        -12
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        12,
+        16,
+        12
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "horizontal_only_tile_center",
+      "variants": {
+        "2x": {
+          "path": "hud-cream-normal.png",
+          "size": [
+            480,
+            204
+          ],
+          "face_rect": [
+            32,
+            32,
+            416,
+            140
+          ],
+          "sha256": "d830be05b9d20f0be0c5c58efe141e924091c7bae7cde110f00aa95f2c9a8dda",
+          "nine_patch_margins_ltrb": [
+            104,
+            0,
+            104,
+            0
+          ]
+        }
+      }
+    },
+    "hud-cream-pressed": {
+      "kind": "hud",
+      "logical_size": [
+        240,
+        102
+      ],
+      "face_rect": [
+        16,
+        16,
+        208,
+        70
+      ],
+      "face_offset_in_control": [
+        0,
+        4
+      ],
+      "control_size": [
+        208,
+        78
+      ],
+      "draw_offset": [
+        -16,
+        -12
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        12,
+        16,
+        12
+      ],
+      "pressed_offset_baked": [
+        0,
+        2
+      ],
+      "resize": "horizontal_only_tile_center",
+      "variants": {
+        "2x": {
+          "path": "hud-cream-pressed.png",
+          "size": [
+            480,
+            204
+          ],
+          "face_rect": [
+            32,
+            32,
+            416,
+            140
+          ],
+          "sha256": "5793958c74f312348059dcd9f49f8abc9ba1d8ab219228ee85016cc7ed0a2124",
+          "nine_patch_margins_ltrb": [
+            104,
+            0,
+            104,
+            0
+          ]
+        }
+      }
+    },
+    "hud-live-normal": {
+      "kind": "hud",
+      "logical_size": [
+        179,
+        102
+      ],
+      "face_rect": [
+        16,
+        16,
+        147,
+        70
+      ],
+      "face_offset_in_control": [
+        0,
+        4
+      ],
+      "control_size": [
+        147,
+        78
+      ],
+      "draw_offset": [
+        -16,
+        -12
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        12,
+        16,
+        12
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "horizontal_only_tile_center",
+      "variants": {
+        "2x": {
+          "path": "hud-live-normal.png",
+          "size": [
+            358,
+            204
+          ],
+          "face_rect": [
+            32,
+            32,
+            294,
+            140
+          ],
+          "sha256": "72609ce72f03e1180616079bfd9eeabd7c94beb7982dcebaceb261d6c8d607c0",
+          "nine_patch_margins_ltrb": [
+            104,
+            0,
+            104,
+            0
+          ]
+        }
+      }
+    },
+    "hud-live-pressed": {
+      "kind": "hud",
+      "logical_size": [
+        179,
+        102
+      ],
+      "face_rect": [
+        16,
+        16,
+        147,
+        70
+      ],
+      "face_offset_in_control": [
+        0,
+        4
+      ],
+      "control_size": [
+        147,
+        78
+      ],
+      "draw_offset": [
+        -16,
+        -12
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        12,
+        16,
+        12
+      ],
+      "pressed_offset_baked": [
+        0,
+        2
+      ],
+      "resize": "horizontal_only_tile_center",
+      "variants": {
+        "2x": {
+          "path": "hud-live-pressed.png",
+          "size": [
+            358,
+            204
+          ],
+          "face_rect": [
+            32,
+            32,
+            294,
+            140
+          ],
+          "sha256": "bb49597704e0f817925d60f4d5ba390251534c0ae959df977ce13a3919490f19",
+          "nine_patch_margins_ltrb": [
+            104,
+            0,
+            104,
+            0
+          ]
+        }
+      }
+    },
+    "quantity-badge": {
+      "kind": "badge",
+      "logical_size": [
+        74,
+        74
+      ],
+      "face_rect": [
+        16,
+        16,
+        42,
+        42
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        42,
+        42
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "uniform_only",
+      "variants": {
+        "2x": {
+          "path": "quantity-badge.png",
+          "size": [
+            148,
+            148
+          ],
+          "face_rect": [
+            32,
+            32,
+            84,
+            84
+          ],
+          "sha256": "cc190b2a154b2eb474f1debd1497e5d574ab5cfba71fce5d3af565a4bbd49e15"
+        }
+      }
+    },
+    "coin-emblem": {
+      "kind": "coin",
+      "logical_size": [
+        86,
+        86
+      ],
+      "face_rect": [
+        16,
+        16,
+        54,
+        54
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        54,
+        54
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "uniform_only",
+      "variants": {
+        "2x": {
+          "path": "coin-emblem.png",
+          "size": [
+            172,
+            172
+          ],
+          "face_rect": [
+            32,
+            32,
+            108,
+            108
+          ],
+          "sha256": "13e4490c478e8b001fe3ec1afdf9fab7af4f6ab3f004241a0b64339237d8df6e"
+        }
+      }
+    },
+    "panel-maple": {
+      "kind": "panel",
+      "logical_size": [
+        512,
+        352
+      ],
+      "face_rect": [
+        16,
+        16,
+        480,
+        320
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        480,
+        320
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "nine_patch_tile_center",
+      "variants": {
+        "2x": {
+          "path": "panel-maple.png",
+          "size": [
+            1024,
+            704
+          ],
+          "face_rect": [
+            32,
+            32,
+            960,
+            640
+          ],
+          "sha256": "8ced11eecb359359ec6e9d520804cefbd99dde4a719b79b11ca7a233b458dda4",
+          "nine_patch_margins_ltrb": [
+            76,
+            76,
+            76,
+            76
+          ]
+        }
+      }
+    },
+    "tab-backdrop": {
+      "kind": "backdrop",
+      "logical_size": [
+        752,
+        110
+      ],
+      "face_rect": [
+        16,
+        16,
+        720,
+        78
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        720,
+        78
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "uniform_only",
+      "variants": {
+        "2x": {
+          "path": "tab-backdrop.png",
+          "size": [
+            1504,
+            220
+          ],
+          "face_rect": [
+            32,
+            32,
+            1440,
+            156
+          ],
+          "sha256": "7005e1b229ea1444bc5b298c3f29ad9571ee824236882b4733046aa12e0f53d6"
+        }
+      }
+    },
+    "footer-waves": {
+      "kind": "waves",
+      "logical_size": [
+        696,
+        66
+      ],
+      "face_rect": [
+        16,
+        16,
+        664,
+        34
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        664,
+        34
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "uniform_only",
+      "variants": {
+        "2x": {
+          "path": "footer-waves.png",
+          "size": [
+            1392,
+            132
+          ],
+          "face_rect": [
+            32,
+            32,
+            1328,
+            68
+          ],
+          "sha256": "22875bca65359edb5f374edb7c73e1fd425d0113e22294fdc763947336f2ca85"
+        }
+      }
+    },
+    "connected-people": {
+      "kind": "connected",
+      "logical_size": [
+        752,
+        401
+      ],
+      "face_rect": [
+        16,
+        16,
+        720,
+        369
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        720,
+        369
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "uniform_only",
+      "variants": {
+        "2x": {
+          "path": "connected-people.png",
+          "size": [
+            1504,
+            802
+          ],
+          "face_rect": [
+            32,
+            32,
+            1440,
+            738
+          ],
+          "sha256": "de6ad683ce6a487041478617b2d115f95819b59ad0abfdd65fe76541e70bf684"
+        }
+      }
+    },
+    "connected-layout": {
+      "kind": "connected",
+      "logical_size": [
+        752,
+        401
+      ],
+      "face_rect": [
+        16,
+        16,
+        720,
+        369
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        720,
+        369
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "uniform_only",
+      "variants": {
+        "2x": {
+          "path": "connected-layout.png",
+          "size": [
+            1504,
+            802
+          ],
+          "face_rect": [
+            32,
+            32,
+            1440,
+            738
+          ],
+          "sha256": "fe5af6e3d80d3dc69e217c8ec9d35bfb22b214ebba5ce4d9ff536df4652faa52"
+        }
+      }
+    },
+    "connected-floor": {
+      "kind": "connected",
+      "logical_size": [
+        752,
+        401
+      ],
+      "face_rect": [
+        16,
+        16,
+        720,
+        369
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        720,
+        369
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "uniform_only",
+      "variants": {
+        "2x": {
+          "path": "connected-floor.png",
+          "size": [
+            1504,
+            802
+          ],
+          "face_rect": [
+            32,
+            32,
+            1440,
+            738
+          ],
+          "sha256": "23dfe7117b389acdba087a0a8743b9e5a4a23959bd1d68135e2d3488ad1d538f"
+        }
+      }
+    },
+    "icon-people": {
+      "kind": "icon",
+      "logical_size": [
+        64,
+        64
+      ],
+      "face_rect": [
+        16,
+        16,
+        32,
+        32
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        32,
+        32
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "uniform_only",
+      "variants": {
+        "2x": {
+          "path": "icon-people.png",
+          "size": [
+            128,
+            128
+          ],
+          "face_rect": [
+            32,
+            32,
+            64,
+            64
+          ],
+          "sha256": "18eccf17b19a8fc21a333b6e645ba3dcd6f34388c01015a09e7384ed510a57b2"
+        }
+      }
+    },
+    "icon-layout": {
+      "kind": "icon",
+      "logical_size": [
+        64,
+        64
+      ],
+      "face_rect": [
+        16,
+        16,
+        32,
+        32
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        32,
+        32
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "uniform_only",
+      "variants": {
+        "2x": {
+          "path": "icon-layout.png",
+          "size": [
+            128,
+            128
+          ],
+          "face_rect": [
+            32,
+            32,
+            64,
+            64
+          ],
+          "sha256": "d88c394a789a14c268a74c9ae5e50bc3113caf9cfc39eaf9a612b893700bcae7"
+        }
+      }
+    },
+    "icon-floor": {
+      "kind": "icon",
+      "logical_size": [
+        64,
+        64
+      ],
+      "face_rect": [
+        16,
+        16,
+        32,
+        32
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        32,
+        32
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "uniform_only",
+      "variants": {
+        "2x": {
+          "path": "icon-floor.png",
+          "size": [
+            128,
+            128
+          ],
+          "face_rect": [
+            32,
+            32,
+            64,
+            64
+          ],
+          "sha256": "6c601915e269bb0d36b480ce682027ac41f86cb49b1da50f629c24df66fd2492"
+        }
+      }
+    },
+    "icon-shop": {
+      "kind": "icon",
+      "logical_size": [
+        64,
+        64
+      ],
+      "face_rect": [
+        16,
+        16,
+        32,
+        32
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        32,
+        32
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "uniform_only",
+      "variants": {
+        "2x": {
+          "path": "icon-shop.png",
+          "size": [
+            128,
+            128
+          ],
+          "face_rect": [
+            32,
+            32,
+            64,
+            64
+          ],
+          "sha256": "2bd9c23bc0e626a84a70cf6f75793d800c65fece29f7bfe07bfaa7dad5405474"
+        }
+      }
+    },
+    "icon-back": {
+      "kind": "icon",
+      "logical_size": [
+        64,
+        64
+      ],
+      "face_rect": [
+        16,
+        16,
+        32,
+        32
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        32,
+        32
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "uniform_only",
+      "variants": {
+        "2x": {
+          "path": "icon-back.png",
+          "size": [
+            128,
+            128
+          ],
+          "face_rect": [
+            32,
+            32,
+            64,
+            64
+          ],
+          "sha256": "7dbfb469edc75c9cfd4edf576b389e8e768ffe7906a5fed21bf056cd8ffa9e79"
+        }
+      }
+    },
+    "icon-edit": {
+      "kind": "icon",
+      "logical_size": [
+        64,
+        64
+      ],
+      "face_rect": [
+        16,
+        16,
+        32,
+        32
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        32,
+        32
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "uniform_only",
+      "variants": {
+        "2x": {
+          "path": "icon-edit.png",
+          "size": [
+            128,
+            128
+          ],
+          "face_rect": [
+            32,
+            32,
+            64,
+            64
+          ],
+          "sha256": "2c787bef11e6b029e0fe24d18d21a1890e220ecc77655340201d3261d5f3ea6f"
+        }
+      }
+    },
+    "icon-play": {
+      "kind": "icon",
+      "logical_size": [
+        64,
+        64
+      ],
+      "face_rect": [
+        16,
+        16,
+        32,
+        32
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        32,
+        32
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "uniform_only",
+      "variants": {
+        "2x": {
+          "path": "icon-play.png",
+          "size": [
+            128,
+            128
+          ],
+          "face_rect": [
+            32,
+            32,
+            64,
+            64
+          ],
+          "sha256": "a2fdaf522ef7b4e897a028c054ded87aaa268b25b5132329657176188a601151"
+        }
+      }
+    },
+    "icon-star": {
+      "kind": "icon",
+      "logical_size": [
+        64,
+        64
+      ],
+      "face_rect": [
+        16,
+        16,
+        32,
+        32
+      ],
+      "face_offset_in_control": [
+        0,
+        0
+      ],
+      "control_size": [
+        32,
+        32
+      ],
+      "draw_offset": [
+        -16,
+        -16
+      ],
+      "stylebox_expand_margins_ltrb": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "pressed_offset_baked": [
+        0,
+        0
+      ],
+      "resize": "uniform_only",
+      "variants": {
+        "2x": {
+          "path": "icon-star.png",
+          "size": [
+            128,
+            128
+          ],
+          "face_rect": [
+            32,
+            32,
+            64,
+            64
+          ],
+          "sha256": "0aa0b6364b2d78d0cf290b85496494e2e87213bf94aea5408392316f04d7ea5f"
+        }
+      }
+    }
+  },
+  "textures": {
+    "wood-grain": {
+      "path": "wood-grain.png",
+      "sha256": "e6b2be38b066b4445797bf56bd6dee456293a8bedc6b670e0ef8497fde94a621"
+    },
+    "waves": {
+      "path": "waves.png",
+      "sha256": "a17a7eac0169179dac729901698da7f3db68b29e3b942f2a0fa7798d5befa440"
+    }
+  },
+  "text": {
+    "font": "fonts/Nunito.ttf",
+    "ink": "#592c10",
+    "cream": "#fff3db",
+    "hud_ink": "#123f62",
+    "category_font_size": 26,
+    "item_font_size": 25,
+    "quantity_font_size": 24
+  },
+  "notes": [
+    "Use connected-* at uniform scale for an exact selected-tab/board seam.",
+    "Individual surfaces include transparent shadow gutters. Face rects and nine-patch margins are in each PNG variant.",
+    "Tile the nine-patch center to preserve grain proportions; do not stretch a whole PNG.",
+    "1x variants map to logical units. 2x variants have every coordinate doubled; scale the entire UI consistently.",
+    "Labels, quantities, interactive hit targets and focus rings remain native Godot controls."
+  ],
+  "source_export": {
+    "root": "assets/ui/editor/html-export-v1",
+    "manifest_sha256": "f0aaa652c06348641599c867c9335cb5f7cf1521da222f2e5e498d36ab037275"
+  }
+}
