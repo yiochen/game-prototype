@@ -211,7 +211,7 @@ func _test_painter_order_and_blockers(world) -> void:
 	var visitor := {"id": "visitor", "art_id": "customer-rosa", "x": 3, "y": 5, "facing": "south", "phase": "waiting", "visual_phase": "seated-wait-empty", "render_offset_y": 0.0, "elapsed": 0.0, "preference_phase": "active", "preferred_recipe": "salmon_nigiri", "restless": false}
 	_fixture(world, [seat], [visitor])
 	back = _record(world, "back-seat", "stool-wood")
-	front = _record(world, "", "customer-rosa")
+	front = _record(world, "visitor", "customer-rosa")
 	opaque = _overlap(world, back, front, true)
 	_expect(opaque.is_finite() and world.object_at(opaque).is_empty(), "An opaque noneditable customer's body blocks the stool hidden behind it")
 	probes.guest_blocker = str(opaque)

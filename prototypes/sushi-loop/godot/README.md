@@ -110,6 +110,14 @@ Issue #11 has an isolated customer-visits review APK. `--review-scene customer-v
 
 Build receipts record `build_variant`, the original runtime-file hashes, the staged hashes after branding, and a SHA-256 fingerprint of each sorted hash map. Review overrides therefore have an explicit, reproducible fingerprint without altering the source catalog or content.
 
+## Customer layout recovery
+
+Occupied stools now carry their seated customer, unfinished meal and animation frame when moved or rotated. Returning a stool leaves its customer standing at the same position. Live searches for reachable replacement seating; paused edits never advance meals or create sales. A suitable stool placed on that customer reseats them immediately. Another object displaces the customer to a nearest clear floor cell, or rejects atomically if no such cell exists.
+
+In **People**, tap a standing or trapped customer and then drag their rendered body to empty floor or a free seat. Rescue needs no walking route. The visit, preference and meal progress remain intact. Occupied seated customers continue to move with their stool; direct removal from the stool is unavailable. System Back/Escape clears customer selection. Canceled drops, interruption and failed writes preserve the accepted state behind the existing Retry flow.
+
+The original wood dock, production sprites and puzzled/panic feedback are reused in gameplay and Shared. An unfinished carried plate follows the character's authored hand socket. The customer-layout save version migrates old saves with neutral fields and never replays service or revenue. See [issue 14 review and Android builds](review/14/README.md). `--review-scene customer-rescue` exports the same runtime as a separate `com.yiochen.sushilooptickets.review14` app sandbox.
+
 ## Rules and saves
 
 `scripts/session.gd` is a public command, elapsed-time, snapshot and save/restore boundary. Its constructor loads `content/starter.json`, which owns starter layout, recipes and balance; the simulation rules use no wall clock or file persistence. `scripts/save_store.gd` writes a validated envelope atomically and recovers a valid backup. The application saves on important events, periodic intervals and Android lifecycle changes. Restoring replaces state without replaying rewards.

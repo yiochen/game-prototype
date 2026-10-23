@@ -423,6 +423,18 @@ func _refresh() -> void:
 		value.bounds = bounds
 		targets.append(value)
 	editor_ui.set_belt_targets(targets)
+	var customer_targets: Array = []
+	if editing and world.state.editor.layer == "people":
+		var physical_scale := maxf(0.001, get_viewport_transform().get_scale().x)
+		var target_size := maxf(world.cell, 44.01 / physical_scale)
+		for guest in world.state.customers:
+			if not guest.phase in ["standing", "walking", "leaving"] or guest.visual_phase == "stand-up": continue
+			var center := world.cell_base(float(guest.x), float(guest.y))
+			var bounds := Rect2(center - Vector2.ONE * target_size * 0.5, Vector2.ONE * target_size)
+			if not _floor_drop(center) or not world.hud_area().encloses(bounds): continue
+			if editor_ui.blocked_rects().any(func(blocked: Rect2): return blocked.intersects(bounds)): continue
+			customer_targets.append({"id": guest.id, "name": ["Rosa", "Ellis", "Samir", "June"][int(guest.appearance)], "bounds": bounds})
+	editor_ui.set_customer_targets(customer_targets)
 	world.queue_redraw()
 
 func save_now() -> bool:
@@ -439,6 +451,11 @@ func _selected_object(scene: Dictionary = {}) -> Dictionary:
 	var identity: String = str(scene.get("editor", {}).get("selected_id", ""))
 	for object in scene.objects:
 		if str(object.id) == identity: return object
+	for customer in scene.customers:
+		if str(customer.id) == identity:
+			var selected: Dictionary = customer.duplicate(true)
+			selected.kind = "customer"
+			return selected
 	return {}
 
 func _editor_command(value: Dictionary) -> Dictionary:
@@ -743,6 +760,10 @@ func _notification(what: int) -> void:
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST and session != null and not session.snapshot().editor.get("belt_path", []).is_empty():
 			_editor_command({"type": "editor_belt_end"})
 			return
+		if what == NOTIFICATION_WM_GO_BACK_REQUEST and session != null and _selected_object().get("kind") == "customer":
+			_cancel_gesture()
+			_editor_command({"type": "editor_select", "id": null})
+			return
 		save_now()
 		if what == NOTIFICATION_WM_GO_BACK_REQUEST: get_tree().quit()
 
@@ -750,9 +771,14 @@ func _exit_tree() -> void:
 	save_now()
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel") and session != null and not session.snapshot().editor.get("belt_path", []).is_empty():
-		_editor_command({"type": "editor_belt_end"})
-		get_viewport().set_input_as_handled()
+	if event.is_action_pressed("ui_cancel") and session != null:
+		if not session.snapshot().editor.get("belt_path", []).is_empty():
+			_editor_command({"type": "editor_belt_end"})
+			get_viewport().set_input_as_handled()
+		elif _selected_object().get("kind") == "customer":
+			_cancel_gesture()
+			_editor_command({"type": "editor_select", "id": null})
+			get_viewport().set_input_as_handled()
 
 func _valid_saved_session(data: Dictionary) -> bool:
 	return Session.new().restore(data)

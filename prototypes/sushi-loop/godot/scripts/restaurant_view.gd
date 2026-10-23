@@ -185,6 +185,7 @@ func _room() -> void:
 	_render_room_items(items)
 	_editor_ghost()
 	_belt_target_overlay()
+	_customer_selection_overlay()
 	# Thought/reaction art is a final feedback layer, following the same saved
 	# visual offset as its customer while remaining readable above furniture.
 	for customer in state.get("customers", []):
@@ -206,7 +207,7 @@ func _render_room_items(items: Array = []) -> void:
 	for item in items:
 		_shadow_kind = str(item.kind)
 		_current_owner = str(item.get("owner_id", ""))
-		if item.kind in ["belt", "dish", "chef", "seat", "board"]:
+		if item.kind in ["belt", "dish", "chef", "seat", "board", "customer"]:
 			_current_owner = str(item.value.get("id", ""))
 		match item.kind:
 			"belt": _belt(item.value)
@@ -256,6 +257,16 @@ func object_at(point: Vector2) -> Dictionary:
 		if identity.is_empty(): return {}
 		for object in state.get("objects", []):
 			if str(object.get("id", "")) == identity: return object
+		for guest in state.get("customers", []):
+			if guest.id != identity: continue
+			if state.get("mode") != "edit": return {}
+			if state.editor.layer == "people" and guest.phase in ["standing", "walking", "leaving"] and guest.visual_phase != "stand-up":
+				var selected: Dictionary = guest.duplicate(true)
+				selected.kind = "customer"
+				return selected
+			if state.editor.layer == "layout" and (guest.phase in ["waiting", "eating"] or guest.visual_phase == "stand-up"):
+				for seat in state.objects:
+					if seat.id == guest.get("seat_id", ""): return seat
 		return {}
 	return {}
 
@@ -268,7 +279,9 @@ func _editor_ground() -> void:
 		draw_rect(bounds, Color(tone, 0.25 if target.valid else 0.12))
 		draw_rect(bounds, Color(tone, 0.95 if target.valid else 0.4), false, 2 * _native_screen_pixel_scale)
 	var identity := str(state.get("editor", {}).get("selected_id", ""))
-	for object in state.get("objects", []):
+	var selectable: Array = state.get("objects", []).duplicate()
+	selectable.append_array(state.get("customers", []))
+	for object in selectable:
 		if str(object.id) != identity: continue
 		var rect := Rect2(cell_base(float(object.x), float(object.y)) - Vector2.ONE * cell * 0.5, Vector2.ONE * cell)
 		draw_rect(rect, Color(Color("bfd4af"), 0.48 * editor_selection_alpha))
@@ -282,6 +295,22 @@ func _editor_ground() -> void:
 			var across := Vector2(-1.0 if corner.x > 0.0 else 1.0, 0.0) * arm
 			var down := Vector2(0.0, -1.0 if corner.y > 0.0 else 1.0) * arm
 			draw_polyline(PackedVector2Array([point + across, point, point + down]), Color(Color("233d58"), editor_selection_alpha), thickness, true)
+
+func _customer_selection_overlay() -> void:
+	if state.get("mode") != "edit": return
+	for guest in state.get("customers", []):
+		if guest.id != state.get("editor", {}).get("selected_id", ""): continue
+		# Raised furniture may cover the floor marker behind a standing guest.
+		# Repeat its approved open corners in the foreground to keep the exact
+		# floor anchor legible without adding a panel over the person's body.
+		var bounds := Rect2(cell_base(float(guest.x), float(guest.y)) - Vector2.ONE * cell * 0.5, Vector2.ONE * cell).grow(-2 * _native_screen_pixel_scale)
+		for corner in [Vector2.ZERO, Vector2.RIGHT, Vector2.ONE, Vector2.DOWN]:
+			var point: Vector2 = bounds.position + bounds.size * corner
+			var across := Vector2(-1 if corner.x > 0 else 1, 0) * cell * 0.2
+			var down := Vector2(0, -1 if corner.y > 0 else 1) * cell * 0.2
+			var line := PackedVector2Array([point + across, point, point + down])
+			draw_polyline(line, Color(PAPER, editor_selection_alpha), 5 * _native_screen_pixel_scale, true)
+			draw_polyline(line, Color(Color("233d58"), editor_selection_alpha), 2 * _native_screen_pixel_scale, true)
 
 func _belt_target_overlay() -> void:
 	# Keep grid targets legible over the raised fronts of the real furniture.
@@ -309,6 +338,9 @@ func _editor_ghost() -> void:
 	draw_rect(footprint, Color(color, 0.32))
 	draw_rect(footprint.grow(-1.5 * _native_screen_pixel_scale), color, false, 3.0 * _native_screen_pixel_scale, true)
 	var object: Dictionary = editor_preview.get("source", {})
+	if object.get("kind") == "customer":
+		_customer_at(object, base, cell, Color(1, 1, 1, 0.65))
+		return
 	var identity := str(object.get("art_id", ""))
 	var clip := "static"
 	if object.get("kind") == "chef": clip = "idle"
@@ -318,6 +350,12 @@ func _editor_ghost() -> void:
 	elif object.get("kind") == "seat": identity = "stool-wood"
 	elif identity == "plant-angular": clip = "idle"
 	if not identity.is_empty(): sprite(identity, base, clip, str(BELT_FACING.get(object.get("facing", "east"), "S")) if object.get("kind") == "belt" else str(FACING.get(object.get("facing", "south"), "S")), 0.0, -1.0, Color(1, 1, 1, 0.65))
+	if object.get("kind") == "seat":
+		for guest in state.get("customers", []):
+			if guest.seat_id == object.get("id") and (guest.phase in ["waiting", "eating"] or guest.visual_phase == "stand-up"):
+				_customer_at(guest, base, cell, Color(1, 1, 1, 0.65))
+	elif object.get("kind") == "belt" and object.get("dish") is Dictionary:
+		sprite(DISHES.get(object.dish.recipe_id, "dish-salmon"), base + Vector2(0, -0.35) * cell, "static", "S", 0.0, -1.0, Color(1, 1, 1, 0.65))
 
 func render_plan() -> Array:
 	# Sort by ground depth, never by image height. All connected deck modules
@@ -500,13 +538,18 @@ func customer_pose_offset(customer: Dictionary, pitch: float) -> Vector2:
 		result.y -= sin(PI * happy / 0.55) * pitch * 0.14
 	return result
 
-func _customer_at(customer: Dictionary, base: Vector2, pitch: float) -> void:
+func _customer_at(customer: Dictionary, base: Vector2, pitch: float, tint := Color.WHITE) -> void:
 	var identity: String = CUSTOMERS[posmod(int(customer.get("appearance", 0)), CUSTOMERS.size())]
 	var direction := str(FACING.get(str(customer.get("facing", "south")), "S"))
 	var seconds := 0.0 if reduced_motion else float(customer.get("visual_elapsed", state.get("elapsed", time)))
 	# Sit/stand actions retain their native wood-stool support calibration.
 	# Passing and brief happiness move only the visual instance, never its cell.
-	sprite(identity, base + customer_pose_offset(customer, pitch), customer_clip(customer), direction, seconds, pitch)
+	sprite(identity, base + customer_pose_offset(customer, pitch), customer_clip(customer), direction, seconds, pitch, tint)
+	if customer.get("meal_dish") is Dictionary and customer.get("phase") in ["standing", "walking"]:
+		# The same owned plate remains recognizable while a seatless guest is
+		# rescued or walks to replacement seating. Eating itself stays paused.
+		var hand: Vector2 = art.socket(identity, "hand_right", direction) * pitch / art.cell_size
+		sprite(DISHES.get(customer.meal_dish.recipe_id, "dish-salmon"), base + customer_pose_offset(customer, pitch) + hand, "static", "S", 0.0, pitch * 0.62, tint)
 
 func customer_clip(customer: Dictionary) -> String:
 	var phase := str(customer.get("phase", "waiting"))
@@ -521,13 +564,16 @@ func customer_clip(customer: Dictionary) -> String:
 	return clip
 
 func customer_feedback(customer: Dictionary) -> Dictionary:
+	if customer.get("layout_pending", false) and state.get("mode") == "edit": return {}
+	if customer.get("phase") == "standing" and customer.get("navigation_mode") != "wander":
+		return {"object": "bubble-puzzled", "clip": "idle" if reduced_motion or float(customer.get("standing_elapsed", 0)) >= 1.0 else "appear", "seconds": 0.0 if reduced_motion else float(customer.get("standing_elapsed", 0)), "timer": -1.0}
 	if customer.get("phase") == "entrance_wait":
 		if reduced_motion: return {"object": "bubble-puzzled", "clip": "idle", "seconds": 0.0, "timer": -1.0}
 		var waited := maxf(0.0, float(customer.get("entrance_wait_elapsed", 0.0)))
 		var duration := maxf(1.0, float(customer.get("entrance_wait_total", 4.0)))
 		var fading := waited >= duration - 1.0
 		return {"object": "bubble-puzzled", "clip": "fade" if fading else "appear" if waited < 1.0 else "idle", "seconds": waited - (duration - 1.0) if fading else waited if waited < 1.0 else waited - 1.0, "timer": -1.0}
-	if customer.get("navigation_mode") == "wander" and customer.get("phase") in ["walking", "leaving"]:
+	if customer.get("navigation_mode") == "wander" and customer.get("phase") in ["walking", "leaving", "standing"]:
 		if reduced_motion: return {"object": "bubble-panic", "clip": "idle", "seconds": 0.0, "timer": -1.0}
 		var scared := maxf(0.0, float(customer.get("wander_elapsed", 0.0)))
 		return {"object": "bubble-panic", "clip": "appear" if scared < 1.0 else "idle", "seconds": scared if scared < 1.0 else scared - 1.0, "timer": -1.0}

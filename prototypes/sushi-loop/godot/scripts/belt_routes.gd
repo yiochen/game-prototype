@@ -64,8 +64,10 @@ static func detach(objects: Array, tile: Dictionary) -> void:
 
 static func connect_tiles(objects: Array, source: Dictionary, target: Dictionary) -> void:
 	var flow := direction(point(target) - point(source))
+	var carried_progress := float(source.travel_elapsed) if source.next_id.is_empty() else 0.0
 	# Reshaping replaces edges, never their old tiles or their contents.
 	disconnect_output(source)
+	source.travel_elapsed = carried_progress
 	var previous := incoming(objects, target.id)
 	if not previous.is_empty(): disconnect_output(previous)
 	if DIRECTIONS[source.input_facing] == -DIRECTIONS[flow]:

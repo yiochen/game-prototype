@@ -104,13 +104,11 @@ func _test_old_route_and_guards() -> void:
 	var prior := game.save_data()
 	for request in [
 		{"type": "editor_place", "inventory_id": "crate-wood", "x": 3, "y": 0},
-		{"type": "editor_place", "inventory_id": "crate-wood", "x": 3, "y": 1},
 		{"type": "editor_place", "inventory_id": "crate-wood", "x": 0, "y": 3},
 		{"type": "editor_place", "inventory_id": "crate-wood", "x": 7, "y": 2},
-		{"type": "editor_move", "id": "seat", "x": 5, "y": 5},
 	]:
 		var result := game.command(request)
-		_check(not result.ok and _same(prior, game.save_data()), "route freedom preserves entrance, direct guest-foot overlap, occupied-cell, floor bounds and assigned-seat guards: %s" % request)
+		_check(not result.ok and _same(prior, game.save_data()), "route freedom preserves entrance, occupied-cell and floor bounds guards: %s" % request)
 	var history := Session.new_session(41, _configuration())
 	history.advance(1.1)
 	_edit(history)
