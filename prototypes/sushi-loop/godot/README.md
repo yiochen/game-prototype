@@ -9,6 +9,12 @@ godot --path prototypes/sushi-loop/godot
 godot --path prototypes/sushi-loop/godot -- --gallery
 ```
 
+The game uses Godot's **Mobile** renderer on desktop and Android. Android
+explicitly uses **Vulkan**, with automatic fallback to OpenGL/Compatibility
+disabled. macOS uses its native Metal driver. GPU capture checks verify the
+actual renderer/driver and save `renderer.json` alongside screenshots; headless
+engine tests do not establish which graphics backend runs on an Android device.
+
 The restaurant uses square cells, 3/4 front-and-top artwork with feet on tile centers, and a fixed transparent HUD. Its existing selection now uses the independently approved warm, softly lit cartoon refinements, with the two restaurant floor designs preserved. Character actions retain their complete authored frames; the connected conveyor retains its synchronized 24-frame cycle. Fixed roots, sockets, projection and source scale come from the catalog. Smooth mipmapped sampling keeps the high-resolution sprites readable at phone size. Android stays in portrait orientation; tall phones fill their available height.
 
 ## Approved restaurant backdrop
@@ -24,6 +30,28 @@ shown in the wireframe catalog. The old `entry-finished` exports and model are
 removed from the active catalog and current editable library. The backdrop is
 painted before ordinary depth-sorted sprites and follows both camera axes.
 The game uses even lighting without runtime lantern lights or baked cast shadows.
+The current ground-shadow trial uses Godot's `DirectionalLight3D` and hidden
+shadow-only meshes: raised conveyor/stool decks with legs, a front-edge
+blackboard panel/posts/feet, character capsules and simple prop volumes. These
+are approximate shadow geometry, independent of the approved color sprites.
+A top-down orthographic camera registers the shadow receiver to the same square
+floor grid; the receiver stops at the back wall's floor edge. Native shadow-map
+attenuation becomes a transparent warm shadow layer between floor and objects.
+Both GPU targets use quarter native resolution. Color artwork, animations,
+selection geometry and UI stay unchanged. `scripts/ground_shadows.gd` owns the
+light and shapes; `ground_shadow_receiver.gdshader` reads native lighting and
+`ground_shadow_present.gdshader` controls opacity/color.
+`RestaurantView.ground_shadows_enabled` supports A/B review. Previous distorted
+sprite-shadow sources and captures are retained under `review/ground-shadows/`.
+Shadow shapes now share two MultiMesh draws (boxes and character capsules), with
+cached shape templates and bulk instance buffers. Unchanged buffers are not
+uploaded again. The native compositor generates only the reduction levels used
+at the physical display scale; its sprite resolution and final area filter are
+unchanged. Pan profiling and visual comparisons live in
+`review/ground-shadows/pan-performance/`.
+Run `tools/test_native.py --script tests/capture_ground_shadows.gd --visible
+--size 390x844 --output /tmp/sushi-loop-shadows` for matching before/after phone
+captures plus wider portrait and landscape checks, all with isolated save data.
 
 The room fills the portrait phone scene to both side edges. An ImageGen night
 sky reserves the top 80 logical units at a 720-unit scene width for camera
@@ -97,3 +125,9 @@ The complete catalog refinement and final import evidence live in `../assets/ref
 Generated production artwork and original UI icons were authored for this implementation. Nunito and Delius use the SIL Open Font License; the full notices are beside each font. The exported runtime uses Godot under MIT; its full notice is in `assets/licenses/Godot-MIT.txt`. See [Godot's license page](https://godotengine.org/license/) for the engine's third-party notices.
 
 Completed slices and validation evidence are recorded in `review/tickets.md`.
+
+The 0.4.15 diagnostic build displays rolling FPS, average/max frame interval,
+CPU process milliseconds and total draw calls in the sky strip. From 0.4.16,
+CPU uses the same rolling one-second window as the cadence statistics. Text refreshes
+at 4 Hz; max covers the last second and clears after resume. CPU is not GPU
+time. See `review/performance-overlay/README.md` for measurement details.

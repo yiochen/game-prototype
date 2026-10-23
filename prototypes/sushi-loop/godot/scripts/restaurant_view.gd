@@ -4,6 +4,7 @@ extends Control
 
 const ArtBook = preload("res://scripts/art_book.gd")
 const Typography = preload("res://scripts/typography.gd")
+const GroundShadows = preload("res://scripts/ground_shadows.gd")
 const INK := Color("253b3b")
 const NIGHT := Color("103d4b")
 const PAPER := Color("ffefcf")
@@ -26,6 +27,7 @@ var portrait := Rect2()
 var floor_origin := Vector2.ZERO
 var safe_top := 0.0
 var sky_height := 0.0
+var diagnostic_header_height := 0.0
 var sky_texture: Texture2D
 var cell := 76.0
 var show_gallery := false
@@ -41,6 +43,10 @@ var _hit_signature: Array = []
 var _capture_hits := false
 var _record_only := false
 var _current_owner := ""
+var ground_shadows_enabled := true
+var _collect_ground_shadows := false
+var _shadow_kind := ""
+var _ground_shadows: Node
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -51,6 +57,9 @@ func _ready() -> void:
 	sky_texture = load("res://assets/ui/night-sky.png")
 	if not _native_world_clone:
 		art.reload()
+	if not native_composition_enabled:
+		_ground_shadows = GroundShadows.new()
+		add_child(_ground_shadows)
 	if native_composition_enabled:
 		var helper_path: String = get_script().resource_path.get_base_dir().path_join("native_world_layer.gd")
 		_native_world_layer = load(helper_path).new()
@@ -68,7 +77,7 @@ func update_layout() -> void:
 	cell = width / float(floor_data.get("viewport_columns", floor_data.get("columns", 7)))
 	# Full-width scenery begins below a quiet, fixed camera-clearance strip.
 	var unit := width / 720.0
-	sky_height = 0.0 if show_gallery else maxf(80.0 * unit, safe_top + 12.0 * unit)
+	sky_height = 0.0 if show_gallery else maxf(80.0 * unit, safe_top + maxf(12.0 * unit, diagnostic_header_height))
 	floor_origin = portrait.position + Vector2(0, sky_height)
 	queue_redraw()
 
@@ -90,6 +99,11 @@ func cell_base(x: float, y: float) -> Vector2:
 
 func sprite(identity: String, base: Vector2, clip := "static", direction := "S", seconds := 0.0, tile_pixels := -1.0, tint := Color.WHITE) -> void:
 	var pitch := cell if tile_pixels < 0.0 else tile_pixels
+	if _collect_ground_shadows:
+		# Shadow proxies need neither an animation atlas lookup nor a sprite rect.
+		if _shadow_kind in ["belt", "seat", "chef", "customer", "board", "sprite"] and not identity.begins_with("dish-") and not identity.begins_with("wall-") and art.objects.has(identity):
+			_ground_shadows.add_caster(identity, base, pitch, direction)
+		return
 	var data: Dictionary = art.frame_data(identity, clip, direction, seconds)
 	if not data.is_empty():
 		var destination: Rect2 = art.registered_rect(identity, base, pitch, clip, direction)
@@ -111,11 +125,8 @@ func _draw() -> void:
 		# Visuals use the identical world pass in the native viewport. Picking
 		# remains the original pass at actual screen-space roots and rectangles.
 		draw_rect(Rect2(Vector2.ZERO, size), NIGHT)
-		_hit_records.clear()
-		_hit_signature.clear()
-		_record_only = true
-		_render_room_items()
-		_record_only = false
+		# Picking resolves lazily through _ensure_sprite_hits on actual input;
+		# rebuilding a second full sprite pass here costs every idle frame.
 		return
 	if _native_world_clone:
 		_native_world_controller.begin_native_frame()
@@ -151,8 +162,21 @@ func _room() -> void:
 			sprite(identity, base, "static", "S", 0.0, -1.0, tint)
 	for piece in backdrop_plan():
 		sprite(piece.key, piece.base)
+	var items := render_plan()
+	if ground_shadows_enabled and _ground_shadows != null:
+		var floor_start := cell_base(0, float(state.floor.get("backdrop_rows", 3)) - 0.5).y
+		_ground_shadows.begin(size, cell, floor_start)
+		_collect_ground_shadows = true
+		_record_only = true
+		_render_room_items(items)
+		_record_only = false
+		_collect_ground_shadows = false
+		_ground_shadows.finish()
+		draw_texture_rect(_ground_shadows.texture(), Rect2(Vector2.ZERO, Vector2(_ground_shadows.viewport.size) / GroundShadows.RESOLUTION), false)
+	elif _ground_shadows != null:
+		_ground_shadows.set_active(false)
 	_editor_ground()
-	_render_room_items()
+	_render_room_items(items)
 	_editor_ghost()
 	# Thought/reaction art is a final feedback layer, following the same saved
 	# visual offset as its customer while remaining readable above furniture.
@@ -165,13 +189,15 @@ func _room() -> void:
 			# Keep its authored scale/motion and the existing quiet alpha fade.
 			sprite("coin-pop", cell_base(float(pop.x), float(pop.y)), "pop", "S", 0.0 if reduced_motion else age, -1.0, Color(1, 1, 1, 1.0 - age / 0.9))
 
-func _render_room_items() -> void:
+func _render_room_items(items: Array = []) -> void:
 	# Rendering and picking share this exact pass, including sprite frame,
 	# attachment geometry and painter order. Other decorative/editor layers
 	# never enter its ownership records.
 	_hit_records.clear()
 	_capture_hits = true
-	for item in render_plan():
+	if items.is_empty(): items = render_plan()
+	for item in items:
+		_shadow_kind = str(item.kind)
 		_current_owner = str(item.get("owner_id", ""))
 		if item.kind in ["belt", "dish", "chef", "seat", "board"]:
 			_current_owner = str(item.value.get("id", ""))

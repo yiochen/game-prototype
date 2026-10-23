@@ -269,6 +269,27 @@ def verify_release_identity(branding: dict, credentials: dict, keystore: Path,
         raise ValueError("The private release key differs from the pinned update identity.")
 
 
+def parse_apk_badging(badging: str, branding: dict, mode: str) -> dict:
+    """Read aapt2 metadata without losing permission or release checks."""
+    package = re.search(r"^package: name='([^']+)' versionCode='([^']+)' versionName='([^']+)'", badging, re.M)
+    if not package or package.groups() != (branding["android_package"], str(branding["version_code"]), branding["version_name"]):
+        raise ValueError("Exported Android package/version differs from the requested branding.")
+    label = re.search(r"^application-label:'(.*)'$", badging, re.M)
+    if not label or label.group(1) != branding["title"]:
+        raise ValueError("Exported Android app label differs from the requested branding.")
+    debuggable = bool(re.search(r"^application-debuggable", badging, re.M))
+    if mode == "release" and debuggable:
+        raise ValueError("Release APK is unexpectedly debuggable.")
+    permissions = re.findall(r"^[ \t]*uses-permission: name='([^']+)'", badging, re.M)
+    if mode == "release" and "android.permission.INTERNET" in permissions:
+        raise ValueError("The offline release unexpectedly requests Internet permission.")
+    minimum = re.search(r"^(?:minSdkVersion|sdkVersion):'([^']+)'", badging, re.M)
+    target = re.search(r"^targetSdkVersion:'([^']+)'", badging, re.M)
+    return {"package": package.group(1), "application_label": label.group(1), "debuggable": debuggable,
+            "min_sdk": minimum.group(1) if minimum else None, "target_sdk": target.group(1) if target else None,
+            "permissions": permissions}
+
+
 def audit_apk(apk_path: Path, branding: dict, mode: str, build_tools: Path,
               environment: dict[str, str], password: str) -> dict:
     verification = run([str(build_tools / "apksigner"), "verify", "--verbose", "--print-certs", str(apk_path)],
@@ -280,16 +301,10 @@ def audit_apk(apk_path: Path, branding: dict, mode: str, build_tools: Path,
     expected_signer = branding.get("release_signer_sha256", "").lower()
     if mode == "release" and (not re.fullmatch(r"[a-f0-9]{64}", expected_signer) or signer != expected_signer):
         raise ValueError("Release certificate differs from the pinned update identity.")
-    badging = run([str(build_tools / "aapt"), "dump", "badging", str(apk_path)], environment)
-    package = re.search(r"^package: name='([^']+)' versionCode='([^']+)' versionName='([^']+)'", badging, re.M)
-    if not package or package.groups() != (branding["android_package"], str(branding["version_code"]), branding["version_name"]):
-        raise ValueError("Exported Android package/version differs from the requested branding.")
-    label = re.search(r"^application-label:'(.*)'$", badging, re.M)
-    if not label or label.group(1) != branding["title"]:
-        raise ValueError("Exported Android app label differs from the requested branding.")
-    debuggable = bool(re.search(r"^application-debuggable", badging, re.M))
-    if mode == "release" and debuggable:
-        raise ValueError("Release APK is unexpectedly debuggable.")
+    # aapt1 rejects Godot's generated Vulkan feature declarations. aapt2 is the
+    # current Android parser and handles these declarations without patching APKs.
+    badging = run([str(build_tools / "aapt2"), "dump", "badging", str(apk_path)], environment)
+    metadata = parse_apk_badging(badging, branding, mode)
     with zipfile.ZipFile(apk_path) as apk:
         names = apk.namelist()
         for architecture in ("arm64-v8a", "x86_64"):
@@ -332,15 +347,8 @@ def audit_apk(apk_path: Path, branding: dict, mode: str, build_tools: Path,
                     if needle and needle in data:
                         raise ValueError("The APK contains signing credentials.")
                     previous = data[-max(1, len(needle) - 1):]
-    permissions = re.findall(r"^uses-permission: name='([^']+)'", badging, re.M)
-    if mode == "release" and "android.permission.INTERNET" in permissions:
-        raise ValueError("The offline release unexpectedly requests Internet permission.")
-    minimum = re.search(r"^sdkVersion:'([^']+)'", badging, re.M)
-    target = re.search(r"^targetSdkVersion:'([^']+)'", badging, re.M)
     return {
-        "signer_sha256": signer, "package": package.group(1), "application_label": label.group(1), "debuggable": debuggable,
-        "min_sdk": minimum.group(1) if minimum else None, "target_sdk": target.group(1) if target else None,
-        "permissions": permissions, "runtime_manifest_sha256": manifest_hash,
+        "signer_sha256": signer, **metadata, "runtime_manifest_sha256": manifest_hash,
         "recipe_manifest_sha256": recipe_manifest_hash,
         "chef_manifest_sha256": chef_manifest_hash,
         "feedback_manifest_sha256": feedback_manifest_hash,
@@ -353,7 +361,8 @@ def audit_apk(apk_path: Path, branding: dict, mode: str, build_tools: Path,
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("mode", choices=["debug", "release"], nargs="?", default="debug")
+    parser.add_argument("mode", choices=["debug", "release"], nargs="?", default="release",
+                        help="Build mode (default: release). Debug-signed APKs cannot update release installs.")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--title")
     parser.add_argument("--version-name")
@@ -380,7 +389,7 @@ def main() -> int:
     environment["PATH"] = str(jdk / "bin") + os.pathsep + environment.get("PATH", "")
     sdk = Path(environment.get("ANDROID_HOME", environment.get("ANDROID_SDK_ROOT", str(Path.home() / "Library/Android/sdk"))))
     candidates = sorted((sdk / "build-tools").glob("*"), key=lambda p: tuple(int(x) for x in re.findall(r"\d+", p.name)))
-    if not candidates or not all((candidates[-1] / tool).is_file() for tool in ("aapt", "apksigner")):
+    if not candidates or not all((candidates[-1] / tool).is_file() for tool in ("aapt2", "apksigner")):
         parser.error("Android SDK build-tools were not found; configure ANDROID_HOME.")
     build_tools = candidates[-1]
     engine = run([args.godot, "--version"], environment).strip()

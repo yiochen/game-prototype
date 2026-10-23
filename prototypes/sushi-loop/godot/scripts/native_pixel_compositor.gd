@@ -45,6 +45,7 @@ var grid_fraction := Vector2.ZERO
 var _surfaces: Array[Control] = []
 var _belt_textures: Dictionary = {}
 var _used_belt_textures: Dictionary = {}
+var active_reduction_levels := REDUCTION_LEVELS
 
 func _make_viewport() -> SubViewport:
 	var result := SubViewport.new()
@@ -124,10 +125,17 @@ func set_grid_origin(origin: Vector2) -> void:
 func set_active(active: bool) -> void:
 	var mode := SubViewport.UPDATE_ALWAYS if active else SubViewport.UPDATE_DISABLED
 	native_viewport.render_target_update_mode = mode
-	for viewport in reduction_viewports: viewport.render_target_update_mode = mode
+	for level in range(reduction_viewports.size()):
+		reduction_viewports[level].render_target_update_mode = mode if level < active_reduction_levels else SubViewport.UPDATE_DISABLED
 	if not active:
 		_belt_textures.clear()
 		_used_belt_textures.clear()
+
+func set_presentation_pixel_scale(pixels_per_native: float) -> void:
+	# Match native_present.gdshader's footprint LOD. Higher-resolution Android
+	# displays need fewer reduction passes than the small desktop test window.
+	var footprint := 1.0 / maxf(pixels_per_native, 0.0001)
+	active_reduction_levels = clampi(int(floor(log(maxf(footprint, 1.0)) / log(2.0) + 0.0001)), 0, REDUCTION_LEVELS)
 
 func begin_native_frame() -> void:
 	_used_belt_textures.clear()
@@ -153,4 +161,4 @@ func allocation_record() -> Dictionary:
 	for viewport in reduction_viewports:
 		pixels += viewport.size.x * viewport.size.y
 		levels.append([viewport.size.x, viewport.size.y])
-	return {"native_cell": NATIVE_CELL, "content_size": [content_size.x, content_size.y], "levels": levels, "rgba8_color_buffer_bytes": pixels * 4, "phase_cache_count": 0, "runtime_readbacks": 0, "native_guard": [GUARD.x, GUARD.y], "grid_fraction": [grid_fraction.x, grid_fraction.y]}
+	return {"native_cell": NATIVE_CELL, "content_size": [content_size.x, content_size.y], "levels": levels, "active_reduction_levels": active_reduction_levels, "rgba8_color_buffer_bytes": pixels * 4, "phase_cache_count": 0, "runtime_readbacks": 0, "native_guard": [GUARD.x, GUARD.y], "grid_fraction": [grid_fraction.x, grid_fraction.y]}

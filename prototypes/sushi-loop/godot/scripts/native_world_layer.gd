@@ -27,9 +27,14 @@ func sync() -> void:
 	if source_view.show_gallery or not source_view.is_visible_in_tree() or source_view.portrait.size.x <= 0.0:
 		surface.hide()
 		native_pipeline.set_active(false)
+		if native_view._ground_shadows != null:
+			native_view._ground_shadows.set_active(false)
 		return
-	native_pipeline.set_active(true)
 	var native_factor: float = NativePixelComposer.NATIVE_CELL / source_view.cell
+	var screen_transform: Transform2D = source_view.get_viewport_transform() * source_view.get_global_transform()
+	var screen_scale := minf(screen_transform.x.length(), screen_transform.y.length())
+	native_pipeline.set_presentation_pixel_scale(screen_scale / native_factor)
+	native_pipeline.set_active(true)
 	native_view._native_screen_pixel_scale = native_factor
 	# Crop only the visible portrait. Landscape letterboxes never allocate GPU
 	# targets. Keep the float content extent; allocation padding is clipped.
@@ -39,6 +44,7 @@ func sync() -> void:
 	native_view.time = source_view.time
 	native_view.sale_pops = source_view.sale_pops
 	native_view.reduced_motion = source_view.reduced_motion
+	native_view.ground_shadows_enabled = source_view.ground_shadows_enabled
 	native_view.editor_preview = source_view.editor_preview
 	native_view.editor_selection_alpha = source_view.editor_selection_alpha
 	native_view.show_gallery = false
@@ -73,4 +79,11 @@ func diagnostics() -> Dictionary:
 	result["source_portrait"] = [source_view.portrait.position.x, source_view.portrait.position.y, source_view.portrait.size.x, source_view.portrait.size.y]
 	result["native_floor_origin"] = [native_view.floor_origin.x, native_view.floor_origin.y]
 	result["presenter_offset"] = [surface.native_offset.x, surface.native_offset.y]
+	if native_view._ground_shadows != null:
+		var shadow_size: Vector2i = native_view._ground_shadows.viewport.size
+		result["ground_shadow_size"] = [shadow_size.x, shadow_size.y]
+		result["ground_shadow_color_buffer_bytes"] = shadow_size.x * shadow_size.y * 4
+		result["ground_shadow_renderer"] = "DirectionalLight3D / shadow-only geometry"
+		result["ground_shadow_receiver_color_buffer_bytes"] = shadow_size.x * shadow_size.y * 4
+		result["ground_shadow_batching"] = native_view._ground_shadows.diagnostics()
 	return result

@@ -1,0 +1,26 @@
+shader_type canvas_item;
+render_mode unshaded;
+
+// Sample only this animation frame, including transparent space around it.
+// Atlas neighbours must never contribute to the softened silhouette.
+uniform vec4 frame_uv;
+uniform vec2 softness;
+varying float shadow_opacity;
+
+void vertex() {
+	shadow_opacity = COLOR.a;
+}
+
+void fragment() {
+	float alpha = 0.0;
+	for (int y = -1; y <= 1; y++) {
+		for (int x = -1; x <= 1; x++) {
+			float weight = float((x == 0 ? 2 : 1) * (y == 0 ? 2 : 1));
+			vec2 sample_uv = UV + vec2(float(x), float(y)) * softness;
+			if (all(greaterThanEqual(sample_uv, frame_uv.xy)) && all(lessThan(sample_uv, frame_uv.zw))) {
+				alpha += texture(TEXTURE, sample_uv).a * weight;
+			}
+		}
+	}
+	COLOR = vec4(0.20, 0.14, 0.10, alpha / 16.0 * shadow_opacity);
+}
