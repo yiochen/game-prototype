@@ -1,0 +1,59 @@
+{
+  "pathBase": "object-root; actual execution prefixed this object path from worktree cwd",
+  "commands": [
+    {
+      "stage": "native-build",
+      "command": "/opt/homebrew/bin/blender --factory-startup --background --disable-autoexec source/round-01-inputs/untouched-library.blend --python source/build-round-01.py",
+      "log": "source/round-01-build.log",
+      "result": "saved editable source/round-01.blend"
+    },
+    {
+      "stage": "native-capture",
+      "command": "/opt/homebrew/bin/blender --factory-startup --background --disable-autoexec source/round-01.blend --python source/capture-round-01.py",
+      "log": "source/round-01-capture.log",
+      "result": "144 native captures plus allphase measured geometry, fixedcamera/root and terminal/boundary proof"
+    },
+    {
+      "stage": "wholecanvas-publication",
+      "command": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/publish-round-01.py",
+      "log": "source/round-01-publish.log",
+      "result": "144 published frames and12 original-layout atlases, review-only sheets"
+    },
+    {
+      "stage": "browser-attempt01-diagnostic",
+      "command": "node source/capture-consumer-round-01.mjs",
+      "log": "source/round-01-consumer.log",
+      "result": "both153 modes completed, but actual video omitted frame0 for windupW/activeW during DOM replacement"
+    },
+    {
+      "stage": "browser-attempt01-audit",
+      "command": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/inspect-consumer-round-01.py",
+      "log": "source/round-01-inspection.log",
+      "result": "failed accurately with missing decoded phase[(3,0),(7,0)]; first recording retained only as diagnostics"
+    },
+    {
+      "stage": "browser-stablecanvas-v2",
+      "command": "node source/capture-consumer-round-01-v2.mjs",
+      "log": "source/round-01-consumer-v2.log",
+      "result": "both actual Chromium153 modes/DPR1/1280x900/complete12fps playback; unchanged commoncanvas helpers"
+    },
+    {
+      "stage": "actual-decoded-video-audit",
+      "command": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 source/inspect-consumer-round-01-v2.py",
+      "log": "source/round-01-inspection-v2.log",
+      "result": "all144 phases decoded in eachmode plus terminalheld samples; source/common raster exact, honest CSS/mode residuals retained"
+    },
+    {
+      "stage": "saved-source-inventory",
+      "command": "/opt/homebrew/bin/blender --factory-startup --background --disable-autoexec source/round-01.blend --python source/inventory-round-01.py",
+      "log": "source/round-01-inventory.log",
+      "result": "actual13 closednative meshes,27 persisted actions, actual material/light/render inventory, no source save"
+    },
+    {
+      "stage": "final-handoff-serialization",
+      "command": "python3 source/finalize-round-01.py",
+      "result": "Final source/candidate JSON resource inventory and exactsha handoff, not packet/seal/gates orapproval. Editable authored metadata input round-01-finalization-inputs.json preserved."
+    }
+  ],
+  "reproduction": "Use a fresh object-shaped output directory: create source/ and candidates/round-01/. Copy ONLY source/round-01-inputs/, source/construction-acknowledgment-v1.json, and build/capture/publish/consumer-v2/inspect-v2/inventory scripts into fresh source/. Do not copy existing outputs to their write targets. Copy the final consumer-v2 fixture to candidates/round-01/consumer-v2/ after publication. Run commands in order with paths resolved against that fresh object root. Build starts from private untouched raw copy; no live Blender or original save. Runtime Node resolves Vite7.3.6/@playwright/test1.63.0/React19.3.0; browser153 bothmodes. PythonPillow12.3/NumPy2.3.5; Blender5.2.2LTS. Resource paths are script-relative."
+}

@@ -1,0 +1,61 @@
+<!doctype html><meta charset="utf-8"><title>attack-reef-fragments round01 exact current consumer</title>
+<style>html,body{margin:0;background:#707680;font:12px system-ui}#root{display:flex;gap:0;align-items:start}.dataset{display:grid;grid-template-columns:repeat(4,var(--w));width:calc(var(--w)*4)}.cell{width:var(--w);height:calc(var(--h) + 20px);overflow:hidden}.label{height:20px;line-height:20px;white-space:nowrap}.frame{position:relative;width:var(--w);height:var(--h);overflow:hidden}canvas{position:absolute;display:block}</style><div id="root"></div><div id="phase-marker" style="position:fixed;left:624px;top:0;width:16px;height:16px;background:#071923"></div>
+<script type="module">
+import {worldRasterPlan,paintWorldRaster} from '../../../source/round-01-inputs/consumer/world-sprite-raster.js';
+import {spriteFrame,groundRoot,orderPlacements} from '../../../source/round-01-inputs/consumer/sprite-layout.js';
+const object=await fetch('../../../source/round-01-inputs/consumer/current-catalog-object.json').then(x=>x.json());
+const loaded={};
+for(const clip of object.clips)for(const [direction,entry]of Object.entries(clip.directions))for(const dataset of ['current','candidate']){
+ const image=new Image();image.src=dataset==='current'?'../../../source/round-01-inputs/consumer/'+entry.image:'../atlases/'+clip.id+'-'+direction+'.png';await image.decode();loaded[dataset+'-'+clip.id+'-'+direction]=image;
+}
+let configuration=null,cells=[];
+window.renderEvidence=({datasets=['current'],scale=1,background='gray',seconds=5/12,clipIds=null,directions=['N','E','S','W']}={})=>{
+ const key=JSON.stringify({datasets,scale,clipIds,directions});
+ document.body.style.background={light:'#f6f2e8',gray:'#707680',dark:'#121a2a'}[background];document.body.style.color=background==='light'?'#111':'#fff';
+ if(key!==configuration){
+  configuration=key;cells=[];const root=document.getElementById('root');root.replaceChildren();
+  for(const dataset of datasets){
+   const grid=document.createElement('div');grid.className='dataset';grid.style.gridTemplateColumns=`repeat(${directions.length},var(--w))`;grid.style.width=320*scale*directions.length+'px';grid.style.setProperty('--w',320*scale+'px');grid.style.setProperty('--h',448*scale+'px');root.appendChild(grid);
+   for(const clip of object.clips.filter(c=>!clipIds||clipIds.includes(c.id)))for(const direction of directions){
+    const cell=document.createElement('div');cell.className='cell';const label=document.createElement('div');label.className='label';cell.appendChild(label);
+    const viewport=document.createElement('div');viewport.className='frame';cell.appendChild(viewport);const canvas=document.createElement('canvas');viewport.appendChild(canvas);grid.appendChild(cell);cells.push({dataset,clip,direction,canvas,label});
+   }
+  }
+ }
+ const records=[];
+ for(const {dataset,clip,direction,canvas,label}of cells){
+  const f=spriteFrame(object,clip,direction,seconds);label.textContent=`${dataset} ${clip.id} ${direction} frame${f.frame} ${scale===1?'logical':'phone'}`;
+  const placement=orderPlacements([{object:object.id,x:0,y:0,direction}],[object])[0],rootPos=groundRoot(placement,object);
+  const sprite={x:rootPos[0]-f.root[0],y:rootPos[1]-f.root[1],width:f.frameSize[0],height:f.frameSize[1],rect:f.rect,url:f.image};
+  const bounds=[sprite.x,sprite.y,320,448],plan=worldRasterPlan([sprite],bounds);paintWorldRaster(canvas,plan,[loaded[dataset+'-'+clip.id+'-'+direction]]);
+  canvas.style.width=plan.width/plan.scale*scale+'px';canvas.style.height=plan.height/plan.scale*scale+'px';canvas.style.left=(plan.x-bounds[0])*scale+'px';canvas.style.top=(plan.y-bounds[1])*scale+'px';
+  records.push({dataset,clip:clip.id,direction,frame:f.frame,rect:f.rect,frameSize:f.frameSize,root:f.root,placement,rootPos,plan:{...plan,sprites:undefined},cssScale:scale});
+ }
+ window.lastRecords=records;return records;
+};
+window.renderPlayback=(clipId,direction,seconds)=>{
+ if(!window.playbackInitialized){window.renderEvidence({datasets:['current','candidate'],scale:1,background:'gray',seconds:0,clipIds:['windup'],directions:['N']});window.playbackInitialized=true;}
+ for(const cell of cells){cell.clip=object.clips.find(c=>c.id===clipId);cell.direction=direction;}
+ return window.renderEvidence({datasets:['current','candidate'],scale:1,background:'gray',seconds,clipIds:['windup'],directions:['N']});
+};
+window.startPlayback=()=>{
+ window.playbackInitialized=false;window.renderPlayback('windup','N',0);window.playbackLog=[];let start=null,previous='';window.playing=true;
+ const slots=object.clips.flatMap(c=>['N','E','S','W'].map(direction=>({clip:c.id,direction})));
+ function tick(now){
+  if(!window.playing)return;if(start===null)start=now;
+  const seconds=(now-start)/1000,slot=Math.floor(seconds/1.25)%slots.length,t=seconds%1.25,frame=Math.min(11,Math.floor(t*12)),key=slot+':'+frame,{clip,direction}=slots[slot];
+  if(key!==previous){document.getElementById('phase-marker').style.background=`rgb(${20+18*slot},${20+18*frame},245)`;window.renderPlayback(clip,direction,t);window.playbackLog.push({elapsed:seconds,clip,direction,frame});previous=key;}
+  requestAnimationFrame(tick);
+ }
+ requestAnimationFrame(tick);
+};
+window.rasterEvidence=()=>cells.map(({dataset,clip,direction,canvas})=>{
+ const record=window.lastRecords.find(r=>r.dataset===dataset&&r.clip===clip.id&&r.direction===direction);
+ const a=canvas.getContext('2d').getImageData(1,1,640,896).data;
+ const src=document.createElement('canvas');src.width=640;src.height=896;src.getContext('2d').drawImage(loaded[dataset+'-'+clip.id+'-'+direction],...record.rect,0,0,640,896);
+ const expected=src.getContext('2d').getImageData(0,0,640,896).data;let count=0,max=0;
+ for(let i=0;i<a.length;i++){const d=Math.abs(a[i]-expected[i]);if(d){count++;max=Math.max(max,d);}}
+ return {dataset,clip:clip.id,direction,frame:record.frame,canvasSize:[canvas.width,canvas.height],nativeRasterVsAtlasChangedChannels:count,maxAbs:max,composition:'Nearest shared2x canvas with1px guard; CSS filters the entire canvas.'};
+});
+window.ready=true;
+</script>
