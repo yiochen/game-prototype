@@ -13,6 +13,7 @@ var path_count: Label
 var path_exit: Button
 var path_targets: Array[Button] = []
 var customer_targets: Array[Button] = []
+var pickup_active := false
 
 class Backdrop extends Control:
 	var owner_ui
@@ -116,12 +117,15 @@ func set_customer_targets(targets: Array) -> void:
 		button.position = target.bounds.position
 		button.size = target.bounds.size
 		button.button_pressed = state.editor.selected_id == target.id
-		button.accessibility_name = "Select %s for rescue" % target.name
+		button.accessibility_name = "Select %s to move" % target.name
 		button.accessibility_description = "Select, then drag the guest to clear floor or a free seat. Their visit and unfinished meal are preserved."
 
 func _layout_context() -> void:
 	super._layout_context()
 	if path_exit == null: return
+	if pickup_active:
+		for control in [context_bubble, context_pointer, rotate, remove, path_exit, path_count]: control.hide()
+		return
 	var active: bool = not state.get("editor", {}).get("belt_path", []).is_empty()
 	path_exit.visible = active
 	path_count.visible = active

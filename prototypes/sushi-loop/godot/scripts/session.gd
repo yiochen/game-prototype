@@ -11,7 +11,7 @@ const BeltRoutes = preload("res://scripts/belt_routes.gd")
 const CUSTOMER_VISIT_VERSION := 1
 const CUSTOMER_NAVIGATION_VERSION := 1
 const CUSTOMER_ADMISSION_VERSION := 1
-const CUSTOMER_LAYOUT_VERSION := 1
+const CUSTOMER_LAYOUT_VERSION := 2
 const EDITOR_VERSION := 3
 const EDITOR_PATH := "res://content/editor.json"
 const EDITOR_LAYERS := ["people", "layout", "floor"]
@@ -697,6 +697,13 @@ func _step_customers(delta: float, events: Array) -> void:
 						continue
 					_set_visual(customer, "seated-wait")
 				if customer.preference_phase == "pending":
+					# A manually admitted door guest chooses their preference only in Live.
+					if not customer.visit_legacy and customer.preferred_recipe_id.is_empty():
+						var service := _seat_service(_object_by_id(customer.seat_id))
+						var recipes: Array = service.ready + service.menu
+						if recipes.is_empty(): recipes = _configuration.recipes.keys()
+						recipes.sort()
+						customer.preferred_recipe_id = str(recipes[_random.randi_range(0, recipes.size() - 1)])
 					_set_preference(customer, "active")
 				if customer.preference_phase == "active":
 					customer.preference_elapsed = minf(_customer_number("preference_seconds"), _clock_advance(float(customer.preference_elapsed), delta))
@@ -1466,7 +1473,8 @@ func _valid_visit(customer: Dictionary, config: Dictionary) -> bool:
 	for key in ["render_offset_x", "render_offset_y"]:
 		if not _finite_number(customer.get(key)) or absf(float(customer[key])) > float(config.customers.passing_offset) * 2.0 + 0.000001:
 			return false
-	if not customer.get("preferred_recipe_id") is String or (not customer.visit_legacy and customer.phase != "entrance_wait" and not config.recipes.has(customer.preferred_recipe_id)):
+	var pending_admission: bool = customer.get("preferred_recipe_id") == "" and not customer.first_dish_received and customer.get("preference_phase") == "pending" and customer.phase in ["standing", "walking", "waiting", "leaving"]
+	if not customer.get("preferred_recipe_id") is String or (not customer.visit_legacy and customer.phase != "entrance_wait" and not pending_admission and not config.recipes.has(customer.preferred_recipe_id)):
 		return false
 	if not customer.get("preference_phase") in ["pending", "active", "satisfied", "expired", "complete"]:
 		return false
@@ -1792,6 +1800,14 @@ func _editor_command(request: Dictionary) -> Dictionary:
 			if not _state.editor.has("scrolls"): _state.editor.scrolls = {}
 			_state.editor.scrolls[_state.editor.layer] = float(offset)
 			return {"ok":true}
+		"editor_pickup":
+			var guest := _customer_by_id(str(request.get("id", "")))
+			if guest.is_empty(): return _editor_command({"type":"editor_select", "id":request.get("id")})
+			_state.editor.layer = "people"
+			_state.editor.page = _state.editor.pages.people
+			_state.editor.selected_id = guest.id
+			_state.editor.belt_path = []
+			return {"ok":true}
 		"editor_select":
 			var identity: Variant = request.get("id")
 			if identity == null or identity == "":
@@ -1839,7 +1855,7 @@ func _editor_cell_rejection(request: Dictionary, excluding_id: String = "") -> S
 		var center := Vector2(float(customer.x), float(customer.y))
 		var rendered := _render_position(customer)
 		if cell == Vector2i(floori(center.x + 0.5), floori(center.y + 0.5)) or cell == Vector2i(floori(rendered.x + 0.5), floori(rendered.y + 0.5)) or Vector2(cell).distance_to(rendered) < 0.65:
-			if not _customer_rescuable(customer): return "customer_busy"
+			if not _customer_displaceable(customer): return "customer_busy"
 	return ""
 
 func _belt_target(cell: Vector2i) -> Dictionary:
@@ -2050,6 +2066,11 @@ func _customer_by_id(identity: String) -> Dictionary:
 	return {}
 
 func _customer_rescuable(customer: Dictionary) -> bool:
+	return customer.get("phase") in ["entrance_wait", "standing", "walking", "waiting", "eating", "leaving"]
+
+func _customer_displaceable(customer: Dictionary) -> bool:
+	# Furniture still cannot silently displace a seated customer. Explicit
+	# guest pickup is a separate operation that leaves their stool in place.
 	return customer.get("phase") in ["standing", "walking", "leaving"] and customer.get("visual_phase") != "stand-up"
 
 func _customer_touches(customer: Dictionary, cell: Vector2i) -> bool:
@@ -2081,6 +2102,7 @@ func _stand_customer(customer: Dictionary) -> void:
 	customer.render_offset_y = 0.0
 	customer.layout_pending = true
 	customer.standing_elapsed = 0.0
+	customer.entrance_wait_elapsed = 0.0
 	customer.yielding = false
 	_clear_seated_route(customer)
 	_set_visual(customer, "walk" if customer.phase == "leaving" else "stand")
@@ -2120,7 +2142,7 @@ func _resolve_customer_overlaps(object: Dictionary) -> bool:
 	for customer in _state.customers:
 		if not _customer_touches(customer, _point(object)): continue
 		if customer.seat_id == object.id and (customer.phase in ["waiting", "eating"] or customer.visual_phase == "stand-up"): continue
-		if not _customer_rescuable(customer): return false
+		if not _customer_displaceable(customer): return false
 		if object.kind == "seat" and not _seat_reserved(object.id, customer.id) and _facing_object(object).get("kind") == "belt":
 			_seat_customer(customer, object)
 			customer.layout_pending = true
@@ -2149,10 +2171,12 @@ func _editor_customer_change(request: Dictionary) -> Dictionary:
 	customer.render_offset_y = 0.0
 	customer.layout_pending = true
 	customer.standing_elapsed = 0.0
+	customer.entrance_wait_elapsed = 0.0
 	if not object.is_empty():
 		_seat_customer(customer, object)
-	elif customer.phase == "standing":
+	elif customer.phase in ["standing", "waiting", "eating", "entrance_wait"] or customer.visual_phase == "stand-up":
 		_stand_customer(customer)
+		if customer.phase == "leaving": _replan_navigation(customer)
 	else:
 		_replan_navigation(customer)
 	_state.editor.selected_id = customer.id if _customer_rescuable(customer) else ""

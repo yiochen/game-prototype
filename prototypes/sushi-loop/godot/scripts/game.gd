@@ -29,6 +29,12 @@ var gesture_cell := Vector2i.ZERO
 var tap_object := ""
 var gesture_grab_offset := Vector2.ZERO # Pointer offset from the object's ground root, in tiles.
 var gesture_started_in_tray := false
+const LONG_PRESS_SECONDS := 0.4
+const DRAG_SLOP_PIXELS := 10.0
+const PICKUP_LIFT_PIXELS := 12.0
+var long_press_candidate: Dictionary = {}
+var long_press_elapsed := 0.0
+var gesture_lifted := false
 var previous_selection := ""
 var selection_tween: Tween
 var simulation_enabled := true
@@ -362,6 +368,7 @@ func _process(delta: float) -> void:
 	if skip_resume_frame:
 		skip_resume_frame = false
 		return
+	_advance_long_press(delta)
 	if not show_gallery and not show_editor_gallery and simulation_enabled:
 		var events: Array = advance_time(delta, false)
 		if not events.is_empty():
@@ -402,6 +409,7 @@ func _refresh() -> void:
 	edit.visible = not show_gallery and not editing
 	staff.visible = not show_gallery and not editing
 	editor_ui.reduced_motion = world.reduced_motion
+	editor_ui.pickup_active = gesture_lifted
 	editor_ui.set_state(world.state, world.hud_area())
 	var selected_id: String = str(world.state.get("editor", {}).get("selected_id", ""))
 	if selected_id != previous_selection:
@@ -412,9 +420,9 @@ func _refresh() -> void:
 			selection_tween = create_tween()
 			selection_tween.tween_property(world, "editor_selection_alpha", 1.0, 0.14).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	var selected := _selected_object(world.state)
-	editor_ui.set_selection(world.cell_base(float(selected.get("x", 0)), float(selected.get("y", 0))), editing and not selected.is_empty())
+	editor_ui.set_selection(world.cell_base(float(selected.get("x", 0)), float(selected.get("y", 0))), editing and not selected.is_empty() and not gesture_lifted)
 	var targets: Array = []
-	for target: Dictionary in world.state.editor.get("belt_targets", []):
+	for target: Dictionary in ([] if gesture_lifted else world.state.editor.get("belt_targets", [])):
 		var center := world.cell_base(float(target.x), float(target.y))
 		var bounds := Rect2(center - Vector2.ONE * world.cell * 0.5, Vector2.ONE * world.cell)
 		if not _floor_drop(center): continue
@@ -424,11 +432,10 @@ func _refresh() -> void:
 		targets.append(value)
 	editor_ui.set_belt_targets(targets)
 	var customer_targets: Array = []
-	if editing and world.state.editor.layer == "people":
+	if editing and world.state.editor.layer == "people" and not gesture_lifted:
 		var physical_scale := maxf(0.001, get_viewport_transform().get_scale().x)
 		var target_size := maxf(world.cell, 44.01 / physical_scale)
 		for guest in world.state.customers:
-			if not guest.phase in ["standing", "walking", "leaving"] or guest.visual_phase == "stand-up": continue
 			var center := world.cell_base(float(guest.x), float(guest.y))
 			var bounds := Rect2(center - Vector2.ONE * target_size * 0.5, Vector2.ONE * target_size)
 			if not _floor_drop(center) or not world.hud_area().encloses(bounds): continue
@@ -525,6 +532,7 @@ func _belt_pointer(target: Dictionary, event: InputEvent) -> void:
 	gesture_dragged = false
 	gesture_kind = "belt_path"
 	gesture_cell = Vector2i(int(target.x), int(target.y))
+	_arm_long_press(pointer_start)
 	var object := _object_at(pointer_start)
 	if not object.is_empty() and object.id == session.snapshot().editor.selected_id:
 		gesture_kind = "object"
@@ -584,6 +592,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	gesture_started_in_tray = false
 	if session.snapshot().get("mode", "live") == "edit":
 		var path_active: bool = not session.snapshot().editor.get("belt_path", []).is_empty()
+		if armed_item.is_empty(): _arm_long_press(local)
 		var hit := _object_at(local)
 		var route_target := _belt_target_at(local, hit) if path_active else {}
 		if path_active and armed_item.is_empty() and not route_target.is_empty() and str(hit.get("id", "")) != str(session.snapshot().editor.selected_id):
@@ -603,8 +612,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				# ground root to the finger's tile when dragging begins.
 				gesture_grab_offset = (_world_position(local) - world.cell_base(float(object.x), float(object.y))) / world.cell
 			else:
-				# An object must already be selected before a drag can move it.
-				# All other drags pan; a short release selects the tapped object.
+				# A short release selects; an early drag pans. A stationary
+				# hold picks up the rendered guest/object without a prior tap.
 				tap_object = "" if path_active else str(object.get("id", ""))
 				if path_active: _editor_command({"type": "editor_belt_end"})
 				elif not selected.is_empty(): _editor_command({"type": "editor_select", "id": null})
@@ -620,7 +629,7 @@ func _input(event: InputEvent) -> void:
 		var change := local - previous_pointer
 		previous_pointer = local
 		var displacement := local-pointer_start
-		var threshold := 10.0/maxf(0.001,get_viewport_transform().get_scale().x)
+		var threshold := DRAG_SLOP_PIXELS/maxf(0.001,get_viewport_transform().get_scale().x)
 		if gesture_kind == "inventory_pending" and displacement.length() >= threshold:
 			if absf(displacement.x)>absf(displacement.y)*1.3:
 				gesture_kind = "inventory_scroll"
@@ -629,12 +638,15 @@ func _input(event: InputEvent) -> void:
 				if gesture_kind == "inventory": _begin_inventory_pickup()
 			elif displacement.y>threshold:
 				gesture_kind = "inventory_cancel"
-		if not gesture_dragged and displacement.length() >= threshold: gesture_dragged = true
+		if not gesture_dragged and displacement.length() >= threshold:
+			gesture_dragged = true
+			long_press_candidate.clear()
 		if gesture_kind == "inventory_scroll":
 			editor_ui.scroll_by(-change.x)
-		elif gesture_kind in ["pan", "belt_path"]:
+		elif gesture_kind in ["pan", "belt_path"] and gesture_dragged:
 			_pan(change)
-		elif gesture_dragged and gesture_kind in ["inventory","object"]:
+		elif (gesture_dragged or gesture_lifted) and gesture_kind in ["inventory","object"]:
+			if gesture_kind == "object": gesture_lifted = true
 			_update_preview(local)
 		get_viewport().set_input_as_handled()
 	elif event is InputEventScreenTouch and not event.pressed and event.index == pointer:
@@ -694,9 +706,42 @@ func _update_preview(at: Vector2) -> void:
 	var valid: bool = _floor_drop(at) and probe.restore(session.save_data()) and probe.command(candidate).get("ok", false)
 	var source: Dictionary = gesture_item if gesture_kind == "inventory" else _selected_object()
 	world.editor_preview = {"x": coordinate.x, "y": coordinate.y, "valid": valid, "source": source}
+	if gesture_lifted:
+		var ground := _world_position(at) - gesture_grab_offset * world.cell
+		var camera: Dictionary = session.snapshot().camera
+		world.editor_preview.lifted_id = gesture_object
+		world.editor_preview.visual_x = (ground.x - world.floor_origin.x) / world.cell + float(camera.x) - 0.5
+		world.editor_preview.visual_y = (ground.y - world.floor_origin.y) / world.cell + float(camera.y) - 0.5
+		world.editor_preview.lift_cells = PICKUP_LIFT_PIXELS / (world.cell * maxf(0.001, get_viewport_transform().get_scale().x))
+		_refresh()
 	world.queue_redraw()
 
+func _arm_long_press(at: Vector2) -> void:
+	long_press_candidate = world.object_at(_world_position(at), true).duplicate(true)
+	long_press_elapsed = 0.0
+
+func _advance_long_press(delta: float) -> void:
+	if pointer == -1 or gesture_dragged or gesture_lifted or long_press_candidate.is_empty(): return
+	if session.snapshot().get("mode") != "edit" or not _floor_drop(previous_pointer):
+		long_press_candidate.clear()
+		return
+	long_press_elapsed += delta
+	if long_press_elapsed < LONG_PRESS_SECONDS: return
+	var object := long_press_candidate.duplicate(true)
+	long_press_candidate.clear()
+	if not _editor_command({"type":"editor_pickup", "id":object.id}).get("ok", false) or pointer == -1: return
+	gesture_kind = "object"
+	gesture_object = str(object.id)
+	gesture_grab_offset = (_world_position(pointer_start) - world.cell_base(float(object.x), float(object.y))) / world.cell
+	gesture_lifted = true
+	tap_object = ""
+	_update_preview(previous_pointer)
+
 func _cancel_gesture() -> void:
+	long_press_candidate.clear()
+	long_press_elapsed = 0.0
+	gesture_lifted = false
+	if editor_ui != null: editor_ui.pickup_active = false
 	pointer = -1
 	gesture_kind = ""
 	gesture_object = ""

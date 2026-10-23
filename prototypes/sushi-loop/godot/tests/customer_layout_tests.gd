@@ -7,6 +7,8 @@ var failures: Array[String] = []
 func _initialize() -> void:
 	_carry_and_reseat()
 	_standing_placement()
+	_departure_pickup()
+	_direct_pickup()
 	_rescue_and_guards()
 	_trapped_standing_meal()
 	_belt_clock()
@@ -130,7 +132,7 @@ func _rescue_and_guards() -> void:
 	var game := eating()
 	var seated := guest(game).duplicate(true)
 	game.command({"type":"editor_layer","layer":"people"})
-	reject(game,{"type":"editor_select","id":seated.id},"seated_customer")
+	check(game.command({"type":"editor_select","id":seated.id}).ok, "People can select an ordinary seated guest")
 	game.command({"type":"editor_remove","id":seated.seat_id})
 	var standing := guest(game).duplicate(true)
 	game.command({"type":"editor_layer","layer":"people"})
@@ -218,3 +220,89 @@ func _migration_and_corruption() -> void:
 	corrupt = game.save_data()
 	corrupt.customer_layout_version = 999
 	check(not peer.restore(corrupt), "Unknown future customer-layout versions are rejected")
+
+func _direct_pickup() -> void:
+	var game := eating()
+	var before := guest(game).duplicate(true)
+	var random_state: String = game.save_data().random_state
+	for layer in ["layout", "floor", "people"]:
+		game.command({"type":"editor_layer", "layer":layer})
+		check(game.command({"type":"editor_pickup", "id":before.id}).ok and game.snapshot().editor.layer == "people", "Guest pickup works from %s" % layer)
+		check(same(before,guest(game)), "Pickup alone preserves every seated visit field")
+	check(game.command({"type":"editor_move", "id":before.id, "x":0, "y":10}).ok, "An ordinary eating guest can move directly off their stool")
+	check(guest(game).phase == "standing" and guest(game).seat_id == "" and same(progress(before),progress(guest(game))), "The picked guest keeps their exact preference and unfinished plate")
+	check(game.snapshot().objects.any(func(object): return object.id == before.seat_id), "Guest pickup leaves their original stool in place")
+	check(game.save_data().random_state == random_state, "Guest pickup and dropping consume no RNG")
+	reopen(game)
+	reject(game,{"type":"editor_remove", "id":before.id},"seated_customer")
+	reject(game,{"type":"editor_rotate", "id":before.id},"seated_customer")
+	game.command({"type":"editor_move", "id":before.id, "x":before.x, "y":before.y})
+	check(guest(game).phase == "eating" and same(progress(before),progress(guest(game))), "Direct reseating resumes the same eating visit")
+	# Door visitors have not chosen a preference yet. Picking them up must not
+	# sample service RNG while paused, nor restart admission on reopening.
+	var config := {"objects":[{"id":"chef", "kind":"chef", "art_id":"chef-lena", "recipe_id":"salmon_nigiri", "x":1,"y":7,"facing":"north"},{"id":"belt", "kind":"belt", "x":1,"y":6,"facing":"east"}], "service":{"first_arrival_seconds":0.1, "arrival_seconds":1000.0,"arrival_jitter_seconds":0.0}}
+	game = Session.new_session(1,config)
+	game.advance(0.2)
+	if not check(not guest(game).is_empty() and guest(game).phase == "entrance_wait", "The door pickup fixture has an unadmitted guest"): return
+	edit(game)
+	var identity: String = guest(game).id
+	random_state = game.save_data().random_state
+	game.command({"type":"editor_pickup", "id":identity})
+	check(game.command({"type":"editor_move", "id":identity, "x":0, "y":5}).ok and guest(game).phase == "standing", "An entrance-wait guest can be placed on the floor")
+	check(guest(game).preferred_recipe_id == "" and guest(game).entrance_wait_elapsed == 0 and game.save_data().random_state == random_state, "Manual admission defers preference RNG to Live and clears only the door timeout")
+	var peer := reopen(game)
+	game.command({"type":"editor_place", "inventory_id":"stool-plain", "x":0,"y":5,"facing":"east"})
+	peer.command({"type":"editor_place", "inventory_id":"stool-plain", "x":0,"y":5,"facing":"east"})
+	# A free stool need not face supplied food for an explicit guest drop.
+	game.command({"type":"editor_pickup", "id":identity})
+	peer.command({"type":"editor_pickup", "id":identity})
+	game.command({"type":"editor_move", "id":identity, "x":0,"y":5})
+	peer.command({"type":"editor_move", "id":identity, "x":0,"y":5})
+	check(guest(game).phase == "waiting" and guest(game).preferred_recipe_id == "", "A manually seated door guest still pauses their first preference")
+	reopen(game)
+	game.command({"type":"set_mode", "mode":"live"})
+	peer.command({"type":"set_mode", "mode":"live"})
+	var events := game.advance(0.5)
+	var other_events := peer.advance(0.5)
+	check(same(events,other_events) and same(game.save_data(),peer.save_data()), "Manually admitted visits continue deterministically after save/reopen")
+	check(guest(game).preferred_recipe_id != "", "Live chooses the manually seated visitor’s first preference")
+
+	# An admitted door visitor may lose their route before ever reaching a
+	# stool/preference. Their legitimate departure must remain saveable too.
+	config.floor = {"columns":7,"rows":7,"world_columns":21,"viewport_columns":7,"entrance":{"x":3,"y":0}}
+	config.objects = [{"id":"chef","kind":"chef","art_id":"chef-lena","recipe_id":"salmon_nigiri","x":1,"y":5,"facing":"north"},{"id":"belt","kind":"belt","x":1,"y":4,"facing":"east"}]
+	for y in range(7):
+		if y != 3: config.objects.append({"id":"wall-%s" % y,"kind":"decor","art_id":"crate-wood","x":5,"y":y,"facing":"south"})
+	game = Session.new_session(1,config)
+	game.advance(0.2)
+	edit(game)
+	identity = guest(game).id
+	game.command({"type":"editor_pickup","id":identity})
+	game.command({"type":"editor_move","id":identity,"x":0,"y":3})
+	game.command({"type":"editor_place","inventory_id":"stool-plain","x":1,"y":3,"facing":"south"})
+	var stool_id: String = game.snapshot().editor.selected_id
+	game.command({"type":"set_mode","mode":"live"})
+	game.advance(0.05)
+	check(guest(game).phase == "walking" and guest(game).preferred_recipe_id == "", "A manually admitted visitor walks to replacement seating before choosing a preference")
+	edit(game)
+	game.command({"type":"editor_move","id":stool_id,"x":6,"y":3})
+	game.command({"type":"editor_place","inventory_id":"crate-wood","x":5,"y":3})
+	game.command({"type":"set_mode","mode":"live"})
+	game.advance(0.05)
+	check(guest(game).phase == "leaving" and guest(game).preferred_recipe_id == "", "A blocked manually admitted visitor can leave before choosing a preference")
+	reopen(game)
+
+func _departure_pickup() -> void:
+	var game := eating()
+	game.command({"type":"set_mode","mode":"live"})
+	for index in range(300):
+		game.advance(0.05)
+		if not guest(game).is_empty() and guest(game).phase == "leaving": break
+	if not check(not guest(game).is_empty() and guest(game).visual_phase == "stand-up", "A satisfied guest starts standing up before departure"): return
+	edit(game)
+	var before := guest(game).duplicate(true)
+	var coins: int = game.snapshot().coins
+	check(game.command({"type":"editor_pickup","id":before.id}).ok, "A guest in their stand-up transition can be picked up")
+	check(game.command({"type":"editor_move","id":before.id,"x":0,"y":10}).ok, "The standing-up guest can be dropped directly onto clear floor")
+	check(guest(game).phase == "leaving" and guest(game).visual_phase == "walk" and same(progress(before),progress(guest(game))) and game.snapshot().coins == coins, "Pickup preserves the departing visit and revenue while replanning its exit from the new floor cell")
+	reopen(game)

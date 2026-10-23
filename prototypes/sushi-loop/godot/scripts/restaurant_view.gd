@@ -205,6 +205,7 @@ func _render_room_items(items: Array = []) -> void:
 	_capture_hits = true
 	if items.is_empty(): items = render_plan()
 	for item in items:
+		if _lifted_item(item): continue
 		_shadow_kind = str(item.kind)
 		_current_owner = str(item.get("owner_id", ""))
 		if item.kind in ["belt", "dish", "chef", "seat", "board", "customer"]:
@@ -221,8 +222,15 @@ func _render_room_items(items: Array = []) -> void:
 	_current_owner = ""
 	_hit_signature = _geometry_signature()
 
+func _lifted_item(item: Dictionary) -> bool:
+	var identity := str(editor_preview.get("lifted_id", ""))
+	if identity.is_empty(): return false
+	var value: Dictionary = item.get("value", {})
+	if str(value.get("id", item.get("owner_id", ""))) == identity: return true
+	return item.kind == "customer" and value.get("seat_id") == identity and (value.get("phase") in ["waiting", "eating"] or value.get("visual_phase") == "stand-up")
+
 func _geometry_signature() -> Array:
-	return [state.hash(), portrait, floor_origin, cell, size, reduced_motion, show_gallery, time, art.revision]
+	return [state.hash(), editor_preview.hash(), portrait, floor_origin, cell, size, reduced_motion, show_gallery, time, art.revision]
 
 func _ensure_sprite_hits() -> void:
 	if _hit_signature == _geometry_signature(): return
@@ -241,7 +249,7 @@ func sprite_hits() -> Array[Dictionary]:
 	_ensure_sprite_hits()
 	return _hit_records.duplicate(true)
 
-func object_at(point: Vector2) -> Dictionary:
+func object_at(point: Vector2, pickup := false) -> Dictionary:
 	if show_gallery or not hud_area().has_point(point) or not Rect2(Vector2.ZERO, size).has_point(point): return {}
 	_ensure_sprite_hits()
 	for index in range(_hit_records.size() - 1, -1, -1):
@@ -260,7 +268,7 @@ func object_at(point: Vector2) -> Dictionary:
 		for guest in state.get("customers", []):
 			if guest.id != identity: continue
 			if state.get("mode") != "edit": return {}
-			if state.editor.layer == "people" and guest.phase in ["standing", "walking", "leaving"] and guest.visual_phase != "stand-up":
+			if pickup or state.editor.layer == "people":
 				var selected: Dictionary = guest.duplicate(true)
 				selected.kind = "customer"
 				return selected
@@ -271,7 +279,7 @@ func object_at(point: Vector2) -> Dictionary:
 	return {}
 
 func _editor_ground() -> void:
-	if state.get("mode", "live") != "edit": return
+	if state.get("mode", "live") != "edit" or editor_preview.has("lifted_id"): return
 	for target: Dictionary in state.get("editor", {}).get("belt_targets", []):
 		if target.x < 0 or target.y < 0 or target.x >= state.floor.columns or target.y >= state.floor.rows: continue
 		var bounds := Rect2(cell_base(float(target.x), float(target.y)) - Vector2.ONE * cell * 0.5, Vector2.ONE * cell).grow(-3 * _native_screen_pixel_scale)
@@ -314,7 +322,7 @@ func _customer_selection_overlay() -> void:
 
 func _belt_target_overlay() -> void:
 	# Keep grid targets legible over the raised fronts of the real furniture.
-	if state.get("mode", "live") != "edit" or state.get("editor", {}).get("belt_path", []).is_empty(): return
+	if state.get("mode", "live") != "edit" or editor_preview.has("lifted_id") or state.get("editor", {}).get("belt_path", []).is_empty(): return
 	for target: Dictionary in state.editor.get("belt_targets", []):
 		if target.x < 0 or target.y < 0 or target.x >= state.floor.columns or target.y >= state.floor.rows: continue
 		var bounds := Rect2(cell_base(float(target.x), float(target.y)) - Vector2.ONE * cell * 0.5, Vector2.ONE * cell).grow(-3 * _native_screen_pixel_scale)
@@ -338,24 +346,36 @@ func _editor_ghost() -> void:
 	draw_rect(footprint, Color(color, 0.32))
 	draw_rect(footprint.grow(-1.5 * _native_screen_pixel_scale), color, false, 3.0 * _native_screen_pixel_scale, true)
 	var object: Dictionary = editor_preview.get("source", {})
+	var tint := Color(1, 1, 1, 0.9 if editor_preview.has("lifted_id") else 0.65)
+	if editor_preview.has("lifted_id"):
+		base = cell_base(float(editor_preview.visual_x), float(editor_preview.visual_y)) - Vector2(0, float(editor_preview.lift_cells) * cell)
 	if object.get("kind") == "customer":
-		_customer_at(object, base, cell, Color(1, 1, 1, 0.65))
+		var lifted := object.duplicate(true)
+		lifted.phase = "standing"
+		lifted.visual_phase = "stand"
+		# Preserve passing offsets as well as the pointer-to-root grab offset.
+		_customer_at(lifted, base, cell, tint)
+		return
+	if object.get("kind") == "chef":
+		_chef_at(object, base, cell)
+		_board_at(object, base, cell)
 		return
 	var identity := str(object.get("art_id", ""))
 	var clip := "static"
-	if object.get("kind") == "chef": clip = "idle"
-	elif object.get("kind") == "belt":
-		identity = "belt-start-e"
+	var direction := str(FACING.get(object.get("facing", "south"), "S"))
+	if object.get("kind") == "belt":
+		identity = belt_clip(object)
 		clip = "running"
+		direction = belt_direction(object)
 	elif object.get("kind") == "seat": identity = "stool-wood"
 	elif identity == "plant-angular": clip = "idle"
-	if not identity.is_empty(): sprite(identity, base, clip, str(BELT_FACING.get(object.get("facing", "east"), "S")) if object.get("kind") == "belt" else str(FACING.get(object.get("facing", "south"), "S")), 0.0, -1.0, Color(1, 1, 1, 0.65))
+	if not identity.is_empty(): sprite(identity, base, clip, direction, 0.0 if reduced_motion else float(state.elapsed), -1.0, tint)
 	if object.get("kind") == "seat":
 		for guest in state.get("customers", []):
 			if guest.seat_id == object.get("id") and (guest.phase in ["waiting", "eating"] or guest.visual_phase == "stand-up"):
-				_customer_at(guest, base, cell, Color(1, 1, 1, 0.65))
+				_customer_at(guest, base, cell, tint)
 	elif object.get("kind") == "belt" and object.get("dish") is Dictionary:
-		sprite(DISHES.get(object.dish.recipe_id, "dish-salmon"), base + Vector2(0, -0.35) * cell, "static", "S", 0.0, -1.0, Color(1, 1, 1, 0.65))
+		sprite(DISHES.get(object.dish.recipe_id, "dish-salmon"), base + dish_base(object) - cell_base(float(object.x), float(object.y)), "static", "S", 0.0, -1.0, tint)
 
 func render_plan() -> Array:
 	# Sort by ground depth, never by image height. All connected deck modules
