@@ -1,0 +1,162 @@
+extends Node
+## Native DirectionalLight3D shadows from hidden height/footprint proxies.
+## The transparent receiver is composited below the unchanged color sprites.
+const RECEIVER = preload("ground_shadow_receiver.gdshader")
+const PRESENT = preload("ground_shadow_present.gdshader")
+const RESOLUTION := 0.25
+const LIGHT_DIRECTION := Vector3(0.55, -1.0, -0.35)
+var viewport: SubViewport
+var lighting_viewport: SubViewport
+var presentation: Sprite2D
+var scene: Node3D
+var camera: Camera3D
+var light: DirectionalLight3D
+var receiver: MeshInstance3D
+var casters: Array[Node3D] = []
+var count := 0
+var cell := 256.0
+
+func _ready() -> void:
+	viewport = SubViewport.new()
+	viewport.disable_3d = true
+	viewport.transparent_bg = true
+	viewport.gui_disable_input = true
+	viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
+	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	add_child(viewport)
+	lighting_viewport = SubViewport.new()
+	lighting_viewport.own_world_3d = true
+	lighting_viewport.gui_disable_input = true
+	lighting_viewport.msaa_3d = Viewport.MSAA_2X
+	lighting_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	add_child(lighting_viewport)
+	presentation = Sprite2D.new()
+	presentation.centered = false
+	presentation.texture = lighting_viewport.get_texture()
+	presentation.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	var present_material := ShaderMaterial.new()
+	present_material.shader = PRESENT
+	presentation.material = present_material
+	viewport.add_child(presentation)
+	scene = Node3D.new()
+	lighting_viewport.add_child(scene)
+	var world_environment := WorldEnvironment.new()
+	var environment := Environment.new()
+	environment.background_mode = Environment.BG_COLOR
+	# White outside the floor becomes transparent in the presentation shader.
+	environment.background_color = Color.WHITE
+	environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+	environment.ambient_light_color = Color.WHITE
+	environment.ambient_light_energy = 0.0
+	environment.tonemap_mode = Environment.TONE_MAPPER_LINEAR
+	world_environment.environment = environment
+	scene.add_child(world_environment)
+	camera = Camera3D.new()
+	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
+	camera.near = 0.1
+	camera.far = 25.0
+	scene.add_child(camera)
+	camera.current = true
+	light = DirectionalLight3D.new()
+	light.shadow_enabled = true
+	light.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
+	light.directional_shadow_max_distance = 25.0
+	light.shadow_bias = 0.015
+	light.shadow_normal_bias = 0.25
+	scene.add_child(light)
+	light.look_at_from_position(Vector3.ZERO, LIGHT_DIRECTION)
+	receiver = MeshInstance3D.new()
+	receiver.mesh = PlaneMesh.new()
+	receiver.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	var receiver_material := ShaderMaterial.new()
+	receiver_material.shader = RECEIVER
+	receiver.material_override = receiver_material
+	scene.add_child(receiver)
+
+func begin(dimensions: Vector2, cell_pitch := 256.0, floor_start := 0.0) -> void:
+	set_active(true)
+	cell = cell_pitch
+	viewport.size = Vector2i(maxi(1, ceili(dimensions.x * RESOLUTION)), maxi(1, ceili(dimensions.y * RESOLUTION)))
+	lighting_viewport.size = viewport.size
+	# Fit the exact allocated texture rectangle; the caller clips its padding.
+	var extent := Vector2(viewport.size) / RESOLUTION / cell
+	camera.size = extent.y
+	var center := Vector3(extent.x * 0.5, 0, extent.y * 0.5)
+	camera.look_at_from_position(center + Vector3(0, 20, 0), center, Vector3(0, 0, -1))
+	var plane: PlaneMesh = receiver.mesh
+	var start := clampf(floor_start / cell, 0.0, extent.y)
+	plane.size = Vector2(extent.x, maxf(0.001, extent.y - start))
+	receiver.position = Vector3(center.x, 0, (start + extent.y) * 0.5)
+	count = 0
+
+func set_active(active: bool) -> void:
+	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS if active else SubViewport.UPDATE_DISABLED
+	lighting_viewport.render_target_update_mode = viewport.render_target_update_mode
+
+func _box(parent: Node3D, dimensions: Vector3, center: Vector3) -> void:
+	var mesh := BoxMesh.new()
+	mesh.size = dimensions
+	var instance := MeshInstance3D.new()
+	instance.mesh = mesh
+	instance.position = center
+	instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
+	parent.add_child(instance)
+
+func _build_proxy(parent: Node3D, identity: String) -> void:
+	if identity == "chef-blackboard":
+		# Native Blender board occupies the front band, not the cell center.
+		_box(parent, Vector3(0.80, 0.67, 0.125), Vector3(0, 0.61, 0.40))
+		for x in [-0.33, 0.33]:
+			_box(parent, Vector3(0.085, 0.98, 0.11), Vector3(x, 0.49, 0.355))
+			_box(parent, Vector3(0.13, 0.07, 0.21), Vector3(x, 0.035, 0.36))
+	elif identity.begins_with("belt-") or identity == "stool-wood":
+		var belt := identity.begins_with("belt-")
+		var height := 0.76 if belt else 0.62
+		var width := 1.0 if belt else 0.68
+		_box(parent, Vector3(width, 0.16, width), Vector3(0, height, 0))
+		for x in [-1, 1]:
+			for z in [-1, 1]:
+				_box(parent, Vector3(0.09, height, 0.09), Vector3(x * width * 0.36, height * 0.5, z * width * 0.36))
+	elif identity.begins_with("chef-") or identity.begins_with("customer-"):
+		var mesh := CapsuleMesh.new()
+		mesh.radius = 0.28
+		mesh.height = 1.8
+		mesh.radial_segments = 12
+		mesh.rings = 4
+		var body := MeshInstance3D.new()
+		body.mesh = mesh
+		body.position.y = 0.9
+		body.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
+		parent.add_child(body)
+	else:
+		_box(parent, Vector3(0.72, 0.85, 0.72), Vector3(0, 0.425, 0))
+
+func add_caster(identity: String, ground: Vector2, pitch: float, direction: String) -> void:
+	var caster: Node3D
+	if count == casters.size():
+		caster = Node3D.new()
+		scene.add_child(caster)
+		casters.append(caster)
+	else:
+		caster = casters[count]
+	count += 1
+	# Share shapes across all animated frames; rebuild only if this slot changes
+	# object family. Color-atlas pixels never become shadow geometry.
+	var family := "belt" if identity.begins_with("belt-") else "person" if identity.begins_with("customer-") or (identity.begins_with("chef-") and identity != "chef-blackboard") else identity
+	if caster.get_meta("family", "") != family:
+		for child in caster.get_children():
+			caster.remove_child(child)
+			child.queue_free()
+		_build_proxy(caster, identity)
+		caster.set_meta("family", family)
+	caster.position = Vector3(ground.x / cell, 0, ground.y / cell)
+	caster.scale = Vector3.ONE * pitch / cell
+	caster.rotation.y = {"S": 0.0, "E": -PI * 0.5, "N": PI, "W": PI * 0.5}.get(direction, 0.0) if identity != "chef-blackboard" else 0.0
+	caster.show()
+
+func finish() -> void:
+	for index in range(count, casters.size()):
+		casters[index].hide()
+
+func texture() -> Texture2D:
+	return viewport.get_texture()

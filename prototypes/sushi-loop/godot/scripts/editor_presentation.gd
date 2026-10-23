@@ -453,11 +453,19 @@ func _style_button(button: Button) -> void:
 	button.add_theme_stylebox_override("focus", StyleBoxEmpty.new() if button.has_meta("visual") else skin.style(focus_role, unit, "pressed"))
 	_refresh_button_visual(button)
 
+var _presentation_signature: Array = []
+
 func set_state(value: Dictionary, portrait: Rect2) -> void:
 	state = value
 	area = portrait
 	visible = state.get("mode", "live") == "edit"
 	if not is_node_ready(): return
+	# Hidden controls still follow safe-area/layout changes. Camera motion and
+	# the Live clock do not require rebuilding the hidden inventory dock.
+	var presentation := [visible, area, reduced_motion]
+	if visible: presentation.append_array([state.get("editor", {}), state.get("inventory", []), state.get("objects", []), active_item])
+	if presentation == _presentation_signature: return
+	_presentation_signature = presentation
 	var signature := JSON.stringify([state.get("editor", {}).get("layer"), state.get("editor", {}).get("page"), state.get("inventory", []), active_item])
 	if signature != current_signature:
 		current_signature = signature
@@ -747,6 +755,9 @@ func _move_category_with_backing(position_value: Vector2) -> void:
 	_update_inventory_backing()
 
 func set_selection(base: Vector2, show: bool) -> void:
+	if selected_visible == show and (not show or target_base.is_equal_approx(base)):
+		target_base = base
+		return
 	target_base = base
 	selected_visible = show
 	refresh_layout()

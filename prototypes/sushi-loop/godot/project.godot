@@ -4,10 +4,10 @@ config_version=5
 
 [application]
 config/name="Sushi Loop"
-config/version="0.4.12"
+config/version="0.4.16"
 config/icon="res://assets/ui/app_icon.png"
 run/main_scene="res://main.tscn"
-config/features=PackedStringArray("4.7", "GL Compatibility")
+config/features=PackedStringArray("4.7", "Mobile")
 config/use_custom_user_dir=true
 config/custom_user_dir_name="SushiLoopTickets"
 boot_splash/show_image=true
@@ -30,8 +30,10 @@ pointing/emulate_touch_from_mouse=true
 pointing/emulate_mouse_from_touch=false
 
 [rendering]
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
+renderer/rendering_method="mobile"
+renderer/rendering_method.mobile="mobile"
+rendering_device/driver.android="vulkan"
+rendering_device/fallback_to_opengl3=false
 textures/default_filters/use_nearest_mipmap_filter=false
 textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.115, 0.19, 0.19, 1)

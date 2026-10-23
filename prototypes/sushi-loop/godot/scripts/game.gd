@@ -7,6 +7,7 @@ const Audio = preload("res://scripts/audio.gd")
 const Typography = preload("res://scripts/typography.gd")
 const EditorPresentation = preload("res://scripts/wood_editor_presentation.gd")
 const UISkin = preload("res://scripts/ui_skin.gd")
+const PerformanceOverlay = preload("res://scripts/performance_overlay.gd")
 const ScreenLayout = preload("res://scripts/screen_layout.gd")
 const INK := Color("233d58")
 const CREAM := Color("fff3db")
@@ -57,6 +58,7 @@ var recovery_title: Label
 var recovery_message: Label
 var recovery_retry: Button
 var recovery_close: Button
+var performance_overlay: PerformanceOverlay
 var skin: UISkin
 
 func _ready() -> void:
@@ -147,6 +149,8 @@ func _ready() -> void:
 			gallery_buttons.append(button)
 	if save_blocked:
 		_make_recovery()
+	performance_overlay = PerformanceOverlay.new()
+	add_child(performance_overlay)
 	resized.connect(_layout)
 	_layout()
 	_refresh()
@@ -312,9 +316,12 @@ func _layout_for_safe_top(top_inset: float) -> void:
 	if world == null:
 		return
 	world.size = size
+	world.diagnostic_header_height = maxf(38.0 / maxf(0.01, get_viewport_transform().get_scale().y), 38.0 * minf(size.x, size.y * 9.0 / 16.0) / 390.0)
 	world.safe_top = top_inset
 	world.update_layout()
 	var scene_area: Rect2 = world.portrait
+	if performance_overlay != null:
+		performance_overlay.place(scene_area, top_inset, world.sky_height)
 	# Keep world coordinates identical to the root's input coordinates while the
 	# containing control clips adjoining floor in a wide native window.
 	world_clip.position = scene_area.position
@@ -355,7 +362,7 @@ func _process(delta: float) -> void:
 		skip_resume_frame = false
 		return
 	if not show_gallery and not show_editor_gallery and simulation_enabled:
-		var events: Array = advance_time(delta)
+		var events: Array = advance_time(delta, false)
 		if not events.is_empty():
 			save_now()
 		autosave_elapsed += delta
@@ -367,7 +374,7 @@ func _process(delta: float) -> void:
 	world.sale_pops = world.sale_pops.filter(func(pop: Dictionary): return world.time - float(pop.time) < 1.0)
 	_refresh()
 
-func advance_time(elapsed: float) -> Array:
+func advance_time(elapsed: float, refresh_view := true) -> Array:
 	if save_blocked:
 		return []
 	world.time += elapsed
@@ -376,7 +383,7 @@ func advance_time(elapsed: float) -> Array:
 		audio.play_cue(str(event.type))
 		if event.type == "sale":
 			world.sale_pops.append({"x": event.x, "y": event.y, "time": world.time})
-	_refresh()
+	if refresh_view: _refresh()
 	return events
 
 func _refresh() -> void:
@@ -403,7 +410,7 @@ func _refresh() -> void:
 		if not world.reduced_motion:
 			selection_tween = create_tween()
 			selection_tween.tween_property(world, "editor_selection_alpha", 1.0, 0.14).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	var selected := _selected_object()
+	var selected := _selected_object(world.state)
 	editor_ui.set_selection(world.cell_base(float(selected.get("x", 0)), float(selected.get("y", 0))), editing and not selected.is_empty())
 	world.queue_redraw()
 
@@ -416,8 +423,8 @@ func save_now() -> bool:
 	save_error = "" if success else store.last_error
 	return success
 
-func _selected_object() -> Dictionary:
-	var scene: Dictionary = session.snapshot()
+func _selected_object(scene: Dictionary = {}) -> Dictionary:
+	if scene.is_empty(): scene = session.snapshot()
 	var identity: String = str(scene.get("editor", {}).get("selected_id", ""))
 	for object in scene.objects:
 		if str(object.id) == identity: return object
