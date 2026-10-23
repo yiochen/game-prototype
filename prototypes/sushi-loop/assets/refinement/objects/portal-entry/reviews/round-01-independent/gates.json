@@ -1,0 +1,87 @@
+{
+  "asset": "portal-entry",
+  "round": "round-01",
+  "candidatePacketSHA256": "d7be0b28d1431db44377d85c3ab8687f15d11e80a8b14e55491f02c7e3bfe2ba",
+  "reviewSHA256": "5ff2be21f0fed698ec11a7d3eaed602bf0b936397a3af0b2a492c6a85ddb77d7",
+  "supplementalManifestSHA256": "af067eda4b10b9d349babe88f0e9d457335832c426ad7ca51404371712b183c0",
+  "commands": [
+    {
+      "name": "candidate-packet",
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py",
+        "verify",
+        "--packet",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-entry/candidates/round-01/packet.json",
+        "--review",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-entry/reviews/round-01.json"
+      ],
+      "workingDirectory": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "helper": {
+        "path": "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py",
+        "sha256": "ab4d4e874aca990e373babb4b5c9650fc5f431b621bac92ecbfaf63a0469e45f",
+        "frozenCopy": "reviews/round-01-independent/resources/gates/candidate_packet.py"
+      },
+      "exitCode": 0,
+      "stdout": {
+        "path": "reviews/round-01-independent/gates/candidate-packet.stdout.txt",
+        "sha256": "a38e215d75d8366c001ee208de6d877061d72eb84f195185e2968b92aca37062"
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent/gates/candidate-packet.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "directions",
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/audit_directions.py",
+        "portal-entry",
+        "--round",
+        "round-01"
+      ],
+      "workingDirectory": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "helper": {
+        "path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/audit_directions.py",
+        "sha256": "c4637a73b3f74406d2a1af884e5c2fb90511c24b18b0e9a909403ff70be1c7fb",
+        "frozenCopy": "reviews/round-01-independent/resources/gates/audit_directions.py"
+      },
+      "exitCode": 0,
+      "stdout": {
+        "path": "reviews/round-01-independent/gates/directions.stdout.txt",
+        "sha256": "5fadbb093111fca381211570814769409a4faab2e16f828afe5bc6be31870065"
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent/gates/directions.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "acceptance",
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py",
+        "portal-entry",
+        "--round",
+        "round-01"
+      ],
+      "workingDirectory": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "helper": {
+        "path": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py",
+        "sha256": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d",
+        "frozenCopy": "reviews/round-01-independent/resources/gates/acceptance_contract.py"
+      },
+      "exitCode": 0,
+      "stdout": {
+        "path": "reviews/round-01-independent/gates/acceptance.stdout.txt",
+        "sha256": "0e28a2adc8736372aa52e29f5930ce2193eef4e0374c3c040c309681d7d117ab"
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent/gates/acceptance.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "allExitZero": true
+}

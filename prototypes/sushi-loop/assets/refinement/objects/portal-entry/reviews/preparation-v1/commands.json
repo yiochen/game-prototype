@@ -1,0 +1,93 @@
+{
+  "workingDirectory": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "blender": "Blender 5.2.2 LTS",
+    "node": "v22.18.0",
+    "pillow": "12.3.0",
+    "esbuild": "0.28.2"
+  },
+  "nativeReplay": {
+    "argv": [
+      "/opt/homebrew/bin/blender",
+      "--background",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-entry/reviews/preparation-v1/resources/native/source.blend",
+      "--python",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-entry/reviews/preparation-v1/inspect-replay.py"
+    ],
+    "log": "logs/native-replay.log",
+    "result": "One complete48frame replay; no source save."
+  },
+  "supportMeasurement": {
+    "argv": [
+      "/opt/homebrew/bin/blender",
+      "--background",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-entry/reviews/preparation-v1/resources/native/source.blend",
+      "--python",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-entry/reviews/preparation-v1/measure-support.py"
+    ],
+    "log": "logs/support-measurement.log",
+    "result": "Geometry measurement only; no extra render."
+  },
+  "analysis": [
+    {
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-entry/reviews/preparation-v1/analyze-replay.py"
+      ],
+      "log": "logs/analyze-replay.log"
+    },
+    {
+      "argv": [
+        "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-entry/reviews/preparation-v1/analyze-consumer.py"
+      ],
+      "log": "logs/consumer-analysis.log"
+    }
+  ],
+  "bundle": {
+    "argv": [
+      "node_modules/esbuild/bin/esbuild",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-entry/reviews/preparation-v1/resources/consumer/fixture.js",
+      "--bundle",
+      "--format=esm",
+      "--platform=browser",
+      "--metafile=/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-entry/reviews/preparation-v1/resources/consumer/bundle-meta.json",
+      "--outfile=/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-entry/reviews/preparation-v1/resources/consumer/fixture.bundle.js"
+    ],
+    "log": "logs/consumer-bundle-corrected.log",
+    "metafile": "resources/consumer/bundle-meta.json"
+  },
+  "http": {
+    "argv": [
+      "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-m",
+      "http.server",
+      "4197",
+      "--bind",
+      "127.0.0.1",
+      "--directory",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-entry/reviews/preparation-v1"
+    ],
+    "log": "logs/http.log"
+  },
+  "browser": {
+    "argv": [
+      "node",
+      "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/portal-entry/reviews/preparation-v1/capture-consumer.mjs"
+    ],
+    "log": "logs/consumer-capture-corrected.log",
+    "metadata": "consumer-report.json",
+    "actualLaunchOptions": [
+      {
+        "headless": true,
+        "channel": "chromium"
+      },
+      {
+        "headless": true
+      }
+    ]
+  },
+  "honestFailedSetupAttempt": "Firstbundleattempt incorrectly invoked native esbuildbinary withnode and failed before any bundle. Firstbrowserattempt had no bundle and timedout. Exactfailurelogs logs/consumer-bundle.log and logs/consumer-capture.log retained. Corrected by executing local esbuildbinary directly; no runtimehelper edits.",
+  "finalization": "finalize-preparation.py generates support/report summaries and preparation contract files. seal-preparation.py produces and independently verifies final manifest/seal after alllogs stop."
+}

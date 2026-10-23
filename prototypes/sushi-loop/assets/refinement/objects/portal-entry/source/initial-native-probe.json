@@ -1,0 +1,4671 @@
+{
+  "blender_version": "5.2.2 LTS",
+  "capture_contract_status": "Raw observations only, not a construction freeze or future camera/size/contact requirement.",
+  "collection": "S33_PROP_portal_rim.003",
+  "collection_children": [],
+  "collection_custom_properties": {},
+  "evaluated_geometry_world_bounds": {
+    "max": [
+      0.7125000357627869,
+      0.24266000092029572,
+      1.4524999856948853
+    ],
+    "min": [
+      -0.7125000357627869,
+      -0.18265999853610992,
+      -0.06000000238418579
+    ]
+  },
+  "materials": [
+    {
+      "animation": null,
+      "custom_properties": {
+        "lowerTone": "world-Z ramp, no light direction",
+        "s33ArtRevision": "art-2026-10-19",
+        "s33FacetedRevision": "faceted-approved-2026-10-19",
+        "s33Lighting": "actual centered overhead plus symmetric cardinal fills; old view-tone bypassed"
+      },
+      "diffuse_color": [
+        0.019382361322641373,
+        0.4564110338687897,
+        0.6444796919822693,
+        1.0
+      ],
+      "library": null,
+      "links": [
+        {
+          "from_node": "Geometry",
+          "from_socket": "Position",
+          "to_node": "Separate XYZ",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Separate XYZ",
+          "from_socket": "Z",
+          "to_node": "Map Range",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Map Range",
+          "from_socket": "Result",
+          "to_node": "Color Ramp",
+          "to_socket": "Factor"
+        },
+        {
+          "from_node": "Color Ramp",
+          "from_socket": "Color",
+          "to_node": "Mix (Legacy)",
+          "to_socket": "Color2"
+        },
+        {
+          "from_node": "Geometry",
+          "from_socket": "Normal",
+          "to_node": "Vector Math",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Geometry",
+          "from_socket": "Incoming",
+          "to_node": "Vector Math",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Vector Math",
+          "from_socket": "Value",
+          "to_node": "Math",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Math",
+          "from_socket": "Value",
+          "to_node": "Math.001",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Mix (Legacy)",
+          "from_socket": "Color",
+          "to_node": "Mix (Legacy).001",
+          "to_socket": "Color1"
+        },
+        {
+          "from_node": "Math.001",
+          "from_socket": "Value",
+          "to_node": "Mix (Legacy).001",
+          "to_socket": "Color2"
+        },
+        {
+          "from_node": "Mix (Legacy).001",
+          "from_socket": "Color",
+          "to_node": "Emission",
+          "to_socket": "Color"
+        },
+        {
+          "from_node": "Mix (Legacy)",
+          "from_socket": "Color",
+          "to_node": "Principled BSDF.001",
+          "to_socket": "Base Color"
+        },
+        {
+          "from_node": "Principled BSDF.001",
+          "from_socket": "BSDF",
+          "to_node": "Material Output",
+          "to_socket": "Surface"
+        }
+      ],
+      "metallic": 0.0,
+      "name": "portal-entry approved S33_aqua",
+      "node_tree_animation": null,
+      "nodes": [
+        {
+          "bl_idname": "ShaderNodeBsdfPrincipled",
+          "image": null,
+          "inputs": {
+            "Alpha": 1.0,
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Base Color": [
+              0.019382361322641373,
+              0.4564110338687897,
+              0.6444796919822693,
+              1.0
+            ],
+            "Coat IOR": 1.5,
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Coat Roughness": 0.029999999329447746,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "IOR": 1.5,
+            "Metallic": 0.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Roughness": 0.8199999928474426,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Specular IOR Level": 0.23999999463558197,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Subsurface Anisotropy": 0.0,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface Weight": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thin Film IOR": 1.3300000429153442,
+            "Thin Film Thickness": 0.0,
+            "Thin Wall": false,
+            "Transmission Weight": 0.0,
+            "Weight": 0.0
+          },
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED"
+        },
+        {
+          "bl_idname": "ShaderNodeOutputMaterial",
+          "image": null,
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL"
+        },
+        {
+          "bl_idname": "ShaderNodeEmission",
+          "image": null,
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          },
+          "name": "Emission",
+          "type": "EMISSION"
+        },
+        {
+          "bl_idname": "ShaderNodeNewGeometry",
+          "image": null,
+          "inputs": {},
+          "name": "Geometry",
+          "type": "NEW_GEOMETRY"
+        },
+        {
+          "bl_idname": "ShaderNodeSeparateXYZ",
+          "image": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Separate XYZ",
+          "type": "SEPXYZ"
+        },
+        {
+          "bl_idname": "ShaderNodeMapRange",
+          "image": null,
+          "inputs": {
+            "From Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "From Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Steps": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "To Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Value": 1.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Map Range",
+          "type": "MAP_RANGE"
+        },
+        {
+          "bl_idname": "ShaderNodeValToRGB",
+          "image": null,
+          "inputs": {
+            "Factor": 0.5
+          },
+          "name": "Color Ramp",
+          "type": "VALTORGB"
+        },
+        {
+          "bl_idname": "ShaderNodeMixRGB",
+          "image": null,
+          "inputs": {
+            "Color1": [
+              0.019382361322641373,
+              0.4564110338687897,
+              0.6444796919822693,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Factor": 1.0
+          },
+          "name": "Mix (Legacy)",
+          "type": "MIX_RGB"
+        },
+        {
+          "bl_idname": "ShaderNodeVectorMath",
+          "image": null,
+          "inputs": {
+            "Scale": 1.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Vector Math",
+          "type": "VECT_MATH"
+        },
+        {
+          "bl_idname": "ShaderNodeMath",
+          "image": null,
+          "inputs": {
+            "Value": 0.5
+          },
+          "name": "Math",
+          "type": "MATH"
+        },
+        {
+          "bl_idname": "ShaderNodeMath",
+          "image": null,
+          "inputs": {
+            "Value": 0.800000011920929
+          },
+          "name": "Math.001",
+          "type": "MATH"
+        },
+        {
+          "bl_idname": "ShaderNodeMixRGB",
+          "image": null,
+          "inputs": {
+            "Color1": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Factor": 1.0
+          },
+          "name": "Mix (Legacy).001",
+          "type": "MIX_RGB"
+        },
+        {
+          "bl_idname": "ShaderNodeBsdfPrincipled",
+          "image": null,
+          "inputs": {
+            "Alpha": 1.0,
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Coat IOR": 1.5,
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Coat Roughness": 0.029999999329447746,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "IOR": 1.4500000476837158,
+            "Metallic": 0.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Roughness": 0.8500000238418579,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Specular IOR Level": 0.029999999329447746,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Subsurface Anisotropy": 0.0,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface Weight": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thin Film IOR": 1.3300000429153442,
+            "Thin Film Thickness": 0.0,
+            "Thin Wall": false,
+            "Transmission Weight": 0.0,
+            "Weight": 0.0
+          },
+          "name": "Principled BSDF.001",
+          "type": "BSDF_PRINCIPLED"
+        }
+      ],
+      "roughness": 0.4000000059604645,
+      "use_nodes": true,
+      "users": 1
+    },
+    {
+      "animation": null,
+      "custom_properties": {
+        "lowerTone": "world-Z ramp, no light direction",
+        "s33ArtRevision": "art-2026-10-19",
+        "s33FacetedRevision": "faceted-approved-2026-10-19",
+        "s33Lighting": "actual centered overhead plus symmetric cardinal fills; old view-tone bypassed"
+      },
+      "diffuse_color": [
+        0.04373503103852272,
+        0.2581828534603119,
+        0.7379103899002075,
+        1.0
+      ],
+      "library": null,
+      "links": [
+        {
+          "from_node": "Geometry",
+          "from_socket": "Position",
+          "to_node": "Separate XYZ",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Separate XYZ",
+          "from_socket": "Z",
+          "to_node": "Map Range",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Map Range",
+          "from_socket": "Result",
+          "to_node": "Color Ramp",
+          "to_socket": "Factor"
+        },
+        {
+          "from_node": "Color Ramp",
+          "from_socket": "Color",
+          "to_node": "Mix (Legacy)",
+          "to_socket": "Color2"
+        },
+        {
+          "from_node": "Geometry",
+          "from_socket": "Normal",
+          "to_node": "Vector Math",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Geometry",
+          "from_socket": "Incoming",
+          "to_node": "Vector Math",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Vector Math",
+          "from_socket": "Value",
+          "to_node": "Math",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Math",
+          "from_socket": "Value",
+          "to_node": "Math.001",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Mix (Legacy)",
+          "from_socket": "Color",
+          "to_node": "Mix (Legacy).001",
+          "to_socket": "Color1"
+        },
+        {
+          "from_node": "Math.001",
+          "from_socket": "Value",
+          "to_node": "Mix (Legacy).001",
+          "to_socket": "Color2"
+        },
+        {
+          "from_node": "Mix (Legacy).001",
+          "from_socket": "Color",
+          "to_node": "Emission",
+          "to_socket": "Color"
+        },
+        {
+          "from_node": "Mix (Legacy)",
+          "from_socket": "Color",
+          "to_node": "Principled BSDF.001",
+          "to_socket": "Base Color"
+        },
+        {
+          "from_node": "Principled BSDF.001",
+          "from_socket": "BSDF",
+          "to_node": "Material Output",
+          "to_socket": "Surface"
+        }
+      ],
+      "metallic": 0.0,
+      "name": "portal-entry approved S33_blue_light",
+      "node_tree_animation": null,
+      "nodes": [
+        {
+          "bl_idname": "ShaderNodeBsdfPrincipled",
+          "image": null,
+          "inputs": {
+            "Alpha": 1.0,
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Base Color": [
+              0.04373503103852272,
+              0.2581828534603119,
+              0.7379103899002075,
+              1.0
+            ],
+            "Coat IOR": 1.5,
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Coat Roughness": 0.029999999329447746,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "IOR": 1.5,
+            "Metallic": 0.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Roughness": 0.8199999928474426,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Specular IOR Level": 0.23999999463558197,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Subsurface Anisotropy": 0.0,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface Weight": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thin Film IOR": 1.3300000429153442,
+            "Thin Film Thickness": 0.0,
+            "Thin Wall": false,
+            "Transmission Weight": 0.0,
+            "Weight": 0.0
+          },
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED"
+        },
+        {
+          "bl_idname": "ShaderNodeOutputMaterial",
+          "image": null,
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL"
+        },
+        {
+          "bl_idname": "ShaderNodeEmission",
+          "image": null,
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          },
+          "name": "Emission",
+          "type": "EMISSION"
+        },
+        {
+          "bl_idname": "ShaderNodeNewGeometry",
+          "image": null,
+          "inputs": {},
+          "name": "Geometry",
+          "type": "NEW_GEOMETRY"
+        },
+        {
+          "bl_idname": "ShaderNodeSeparateXYZ",
+          "image": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Separate XYZ",
+          "type": "SEPXYZ"
+        },
+        {
+          "bl_idname": "ShaderNodeMapRange",
+          "image": null,
+          "inputs": {
+            "From Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "From Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Steps": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "To Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Value": 1.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Map Range",
+          "type": "MAP_RANGE"
+        },
+        {
+          "bl_idname": "ShaderNodeValToRGB",
+          "image": null,
+          "inputs": {
+            "Factor": 0.5
+          },
+          "name": "Color Ramp",
+          "type": "VALTORGB"
+        },
+        {
+          "bl_idname": "ShaderNodeMixRGB",
+          "image": null,
+          "inputs": {
+            "Color1": [
+              0.04373503103852272,
+              0.2581828534603119,
+              0.7379103899002075,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Factor": 1.0
+          },
+          "name": "Mix (Legacy)",
+          "type": "MIX_RGB"
+        },
+        {
+          "bl_idname": "ShaderNodeVectorMath",
+          "image": null,
+          "inputs": {
+            "Scale": 1.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Vector Math",
+          "type": "VECT_MATH"
+        },
+        {
+          "bl_idname": "ShaderNodeMath",
+          "image": null,
+          "inputs": {
+            "Value": 0.5
+          },
+          "name": "Math",
+          "type": "MATH"
+        },
+        {
+          "bl_idname": "ShaderNodeMath",
+          "image": null,
+          "inputs": {
+            "Value": 0.800000011920929
+          },
+          "name": "Math.001",
+          "type": "MATH"
+        },
+        {
+          "bl_idname": "ShaderNodeMixRGB",
+          "image": null,
+          "inputs": {
+            "Color1": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Factor": 1.0
+          },
+          "name": "Mix (Legacy).001",
+          "type": "MIX_RGB"
+        },
+        {
+          "bl_idname": "ShaderNodeBsdfPrincipled",
+          "image": null,
+          "inputs": {
+            "Alpha": 1.0,
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Coat IOR": 1.5,
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Coat Roughness": 0.029999999329447746,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "IOR": 1.4500000476837158,
+            "Metallic": 0.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Roughness": 0.8500000238418579,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Specular IOR Level": 0.029999999329447746,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Subsurface Anisotropy": 0.0,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface Weight": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thin Film IOR": 1.3300000429153442,
+            "Thin Film Thickness": 0.0,
+            "Thin Wall": false,
+            "Transmission Weight": 0.0,
+            "Weight": 0.0
+          },
+          "name": "Principled BSDF.001",
+          "type": "BSDF_PRINCIPLED"
+        }
+      ],
+      "roughness": 0.4000000059604645,
+      "use_nodes": true,
+      "users": 8
+    },
+    {
+      "animation": null,
+      "custom_properties": {
+        "lowerTone": "world-Z ramp, no light direction",
+        "s33ArtRevision": "art-2026-10-19",
+        "s33FacetedRevision": "faceted-approved-2026-10-19",
+        "s33Lighting": "actual centered overhead plus symmetric cardinal fills; old view-tone bypassed"
+      },
+      "diffuse_color": [
+        0.09305896610021591,
+        0.7230551242828369,
+        0.8713670969009399,
+        1.0
+      ],
+      "library": null,
+      "links": [
+        {
+          "from_node": "Geometry",
+          "from_socket": "Position",
+          "to_node": "Separate XYZ",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Separate XYZ",
+          "from_socket": "Z",
+          "to_node": "Map Range",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Map Range",
+          "from_socket": "Result",
+          "to_node": "Color Ramp",
+          "to_socket": "Factor"
+        },
+        {
+          "from_node": "Color Ramp",
+          "from_socket": "Color",
+          "to_node": "Mix (Legacy)",
+          "to_socket": "Color2"
+        },
+        {
+          "from_node": "Geometry",
+          "from_socket": "Normal",
+          "to_node": "Vector Math",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Geometry",
+          "from_socket": "Incoming",
+          "to_node": "Vector Math",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Vector Math",
+          "from_socket": "Value",
+          "to_node": "Math",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Math",
+          "from_socket": "Value",
+          "to_node": "Math.001",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Mix (Legacy)",
+          "from_socket": "Color",
+          "to_node": "Mix (Legacy).001",
+          "to_socket": "Color1"
+        },
+        {
+          "from_node": "Math.001",
+          "from_socket": "Value",
+          "to_node": "Mix (Legacy).001",
+          "to_socket": "Color2"
+        },
+        {
+          "from_node": "Mix (Legacy).001",
+          "from_socket": "Color",
+          "to_node": "Emission",
+          "to_socket": "Color"
+        },
+        {
+          "from_node": "Mix (Legacy)",
+          "from_socket": "Color",
+          "to_node": "Principled BSDF.001",
+          "to_socket": "Base Color"
+        },
+        {
+          "from_node": "Principled BSDF.001",
+          "from_socket": "BSDF",
+          "to_node": "Material Output",
+          "to_socket": "Surface"
+        }
+      ],
+      "metallic": 0.0,
+      "name": "portal-entry approved S33_cyan",
+      "node_tree_animation": null,
+      "nodes": [
+        {
+          "bl_idname": "ShaderNodeBsdfPrincipled",
+          "image": null,
+          "inputs": {
+            "Alpha": 1.0,
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Base Color": [
+              0.09305896610021591,
+              0.7230551242828369,
+              0.8713670969009399,
+              1.0
+            ],
+            "Coat IOR": 1.5,
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Coat Roughness": 0.029999999329447746,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "IOR": 1.5,
+            "Metallic": 0.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Roughness": 0.8199999928474426,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Specular IOR Level": 0.23999999463558197,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Subsurface Anisotropy": 0.0,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface Weight": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thin Film IOR": 1.3300000429153442,
+            "Thin Film Thickness": 0.0,
+            "Thin Wall": false,
+            "Transmission Weight": 0.0,
+            "Weight": 0.0
+          },
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED"
+        },
+        {
+          "bl_idname": "ShaderNodeOutputMaterial",
+          "image": null,
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL"
+        },
+        {
+          "bl_idname": "ShaderNodeEmission",
+          "image": null,
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          },
+          "name": "Emission",
+          "type": "EMISSION"
+        },
+        {
+          "bl_idname": "ShaderNodeNewGeometry",
+          "image": null,
+          "inputs": {},
+          "name": "Geometry",
+          "type": "NEW_GEOMETRY"
+        },
+        {
+          "bl_idname": "ShaderNodeSeparateXYZ",
+          "image": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Separate XYZ",
+          "type": "SEPXYZ"
+        },
+        {
+          "bl_idname": "ShaderNodeMapRange",
+          "image": null,
+          "inputs": {
+            "From Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "From Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Steps": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "To Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Value": 1.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Map Range",
+          "type": "MAP_RANGE"
+        },
+        {
+          "bl_idname": "ShaderNodeValToRGB",
+          "image": null,
+          "inputs": {
+            "Factor": 0.5
+          },
+          "name": "Color Ramp",
+          "type": "VALTORGB"
+        },
+        {
+          "bl_idname": "ShaderNodeMixRGB",
+          "image": null,
+          "inputs": {
+            "Color1": [
+              0.09305896610021591,
+              0.7230551242828369,
+              0.8713670969009399,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Factor": 1.0
+          },
+          "name": "Mix (Legacy)",
+          "type": "MIX_RGB"
+        },
+        {
+          "bl_idname": "ShaderNodeVectorMath",
+          "image": null,
+          "inputs": {
+            "Scale": 1.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Vector Math",
+          "type": "VECT_MATH"
+        },
+        {
+          "bl_idname": "ShaderNodeMath",
+          "image": null,
+          "inputs": {
+            "Value": 0.5
+          },
+          "name": "Math",
+          "type": "MATH"
+        },
+        {
+          "bl_idname": "ShaderNodeMath",
+          "image": null,
+          "inputs": {
+            "Value": 0.800000011920929
+          },
+          "name": "Math.001",
+          "type": "MATH"
+        },
+        {
+          "bl_idname": "ShaderNodeMixRGB",
+          "image": null,
+          "inputs": {
+            "Color1": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Factor": 1.0
+          },
+          "name": "Mix (Legacy).001",
+          "type": "MIX_RGB"
+        },
+        {
+          "bl_idname": "ShaderNodeBsdfPrincipled",
+          "image": null,
+          "inputs": {
+            "Alpha": 1.0,
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Coat IOR": 1.5,
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Coat Roughness": 0.029999999329447746,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "IOR": 1.4500000476837158,
+            "Metallic": 0.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Roughness": 0.8500000238418579,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Specular IOR Level": 0.029999999329447746,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Subsurface Anisotropy": 0.0,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface Weight": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thin Film IOR": 1.3300000429153442,
+            "Thin Film Thickness": 0.0,
+            "Thin Wall": false,
+            "Transmission Weight": 0.0,
+            "Weight": 0.0
+          },
+          "name": "Principled BSDF.001",
+          "type": "BSDF_PRINCIPLED"
+        }
+      ],
+      "roughness": 0.4000000059604645,
+      "use_nodes": true,
+      "users": 1
+    },
+    {
+      "animation": null,
+      "custom_properties": {
+        "lowerTone": "world-Z ramp, no light direction",
+        "s33ArtRevision": "art-2026-10-19",
+        "s33FacetedRevision": "faceted-approved-2026-10-19",
+        "s33Lighting": "actual centered overhead plus symmetric cardinal fills; old view-tone bypassed"
+      },
+      "diffuse_color": [
+        0.01599629409611225,
+        0.052860647439956665,
+        0.13013647496700287,
+        1.0
+      ],
+      "library": null,
+      "links": [
+        {
+          "from_node": "Geometry",
+          "from_socket": "Position",
+          "to_node": "Separate XYZ",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Separate XYZ",
+          "from_socket": "Z",
+          "to_node": "Map Range",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Map Range",
+          "from_socket": "Result",
+          "to_node": "Color Ramp",
+          "to_socket": "Factor"
+        },
+        {
+          "from_node": "Color Ramp",
+          "from_socket": "Color",
+          "to_node": "Mix (Legacy)",
+          "to_socket": "Color2"
+        },
+        {
+          "from_node": "Geometry",
+          "from_socket": "Normal",
+          "to_node": "Vector Math",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Geometry",
+          "from_socket": "Incoming",
+          "to_node": "Vector Math",
+          "to_socket": "Vector"
+        },
+        {
+          "from_node": "Vector Math",
+          "from_socket": "Value",
+          "to_node": "Math",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Math",
+          "from_socket": "Value",
+          "to_node": "Math.001",
+          "to_socket": "Value"
+        },
+        {
+          "from_node": "Mix (Legacy)",
+          "from_socket": "Color",
+          "to_node": "Mix (Legacy).001",
+          "to_socket": "Color1"
+        },
+        {
+          "from_node": "Math.001",
+          "from_socket": "Value",
+          "to_node": "Mix (Legacy).001",
+          "to_socket": "Color2"
+        },
+        {
+          "from_node": "Mix (Legacy).001",
+          "from_socket": "Color",
+          "to_node": "Emission",
+          "to_socket": "Color"
+        },
+        {
+          "from_node": "Mix (Legacy)",
+          "from_socket": "Color",
+          "to_node": "Principled BSDF.001",
+          "to_socket": "Base Color"
+        },
+        {
+          "from_node": "Principled BSDF.001",
+          "from_socket": "BSDF",
+          "to_node": "Material Output",
+          "to_socket": "Surface"
+        }
+      ],
+      "metallic": 0.0,
+      "name": "portal-entry approved S33_rock_dark",
+      "node_tree_animation": null,
+      "nodes": [
+        {
+          "bl_idname": "ShaderNodeBsdfPrincipled",
+          "image": null,
+          "inputs": {
+            "Alpha": 1.0,
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Base Color": [
+              0.01599629409611225,
+              0.052860647439956665,
+              0.13013647496700287,
+              1.0
+            ],
+            "Coat IOR": 1.5,
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Coat Roughness": 0.029999999329447746,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "IOR": 1.5,
+            "Metallic": 0.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Roughness": 0.8199999928474426,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Specular IOR Level": 0.23999999463558197,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Subsurface Anisotropy": 0.0,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface Weight": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thin Film IOR": 1.3300000429153442,
+            "Thin Film Thickness": 0.0,
+            "Thin Wall": false,
+            "Transmission Weight": 0.0,
+            "Weight": 0.0
+          },
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED"
+        },
+        {
+          "bl_idname": "ShaderNodeOutputMaterial",
+          "image": null,
+          "inputs": {
+            "Displacement": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thickness": 0.0
+          },
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL"
+        },
+        {
+          "bl_idname": "ShaderNodeEmission",
+          "image": null,
+          "inputs": {
+            "Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Strength": 1.0,
+            "Weight": 0.0
+          },
+          "name": "Emission",
+          "type": "EMISSION"
+        },
+        {
+          "bl_idname": "ShaderNodeNewGeometry",
+          "image": null,
+          "inputs": {},
+          "name": "Geometry",
+          "type": "NEW_GEOMETRY"
+        },
+        {
+          "bl_idname": "ShaderNodeSeparateXYZ",
+          "image": null,
+          "inputs": {
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Separate XYZ",
+          "type": "SEPXYZ"
+        },
+        {
+          "bl_idname": "ShaderNodeMapRange",
+          "image": null,
+          "inputs": {
+            "From Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "From Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Steps": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "To Max": [
+              1.0,
+              1.0,
+              1.0
+            ],
+            "To Min": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Value": 1.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Map Range",
+          "type": "MAP_RANGE"
+        },
+        {
+          "bl_idname": "ShaderNodeValToRGB",
+          "image": null,
+          "inputs": {
+            "Factor": 0.5
+          },
+          "name": "Color Ramp",
+          "type": "VALTORGB"
+        },
+        {
+          "bl_idname": "ShaderNodeMixRGB",
+          "image": null,
+          "inputs": {
+            "Color1": [
+              0.01599629409611225,
+              0.052860647439956665,
+              0.13013647496700287,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Factor": 1.0
+          },
+          "name": "Mix (Legacy)",
+          "type": "MIX_RGB"
+        },
+        {
+          "bl_idname": "ShaderNodeVectorMath",
+          "image": null,
+          "inputs": {
+            "Scale": 1.0,
+            "Vector": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "name": "Vector Math",
+          "type": "VECT_MATH"
+        },
+        {
+          "bl_idname": "ShaderNodeMath",
+          "image": null,
+          "inputs": {
+            "Value": 0.5
+          },
+          "name": "Math",
+          "type": "MATH"
+        },
+        {
+          "bl_idname": "ShaderNodeMath",
+          "image": null,
+          "inputs": {
+            "Value": 0.800000011920929
+          },
+          "name": "Math.001",
+          "type": "MATH"
+        },
+        {
+          "bl_idname": "ShaderNodeMixRGB",
+          "image": null,
+          "inputs": {
+            "Color1": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Color2": [
+              0.5,
+              0.5,
+              0.5,
+              1.0
+            ],
+            "Factor": 1.0
+          },
+          "name": "Mix (Legacy).001",
+          "type": "MIX_RGB"
+        },
+        {
+          "bl_idname": "ShaderNodeBsdfPrincipled",
+          "image": null,
+          "inputs": {
+            "Alpha": 1.0,
+            "Anisotropic": 0.0,
+            "Anisotropic Rotation": 0.0,
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Coat IOR": 1.5,
+            "Coat Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Coat Roughness": 0.029999999329447746,
+            "Coat Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Coat Weight": 0.0,
+            "Diffuse Roughness": 0.0,
+            "Emission Color": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Emission Strength": 0.0,
+            "IOR": 1.4500000476837158,
+            "Metallic": 0.0,
+            "Normal": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Roughness": 0.8500000238418579,
+            "Sheen Roughness": 0.5,
+            "Sheen Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Sheen Weight": 0.0,
+            "Specular IOR Level": 0.029999999329447746,
+            "Specular Tint": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "Subsurface Anisotropy": 0.0,
+            "Subsurface IOR": 1.399999976158142,
+            "Subsurface Radius": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "Subsurface Scale": 0.004999999888241291,
+            "Subsurface Weight": 0.0,
+            "Tangent": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "Thin Film IOR": 1.3300000429153442,
+            "Thin Film Thickness": 0.0,
+            "Thin Wall": false,
+            "Transmission Weight": 0.0,
+            "Weight": 0.0
+          },
+          "name": "Principled BSDF.001",
+          "type": "BSDF_PRINCIPLED"
+        }
+      ],
+      "roughness": 0.4000000059604645,
+      "use_nodes": true,
+      "users": 2
+    }
+  ],
+  "object_count": 13,
+  "objects": [
+    {
+      "animation": null,
+      "children": [],
+      "collections": [
+        "S33_PROP_portal_rim.003"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data_library": null,
+      "data_name": "Icosphere.2054",
+      "data_users": 1,
+      "location": [
+        -0.4000000059604645,
+        0.029999999329447746,
+        0.1599999964237213
+      ],
+      "material_slots": [
+        "portal-entry approved S33_rock_dark"
+      ],
+      "matrix_parent_inverse": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "matrix_world_evaluated": [
+        [
+          0.28999999165534973,
+          0.0,
+          0.0,
+          -0.4000000059604645
+        ],
+        [
+          0.0,
+          0.25,
+          0.0,
+          0.029999999329447746
+        ],
+        [
+          0.0,
+          0.0,
+          0.2199999988079071,
+          0.1599999964237213
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "animation": null,
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "edges": 30,
+        "evaluated_edges": 30,
+        "evaluated_polygons": 20,
+        "evaluated_vertices": 12,
+        "evaluated_world_bounds": {
+          "max": [
+            -0.140616774559021,
+            0.24266000092029572,
+            0.3799999952316284
+          ],
+          "min": [
+            -0.659383237361908,
+            -0.18265999853610992,
+            -0.06000000238418579
+          ]
+        },
+        "local_bounds": {
+          "max": [
+            0.8944249749183655,
+            0.8506399989128113,
+            1.0
+          ],
+          "min": [
+            -0.8944249749183655,
+            -0.8506399989128113,
+            -1.0
+          ]
+        },
+        "polygon_material_indices": [
+          0
+        ],
+        "polygons": 20,
+        "shape_keys": null,
+        "smooth_polygons": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 12
+      },
+      "modifiers": [],
+      "name": "portal_rim__base_rock_-0.003",
+      "object_library": null,
+      "parent": "portal_rim__root.003",
+      "parent_type": "OBJECT",
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_mode": "XYZ",
+      "rotation_quaternion": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.28999999165534973,
+        0.25,
+        0.2199999988079071
+      ],
+      "type": "MESH",
+      "visible_get": true
+    },
+    {
+      "animation": null,
+      "children": [],
+      "collections": [
+        "S33_PROP_portal_rim.003"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data_library": null,
+      "data_name": "Icosphere.2055",
+      "data_users": 1,
+      "location": [
+        0.4000000059604645,
+        0.029999999329447746,
+        0.1599999964237213
+      ],
+      "material_slots": [
+        "portal-entry approved S33_rock_dark"
+      ],
+      "matrix_parent_inverse": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "matrix_world_evaluated": [
+        [
+          0.28999999165534973,
+          0.0,
+          0.0,
+          0.4000000059604645
+        ],
+        [
+          0.0,
+          0.25,
+          0.0,
+          0.029999999329447746
+        ],
+        [
+          0.0,
+          0.0,
+          0.2199999988079071,
+          0.1599999964237213
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "animation": null,
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "edges": 30,
+        "evaluated_edges": 30,
+        "evaluated_polygons": 20,
+        "evaluated_vertices": 12,
+        "evaluated_world_bounds": {
+          "max": [
+            0.659383237361908,
+            0.24266000092029572,
+            0.3799999952316284
+          ],
+          "min": [
+            0.140616774559021,
+            -0.18265999853610992,
+            -0.06000000238418579
+          ]
+        },
+        "local_bounds": {
+          "max": [
+            0.8944249749183655,
+            0.8506399989128113,
+            1.0
+          ],
+          "min": [
+            -0.8944249749183655,
+            -0.8506399989128113,
+            -1.0
+          ]
+        },
+        "polygon_material_indices": [
+          0
+        ],
+        "polygons": 20,
+        "shape_keys": null,
+        "smooth_polygons": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 12
+      },
+      "modifiers": [],
+      "name": "portal_rim__base_rock_0.003",
+      "object_library": null,
+      "parent": "portal_rim__root.003",
+      "parent_type": "OBJECT",
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_mode": "XYZ",
+      "rotation_quaternion": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.28999999165534973,
+        0.25,
+        0.2199999988079071
+      ],
+      "type": "MESH",
+      "visible_get": true
+    },
+    {
+      "animation": {
+        "action": null,
+        "action_frame_range": null,
+        "action_slots": [],
+        "drivers": [],
+        "nla_tracks": []
+      },
+      "children": [],
+      "collections": [
+        "S33_PROP_portal_rim.003"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data_library": null,
+      "data_name": "Torus.011",
+      "data_users": 1,
+      "location": [
+        0.0,
+        0.009999999776482582,
+        0.7400000095367432
+      ],
+      "material_slots": [
+        "portal-entry approved S33_aqua"
+      ],
+      "matrix_parent_inverse": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "matrix_world_evaluated": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          7.549790126404332e-08,
+          -1.0,
+          0.009999999776482582
+        ],
+        [
+          0.0,
+          1.0,
+          7.549790126404332e-08,
+          0.7400000095367432
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "animation": null,
+        "attributes": [
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          }
+        ],
+        "edges": 192,
+        "evaluated_edges": 192,
+        "evaluated_polygons": 96,
+        "evaluated_vertices": 96,
+        "evaluated_world_bounds": {
+          "max": [
+            0.6860000491142273,
+            0.036000050604343414,
+            1.4260001182556152
+          ],
+          "min": [
+            -0.6860000491142273,
+            -0.01600005105137825,
+            0.05399996042251587
+          ]
+        },
+        "local_bounds": {
+          "max": [
+            0.6860000491142273,
+            0.6860000491142273,
+            0.026000000536441803
+          ],
+          "min": [
+            -0.6860000491142273,
+            -0.6860000491142273,
+            -0.026000000536441803
+          ]
+        },
+        "polygon_material_indices": [
+          0
+        ],
+        "polygons": 96,
+        "shape_keys": null,
+        "smooth_polygons": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 96
+      },
+      "modifiers": [],
+      "name": "portal_rim__outer_ring.003",
+      "object_library": null,
+      "parent": "portal_rim__root.003",
+      "parent_type": "OBJECT",
+      "rotation_euler": [
+        1.570796251296997,
+        -0.0,
+        0.0
+      ],
+      "rotation_mode": "XYZ",
+      "rotation_quaternion": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "MESH",
+      "visible_get": true
+    },
+    {
+      "animation": {
+        "action": null,
+        "action_frame_range": null,
+        "action_slots": [],
+        "drivers": [],
+        "nla_tracks": []
+      },
+      "children": [],
+      "collections": [
+        "S33_PROP_portal_rim.003"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data_library": null,
+      "data_name": "Torus.010",
+      "data_users": 1,
+      "location": [
+        0.0,
+        0.0,
+        0.7400000095367432
+      ],
+      "material_slots": [
+        "portal-entry approved S33_cyan"
+      ],
+      "matrix_parent_inverse": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "matrix_world_evaluated": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          7.549790126404332e-08,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          7.549790126404332e-08,
+          0.7400000095367432
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "animation": null,
+        "attributes": [
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          }
+        ],
+        "edges": 288,
+        "evaluated_edges": 288,
+        "evaluated_polygons": 144,
+        "evaluated_vertices": 144,
+        "evaluated_world_bounds": {
+          "max": [
+            0.6150000095367432,
+            0.06495195627212524,
+            1.3550000190734863
+          ],
+          "min": [
+            -0.6150000095367432,
+            -0.06495195627212524,
+            0.125
+          ]
+        },
+        "local_bounds": {
+          "max": [
+            0.6150000095367432,
+            0.6150000095367432,
+            0.06495191156864166
+          ],
+          "min": [
+            -0.6150000095367432,
+            -0.6150000095367432,
+            -0.06495191156864166
+          ]
+        },
+        "polygon_material_indices": [
+          0
+        ],
+        "polygons": 144,
+        "shape_keys": null,
+        "smooth_polygons": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 144
+      },
+      "modifiers": [],
+      "name": "portal_rim__portal_ring.003",
+      "object_library": null,
+      "parent": "portal_rim__root.003",
+      "parent_type": "OBJECT",
+      "rotation_euler": [
+        1.570796251296997,
+        -0.0,
+        0.0
+      ],
+      "rotation_mode": "XYZ",
+      "rotation_quaternion": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "MESH",
+      "visible_get": true
+    },
+    {
+      "animation": null,
+      "children": [
+        "portal_rim__base_rock_-0.003",
+        "portal_rim__base_rock_0.003",
+        "portal_rim__outer_ring.003",
+        "portal_rim__portal_ring.003",
+        "portal_rim__rune_0.003",
+        "portal_rim__rune_1.003",
+        "portal_rim__rune_2.003",
+        "portal_rim__rune_3.003",
+        "portal_rim__rune_4.003",
+        "portal_rim__rune_5.003",
+        "portal_rim__rune_6.003",
+        "portal_rim__rune_7.003"
+      ],
+      "collections": [
+        "S33_PROP_portal_rim.003"
+      ],
+      "constraints": [],
+      "custom_properties": {
+        "animation_recipes": "{\"enter\": {\"frames\": 12, \"fps\": 12, \"loop\": false}}",
+        "artStyle": "faceted-approved-2026-10-19",
+        "asset_id": "portal_rim",
+        "axis_convention": "X=x; depth=-Y; height=Z",
+        "directions": "[\"N\", \"E\", \"S\", \"W\"]",
+        "family": "issue-33-world-props",
+        "footprint_cells": "[1, 1]",
+        "ground_root": "[0, 0, 0]",
+        "native_action_record": "{\"source\": \"native_actions.py\", \"assetId\": \"portal-entry\", \"clips\": {\"enter\": [\"S33_NATIVE__portal-entry__enter__portal_rim__portal_ring.003\", \"S33_NATIVE__portal-entry__enter__portal_rim__outer_ring.003\", \"S33_NATIVE__portal-entry__enter__portal_rim__rune_0.003\", \"S33_NATIVE__portal-entry__enter__portal_rim__rune_1.003\", \"S33_NATIVE__portal-entry__enter__portal_rim__rune_2.003\", \"S33_NATIVE__portal-entry__enter__portal_rim__rune_3.003\", \"S33_NATIVE__portal-entry__enter__portal_rim__rune_4.003\", \"S33_NATIVE__portal-entry__enter__portal_rim__rune_5.003\", \"S33_NATIVE__portal-entry__enter__portal_rim__rune_6.003\", \"S33_NATIVE__portal-entry__enter__portal_rim__rune_7.003\"]}}",
+        "notes": "[\"Open geometry ring, no opaque disk. Layer as separate rim/decor, no access mechanic.\"]",
+        "production_id": "portal-entry",
+        "sockets": "{\"entry\": [0, 0, 0.74]}",
+        "source": "prop_builders.py",
+        "visual_height": 1.48
+      },
+      "data_library": null,
+      "data_name": null,
+      "data_users": null,
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "matrix_parent_inverse": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "matrix_world_evaluated": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "modifiers": [],
+      "name": "portal_rim__root.003",
+      "object_library": null,
+      "parent": null,
+      "parent_type": "OBJECT",
+      "rotation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_mode": "XYZ",
+      "rotation_quaternion": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "EMPTY",
+      "visible_get": true
+    },
+    {
+      "animation": {
+        "action": null,
+        "action_frame_range": null,
+        "action_slots": [],
+        "drivers": [],
+        "nla_tracks": []
+      },
+      "children": [],
+      "collections": [
+        "S33_PROP_portal_rim.003"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data_library": null,
+      "data_name": "Cube.2651",
+      "data_users": 1,
+      "location": [
+        0.6700000166893005,
+        -0.014999999664723873,
+        0.7400000095367432
+      ],
+      "material_slots": [
+        "portal-entry approved S33_blue_light"
+      ],
+      "matrix_parent_inverse": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "matrix_world_evaluated": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.6700000166893005
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.014999999664723873
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.7400000095367432
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "animation": null,
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "edges": 12,
+        "evaluated_edges": 48,
+        "evaluated_polygons": 26,
+        "evaluated_vertices": 24,
+        "evaluated_world_bounds": {
+          "max": [
+            0.7125000357627869,
+            0.0075000012293457985,
+            0.8149999976158142
+          ],
+          "min": [
+            0.6274999976158142,
+            -0.03750000149011612,
+            0.6650000214576721
+          ]
+        },
+        "local_bounds": {
+          "max": [
+            0.042500000447034836,
+            0.02250000089406967,
+            0.07500000298023224
+          ],
+          "min": [
+            -0.042500000447034836,
+            -0.02250000089406967,
+            -0.07500000298023224
+          ]
+        },
+        "polygon_material_indices": [
+          0
+        ],
+        "polygons": 6,
+        "shape_keys": null,
+        "smooth_polygons": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 8
+      },
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "show_render": true,
+          "show_viewport": true,
+          "type": "BEVEL"
+        }
+      ],
+      "name": "portal_rim__rune_0.003",
+      "object_library": null,
+      "parent": "portal_rim__root.003",
+      "parent_type": "OBJECT",
+      "rotation_euler": [
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "rotation_mode": "XYZ",
+      "rotation_quaternion": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "MESH",
+      "visible_get": true
+    },
+    {
+      "animation": {
+        "action": null,
+        "action_frame_range": null,
+        "action_slots": [],
+        "drivers": [],
+        "nla_tracks": []
+      },
+      "children": [],
+      "collections": [
+        "S33_PROP_portal_rim.003"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data_library": null,
+      "data_name": "Cube.2652",
+      "data_users": 1,
+      "location": [
+        0.47376152873039246,
+        -0.014999999664723873,
+        1.213761568069458
+      ],
+      "material_slots": [
+        "portal-entry approved S33_blue_light"
+      ],
+      "matrix_parent_inverse": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "matrix_world_evaluated": [
+        [
+          0.7071067690849304,
+          0.0,
+          -0.7071067690849304,
+          0.47376152873039246
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.014999999664723873
+        ],
+        [
+          0.7071067690849304,
+          0.0,
+          0.7071067690849304,
+          1.213761568069458
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "animation": null,
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "edges": 12,
+        "evaluated_edges": 48,
+        "evaluated_polygons": 26,
+        "evaluated_vertices": 24,
+        "evaluated_world_bounds": {
+          "max": [
+            0.5483613014221191,
+            0.0075000012293457985,
+            1.2883613109588623
+          ],
+          "min": [
+            0.39916175603866577,
+            -0.03750000149011612,
+            1.1391618251800537
+          ]
+        },
+        "local_bounds": {
+          "max": [
+            0.042500000447034836,
+            0.02250000089406967,
+            0.07500000298023224
+          ],
+          "min": [
+            -0.042500000447034836,
+            -0.02250000089406967,
+            -0.07500000298023224
+          ]
+        },
+        "polygon_material_indices": [
+          0
+        ],
+        "polygons": 6,
+        "shape_keys": null,
+        "smooth_polygons": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 8
+      },
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "show_render": true,
+          "show_viewport": true,
+          "type": "BEVEL"
+        }
+      ],
+      "name": "portal_rim__rune_1.003",
+      "object_library": null,
+      "parent": "portal_rim__root.003",
+      "parent_type": "OBJECT",
+      "rotation_euler": [
+        0.0,
+        -0.7853981852531433,
+        0.0
+      ],
+      "rotation_mode": "XYZ",
+      "rotation_quaternion": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "MESH",
+      "visible_get": true
+    },
+    {
+      "animation": {
+        "action": null,
+        "action_frame_range": null,
+        "action_slots": [],
+        "drivers": [],
+        "nla_tracks": []
+      },
+      "children": [],
+      "collections": [
+        "S33_PROP_portal_rim.003"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data_library": null,
+      "data_name": "Cube.2653",
+      "data_users": 1,
+      "location": [
+        4.102566691462516e-17,
+        -0.014999999664723873,
+        1.409999966621399
+      ],
+      "material_slots": [
+        "portal-entry approved S33_blue_light"
+      ],
+      "matrix_parent_inverse": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "matrix_world_evaluated": [
+        [
+          -4.371138828673793e-08,
+          0.0,
+          -1.0,
+          4.102566691462516e-17
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.014999999664723873
+        ],
+        [
+          1.0,
+          0.0,
+          -4.371138828673793e-08,
+          1.409999966621399
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "animation": null,
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "edges": 12,
+        "evaluated_edges": 48,
+        "evaluated_polygons": 26,
+        "evaluated_vertices": 24,
+        "evaluated_world_bounds": {
+          "max": [
+            0.07500000298023224,
+            0.0075000012293457985,
+            1.4524999856948853
+          ],
+          "min": [
+            -0.07500000298023224,
+            -0.03750000149011612,
+            1.3674999475479126
+          ]
+        },
+        "local_bounds": {
+          "max": [
+            0.042500000447034836,
+            0.02250000089406967,
+            0.07500000298023224
+          ],
+          "min": [
+            -0.042500000447034836,
+            -0.02250000089406967,
+            -0.07500000298023224
+          ]
+        },
+        "polygon_material_indices": [
+          0
+        ],
+        "polygons": 6,
+        "shape_keys": null,
+        "smooth_polygons": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 8
+      },
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "show_render": true,
+          "show_viewport": true,
+          "type": "BEVEL"
+        }
+      ],
+      "name": "portal_rim__rune_2.003",
+      "object_library": null,
+      "parent": "portal_rim__root.003",
+      "parent_type": "OBJECT",
+      "rotation_euler": [
+        0.0,
+        -1.5707963705062866,
+        0.0
+      ],
+      "rotation_mode": "XYZ",
+      "rotation_quaternion": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "MESH",
+      "visible_get": true
+    },
+    {
+      "animation": {
+        "action": null,
+        "action_frame_range": null,
+        "action_slots": [],
+        "drivers": [],
+        "nla_tracks": []
+      },
+      "children": [],
+      "collections": [
+        "S33_PROP_portal_rim.003"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data_library": null,
+      "data_name": "Cube.2654",
+      "data_users": 1,
+      "location": [
+        -0.47376152873039246,
+        -0.014999999664723873,
+        1.213761568069458
+      ],
+      "material_slots": [
+        "portal-entry approved S33_blue_light"
+      ],
+      "matrix_parent_inverse": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "matrix_world_evaluated": [
+        [
+          -0.7071067690849304,
+          0.0,
+          -0.7071067690849304,
+          -0.47376152873039246
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.014999999664723873
+        ],
+        [
+          0.7071067690849304,
+          0.0,
+          -0.7071067690849304,
+          1.213761568069458
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "animation": null,
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "edges": 12,
+        "evaluated_edges": 48,
+        "evaluated_polygons": 26,
+        "evaluated_vertices": 24,
+        "evaluated_world_bounds": {
+          "max": [
+            -0.39916175603866577,
+            0.0075000012293457985,
+            1.2883613109588623
+          ],
+          "min": [
+            -0.5483613014221191,
+            -0.03750000149011612,
+            1.1391618251800537
+          ]
+        },
+        "local_bounds": {
+          "max": [
+            0.042500000447034836,
+            0.02250000089406967,
+            0.07500000298023224
+          ],
+          "min": [
+            -0.042500000447034836,
+            -0.02250000089406967,
+            -0.07500000298023224
+          ]
+        },
+        "polygon_material_indices": [
+          0
+        ],
+        "polygons": 6,
+        "shape_keys": null,
+        "smooth_polygons": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 8
+      },
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "show_render": true,
+          "show_viewport": true,
+          "type": "BEVEL"
+        }
+      ],
+      "name": "portal_rim__rune_3.003",
+      "object_library": null,
+      "parent": "portal_rim__root.003",
+      "parent_type": "OBJECT",
+      "rotation_euler": [
+        0.0,
+        -2.356194496154785,
+        0.0
+      ],
+      "rotation_mode": "XYZ",
+      "rotation_quaternion": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "MESH",
+      "visible_get": true
+    },
+    {
+      "animation": {
+        "action": null,
+        "action_frame_range": null,
+        "action_slots": [],
+        "drivers": [],
+        "nla_tracks": []
+      },
+      "children": [],
+      "collections": [
+        "S33_PROP_portal_rim.003"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data_library": null,
+      "data_name": "Cube.2655",
+      "data_users": 1,
+      "location": [
+        -0.6700000166893005,
+        -0.014999999664723873,
+        0.7400000095367432
+      ],
+      "material_slots": [
+        "portal-entry approved S33_blue_light"
+      ],
+      "matrix_parent_inverse": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "matrix_world_evaluated": [
+        [
+          -1.0,
+          0.0,
+          8.742277657347586e-08,
+          -0.6700000166893005
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.014999999664723873
+        ],
+        [
+          -8.742277657347586e-08,
+          0.0,
+          -1.0,
+          0.7400000095367432
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "animation": null,
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "edges": 12,
+        "evaluated_edges": 48,
+        "evaluated_polygons": 26,
+        "evaluated_vertices": 24,
+        "evaluated_world_bounds": {
+          "max": [
+            -0.6274999976158142,
+            0.0075000012293457985,
+            0.8149999976158142
+          ],
+          "min": [
+            -0.7125000357627869,
+            -0.03750000149011612,
+            0.6650000214576721
+          ]
+        },
+        "local_bounds": {
+          "max": [
+            0.042500000447034836,
+            0.02250000089406967,
+            0.07500000298023224
+          ],
+          "min": [
+            -0.042500000447034836,
+            -0.02250000089406967,
+            -0.07500000298023224
+          ]
+        },
+        "polygon_material_indices": [
+          0
+        ],
+        "polygons": 6,
+        "shape_keys": null,
+        "smooth_polygons": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 8
+      },
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "show_render": true,
+          "show_viewport": true,
+          "type": "BEVEL"
+        }
+      ],
+      "name": "portal_rim__rune_4.003",
+      "object_library": null,
+      "parent": "portal_rim__root.003",
+      "parent_type": "OBJECT",
+      "rotation_euler": [
+        0.0,
+        -3.1415927410125732,
+        0.0
+      ],
+      "rotation_mode": "XYZ",
+      "rotation_quaternion": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "MESH",
+      "visible_get": true
+    },
+    {
+      "animation": {
+        "action": null,
+        "action_frame_range": null,
+        "action_slots": [],
+        "drivers": [],
+        "nla_tracks": []
+      },
+      "children": [],
+      "collections": [
+        "S33_PROP_portal_rim.003"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data_library": null,
+      "data_name": "Cube.2656",
+      "data_users": 1,
+      "location": [
+        -0.47376152873039246,
+        -0.014999999664723873,
+        0.2662384510040283
+      ],
+      "material_slots": [
+        "portal-entry approved S33_blue_light"
+      ],
+      "matrix_parent_inverse": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "matrix_world_evaluated": [
+        [
+          -0.7071068286895752,
+          0.0,
+          0.7071067094802856,
+          -0.47376152873039246
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.014999999664723873
+        ],
+        [
+          -0.7071067094802856,
+          0.0,
+          -0.7071068286895752,
+          0.2662384510040283
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "animation": null,
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "edges": 12,
+        "evaluated_edges": 48,
+        "evaluated_polygons": 26,
+        "evaluated_vertices": 24,
+        "evaluated_world_bounds": {
+          "max": [
+            -0.39916175603866577,
+            0.0075000012293457985,
+            0.340838223695755
+          ],
+          "min": [
+            -0.5483613014221191,
+            -0.03750000149011612,
+            0.19163867831230164
+          ]
+        },
+        "local_bounds": {
+          "max": [
+            0.042500000447034836,
+            0.02250000089406967,
+            0.07500000298023224
+          ],
+          "min": [
+            -0.042500000447034836,
+            -0.02250000089406967,
+            -0.07500000298023224
+          ]
+        },
+        "polygon_material_indices": [
+          0
+        ],
+        "polygons": 6,
+        "shape_keys": null,
+        "smooth_polygons": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 8
+      },
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "show_render": true,
+          "show_viewport": true,
+          "type": "BEVEL"
+        }
+      ],
+      "name": "portal_rim__rune_5.003",
+      "object_library": null,
+      "parent": "portal_rim__root.003",
+      "parent_type": "OBJECT",
+      "rotation_euler": [
+        0.0,
+        -3.9269907474517822,
+        0.0
+      ],
+      "rotation_mode": "XYZ",
+      "rotation_quaternion": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "MESH",
+      "visible_get": true
+    },
+    {
+      "animation": {
+        "action": null,
+        "action_frame_range": null,
+        "action_slots": [],
+        "drivers": [],
+        "nla_tracks": []
+      },
+      "children": [],
+      "collections": [
+        "S33_PROP_portal_rim.003"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data_library": null,
+      "data_name": "Cube.2657",
+      "data_users": 1,
+      "location": [
+        -1.2307699743515304e-16,
+        -0.014999999664723873,
+        0.07000000029802322
+      ],
+      "material_slots": [
+        "portal-entry approved S33_blue_light"
+      ],
+      "matrix_parent_inverse": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "matrix_world_evaluated": [
+        [
+          1.1924880638503055e-08,
+          0.0,
+          1.0,
+          -1.2307699743515304e-16
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.014999999664723873
+        ],
+        [
+          -1.0,
+          0.0,
+          1.1924880638503055e-08,
+          0.07000000029802322
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "animation": null,
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "edges": 12,
+        "evaluated_edges": 48,
+        "evaluated_polygons": 26,
+        "evaluated_vertices": 24,
+        "evaluated_world_bounds": {
+          "max": [
+            0.07500000298023224,
+            0.0075000012293457985,
+            0.11250000447034836
+          ],
+          "min": [
+            -0.07500000298023224,
+            -0.03750000149011612,
+            0.027499999850988388
+          ]
+        },
+        "local_bounds": {
+          "max": [
+            0.042500000447034836,
+            0.02250000089406967,
+            0.07500000298023224
+          ],
+          "min": [
+            -0.042500000447034836,
+            -0.02250000089406967,
+            -0.07500000298023224
+          ]
+        },
+        "polygon_material_indices": [
+          0
+        ],
+        "polygons": 6,
+        "shape_keys": null,
+        "smooth_polygons": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 8
+      },
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "show_render": true,
+          "show_viewport": true,
+          "type": "BEVEL"
+        }
+      ],
+      "name": "portal_rim__rune_6.003",
+      "object_library": null,
+      "parent": "portal_rim__root.003",
+      "parent_type": "OBJECT",
+      "rotation_euler": [
+        0.0,
+        -4.71238899230957,
+        0.0
+      ],
+      "rotation_mode": "XYZ",
+      "rotation_quaternion": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "MESH",
+      "visible_get": true
+    },
+    {
+      "animation": {
+        "action": null,
+        "action_frame_range": null,
+        "action_slots": [],
+        "drivers": [],
+        "nla_tracks": []
+      },
+      "children": [],
+      "collections": [
+        "S33_PROP_portal_rim.003"
+      ],
+      "constraints": [],
+      "custom_properties": {},
+      "data_library": null,
+      "data_name": "Cube.2658",
+      "data_users": 1,
+      "location": [
+        0.47376152873039246,
+        -0.014999999664723873,
+        0.2662384510040283
+      ],
+      "material_slots": [
+        "portal-entry approved S33_blue_light"
+      ],
+      "matrix_parent_inverse": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "matrix_world_evaluated": [
+        [
+          0.7071066498756409,
+          0.0,
+          0.70710688829422,
+          0.47376152873039246
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.014999999664723873
+        ],
+        [
+          -0.70710688829422,
+          0.0,
+          0.7071066498756409,
+          0.2662384510040283
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "mesh": {
+        "animation": null,
+        "attributes": [
+          {
+            "data_type": "FLOAT2",
+            "domain": "CORNER",
+            "name": "UVMap"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "POINT",
+            "name": ".select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "EDGE",
+            "name": ".select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".select_poly"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": "sharp_face"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_vert"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "CORNER",
+            "name": ".uv_select_edge"
+          },
+          {
+            "data_type": "BOOLEAN",
+            "domain": "FACE",
+            "name": ".uv_select_face"
+          },
+          {
+            "data_type": "FLOAT_VECTOR",
+            "domain": "POINT",
+            "name": "position"
+          },
+          {
+            "data_type": "INT32_2D",
+            "domain": "EDGE",
+            "name": ".edge_verts"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_vert"
+          },
+          {
+            "data_type": "INT",
+            "domain": "CORNER",
+            "name": ".corner_edge"
+          }
+        ],
+        "edges": 12,
+        "evaluated_edges": 48,
+        "evaluated_polygons": 26,
+        "evaluated_vertices": 24,
+        "evaluated_world_bounds": {
+          "max": [
+            0.5483613014221191,
+            0.0075000012293457985,
+            0.340838223695755
+          ],
+          "min": [
+            0.39916175603866577,
+            -0.03750000149011612,
+            0.19163869321346283
+          ]
+        },
+        "local_bounds": {
+          "max": [
+            0.042500000447034836,
+            0.02250000089406967,
+            0.07500000298023224
+          ],
+          "min": [
+            -0.042500000447034836,
+            -0.02250000089406967,
+            -0.07500000298023224
+          ]
+        },
+        "polygon_material_indices": [
+          0
+        ],
+        "polygons": 6,
+        "shape_keys": null,
+        "smooth_polygons": 0,
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 8
+      },
+      "modifiers": [
+        {
+          "name": "Hand-cut bevel",
+          "show_render": true,
+          "show_viewport": true,
+          "type": "BEVEL"
+        }
+      ],
+      "name": "portal_rim__rune_7.003",
+      "object_library": null,
+      "parent": "portal_rim__root.003",
+      "parent_type": "OBJECT",
+      "rotation_euler": [
+        0.0,
+        -5.497786998748779,
+        0.0
+      ],
+      "rotation_mode": "XYZ",
+      "rotation_quaternion": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "type": "MESH",
+      "visible_get": true
+    }
+  ],
+  "raw_camera": {
+    "clip_end": 1000.0,
+    "clip_start": 0.10000000149011612,
+    "lens": 50.0,
+    "location": [
+      0.0,
+      -8.191520690917969,
+      5.735764503479004
+    ],
+    "matrix_world": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.5735762715339661,
+        -0.8191521763801575,
+        -8.191520690917969
+      ],
+      [
+        0.0,
+        0.8191521763801575,
+        0.5735762715339661,
+        5.735764503479004
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "name": "S33 Capture Camera.240",
+    "ortho_scale": 1.5,
+    "rotation_euler": [
+      0.9599313139915466,
+      -0.0,
+      0.0
+    ],
+    "shift_x": 0.0,
+    "shift_y": 0.4583320617675781,
+    "type": "ORTHO"
+  },
+  "raw_file": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+  "raw_frame_current": 4,
+  "raw_frame_end": 12,
+  "raw_frame_start": 1,
+  "raw_frame_subframe": 0.0,
+  "raw_render": {
+    "engine": "BLENDER_EEVEE",
+    "film_transparent": true,
+    "pixel_aspect_x": 1.0,
+    "pixel_aspect_y": 1.0,
+    "resolution_percentage": 100,
+    "resolution_x": 768,
+    "resolution_y": 1280
+  },
+  "raw_sha256": "b1765262bfa897adf7e5de4f2b866cfc939430cf18539f3f7063859b9cff31c6",
+  "root": "portal_rim__root.003",
+  "scene": "S33 Native Asset Library Export",
+  "scope": "Raw read-only inspection only; visibility changes are in background process memory, with no scene/model saves, renders, or construction. Other assets not inspected.",
+  "view_layer": "ViewLayer",
+  "visibility_after": {
+    "collection_path": [
+      {
+        "hide_render": false,
+        "hide_viewport": false,
+        "name": "Scene Collection"
+      },
+      {
+        "hide_render": false,
+        "hide_viewport": false,
+        "name": "S33_PROP_portal_rim.003"
+      }
+    ],
+    "layer_collection_path": [
+      {
+        "exclude": false,
+        "hide_viewport": false,
+        "holdout": false,
+        "indirect_only": false,
+        "name": "Scene Collection"
+      },
+      {
+        "exclude": false,
+        "hide_viewport": false,
+        "holdout": false,
+        "indirect_only": false,
+        "name": "S33_PROP_portal_rim.003"
+      }
+    ],
+    "objects": [
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__base_rock_-0.003",
+        "visible_get": true
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__base_rock_0.003",
+        "visible_get": true
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__outer_ring.003",
+        "visible_get": true
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__portal_ring.003",
+        "visible_get": true
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__root.003",
+        "visible_get": true
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__rune_0.003",
+        "visible_get": true
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__rune_1.003",
+        "visible_get": true
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__rune_2.003",
+        "visible_get": true
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__rune_3.003",
+        "visible_get": true
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__rune_4.003",
+        "visible_get": true
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__rune_5.003",
+        "visible_get": true
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__rune_6.003",
+        "visible_get": true
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__rune_7.003",
+        "visible_get": true
+      }
+    ]
+  },
+  "visibility_before": {
+    "collection_path": [
+      {
+        "hide_render": false,
+        "hide_viewport": false,
+        "name": "Scene Collection"
+      },
+      {
+        "hide_render": true,
+        "hide_viewport": true,
+        "name": "S33_PROP_portal_rim.003"
+      }
+    ],
+    "context_scene": "S33 Native Asset Library Export",
+    "layer_collection_path": [
+      {
+        "exclude": false,
+        "hide_viewport": false,
+        "holdout": false,
+        "indirect_only": false,
+        "name": "Scene Collection"
+      },
+      {
+        "exclude": true,
+        "hide_viewport": false,
+        "holdout": false,
+        "indirect_only": false,
+        "name": "S33_PROP_portal_rim.003"
+      }
+    ],
+    "objects": [
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__base_rock_-0.003"
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__base_rock_0.003"
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__outer_ring.003"
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__portal_ring.003"
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__root.003"
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__rune_0.003"
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__rune_1.003"
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__rune_2.003"
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__rune_3.003"
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__rune_4.003"
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__rune_5.003"
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__rune_6.003"
+      },
+      {
+        "hide_render": false,
+        "hide_set": false,
+        "hide_viewport": false,
+        "name": "portal_rim__rune_7.003"
+      }
+    ],
+    "view_layer": "ViewLayer"
+  }
+}

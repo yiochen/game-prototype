@@ -1,0 +1,60 @@
+{
+  "asset": "portal-entry",
+  "stage": "independent-original-preparation",
+  "rawInputsDirectlyInspected": [
+    "resources/inputs/original.png",
+    "resources/inputs/target.png",
+    "resources/inputs/warm-soft-reference.png"
+  ],
+  "nativeCoverage": {
+    "contactSheet": "native-all48-sheet.png",
+    "records": "native-measurements.json",
+    "frames": "All48 nativeframes represented with fullframe uniform reduction, fourfacings twelveframes each; rawS5correspondence verified by exact source snapshot extraction and minimal replay residual."
+  },
+  "consumerScreenshotsDirectlyInspected": [
+    "consumer/chromium-logical-light.png",
+    "consumer/chromium-logical-gray.png",
+    "consumer/chromium-logical-dark.png",
+    "consumer/chromium-phone-light.png",
+    "consumer/chromium-phone-gray.png",
+    "consumer/chromium-phone-dark.png",
+    "consumer/chromium-all48.png",
+    "consumer/shell-logical-light.png",
+    "consumer/shell-logical-gray.png",
+    "consumer/shell-logical-dark.png",
+    "consumer/shell-phone-light.png",
+    "consumer/shell-phone-gray.png",
+    "consumer/shell-phone-dark.png",
+    "consumer/shell-all48.png"
+  ],
+  "motionEvidence": {
+    "sampleSheet": "consumer/playback-samples-sheet.png",
+    "sampledScreenshots": [
+      "consumer/chromium-play-0_02.png",
+      "consumer/chromium-play-0_27.png",
+      "consumer/chromium-play-0_52.png",
+      "consumer/chromium-play-0_77.png",
+      "consumer/chromium-play-1_03.png",
+      "consumer/chromium-play-1_5.png",
+      "consumer/shell-play-0_02.png",
+      "consumer/shell-play-0_27.png",
+      "consumer/shell-play-0_52.png",
+      "consumer/shell-play-0_77.png",
+      "consumer/shell-play-1_03.png",
+      "consumer/shell-play-1_5.png"
+    ],
+    "videos": [
+      "consumer/chromium-playback.webm",
+      "consumer/shell-playback.webm"
+    ],
+    "inspectionLimit": "Actual requestAnimationFrame playback recorded and frameprogress logs inspected; visual progression inspected through sampled screenshot sheet and complete native/currentconsumer contact sheets. Video files retained; no claim of separate video-decoder playback inspection."
+  },
+  "observations": [
+    "Front/back opening stays clear; no edge clipping found in actual48frame alphaedge measurements.",
+    "SourceE/W remains thin edge-on geometry with stable unanimated feet. Rebuild should improve readable volume/joins without falsifying orientation.",
+    "Sourcecyan has abrupt plane transitions and smallblue runes are weak at phone size; navy support surfaces remain very dark on the dark background.",
+    "Pulse changes the main ring scale substantially; feet and registration remain fixed. All12frames are actually painted in both browser playback modes, then frame11holds.",
+    "Browser rendering is not byte-identical between modes. Actual residuals are retained in consumer-analysis.json; this baseline does not constitute a universal browser-pass claim."
+  ],
+  "noApproval": true
+}
