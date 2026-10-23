@@ -1,0 +1,55 @@
+{
+  "workingDirectory": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+  "commands": [
+    {
+      "purpose": "Independent candidate integrity scan",
+      "command": "Python hashlib SHA256 of all packet file records, required heroes and previews; exact paths and digests in integrity.json",
+      "result": "3500 file aliases / 1652 unique paths plus4 heroes47 previews; all exact"
+    },
+    {
+      "purpose": "Lossless native/usefulpixel/published/atlas coverage",
+      "command": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/round-01-independent/verify-visual-coverage.py",
+      "log": "logs/verify-visual-coverage.log",
+      "exitCode": 0,
+      "unusedExploratoryOutput": "187 exploratory inspection tiles discarded; all44 native phase sheets directly viewed at original detail, no claim based on reduced tiles"
+    },
+    {
+      "purpose": "All528phase saved-source evaluation and13 independent native recaptures",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b prototypes/sushi-loop/assets/refinement/objects/creature-eel/source/round-01.blend --python prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/round-01-independent/audit-native.py",
+      "log": "logs/audit-native.log",
+      "exitCode": 0
+    },
+    {
+      "purpose": "Read-only static consumer server",
+      "command": "python3 -m http.server 5297 --bind 127.0.0.1 --directory /Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "log": "logs/http-server.log",
+      "stop": "Own session59794 stopped after replay with Ctrl-C, exit0; no other process changed"
+    },
+    {
+      "purpose": "Both actual Playwright153 Chromium modes, static currentconsumer and fullRAFphase witnesses",
+      "command": "DEBUG=pw:browser node prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/round-01-independent/replay-consumer.mjs",
+      "log": "logs/replay-consumer.log",
+      "exitCode": 0,
+      "unusedOutputDiscarded": "six terminal screenshots omitted as redundant; full144 distinct phase canvases per mode,10 context screenshots andcompleteRAFlogs retained"
+    },
+    {
+      "purpose": "Pixel residuals and exact fullphase inspection sheets",
+      "command": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/round-01-independent/analyze-evidence.py",
+      "attempt1": {
+        "helper": "resources/analyze-evidence-attempt1.py",
+        "log": "logs/analyze-evidence.log",
+        "exitCode": 1,
+        "error": "Controls path component initially -4 instead of -3; corrected solely in own analysis helper"
+      },
+      "log": "logs/analyze-evidence-retry.log",
+      "exitCode": 0
+    },
+    {
+      "purpose": "Actual canvas versus published phase registration and compositing residual",
+      "command": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/round-01-independent/canvas-residuals.py",
+      "log": "logs/canvas-residuals.log",
+      "exitCode": 0
+    }
+  ],
+  "scope": "Own reviews only; no candidate/source/production/effect/liveBlender/device/Git writes."
+}

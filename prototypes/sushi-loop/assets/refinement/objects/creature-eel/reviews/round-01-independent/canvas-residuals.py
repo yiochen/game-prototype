@@ -1,0 +1,13 @@
+from pathlib import Path
+import hashlib,json
+from PIL import Image,ImageChops,ImageStat
+J=Path(__file__).resolve().parent;O=J.parent.parent;C=O/'candidates/round-01';b=json.loads((J/'browser-replay.json').read_text());items=[]
+for p in b[0]['panels']:
+ for f in p['phaseFiles']:
+  actual=Image.open(O/f['path']).convert('RGBA');src=C/'published/frames'/f['clip']/f['facing']/(str(f['frame']).zfill(3)+'.png');im=Image.open(src).convert('RGBA');expected=Image.new('RGBA',actual.size);expected.paste(im,(1,1));d=ImageChops.difference(actual,expected);rgb=d.convert('RGB');mask=ImageChops.lighter(actual.getchannel('A'),expected.getchannel('A')).point(lambda a:255 if a else 0);opaque=expected.getchannel('A').point(lambda a:255 if a==255 else 0)
+  composited=[]
+  for bg in [(250,247,239),(142,145,150),(21,27,37)]:
+   x=Image.new('RGBA',actual.size,bg+(255,));y=x.copy();x.alpha_composite(actual);y.alpha_composite(expected);delta=ImageChops.difference(x,y).convert('RGB');composited.append({'background':bg,'maxRGBDelta':max(e[1] for e in delta.getextrema()),'meanVisibleRGBDelta':ImageStat.Stat(delta,mask).mean})
+  items.append({'canvasPath':f['path'],'canvasSHA256':f['sha256'],'expectedPublishedPath':str(src.relative_to(O)),'expectedPublishedSHA256':hashlib.sha256(src.read_bytes()).hexdigest(),'expectedNativeGridOffset':[1,1],'exactAlphaAndPosition':d.getchannel('A').getextrema()[1]==0,'maxStraightRGBDelta':max(e[1] for e in rgb.getextrema()),'maxOpaqueRGBDelta':max(ImageStat.Stat(rgb,opaque).extrema[i][1] for i in range(3)),'meanVisibleStraightRGBDelta':ImageStat.Stat(rgb,mask).mean,'composited':composited})
+report={'candidatePacketSHA256':json.loads((J/'native-audit.json').read_text())['candidatePacketSHA256'],'items':items,'summary':{'witnesses':len(items),'allAlphaAndPositionExact':all(x['exactAlphaAndPosition'] for x in items),'maxStraightRGBDelta':max(x['maxStraightRGBDelta'] for x in items),'maxOpaqueRGBDelta':max(x['maxOpaqueRGBDelta'] for x in items),'maxCompositedRGBDelta':max(y['maxRGBDelta'] for x in items for y in x['composited'])},'interpretation':'Actual canvas witnesses compared to whole published phase placed on exact common-grid guard offset. Straight RGB low-alpha round-trip quantization is reported; composited results measure its displayed effect without any source, alpha, per-view or RGB correction. CSS presentation is separately inspected in both full browser modes; raw canvases do not include ordinary browser whole-canvas CSS filtering.'}
+(J/'canvas-residuals.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report['summary'],indent=2))

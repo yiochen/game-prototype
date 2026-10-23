@@ -1,0 +1,106 @@
+{
+  "cwd": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+  "environment": {
+    "blender": "/opt/homebrew/bin/blender",
+    "blenderVersion": "5.2.2 LTS d13f752e3b9c",
+    "pillowPython": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "node": "/usr/local/bin/node",
+    "bytecode": "PYTHONDONTWRITEBYTECODE=1 and sys.dont_write_bytecode=True; no frozen-input bytecode writes"
+  },
+  "sourceBlend": "prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend",
+  "scripts": "All own scripts live in reviews/preparation-v1, frozen used import modules in resources/blender. Source model never saved or edited.",
+  "runs": [
+    {
+      "script": "inspect-source.py",
+      "args": "blender -b SOURCE --python SCRIPT",
+      "log": "logs/inspect-source.log",
+      "purpose": "Actual untouched inventory and enabled own collection ancestry/owned objects.",
+      "exactCommand": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend --python prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/inspect-source.py > prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/logs/inspect-source.log 2>&1"
+    },
+    {
+      "script": "capture-source.py",
+      "args": "blender -b SOURCE --python SCRIPT",
+      "log": "logs/capture-source.log",
+      "purpose": "Actual untouched68capture bounded replay, all528numerical phases.",
+      "exactCommand": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend --python prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/capture-source.py > prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/logs/capture-source.log 2>&1",
+      "exactRenderDriverRevision": "resources/drivers/capture-source-rendered-v1.py",
+      "logicalExecutionLocation": "prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/capture-source.py"
+    },
+    {
+      "script": "probe-deformation.py",
+      "args": "blender -b SOURCE --python SCRIPT",
+      "log": "logs/deformation-probe.log",
+      "purpose": "QUATERNION mode, Euler channels and rest/evaluated bone-matrix diagnostic; no source save.",
+      "exactCommand": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend --python prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/probe-deformation.py > prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/logs/deformation-probe.log 2>&1"
+    },
+    {
+      "script": "diagnostic-euler.py",
+      "args": "blender -b SOURCE --python SCRIPT",
+      "log": "logs/diagnostic-euler.log",
+      "purpose": "Explicit source-only unsavedXYZ matching existing Euler-channel diagnostic,26renders; no model/art changes or saved project.",
+      "exactCommand": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend --python prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/diagnostic-euler.py > prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/logs/diagnostic-euler.log 2>&1",
+      "exactRenderDriverRevision": "resources/drivers/diagnostic-euler-rendered-v1.py",
+      "logicalExecutionLocation": "prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/diagnostic-euler.py"
+    },
+    {
+      "script": "capture-source.py",
+      "args": "blender -b SOURCE --python SCRIPT -- --measure-only",
+      "log": "logs/measure-source.log",
+      "purpose": "Metadata-only re-evaluation after materializing curve iterator for complete69channel/key/interpolation metadata; no repeated render.",
+      "exactCommand": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend --python prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/capture-source.py -- --measure-only > prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/logs/measure-source.log 2>&1"
+    },
+    {
+      "script": "diagnostic-euler.py",
+      "args": "blender -b SOURCE --python SCRIPT -- --measure-only",
+      "log": "logs/measure-diagnostic.log",
+      "purpose": "Same metadata-only fix for diagnostic; no repeated render.",
+      "exactCommand": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/blender -b prototypes/sushi-loop/assets/production/source/blender/revisions/b1765262bfa897ad/sushi-loop-world-library.blend --python prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/diagnostic-euler.py -- --measure-only > prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/logs/measure-diagnostic.log 2>&1"
+    },
+    {
+      "command": "npm run dev -- --port5163",
+      "log": "logs/vite.log",
+      "purpose": "Serve own consumer.html through existing Vite; own dev process stopped at completion.",
+      "exactCommand": "npm run dev -- --port 5163 > prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/logs/vite.log 2>&1"
+    },
+    {
+      "script": "capture-consumer.mjs",
+      "args": "node SCRIPT",
+      "log": "logs/capture-consumer.log",
+      "purpose": "Both prescribed headless browsers, original44atlases and unchanged currentconsumer helper copies; actualrAF playback and recordedvideo.",
+      "exactCommand": "node prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/capture-consumer.mjs > prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/logs/capture-consumer.log 2>&1"
+    },
+    {
+      "script": "compose-evidence.py",
+      "args": "PILLOW_PYTHON SCRIPT",
+      "log": "logs/compose-evidence.log",
+      "purpose": "Uniform wholeframe2x reduction/residuals, logical contact sheets and reference comparison.",
+      "exactCommand": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/compose-evidence.py > prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/logs/compose-evidence.log 2>&1"
+    },
+    {
+      "script": "analyze-residuals.py",
+      "args": "PILLOW_PYTHON SCRIPT",
+      "log": "logs/analyze-residuals.log",
+      "purpose": "Visible/opaque native-versus-published and browser-mode pixel residuals.",
+      "exactCommand": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/analyze-residuals.py > prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/logs/analyze-residuals.log 2>&1"
+    },
+    {
+      "script": "compose-controls.py",
+      "args": "PILLOW_PYTHON SCRIPT",
+      "purpose": "Labelled wholeframe closure/terminal control sheet.",
+      "exactCommand": "/Users/yiouchen/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/compose-controls.py"
+    },
+    {
+      "script": "write-review-records.py",
+      "args": "python3 SCRIPT",
+      "purpose": "Save independent initial/criteria/proposed contract/evidence/coverage/command records.",
+      "exactCommand": "python3 prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/preparation-v1/write-review-records.py"
+    }
+  ],
+  "executionNotes": [
+    "One inline control-sheet attempt used systempython3 withoutPillow and failed before writing output; rerun with specified bundled Pillow Python and retainedcompose-controls.py succeeded.",
+    "Pre-seal capture metadata curve iterator was materialized for correct full action records; original source/capture pixels and actions unchanged.",
+    "Source exact used closure copies only own original .blend, own44published atlases, raw target/original/GLOBAL style, own records/instructions and the actual5read/executed native source modules plus currentconsumer3read/used modules. No whole application/runtime copies.",
+    "resources/drivers retains the exact original here-doc render revisions before the documented metadata-only iterator fix, archived under new paths. Current drivers add --measure-only and correct action-channel metadata only; both used versions are bound. No repeat rendering needed."
+  ],
+  "scopeAssurance": "No effect builders were invoked; reading the original combined creature_fx_builders module was source semantic inspection only. No source/target/brief/model/production/Git/device/outside-object writes."
+}

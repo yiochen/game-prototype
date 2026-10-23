@@ -1,0 +1,54 @@
+{
+  "inspectionMethod": "Direct own raw-image viewing plus verified same-source full-frame contact sheets. Uniform resampling for sheets only; no fitting or repaired pixels.",
+  "directlyInspectedReferencePaths": [
+    "inputs/original.png",
+    "inputs/target.png",
+    "../../style/warm-soft-reference.png"
+  ],
+  "directlyInspectedPreparationImages": [
+    "captures/normal/S/010.png",
+    "diagnostic-euler/captures/caught/E/007.png",
+    "native-states-01-03.png",
+    "native-states-04-06.png",
+    "native-states-07-09.png",
+    "native-states-10-11.png",
+    "motion-normal-S-baseline-diagnostic.png",
+    "motion-caught-E-baseline-diagnostic.png",
+    "closure-hold-controls.png",
+    "browser/chromium/logical.png",
+    "browser/chromium/phone.png",
+    "browser/shell/phone.png",
+    "browser/chromium/attachments.png",
+    "browser/chromium/all.png",
+    "browser/shell/all.png",
+    "browser/shell/logical.png",
+    "browser/chromium/playback-0_5.png",
+    "browser/shell/playback-2.png"
+  ],
+  "nativeStateSheetMap": {
+    "native-states-01-03.png": [
+      "normal",
+      "swim",
+      "aim"
+    ],
+    "native-states-04-06.png": [
+      "restless",
+      "pursuit",
+      "weave"
+    ],
+    "native-states-07-09.png": [
+      "dash",
+      "pause",
+      "hook"
+    ],
+    "native-states-10-11.png": [
+      "caught",
+      "escape"
+    ]
+  },
+  "stateSheetConvention": "Rows in listed clip order, columnsN/E/S/W. Entire4x native frames uniformly reduced to448x512,24px label row; normal uses nativeframe10, every other state usesframe7. Paths are exact captures/CLIP/FACING/FRAME.png.",
+  "motionSheetConvention": "Entire4x native frames uniformly reduced to224x256. Six columns; rows1\u20132 untouchedframes1\u202612, rows3\u20134 same original actions under labeled Euler diagnostic. normal-S and caught-E only; native/visual-map.json records exact paths.",
+  "controlSheetConvention": "Columns original1/original13/diagnostic1/diagnostic13 normalS in row1; original12/original24/diagnostic12/diagnostic24 caughtE in row2. Full native canvases uniformly reduced to448x512 with labels.",
+  "unclaimed": "No candidate images. Browser videos captured and frame-index timelines checked; not exhaustively visually watched. Other playback stills and shell attachment still retained as bound technical evidence but not listed as directly visually inspected. Browser pixel aliases are not assumed because both modes have measured residuals.",
+  "candidateApproval": false
+}

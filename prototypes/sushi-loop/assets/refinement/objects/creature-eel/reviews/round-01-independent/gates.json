@@ -1,0 +1,106 @@
+{
+  "candidatePacketSHA256": "00ed21e5ae72ab5cc26972114dc418beed4d771fc02b2dea2b57f99405dd257f",
+  "review": {
+    "path": "reviews/round-01.json",
+    "sha256": "e39fb466ec5f299cecfb4246bb4a384de871200c5b022091423031e0d1f9463e",
+    "bytes": 15148
+  },
+  "supplementalEvidence": {
+    "path": "reviews/round-01-independent/supplemental-evidence.json",
+    "sha256": "831f09cc96e19ee405cc289881b8dccd3bf2ff6283ad3423481fdc5c46e17567",
+    "bytes": 383452
+  },
+  "checks": [
+    {
+      "name": "candidate_packet",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py",
+        "verify",
+        "--packet",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/creature-eel/candidates/round-01/packet.json",
+        "--review",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/round-01.json"
+      ],
+      "workingDirectory": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "helperSource": "/Users/yiouchen/.codex/skills/refine-3d-model/scripts/candidate_packet.py",
+      "helperSHA256": "ab4d4e874aca990e373babb4b5c9650fc5f431b621bac92ecbfaf63a0469e45f",
+      "helperPrivateCopy": {
+        "path": "reviews/round-01-independent/resources/candidate_packet.py",
+        "sha256": "ab4d4e874aca990e373babb4b5c9650fc5f431b621bac92ecbfaf63a0469e45f",
+        "bytes": 7784
+      },
+      "exitCode": 0,
+      "stdout": {
+        "path": "reviews/round-01-independent/gates/candidate_packet.stdout.txt",
+        "sha256": "a38e215d75d8366c001ee208de6d877061d72eb84f195185e2968b92aca37062",
+        "bytes": 74
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent/gates/candidate_packet.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "audit_directions",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/audit_directions.py",
+        "creature-eel",
+        "--round",
+        "round-01"
+      ],
+      "workingDirectory": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "helperSource": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/audit_directions.py",
+      "helperSHA256": "c4637a73b3f74406d2a1af884e5c2fb90511c24b18b0e9a909403ff70be1c7fb",
+      "helperPrivateCopy": {
+        "path": "reviews/round-01-independent/resources/audit_directions.py",
+        "sha256": "c4637a73b3f74406d2a1af884e5c2fb90511c24b18b0e9a909403ff70be1c7fb",
+        "bytes": 7255
+      },
+      "exitCode": 0,
+      "stdout": {
+        "path": "reviews/round-01-independent/gates/audit_directions.stdout.txt",
+        "sha256": "9c48997dc53851c2e9b83c1421ee6c7181bd36860ac23d65b723aba85d61900f",
+        "bytes": 193
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent/gates/audit_directions.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "acceptance_contract",
+      "command": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py",
+        "creature-eel",
+        "--round",
+        "round-01"
+      ],
+      "workingDirectory": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype",
+      "helperSource": "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/tools/acceptance_contract.py",
+      "helperSHA256": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d",
+      "helperPrivateCopy": {
+        "path": "reviews/round-01-independent/resources/acceptance_contract.py",
+        "sha256": "e229a0706dad88f3e45a192811fa741ac8ad13ca6c1af6d1ce88c1e10063f44d",
+        "bytes": 5922
+      },
+      "exitCode": 0,
+      "stdout": {
+        "path": "reviews/round-01-independent/gates/acceptance_contract.stdout.txt",
+        "sha256": "ed9673f300e08ab3ace884bf957b9624c2f1ad0ef0ad92009035e70dcd5e5698",
+        "bytes": 136
+      },
+      "stderr": {
+        "path": "reviews/round-01-independent/gates/acceptance_contract.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "allPassed": true,
+  "limits": "The compact audit_directions gate samples one measured capture per facing. Independent native-audit.json separately evaluates all528 phases; acceptance checks bind the reviewer verdict and visual coverage, not appearance by themselves."
+}

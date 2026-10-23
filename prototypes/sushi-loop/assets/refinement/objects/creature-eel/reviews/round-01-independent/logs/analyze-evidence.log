@@ -1,0 +1,7 @@
+/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/round-01-independent/analyze-evidence.py:12: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  st=ImageStat.Stat(rgb,mask);h=mask.histogram();visible=sum(h[1:]);dr=rgb.getextrema(); ar=d.getchannel('A').getextrema();px=sum(1 for p,m in zip(rgb.getdata(),mask.getdata()) if m and max(p))
+Traceback (most recent call last):
+  File "/Users/yiouchen/.codex/worktrees/warm-soft-catalog/game-prototype/prototypes/sushi-loop/assets/refinement/objects/creature-eel/reviews/round-01-independent/analyze-evidence.py", line 32, in <module>
+    clip=p.parts[-4];target=C/'native'/clip/'S'/('000.png' if a['clips'][clip]['loop'] else '011.png');report['controlComparisons'].append({'control':desc(p),'expected':desc(target),**diff(Image.open(p).convert('RGBA'),Image.open(target).convert('RGBA'))})
+                                                              ~~~~~~~~~~^^^^^^
+KeyError: 'controls'
